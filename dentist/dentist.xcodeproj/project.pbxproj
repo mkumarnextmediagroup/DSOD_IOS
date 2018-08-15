@@ -8,29 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		574B3A23212338DF00C37095 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A22212338DF00C37095 /* AppDelegate.m */; };
-		574B3A26212338DF00C37095 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A25212338DF00C37095 /* ViewController.m */; };
-		574B3A29212338DF00C37095 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 574B3A27212338DF00C37095 /* Main.storyboard */; };
 		574B3A2B212338E100C37095 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 574B3A2A212338E100C37095 /* Assets.xcassets */; };
-		574B3A2E212338E100C37095 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 574B3A2C212338E100C37095 /* LaunchScreen.storyboard */; };
 		574B3A31212338E100C37095 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A30212338E100C37095 /* main.m */; };
+		74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D18A46C0F072296ED5347389 /* libPods-dentist.a */; };
 		BFCE80B42123CB59008F3A7F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BFCE80B62123CB59008F3A7F /* Localizable.strings */; };
+		E11E10BD74EC149921ADD708 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = E11E1CE1666065721BBFD75C /* LoginController.m */; };
+		E11E157223BF973AEB726995 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = E11E1071C5BB25C5DF71E7E4 /* Podfile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		574B3A1E212338DF00C37095 /* dentist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dentist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		574B3A21212338DF00C37095 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		574B3A22212338DF00C37095 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		574B3A24212338DF00C37095 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		574B3A25212338DF00C37095 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		574B3A28212338DF00C37095 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		574B3A2A212338E100C37095 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		574B3A2D212338E100C37095 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		574B3A2F212338E100C37095 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		574B3A30212338E100C37095 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		BFCE80B02123CA4F008F3A7F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
-		BFCE80B12123CA50008F3A7F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		68B426216C681447B0595866 /* Pods-dentist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dentist/Pods-dentist.debug.xcconfig"; sourceTree = "<group>"; };
+		AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentist.release.xcconfig"; path = "Pods/Target Support Files/Pods-dentist/Pods-dentist.release.xcconfig"; sourceTree = "<group>"; };
 		BFCE80B52123CB59008F3A7F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		BFCE80B72123CB61008F3A7F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D18A46C0F072296ED5347389 /* libPods-dentist.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dentist.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E11E1071C5BB25C5DF71E7E4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		E11E19356BB1AFF61BFAFA05 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
+		E11E1CE1666065721BBFD75C /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +51,9 @@
 				BFCE80B62123CB59008F3A7F /* Localizable.strings */,
 				574B3A20212338DF00C37095 /* dentist */,
 				574B3A1F212338DF00C37095 /* Products */,
+				E11E1071C5BB25C5DF71E7E4 /* Podfile */,
+				6E480191105E9BD9865E05CE /* Pods */,
+				9E8CFB7155047C0648622D0F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,15 +70,46 @@
 			children = (
 				574B3A21212338DF00C37095 /* AppDelegate.h */,
 				574B3A22212338DF00C37095 /* AppDelegate.m */,
-				574B3A24212338DF00C37095 /* ViewController.h */,
-				574B3A25212338DF00C37095 /* ViewController.m */,
-				574B3A27212338DF00C37095 /* Main.storyboard */,
 				574B3A2A212338E100C37095 /* Assets.xcassets */,
-				574B3A2C212338E100C37095 /* LaunchScreen.storyboard */,
 				574B3A2F212338E100C37095 /* Info.plist */,
 				574B3A30212338E100C37095 /* main.m */,
+				E11E1A35B77A80E77732AE89 /* login */,
+				E11E14B9EF12B475BE6F771A /* common */,
 			);
 			path = dentist;
+			sourceTree = "<group>";
+		};
+		6E480191105E9BD9865E05CE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				68B426216C681447B0595866 /* Pods-dentist.debug.xcconfig */,
+				AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9E8CFB7155047C0648622D0F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D18A46C0F072296ED5347389 /* libPods-dentist.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E11E14B9EF12B475BE6F771A /* common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		E11E1A35B77A80E77732AE89 /* login */ = {
+			isa = PBXGroup;
+			children = (
+				E11E1CE1666065721BBFD75C /* LoginController.m */,
+				E11E19356BB1AFF61BFAFA05 /* LoginController.h */,
+			);
+			path = login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -84,6 +119,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 574B3A34212338E100C37095 /* Build configuration list for PBXNativeTarget "dentist" */;
 			buildPhases = (
+				B92AB17CEBF39B78014F6094 /* [CP] Check Pods Manifest.lock */,
 				574B3A1A212338DF00C37095 /* Sources */,
 				574B3A1B212338DF00C37095 /* Frameworks */,
 				574B3A1C212338DF00C37095 /* Resources */,
@@ -104,7 +140,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0940;
-				ORGANIZATIONNAME = nextmedia.com;
+				ORGANIZATIONNAME = thenextmediagroup.com;
 				TargetAttributes = {
 					574B3A1D212338DF00C37095 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -134,47 +170,49 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				574B3A2E212338E100C37095 /* LaunchScreen.storyboard in Resources */,
 				BFCE80B42123CB59008F3A7F /* Localizable.strings in Resources */,
 				574B3A2B212338E100C37095 /* Assets.xcassets in Resources */,
-				574B3A29212338DF00C37095 /* Main.storyboard in Resources */,
+				E11E157223BF973AEB726995 /* Podfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B92AB17CEBF39B78014F6094 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-dentist-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		574B3A1A212338DF00C37095 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				574B3A26212338DF00C37095 /* ViewController.m in Sources */,
 				574B3A31212338E100C37095 /* main.m in Sources */,
 				574B3A23212338DF00C37095 /* AppDelegate.m in Sources */,
+				E11E10BD74EC149921ADD708 /* LoginController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		574B3A27212338DF00C37095 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				574B3A28212338DF00C37095 /* Base */,
-				BFCE80B02123CA4F008F3A7F /* zh-Hans */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		574B3A2C212338E100C37095 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				574B3A2D212338E100C37095 /* Base */,
-				BFCE80B12123CA50008F3A7F /* zh-Hans */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		BFCE80B62123CB59008F3A7F /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -240,7 +278,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -293,7 +331,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -302,6 +340,7 @@
 		};
 		574B3A35212338E100C37095 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68B426216C681447B0595866 /* Pods-dentist.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -311,7 +350,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nextmedia.dentist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -319,6 +358,7 @@
 		};
 		574B3A36212338E100C37095 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -328,7 +368,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nextmedia.dentist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -87,7 +87,6 @@
 				574B3A2F212338E100C37095 /* Info.plist */,
 				574B3A30212338E100C37095 /* main.m */,
 				E11E1A35B77A80E77732AE89 /* login */,
-				E11E14B9EF12B475BE6F771A /* common */,
 			);
 			path = dentist;
 			sourceTree = "<group>";
@@ -120,13 +119,6 @@
 				D18A46C0F072296ED5347389 /* libPods-dentist.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E11E14B9EF12B475BE6F771A /* common */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = common;
 			sourceTree = "<group>";
 		};
 		E11E1A35B77A80E77732AE89 /* login */ = {

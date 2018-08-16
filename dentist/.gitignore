@@ -1,1 +1,4 @@
 *.lock
+xcuserdata/*
+/dentist.xcworkspace/xcuserdata/*
+/Pods/Pods.xcodeproj/xcuserdata/*

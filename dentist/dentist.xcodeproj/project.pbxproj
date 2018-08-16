@@ -18,6 +18,8 @@
 		57B0990C21256E840010597B /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B0990621256E840010597B /* logo.png */; };
 		74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D18A46C0F072296ED5347389 /* libPods-dentist.a */; };
 		BFCE80B42123CB59008F3A7F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BFCE80B62123CB59008F3A7F /* Localizable.strings */; };
+		C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAA800E95F5D4324195EC /* Colors.m */; };
+		C5EEA95978E5B48775A62BA9 /* UIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAE46630ABFE8D77F9BD2 /* UIUtil.m */; };
 		E11E10BD74EC149921ADD708 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = E11E1CE1666065721BBFD75C /* LoginController.m */; };
 		E11E157223BF973AEB726995 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = E11E1071C5BB25C5DF71E7E4 /* Podfile */; };
 /* End PBXBuildFile section */
@@ -39,6 +41,10 @@
 		AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentist.release.xcconfig"; path = "Pods/Target Support Files/Pods-dentist/Pods-dentist.release.xcconfig"; sourceTree = "<group>"; };
 		BFCE80B52123CB59008F3A7F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		BFCE80B72123CB61008F3A7F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C5EEA8EA3B998E29A2A185D3 /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
+		C5EEAA800E95F5D4324195EC /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
+		C5EEAB29126FE9574783DD4E /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
+		C5EEAE46630ABFE8D77F9BD2 /* UIUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtil.m; sourceTree = "<group>"; };
 		D18A46C0F072296ED5347389 /* libPods-dentist.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dentist.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11E1071C5BB25C5DF71E7E4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E11E19356BB1AFF61BFAFA05 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
@@ -87,6 +93,8 @@
 				574B3A2F212338E100C37095 /* Info.plist */,
 				574B3A30212338E100C37095 /* main.m */,
 				E11E1A35B77A80E77732AE89 /* login */,
+				C5EEA322192BD641D58220D8 /* common */,
+				C5EEA140B79DBB8687DA77CA /* utils */,
 			);
 			path = dentist;
 			sourceTree = "<group>";
@@ -119,6 +127,24 @@
 				D18A46C0F072296ED5347389 /* libPods-dentist.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C5EEA140B79DBB8687DA77CA /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				C5EEAE46630ABFE8D77F9BD2 /* UIUtil.m */,
+				C5EEA8EA3B998E29A2A185D3 /* UIUtil.h */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		C5EEA322192BD641D58220D8 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				C5EEAA800E95F5D4324195EC /* Colors.m */,
+				C5EEAB29126FE9574783DD4E /* Colors.h */,
+			);
+			path = common;
 			sourceTree = "<group>";
 		};
 		E11E1A35B77A80E77732AE89 /* login */ = {
@@ -231,6 +257,8 @@
 				574B3A31212338E100C37095 /* main.m in Sources */,
 				574B3A23212338DF00C37095 /* AppDelegate.m in Sources */,
 				E11E10BD74EC149921ADD708 /* LoginController.m in Sources */,
+				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,
+				C5EEA95978E5B48775A62BA9 /* UIUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

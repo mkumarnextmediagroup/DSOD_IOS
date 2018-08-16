@@ -4,6 +4,7 @@
 //
 
 #import "LoginController.h"
+#import "Colors.h"
 
 
 @interface LoginController ()
@@ -18,12 +19,15 @@
 	UILabel *lb = [[UILabel alloc] initWithFrame:r];
 	lb.text = @"LoginPage";
 	[self.view addSubview:lb];
+	lb.textColor = Colors.success;
+
 }
 
 
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
+
+
 }
 
 

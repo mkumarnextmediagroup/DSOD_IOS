@@ -56,4 +56,19 @@
 	return _c;
 }
 
+
++ (UIFont *)bold:(int)size{
+	return [UIFont systemFontOfSize:size weight: UIFontWeightBold];
+}
+
++ (UIFont *)semiBold:(int)size{
+	return [UIFont systemFontOfSize:size weight: UIFontWeightSemibold];
+}
+
++ (UIFont *)medium:(int)size{
+	return [UIFont systemFontOfSize:size weight: UIFontWeightMedium];
+}
++ (UIFont *)regular:(int)size{
+	return [UIFont systemFontOfSize:size weight: UIFontWeightRegular];
+}
 @end

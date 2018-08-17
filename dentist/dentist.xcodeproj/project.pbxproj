@@ -18,6 +18,7 @@
 		57B0990C21256E840010597B /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B0990621256E840010597B /* logo.png */; };
 		74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D18A46C0F072296ED5347389 /* libPods-dentist.a */; };
 		BFCE80B42123CB59008F3A7F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BFCE80B62123CB59008F3A7F /* Localizable.strings */; };
+		C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAC3BE69CD7BD9524FE69 /* WelcomController.m */; };
 		C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAA800E95F5D4324195EC /* Colors.m */; };
 		C5EEA18592C8A1D19E19C161 /* ok@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA64F84AE34B5F5F79A7F /* ok@3x.png */; };
 		C5EEA2ECCE69B6CBF0D20BA6 /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA1491E2D8BE3A1E73723 /* BaseController.m */; };
@@ -57,11 +58,14 @@
 		C5EEA64F84AE34B5F5F79A7F /* ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ok@3x.png"; sourceTree = "<group>"; };
 		C5EEA6C2E9723639C9F2F3FF /* BaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
 		C5EEA811A5ED37C88C49CB9A /* TextSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextSize.h; sourceTree = "<group>"; };
+		C5EEA8A22AAACC2B56D30F80 /* Consts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Consts.h; sourceTree = "<group>"; };
 		C5EEA8EA3B998E29A2A185D3 /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
+		C5EEA9B786207E0D6FD7BF5B /* WelcomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomController.h; sourceTree = "<group>"; };
 		C5EEAA6853812943C4C4FC75 /* UIScreen+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+customed.h"; sourceTree = "<group>"; };
 		C5EEAA800E95F5D4324195EC /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
 		C5EEAAE437209CC4CB67759E /* UITextField+styled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+styled.m"; sourceTree = "<group>"; };
 		C5EEAB29126FE9574783DD4E /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
+		C5EEAC3BE69CD7BD9524FE69 /* WelcomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomController.m; sourceTree = "<group>"; };
 		C5EEAC56322EB38F34BC5D19 /* Fonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fonts.m; sourceTree = "<group>"; };
 		C5EEACBC931939B104FC3D13 /* TextSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextSize.m; sourceTree = "<group>"; };
 		C5EEAD209B9CA1A9E2E54D54 /* UIButton+styled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+styled.h"; sourceTree = "<group>"; };
@@ -181,6 +185,7 @@
 				C5EEAD209B9CA1A9E2E54D54 /* UIButton+styled.h */,
 				C5EEAF6B331211FDA925279D /* UIScreen+customed.m */,
 				C5EEAA6853812943C4C4FC75 /* UIScreen+customed.h */,
+				C5EEA8A22AAACC2B56D30F80 /* Consts.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -190,6 +195,8 @@
 			children = (
 				E11E1CE1666065721BBFD75C /* LoginController.m */,
 				E11E19356BB1AFF61BFAFA05 /* LoginController.h */,
+				C5EEAC3BE69CD7BD9524FE69 /* WelcomController.m */,
+				C5EEA9B786207E0D6FD7BF5B /* WelcomController.h */,
 			);
 			path = login;
 			sourceTree = "<group>";
@@ -305,6 +312,7 @@
 				C5EEA2ECCE69B6CBF0D20BA6 /* BaseController.m in Sources */,
 				C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
+				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

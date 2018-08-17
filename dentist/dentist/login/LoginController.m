@@ -4,6 +4,7 @@
 //
 
 #import "LoginController.h"
+#import "Common.h"
 
 
 @interface LoginController ()
@@ -14,16 +15,26 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	CGRect r = CGRectMake(100, 100, 200, 200);
-	UILabel *lb = [[UILabel alloc] initWithFrame:r];
-	lb.text = @"LoginPage";
-	[self.view addSubview:lb];
+
+
+	NSLog(@"%f", UIScreen.width);
+	NSLog(@"%f", UIScreen.height);
+
+	CGRect r = CGRectMake(22.5, 100, UIButton.widthLarge, UIButton.heightPrefer);
+
+	UIButton *b = [[UIButton alloc] initWithFrame:r];
+	[b setTitle:@"Login" forState:UIControlStateNormal];
+	[self.view addSubview:b];
+	b.stylePrimary;
+
+	[b addTarget:self action:@selector(clickB:) forControlEvents:UIControlEventTouchUpInside];
+
 }
 
 
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
+- (void)clickB:(id)sender {
+	[self dismissViewControllerAnimated:YES completion:nil];
+
 }
 
 

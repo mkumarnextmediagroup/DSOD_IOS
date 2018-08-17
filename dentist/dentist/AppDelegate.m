@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "LoginController.h"
 #import "WelcomController.h"
+#import "Common.h"
 
 @interface AppDelegate ()
 
@@ -26,6 +27,7 @@
 //	self.window.rootViewController = lc;
 	self.window.rootViewController = [WelcomController new];
 	[self.window makeKeyAndVisible];
+	NSLog(@"%f, %f ", UIScreen.width, UIScreen.height);
 	return YES;
 }
 

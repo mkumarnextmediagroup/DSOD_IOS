@@ -4,12 +4,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseController.h"
 
 
-@interface BaseController : UIViewController <UITextFieldDelegate>
-
-
-- (void)openPage:(UIViewController *)c;
-
+@interface StudentController : BaseController
 
 @end

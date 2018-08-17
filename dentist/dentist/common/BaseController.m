@@ -6,10 +6,19 @@
 #import "BaseController.h"
 #import "UITextField+styled.h"
 #import "Colors.h"
+#import "Masonry.h"
+#import "Common.h"
+#import "UIView+customed.h"
 
 
 @implementation BaseController {
 
+}
+
+
+
+- (void)openPage:(UIViewController *)c {
+	[self presentViewController:c animated:YES completion:nil];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {

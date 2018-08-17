@@ -9,6 +9,7 @@
 #import "LoginController.h"
 #import "UIControl+customed.h"
 #import "UIView+customed.h"
+#import "StackLayout.h"
 
 
 @interface StudentController ()
@@ -30,36 +31,45 @@
 
 
 	UITextView *studentText = [UITextView new];
+	studentText.editable = NO;
 	studentText.text = localStr(@"areyoustudent");
 	studentText.font = [Fonts medium:30];
 	studentText.textColor = UIColor.whiteColor;
 	studentText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:studentText];
-	[studentText layoutFillXOffsetBottom:60 offset:215];
+//	[studentText layoutFillXOffsetBottom:60 offset:215];
 
 
 	UITextView *bodyText = [UITextView new];
+	bodyText.editable = NO;
 	bodyText.text = localStr(@"stu_info");
 	bodyText.font = [Fonts regular:14];
 	bodyText.textColor = UIColor.whiteColor;
 	bodyText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:bodyText];
-	[bodyText layoutFillXOffsetBottom:70 offset:154];
+//	[bodyText layoutFillXOffsetBottom:70 offset:154];
 
 
 	UIButton *yesButton = [UIButton new];
 	[yesButton title:localStr(@"yes")];
 	yesButton.styleWhite;
 	[self.view addSubview:yesButton];
-	[yesButton layoutFillXOffsetBottom:BTN_HEIGHT offset:113];
+//	[yesButton layoutFillXOffsetBottom:BTN_HEIGHT offset:113];
 
 
 	UIButton *noButton = [UIButton new];
 	[noButton title:localStr(@"no")];
 	noButton.styleWhite;
 	[self.view addSubview:noButton];
-	[noButton layoutFillXOffsetBottom:BTN_HEIGHT offset:65];
+//	[noButton layoutFillXOffsetBottom:BTN_HEIGHT offset:65];
 
+
+	StackLayout *sl = [StackLayout new];
+	[sl push:noButton height:BTN_HEIGHT marginBottom:65];
+	[sl push:yesButton height:BTN_HEIGHT marginBottom:8];
+	[sl push:bodyText height:50 marginBottom:10];
+	[sl push:studentText height:60 marginBottom:0];
+	[sl install];
 
 //	[noButton onClick:self action:@selector(clickLogin:)];
 //	[yesButton onClick:self action:@selector(clickStudent:)];

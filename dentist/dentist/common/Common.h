@@ -5,6 +5,9 @@
 
 #import <UIKit/UIKit.h>
 
+
+#import "Consts.h"
+
 #import "Fonts.h"
 #import "Colors.h"
 #import "BaseController.h"

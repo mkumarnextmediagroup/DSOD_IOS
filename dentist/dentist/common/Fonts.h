@@ -15,5 +15,10 @@
 @property(class, nonatomic, readonly) UIFont *caption;
 @property(class, nonatomic, readonly) UIFont *tiny;
 
++ (UIFont *)bold:(int)size;
++ (UIFont *)semiBold:(int)size;
++ (UIFont *)medium:(int)size;
++ (UIFont *)regular:(int)size;
+
 
 @end

@@ -14,4 +14,6 @@
 - (UIButton *)styleSecondary;
 - (UIButton *)styleWhite;
 
+-(UIButton* )title:(NSString*) text ;
+
 @end

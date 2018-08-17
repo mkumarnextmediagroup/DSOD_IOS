@@ -19,3 +19,22 @@ UIColor *rgba255(int r, int g, int b, int a) {
 	CGFloat fa = a / 255.0f;
 	return [[UIColor alloc] initWithRed:fr green:fg blue:fb alpha:fa];
 }
+
+
+UIImage *colorImage(CGSize size, UIColor *color) {
+	UIGraphicsBeginImageContext(size);
+	CGContextRef c = UIGraphicsGetCurrentContext();
+	CGContextSetFillColorWithColor(c, color.CGColor);
+	CGContextFillRect(c, CGRectMake(0, 0, size.width, size.height));
+	UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	return img;
+}
+
+CGSize makeSize(int w, int h) {
+	return CGSizeMake(w, h);
+}
+
+CGRect makeRect(int x, int y, int w, int h) {
+	return CGRectMake(x, y, w, h);
+}

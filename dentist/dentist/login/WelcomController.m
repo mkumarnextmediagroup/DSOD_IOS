@@ -7,6 +7,8 @@
 #import "Common.h"
 #import "Masonry.h"
 #import "LoginController.h"
+#import "UIControl+customed.h"
+#import "UIView+customed.h"
 
 
 @interface WelcomController ()
@@ -21,7 +23,7 @@
 	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 	[self.view addSubview:imageView];
 
-	[imageView mas_makeConstraints:^(MASConstraintMaker *m) {
+	[imageView makeLayout:^(MASConstraintMaker *m) {
 		m.width.equalTo(self.view.mas_width);
 		m.height.equalTo(self.view.mas_height);
 		m.centerX.equalTo(self.view.mas_centerX);
@@ -31,7 +33,7 @@
 
 	UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
 	[self.view addSubview:logoView];
-	[logoView mas_makeConstraints:^(MASConstraintMaker *m) {
+	[logoView makeLayout:^(MASConstraintMaker *m) {
 		m.width.equalTo(@260);
 		m.height.equalTo(@54);
 		m.top.equalTo(self.view.mas_top).offset(54);
@@ -44,7 +46,7 @@
 	welText.textColor = UIColor.whiteColor;
 	welText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:welText];
-	[welText mas_makeConstraints:^(MASConstraintMaker *m) {
+	[welText makeLayout:^(MASConstraintMaker *m) {
 		m.width.equalTo(@208);
 		m.height.equalTo(@60);
 		m.left.equalTo(self.view.mas_left).offset(EDGE);
@@ -57,7 +59,7 @@
 	sayText.textColor = UIColor.whiteColor;
 	sayText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:sayText];
-	[sayText mas_makeConstraints:^(MASConstraintMaker *m) {
+	[sayText makeLayout:^(MASConstraintMaker *m) {
 		m.width.equalTo(@330);
 		m.height.equalTo(@40);
 		m.left.equalTo(self.view.mas_left).offset(EDGE);
@@ -70,7 +72,7 @@
 	bodyText.textColor = UIColor.whiteColor;
 	bodyText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:bodyText];
-	[bodyText mas_makeConstraints:^(MASConstraintMaker *m) {
+	[bodyText makeLayout:^(MASConstraintMaker *m) {
 		m.width.equalTo(@330);
 		m.height.equalTo(@70);
 		m.left.equalTo(self.view.mas_left).offset(EDGE);
@@ -81,7 +83,7 @@
 	[startButton title:@"Get Started"];
 	startButton.styleWhite;
 	[self.view addSubview:startButton];
-	[startButton mas_makeConstraints:^(MASConstraintMaker *m) {
+	[startButton makeLayout:^(MASConstraintMaker *m) {
 		m.width.equalTo(@BTN_WIDTH);
 		m.height.equalTo(@BTN_HEIGHT);
 		m.bottom.equalTo(self.view.mas_bottom).offset(-113);
@@ -93,7 +95,7 @@
 	[loginButton title:@"Log In"];
 	loginButton.stylePrimary;
 	[self.view addSubview:loginButton];
-	[loginButton mas_makeConstraints:^(MASConstraintMaker *m) {
+	[loginButton makeLayout:^(MASConstraintMaker *m) {
 		m.width.equalTo(@BTN_WIDTH);
 		m.height.equalTo(@BTN_HEIGHT);
 		m.bottom.equalTo(self.view.mas_bottom).offset(-65);
@@ -101,7 +103,7 @@
 	}];
 
 
-	[loginButton addTarget:self action:@selector(clickLogin:) forControlEvents:UIControlEventTouchUpInside];
+	[loginButton onClick:self action:@selector(clickLogin:)];
 
 }
 

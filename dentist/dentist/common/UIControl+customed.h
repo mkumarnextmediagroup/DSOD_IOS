@@ -5,10 +5,8 @@
 
 #import <UIKit/UIKit.h>
 
+@interface UIControl (customed)
 
-@interface BaseController : UIViewController <UITextFieldDelegate>
-
-
-
+-(void) onClick:(id) target action:(SEL)action;
 
 @end

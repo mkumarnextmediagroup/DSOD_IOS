@@ -8,4 +8,8 @@
 
 @interface BaseController : UIViewController <UITextFieldDelegate>
 
+
+-(void) clickControl:(UIControl *)control  action: (SEL) action;
+
+
 @end

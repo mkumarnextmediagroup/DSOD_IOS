@@ -34,4 +34,8 @@
 	textField.resignFirstResponder;
 	return YES;
 }
+
+- (void)clickControl:(UIControl *)control action:(SEL)action {
+	[control addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+}
 @end

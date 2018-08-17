@@ -5,6 +5,10 @@
 
 #import "UIUtil.h"
 
+NSString *localStr(NSString *name) {
+	return NSLocalizedString(name, nil);
+}
+
 UIColor *rgb255(int r, int g, int b) {
 	CGFloat fr = r / 255.0f;
 	CGFloat fg = g / 255.0f;

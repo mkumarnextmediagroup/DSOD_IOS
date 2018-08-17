@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 
 
+extern NSString *localStr(NSString *name);
+
 extern UIColor *rgb255(int r, int g, int b);
 
 extern UIColor *rgba255(int r, int g, int b, int a);
+
 extern UIImage *colorImage(CGSize size, UIColor *color);
 
 extern CGSize makeSize(int w, int h);

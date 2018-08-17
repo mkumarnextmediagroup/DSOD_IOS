@@ -24,9 +24,11 @@
 		C5EEA2ECCE69B6CBF0D20BA6 /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA1491E2D8BE3A1E73723 /* BaseController.m */; };
 		C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA4B43DAD528FED6AD329 /* UIButton+styled.m */; };
 		C5EEA4A6B29832302A53D7B1 /* error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA18EB9B95E5485DE66DA /* error@3x.png */; };
+		C5EEA83B50B6C4A767E00729 /* UIControl+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAD9C9F70275E545F3182 /* UIControl+customed.m */; };
 		C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAAE437209CC4CB67759E /* UITextField+styled.m */; };
 		C5EEA95978E5B48775A62BA9 /* UIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAE46630ABFE8D77F9BD2 /* UIUtil.m */; };
 		C5EEA9E893F712BA5CC4938D /* TextSize.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEACBC931939B104FC3D13 /* TextSize.m */; };
+		C5EEA9F6FFD32D08ABB00CE8 /* UIView+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEABE85BEEC4C83787521E /* UIView+customed.m */; };
 		C5EEAB1B08FE088DAFBA7763 /* Fonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAC56322EB38F34BC5D19 /* Fonts.m */; };
 		C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAF6B331211FDA925279D /* UIScreen+customed.m */; };
 		E11E10BD74EC149921ADD708 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = E11E1CE1666065721BBFD75C /* LoginController.m */; };
@@ -53,6 +55,7 @@
 		C5EEA0EC3A98C21A3F5DDBE8 /* Fonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fonts.h; sourceTree = "<group>"; };
 		C5EEA1491E2D8BE3A1E73723 /* BaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseController.m; sourceTree = "<group>"; };
 		C5EEA18EB9B95E5485DE66DA /* error@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@3x.png"; sourceTree = "<group>"; };
+		C5EEA48D7B111AE46CEB2898 /* UIControl+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+customed.h"; sourceTree = "<group>"; };
 		C5EEA4B43DAD528FED6AD329 /* UIButton+styled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+styled.m"; sourceTree = "<group>"; };
 		C5EEA5C6801B0E58BCE75FDA /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		C5EEA64F84AE34B5F5F79A7F /* ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ok@3x.png"; sourceTree = "<group>"; };
@@ -65,10 +68,13 @@
 		C5EEAA800E95F5D4324195EC /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
 		C5EEAAE437209CC4CB67759E /* UITextField+styled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+styled.m"; sourceTree = "<group>"; };
 		C5EEAB29126FE9574783DD4E /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
+		C5EEABE85BEEC4C83787521E /* UIView+customed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+customed.m"; sourceTree = "<group>"; };
 		C5EEAC3BE69CD7BD9524FE69 /* WelcomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomController.m; sourceTree = "<group>"; };
 		C5EEAC56322EB38F34BC5D19 /* Fonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fonts.m; sourceTree = "<group>"; };
 		C5EEACBC931939B104FC3D13 /* TextSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextSize.m; sourceTree = "<group>"; };
 		C5EEAD209B9CA1A9E2E54D54 /* UIButton+styled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+styled.h"; sourceTree = "<group>"; };
+		C5EEAD58FA90422F2ACB2B9E /* UIView+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+customed.h"; sourceTree = "<group>"; };
+		C5EEAD9C9F70275E545F3182 /* UIControl+customed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+customed.m"; sourceTree = "<group>"; };
 		C5EEADA20900AEC4F88BB5B2 /* UITextField+styled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+styled.h"; sourceTree = "<group>"; };
 		C5EEAE46630ABFE8D77F9BD2 /* UIUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtil.m; sourceTree = "<group>"; };
 		C5EEAF6B331211FDA925279D /* UIScreen+customed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+customed.m"; sourceTree = "<group>"; };
@@ -186,6 +192,10 @@
 				C5EEAF6B331211FDA925279D /* UIScreen+customed.m */,
 				C5EEAA6853812943C4C4FC75 /* UIScreen+customed.h */,
 				C5EEA8A22AAACC2B56D30F80 /* Consts.h */,
+				C5EEAD9C9F70275E545F3182 /* UIControl+customed.m */,
+				C5EEA48D7B111AE46CEB2898 /* UIControl+customed.h */,
+				C5EEABE85BEEC4C83787521E /* UIView+customed.m */,
+				C5EEAD58FA90422F2ACB2B9E /* UIView+customed.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -313,6 +323,8 @@
 				C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
+				C5EEA83B50B6C4A767E00729 /* UIControl+customed.m in Sources */,
+				C5EEA9F6FFD32D08ABB00CE8 /* UIView+customed.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -4,11 +4,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Masonry.h"
+
+@interface UIView (customed)
 
 
-@interface BaseController : UIViewController <UITextFieldDelegate>
-
-
-
+- (NSArray *)makeLayout:(void (^)(MASConstraintMaker *))block;
 
 @end

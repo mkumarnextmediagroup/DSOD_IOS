@@ -41,7 +41,7 @@
 	}];
 
 	UITextView *welText = [UITextView new];
-	welText.text = @"Welcome! ";
+	welText.text = localStr(@"welcome");
 	welText.font = [Fonts medium:42];
 	welText.textColor = UIColor.whiteColor;
 	welText.backgroundColor = UIColor.clearColor;
@@ -54,7 +54,7 @@
 	}];
 
 	UITextView *sayText = [UITextView new];
-	sayText.text = @"Say hello to a new way to connect!";
+	sayText.text = localStr(@"sayhello");
 	sayText.font = Fonts.heading2;
 	sayText.textColor = UIColor.whiteColor;
 	sayText.backgroundColor = UIColor.clearColor;
@@ -67,7 +67,7 @@
 	}];
 
 	UITextView *bodyText = [UITextView new];
-	bodyText.text = @"Get to meet thousands of other health-care professionals and be one of the first few to change the way we think about dentistry.";
+	bodyText.text = localStr(@"getmeet");
 	bodyText.font = [Fonts regular:14];
 	bodyText.textColor = UIColor.whiteColor;
 	bodyText.backgroundColor = UIColor.clearColor;
@@ -80,7 +80,7 @@
 	}];
 
 	UIButton *startButton = [UIButton new];
-	[startButton title:@"Get Started"];
+	[startButton title:localStr(@"getstart")];
 	startButton.styleWhite;
 	[self.view addSubview:startButton];
 	[startButton makeLayout:^(MASConstraintMaker *m) {
@@ -92,7 +92,7 @@
 
 
 	UIButton *loginButton = [UIButton new];
-	[loginButton title:@"Log In"];
+	[loginButton title:localStr(@"login")];
 	loginButton.stylePrimary;
 	[self.view addSubview:loginButton];
 	[loginButton makeLayout:^(MASConstraintMaker *m) {

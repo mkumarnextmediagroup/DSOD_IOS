@@ -23,16 +23,17 @@
 	CGRect r = CGRectMake(22.5, 100, UIButton.widthLarge, UIButton.heightPrefer);
 
 	UIButton *b = [[UIButton alloc] initWithFrame:r];
-	[b setTitle:@"Hello" forState:UIControlStateNormal];
+	[b setTitle:@"Login" forState:UIControlStateNormal];
 	[self.view addSubview:b];
 	b.stylePrimary;
+
+	[b addTarget:self action:@selector(clickB:) forControlEvents:UIControlEventTouchUpInside];
 
 }
 
 
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-
+- (void)clickB:(id)sender {
+	[self dismissViewControllerAnimated:YES completion:nil];
 
 }
 

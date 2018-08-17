@@ -6,6 +6,7 @@
 #import "WelcomController.h"
 #import "Common.h"
 #import "Masonry.h"
+#import "LoginController.h"
 
 
 @interface WelcomController ()
@@ -99,12 +100,16 @@
 		m.centerX.equalTo(self.view.mas_centerX);
 	}];
 
-}
 
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-
+	[loginButton addTarget:self action:@selector(clickLogin:) forControlEvents:UIControlEventTouchUpInside];
 
 }
+
+- (void)clickLogin:(id)sender {
+	NSLog(@"click");
+	LoginController *c = [LoginController new];
+	[self presentViewController:c animated:YES completion:nil];
+}
+
 
 @end

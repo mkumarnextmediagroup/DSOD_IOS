@@ -9,6 +9,7 @@
 #import "LoginController.h"
 #import "UIControl+customed.h"
 #import "UIView+customed.h"
+#import "StudentController.h"
 
 
 @interface WelcomController ()
@@ -23,22 +24,13 @@
 	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 	[self.view addSubview:imageView];
 
-	[imageView makeLayout:^(MASConstraintMaker *m) {
-		m.width.equalTo(self.view.mas_width);
-		m.height.equalTo(self.view.mas_height);
-		m.centerX.equalTo(self.view.mas_centerX);
-		m.centerY.equalTo(self.view.mas_centerY);
-	}];
+	[imageView layoutFill];
 
-
-	UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+	UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_white"]];
 	[self.view addSubview:logoView];
-	[logoView makeLayout:^(MASConstraintMaker *m) {
-		m.width.equalTo(@260);
-		m.height.equalTo(@54);
-		m.top.equalTo(self.view.mas_top).offset(54);
-		m.centerX.equalTo(self.view.mas_centerX);
-	}];
+
+	[logoView layoutCenterXOffsetTop:260 height:54 offset:54];
+
 
 	UITextView *welText = [UITextView new];
 	welText.text = localStr(@"welcome");
@@ -46,12 +38,8 @@
 	welText.textColor = UIColor.whiteColor;
 	welText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:welText];
-	[welText makeLayout:^(MASConstraintMaker *m) {
-		m.width.equalTo(@208);
-		m.height.equalTo(@60);
-		m.left.equalTo(self.view.mas_left).offset(EDGE);
-		m.top.equalTo(self.view.mas_top).offset(360);
-	}];
+	[welText layoutFillXOffsetBottom:60 offset:260];
+
 
 	UITextView *sayText = [UITextView new];
 	sayText.text = localStr(@"sayhello");
@@ -59,12 +47,7 @@
 	sayText.textColor = UIColor.whiteColor;
 	sayText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:sayText];
-	[sayText makeLayout:^(MASConstraintMaker *m) {
-		m.width.equalTo(@330);
-		m.height.equalTo(@40);
-		m.left.equalTo(self.view.mas_left).offset(EDGE);
-		m.top.equalTo(self.view.mas_top).offset(390);
-	}];
+	[sayText layoutFillXOffsetBottom:40 offset:250];
 
 	UITextView *bodyText = [UITextView new];
 	bodyText.text = localStr(@"getmeet");
@@ -72,45 +55,36 @@
 	bodyText.textColor = UIColor.whiteColor;
 	bodyText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:bodyText];
-	[bodyText makeLayout:^(MASConstraintMaker *m) {
-		m.width.equalTo(@330);
-		m.height.equalTo(@70);
-		m.left.equalTo(self.view.mas_left).offset(EDGE);
-		m.top.equalTo(self.view.mas_top).offset(440);
-	}];
+	[bodyText layoutFillXOffsetBottom:70 offset:174];
+
 
 	UIButton *startButton = [UIButton new];
 	[startButton title:localStr(@"getstart")];
 	startButton.styleWhite;
 	[self.view addSubview:startButton];
-	[startButton makeLayout:^(MASConstraintMaker *m) {
-		m.width.equalTo(@BTN_WIDTH);
-		m.height.equalTo(@BTN_HEIGHT);
-		m.bottom.equalTo(self.view.mas_bottom).offset(-113);
-		m.centerX.equalTo(self.view.mas_centerX);
-	}];
+	[startButton layoutFillXOffsetBottom:BTN_HEIGHT offset:113];
 
 
 	UIButton *loginButton = [UIButton new];
 	[loginButton title:localStr(@"login")];
 	loginButton.stylePrimary;
 	[self.view addSubview:loginButton];
-	[loginButton makeLayout:^(MASConstraintMaker *m) {
-		m.width.equalTo(@BTN_WIDTH);
-		m.height.equalTo(@BTN_HEIGHT);
-		m.bottom.equalTo(self.view.mas_bottom).offset(-65);
-		m.centerX.equalTo(self.view.mas_centerX);
-	}];
+	[loginButton layoutFillXOffsetBottom:BTN_HEIGHT offset:65];
 
 
 	[loginButton onClick:self action:@selector(clickLogin:)];
+	[startButton onClick:self action:@selector(clickStudent:)];
 
+}
+
+- (void)clickStudent:(id)sender {
+	[self openPage:[StudentController new]];
 }
 
 - (void)clickLogin:(id)sender {
 	NSLog(@"click");
 	LoginController *c = [LoginController new];
-	[self presentViewController:c animated:YES completion:nil];
+	[self openPage:c];
 }
 
 

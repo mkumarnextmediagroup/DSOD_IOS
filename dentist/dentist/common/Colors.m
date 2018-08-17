@@ -69,7 +69,7 @@
 + (UIColor *)textAlternate {
 	static UIColor *_c = nil;
 	if (_c == nil) {
-		_c = rgb255(0, 122, 185);
+		_c = rgb255(155, 155, 155);
 	}
 	return _c;
 }
@@ -82,6 +82,71 @@
 	}
 	return _c;
 }
+
+
++ (UIColor *)borderSuccess {
+	static UIColor *_c = nil;
+	if (_c == nil) {
+		_c = rgb255(0, 214, 100);
+	}
+	return _c;
+}
+
++ (UIColor *)borderError {
+	static UIColor *_c = nil;
+	if (_c == nil) {
+		_c = rgb255(208, 2, 27);
+	}
+	return _c;
+}
+
++ (UIColor *)borderActive {
+	static UIColor *_c = nil;
+	if (_c == nil) {
+		_c = rgb255(74, 144, 226);
+	}
+	return _c;
+}
+
++ (UIColor *)borderNormal {
+	static UIColor *_c = nil;
+	if (_c == nil) {
+		_c = rgb255(223, 227, 233);
+	}
+	return _c;
+}
+
++ (UIColor *)bgDisabled {
+	static UIColor *_c = nil;
+	if (_c == nil) {
+		_c = rgb255(233, 237, 241);
+	}
+	return _c;
+}
+
+
++ (UIColor *)buttonPrimaryActive {
+	static UIColor *_c = nil;
+	if (_c == nil) {
+		_c = rgb255(97, 120, 136);
+	}
+	return _c;
+}
+
+
++ (UIColor *)buttonSecondaryActive {
+	static UIColor *_c = nil;
+	if (_c == nil) {
+		_c = rgb255(47, 68, 84);
+	}
+	return _c;
+}
+
+
++ (UIColor *)buttonDisabled {
+	return Colors.strokes;
+}
+
 
 @end
 

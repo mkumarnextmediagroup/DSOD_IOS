@@ -1,5 +1,5 @@
 target 'dentist'
-platform :ios, '8.0'
+platform :ios, '9.0'
 
 pod 'AFNetworking', '~>3.1.0'
 pod 'FMDB', '~>2.7.2'

@@ -11,6 +11,18 @@
 @implementation UIImageView (customed)
 
 
+- (void)scaleFill {
+	self.contentMode = UIViewContentModeScaleToFill;
+}
+
+- (void)scaleFit {
+	self.contentMode = UIViewContentModeScaleAspectFit;
+}
+
+- (void)scaleFillAspect {
+	self.contentMode = UIViewContentModeScaleAspectFill;
+}
+
 - (NSString *)imageName {
 	return @"";
 }

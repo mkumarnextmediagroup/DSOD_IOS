@@ -11,6 +11,15 @@
 
 @implementation UIView (customed)
 
+
+- (UIView *)addView {
+	UIView *v = [UIView new];
+	[self addSubview:v];
+	v.backgroundColor = UIColor.grayColor;
+	return v;
+}
+
+
 - (void)_checkboxClick:(id)sender {
 	UIButton *b = sender;
 	b.selected = !b.selected;
@@ -122,4 +131,11 @@
 	block(constraintMaker);
 	return [constraintMaker install];
 }
+
+- (MASConstraintMaker *)layoutMaker {
+	self.translatesAutoresizingMaskIntoConstraints = NO;
+	return [[MASConstraintMaker alloc] initWithView:self];
+}
+
+
 @end

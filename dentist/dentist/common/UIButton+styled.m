@@ -18,6 +18,16 @@
 	return 330;
 }
 
+- (UIButton *)styleBlue {
+	//5683
+	[self setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+	[self setTitleColor:Colors.textAlternate forState:UIControlStateDisabled];
+	[self setBackgroundImage:colorImage(makeSize(1, 1), rgb255(0, 0x7A, 0xB9)) forState:UIControlStateNormal];
+	[self setBackgroundImage:colorImage(makeSize(1, 1), rgb255(0, 56, 0x83)) forState:UIControlStateHighlighted];
+	[self setBackgroundImage:colorImage(makeSize(1, 1), Colors.buttonDisabled) forState:UIControlStateDisabled];
+	return self;
+}
+
 - (UIButton *)stylePrimary {
 	[self setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
 	[self setTitleColor:Colors.textAlternate forState:UIControlStateDisabled];
@@ -55,9 +65,6 @@
 - (void)textColorWhite {
 	[self setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
 }
-
-
-
 
 
 @end

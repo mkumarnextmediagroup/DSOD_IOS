@@ -9,13 +9,22 @@
 @interface UIView (customed)
 
 
+- (UIView *)addView;
+
 - (UILabel *)addLabel;
+
 - (UITextField *)addEdit;
+
 - (UIButton *)addButton;
+
 - (UIImageView *)addImageView;
+
 - (UITextView *)addTextView;
+
 - (UIButton *)addCheckbox;
 
+
+- (MASConstraintMaker *)layoutMaker;
 
 - (NSArray *)makeLayout:(void (^)(MASConstraintMaker *))block;
 

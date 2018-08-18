@@ -9,6 +9,12 @@
 
 @property NSString *imageName;
 
--(void) onClick:(id)target action:(SEL)action;
+- (void)onClick:(id)target action:(SEL)action;
+
+- (void)scaleFill;
+
+- (void)scaleFit;
+
+- (void)scaleFillAspect;
 
 @end

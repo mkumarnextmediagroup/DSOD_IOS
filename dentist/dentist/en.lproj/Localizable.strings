@@ -15,3 +15,7 @@
 "login" = "Log In";
 "areyoustudent" = "Are you a student?";
 "stu_info" = "We use this information to show personalized content that is relevant to you.";
+"create_account" = "Create an account";
+"login_using_linkedin" = "Log In using Linkedin";
+"email_address" = "Email address";
+"pwd" = "Password";

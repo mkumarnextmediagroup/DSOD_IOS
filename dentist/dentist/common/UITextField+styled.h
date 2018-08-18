@@ -17,32 +17,32 @@
 
 - (void)textAlignRight;
 
-- (UITextField *)textColorMain;
+- (void)textColorMain;
 
-- (UITextField *)textColorAlternate;
+- (void)textColorAlternate;
 
-- (UITextField *)styleRound:(UIColor *)borderColor;
+- (void)styleRound:(UIColor *)borderColor;
 
-- (UITextField *)styleNormal;
+- (void)styleNormal;
 
-- (UITextField *)styleActive;
+- (void)styleActive;
 
-- (UITextField *)styleError;
+- (void)styleError;
 
-- (UITextField *)styleSuccess;
+- (void)styleSuccess;
 
-- (UITextField *)styleDisabled;
+- (void)styleDisabled;
 
-- (UITextField *)styleLine:(UIColor *)borderColor;
+- (void)styleLine:(UIColor *)borderColor;
 
-- (UITextField *)styleLineNormal;
+- (void)styleLineNormal;
 
-- (UITextField *)styleLineActive;
+- (void)styleLineActive;
 
-- (UITextField *)styleLineError;
+- (void)styleLineError;
 
-- (UITextField *)styleLineSuccess;
+- (void)styleLineSuccess;
 
-- (UITextField *)styleLineDisabled;
+- (void)styleLineDisabled;
 
 @end

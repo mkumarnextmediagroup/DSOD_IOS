@@ -50,6 +50,7 @@
 		C5EEAA269C87F480239BF21E /* TapGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA26FE0A8A22D3399DE3E /* TapGesture.m */; };
 		C5EEAAE976626BD0AD7F87A8 /* in.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA8718BE48E66BCDCCD90 /* in.png */; };
 		C5EEAB1B08FE088DAFBA7763 /* Fonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAC56322EB38F34BC5D19 /* Fonts.m */; };
+		C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA2081FE1E7048216CB0F /* RegController.m */; };
 		C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAF6B331211FDA925279D /* UIScreen+customed.m */; };
 		C5EEAD868056CEA29BDACC95 /* logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAFA6847EBD5CB2040106 /* logo@3x.png */; };
 		C5EEAE3B78A71516A252C86F /* StackLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAF6550A8BFEA1922A8F1 /* StackLayoutItem.m */; };
@@ -81,6 +82,7 @@
 		C5EEA0EC3A98C21A3F5DDBE8 /* Fonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fonts.h; sourceTree = "<group>"; };
 		C5EEA1491E2D8BE3A1E73723 /* BaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseController.m; sourceTree = "<group>"; };
 		C5EEA18EB9B95E5485DE66DA /* error@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@3x.png"; sourceTree = "<group>"; };
+		C5EEA2081FE1E7048216CB0F /* RegController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegController.m; sourceTree = "<group>"; };
 		C5EEA26491F4A964247D88D3 /* checkbox_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_on@2x.png"; sourceTree = "<group>"; };
 		C5EEA26FE0A8A22D3399DE3E /* TapGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapGesture.m; sourceTree = "<group>"; };
 		C5EEA30917CCFA40C14CC248 /* inkedin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inkedin@3x.png"; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 		C5EEA5D4F5F8FD76F0AE4BF7 /* MASConstraintMaker+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraintMaker+myextend.h"; sourceTree = "<group>"; };
 		C5EEA5D6567A6F2AD2F67609 /* UIImage+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+customed.h"; sourceTree = "<group>"; };
 		C5EEA5F9F6A770ECFEAE79BD /* checkbox_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_on@3x.png"; sourceTree = "<group>"; };
+		C5EEA5FC699E9927D1269E63 /* RegController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegController.h; sourceTree = "<group>"; };
 		C5EEA64F84AE34B5F5F79A7F /* ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ok@3x.png"; sourceTree = "<group>"; };
 		C5EEA6C2E9723639C9F2F3FF /* BaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
 		C5EEA774D7153D4B1BEEBA57 /* checkbox_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_on.png; sourceTree = "<group>"; };
@@ -302,6 +305,8 @@
 				C5EEA9B786207E0D6FD7BF5B /* WelcomController.h */,
 				C5EEA36D27849EDE93EE982E /* StudentController.m */,
 				C5EEAA48C58AF7A1617CC70D /* StudentController.h */,
+				C5EEA2081FE1E7048216CB0F /* RegController.m */,
+				C5EEA5FC699E9927D1269E63 /* RegController.h */,
 			);
 			path = login;
 			sourceTree = "<group>";
@@ -445,6 +450,7 @@
 				C5EEA2BA0180646BF8FF57BF /* Platform.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
 				C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */,
+				C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

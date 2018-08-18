@@ -15,7 +15,7 @@
 
 }
 
--(void) dismiss {
+- (void)dismiss {
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -26,23 +26,23 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
 	NSLog(@"begin editing");
 	if (textField.borderStyle == UITextBorderStyleNone) {
-		textField.styleLineActive;
+		[textField styleLineActive];
 	} else {
-		textField.styleActive;
+		[textField styleActive];
 	}
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 	NSLog(@"end  editing");
 	if (textField.borderStyle == UITextBorderStyleNone) {
-		textField.styleLineNormal;
+		[textField styleLineNormal];
 	} else {
-		textField.styleNormal;
+		[textField styleNormal];
 	}
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	textField.resignFirstResponder;
+	[textField resignFirstResponder];
 	return YES;
 }
 

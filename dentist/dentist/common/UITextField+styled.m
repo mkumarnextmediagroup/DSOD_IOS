@@ -12,10 +12,10 @@
 
 @implementation UITextField (styled)
 
--(NSString*) hint {
-	NSAttributedString * s = self.attributedPlaceholder;
-	if(s == nil) {
-		return nil ;
+- (NSString *)hint {
+	NSAttributedString *s = self.attributedPlaceholder;
+	if (s == nil) {
+		return nil;
 	}
 	return s.string;
 }
@@ -44,17 +44,15 @@
 	self.textColor = UIColor.whiteColor;
 }
 
-- (UITextField *)textColorMain {
+- (void)textColorMain {
 	self.textColor = Colors.textMain;
-	return self;
 }
 
-- (UITextField *)textColorAlternate {
+- (void)textColorAlternate {
 	self.textColor = Colors.textAlternate;
-	return self;
 }
 
-- (UITextField *)styleRound:(UIColor *)borderColor {
+- (void)styleRound:(UIColor *)borderColor {
 	self.borderStyle = UITextBorderStyleRoundedRect;
 	self.layer.borderColor = borderColor.CGColor;
 	self.layer.borderWidth = 1;
@@ -63,51 +61,45 @@
 
 	self.backgroundColor = UIColor.whiteColor;
 	self.clearButtonMode = UITextFieldViewModeWhileEditing;
-	self.textColorMain;
+	[self textColorMain];
 
 	self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4, 10)];
 	self.leftViewMode = UITextFieldViewModeAlways;
 	self.rightView = nil;
-	return self;
 }
 
-- (UITextField *)styleDisabled {
+- (void)styleDisabled {
 	[self styleRound:Colors.bgDisabled];
 	self.backgroundColor = Colors.bgDisabled;
-	return self;
 }
 
 
-- (UITextField *)styleNormal {
+- (void)styleNormal {
 	[self styleRound:Colors.borderNormal];
-	return self;
 }
 
-- (UITextField *)styleActive {
+- (void)styleActive {
 	[self styleRound:Colors.borderActive];
-	return self;
 }
 
-- (UITextField *)styleError {
+- (void)styleError {
 	[self styleRound:Colors.borderError];
 	UIImage *img = [UIImage imageNamed:@"error"];
 	UIImageView *iv = [[UIImageView alloc] initWithImage:img];
 	self.rightView = iv;
 	self.rightViewMode = UITextFieldViewModeUnlessEditing;
-	return self;
 }
 
-- (UITextField *)styleSuccess {
+- (void)styleSuccess {
 	[self styleRound:Colors.borderSuccess];
 	UIImage *img = [UIImage imageNamed:@"ok"];
 	UIImageView *iv = [[UIImageView alloc] initWithImage:img];
 	self.rightView = iv;
 	self.rightViewMode = UITextFieldViewModeUnlessEditing;
-	return self;
 }
 
 
-- (UITextField *)styleLine:(UIColor *)borderColor {
+- (void)styleLine:(UIColor *)borderColor {
 	CALayer *ly = CALayer.layer;
 	ly.frame = CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 1);
 	ly.backgroundColor = borderColor.CGColor;
@@ -116,40 +108,34 @@
 
 	self.backgroundColor = UIColor.whiteColor;
 	self.clearButtonMode = UITextFieldViewModeWhileEditing;
-	self.textColorMain;
+	[self textColorMain];
 
 	self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 16, 10)];
 	self.leftViewMode = UITextFieldViewModeAlways;
 	self.rightView = nil;
-	return self;
 }
 
 
-- (UITextField *)styleLineDisabled {
+- (void)styleLineDisabled {
 	[self styleLine:UIColor.whiteColor];
-	self.textColorAlternate;
-	return self;
+	[self textColorAlternate];
 }
 
 
-- (UITextField *)styleLineNormal {
+- (void)styleLineNormal {
 	[self styleLine:Colors.borderNormal];
-	return self;
 }
 
-- (UITextField *)styleLineActive {
+- (void)styleLineActive {
 	[self styleLine:Colors.borderActive];
-	return self;
 }
 
-- (UITextField *)styleLineError {
+- (void)styleLineError {
 	[self styleLine:Colors.borderError];
-	return self;
 }
 
-- (UITextField *)styleLineSuccess {
+- (void)styleLineSuccess {
 	[self styleLine:Colors.borderSuccess];
-	return self;
 }
 
 

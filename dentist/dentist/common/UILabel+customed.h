@@ -7,6 +7,10 @@
 
 @interface UILabel (customed)
 
+
+- (CGFloat)heightThatFit;
+- (CGFloat)widthThatFit;
+
 - (void)underLineSingle;
 
 - (void)onClick:(id)target action:(SEL)action;
@@ -19,7 +23,8 @@
 
 - (void)textAlignRight;
 
-- (void) lineSpace:(CGFloat) space;
-- (void) wordSpace:(CGFloat) f;
+- (void)lineSpace:(CGFloat)space;
+
+- (void)wordSpace:(CGFloat)f;
 
 @end

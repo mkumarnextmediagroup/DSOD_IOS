@@ -15,7 +15,7 @@
 - (UIView *)addView {
 	UIView *v = [UIView new];
 	[self addSubview:v];
-	v.backgroundColor = UIColor.grayColor;
+	v.backgroundColor = UIColor.clearColor;
 	return v;
 }
 
@@ -57,14 +57,14 @@
 
 - (UITextField *)addEdit {
 	UITextField *edit = [UITextField new];
-	edit.styleNormal;
+	[edit styleNormal ] ;
 	[self addSubview:edit];
 	return edit;
 }
 
 - (UIButton *)addButton {
 	UIButton *button = [UIButton new];
-	button.styleWhite;
+	[button styleWhite ] ;
 	[self addSubview:button];
 	return button;
 }

@@ -59,13 +59,13 @@
 
 	UIButton *startButton = [UIButton new];
 	[startButton title:localStr(@"getstart")];
-	startButton.styleWhite;
+	[startButton styleWhite ] ;
 	[self.view addSubview:startButton];
 
 
 	UIButton *loginButton = [UIButton new];
 	[loginButton title:localStr(@"login")];
-	loginButton.stylePrimary;
+	[loginButton stylePrimary ] ;
 	[self.view addSubview:loginButton];
 
 	StackLayout *sl = [StackLayout new];

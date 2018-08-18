@@ -13,6 +13,16 @@
 @implementation UILabel (customed)
 
 
+- (CGFloat)heightThatFit {
+	CGSize sz = [self sizeThatFits:CGSizeZero];
+	return sz.height;
+}
+
+- (CGFloat)widthThatFit {
+	CGSize sz = [self sizeThatFits:CGSizeZero];
+	return sz.height;
+}
+
 - (void)textAlignCenter {
 	self.textAlignment = NSTextAlignmentCenter;
 }

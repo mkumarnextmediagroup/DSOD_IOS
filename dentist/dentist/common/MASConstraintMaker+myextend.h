@@ -8,6 +8,12 @@
 
 @interface MASConstraintMaker (myextend)
 
+- (MASConstraintMaker *)widthFit;
+
+- (MASConstraintMaker *)heightFit;
+
+- (MASConstraintMaker *)sizeFit;
+
 - (MASConstraintMaker *)sizeEq:(CGFloat)w h:(CGFloat)h;
 
 - (MASConstraintMaker *)widthEq:(CGFloat)w;
@@ -54,5 +60,9 @@
 - (MASConstraintMaker *)toLeftOf:(UIView *)v offset:(CGFloat)offset;
 
 - (MASConstraintMaker *)toRightOf:(UIView *)v offset:(CGFloat)offset;
+
+- (MASConstraintMaker *)centerYOf:(UIView *)v offset:(CGFloat)offset;
+
+- (MASConstraintMaker *)centerXOf:(UIView *)v offset:(CGFloat)offset;
 
 @end

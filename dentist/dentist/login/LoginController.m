@@ -62,53 +62,40 @@
 	[pwdEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:23];
 
 	checkButton = self.view.addCheckbox;
-	[checkButton makeLayout:^(MASConstraintMaker *m) {
-		m.width.mas_equalTo(24);
-		m.height.mas_equalTo(24);
-		m.left.mas_equalTo(self.view.mas_left).offset(EDGE);
-		m.top.mas_equalTo(pwdEdit.mas_bottom).offset(16);
-	}];
 	checkButton.selected = YES;
+	[[[[[checkButton layoutMaker] sizeEq:24 h:24] leftParent:EDGE] below:pwdEdit offset:16] install];
+
 
 	UILabel *touchLabel = self.view.addLabel;
 	touchLabel.text = localStr(@"enable_touch");
 	[touchLabel textColorWhite];
 	touchLabel.font = [Fonts light:15];
-	[touchLabel makeLayout:^(MASConstraintMaker *m) {
-		m.width.mas_equalTo(130);
-		m.height.mas_equalTo(20);
-		m.left.mas_equalTo(checkButton.mas_right).offset(8);
-		m.centerY.mas_equalTo(checkButton.mas_centerY);
-	}];
+	[[[[[touchLabel layoutMaker] sizeFit] toRightOf:checkButton offset:8] centerYOf:checkButton offset:0] install];
 
 	UILabel *forgotLabel = self.view.addLabel;
 	[forgotLabel textAlignRight];
 	forgotLabel.text = localStr(@"forgot");
 	[forgotLabel textColorWhite];
 	forgotLabel.font = [Fonts light:12];
-	[forgotLabel makeLayout:^(MASConstraintMaker *m) {
-		m.width.mas_equalTo(150);
-		m.height.mas_equalTo(20);
-		m.right.mas_equalTo(pwdEdit.mas_right);
-		m.centerY.mas_equalTo(touchLabel.mas_centerY);
-	}];
+
+	[[[[[forgotLabel layoutMaker] sizeFit] rightOf:pwdEdit] centerYOf:touchLabel offset:0] install];
 
 
 	UIButton *loginButton = self.view.addButton;
 	[loginButton title:localStr(@"login")];
-	loginButton.styleSecondary;
+	[loginButton styleSecondary];
 
 
 	UIButton *linkedinButton = self.view.addButton;
 	[linkedinButton title:localStr(@"login_using_linkedin")];
-	linkedinButton.styleBlue;
+	[linkedinButton styleBlue];
 	UIImageView *inView = linkedinButton.addImageView;
 	inView.imageName = @"in";
 	[inView scaleFit];
-	[[[inView.layoutMaker sizeEq:20 h:20] leftParent:10] centerYParent:0].install;
+	[[[[inView.layoutMaker sizeEq:20 h:20] leftParent:10] centerYParent:0] install];
 	UIView *lineView = linkedinButton.addView;
 	lineView.backgroundColor = rgb255(0x2F, 0x9c, 0xD5);
-	[[[[lineView.layoutMaker widthEq:1] topParent:0] bottomParent:0] leftParent:40].install;
+	[[[[[lineView.layoutMaker widthEq:1] topParent:0] bottomParent:0] leftParent:40] install];
 
 
 	UILabel *regLabel = self.view.addLabel;

@@ -9,6 +9,13 @@
 @interface UIView (customed)
 
 
+- (UILabel *)addLabel;
+- (UITextField *)addEdit;
+- (UIButton *)addButton;
+- (UIImageView *)addImageView;
+- (UITextView *)addTextView;
+
+
 - (NSArray *)makeLayout:(void (^)(MASConstraintMaker *))block;
 
 - (void)layoutFillXOffsetTop:(CGFloat)height offset:(CGFloat)offset;

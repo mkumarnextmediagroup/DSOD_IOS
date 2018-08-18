@@ -7,6 +7,7 @@
 #import "Common.h"
 #import "StackLayout.h"
 #import "UIView+customed.h"
+#import "UILabel+customed.h"
 
 
 @interface LoginController ()
@@ -18,59 +19,60 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	UIImage *image = [UIImage imageNamed:@"bg_3.png"];
-	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-	[self.view addSubview:imageView];
+	UIImageView *imageView = self.view.addImageView;
+	imageView.imageName = @"bg_3.png";
 	[imageView layoutFill];
 
-	UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_white"]];
-	[self.view addSubview:logoView];
+	UIImageView *logoView = self.view.addImageView;
+	logoView.imageName = @"logo_white";
 	[logoView layoutCenterXOffsetTop:260 height:54 offset:54];
 
 
-	UITextField *emailEdit = [UITextField new];
-	emailEdit.styleNormal;
-	emailEdit.delegate = self ;
+	UITextField *emailEdit = self.view.addEdit;
+	emailEdit.delegate = self;
 	emailEdit.placeholder = localStr(@"email_address");
-	[self.view addSubview:emailEdit];
 	[emailEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:-23];
 
-	UITextField *pwdEdit = [UITextField new];
-	pwdEdit.styleNormal;
-	pwdEdit.delegate = self ;
+	UITextField *pwdEdit = self.view.addEdit;
+	pwdEdit.delegate = self;
 	pwdEdit.placeholder = localStr(@"email_address");
-	[self.view addSubview:pwdEdit];
 	[pwdEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:23];
 
 
-	UIButton *loginButton = [UIButton new];
+	UIButton *loginButton = self.view.addButton;
 	[loginButton title:localStr(@"login")];
 	loginButton.styleSecondary;
-	[self.view addSubview:loginButton];
 
 
-	UIButton *linkedinButton = [UIButton new];
+	UIButton *linkedinButton = self.view.addButton;
 	[linkedinButton title:localStr(@"login_using_linkedin")];
 	linkedinButton.stylePrimary;
-	[self.view addSubview:linkedinButton];
 
 
-	UILabel *regLb = [UILabel new];
-	regLb.textAlignment = NSTextAlignmentCenter;
-	regLb.text = localStr(@"create_account");
-	regLb.font = [Fonts regular:14];
-	regLb.textColor = UIColor.whiteColor;
-	regLb.backgroundColor = UIColor.clearColor;
-	[self.view addSubview:regLb];
+	UILabel *regLabel = self.view.addLabel;
+	regLabel.textAlignment = NSTextAlignmentCenter;
+	regLabel.font = [Fonts regular:14];
+	regLabel.textColor = UIColor.whiteColor;
+	regLabel.text = localStr(@"create_account");
+	[regLabel underLineSingle];
+
 
 	StackLayout *sl = [StackLayout new];
-	[sl push:regLb height:20 marginBottom:33];
+	[sl push:regLabel height:20 marginBottom:33];
 	[sl push:linkedinButton height:BTN_HEIGHT marginBottom:22];
 	[sl push:loginButton height:BTN_HEIGHT marginBottom:8];
 	[sl install];
 
+
+	[regLabel onClick:self action:@selector(goReg:)];
+
 }
 
+//- (void)goReg:(UITapGestureRecognizer *)recognizer {
+- (void)goReg:(id)sender {
+	NSLog(@"click reg ");
+	NSLog(@"%@", sender);
+}
 
 - (void)clickB:(id)sender {
 	[self dismissViewControllerAnimated:YES completion:nil];

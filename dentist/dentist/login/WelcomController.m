@@ -10,6 +10,7 @@
 #import "UIControl+customed.h"
 #import "UIView+customed.h"
 #import "StudentController.h"
+#import "StackLayout.h"
 
 
 @interface WelcomController ()
@@ -28,48 +29,52 @@
 
 	UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_white"]];
 	[self.view addSubview:logoView];
-
 	[logoView layoutCenterXOffsetTop:260 height:54 offset:54];
 
 
-	UITextView *welText = [UITextView new];
+	UILabel *welText = [UILabel new];
 	welText.text = localStr(@"welcome");
-	welText.font = [Fonts medium:42];
+	welText.font = [Fonts medium:38];
 	welText.textColor = UIColor.whiteColor;
 	welText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:welText];
-	[welText layoutFillXOffsetBottom:60 offset:260];
 
 
-	UITextView *sayText = [UITextView new];
+	UILabel *sayText = [UILabel new];
 	sayText.text = localStr(@"sayhello");
-	sayText.font = Fonts.heading2;
+	sayText.font = [Fonts medium:18];
 	sayText.textColor = UIColor.whiteColor;
 	sayText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:sayText];
-	[sayText layoutFillXOffsetBottom:40 offset:250];
 
-	UITextView *bodyText = [UITextView new];
+	UILabel *bodyText = [UILabel new];
+	bodyText.numberOfLines = 0 ;
 	bodyText.text = localStr(@"getmeet");
-	bodyText.font = [Fonts regular:14];
+	bodyText.font = [Fonts regular:15];
 	bodyText.textColor = UIColor.whiteColor;
 	bodyText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:bodyText];
-	[bodyText layoutFillXOffsetBottom:70 offset:174];
 
 
 	UIButton *startButton = [UIButton new];
 	[startButton title:localStr(@"getstart")];
 	startButton.styleWhite;
 	[self.view addSubview:startButton];
-	[startButton layoutFillXOffsetBottom:BTN_HEIGHT offset:113];
 
 
 	UIButton *loginButton = [UIButton new];
 	[loginButton title:localStr(@"login")];
 	loginButton.stylePrimary;
 	[self.view addSubview:loginButton];
-	[loginButton layoutFillXOffsetBottom:BTN_HEIGHT offset:65];
+
+	StackLayout *sl = [StackLayout new];
+	[sl push:loginButton height:BTN_HEIGHT marginBottom:65];
+	[sl push:startButton height:BTN_HEIGHT marginBottom:8];
+	[sl push:bodyText height:60 marginBottom:14];
+	[sl push:sayText height:30 marginBottom:12];
+	[sl push:welText height:36 marginBottom:2];
+
+	[sl install];
 
 
 	[loginButton onClick:self action:@selector(clickLogin:)];

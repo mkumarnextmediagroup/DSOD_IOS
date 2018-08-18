@@ -9,5 +9,6 @@
 #define BTN_HEIGHT 40
 #define BTN_WIDTH 330
 
+#define EDIT_HEIGHT 36
 
 #endif

@@ -30,38 +30,33 @@
 	[logoView layoutCenterXOffsetTop:260 height:54 offset:54];
 
 
-	UITextView *studentText = [UITextView new];
-	studentText.editable = NO;
+	UILabel *studentText = [UILabel new];
 	studentText.text = localStr(@"areyoustudent");
 	studentText.font = [Fonts medium:30];
 	studentText.textColor = UIColor.whiteColor;
 	studentText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:studentText];
-//	[studentText layoutFillXOffsetBottom:60 offset:215];
 
 
-	UITextView *bodyText = [UITextView new];
-	bodyText.editable = NO;
+	UILabel *bodyText = [UILabel new];
+	bodyText.numberOfLines = 0 ;
 	bodyText.text = localStr(@"stu_info");
-	bodyText.font = [Fonts regular:14];
+	bodyText.font = [Fonts regular:15];
 	bodyText.textColor = UIColor.whiteColor;
 	bodyText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:bodyText];
-//	[bodyText layoutFillXOffsetBottom:70 offset:154];
 
 
 	UIButton *yesButton = [UIButton new];
 	[yesButton title:localStr(@"yes")];
 	yesButton.styleWhite;
 	[self.view addSubview:yesButton];
-//	[yesButton layoutFillXOffsetBottom:BTN_HEIGHT offset:113];
 
 
 	UIButton *noButton = [UIButton new];
 	[noButton title:localStr(@"no")];
 	noButton.styleWhite;
 	[self.view addSubview:noButton];
-//	[noButton layoutFillXOffsetBottom:BTN_HEIGHT offset:65];
 
 
 	StackLayout *sl = [StackLayout new];

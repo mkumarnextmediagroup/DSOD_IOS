@@ -11,6 +11,7 @@
 @implementation UIView (customed)
 
 
+
 - (void)layoutCenterXOffsetTop:(CGFloat)width height:(CGFloat)height offset:(CGFloat)offset {
 	[self makeLayout:^(MASConstraintMaker *m) {
 		m.width.mas_equalTo(width);
@@ -36,6 +37,15 @@
 		m.right.equalTo(self.superview.mas_right);
 		m.top.equalTo(self.superview.mas_top);
 		m.bottom.equalTo(self.superview.mas_bottom);
+	}];
+}
+
+- (void)layoutFillXOffsetCenterY:(CGFloat)height offset:(CGFloat)offset {
+	[self makeLayout:^(MASConstraintMaker *m) {
+		m.left.equalTo(self.superview.mas_left).offset(EDGE);
+		m.right.equalTo(self.superview.mas_right).offset(-EDGE);
+		m.height.mas_equalTo(height);
+		m.centerY.equalTo(self.superview.mas_centerY).offset(offset);
 	}];
 }
 

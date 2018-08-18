@@ -21,4 +21,5 @@
 
 - (void)layoutCenterXOffsetBottom:(CGFloat)width height:(CGFloat)height offset:(CGFloat)offset;
 
+- (void)layoutFillXOffsetCenterY:(CGFloat)height offset:(CGFloat)offset;
 @end

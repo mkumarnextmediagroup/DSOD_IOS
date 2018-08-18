@@ -30,17 +30,39 @@
 }
 
 
+- (void)lineSpace:(CGFloat)space {
+	NSMutableAttributedString *as = self.mutableAttrString;
+	NSMutableParagraphStyle *p = [NSMutableParagraphStyle new];
+	NSParagraphStyle *ps = [as attr:NSParagraphStyleAttributeName];
+	if (ps != nil) {
+		[p setParagraphStyle:ps];
+	}
+	p.lineSpacing = space;
+	[as paragraphStyle:p];
+	self.attributedText = as;
+}
+
+- (void)wordSpace:(CGFloat)f {
+	NSMutableAttributedString *as = self.mutableAttrString;
+	[as wordSpace:f];
+	self.attributedText = as;
+}
+
+
+- (NSMutableAttributedString *)mutableAttrString {
+	if (self.attributedText != nil) {
+		return [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
+	}
+
+	if (self.text != nil) {
+		return [[NSMutableAttributedString alloc] initWithString:self.text];
+	}
+	return nil;
+}
+
+
 - (void)underLineSingle {
-	NSString *s = self.text;
-	if (s == nil) {
-		return;
-	}
-	NSMutableAttributedString *as = nil;
-	if (self.attributedText == nil) {
-		as = [[NSMutableAttributedString alloc] initWithString:self.text];
-	} else {
-		as = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
-	}
+	NSMutableAttributedString *as = self.mutableAttrString;
 	[as underlineSingle];
 	self.attributedText = as;
 }

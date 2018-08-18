@@ -11,6 +11,7 @@
 #import "UIView+customed.h"
 #import "StudentController.h"
 #import "StackLayout.h"
+#import "UILabel+customed.h"
 
 
 @interface WelcomController ()
@@ -48,7 +49,7 @@
 	[self.view addSubview:sayText];
 
 	UILabel *bodyText = [UILabel new];
-	bodyText.numberOfLines = 0 ;
+	bodyText.numberOfLines = 0;
 	bodyText.text = localStr(@"getmeet");
 	bodyText.font = [Fonts regular:15];
 	bodyText.textColor = UIColor.whiteColor;

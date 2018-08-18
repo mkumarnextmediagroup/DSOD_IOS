@@ -50,7 +50,8 @@
 
 	UILabel *lb = self.view.addLabel;
 	lb.text = localStr(@"login");
-	lb.font = [Fonts medium:37];
+	lb.font = [Fonts regular:37];
+//	[lb wordSpace:2];
 	[lb textColorWhite];
 	[lb layoutFillXOffsetCenterY:46 offset:-80];
 

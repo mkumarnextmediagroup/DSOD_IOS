@@ -10,6 +10,7 @@
 @property(class, nonatomic, readonly) CGFloat heightPrefer;
 @property(class, nonatomic, readonly) CGFloat widthLarge;
 
+- (UIButton *)styleBlue;
 - (UIButton *)stylePrimary;
 
 - (UIButton *)styleSecondary;

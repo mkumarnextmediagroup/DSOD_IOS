@@ -15,4 +15,5 @@
 #import "UIScreen+customed.h"
 #import "UIButton+styled.h"
 #import "UITextField+styled.h"
+#import "UIImageView+customed.h"
 

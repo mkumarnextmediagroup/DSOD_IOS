@@ -14,8 +14,7 @@
 @implementation BaseController {
 
 }
-
-
+ 
 
 - (void)openPage:(UIViewController *)c {
 	[self presentViewController:c animated:YES completion:nil];

@@ -10,6 +10,39 @@
 
 @implementation UIView (customed)
 
+- (UITextView *)addTextView {
+	UITextView *v = [UITextView new];
+	[self addSubview:v];
+	v.backgroundColor = UIColor.clearColor;
+	return v;
+}
+
+- (UILabel *)addLabel {
+	UILabel *lb = [UILabel new];
+	lb.backgroundColor = UIColor.clearColor;
+	[self addSubview:lb];
+	return lb;
+}
+
+- (UIImageView *)addImageView {
+	UIImageView *imageView = [UIImageView new];
+	[self addSubview:imageView];
+	return imageView;
+}
+
+- (UITextField *)addEdit {
+	UITextField *edit = [UITextField new];
+	edit.styleNormal;
+	[self addSubview:edit];
+	return edit;
+}
+
+- (UIButton *)addButton {
+	UIButton *button = [UIButton new];
+	button.styleWhite;
+	[self addSubview:button];
+	return button;
+}
 
 
 - (void)layoutCenterXOffsetTop:(CGFloat)width height:(CGFloat)height offset:(CGFloat)offset {

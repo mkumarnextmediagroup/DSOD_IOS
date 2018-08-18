@@ -51,4 +51,13 @@
 	return self;
 }
 
+
+- (void)textColorWhite {
+	[self setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+}
+
+
+
+
+
 @end

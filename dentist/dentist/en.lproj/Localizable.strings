@@ -19,3 +19,7 @@
 "login_using_linkedin" = "Log In using Linkedin";
 "email_address" = "Email address";
 "pwd" = "Password";
+"enable_touch" = "Enable Touch ID";
+"forgot" = "FORGOT PASSWORD";
+
+

@@ -39,6 +39,14 @@ CGSize makeSize(int w, int h) {
 	return CGSizeMake(w, h);
 }
 
+CGSize makeSizeF(CGFloat w, CGFloat h) {
+	return CGSizeMake(w, h);
+}
+
 CGRect makeRect(int x, int y, int w, int h) {
+	return CGRectMake(x, y, w, h);
+}
+
+CGRect makeRectF(CGFloat x, CGFloat y, CGFloat w, CGFloat h) {
 	return CGRectMake(x, y, w, h);
 }

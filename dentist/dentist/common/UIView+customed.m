@@ -6,9 +6,25 @@
 #import "UIView+customed.h"
 #import "Masonry.h"
 #import "Common.h"
+#import "UIControl+customed.h"
 
 
 @implementation UIView (customed)
+
+- (void)_checkboxClick:(id)sender {
+	UIButton *b = sender;
+	b.selected = !b.selected;
+}
+
+- (UIButton *)addCheckbox {
+	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+	[button setBackgroundImage:[UIImage imageNamed:@"checkbox"] forState:UIControlStateNormal];
+	[button setBackgroundImage:[UIImage imageNamed:@"checkbox_on"] forState:UIControlStateSelected];
+	[self addSubview:button];
+	[button onClick:self action:@selector(_checkboxClick:)];
+	return button;
+}
+
 
 - (UITextView *)addTextView {
 	UITextView *v = [UITextView new];

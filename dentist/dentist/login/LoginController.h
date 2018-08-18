@@ -7,4 +7,5 @@
 #import "BaseController.h"
 
 @interface LoginController : BaseController
+
 @end

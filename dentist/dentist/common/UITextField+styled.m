@@ -5,9 +5,44 @@
 
 #import "UITextField+styled.h"
 #import "Colors.h"
+#import "NSMutableAttributedString+customed.h"
+#import "Fonts.h"
+#import "Common.h"
 
 
 @implementation UITextField (styled)
+
+-(NSString*) hint {
+	NSAttributedString * s = self.attributedPlaceholder;
+	if(s == nil) {
+		return nil ;
+	}
+	return s.string;
+}
+
+- (void)setHint:(NSString *)s {
+	NSMutableAttributedString *as = [[NSMutableAttributedString alloc] initWithString:s];
+	[as font:[Fonts regular:15]];
+	[as foreColor:rgb255(0x9B, 0x9B, 0x9B)];
+	self.attributedPlaceholder = as;
+
+}
+
+- (void)textAlignCenter {
+	self.textAlignment = NSTextAlignmentCenter;
+}
+
+- (void)textAlignLeft {
+	self.textAlignment = NSTextAlignmentLeft;
+}
+
+- (void)textAlignRight {
+	self.textAlignment = NSTextAlignmentRight;
+}
+
+- (void)textColorWhite {
+	self.textColor = UIColor.whiteColor;
+}
 
 - (UITextField *)textColorMain {
 	self.textColor = Colors.textMain;

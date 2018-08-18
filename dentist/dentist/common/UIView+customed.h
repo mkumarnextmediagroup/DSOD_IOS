@@ -14,6 +14,7 @@
 - (UIButton *)addButton;
 - (UIImageView *)addImageView;
 - (UITextView *)addTextView;
+- (UIButton *)addCheckbox;
 
 
 - (NSArray *)makeLayout:(void (^)(MASConstraintMaker *))block;

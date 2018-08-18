@@ -14,7 +14,10 @@
 @implementation BaseController {
 
 }
- 
+
+-(void) dismiss {
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)openPage:(UIViewController *)c {
 	[self presentViewController:c animated:YES completion:nil];

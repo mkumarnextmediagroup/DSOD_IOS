@@ -7,7 +7,18 @@
 
 @interface UITextField (styled)
 
+@property NSString *hint;
+
+- (void)textColorWhite;
+
+- (void)textAlignCenter;
+
+- (void)textAlignLeft;
+
+- (void)textAlignRight;
+
 - (UITextField *)textColorMain;
+
 - (UITextField *)textColorAlternate;
 
 - (UITextField *)styleRound:(UIColor *)borderColor;

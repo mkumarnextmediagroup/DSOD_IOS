@@ -11,5 +11,6 @@
 
 - (void)openPage:(UIViewController *)c;
 
+-(void) dismiss;
 
 @end

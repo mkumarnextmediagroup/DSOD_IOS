@@ -19,4 +19,7 @@
 
 - (void)textAlignRight;
 
+- (void) lineSpace:(CGFloat) space;
+- (void) wordSpace:(CGFloat) f;
+
 @end

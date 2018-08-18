@@ -8,6 +8,10 @@
 @interface NSMutableAttributedString (customed)
 
 
+-(void)wordSpace:(CGFloat) f ;
+
+- (void)paragraphStyle:(NSMutableParagraphStyle *)ps;
+
 - (void)underlineSingle;
 
 - (void)foreColor:(UIColor *)color;
@@ -15,5 +19,9 @@
 - (void)backColor:(UIColor *)color;
 
 - (void)font:(UIFont *)font;
+
+
+- (void)setAttr:(NSAttributedStringKey)name value:(id)value;
+- (id)attr:(NSAttributedStringKey)name;
 
 @end

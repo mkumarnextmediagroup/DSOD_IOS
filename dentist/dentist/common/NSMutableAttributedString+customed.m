@@ -8,19 +8,38 @@
 
 @implementation NSMutableAttributedString (customed)
 
+
+- (void)paragraphStyle:(NSMutableParagraphStyle *)ps {
+	[self setAttr:NSParagraphStyleAttributeName value:ps];
+}
+
+-(void)wordSpace:(CGFloat) f {
+	[self setAttr:NSKernAttributeName value:@(f)];
+}
+
 - (void)underlineSingle {
-	[self addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:NSMakeRange(0, self.length)];
+	[self setAttr:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle)];
 }
 
 - (void)backColor:(UIColor *)color {
-	[self addAttribute:NSBackgroundColorAttributeName value:color range:NSMakeRange(0, self.length)];
+	[self setAttr:NSBackgroundColorAttributeName value:color];
 }
 
 - (void)foreColor:(UIColor *)color {
-	[self addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, self.length)];
+	[self setAttr:NSForegroundColorAttributeName value:color];
 }
 
 - (void)font:(UIFont *)font {
-	[self addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, self.length)];
+	[self setAttr:NSFontAttributeName value:font];
 }
+
+- (void)setAttr:(NSAttributedStringKey)name value:(id)value {
+	[self addAttribute:name value:value range:NSMakeRange(0, self.length)];
+}
+
+- (id)attr:(NSAttributedStringKey)name {
+	NSRange r = NSMakeRange(0, self.length);
+	return [self attribute:name atIndex:0 effectiveRange:&r];
+}
+
 @end

@@ -12,6 +12,24 @@
 
 @implementation UILabel (customed)
 
+
+- (void)textAlignCenter {
+	self.textAlignment = NSTextAlignmentCenter;
+}
+
+- (void)textAlignLeft {
+	self.textAlignment = NSTextAlignmentLeft;
+}
+
+- (void)textAlignRight {
+	self.textAlignment = NSTextAlignmentRight;
+}
+
+- (void)textColorWhite {
+	self.textColor = UIColor.whiteColor;
+}
+
+
 - (void)underLineSingle {
 	NSString *s = self.text;
 	if (s == nil) {

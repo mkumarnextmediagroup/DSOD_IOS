@@ -5,10 +5,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImageView (customed)
+@interface UIImage (customed)
 
-@property NSString *imageName;
-
--(void) onClick:(id)target action:(SEL)action;
+-(UIImage*) scaledTo:(CGFloat) w h:(CGFloat)h ;
 
 @end

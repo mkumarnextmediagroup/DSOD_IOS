@@ -11,9 +11,14 @@
 @property(class, nonatomic, readonly) CGFloat widthLarge;
 
 - (UIButton *)stylePrimary;
+
 - (UIButton *)styleSecondary;
+
 - (UIButton *)styleWhite;
 
--(UIButton* )title:(NSString*) text ;
+- (UIButton *)title:(NSString *)text;
+
+- (void)textColorWhite;
+
 
 @end

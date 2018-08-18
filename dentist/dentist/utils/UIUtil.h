@@ -19,7 +19,11 @@ extern UIImage *colorImage(CGSize size, UIColor *color);
 
 extern CGSize makeSize(int w, int h);
 
+extern CGSize makeSizeF(CGFloat w, CGFloat h);
+
 extern CGRect makeRect(int x, int y, int w, int h);
+
+extern CGRect makeRectF(CGFloat x, CGFloat y, CGFloat w, CGFloat h);
 
 
 #endif

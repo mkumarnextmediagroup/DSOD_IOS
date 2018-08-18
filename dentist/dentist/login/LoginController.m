@@ -8,16 +8,22 @@
 #import "StackLayout.h"
 #import "UIView+customed.h"
 #import "UILabel+customed.h"
+#import "UIControl+customed.h"
 
 
 @interface LoginController ()
 
 @end
 
-@implementation LoginController
+@implementation LoginController {
+	UITextField *emailEdit;
+	UITextField *pwdEdit;
+	UIButton *checkButton;
+}
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+
 
 	UIImageView *imageView = self.view.addImageView;
 	imageView.imageName = @"bg_3.png";
@@ -27,16 +33,64 @@
 	logoView.imageName = @"logo_white";
 	[logoView layoutCenterXOffsetTop:260 height:54 offset:54];
 
+	UIImageView *backView = self.view.addImageView;
+	backView.imageName = @"back.png";
+	backView.contentMode = UIViewContentModeScaleAspectFit;
+	[backView makeLayout:^(MASConstraintMaker *m) {
+		m.width.mas_equalTo(23);
+		m.height.mas_equalTo(23);
+		m.left.mas_equalTo(self.view.mas_left).offset(16);
+		m.top.mas_equalTo(self.view.mas_top).offset(30);
+	}];
 
-	UITextField *emailEdit = self.view.addEdit;
+	emailEdit = self.view.addEdit;
 	emailEdit.delegate = self;
-	emailEdit.placeholder = localStr(@"email_address");
+	emailEdit.hint = localStr(@"email_address");
 	[emailEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:-23];
 
-	UITextField *pwdEdit = self.view.addEdit;
+	UILabel *lb = self.view.addLabel;
+	lb.text = localStr(@"login");
+	lb.font = [Fonts medium:37];
+	[lb textColorWhite];
+	[lb layoutFillXOffsetCenterY:46 offset:-80];
+
+
+	pwdEdit = self.view.addEdit;
 	pwdEdit.delegate = self;
-	pwdEdit.placeholder = localStr(@"email_address");
+	pwdEdit.hint = localStr(@"pwd");
 	[pwdEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:23];
+
+	checkButton = self.view.addCheckbox;
+	[checkButton makeLayout:^(MASConstraintMaker *m) {
+		m.width.mas_equalTo(24);
+		m.height.mas_equalTo(24);
+		m.left.mas_equalTo(self.view.mas_left).offset(EDGE);
+		m.top.mas_equalTo(pwdEdit.mas_bottom).offset(16);
+	}];
+	checkButton.selected = YES;
+
+	UILabel *touchLabel = self.view.addLabel;
+	touchLabel.text = localStr(@"enable_touch");
+	[touchLabel textColorWhite];
+	touchLabel.font = [Fonts light:15];
+	[touchLabel makeLayout:^(MASConstraintMaker *m) {
+		m.width.mas_equalTo(130);
+		m.height.mas_equalTo(20);
+		m.left.mas_equalTo(checkButton.mas_right).offset(8);
+		m.centerY.mas_equalTo(checkButton.mas_centerY);
+	}];
+
+	UILabel *forgotLabel = self.view.addLabel;
+	[forgotLabel textAlignRight];
+	forgotLabel.text = localStr(@"forgot");
+	[forgotLabel textColorWhite];
+	forgotLabel.font = [Fonts light:12];
+	[forgotLabel makeLayout:^(MASConstraintMaker *m) {
+		m.width.mas_equalTo(150);
+		m.height.mas_equalTo(20);
+		m.right.mas_equalTo(pwdEdit.mas_right);
+		m.centerY.mas_equalTo(touchLabel.mas_centerY);
+	}];
 
 
 	UIButton *loginButton = self.view.addButton;
@@ -50,7 +104,7 @@
 
 
 	UILabel *regLabel = self.view.addLabel;
-	regLabel.textAlignment = NSTextAlignmentCenter;
+	[regLabel textAlignCenter];
 	regLabel.font = [Fonts regular:14];
 	regLabel.textColor = UIColor.whiteColor;
 	regLabel.text = localStr(@"create_account");
@@ -64,20 +118,32 @@
 	[sl install];
 
 
-	[regLabel onClick:self action:@selector(goReg:)];
-
+	[regLabel onClick:self action:@selector(clickGoReg:)];
+	[backView onClick:self action:@selector(clickGoBack:)];
+	[loginButton onClick:self action:@selector(clickLogin:)];
+	[linkedinButton onClick:self action:@selector(clickLinkedin:)];
+	[forgotLabel onClick:self action:@selector(clickForgot:)];
 }
 
-//- (void)goReg:(UITapGestureRecognizer *)recognizer {
-- (void)goReg:(id)sender {
+
+- (void)clickGoBack:(id)sender {
+	[self dismiss];
+}
+
+- (void)clickGoReg:(id)sender {
 	NSLog(@"click reg ");
 	NSLog(@"%@", sender);
 }
 
-- (void)clickB:(id)sender {
-	[self dismissViewControllerAnimated:YES completion:nil];
-
+- (void)clickLogin:(id)sender {
+	NSLog(@"clickLogin");
 }
 
+- (void)clickLinkedin:(id)sender {
+	NSLog(@"clickLinkedin ");
+}
 
+- (void)clickForgot:(id)sender {
+	NSLog(@"clickForgot");
+}
 @end

@@ -7,6 +7,6 @@
 #import "Platform.h"
 
 
-void objcSendMsg(id target, SEL action, id sender) {
-	((void (*)(id, SEL, id)) objc_msgSend)(target, action, sender);
+void objcSendMsg(id target, SEL action, id arg) {
+	((void (*)(id, SEL, id)) objc_msgSend)(target, action, arg);
 }

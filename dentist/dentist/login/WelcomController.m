@@ -12,6 +12,7 @@
 #import "StudentController.h"
 #import "StackLayout.h"
 #import "UILabel+customed.h"
+#import "Async.h"
 
 
 @interface WelcomController ()
@@ -59,13 +60,13 @@
 
 	UIButton *startButton = [UIButton new];
 	[startButton title:localStr(@"getstart")];
-	[startButton styleWhite ] ;
+	[startButton styleWhite];
 	[self.view addSubview:startButton];
 
 
 	UIButton *loginButton = [UIButton new];
 	[loginButton title:localStr(@"login")];
-	[loginButton stylePrimary ] ;
+	[loginButton stylePrimary];
 	[self.view addSubview:loginButton];
 
 	StackLayout *sl = [StackLayout new];
@@ -91,6 +92,19 @@
 	NSLog(@"click");
 	LoginController *c = [LoginController new];
 	[self openPage:c];
+
+	foreActionDelay(2000, self, @selector(testThread:), @"Hello");
+
+}
+
+- (void)testThread:(NSString *)what {
+	BOOL b = NSThread.isMainThread;
+	if (b) {
+		NSLog(@"Main : %@", what);
+	} else {
+		NSLog(@"Child: %@", what);
+	}
+
 }
 
 

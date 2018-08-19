@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-extern void objcSendMsg(id target, SEL action, id sender);
+extern void objcSendMsg(id target, SEL action, id arg);
 
 #endif

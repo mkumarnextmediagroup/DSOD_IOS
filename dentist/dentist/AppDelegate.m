@@ -27,7 +27,6 @@
 //	self.window.rootViewController = lc;
 	self.window.rootViewController = [WelcomController new];
 	[self.window makeKeyAndVisible];
-	NSLog(@"%f, %f ", UIScreen.width, UIScreen.height);
 	return YES;
 }
 

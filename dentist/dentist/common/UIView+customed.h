@@ -8,7 +8,7 @@
 
 @interface UIView (customed)
 
-
+- (CGRect)toScreenFrame;
 
 - (void)onClickView:(id)target action:(SEL)action;
 

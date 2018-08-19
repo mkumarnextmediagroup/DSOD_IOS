@@ -17,4 +17,23 @@
 
 - (void)scaleFillAspect;
 
+- (void)alignCenter;
+
+- (void)alignLeft;
+
+- (void)alignTop;
+
+- (void)alignRight;
+
+- (void)alignBottom;
+
+- (void)alignTopLeft;
+
+- (void)alignTopRight;
+
+- (void)alignBottomRight;
+
+- (void)alignBottomLeft;
+
+
 @end

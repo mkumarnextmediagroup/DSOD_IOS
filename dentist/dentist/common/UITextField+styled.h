@@ -23,28 +23,51 @@
 
 - (void)rounded;
 
-- (void)styleNormal;
+- (void)themeNormal;
 
-- (void)styleActive;
+- (void)themeActive;
 
-- (void)styleError;
+- (void)themeError;
 
-- (void)styleSuccess;
+- (void)themeSuccess;
 
-- (void)styleDisabled;
+- (void)themeDisabled;
 
-- (void)styleLine:(UIColor *)borderColor;
+- (void)styleLine;
 
-- (void)styleLineNormal;
-
-- (void)styleLineActive;
-
-- (void)styleLineError;
-
-- (void)styleLineSuccess;
-
-- (void)styleLineDisabled;
 
 - (void)stylePassword;
+
+- (void)returnDone;
+
+- (void)returnNext;
+
+- (void)returnGo;
+
+- (void)returnSearch;
+
+- (void)returnJoin;
+
+- (void)returnDefault;
+
+- (void)returnSend;
+
+- (void)returnContinue;
+
+
+- (void)keyboardDefault;
+
+- (void)keyboardPhone;
+
+- (void)keyboardNumber;
+
+- (void)keyboardNumberAndPun;
+
+- (void)keyboardUrl;
+
+- (void)keyboardEmail;
+
+- (void)keyboardDecimal;
+
 
 @end

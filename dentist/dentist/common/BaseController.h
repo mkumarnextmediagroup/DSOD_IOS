@@ -11,6 +11,8 @@
 
 - (void)openPage:(UIViewController *)c;
 
--(void) dismiss;
+- (void)dismiss;
+
+- (void)onTextFieldDone:(UITextField *)textField;
 
 @end

@@ -9,11 +9,10 @@
 
 
 - (CGFloat)heightThatFit;
+
 - (CGFloat)widthThatFit;
 
 - (void)underLineSingle;
-
-- (void)onClick:(id)target action:(SEL)action;
 
 - (void)textColorWhite;
 

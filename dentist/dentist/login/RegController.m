@@ -96,14 +96,14 @@
 	termLabel.text = localStr(@"terms");
 	[termLabel underLineSingle];
 	[[[[[termLabel layoutMaker] sizeFit] topParent:0] toLeftOf:andLabel offset:0] install];
-	[termLabel onClick:self action:@selector(clickTerms:)];
+	[termLabel onClickView:self action:@selector(clickTerms:)];
 
 	UILabel *policyLabel = termPanel.addLabel;
 	policyLabel.font = [Fonts regular:12];
 	policyLabel.text = localStr(@"policy");
 	[policyLabel underLineSingle];
 	[[[[[policyLabel layoutMaker] sizeFit] topParent:0] toRightOf:andLabel offset:0] install];
-	[policyLabel onClick:self action:@selector(clickPolicy:)];
+	[policyLabel onClickView:self action:@selector(clickPolicy:)];
 
 	UILabel *dotLabel = termPanel.addLabel;
 	dotLabel.font = [Fonts regular:12];
@@ -145,6 +145,7 @@
 	pwdEdit = self.view.addEdit;
 	pwdEdit.delegate = self;
 	pwdEdit.hint = localStr(@"pwd");
+	[pwdEdit stylePassword];
 	[sl push:pwdEdit height:36 marginBottom:10];
 
 	emailEdit = self.view.addEdit;
@@ -172,7 +173,7 @@
 
 	[backView onClick:self action:@selector(clickGoBack:)];
 	[regButton onClick:self action:@selector(clickReg:)];
-	[loginLabel onClick:self action:@selector(clickLogin:)];
+	[loginLabel onClickView:self action:@selector(clickLogin:)];
 }
 
 

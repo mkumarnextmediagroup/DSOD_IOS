@@ -21,7 +21,7 @@
 
 - (void)textColorAlternate;
 
-- (void)styleRound:(UIColor *)borderColor;
+- (void)rounded;
 
 - (void)styleNormal;
 
@@ -44,5 +44,7 @@
 - (void)styleLineSuccess;
 
 - (void)styleLineDisabled;
+
+- (void)stylePassword;
 
 @end

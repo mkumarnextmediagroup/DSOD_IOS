@@ -52,9 +52,9 @@
 	self.textColor = Colors.textAlternate;
 }
 
-- (void)styleRound:(UIColor *)borderColor {
+- (void)rounded {
 	self.borderStyle = UITextBorderStyleRoundedRect;
-	self.layer.borderColor = borderColor.CGColor;
+	self.layer.borderColor = Colors.borderNormal.CGColor;
 	self.layer.borderWidth = 1;
 	self.layer.cornerRadius = 3;
 	self.layer.masksToBounds = YES;
@@ -65,25 +65,56 @@
 
 	self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4, 10)];
 	self.leftViewMode = UITextFieldViewModeAlways;
-	self.rightView = nil;
 }
 
 - (void)styleDisabled {
-	[self styleRound:Colors.bgDisabled];
+	self.layer.borderColor = Colors.bgDisabled.CGColor;
 	self.backgroundColor = Colors.bgDisabled;
 }
 
 
 - (void)styleNormal {
-	[self styleRound:Colors.borderNormal];
+	self.layer.borderColor = Colors.borderNormal.CGColor;
+	self.backgroundColor = UIColor.whiteColor;
 }
 
 - (void)styleActive {
-	[self styleRound:Colors.borderActive];
+	self.layer.borderColor = Colors.borderActive.CGColor;
+	self.backgroundColor = UIColor.whiteColor;
 }
 
+- (void)stylePassword {
+	self.clearButtonMode = UITextFieldViewModeNever;
+	[self setSecureTextEntry:YES];
+	UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
+	[b title:localStr(@"show")];
+	[b setTitleColor:Colors.secondary forState:UIControlStateNormal];
+	b.titleLabel.font = [Fonts semiBold:12];
+	b.frame = makeRect(0, 0, 60, 30);
+	self.rightView = b;
+	self.rightViewMode = UITextFieldViewModeAlways;
+	[b onClick:self action:@selector(_onClickPasswordRightButton:)];
+}
+
+- (void)_onClickPasswordRightButton:(UIButton *)sender {
+	sender.selected = !sender.isSelected;
+	if (sender.isSelected) {
+		[self setSecureTextEntry:NO];
+		[sender title:localStr(@"hide")];
+	} else {
+		[self setSecureTextEntry:YES];
+		[sender title:localStr(@"show")];
+	}
+	NSString* s = self.text;
+	self.text = @"";
+	self.text = s ;
+}
+
+
 - (void)styleError {
-	[self styleRound:Colors.borderError];
+	self.layer.borderColor = Colors.borderError.CGColor;
+	self.backgroundColor = UIColor.whiteColor;
+
 	UIImage *img = [UIImage imageNamed:@"error"];
 	UIImageView *iv = [[UIImageView alloc] initWithImage:img];
 	self.rightView = iv;
@@ -91,7 +122,9 @@
 }
 
 - (void)styleSuccess {
-	[self styleRound:Colors.borderSuccess];
+	self.layer.borderColor = Colors.borderSuccess.CGColor;
+	self.backgroundColor = UIColor.whiteColor;
+
 	UIImage *img = [UIImage imageNamed:@"ok"];
 	UIImageView *iv = [[UIImageView alloc] initWithImage:img];
 	self.rightView = iv;
@@ -112,7 +145,6 @@
 
 	self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 16, 10)];
 	self.leftViewMode = UITextFieldViewModeAlways;
-	self.rightView = nil;
 }
 
 

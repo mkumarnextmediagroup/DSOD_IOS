@@ -5,14 +5,20 @@
 
 #import "BaseController.h"
 #import "UITextField+styled.h"
-#import "Colors.h"
-#import "Masonry.h"
 #import "Common.h"
-#import "UIView+customed.h"
 
 
 @implementation BaseController {
 
+}
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	[self.view onClickView:self action:@selector(_onClickControllerView:)];
+}
+
+- (void)_onClickControllerView:(UIView *)sender {
+	[self.view endEditing:YES];
 }
 
 - (void)dismiss {

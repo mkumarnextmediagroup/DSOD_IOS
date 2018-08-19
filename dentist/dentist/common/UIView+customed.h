@@ -9,6 +9,10 @@
 @interface UIView (customed)
 
 
+
+- (void)onClickView:(id)target action:(SEL)action;
+
+
 - (UIView *)addView;
 
 - (UILabel *)addLabel;

@@ -5,10 +5,6 @@
 
 #import "LoginController.h"
 #import "Common.h"
-#import "StackLayout.h"
-#import "UIView+customed.h"
-#import "UILabel+customed.h"
-#import "UIControl+customed.h"
 
 
 @interface LoginController ()
@@ -59,6 +55,8 @@
 	pwdEdit = self.view.addEdit;
 	pwdEdit.delegate = self;
 	pwdEdit.hint = localStr(@"pwd");
+	[pwdEdit stylePassword];
+//	[pwdEdit styleError];
 	[pwdEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:23];
 
 	checkButton = self.view.addCheckbox;
@@ -113,11 +111,11 @@
 	[sl install];
 
 
-	[regLabel onClick:self action:@selector(clickGoReg:)];
+	[regLabel onClickView:self action:@selector(clickGoReg:)];
 	[backView onClick:self action:@selector(clickGoBack:)];
 	[loginButton onClick:self action:@selector(clickLogin:)];
 	[linkedinButton onClick:self action:@selector(clickLinkedin:)];
-	[forgotLabel onClick:self action:@selector(clickForgot:)];
+	[forgotLabel onClickView:self action:@selector(clickForgot:)];
 }
 
 

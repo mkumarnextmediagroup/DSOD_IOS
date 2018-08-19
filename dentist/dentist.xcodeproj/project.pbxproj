@@ -60,6 +60,7 @@
 		C5EEAE562042AC89740F25B0 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAC2EE0E713EE63B492A5 /* checkbox.png */; };
 		C5EEAE86F4DCB0CEF09C5B49 /* logo_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA0DE73B049D946E71EA1 /* logo_white@2x.png */; };
 		C5EEAF2A194521DC8C0BD8A0 /* checkbox_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA5F9F6A770ECFEAE79BD /* checkbox_on@3x.png */; };
+		C5EEAF6A040452F10D489279 /* NSString+myextend.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA322E513676D2AD98D68 /* NSString+myextend.m */; };
 		E11E10BD74EC149921ADD708 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = E11E1CE1666065721BBFD75C /* LoginController.m */; };
 		E11E157223BF973AEB726995 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = E11E1071C5BB25C5DF71E7E4 /* Podfile */; };
 /* End PBXBuildFile section */
@@ -89,6 +90,7 @@
 		C5EEA26491F4A964247D88D3 /* checkbox_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_on@2x.png"; sourceTree = "<group>"; };
 		C5EEA26FE0A8A22D3399DE3E /* TapGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapGesture.m; sourceTree = "<group>"; };
 		C5EEA30917CCFA40C14CC248 /* inkedin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inkedin@3x.png"; sourceTree = "<group>"; };
+		C5EEA322E513676D2AD98D68 /* NSString+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+myextend.m"; sourceTree = "<group>"; };
 		C5EEA36D27849EDE93EE982E /* StudentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentController.m; sourceTree = "<group>"; };
 		C5EEA4256B021E478012CC56 /* StackLayoutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackLayoutItem.h; sourceTree = "<group>"; };
 		C5EEA48BF55947D0882B84F7 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 		C5EEA6C2E9723639C9F2F3FF /* BaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
 		C5EEA774D7153D4B1BEEBA57 /* checkbox_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_on.png; sourceTree = "<group>"; };
 		C5EEA7921005BA1AD231EC66 /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
+		C5EEA803D53AEC31FDF0661A /* NSString+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+myextend.h"; sourceTree = "<group>"; };
 		C5EEA811A5ED37C88C49CB9A /* TextSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextSize.h; sourceTree = "<group>"; };
 		C5EEA8718BE48E66BCDCCD90 /* in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = in.png; sourceTree = "<group>"; };
 		C5EEA8A22AAACC2B56D30F80 /* Consts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Consts.h; sourceTree = "<group>"; };
@@ -301,6 +304,8 @@
 				C5EEA5D6567A6F2AD2F67609 /* UIImage+customed.h */,
 				C5EEA987B083DB10CDE9D9E0 /* MASConstraintMaker+myextend.m */,
 				C5EEA5D4F5F8FD76F0AE4BF7 /* MASConstraintMaker+myextend.h */,
+				C5EEA322E513676D2AD98D68 /* NSString+myextend.m */,
+				C5EEA803D53AEC31FDF0661A /* NSString+myextend.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -463,6 +468,7 @@
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
 				C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */,
 				C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */,
+				C5EEAF6A040452F10D489279 /* NSString+myextend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

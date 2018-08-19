@@ -5,6 +5,7 @@
 
 #import "RegController.h"
 #import "LoginController.h"
+#import "NSString+myextend.h"
 
 
 @interface RegController ()
@@ -16,6 +17,7 @@
 	UITextField *emailEdit;
 	UITextField *pwdEdit;
 	UIButton *checkButton;
+	UIButton *regButton;
 }
 
 - (id)init {
@@ -76,7 +78,7 @@
 		[linkedinButton onClick:self action:@selector(clickLinkedin:)];
 	}
 
-	UIButton *regButton = self.view.addButton;
+	regButton = self.view.addButton;
 	[regButton title:localStr(@"reg")];
 	[regButton styleWhite];
 	regButton.enabled = NO;
@@ -146,17 +148,22 @@
 	pwdEdit.delegate = self;
 	pwdEdit.hint = localStr(@"pwd");
 	[pwdEdit stylePassword];
+	[pwdEdit returnDone];
+	[pwdEdit keyboardDefault];
 	[sl push:pwdEdit height:36 marginBottom:10];
 
 	emailEdit = self.view.addEdit;
 	emailEdit.delegate = self;
 	emailEdit.hint = localStr(@"email_address");
+	[emailEdit returnNext];
+	[emailEdit keyboardEmail];
 	[sl push:emailEdit height:36 marginBottom:10];
 
 	nameEdit = self.view.addEdit;
 	nameEdit.delegate = self;
 	nameEdit.hint = localStr(@"full_name");
-
+	[nameEdit returnNext];
+	[nameEdit keyboardDefault];
 	[sl push:nameEdit height:36 marginBottom:10];
 
 
@@ -174,6 +181,31 @@
 	[backView onClick:self action:@selector(clickGoBack:)];
 	[regButton onClick:self action:@selector(clickReg:)];
 	[loginLabel onClickView:self action:@selector(clickLogin:)];
+}
+
+
+- (void)onTextFieldDone:(UITextField *)textField {
+
+	BOOL err = NO;
+	if ([nameEdit.text trimed].length < 1) {
+		[nameEdit themeError];
+		err = YES;
+	} else {
+		[nameEdit themeNormal];
+	}
+	if ([emailEdit.text trimed].length < 5 || !emailEdit.text.matchEmail) {
+		[emailEdit themeError];
+		err = YES;
+	} else {
+		[emailEdit themeNormal];
+	}
+	if ([pwdEdit.text trimed].length < 2) {
+		[pwdEdit themeError];
+		err = YES;
+	} else {
+		[pwdEdit themeNormal];
+	}
+	regButton.enabled = !err;
 }
 
 

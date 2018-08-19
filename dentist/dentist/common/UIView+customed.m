@@ -11,6 +11,10 @@
 
 @implementation UIView (customed)
 
+- (CGRect)toScreenFrame {
+	UIWindow *w = [[UIApplication sharedApplication] keyWindow];
+	return [self convertRect:self.bounds toView:w];
+}
 
 - (void)onClickView:(id)target action:(SEL)action {
 	self.userInteractionEnabled = YES;

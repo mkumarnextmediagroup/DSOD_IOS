@@ -5,6 +5,7 @@
 
 #import "LoginController.h"
 #import "Common.h"
+#import "NSString+myextend.h"
 
 
 @interface LoginController ()
@@ -15,6 +16,7 @@
 	UITextField *emailEdit;
 	UITextField *pwdEdit;
 	UIButton *checkButton;
+	UIButton *loginButton;
 }
 
 - (void)viewDidLoad {
@@ -56,7 +58,7 @@
 	pwdEdit.delegate = self;
 	pwdEdit.hint = localStr(@"pwd");
 	[pwdEdit stylePassword];
-//	[pwdEdit styleError];
+//	[pwdEdit themeError];
 	[pwdEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:23];
 
 	checkButton = self.view.addCheckbox;
@@ -79,7 +81,7 @@
 	[[[[[forgotLabel layoutMaker] sizeFit] rightOf:pwdEdit] centerYOf:touchLabel offset:0] install];
 
 
-	UIButton *loginButton = self.view.addButton;
+	loginButton = self.view.addButton;
 	[loginButton title:localStr(@"login")];
 	[loginButton styleSecondary];
 
@@ -116,6 +118,30 @@
 	[loginButton onClick:self action:@selector(clickLogin:)];
 	[linkedinButton onClick:self action:@selector(clickLinkedin:)];
 	[forgotLabel onClickView:self action:@selector(clickForgot:)];
+
+	[emailEdit returnNext];
+	[pwdEdit returnDone];
+
+	[emailEdit keyboardEmail];
+	[pwdEdit keyboardDefault];
+}
+
+- (void)onTextFieldDone:(UITextField *)textField {
+	BOOL err = NO;
+
+	if ([emailEdit.text trimed].length < 5 || !emailEdit.text.matchEmail) {
+		[emailEdit themeError];
+		err = YES;
+	} else {
+		[emailEdit themeNormal];
+	}
+	if ([pwdEdit.text trimed].length < 2) {
+		[pwdEdit themeError];
+		err = YES;
+	} else {
+		[pwdEdit themeNormal];
+	}
+	loginButton.enabled = !err;
 }
 
 

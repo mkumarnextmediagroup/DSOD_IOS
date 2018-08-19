@@ -67,20 +67,42 @@
 	self.leftViewMode = UITextFieldViewModeAlways;
 }
 
-- (void)styleDisabled {
-	self.layer.borderColor = Colors.bgDisabled.CGColor;
-	self.backgroundColor = Colors.bgDisabled;
+- (void)themeDisabled {
+	if (self.borderStyle == UITextBorderStyleNone) {
+		[self themeLineDisabled];
+	} else {
+		self.layer.borderColor = Colors.bgDisabled.CGColor;
+		self.backgroundColor = Colors.bgDisabled;
+	}
 }
 
 
-- (void)styleNormal {
-	self.layer.borderColor = Colors.borderNormal.CGColor;
-	self.backgroundColor = UIColor.whiteColor;
+- (void)themeNormal {
+	if (self.borderStyle == UITextBorderStyleNone) {
+		[self themeLineNormal];
+	} else {
+		self.layer.borderColor = Colors.borderNormal.CGColor;
+		self.backgroundColor = UIColor.whiteColor;
+		if (self.rightView != nil) {
+			if ([self.rightView isKindOfClass:[UIImageView class]]) {
+				self.rightView = nil;
+			}
+		}
+	}
 }
 
-- (void)styleActive {
-	self.layer.borderColor = Colors.borderActive.CGColor;
-	self.backgroundColor = UIColor.whiteColor;
+- (void)themeActive {
+	if (self.borderStyle == UITextBorderStyleNone) {
+		[self themeLineActive];
+	} else {
+		self.layer.borderColor = Colors.borderActive.CGColor;
+		self.backgroundColor = UIColor.whiteColor;
+		if (self.rightView != nil) {
+			if ([self.rightView isKindOfClass:[UIImageView class]]) {
+				self.rightView = nil;
+			}
+		}
+	}
 }
 
 - (void)stylePassword {
@@ -105,69 +127,198 @@
 		[self setSecureTextEntry:YES];
 		[sender title:localStr(@"show")];
 	}
-	NSString* s = self.text;
+	NSString *s = self.text;
 	self.text = @"";
-	self.text = s ;
+	self.text = s;
 }
 
 
-- (void)styleError {
-	self.layer.borderColor = Colors.borderError.CGColor;
-	self.backgroundColor = UIColor.whiteColor;
+- (void)themeError {
 
-	UIImage *img = [UIImage imageNamed:@"error"];
-	UIImageView *iv = [[UIImageView alloc] initWithImage:img];
-	self.rightView = iv;
-	self.rightViewMode = UITextFieldViewModeUnlessEditing;
+	if (self.borderStyle == UITextBorderStyleNone) {
+		[self themeLineError];
+	} else {
+		self.layer.borderColor = Colors.borderError.CGColor;
+		self.backgroundColor = UIColor.whiteColor;
+		if (self.rightView == nil || [self.rightView isKindOfClass:[UIImageView class]]) {
+			UIImage *img = [UIImage imageNamed:@"error"];
+			UIImageView *iv = [[UIImageView alloc] initWithImage:img];
+			iv.tag = TAG_ERROR_SUCCESS;
+			[iv alignLeft];
+			iv.frame = makeRect(0, 0, 30, 30);
+			self.rightView = iv;
+			self.rightViewMode = UITextFieldViewModeUnlessEditing;
+		}
+	}
+
 }
 
-- (void)styleSuccess {
-	self.layer.borderColor = Colors.borderSuccess.CGColor;
-	self.backgroundColor = UIColor.whiteColor;
+- (void)themeSuccess {
+	if (self.borderStyle == UITextBorderStyleNone) {
+		[self themeLineSuccess];
+	} else {
+		self.layer.borderColor = Colors.borderSuccess.CGColor;
+		self.backgroundColor = UIColor.whiteColor;
 
-	UIImage *img = [UIImage imageNamed:@"ok"];
-	UIImageView *iv = [[UIImageView alloc] initWithImage:img];
-	self.rightView = iv;
-	self.rightViewMode = UITextFieldViewModeUnlessEditing;
+		if (self.rightView == nil || [self.rightView isKindOfClass:[UIImageView class]]) {
+			UIImage *img = [UIImage imageNamed:@"ok"];
+			UIImageView *iv = [[UIImageView alloc] initWithImage:img];
+			iv.tag = TAG_ERROR_SUCCESS;
+			[iv alignLeft];
+			iv.frame = makeRect(0, 0, 30, 30);
+			self.rightView = iv;
+			self.rightViewMode = UITextFieldViewModeUnlessEditing;
+		}
+	}
 }
 
 
-- (void)styleLine:(UIColor *)borderColor {
+- (void)styleLine {
 	CALayer *ly = CALayer.layer;
 	ly.frame = CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 1);
-	ly.backgroundColor = borderColor.CGColor;
-	self.borderStyle = UITextBorderStyleNone;
+	ly.backgroundColor = Colors.borderNormal.CGColor;
 	[self.layer addSublayer:ly];
 
-	self.backgroundColor = UIColor.whiteColor;
-	self.clearButtonMode = UITextFieldViewModeWhileEditing;
 	[self textColorMain];
 
+	self.borderStyle = UITextBorderStyleNone;
+	self.backgroundColor = UIColor.whiteColor;
+	self.clearButtonMode = UITextFieldViewModeWhileEditing;
 	self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 16, 10)];
 	self.leftViewMode = UITextFieldViewModeAlways;
 }
 
 
-- (void)styleLineDisabled {
-	[self styleLine:UIColor.whiteColor];
+- (void)themeLineDisabled {
+	NSArray<CALayer *> *ar = self.layer.sublayers;
+	if (ar != nil && ar.count > 0) {
+		CALayer *ly = ar[ar.count - 1];
+		ly.backgroundColor = Colors.bgDisabled.CGColor;
+	} else {
+		CALayer *ly = CALayer.layer;
+		ly.frame = CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 1);
+		ly.backgroundColor = Colors.bgDisabled.CGColor;
+		[self.layer addSublayer:ly];
+	}
 	[self textColorAlternate];
 }
 
 
-- (void)styleLineNormal {
-	[self styleLine:Colors.borderNormal];
+- (void)themeLineNormal {
+	NSArray<CALayer *> *ar = self.layer.sublayers;
+	if (ar != nil && ar.count > 0) {
+		CALayer *ly = ar[ar.count - 1];
+		ly.backgroundColor = Colors.borderNormal.CGColor;
+	} else {
+		CALayer *ly = CALayer.layer;
+		ly.frame = CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 1);
+		ly.backgroundColor = Colors.borderNormal.CGColor;
+		[self.layer addSublayer:ly];
+	}
+	[self textColorMain];
 }
 
-- (void)styleLineActive {
-	[self styleLine:Colors.borderActive];
+- (void)themeLineActive {
+	NSArray<CALayer *> *ar = self.layer.sublayers;
+	if (ar != nil && ar.count > 0) {
+		CALayer *ly = ar[ar.count - 1];
+		ly.backgroundColor = Colors.borderActive.CGColor;
+	} else {
+		CALayer *ly = CALayer.layer;
+		ly.frame = CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 1);
+		ly.backgroundColor = Colors.borderActive.CGColor;
+		[self.layer addSublayer:ly];
+	}
+	[self textColorMain];
 }
 
-- (void)styleLineError {
-	[self styleLine:Colors.borderError];
+- (void)themeLineError {
+	NSArray<CALayer *> *ar = self.layer.sublayers;
+	if (ar != nil && ar.count > 0) {
+		CALayer *ly = ar[ar.count - 1];
+		ly.backgroundColor = Colors.borderError.CGColor;
+	} else {
+		CALayer *ly = CALayer.layer;
+		ly.frame = CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 1);
+		ly.backgroundColor = Colors.borderError.CGColor;
+		[self.layer addSublayer:ly];
+	}
+	[self textColorMain];
 }
 
-- (void)styleLineSuccess {
-	[self styleLine:Colors.borderSuccess];
+- (void)themeLineSuccess {
+	NSArray<CALayer *> *ar = self.layer.sublayers;
+	if (ar != nil && ar.count > 0) {
+		CALayer *ly = ar[ar.count - 1];
+		ly.backgroundColor = Colors.borderSuccess.CGColor;
+	} else {
+		CALayer *ly = CALayer.layer;
+		ly.frame = CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 1);
+		ly.backgroundColor = Colors.borderSuccess.CGColor;
+		[self.layer addSublayer:ly];
+	}
+	[self textColorMain];
+}
+
+
+- (void)returnDone {
+	self.returnKeyType = UIReturnKeyDone;
+}
+
+- (void)returnNext {
+	self.returnKeyType = UIReturnKeyNext;
+}
+
+- (void)returnGo {
+	self.returnKeyType = UIReturnKeyGo;
+}
+
+- (void)returnSearch {
+	self.returnKeyType = UIReturnKeySearch;
+}
+
+- (void)returnJoin {
+	self.returnKeyType = UIReturnKeyJoin;
+}
+
+- (void)returnDefault {
+	self.returnKeyType = UIReturnKeyDefault;
+}
+
+- (void)returnSend {
+	self.returnKeyType = UIReturnKeySend;
+}
+
+- (void)returnContinue {
+	self.returnKeyType = UIReturnKeyContinue;
+}
+
+- (void)keyboardDefault {
+	self.keyboardType = UIKeyboardTypeDefault;
+}
+
+- (void)keyboardPhone {
+	self.keyboardType = UIKeyboardTypePhonePad;
+}
+
+- (void)keyboardNumber {
+	self.keyboardType = UIKeyboardTypeNumberPad;
+}
+
+- (void)keyboardNumberAndPun {
+	self.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+}
+
+- (void)keyboardUrl {
+	self.keyboardType = UIKeyboardTypeURL;
+}
+
+- (void)keyboardEmail {
+	self.keyboardType = UIKeyboardTypeEmailAddress;
+}
+
+- (void)keyboardDecimal {
+	self.keyboardType = UIKeyboardTypeDecimalPad;
 }
 
 

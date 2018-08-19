@@ -45,13 +45,13 @@
 
 	UIButton *yesButton = [UIButton new];
 	[yesButton title:localStr(@"yes")];
-	[yesButton styleWhite ] ;
+	[yesButton styleWhite];
 	[self.view addSubview:yesButton];
 
 
 	UIButton *noButton = [UIButton new];
 	[noButton title:localStr(@"no")];
-	[noButton styleWhite ] ;
+	[noButton styleWhite];
 	[self.view addSubview:noButton];
 
 
@@ -69,11 +69,13 @@
 
 - (void)clickYes:(id)sender {
 	RegController *c = [RegController new];
+	c.student = YES;
 	[self presentViewController:c animated:YES completion:nil];
 }
 
 - (void)clickNo:(id)sender {
 	RegController *c = [RegController new];
+	c.student = NO;
 	[self presentViewController:c animated:YES completion:nil];
 }
 

@@ -25,6 +25,11 @@
 "already_user" = "Already a user?";
 "reg_linkedin" = "Signn up using LinkedIn";
 "full_name" = "Full name";
-"pwd_req" = "Password Requirements";
+"pwd_req" = "      Password Requirements";
+"agree" = "By creating an account, you agree to \n DSODentist's";
+"terms" = "Terms of Service";
+"and" = " and ";
+"policy" = "Privacy Policy";
+
 
 

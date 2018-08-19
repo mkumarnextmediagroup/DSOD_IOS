@@ -18,6 +18,12 @@
 	UIButton *checkButton;
 }
 
+- (id)init {
+	self = [super init];
+	self.student = false;
+	return self;
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
@@ -55,23 +61,63 @@
 
 	[sl push:loginPanel height:20 marginBottom:33];
 
-	UIButton *linkedinButton = self.view.addButton;
-	[linkedinButton title:localStr(@"reg_linkedin")];
-	linkedinButton.styleBlue;
-	UIImageView *inView = linkedinButton.addImageView;
-	inView.imageName = @"in";
-	[inView scaleFit];
-	[[[inView.layoutMaker sizeEq:20 h:20] leftParent:10] centerYParent:0].install;
-	UIView *lineView = linkedinButton.addView;
-	lineView.backgroundColor = rgb255(0x2F, 0x9c, 0xD5);
+	if (!self.student) {
+		UIButton *linkedinButton = self.view.addButton;
+		[linkedinButton title:localStr(@"reg_linkedin")];
+		linkedinButton.styleBlue;
+		UIImageView *inView = linkedinButton.addImageView;
+		inView.imageName = @"in";
+		[inView scaleFit];
+		[[[inView.layoutMaker sizeEq:20 h:20] leftParent:10] centerYParent:0].install;
+		UIView *lineView = linkedinButton.addView;
+		lineView.backgroundColor = rgb255(0x2F, 0x9c, 0xD5);
+		[sl push:linkedinButton height:BTN_HEIGHT marginBottom:22];
 
-	[sl push:linkedinButton height:BTN_HEIGHT marginBottom:22];
+		[linkedinButton onClick:self action:@selector(clickLinkedin:)];
+	}
 
 	UIButton *regButton = self.view.addButton;
 	[regButton title:localStr(@"reg")];
-	regButton.stylePrimary;
-
+	[regButton styleWhite];
+	regButton.enabled = NO;
 	[sl push:regButton height:BTN_HEIGHT marginBottom:10];
+
+
+	UIView *termPanel = self.view.addView;
+	[sl push:termPanel height:18 marginBottom:5];
+
+	UILabel *andLabel = termPanel.addLabel;
+	andLabel.font = [Fonts regular:12];
+	andLabel.text = localStr(@"and");
+	[[[[[andLabel layoutMaker] sizeFit] centerXParent:8] topParent:0] install];
+
+	UILabel *termLabel = termPanel.addLabel;
+	termLabel.font = [Fonts regular:12];
+	termLabel.text = localStr(@"terms");
+	[termLabel underLineSingle];
+	[[[[[termLabel layoutMaker] sizeFit] topParent:0] toLeftOf:andLabel offset:0] install];
+	[termLabel onClick:self action:@selector(clickTerms:)];
+
+	UILabel *policyLabel = termPanel.addLabel;
+	policyLabel.font = [Fonts regular:12];
+	policyLabel.text = localStr(@"policy");
+	[policyLabel underLineSingle];
+	[[[[[policyLabel layoutMaker] sizeFit] topParent:0] toRightOf:andLabel offset:0] install];
+	[policyLabel onClick:self action:@selector(clickPolicy:)];
+
+	UILabel *dotLabel = termPanel.addLabel;
+	dotLabel.font = [Fonts regular:12];
+	dotLabel.text = @".";
+	[[[[[dotLabel layoutMaker] sizeFit] topParent:0] toRightOf:policyLabel offset:0] install];
+
+
+	UILabel *agreeLabel = self.view.addLabel;
+	agreeLabel.font = [Fonts regular:12];
+	agreeLabel.numberOfLines = 2;
+	[agreeLabel textAlignCenter];
+	agreeLabel.text = localStr(@"agree");
+	[sl push:agreeLabel height:agreeLabel.heightThatFit marginBottom:0];
+
 
 	UIView *checkPanel = self.view.addView;
 	checkButton = checkPanel.addCheckbox;
@@ -83,13 +129,17 @@
 	touchLabel.font = [Fonts light:15];
 	[[[[[touchLabel layoutMaker] sizeFit] toRightOf:checkButton offset:10] centerYParent:0] install];
 
-	[sl push:checkPanel height:30 marginBottom:80];
+	[sl push:checkPanel height:30 marginBottom:20];
 
 	UILabel *reqLabel = self.view.addLabel;
 	reqLabel.text = localStr(@"pwd_req");
 	reqLabel.font = [Fonts light:12];
 	[reqLabel textColorWhite];
-	[sl push:reqLabel height:[reqLabel heightThatFit] marginBottom:25];
+	UIImageView *infoImgView = reqLabel.addImageView;
+	infoImgView.imageName = @"info";
+	[infoImgView scaleFill];
+	[[[[[infoImgView layoutMaker] sizeEq:15 h:15] leftParent:0] centerYParent:0] install];
+	[sl push:reqLabel height:[reqLabel heightThatFit] marginBottom:22];
 
 
 	pwdEdit = self.view.addEdit;
@@ -122,7 +172,6 @@
 
 	[backView onClick:self action:@selector(clickGoBack:)];
 	[regButton onClick:self action:@selector(clickReg:)];
-	[linkedinButton onClick:self action:@selector(clickLinkedin:)];
 	[loginLabel onClick:self action:@selector(clickLogin:)];
 }
 
@@ -131,6 +180,13 @@
 	[self dismiss];
 }
 
+- (void)clickTerms:(id)sender {
+	NSLog(@"clickTerms");
+}
+
+- (void)clickPolicy:(id)sender {
+	NSLog(@"clickTerms");
+}
 
 - (void)clickReg:(id)sender {
 	NSLog(@"clickLogin");

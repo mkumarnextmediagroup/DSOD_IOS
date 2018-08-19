@@ -9,4 +9,6 @@
 
 @interface RegController : BaseController
 
+@property BOOL student;
+
 @end

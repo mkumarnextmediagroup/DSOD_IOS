@@ -44,13 +44,16 @@
 		C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAAE437209CC4CB67759E /* UITextField+styled.m */; };
 		C5EEA95978E5B48775A62BA9 /* UIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAE46630ABFE8D77F9BD2 /* UIUtil.m */; };
 		C5EEA97A363C02981633699C /* StackLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA5618C6AF14B04224B97 /* StackLayout.m */; };
+		C5EEA9C145CEE1C7091EA50F /* info@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAE3E82D71BB36A5623A5 /* info@3x.png */; };
 		C5EEA9C826673B94007566E8 /* checkbox_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA26491F4A964247D88D3 /* checkbox_on@2x.png */; };
 		C5EEA9E893F712BA5CC4938D /* TextSize.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEACBC931939B104FC3D13 /* TextSize.m */; };
 		C5EEA9F6FFD32D08ABB00CE8 /* UIView+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEABE85BEEC4C83787521E /* UIView+customed.m */; };
 		C5EEAA269C87F480239BF21E /* TapGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA26FE0A8A22D3399DE3E /* TapGesture.m */; };
 		C5EEAAE976626BD0AD7F87A8 /* in.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA8718BE48E66BCDCCD90 /* in.png */; };
 		C5EEAB1B08FE088DAFBA7763 /* Fonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAC56322EB38F34BC5D19 /* Fonts.m */; };
+		C5EEAB39CFA076691E67BA42 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAF174673741A891E08C7 /* info.png */; };
 		C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA2081FE1E7048216CB0F /* RegController.m */; };
+		C5EEAC84691A5246841E615B /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA7921005BA1AD231EC66 /* info@2x.png */; };
 		C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAF6B331211FDA925279D /* UIScreen+customed.m */; };
 		C5EEAD868056CEA29BDACC95 /* logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAFA6847EBD5CB2040106 /* logo@3x.png */; };
 		C5EEAE3B78A71516A252C86F /* StackLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAF6550A8BFEA1922A8F1 /* StackLayoutItem.m */; };
@@ -100,6 +103,7 @@
 		C5EEA64F84AE34B5F5F79A7F /* ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ok@3x.png"; sourceTree = "<group>"; };
 		C5EEA6C2E9723639C9F2F3FF /* BaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
 		C5EEA774D7153D4B1BEEBA57 /* checkbox_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_on.png; sourceTree = "<group>"; };
+		C5EEA7921005BA1AD231EC66 /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
 		C5EEA811A5ED37C88C49CB9A /* TextSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextSize.h; sourceTree = "<group>"; };
 		C5EEA8718BE48E66BCDCCD90 /* in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = in.png; sourceTree = "<group>"; };
 		C5EEA8A22AAACC2B56D30F80 /* Consts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Consts.h; sourceTree = "<group>"; };
@@ -134,9 +138,11 @@
 		C5EEADA20900AEC4F88BB5B2 /* UITextField+styled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+styled.h"; sourceTree = "<group>"; };
 		C5EEADB73500333182433F3A /* UIImage+customed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+customed.m"; sourceTree = "<group>"; };
 		C5EEAE085D2BEF383E4F2BA8 /* in@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "in@2x.png"; sourceTree = "<group>"; };
+		C5EEAE3E82D71BB36A5623A5 /* info@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@3x.png"; sourceTree = "<group>"; };
 		C5EEAE46630ABFE8D77F9BD2 /* UIUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtil.m; sourceTree = "<group>"; };
 		C5EEAE98803C6DEDE38865EB /* StackLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackLayout.h; sourceTree = "<group>"; };
 		C5EEAEBA73BB1DD685EB19FE /* NSMutableAttributedString+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+customed.h"; sourceTree = "<group>"; };
+		C5EEAF174673741A891E08C7 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		C5EEAF6550A8BFEA1922A8F1 /* StackLayoutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackLayoutItem.m; sourceTree = "<group>"; };
 		C5EEAF6B331211FDA925279D /* UIScreen+customed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+customed.m"; sourceTree = "<group>"; };
 		C5EEAF8E7EDDD03188A629E5 /* TapGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapGesture.h; sourceTree = "<group>"; };
@@ -221,6 +227,9 @@
 				C5EEA8718BE48E66BCDCCD90 /* in.png */,
 				C5EEAE085D2BEF383E4F2BA8 /* in@2x.png */,
 				C5EEA0D6F3D346ABA57627E3 /* in@3x.png */,
+				C5EEAF174673741A891E08C7 /* info.png */,
+				C5EEA7921005BA1AD231EC66 /* info@2x.png */,
+				C5EEAE3E82D71BB36A5623A5 /* info@3x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -395,6 +404,9 @@
 				C5EEAAE976626BD0AD7F87A8 /* in.png in Resources */,
 				C5EEA3FB2294B0B512A2C1DB /* in@2x.png in Resources */,
 				C5EEA1D0E4573EAC275DB65F /* in@3x.png in Resources */,
+				C5EEAB39CFA076691E67BA42 /* info.png in Resources */,
+				C5EEAC84691A5246841E615B /* info@2x.png in Resources */,
+				C5EEA9C145CEE1C7091EA50F /* info@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

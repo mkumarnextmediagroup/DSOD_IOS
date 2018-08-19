@@ -66,11 +66,11 @@
 	if (!self.student) {
 		UIButton *linkedinButton = self.view.addButton;
 		[linkedinButton title:localStr(@"reg_linkedin")];
-		linkedinButton.styleBlue;
+		[linkedinButton styleBlue];
 		UIImageView *inView = linkedinButton.addImageView;
 		inView.imageName = @"in";
 		[inView scaleFit];
-		[[[inView.layoutMaker sizeEq:20 h:20] leftParent:10] centerYParent:0].install;
+		[[[[inView.layoutMaker sizeEq:20 h:20] leftParent:10] centerYParent:0] install ];
 		UIView *lineView = linkedinButton.addView;
 		lineView.backgroundColor = rgb255(0x2F, 0x9c, 0xD5);
 		[sl push:linkedinButton height:BTN_HEIGHT marginBottom:22];

@@ -43,7 +43,7 @@
 	if (textField.returnKeyType == UIReturnKeyNext) {
 		UITextField *ed = [self _findNextEdit:textField];
 		if (ed != nil) {
-			ed.becomeFirstResponder;
+			[ed becomeFirstResponder];
 		} else {
 			[textField resignFirstResponder];
 		}

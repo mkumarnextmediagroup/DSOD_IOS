@@ -10,14 +10,14 @@
 @property(class, nonatomic, readonly) CGFloat heightPrefer;
 @property(class, nonatomic, readonly) CGFloat widthLarge;
 
-- (UIButton *)styleBlue;
-- (UIButton *)stylePrimary;
+- (void)styleBlue;
+- (void)stylePrimary;
 
-- (UIButton *)styleSecondary;
+- (void)styleSecondary;
 
-- (UIButton *)styleWhite;
+- (void)styleWhite;
 
-- (UIButton *)title:(NSString *)text;
+- (void)title:(NSString *)text;
 
 - (void)textColorWhite;
 

@@ -4,18 +4,36 @@
 //
 
 #import "UIView+customed.h"
-#import "Masonry.h"
 #import "Common.h"
-#import "UIControl+customed.h"
+#import "TapGesture.h"
+#import "Platform.h"
 
 
 @implementation UIView (customed)
+
+- (CGRect)toScreenFrame {
+	UIWindow *w = [[UIApplication sharedApplication] keyWindow];
+	return [self convertRect:self.bounds toView:w];
+}
+
+- (void)onClickView:(id)target action:(SEL)action {
+	self.userInteractionEnabled = YES;
+	TapGesture *t = [[TapGesture alloc] initWithTarget:self action:@selector(_onClickViewCallback:)];
+	t.target = target;
+	t.action = action;
+	[self addGestureRecognizer:t];
+}
+
+- (void)_onClickViewCallback:(UITapGestureRecognizer *)recognizer {
+	TapGesture *t = (TapGesture *) recognizer;
+	objcSendMsg(t.target, t.action, t.view);
+}
 
 
 - (UIView *)addView {
 	UIView *v = [UIView new];
 	[self addSubview:v];
-	v.backgroundColor = UIColor.grayColor;
+	v.backgroundColor = UIColor.clearColor;
 	return v;
 }
 
@@ -45,6 +63,7 @@
 - (UILabel *)addLabel {
 	UILabel *lb = [UILabel new];
 	lb.backgroundColor = UIColor.clearColor;
+	[lb textColorWhite];
 	[self addSubview:lb];
 	return lb;
 }
@@ -57,14 +76,15 @@
 
 - (UITextField *)addEdit {
 	UITextField *edit = [UITextField new];
-	edit.styleNormal;
+	[edit rounded];
 	[self addSubview:edit];
 	return edit;
 }
 
+
 - (UIButton *)addButton {
 	UIButton *button = [UIButton new];
-	button.styleWhite;
+	[button styleWhite];
 	[self addSubview:button];
 	return button;
 }

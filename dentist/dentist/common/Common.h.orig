@@ -17,6 +17,10 @@
 #import "UITextField+styled.h"
 #import "UIImageView+customed.h"
 #import "MASConstraintMaker+myextend.h"
+<<<<<<< HEAD
+#import "StackLayout.h"
+#import "UIControl+customed.h"
+=======
 
 #import "StackLayout.h"
 #import "UIView+customed.h"
@@ -24,3 +28,4 @@
 #import "UIControl+customed.h"
 #import "NSString+myextend.h"
 
+>>>>>>> local_dev

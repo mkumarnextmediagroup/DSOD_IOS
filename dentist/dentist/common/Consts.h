@@ -11,4 +11,8 @@
 
 #define EDIT_HEIGHT 36
 
+#define REG_EMAIL @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,8}"
+
+#define TAG_ERROR_SUCCESS 999
+
 #endif

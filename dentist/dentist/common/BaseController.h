@@ -11,7 +11,9 @@
 
 - (void)openPage:(UIViewController *)c;
 
--(void) dismiss;
+- (void)dismiss;
+
+- (void)onTextFieldDone:(UITextField *)textField;
 
 - (void)setTopTitle:(NSString *)title imageName:(UIImage *)imageName;
 @end

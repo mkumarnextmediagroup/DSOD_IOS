@@ -178,4 +178,5 @@
     ForgotViewController *forgot = [ForgotViewController new];
     [self openPage:forgot];
 }
+
 @end

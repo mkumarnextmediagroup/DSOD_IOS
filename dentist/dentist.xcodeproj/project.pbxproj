@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6AF212A595B00A0672D /* ForgotViewController.m */; };
+		4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B3212A5E1000A0672D /* NoIntenetViewController.m */; };
+		4EBCE6B7212A8A4700A0672D /* close_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B5212A8A4700A0672D /* close_white@2x.png */; };
+		4EBCE6B8212A8A4700A0672D /* close_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B6212A8A4700A0672D /* close_white@3x.png */; };
+		4EBCE6BB212AACE600A0672D /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6BA212AACE600A0672D /* NoticeViewController.m */; };
 		574B3A23212338DF00C37095 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A22212338DF00C37095 /* AppDelegate.m */; };
 		574B3A2B212338E100C37095 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 574B3A2A212338E100C37095 /* Assets.xcassets */; };
 		574B3A31212338E100C37095 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A30212338E100C37095 /* main.m */; };
@@ -61,6 +66,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4EBCE6AE212A595B00A0672D /* ForgotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotViewController.h; sourceTree = "<group>"; };
+		4EBCE6AF212A595B00A0672D /* ForgotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotViewController.m; sourceTree = "<group>"; };
+		4EBCE6B2212A5E1000A0672D /* NoIntenetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoIntenetViewController.h; sourceTree = "<group>"; };
+		4EBCE6B3212A5E1000A0672D /* NoIntenetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoIntenetViewController.m; sourceTree = "<group>"; };
+		4EBCE6B5212A8A4700A0672D /* close_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_white@2x.png"; sourceTree = "<group>"; };
+		4EBCE6B6212A8A4700A0672D /* close_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_white@3x.png"; sourceTree = "<group>"; };
+		4EBCE6B9212AACE600A0672D /* NoticeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoticeViewController.h; sourceTree = "<group>"; };
+		4EBCE6BA212AACE600A0672D /* NoticeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoticeViewController.m; sourceTree = "<group>"; };
+		4EBCE6BC212AB4A900A0672D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		574B3A1E212338DF00C37095 /* dentist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dentist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		574B3A21212338DF00C37095 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		574B3A22212338DF00C37095 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -156,6 +170,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4EBCE6AA212966B700A0672D /* login_forgot */ = {
+			isa = PBXGroup;
+			children = (
+				4EBCE6AE212A595B00A0672D /* ForgotViewController.h */,
+				4EBCE6AF212A595B00A0672D /* ForgotViewController.m */,
+			);
+			path = login_forgot;
+			sourceTree = "<group>";
+		};
+		4EBCE6B1212A5E1000A0672D /* common_page */ = {
+			isa = PBXGroup;
+			children = (
+				4EBCE6B2212A5E1000A0672D /* NoIntenetViewController.h */,
+				4EBCE6B3212A5E1000A0672D /* NoIntenetViewController.m */,
+				4EBCE6B9212AACE600A0672D /* NoticeViewController.h */,
+				4EBCE6BA212AACE600A0672D /* NoticeViewController.m */,
+			);
+			path = common_page;
+			sourceTree = "<group>";
+		};
 		574B3A15212338DF00C37095 = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +213,8 @@
 		574B3A20212338DF00C37095 /* dentist */ = {
 			isa = PBXGroup;
 			children = (
+				4EBCE6B1212A5E1000A0672D /* common_page */,
+				4EBCE6AA212966B700A0672D /* login_forgot */,
 				57B0990021256E240010597B /* Images */,
 				574B3A21212338DF00C37095 /* AppDelegate.h */,
 				574B3A22212338DF00C37095 /* AppDelegate.m */,
@@ -199,6 +235,8 @@
 				57B0990521256E840010597B /* bg_2.png */,
 				57B0990221256E830010597B /* bg_3.png */,
 				57B0990321256E830010597B /* close.png */,
+				4EBCE6B5212A8A4700A0672D /* close_white@2x.png */,
+				4EBCE6B6212A8A4700A0672D /* close_white@3x.png */,
 				57B0990421256E840010597B /* linked_in.png */,
 				C5EEA18EB9B95E5485DE66DA /* error@3x.png */,
 				C5EEA64F84AE34B5F5F79A7F /* ok@3x.png */,
@@ -289,6 +327,7 @@
 				C5EEA5D6567A6F2AD2F67609 /* UIImage+customed.h */,
 				C5EEA987B083DB10CDE9D9E0 /* MASConstraintMaker+myextend.m */,
 				C5EEA5D4F5F8FD76F0AE4BF7 /* MASConstraintMaker+myextend.h */,
+				4EBCE6BC212AB4A900A0672D /* PrefixHeader.pch */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -364,6 +403,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EBCE6B7212A8A4700A0672D /* close_white@2x.png in Resources */,
 				57B0990921256E840010597B /* close.png in Resources */,
 				57B0990721256E840010597B /* bg_1.png in Resources */,
 				57B0990821256E840010597B /* bg_3.png in Resources */,
@@ -377,6 +417,7 @@
 				C5EEAE86F4DCB0CEF09C5B49 /* logo_white@2x.png in Resources */,
 				C5EEA3A502FE5013902AD3AF /* logo_white@3x.png in Resources */,
 				C5EEAD868056CEA29BDACC95 /* logo@3x.png in Resources */,
+				4EBCE6B8212A8A4700A0672D /* close_white@3x.png in Resources */,
 				C5EEA67C449F8DEC5FF529A2 /* back.png in Resources */,
 				C5EEAE562042AC89740F25B0 /* checkbox.png in Resources */,
 				C5EEA55691F65C5A3EF946AF /* checkbox@2x.png in Resources */,
@@ -433,12 +474,15 @@
 				C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
+				4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */,
 				C5EEA83B50B6C4A767E00729 /* UIControl+customed.m in Sources */,
 				C5EEA9F6FFD32D08ABB00CE8 /* UIView+customed.m in Sources */,
 				C5EEA77FC67A0537194AE788 /* StudentController.m in Sources */,
 				C5EEA97A363C02981633699C /* StackLayout.m in Sources */,
 				C5EEAE3B78A71516A252C86F /* StackLayoutItem.m in Sources */,
 				C5EEA5EB7EC226DCBF96A2BA /* UIImageView+customed.m in Sources */,
+				4EBCE6BB212AACE600A0672D /* NoticeViewController.m in Sources */,
+				4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */,
 				C5EEA70CAD83A3FEE9B6BD2C /* UILabel+customed.m in Sources */,
 				C5EEA2B81C84D4F3EDB29C44 /* NSMutableAttributedString+customed.m in Sources */,
 				C5EEAA269C87F480239BF21E /* TapGesture.m in Sources */,
@@ -582,9 +626,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -601,9 +647,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

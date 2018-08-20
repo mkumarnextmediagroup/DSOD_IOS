@@ -10,6 +10,7 @@
 #import "UILabel+customed.h"
 #import "UIControl+customed.h"
 #import "ForgotViewController.h"
+#import "NoIntenetViewController.h"
 
 @interface LoginController ()
 
@@ -149,6 +150,12 @@
 
 - (void)clickLinkedin:(id)sender {
 	NSLog(@"clickLinkedin ");
+    NoIntenetViewController *intenet = [NoIntenetViewController new];
+    intenet.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    intenet.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    intenet.providesPresentationContextTransitionStyle = YES;
+    intenet.definesPresentationContext = YES;
+    [self openPage:intenet];
 }
 
 - (void)clickForgot:(id)sender {

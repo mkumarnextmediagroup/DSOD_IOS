@@ -15,6 +15,7 @@
 #import "StudentController.h"
 #import "StackLayout.h"
 #import "UILabel+customed.h"
+#import "NoticeViewController.h"
 
 @interface NoIntenetViewController ()
 
@@ -65,7 +66,6 @@
     retryButton.stylePrimary;
     [self.view addSubview:retryButton];
     
-    
     UIButton *helpButton = [UIButton new];
     [helpButton title:localStr(@"Need help?")];
     helpButton.styleWhite;
@@ -80,12 +80,26 @@
     [sl install];
     
     [backView onClick:self action:@selector(clickGoBack:)];
+    
+    [retryButton onClick:self action:@selector(retryBtnClick:)];
+    [helpButton onClick:self action:@selector(helpBtnClick:)];
     // Do any additional setup after loading the view.
 }
 
 - (void)clickGoBack:(id)sender {
     [self dismiss];
 }
+
+- (void)retryBtnClick:(id)sender {
+    NSLog(@"retry!");
+}
+
+- (void)helpBtnClick:(id)sender {
+    
+    NoticeViewController *notice = [NoticeViewController new];
+    [self openPage:notice];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

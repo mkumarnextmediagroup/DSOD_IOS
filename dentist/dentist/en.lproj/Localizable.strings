@@ -21,5 +21,8 @@
 "pwd" = "Password";
 "enable_touch" = "Enable Touch ID";
 "forgot" = "FORGOT PASSWORD";
+"Don't panic" = "Don't panic";
+"just" = "Just let us know your email address that you used to create an account.";
+"send" = "Send me a new password";
 
 

@@ -9,7 +9,7 @@
 #import "UIView+customed.h"
 #import "UILabel+customed.h"
 #import "UIControl+customed.h"
-
+#import "ForgotViewController.h"
 
 @interface LoginController ()
 
@@ -153,5 +153,7 @@
 
 - (void)clickForgot:(id)sender {
 	NSLog(@"clickForgot");
+    ForgotViewController *forgot = [ForgotViewController new];
+    [self openPage:forgot];
 }
 @end

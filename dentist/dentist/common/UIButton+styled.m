@@ -55,7 +55,6 @@
 	return self;
 }
 
-
 - (UIButton *)title:(NSString *)text {
 	[self setTitle:text forState:UIControlStateNormal];
 	return self;

@@ -297,6 +297,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+        C5EEA140B79DBB8687DA77CA /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				C5EEAE46630ABFE8D77F9BD2 /* UIUtil.m */,
+				C5EEA8EA3B998E29A2A185D3 /* UIUtil.h */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
 		C5EEA322192BD641D58220D8 /* common */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,7 +355,6 @@
 				C5EEA7B9D5BECBFD7E0084C4 /* Http.h */,
 				C5EEA9AC0839884D27DA2ABA /* Async.m */,
 				C5EEA66D516C103A72D92922 /* Async.h */,
-                4EBCE6BC212AB4A900A0672D /* PrefixHeader.pch */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -658,7 +666,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -13,6 +13,16 @@
 @implementation UILabel (customed)
 
 
+- (CGFloat)heightThatFit {
+	CGSize sz = [self sizeThatFits:CGSizeZero];
+	return sz.height;
+}
+
+- (CGFloat)widthThatFit {
+	CGSize sz = [self sizeThatFits:CGSizeZero];
+	return sz.height;
+}
+
 - (void)textAlignCenter {
 	self.textAlignment = NSTextAlignmentCenter;
 }
@@ -67,17 +77,5 @@
 	self.attributedText = as;
 }
 
-- (void)onClick:(id)target action:(SEL)action {
-	self.userInteractionEnabled = YES;
-	TapGesture *t = [[TapGesture alloc] initWithTarget:self action:@selector(_onClickLabel:)];
-	t.target = target;
-	t.action = action;
-	[self addGestureRecognizer:t];
-}
-
-- (void)_onClickLabel:(UITapGestureRecognizer *)recognizer {
-	TapGesture *t = (TapGesture *) recognizer;
-	objcSendMsg(t.target, t.action, t.view);
-}
 
 @end

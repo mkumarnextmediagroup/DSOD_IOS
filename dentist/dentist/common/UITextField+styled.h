@@ -17,32 +17,57 @@
 
 - (void)textAlignRight;
 
-- (UITextField *)textColorMain;
+- (void)textColorMain;
 
-- (UITextField *)textColorAlternate;
+- (void)textColorAlternate;
 
-- (UITextField *)styleRound:(UIColor *)borderColor;
+- (void)rounded;
 
-- (UITextField *)styleNormal;
+- (void)themeNormal;
 
-- (UITextField *)styleActive;
+- (void)themeActive;
 
-- (UITextField *)styleError;
+- (void)themeError;
 
-- (UITextField *)styleSuccess;
+- (void)themeSuccess;
 
-- (UITextField *)styleDisabled;
+- (void)themeDisabled;
 
-- (UITextField *)styleLine:(UIColor *)borderColor;
+- (void)styleLine;
 
-- (UITextField *)styleLineNormal;
 
-- (UITextField *)styleLineActive;
+- (void)stylePassword;
 
-- (UITextField *)styleLineError;
+- (void)returnDone;
 
-- (UITextField *)styleLineSuccess;
+- (void)returnNext;
 
-- (UITextField *)styleLineDisabled;
+- (void)returnGo;
+
+- (void)returnSearch;
+
+- (void)returnJoin;
+
+- (void)returnDefault;
+
+- (void)returnSend;
+
+- (void)returnContinue;
+
+
+- (void)keyboardDefault;
+
+- (void)keyboardPhone;
+
+- (void)keyboardNumber;
+
+- (void)keyboardNumberAndPun;
+
+- (void)keyboardUrl;
+
+- (void)keyboardEmail;
+
+- (void)keyboardDecimal;
+
 
 @end

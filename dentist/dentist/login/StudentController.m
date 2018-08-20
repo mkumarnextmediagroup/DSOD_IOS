@@ -5,9 +5,7 @@
 
 #import "StudentController.h"
 #import "Common.h"
-#import "LoginController.h"
-#import "UIView+customed.h"
-#import "StackLayout.h"
+#import "RegController.h"
 
 
 @interface StudentController ()
@@ -37,7 +35,7 @@
 
 
 	UILabel *bodyText = [UILabel new];
-	bodyText.numberOfLines = 0 ;
+	bodyText.numberOfLines = 0;
 	bodyText.text = localStr(@"stu_info");
 	bodyText.font = [Fonts regular:15];
 	bodyText.textColor = UIColor.whiteColor;
@@ -47,13 +45,13 @@
 
 	UIButton *yesButton = [UIButton new];
 	[yesButton title:localStr(@"yes")];
-	yesButton.styleWhite;
+	[yesButton styleWhite];
 	[self.view addSubview:yesButton];
 
 
 	UIButton *noButton = [UIButton new];
 	[noButton title:localStr(@"no")];
-	noButton.styleWhite;
+	[noButton styleWhite];
 	[self.view addSubview:noButton];
 
 
@@ -64,16 +62,21 @@
 	[sl push:studentText height:60 marginBottom:0];
 	[sl install];
 
-//	[noButton onClick:self action:@selector(clickLogin:)];
-//	[yesButton onClick:self action:@selector(clickStudent:)];
+	[noButton onClick:self action:@selector(clickNo:)];
+	[yesButton onClick:self action:@selector(clickYes:)];
 
 }
 
-- (void)clickLogin:(id)sender {
-	NSLog(@"click");
-	LoginController *c = [LoginController new];
+- (void)clickYes:(id)sender {
+	RegController *c = [RegController new];
+	c.student = YES;
 	[self presentViewController:c animated:YES completion:nil];
 }
 
+- (void)clickNo:(id)sender {
+	RegController *c = [RegController new];
+	c.student = NO;
+	[self presentViewController:c animated:YES completion:nil];
+}
 
 @end

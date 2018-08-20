@@ -11,6 +11,42 @@
 @implementation UIImageView (customed)
 
 
+- (void)alignCenter {
+	self.contentMode = UIViewContentModeCenter;
+}
+
+- (void)alignLeft {
+	self.contentMode = UIViewContentModeLeft;
+}
+
+- (void)alignTop {
+	self.contentMode = UIViewContentModeTop;
+}
+
+- (void)alignRight {
+	self.contentMode = UIViewContentModeRight;
+}
+
+- (void)alignBottom {
+	self.contentMode = UIViewContentModeBottom;
+}
+
+- (void)alignTopLeft {
+	self.contentMode = UIViewContentModeTopLeft;
+}
+
+- (void)alignTopRight {
+	self.contentMode = UIViewContentModeTopRight;
+}
+
+- (void)alignBottomRight {
+	self.contentMode = UIViewContentModeBottomRight;
+}
+
+- (void)alignBottomLeft {
+	self.contentMode = UIViewContentModeBottomLeft;
+}
+
 - (void)scaleFill {
 	self.contentMode = UIViewContentModeScaleToFill;
 }

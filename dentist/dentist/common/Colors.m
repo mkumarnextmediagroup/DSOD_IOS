@@ -84,6 +84,15 @@
 }
 
 
++ (UIColor *)textDisabled {
+	static UIColor *_c = nil;
+	if (_c == nil) {
+		_c = rgb255(135, 154, 168);
+	}
+	return _c;
+}
+
+
 + (UIColor *)borderSuccess {
 	static UIColor *_c = nil;
 	if (_c == nil) {
@@ -144,7 +153,12 @@
 
 
 + (UIColor *)buttonDisabled {
-	return Colors.strokes;
+	//E9EDF1
+	static UIColor *_c = nil;
+	if (_c == nil) {
+		_c = rgb255(0xE9, 0xED, 0xF1);
+	}
+	return _c;
 }
 
 

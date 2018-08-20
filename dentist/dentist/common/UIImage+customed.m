@@ -11,10 +11,7 @@
 
 - (UIImage *)scaledTo:(CGFloat)w h:(CGFloat)h {
 	UIGraphicsBeginImageContext(makeSizeF(w, h));
-	CGContextRef c = UIGraphicsGetCurrentContext();
-
 	[self drawInRect:makeRectF(0, 0, w, h)];
-
 	UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	return img;

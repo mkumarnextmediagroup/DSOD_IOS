@@ -9,6 +9,27 @@
 @implementation MASConstraintMaker (myextend)
 
 
+- (MASConstraintMaker *)widthFit {
+	UIView *view = [self valueForKey:@"view"];
+	CGSize sz = [view sizeThatFits:CGSizeZero];
+	[self widthEq:sz.width];
+	return self;
+}
+
+- (MASConstraintMaker *)heightFit {
+	UIView *view = [self valueForKey:@"view"];
+	CGSize sz = [view sizeThatFits:CGSizeZero];
+	[self heightEq:sz.height];
+	return self;
+}
+
+- (MASConstraintMaker *)sizeFit {
+	UIView *view = [self valueForKey:@"view"];
+	CGSize sz = [view sizeThatFits:CGSizeZero];
+	[self sizeEq:sz.width h:sz.height];
+	return self;
+}
+
 - (MASConstraintMaker *)sizeEq:(CGFloat)w h:(CGFloat)h {
 	self.width.mas_equalTo(w);
 	self.height.mas_equalTo(h);
@@ -128,6 +149,16 @@
 
 - (MASConstraintMaker *)toRightOf:(UIView *)v offset:(CGFloat)offset {
 	self.left.mas_equalTo(v.mas_right).offset(offset);
+	return self;
+}
+
+- (MASConstraintMaker *)centerYOf:(UIView *)v offset:(CGFloat)offset {
+	self.centerY.mas_equalTo(v.mas_centerY).offset(offset);
+	return self;
+}
+
+- (MASConstraintMaker *)centerXOf:(UIView *)v offset:(CGFloat)offset {
+	self.centerX.mas_equalTo(v.mas_centerX).offset(offset);
 	return self;
 }
 

@@ -109,6 +109,7 @@
     content.font = [UIFont systemFontOfSize:19];
     content.textColor = [UIColor blackColor];
     content.text = title;
+    content.textAlignment = NSTextAlignmentCenter;
     content.frame = CGRectMake(50, 23, SCREENWIDTH - 100, 40);
     [topVi addSubview:content];
     

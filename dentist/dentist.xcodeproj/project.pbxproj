@@ -13,6 +13,7 @@
 		4EBCE6B7212A8A4700A0672D /* close_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B5212A8A4700A0672D /* close_white@2x.png */; };
 		4EBCE6B8212A8A4700A0672D /* close_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B6212A8A4700A0672D /* close_white@3x.png */; };
 		4EBCE6BB212AACE600A0672D /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6BA212AACE600A0672D /* NoticeViewController.m */; };
+		4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6C0212BF76500A0672D /* ContactViewController.m */; };
 		574B3A23212338DF00C37095 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A22212338DF00C37095 /* AppDelegate.m */; };
 		574B3A2B212338E100C37095 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 574B3A2A212338E100C37095 /* Assets.xcassets */; };
 		574B3A31212338E100C37095 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A30212338E100C37095 /* main.m */; };
@@ -84,6 +85,8 @@
 		4EBCE6B9212AACE600A0672D /* NoticeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoticeViewController.h; sourceTree = "<group>"; };
 		4EBCE6BA212AACE600A0672D /* NoticeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoticeViewController.m; sourceTree = "<group>"; };
 		4EBCE6BC212AB4A900A0672D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		4EBCE6BF212BF76500A0672D /* ContactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactViewController.h; sourceTree = "<group>"; };
+		4EBCE6C0212BF76500A0672D /* ContactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactViewController.m; sourceTree = "<group>"; };
 		574B3A1E212338DF00C37095 /* dentist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dentist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		574B3A21212338DF00C37095 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		574B3A22212338DF00C37095 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -207,6 +210,8 @@
 				4EBCE6B3212A5E1000A0672D /* NoIntenetViewController.m */,
 				4EBCE6B9212AACE600A0672D /* NoticeViewController.h */,
 				4EBCE6BA212AACE600A0672D /* NoticeViewController.m */,
+				4EBCE6BF212BF76500A0672D /* ContactViewController.h */,
+				4EBCE6C0212BF76500A0672D /* ContactViewController.m */,
 			);
 			path = common_page;
 			sourceTree = "<group>";
@@ -538,6 +543,7 @@
 				C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */,
 				C5EEAF6A040452F10D489279 /* NSString+myextend.m in Sources */,
 				C5EEA1CB9C55E45C1CF0F710 /* UIUtil.m in Sources */,
+				4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */,
 				C5EEA2763E400C04C2570656 /* Http.m in Sources */,
 				C5EEA409953B93D9D6261C83 /* Async.m in Sources */,
 			);
@@ -681,7 +687,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -702,7 +708,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

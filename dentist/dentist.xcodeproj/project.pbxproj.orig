@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6AF212A595B00A0672D /* ForgotViewController.m */; };
+        4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6AF212A595B00A0672D /* ForgotViewController.m */; };
 		4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B3212A5E1000A0672D /* NoIntenetViewController.m */; };
 		4EBCE6B7212A8A4700A0672D /* close_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B5212A8A4700A0672D /* close_white@2x.png */; };
 		4EBCE6B8212A8A4700A0672D /* close_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B6212A8A4700A0672D /* close_white@3x.png */; };
 		4EBCE6BB212AACE600A0672D /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6BA212AACE600A0672D /* NoticeViewController.m */; };
+		3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E137172212B0E6100B206CC /* LocalAuthentication.framework */; };
 		574B3A23212338DF00C37095 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A22212338DF00C37095 /* AppDelegate.m */; };
 		574B3A2B212338E100C37095 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 574B3A2A212338E100C37095 /* Assets.xcassets */; };
 		574B3A31212338E100C37095 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A30212338E100C37095 /* main.m */; };
@@ -82,6 +83,7 @@
 		4EBCE6B9212AACE600A0672D /* NoticeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoticeViewController.h; sourceTree = "<group>"; };
 		4EBCE6BA212AACE600A0672D /* NoticeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoticeViewController.m; sourceTree = "<group>"; };
 		4EBCE6BC212AB4A900A0672D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		3E137172212B0E6100B206CC /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		574B3A1E212338DF00C37095 /* dentist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dentist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		574B3A21212338DF00C37095 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		574B3A22212338DF00C37095 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */,
 				74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,18 +295,10 @@
 		9E8CFB7155047C0648622D0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3E137172212B0E6100B206CC /* LocalAuthentication.framework */,
 				D18A46C0F072296ED5347389 /* libPods-dentist.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-        C5EEA140B79DBB8687DA77CA /* utils */ = {
-			isa = PBXGroup;
-			children = (
-				C5EEAE46630ABFE8D77F9BD2 /* UIUtil.m */,
-				C5EEA8EA3B998E29A2A185D3 /* UIUtil.h */,
-			);
-			path = utils;
 			sourceTree = "<group>";
 		};
 		C5EEA322192BD641D58220D8 /* common */ = {
@@ -355,6 +350,7 @@
 				C5EEA7B9D5BECBFD7E0084C4 /* Http.h */,
 				C5EEA9AC0839884D27DA2ABA /* Async.m */,
 				C5EEA66D516C103A72D92922 /* Async.h */,
+                4EBCE6BC212AB4A900A0672D /* PrefixHeader.pch */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -385,6 +381,7 @@
 				574B3A1A212338DF00C37095 /* Sources */,
 				574B3A1B212338DF00C37095 /* Frameworks */,
 				574B3A1C212338DF00C37095 /* Resources */,
+				F6C167CBBA830C68BECC4C22 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -485,6 +482,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F6C167CBBA830C68BECC4C22 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-dentist/Pods-dentist-resources.sh",
+				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SAMKeychain.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-dentist/Pods-dentist-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -666,7 +681,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -9,7 +9,8 @@
 #import <LocalAuthentication/LAContext.h>
 #import <LocalAuthentication/LAError.h>
 #import "SAMKeychain.h"
-
+#import "NoIntenetViewController.h"
+#import "ForgotViewController.h"
 
 @interface LoginController ()
 
@@ -307,11 +308,6 @@
     [alertView show];
 
     
-}
-- (void)clickForgot:(id)sender {
-    NSLog(@"clickForgot");
-    ForgotViewController *forgot = [ForgotViewController new];
-    [self openPage:forgot];
 }
 
 @end

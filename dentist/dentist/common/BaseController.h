@@ -4,7 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Common.h"
 
 @interface BaseController : UIViewController <UITextFieldDelegate>
 
@@ -15,4 +15,5 @@
 
 - (void)onTextFieldDone:(UITextField *)textField;
 
+- (void)setTopTitle:(NSString *)title imageName:(UIImage *)imageName;
 @end

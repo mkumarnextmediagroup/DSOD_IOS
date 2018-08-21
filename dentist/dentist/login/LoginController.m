@@ -6,12 +6,10 @@
 #import "LoginController.h"
 #import "Common.h"
 #import "NSString+myextend.h"
-#import "StackLayout.h"
-#import "UIView+customed.h"
-#import "UILabel+customed.h"
-#import "UIControl+customed.h"
-#import "ForgotViewController.h"
-#import "NoIntenetViewController.h"
+#import <LocalAuthentication/LAContext.h>
+#import <LocalAuthentication/LAError.h>
+#import "SAMKeychain.h"
+
 
 @interface LoginController ()
 
@@ -69,6 +67,7 @@
 	checkButton = self.view.addCheckbox;
 	checkButton.selected = YES;
 	[[[[[checkButton layoutMaker] sizeEq:24 h:24] leftParent:EDGE] below:pwdEdit offset:16] install];
+    
 
 
 	UILabel *touchLabel = self.view.addLabel;
@@ -123,6 +122,7 @@
 	[loginButton onClick:self action:@selector(clickLogin:)];
 	[linkedinButton onClick:self action:@selector(clickLinkedin:)];
 	[forgotLabel onClickView:self action:@selector(clickForgot:)];
+    [checkButton onClick:self action:@selector(clickUseTouchID:)];
 
 	[emailEdit returnNext];
 	[pwdEdit returnDone];
@@ -161,6 +161,9 @@
 
 - (void)clickLogin:(id)sender {
 	NSLog(@"clickLogin");
+   
+    [self login:[emailEdit.text trimed] password:[pwdEdit.text trimed]];
+    
 }
 
 - (void)clickLinkedin:(id)sender {
@@ -178,4 +181,137 @@
     ForgotViewController *forgot = [ForgotViewController new];
     [self openPage:forgot];
 }
+
+- (void)clickUseTouchID:(id)sender {
+    NSLog(@"clickUseTouchID");
+    if(checkButton.isSelected){
+        LAContext *context = [[LAContext alloc] init];
+        NSError *error;
+        BOOL success;
+        
+        // test if we can evaluate the policy, this test will tell us if Touch ID is available and enrolled
+        success = [context canEvaluatePolicy: LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
+        
+        
+        if(success){
+            NSLog(@"支持");
+            [self evaluatePolicy];
+        }else{
+            switch (error.code) {
+                    // 没有设置指纹（没有设置密码也会走到这），但是支持指纹识别
+                case LAErrorBiometryNotEnrolled:
+                    NSLog(@"没有设置指纹");
+                    break;
+                    // 理论上是没有设置密码,待测试
+                case LAErrorPasscodeNotSet:
+                    NSLog(@"没有设置密码");
+                    break;
+                    // 在使用touchID的场景中,错误太多次而导致touchID被锁不可用
+                case LAErrorBiometryLockout:
+                    NSLog(@"被锁");
+                    break;
+                default:
+                    NSLog(@"不支持");
+                break;
+                    
+            }
+        }
+        
+    }
+}
+
+
+- (void)evaluatePolicy
+{
+    LAContext *context = [[LAContext alloc] init];
+    __block  NSString *msg;
+    
+    // show the authentication UI with our reason string
+    //LAPolicyDeviceOwnerAuthentication 相对简单（正确，取消，输入密码）
+    //LAPolicyDeviceOwnerAuthenticationWithBiometrics 错误码较多，但是发现点击输入密码，竟然抛出错误，而不是弹出密码框
+    __weak __typeof(self) weakSelf = self;
+    [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:NSLocalizedString(@"Please authenticate to proceed", nil) reply:
+     ^(BOOL success, NSError *authenticationError) {
+         if (success) {
+             msg =[NSString stringWithFormat:@"EVALUATE_POLICY_SUCCESS"];
+             NSData *evaluatedPolicyDomainState=context.evaluatedPolicyDomainState;//可以比对他，采取其他策略；
+             NSLog(@"result===%@",evaluatedPolicyDomainState);
+             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                 //其他情况，切换主线程处理
+                 NSArray *accountArray = [SAMKeychain accountsForService:@"lastAccessUser"];
+                 int count = accountArray.count;
+                 for( int i=0; i<count; i++){
+                     NSLog(@"%i-%@", i, [accountArray objectAtIndex:i]);
+                 }
+                 //如何获取上一次账号，上面代码打印出来不是一个简单的字符串
+                 //NSString *pwd = [SAMKeychain passwordForService:@"lastAccessUser" account:<#(nonnull NSString *)#>];
+                  [weakSelf login:[emailEdit.text trimed] password:[pwdEdit.text trimed]];
+             }];
+            
+             
+         } else {
+             
+             switch (authenticationError.code) {
+                     //  指纹识别3次失败进入这里
+                 case LAErrorAuthenticationFailed:
+                     NSLog(@"验证失败");
+                     break;
+                     //   指纹识别时，点击取消
+                 case LAErrorUserCancel:
+                     NSLog(@"点击取消按钮");
+                     break;
+                     //  指纹识别时，点击输入密码按钮
+                 case LAErrorUserFallback:
+                     NSLog(@"点击输入密码按钮");
+                     break;
+                     //  没有在设备上设置密码
+                 case LAErrorPasscodeNotSet:
+                     NSLog(@"没有在设备上设置密码");
+                     break;
+                     //  设备上TouchID不可用，例如未打开
+                 case LAErrorBiometryNotAvailable:
+                     NSLog(@"设备不支持TouchID");
+                     break;
+                     //  没有设置TouchID
+                 case LAErrorBiometryNotEnrolled:
+                     NSLog(@"设备没有注册TouchID");
+                     break;
+                     // 设备TouchID被锁，且只会在iOS9以上设备出现
+                 case LAErrorBiometryLockout:
+                     NSLog(@"TouchID被锁");
+                     break;
+                     //     由于不可抗拒力，应用进入后台（其实很简单，你写两个测试demo，在一个启动指纹时开启另一个项目，你的指纹项目就会因为不可抗力进入后台，这时候就会走到这）
+                 case LAErrorSystemCancel:
+                     NSLog(@"由于系统阻止，转入后台");
+                     break;
+                 default:
+                     NSLog(@"不支持");
+                     break;
+             }
+             
+             //msg = [NSString stringWithFormat:@"EVALUATE_POLICY_WITH_ERROR : %@",
+                    //uthenticationError];
+         }
+         
+     }];
+    
+}
+
+
+- (void)login:(NSString *)userName password:(NSString *)pwd {
+
+    NSString *msg = [NSString stringWithFormat:@"Login Success,Hi %@",
+           userName];
+
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:msg message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+    [alertView show];
+
+    
+}
+- (void)clickForgot:(id)sender {
+    NSLog(@"clickForgot");
+    ForgotViewController *forgot = [ForgotViewController new];
+    [self openPage:forgot];
+}
+
 @end

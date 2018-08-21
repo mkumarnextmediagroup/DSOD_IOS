@@ -5,5 +5,32 @@
   Created by yangentao on 2018/8/15.
   Copyright © 2018年 nextmedia.com. All rights reserved.
 */
-"ok" = "确定";
+"ok" = "OK";
+"yes" = "Yes";
+"no" = "No";
+"welcome" = "Welcome! ";
+"sayhello" =  "Say hello to a new way to connect!";
+"getmeet" = "Get to meet thousands of other health-care professionals and be one of the first few to change the way we think about dentistry.";
+"getstart" = "Get Started";
+"login" = "Log In";
+"areyoustudent" = "Are you a student?";
+"stu_info" = "We use this information to show personalized content that is relevant to you.";
+"create_account" = "Create an account";
+"login_using_linkedin" = "Log In using Linkedin";
+"email_address" = "Email address";
+"pwd" = "Password";
+"enable_touch" = "Enable Touch ID";
+"forgot" = "FORGOT PASSWORD";
+"reg" = "Sign Up";
+"already_user" = "Already a user?";
+"reg_linkedin" = "Signn up using LinkedIn";
+"full_name" = "Full name";
+"pwd_req" = "      Password Requirements";
+"agree" = "By creating an account, you agree to \n DSODentist's";
+"terms" = "Terms of Service";
+"and" = " and ";
+"policy" = "Privacy Policy";
+"show" = "SHOW";
+"hide" = "HIDE";
+
 

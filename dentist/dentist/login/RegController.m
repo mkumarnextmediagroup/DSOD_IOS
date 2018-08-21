@@ -6,6 +6,7 @@
 #import "RegController.h"
 #import "LoginController.h"
 #import "NSString+myextend.h"
+#import "SAMKeychain.h"
 
 
 @interface RegController ()
@@ -223,6 +224,7 @@
 
 - (void)clickReg:(id)sender {
 	NSLog(@"clickLogin");
+    [SAMKeychain setPassword:[pwdEdit.text trimed]forService:@"lastAccessUser" account:[emailEdit.text trimed]];
 }
 
 - (void)clickLinkedin:(id)sender {

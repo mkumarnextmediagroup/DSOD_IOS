@@ -7,6 +7,7 @@
 //
 
 #import "NoticeViewController.h"
+#import "ContactViewController.h"
 
 @interface NoticeViewController ()
 
@@ -26,9 +27,8 @@
     
     UITextView *textView = [UITextView new];
 //    textView.backgroundColor = [UIColor blueColor];
-    textView.text = localStr(@"forgot");
+    textView.text = localStr(@"issue_context");
     textView.textColor = [UIColor blackColor];
-    textView.text = @"If you are getting a message saying there's no internet connection when you are onlin, please try the following things: \t First, try using the app with a different internet connection to rule out the possibility that something is blocking DSODentist from using the internet connection.\t If the app works a cellular network but not on a WIFI connection, there may be content filter enforced by the Internet Service Provider(ISP) that is blocking DSODentist from using the connection. Please check this with your ISP and if you find you have a content filter, make sure you  allow or white list the following \n domains:\n www.dsodentist.com \t app.dsodentist.com \n *.dsodentist.com \n\n If the app works on a WIFI connection and not on your cellular network, DSODDentist might not have access to your mobile data. Allow DSODDentist to access the mobile data by enabling this switch.";
     textView.font = [Fonts light:16];
     textView.frame =CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT - 120);
     [self.view addSubview:textView];
@@ -49,6 +49,8 @@
 - (void)contactClick:(UIButton *)btn
 {
     NSLog(@"contact us");
+    ContactViewController *contact = [ContactViewController new];
+    [self openPage:contact];
 }
 
 - (void)didReceiveMemoryWarning {

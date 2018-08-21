@@ -161,21 +161,6 @@
 
 - (void)clickLogin:(id)sender {
 	NSLog(@"clickLogin");
-   
-    [self login:[emailEdit.text trimed] password:[pwdEdit.text trimed]];
-    
-}
-
-- (void)clickLinkedin:(id)sender {
-	NSLog(@"clickLinkedin ");
-}
-
-- (void)clickForgot:(id)sender {
-	NSLog(@"clickForgot");
-}
-
-- (void)clickUseTouchID:(id)sender {
-    NSLog(@"clickUseTouchID");
     if(checkButton.isSelected){
         LAContext *context = [[LAContext alloc] init];
         NSError *error;
@@ -204,12 +189,29 @@
                     break;
                 default:
                     NSLog(@"不支持");
-                break;
+                    break;
                     
             }
         }
         
+    }else{
+         [self login:[emailEdit.text trimed] password:[pwdEdit.text trimed]];
     }
+   
+    
+}
+
+- (void)clickLinkedin:(id)sender {
+	NSLog(@"clickLinkedin ");
+}
+
+- (void)clickForgot:(id)sender {
+	NSLog(@"clickForgot");
+}
+
+- (void)clickUseTouchID:(id)sender {
+    NSLog(@"clickUseTouchID");
+    
 }
 
 
@@ -230,14 +232,11 @@
              NSLog(@"result===%@",evaluatedPolicyDomainState);
              [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                  //其他情况，切换主线程处理
-                 NSArray *accountArray = [SAMKeychain accountsForService:@"lastAccessUser"];
-                 int count = accountArray.count;
-                 for( int i=0; i<count; i++){
-                     NSLog(@"%i-%@", i, [accountArray objectAtIndex:i]);
-                 }
-                 //如何获取上一次账号，上面代码打印出来不是一个简单的字符串
-                 //NSString *pwd = [SAMKeychain passwordForService:@"lastAccessUser" account:<#(nonnull NSString *)#>];
-                  [weakSelf login:[emailEdit.text trimed] password:[pwdEdit.text trimed]];
+                
+                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                 NSString *account = [userDefaults objectForKey:@"lastAccessUser"];
+                 NSString *pwd = [SAMKeychain passwordForService:@"lastAccessUser" account:account];
+                 [weakSelf login:account password:pwd];
              }];
             
              

@@ -6,6 +6,8 @@
 #import "RegController.h"
 #import "LoginController.h"
 #import "NSString+myextend.h"
+#import <LocalAuthentication/LAContext.h>
+#import <LocalAuthentication/LAError.h>
 #import "SAMKeychain.h"
 
 
@@ -224,7 +226,120 @@
 
 - (void)clickReg:(id)sender {
 	NSLog(@"clickLogin");
+    //TODO 成功后，保存用户账号
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:([emailEdit.text trimed]) forKey:(@"lastAccessUser")];
+    [userDefaults synchronize];
+
+    //TODO 成功后，保存到钥匙串
     [SAMKeychain setPassword:[pwdEdit.text trimed]forService:@"lastAccessUser" account:[emailEdit.text trimed]];
+    
+    if(checkButton.isSelected){
+        LAContext *context = [[LAContext alloc] init];
+        NSError *error;
+        BOOL success;
+        
+        // test if we can evaluate the policy, this test will tell us if Touch ID is available and enrolled
+        success = [context canEvaluatePolicy: LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
+        
+        
+        
+        if(success){
+            NSLog(@"支持");
+            [self evaluatePolicy];
+        }else{
+            switch (error.code) {
+                    // 没有设置指纹（没有设置密码也会走到这），但是支持指纹识别
+                case LAErrorBiometryNotEnrolled:
+                    NSLog(@"没有设置指纹");
+                    break;
+                    // 理论上是没有设置密码,待测试
+                case LAErrorPasscodeNotSet:
+                    NSLog(@"没有设置密码");
+                    break;
+                    // 在使用touchID的场景中,错误太多次而导致touchID被锁不可用
+                case LAErrorBiometryLockout:
+                    NSLog(@"被锁");
+                    break;
+                default:
+                    NSLog(@"不支持");
+                    break;
+                    
+            }
+        }
+    }else{
+        //模拟注册成功
+        [self dismiss];
+    }
+}
+    
+    
+    - (void)evaluatePolicy
+    {
+        LAContext *context = [[LAContext alloc] init];
+        __block  NSString *msg;
+        
+        // show the authentication UI with our reason string
+        //LAPolicyDeviceOwnerAuthentication 相对简单（正确，取消，输入密码）
+        //LAPolicyDeviceOwnerAuthenticationWithBiometrics 错误码较多，但是发现点击输入密码，竟然抛出错误，而不是弹出密码框
+        __weak __typeof(self) weakSelf = self;
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:NSLocalizedString(@"Please authenticate to proceed", nil) reply:
+         ^(BOOL success, NSError *authenticationError) {
+             if (success) {
+                 //TODO
+                 
+                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                     //此处模拟通过验证后注册成功，关掉当前页面
+                     [self dismiss];
+                    
+                 }];
+                 
+             } else {
+                 
+                 switch (authenticationError.code) {
+                         //  指纹识别3次失败进入这里
+                     case LAErrorAuthenticationFailed:
+                         NSLog(@"验证失败");
+                         break;
+                         //   指纹识别时，点击取消
+                     case LAErrorUserCancel:
+                         NSLog(@"点击取消按钮");
+                         break;
+                         //  指纹识别时，点击输入密码按钮
+                     case LAErrorUserFallback:
+                         NSLog(@"点击输入密码按钮");
+                         break;
+                         //  没有在设备上设置密码
+                     case LAErrorPasscodeNotSet:
+                         NSLog(@"没有在设备上设置密码");
+                         break;
+                         //  设备上TouchID不可用，例如未打开
+                     case LAErrorBiometryNotAvailable:
+                         NSLog(@"设备不支持TouchID");
+                         break;
+                         //  没有设置TouchID
+                     case LAErrorBiometryNotEnrolled:
+                         NSLog(@"设备没有注册TouchID");
+                         break;
+                         // 设备TouchID被锁，且只会在iOS9以上设备出现
+                     case LAErrorBiometryLockout:
+                         NSLog(@"TouchID被锁");
+                         break;
+                         //     由于不可抗拒力，应用进入后台（其实很简单，你写两个测试demo，在一个启动指纹时开启另一个项目，你的指纹项目就会因为不可抗力进入后台，这时候就会走到这）
+                     case LAErrorSystemCancel:
+                         NSLog(@"由于系统阻止，转入后台");
+                         break;
+                     default:
+                         NSLog(@"不支持");
+                         break;
+                 }
+                 
+                 //msg = [NSString stringWithFormat:@"EVALUATE_POLICY_WITH_ERROR : %@",
+                 //uthenticationError];
+             }
+             
+         }];
+        
 }
 
 - (void)clickLinkedin:(id)sender {

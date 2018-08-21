@@ -6,11 +6,19 @@
 #import "LoginController.h"
 #import "Common.h"
 #import "NSString+myextend.h"
+<<<<<<< HEAD
+#import "StackLayout.h"
+#import "UIView+customed.h"
+#import "UILabel+customed.h"
+#import "UIControl+customed.h"
+#import "ForgotViewController.h"
+#import "NoIntenetViewController.h"
+=======
 #import <LocalAuthentication/LAContext.h>
 #import <LocalAuthentication/LAError.h>
 #import "SAMKeychain.h"
-#import "NoIntenetViewController.h"
-#import "ForgotViewController.h"
+
+>>>>>>> local_dev
 
 @interface LoginController ()
 
@@ -162,7 +170,29 @@
 
 - (void)clickLogin:(id)sender {
 	NSLog(@"clickLogin");
+   
+    [self login:[emailEdit.text trimed] password:[pwdEdit.text trimed]];
     
+}
+
+- (void)clickLinkedin:(id)sender {
+	NSLog(@"clickLinkedin ");
+    NoIntenetViewController *intenet = [NoIntenetViewController new];
+    intenet.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    intenet.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    intenet.providesPresentationContextTransitionStyle = YES;
+    intenet.definesPresentationContext = YES;
+    [self openPage:intenet];
+}
+
+- (void)clickForgot:(id)sender {
+    NSLog(@"clickForgot");
+    ForgotViewController *forgot = [ForgotViewController new];
+    [self openPage:forgot];
+}
+
+- (void)clickUseTouchID:(id)sender {
+    NSLog(@"clickUseTouchID");
     if(checkButton.isSelected){
         LAContext *context = [[LAContext alloc] init];
         NSError *error;
@@ -191,42 +221,14 @@
                     break;
                 default:
                     NSLog(@"不支持");
-                    break;
+                break;
                     
             }
-            
-            NSString *msg = @"TouchID may not support";
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:msg message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-            [alertView show];
-            checkButton.selected = YES;
         }
         
-    }else{
-        [self login:[emailEdit.text trimed] password:[pwdEdit.text trimed]];
     }
-    
 }
 
-- (void)clickLinkedin:(id)sender {
-	NSLog(@"clickLinkedin ");
-    NoIntenetViewController *intenet = [NoIntenetViewController new];
-    intenet.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    intenet.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    intenet.providesPresentationContextTransitionStyle = YES;
-    intenet.definesPresentationContext = YES;
-    [self openPage:intenet];
-}
-
-- (void)clickForgot:(id)sender {
-    NSLog(@"clickForgot");
-    ForgotViewController *forgot = [ForgotViewController new];
-    [self openPage:forgot];
-}
-
-- (void)clickUseTouchID:(id)sender {
-    NSLog(@"clickUseTouchID");
-
-}
 
 - (void)evaluatePolicy
 {
@@ -245,11 +247,14 @@
              NSLog(@"result===%@",evaluatedPolicyDomainState);
              [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                  //其他情况，切换主线程处理
-                
-                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                 NSString *account = [userDefaults objectForKey:@"lastAccessUser"];
-                 NSString *pwd = [SAMKeychain passwordForService:@"lastAccessUser" account:account];
-                 [weakSelf login:account password:pwd];
+                 NSArray *accountArray = [SAMKeychain accountsForService:@"lastAccessUser"];
+                 int count = accountArray.count;
+                 for( int i=0; i<count; i++){
+                     NSLog(@"%i-%@", i, [accountArray objectAtIndex:i]);
+                 }
+                 //如何获取上一次账号，上面代码打印出来不是一个简单的字符串
+                 //NSString *pwd = [SAMKeychain passwordForService:@"lastAccessUser" account:<#(nonnull NSString *)#>];
+                  [weakSelf login:[emailEdit.text trimed] password:[pwdEdit.text trimed]];
              }];
             
              

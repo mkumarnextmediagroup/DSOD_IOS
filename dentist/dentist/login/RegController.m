@@ -181,6 +181,7 @@
 	[backView onClick:self action:@selector(clickGoBack:)];
 	[regButton onClick:self action:@selector(clickReg:)];
 	[loginLabel onClickView:self action:@selector(clickLogin:)];
+
 }
 
 

@@ -53,9 +53,12 @@
 	[self setBackgroundImage:colorImage(makeSize(1, 1), rgb255(221, 221, 221)) forState:UIControlStateHighlighted];
 }
 
-
+<<<<<<< HEAD
+- (UIButton *)title:(NSString *)text {
+=======
 
 - (void)title:(NSString *)text {
+>>>>>>> local_dev
 	[self setTitle:text forState:UIControlStateNormal];
 }
 

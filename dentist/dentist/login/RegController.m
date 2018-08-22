@@ -235,38 +235,59 @@
     [SAMKeychain setPassword:[pwdEdit.text trimed]forService:@"lastAccessUser" account:[emailEdit.text trimed]];
     
     if(checkButton.isSelected){
-        LAContext *context = [[LAContext alloc] init];
-        NSError *error;
-        BOOL success;
-        
-        // test if we can evaluate the policy, this test will tell us if Touch ID is available and enrolled
-        success = [context canEvaluatePolicy: LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
         
         
         
-        if(success){
-            NSLog(@"支持");
-            [self evaluatePolicy];
-        }else{
-            switch (error.code) {
-                    // 没有设置指纹（没有设置密码也会走到这），但是支持指纹识别
-                case LAErrorBiometryNotEnrolled:
-                    NSLog(@"没有设置指纹");
-                    break;
-                    // 理论上是没有设置密码,待测试
-                case LAErrorPasscodeNotSet:
-                    NSLog(@"没有设置密码");
-                    break;
-                    // 在使用touchID的场景中,错误太多次而导致touchID被锁不可用
-                case LAErrorBiometryLockout:
-                    NSLog(@"被锁");
-                    break;
-                default:
-                    NSLog(@"不支持");
-                    break;
-                    
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:localStr(@"useTouchIDTitle") message:localStr(@"useTouchIDHint") preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okButton = [UIAlertAction actionWithTitle:localStr(@"ok") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            // Do something after clicking OK button
+            LAContext *context = [[LAContext alloc] init];
+            NSError *error;
+            BOOL success;
+            
+            // test if we can evaluate the policy, this test will tell us if Touch ID is available and enrolled
+            success = [context canEvaluatePolicy: LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
+            
+            
+            
+            if(success){
+                NSLog(@"支持");
+                [self evaluatePolicy];
+            }else{
+                switch (error.code) {
+                        // 没有设置指纹（没有设置密码也会走到这），但是支持指纹识别
+                    case LAErrorBiometryNotEnrolled:
+                        NSLog(@"没有设置指纹");
+                        break;
+                        // 理论上是没有设置密码,待测试
+                    case LAErrorPasscodeNotSet:
+                        NSLog(@"没有设置密码");
+                        break;
+                        // 在使用touchID的场景中,错误太多次而导致touchID被锁不可用
+                    case LAErrorBiometryLockout:
+                        NSLog(@"被锁");
+                        break;
+                    default:
+                        NSLog(@"不支持");
+                        break;
+                        
+                }
             }
-        }
+
+           
+        }];
+        UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:localStr(@"notallow") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            // Do something after clicking Cancel button
+        }];
+        [alert addAction:okButton];
+        [alert addAction:cancelButton];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        
+        
+        
+        
     }else{
         //模拟注册成功
         [self dismiss];
@@ -283,14 +304,14 @@
         //LAPolicyDeviceOwnerAuthentication 相对简单（正确，取消，输入密码）
         //LAPolicyDeviceOwnerAuthenticationWithBiometrics 错误码较多，但是发现点击输入密码，竟然抛出错误，而不是弹出密码框
         __weak __typeof(self) weakSelf = self;
-        [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:NSLocalizedString(@"Please authenticate to proceed", nil) reply:
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:localStr(@"authenticateHint") reply:
          ^(BOOL success, NSError *authenticationError) {
              if (success) {
                  //TODO
                  
                  [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                      //此处模拟通过验证后注册成功，关掉当前页面
-                     [self dismiss];
+                     [weakSelf dismiss];
                     
                  }];
                  

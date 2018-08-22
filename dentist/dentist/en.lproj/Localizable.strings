@@ -9,6 +9,10 @@
 "yes" = "Yes";
 "no" = "No";
 "welcome" = "Welcome! ";
+"authenticateHint" = "Please authenticate to proceed";
+"useTouchIDTitle"="Do you want to allow \n \"DSODentist\" to use Touch ID? ";
+"useTouchIDHint"="Enabling Touch ID allows you quick and secure access to your account.";
+"notallow"="Don’t Allow";
 "sayhello" =  "Say hello to a new way to connect!";
 "getmeet" = "Get to meet thousands of other health-care professionals and be one of the first few to change the way we think about dentistry.";
 "getstart" = "Get Started";

@@ -12,6 +12,7 @@
 #import "UIView+customed.h"
 #import "UILabel+customed.h"
 #import "UIControl+customed.h"
+#import "ResetPwdViewController.h"
 
 @interface ForgotViewController ()
 
@@ -27,16 +28,6 @@
     UIImageView *logoView = self.view.addImageView;
     logoView.imageName = @"logo";
     [logoView layoutCenterXOffsetTop:260 height:54 offset:54];
-    
-    UIImageView *backView = self.view.addImageView;
-    backView.imageName = @"back.png";
-    [backView scaleFit];
-    [backView makeLayout:^(MASConstraintMaker *m) {
-        m.width.mas_equalTo(23);
-        m.height.mas_equalTo(23);
-        m.left.mas_equalTo(self.view.mas_left).offset(16);
-        m.top.mas_equalTo(self.view.mas_top).offset(50);
-    }];
     
     UILabel *panic = [UILabel new];
     panic.text = localStr(@"Don't panic");
@@ -82,12 +73,19 @@
     [sl install];
     
     
-    [backView onClick:self action:@selector(clickGoBack:)];
+    [backBtn onClick:self action:@selector(clickGoBack:)];
+    [sendButton onClick:self action:@selector(sendPwdClick)];
     // Do any additional setup after loading the view.
 }
 
 - (void)clickGoBack:(id)sender {
     [self dismiss];
+}
+
+- (void)sendPwdClick
+{
+    ResetPwdViewController *resetPwd = [ResetPwdViewController new];
+    [self openPage:resetPwd];
 }
 
 - (void)didReceiveMemoryWarning {

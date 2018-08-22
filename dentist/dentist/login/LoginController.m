@@ -22,6 +22,9 @@
 	UITextField *pwdEdit;
 	UIButton *checkButton;
 	UIButton *loginButton;
+    
+    UILabel *touchLabel ;
+    LAContext *context;
 }
 
 - (void)viewDidLoad {
@@ -72,11 +75,40 @@
     
 
 
-	UILabel *touchLabel = self.view.addLabel;
+	touchLabel = self.view.addLabel;
 	touchLabel.text = localStr(@"enable_touch");
 	[touchLabel textColorWhite];
 	touchLabel.font = [Fonts light:15];
 	[[[[[touchLabel layoutMaker] sizeFit] toRightOf:checkButton offset:8] centerYOf:checkButton offset:0] install];
+    
+    context = [[LAContext alloc] init];
+    BOOL isCanEvaluatePolicy  = [self isSupportBiometrics];
+    if (isCanEvaluatePolicy) {
+        // 判断设备支持TouchID还是FaceID
+        if (@available(iOS 11.0, *)) {
+            switch (context.biometryType) {
+                case LABiometryNone:
+                    [self justSupportBiometricsType:0];
+                    break;
+                case LABiometryTypeTouchID:
+                    [self justSupportBiometricsType:1];
+                    break;
+                case LABiometryTypeFaceID:
+                    [self justSupportBiometricsType:2];
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            // Fallback on earlier versions
+            NSLog(@"iOS 11之前不需要判断 biometryType");
+            // 因为iPhoneX起始系统版本都已经是iOS11.0，所以iOS11.0系统版本下不需要再去判断是否支持faceID，直接走支持TouchID逻辑即可。
+            [self justSupportBiometricsType:1];
+        }
+        
+    } else {
+        [self justSupportBiometricsType:0];
+    }
 
 	UILabel *forgotLabel = self.view.addLabel;
 	[forgotLabel textAlignRight];
@@ -168,7 +200,7 @@
 	NSLog(@"clickLogin");
     
     if(checkButton.isSelected){
-        LAContext *context = [[LAContext alloc] init];
+        
         NSError *error;
         BOOL success;
         
@@ -232,9 +264,47 @@
 
 }
 
+
+-(BOOL)isSupportBiometrics{
+    
+    NSError *error;
+    BOOL success;
+    // test if we can evaluate the policy, this test will tell us if Touch ID is available and enrolled
+    success = [context canEvaluatePolicy: LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
+    return success;
+    
+}
+
+// 判断生物识别类型，更新UI
+- (void)justSupportBiometricsType:(NSInteger)biometryType
+{
+    switch (biometryType) {
+        case 0://需求方说没有这种情况
+            NSLog(@"该设备支持不支持FaceID和TouchID");
+            break;
+        case 1://该设备支持TouchID
+            NSLog(@"该设备支持TouchID");
+            touchLabel.text = localStr(@"enable_touch");
+           
+            
+            break;
+        case 2://该设备支持FaceID
+            NSLog(@"该设备支持Face ID");
+            touchLabel.text = localStr(@"enable_face");
+           
+            
+            break;
+        default:
+            break;
+    }
+}
+
+
+
+
 - (void)evaluatePolicy
 {
-    LAContext *context = [[LAContext alloc] init];
+   
     __block  NSString *msg;
     
     // show the authentication UI with our reason string

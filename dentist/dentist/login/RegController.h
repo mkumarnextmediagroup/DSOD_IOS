@@ -10,5 +10,6 @@
 @interface RegController : BaseController
 
 @property BOOL student;
+@property (copy,nonatomic)void(^registSuccessBlock)(void);//申明回调函数
 
 @end

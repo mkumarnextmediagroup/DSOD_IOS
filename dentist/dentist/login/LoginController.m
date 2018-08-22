@@ -11,6 +11,7 @@
 #import "SAMKeychain.h"
 #import "NoIntenetViewController.h"
 #import "ForgotViewController.h"
+#import "StudentController.h"
 
 @interface LoginController ()
 
@@ -158,6 +159,9 @@
 - (void)clickGoReg:(id)sender {
 	NSLog(@"click reg ");
 	NSLog(@"%@", sender);
+    //TODO wennan添加
+    StudentController *c = [StudentController new];
+    [self presentViewController:c animated:YES completion:nil];
 }
 
 - (void)clickLogin:(id)sender {

@@ -6,6 +6,8 @@
 #import "BaseController.h"
 #import "UITextField+styled.h"
 #import "Common.h"
+#import "UIView+customed.h"
+#import "UIImageView+customed.h"
 
 
 @implementation BaseController {
@@ -54,6 +56,38 @@
 	return YES;
 }
 
+- (void)setTopTitle:(NSString *)title imageName:(UIImage *)imageName
+{
+    UIView *topVi = [UIView new];
+    topVi.frame = CGRectMake(0, 0, SCREENWIDTH, NAVHEIGHT);
+    topVi.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:topVi];
+    
+    UILabel *content = [UILabel new];
+    content.font = [UIFont systemFontOfSize:19];
+    content.textColor = [UIColor blackColor];
+    content.text = title;
+    content.frame = CGRectMake(50, 23, SCREENWIDTH - 100, 40);
+    [topVi addSubview:content];
+    
+    UIButton *dismissBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [dismissBtn setImage:imageName forState:UIControlStateNormal];
+    dismissBtn.frame = CGRectMake(SCREENWIDTH - 60, 24, 60, 40);
+    [topVi addSubview:dismissBtn];
+    [dismissBtn addTarget:self action:@selector(dismissBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *line = [UILabel new];
+    line.frame = CGRectMake(0, NAVHEIGHT - 1.5, SCREENWIDTH, 1.5);
+    line.backgroundColor = rgb255(222, 222, 222);
+    [topVi addSubview:line];
+}
+
+- (void)dismissBtnClick
+{
+    [self dismiss];
+}
+
+@end
 - (void)onTextFieldDone:(UITextField *)textField {
 
 }
@@ -97,37 +131,4 @@
 		}
 	}
 }
-
-- (void)setTopTitle:(NSString *)title imageName:(UIImage *)imageName
-{
-    UIView *topVi = [UIView new];
-    topVi.frame = CGRectMake(0, 0, SCREENWIDTH, NAVHEIGHT);
-    topVi.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:topVi];
-    
-    UILabel *content = [UILabel new];
-    content.font = [UIFont systemFontOfSize:19];
-    content.textColor = [UIColor blackColor];
-    content.text = title;
-    content.textAlignment = NSTextAlignmentCenter;
-    content.frame = CGRectMake(50, 23, SCREENWIDTH - 100, 40);
-    [topVi addSubview:content];
-    
-    UIButton *dismissBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [dismissBtn setImage:imageName forState:UIControlStateNormal];
-    dismissBtn.frame = CGRectMake(SCREENWIDTH - 60, 24, 60, 40);
-    [topVi addSubview:dismissBtn];
-    [dismissBtn addTarget:self action:@selector(dismissBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    UILabel *line = [UILabel new];
-    line.frame = CGRectMake(0, NAVHEIGHT - 1.5, SCREENWIDTH, 1.5);
-    line.backgroundColor = rgb255(222, 222, 222);
-    [topVi addSubview:line];
-}
-
-- (void)dismissBtnClick
-{
-    [self dismiss];
-}
-
 @end

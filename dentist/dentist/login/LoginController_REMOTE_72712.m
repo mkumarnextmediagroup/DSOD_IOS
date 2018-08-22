@@ -9,9 +9,7 @@
 #import <LocalAuthentication/LAContext.h>
 #import <LocalAuthentication/LAError.h>
 #import "SAMKeychain.h"
-#import "NoIntenetViewController.h"
-#import "ForgotViewController.h"
-#import "StudentController.h"
+
 
 @interface LoginController ()
 
@@ -22,9 +20,6 @@
 	UITextField *pwdEdit;
 	UIButton *checkButton;
 	UIButton *loginButton;
-    
-    UILabel *touchLabel ;
-    LAContext *context;
 }
 
 - (void)viewDidLoad {
@@ -75,40 +70,11 @@
     
 
 
-	touchLabel = self.view.addLabel;
+	UILabel *touchLabel = self.view.addLabel;
 	touchLabel.text = localStr(@"enable_touch");
 	[touchLabel textColorWhite];
 	touchLabel.font = [Fonts light:15];
 	[[[[[touchLabel layoutMaker] sizeFit] toRightOf:checkButton offset:8] centerYOf:checkButton offset:0] install];
-    
-    context = [[LAContext alloc] init];
-    BOOL isCanEvaluatePolicy  = [self isSupportBiometrics];
-    if (isCanEvaluatePolicy) {
-        // 判断设备支持TouchID还是FaceID
-        if (@available(iOS 11.0, *)) {
-            switch (context.biometryType) {
-                case LABiometryNone:
-                    [self justSupportBiometricsType:0];
-                    break;
-                case LABiometryTypeTouchID:
-                    [self justSupportBiometricsType:1];
-                    break;
-                case LABiometryTypeFaceID:
-                    [self justSupportBiometricsType:2];
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            // Fallback on earlier versions
-            NSLog(@"iOS 11之前不需要判断 biometryType");
-            // 因为iPhoneX起始系统版本都已经是iOS11.0，所以iOS11.0系统版本下不需要再去判断是否支持faceID，直接走支持TouchID逻辑即可。
-            [self justSupportBiometricsType:1];
-        }
-        
-    } else {
-        [self justSupportBiometricsType:0];
-    }
 
 	UILabel *forgotLabel = self.view.addLabel;
 	[forgotLabel textAlignRight];
@@ -191,16 +157,27 @@
 - (void)clickGoReg:(id)sender {
 	NSLog(@"click reg ");
 	NSLog(@"%@", sender);
-    //TODO wennan添加
-    StudentController *c = [StudentController new];
-    [self presentViewController:c animated:YES completion:nil];
 }
 
 - (void)clickLogin:(id)sender {
 	NSLog(@"clickLogin");
+   
+    [self login:[emailEdit.text trimed] password:[pwdEdit.text trimed]];
     
+}
+
+- (void)clickLinkedin:(id)sender {
+	NSLog(@"clickLinkedin ");
+}
+
+- (void)clickForgot:(id)sender {
+	NSLog(@"clickForgot");
+}
+
+- (void)clickUseTouchID:(id)sender {
+    NSLog(@"clickUseTouchID");
     if(checkButton.isSelected){
-        
+        LAContext *context = [[LAContext alloc] init];
         NSError *error;
         BOOL success;
         
@@ -227,91 +204,25 @@
                     break;
                 default:
                     NSLog(@"不支持");
-                    break;
+                break;
                     
             }
-            
-            NSString *msg = @"TouchID may not support";
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:msg message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-            [alertView show];
-            checkButton.selected = YES;
         }
         
-    }else{
-        [self login:[emailEdit.text trimed] password:[pwdEdit.text trimed]];
-    }
-    
-}
-
-- (void)clickLinkedin:(id)sender {
-	NSLog(@"clickLinkedin ");
-    NoIntenetViewController *intenet = [NoIntenetViewController new];
-    intenet.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    intenet.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    intenet.providesPresentationContextTransitionStyle = YES;
-    intenet.definesPresentationContext = YES;
-    [self openPage:intenet];
-}
-
-- (void)clickForgot:(id)sender {
-    NSLog(@"clickForgot");
-    ForgotViewController *forgot = [ForgotViewController new];
-    [self openPage:forgot];
-}
-
-- (void)clickUseTouchID:(id)sender {
-    NSLog(@"clickUseTouchID");
-
-}
-
-
--(BOOL)isSupportBiometrics{
-    
-    NSError *error;
-    BOOL success;
-    // test if we can evaluate the policy, this test will tell us if Touch ID is available and enrolled
-    success = [context canEvaluatePolicy: LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
-    return success;
-    
-}
-
-// 判断生物识别类型，更新UI
-- (void)justSupportBiometricsType:(NSInteger)biometryType
-{
-    switch (biometryType) {
-        case 0://需求方说没有这种情况
-            NSLog(@"该设备支持不支持FaceID和TouchID");
-            break;
-        case 1://该设备支持TouchID
-            NSLog(@"该设备支持TouchID");
-            touchLabel.text = localStr(@"enable_touch");
-           
-            
-            break;
-        case 2://该设备支持FaceID
-            NSLog(@"该设备支持Face ID");
-            touchLabel.text = localStr(@"enable_face");
-           
-            
-            break;
-        default:
-            break;
     }
 }
-
-
 
 
 - (void)evaluatePolicy
 {
-   
+    LAContext *context = [[LAContext alloc] init];
     __block  NSString *msg;
     
     // show the authentication UI with our reason string
     //LAPolicyDeviceOwnerAuthentication 相对简单（正确，取消，输入密码）
     //LAPolicyDeviceOwnerAuthenticationWithBiometrics 错误码较多，但是发现点击输入密码，竟然抛出错误，而不是弹出密码框
     __weak __typeof(self) weakSelf = self;
-    [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:localStr(@"authenticateHint") reply:
+    [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:NSLocalizedString(@"Please authenticate to proceed", nil) reply:
      ^(BOOL success, NSError *authenticationError) {
          if (success) {
              msg =[NSString stringWithFormat:@"EVALUATE_POLICY_SUCCESS"];
@@ -319,11 +230,14 @@
              NSLog(@"result===%@",evaluatedPolicyDomainState);
              [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                  //其他情况，切换主线程处理
-                
-                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                 NSString *account = [userDefaults objectForKey:@"lastAccessUser"];
-                 NSString *pwd = [SAMKeychain passwordForService:@"lastAccessUser" account:account];
-                 [weakSelf login:account password:pwd];
+                 NSArray *accountArray = [SAMKeychain accountsForService:@"lastAccessUser"];
+                 int count = accountArray.count;
+                 for( int i=0; i<count; i++){
+                     NSLog(@"%i-%@", i, [accountArray objectAtIndex:i]);
+                 }
+                 //如何获取上一次账号，上面代码打印出来不是一个简单的字符串
+                 //NSString *pwd = [SAMKeychain passwordForService:@"lastAccessUser" account:<#(nonnull NSString *)#>];
+                  [weakSelf login:[emailEdit.text trimed] password:[pwdEdit.text trimed]];
              }];
             
              

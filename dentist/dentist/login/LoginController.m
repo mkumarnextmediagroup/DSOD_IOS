@@ -237,7 +237,7 @@
     //LAPolicyDeviceOwnerAuthentication 相对简单（正确，取消，输入密码）
     //LAPolicyDeviceOwnerAuthenticationWithBiometrics 错误码较多，但是发现点击输入密码，竟然抛出错误，而不是弹出密码框
     __weak __typeof(self) weakSelf = self;
-    [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:NSLocalizedString(@"Please authenticate to proceed", nil) reply:
+    [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:localStr(@"authenticateHint") reply:
      ^(BOOL success, NSError *authenticationError) {
          if (success) {
              msg =[NSString stringWithFormat:@"EVALUATE_POLICY_SUCCESS"];

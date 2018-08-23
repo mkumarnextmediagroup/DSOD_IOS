@@ -15,14 +15,31 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	[self.view onClickView:self action:@selector(_onClickControllerView:)];
-	[self setupKeyboardMgr:UIApplication.sharedApplication];
 }
 
-- (void)setupKeyboardMgr:(UIApplication *)app {
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[self setupKeyboardMgr];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	[self uninstallKeyboardMgr];
+}
+
+- (void)uninstallKeyboardMgr {
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+	[nc removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)setupKeyboardMgr {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 	[nc addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
+
 
 - (void)keyboardWillShow:(NSNotification *)n {
 	UITextField *ed = [self _findActiveEdit];

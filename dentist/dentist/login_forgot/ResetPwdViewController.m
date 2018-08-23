@@ -28,20 +28,28 @@
     
     StackLayout *sl = [StackLayout new];
     
-//    UIButton *regButton = [UIButton new];
-//    [regButton title:localStr(@"reg")];
-//    [regButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [sl push:regButton height:BTN_HEIGHT marginBottom:10];
+    UIButton *contactButton = self.view.contactButton;
+    [sl push:contactButton height:BTN_HEIGHT marginBottom:12];
     
-    UILabel *reqLabel = [UILabel new];
+    UIButton *regButton = self.view.resetButton;
+    [regButton title:localStr(@"resetPwdLower")];
+    [sl push:regButton height:BTN_HEIGHT marginBottom:5];
+    
+    UILabel *noticeLab = self.view.noticeLabel;
+    noticeLab.text = localStr(@"pwdstandard");
+    noticeLab.font = [Fonts light:10];
+    noticeLab.numberOfLines = 0;
+    [sl push:noticeLab height:45 marginBottom:30];
+    
+    UILabel *reqLabel = self.view.addLabel;
     reqLabel.text = localStr(@"pwd_req");
     reqLabel.font = [Fonts light:12];
-    [reqLabel textColorWhite];
+    [reqLabel textColorPrimary];
     UIImageView *infoImgView = reqLabel.addImageView;
     infoImgView.imageName = @"info";
     [infoImgView scaleFill];
     [[[[[infoImgView layoutMaker] sizeEq:15 h:15] leftParent:0] centerYParent:0] install];
-    [sl push:reqLabel height:[reqLabel heightThatFit] marginBottom:22];
+    [sl push:reqLabel height:[reqLabel heightThatFit] marginBottom:15];
     
     UITextField *pwdEdit = self.view.addEdit;
     pwdEdit.delegate = self;

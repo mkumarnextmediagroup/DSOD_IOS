@@ -67,21 +67,6 @@
 	self.leftViewMode = UITextFieldViewModeAlways;
 }
 
-- (void)backColor {
-//    self.borderStyle = UITextBorderStyleRoundedRect;
-//    self.layer.borderColor = Colors.borderNormal.CGColor;
-    self.layer.borderWidth = 1;
-    self.layer.cornerRadius = 3;
-    self.layer.masksToBounds = YES;
-    
-    self.backgroundColor = UIColor.whiteColor;
-    self.clearButtonMode = UITextFieldViewModeWhileEditing;
-    [self textColorMain];
-    
-    self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4, 10)];
-    self.leftViewMode = UITextFieldViewModeAlways;
-}
-
 - (void)themeDisabled {
 	if (self.borderStyle == UITextBorderStyleNone) {
 		[self themeLineDisabled];

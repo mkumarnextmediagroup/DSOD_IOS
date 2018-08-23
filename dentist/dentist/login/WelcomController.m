@@ -36,7 +36,8 @@
 
 	UILabel *welText = [UILabel new];
 	welText.text = localStr(@"welcome");
-	welText.font = [Fonts medium:38];
+	welText.font = [Fonts heavy:44];
+	[welText wordSpace:-1];
 	welText.textColor = UIColor.whiteColor;
 	welText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:welText];
@@ -44,7 +45,8 @@
 
 	UILabel *sayText = [UILabel new];
 	sayText.text = localStr(@"sayhello");
-	sayText.font = [Fonts medium:18];
+	sayText.font = [Fonts medium:19];
+	[sayText wordSpace:-0.2f];
 	sayText.textColor = UIColor.whiteColor;
 	sayText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:sayText];

@@ -35,7 +35,6 @@
 
 - (void)styleLine;
 
-
 - (void)stylePassword;
 
 - (void)returnDone;

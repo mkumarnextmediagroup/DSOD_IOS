@@ -17,7 +17,7 @@
 
 - (UILabel *)addLabel;
 
-- (UILabel *)noticeLabel;
+- (UITextView *)noticeLabel;
 
 - (UITextField *)addEdit;
 

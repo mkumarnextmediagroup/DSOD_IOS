@@ -16,6 +16,8 @@
 
 - (void)textColorWhite;
 
+- (void)textColorPrimary;
+
 - (void)textAlignCenter;
 
 - (void)textAlignLeft;

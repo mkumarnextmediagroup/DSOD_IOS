@@ -68,6 +68,30 @@
 	return lb;
 }
 
+- (UITextView *)noticeLabel {
+    UITextView *noticelb = [UITextView new];
+    noticelb.backgroundColor = Colors.secondary;
+    noticelb.textColor = UIColor.whiteColor;
+    noticelb.tag = 11;
+    noticelb.textContainerInset = UIEdgeInsetsMake(10, 0, 0, 15);
+    [self addSubview:noticelb];
+    
+    UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
+    b.frame = makeRect(SCREENWIDTH - 88, 0, 60, BTN_HEIGHT);
+    [b setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+    [noticelb addSubview:b];
+    [b onClick:self action:@selector(deleteNoticeButton:)];
+    return noticelb;
+}
+
+- (void)deleteNoticeButton:(UIButton *)btn
+{
+    NSLog(@"delelte");
+    [btn removeFromSuperview];
+    UITextView *notice = [self viewWithTag:11];
+    notice.hidden = YES;
+}
+
 - (UIImageView *)addImageView {
 	UIImageView *imageView = [UIImageView new];
 	[self addSubview:imageView];
@@ -81,7 +105,6 @@
 	return edit;
 }
 
-
 - (UIButton *)addButton {
 	UIButton *button = [UIButton new];
 	[button styleWhite];
@@ -89,6 +112,27 @@
 	return button;
 }
 
+- (UIButton *)resetButton {
+    UIButton *button = [UIButton new];
+    [button stylePrimary];
+    [self addSubview:button];
+    return button;
+}
+
+- (UIButton *)contactButton {
+    NSString * aStr = localStr(@"haveIssue");
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",aStr]];
+    [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,20)];
+    [str addAttribute:NSForegroundColorAttributeName value:Colors.primary range:NSMakeRange(20,aStr.length - 20)];
+    
+    UIButton * contactBtn = [UIButton new];
+    [contactBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [contactBtn setTitleColor:Colors.primary forState:UIControlStateNormal];
+    [contactBtn setAttributedTitle:str forState:UIControlStateNormal];
+    [self addSubview:contactBtn];
+    
+    return contactBtn;
+}
 
 - (void)layoutCenterXOffsetTop:(CGFloat)width height:(CGFloat)height offset:(CGFloat)offset {
 	[self makeLayout:^(MASConstraintMaker *m) {

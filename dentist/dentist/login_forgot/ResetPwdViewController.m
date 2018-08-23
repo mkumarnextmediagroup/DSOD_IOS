@@ -7,9 +7,15 @@
 //
 
 #import "ResetPwdViewController.h"
+#import "ContactViewController.h"
 
 @interface ResetPwdViewController ()
-
+{
+    UITextField *rePwdEdit;
+    UITextField *pwdEdit;
+    UITextField *nameEdit;
+    BOOL        isContinue;
+}
 @end
 
 @implementation ResetPwdViewController
@@ -35,10 +41,9 @@
     [regButton title:localStr(@"resetPwdLower")];
     [sl push:regButton height:BTN_HEIGHT marginBottom:5];
     
-    UILabel *noticeLab = self.view.noticeLabel;
+    UITextView *noticeLab = self.view.noticeLabel;
     noticeLab.text = localStr(@"pwdstandard");
     noticeLab.font = [Fonts light:10];
-    noticeLab.numberOfLines = 0;
     [sl push:noticeLab height:45 marginBottom:30];
     
     UILabel *reqLabel = self.view.addLabel;
@@ -51,22 +56,22 @@
     [[[[[infoImgView layoutMaker] sizeEq:15 h:15] leftParent:0] centerYParent:0] install];
     [sl push:reqLabel height:[reqLabel heightThatFit] marginBottom:15];
     
-    UITextField *pwdEdit = self.view.addEdit;
+    rePwdEdit = self.view.addEdit;
+    rePwdEdit.delegate = self;
+    rePwdEdit.hint = localStr(@"conpwd");
+    [rePwdEdit returnNext];
+    [rePwdEdit returnDone];
+    [rePwdEdit keyboardDefault];
+    [sl push:rePwdEdit height:36 marginBottom:10];
+    
+    pwdEdit = self.view.addEdit;
     pwdEdit.delegate = self;
-    pwdEdit.hint = localStr(@"conpwd");
+    pwdEdit.hint = localStr(@"newpwd");
     [pwdEdit returnNext];
-    [pwdEdit returnDone];
-    [pwdEdit keyboardDefault];
+    [pwdEdit keyboardEmail];
     [sl push:pwdEdit height:36 marginBottom:10];
     
-    UITextField *emailEdit = self.view.addEdit;
-    emailEdit.delegate = self;
-    emailEdit.hint = localStr(@"newpwd");
-    [emailEdit returnNext];
-    [emailEdit keyboardEmail];
-    [sl push:emailEdit height:36 marginBottom:10];
-    
-    UITextField *nameEdit = self.view.addEdit;
+    nameEdit = self.view.addEdit;
     nameEdit.delegate = self;
     nameEdit.hint = localStr(@"temppwd");
     [nameEdit returnNext];
@@ -83,7 +88,50 @@
     
     
     [sl install];
+    
+    [contactButton onClick:self action:@selector(contactBtnClick)];
+    [regButton onClick:self action:@selector(regBtnClick)];
+    
     // Do any additional setup after loading the view.
+}
+
+- (void)onTextFieldDone:(UITextField *)textField {
+    
+    if ([nameEdit.text trimed].length == 0) {
+        isContinue = NO;
+        [nameEdit themeError];
+    }
+    if ([pwdEdit.text trimed].length < 8 || [pwdEdit.text trimed].length > 16) {
+        isContinue = NO;
+        [pwdEdit themeError];
+        
+    } else {
+        isContinue = YES;
+        [pwdEdit themeNormal];
+    }
+    if (![[rePwdEdit.text trimed] isEqualToString:[pwdEdit.text trimed]]) {
+        isContinue = NO;
+        [rePwdEdit themeError];
+    }else
+    {
+        isContinue = YES;
+        [rePwdEdit themeNormal];
+    }
+    
+}
+
+- (void)regBtnClick
+{
+    if (isContinue) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:localStr(@"Reset Success!") delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+}
+
+- (void)contactBtnClick
+{
+    ContactViewController *contact = [ContactViewController new];
+    [self openPage:contact];
 }
 
 - (void)didReceiveMemoryWarning {

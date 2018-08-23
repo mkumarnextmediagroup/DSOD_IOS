@@ -15,7 +15,10 @@
 #import "ResetPwdViewController.h"
 
 @interface ForgotViewController ()<UIAlertViewDelegate>
-
+{
+    UITextField *emailEdit;
+    BOOL        isContinue;
+}
 @end
 
 @implementation ForgotViewController
@@ -44,7 +47,7 @@
     textLab.backgroundColor = UIColor.clearColor;
     [self.view addSubview:textLab];
     
-    UITextField *emailEdit = self.view.addEdit;
+    emailEdit = self.view.addEdit;
     emailEdit.delegate = self;
     emailEdit.hint = localStr(@"email_address");
     [emailEdit layoutFillXOffsetBottom:EDIT_HEIGHT offset:125];
@@ -84,9 +87,23 @@
 }
 
 - (void)sendPwdClick
-{ 
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:localStr(@"newPwdSend") delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-    [alert show];
+{
+    if (isContinue) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:localStr(@"newPwdSend") delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+}
+
+- (void)onTextFieldDone:(UITextField *)textField {
+    
+    if ([emailEdit.text trimed].length < 5 || !emailEdit.text.matchEmail) {
+        [emailEdit themeError];
+        isContinue = NO;
+    } else {
+        isContinue = YES;
+        [emailEdit themeNormal];
+    }
+    
 }
 
 #pragma mark UIAlertViewDelegate

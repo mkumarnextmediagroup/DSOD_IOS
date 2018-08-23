@@ -52,6 +52,8 @@
 - (void)clickSend:(UIButton *)btn
 {
     NSLog(@"send message");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:localStr(@"Send Success!") delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
 }
 
 #pragma mark UITableViewDelegate

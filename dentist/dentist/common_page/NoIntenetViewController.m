@@ -23,6 +23,18 @@
 
 @implementation NoIntenetViewController
 
++ (instancetype)shareInstance
+{
+    static NoIntenetViewController *instance;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[NoIntenetViewController alloc] init];
+    });
+    
+    return instance;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

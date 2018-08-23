@@ -68,6 +68,14 @@
 	return lb;
 }
 
+- (UILabel *)noticeLabel {
+    UILabel *noticelb = [UILabel new];
+    noticelb.backgroundColor = Colors.secondary;
+    [noticelb textColorWhite];
+    [self addSubview:noticelb];
+    return noticelb;
+}
+
 - (UIImageView *)addImageView {
 	UIImageView *imageView = [UIImageView new];
 	[self addSubview:imageView];
@@ -89,6 +97,27 @@
 	return button;
 }
 
+- (UIButton *)resetButton {
+    UIButton *button = [UIButton new];
+    [button stylePrimary];
+    [self addSubview:button];
+    return button;
+}
+
+- (UIButton *)contactButton {
+    NSString * aStr = localStr(@"haveIssue");
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",aStr]];
+    [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,20)];
+    [str addAttribute:NSForegroundColorAttributeName value:Colors.primary range:NSMakeRange(20,aStr.length - 20)];
+    
+    UIButton * contactBtn = [UIButton new];
+    [contactBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [contactBtn setTitleColor:Colors.primary forState:UIControlStateNormal];
+    [contactBtn setAttributedTitle:str forState:UIControlStateNormal];
+    [self addSubview:contactBtn];
+    
+    return contactBtn;
+}
 
 - (void)layoutCenterXOffsetTop:(CGFloat)width height:(CGFloat)height offset:(CGFloat)offset {
 	[self makeLayout:^(MASConstraintMaker *m) {

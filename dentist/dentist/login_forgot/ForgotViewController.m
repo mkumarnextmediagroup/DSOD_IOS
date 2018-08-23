@@ -12,8 +12,9 @@
 #import "UIView+customed.h"
 #import "UILabel+customed.h"
 #import "UIControl+customed.h"
+#import "ResetPwdViewController.h"
 
-@interface ForgotViewController ()
+@interface ForgotViewController ()<UIAlertViewDelegate>
 
 @end
 
@@ -27,16 +28,6 @@
     UIImageView *logoView = self.view.addImageView;
     logoView.imageName = @"logo";
     [logoView layoutCenterXOffsetTop:260 height:54 offset:54];
-    
-    UIImageView *backView = self.view.addImageView;
-    backView.imageName = @"back.png";
-    [backView scaleFit];
-    [backView makeLayout:^(MASConstraintMaker *m) {
-        m.width.mas_equalTo(23);
-        m.height.mas_equalTo(23);
-        m.left.mas_equalTo(self.view.mas_left).offset(16);
-        m.top.mas_equalTo(self.view.mas_top).offset(50);
-    }];
     
     UILabel *panic = [UILabel new];
     panic.text = localStr(@"Don't panic");
@@ -60,12 +51,13 @@
 
     UIButton *sendButton = [UIButton new];
     [sendButton title:localStr(@"send")];
-    sendButton.stylePrimary;
+    [sendButton stylePrimary];
     [self.view addSubview:sendButton];
     
-    NSString * aStr = @"Nevermind,Take me back";
+    NSString * aStr = localStr(@"nevermind");
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",aStr]];
     [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,10)];
+    [str addAttribute:NSForegroundColorAttributeName value:Colors.primary range:NSMakeRange(10,aStr.length - 10)];
     
     UIButton * backBtn = [UIButton new];
     [backBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
@@ -82,12 +74,28 @@
     [sl install];
     
     
-    [backView onClick:self action:@selector(clickGoBack:)];
+    [backBtn onClick:self action:@selector(clickGoBack:)];
+    [sendButton onClick:self action:@selector(sendPwdClick)];
     // Do any additional setup after loading the view.
 }
 
 - (void)clickGoBack:(id)sender {
     [self dismiss];
+}
+
+- (void)sendPwdClick
+{ 
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:localStr(@"newPwdSend") delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
+}
+
+#pragma mark UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {//click the OK btn
+        ResetPwdViewController *resetPwd = [ResetPwdViewController new];
+        [self openPage:resetPwd];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

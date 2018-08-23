@@ -14,6 +14,13 @@
 		4EBCE6B8212A8A4700A0672D /* close_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B6212A8A4700A0672D /* close_white@3x.png */; };
 		4EBCE6BB212AACE600A0672D /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6BA212AACE600A0672D /* NoticeViewController.m */; };
 		4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6C0212BF76500A0672D /* ContactViewController.m */; };
+		4EBCE6C5212D0AED00A0672D /* ContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6C4212D0AED00A0672D /* ContactTableViewCell.m */; };
+		4EBCE6C8212D0DF000A0672D /* MagazineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6C7212D0DF000A0672D /* MagazineTableViewCell.m */; };
+		4EBCE6CF212D2CF000A0672D /* photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6CD212D2CF000A0672D /* photo@3x.png */; };
+		4EBCE6D0212D2CF000A0672D /* photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6CE212D2CF000A0672D /* photo@2x.png */; };
+		4EBCE6D7212D62DF00A0672D /* close_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6D5212D62DF00A0672D /* close_select@3x.png */; };
+		4EBCE6D8212D62DF00A0672D /* close_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6D6212D62DF00A0672D /* close_select@2x.png */; };
+		4EBCE6DB212D6D8600A0672D /* ResetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6DA212D6D8600A0672D /* ResetPwdViewController.m */; };
 		574B3A23212338DF00C37095 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A22212338DF00C37095 /* AppDelegate.m */; };
 		574B3A2B212338E100C37095 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 574B3A2A212338E100C37095 /* Assets.xcassets */; };
 		574B3A31212338E100C37095 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A30212338E100C37095 /* main.m */; };
@@ -87,6 +94,16 @@
 		4EBCE6BC212AB4A900A0672D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		4EBCE6BF212BF76500A0672D /* ContactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactViewController.h; sourceTree = "<group>"; };
 		4EBCE6C0212BF76500A0672D /* ContactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactViewController.m; sourceTree = "<group>"; };
+		4EBCE6C3212D0AED00A0672D /* ContactTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactTableViewCell.h; sourceTree = "<group>"; };
+		4EBCE6C4212D0AED00A0672D /* ContactTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewCell.m; sourceTree = "<group>"; };
+		4EBCE6C6212D0DF000A0672D /* MagazineTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MagazineTableViewCell.h; sourceTree = "<group>"; };
+		4EBCE6C7212D0DF000A0672D /* MagazineTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MagazineTableViewCell.m; sourceTree = "<group>"; };
+		4EBCE6CD212D2CF000A0672D /* photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo@3x.png"; sourceTree = "<group>"; };
+		4EBCE6CE212D2CF000A0672D /* photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo@2x.png"; sourceTree = "<group>"; };
+		4EBCE6D5212D62DF00A0672D /* close_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_select@3x.png"; sourceTree = "<group>"; };
+		4EBCE6D6212D62DF00A0672D /* close_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_select@2x.png"; sourceTree = "<group>"; };
+		4EBCE6D9212D6D8600A0672D /* ResetPwdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResetPwdViewController.h; sourceTree = "<group>"; };
+		4EBCE6DA212D6D8600A0672D /* ResetPwdViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResetPwdViewController.m; sourceTree = "<group>"; };
 		574B3A1E212338DF00C37095 /* dentist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dentist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		574B3A21212338DF00C37095 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		574B3A22212338DF00C37095 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -199,6 +216,8 @@
 			children = (
 				4EBCE6AE212A595B00A0672D /* ForgotViewController.h */,
 				4EBCE6AF212A595B00A0672D /* ForgotViewController.m */,
+				4EBCE6D9212D6D8600A0672D /* ResetPwdViewController.h */,
+				4EBCE6DA212D6D8600A0672D /* ResetPwdViewController.m */,
 			);
 			path = login_forgot;
 			sourceTree = "<group>";
@@ -206,6 +225,7 @@
 		4EBCE6B1212A5E1000A0672D /* common_page */ = {
 			isa = PBXGroup;
 			children = (
+				4EBCE6C2212D0AC400A0672D /* view */,
 				4EBCE6B2212A5E1000A0672D /* NoIntenetViewController.h */,
 				4EBCE6B3212A5E1000A0672D /* NoIntenetViewController.m */,
 				4EBCE6B9212AACE600A0672D /* NoticeViewController.h */,
@@ -214,6 +234,17 @@
 				4EBCE6C0212BF76500A0672D /* ContactViewController.m */,
 			);
 			path = common_page;
+			sourceTree = "<group>";
+		};
+		4EBCE6C2212D0AC400A0672D /* view */ = {
+			isa = PBXGroup;
+			children = (
+				4EBCE6C3212D0AED00A0672D /* ContactTableViewCell.h */,
+				4EBCE6C4212D0AED00A0672D /* ContactTableViewCell.m */,
+				4EBCE6C6212D0DF000A0672D /* MagazineTableViewCell.h */,
+				4EBCE6C7212D0DF000A0672D /* MagazineTableViewCell.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		574B3A15212338DF00C37095 = {
@@ -265,6 +296,10 @@
 				57B0990421256E840010597B /* linked_in.png */,
 				C5EEA18EB9B95E5485DE66DA /* error@3x.png */,
 				C5EEA64F84AE34B5F5F79A7F /* ok@3x.png */,
+				4EBCE6D6212D62DF00A0672D /* close_select@2x.png */,
+				4EBCE6D5212D62DF00A0672D /* close_select@3x.png */,
+				4EBCE6CE212D2CF000A0672D /* photo@2x.png */,
+				4EBCE6CD212D2CF000A0672D /* photo@3x.png */,
 				C5EEA0DE73B049D946E71EA1 /* logo_white@2x.png */,
 				C5EEA9A86503708DA9E3869E /* logo_white@3x.png */,
 				C5EEAFA6847EBD5CB2040106 /* logo@3x.png */,
@@ -454,14 +489,18 @@
 				C5EEA55691F65C5A3EF946AF /* checkbox@2x.png in Resources */,
 				C5EEA65E44E172FEB6482668 /* checkbox@3x.png in Resources */,
 				C5EEA75037810F6772CD2C4F /* inkedin@2x.png in Resources */,
+				4EBCE6CF212D2CF000A0672D /* photo@3x.png in Resources */,
 				C5EEA304546737C29C822865 /* inkedin@3x.png in Resources */,
 				C5EEA20626BFCB817FCD6BED /* linkedin.png in Resources */,
 				C5EEA3833E70FE8F978304CF /* checkbox_on.png in Resources */,
 				C5EEA9C826673B94007566E8 /* checkbox_on@2x.png in Resources */,
 				C5EEAF2A194521DC8C0BD8A0 /* checkbox_on@3x.png in Resources */,
+				4EBCE6D7212D62DF00A0672D /* close_select@3x.png in Resources */,
+				4EBCE6D8212D62DF00A0672D /* close_select@2x.png in Resources */,
 				C5EEAAE976626BD0AD7F87A8 /* in.png in Resources */,
 				C5EEA3FB2294B0B512A2C1DB /* in@2x.png in Resources */,
 				C5EEA1D0E4573EAC275DB65F /* in@3x.png in Resources */,
+				4EBCE6D0212D2CF000A0672D /* photo@2x.png in Resources */,
 				C5EEAB39CFA076691E67BA42 /* info.png in Resources */,
 				C5EEAC84691A5246841E615B /* info@2x.png in Resources */,
 				C5EEA9C145CEE1C7091EA50F /* info@3x.png in Resources */,
@@ -516,6 +555,7 @@
 			files = (
 				574B3A31212338E100C37095 /* main.m in Sources */,
 				574B3A23212338DF00C37095 /* AppDelegate.m in Sources */,
+				4EBCE6C5212D0AED00A0672D /* ContactTableViewCell.m in Sources */,
 				E11E10BD74EC149921ADD708 /* LoginController.m in Sources */,
 				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,
 				C5EEA9E893F712BA5CC4938D /* TextSize.m in Sources */,
@@ -532,6 +572,7 @@
 				C5EEA97A363C02981633699C /* StackLayout.m in Sources */,
 				C5EEAE3B78A71516A252C86F /* StackLayoutItem.m in Sources */,
 				C5EEA5EB7EC226DCBF96A2BA /* UIImageView+customed.m in Sources */,
+				4EBCE6C8212D0DF000A0672D /* MagazineTableViewCell.m in Sources */,
 				4EBCE6BB212AACE600A0672D /* NoticeViewController.m in Sources */,
 				4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */,
 				C5EEA70CAD83A3FEE9B6BD2C /* UILabel+customed.m in Sources */,
@@ -539,6 +580,7 @@
 				C5EEAA269C87F480239BF21E /* TapGesture.m in Sources */,
 				C5EEA2BA0180646BF8FF57BF /* Platform.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
+				4EBCE6DB212D6D8600A0672D /* ResetPwdViewController.m in Sources */,
 				C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */,
 				C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */,
 				C5EEAF6A040452F10D489279 /* NSString+myextend.m in Sources */,

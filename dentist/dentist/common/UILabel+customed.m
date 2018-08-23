@@ -8,7 +8,7 @@
 #import "NSMutableAttributedString+customed.h"
 #import "TapGesture.h"
 #import "Platform.h"
-
+#import "Colors.h"
 
 @implementation UILabel (customed)
 
@@ -39,6 +39,9 @@
 	self.textColor = UIColor.whiteColor;
 }
 
+- (void)textColorPrimary{
+    self.textColor = Colors.primary;
+}
 
 - (void)lineSpace:(CGFloat)space {
 	NSMutableAttributedString *as = self.mutableAttrString;

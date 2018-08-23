@@ -11,4 +11,6 @@
 
 @interface NoIntenetViewController : BaseController
 
++ (instancetype)shareInstance;
+
 @end

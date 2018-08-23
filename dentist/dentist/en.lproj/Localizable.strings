@@ -27,6 +27,10 @@
 "login_using_linkedin" = "Log In using Linkedin";
 "email_address" = "Email address";
 "pwd" = "Password";
+"conpwd" = "Confirm Password";
+"newpwd" = "New Password";
+"hereyou" = "Here you can change the password for your DSOD account.";
+"temppwd" = "Enter your temporary password";
 "enable_touch" = "Enable Touch ID";
 "enable_face" = "Enable Face ID";
 "forgot" = "FORGOT PASSWORD";
@@ -45,6 +49,16 @@
 "just" = "Just let us know your email address that you used to create an account.";
 "send" = "Send me a new password";
 "issue_context" = "If you are getting a message saying there's no internet connection when you are online, please try the following things: \n\nFirst, try using the app with a different internet connection to rule out the possibility that something is blocking DSODentist from using the internet connection.\n\nIf the app works a cellular network but not on a WIFI connection, there may be content filter enforced by the Internet Service Provider(ISP) that is blocking DSODentist from using the connection. Please check this with your ISP and if you find you have a content filter, make sure you allow or white list the following \ndomains:\n\nwww.dsodentist.com \n app.dsodentist.com \n*.dsodentist.com \n\n If the app works on a WIFI connection and not on your cellular network, DSODDentist might not have access to your mobile data. Allow DSODDentist to access the mobile data by enabling this switch.";
-
-
+"haveQuestion" = "Have a question for us?";
+"your email" = "Your email address";
+"write brief" = "write a brief review for the magazine";
+"we will" = "We will do our best to get back to you in less than 24 hrs.";
+"addAttach" = " Add an attachment";
+"SendMess" = "Send message";
+"resetPwd" = "RESET PASSWORD";
+"resetPwdLower" = "Reset Password";
+"pwdstandard" = "Your password should be at least 8 - 16 characters in length with at least one uppercase letter and one number";
+"haveIssue" = "Still having issues?Contact us";
+"nevermind" = "Nevermind,Take me back";
+"newPwdSend" = "Your new password is on its way to your email address.";
 

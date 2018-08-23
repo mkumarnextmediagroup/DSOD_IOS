@@ -10,6 +10,8 @@
 #import "LoginController.h"
 #import "WelcomController.h"
 #import "Common.h"
+#import "AFNetworking.h"
+#import "NoIntenetViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +21,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    //notificate for the internet
+//    [self AFNetWorkReachabilityStatus];
 	// Override point for customization after application launch.
 	self.window = [[UIWindow alloc] init];
 	self.window.frame = [[UIScreen mainScreen] bounds];
@@ -30,6 +35,46 @@
 	return YES;
 }
 
+- (void)AFNetWorkReachabilityStatus
+{
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+                NSLog(@"未识别的网络");
+                [self presentTheNoInternetPage];
+                break;
+                
+            case AFNetworkReachabilityStatusNotReachable:
+                NSLog(@"不可达的网络(未连接)");
+                [self presentTheNoInternetPage];
+                break;
+                
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                NSLog(@"2G,3G,4G...的网络");
+                break;
+                
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                NSLog(@"wifi的网络");
+                break;
+            default:
+                break;
+        }
+    }];
+    [manager startMonitoring];
+}
+
+- (void)presentTheNoInternetPage
+{
+    NoIntenetViewController *intenet = [NoIntenetViewController new];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:intenet];
+    intenet.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    intenet.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    intenet.providesPresentationContextTransitionStyle = YES;
+    intenet.definesPresentationContext = YES;
+    [self.window.rootViewController presentViewController:nav animated:YES completion:nil];
+
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
 	// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

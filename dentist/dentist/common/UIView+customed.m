@@ -68,12 +68,28 @@
 	return lb;
 }
 
-- (UILabel *)noticeLabel {
-    UILabel *noticelb = [UILabel new];
+- (UITextView *)noticeLabel {
+    UITextView *noticelb = [UITextView new];
     noticelb.backgroundColor = Colors.secondary;
-    [noticelb textColorWhite];
+    noticelb.textColor = UIColor.whiteColor;
+    noticelb.tag = 11;
+    noticelb.textContainerInset = UIEdgeInsetsMake(10, 0, 0, 15);
     [self addSubview:noticelb];
+    
+    UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
+    b.frame = makeRect(SCREENWIDTH - 88, 0, 60, BTN_HEIGHT);
+    [b setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+    [noticelb addSubview:b];
+    [b onClick:self action:@selector(deleteNoticeButton:)];
     return noticelb;
+}
+
+- (void)deleteNoticeButton:(UIButton *)btn
+{
+    NSLog(@"delelte");
+    [btn removeFromSuperview];
+    UITextView *notice = [self viewWithTag:11];
+    notice.hidden = YES;
 }
 
 - (UIImageView *)addImageView {
@@ -88,7 +104,6 @@
 	[self addSubview:edit];
 	return edit;
 }
-
 
 - (UIButton *)addButton {
 	UIButton *button = [UIButton new];

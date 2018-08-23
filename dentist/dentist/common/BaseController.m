@@ -7,10 +7,10 @@
 #import "UITextField+styled.h"
 #import "Common.h"
 
-
 @implementation BaseController {
-
+    
 }
+
 
 - (void)viewDidLoad {
 	[super viewDidLoad];

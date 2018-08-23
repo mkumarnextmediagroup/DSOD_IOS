@@ -14,7 +14,7 @@
 #import "UIControl+customed.h"
 #import "ResetPwdViewController.h"
 
-@interface ForgotViewController ()
+@interface ForgotViewController ()<UIAlertViewDelegate>
 
 @end
 
@@ -51,12 +51,13 @@
 
     UIButton *sendButton = [UIButton new];
     [sendButton title:localStr(@"send")];
-    sendButton.stylePrimary;
+    [sendButton stylePrimary];
     [self.view addSubview:sendButton];
     
-    NSString * aStr = @"Nevermind,Take me back";
+    NSString * aStr = localStr(@"nevermind");
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",aStr]];
     [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,10)];
+    [str addAttribute:NSForegroundColorAttributeName value:Colors.primary range:NSMakeRange(10,aStr.length - 10)];
     
     UIButton * backBtn = [UIButton new];
     [backBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
@@ -83,9 +84,18 @@
 }
 
 - (void)sendPwdClick
+{ 
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:localStr(@"newPwdSend") delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
+}
+
+#pragma mark UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    ResetPwdViewController *resetPwd = [ResetPwdViewController new];
-    [self openPage:resetPwd];
+    if (buttonIndex == 0) {//click the OK btn
+        ResetPwdViewController *resetPwd = [ResetPwdViewController new];
+        [self openPage:resetPwd];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

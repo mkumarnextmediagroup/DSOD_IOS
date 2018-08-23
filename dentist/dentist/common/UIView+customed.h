@@ -17,9 +17,15 @@
 
 - (UILabel *)addLabel;
 
+- (UILabel *)noticeLabel;
+
 - (UITextField *)addEdit;
 
 - (UIButton *)addButton;
+
+- (UIButton *)contactButton;
+
+- (UIButton *)resetButton;
 
 - (UIImageView *)addImageView;
 

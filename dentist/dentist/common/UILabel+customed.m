@@ -39,8 +39,17 @@
 	self.textColor = UIColor.whiteColor;
 }
 
-- (void)textColorPrimary{
-    self.textColor = Colors.primary;
+- (void)textColorMain {
+	self.textColor = Colors.textMain;
+}
+
+
+- (void)textColorPrimary {
+	self.textColor = Colors.primary;
+}
+
+- (void)textColorSecondary {
+	self.textColor = Colors.secondary;
 }
 
 - (void)lineSpace:(CGFloat)space {

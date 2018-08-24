@@ -138,7 +138,9 @@
         
         cell.textLabel.text = localStr(@"we will");
         cell.textLabel.numberOfLines = 0;
-        
+        [cell.textLabel textColorMain];
+        cell.textLabel.font = [Fonts semiBold:17];
+
         return cell;
         
     }else

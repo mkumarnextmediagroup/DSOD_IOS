@@ -72,10 +72,10 @@
 {
     switch (indexPath.section) {
         case 0:
-            return 49;
+            return 50;
             break;
         case 1:
-            return 75;
+            return 70;
             break;
         case 2:
             return 220;
@@ -112,7 +112,7 @@
             [cell.phoneBtn setImage:selectImage forState:UIControlStateNormal];
             cell.deleteBtn.hidden = NO;
             [cell.deleteBtn addTarget:self action:@selector(deleteSelect) forControlEvents:UIControlEventTouchUpInside];
-            [cell.phoneBtn setFrame:CGRectMake(20, 10, 29, 29)];
+            [cell.phoneBtn setFrame:CGRectMake(22, 10, 29, 29)];
 
         }else
         {

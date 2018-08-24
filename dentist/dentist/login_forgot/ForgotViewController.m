@@ -49,7 +49,6 @@
     emailEdit = self.view.resetEdit;
     emailEdit.delegate = self;
     emailEdit.hint = localStr(@"email_address");
-    [emailEdit layoutFillXOffsetBottom:EDIT_HEIGHT offset:125];
     [emailEdit keyboardEmail];
     
     UIButton *sendButton = [UIButton new];

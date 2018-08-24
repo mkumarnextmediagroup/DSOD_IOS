@@ -263,26 +263,25 @@
 
 - (void)clickReg:(id)sender {
 	NSLog(@"clickLogin");
-    
-    if(!emailEdit.text.matchEmail)
-    {
-        [emailEdit themeError];
-        return;
-        
-    }
-    if (!pwdEdit.text.matchPassword) {
-        
-        [pwdEdit themeError];
-        
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:localStr(@"pwdstandard") preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *okButton = [UIAlertAction actionWithTitle:localStr(@"ok") style:UIAlertActionStyleDefault handler:nil];
-        [alert addAction:okButton];
-        [self presentViewController:alert animated:YES completion:nil];
-        return;
-        
-    }
-    
+
+	if (!emailEdit.text.matchEmail) {
+		[emailEdit themeError];
+		return;
+
+	}
+	if (!pwdEdit.text.matchPassword) {
+
+		[pwdEdit themeError];
+
+		UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:localStr(@"pwdstandard") preferredStyle:UIAlertControllerStyleAlert];
+
+		UIAlertAction *okButton = [UIAlertAction actionWithTitle:localStr(@"ok") style:UIAlertActionStyleDefault handler:nil];
+		[alert addAction:okButton];
+		[self presentViewController:alert animated:YES completion:nil];
+		return;
+
+	}
+
 	//TODO 成功后，保存用户账号
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[userDefaults setObject:([emailEdit.text trimed]) forKey:(@"lastAccessUser")];
@@ -344,10 +343,10 @@
 //        if (self.registSuccessBlock) {
 //            self.registSuccessBlock();
 //        }
-        
-        NSString *msg = @"Regist Success";
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:msg message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-        [alertView show];
+
+		NSString *msg = @"Regist Success";
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:msg message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+		[alertView show];
 	}
 }
 
@@ -402,10 +401,10 @@
 //                        if (self.registSuccessBlock) {
 //                            self.registSuccessBlock();
 //                        }
-                        
-                        NSString *msg = @"Regist Success";
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:msg message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-                        [alertView show];
+
+						NSString *msg = @"Regist Success";
+						UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:msg message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+						[alertView show];
 
 					}];
 

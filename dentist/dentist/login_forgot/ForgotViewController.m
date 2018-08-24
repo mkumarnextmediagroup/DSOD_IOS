@@ -78,7 +78,7 @@
     [sl install];
     
     
-    [backPanel onClickView:self action:@selector(clickGoBack:)];
+    [backLabel onClickView:self action:@selector(clickGoBack:)];
     [sendButton onClick:self action:@selector(sendPwdClick)];
     // Do any additional setup after loading the view.
 }

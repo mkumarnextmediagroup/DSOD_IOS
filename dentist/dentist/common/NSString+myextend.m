@@ -21,4 +21,8 @@
 - (BOOL)matchEmail {
 	return [self match:REG_EMAIL];
 }
+
+- (BOOL)matchPassword {
+    return [self match:MATCH_PWD];
+}
 @end

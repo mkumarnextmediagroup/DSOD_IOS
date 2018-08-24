@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E137172212B0E6100B206CC /* LocalAuthentication.framework */; };
+		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
+		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6AF212A595B00A0672D /* ForgotViewController.m */; };
 		4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B3212A5E1000A0672D /* NoIntenetViewController.m */; };
 		4EBCE6B7212A8A4700A0672D /* close_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B5212A8A4700A0672D /* close_white@2x.png */; };
@@ -86,6 +88,8 @@
 
 /* Begin PBXFileReference section */
 		3E137172212B0E6100B206CC /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
+		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBCE6AE212A595B00A0672D /* ForgotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotViewController.h; sourceTree = "<group>"; };
 		4EBCE6AF212A595B00A0672D /* ForgotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotViewController.m; sourceTree = "<group>"; };
 		4EBCE6B2212A5E1000A0672D /* NoIntenetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoIntenetViewController.h; sourceTree = "<group>"; };
@@ -297,6 +301,8 @@
 				57B0990121256E830010597B /* bg_1.png */,
 				57B0990521256E840010597B /* bg_2.png */,
 				57B0990221256E830010597B /* bg_3.png */,
+				4EBBC577212FEF3E00396BF5 /* error_red@2x.png */,
+				4EBBC578212FEF3E00396BF5 /* error_red@3x.png */,
 				57B0990321256E830010597B /* close.png */,
 				4EBCE6B5212A8A4700A0672D /* close_white@2x.png */,
 				4EBCE6B6212A8A4700A0672D /* close_white@3x.png */,
@@ -490,6 +496,7 @@
 				E11E157223BF973AEB726995 /* Podfile in Resources */,
 				57B0990A21256E840010597B /* linked_in.png in Resources */,
 				C5EEA4A6B29832302A53D7B1 /* error@3x.png in Resources */,
+				4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */,
 				C5EEA18592C8A1D19E19C161 /* ok@3x.png in Resources */,
 				C5EEAE86F4DCB0CEF09C5B49 /* logo_white@2x.png in Resources */,
 				C5EEA3A502FE5013902AD3AF /* logo_white@3x.png in Resources */,
@@ -513,6 +520,7 @@
 				C5EEA3FB2294B0B512A2C1DB /* in@2x.png in Resources */,
 				C5EEA1D0E4573EAC275DB65F /* in@3x.png in Resources */,
 				4EBCE6D0212D2CF000A0672D /* photo@2x.png in Resources */,
+				4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */,
 				C5EEAB39CFA076691E67BA42 /* info.png in Resources */,
 				C5EEAC84691A5246841E615B /* info@2x.png in Resources */,
 				C5EEA9C145CEE1C7091EA50F /* info@3x.png in Resources */,

@@ -33,7 +33,7 @@
     
     UILabel *panic = [UILabel new];
     panic.text = localStr(@"Don't panic");
-    panic.font = [Fonts medium:38];
+    panic.font = [Fonts medium:37];
     panic.textColor = UIColor.blackColor;
     panic.backgroundColor = UIColor.clearColor;
     [self.view addSubview:panic];
@@ -46,11 +46,12 @@
     textLab.backgroundColor = UIColor.clearColor;
     [self.view addSubview:textLab];
     
-    emailEdit = self.view.addEdit;
+    emailEdit = self.view.resetEdit;
     emailEdit.delegate = self;
     emailEdit.hint = localStr(@"email_address");
     [emailEdit layoutFillXOffsetBottom:EDIT_HEIGHT offset:125];
-
+    [emailEdit keyboardEmail];
+    
     UIButton *sendButton = [UIButton new];
     [sendButton title:localStr(@"send")];
     [sendButton stylePrimary];
@@ -87,22 +88,24 @@
 
 - (void)sendPwdClick
 {
+    BOOL kdkd = emailEdit.text.matchEmail;
+    NSLog(@"%d",kdkd);
     if ([emailEdit.text trimed].length < 5 || !emailEdit.text.matchEmail) {
-        [emailEdit themeError];
+        [emailEdit resetError];
     } else {
-        [emailEdit themeNormal];
+        [emailEdit resetNormal];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:localStr(@"newPwdSend") delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
 
     }
 }
 
-- (void)onTextFieldDone:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     
     if ([emailEdit.text trimed].length < 5 || !emailEdit.text.matchEmail) {
-        [emailEdit themeError];
+        [emailEdit resetError];
     } else {
-        [emailEdit themeNormal];
+        [emailEdit resetNormal];
     }
     
 }

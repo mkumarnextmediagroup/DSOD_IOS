@@ -52,6 +52,21 @@
 	return button;
 }
 
+- (UIButton *)needHelpBtn
+{
+    UIButton *needHelpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [needHelpBtn title:localStr(@"Retry")];
+    [needHelpBtn stylePrimary];
+    return needHelpBtn;
+}
+
+- (UIButton *)retryBtn
+{
+    UIButton *retryButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [retryButton title:localStr(@"Need help?")];
+    [retryButton styleWhite];
+    return retryButton;
+}
 
 - (UITextView *)addTextView {
 	UITextView *v = [UITextView new];
@@ -103,6 +118,14 @@
 	[edit rounded];
 	[self addSubview:edit];
 	return edit;
+}
+
+- (UITextField *)resetEdit {
+    UITextField *reset = [UITextField new];
+    reset.tag = FORGOTFIELDTAG;
+    [reset rounded];
+    [self addSubview:reset];
+    return reset;
 }
 
 - (UIButton *)addButton {

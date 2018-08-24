@@ -13,4 +13,5 @@
 
 - (BOOL)matchEmail;
 
+- (BOOL)matchPassword;
 @end

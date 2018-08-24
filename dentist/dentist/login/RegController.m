@@ -239,7 +239,7 @@
 	} else {
 		[emailEdit themeNormal];
 	}
-	if ([pwdEdit.text trimed].length < 2) {
+	if (!pwdEdit.text.matchPassword) {
 		[pwdEdit themeError];
 		err = YES;
 	} else {

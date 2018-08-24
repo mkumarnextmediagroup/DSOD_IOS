@@ -17,7 +17,6 @@
 @interface ForgotViewController ()<UIAlertViewDelegate>
 {
     UITextField *emailEdit;
-    BOOL        isContinue;
 }
 @end
 
@@ -88,9 +87,13 @@
 
 - (void)sendPwdClick
 {
-    if (isContinue) {
+    if ([emailEdit.text trimed].length < 5 || !emailEdit.text.matchEmail) {
+        [emailEdit themeError];
+    } else {
+        [emailEdit themeNormal];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:localStr(@"newPwdSend") delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
+
     }
 }
 
@@ -98,9 +101,7 @@
     
     if ([emailEdit.text trimed].length < 5 || !emailEdit.text.matchEmail) {
         [emailEdit themeError];
-        isContinue = NO;
     } else {
-        isContinue = YES;
         [emailEdit themeNormal];
     }
     

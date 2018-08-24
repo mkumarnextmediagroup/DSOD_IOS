@@ -61,5 +61,5 @@
 "haveIssue" = "Still having issues?Contact us";
 "nevermind" = "Nevermind,Take me back";
 "newPwdSend" = "Your new password is on its way to your email address.";
-
-
+"SeemsLike" = "Seems like you are currently not connected to the internet.";
+"TryAgain" = "Try again when you get online.";

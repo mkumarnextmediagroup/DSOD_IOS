@@ -11,7 +11,7 @@
 #import "MagazineTableViewCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface ContactViewController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface ContactViewController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UITextViewDelegate>
 {
     UITableView *myTable;
     UIImage     *selectImage;
@@ -165,12 +165,14 @@
             {
                 cell.notice.text = localStr(@"your email");
                 cell.emailField.hidden = NO;
+                cell.emailField.delegate = self;
             }
                 break;
             case 2:
             {
                 cell.notice.text = localStr(@"write brief");
                 cell.content.hidden = NO;
+                cell.content.delegate = self;
             }
                 break;
             default:
@@ -178,6 +180,23 @@
         }
         return cell;
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if ([text isEqualToString:@"\n"]){
+        
+        [textView resignFirstResponder];
+        return NO; 
+    }
+    
+    return YES;
 }
 
 - (void)deleteSelect
@@ -192,6 +211,8 @@
     if (indexPath.section == 3) {//click the add an attachment btn
         [self callActionSheetFunc];
     }
+    
+    [self.view endEditing:YES];
 }
 
 - (void)callActionSheetFunc{

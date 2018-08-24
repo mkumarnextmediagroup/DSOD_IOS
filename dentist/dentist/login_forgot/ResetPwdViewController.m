@@ -100,11 +100,16 @@
     if ([nameEdit.text trimed].length == 0) {
         isContinue = NO;
         [nameEdit themeError];
+        return;
+    }else
+    {
+        isContinue = YES;
+        [pwdEdit themeNormal];
     }
-    if ([pwdEdit.text trimed].length < 8 || [pwdEdit.text trimed].length > 16) {
+    if (!pwdEdit.text.matchPassword) {
         isContinue = NO;
         [pwdEdit themeError];
-        
+        return;
     } else {
         isContinue = YES;
         [pwdEdit themeNormal];
@@ -112,6 +117,7 @@
     if (![[rePwdEdit.text trimed] isEqualToString:[pwdEdit.text trimed]]) {
         isContinue = NO;
         [rePwdEdit themeError];
+        return;
     }else
     {
         isContinue = YES;
@@ -122,6 +128,7 @@
 
 - (void)regBtnClick
 {
+    [self onTextFieldDone:nil];
     if (isContinue) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:localStr(@"Reset Success!") delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];

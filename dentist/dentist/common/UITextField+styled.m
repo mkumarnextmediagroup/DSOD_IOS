@@ -112,6 +112,7 @@
 	[b title:localStr(@"show")];
 	[b setTitleColor:Colors.secondary forState:UIControlStateNormal];
 	b.titleLabel.font = [Fonts semiBold:12];
+	[b.titleLabel wordSpace:-0.2f];
 	b.frame = makeRect(0, 0, 60, 30);
 	self.rightView = b;
 	self.rightViewMode = UITextFieldViewModeAlways;

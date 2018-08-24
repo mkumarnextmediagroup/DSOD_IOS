@@ -28,7 +28,8 @@
 
 	UILabel *studentText = [UILabel new];
 	studentText.text = localStr(@"areyoustudent");
-	studentText.font = [Fonts medium:30];
+	studentText.font = [Fonts heavy:37];
+	[studentText wordSpace:-1];
 	studentText.textColor = UIColor.whiteColor;
 	studentText.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:studentText];
@@ -70,19 +71,19 @@
 - (void)clickYes:(id)sender {
 	RegController *c = [RegController new];
 	c.student = YES;
-    c.registSuccessBlock = ^{
-        [self dismiss];
-    };
+	c.registSuccessBlock = ^{
+		[self dismiss];
+	};
 	[self presentViewController:c animated:YES completion:nil];
 }
 
 - (void)clickNo:(id)sender {
-    RegController *c = [RegController new];
-    c.student = NO;
-    c.registSuccessBlock = ^{
-        [self dismiss];
-    };
-    [self presentViewController:c animated:YES completion:nil];
+	RegController *c = [RegController new];
+	c.student = NO;
+	c.registSuccessBlock = ^{
+		[self dismiss];
+	};
+	[self presentViewController:c animated:YES completion:nil];
 }
 
 @end

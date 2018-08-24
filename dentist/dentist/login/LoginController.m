@@ -164,7 +164,7 @@
 	[pwdEdit keyboardDefault];
 }
 
-- (void)onTextFieldDone:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField {
 	BOOL err = NO;
 
 	if ([emailEdit.text trimed].length < 5 || !emailEdit.text.matchEmail) {

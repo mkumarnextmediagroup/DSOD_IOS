@@ -21,7 +21,13 @@
 
 - (UITextField *)addEdit;
 
+- (UITextField *)resetEdit;
+
 - (UIButton *)addButton;
+
+- (UIButton *)needHelpBtn;
+
+- (UIButton *)retryBtn;
 
 - (UIButton *)contactButton;
 

@@ -56,7 +56,7 @@
     [[[[[infoImgView layoutMaker] sizeEq:15 h:15] leftParent:0] centerYParent:0] install];
     [sl push:reqLabel height:[reqLabel heightThatFit] marginBottom:15];
     
-    rePwdEdit = self.view.addEdit;
+    rePwdEdit = self.view.resetEdit;
     rePwdEdit.delegate = self;
     rePwdEdit.hint = localStr(@"conpwd");
     [rePwdEdit returnNext];
@@ -64,14 +64,14 @@
     [rePwdEdit keyboardDefault];
     [sl push:rePwdEdit height:36 marginBottom:10];
     
-    pwdEdit = self.view.addEdit;
+    pwdEdit = self.view.resetEdit;
     pwdEdit.delegate = self;
     pwdEdit.hint = localStr(@"newpwd");
     [pwdEdit returnNext];
     [pwdEdit keyboardEmail];
     [sl push:pwdEdit height:36 marginBottom:10];
     
-    nameEdit = self.view.addEdit;
+    nameEdit = self.view.resetEdit;
     nameEdit.delegate = self;
     nameEdit.hint = localStr(@"temppwd");
     [nameEdit returnNext];
@@ -95,33 +95,33 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)onTextFieldDone:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     
     if ([nameEdit.text trimed].length == 0) {
         isContinue = NO;
-        [nameEdit themeError];
+        [nameEdit resetError];
         return;
     }else
     {
         isContinue = YES;
-        [pwdEdit themeNormal];
+        [pwdEdit resetNormal];
     }
     if (!pwdEdit.text.matchPassword) {
         isContinue = NO;
-        [pwdEdit themeError];
+        [pwdEdit resetError];
         return;
     } else {
         isContinue = YES;
-        [pwdEdit themeNormal];
+        [pwdEdit resetNormal];
     }
     if (![[rePwdEdit.text trimed] isEqualToString:[pwdEdit.text trimed]]) {
         isContinue = NO;
-        [rePwdEdit themeError];
+        [rePwdEdit resetError];
         return;
     }else
     {
         isContinue = YES;
-        [rePwdEdit themeNormal];
+        [rePwdEdit resetNormal];
     }
     
 }

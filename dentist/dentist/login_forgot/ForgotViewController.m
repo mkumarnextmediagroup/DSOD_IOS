@@ -33,7 +33,7 @@
     
     UILabel *panic = [UILabel new];
     panic.text = localStr(@"Don't panic");
-    panic.font = [Fonts medium:37];
+    panic.font = [Fonts heavy:37];
     panic.textColor = UIColor.blackColor;
     panic.backgroundColor = UIColor.clearColor;
     [self.view addSubview:panic];
@@ -41,7 +41,7 @@
     UILabel *textLab = [UILabel new];
     textLab.numberOfLines = 0 ;
     textLab.text = localStr(@"just");
-    textLab.font = [Fonts medium:17];
+    textLab.font = [Fonts regular:17];
     textLab.textColor = UIColor.blackColor;
     textLab.backgroundColor = UIColor.clearColor;
     [self.view addSubview:textLab];
@@ -49,7 +49,6 @@
     emailEdit = self.view.resetEdit;
     emailEdit.delegate = self;
     emailEdit.hint = localStr(@"email_address");
-    [emailEdit layoutFillXOffsetBottom:EDIT_HEIGHT offset:125];
     [emailEdit keyboardEmail];
     
     UIButton *sendButton = [UIButton new];
@@ -70,8 +69,8 @@
     
     StackLayout *sl = [StackLayout new];
     [sl push:backBtn height:BTN_HEIGHT marginBottom:30];
-    [sl push:sendButton height:BTN_HEIGHT marginBottom:8];
-    [sl push:emailEdit height:EDIT_HEIGHT marginBottom:14];
+    [sl push:sendButton height:BTN_HEIGHT marginBottom:12];
+    [sl push:emailEdit height:EDIT_HEIGHT marginBottom:24];
     [sl push:textLab height:60 marginBottom:12];
     [sl push:panic height:36 marginBottom:2];
     [sl install];

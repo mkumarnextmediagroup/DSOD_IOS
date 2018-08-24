@@ -22,7 +22,7 @@
         [self addSubview:_notice];
         
         _emailField = [UITextField new];
-        _emailField.frame = CGRectMake(20, 40, SCREENWIDTH - 40, 40);
+        _emailField.frame = CGRectMake(20, 35, SCREENWIDTH - 35, 40);
         _emailField.textColor = [UIColor blackColor];
         _emailField.returnKeyType = UIReturnKeyDone;
 //        _emailField.placeholder = @"enter you email";

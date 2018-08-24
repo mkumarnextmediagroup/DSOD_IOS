@@ -27,6 +27,10 @@
 
 - (void)themeActive;
 
+- (void)resetNormal;
+
+- (void)resetError;
+
 - (void)themeError;
 
 - (void)themeSuccess;

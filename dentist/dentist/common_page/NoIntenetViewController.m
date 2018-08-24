@@ -59,7 +59,7 @@
     
     UILabel *tisihText = [UILabel new];
     tisihText.numberOfLines = 0;
-    tisihText.text = localStr(@"Seems like you are currently not connected to the internet.");
+    tisihText.text = localStr(@"SeemsLike");
     tisihText.font = [Fonts medium:18];
     tisihText.textColor = UIColor.whiteColor;
     tisihText.backgroundColor = UIColor.clearColor;
@@ -67,25 +67,34 @@
     
     
     UILabel *sayText = [UILabel new];
-    sayText.text = localStr(@"Try again when you get online.");
+    sayText.text = localStr(@"TryAgain");
     sayText.font = [Fonts medium:18];
     sayText.textColor = UIColor.whiteColor;
     sayText.backgroundColor = UIColor.clearColor;
     [self.view addSubview:sayText];
     
-    UIButton *retryButton = [UIButton new];
-    [retryButton title:localStr(@"Retry")];
-    retryButton.stylePrimary;
-    [self.view addSubview:retryButton];
+//    UIView *loginPanel = self.view.addView;
+//    loginPanel.backgroundColor = UIColor.clearColor;
+//    UIButton *needBtn = loginPanel.needHelpBtn;
+//    [[[[[needBtn layoutMaker] sizeFit] centerXParent:-30] centerYParent:0] install];
+//
+//    UIButton *retryBtn = loginPanel.retryBtn;
+//    [[[[[retryBtn layoutMaker] sizeFit] toRightOf:needBtn offset:4] centerYParent:0] install];
     
-    UIButton *helpButton = [UIButton new];
-    [helpButton title:localStr(@"Need help?")];
-    helpButton.styleWhite;
-    [self.view addSubview:helpButton];
+    UIButton *retryBtn = [UIButton new];
+    [retryBtn title:localStr(@"Retry")];
+    [retryBtn stylePrimary];
+    [self.view addSubview:retryBtn];
+
+    UIButton *needBtn = [UIButton new];
+    [needBtn title:localStr(@"Need help?")];
+    [needBtn styleWhite];
+    [self.view addSubview:needBtn];
 
     StackLayout *sl = [StackLayout new];
-    [sl push:retryButton height:BTN_HEIGHT marginBottom:65];
-    [sl push:helpButton height:BTN_HEIGHT marginBottom:8];
+//    [sl push:needBtn height:BTN_HEIGHT marginBottom:65];
+//    [sl push:retryBtn height:BTN_HEIGHT marginBottom:8];
+//    [sl push:loginPanel height:BTN_HEIGHT marginBottom:40];
     [sl push:sayText height:30 marginBottom:12];
     [sl push:tisihText height:60 marginBottom:2];
 
@@ -93,8 +102,8 @@
     
     [backView onClick:self action:@selector(clickGoBack:)];
     
-    [retryButton onClick:self action:@selector(retryBtnClick:)];
-    [helpButton onClick:self action:@selector(helpBtnClick:)];
+    [retryBtn onClick:self action:@selector(retryBtnClick:)];
+    [needBtn onClick:self action:@selector(helpBtnClick:)];
     // Do any additional setup after loading the view.
 }
 

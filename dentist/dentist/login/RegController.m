@@ -224,7 +224,7 @@
 }
 
 
-- (void)onTextFieldDone:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField *)textField {
 
 	BOOL err = NO;
 	if ([nameEdit.text trimed].length < 1) {
@@ -233,13 +233,13 @@
 	} else {
 		[nameEdit themeNormal];
 	}
-	if ([emailEdit.text trimed].length < 5 || !emailEdit.text.matchEmail) {
+	if ([emailEdit.text trimed].length < 1 || !emailEdit.text.matchEmail) {
 		[emailEdit themeError];
 		err = YES;
 	} else {
 		[emailEdit themeNormal];
 	}
-	if (!pwdEdit.text.matchPassword) {
+	if (pwdEdit.text.length == 0) {
 		[pwdEdit themeError];
 		err = YES;
 	} else {
@@ -263,6 +263,26 @@
 
 - (void)clickReg:(id)sender {
 	NSLog(@"clickLogin");
+    
+    if(!emailEdit.text.matchEmail)
+    {
+        [emailEdit themeError];
+        return;
+        
+    }
+    if (!pwdEdit.text.matchPassword) {
+        
+        [pwdEdit themeError];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:localStr(@"pwdstandard") preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okButton = [UIAlertAction actionWithTitle:localStr(@"ok") style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:okButton];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+        
+    }
+    
 	//TODO 成功后，保存用户账号
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[userDefaults setObject:([emailEdit.text trimed]) forKey:(@"lastAccessUser")];

@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Dentist</string>
+	<string>DSODentist</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -18,16 +18,16 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
-	<key>NSCameraUsageDescription</key>
-	<string>需要使用相机</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>需要使用相册</string>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>需要权限访问媒体资料库</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>需要权限访问媒体资料库</string>
+	<key>NSCameraUsageDescription</key>
+	<string>需要使用相机</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要使用相册</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -47,24 +47,23 @@
     [self.view addSubview:baseView];
     [self.view addSubview:alphaView];
     
+    
     UIImageView *backView = self.view.addImageView;
     backView.imageName = @"close_white";
     [backView scaleFit];
-    [backView makeLayout:^(MASConstraintMaker *m) {
-        m.width.mas_equalTo(23);
-        m.height.mas_equalTo(23);
-        m.right.mas_equalTo(self.view.mas_right).offset(-26);
-        m.top.mas_equalTo(self.view.mas_top).offset(40);
-    }];
+    [[[[backView.layoutMaker sizeEq:23 h:23] rightParent:-40] topParent:30] install];
     
-    UILabel *tisihText = [UILabel new];
-    tisihText.numberOfLines = 0;
-    tisihText.text = localStr(@"SeemsLike");
-    tisihText.font = [Fonts medium:18];
-    tisihText.textColor = UIColor.whiteColor;
-    tisihText.backgroundColor = UIColor.clearColor;
-    [self.view addSubview:tisihText];
+    StackLayout *sl = [StackLayout new];
     
+    UIView *checkPanel = self.view.addView;
+    UIButton *retryBtn = checkPanel.retryBtn;
+    [[[[[retryBtn layoutMaker] sizeEq:98 h:BTN_HEIGHT] leftParent:0] centerYParent:0] install];
+    
+    UIButton *needBtn = checkPanel.needHelpBtn;
+    [[[[[needBtn layoutMaker] sizeEq:223 h:BTN_HEIGHT] toRightOf:retryBtn offset:10] centerYParent:0] install];
+    
+
+    [sl push:checkPanel height:BTN_HEIGHT marginBottom:107];
     
     UILabel *sayText = [UILabel new];
     sayText.text = localStr(@"TryAgain");
@@ -73,31 +72,20 @@
     sayText.backgroundColor = UIColor.clearColor;
     [self.view addSubview:sayText];
     
-//    UIView *loginPanel = self.view.addView;
-//    loginPanel.backgroundColor = UIColor.clearColor;
-//    UIButton *needBtn = loginPanel.needHelpBtn;
-//    [[[[[needBtn layoutMaker] sizeFit] centerXParent:-30] centerYParent:0] install];
-//
-//    UIButton *retryBtn = loginPanel.retryBtn;
-//    [[[[[retryBtn layoutMaker] sizeFit] toRightOf:needBtn offset:4] centerYParent:0] install];
+    [sl push:sayText height:30 marginBottom:19];
     
-    UIButton *retryBtn = [UIButton new];
-    [retryBtn title:localStr(@"Retry")];
-    [retryBtn stylePrimary];
-    [self.view addSubview:retryBtn];
+    UILabel *tisihText = [UILabel new];
+    tisihText.numberOfLines = 0;
+    tisihText.text = localStr(@"SeemsLike");
+    tisihText.font = [Fonts medium:18];
+    tisihText.textColor = UIColor.whiteColor;
+    tisihText.backgroundColor = UIColor.clearColor;
+    [self.view addSubview:tisihText];
 
-    UIButton *needBtn = [UIButton new];
-    [needBtn title:localStr(@"Need help?")];
-    [needBtn styleWhite];
-    [self.view addSubview:needBtn];
-
-    StackLayout *sl = [StackLayout new];
-    [sl push:retryBtn height:BTN_HEIGHT marginBottom:65];
-    [sl push:needBtn height:BTN_HEIGHT marginBottom:8];
-//    [sl push:loginPanel height:BTN_HEIGHT marginBottom:40];
-    [sl push:sayText height:30 marginBottom:12];
+    
     [sl push:tisihText height:60 marginBottom:2];
 
+    
     [sl install];
     
     [backView onClick:self action:@selector(clickGoBack:)];

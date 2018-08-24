@@ -321,10 +321,15 @@
         
     }else{
         //模拟注册成功
-        [self dismiss];
-        if (self.registSuccessBlock) {
-            self.registSuccessBlock();
-        }
+//        [self dismiss];
+//        if (self.registSuccessBlock) {
+//            self.registSuccessBlock();
+//        }
+        
+        NSString *msg = @"Regist Success";
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:msg message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+        [alertView show];
     }
 }
 
@@ -377,10 +382,15 @@
              if (success) {
                  [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                      //TODO 此处模拟通过验证后注册成功，关掉当前页面
-                     [weakSelf dismiss];
-                     if (self.registSuccessBlock) {
-                         self.registSuccessBlock();
-                     }
+//                     [weakSelf dismiss];
+//                     if (self.registSuccessBlock) {
+//                         self.registSuccessBlock();
+//                     }
+                     
+                     NSString *msg = @"Regist Success";
+                     
+                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:msg message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+                     [alertView show];
                     
                  }];
                  

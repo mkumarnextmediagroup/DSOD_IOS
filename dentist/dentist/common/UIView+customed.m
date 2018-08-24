@@ -52,19 +52,21 @@
 	return button;
 }
 
-- (UIButton *)needHelpBtn
+- (UIButton *)retryBtn
 {
     UIButton *needHelpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [needHelpBtn title:localStr(@"Retry")];
-    [needHelpBtn stylePrimary];
+    [needHelpBtn styleWhite];
+    [self addSubview:needHelpBtn];
     return needHelpBtn;
 }
 
-- (UIButton *)retryBtn
+- (UIButton *)needHelpBtn
 {
     UIButton *retryButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [retryButton title:localStr(@"Need help?")];
-    [retryButton styleWhite];
+    [retryButton stylePrimary];
+    [self addSubview:retryButton];
     return retryButton;
 }
 

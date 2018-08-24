@@ -23,6 +23,7 @@
 		4EBCE6DB212D6D8600A0672D /* ResetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6DA212D6D8600A0672D /* ResetPwdViewController.m */; };
 		4EBCE6E2212EABF100A0672D /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6E0212EABF000A0672D /* delete@2x.png */; };
 		4EBCE6E3212EABF100A0672D /* delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6E1212EABF000A0672D /* delete@3x.png */; };
+		4EBCE724212FD1CE00A0672D /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBCE723212FD1CE00A0672D /* Photos.framework */; };
 		574B3A23212338DF00C37095 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A22212338DF00C37095 /* AppDelegate.m */; };
 		574B3A2B212338E100C37095 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 574B3A2A212338E100C37095 /* Assets.xcassets */; };
 		574B3A31212338E100C37095 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A30212338E100C37095 /* main.m */; };
@@ -108,6 +109,7 @@
 		4EBCE6DA212D6D8600A0672D /* ResetPwdViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResetPwdViewController.m; sourceTree = "<group>"; };
 		4EBCE6E0212EABF000A0672D /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
 		4EBCE6E1212EABF000A0672D /* delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@3x.png"; sourceTree = "<group>"; };
+		4EBCE723212FD1CE00A0672D /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		574B3A1E212338DF00C37095 /* dentist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dentist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		574B3A21212338DF00C37095 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		574B3A22212338DF00C37095 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EBCE724212FD1CE00A0672D /* Photos.framework in Frameworks */,
 				3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */,
 				74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */,
 			);
@@ -341,6 +344,7 @@
 		9E8CFB7155047C0648622D0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4EBCE723212FD1CE00A0672D /* Photos.framework */,
 				3E137172212B0E6100B206CC /* LocalAuthentication.framework */,
 				D18A46C0F072296ED5347389 /* libPods-dentist.a */,
 			);
@@ -733,8 +737,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = Z8CH8VZES6;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
@@ -743,10 +747,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cyou.mrd.dentist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0fdad3ae-2959-4552-b36f-54b17514055b";
-				PROVISIONING_PROFILE_SPECIFIER = "SDK.mrd.*.Dev.20180719";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -757,8 +761,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = Z8CH8VZES6;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
@@ -767,10 +771,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.cyou.mrd.dentist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0fdad3ae-2959-4552-b36f-54b17514055b";
-				PROVISIONING_PROFILE_SPECIFIER = "SDK.mrd.*.Dev.20180719";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

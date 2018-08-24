@@ -28,6 +28,7 @@
     UITextView *textView = [UITextView new];
 //    textView.backgroundColor = [UIColor blueColor];
     textView.text = localStr(@"issue_context");
+    textView.editable = NO;
     textView.textColor = [UIColor blackColor];
     textView.font = [Fonts light:16];
     textView.frame =CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT - 120);

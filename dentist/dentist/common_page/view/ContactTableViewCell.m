@@ -26,7 +26,7 @@
         _emailField.textColor = [UIColor blackColor];
         _emailField.returnKeyType = UIReturnKeyDone;
 //        _emailField.placeholder = @"enter you email";
-        _emailField.font = [Fonts regular:17];
+        _emailField.font = [Fonts regular:15];
         [self addSubview:_emailField];
         _emailField.hidden = YES;
         
@@ -34,7 +34,7 @@
         _content.frame = CGRectMake(20, 40, SCREENWIDTH - 40, 180);
         _content.textColor = [UIColor blackColor];
         _content.returnKeyType = UIReturnKeyDone;
-        _content.font = [Fonts regular:17];
+        _content.font = [Fonts regular:15];
         [self addSubview:_content];
         _content.hidden = YES;
     }

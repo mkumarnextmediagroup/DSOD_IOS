@@ -45,7 +45,7 @@
 "policy" = "Privacy Policy";
 "show" = "SHOW";
 "hide" = "HIDE";
-"Don't panic" = "Don't panic";
+"Don't panic" = "Don't panic,";
 "just" = "Just let us know your email address that you used to create an account.";
 "send" = "Send me a new password";
 "issue_context" = "If you are getting a message saying there's no internet connection when you are online, please try the following things: \n\nFirst, try using the app with a different internet connection to rule out the possibility that something is blocking DSODentist from using the internet connection.\n\nIf the app works a cellular network but not on a WIFI connection, there may be content filter enforced by the Internet Service Provider(ISP) that is blocking DSODentist from using the connection. Please check this with your ISP and if you find you have a content filter, make sure you allow or white list the following \ndomains:\n\nwww.dsodentist.com \n app.dsodentist.com \n*.dsodentist.com \n\n If the app works on a WIFI connection and not on your cellular network, DSODDentist might not have access to your mobile data. Allow DSODDentist to access the mobile data by enabling this switch.";
@@ -63,3 +63,5 @@
 "newPwdSend" = "Your new password is on its way to your email address.";
 "SeemsLike" = "Seems like you are currently not connected to the internet.";
 "TryAgain" = "Try again when you get online.";
+"mind" = "Nevermind,";
+"takeback" = "Take me back";

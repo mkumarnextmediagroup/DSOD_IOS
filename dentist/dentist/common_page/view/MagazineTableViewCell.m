@@ -8,6 +8,7 @@
 
 #import "MagazineTableViewCell.h"
 #import "Fonts.h"
+#import "Common.h"
 
 @implementation MagazineTableViewCell
 
@@ -22,8 +23,8 @@
         
         _notice = [UILabel new];
         _notice.frame = CGRectMake(80, 0, SCREENWIDTH - 100, 49);
-        _notice.font = [Fonts regular:13];
-        _notice.textColor = [UIColor lightGrayColor];
+        _notice.font = [Fonts semiBold:13];
+        [_notice textColorMain];
         [self addSubview:_notice];
         
         _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -92,8 +92,8 @@
     [self.view addSubview:needBtn];
 
     StackLayout *sl = [StackLayout new];
-//    [sl push:needBtn height:BTN_HEIGHT marginBottom:65];
-//    [sl push:retryBtn height:BTN_HEIGHT marginBottom:8];
+    [sl push:retryBtn height:BTN_HEIGHT marginBottom:65];
+    [sl push:needBtn height:BTN_HEIGHT marginBottom:8];
 //    [sl push:loginPanel height:BTN_HEIGHT marginBottom:40];
     [sl push:sayText height:30 marginBottom:12];
     [sl push:tisihText height:60 marginBottom:2];

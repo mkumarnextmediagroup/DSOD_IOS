@@ -22,7 +22,7 @@
         
         _notice = [UILabel new];
         _notice.frame = CGRectMake(80, 0, SCREENWIDTH - 100, 49);
-        _notice.font = [Fonts regular:15];
+        _notice.font = [Fonts regular:13];
         _notice.textColor = [UIColor lightGrayColor];
         [self addSubview:_notice];
         

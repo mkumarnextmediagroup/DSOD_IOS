@@ -13,7 +13,7 @@
 	[self setAttr:NSParagraphStyleAttributeName value:ps];
 }
 
--(void)wordSpace:(CGFloat) f {
+- (void)wordSpace:(CGFloat)f {
 	[self setAttr:NSKernAttributeName value:@(f)];
 }
 

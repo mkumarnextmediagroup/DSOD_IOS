@@ -7,6 +7,7 @@
 #import "Colors.h"
 #import "UIUtil.h"
 #import "Fonts.h"
+#import "UILabel+customed.h"
 
 
 @implementation UIButton (styled)
@@ -23,6 +24,7 @@
 	[self setTitleColor:Colors.textDisabled forState:UIControlStateDisabled];
 	[self setBackgroundImage:colorImage(makeSize(1, 1), Colors.buttonDisabled) forState:UIControlStateDisabled];
 	self.titleLabel.font = [Fonts semiBold:15];
+	[self.titleLabel wordSpace:-0.2f];
 }
 
 - (void)styleBlue {
@@ -52,7 +54,6 @@
 	[self setBackgroundImage:colorImage(makeSize(1, 1), UIColor.whiteColor) forState:UIControlStateNormal];
 	[self setBackgroundImage:colorImage(makeSize(1, 1), rgb255(221, 221, 221)) forState:UIControlStateHighlighted];
 }
-
 
 
 - (void)title:(NSString *)text {

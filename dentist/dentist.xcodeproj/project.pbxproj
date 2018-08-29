@@ -48,6 +48,7 @@
 		C5EEA2B81C84D4F3EDB29C44 /* NSMutableAttributedString+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAC36ADFF1B9F8DEBA913 /* NSMutableAttributedString+customed.m */; };
 		C5EEA2BA0180646BF8FF57BF /* Platform.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAA9D22157E0B66DD5102 /* Platform.m */; };
 		C5EEA2ECCE69B6CBF0D20BA6 /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA1491E2D8BE3A1E73723 /* BaseController.m */; };
+		C5EEA2F9830CC5E8FD47394F /* HttpResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA0A74380E626C20CF6B7 /* HttpResult.m */; };
 		C5EEA304546737C29C822865 /* inkedin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA30917CCFA40C14CC248 /* inkedin@3x.png */; };
 		C5EEA3833E70FE8F978304CF /* checkbox_on.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA774D7153D4B1BEEBA57 /* checkbox_on.png */; };
 		C5EEA3A502FE5013902AD3AF /* logo_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA9A86503708DA9E3869E /* logo_white@3x.png */; };
@@ -56,6 +57,7 @@
 		C5EEA409953B93D9D6261C83 /* Async.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA9AC0839884D27DA2ABA /* Async.m */; };
 		C5EEA4A6B29832302A53D7B1 /* error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA18EB9B95E5485DE66DA /* error@3x.png */; };
 		C5EEA55691F65C5A3EF946AF /* checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEABC349DD6EA092977CF3 /* checkbox@2x.png */; };
+		C5EEA57BF745D8F5F4562664 /* NSData+myextend.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA86484528500B78E6108 /* NSData+myextend.m */; };
 		C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA987B083DB10CDE9D9E0 /* MASConstraintMaker+myextend.m */; };
 		C5EEA5EB7EC226DCBF96A2BA /* UIImageView+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAD7327CBF1E95FF96367 /* UIImageView+customed.m */; };
 		C5EEA65E44E172FEB6482668 /* checkbox@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAAFB2FA0ECFDCC818D1D /* checkbox@3x.png */; };
@@ -132,6 +134,8 @@
 		AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentist.release.xcconfig"; path = "Pods/Target Support Files/Pods-dentist/Pods-dentist.release.xcconfig"; sourceTree = "<group>"; };
 		BFCE80B52123CB59008F3A7F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		BFCE80B72123CB61008F3A7F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C5EEA0777BE54B8ACED4F445 /* HttpResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpResult.h; sourceTree = "<group>"; };
+		C5EEA0A74380E626C20CF6B7 /* HttpResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpResult.m; sourceTree = "<group>"; };
 		C5EEA0D6F3D346ABA57627E3 /* in@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "in@3x.png"; sourceTree = "<group>"; };
 		C5EEA0DE73B049D946E71EA1 /* logo_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_white@2x.png"; sourceTree = "<group>"; };
 		C5EEA0EC3A98C21A3F5DDBE8 /* Fonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fonts.h; sourceTree = "<group>"; };
@@ -150,6 +154,7 @@
 		C5EEA52D798B7B8BA9FF1CC9 /* Http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Http.m; sourceTree = "<group>"; };
 		C5EEA5618C6AF14B04224B97 /* StackLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackLayout.m; sourceTree = "<group>"; };
 		C5EEA5C6801B0E58BCE75FDA /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		C5EEA5D2D0E0970C32C5F570 /* NSData+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+myextend.h"; sourceTree = "<group>"; };
 		C5EEA5D4F5F8FD76F0AE4BF7 /* MASConstraintMaker+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraintMaker+myextend.h"; sourceTree = "<group>"; };
 		C5EEA5D6567A6F2AD2F67609 /* UIImage+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+customed.h"; sourceTree = "<group>"; };
 		C5EEA5F9F6A770ECFEAE79BD /* checkbox_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_on@3x.png"; sourceTree = "<group>"; };
@@ -157,12 +162,14 @@
 		C5EEA64F84AE34B5F5F79A7F /* ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ok@3x.png"; sourceTree = "<group>"; };
 		C5EEA66D516C103A72D92922 /* Async.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Async.h; sourceTree = "<group>"; };
 		C5EEA6C2E9723639C9F2F3FF /* BaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
+		C5EEA6D41AA021EC38370EA9 /* HttpProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpProgress.h; sourceTree = "<group>"; };
 		C5EEA774D7153D4B1BEEBA57 /* checkbox_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_on.png; sourceTree = "<group>"; };
 		C5EEA7921005BA1AD231EC66 /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
 		C5EEA7B9D5BECBFD7E0084C4 /* Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Http.h; sourceTree = "<group>"; };
 		C5EEA7F2C40181B62A47CFCE /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
 		C5EEA803D53AEC31FDF0661A /* NSString+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+myextend.h"; sourceTree = "<group>"; };
 		C5EEA811A5ED37C88C49CB9A /* TextSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextSize.h; sourceTree = "<group>"; };
+		C5EEA86484528500B78E6108 /* NSData+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+myextend.m"; sourceTree = "<group>"; };
 		C5EEA8718BE48E66BCDCCD90 /* in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = in.png; sourceTree = "<group>"; };
 		C5EEA8A22AAACC2B56D30F80 /* Consts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Consts.h; sourceTree = "<group>"; };
 		C5EEA8A31FA41618FB71AF02 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
@@ -412,6 +419,11 @@
 				4EBCE6BC212AB4A900A0672D /* PrefixHeader.pch */,
 				4EBBC5812134EC2800396BF5 /* DenAlertController.h */,
 				4EBBC5822134EC2800396BF5 /* DenAlertController.m */,
+				C5EEA6D41AA021EC38370EA9 /* HttpProgress.h */,
+				C5EEA0A74380E626C20CF6B7 /* HttpResult.m */,
+				C5EEA0777BE54B8ACED4F445 /* HttpResult.h */,
+				C5EEA86484528500B78E6108 /* NSData+myextend.m */,
+				C5EEA5D2D0E0970C32C5F570 /* NSData+myextend.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -614,6 +626,8 @@
 				4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */,
 				C5EEA2763E400C04C2570656 /* Http.m in Sources */,
 				C5EEA409953B93D9D6261C83 /* Async.m in Sources */,
+				C5EEA2F9830CC5E8FD47394F /* HttpResult.m in Sources */,
+				C5EEA57BF745D8F5F4562664 /* NSData+myextend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,7 @@
 #import "StackLayout.h"
 #import "UILabel+customed.h"
 #import "Async.h"
+#import "Http.h"
 
 
 @interface WelcomController ()
@@ -95,19 +96,39 @@
 	LoginController *c = [LoginController new];
 	[self openPage:c];
 
-	foreActionDelay(2000, self, @selector(testThread:), @"Hello");
+
+	backAction(self, @selector(testThread:), @"");
 
 }
 
 - (void)testThread:(NSString *)what {
-	BOOL b = NSThread.isMainThread;
-	if (b) {
-		NSLog(@"Main : %@", what);
-	} else {
-		NSLog(@"Child: %@", what);
-	}
 
 }
+
+- (void)testHttp {
+	Http *h = [Http new];
+	h.url = @"http://app800.cn/apps/res/download";
+	[h arg:@"id" value:@"131"];
+	h.progressRecv = self;
+	HttpResult *r = h.get;
+	NSLog(@"Result: %d", r.httpCode);
+	NSLog(@"Error: %@", r.error);
+	if (r.data != nil) {
+		NSLog(@"Size: %d", r.data.length);
+	}
+}
+
+//- (void)onHttpStart:(int)total {
+//	NSLog(@"Progress start: %d", total);
+//}
+
+- (void)onHttpProgress:(int)current total:(int)total percent:(int)percent {
+	NSLog(@"Progress : %d  %d  %d", current, total, percent);
+}
+
+//- (void)onHttpFinish:(BOOL)success {
+//	NSLog(@"Progress Finished: %d", success);
+//}
 
 
 @end

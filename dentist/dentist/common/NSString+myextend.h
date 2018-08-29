@@ -7,11 +7,25 @@
 
 @interface NSString (myextend)
 
-- (NSString *)trimed;
+@property(readonly) NSString *urlEncoded;
+
+@property(readonly) NSString *trimed;
+@property(readonly) unichar lastChar;
+
+- (NSString *)add:(NSString *)s;
 
 - (BOOL)match:(NSString *)reg;
 
 - (BOOL)matchEmail;
 
 - (BOOL)matchPassword;
+
+- (NSData *)dataUTF8;
+
+- (BOOL)containsChar:(unichar)ch;
+
+
 @end
+
+//遇到nil就回终止
+extern NSString *addStr(NSString *value, ...);

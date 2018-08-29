@@ -11,14 +11,13 @@
 #import "MagazineTableViewCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface ContactViewController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UITextViewDelegate>
+@interface ContactViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UITextViewDelegate>
 {
     UITableView *myTable;
     UIImage     *selectImage;
     NSString    *selectImageName;
 }
 
-@property (strong, nonatomic) UIActionSheet *actionSheet;
 
 @end
 
@@ -219,51 +218,49 @@
 
 - (void)callActionSheetFunc{
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera", @"Gallery", nil];
-    }else{
-        self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel"destructiveButtonTitle:nil otherButtonTitles:@"Gallery", nil];
-    }
-    
-    self.actionSheet.tag = 1000;
-    [self.actionSheet showInView:self.view];
-}
-
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (actionSheet.tag == 1000) {
-        NSUInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        // if support the camera
-        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            switch (buttonIndex) {
-                case 0:
-                    //from : camera
-                    sourceType = UIImagePickerControllerSourceTypeCamera;
-                    break;
-                case 1:
-                    //from : Gallery
-                    sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                    break;
-                case 2:
-                    return;
-            }
-        }
-        else {
-            if (buttonIndex == 2) {
-                return;
-            } else {
-                sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-            }
-        }
-        // go to the camera or Gallery page
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
-        imagePickerController.allowsEditing = YES;
-        imagePickerController.sourceType = sourceType;
         
-        [self presentViewController:imagePickerController animated:YES completion:^{
-            
+        [self Den_showActionSheetWithTitle:nil message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"cancel").
+            addActionDefaultTitle(@"Camera").
+            addActionDefaultTitle(@"Gallery");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+            if ([action.title isEqualToString:@"cancel"]) {
+                NSLog(@"cancel");
+            }
+            else if ([action.title isEqualToString:@"Camera"]) {
+                NSLog(@"Camera");
+                [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypeCamera];
+            }else if ([action.title isEqualToString:@"Gallery"]) {
+                NSLog(@"Gallery");
+                [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            }
+        }];
+        
+    }else{
+        [self Den_showActionSheetWithTitle:nil message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"cancel").
+            addActionDefaultTitle(@"Gallery");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+            if ([action.title isEqualToString:@"cancel"]) {
+                NSLog(@"cancel");
+            }
+            else if ([action.title isEqualToString:@"Gallery"]) {
+                NSLog(@"Gallery");
+                [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            }
         }];
     }
+}
+
+- (void)clickTheBtnWithSourceType:(UIImagePickerControllerSourceType)sourceType
+{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.sourceType = sourceType;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info

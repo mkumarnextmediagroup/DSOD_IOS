@@ -12,6 +12,7 @@
 #import "NoIntenetViewController.h"
 #import "ForgotViewController.h"
 #import "StudentController.h"
+#import <linkedin-sdk/LISDK.h>
 
 @interface LoginController ()
 
@@ -244,12 +245,52 @@
 
 - (void)clickLinkedin:(id)sender {
 	NSLog(@"clickLinkedin ");
-	NoIntenetViewController *intenet = [NoIntenetViewController new];
-	intenet.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-	intenet.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-	intenet.providesPresentationContextTransitionStyle = YES;
-	intenet.definesPresentationContext = YES;
-	[self openPage:intenet];
+//    NoIntenetViewController *intenet = [NoIntenetViewController new];
+//    intenet.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+//    intenet.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    intenet.providesPresentationContextTransitionStyle = YES;
+//    intenet.definesPresentationContext = YES;
+//    [self openPage:intenet];
+    
+    [self Den_showAlertWithTitle:localStr(@"permission") message:localStr(@"WouldYou") appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+        alertMaker.
+        addActionCancelTitle(@"Dont't Allow").
+        addActionDefaultTitle(@"OK");
+    } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+        if ([action.title isEqualToString:@"Dont't Allow"]) {
+            NSLog(@"Dont't Allow");
+        }
+        else if ([action.title isEqualToString:@"OK"]) {
+            NSLog(@"OK");
+            [LISDKSessionManager createSessionWithAuth:[NSArray arrayWithObjects:LISDK_BASIC_PROFILE_PERMISSION, LISDK_EMAILADDRESS_PERMISSION, nil] state:nil showGoToAppStoreDialog:YES successBlock:^(NSString *returnState) {
+                NSLog(@"%s","success called!");
+                LISDKSession *session = [[LISDKSessionManager sharedInstance] session];
+                NSLog(@"value=%@ isvalid=%@",[session value],[session isValid] ? @"YES" : @"NO");
+                NSMutableString *text = [[NSMutableString alloc] initWithString:[session.accessToken description]];
+                [text appendString:[NSString stringWithFormat:@",state=\"%@\"",returnState]];
+                NSLog(@"授权后的信息：%@",text);
+                
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"login success" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+                [alertView show];
+//                NSString *url = @"https://api.linkedin.com/v1/people/~";
+//
+//                if ([LISDKSessionManager hasValidSession]) {
+//                    [[LISDKAPIHelper sharedInstance] getRequest:url
+//                                                        success:^(LISDKAPIResponse *response) {
+//                                                            NSLog(@"%@",response);
+//                                                        }
+//                                                          error:^(LISDKAPIError *apiError) {
+//                                                              // do something with error
+//                                                          }];
+//                    }
+                
+            } errorBlock:^(NSError *error) {
+                NSLog(@"%s %@","error called! ", [error description]);
+            }];
+
+        }
+    }];
+    
 }
 
 - (void)clickForgot:(id)sender {

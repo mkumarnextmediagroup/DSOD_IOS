@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E137172212B0E6100B206CC /* LocalAuthentication.framework */; };
-		4E1956EF21363CE200420563 /* linkedin-sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E1956EE21363CE200420563 /* linkedin-sdk.framework */; };
+		4E1956F12136425F00420563 /* linkedin-sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E1956F02136425F00420563 /* linkedin-sdk.framework */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
-        4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
+		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
 		4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6AF212A595B00A0672D /* ForgotViewController.m */; };
 		4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B3212A5E1000A0672D /* NoIntenetViewController.m */; };
 		4EBCE6B7212A8A4700A0672D /* close_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B5212A8A4700A0672D /* close_white@2x.png */; };
@@ -90,10 +90,10 @@
 
 /* Begin PBXFileReference section */
 		3E137172212B0E6100B206CC /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
-		4E1956EE21363CE200420563 /* linkedin-sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "linkedin-sdk.framework"; sourceTree = "<group>"; };
+		4E1956F02136425F00420563 /* linkedin-sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "linkedin-sdk.framework"; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
-        4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
+		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
 		4EBBC5822134EC2800396BF5 /* DenAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DenAlertController.m; sourceTree = "<group>"; };
 		4EBCE6AE212A595B00A0672D /* ForgotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotViewController.h; sourceTree = "<group>"; };
 		4EBCE6AF212A595B00A0672D /* ForgotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotViewController.m; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 				4EBCE724212FD1CE00A0672D /* Photos.framework in Frameworks */,
 				3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */,
 				74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */,
-				4E1956EF21363CE200420563 /* linkedin-sdk.framework in Frameworks */,
+				4E1956F12136425F00420563 /* linkedin-sdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,7 +356,7 @@
 		9E8CFB7155047C0648622D0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4E1956EE21363CE200420563 /* linkedin-sdk.framework */,
+				4E1956F02136425F00420563 /* linkedin-sdk.framework */,
 				4EBCE723212FD1CE00A0672D /* Photos.framework */,
 				3E137172212B0E6100B206CC /* LocalAuthentication.framework */,
 				D18A46C0F072296ED5347389 /* libPods-dentist.a */,
@@ -414,7 +414,7 @@
 				C5EEA9AC0839884D27DA2ABA /* Async.m */,
 				C5EEA66D516C103A72D92922 /* Async.h */,
 				4EBCE6BC212AB4A900A0672D /* PrefixHeader.pch */,
-                4EBBC5812134EC2800396BF5 /* DenAlertController.h */,
+				4EBBC5812134EC2800396BF5 /* DenAlertController.h */,
 				4EBBC5822134EC2800396BF5 /* DenAlertController.m */,
 			);
 			path = common;
@@ -592,7 +592,7 @@
 				C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */,
 				C5EEA2ECCE69B6CBF0D20BA6 /* BaseController.m in Sources */,
 				C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */,
-                4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */,
+				4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
 				4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */,
@@ -756,7 +756,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GDT3N3Z7A2;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/..",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
@@ -764,6 +768,14 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Masonry\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SAMKeychain\"",
+					"$(SRCROOT)/../linkedin-sdk.framework/Versions/A",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -780,7 +792,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GDT3N3Z7A2;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/..",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
@@ -788,6 +804,14 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Masonry\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SAMKeychain\"",
+					"$(SRCROOT)/../linkedin-sdk.framework/Versions/A",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";

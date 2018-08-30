@@ -39,8 +39,8 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	NSMutableDictionary *fileMap;
 	NSMutableDictionary *fileDataMap;
 
-	NSData *rawData;
 	NSURLSession *session;
+	NSData *rawData;
 
 	NSString *CRLF;
 	NSString *BOUNDARY;
@@ -75,8 +75,11 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	[self header:@"Accept-Encoding" value:@"identity"];
 	[self header:@"Connection" value:@"close"];
 	[self userAgent:@"dentist/1 Mozilla/5.0"];
-
 	return self;
+}
+
+- (void)contentType:(NSString *)value {
+	[self header:@"Content-Type" value:value];
 }
 
 - (void)auth:(NSString *)user value:(NSString *)pwd {
@@ -120,6 +123,7 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 }
 
 - (HttpResult *)get {
+	[headerMap removeObjectForKey:@"Content-Type"];
 	return [self requestSync:GET];
 }
 
@@ -131,7 +135,8 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	return [self requestSync:POST_MULTIPART];
 }
 
-- (HttpResult *)postRaw {
+- (HttpResult *)postRaw:(NSData *)data {
+	rawData = data;
 	return [self requestSync:POST_RAW];
 }
 
@@ -155,7 +160,7 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 
 - (NSString *)buildGetUrl {
 	NSString *url = self.url;
-	NSString *query = self.buildQueryString;
+	NSString *query = [self buildQueryString:YES];
 	if (query.length == 0) {
 		return url;
 	}
@@ -169,16 +174,20 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 
 }
 
-- (NSString *)buildQueryString {
+- (NSString *)buildQueryString:(BOOL)encodeUrl {
 	NSString *s = @"";
 	for (NSString *key in argMap) {
 		if (s.length > 0) {
 			s = [s add:@"&"];
 		}
 		NSString *value = argMap[key];
-		NSString *k = key.urlEncoded;
-		NSString *v = value.urlEncoded;
-		s = [[[s add:k] add:@"="] add:v];
+		if (encodeUrl) {
+			NSString *k = key.urlEncoded;
+			NSString *v = value.urlEncoded;
+			s = [[[[s add:s] add:k] add:@"="] add:v];
+		} else {
+			s = [[[[s add:s] add:key] add:@"="] add:value];
+		}
 	}
 	return s;
 }
@@ -221,8 +230,19 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 }
 
 - (NSMutableURLRequest *)buildRequest:(int)method {
+	if (method == GET) {
+		[headerMap removeObjectForKey:@"Content-Type"];
+	} else if (method == POST_MULTIPART) {
+		[self contentType:[@"multipart/form-data; boundary=" add:BOUNDARY]];
+	} else {
+		if (![[headerMap allKeys] containsObject:@"Content-Type"]) {
+			[self contentType:@"application/x-www-form-urlencoded;charset=UTF-8"];
+		}
+	}
+
+
 	NSString *url = self.url;
-	NSString *query = self.buildQueryString;
+	NSString *query = [self buildQueryString:method == GET];
 	NSLog(@"URL: %@", url);
 	NSLog(@"Query: %@", query);
 

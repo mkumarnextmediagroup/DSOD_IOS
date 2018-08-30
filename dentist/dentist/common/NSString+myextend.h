@@ -28,4 +28,12 @@
 @end
 
 //遇到nil就回终止
-extern NSString *addStr(NSString *value, ...);
+__attribute__((overloadable)) extern NSString *strBuild(NSString *value, NSString *v2);
+
+__attribute__((overloadable)) extern NSString *strBuild(NSString *value, NSString *v2, NSString *v3);
+
+__attribute__((overloadable)) extern NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4);
+
+__attribute__((overloadable)) extern NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5);
+
+__attribute__((overloadable)) extern NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5, NSString *v6);

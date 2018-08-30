@@ -38,6 +38,7 @@ typedef void (^HttpCallback)(HttpResult *);
 
 - (void)auth:(NSString *)user value:(NSString *)pwd;
 
+- (void)contentTypeJson;
 - (void)contentType:(NSString *)value;
 
 - (void)userAgent:(NSString *)value;

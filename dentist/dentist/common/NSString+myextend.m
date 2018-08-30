@@ -57,17 +57,25 @@
 @end
 
 
-NSString *addStr(NSString *value, ...) {
-	va_list list;
-	va_start(list, value);
-	NSString *result = @"";
-	while (YES) {
-		NSString *s = va_arg(list, NSString*);
-		if (!s) {
-			break;
-		}
-		result = [result add:s];
+__attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2) {
+	if (v2 == nil) {
+		return value;
 	}
-	va_end(list);
-	return result;
+	return [value add:v2];
+}
+
+__attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2, NSString *v3) {
+	return strBuild(strBuild(value, v2), v3);
+}
+
+__attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4) {
+	return strBuild(strBuild(strBuild(value, v2), v3), v4);
+}
+
+__attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5) {
+	return strBuild(strBuild(strBuild(strBuild(value, v2), v3), v4), v5);
+}
+
+__attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5, NSString *v6) {
+	return strBuild(strBuild(strBuild(strBuild(strBuild(value, v2), v3), v4), v5), v6);
 }

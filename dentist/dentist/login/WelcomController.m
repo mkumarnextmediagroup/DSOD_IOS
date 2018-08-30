@@ -93,12 +93,11 @@
 }
 
 - (void)clickLogin:(id)sender {
-	NSLog(@"click");
-//	LoginController *c = [LoginController new];
-//	[self openPage:c];
+	LoginController *c = [LoginController new];
+	[self openPage:c];
 
 
-	backAction(self, @selector(testThread:), @"");
+//	backAction(self, @selector(testThread:), @"");
 
 }
 
@@ -111,7 +110,9 @@
 
 - (void)testHttp {
 	backTask(^() {
-		[Proto register:@"entaoyang@163.com" pwd:@"Yang2008" name:@"Entao Yang"];
+//		[Proto register:@"entaoyang@126.com" pwd:@"Yang2008" name:@"Entao Yang"];
+//		[Proto login:@"entaoyang@126.com" pwd:@"Yang2008"];
+		[Proto sendEmailCode:@"entaoyang@126.com"];
 	});
 }
 

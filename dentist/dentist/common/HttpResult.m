@@ -38,10 +38,6 @@
 	if (self.data == nil) {
 		return nil;
 	}
-//	NSString *encoding = self.response.textEncodingName;
-//	if (encoding == nil) {
-//		encoding = @"UTF-8";
-//	}
 	return self.data.stringUTF8;
 }
 

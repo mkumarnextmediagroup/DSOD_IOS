@@ -10,7 +10,6 @@
 #import "LoginController.h"
 #import "WelcomController.h"
 #import "Common.h"
-#import <linkedin-sdk/LISDK.h>
 
 @interface AppDelegate ()
 
@@ -33,18 +32,8 @@
 	return YES;
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if ([LISDKCallbackHandler shouldHandleUrl:url]) {
-        return [LISDKCallbackHandler application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
-    }
-    return YES;
-}
-
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
-    if ([LISDKCallbackHandler shouldHandleUrl:url]) {
-        return [LISDKCallbackHandler application:app openURL:url sourceApplication:options annotation:nil];
-    }
     return YES;
 }
 

@@ -8,7 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E137172212B0E6100B206CC /* LocalAuthentication.framework */; };
-		4E1956F12136425F00420563 /* linkedin-sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E1956F02136425F00420563 /* linkedin-sdk.framework */; };
+		4E19573E2137D0F100420563 /* PermissionNetworkFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957262137D0F100420563 /* PermissionNetworkFields.m */; };
+		4E19573F2137D0F100420563 /* PermissionBasicProfileFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957282137D0F100420563 /* PermissionBasicProfileFields.m */; };
+		4E1957402137D0F100420563 /* PermissionContactInfoFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957292137D0F100420563 /* PermissionContactInfoFields.m */; };
+		4E1957412137D0F100420563 /* PermissionFullProfileFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E19572C2137D0F100420563 /* PermissionFullProfileFields.m */; };
+		4E1957422137D0F100420563 /* PermissionEmailFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E19572E2137D0F100420563 /* PermissionEmailFields.m */; };
+		4E1957432137D0F100420563 /* LinkedinAuthorizationNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957322137D0F100420563 /* LinkedinAuthorizationNavBar.m */; };
+		4E1957442137D0F100420563 /* LinkedinSimpleKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957352137D0F100420563 /* LinkedinSimpleKeychain.m */; };
+		4E1957452137D0F100420563 /* LinkedInAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957372137D0F100420563 /* LinkedInAppSettings.m */; };
+		4E1957462137D0F100420563 /* LinkedInHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957382137D0F100420563 /* LinkedInHelper.m */; };
+		4E1957472137D0F100420563 /* LinkedInAuthorizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957392137D0F100420563 /* LinkedInAuthorizationViewController.m */; };
+		4E1957482137D0F100420563 /* LinkedInServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E19573B2137D0F100420563 /* LinkedInServiceManager.m */; };
+		4E1957492137D0F100420563 /* LinkedInConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E19573D2137D0F100420563 /* LinkedInConnectionHandler.m */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -94,7 +105,31 @@
 
 /* Begin PBXFileReference section */
 		3E137172212B0E6100B206CC /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
-		4E1956F02136425F00420563 /* linkedin-sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "linkedin-sdk.framework"; sourceTree = "<group>"; };
+		4E1957242137D0F100420563 /* PermissionContactInfoFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermissionContactInfoFields.h; sourceTree = "<group>"; };
+		4E1957252137D0F100420563 /* PermissionFullProfileFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermissionFullProfileFields.h; sourceTree = "<group>"; };
+		4E1957262137D0F100420563 /* PermissionNetworkFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermissionNetworkFields.m; sourceTree = "<group>"; };
+		4E1957272137D0F100420563 /* PermissionEmailFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermissionEmailFields.h; sourceTree = "<group>"; };
+		4E1957282137D0F100420563 /* PermissionBasicProfileFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermissionBasicProfileFields.m; sourceTree = "<group>"; };
+		4E1957292137D0F100420563 /* PermissionContactInfoFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermissionContactInfoFields.m; sourceTree = "<group>"; };
+		4E19572A2137D0F100420563 /* LinkedInIOSFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedInIOSFields.h; sourceTree = "<group>"; };
+		4E19572B2137D0F100420563 /* PermissionNetworkFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermissionNetworkFields.h; sourceTree = "<group>"; };
+		4E19572C2137D0F100420563 /* PermissionFullProfileFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermissionFullProfileFields.m; sourceTree = "<group>"; };
+		4E19572D2137D0F100420563 /* PermissionBasicProfileFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermissionBasicProfileFields.h; sourceTree = "<group>"; };
+		4E19572E2137D0F100420563 /* PermissionEmailFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermissionEmailFields.m; sourceTree = "<group>"; };
+		4E1957302137D0F100420563 /* LinkedInHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedInHelper.h; sourceTree = "<group>"; };
+		4E1957312137D0F100420563 /* LinkedInAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedInAppSettings.h; sourceTree = "<group>"; };
+		4E1957322137D0F100420563 /* LinkedinAuthorizationNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkedinAuthorizationNavBar.m; sourceTree = "<group>"; };
+		4E1957332137D0F100420563 /* LinkedInAuthorizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedInAuthorizationViewController.h; sourceTree = "<group>"; };
+		4E1957342137D0F100420563 /* LinkedInConnectionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedInConnectionHandler.h; sourceTree = "<group>"; };
+		4E1957352137D0F100420563 /* LinkedinSimpleKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkedinSimpleKeychain.m; sourceTree = "<group>"; };
+		4E1957362137D0F100420563 /* LinkedInServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedInServiceManager.h; sourceTree = "<group>"; };
+		4E1957372137D0F100420563 /* LinkedInAppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkedInAppSettings.m; sourceTree = "<group>"; };
+		4E1957382137D0F100420563 /* LinkedInHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkedInHelper.m; sourceTree = "<group>"; };
+		4E1957392137D0F100420563 /* LinkedInAuthorizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkedInAuthorizationViewController.m; sourceTree = "<group>"; };
+		4E19573A2137D0F100420563 /* LinkedinAuthorizationNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedinAuthorizationNavBar.h; sourceTree = "<group>"; };
+		4E19573B2137D0F100420563 /* LinkedInServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkedInServiceManager.m; sourceTree = "<group>"; };
+		4E19573C2137D0F100420563 /* LinkedinSimpleKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedinSimpleKeychain.h; sourceTree = "<group>"; };
+		4E19573D2137D0F100420563 /* LinkedInConnectionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkedInConnectionHandler.m; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -234,13 +269,60 @@
 				4EBCE724212FD1CE00A0672D /* Photos.framework in Frameworks */,
 				3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */,
 				74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */,
-				4E1956F12136425F00420563 /* linkedin-sdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E1957222137D0F100420563 /* LinkedIn */ = {
+			isa = PBXGroup;
+			children = (
+				4E1957232137D0F100420563 /* Constants */,
+				4E19572F2137D0F100420563 /* LinkedInHelper */,
+			);
+			path = LinkedIn;
+			sourceTree = "<group>";
+		};
+		4E1957232137D0F100420563 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				4E1957242137D0F100420563 /* PermissionContactInfoFields.h */,
+				4E1957252137D0F100420563 /* PermissionFullProfileFields.h */,
+				4E1957262137D0F100420563 /* PermissionNetworkFields.m */,
+				4E1957272137D0F100420563 /* PermissionEmailFields.h */,
+				4E1957282137D0F100420563 /* PermissionBasicProfileFields.m */,
+				4E1957292137D0F100420563 /* PermissionContactInfoFields.m */,
+				4E19572A2137D0F100420563 /* LinkedInIOSFields.h */,
+				4E19572B2137D0F100420563 /* PermissionNetworkFields.h */,
+				4E19572C2137D0F100420563 /* PermissionFullProfileFields.m */,
+				4E19572D2137D0F100420563 /* PermissionBasicProfileFields.h */,
+				4E19572E2137D0F100420563 /* PermissionEmailFields.m */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		4E19572F2137D0F100420563 /* LinkedInHelper */ = {
+			isa = PBXGroup;
+			children = (
+				4E1957302137D0F100420563 /* LinkedInHelper.h */,
+				4E1957312137D0F100420563 /* LinkedInAppSettings.h */,
+				4E1957322137D0F100420563 /* LinkedinAuthorizationNavBar.m */,
+				4E1957332137D0F100420563 /* LinkedInAuthorizationViewController.h */,
+				4E1957342137D0F100420563 /* LinkedInConnectionHandler.h */,
+				4E1957352137D0F100420563 /* LinkedinSimpleKeychain.m */,
+				4E1957362137D0F100420563 /* LinkedInServiceManager.h */,
+				4E1957372137D0F100420563 /* LinkedInAppSettings.m */,
+				4E1957382137D0F100420563 /* LinkedInHelper.m */,
+				4E1957392137D0F100420563 /* LinkedInAuthorizationViewController.m */,
+				4E19573A2137D0F100420563 /* LinkedinAuthorizationNavBar.h */,
+				4E19573B2137D0F100420563 /* LinkedInServiceManager.m */,
+				4E19573C2137D0F100420563 /* LinkedinSimpleKeychain.h */,
+				4E19573D2137D0F100420563 /* LinkedInConnectionHandler.m */,
+			);
+			path = LinkedInHelper;
+			sourceTree = "<group>";
+		};
 		4EBCE6AA212966B700A0672D /* login_forgot */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,7 +453,6 @@
 		9E8CFB7155047C0648622D0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4E1956F02136425F00420563 /* linkedin-sdk.framework */,
 				4EBCE723212FD1CE00A0672D /* Photos.framework */,
 				3E137172212B0E6100B206CC /* LocalAuthentication.framework */,
 				D18A46C0F072296ED5347389 /* libPods-dentist.a */,
@@ -382,6 +463,7 @@
 		C5EEA322192BD641D58220D8 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				4E1957222137D0F100420563 /* LinkedIn */,
 				C5EEAA800E95F5D4324195EC /* Colors.m */,
 				C5EEAB29126FE9574783DD4E /* Colors.h */,
 				C5EEACBC931939B104FC3D13 /* TextSize.m */,
@@ -606,10 +688,14 @@
 			files = (
 				574B3A31212338E100C37095 /* main.m in Sources */,
 				574B3A23212338DF00C37095 /* AppDelegate.m in Sources */,
+				4E1957492137D0F100420563 /* LinkedInConnectionHandler.m in Sources */,
 				4EBCE6C5212D0AED00A0672D /* ContactTableViewCell.m in Sources */,
 				E11E10BD74EC149921ADD708 /* LoginController.m in Sources */,
+				4E1957422137D0F100420563 /* PermissionEmailFields.m in Sources */,
 				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,
 				C5EEA9E893F712BA5CC4938D /* TextSize.m in Sources */,
+				4E19573E2137D0F100420563 /* PermissionNetworkFields.m in Sources */,
+				4E1957482137D0F100420563 /* LinkedInServiceManager.m in Sources */,
 				C5EEAB1B08FE088DAFBA7763 /* Fonts.m in Sources */,
 				C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */,
 				C5EEA2ECCE69B6CBF0D20BA6 /* BaseController.m in Sources */,
@@ -617,26 +703,34 @@
 				4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
+				4E1957432137D0F100420563 /* LinkedinAuthorizationNavBar.m in Sources */,
 				4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */,
 				C5EEA83B50B6C4A767E00729 /* UIControl+customed.m in Sources */,
+				4E1957442137D0F100420563 /* LinkedinSimpleKeychain.m in Sources */,
 				C5EEA9F6FFD32D08ABB00CE8 /* UIView+customed.m in Sources */,
 				C5EEA77FC67A0537194AE788 /* StudentController.m in Sources */,
 				C5EEA97A363C02981633699C /* StackLayout.m in Sources */,
 				C5EEAE3B78A71516A252C86F /* StackLayoutItem.m in Sources */,
 				C5EEA5EB7EC226DCBF96A2BA /* UIImageView+customed.m in Sources */,
+				4E1957452137D0F100420563 /* LinkedInAppSettings.m in Sources */,
 				4EBCE6C8212D0DF000A0672D /* MagazineTableViewCell.m in Sources */,
 				4EBCE6BB212AACE600A0672D /* NoticeViewController.m in Sources */,
 				4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */,
 				C5EEA70CAD83A3FEE9B6BD2C /* UILabel+customed.m in Sources */,
+				4E1957462137D0F100420563 /* LinkedInHelper.m in Sources */,
 				C5EEA2B81C84D4F3EDB29C44 /* NSMutableAttributedString+customed.m in Sources */,
 				C5EEAA269C87F480239BF21E /* TapGesture.m in Sources */,
 				C5EEA2BA0180646BF8FF57BF /* Platform.m in Sources */,
+				4E19573F2137D0F100420563 /* PermissionBasicProfileFields.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
+				4E1957402137D0F100420563 /* PermissionContactInfoFields.m in Sources */,
 				4EBCE6DB212D6D8600A0672D /* ResetPwdViewController.m in Sources */,
 				C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */,
+				4E1957472137D0F100420563 /* LinkedInAuthorizationViewController.m in Sources */,
 				C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */,
 				C5EEAF6A040452F10D489279 /* NSString+myextend.m in Sources */,
 				C5EEA1CB9C55E45C1CF0F710 /* UIUtil.m in Sources */,
+				4E1957412137D0F100420563 /* PermissionFullProfileFields.m in Sources */,
 				4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */,
 				C5EEA2763E400C04C2570656 /* Http.m in Sources */,
 				C5EEA409953B93D9D6261C83 /* Async.m in Sources */,
@@ -790,7 +884,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -826,7 +920,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -8,6 +8,7 @@
 #import "UIUtil.h"
 #import "Consts.h"
 #import "DenAlertController.h"
+#import "LinkedInHelper.h"
 
 #import "Fonts.h"
 #import "Colors.h"

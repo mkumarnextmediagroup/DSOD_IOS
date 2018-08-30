@@ -12,7 +12,6 @@
 #import "NoIntenetViewController.h"
 #import "ForgotViewController.h"
 #import "StudentController.h"
-#import <linkedin-sdk/LISDK.h>
 
 @interface LoginController ()
 
@@ -262,32 +261,55 @@
         }
         else if ([action.title isEqualToString:@"OK"]) {
             NSLog(@"OK");
-            [LISDKSessionManager createSessionWithAuth:[NSArray arrayWithObjects:LISDK_BASIC_PROFILE_PERMISSION, LISDK_EMAILADDRESS_PERMISSION, nil] state:nil showGoToAppStoreDialog:YES successBlock:^(NSString *returnState) {
-                NSLog(@"%s","success called!");
-                LISDKSession *session = [[LISDKSessionManager sharedInstance] session];
-                NSLog(@"value=%@ isvalid=%@",[session value],[session isValid] ? @"YES" : @"NO");
-                NSMutableString *text = [[NSMutableString alloc] initWithString:[session.accessToken description]];
-                [text appendString:[NSString stringWithFormat:@",state=\"%@\"",returnState]];
-                NSLog(@"授权后的信息：%@",text);
+            
+            //request the linkedin
+            LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
+            [linkedIn logout];
+            // If user has already connected via linkedin in and access token is still valid then
+            // No need to fetch authorizationCode and then accessToken again!
+            
+            if (linkedIn.isValidToken) {
                 
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"login success" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-                [alertView show];
-//                NSString *url = @"https://api.linkedin.com/v1/people/~";
-//
-//                if ([LISDKSessionManager hasValidSession]) {
-//                    [[LISDKAPIHelper sharedInstance] getRequest:url
-//                                                        success:^(LISDKAPIResponse *response) {
-//                                                            NSLog(@"%@",response);
-//                                                        }
-//                                                          error:^(LISDKAPIError *apiError) {
-//                                                              // do something with error
-//                                                          }];
-//                    }
+                linkedIn.customSubPermissions = [NSString stringWithFormat:@"%@,%@", first_name, last_name];
                 
-            } errorBlock:^(NSError *error) {
-                NSLog(@"%s %@","error called! ", [error description]);
-            }];
-
+                // So Fetch member info by elderyly access token
+                [linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
+                    // Whole User Info
+                    
+                    NSLog(@"user Info : %@", userInfo);
+                    
+                } failUserInfo:^(NSError *error) {
+                    NSLog(@"error : %@", error.userInfo.description);
+                }];
+            } else {
+                
+                linkedIn.cancelButtonText = @"Close";// Or any other language But Default is Close
+                
+                NSArray *permissions = @[@(BasicProfile),
+                                         @(EmailAddress),
+                                         @(Share),
+                                         @(CompanyAdmin)];
+                
+                linkedIn.showActivityIndicator = YES;
+                [linkedIn requestMeWithSenderViewController:self
+                                                   clientId:@"81nb85ffrekjgr"
+                                               clientSecret:@"K0pwDPX4ptU1Qodg"
+                                                redirectUrl:@"https://com.appcoda.linkedin.oauth/oauth"
+                                                permissions:permissions
+                                                      state:@""
+                                            successUserInfo:^(NSDictionary *userInfo) {
+                                                
+                                                NSLog(@"userInfo:%@",userInfo);
+                                                
+                                            } cancelBlock:^{
+                                                NSLog(@"User cancelled the request Action");
+                                                
+                                            } failUserInfoBlock:^(NSError *error) {
+                                                NSLog(@"error : %@", error.userInfo.description);
+                                                
+                                            }
+                 ];
+            }
         }
     }];
     

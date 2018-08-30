@@ -9,7 +9,6 @@
 #import <LocalAuthentication/LAContext.h>
 #import <LocalAuthentication/LAError.h>
 #import "SAMKeychain.h"
-#import <linkedin-sdk/LISDK.h>
 
 @interface RegController ()
 
@@ -468,19 +467,55 @@
         }
         else if ([action.title isEqualToString:@"OK"]) {
             NSLog(@"OK");
-            [LISDKSessionManager createSessionWithAuth:[NSArray arrayWithObjects:LISDK_BASIC_PROFILE_PERMISSION, LISDK_EMAILADDRESS_PERMISSION, nil] state:nil showGoToAppStoreDialog:YES successBlock:^(NSString *returnState) {
-                NSLog(@"%s","success called!");
-                LISDKSession *session = [[LISDKSessionManager sharedInstance] session];
-                NSLog(@"value=%@ isvalid=%@",[session value],[session isValid] ? @"YES" : @"NO");
-                NSMutableString *text = [[NSMutableString alloc] initWithString:[session.accessToken description]];
-                [text appendString:[NSString stringWithFormat:@",state=\"%@\"",returnState]];
-                NSLog(@"授权后的信息：%@",text);
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"register success" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-                [alertView show];
+            
+            
+            //request the linkedin
+            LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
+            // If user has already connected via linkedin in and access token is still valid then
+            // No need to fetch authorizationCode and then accessToken again!
+            
+            if (linkedIn.isValidToken) {
                 
-            } errorBlock:^(NSError *error) {
-                NSLog(@"%s %@","error called! ", [error description]);
-            }];
+                linkedIn.customSubPermissions = [NSString stringWithFormat:@"%@,%@", first_name, last_name];
+                
+                // So Fetch member info by elderyly access token
+                [linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
+                    // Whole User Info
+                    
+                    NSLog(@"user Info : %@", userInfo);
+                    
+                } failUserInfo:^(NSError *error) {
+                    NSLog(@"error : %@", error.userInfo.description);
+                }];
+            } else {
+                
+                linkedIn.cancelButtonText = @"Close"; // Or any other language But Default is Close
+                
+                NSArray *permissions = @[@(BasicProfile),
+                                         @(EmailAddress),
+                                         @(Share),
+                                         @(CompanyAdmin)];
+                
+                linkedIn.showActivityIndicator = YES;
+                [linkedIn requestMeWithSenderViewController:self
+                                                   clientId:@"81nb85ffrekjgr"
+                                               clientSecret:@"K0pwDPX4ptU1Qodg"
+                                                redirectUrl:@"https://com.appcoda.linkedin.oauth/oauth"
+                                                permissions:permissions
+                                                      state:@""
+                                            successUserInfo:^(NSDictionary *userInfo) {
+                                                
+                                                NSLog(@"userInfo:%@",userInfo);
+                                                
+                                            } cancelBlock:^{
+                                                NSLog(@"User cancelled the request Action");
+                                                
+                                            } failUserInfoBlock:^(NSError *error) {
+                                                NSLog(@"error : %@", error.userInfo.description);
+                                                
+                                            }
+                 ];
+            }
             
         }
     }];

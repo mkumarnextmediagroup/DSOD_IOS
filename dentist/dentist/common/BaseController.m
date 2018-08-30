@@ -6,11 +6,18 @@
 #import "BaseController.h"
 #import "UITextField+styled.h"
 #import "Common.h"
+#import "AppDelegate.h"
 
 @implementation BaseController {
 
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.presentingController = self;
+}
 
 - (void)viewDidLoad {
 	[super viewDidLoad];

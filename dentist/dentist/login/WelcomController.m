@@ -14,7 +14,7 @@
 #import "UILabel+customed.h"
 #import "Async.h"
 #import "Http.h"
-#import "Json.h"
+#import "Proto.h"
 
 
 @interface WelcomController ()
@@ -103,27 +103,16 @@
 }
 
 - (void)testThread:(NSString *)what {
-//	[self testHttp];
+	[self testHttp];
+//	NSString *s = strBuild(@"A", @"B", @"C");
+//	NSLog(@"%@", s);
 }
 
 
 - (void)testHttp {
-	Http *h = [Http new];
-	h.url = @"http://dsod.aikontec.com/profile-service/v1/userAccount/register";
-	NSString *s = jsonBuild(@{@"full_name": @"Entao Yang", @"password": @"1234567", @"username": @"entaoyang@163.com"});
-//	[h arg:@"userRegisterPO" value:s];
-//	[h arg:@"full_name" value:@"Entao Yang"];
-//	[h arg:@"password" value:@"123456"];
-//	[h arg:@"username" value:@"entaoyang@163.com"];
-	[h acceptJson];
-	[h contentType:@"application/json"];
-	HttpResult *r = [h postRaw:s.dataUTF8];
-	NSLog(@"Code: %d", r.httpCode);
-	NSLog(@"Error: %@", r.error);
-	if (r.data != nil) {
-		NSLog(@"Size: %d", r.data.length);
-		NSLog(@"StrBody: %@", r.strBody);
-	}
+	backTask(^() {
+		[Proto register:@"entaoyang@163.com" pwd:@"Yang2008" name:@"Entao Yang"];
+	});
 }
 
 //- (void)onHttpStart:(int)total {

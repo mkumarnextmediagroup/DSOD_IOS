@@ -16,5 +16,6 @@
 @property(readonly) int httpCode;
 @property(readonly) NSString *strBody;
 
+-(void) dump;
 
 @end

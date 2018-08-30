@@ -78,6 +78,10 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	return self;
 }
 
+- (void)contentTypeJson {
+	[self contentType:@"application/json"];
+}
+
 - (void)contentType:(NSString *)value {
 	[self header:@"Content-Type" value:value];
 }
@@ -196,8 +200,8 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	NSMutableData *data = [NSMutableData dataWithCapacity:4096];
 	for (NSString *key in argMap) {
 		[data appendUTF8:BOUNDARY_START];
-		[data appendUTF8:addStr(@"Content-Disposition: form-data; name=\"", key, "\"", CRLF)];
-		[data appendUTF8:addStr(@"Content-Type:text/plain;charset=utf-8", CRLF)];
+		[data appendUTF8:strBuild(@"Content-Disposition: form-data; name=\"", key, @"\"", CRLF)];
+		[data appendUTF8:strBuild(@"Content-Type:text/plain;charset=utf-8", CRLF)];
 		[data appendUTF8:CRLF];
 		[data appendUTF8:argMap[key]];
 		[data appendUTF8:CRLF];
@@ -208,7 +212,7 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 		NSData *fileData = [NSData dataWithContentsOfFile:value];
 		NSString *filename = [value stringByDeletingLastPathComponent];
 		[data appendUTF8:BOUNDARY_START];
-		[data appendUTF8:addStr(@"Content-Disposition:form-data;name=\"", key, @"\";filename=\"", filename, @"\"", CRLF)];
+		[data appendUTF8:strBuild(@"Content-Disposition:form-data;name=\"", key, @"\";filename=\"", filename, @"\"", CRLF)];
 		[data appendUTF8:@"Content-Type:application/octet-stream\r\n"];
 		[data appendUTF8:@"Content-Transfer-Encoding: binary\r\n"];
 		[data appendUTF8:CRLF];
@@ -218,7 +222,7 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	for (NSString *key in fileDataMap) {
 		NSString *filename = key;
 		[data appendUTF8:BOUNDARY_START];
-		[data appendUTF8:addStr(@"Content-Disposition:form-data;name=\"", key, @"\";filename=\"", filename, @"\"", CRLF)];
+		[data appendUTF8:strBuild(@"Content-Disposition:form-data;name=\"", key, @"\";filename=\"", filename, @"\"", CRLF)];
 		[data appendUTF8:@"Content-Type:application/octet-stream\r\n"];
 		[data appendUTF8:@"Content-Transfer-Encoding: binary\r\n"];
 		[data appendUTF8:CRLF];
@@ -264,6 +268,7 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 		}
 	} else if (method == POST_RAW) {
 		req.HTTPBody = rawData;
+		NSLog(@"Post Body: %@", rawData.stringUTF8);
 	} else if (method == POST_MULTIPART) {
 		req.HTTPBody = self.buildMultipartData;
 	}
@@ -283,11 +288,13 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 		r.data = data;
 		r.response = (NSHTTPURLResponse *) resp;
 		r.error = err;
+		[r dump];
 		callback(r);
 	}];
 	[task resume];
 	[self watchSend:task];
 	[self watchRecv:task];
+
 	return task;
 }
 
@@ -300,17 +307,13 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 		r.data = data;
 		r.response = (NSHTTPURLResponse *) resp;
 		r.error = err;
-		if (data != nil) {
-			NSLog(@"DataString: %@", data.stringUTF8);
-		} else {
-			NSLog(@"DATA is NULL");
-		}
 		dispatch_semaphore_signal(sem);
 	}];
 	[task resume];
 	[self watchSend:task];
 	[self watchRecv:task];
 	dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+	[r dump];
 	return r;
 }
 

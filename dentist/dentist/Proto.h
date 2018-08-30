@@ -11,6 +11,12 @@
 
 @interface Proto : NSObject
 
++ (HttpResult *)resetPwd:(NSString *)email pwd:(NSString *)pwd code:(NSString *)code;
+
++ (HttpResult *)sendEmailCode:(NSString *)email;
+
 + (HttpResult *)register:(NSString *)email pwd:(NSString *)pwd name:(NSString *)name;
+
++ (HttpResult *)login:(NSString *)email pwd:(NSString *)pwd;
 
 @end

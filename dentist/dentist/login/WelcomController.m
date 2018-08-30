@@ -14,6 +14,7 @@
 #import "UILabel+customed.h"
 #import "Async.h"
 #import "Http.h"
+#import "Json.h"
 
 
 @interface WelcomController ()
@@ -93,8 +94,8 @@
 
 - (void)clickLogin:(id)sender {
 	NSLog(@"click");
-	LoginController *c = [LoginController new];
-	[self openPage:c];
+//	LoginController *c = [LoginController new];
+//	[self openPage:c];
 
 
 	backAction(self, @selector(testThread:), @"");
@@ -102,19 +103,26 @@
 }
 
 - (void)testThread:(NSString *)what {
-
+//	[self testHttp];
 }
+
 
 - (void)testHttp {
 	Http *h = [Http new];
-	h.url = @"http://app800.cn/apps/res/download";
-	[h arg:@"id" value:@"131"];
-	h.progressRecv = self;
-	HttpResult *r = h.get;
-	NSLog(@"Result: %d", r.httpCode);
+	h.url = @"http://dsod.aikontec.com/profile-service/v1/userAccount/register";
+	NSString *s = jsonBuild(@{@"full_name": @"Entao Yang", @"password": @"1234567", @"username": @"entaoyang@163.com"});
+//	[h arg:@"userRegisterPO" value:s];
+//	[h arg:@"full_name" value:@"Entao Yang"];
+//	[h arg:@"password" value:@"123456"];
+//	[h arg:@"username" value:@"entaoyang@163.com"];
+	[h acceptJson];
+	[h contentType:@"application/json"];
+	HttpResult *r = [h postRaw:s.dataUTF8];
+	NSLog(@"Code: %d", r.httpCode);
 	NSLog(@"Error: %@", r.error);
 	if (r.data != nil) {
 		NSLog(@"Size: %d", r.data.length);
+		NSLog(@"StrBody: %@", r.strBody);
 	}
 }
 

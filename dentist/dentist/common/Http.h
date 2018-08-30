@@ -22,7 +22,7 @@ typedef void (^HttpCallback)(HttpResult *);
 
 - (HttpResult *)post;
 
-- (HttpResult *)postRaw;
+- (HttpResult *)postRaw:(NSData *)data;
 
 - (HttpResult *)multipart;
 
@@ -37,6 +37,8 @@ typedef void (^HttpCallback)(HttpResult *);
 
 
 - (void)auth:(NSString *)user value:(NSString *)pwd;
+
+- (void)contentType:(NSString *)value;
 
 - (void)userAgent:(NSString *)value;
 

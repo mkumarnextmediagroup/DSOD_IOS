@@ -93,11 +93,11 @@
 }
 
 - (void)clickLogin:(id)sender {
-	LoginController *c = [LoginController new];
-	[self openPage:c];
+//	LoginController *c = [LoginController new];
+//	[self openPage:c];
 
 
-//	backAction(self, @selector(testThread:), @"");
+	backAction(self, @selector(testThread:), @"");
 
 }
 
@@ -112,7 +112,9 @@
 	backTask(^() {
 //		[Proto register:@"entaoyang@126.com" pwd:@"Yang2008" name:@"Entao Yang"];
 //		[Proto login:@"entaoyang@126.com" pwd:@"Yang2008"];
-		[Proto sendEmailCode:@"entaoyang@126.com"];
+//		[Proto sendEmailCode:@"entaoyang@126.com"];
+//		[Proto resetPwd:@"entaoyang@126.com" pwd:@"Yang2018" code:@"i15po26X"];
+		[Proto changePwd:@"entaoyang@126.com" pwd:@"Yang2019"];
 	});
 }
 

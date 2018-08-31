@@ -4,6 +4,7 @@
 //
 
 #import "Proto.h"
+#import "UserConfig.h"
 
 #define CLIENT_ID @"fooClientIdPassword"
 
@@ -32,9 +33,21 @@
 
 //OK
 + (HttpResult *)login:(NSString *)email pwd:(NSString *)pwd {
-	NSUserDefaults * ud ;
 	NSString *s = jsonBuild(@{@"userName": email, @"password": pwd, @"client_id": CLIENT_ID});
-	return [self postBody:@"userAccount/login" body:s];
+	HttpResult *r = [self postBody:@"userAccount/login" body:s];
+	if (r.OK) {
+		NSDictionary *d = r.resultMap;
+		if (d != nil) {
+			NSUserDefaults *ud = [UserConfig account:email];
+			NSString *token = d[@"accesstoken"];
+			if (token != nil) {
+				[ud setObject:token forKey:@"token"];
+			} else {
+				NSLog(@"ERROR : token is null on login success");
+			}
+		}
+	}
+	return r;
 }
 
 //OK

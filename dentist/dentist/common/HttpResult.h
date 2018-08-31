@@ -13,9 +13,14 @@
 @property NSError *error;
 
 @property(readonly) BOOL OK;
+@property(readonly) BOOL httpOK;
 @property(readonly) int httpCode;
 @property(readonly) NSString *strBody;
+@property(readonly) NSDictionary *jsonBody;
+@property(readonly) int code;
+@property(readonly) NSString *msg;
+@property(readonly) NSDictionary *resultMap;
 
--(void) dump;
+- (void)dump;
 
 @end

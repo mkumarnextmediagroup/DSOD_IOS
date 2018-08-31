@@ -111,10 +111,10 @@
 - (void)testHttp {
 	backTask(^() {
 //		[Proto register:@"entaoyang@126.com" pwd:@"Yang2008" name:@"Entao Yang"];
-//		[Proto login:@"entaoyang@126.com" pwd:@"Yang2008"];
+		[Proto login:@"entaoyang@126.com" pwd:@"Yang2019"];
 //		[Proto sendEmailCode:@"entaoyang@126.com"];
 //		[Proto resetPwd:@"entaoyang@126.com" pwd:@"Yang2018" code:@"i15po26X"];
-		[Proto changePwd:@"entaoyang@126.com" pwd:@"Yang2019"];
+//		[Proto changePwd:@"entaoyang@126.com" pwd:@"Yang2019"];
 	});
 }
 

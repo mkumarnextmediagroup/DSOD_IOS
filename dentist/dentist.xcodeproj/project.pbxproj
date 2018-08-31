@@ -43,6 +43,7 @@
 		C5EEA1CB9C55E45C1CF0F710 /* UIUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAF2F67ED58D35E984745 /* UIUtil.m */; };
 		C5EEA1D0E4573EAC275DB65F /* in@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA0D6F3D346ABA57627E3 /* in@3x.png */; };
 		C5EEA20626BFCB817FCD6BED /* linkedin.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAC1A22AE1F31430281C0 /* linkedin.png */; };
+		C5EEA244990C75893F5395AF /* UserConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA661B709C6D350465159 /* UserConfig.m */; };
 		C5EEA2763E400C04C2570656 /* Http.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA52D798B7B8BA9FF1CC9 /* Http.m */; };
 		C5EEA2B81C84D4F3EDB29C44 /* NSMutableAttributedString+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAC36ADFF1B9F8DEBA913 /* NSMutableAttributedString+customed.m */; };
 		C5EEA2BA0180646BF8FF57BF /* Platform.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAA9D22157E0B66DD5102 /* Platform.m */; };
@@ -145,6 +146,7 @@
 		C5EEA2081FE1E7048216CB0F /* RegController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegController.m; sourceTree = "<group>"; };
 		C5EEA26491F4A964247D88D3 /* checkbox_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_on@2x.png"; sourceTree = "<group>"; };
 		C5EEA26FE0A8A22D3399DE3E /* TapGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapGesture.m; sourceTree = "<group>"; };
+		C5EEA2FA9A4089744963EE4F /* UserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserConfig.h; sourceTree = "<group>"; };
 		C5EEA30917CCFA40C14CC248 /* inkedin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inkedin@3x.png"; sourceTree = "<group>"; };
 		C5EEA322E513676D2AD98D68 /* NSString+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+myextend.m"; sourceTree = "<group>"; };
 		C5EEA36D27849EDE93EE982E /* StudentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentController.m; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 		C5EEA60EA623610B575DC37A /* Proto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Proto.m; sourceTree = "<group>"; };
 		C5EEA63BA5161BA9405972E1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C5EEA64F84AE34B5F5F79A7F /* ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ok@3x.png"; sourceTree = "<group>"; };
+		C5EEA661B709C6D350465159 /* UserConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserConfig.m; sourceTree = "<group>"; };
 		C5EEA66D516C103A72D92922 /* Async.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Async.h; sourceTree = "<group>"; };
 		C5EEA6C2E9723639C9F2F3FF /* BaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
 		C5EEA6D41AA021EC38370EA9 /* HttpProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpProgress.h; sourceTree = "<group>"; };
@@ -383,6 +386,8 @@
 				C5EEA55A494FE013B28DD5A2 /* main.m */,
 				C5EEAB6695D632299F7E047E /* Proto.h */,
 				C5EEA60EA623610B575DC37A /* Proto.m */,
+				C5EEA661B709C6D350465159 /* UserConfig.m */,
+				C5EEA2FA9A4089744963EE4F /* UserConfig.h */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -652,6 +657,7 @@
 				C5EEA593F936DC9F40625710 /* AppDelegate.m in Sources */,
 				C5EEACECAF3A92BFFE936009 /* main.m in Sources */,
 				C5EEA69904AD45ACCE042A25 /* Proto.m in Sources */,
+				C5EEA244990C75893F5395AF /* UserConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

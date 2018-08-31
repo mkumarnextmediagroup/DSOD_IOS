@@ -12,7 +12,7 @@
 }
 
 
-//BAD  需要添加旧密码
+//BAD  need old pwd
 + (HttpResult *)changePwd:(NSString *)email pwd:(NSString *)pwd {
 	NSString *s = jsonBuild(@{@"userName": email, @"password": pwd, @"client_id": CLIENT_ID});
 	return [self postBody:@"userAccount/updatePasswordByUserName" body:s];
@@ -32,6 +32,7 @@
 
 //OK
 + (HttpResult *)login:(NSString *)email pwd:(NSString *)pwd {
+	NSUserDefaults * ud ;
 	NSString *s = jsonBuild(@{@"userName": email, @"password": pwd, @"client_id": CLIENT_ID});
 	return [self postBody:@"userAccount/login" body:s];
 }

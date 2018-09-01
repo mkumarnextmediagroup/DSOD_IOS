@@ -15,5 +15,5 @@
 
 - (void)onTextFieldDone:(UITextField *)textField;
 
-- (void)setTopTitle:(NSString *)title imageName:(UIImage *)imageName;
+- (void)setTopTitle:(NSString *)title bgColor:(UIColor *)bgColor imageName:(UIImage *)imageName;
 @end

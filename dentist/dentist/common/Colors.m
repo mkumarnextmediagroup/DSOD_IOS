@@ -11,6 +11,13 @@
 
 }
 
++ (UIColor *)bgNavBarColor {
+    static UIColor *_c = nil;
+    if (_c == nil) {
+        _c = rgb255(120, 120, 120);
+    }
+    return _c;
+}
 
 + (UIColor *)primary {
 	static UIColor *_c = nil;

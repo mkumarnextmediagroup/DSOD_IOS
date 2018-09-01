@@ -24,7 +24,7 @@
     [super viewDidLoad];
     
     UIImage *backImg = [UIImage imageNamed:@"close.png"];
-    [self setTopTitle:localStr(@"resetPwd") imageName:backImg];
+    [self setTopTitle:localStr(@"resetPwd") bgColor:[UIColor whiteColor] imageName:backImg];
     
     self.view.backgroundColor = [UIColor whiteColor];
     

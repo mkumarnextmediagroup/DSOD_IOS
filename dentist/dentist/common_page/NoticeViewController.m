@@ -21,7 +21,7 @@
     //add the Navigation
     
     UIImage *backImg = [UIImage imageNamed:@"close.png"];
-    [self setTopTitle:@"RESLOVE YOUR ISSUE" imageName:backImg];
+    [self setTopTitle:@"RESLOVE YOUR ISSUE" bgColor:[UIColor whiteColor] imageName:backImg];
     
     self.view.backgroundColor = [UIColor whiteColor];
     

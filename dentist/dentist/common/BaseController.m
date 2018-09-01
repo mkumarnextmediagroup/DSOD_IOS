@@ -165,15 +165,20 @@
 	}
 }
 
-- (void)setTopTitle:(NSString *)title imageName:(UIImage *)imageName {
+- (void)setTopTitle:(NSString *)title bgColor:(UIColor *)bgColor imageName:(UIImage *)imageName {
 	UIView *topVi = [UIView new];
 	topVi.frame = CGRectMake(0, 0, SCREENWIDTH, NAVHEIGHT);
-	topVi.backgroundColor = [UIColor whiteColor];
+	topVi.backgroundColor = bgColor;
 	[self.view addSubview:topVi];
 
 	UILabel *content = [UILabel new];
 	content.font = [UIFont systemFontOfSize:19];
-	content.textColor = [UIColor blackColor];
+    if (imageName == nil) {
+        content.textColor = [UIColor whiteColor];
+    }else
+    {
+        content.textColor = [UIColor blackColor];
+    }
 	content.text = title;
 	content.textAlignment = NSTextAlignmentCenter;
 	content.frame = CGRectMake(50, 23, SCREENWIDTH - 100, 40);

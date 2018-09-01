@@ -12,6 +12,7 @@
 #import "NoIntenetViewController.h"
 #import "ForgotViewController.h"
 #import "StudentController.h"
+#import "UpdateViewController.h"
 
 @interface LoginController ()
 
@@ -191,9 +192,13 @@
 	NSLog(@"click reg ");
 	NSLog(@"%@", sender);
 	//TODO wennan添加
-	StudentController *c = [StudentController new];
-	[self presentViewController:c animated:YES completion:nil];
+//    StudentController *c = [StudentController new];
+//    [self presentViewController:c animated:YES completion:nil];
+    
+    UpdateViewController *up = [UpdateViewController new];
+    [self openPage:up];
 }
+
 
 - (void)clickLogin:(id)sender {
 	NSLog(@"clickLogin");
@@ -264,7 +269,7 @@
             
             //request the linkedin
             LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
-            [linkedIn logout];
+//            [linkedIn logout];//clear the save token,it should be used in logout
             // If user has already connected via linkedin in and access token is still valid then
             // No need to fetch authorizationCode and then accessToken again!
             

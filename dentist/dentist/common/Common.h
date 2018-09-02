@@ -8,6 +8,7 @@
 #import "UIUtil.h"
 #import "Consts.h"
 #import "DenAlertController.h"
+#import "LinkedInHelper.h"
 
 #import "Fonts.h"
 #import "Colors.h"
@@ -24,4 +25,6 @@
 #import "UILabel+customed.h"
 #import "UIControl+customed.h"
 #import "NSString+myextend.h"
+#import "Http.h"
+#import "Json.h"
 

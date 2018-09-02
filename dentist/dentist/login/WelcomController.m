@@ -13,6 +13,8 @@
 #import "StackLayout.h"
 #import "UILabel+customed.h"
 #import "Async.h"
+#import "Http.h"
+#import "Proto.h"
 
 
 @interface WelcomController ()
@@ -91,23 +93,40 @@
 }
 
 - (void)clickLogin:(id)sender {
-	NSLog(@"click");
 	LoginController *c = [LoginController new];
 	[self openPage:c];
 
-	foreActionDelay(2000, self, @selector(testThread:), @"Hello");
+
+//	backAction(self, @selector(testThread:), @"");
 
 }
 
 - (void)testThread:(NSString *)what {
-	BOOL b = NSThread.isMainThread;
-	if (b) {
-		NSLog(@"Main : %@", what);
-	} else {
-		NSLog(@"Child: %@", what);
-	}
-
+	[self testHttp];
+//	NSString *s = strBuild(@"A", @"B", @"C");
+//	NSLog(@"%@", s);
 }
+
+
+- (void)testHttp {
+	backTask(^() {
+//		[Proto register:@"entaoyang@126.com" pwd:@"Yang2008" name:@"Entao Yang"];
+//		[Proto login:@"entaoyang@126.com" pwd:@"Yang2008"];
+		[Proto sendEmailCode:@"entaoyang@126.com"];
+	});
+}
+
+//- (void)onHttpStart:(int)total {
+//	NSLog(@"Progress start: %d", total);
+//}
+
+- (void)onHttpProgress:(int)current total:(int)total percent:(int)percent {
+	NSLog(@"Progress : %d  %d  %d", current, total, percent);
+}
+
+//- (void)onHttpFinish:(BOOL)success {
+//	NSLog(@"Progress Finished: %d", success);
+//}
 
 
 @end

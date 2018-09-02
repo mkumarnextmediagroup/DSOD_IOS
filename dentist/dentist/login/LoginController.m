@@ -244,12 +244,75 @@
 
 - (void)clickLinkedin:(id)sender {
 	NSLog(@"clickLinkedin ");
-	NoIntenetViewController *intenet = [NoIntenetViewController new];
-	intenet.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-	intenet.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-	intenet.providesPresentationContextTransitionStyle = YES;
-	intenet.definesPresentationContext = YES;
-	[self openPage:intenet];
+//    NoIntenetViewController *intenet = [NoIntenetViewController new];
+//    intenet.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+//    intenet.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    intenet.providesPresentationContextTransitionStyle = YES;
+//    intenet.definesPresentationContext = YES;
+//    [self openPage:intenet];
+    
+    [self Den_showAlertWithTitle:localStr(@"permission") message:localStr(@"WouldYou") appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+        alertMaker.
+        addActionCancelTitle(@"Dont't Allow").
+        addActionDefaultTitle(@"OK");
+    } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+        if ([action.title isEqualToString:@"Dont't Allow"]) {
+            NSLog(@"Dont't Allow");
+        }
+        else if ([action.title isEqualToString:@"OK"]) {
+            NSLog(@"OK");
+            
+            //request the linkedin
+            LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
+            [linkedIn logout];
+            // If user has already connected via linkedin in and access token is still valid then
+            // No need to fetch authorizationCode and then accessToken again!
+            
+            if (linkedIn.isValidToken) {
+                
+                linkedIn.customSubPermissions = [NSString stringWithFormat:@"%@,%@", first_name, last_name];
+                
+                // So Fetch member info by elderyly access token
+                [linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
+                    // Whole User Info
+                    
+                    NSLog(@"user Info : %@", userInfo);
+                    
+                } failUserInfo:^(NSError *error) {
+                    NSLog(@"error : %@", error.userInfo.description);
+                }];
+            } else {
+                
+                linkedIn.cancelButtonText = @"Close";// Or any other language But Default is Close
+                
+                NSArray *permissions = @[@(BasicProfile),
+                                         @(EmailAddress),
+                                         @(Share),
+                                         @(CompanyAdmin)];
+                
+                linkedIn.showActivityIndicator = YES;
+                [linkedIn requestMeWithSenderViewController:self
+                                                   clientId:@"81nb85ffrekjgr"
+                                               clientSecret:@"K0pwDPX4ptU1Qodg"
+                                                redirectUrl:@"https://com.appcoda.linkedin.oauth/oauth"
+                                                permissions:permissions
+                                                      state:@""
+                                            successUserInfo:^(NSDictionary *userInfo) {
+                                                
+                                                NSLog(@"userInfo:%@",userInfo);
+                                                
+                                            } cancelBlock:^{
+                                                NSLog(@"User cancelled the request Action");
+                                                
+                                            } failUserInfoBlock:^(NSError *error) {
+                                                NSLog(@"error : %@", error.userInfo.description);
+                                                
+                                            }
+                 ];
+            }
+        }
+    }];
+    
 }
 
 - (void)clickForgot:(id)sender {

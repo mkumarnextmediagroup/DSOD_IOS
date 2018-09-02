@@ -63,3 +63,5 @@
 "newPwdSend" = "Your new password is on its way to your email address.";
 "SeemsLike" = "Seems like you are currently not connected to the internet.";
 "TryAgain" = "Try again when you get online.";
+"permission" = "permission needed to use linkedin credentials";
+"WouldYou" = "Would you like to give DSODentist permission to use your Linkedin credentials for creating an account?";

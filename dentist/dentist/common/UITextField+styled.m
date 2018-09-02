@@ -53,26 +53,24 @@
 }
 
 - (void)rounded {
-    if (self.tag == FORGOTFIELDTAG) {
-        
-        self.borderStyle = UITextBorderStyleRoundedRect;
-        self.backgroundColor = UIColor.whiteColor;
-        self.clearButtonMode = UITextFieldViewModeNever;
-        [self textColorMain];
+	if (self.tag == FORGOTFIELDTAG) {
+		self.borderStyle = UITextBorderStyleRoundedRect;
+		self.backgroundColor = UIColor.whiteColor;
+		self.clearButtonMode = UITextFieldViewModeNever;
+		[self textColorMain];
 
-    }else
-    {
-        self.borderStyle = UITextBorderStyleRoundedRect;
-        self.layer.borderColor = Colors.borderNormal.CGColor;
-        self.layer.borderWidth = 1;
-        self.layer.cornerRadius = 3;
-        self.layer.masksToBounds = YES;
-        
-        self.backgroundColor = UIColor.whiteColor;
-        self.clearButtonMode = UITextFieldViewModeWhileEditing;
-        [self textColorMain];
-    }
-        
+	} else {
+		self.borderStyle = UITextBorderStyleRoundedRect;
+		self.layer.borderColor = Colors.borderNormal.CGColor;
+		self.layer.borderWidth = 1;
+		self.layer.cornerRadius = 3;
+		self.layer.masksToBounds = YES;
+
+		self.backgroundColor = UIColor.whiteColor;
+		self.clearButtonMode = UITextFieldViewModeWhileEditing;
+		[self textColorMain];
+	}
+
 
 	self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4, 10)];
 	self.leftViewMode = UITextFieldViewModeAlways;
@@ -89,6 +87,13 @@
 
 
 - (void)themeNormal {
+	if (self.tag == FORGOTFIELDTAG) {
+		self.borderStyle = UITextBorderStyleRoundedRect;
+		self.backgroundColor = UIColor.whiteColor;
+		self.clearButtonMode = UITextFieldViewModeNever;
+		[self textColorMain];
+		return;
+	}
 	if (self.borderStyle == UITextBorderStyleNone) {
 		[self themeLineNormal];
 	} else {
@@ -103,12 +108,12 @@
 }
 
 - (void)resetNormal {
-    self.backgroundColor = UIColor.whiteColor;
-    if (self.rightView != nil) {
-        if ([self.rightView isKindOfClass:[UIImageView class]]) {
-            self.rightView = nil;
-        }
-    }
+	self.backgroundColor = UIColor.whiteColor;
+	if (self.rightView != nil) {
+		if ([self.rightView isKindOfClass:[UIImageView class]]) {
+			self.rightView = nil;
+		}
+	}
 }
 
 - (void)themeActive {
@@ -155,15 +160,15 @@
 
 
 - (void)resetError {
-    if (self.rightView == nil || [self.rightView isKindOfClass:[UIImageView class]]) {
-        UIImage *img = [UIImage imageNamed:@"error_red"];
-        UIImageView *iv = [[UIImageView alloc] initWithImage:img];
-        iv.tag = TAG_ERROR_SUCCESS;
-        [iv alignLeft];
-        iv.frame = makeRect(0, 0, 30, 30);
-        self.rightView = iv;
-        self.rightViewMode = UITextFieldViewModeUnlessEditing;
-    }
+	if (self.rightView == nil || [self.rightView isKindOfClass:[UIImageView class]]) {
+		UIImage *img = [UIImage imageNamed:@"error_red"];
+		UIImageView *iv = [[UIImageView alloc] initWithImage:img];
+		iv.tag = TAG_ERROR_SUCCESS;
+		[iv alignLeft];
+		iv.frame = makeRect(0, 0, 30, 30);
+		self.rightView = iv;
+		self.rightViewMode = UITextFieldViewModeUnlessEditing;
+	}
 }
 
 - (void)themeError {

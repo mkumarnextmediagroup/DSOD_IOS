@@ -9,7 +9,7 @@
 @interface TapGesture : UITapGestureRecognizer
 
 @property (nullable) id target;
-@property SEL action;
+@property (nullable) SEL action;
 
 - (id)initWithTarget:(nullable id)target action:(nullable SEL)action;
 

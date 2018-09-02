@@ -7,6 +7,6 @@
 #import "BaseController.h"
 
 
-@interface WelcomController : BaseController
+@interface WelcomController : BaseController <HttpProgress>
 
 @end

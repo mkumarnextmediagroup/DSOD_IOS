@@ -7,12 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-        4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6AF212A595B00A0672D /* ForgotViewController.m */; };
+		3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E137172212B0E6100B206CC /* LocalAuthentication.framework */; };
+		4E1956EF21363CE200420563 /* linkedin-sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E1956EE21363CE200420563 /* linkedin-sdk.framework */; };
+		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
+		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
+		4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6AF212A595B00A0672D /* ForgotViewController.m */; };
 		4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B3212A5E1000A0672D /* NoIntenetViewController.m */; };
 		4EBCE6B7212A8A4700A0672D /* close_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B5212A8A4700A0672D /* close_white@2x.png */; };
 		4EBCE6B8212A8A4700A0672D /* close_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6B6212A8A4700A0672D /* close_white@3x.png */; };
 		4EBCE6BB212AACE600A0672D /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6BA212AACE600A0672D /* NoticeViewController.m */; };
-		3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E137172212B0E6100B206CC /* LocalAuthentication.framework */; };
+		4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6C0212BF76500A0672D /* ContactViewController.m */; };
+		4EBCE6C5212D0AED00A0672D /* ContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6C4212D0AED00A0672D /* ContactTableViewCell.m */; };
+		4EBCE6C8212D0DF000A0672D /* MagazineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6C7212D0DF000A0672D /* MagazineTableViewCell.m */; };
+		4EBCE6CF212D2CF000A0672D /* photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6CD212D2CF000A0672D /* photo@3x.png */; };
+		4EBCE6D0212D2CF000A0672D /* photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6CE212D2CF000A0672D /* photo@2x.png */; };
+		4EBCE6D7212D62DF00A0672D /* close_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6D5212D62DF00A0672D /* close_select@3x.png */; };
+		4EBCE6D8212D62DF00A0672D /* close_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6D6212D62DF00A0672D /* close_select@2x.png */; };
+		4EBCE6DB212D6D8600A0672D /* ResetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCE6DA212D6D8600A0672D /* ResetPwdViewController.m */; };
+		4EBCE6E2212EABF100A0672D /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6E0212EABF000A0672D /* delete@2x.png */; };
+		4EBCE6E3212EABF100A0672D /* delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6E1212EABF000A0672D /* delete@3x.png */; };
+		4EBCE724212FD1CE00A0672D /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBCE723212FD1CE00A0672D /* Photos.framework */; };
 		574B3A23212338DF00C37095 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A22212338DF00C37095 /* AppDelegate.m */; };
 		574B3A2B212338E100C37095 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 574B3A2A212338E100C37095 /* Assets.xcassets */; };
 		574B3A31212338E100C37095 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 574B3A30212338E100C37095 /* main.m */; };
@@ -74,6 +88,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E137172212B0E6100B206CC /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		4E1956EE21363CE200420563 /* linkedin-sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "linkedin-sdk.framework"; sourceTree = "<group>"; };
+		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
+		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
+        4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
+		4EBBC5822134EC2800396BF5 /* DenAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DenAlertController.m; sourceTree = "<group>"; };
 		4EBCE6AE212A595B00A0672D /* ForgotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotViewController.h; sourceTree = "<group>"; };
 		4EBCE6AF212A595B00A0672D /* ForgotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotViewController.m; sourceTree = "<group>"; };
 		4EBCE6B2212A5E1000A0672D /* NoIntenetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoIntenetViewController.h; sourceTree = "<group>"; };
@@ -83,7 +103,21 @@
 		4EBCE6B9212AACE600A0672D /* NoticeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoticeViewController.h; sourceTree = "<group>"; };
 		4EBCE6BA212AACE600A0672D /* NoticeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoticeViewController.m; sourceTree = "<group>"; };
 		4EBCE6BC212AB4A900A0672D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		3E137172212B0E6100B206CC /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		4EBCE6BF212BF76500A0672D /* ContactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactViewController.h; sourceTree = "<group>"; };
+		4EBCE6C0212BF76500A0672D /* ContactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactViewController.m; sourceTree = "<group>"; };
+		4EBCE6C3212D0AED00A0672D /* ContactTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactTableViewCell.h; sourceTree = "<group>"; };
+		4EBCE6C4212D0AED00A0672D /* ContactTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewCell.m; sourceTree = "<group>"; };
+		4EBCE6C6212D0DF000A0672D /* MagazineTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MagazineTableViewCell.h; sourceTree = "<group>"; };
+		4EBCE6C7212D0DF000A0672D /* MagazineTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MagazineTableViewCell.m; sourceTree = "<group>"; };
+		4EBCE6CD212D2CF000A0672D /* photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo@3x.png"; sourceTree = "<group>"; };
+		4EBCE6CE212D2CF000A0672D /* photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo@2x.png"; sourceTree = "<group>"; };
+		4EBCE6D5212D62DF00A0672D /* close_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_select@3x.png"; sourceTree = "<group>"; };
+		4EBCE6D6212D62DF00A0672D /* close_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_select@2x.png"; sourceTree = "<group>"; };
+		4EBCE6D9212D6D8600A0672D /* ResetPwdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResetPwdViewController.h; sourceTree = "<group>"; };
+		4EBCE6DA212D6D8600A0672D /* ResetPwdViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResetPwdViewController.m; sourceTree = "<group>"; };
+		4EBCE6E0212EABF000A0672D /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
+		4EBCE6E1212EABF000A0672D /* delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@3x.png"; sourceTree = "<group>"; };
+		4EBCE723212FD1CE00A0672D /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		574B3A1E212338DF00C37095 /* dentist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dentist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		574B3A21212338DF00C37095 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		574B3A22212338DF00C37095 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -183,8 +217,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EBCE724212FD1CE00A0672D /* Photos.framework in Frameworks */,
 				3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */,
 				74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */,
+				4E1956EF21363CE200420563 /* linkedin-sdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +232,8 @@
 			children = (
 				4EBCE6AE212A595B00A0672D /* ForgotViewController.h */,
 				4EBCE6AF212A595B00A0672D /* ForgotViewController.m */,
+				4EBCE6D9212D6D8600A0672D /* ResetPwdViewController.h */,
+				4EBCE6DA212D6D8600A0672D /* ResetPwdViewController.m */,
 			);
 			path = login_forgot;
 			sourceTree = "<group>";
@@ -203,12 +241,26 @@
 		4EBCE6B1212A5E1000A0672D /* common_page */ = {
 			isa = PBXGroup;
 			children = (
+				4EBCE6C2212D0AC400A0672D /* view */,
 				4EBCE6B2212A5E1000A0672D /* NoIntenetViewController.h */,
 				4EBCE6B3212A5E1000A0672D /* NoIntenetViewController.m */,
 				4EBCE6B9212AACE600A0672D /* NoticeViewController.h */,
 				4EBCE6BA212AACE600A0672D /* NoticeViewController.m */,
+				4EBCE6BF212BF76500A0672D /* ContactViewController.h */,
+				4EBCE6C0212BF76500A0672D /* ContactViewController.m */,
 			);
 			path = common_page;
+			sourceTree = "<group>";
+		};
+		4EBCE6C2212D0AC400A0672D /* view */ = {
+			isa = PBXGroup;
+			children = (
+				4EBCE6C3212D0AED00A0672D /* ContactTableViewCell.h */,
+				4EBCE6C4212D0AED00A0672D /* ContactTableViewCell.m */,
+				4EBCE6C6212D0DF000A0672D /* MagazineTableViewCell.h */,
+				4EBCE6C7212D0DF000A0672D /* MagazineTableViewCell.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		574B3A15212338DF00C37095 = {
@@ -254,12 +306,20 @@
 				57B0990121256E830010597B /* bg_1.png */,
 				57B0990521256E840010597B /* bg_2.png */,
 				57B0990221256E830010597B /* bg_3.png */,
+				4EBBC577212FEF3E00396BF5 /* error_red@2x.png */,
+				4EBBC578212FEF3E00396BF5 /* error_red@3x.png */,
 				57B0990321256E830010597B /* close.png */,
 				4EBCE6B5212A8A4700A0672D /* close_white@2x.png */,
 				4EBCE6B6212A8A4700A0672D /* close_white@3x.png */,
 				57B0990421256E840010597B /* linked_in.png */,
+				4EBCE6E0212EABF000A0672D /* delete@2x.png */,
+				4EBCE6E1212EABF000A0672D /* delete@3x.png */,
 				C5EEA18EB9B95E5485DE66DA /* error@3x.png */,
 				C5EEA64F84AE34B5F5F79A7F /* ok@3x.png */,
+				4EBCE6D6212D62DF00A0672D /* close_select@2x.png */,
+				4EBCE6D5212D62DF00A0672D /* close_select@3x.png */,
+				4EBCE6CE212D2CF000A0672D /* photo@2x.png */,
+				4EBCE6CD212D2CF000A0672D /* photo@3x.png */,
 				C5EEA0DE73B049D946E71EA1 /* logo_white@2x.png */,
 				C5EEA9A86503708DA9E3869E /* logo_white@3x.png */,
 				C5EEAFA6847EBD5CB2040106 /* logo@3x.png */,
@@ -295,6 +355,8 @@
 		9E8CFB7155047C0648622D0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E1956EE21363CE200420563 /* linkedin-sdk.framework */,
+				4EBCE723212FD1CE00A0672D /* Photos.framework */,
 				3E137172212B0E6100B206CC /* LocalAuthentication.framework */,
 				D18A46C0F072296ED5347389 /* libPods-dentist.a */,
 			);
@@ -350,7 +412,9 @@
 				C5EEA7B9D5BECBFD7E0084C4 /* Http.h */,
 				C5EEA9AC0839884D27DA2ABA /* Async.m */,
 				C5EEA66D516C103A72D92922 /* Async.h */,
-                4EBCE6BC212AB4A900A0672D /* PrefixHeader.pch */,
+				4EBCE6BC212AB4A900A0672D /* PrefixHeader.pch */,
+                4EBBC5812134EC2800396BF5 /* DenAlertController.h */,
+				4EBBC5822134EC2800396BF5 /* DenAlertController.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -430,6 +494,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EBCE6B7212A8A4700A0672D /* close_white@2x.png in Resources */,
+				4EBCE6E2212EABF100A0672D /* delete@2x.png in Resources */,
 				57B0990921256E840010597B /* close.png in Resources */,
 				57B0990721256E840010597B /* bg_1.png in Resources */,
 				57B0990821256E840010597B /* bg_3.png in Resources */,
@@ -439,6 +504,7 @@
 				E11E157223BF973AEB726995 /* Podfile in Resources */,
 				57B0990A21256E840010597B /* linked_in.png in Resources */,
 				C5EEA4A6B29832302A53D7B1 /* error@3x.png in Resources */,
+				4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */,
 				C5EEA18592C8A1D19E19C161 /* ok@3x.png in Resources */,
 				C5EEAE86F4DCB0CEF09C5B49 /* logo_white@2x.png in Resources */,
 				C5EEA3A502FE5013902AD3AF /* logo_white@3x.png in Resources */,
@@ -449,14 +515,20 @@
 				C5EEA55691F65C5A3EF946AF /* checkbox@2x.png in Resources */,
 				C5EEA65E44E172FEB6482668 /* checkbox@3x.png in Resources */,
 				C5EEA75037810F6772CD2C4F /* inkedin@2x.png in Resources */,
+				4EBCE6CF212D2CF000A0672D /* photo@3x.png in Resources */,
 				C5EEA304546737C29C822865 /* inkedin@3x.png in Resources */,
+				4EBCE6E3212EABF100A0672D /* delete@3x.png in Resources */,
 				C5EEA20626BFCB817FCD6BED /* linkedin.png in Resources */,
 				C5EEA3833E70FE8F978304CF /* checkbox_on.png in Resources */,
 				C5EEA9C826673B94007566E8 /* checkbox_on@2x.png in Resources */,
 				C5EEAF2A194521DC8C0BD8A0 /* checkbox_on@3x.png in Resources */,
+				4EBCE6D7212D62DF00A0672D /* close_select@3x.png in Resources */,
+				4EBCE6D8212D62DF00A0672D /* close_select@2x.png in Resources */,
 				C5EEAAE976626BD0AD7F87A8 /* in.png in Resources */,
 				C5EEA3FB2294B0B512A2C1DB /* in@2x.png in Resources */,
 				C5EEA1D0E4573EAC275DB65F /* in@3x.png in Resources */,
+				4EBCE6D0212D2CF000A0672D /* photo@2x.png in Resources */,
+				4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */,
 				C5EEAB39CFA076691E67BA42 /* info.png in Resources */,
 				C5EEAC84691A5246841E615B /* info@2x.png in Resources */,
 				C5EEA9C145CEE1C7091EA50F /* info@3x.png in Resources */,
@@ -511,6 +583,7 @@
 			files = (
 				574B3A31212338E100C37095 /* main.m in Sources */,
 				574B3A23212338DF00C37095 /* AppDelegate.m in Sources */,
+				4EBCE6C5212D0AED00A0672D /* ContactTableViewCell.m in Sources */,
 				E11E10BD74EC149921ADD708 /* LoginController.m in Sources */,
 				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,
 				C5EEA9E893F712BA5CC4938D /* TextSize.m in Sources */,
@@ -518,6 +591,7 @@
 				C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */,
 				C5EEA2ECCE69B6CBF0D20BA6 /* BaseController.m in Sources */,
 				C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */,
+                4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
 				4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */,
@@ -527,6 +601,7 @@
 				C5EEA97A363C02981633699C /* StackLayout.m in Sources */,
 				C5EEAE3B78A71516A252C86F /* StackLayoutItem.m in Sources */,
 				C5EEA5EB7EC226DCBF96A2BA /* UIImageView+customed.m in Sources */,
+				4EBCE6C8212D0DF000A0672D /* MagazineTableViewCell.m in Sources */,
 				4EBCE6BB212AACE600A0672D /* NoticeViewController.m in Sources */,
 				4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */,
 				C5EEA70CAD83A3FEE9B6BD2C /* UILabel+customed.m in Sources */,
@@ -534,10 +609,12 @@
 				C5EEAA269C87F480239BF21E /* TapGesture.m in Sources */,
 				C5EEA2BA0180646BF8FF57BF /* Platform.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
+				4EBCE6DB212D6D8600A0672D /* ResetPwdViewController.m in Sources */,
 				C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */,
 				C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */,
 				C5EEAF6A040452F10D489279 /* NSString+myextend.m in Sources */,
 				C5EEA1CB9C55E45C1CF0F710 /* UIUtil.m in Sources */,
+				4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */,
 				C5EEA2763E400C04C2570656 /* Http.m in Sources */,
 				C5EEA409953B93D9D6261C83 /* Async.m in Sources */,
 			);
@@ -676,8 +753,9 @@
 			baseConfigurationReference = 68B426216C681447B0595866 /* Pods-dentist.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6Q9M9K233P;
+				DEVELOPMENT_TEAM = GDT3N3Z7A2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
@@ -688,6 +766,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -697,18 +777,21 @@
 			baseConfigurationReference = AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6Q9M9K233P;
+				DEVELOPMENT_TEAM = GDT3N3Z7A2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

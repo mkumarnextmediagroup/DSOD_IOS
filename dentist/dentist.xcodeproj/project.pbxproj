@@ -752,7 +752,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6Q9M9K233P;
+				DEVELOPMENT_TEAM = GDT3N3Z7A2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
@@ -776,7 +776,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6Q9M9K233P;
+				DEVELOPMENT_TEAM = GDT3N3Z7A2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;

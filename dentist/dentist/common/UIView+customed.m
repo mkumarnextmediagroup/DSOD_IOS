@@ -8,12 +8,18 @@
 #import "TapGesture.h"
 #import "Platform.h"
 
-
 @implementation UIView (customed)
 
 - (CGRect)toScreenFrame {
 	UIWindow *w = [[UIApplication sharedApplication] keyWindow];
 	return [self convertRect:self.bounds toView:w];
+}
+
+- (UISearchBarView *)createSearchBar
+{
+    UISearchBarView *searchBarView = [[UISearchBarView alloc] initWithFrame:CGRectMake(0, NAVHEIGHT, SCREENWIDTH, 57)];
+    [self addSubview:searchBarView];
+    return searchBarView;
 }
 
 - (void)onClickView:(id)target action:(SEL)action {

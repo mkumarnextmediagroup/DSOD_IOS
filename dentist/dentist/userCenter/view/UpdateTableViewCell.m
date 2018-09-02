@@ -15,8 +15,9 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         _selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _selectBtn.frame = CGRectMake(0, 0, 80, 44);
+        _selectBtn.frame = CGRectMake(SCREENWIDTH - 80, 0, 80, 44);
         [_selectBtn setImage:[UIImage imageNamed:@"unSelect"] forState:UIControlStateNormal];
+        [_selectBtn setImage:[UIImage imageNamed:@"select"] forState:UIControlStateHighlighted];
         [self addSubview:_selectBtn];
     }
     return self;

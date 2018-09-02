@@ -8,9 +8,14 @@
 
 #import "UpdateViewController.h"
 #import "UpdateTableViewCell.h"
+#import "UISearchBarView.h"
 
-@interface UpdateViewController ()<UITableViewDelegate,UITableViewDataSource>
-
+@interface UpdateViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarViewDelegate>
+{
+    UISearchBarView *searchBar;
+    UITableView *myTable;
+    NSInteger  indexPathRow;
+}
 @end
 
 @implementation UpdateViewController
@@ -20,15 +25,16 @@
     
     [self setTopTitle:@"STATE" bgColor:[Colors bgNavBarColor] imageName:nil];
     
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, NAVHEIGHT, SCREENWIDTH, 60)];
-    UITextField *field = [searchBar.subviews firstObject].subviews.lastObject;
-    field.backgroundColor = [UIColor whiteColor];
-    [searchBar setPlaceholder:@"Search ..."];
-    [searchBar setBarStyle:UIBarStyleDefault];
-    [self.view addSubview:searchBar];
+    searchBar = self.view.createSearchBar;
+    searchBar.delegate = self;
+    [searchBar layoutCenterXOffsetTop:SCREENWIDTH height:57 offset:NAVHEIGHT];
     
-    UITableView *table = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(searchBar.frame), SCREENWIDTH, SCREENHEIGHT - NAVHEIGHT - 60) style:UITableViewStylePlain];
-    [self.view addSubview:table];
+    myTable = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(searchBar.frame), SCREENWIDTH, SCREENHEIGHT - NAVHEIGHT - 60) style:UITableViewStylePlain];
+    myTable.separatorInset =UIEdgeInsetsZero;
+    myTable.delegate = self;
+    myTable.dataSource = self;
+    myTable.tableFooterView =  [[UIView alloc] init];
+    [self.view addSubview:myTable];
     // Do any additional setup after loading the view.
 }
 
@@ -56,13 +62,40 @@
     
     [cell.selectBtn addTarget:self action:@selector(selectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
+    if (indexPathRow == indexPath.row) {
+        // 如果是当前cell
+        [cell.selectBtn setImage:[UIImage imageNamed:@"select"] forState:UIControlStateNormal];
+
+    }else{
+
+        [cell.selectBtn setImage:[UIImage imageNamed:@"unSelect"] forState:UIControlStateNormal];
+
+    }
     
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
 - (void)selectBtnClick:(UIButton *)btn
 {
-    [btn setImage:[UIImage imageNamed:@"select"] forState:UIControlStateNormal];
+    // 通过button计算出其所在的cell
+    UpdateTableViewCell * cell = (UpdateTableViewCell *)[btn superview];
+    NSIndexPath * path = [myTable indexPathForCell:cell];
+    
+    // 刷新数据源方法
+    [myTable reloadData];
+    
+    // 记录下当前的IndexPath.row
+    indexPathRow = path.row;
+}
+
+- (void)updateTheSearchText:(NSString *)fieldTest
+{
+    NSLog(@"%@",fieldTest);
 }
 
 - (void)didReceiveMemoryWarning {

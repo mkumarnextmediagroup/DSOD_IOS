@@ -5,6 +5,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Masonry.h"
+#import "UISearchBarView.h"
 
 @interface UIView (customed)
 
@@ -12,6 +13,7 @@
 
 - (void)onClickView:(id)target action:(SEL)action;
 
+- (UISearchBarView *)createSearchBar;
 
 - (UIView *)addView;
 

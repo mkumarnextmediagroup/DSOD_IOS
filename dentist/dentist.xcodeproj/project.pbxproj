@@ -699,12 +699,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
-=======
 				574B3A31212338E100C37095 /* main.m in Sources */,
 				574B3A23212338DF00C37095 /* AppDelegate.m in Sources */,
 				4E1957492137D0F100420563 /* LinkedInConnectionHandler.m in Sources */,
->>>>>>> 800ccdb4d62a01d4d9c867da25a659ea7918ce59
 				4EBCE6C5212D0AED00A0672D /* ContactTableViewCell.m in Sources */,
 				E11E10BD74EC149921ADD708 /* LoginController.m in Sources */,
 				4E1957422137D0F100420563 /* PermissionEmailFields.m in Sources */,

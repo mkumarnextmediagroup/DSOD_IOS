@@ -47,6 +47,7 @@
 		4E23522D213D12CB003BA59B /* UpdateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E235229213D12CB003BA59B /* UpdateTableViewCell.m */; };
 		4E23522E213D12CB003BA59B /* UITextFieldCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23522A213D12CB003BA59B /* UITextFieldCustom.m */; };
 		4E23522F213D12CB003BA59B /* UISearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23522B213D12CB003BA59B /* UISearchBarView.m */; };
+		4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2352C3213D5B7C003BA59B /* EditEduViewController.m */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -232,6 +233,8 @@
 		4E235229213D12CB003BA59B /* UpdateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateTableViewCell.m; sourceTree = "<group>"; };
 		4E23522A213D12CB003BA59B /* UITextFieldCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextFieldCustom.m; sourceTree = "<group>"; };
 		4E23522B213D12CB003BA59B /* UISearchBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISearchBarView.m; sourceTree = "<group>"; };
+		4E2352C2213D5B7C003BA59B /* EditEduViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditEduViewController.h; sourceTree = "<group>"; };
+		4E2352C3213D5B7C003BA59B /* EditEduViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditEduViewController.m; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -489,6 +492,8 @@
 			children = (
 				4E235223213D12CB003BA59B /* UpdateViewController.m */,
 				4E235224213D12CB003BA59B /* UpdateViewController.h */,
+				4E2352C3213D5B7C003BA59B /* EditEduViewController.m */,
+				4E2352C2213D5B7C003BA59B /* EditEduViewController.h */,
 				4E235225213D12CB003BA59B /* view */,
 			);
 			path = userCenter;
@@ -1006,6 +1011,7 @@
 				4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
+				4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */,
 				4E1957432137D0F100420563 /* LinkedinAuthorizationNavBar.m in Sources */,
 				4E23522C213D12CB003BA59B /* UpdateViewController.m in Sources */,
 				4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */,

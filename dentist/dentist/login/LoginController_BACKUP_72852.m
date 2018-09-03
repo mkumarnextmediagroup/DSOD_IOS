@@ -6,19 +6,15 @@
 #import "LoginController.h"
 #import "Common.h"
 #import "NSString+myextend.h"
-<<<<<<< HEAD
 #import "StackLayout.h"
 #import "UIView+customed.h"
 #import "UILabel+customed.h"
 #import "UIControl+customed.h"
 #import "ForgotViewController.h"
 #import "NoIntenetViewController.h"
-=======
 #import <LocalAuthentication/LAContext.h>
 #import <LocalAuthentication/LAError.h>
 #import "SAMKeychain.h"
-
->>>>>>> local_dev
 
 @interface LoginController ()
 

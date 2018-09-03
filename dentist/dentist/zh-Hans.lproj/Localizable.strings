@@ -65,3 +65,5 @@
 "TryAgain" = "Try again when you get online.";
 "permission" = "permission needed to use linkedin credentials";
 "WouldYou" = "Would you like to give DSODentist permission to use your Linkedin credentials for creating an account?";
+"profile" = "PROFILE";
+"edit" = "Edit";

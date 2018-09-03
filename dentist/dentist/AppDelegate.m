@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "LoginController.h"
 #import "ProfileViewController.h"
+#import "BaseNavController.h"
 
 @interface AppDelegate ()
 
@@ -26,14 +27,16 @@
 	self.window.backgroundColor = UIColor.whiteColor;
 //	LoginController *lc = [[LoginController alloc] init];
 //	self.window.rootViewController = lc;
-	self.window.rootViewController = [ProfileViewController new];
+	BaseNavController *nc = [BaseNavController new];
+	ProfileViewController *c = [ProfileViewController new];
+	[nc pushViewController:c animated:NO];
+	self.window.rootViewController = nc ;
 	[self.window makeKeyAndVisible];
 	return YES;
 }
 
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
-{
-    return YES;
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
+	return YES;
 }
 
 //- (void)AFNetWorkReachabilityStatus {

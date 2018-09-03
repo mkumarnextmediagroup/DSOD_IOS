@@ -200,4 +200,53 @@
 	[self dismiss];
 }
 
+- (void) leftBtnClick {
+   NSLog(@"leftBtn click");
+   
+}
+
+- (void) rightBtnClick {
+    NSLog(@"rightBtn click");
+   
+}
+
+- (void)setTopTitle:(NSString *)title leftImageName:(UIImage *)imageName
+     rightImageName:(UIImage *)rightImageName rightTitle:(NSString *)rightTitle {
+    
+    UIView *topVi = [UIView new];
+    topVi.frame = CGRectMake(0, 0, SCREENWIDTH, NAVHEIGHT);
+    topVi.backgroundColor =  [UIColor colorWithRed:120/255.0 green:120/255.0 blue:120/255.0 alpha:1/1.0];
+    [self.view addSubview:topVi];
+    
+    UILabel *content = topVi.addLabel;
+    content.font = [Fonts semiBold:15];
+    content.textColor = [UIColor whiteColor];
+    content.text = title;
+    content.textAlignment = NSTextAlignmentCenter;
+    [[[[[content layoutMaker] sizeFit] centerXParent:0] centerYParent:0] install];
+    
+    
+    UIButton *leftBtn = topVi.addButton;
+    [leftBtn setImage:imageName forState:UIControlStateNormal];
+    [[[[[leftBtn layoutMaker] sizeFit] centerYParent:0] leftParent:16] install];
+   
+    [leftBtn addTarget:self action:@selector(leftBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    UIButton *rightBtn =topVi.addButton;
+    [rightBtn setImage:imageName forState:UIControlStateNormal];
+    [[[[[rightBtn layoutMaker] sizeFit] centerYParent:0] rightParent:17.4] install];
+
+    [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *rightLabel = topVi.addLabel;
+    rightLabel.font = [Fonts semiBold:15];
+    rightLabel.textColor = [UIColor whiteColor];
+    rightLabel.text = title;
+    rightLabel.textAlignment = NSTextAlignmentCenter;
+    [[[[[content layoutMaker] sizeFit] centerYParent:0] toRightOf:rightBtn offset:10.5] install];
+   
+    
+}
+
 @end

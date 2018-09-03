@@ -10,6 +10,7 @@
 #import "LoginController.h"
 #import "WelcomController.h"
 #import "Common.h"
+#import "ProfileViewController.h"
 
 @interface AppDelegate ()
 
@@ -27,7 +28,7 @@
 	self.window.backgroundColor = UIColor.whiteColor;
 //	LoginController *lc = [[LoginController alloc] init];
 //	self.window.rootViewController = lc;
-	self.window.rootViewController = [WelcomController new];
+	self.window.rootViewController = [ProfileViewController new];
 	[self.window makeKeyAndVisible];
 	return YES;
 }

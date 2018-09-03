@@ -16,4 +16,7 @@
 - (void)onTextFieldDone:(UITextField *)textField;
 
 - (void)setTopTitle:(NSString *)title imageName:(UIImage *)imageName;
+
+- (void)setTopTitle:(NSString *)title leftImageName:(UIImage *)imageName
+     rightImageName:(UIImage *)rightImageName rightTitle:(NSString *)rightTitle ;
 @end

@@ -41,7 +41,7 @@
 	[logoView layoutCenterXOffsetTop:260 height:54 offset:54];
 
 	UIImageView *backView = self.view.addImageView;
-	backView.imageName = @"back.png";
+	backView.imageName = @"back_arrow";
 	[backView scaleFit];
 	[backView makeLayout:^(MASConstraintMaker *m) {
 		m.width.mas_equalTo(23);

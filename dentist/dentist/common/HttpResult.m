@@ -43,11 +43,11 @@
 
 - (void)dump {
 	if (self.response != nil) {
-		NSLog(@"Http Status Code: %d", self.response.statusCode);
+		NSLog(@"Http Status Code: %zd", self.response.statusCode);
 	}
 	NSLog(@"Error: %@", self.error);
 	if (self.data != nil) {
-		NSLog(@"Size: %d", self.data.length);
+		NSLog(@"Size: %tu", self.data.length);
 	}
 	NSLog(@"Response Body: %@", [self strBody]);
 }

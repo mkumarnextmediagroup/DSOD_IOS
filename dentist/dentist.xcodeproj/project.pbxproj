@@ -36,18 +36,17 @@
 		4E1957472137D0F100420563 /* LinkedInAuthorizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957392137D0F100420563 /* LinkedInAuthorizationViewController.m */; };
 		4E1957482137D0F100420563 /* LinkedInServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E19573B2137D0F100420563 /* LinkedInServiceManager.m */; };
 		4E1957492137D0F100420563 /* LinkedInConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E19573D2137D0F100420563 /* LinkedInConnectionHandler.m */; };
-		4E23519F213A6FA4003BA59B /* UpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23519E213A6FA4003BA59B /* UpdateViewController.m */; };
 		4E2351A2213A76ED003BA59B /* UISearchBar+style.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2351A1213A76ED003BA59B /* UISearchBar+style.m */; };
-		4E2351A6213A7B9B003BA59B /* UpdateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2351A5213A7B9B003BA59B /* UpdateTableViewCell.m */; };
 		4E2351A9213A7D70003BA59B /* select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2351A7213A7D6F003BA59B /* select@2x.png */; };
 		4E2351AA213A7D70003BA59B /* select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2351A8213A7D70003BA59B /* select@3x.png */; };
 		4E2351AD213A7E0C003BA59B /* unSelect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2351AB213A7E0B003BA59B /* unSelect@2x.png */; };
 		4E2351AE213A7E0C003BA59B /* unSelect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2351AC213A7E0C003BA59B /* unSelect@3x.png */; };
-		4E2351B1213BA904003BA59B /* UISearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2351AF213BA904003BA59B /* UISearchBarView.m */; };
-		4E2351B4213BAA39003BA59B /* UITextFieldCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2351B2213BAA38003BA59B /* UITextFieldCustom.m */; };
-		4E2351BA213BAAC4003BA59B /* searchBarBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2351B9213BAAC4003BA59B /* searchBarBg@2x.png */; };
 		4E2351C9213BB5DF003BA59B /* searchIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2351C7213BB5DF003BA59B /* searchIcon@3x.png */; };
 		4E2351CA213BB5DF003BA59B /* searchIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2351C8213BB5DF003BA59B /* searchIcon@2x.png */; };
+		4E23522C213D12CB003BA59B /* UpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E235223213D12CB003BA59B /* UpdateViewController.m */; };
+		4E23522D213D12CB003BA59B /* UpdateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E235229213D12CB003BA59B /* UpdateTableViewCell.m */; };
+		4E23522E213D12CB003BA59B /* UITextFieldCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23522A213D12CB003BA59B /* UITextFieldCustom.m */; };
+		4E23522F213D12CB003BA59B /* UISearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23522B213D12CB003BA59B /* UISearchBarView.m */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -180,23 +179,23 @@
 		4E19573B2137D0F100420563 /* LinkedInServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkedInServiceManager.m; sourceTree = "<group>"; };
 		4E19573C2137D0F100420563 /* LinkedinSimpleKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkedinSimpleKeychain.h; sourceTree = "<group>"; };
 		4E19573D2137D0F100420563 /* LinkedInConnectionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkedInConnectionHandler.m; sourceTree = "<group>"; };
-		4E23519D213A6FA4003BA59B /* UpdateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateViewController.h; sourceTree = "<group>"; };
-		4E23519E213A6FA4003BA59B /* UpdateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateViewController.m; sourceTree = "<group>"; };
 		4E2351A0213A76ED003BA59B /* UISearchBar+style.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+style.h"; sourceTree = "<group>"; };
 		4E2351A1213A76ED003BA59B /* UISearchBar+style.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UISearchBar+style.m"; sourceTree = "<group>"; };
-		4E2351A4213A7B9B003BA59B /* UpdateTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpdateTableViewCell.h; sourceTree = "<group>"; };
-		4E2351A5213A7B9B003BA59B /* UpdateTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpdateTableViewCell.m; sourceTree = "<group>"; };
 		4E2351A7213A7D6F003BA59B /* select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "select@2x.png"; sourceTree = "<group>"; };
 		4E2351A8213A7D70003BA59B /* select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "select@3x.png"; sourceTree = "<group>"; };
 		4E2351AB213A7E0B003BA59B /* unSelect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unSelect@2x.png"; sourceTree = "<group>"; };
 		4E2351AC213A7E0C003BA59B /* unSelect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unSelect@3x.png"; sourceTree = "<group>"; };
-		4E2351AF213BA904003BA59B /* UISearchBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISearchBarView.m; sourceTree = "<group>"; };
-		4E2351B0213BA904003BA59B /* UISearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISearchBarView.h; sourceTree = "<group>"; };
-		4E2351B2213BAA38003BA59B /* UITextFieldCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextFieldCustom.m; sourceTree = "<group>"; };
-		4E2351B3213BAA38003BA59B /* UITextFieldCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextFieldCustom.h; sourceTree = "<group>"; };
 		4E2351B9213BAAC4003BA59B /* searchBarBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchBarBg@2x.png"; sourceTree = "<group>"; };
 		4E2351C7213BB5DF003BA59B /* searchIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchIcon@3x.png"; sourceTree = "<group>"; };
 		4E2351C8213BB5DF003BA59B /* searchIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchIcon@2x.png"; sourceTree = "<group>"; };
+		4E235223213D12CB003BA59B /* UpdateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateViewController.m; sourceTree = "<group>"; };
+		4E235224213D12CB003BA59B /* UpdateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateViewController.h; sourceTree = "<group>"; };
+		4E235226213D12CB003BA59B /* UpdateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateTableViewCell.h; sourceTree = "<group>"; };
+		4E235227213D12CB003BA59B /* UITextFieldCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextFieldCustom.h; sourceTree = "<group>"; };
+		4E235228213D12CB003BA59B /* UISearchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISearchBarView.h; sourceTree = "<group>"; };
+		4E235229213D12CB003BA59B /* UpdateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateTableViewCell.m; sourceTree = "<group>"; };
+		4E23522A213D12CB003BA59B /* UITextFieldCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextFieldCustom.m; sourceTree = "<group>"; };
+		4E23522B213D12CB003BA59B /* UISearchBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISearchBarView.m; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -403,25 +402,32 @@
 			path = LinkedInHelper;
 			sourceTree = "<group>";
 		};
-		4E23519C213A6F71003BA59B /* userCenter */ = {
+		4E235221213D123D003BA59B /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				4E2351A3213A7B6C003BA59B /* view */,
-				4E23519D213A6FA4003BA59B /* UpdateViewController.h */,
-				4E23519E213A6FA4003BA59B /* UpdateViewController.m */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		4E235222213D12CB003BA59B /* userCenter */ = {
+			isa = PBXGroup;
+			children = (
+				4E235223213D12CB003BA59B /* UpdateViewController.m */,
+				4E235224213D12CB003BA59B /* UpdateViewController.h */,
+				4E235225213D12CB003BA59B /* view */,
 			);
 			path = userCenter;
 			sourceTree = "<group>";
 		};
-		4E2351A3213A7B6C003BA59B /* view */ = {
+		4E235225213D12CB003BA59B /* view */ = {
 			isa = PBXGroup;
 			children = (
-				4E2351A4213A7B9B003BA59B /* UpdateTableViewCell.h */,
-				4E2351A5213A7B9B003BA59B /* UpdateTableViewCell.m */,
-				4E2351B0213BA904003BA59B /* UISearchBarView.h */,
-				4E2351AF213BA904003BA59B /* UISearchBarView.m */,
-				4E2351B3213BAA38003BA59B /* UITextFieldCustom.h */,
-				4E2351B2213BAA38003BA59B /* UITextFieldCustom.m */,
+				4E235229213D12CB003BA59B /* UpdateTableViewCell.m */,
+				4E235226213D12CB003BA59B /* UpdateTableViewCell.h */,
+				4E23522A213D12CB003BA59B /* UITextFieldCustom.m */,
+				4E235227213D12CB003BA59B /* UITextFieldCustom.h */,
+				4E23522B213D12CB003BA59B /* UISearchBarView.m */,
+				4E235228213D12CB003BA59B /* UISearchBarView.h */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -477,6 +483,7 @@
 				E11E1071C5BB25C5DF71E7E4 /* Podfile */,
 				6E480191105E9BD9865E05CE /* Pods */,
 				9E8CFB7155047C0648622D0F /* Frameworks */,
+				4E235221213D123D003BA59B /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -491,6 +498,7 @@
 		574B3A20212338DF00C37095 /* dentist */ = {
 			isa = PBXGroup;
 			children = (
+				4E235222213D12CB003BA59B /* userCenter */,
 				3ED07648213A9F19004D4083 /* profile */,
 				4EBCE6B1212A5E1000A0672D /* common_page */,
 				4EBCE6AA212966B700A0672D /* login_forgot */,
@@ -837,12 +845,14 @@
 				4EBCE6C5212D0AED00A0672D /* ContactTableViewCell.m in Sources */,
 				E11E10BD74EC149921ADD708 /* LoginController.m in Sources */,
 				4E1957422137D0F100420563 /* PermissionEmailFields.m in Sources */,
+				4E23522E213D12CB003BA59B /* UITextFieldCustom.m in Sources */,
 				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,
 				C5EEA9E893F712BA5CC4938D /* TextSize.m in Sources */,
 				4E19573E2137D0F100420563 /* PermissionNetworkFields.m in Sources */,
 				4E1957482137D0F100420563 /* LinkedInServiceManager.m in Sources */,
 				C5EEAB1B08FE088DAFBA7763 /* Fonts.m in Sources */,
 				C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */,
+				4E23522F213D12CB003BA59B /* UISearchBarView.m in Sources */,
 				3ED07651213ADE01004D4083 /* ProfileNormalTableViewCell.m in Sources */,
 				C5EEA2ECCE69B6CBF0D20BA6 /* BaseController.m in Sources */,
 				C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */,
@@ -850,6 +860,7 @@
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
 				4E1957432137D0F100420563 /* LinkedinAuthorizationNavBar.m in Sources */,
+				4E23522C213D12CB003BA59B /* UpdateViewController.m in Sources */,
 				4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */,
 				3ED0764B213A9FE3004D4083 /* ProfileViewController.m in Sources */,
 				C5EEA83B50B6C4A767E00729 /* UIControl+customed.m in Sources */,
@@ -864,8 +875,6 @@
 				4EBCE6BB212AACE600A0672D /* NoticeViewController.m in Sources */,
 				4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */,
 				C5EEA70CAD83A3FEE9B6BD2C /* UILabel+customed.m in Sources */,
-				4E23519F213A6FA4003BA59B /* UpdateViewController.m in Sources */,
-				4E2351B1213BA904003BA59B /* UISearchBarView.m in Sources */,
 				4E1957462137D0F100420563 /* LinkedInHelper.m in Sources */,
 				C5EEA2B81C84D4F3EDB29C44 /* NSMutableAttributedString+customed.m in Sources */,
 				3E043B85213BC4480044CD77 /* ProfileTailTableViewCell.m in Sources */,
@@ -878,13 +887,12 @@
 				C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */,
 				4E1957472137D0F100420563 /* LinkedInAuthorizationViewController.m in Sources */,
 				C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */,
-				4E2351A6213A7B9B003BA59B /* UpdateTableViewCell.m in Sources */,
-				4E2351B4213BAA39003BA59B /* UITextFieldCustom.m in Sources */,
 				C5EEAF6A040452F10D489279 /* NSString+myextend.m in Sources */,
 				C5EEA1CB9C55E45C1CF0F710 /* UIUtil.m in Sources */,
 				4E2351A2213A76ED003BA59B /* UISearchBar+style.m in Sources */,
 				4E1957412137D0F100420563 /* PermissionFullProfileFields.m in Sources */,
 				4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */,
+				4E23522D213D12CB003BA59B /* UpdateTableViewCell.m in Sources */,
 				3E043B9F213C2C610044CD77 /* Profile.m in Sources */,
 				C5EEA2763E400C04C2570656 /* Http.m in Sources */,
 				C5EEA409953B93D9D6261C83 /* Async.m in Sources */,

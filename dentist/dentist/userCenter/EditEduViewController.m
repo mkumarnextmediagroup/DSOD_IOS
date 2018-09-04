@@ -10,6 +10,7 @@
 #import "SwitchTableViewCell.h"
 #import "CommSelectTableViewCell.h"
 #import "UpdateViewController.h"
+#import "CustomPicker.h"
 
 @interface EditEduViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -123,6 +124,13 @@
     if (indexPath.row == 1) {
         UpdateViewController *update = [UpdateViewController new];
         [self.navigationController pushViewController:update animated:YES];
+    }else if (indexPath.row == 2)
+    {
+        CustomPicker *picker = [[CustomPicker alloc] init];
+        picker.infoArr = [NSArray arrayWithObjects:@"2014",@"2013", @"2015",@"2016",@"2017",@"2018",nil];
+        [picker initPicker];
+        [self.view addSubview:picker];
+//        [picker showPicker];
     }
 }
 

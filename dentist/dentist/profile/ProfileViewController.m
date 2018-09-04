@@ -71,6 +71,9 @@
 	p2.name = @"Residency";
 	p2.specialityTitle = @"Boston Hospital";
 	p2.speciality = @"September 2015 - Present";
+    p2.avataName=@"residency";
+    
+    
 
 	ProfileGroup *pGroup2 = [ProfileGroup new];
 	pGroup2.groupName = @"Residency";
@@ -81,12 +84,14 @@
 	p3.name = @"California Dental School";
 	p3.specialityTitle = @"Certificate, Advanced Periodontology";
 	p3.speciality = @"September 2014 - March 2015";
+    p3.avataName=@"edu";
 
 
 	Profile *p4 = [Profile new];
 	p4.name = @"Arizona Dental School";
 	p4.specialityTitle = @"Doctorate of Dental Medicine (DMD)";
 	p4.speciality = @"September 2010 - August 2014";
+    p4.avataName=@"school";
 
 	ProfileGroup *pGroup3 = [ProfileGroup new];
 	pGroup3.groupName = @"Education";
@@ -96,11 +101,13 @@
 	Profile *p5 = [Profile new];
 	p5.specialityTitle = @"Mobile Number";
 	p5.speciality = @"207-782-8410";
+    p5.avataName=@"phone";
 
 
 	Profile *p6 = [Profile new];
 	p6.specialityTitle = @"Preferred Email Address";
 	p6.speciality = @"edward.norton@cads.edu";
+    p6.avataName=@"mail";
 
 	ProfileGroup *pGroup4 = [ProfileGroup new];
 	pGroup4.groupName = @"Contact";
@@ -125,13 +132,19 @@
 	}
 	UILabel *lb = [UILabel new];
 	ProfileGroup *pGroup = _profileArray[section];
-	lb.text = pGroup.groupName;
+	lb.text = [NSString stringWithFormat:@"%s%@", "     ", pGroup.groupName];
 	lb.font = [Fonts regular:12];
 	lb.textColor = Colors.textAlternate;
 	lb.backgroundColor = UIColor.whiteColor;
+   
 
 
 	return lb;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return nil;
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -153,6 +166,10 @@
 		return 0;
 	}
 	return 24;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseController.h"
 
 @interface CustomPicker : UIPickerView
 
 @property (strong, nonatomic)NSArray *infoArr;
 
+- (void)showPicker;
+
+- (void)hidePicker;
+
+- (void)initPicker;
 @end

@@ -25,14 +25,27 @@
 	self.window = [[UIWindow alloc] init];
 	self.window.frame = [[UIScreen mainScreen] bounds];
 	self.window.backgroundColor = UIColor.whiteColor;
+
+	[self configGlobalStyle];
 //	LoginController *lc = [[LoginController alloc] init];
 //	self.window.rootViewController = lc;
 	BaseNavController *nc = [BaseNavController new];
 	ProfileViewController *c = [ProfileViewController new];
 	[nc pushViewController:c animated:NO];
-	self.window.rootViewController = nc ;
+	self.window.rootViewController = nc;
 	[self.window makeKeyAndVisible];
 	return YES;
+}
+
+- (void)configGlobalStyle {
+	[[UITabBarItem appearance] setTitleTextAttributes:@{
+			NSForegroundColorAttributeName: Colors.textAlternate,
+			NSFontAttributeName: [Fonts regular:10]
+	}                                        forState:UIControlStateNormal];
+	[[UITabBarItem appearance] setTitleTextAttributes:@{
+			NSForegroundColorAttributeName: Colors.textMain, NSFontAttributeName: [Fonts regular:10]
+	}                                        forState:UIControlStateSelected];
+
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {

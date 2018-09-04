@@ -30,7 +30,7 @@
 - (void)onClickEdit:(id)sender {
 	backTask(^() {
 //		[Proto register:@"entaoyang@126.com" pwd:@"Yang2008" name:@"Entao Yang"];
-//		[Proto login:@"entaoyang@126.com" pwd:@"Yang2018"];
+		[Proto login:@"entaoyang@126.com" pwd:@"Yang2018"];
 //		[Proto sendEmailCode:@"entaoyang@126.com"];
 	});
 }

@@ -18,8 +18,7 @@
     if (self) {
         _avatar = [UIImageView new];
         _avatar.frame = CGRectMake(17, 12, 70, 70);
-        [_avatar sd_setImageWithURL:[NSURL URLWithString:@"http://www.domain.com/path/to/image.jpg"]
-                     placeholderImage:[UIImage imageNamed:@"default_avatar"]];
+       
         [self addSubview:_avatar];
         
         _name = [UILabel new];
@@ -64,6 +63,8 @@
     _name.text=profile.name;
      _specialityTitle.text=profile.specialityTitle;
      _speciality.text=profile.speciality;
+    [_avatar sd_setImageWithURL:[NSURL URLWithString:profile.avatatUrl]
+               placeholderImage:[UIImage imageNamed:@"default_avatar"]];
     
 }
 

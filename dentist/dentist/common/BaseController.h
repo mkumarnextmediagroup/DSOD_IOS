@@ -7,7 +7,8 @@
 #import "Common.h"
 
 @interface BaseController : UIViewController <UITextFieldDelegate>
-
+ 
+@property (assign, nonatomic)BOOL isCloseTheGesture;
 
 - (void)openPage:(UIViewController *)c;
 

@@ -21,7 +21,9 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[self.view onClickView:self action:@selector(_onClickControllerView:)];
+    if (!_isCloseTheGesture) {
+        [self.view onClickView:self action:@selector(_onClickControllerView:)];
+    }
 }
 
 

@@ -70,3 +70,6 @@
 "profile" = "PROFILE";
 "edit" = "Edit";
 "editEdu" = "EDIT EDUCATION";
+"attended" = "Attended Dental School in the US";
+"dental" = "Dental School";
+"graduation" = "Year of Graduation";

@@ -19,4 +19,7 @@
 
 - (void)setTopTitle:(NSString *)title leftImageName:(UIImage *)imageName
      rightImageName:(UIImage *)rightImageName rightTitle:(NSString *)rightTitle ;
+
+
+-(void) tabItem:(NSString*) title imageName:(NSString*) imageName;
 @end

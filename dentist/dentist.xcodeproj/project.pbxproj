@@ -148,6 +148,7 @@
 		E11E18B9A4153312FC2763EE /* brain_light.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E10CE7CF468642885FEC8 /* brain_light.png */; };
 		E11E18DEA9538DAE333F1686 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E10D9144290852D461549 /* user.png */; };
 		E11E18E75791AACDCB52A653 /* user_light@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E1E4DCF39E494236C373F /* user_light@3x.png */; };
+		E11E1A6226F32868524CF272 /* BaseTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = E11E1E970C05A57CC51E4AE8 /* BaseTabController.m */; };
 		E11E1A625645EF6A486E1B48 /* user@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E19E75D46F8AE4508A18D /* user@3x.png */; };
 		E11E1A694CB1915FC4DB878E /* user_light.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E1AE110E7CE9067426998 /* user_light.png */; };
 		E11E1B3CFECC7F58E820944B /* brain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E1A33125A7BC5D958FAF0 /* brain@2x.png */; };
@@ -388,10 +389,12 @@
 		E11E1E0945555A1E6907D911 /* TitleBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleBar.m; sourceTree = "<group>"; };
 		E11E1E4DCF39E494236C373F /* user_light@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_light@3x.png"; sourceTree = "<group>"; };
 		E11E1E87CD14B66B423CA7E0 /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home@2x.png"; sourceTree = "<group>"; };
+		E11E1E970C05A57CC51E4AE8 /* BaseTabController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTabController.m; sourceTree = "<group>"; };
 		E11E1E9860C5BDC6F7A6D9A5 /* user_light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_light@2x.png"; sourceTree = "<group>"; };
 		E11E1E9F5956F467F3CA1ED0 /* TitleBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleBar.h; sourceTree = "<group>"; };
 		E11E1EB31DF5688480CCA1A9 /* home_light@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_light@3x.png"; sourceTree = "<group>"; };
 		E11E1EC871E61D1C0F1AB50D /* edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit@2x.png"; sourceTree = "<group>"; };
+		E11E1F34896044906F084CF0 /* BaseTabController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTabController.h; sourceTree = "<group>"; };
 		E11E1F48CC136425C6D69416 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		E11E1F65C8349EDF5BC81C22 /* home_light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_light@2x.png"; sourceTree = "<group>"; };
 		E11E1F8AE2F979EE3ACE2C56 /* school@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "school@3x.png"; sourceTree = "<group>"; };
@@ -765,6 +768,8 @@
 				E11E1CC1B826CB8A23EFB48E /* TitlePage.h */,
 				E11E1E0945555A1E6907D911 /* TitleBar.m */,
 				E11E1E9F5956F467F3CA1ED0 /* TitleBar.h */,
+				E11E1E970C05A57CC51E4AE8 /* BaseTabController.m */,
+				E11E1F34896044906F084CF0 /* BaseTabController.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -1044,6 +1049,7 @@
 				E11E1EDBB2AFC925F1DEBFB2 /* BaseNavController.m in Sources */,
 				E11E170B12A3D6DDCB7944FC /* TitlePage.m in Sources */,
 				E11E1F3374C0062C790089B8 /* TitleBar.m in Sources */,
+				E11E1A6226F32868524CF272 /* BaseTabController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

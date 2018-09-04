@@ -22,7 +22,7 @@
 
 
 + (HttpResult *)login:(NSString *)email pwd:(NSString *)pwd {
-	NSString *s = jsonBuild(@{@"userName": email, @"password": pwd});
+	NSString *s = jsonBuild(@{@"username": email, @"password": pwd});
 	return [self postBody:@"userAccount/login" body:s];
 }
 
@@ -36,7 +36,12 @@
 	Http *h = [Http new];
 	h.url = strBuild(baseUrl, action);
 	[h contentTypeJson];
-	HttpResult *r = [h postRaw:body.dataUTF8];
+
+	NSDictionary *d = jsonParse(body);
+	NSMutableDictionary *md = [NSMutableDictionary dictionaryWithDictionary:d];
+	md[@"client_id"] = @"fooClientIdPassword";
+	NSString *s = jsonBuild(md);
+	HttpResult *r = [h postRaw:s.dataUTF8];
 	return r;
 }
 

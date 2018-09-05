@@ -10,11 +10,13 @@
 #import "SwitchTableViewCell.h"
 #import "CommSelectTableViewCell.h"
 #import "UpdateViewController.h"
+#import "PickerViewController.h"
 
 @interface EditEduViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *myTable;
     BOOL        isSwitchOn;
+    NSString    *selectStr;//picker select the string
 }
 @end
 
@@ -111,6 +113,9 @@
         }else
         {
             cell.titleLab.text = localStr(@"graduation");
+            if (selectStr != nil) {
+                cell.contentLab.text = selectStr;
+            }
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -123,6 +128,21 @@
     if (indexPath.row == 1) {
         UpdateViewController *update = [UpdateViewController new];
         [self.navigationController pushViewController:update animated:YES];
+    }else if (indexPath.row == 2)
+    {
+        PickerViewController *picker = [[PickerViewController alloc] init];
+        picker.infoArr = [NSArray arrayWithObjects:@"2013",@"2014", @"2015",@"2016",@"2017",@"2018",nil];
+        picker.pickerSelectBlock = ^(NSString *pickerSelect){
+            self->selectStr = pickerSelect;
+            [self->myTable reloadData];
+        };
+        picker.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        picker.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        picker.providesPresentationContextTransitionStyle = YES;
+        picker.definesPresentationContext = YES;
+        [self presentViewController:picker animated:YES completion:nil];
+        [picker showPicker];
+
     }
 }
 

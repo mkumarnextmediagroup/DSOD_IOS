@@ -8,6 +8,7 @@
 
 #import "UISearchBarView.h"
 #import "UIUtil.h"
+#import "Colors.h"
 
 @interface UISearchBarView()<UITextFieldDelegate>
 
@@ -38,12 +39,13 @@
     searchBtn.frame = CGRectMake(0, 2, 36, 36);
 
     _textField = [[UITextField alloc] initWithFrame:CGRectMake(18, 10, SCREENWIDTH - 36, 36)];
-    _textField.background = [UIImage imageNamed:@"searchBarBg"];
+    _textField.backgroundColor = rgb255(238, 238, 238);//set the background color
+    _textField.borderStyle = UITextBorderStyleNone;
+    _textField.layer.cornerRadius = 5;
+    _textField.layer.masksToBounds = YES;
     _textField.placeholder = @"Search ...";
     _textField.delegate = self;
     _textField.returnKeyType = UIReturnKeySearch;
-    _textField.tintColor = [UIColor blueColor];
-//    _textField.enablesReturnKeyAutomatically = YES;
     _textField.font = [UIFont systemFontOfSize:15];
     [self addSubview:_textField];
     [_textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];

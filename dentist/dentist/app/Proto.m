@@ -48,12 +48,15 @@
 	return r;
 }
 
-+ (HttpResult *)register:(NSString *)email pwd:(NSString *)pwd name:(NSString *)name {
-	NSString *s = jsonBuild(@{@"username": email, @"password": pwd, @"full_name": name});
++ (HttpResult *)register:(NSString *)email pwd:(NSString *)pwd name:(NSString *)name student:(BOOL)student {
+	NSNumber *stu = @(student);
+	NSString *s = jsonBuild(@{@"username": email, @"password": pwd, @"full_name": name, @"student": stu});
 	return [self postBody:@"userAccount/register" body:s];
 }
 
-+ (HttpResult *)postBody:(NSString *)action body:(NSString *)body {
++ (HttpResult *)postBody:(NSString *)action
+                    body:
+		                    (NSString *)body {
 	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
 	Http *h = [Http new];
 	h.url = strBuild(baseUrl, action);
@@ -67,7 +70,11 @@
 	return r;
 }
 
-+ (HttpResult *)get:(NSString *)action key:(NSString *)key param:(NSString *)param {
++ (HttpResult *)get:(NSString *)action
+                key:
+		                (NSString *)key
+              param:
+		              (NSString *)param {
 	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
 	Http *h = [Http new];
 	h.url = strBuild(baseUrl, action, @"/", param.urlEncoded);

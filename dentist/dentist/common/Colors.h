@@ -25,7 +25,7 @@
 @property(class, nonatomic, readonly) UIColor *borderActive;
 @property(class, nonatomic, readonly) UIColor *borderNormal;
 @property(class, nonatomic, readonly) UIColor *bgDisabled;
-
+@property(class, nonatomic, readonly) UIColor *cellLineColor;
 
 @property(class, nonatomic, readonly) UIColor *buttonPrimaryActive;
 @property(class, nonatomic, readonly) UIColor *buttonSecondaryActive;

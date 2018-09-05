@@ -14,5 +14,6 @@
 @property (strong, nonatomic)UILabel *titleLab;
 @property (strong, nonatomic)UILabel *contentLab;
 @property (strong, nonatomic)UIButton *imageBtn;
+@property (strong, nonatomic)UITextField *contentField;
 
 @end

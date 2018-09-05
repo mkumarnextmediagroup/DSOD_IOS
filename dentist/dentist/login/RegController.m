@@ -290,6 +290,9 @@
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[userDefaults setObject:([emailEdit.text trimed]) forKey:(@"lastAccessUser")];
 	[userDefaults synchronize];
+    
+    [userDefaults setBool:(checkButton.isSelected) forKey:(@"enableTouchIDorFaceID")];
+    [userDefaults synchronize];
 
 	//TODO 成功后，保存到钥匙串
 	[SAMKeychain setPassword:[pwdEdit.text trimed] forService:@"lastAccessUser" account:[emailEdit.text trimed]];
@@ -405,6 +408,7 @@
 //                        if (self.registSuccessBlock) {
 //                            self.registSuccessBlock();
 //                        }
+                        
 
 						NSString *msg = @"Regist Success";
 						UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:msg message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];

@@ -170,6 +170,18 @@
 
 	[emailEdit keyboardEmail];
 	[pwdEdit keyboardDefault];
+    [self checkIfRegistByTouchIDorFaceID];
+}
+
+
+-(void)checkIfRegistByTouchIDorFaceID{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *account = [userDefaults objectForKey:@"lastAccessUser"];
+    BOOL enabled = [userDefaults boolForKey:@"enableTouchIDorFaceID"];
+    if(enabled){
+        emailEdit.text=account;
+        [self evaluatePolicy];
+    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
@@ -389,8 +401,6 @@
 	__block NSString *msg;
 
 	// show the authentication UI with our reason string
-	//LAPolicyDeviceOwnerAuthentication 相对简单（正确，取消，输入密码）
-	//LAPolicyDeviceOwnerAuthenticationWithBiometrics 错误码较多，但是发现点击输入密码，竟然抛出错误，而不是弹出密码框
 	__weak __typeof(self) weakSelf = self;
 	[context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:localStr(@"authenticateHint") reply:
 			^(BOOL success, NSError *authenticationError) {
@@ -402,9 +412,16 @@
 						//其他情况，切换主线程处理
 
 						NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-						NSString *account = [userDefaults objectForKey:@"lastAccessUser"];
-						NSString *pwd = [SAMKeychain passwordForService:@"lastAccessUser" account:account];
-						[weakSelf login:account password:pwd];
+                        NSString *account = [userDefaults objectForKey:@"lastAccessUser"];
+                
+                        if([[self->emailEdit.text trimed] isEqualToString:account]){
+                            NSString *pwd = [SAMKeychain passwordForService:@"lastAccessUser" account:account];
+                            [weakSelf login:account password:pwd];
+                        }else{
+                            [weakSelf login:[self->emailEdit.text trimed] password:[self->pwdEdit.text trimed]];
+                        }
+						
+						
 					}];
 
 

@@ -19,4 +19,6 @@
 
 + (HttpResult *)login:(NSString *)email pwd:(NSString *)pwd;
 
+//LinkedIn request
++ (HttpResult *)sendLinkedInInfo:(NSString *)access_token;
 @end

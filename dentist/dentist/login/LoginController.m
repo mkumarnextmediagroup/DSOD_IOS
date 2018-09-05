@@ -14,6 +14,7 @@
 #import "StudentController.h"
 #import "UpdateViewController.h"
 #import "EditEduViewController.h"
+#import "Proto.h"
 
 @interface LoginController ()
 
@@ -283,9 +284,11 @@
                 
                 // So Fetch member info by elderyly access token
                 [linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
-                    // Whole User Info
-                    
-                    NSLog(@"user Info : %@", userInfo);
+                    // get the access_token
+                    NSString *token = userInfo[@"access_token"];
+                    //send the token to the server
+                    HttpResult *result = [Proto sendLinkedInInfo:token];
+                    NSLog(@"%@",result);
                     
                 } failUserInfo:^(NSError *error) {
                     NSLog(@"error : %@", error.userInfo.description);
@@ -308,7 +311,10 @@
                                                       state:@""
                                             successUserInfo:^(NSDictionary *userInfo) {
                                                 
-                                                NSLog(@"userInfo:%@",userInfo);
+                                                // get the access_token
+                                                NSString *token = userInfo[@"access_token"];
+                                                //send the token to the server
+                                                [Proto sendLinkedInInfo:token];
                                                 
                                             } cancelBlock:^{
                                                 NSLog(@"User cancelled the request Action");

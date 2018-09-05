@@ -98,11 +98,13 @@
 	UILabel *andLabel = termPanel.addLabel;
 	andLabel.font = [Fonts regular:12];
 	andLabel.text = localStr(@"and");
+	[andLabel textColorWhite];
 	[[[[[andLabel layoutMaker] sizeFit] centerXParent:8] topParent:0] install];
 
 	UILabel *termLabel = termPanel.addLabel;
 	termLabel.font = [Fonts regular:12];
 	termLabel.text = localStr(@"terms");
+	[termLabel textColorWhite];
 	[termLabel underLineSingle];
 	[[[[[termLabel layoutMaker] sizeFit] topParent:0] toLeftOf:andLabel offset:0] install];
 	[termLabel onClickView:self action:@selector(clickTerms:)];
@@ -110,6 +112,7 @@
 	UILabel *policyLabel = termPanel.addLabel;
 	policyLabel.font = [Fonts regular:12];
 	policyLabel.text = localStr(@"policy");
+	[policyLabel textColorWhite];
 	[policyLabel underLineSingle];
 	[[[[[policyLabel layoutMaker] sizeFit] topParent:0] toRightOf:andLabel offset:0] install];
 	[policyLabel onClickView:self action:@selector(clickPolicy:)];
@@ -117,6 +120,7 @@
 	UILabel *dotLabel = termPanel.addLabel;
 	dotLabel.font = [Fonts regular:12];
 	dotLabel.text = @".";
+	[dotLabel textColorWhite];
 	[[[[[dotLabel layoutMaker] sizeFit] topParent:0] toRightOf:policyLabel offset:0] install];
 
 
@@ -124,6 +128,7 @@
 	agreeLabel.font = [Fonts regular:12];
 	agreeLabel.numberOfLines = 2;
 	[agreeLabel textAlignCenter];
+	[agreeLabel textColorWhite];
 	agreeLabel.text = localStr(@"agree");
 	[sl push:agreeLabel height:agreeLabel.heightThatFit marginBottom:0];
 

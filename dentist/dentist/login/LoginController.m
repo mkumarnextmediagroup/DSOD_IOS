@@ -16,6 +16,7 @@
 #import "EditEduViewController.h"
 #import "Proto.h"
 #import "Async.h"
+#import "UIViewController+myextend.h"
 
 @interface LoginController ()
 
@@ -451,7 +452,7 @@
 
 - (void)login:(NSString *)userName password:(NSString *)pwd {
 
-	[self alertOK:@"I'm Title" msg:@"I'm Message" okText:@"确定" onOK:^(){
+	[self alertOK:@"I'm Title" msg:@"I'm Message" okText:@"确定" onOK:^() {
 		NSLog(@"dialog end.");
 	}];
 

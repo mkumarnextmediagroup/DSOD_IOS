@@ -22,10 +22,5 @@
      rightImageName:(UIImage *)rightImageName rightTitle:(NSString *)rightTitle;
 
 
-- (void)tabItem:(NSString *)title imageName:(NSString *)imageName;
-
-- (void)alertOK:(NSString *)title msg:(NSString *)msg okText:(NSString *)okText onOK:(void (^ __nullable)(void)) onOK;
-
-- (void)alertConfirm:(NSString *)title msg:(NSString *)msg;
 
 @end

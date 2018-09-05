@@ -11,6 +11,10 @@
 #import "ProfileViewController.h"
 #import "BaseNavController.h"
 #import "WelcomController.h"
+#import "CmsMainController.h"
+#import "CmsBookmarkController.h"
+#import "CmsDownloadsController.h"
+#import "UIViewController+myextend.h"
 
 @interface AppDelegate ()
 
@@ -28,12 +32,31 @@
 	self.window.backgroundColor = UIColor.whiteColor;
 	[self configGlobalStyle];
 //	LoginController *c = [[LoginController alloc] init];
-	WelcomController *c = [WelcomController new];
+//	WelcomController *c = [WelcomController new];
 //    ProfileViewController *c = [ProfileViewController new];
 //    self.window.rootViewController = lc;
 //    BaseNavController *nc = [BaseNavController new];
 //    [nc pushViewController:c animated:NO];
-	self.window.rootViewController = c;
+
+
+	CmsMainController *c = [CmsMainController new];
+	UINavigationController *nc1 = [[UINavigationController alloc] initWithRootViewController:c];
+
+
+	[nc1 tabItem:@"Home" imageName:@"home"];
+
+	CmsBookmarkController *c2 = [CmsBookmarkController new];
+	[c2 tabItem:@"Bookmark" imageName:@"bookmark"];
+
+	CmsDownloadsController *c3 = [CmsDownloadsController new];
+	[c3 tabItem:@"Downloads" imageName:@"download"];
+
+	UITabBarController *tabC = [UITabBarController new];
+
+
+	[tabC setViewControllers:@[nc1, c2, c3]];
+
+	self.window.rootViewController = tabC;
 	[self.window makeKeyAndVisible];
 	return YES;
 }
@@ -47,6 +70,8 @@
 			NSForegroundColorAttributeName: Colors.textMain, NSFontAttributeName: [Fonts regular:10]
 	}                                        forState:UIControlStateSelected];
 
+	[[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];
+	[[UITabBar appearance] setTintColor:Colors.primary];
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {

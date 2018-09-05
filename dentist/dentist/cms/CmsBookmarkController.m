@@ -3,10 +3,10 @@
 // Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
 //
 
-#import "CmsMainController.h"
+#import "CmsBookmarkController.h"
 
 
-@implementation CmsMainController {
+@implementation CmsBookmarkController {
 
 }
 
@@ -14,7 +14,7 @@
 	[super viewDidLoad];
 
 	UILabel *lb = self.view.addLabel;
-	lb.text = @"CMS Page";
+	lb.text = @"Bookmark Page";
 	[lb textColorMain];
 
 	[[[lb.layoutMaker centerParent] sizeFit] install];
@@ -26,12 +26,5 @@
 			[self navBarImage:@"edit" action:@selector(onClickEdit:)],
 			[self navBarText:@"Edit" action:@selector(onClickEdit:)]
 	];
-
-
-}
-
-
-- (void)onClickEdit:(id)sender {
-
 }
 @end

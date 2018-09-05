@@ -143,7 +143,8 @@ NSString * StringOrEmpty(NSString *string) {
         
         [self.service getAccessToken:code
                              success:^(NSDictionary *accessTokenData) {
-                                 [weakSelf requestMeWithToken];
+//                                 [weakSelf requestMeWithToken];
+                                 weakSelf.userInfoSuccessBlock(accessTokenData);
                              }
                              failure:^(NSError *error) {
                                  // Quering accessToken failed
@@ -172,6 +173,12 @@ NSString * StringOrEmpty(NSString *string) {
     
     if (self.isValidToken) {
         _accessToken = self.service.accessToken;
+//        [LinkedinSimpleKeychain saveWithService:LINKEDIN_EXPIRATION_KEY data:@(expiration)];
+        NSString *epires = [LinkedinSimpleKeychain loadWithService:LINKEDIN_EXPIRATION_KEY];
+        NSDictionary *paramDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                   _accessToken, @"access_token",
+                                   epires, @"expires_in",nil];
+        self.userInfoSuccessBlock(paramDict);
         [self requestMeWithToken];
     } else {
         NSLog(@"!!!! Token must be valid to autologin !!!!");

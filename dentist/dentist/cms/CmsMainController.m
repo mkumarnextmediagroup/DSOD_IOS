@@ -22,7 +22,6 @@
 
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"DSODENTIST";
-	item.leftBarButtonItem = [self navBarImage:@"menu"  target: self action:@selector(onClickEdit:)];
 	item.rightBarButtonItems = @[
 			[self navBarImage:@"edit" target: self  action:@selector(onClickEdit:)],
 			[self navBarText:@"Edit"  target: self action:@selector(onClickEdit:)]

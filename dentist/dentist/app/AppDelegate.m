@@ -17,6 +17,7 @@
 #import "UIViewController+myextend.h"
 #import "IIViewDeckController.h"
 #import "SlideController.h"
+#import "UIViewController+IIViewDeckAdditions.h"
 
 @interface AppDelegate ()
 
@@ -43,9 +44,8 @@
 
 	CmsMainController *c = [CmsMainController new];
 	UINavigationController *nc1 = NavPage(c);
-//	nc1.navigationItem.leftBarButtonItem = [c navBarImage:@"menu" action:@selector(onClickEdit:)];
-
 	[nc1 tabItem:@"Home" imageName:@"home"];
+	c.navigationItem.leftBarButtonItem = [c navBarImage:@"menu" target:self action:@selector(onClickMenu:)];
 
 	CmsBookmarkController *c2 = [CmsBookmarkController new];
 	[c2 tabItem:@"Bookmark" imageName:@"bookmark"];
@@ -63,6 +63,13 @@
 	self.window.rootViewController = deck;
 	[self.window makeKeyAndVisible];
 	return YES;
+}
+
+- (void)onClickMenu:(id)sender {
+	if ([self.window.rootViewController isKindOfClass:[IIViewDeckController class]]) {
+		IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;
+		[tc openSide:IIViewDeckSideLeft animated:YES];
+	}
 }
 
 - (void)configGlobalStyle {

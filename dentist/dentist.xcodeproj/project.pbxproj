@@ -1730,7 +1730,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/**";
 			};
 			name = Debug;
 		};
@@ -1767,7 +1767,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/**";
 			};
 			name = Release;
 		};

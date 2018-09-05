@@ -57,12 +57,23 @@
 
 	SlideController *sc = [SlideController new];
 	sc.preferredContentSize = makeSize(SCREENWIDTH - 90, SCREENHEIGHT);
+	UINavigationController *snav = NavPage(sc);
+	sc.navigationItem.leftBarButtonItem = [c navBarImage:@"menu" target:self action:@selector(closeMenu:)];
+	snav.navigationBar.tintColor = Colors.primary;
+	snav.navigationBar.barTintColor = UIColor.whiteColor;
 
-	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:tc leftViewController:sc rightViewController:nil];
+	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:tc leftViewController:snav rightViewController:nil];
 
 	self.window.rootViewController = deck;
 	[self.window makeKeyAndVisible];
 	return YES;
+}
+
+- (void)closeMenu:(id)sender {
+	if ([self.window.rootViewController isKindOfClass:[IIViewDeckController class]]) {
+		IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;
+		[tc closeSide:YES];
+	}
 }
 
 - (void)onClickMenu:(id)sender {

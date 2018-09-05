@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.view.backgroundColor = [UIColor whiteColor];
 	if (!_isCloseTheGesture) {
 		[self.view onClickView:self action:@selector(_onClickControllerView:)];
 	}

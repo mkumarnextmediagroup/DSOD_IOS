@@ -16,5 +16,6 @@
 @property (nonatomic,strong) NSString *specialityTitle;
 @property (nonatomic,strong) NSString *speciality;
 @property (nonatomic,strong) NSString  *avataName;
+@property (nonatomic) NSInteger  lineType;
 
 @end

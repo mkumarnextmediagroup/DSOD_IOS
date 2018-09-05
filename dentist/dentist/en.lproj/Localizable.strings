@@ -69,3 +69,7 @@
 "WouldYou" = "Would you like to give DSODentist permission to use your Linkedin credentials for creating an account?";
 "profile" = "PROFILE";
 "edit" = "Edit";
+"editEdu" = "EDIT EDUCATION";
+"attended" = "Attended Dental School in the US";
+"dental" = "Dental School";
+"graduation" = "Year of Graduation";

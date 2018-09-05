@@ -20,7 +20,9 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[self.view onClickView:self action:@selector(_onClickControllerView:)];
+    if (!_isCloseTheGesture) {
+        [self.view onClickView:self action:@selector(_onClickControllerView:)];
+    }
 }
 
 
@@ -172,11 +174,7 @@
 
 	UILabel *content = [UILabel new];
 	content.font = [UIFont systemFontOfSize:19];
-	if (imageName == nil) {
-		content.textColor = [UIColor whiteColor];
-	} else {
-		content.textColor = [UIColor blackColor];
-	}
+    content.textColor = [UIColor blackColor];
 	content.text = title;
 	content.textAlignment = NSTextAlignmentCenter;
 	content.frame = CGRectMake(50, 23, SCREENWIDTH - 100, 40);

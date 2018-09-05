@@ -23,7 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setTopTitle:@"STATE" bgColor:[Colors bgNavBarColor] imageName:nil];
+    UINavigationItem *item = self.navigationItem;
+    item.title = @"STATE";
+    item.leftBarButtonItem = [self navBarImage:@"back_arrow" action:@selector(popBtnClick:)];
     
     searchBar = self.view.createSearchBar;
     searchBar.delegate = self;
@@ -36,6 +38,11 @@
     myTable.tableFooterView =  [[UIView alloc] init];
     [self.view addSubview:myTable];
     // Do any additional setup after loading the view.
+}
+
+- (void)popBtnClick:(UIButton *)btn
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark UITableviewDelegate

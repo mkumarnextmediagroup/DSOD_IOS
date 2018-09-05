@@ -179,7 +179,7 @@ NSString * StringOrEmpty(NSString *string) {
                                    _accessToken, @"access_token",
                                    epires, @"expires_in",nil];
         self.userInfoSuccessBlock(paramDict);
-        [self requestMeWithToken];
+//        [self requestMeWithToken];
     } else {
         NSLog(@"!!!! Token must be valid to autologin !!!!");
     }

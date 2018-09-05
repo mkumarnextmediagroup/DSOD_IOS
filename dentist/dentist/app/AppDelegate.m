@@ -33,38 +33,38 @@
 	self.window = [[UIWindow alloc] init];
 	self.window.frame = [[UIScreen mainScreen] bounds];
 	self.window.backgroundColor = UIColor.whiteColor;
-	[self configGlobalStyle];
+    [self configGlobalStyle];
 //	LoginController *c = [[LoginController alloc] init];
-//	WelcomController *c = [WelcomController new];
+//    WelcomController *c = [WelcomController new];
 //    ProfileViewController *c = [ProfileViewController new];
-//    self.window.rootViewController = lc;
+//    self.window.rootViewController = c;
 //    BaseNavController *nc = [BaseNavController new];
 //    [nc pushViewController:c animated:NO];
 
 
-	CmsMainController *c = [CmsMainController new];
-	UINavigationController *nc1 = NavPage(c);
-	[nc1 tabItem:@"Home" imageName:@"home"];
-	c.navigationItem.leftBarButtonItem = [c navBarImage:@"menu" target:self action:@selector(onClickMenu:)];
-
-	CmsBookmarkController *c2 = [CmsBookmarkController new];
-	[c2 tabItem:@"Bookmark" imageName:@"bookmark"];
-
-	CmsDownloadsController *c3 = [CmsDownloadsController new];
-	[c3 tabItem:@"Downloads" imageName:@"download"];
-
-	UITabBarController *tc = TabPage(@[nc1, c2, c3]);
-
-	SlideController *sc = [SlideController new];
-	sc.preferredContentSize = makeSize(SCREENWIDTH - 90, SCREENHEIGHT);
-	UINavigationController *snav = NavPage(sc);
-	sc.navigationItem.leftBarButtonItem = [c navBarImage:@"menu" target:self action:@selector(closeMenu:)];
-	snav.navigationBar.tintColor = Colors.primary;
-	snav.navigationBar.barTintColor = UIColor.whiteColor;
-
-	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:tc leftViewController:snav rightViewController:nil];
-
-	self.window.rootViewController = deck;
+    /CmsMainController *c = [CmsMainController new];
+    UINavigationController *nc1 = NavPage(c);
+    [nc1 tabItem:@"Home" imageName:@"home"];
+    c.navigationItem.leftBarButtonItem = [c navBarImage:@"menu" target:self action:@selector(onClickMenu:)];
+    
+    CmsBookmarkController *c2 = [CmsBookmarkController new];
+    [c2 tabItem:@"Bookmark" imageName:@"bookmark"];
+    
+    CmsDownloadsController *c3 = [CmsDownloadsController new];
+    [c3 tabItem:@"Downloads" imageName:@"download"];
+    
+    UITabBarController *tc = TabPage(@[nc1, c2, c3]);
+    
+    SlideController *sc = [SlideController new];
+    sc.preferredContentSize = makeSize(SCREENWIDTH - 90, SCREENHEIGHT);
+    UINavigationController *snav = NavPage(sc);
+    sc.navigationItem.leftBarButtonItem = [c navBarImage:@"menu" target:self action:@selector(closeMenu:)];
+    snav.navigationBar.tintColor = Colors.primary;
+    snav.navigationBar.barTintColor = UIColor.whiteColor;
+    
+    IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:tc leftViewController:snav rightViewController:nil];
+    
+    self.window.rootViewController = deck;
 	[self.window makeKeyAndVisible];
 	return YES;
 }

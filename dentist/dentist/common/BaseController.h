@@ -8,6 +8,7 @@
 
 @interface BaseController : UIViewController <UITextFieldDelegate>
 
+@property(assign, nonatomic) BOOL isCloseTheGesture;
 
 - (void)openPage:(UIViewController *)c;
 
@@ -18,5 +19,8 @@
 - (void)setTopTitle:(NSString *)title bgColor:(UIColor *)bgColor imageName:(UIImage *)imageName;
 
 - (void)setTopTitle:(NSString *)title leftImageName:(UIImage *)imageName
-     rightImageName:(UIImage *)rightImageName rightTitle:(NSString *)rightTitle ;
+     rightImageName:(UIImage *)rightImageName rightTitle:(NSString *)rightTitle;
+
+
+
 @end

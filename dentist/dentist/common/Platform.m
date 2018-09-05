@@ -10,3 +10,4 @@
 void objcSendMsg(id target, SEL action, id arg) {
 	((void (*)(id, SEL, id)) objc_msgSend)(target, action, arg);
 }
+

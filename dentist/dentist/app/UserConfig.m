@@ -4,17 +4,41 @@
 //
 
 #import "UserConfig.h"
+#import "Common.h"
 
 
-@implementation UserConfig {
-
-}
-
-+ (NSUserDefaults *)account:(NSString *)account {
-	return [[NSUserDefaults alloc] initWithSuiteName:account];
-}
-
-+ (NSUserDefaults *)standard:(NSString *)account {
+NSUserDefaults *globalConfig() {
 	return [NSUserDefaults standardUserDefaults];
 }
-@end
+
+NSUserDefaults *userConfig(NSString *userAccount) {
+	if (userAccount == nil) {
+		return globalConfig();
+	}
+	return [[NSUserDefaults alloc] initWithUser:[userAccount base64Encoded]];
+}
+
+void putLastAccount(NSString *account) {
+	NSUserDefaults *gd = globalConfig();
+	[gd setObject:account forKey:@"lastAccount"];
+}
+
+NSString *getLastAccount() {
+	NSUserDefaults *gd = globalConfig();
+	NSString *s = [gd objectForKey:@"lastAccount"];
+	return s;
+}
+
+NSString *getUserToken(NSString *account) {
+	if (account == nil) {
+		return nil;
+	}
+	NSUserDefaults *ud = userConfig(account);
+	NSString *token = [ud objectForKey:@"token"];
+	return token;
+}
+
+void putUserToken(NSString *account, NSString *token) {
+	NSUserDefaults *ud = userConfig(account);
+	[ud setObject:token forKey:@"token"];
+}

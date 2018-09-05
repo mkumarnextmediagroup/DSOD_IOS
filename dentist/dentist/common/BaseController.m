@@ -244,30 +244,4 @@
 }
 
 
-- (void)tabItem:(NSString *)title imageName:(NSString *)imageName {
-	UITabBarItem *item = self.tabBarItem;
-	item.title = title;
-	item.image = [UIImage imageNamed:imageName];
-}
-
-
-- (void)alertOK:(NSString *)title msg:(NSString *)msg okText:(NSString *)okText onOK:(void (^ __nullable)(void))onOK {
-	UIAlertController *c = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
-	NSString *text = okText;
-	if (text == nil) {
-		text = localStr(@"ok");
-	}
-	UIAlertAction *ac = [UIAlertAction actionWithTitle:text style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-		if (onOK != nil) {
-			onOK();
-		}
-	}];
-	[c addAction:ac];
-	[self presentViewController:c animated:YES completion:nil];
-
-}
-
-- (void)alertConfirm:(NSString *)title msg:(NSString *)msg {
-
-}
 @end

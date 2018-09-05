@@ -83,7 +83,7 @@
 - (UILabel *)addLabel {
 	UILabel *lb = [UILabel new];
 	lb.backgroundColor = UIColor.clearColor;
-	[lb textColorWhite];
+	[lb textColorMain];
 	[self addSubview:lb];
 	return lb;
 }

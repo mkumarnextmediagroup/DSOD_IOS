@@ -4,8 +4,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TitlePage.h"
+#import "BaseController.h"
 
 
-@interface CmsBookmarkController : TitlePage
+@interface CmsBookmarkController : BaseController
 @end

@@ -40,24 +40,24 @@
 
 	UINavigationItem *item = self.navigationItem;
 	item.title = @"PROFILE";
-	item.leftBarButtonItem = [self navBarImage:@"menu" action:@selector(onClickEdit:)];
+	item.leftBarButtonItem = [self navBarImage:@"menu" target:self action:@selector(onClickEdit:)];
 	item.rightBarButtonItems = @[
-			[self navBarImage:@"edit" action:@selector(onClickEdit:)],
-			[self navBarText:@"Edit" action:@selector(onClickEdit:)]
+			[self navBarImage:@"edit" target:self action:@selector(onClickEdit:)],
+			[self navBarText:@"Edit" target:self action:@selector(onClickEdit:)]
 	];
 
 
 	myTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
 	myTable.delegate = self;
 	myTable.dataSource = self;
-    myTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+	myTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+
 //    myTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 
 
 	[self.view addSubview:myTable];
 	[[[[[myTable.layoutMaker leftParent:0] rightParent:0] topParent:65] bottomParent:0] install];
-    
+
 	[self initData];
 }
 
@@ -75,9 +75,8 @@
 	p2.name = @"Residency";
 	p2.specialityTitle = @"Boston Hospital";
 	p2.speciality = @"September 2015 - Present";
-    p2.avataName=@"residency";
-    
-    
+	p2.avataName = @"residency";
+
 
 	ProfileGroup *pGroup2 = [ProfileGroup new];
 	pGroup2.groupName = @"Residency";
@@ -88,16 +87,16 @@
 	p3.name = @"California Dental School";
 	p3.specialityTitle = @"Certificate, Advanced Periodontology";
 	p3.speciality = @"September 2014 - March 2015";
-    p3.avataName=@"edu";
-    p3.lineType=1;
+	p3.avataName = @"edu";
+	p3.lineType = 1;
 
 
 	Profile *p4 = [Profile new];
 	p4.name = @"Arizona Dental School";
 	p4.specialityTitle = @"Doctorate of Dental Medicine (DMD)";
 	p4.speciality = @"September 2010 - August 2014";
-    p4.avataName=@"school";
-    
+	p4.avataName = @"school";
+
 
 	ProfileGroup *pGroup3 = [ProfileGroup new];
 	pGroup3.groupName = @"Education";
@@ -107,14 +106,14 @@
 	Profile *p5 = [Profile new];
 	p5.specialityTitle = @"Mobile Number";
 	p5.speciality = @"207-782-8410";
-    p5.avataName=@"phone";
-    p5.lineType=1;
+	p5.avataName = @"phone";
+	p5.lineType = 1;
 
 
 	Profile *p6 = [Profile new];
 	p6.specialityTitle = @"Preferred Email Address";
 	p6.speciality = @"edward.norton@cads.edu";
-    p6.avataName=@"mail";
+	p6.avataName = @"mail";
 
 	ProfileGroup *pGroup4 = [ProfileGroup new];
 	pGroup4.groupName = @"Contact";
@@ -143,14 +142,13 @@
 	lb.font = [Fonts regular:12];
 	lb.textColor = Colors.textAlternate;
 	lb.backgroundColor = UIColor.whiteColor;
-   
 
 
 	return lb;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    return nil;
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+	return nil;
 
 }
 
@@ -175,8 +173,8 @@
 	return 24;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0;
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+	return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

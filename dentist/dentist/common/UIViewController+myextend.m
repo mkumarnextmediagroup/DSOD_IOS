@@ -10,7 +10,12 @@
 @implementation UIViewController (myextend)
 
 
-
+- (UINavigationBar *)navBar {
+	if (self.navigationController != nil) {
+		return self.navigationController.navigationBar;
+	}
+	return nil;
+}
 
 - (void)tabItem:(NSString *)title imageName:(NSString *)imageName {
 	UITabBarItem *item = self.tabBarItem;
@@ -38,6 +43,18 @@
 
 - (void)alertConfirm:(NSString *)title msg:(NSString *)msg {
 
+}
+
+
+- (UIBarButtonItem *)navBarText:(NSString *)text target:(nullable id)target action:(SEL)action {
+	UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:text style:UIBarButtonItemStylePlain target:target action:action];
+	[bi setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [Fonts semiBold:15]} forState:UIControlStateNormal];
+	return bi;
+}
+
+- (UIBarButtonItem *)navBarImage:(NSString *)imageName target:(nullable id)target action:(SEL)action {
+	UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:imageName] style:UIBarButtonItemStylePlain target:target action:action];
+	return bi;
 }
 
 

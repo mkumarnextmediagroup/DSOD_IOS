@@ -5,8 +5,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
-#import "TitlePage.h"
+#import "BaseController.h"
 
 
-@interface CmsMainController : TitlePage
+@interface CmsMainController : BaseController
 @end

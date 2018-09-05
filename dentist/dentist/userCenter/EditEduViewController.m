@@ -31,8 +31,8 @@
     isSwitchOn = YES;
     UINavigationItem *item = self.navigationItem;
     item.title = @"editEdu";
-    item.rightBarButtonItem = [self navBarText:@"SAVE" action:@selector(saveBtnClick:)];
-    item.leftBarButtonItem = [self navBarImage:@"back_arrow" action:@selector(back)];
+    item.rightBarButtonItem = [self navBarText:@"SAVE" target: self  action:@selector(saveBtnClick:)];
+    item.leftBarButtonItem = [self navBarImage:@"back_arrow"  target: self action:@selector(back)];
     // Do any additional setup after loading the view.
     
     myTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];

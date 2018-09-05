@@ -7,9 +7,16 @@
 
 @interface UIViewController (myextend)
 
-- (void)tabItem:(NSString *)title imageName:(NSString *)imageName;
+@property(readonly) UINavigationBar *navBar;
 
-- (void)alertOK:(NSString *)title msg:(NSString *)msg okText:(NSString *)okText onOK:(void (^ __nullable)(void))onOK;
+- (void)tabItem:(nonnull NSString *)title imageName:(nonnull NSString *)imageName;
 
-- (void)alertConfirm:(NSString *)title msg:(NSString *)msg;
+- (void)alertOK:(nullable NSString *)title msg:(nonnull NSString *)msg okText:(nullable NSString *)okText onOK:(void (^ __nullable)(void))onOK;
+
+- (void)alertConfirm:(nullable NSString *)title msg:(nonnull NSString *)msg;
+
+- (UIBarButtonItem *)navBarText:(NSString *)text target:(nullable id)target action:(SEL)action;
+
+- (UIBarButtonItem *)navBarImage:(NSString *)imageName target:(nullable id)target action:(SEL)action;
+
 @end

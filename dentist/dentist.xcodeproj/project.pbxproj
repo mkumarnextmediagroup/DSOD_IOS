@@ -54,6 +54,11 @@
 		4E846F7B213E84E900DC2B51 /* write@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F79213E84E900DC2B51 /* write@3x.png */; };
 		4E846F7E213EB16200DC2B51 /* CustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F7D213EB16200DC2B51 /* CustomPicker.m */; };
 		4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F80213F70A200DC2B51 /* PickerViewController.m */; };
+		4E846F85213FBEAE00DC2B51 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F84213FBEAE00DC2B51 /* EditProfileViewController.m */; };
+		4E846F89213FC3ED00DC2B51 /* EditHederTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F88213FC3ED00DC2B51 /* EditHederTableViewCell.m */; };
+		4E846F8B213FC57A00DC2B51 /* headerImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8A213FC57A00DC2B51 /* headerImage@2x.png */; };
+		4E846F8E213FCB8D00DC2B51 /* edit_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8C213FCB8C00DC2B51 /* edit_photo@3x.png */; };
+		4E846F8F213FCB8D00DC2B51 /* edit_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8D213FCB8D00DC2B51 /* edit_photo@2x.png */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -254,6 +259,13 @@
 		4E846F7D213EB16200DC2B51 /* CustomPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomPicker.m; sourceTree = "<group>"; };
 		4E846F7F213F70A200DC2B51 /* PickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		4E846F80213F70A200DC2B51 /* PickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
+		4E846F83213FBEAE00DC2B51 /* EditProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
+		4E846F84213FBEAE00DC2B51 /* EditProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
+		4E846F87213FC3ED00DC2B51 /* EditHederTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditHederTableViewCell.h; sourceTree = "<group>"; };
+		4E846F88213FC3ED00DC2B51 /* EditHederTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditHederTableViewCell.m; sourceTree = "<group>"; };
+		4E846F8A213FC57A00DC2B51 /* headerImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headerImage@2x.png"; sourceTree = "<group>"; };
+		4E846F8C213FCB8C00DC2B51 /* edit_photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_photo@3x.png"; sourceTree = "<group>"; };
+		4E846F8D213FCB8D00DC2B51 /* edit_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_photo@2x.png"; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -447,12 +459,12 @@
 		3ED07648213A9F19004D4083 /* profile */ = {
 			isa = PBXGroup;
 			children = (
+				4E846F86213FC3CC00DC2B51 /* view */,
+				4E846F82213FBE8800DC2B51 /* Model */,
 				3ED07649213A9FE3004D4083 /* ProfileViewController.h */,
 				3ED0764A213A9FE3004D4083 /* ProfileViewController.m */,
-				3E043B9A213C2C430044CD77 /* ProfileGroup.h */,
-				3E043B9B213C2C430044CD77 /* ProfileGroup.m */,
-				3E043B9D213C2C610044CD77 /* Profile.h */,
-				3E043B9E213C2C610044CD77 /* Profile.m */,
+				4E846F83213FBEAE00DC2B51 /* EditProfileViewController.h */,
+				4E846F84213FBEAE00DC2B51 /* EditProfileViewController.m */,
 			);
 			path = profile;
 			sourceTree = "<group>";
@@ -515,10 +527,10 @@
 		4E235222213D12CB003BA59B /* userCenter */ = {
 			isa = PBXGroup;
 			children = (
-				4E235223213D12CB003BA59B /* UpdateViewController.m */,
-				4E235224213D12CB003BA59B /* UpdateViewController.h */,
 				4E2352C3213D5B7C003BA59B /* EditEduViewController.m */,
 				4E2352C2213D5B7C003BA59B /* EditEduViewController.h */,
+				4E235223213D12CB003BA59B /* UpdateViewController.m */,
+				4E235224213D12CB003BA59B /* UpdateViewController.h */,
 				4E846F7F213F70A200DC2B51 /* PickerViewController.h */,
 				4E846F80213F70A200DC2B51 /* PickerViewController.m */,
 				4E235225213D12CB003BA59B /* view */,
@@ -541,6 +553,26 @@
 				4E846F72213E781100DC2B51 /* CommSelectTableViewCell.m */,
 				4E846F7C213EB16200DC2B51 /* CustomPicker.h */,
 				4E846F7D213EB16200DC2B51 /* CustomPicker.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		4E846F82213FBE8800DC2B51 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3E043B9A213C2C430044CD77 /* ProfileGroup.h */,
+				3E043B9B213C2C430044CD77 /* ProfileGroup.m */,
+				3E043B9D213C2C610044CD77 /* Profile.h */,
+				3E043B9E213C2C610044CD77 /* Profile.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4E846F86213FC3CC00DC2B51 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				4E846F87213FC3ED00DC2B51 /* EditHederTableViewCell.h */,
+				4E846F88213FC3ED00DC2B51 /* EditHederTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -629,8 +661,11 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4E846F8D213FCB8D00DC2B51 /* edit_photo@2x.png */,
+				4E846F8C213FCB8C00DC2B51 /* edit_photo@3x.png */,
 				3E043B89213C15470044CD77 /* default_avatar@2x.png */,
 				3E043B8A213C15470044CD77 /* default_avatar@3x.png */,
+				4E846F8A213FC57A00DC2B51 /* headerImage@2x.png */,
 				4E846F78213E84E900DC2B51 /* write@2x.png */,
 				4E846F79213E84E900DC2B51 /* write@3x.png */,
 				4E846F74213E7AEC00DC2B51 /* arrow@2x.png */,
@@ -978,12 +1013,15 @@
 				E11E145E69E55763A9A9AAF4 /* edit@2x.png in Resources */,
 				E11E1210E61FE38B793AD059 /* edit@3x.png in Resources */,
 				E11E10470B06180C4BB04077 /* home_light.png in Resources */,
+				4E846F8F213FCB8D00DC2B51 /* edit_photo@2x.png in Resources */,
 				E11E1D476DC9F760321CA383 /* home_light@2x.png in Resources */,
 				E11E15AC6D3EB73F0FA2CF4F /* home_light@3x.png in Resources */,
 				4E846F7A213E84E900DC2B51 /* write@2x.png in Resources */,
+				4E846F8E213FCB8D00DC2B51 /* edit_photo@3x.png in Resources */,
 				E11E1121C662C4950DC65395 /* home.png in Resources */,
 				E11E14F9F8B1AE1BBF1EAB35 /* home@2x.png in Resources */,
 				E11E121A983BDF4DEF091ACC /* home@3x.png in Resources */,
+				4E846F8B213FC57A00DC2B51 /* headerImage@2x.png in Resources */,
 				E11E1BDA1ADFF08B4FBD31A1 /* menu.png in Resources */,
 				E11E1A694CB1915FC4DB878E /* user_light.png in Resources */,
 				E11E1F7242611C8E1537D3A2 /* user_light@2x.png in Resources */,
@@ -1097,6 +1135,7 @@
 				4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
 				4E1957402137D0F100420563 /* PermissionContactInfoFields.m in Sources */,
+				4E846F85213FBEAE00DC2B51 /* EditProfileViewController.m in Sources */,
 				4EBCE6DB212D6D8600A0672D /* ResetPwdViewController.m in Sources */,
 				C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */,
 				4E1957472137D0F100420563 /* LinkedInAuthorizationViewController.m in Sources */,
@@ -1105,6 +1144,7 @@
 				C5EEA1CB9C55E45C1CF0F710 /* UIUtil.m in Sources */,
 				4E2351A2213A76ED003BA59B /* UISearchBar+style.m in Sources */,
 				4E1957412137D0F100420563 /* PermissionFullProfileFields.m in Sources */,
+				4E846F89213FC3ED00DC2B51 /* EditHederTableViewCell.m in Sources */,
 				4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */,
 				4E23522D213D12CB003BA59B /* UpdateTableViewCell.m in Sources */,
 				3E043B9F213C2C610044CD77 /* Profile.m in Sources */,

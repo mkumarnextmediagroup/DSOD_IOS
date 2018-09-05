@@ -42,7 +42,7 @@
 //    [nc pushViewController:c animated:NO];
 
 
-    /CmsMainController *c = [CmsMainController new];
+    CmsMainController *c = [CmsMainController new];
     UINavigationController *nc1 = NavPage(c);
     [nc1 tabItem:@"Home" imageName:@"home"];
     c.navigationItem.leftBarButtonItem = [c navBarImage:@"menu" target:self action:@selector(onClickMenu:)];

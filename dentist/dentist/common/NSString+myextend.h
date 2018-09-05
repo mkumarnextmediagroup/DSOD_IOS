@@ -7,6 +7,8 @@
 
 @interface NSString (myextend)
 
+@property(readonly) NSString *base64Encoded;
+@property(readonly) NSString *base64Decoded;
 @property(readonly) NSString *urlEncoded;
 
 @property(readonly) NSString *trimed;

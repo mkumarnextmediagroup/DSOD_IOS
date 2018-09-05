@@ -6,11 +6,16 @@
 #import <UIKit/UIKit.h>
 
 
-@interface UserConfig : NSObject
+extern NSUserDefaults *globalConfig(void);
 
-+ (NSUserDefaults *)account:(NSString *)account;
-
-+ (NSUserDefaults *)standard:(NSString *)account;
+extern NSUserDefaults *userConfig(NSString *userAccount);
 
 
-@end
+extern void putLastAccount(NSString *account);
+
+extern NSString *getLastAccount(void);
+
+extern NSString *getUserToken(NSString *account);
+
+extern void putUserToken(NSString *account, NSString *token);
+

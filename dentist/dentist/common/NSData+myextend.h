@@ -7,14 +7,14 @@
 
 @interface NSData (myextend)
 
--(NSString*) stringUTF8;
+@property NSString *stringUTF8;
 
 
 @end
 
 @interface NSMutableData (myextend2)
 
- -(void) appendUTF8:(NSString*) s ;
+- (void)appendUTF8:(NSString *)s;
 
 
 @end

@@ -10,6 +10,7 @@
 #import "EditHederTableViewCell.h"
 #import "CommSelectTableViewCell.h"
 #import "ProfileNormalTableViewCell.h"
+#import "EditWriteTableViewCell.h"
 
 @interface EditProfileViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -57,6 +58,9 @@
         case 4:
             return 78;
             break;
+        case 5:
+            return 72;
+            break;
         default:
             break;
     }
@@ -65,7 +69,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -84,6 +88,9 @@
             return 1;
             break;
         case 4:
+            return 2;
+            break;
+        case 5:
             return 2;
             break;
         default:
@@ -143,7 +150,11 @@
                         initWithStyle:UITableViewCellStyleDefault
                         reuseIdentifier:edit_header_Cell];
             }
-            
+            cell.avatar.image = [UIImage imageNamed:@"cloud"];
+            cell.name.text = localStr(@"upResume");
+            cell.specialityTitle.text = localStr(@"professional");
+            cell.specialityTitle.frame = CGRectMake(78, 33, SCREENWIDTH - 130, 34);
+            cell.specialityTitle.numberOfLines = 0;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
@@ -152,13 +163,19 @@
         {
             static NSString *edit_header_Cell = @"userCell";
             
-            EditHederTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:edit_header_Cell];
+            ProfileNormalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:edit_header_Cell];
             
             if (cell == nil) {
-                cell = [[EditHederTableViewCell alloc]
+                cell = [[ProfileNormalTableViewCell alloc]
                         initWithStyle:UITableViewCellStyleDefault
                         reuseIdentifier:edit_header_Cell];
             }
+            
+            cell.avatar.image = [UIImage imageNamed:@"residency"];
+            cell.name.text = @"Residency";
+            cell.specialityTitle.text = @"Boston Hospital";
+            cell.speciality.text = @"September 2015 - Present";
+            
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
@@ -167,13 +184,53 @@
         {
             static NSString *edit_header_Cell = @"userCell";
             
-            EditHederTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:edit_header_Cell];
+            ProfileNormalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:edit_header_Cell];
             
             if (cell == nil) {
-                cell = [[EditHederTableViewCell alloc]
+                cell = [[ProfileNormalTableViewCell alloc]
                         initWithStyle:UITableViewCellStyleDefault
                         reuseIdentifier:edit_header_Cell];
             }
+            
+            if (indexPath.row == 0) {
+                cell.avatar.image = [UIImage imageNamed:@"edu"];
+                cell.name.text = @"California Dental School";
+                cell.specialityTitle.text = @"Certificate, Advanced Periodontology";
+                cell.speciality.text = @"September 2014 - March 2015";
+
+            }else
+            {
+                cell.avatar.image = [UIImage imageNamed:@"school"];
+                cell.name.text = @"Arizona Dental School";
+                cell.specialityTitle.text = @"Doctorate of Dental Medicine (DMD)";
+                cell.speciality.text = @"September 2010 - August 2014";
+
+            }
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
+            break;
+        case 5:
+        {
+            static NSString *edit_header_Cell = @"userCell";
+            
+            EditWriteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:edit_header_Cell];
+            
+            if (cell == nil) {
+                cell = [[EditWriteTableViewCell alloc]
+                        initWithStyle:UITableViewCellStyleDefault
+                        reuseIdentifier:edit_header_Cell];
+            }
+            
+//            if (indexPath.row == 0) {
+//                cell.titleLab.text = @"Mobile Number";
+//            }else
+//            {
+//                cell.titleLab.text = @"Preferred email address";
+//            }
+            
+            
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
@@ -221,6 +278,9 @@
                 break;
             case 5:
                 label.text = localStr(@"personal");
+                break;
+            case 6:
+                label.text = @"Contact info";
                 break;
             default:
                 break;

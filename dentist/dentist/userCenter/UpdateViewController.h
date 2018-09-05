@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseController.h"
+#import "TitlePage.h"
 
-@interface UpdateViewController : BaseController
+@interface UpdateViewController : TitlePage
 
 @end

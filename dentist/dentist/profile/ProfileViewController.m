@@ -30,7 +30,7 @@
 - (void)onClickEdit:(id)sender {
 	backTask(^() {
 //		[Proto register:@"entaoyang@126.com" pwd:@"Yang2008" name:@"Entao Yang"];
-//		[Proto login:@"entaoyang@126.com" pwd:@"Yang2018"];
+		[Proto login:@"entaoyang@126.com" pwd:@"Yang2018"];
 //		[Proto sendEmailCode:@"entaoyang@126.com"];
 	});
 }
@@ -50,10 +50,14 @@
 	myTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
 	myTable.delegate = self;
 	myTable.dataSource = self;
-	myTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    myTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+//    myTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+
 
 	[self.view addSubview:myTable];
 	[[[[[myTable.layoutMaker leftParent:0] rightParent:0] topParent:65] bottomParent:0] install];
+    
 	[self initData];
 }
 
@@ -85,6 +89,7 @@
 	p3.specialityTitle = @"Certificate, Advanced Periodontology";
 	p3.speciality = @"September 2014 - March 2015";
     p3.avataName=@"edu";
+    p3.lineType=1;
 
 
 	Profile *p4 = [Profile new];
@@ -92,6 +97,7 @@
 	p4.specialityTitle = @"Doctorate of Dental Medicine (DMD)";
 	p4.speciality = @"September 2010 - August 2014";
     p4.avataName=@"school";
+    
 
 	ProfileGroup *pGroup3 = [ProfileGroup new];
 	pGroup3.groupName = @"Education";
@@ -102,6 +108,7 @@
 	p5.specialityTitle = @"Mobile Number";
 	p5.speciality = @"207-782-8410";
     p5.avataName=@"phone";
+    p5.lineType=1;
 
 
 	Profile *p6 = [Profile new];

@@ -20,6 +20,10 @@
 	return [self get:@"emailtoken/sendEmail" key:@"email" param:email];
 }
 
++ (HttpResult *)sendLinkedInInfo:(NSString *)access_token
+{
+    return [self get:@"linkedInLogin" key:@"accessToken" param:access_token];
+}
 
 + (HttpResult *)login:(NSString *)email pwd:(NSString *)pwd {
 	NSString *s = jsonBuild(@{@"username": email, @"password": pwd});

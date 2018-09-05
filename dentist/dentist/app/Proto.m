@@ -20,14 +20,32 @@
 	return [self get:@"emailtoken/sendEmail" key:@"email" param:email];
 }
 
-+ (HttpResult *)sendLinkedInInfo:(NSString *)access_token
-{
-    return [self get:@"linkedInLogin" key:@"accessToken" param:access_token];
++ (HttpResult *)sendLinkedInInfo:(NSString *)access_token {
+	return [self get:@"linkedInLogin" key:@"accessToken" param:access_token];
+}
+
+
++ (NSString *)lastAccount {
+	return getLastAccount();
+}
+
++ (NSString *)lastToken {
+	NSString *account = self.lastAccount;
+	return getUserToken(account);
 }
 
 + (HttpResult *)login:(NSString *)email pwd:(NSString *)pwd {
 	NSString *s = jsonBuild(@{@"username": email, @"password": pwd});
-	return [self postBody:@"userAccount/login" body:s];
+	HttpResult *r = [self postBody:@"userAccount/login" body:s];
+	if (r.OK) {
+		NSDictionary *d = r.resultMap;
+		if (d != nil) {
+			NSString *token = d[@"accesstoken"];
+			putUserToken(email, token);
+			putLastAccount(email);
+		}
+	}
+	return r;
 }
 
 + (HttpResult *)register:(NSString *)email pwd:(NSString *)pwd name:(NSString *)name {

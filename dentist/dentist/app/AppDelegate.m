@@ -10,6 +10,7 @@
 #import "LoginController.h"
 #import "ProfileViewController.h"
 #import "BaseNavController.h"
+#import "WelcomController.h"
 
 @interface AppDelegate ()
 
@@ -25,12 +26,14 @@
 	self.window = [[UIWindow alloc] init];
 	self.window.frame = [[UIScreen mainScreen] bounds];
 	self.window.backgroundColor = UIColor.whiteColor;
-    LoginController *c = [[LoginController alloc] init];
-//    self.window.rootViewController = lc;
-    BaseNavController *nc = [BaseNavController new];
+	[self configGlobalStyle];
+//	LoginController *c = [[LoginController alloc] init];
+	WelcomController *c = [WelcomController new];
 //    ProfileViewController *c = [ProfileViewController new];
-    [nc pushViewController:c animated:NO];
-    self.window.rootViewController = nc ;
+//    self.window.rootViewController = lc;
+//    BaseNavController *nc = [BaseNavController new];
+//    [nc pushViewController:c animated:NO];
+	self.window.rootViewController = c;
 	[self.window makeKeyAndVisible];
 	return YES;
 }

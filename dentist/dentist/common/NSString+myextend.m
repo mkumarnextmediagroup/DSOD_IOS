@@ -9,6 +9,16 @@
 
 @implementation NSString (myextend)
 
+- (NSString *)base64Encoded {
+	NSData *d = self.dataUTF8;
+	return [d base64EncodedStringWithOptions:0];
+}
+
+- (NSString *)base64Decoded {
+	NSData *d = [[NSData alloc] initWithBase64EncodedString:self options:0];
+	return d.stringUTF8;
+}
+
 - (BOOL)containsChar:(unichar)ch {
 	for (int i = 0; i < self.length; ++i) {
 		if (ch == [self characterAtIndex:i]) {

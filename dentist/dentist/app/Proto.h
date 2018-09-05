@@ -11,6 +11,9 @@
 
 @interface Proto : NSObject
 
+@property (class) NSString* lastAccount;
+@property (class) NSString* lastToken;
+
 + (HttpResult *)resetPwd:(NSString *)email pwd:(NSString *)pwd code:(NSString *)code;
 
 + (HttpResult *)sendEmailCode:(NSString *)email;

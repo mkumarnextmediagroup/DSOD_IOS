@@ -15,11 +15,10 @@
 	return [self convertRect:self.bounds toView:w];
 }
 
-- (UISearchBarView *)createSearchBar
-{
-    UISearchBarView *searchBarView = [[UISearchBarView alloc] initWithFrame:CGRectMake(0, NAVHEIGHT, SCREENWIDTH, 57)];
-    [self addSubview:searchBarView];
-    return searchBarView;
+- (UISearchBarView *)createSearchBar {
+	UISearchBarView *searchBarView = [[UISearchBarView alloc] initWithFrame:CGRectMake(0, NAVHEIGHT, SCREENWIDTH, 57)];
+	[self addSubview:searchBarView];
+	return searchBarView;
 }
 
 - (void)onClickView:(id)target action:(SEL)action {
@@ -58,22 +57,20 @@
 	return button;
 }
 
-- (UIButton *)retryBtn
-{
-    UIButton *needHelpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [needHelpBtn title:localStr(@"Retry")];
-    [needHelpBtn styleWhite];
-    [self addSubview:needHelpBtn];
-    return needHelpBtn;
+- (UIButton *)retryBtn {
+	UIButton *needHelpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+	[needHelpBtn title:localStr(@"Retry")];
+	[needHelpBtn styleWhite];
+	[self addSubview:needHelpBtn];
+	return needHelpBtn;
 }
 
-- (UIButton *)needHelpBtn
-{
-    UIButton *retryButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [retryButton title:localStr(@"Need help?")];
-    [retryButton stylePrimary];
-    [self addSubview:retryButton];
-    return retryButton;
+- (UIButton *)needHelpBtn {
+	UIButton *retryButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[retryButton title:localStr(@"Need help?")];
+	[retryButton stylePrimary];
+	[self addSubview:retryButton];
+	return retryButton;
 }
 
 - (UITextView *)addTextView {
@@ -92,27 +89,26 @@
 }
 
 - (UITextView *)noticeLabel {
-    UITextView *noticelb = [UITextView new];
-    noticelb.backgroundColor = Colors.secondary;
-    noticelb.textColor = UIColor.whiteColor;
-    noticelb.tag = 11;
-    noticelb.textContainerInset = UIEdgeInsetsMake(10, 0, 0, 15);
-    [self addSubview:noticelb];
-    
-    UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
-    b.frame = makeRect(SCREENWIDTH - 88, 0, 60, BTN_HEIGHT);
-    [b setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
-    [noticelb addSubview:b];
-    [b onClick:self action:@selector(deleteNoticeButton:)];
-    return noticelb;
+	UITextView *noticelb = [UITextView new];
+	noticelb.backgroundColor = Colors.secondary;
+	noticelb.textColor = UIColor.whiteColor;
+	noticelb.tag = 11;
+	noticelb.textContainerInset = UIEdgeInsetsMake(10, 0, 0, 15);
+	[self addSubview:noticelb];
+
+	UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
+	b.frame = makeRect(SCREENWIDTH - 88, 0, 60, BTN_HEIGHT);
+	[b setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+	[noticelb addSubview:b];
+	[b onClick:self action:@selector(deleteNoticeButton:)];
+	return noticelb;
 }
 
-- (void)deleteNoticeButton:(UIButton *)btn
-{
-    NSLog(@"delelte");
-    [btn removeFromSuperview];
-    UITextView *notice = [self viewWithTag:11];
-    notice.hidden = YES;
+- (void)deleteNoticeButton:(UIButton *)btn {
+	NSLog(@"delelte");
+	[btn removeFromSuperview];
+	UITextView *notice = [self viewWithTag:11];
+	notice.hidden = YES;
 }
 
 - (UIImageView *)addImageView {
@@ -123,17 +119,19 @@
 
 - (UITextField *)addEdit {
 	UITextField *edit = [UITextField new];
+	edit.autocapitalizationType = UITextAutocapitalizationTypeNone;
+	edit.autocorrectionType = UITextAutocorrectionTypeNo;
 	[edit rounded];
 	[self addSubview:edit];
 	return edit;
 }
 
 - (UITextField *)resetEdit {
-    UITextField *reset = [UITextField new];
-    reset.tag = FORGOTFIELDTAG;
-    [reset rounded];
-    [self addSubview:reset];
-    return reset;
+	UITextField *reset = [UITextField new];
+	reset.tag = FORGOTFIELDTAG;
+	[reset rounded];
+	[self addSubview:reset];
+	return reset;
 }
 
 - (UIButton *)addButton {
@@ -144,25 +142,25 @@
 }
 
 - (UIButton *)resetButton {
-    UIButton *button = [UIButton new];
-    [button stylePrimary];
-    [self addSubview:button];
-    return button;
+	UIButton *button = [UIButton new];
+	[button stylePrimary];
+	[self addSubview:button];
+	return button;
 }
 
 - (UIButton *)contactButton {
-    NSString * aStr = localStr(@"haveIssue");
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",aStr]];
-    [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,20)];
-    [str addAttribute:NSForegroundColorAttributeName value:Colors.primary range:NSMakeRange(20,aStr.length - 20)];
-    
-    UIButton * contactBtn = [UIButton new];
-    [contactBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [contactBtn setTitleColor:Colors.primary forState:UIControlStateNormal];
-    [contactBtn setAttributedTitle:str forState:UIControlStateNormal];
-    [self addSubview:contactBtn];
-    
-    return contactBtn;
+	NSString *aStr = localStr(@"haveIssue");
+	NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", aStr]];
+	[str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, 20)];
+	[str addAttribute:NSForegroundColorAttributeName value:Colors.primary range:NSMakeRange(20, aStr.length - 20)];
+
+	UIButton *contactBtn = [UIButton new];
+	[contactBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+	[contactBtn setTitleColor:Colors.primary forState:UIControlStateNormal];
+	[contactBtn setAttributedTitle:str forState:UIControlStateNormal];
+	[self addSubview:contactBtn];
+
+	return contactBtn;
 }
 
 - (void)layoutCenterXOffsetTop:(CGFloat)width height:(CGFloat)height offset:(CGFloat)offset {

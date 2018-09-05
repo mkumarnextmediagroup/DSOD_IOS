@@ -37,6 +37,18 @@
         [self addSubview:_imageBtn];
         [[[[_imageBtn.layoutMaker sizeEq:42 h:42] rightParent:0] topParent:34] install];
         
+        _contentField = [[UITextField alloc] init];
+        _contentField.font = [Fonts regular:15];
+        _contentField.textColor = UIColor.blackColor;
+        [self addSubview:_contentField];
+        [[[[_contentField.layoutMaker sizeEq:260 h:42] leftParent:16] topParent:34] install];
+        _contentField.hidden = YES;
+        
+        
+        UILabel *lineLab = [[UILabel alloc] init];
+        lineLab.backgroundColor = Colors.cellLineColor;
+        [self addSubview:lineLab];
+        [[[[lineLab.layoutMaker sizeEq:SCREENWIDTH h:1] below:self offset:-1] leftParent:0] install];
     }
     return self;
 }

@@ -11,14 +11,14 @@
 
 @interface Proto : NSObject
 
-@property (class) NSString* lastAccount;
-@property (class) NSString* lastToken;
+@property(class) NSString *lastAccount;
+@property(class) NSString *lastToken;
 
 + (HttpResult *)resetPwd:(NSString *)email pwd:(NSString *)pwd code:(NSString *)code;
 
 + (HttpResult *)sendEmailCode:(NSString *)email;
 
-+ (HttpResult *)register:(NSString *)email pwd:(NSString *)pwd name:(NSString *)name;
++ (HttpResult *)register:(NSString *)email pwd:(NSString *)pwd name:(NSString *)name student:(BOOL)student;
 
 + (HttpResult *)login:(NSString *)email pwd:(NSString *)pwd;
 

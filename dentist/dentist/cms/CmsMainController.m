@@ -9,4 +9,9 @@
 @implementation CmsMainController {
 
 }
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+
+}
 @end

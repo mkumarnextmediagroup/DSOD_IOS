@@ -451,6 +451,11 @@
 
 - (void)login:(NSString *)userName password:(NSString *)pwd {
 
+	[self alertOK:@"I'm Title" msg:@"I'm Message" okText:@"确定" onOK:^(){
+		NSLog(@"dialog end.");
+	}];
+
+
 	backTask(^() {
 		HttpResult *r = [Proto login:userName pwd:pwd];
 		NSLog(@"lastAccount: %@  Token: %@", getLastAccount(), getUserToken(@"entaoyang@126.com"));

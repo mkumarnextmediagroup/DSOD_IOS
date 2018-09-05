@@ -25,5 +25,7 @@ extern CGRect makeRect(int x, int y, int w, int h);
 
 extern CGRect makeRectF(CGFloat x, CGFloat y, CGFloat w, CGFloat h);
 
+extern  UINavigationController *NavPage(UIViewController* c );
+extern  UITabBarController *TabPage(NSArray<__kindof UIViewController *> *cs );
 
 #endif

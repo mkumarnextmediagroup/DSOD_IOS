@@ -11,6 +11,6 @@
 @property (nullable) id target;
 @property (nullable) SEL action;
 
-- (id)initWithTarget:(nullable id)target action:(nullable SEL)action;
+- (nonnull  id)initWithTarget:(nullable id)target action:(nullable SEL)action;
 
 @end

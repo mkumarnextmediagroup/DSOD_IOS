@@ -25,7 +25,7 @@
     
     UINavigationItem *item = self.navigationItem;
     item.title = @"STATE";
-    item.leftBarButtonItem = [self navBarImage:@"back_arrow" action:@selector(popBtnClick:)];
+    item.leftBarButtonItem = [self navBarImage:@"back_arrow"  target: self  action:@selector(popBtnClick:)];
     
     searchBar = self.view.createSearchBar;
     searchBar.delegate = self;

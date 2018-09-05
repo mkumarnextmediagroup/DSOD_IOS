@@ -15,7 +15,7 @@ NSUserDefaults *userConfig(NSString *userAccount) {
 	if (userAccount == nil) {
 		return globalConfig();
 	}
-	return [[NSUserDefaults alloc] initWithUser:[userAccount base64Encoded]];
+	return [[NSUserDefaults alloc] initWithSuiteName:[userAccount base64Encoded]];
 }
 
 void putLastAccount(NSString *account) {

@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
-#import "TitlePage.h"
+#import "BaseController.h"
 
-@interface ProfileViewController : TitlePage
+@interface ProfileViewController : BaseController
 
 @end

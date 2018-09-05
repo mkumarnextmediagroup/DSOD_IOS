@@ -15,6 +15,8 @@
 #import "CmsBookmarkController.h"
 #import "CmsDownloadsController.h"
 #import "UIViewController+myextend.h"
+#import "IIViewDeckController.h"
+#import "SlideController.h"
 
 @interface AppDelegate ()
 
@@ -40,8 +42,8 @@
 
 
 	CmsMainController *c = [CmsMainController new];
-	UINavigationController *nc1 = [[UINavigationController alloc] initWithRootViewController:c];
-
+	UINavigationController *nc1 = NavPage(c);
+//	nc1.navigationItem.leftBarButtonItem = [c navBarImage:@"menu" action:@selector(onClickEdit:)];
 
 	[nc1 tabItem:@"Home" imageName:@"home"];
 
@@ -51,12 +53,14 @@
 	CmsDownloadsController *c3 = [CmsDownloadsController new];
 	[c3 tabItem:@"Downloads" imageName:@"download"];
 
-	UITabBarController *tabC = [UITabBarController new];
+	UITabBarController *tc = TabPage(@[nc1, c2, c3]);
 
+	SlideController *sc = [SlideController new];
+	sc.preferredContentSize = makeSize(SCREENWIDTH - 90, SCREENHEIGHT);
 
-	[tabC setViewControllers:@[nc1, c2, c3]];
+	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:tc leftViewController:sc rightViewController:nil];
 
-	self.window.rootViewController = tabC;
+	self.window.rootViewController = deck;
 	[self.window makeKeyAndVisible];
 	return YES;
 }
@@ -72,6 +76,10 @@
 
 	[[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];
 	[[UITabBar appearance] setTintColor:Colors.primary];
+
+	[[UINavigationBar appearance] setBarTintColor:Colors.bgNavBarColor];
+	[[UINavigationBar appearance] setTintColor:UIColor.whiteColor];
+	[[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [Fonts semiBold:15]}];
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TitlePage.h"
+#import "BaseController.h"
 
-@interface EditEduViewController : TitlePage
+@interface EditEduViewController : BaseController
 
 @end

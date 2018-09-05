@@ -50,3 +50,14 @@ CGRect makeRect(int x, int y, int w, int h) {
 CGRect makeRectF(CGFloat x, CGFloat y, CGFloat w, CGFloat h) {
 	return CGRectMake(x, y, w, h);
 }
+
+
+UINavigationController *NavPage(UIViewController *c) {
+	return [[UINavigationController alloc] initWithRootViewController:c];
+}
+
+UITabBarController *TabPage(NSArray<__kindof UIViewController *> *cs) {
+	UITabBarController *tabC = [UITabBarController new];
+	[tabC setViewControllers:cs];
+	return tabC;
+}

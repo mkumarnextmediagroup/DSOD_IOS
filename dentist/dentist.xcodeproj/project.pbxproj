@@ -59,6 +59,7 @@
 		4E846F8B213FC57A00DC2B51 /* headerImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8A213FC57A00DC2B51 /* headerImage@2x.png */; };
 		4E846F8E213FCB8D00DC2B51 /* edit_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8C213FCB8C00DC2B51 /* edit_photo@3x.png */; };
 		4E846F8F213FCB8D00DC2B51 /* edit_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8D213FCB8D00DC2B51 /* edit_photo@2x.png */; };
+		4E846F92213FFEB300DC2B51 /* EditWriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F91213FFEB300DC2B51 /* EditWriteTableViewCell.m */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -375,6 +376,8 @@
 		4E846F8A213FC57A00DC2B51 /* headerImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headerImage@2x.png"; sourceTree = "<group>"; };
 		4E846F8C213FCB8C00DC2B51 /* edit_photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_photo@3x.png"; sourceTree = "<group>"; };
 		4E846F8D213FCB8D00DC2B51 /* edit_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_photo@2x.png"; sourceTree = "<group>"; };
+		4E846F90213FFEB300DC2B51 /* EditWriteTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditWriteTableViewCell.h; sourceTree = "<group>"; };
+		4E846F91213FFEB300DC2B51 /* EditWriteTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditWriteTableViewCell.m; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -794,6 +797,8 @@
 			children = (
 				4E846F87213FC3ED00DC2B51 /* EditHederTableViewCell.h */,
 				4E846F88213FC3ED00DC2B51 /* EditHederTableViewCell.m */,
+				4E846F90213FFEB300DC2B51 /* EditWriteTableViewCell.h */,
+				4E846F91213FFEB300DC2B51 /* EditWriteTableViewCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1582,6 +1587,7 @@
 				C5EEAF6A040452F10D489279 /* NSString+myextend.m in Sources */,
 				C5EEA1CB9C55E45C1CF0F710 /* UIUtil.m in Sources */,
 				4E2351A2213A76ED003BA59B /* UISearchBar+style.m in Sources */,
+				4E846F92213FFEB300DC2B51 /* EditWriteTableViewCell.m in Sources */,
 				4E1957412137D0F100420563 /* PermissionFullProfileFields.m in Sources */,
 				4E846F89213FC3ED00DC2B51 /* EditHederTableViewCell.m in Sources */,
 				4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */,
@@ -1744,7 +1750,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 48BA5XP347;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -1781,7 +1787,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 48BA5XP347;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

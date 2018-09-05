@@ -11,5 +11,6 @@
 @interface EditHederTableViewCell : UITableViewCell
 
 @property (strong, nonatomic)UIImageView *headerImg;
+@property (strong, nonatomic)UIButton *editBtn;
 
 @end

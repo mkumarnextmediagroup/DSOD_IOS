@@ -33,10 +33,10 @@
         [self addSubview:_headerImg];
         [[[[_headerImg.layoutMaker sizeEq:115 h:115] topParent:44] leftParent:(SCREENWIDTH - 115)/2] install];
 
-        UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [editBtn setImage:[UIImage imageNamed:@"edit_photo"] forState:UIControlStateNormal];
-        [self addSubview:editBtn];
-        [[[[editBtn.layoutMaker sizeEq:38 h:38] toRightOf:_headerImg offset:-19] below:_headerImg offset:-19] install];
+        _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_editBtn setImage:[UIImage imageNamed:@"edit_photo"] forState:UIControlStateNormal];
+        [self addSubview:_editBtn];
+        [[[[_editBtn.layoutMaker sizeEq:38 h:38] toRightOf:_headerImg offset:-19] below:_headerImg offset:-19] install];
         
         UILabel *lineLab = [[UILabel alloc] init];
         lineLab.backgroundColor = Colors.cellLineColor;

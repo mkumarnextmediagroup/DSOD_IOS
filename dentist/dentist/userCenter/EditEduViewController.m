@@ -105,10 +105,14 @@
             if (isSwitchOn)//can select the school
             {
                 [cell.imageBtn setImage:[UIImage imageNamed:@"arrow"] forState:UIControlStateNormal];
+                cell.contentField.hidden = YES;
+                cell.contentLab.hidden = NO;
             }
             else
             {
                 [cell.imageBtn setImage:[UIImage imageNamed:@"write"] forState:UIControlStateNormal];
+                cell.contentField.hidden = NO;
+                cell.contentLab.hidden = YES;
             }
         }else
         {
@@ -125,7 +129,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 1) {
+    if (indexPath.row == 1 && isSwitchOn) {
         UpdateViewController *update = [UpdateViewController new];
         [self.navigationController pushViewController:update animated:YES];
     }else if (indexPath.row == 2)

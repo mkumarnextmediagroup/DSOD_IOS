@@ -11,6 +11,14 @@
 
 }
 
++ (UIColor *)cellLineColor {
+    static UIColor *_c = nil;
+    if (_c == nil) {
+        _c = rgb255(222, 222, 222);
+    }
+    return _c;
+}
+
 + (UIColor *)bgNavBarColor {
     static UIColor *_c = nil;
     if (_c == nil) {

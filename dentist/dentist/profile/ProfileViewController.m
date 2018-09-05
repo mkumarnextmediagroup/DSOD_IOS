@@ -10,6 +10,7 @@
 #import "ProfileHeaderTableViewCell.h"
 #import "ProfileNormalTableViewCell.h"
 #import "ProfileTailTableViewCell.h"
+#import "EditProfileViewController.h"
 #import "Profile.h"
 #import "ProfileGroup.h"
 #import "Async.h"
@@ -33,6 +34,9 @@
 		[Proto login:@"entaoyang@126.com" pwd:@"Yang2018"];
 //		[Proto sendEmailCode:@"entaoyang@126.com"];
 	});
+    
+    EditProfileViewController *edit = [EditProfileViewController new];
+    [self.navigationController pushViewController:edit animated:YES];
 }
 
 - (void)viewDidLoad {
@@ -45,7 +49,6 @@
 			[self navBarImage:@"edit" target:self action:@selector(onClickEdit:)],
 			[self navBarText:@"Edit" target:self action:@selector(onClickEdit:)]
 	];
-
 
 	myTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
 	myTable.delegate = self;

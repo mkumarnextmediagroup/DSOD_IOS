@@ -13,10 +13,13 @@
 #import "ForgotViewController.h"
 #import "StudentController.h"
 #import "UpdateViewController.h"
+#import "ProfileViewController.h"
 #import "EditEduViewController.h"
 #import "Proto.h"
 #import "Async.h"
 #import "UIViewController+myextend.h"
+#import "BaseNavController.h"
+#import "AppDelegate.h"
 
 @interface LoginController ()
 
@@ -202,8 +205,12 @@
 //    UpdateViewController *up = [UpdateViewController new];
 //    [self openPage:up];
 
-	EditEduViewController *ed = [EditEduViewController new];
-	[self.navigationController pushViewController:ed animated:YES];
+    BaseNavController *nc = [BaseNavController new];
+	ProfileViewController *ed = [ProfileViewController new];
+    [nc pushViewController:ed animated:NO];
+    UIWindow *keyWin = [UIApplication sharedApplication].keyWindow;
+    keyWin.rootViewController  = nc;
+//    [self.navigationController pushViewController:ed animated:YES];
 }
 
 

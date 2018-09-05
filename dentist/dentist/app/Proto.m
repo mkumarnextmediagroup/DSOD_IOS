@@ -77,9 +77,9 @@
 		              (NSString *)param {
 	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
 	Http *h = [Http new];
-	h.url = strBuild(baseUrl, action, @"/", param.urlEncoded);
+	h.url = strBuild(baseUrl, action, @"/", param.urlEncoded, @"/", @"fooClientIdPassword");
 //	h.url = strBuild(baseUrl, action);
-//	[h arg:key value:param];
+//    [h arg:key value:param];
 	HttpResult *r = [h get];
 	return r;
 }

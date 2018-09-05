@@ -74,3 +74,7 @@
 "editProfile" = "EDIT PROFILE";
 "personal" = "Personal Info";
 "uploadResu" = "Upload resume or import data";
+"upResume" = "Upload Resume";
+"professional" = "Your professional information will be imported automatically";
+"userCamera" = "DSODentist would like to access your Camera";
+"usePhoto" = "Your photos will be used solely for setting up your profile photo";

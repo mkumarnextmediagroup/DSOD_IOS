@@ -30,33 +30,33 @@
 	self.window = [[UIWindow alloc] init];
 	self.window.frame = [[UIScreen mainScreen] bounds];
 	self.window.backgroundColor = UIColor.whiteColor;
-	[self configGlobalStyle];
+//    [self configGlobalStyle];
 //	LoginController *c = [[LoginController alloc] init];
-//	WelcomController *c = [WelcomController new];
+    WelcomController *c = [WelcomController new];
 //    ProfileViewController *c = [ProfileViewController new];
-//    self.window.rootViewController = lc;
+    self.window.rootViewController = c;
 //    BaseNavController *nc = [BaseNavController new];
 //    [nc pushViewController:c animated:NO];
 
 
-	CmsMainController *c = [CmsMainController new];
-	UINavigationController *nc1 = [[UINavigationController alloc] initWithRootViewController:c];
-
-
-	[nc1 tabItem:@"Home" imageName:@"home"];
-
-	CmsBookmarkController *c2 = [CmsBookmarkController new];
-	[c2 tabItem:@"Bookmark" imageName:@"bookmark"];
-
-	CmsDownloadsController *c3 = [CmsDownloadsController new];
-	[c3 tabItem:@"Downloads" imageName:@"download"];
-
-	UITabBarController *tabC = [UITabBarController new];
-
-
-	[tabC setViewControllers:@[nc1, c2, c3]];
-
-	self.window.rootViewController = tabC;
+//    CmsMainController *c = [CmsMainController new];
+//    UINavigationController *nc1 = [[UINavigationController alloc] initWithRootViewController:c];
+//
+//
+//    [nc1 tabItem:@"Home" imageName:@"home"];
+//
+//    CmsBookmarkController *c2 = [CmsBookmarkController new];
+//    [c2 tabItem:@"Bookmark" imageName:@"bookmark"];
+//
+//    CmsDownloadsController *c3 = [CmsDownloadsController new];
+//    [c3 tabItem:@"Downloads" imageName:@"download"];
+//
+//    UITabBarController *tabC = [UITabBarController new];
+//
+//
+//    [tabC setViewControllers:@[nc1, c2, c3]];
+//
+//    self.window.rootViewController = tabC;
 	[self.window makeKeyAndVisible];
 	return YES;
 }

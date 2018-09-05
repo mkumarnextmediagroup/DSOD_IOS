@@ -53,6 +53,7 @@
 		4E846F7A213E84E900DC2B51 /* write@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F78213E84E900DC2B51 /* write@2x.png */; };
 		4E846F7B213E84E900DC2B51 /* write@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F79213E84E900DC2B51 /* write@3x.png */; };
 		4E846F7E213EB16200DC2B51 /* CustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F7D213EB16200DC2B51 /* CustomPicker.m */; };
+		4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F80213F70A200DC2B51 /* PickerViewController.m */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -248,6 +249,8 @@
 		4E846F79213E84E900DC2B51 /* write@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "write@3x.png"; sourceTree = "<group>"; };
 		4E846F7C213EB16200DC2B51 /* CustomPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomPicker.h; sourceTree = "<group>"; };
 		4E846F7D213EB16200DC2B51 /* CustomPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomPicker.m; sourceTree = "<group>"; };
+		4E846F7F213F70A200DC2B51 /* PickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
+		4E846F80213F70A200DC2B51 /* PickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -507,6 +510,8 @@
 				4E235224213D12CB003BA59B /* UpdateViewController.h */,
 				4E2352C3213D5B7C003BA59B /* EditEduViewController.m */,
 				4E2352C2213D5B7C003BA59B /* EditEduViewController.h */,
+				4E846F7F213F70A200DC2B51 /* PickerViewController.h */,
+				4E846F80213F70A200DC2B51 /* PickerViewController.m */,
 				4E235225213D12CB003BA59B /* view */,
 			);
 			path = userCenter;
@@ -1060,6 +1065,7 @@
 				4E846F70213E619100DC2B51 /* SwitchTableViewCell.m in Sources */,
 				C5EEA2BA0180646BF8FF57BF /* Platform.m in Sources */,
 				4E19573F2137D0F100420563 /* PermissionBasicProfileFields.m in Sources */,
+				4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
 				4E1957402137D0F100420563 /* PermissionContactInfoFields.m in Sources */,
 				4EBCE6DB212D6D8600A0672D /* ResetPwdViewController.m in Sources */,

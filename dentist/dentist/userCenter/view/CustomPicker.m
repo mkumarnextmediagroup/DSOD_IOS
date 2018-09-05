@@ -7,18 +7,45 @@
 //
 
 #import "CustomPicker.h"
+#import "Masonry.h"
 
 @interface CustomPicker()<UIPickerViewDelegate,UIPickerViewDataSource>
+{
+    UIPickerView *picker;
+}
 @end
 
 @implementation CustomPicker
 
+- (void)showPicker
+{
+    [UIView animateWithDuration:.4 animations:^{
+        
+    } completion:^(BOOL finished) {
+        [self->picker mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self.superview).offset(0);
+        }];
+    }];
+}
+
+- (void)hidePicker
+{
+    [UIView animateWithDuration:.4 animations:^{
+        
+    } completion:^(BOOL finished) {
+        [self->picker mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self.superview).offset(-216);
+        }];
+    }];
+}
+
 - (void)initPicker
 {
-    UIPickerView *picker = [[UIPickerView alloc] init];
+    picker = [[UIPickerView alloc] init];
     picker.delegate = self;
     picker.dataSource = self;
     [self addSubview:picker];
+    [[[[[picker.layoutMaker leftParent:0] rightParent:0] topParent:SCREENWIDTH-216] bottomParent:0] install];
 }
 
 #pragma mark UIPickerViewDelegate UIPickerViewDataSource

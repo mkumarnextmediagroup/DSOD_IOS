@@ -13,6 +13,7 @@
 #import "ForgotViewController.h"
 #import "StudentController.h"
 #import "UpdateViewController.h"
+#import "EditEduViewController.h"
 
 @interface LoginController ()
 
@@ -195,8 +196,11 @@
 //    StudentController *c = [StudentController new];
 //    [self presentViewController:c animated:YES completion:nil];
     
-    UpdateViewController *up = [UpdateViewController new];
-    [self openPage:up];
+//    UpdateViewController *up = [UpdateViewController new];
+//    [self openPage:up];
+    
+    EditEduViewController *ed = [EditEduViewController new];
+    [self.navigationController pushViewController:ed animated:YES];
 }
 
 

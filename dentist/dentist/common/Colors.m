@@ -72,7 +72,7 @@
 	return _c;
 }
 
-
+//RGB color is #9B9B9B
 + (UIColor *)textAlternate {
 	static UIColor *_c = nil;
 	if (_c == nil) {
@@ -81,7 +81,7 @@
 	return _c;
 }
 
-
+//RGB color is #4A4A4A
 + (UIColor *)textMain {
 	static UIColor *_c = nil;
 	if (_c == nil) {
@@ -90,7 +90,7 @@
 	return _c;
 }
 
-
+//RGB color is #879AA8
 + (UIColor *)textDisabled {
 	static UIColor *_c = nil;
 	if (_c == nil) {
@@ -132,6 +132,7 @@
 	return _c;
 }
 
+//RGB color is #E9EDF1
 + (UIColor *)bgDisabled {
 	static UIColor *_c = nil;
 	if (_c == nil) {

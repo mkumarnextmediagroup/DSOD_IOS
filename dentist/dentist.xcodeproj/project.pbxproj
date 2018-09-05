@@ -45,6 +45,14 @@
 		4E23522D213D12CB003BA59B /* UpdateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E235229213D12CB003BA59B /* UpdateTableViewCell.m */; };
 		4E23522E213D12CB003BA59B /* UITextFieldCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23522A213D12CB003BA59B /* UITextFieldCustom.m */; };
 		4E23522F213D12CB003BA59B /* UISearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23522B213D12CB003BA59B /* UISearchBarView.m */; };
+		4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2352C3213D5B7C003BA59B /* EditEduViewController.m */; };
+		4E846F70213E619100DC2B51 /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F6F213E619100DC2B51 /* SwitchTableViewCell.m */; };
+		4E846F73213E781100DC2B51 /* CommSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F72213E781100DC2B51 /* CommSelectTableViewCell.m */; };
+		4E846F76213E7AED00DC2B51 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F74213E7AEC00DC2B51 /* arrow@2x.png */; };
+		4E846F77213E7AED00DC2B51 /* arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F75213E7AEC00DC2B51 /* arrow@3x.png */; };
+		4E846F7A213E84E900DC2B51 /* write@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F78213E84E900DC2B51 /* write@2x.png */; };
+		4E846F7B213E84E900DC2B51 /* write@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F79213E84E900DC2B51 /* write@3x.png */; };
+		4E846F7E213EB16200DC2B51 /* CustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F7D213EB16200DC2B51 /* CustomPicker.m */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -229,6 +237,18 @@
 		4E235229213D12CB003BA59B /* UpdateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateTableViewCell.m; sourceTree = "<group>"; };
 		4E23522A213D12CB003BA59B /* UITextFieldCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextFieldCustom.m; sourceTree = "<group>"; };
 		4E23522B213D12CB003BA59B /* UISearchBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISearchBarView.m; sourceTree = "<group>"; };
+		4E2352C2213D5B7C003BA59B /* EditEduViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditEduViewController.h; sourceTree = "<group>"; };
+		4E2352C3213D5B7C003BA59B /* EditEduViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditEduViewController.m; sourceTree = "<group>"; };
+		4E846F6E213E619100DC2B51 /* SwitchTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchTableViewCell.h; sourceTree = "<group>"; };
+		4E846F6F213E619100DC2B51 /* SwitchTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitchTableViewCell.m; sourceTree = "<group>"; };
+		4E846F71213E781100DC2B51 /* CommSelectTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommSelectTableViewCell.h; sourceTree = "<group>"; };
+		4E846F72213E781100DC2B51 /* CommSelectTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommSelectTableViewCell.m; sourceTree = "<group>"; };
+		4E846F74213E7AEC00DC2B51 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
+		4E846F75213E7AEC00DC2B51 /* arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@3x.png"; sourceTree = "<group>"; };
+		4E846F78213E84E900DC2B51 /* write@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "write@2x.png"; sourceTree = "<group>"; };
+		4E846F79213E84E900DC2B51 /* write@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "write@3x.png"; sourceTree = "<group>"; };
+		4E846F7C213EB16200DC2B51 /* CustomPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomPicker.h; sourceTree = "<group>"; };
+		4E846F7D213EB16200DC2B51 /* CustomPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomPicker.m; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -488,6 +508,8 @@
 			children = (
 				4E235223213D12CB003BA59B /* UpdateViewController.m */,
 				4E235224213D12CB003BA59B /* UpdateViewController.h */,
+				4E2352C3213D5B7C003BA59B /* EditEduViewController.m */,
+				4E2352C2213D5B7C003BA59B /* EditEduViewController.h */,
 				4E235225213D12CB003BA59B /* view */,
 			);
 			path = userCenter;
@@ -502,6 +524,12 @@
 				4E235227213D12CB003BA59B /* UITextFieldCustom.h */,
 				4E23522B213D12CB003BA59B /* UISearchBarView.m */,
 				4E235228213D12CB003BA59B /* UISearchBarView.h */,
+				4E846F6E213E619100DC2B51 /* SwitchTableViewCell.h */,
+				4E846F6F213E619100DC2B51 /* SwitchTableViewCell.m */,
+				4E846F71213E781100DC2B51 /* CommSelectTableViewCell.h */,
+				4E846F72213E781100DC2B51 /* CommSelectTableViewCell.m */,
+				4E846F7C213EB16200DC2B51 /* CustomPicker.h */,
+				4E846F7D213EB16200DC2B51 /* CustomPicker.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -595,6 +623,10 @@
 			children = (
 				3E043B89213C15470044CD77 /* default_avatar@2x.png */,
 				3E043B8A213C15470044CD77 /* default_avatar@3x.png */,
+				4E846F78213E84E900DC2B51 /* write@2x.png */,
+				4E846F79213E84E900DC2B51 /* write@3x.png */,
+				4E846F74213E7AEC00DC2B51 /* arrow@2x.png */,
+				4E846F75213E7AEC00DC2B51 /* arrow@3x.png */,
 				3E043B8B213C15480044CD77 /* menu@2x.png */,
 				3E043B86213C15470044CD77 /* menu@3x.png */,
 				3E043B8D213C15480044CD77 /* phone@2x.png */,
@@ -853,6 +885,7 @@
 				57B0990921256E840010597B /* close.png in Resources */,
 				4E2351CA213BB5DF003BA59B /* searchIcon@2x.png in Resources */,
 				57B0990721256E840010597B /* bg_1.png in Resources */,
+				4E846F77213E7AED00DC2B51 /* arrow@3x.png in Resources */,
 				57B0990821256E840010597B /* bg_3.png in Resources */,
 				3E043B97213C15480044CD77 /* phone@2x.png in Resources */,
 				BFCE80B42123CB59008F3A7F /* Localizable.strings in Resources */,
@@ -902,6 +935,7 @@
 				C5EEA9C145CEE1C7091EA50F /* info@3x.png in Resources */,
 				E11E1C22447E15F69ECEC8B8 /* back_arrow.png in Resources */,
 				E11E18380D1E9ABDF5847389 /* back_arrow@2x.png in Resources */,
+				4E846F7B213E84E900DC2B51 /* write@3x.png in Resources */,
 				E11E12D10529E6D2850338EF /* back_arrow@3x.png in Resources */,
 				E11E18B9A4153312FC2763EE /* brain_light.png in Resources */,
 				E11E147527F5A0FE7C753405 /* brain_light@2x.png in Resources */,
@@ -915,6 +949,7 @@
 				E11E10470B06180C4BB04077 /* home_light.png in Resources */,
 				E11E1D476DC9F760321CA383 /* home_light@2x.png in Resources */,
 				E11E15AC6D3EB73F0FA2CF4F /* home_light@3x.png in Resources */,
+				4E846F7A213E84E900DC2B51 /* write@2x.png in Resources */,
 				E11E1121C662C4950DC65395 /* home.png in Resources */,
 				E11E14F9F8B1AE1BBF1EAB35 /* home@2x.png in Resources */,
 				E11E121A983BDF4DEF091ACC /* home@3x.png in Resources */,
@@ -934,6 +969,7 @@
 				E11E10F2AE11CD736A117618 /* school.png in Resources */,
 				E11E1CEB710B43B4981CFA0B /* school@2x.png in Resources */,
 				E11E162105B0A55732748221 /* school@3x.png in Resources */,
+				4E846F76213E7AED00DC2B51 /* arrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -985,6 +1021,7 @@
 			files = (
 				574B3A31212338E100C37095 /* main.m in Sources */,
 				574B3A23212338DF00C37095 /* AppDelegate.m in Sources */,
+				4E846F7E213EB16200DC2B51 /* CustomPicker.m in Sources */,
 				4E1957492137D0F100420563 /* LinkedInConnectionHandler.m in Sources */,
 				4EBCE6C5212D0AED00A0672D /* ContactTableViewCell.m in Sources */,
 				E11E10BD74EC149921ADD708 /* LoginController.m in Sources */,
@@ -993,6 +1030,7 @@
 				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,
 				C5EEA9E893F712BA5CC4938D /* TextSize.m in Sources */,
 				4E19573E2137D0F100420563 /* PermissionNetworkFields.m in Sources */,
+				4E846F73213E781100DC2B51 /* CommSelectTableViewCell.m in Sources */,
 				4E1957482137D0F100420563 /* LinkedInServiceManager.m in Sources */,
 				C5EEAB1B08FE088DAFBA7763 /* Fonts.m in Sources */,
 				C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */,
@@ -1003,6 +1041,7 @@
 				4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
+				4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */,
 				4E1957432137D0F100420563 /* LinkedinAuthorizationNavBar.m in Sources */,
 				4E23522C213D12CB003BA59B /* UpdateViewController.m in Sources */,
 				4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */,
@@ -1023,6 +1062,7 @@
 				C5EEA2B81C84D4F3EDB29C44 /* NSMutableAttributedString+customed.m in Sources */,
 				3E043B85213BC4480044CD77 /* ProfileTailTableViewCell.m in Sources */,
 				C5EEAA269C87F480239BF21E /* TapGesture.m in Sources */,
+				4E846F70213E619100DC2B51 /* SwitchTableViewCell.m in Sources */,
 				C5EEA2BA0180646BF8FF57BF /* Platform.m in Sources */,
 				4E19573F2137D0F100420563 /* PermissionBasicProfileFields.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,

@@ -10,6 +10,11 @@
 #import "Fonts.h"
 #import "Common.h"
 
+@interface ProfileTailTableViewCell(){
+    NSInteger  _lineType;
+}
+
+@end
 @implementation ProfileTailTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -51,10 +56,30 @@
 
 - (void)setData:(Profile *) profile{
 
+    _lineType = profile.lineType;
     _specialityTitle.text=profile.specialityTitle;
     _speciality.text=profile.speciality;
     [_avatar sd_setImageWithURL:[NSURL URLWithString:profile.avatatUrl]
                placeholderImage:[UIImage imageNamed:profile.avataName]];
+    
+}
+
+
+-(void)drawRect:(CGRect)rect{
+    
+    CGContextRef context =UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+    CGContextFillRect(context, rect);
+    
+    //seperate line
+    CGContextSetStrokeColorWithColor(context,rgb255(0xe9,0xed, 0xf1).CGColor);
+    if (_lineType==0) {
+        CGContextStrokeRect(context,CGRectMake(0, rect.size.height-0.5, rect.size.width,1));
+    }else{
+        CGContextStrokeRect(context,CGRectMake(79, rect.size.height-0.5, rect.size.width,1));
+    }
+    
+    
     
 }
 

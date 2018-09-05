@@ -25,14 +25,12 @@
 	self.window = [[UIWindow alloc] init];
 	self.window.frame = [[UIScreen mainScreen] bounds];
 	self.window.backgroundColor = UIColor.whiteColor;
-
-	[self configGlobalStyle];
-//	LoginController *lc = [[LoginController alloc] init];
-//	self.window.rootViewController = lc;
-	BaseNavController *nc = [BaseNavController new];
-	ProfileViewController *c = [ProfileViewController new];
-	[nc pushViewController:c animated:NO];
-	self.window.rootViewController = nc;
+    LoginController *c = [[LoginController alloc] init];
+//    self.window.rootViewController = lc;
+    BaseNavController *nc = [BaseNavController new];
+//    ProfileViewController *c = [ProfileViewController new];
+    [nc pushViewController:c animated:NO];
+    self.window.rootViewController = nc ;
 	[self.window makeKeyAndVisible];
 	return YES;
 }

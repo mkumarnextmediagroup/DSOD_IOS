@@ -25,8 +25,8 @@
     
     UINavigationItem *item = self.navigationItem;
     item.title = localStr(@"editProfile");
-    item.rightBarButtonItem = [self navBarText:@"SAVE" action:@selector(saveBtnClick:)];
-    item.leftBarButtonItem = [self navBarImage:@"back_arrow" action:@selector(back)];
+    item.rightBarButtonItem = [self navBarText:@"SAVE" target:self  action:@selector(saveBtnClick:)];
+    item.leftBarButtonItem = [self navBarImage:@"back_arrow"  target:self  action:@selector(back)];
     
     
     myTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];

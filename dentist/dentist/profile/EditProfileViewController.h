@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TitlePage.h"
 #import "Common.h"
 
-@interface EditProfileViewController : TitlePage
+@interface EditProfileViewController : BaseController
 
 @end

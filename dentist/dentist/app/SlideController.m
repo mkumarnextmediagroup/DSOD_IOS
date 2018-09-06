@@ -24,38 +24,61 @@
 
 	self.view.backgroundColor = UIColor.whiteColor;
 
-	IconLabelView *vCMS = [self addMenuItem:@"icon-99" label:@"General Content"];
-	IconLabelView *v2 = [self addMenuItem:@"brain" label:@"Education"];
-	IconLabelView *v3 = [self addMenuItem:@"icon-99" label:@"Careers"];
-	IconLabelView *v4 = [self addMenuItem:@"a" label:@"Events"];
-	IconLabelView *v5 = [self addMenuItem:@"icon-99" label:@"Unite"];
-	IconLabelView *vProfile = [self addMenuItem:@"icon-99" label:@"My Profile"];
-	IconLabelView *vSetting = [self addMenuItem:@"setting" label:@"Settings"];
+
+	UIButton *bCms = [self makeButtonItem:@"General Content" image:@"menu-dso"];
+	UIButton *bEdu = [self makeButtonItem:@"Education" image:@"menu-edu"];
+	UIButton *bCareer = [self makeButtonItem:@"Careers" image:@"menu-community"];
+	UIButton *bEvent = [self makeButtonItem:@"Events" image:@"menu-calendar"];
+	UIButton *bUnite = [self makeButtonItem:@"Unite" image:@"menu-unite"];
+	UIButton *bProfile = [self makeButtonItem:@"My Profile" image:@"menu-profile"];
+	UIButton *bSetting = [self makeButtonItem:@"Settings" image:@"menu-settings"];
+
 
 	QueueLayout *ql = [QueueLayout new];
 	ql.edgeLeft = 18;
 	ql.edgeRight = 0;
 
-	[ql add:vCMS height:50 marginTop:100];
+	[ql add:bCms height:50 marginTop:100];
 	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:v2 height:50 marginTop:0];
+	[ql add:bEdu height:50 marginTop:0];
 	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:v3 height:50 marginTop:0];
+	[ql add:bCareer height:50 marginTop:0];
 	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:v4 height:50 marginTop:0];
+	[ql add:bEvent height:50 marginTop:0];
 	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:v5 height:50 marginTop:0];
+	[ql add:bUnite height:50 marginTop:0];
 	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:vProfile height:50 marginTop:0];
+	[ql add:bProfile height:50 marginTop:0];
 	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:vSetting height:50 marginTop:0];
+	[ql add:bSetting height:50 marginTop:0];
 	[ql add:[self addLine] height:1 marginTop:0];
 	[ql install];
 
-	[vProfile onClick:self action:@selector(openProfilePage:)];
-	[vCMS onClick:self action:@selector(openCMSPage:)];
-	[vSetting onClick:self action:@selector(openSettingPage:)];
+	[bProfile onClick:self action:@selector(openProfilePage:)];
+	[bCms onClick:self action:@selector(openCMSPage:)];
+	[bSetting onClick:self action:@selector(openSettingPage:)];
 
+}
+
+- (UIButton *)makeButtonItem:(NSString *)label image:(NSString *)image {
+	UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
+
+	[b setTitle:label forState:UIControlStateNormal];
+
+	[b setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
+	[b setTitleColor:Colors.textMain forState:UIControlStateSelected];
+	[b setTitleColor:Colors.textMain forState:UIControlStateHighlighted];
+	[b setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+	[b setImage:[UIImage imageNamed:strBuild(image, @"_light")] forState:UIControlStateSelected];
+	b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+	b.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+	b.titleEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0);
+	b.contentEdgeInsets = UIEdgeInsetsMake(15, 0, 15, 0);
+	[b.imageView scaleFit];
+
+
+	[self.view addSubview:b];
+	return b;
 }
 
 - (void)openSettingPage:(id)sender {
@@ -83,7 +106,7 @@
 
 - (UIView *)addLine {
 	UIView *view = self.view.addView;
-	view.backgroundColor = Colors.secondary;
+	view.backgroundColor = Colors.strokes;
 	return view;
 }
 

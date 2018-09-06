@@ -5,12 +5,14 @@
 
 #import <UIKit/UIKit.h>
 #import "JSONModel.h"
+#import "Education.h"
 
-@protocol Residency;
 
-@interface Residency : JSONModel
+@interface Yang : JSONModel
 
-@property(nullable) NSString <Optional> *place;
-@property(nullable) NSString <Optional> *dateCompletion;
+@property NSString *name;
+@property NSInteger age;
+
+@property NSArray <Education> *edu;
 
 @end

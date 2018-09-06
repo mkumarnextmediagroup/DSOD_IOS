@@ -4,12 +4,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JSONModel.h"
 
+@protocol Education;
 
-@interface Education : NSObject
+@interface Education : JSONModel
 
-@property NSString *schoolName;
-@property NSString *dateGraduation;
+@property NSString <Optional> *schoolName;
+@property(nullable) NSString <Optional> *dateGraduation;
 @property BOOL attendDentalSchoolInUS;
 
 

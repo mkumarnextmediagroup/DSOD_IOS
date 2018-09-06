@@ -35,15 +35,15 @@
 
 + (UserInfo *)addExperience:(nonnull NSString *)email exp:(Experience *)exp;
 
-+ (UserInfo *)saveExperience:(nonnull NSString *)email exp:(Experience *)exp;
++ (UserInfo *)saveExperience:(nonnull NSString *)email index:(int)index exp:(Experience *)exp;
 
 + (UserInfo *)addResidency:(nonnull NSString *)email residency:(Residency *)residency;
 
-+ (UserInfo *)saveResidency:(nonnull NSString *)email residency:(Residency *)residency;
++ (UserInfo *)saveResidency:(nonnull NSString *)email index:(int)index residency:(Residency *)residency;
 
 + (UserInfo *)addEducation:(nonnull NSString *)email edu:(Education *)edu;
 
-+ (UserInfo *)saveEducation:(nonnull NSString *)email edu:(Education *)edu;
++ (UserInfo *)saveEducation:(nonnull NSString *)email index:(int)index edu:(Education *)edu;
 
 + (UserInfo *)savePractice:(nonnull NSString *)email address:(Address *)address;
 

@@ -5,6 +5,7 @@
 
 #import "Proto.h"
 #import "UserInfo.h"
+#import "JSONModel+myextend.h"
 
 
 @implementation Proto {
@@ -13,61 +14,124 @@
 
 
 + (UserInfo *)addExperience:(nonnull NSString *)email exp:(Experience *)exp {
-
+	UserInfo *u = [self userInfo:email];
+	if (u.experienceArray == nil) {
+		u.experienceArray = @[exp];
+	} else {
+		NSMutableArray *a = [NSMutableArray arrayWithArray:u.experienceArray];
+		[a addObject:exp];
+		u.experienceArray = a;
+	}
+	[self saveUserInfoLocal:email info:[u toJSONString]];
 	return [self userInfo:email];
 }
 
-+ (UserInfo *)saveExperience:(nonnull NSString *)email exp:(Experience *)exp {
-
++ (UserInfo *)saveExperience:(nonnull NSString *)email index:(int)index exp:(Experience *)exp {
+	UserInfo *u = [self userInfo:email];
+	NSMutableArray *a = [NSMutableArray arrayWithArray:u.experienceArray];
+	a[index] = exp;
+	u.experienceArray = a;
+	[self saveUserInfoLocal:email info:[u toJSONString]];
 	return [self userInfo:email];
 }
 
 + (UserInfo *)addResidency:(nonnull NSString *)email residency:(Residency *)residency {
-
+	UserInfo *u = [self userInfo:email];
+	if (u.residencyArray == nil) {
+		u.residencyArray = @[residency];
+	} else {
+		NSMutableArray *a = [NSMutableArray arrayWithArray:u.residencyArray];
+		[a addObject:residency];
+		u.residencyArray = a;
+	}
+	[self saveUserInfoLocal:email info:[u toJSONString]];
 	return [self userInfo:email];
 }
 
-+ (UserInfo *)saveResidency:(nonnull NSString *)email residency:(Residency *)residency {
-
++ (UserInfo *)saveResidency:(nonnull NSString *)email index:(int)index residency:(Residency *)residency {
+	UserInfo *u = [self userInfo:email];
+	NSMutableArray *a = [NSMutableArray arrayWithArray:u.residencyArray];
+	a[index] = residency;
+	u.residencyArray = a;
+	[self saveUserInfoLocal:email info:[u toJSONString]];
 	return [self userInfo:email];
 }
 
 + (UserInfo *)addEducation:(nonnull NSString *)email edu:(Education *)edu {
-
+	UserInfo *u = [self userInfo:email];
+	if (u.educationArray == nil) {
+		u.educationArray = @[edu];
+	} else {
+		NSMutableArray *a = [NSMutableArray arrayWithArray:u.educationArray];
+		[a addObject:edu];
+		u.educationArray = a;
+	}
+	[self saveUserInfoLocal:email info:[u toJSONString]];
 	return [self userInfo:email];
 }
 
-+ (UserInfo *)saveEducation:(nonnull NSString *)email edu:(Education *)edu {
-
++ (UserInfo *)saveEducation:(nonnull NSString *)email index:(int)index edu:(Education *)edu {
+	UserInfo *u = [self userInfo:email];
+	NSMutableArray *a = [NSMutableArray arrayWithArray:u.educationArray];
+	a[index] = edu;
+	u.educationArray = a;
+	[self saveUserInfoLocal:email info:[u toJSONString]];
 	return [self userInfo:email];
 }
 
 + (UserInfo *)savePractice:(nonnull NSString *)email address:(Address *)address {
-
+	UserInfo *u = [self userInfo:email];
+	u.practiceAddress = address;
+	[self saveUserInfoLocal:email info:[u toJSONString]];
 	return [self userInfo:email];
 }
 
 + (UserInfo *)userInfo:(nonnull NSString *)email {
 
-	NSUserDefaults *d = userConfig(email);
-	NSString *json = [d objectForKey:@"userInfo"];
+	NSString *json = [self userInfoLocal:email];
+	if (json != nil) {
+		return [[UserInfo alloc] initWithJson:json];
+	}
 
-	UserInfo *ui = [UserInfo new];
+	UserInfo *ui = [UserInfo alloc];
 	ui.email = email;
 	ui.fullName = @"Entao Yang";
 	ui.phone = @"15098760059";
 	ui.portraitUrl = nil;
 	ui.specialityId = @"100";
 	ui.specialityLabel = @"Orthodontics";
-	ui.practiceAddress = [Address new];
-	ui.practiceAddress.stateId = @"100";
-	ui.practiceAddress.stateLabel = @"New York";
-	ui.practiceAddress.city = @"New York";
-	ui.practiceAddress.address1 = @"XXX Street XXX ";
-	ui.practiceAddress.address2 = nil;
 
+	Address *addr = [Address new];
+	ui.practiceAddress = addr;
+
+	addr.stateId = @"100";
+	addr.stateLabel = @"New York";
+	addr.city = @"New York";
+	addr.address1 = @"XXX Street XXX ";
+	addr.address2 = nil;
+
+	Education *edu = [Education new];
+	edu.schoolName = @"Peiking University";
+	Education *edu2 = [Education new];
+	edu2.schoolName = @"Tsinghua University";
+	ui.educationArray = @[edu, edu2];
+
+	NSString *s = [ui toJSONString];
+
+	[self saveUserInfoLocal:email info:s];
 
 	return ui;
+}
+
++ (NSString *)userInfoLocal:(NSString *)email {
+	NSUserDefaults *d = userConfig(email);
+	NSString *json = [d objectForKey:@"userInfo"];
+	return json;
+};
+
++ (void)saveUserInfoLocal:(NSString *)email info:(NSString *)info {
+	NSUserDefaults *d = userConfig(email);
+	[d setObject:info forKey:@"userInfo"];
 }
 
 + (BOOL)isLogined {

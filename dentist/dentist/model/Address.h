@@ -4,15 +4,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JSONModel.h"
 
+@protocol Address;
 
-@interface Address : NSObject
+@interface Address : JSONModel
 
-@property NSString *stateId;
-@property NSString *stateLabel;
-@property NSString *city;
-@property NSString *zipCode;
-@property NSString *address1;
-@property NSString *address2;
+@property(nullable) NSString <Optional> *stateId;
+@property(nullable) NSString <Optional> *stateLabel;
+@property(nullable) NSString <Optional> *city;
+@property(nullable) NSString <Optional> *zipCode;
+@property(nullable) NSString <Optional> *address1;
+@property(nullable) NSString <Optional> *address2;
 
 @end

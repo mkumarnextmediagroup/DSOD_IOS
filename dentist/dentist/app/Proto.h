@@ -5,6 +5,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Common.h"
+#import "UserInfo.h"
 
 @class HttpResult;
 
@@ -28,5 +29,22 @@
 //LinkedIn request
 + (HttpResult *)sendLinkedInInfo:(NSString *)access_token;
 
-+(void) logout;
++ (void)logout;
+
++ (UserInfo *)userInfo:(nonnull NSString *)email;
+
++ (UserInfo *)addExperience:(nonnull NSString *)email exp:(Experience *)exp;
+
++ (UserInfo *)saveExperience:(nonnull NSString *)email exp:(Experience *)exp;
+
++ (UserInfo *)addResidency:(nonnull NSString *)email residency:(Residency *)residency;
+
++ (UserInfo *)saveResidency:(nonnull NSString *)email residency:(Residency *)residency;
+
++ (UserInfo *)addEducation:(nonnull NSString *)email edu:(Education *)edu;
+
++ (UserInfo *)saveEducation:(nonnull NSString *)email edu:(Education *)edu;
+
++ (UserInfo *)savePractice:(nonnull NSString *)email address:(Address *)address;
+
 @end

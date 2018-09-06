@@ -240,6 +240,7 @@
 	noticelb.backgroundColor = Colors.secondary;
 	noticelb.textColor = UIColor.whiteColor;
 	noticelb.tag = 11;
+	noticelb.editable = NO;
 	noticelb.textContainerInset = UIEdgeInsetsMake(10, 0, 0, 15);
 	noticelb.font = [Fonts regular:10];
 

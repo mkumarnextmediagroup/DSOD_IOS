@@ -96,7 +96,6 @@
 	LoginController *c = [LoginController new];
 	[self openPage:c];
 
-//	[self toastCenter:@"Hello "];
 
 //	backAction(self, @selector(testThread:), @"");
 

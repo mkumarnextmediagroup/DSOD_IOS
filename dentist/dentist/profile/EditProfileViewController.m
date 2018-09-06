@@ -11,6 +11,8 @@
 #import "CommSelectTableViewCell.h"
 #import "ProfileNormalTableViewCell.h"
 #import "EditWriteTableViewCell.h"
+#import "EditEduViewController.h"
+#import "EditResidencyViewController.h"
 
 @interface EditProfileViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -122,7 +124,7 @@
             break;
         case 1:
         {
-            static NSString *edit_header_Cell = @"userCell";
+            static NSString *edit_header_Cell = @"editCell";
             
             CommSelectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:edit_header_Cell];
             
@@ -147,7 +149,7 @@
             break;
         case 2:
         {
-            static NSString *edit_header_Cell = @"userCell";
+            static NSString *edit_header_Cell = @"uploadCell";
             
             ProfileNormalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:edit_header_Cell];
             
@@ -167,7 +169,7 @@
             break;
         case 3:
         {
-            static NSString *edit_header_Cell = @"userCell";
+            static NSString *edit_header_Cell = @"residenCell";
             
             ProfileNormalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:edit_header_Cell];
             
@@ -188,7 +190,7 @@
             break;
         case 4:
         {
-            static NSString *edit_header_Cell = @"userCell";
+            static NSString *edit_header_Cell = @"eduCell";
             
             ProfileNormalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:edit_header_Cell];
             
@@ -308,6 +310,11 @@
     return nil;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return nil;
+    
+}
+
 //edit header image button click
 - (void)editHeaderImg
 {
@@ -331,11 +338,17 @@
         case 13://click the add Residency button
         {
             NSLog(@"Residency button click");
+            EditResidencyViewController *editRes = [EditResidencyViewController new];
+            editRes.titleStr = @"ADD RESIDENCY";
+            editRes.btnTitle = @"Cancel";
+            [self.navigationController pushViewController:editRes animated:YES];
         }
             break;
         case 14://click the add Education button
         {
             NSLog(@"Education button click");
+            EditEduViewController *editEdu = [EditEduViewController new];
+            [self.navigationController pushViewController:editEdu animated:YES];
         }
             break;
         default:

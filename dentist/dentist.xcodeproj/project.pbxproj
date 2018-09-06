@@ -60,6 +60,7 @@
 		4E846F8E213FCB8D00DC2B51 /* edit_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8C213FCB8C00DC2B51 /* edit_photo@3x.png */; };
 		4E846F8F213FCB8D00DC2B51 /* edit_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8D213FCB8D00DC2B51 /* edit_photo@2x.png */; };
 		4E846F92213FFEB300DC2B51 /* EditWriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F91213FFEB300DC2B51 /* EditWriteTableViewCell.m */; };
+		4E846F952140FCD200DC2B51 /* EditResidencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F942140FCD200DC2B51 /* EditResidencyViewController.m */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -460,6 +461,8 @@
 		4E846F8D213FCB8D00DC2B51 /* edit_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_photo@2x.png"; sourceTree = "<group>"; };
 		4E846F90213FFEB300DC2B51 /* EditWriteTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditWriteTableViewCell.h; sourceTree = "<group>"; };
 		4E846F91213FFEB300DC2B51 /* EditWriteTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditWriteTableViewCell.m; sourceTree = "<group>"; };
+		4E846F932140FCD200DC2B51 /* EditResidencyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditResidencyViewController.h; sourceTree = "<group>"; };
+		4E846F942140FCD200DC2B51 /* EditResidencyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditResidencyViewController.m; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -926,8 +929,10 @@
 				4E2352C2213D5B7C003BA59B /* EditEduViewController.h */,
 				4E235223213D12CB003BA59B /* UpdateViewController.m */,
 				4E235224213D12CB003BA59B /* UpdateViewController.h */,
-				4E846F7F213F70A200DC2B51 /* PickerViewController.h */,
 				4E846F80213F70A200DC2B51 /* PickerViewController.m */,
+				4E846F7F213F70A200DC2B51 /* PickerViewController.h */,
+				4E846F942140FCD200DC2B51 /* EditResidencyViewController.m */,
+				4E846F932140FCD200DC2B51 /* EditResidencyViewController.h */,
 				4E235225213D12CB003BA59B /* view */,
 			);
 			path = userCenter;
@@ -1927,6 +1932,7 @@
 				C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */,
 				4E1957472137D0F100420563 /* LinkedInAuthorizationViewController.m in Sources */,
 				C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */,
+				4E846F952140FCD200DC2B51 /* EditResidencyViewController.m in Sources */,
 				C5EEAF6A040452F10D489279 /* NSString+myextend.m in Sources */,
 				C5EEA1CB9C55E45C1CF0F710 /* UIUtil.m in Sources */,
 				4E2351A2213A76ED003BA59B /* UISearchBar+style.m in Sources */,
@@ -2100,7 +2106,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 48BA5XP347;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -2126,7 +2132,17 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/**";
+				USER_HEADER_SEARCH_PATHS = (
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+				);
 			};
 			name = Debug;
 		};
@@ -2137,7 +2153,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 48BA5XP347;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -2163,7 +2179,17 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/** \"${PROJECT_DIR}/../Pods\"/**";
+				USER_HEADER_SEARCH_PATHS = (
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
+				);
 			};
 			name = Release;
 		};

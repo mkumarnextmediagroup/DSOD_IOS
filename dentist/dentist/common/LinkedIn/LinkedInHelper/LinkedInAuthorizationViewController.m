@@ -36,7 +36,29 @@ NSString * const linkedinIosHelperDomain = @"com.linkedinioshelper";
     return self;
 }
 
+- (void)cleanCacheAndCookie{
+    //clear cookies
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [storage cookies]){
+        [storage deleteCookie:cookie];
+    }
+    //clear UIWebView cookies
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    NSURLCache * cache = [NSURLCache sharedURLCache];
+    [cache removeAllCachedResponses];
+    [cache setDiskCapacity:0];
+    [cache setMemoryCapacity:0];
+}
+
+
 #pragma mark - View Lifecycle -
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self cleanCacheAndCookie];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -34,9 +34,20 @@
 		[Proto login:@"entaoyang@126.com" pwd:@"Yang2018"];
 //		[Proto sendEmailCode:@"entaoyang@126.com"];
 	});
-    
-    EditProfileViewController *edit = [EditProfileViewController new];
-    [self.navigationController pushViewController:edit animated:YES];
+
+	EditProfileViewController *edit = [EditProfileViewController new];
+	[self.navigationController pushViewController:edit animated:YES];
+}
+
+- (void)onClickMenu:(id)sender {
+	backTask(^() {
+//		[Proto register:@"entaoyang@126.com" pwd:@"Yang2008" name:@"Entao Yang"];
+		[Proto login:@"entaoyang@126.com" pwd:@"Yang2018"];
+//		[Proto sendEmailCode:@"entaoyang@126.com"];
+	});
+
+	EditProfileViewController *edit = [EditProfileViewController new];
+	[self.navigationController pushViewController:edit animated:YES];
 }
 
 - (void)viewDidLoad {
@@ -44,7 +55,6 @@
 
 	UINavigationItem *item = self.navigationItem;
 	item.title = @"PROFILE";
-	item.leftBarButtonItem = [self navBarImage:@"menu" target:self action:@selector(onClickEdit:)];
 	item.rightBarButtonItems = @[
 			[self navBarImage:@"edit" target:self action:@selector(onClickEdit:)],
 			[self navBarText:@"Edit" target:self action:@selector(onClickEdit:)]

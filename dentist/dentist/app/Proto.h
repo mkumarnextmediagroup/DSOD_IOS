@@ -11,6 +11,9 @@
 
 @interface Proto : NSObject
 
+
+@property(class) BOOL isLogined;
+
 @property(class) NSString *lastAccount;
 @property(class) NSString *lastToken;
 
@@ -24,4 +27,6 @@
 
 //LinkedIn request
 + (HttpResult *)sendLinkedInInfo:(NSString *)access_token;
+
++(void) logout;
 @end

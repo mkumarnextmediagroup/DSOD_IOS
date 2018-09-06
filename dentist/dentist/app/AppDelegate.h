@@ -10,8 +10,13 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) UIViewController *presentingController;
+@property(strong, nonatomic) UIWindow *window;
+@property(strong, nonatomic) UIViewController *presentingController;
+
+@property(class) AppDelegate *instance;
+
+-(void) switchToMainPage;
+-(void) switchToWelcomePage;
 
 @end
 

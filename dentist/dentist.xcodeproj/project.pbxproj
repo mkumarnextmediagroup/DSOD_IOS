@@ -234,6 +234,7 @@
 		E11E18380D1E9ABDF5847389 /* back_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E1FC90E8E6DC3218F723F /* back_arrow@2x.png */; };
 		E11E187D6C87EE6E7F5A6BC4 /* edit_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E1110ECCB52A0E3FC6BEF /* edit_photo.png */; };
 		E11E187E33228929B0A17EE4 /* a@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E12FB868BA6B088D7636F /* a@3x.png */; };
+		E11E1895C8DEDD3F910A9E71 /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = E11E1251F0FF5E605CBBBFEC /* SettingController.m */; };
 		E11E18B9A4153312FC2763EE /* brain_light.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E10CE7CF468642885FEC8 /* brain_light.png */; };
 		E11E18DEA9538DAE333F1686 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E10D9144290852D461549 /* user.png */; };
 		E11E18E75791AACDCB52A653 /* user_light@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E1E4DCF39E494236C373F /* user_light@3x.png */; };
@@ -533,6 +534,7 @@
 		E11E1201A20178DF5A3A24CF /* CmsDownloadsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CmsDownloadsController.m; sourceTree = "<group>"; };
 		E11E12073502B55E75DB7AF5 /* help_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help_light.png; sourceTree = "<group>"; };
 		E11E12200FA3E582287FDFC0 /* bookmark_light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookmark_light@2x.png"; sourceTree = "<group>"; };
+		E11E1251F0FF5E605CBBBFEC /* SettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingController.m; sourceTree = "<group>"; };
 		E11E128423BBC361BF1FA483 /* check2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check2.png; sourceTree = "<group>"; };
 		E11E1288D77A4D5A928C5A66 /* UIViewController+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+myextend.h"; sourceTree = "<group>"; };
 		E11E12C059AD3027E618BFB3 /* uncheck2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uncheck2@2x.png"; sourceTree = "<group>"; };
@@ -629,6 +631,7 @@
 		E11E1BDE4FFFFBA1D1D33601 /* c_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_light.png; sourceTree = "<group>"; };
 		E11E1BE80761C6B69DB00E39 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E11E1C09E673807C3F308DDD /* search_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_pressed.png; sourceTree = "<group>"; };
+		E11E1C29F95B945FA30387AD /* SettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingController.h; sourceTree = "<group>"; };
 		E11E1C6802559A6A3739C7E7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E11E1C858E4B106ABB6C48BC /* UserConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserConfig.m; sourceTree = "<group>"; };
 		E11E1CB7F11FD0581831FF12 /* search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@3x.png"; sourceTree = "<group>"; };
@@ -889,6 +892,7 @@
 				E11E19B1ECDCD262FD50AD67 /* cms */,
 				E11E178C4ADE7E21C8EAC14C /* app */,
 				E11E12C30F6ABD3B1046F73F /* Info.plist */,
+				E11E10DDCDC91731FB8D96E1 /* Settings */,
 			);
 			path = dentist;
 			sourceTree = "<group>";
@@ -1194,6 +1198,15 @@
 				C5EEA1860B2742E7ECFF40DC /* IconLabelView.h */,
 			);
 			path = common;
+			sourceTree = "<group>";
+		};
+		E11E10DDCDC91731FB8D96E1 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E11E1C29F95B945FA30387AD /* SettingController.h */,
+				E11E1251F0FF5E605CBBBFEC /* SettingController.m */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		E11E178C4ADE7E21C8EAC14C /* app */ = {
@@ -1630,6 +1643,7 @@
 				C5EEACBF759E368D6653D927 /* QueueLayout.m in Sources */,
 				C5EEA2B94B1448427D266481 /* QueueLayoutItem.m in Sources */,
 				C5EEAB5B6FF45C046B7CF9E6 /* IconLabelView.m in Sources */,
+				E11E1895C8DEDD3F910A9E71 /* SettingController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

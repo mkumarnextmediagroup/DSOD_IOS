@@ -16,10 +16,23 @@
 	self = [super init];
 
 	self.y = SCREENHEIGHT / 2;
-	self.font = [Fonts regular:10];
-	self.backColor = rgba255(94, 110, 122, 100);
+	self.font = [Fonts regular:12];
+	self.backColor = Colors.secondary;
 	self.textColor = [UIColor whiteColor];
+	self.timeout = 5000;
 
 	return self;
 }
+
+- (void)below:(UIView *)v offsetY:(CGFloat)offsetY {
+	CGRect r = [v toScreenFrame];
+	self.y = r.origin.y + r.size.height + offsetY;
+}
+
+
+- (void)show {
+
+}
+
+
 @end

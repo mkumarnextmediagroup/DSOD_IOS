@@ -17,5 +17,6 @@
 
 @property int timeout;
 
+- (void)below:(UIView *)v offsetY:(CGFloat)offsetY;
 
 @end

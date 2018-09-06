@@ -7,9 +7,18 @@
 #import "UITextField+styled.h"
 #import "Common.h"
 #import "AppDelegate.h"
+#import "ToastItem.h"
 
 @implementation BaseController {
+	UIView *toastView;
+	NSMutableArray *toastArray;
+}
 
+- (instancetype)init {
+	self = [super init];
+	toastView = nil;
+	toastArray = [NSMutableArray arrayWithCapacity:8];
+	return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -242,6 +251,63 @@
 	rightLabel.text = title;
 	rightLabel.textAlignment = NSTextAlignmentCenter;
 	[[[[[content layoutMaker] sizeFit] centerYParent:0] toRightOf:rightBtn offset:10.5] install];
+}
+
+- (void)toastCenter:(NSString *)text {
+	ToastItem *item = [ToastItem new];
+	item.text = text;
+	item.y = SCREENHEIGHT / 2;
+	[toastArray addObject:item];
+	[self nextToast];
+}
+
+- (void)toastBelow:(UIView *)anchor text:(NSString *)text {
+	CGRect r = [anchor toScreenFrame];
+	ToastItem *item = [ToastItem new];
+	item.text = text;
+	item.y = r.origin.y + r.size.height + 15;
+	[toastArray addObject:item];
+	[self nextToast];
+}
+
+- (void)nextToast {
+	if (toastArray.count == 0) {
+		return;
+	}
+	ToastItem *item = toastArray[0];
+	[toastArray removeObjectAtIndex:0];
+
+	if (toastView == nil) {
+		toastView = [self buildToastView:item];
+	}
+
+}
+
+- (UIView *)buildToastView:(ToastItem *)item {
+	UIView *v = self.view.addView;
+	v.backgroundColor = rgba255(94, 110, 122, 100);
+	[[[[[[v layoutMaker] leftParent:22] rightParent:-22] topParent:item.y] heightEq:40] install];
+
+	UILabel *lb = v.addLabel;
+	lb.text = item.text;
+	lb.numberOfLines = 0;
+	[lb textColorWhite];
+	lb.font = [Fonts regular:10];
+	[[[[[lb layoutMaker] sizeFit] leftParent:10] centerYParent:0] install];
+
+	UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+	[v addSubview:btn];
+	[btn setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+	[[[[[btn layoutMaker] sizeEq:40 h:40] rightParent:0] centerYParent:0] install];
+
+	[btn onClick:self action:@selector(clickToastButton:)];
+
+
+	return v;
+}
+
+- (void)clickToastButton:(id)sender {
+
 }
 
 

@@ -22,8 +22,7 @@
 }
 
 + (HttpResult *)resetPwd:(NSString *)email pwd:(NSString *)pwd code:(NSString *)code {
-	NSString *s = jsonBuild(@{@"username": email, @"password": pwd, @"email_token": code});
-	return [self postBody:@"userAccount/resetPassWord" body:s];
+	return [self postBody:@"userAccount/resetPassWord" dic:@{@"username": email, @"password": pwd, @"email_token": code}];
 }
 
 
@@ -32,7 +31,7 @@
 }
 
 + (HttpResult *)sendLinkedInInfo:(NSString *)access_token {
-	return [self get:@"linkedInLogin" key:@"accessToken" param:access_token];
+	return [self post:@"linkedInLogin" dic:@{@"accessToken": access_token}];
 }
 
 
@@ -46,8 +45,7 @@
 }
 
 + (HttpResult *)login:(NSString *)email pwd:(NSString *)pwd {
-	NSString *s = jsonBuild(@{@"username": email, @"password": pwd});
-	HttpResult *r = [self postBody:@"userAccount/login" body:s];
+	HttpResult *r = [self postBody:@"userAccount/login" dic:@{@"username": email, @"password": pwd}];
 	if (r.OK) {
 		NSDictionary *d = r.resultMap;
 		if (d != nil) {
@@ -61,8 +59,8 @@
 
 + (HttpResult *)register:(NSString *)email pwd:(NSString *)pwd name:(NSString *)name student:(BOOL)student {
 	NSNumber *stu = @(student);
-	NSString *s = jsonBuild(@{@"username": email, @"password": pwd, @"full_name": name, @"student": stu});
-	HttpResult *r = [self postBody:@"userAccount/register" body:s];
+	NSDictionary *d = @{@"username": email, @"password": pwd, @"full_name": name, @"student": stu};
+	HttpResult *r = [self postBody:@"userAccount/register" dic:d];
 	if (r.OK) {
 		NSDictionary *d = r.resultMap;
 		if (d != nil) {
@@ -76,32 +74,25 @@
 	return r;
 }
 
-+ (HttpResult *)postBody:(NSString *)action
-                    body:
-		                    (NSString *)body {
++ (HttpResult *)postBody:(NSString *)action dic:(NSDictionary *)dic {
 	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
 	Http *h = [Http new];
 	h.url = strBuild(baseUrl, action);
 	[h contentTypeJson];
 
-	NSDictionary *d = jsonParse(body);
-	NSMutableDictionary *md = [NSMutableDictionary dictionaryWithDictionary:d];
+	NSMutableDictionary *md = [NSMutableDictionary dictionaryWithDictionary:dic];
 	md[@"client_id"] = @"fooClientIdPassword";
 	NSString *s = jsonBuild(md);
 	HttpResult *r = [h postRaw:s.dataUTF8];
 	return r;
 }
 
-+ (HttpResult *)get:(NSString *)action
-                key:
-		                (NSString *)key
-              param:
-		              (NSString *)param {
++ (HttpResult *)get:(NSString *)action dic:(NSDictionary *)dic {
 	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
 	Http *h = [Http new];
-	h.url = strBuild(baseUrl, action, @"/", param.urlEncoded, @"/", @"fooClientIdPassword");
-//	h.url = strBuild(baseUrl, action);
-//    [h arg:key value:param];
+	h.url = strBuild(baseUrl, action);
+	[h arg:@"client_id" value:@"fooClientIdPassword"];
+	[h args:dic];
 	HttpResult *r = [h get];
 	return r;
 }
@@ -110,6 +101,7 @@
 	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
 	Http *h = [Http new];
 	h.url = strBuild(baseUrl, action);
+	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
 	HttpResult *r = [h post];
 	return r;

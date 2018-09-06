@@ -61,7 +61,10 @@
             return 78;
             break;
         case 5:
-            return 72;
+            return 78;
+            break;
+        case 6:
+            return 78;
             break;
         default:
             break;
@@ -71,7 +74,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 6;
+    return 7;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -84,16 +87,19 @@
             return 2;
             break;
         case 2:
-            return 1;
+            return 2;
             break;
         case 3:
-            return 1;
+            return 2;
             break;
         case 4:
-            return 2;
+            return 1;
             break;
         case 5:
             return 2;
+            break;
+        case 6:
+            return 3;
             break;
         default:
             break;
@@ -158,9 +164,18 @@
                         initWithStyle:UITableViewCellStyleDefault
                         reuseIdentifier:edit_header_Cell];
             }
-            cell.avatar.image = [UIImage imageNamed:@"cloud"];
-            cell.name.text = localStr(@"upResume");
-            cell.specialityTitle.text = localStr(@"professional");
+            if (indexPath.row == 0) {
+                cell.avatar.image = [UIImage imageNamed:@"cloud"];
+                cell.name.text = localStr(@"upResume");
+                cell.specialityTitle.text = localStr(@"professional");
+
+            }else
+            {
+                cell.avatar.image = [UIImage imageNamed:@"in_large"];
+                cell.name.text = localStr(@"import");
+                cell.specialityTitle.text = localStr(@"information");
+
+            }
             cell.specialityTitle.frame = CGRectMake(78, 33, SCREENWIDTH - 130, 34);
             cell.specialityTitle.numberOfLines = 0;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -168,6 +183,36 @@
         }
             break;
         case 3:
+        {
+            static NSString *edit_header_Cell = @"experienCell";
+            
+            ProfileNormalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:edit_header_Cell];
+            
+            if (cell == nil) {
+                cell = [[ProfileNormalTableViewCell alloc]
+                        initWithStyle:UITableViewCellStyleDefault
+                        reuseIdentifier:edit_header_Cell];
+            }
+            
+            if (indexPath.row == 0) {
+                cell.avatar.image = [UIImage imageNamed:@"dental-blue"];
+                cell.name.text = @"Owner Dentist";
+                cell.specialityTitle.text = @"Smile Dental(Aspen)";
+                cell.speciality.text = @"June 2017 - Present";
+                
+            }else
+            {
+                cell.avatar.image = [UIImage imageNamed:@"icon-98"];
+                cell.name.text = @"Associate Dentist";
+                cell.specialityTitle.text = @"Boston Hostpital";
+                cell.speciality.text = @"April 2013 - May 2017";
+                
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
+            break;
+        case 4:
         {
             static NSString *edit_header_Cell = @"residenCell";
             
@@ -188,7 +233,7 @@
             return cell;
         }
             break;
-        case 4:
+        case 5:
         {
             static NSString *edit_header_Cell = @"eduCell";
             
@@ -219,28 +264,42 @@
             return cell;
         }
             break;
-        case 5:
+        case 6:
         {
-            static NSString *edit_header_Cell = @"phoneCell";
-            
-            EditWriteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:edit_header_Cell];
-            
-            if (cell == nil) {
-                cell = [[EditWriteTableViewCell alloc]
-                        initWithStyle:UITableViewCellStyleDefault
-                        reuseIdentifier:edit_header_Cell];
-            }
-            
             if (indexPath.row == 0) {
-                cell.titleLab.text = @"Mobile Number";
+                static NSString *edit_header_Cell = @"addressCell";
+                CommSelectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:edit_header_Cell];
+                
+                if (cell == nil) {
+                    cell = [[CommSelectTableViewCell alloc]
+                            initWithStyle:UITableViewCellStyleDefault
+                            reuseIdentifier:edit_header_Cell];
+                }
+                cell.titleLab.text = @"Practice address";
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                return cell;
             }else
             {
-                cell.titleLab.text = @"Preferred email address";
+                static NSString *edit_header_Cell = @"phoneCell";
+                
+                EditWriteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:edit_header_Cell];
+                
+                if (cell == nil) {
+                    cell = [[EditWriteTableViewCell alloc]
+                            initWithStyle:UITableViewCellStyleDefault
+                            reuseIdentifier:edit_header_Cell];
+                }
+                
+                if (indexPath.row == 1) {
+                    cell.titleLab.text = @"Mobile Number";
+                }else if (indexPath.row == 2)
+                {
+                    cell.titleLab.text = @"Preferred email address";
+                }
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                return cell;
             }
-            
-            
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
         }
             break;
         default:
@@ -291,14 +350,18 @@
                 label.text = localStr(@"uploadResu");
                 break;
             case 3:
-                label.text = @"Residency";
+                label.text = @"Experience";
                 addBtn.hidden = NO;
                 break;
             case 4:
-                label.text = @"Education";
+                label.text = @"Residency";
                 addBtn.hidden = NO;
                 break;
             case 5:
+                label.text = @"Education";
+                addBtn.hidden = NO;
+                break;
+            case 6:
                 label.text = @"Contact info";
                 break;
             default:

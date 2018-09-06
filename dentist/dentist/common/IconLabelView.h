@@ -6,7 +6,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface IconLabelView : UIView
+@interface IconLabelView : UIControl
 
 @property(readonly) UIImageView *imageView;
 @property(readonly) UILabel *labelView;

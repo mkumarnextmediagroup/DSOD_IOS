@@ -52,7 +52,7 @@
 	[ql add:[self addLine] height:1 marginTop:0];
 	[ql install];
 
-	[v6 onClickView:self action:@selector(openProfilePage:)];
+	[v6 onClick:self action:@selector(openProfilePage:)];
 
 }
 

@@ -25,7 +25,7 @@
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"SETTING";
 	item.rightBarButtonItems = @[
-			[self navBarText:@"Logout" target:self action:@selector(onClickLogout:)]
+        [self navBarText:@"Logout" target:self action:@selector(onClickLogout:)]
 	];
 
 
@@ -34,6 +34,8 @@
 - (void)onClickLogout:(id)sender {
 	[Proto logout];
 	[AppDelegate.instance switchToWelcomePage];
+    LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
+    [linkedIn logout];
 }
 
 - (void)onClickEdit:(id)sender {

@@ -82,3 +82,5 @@
 "professional" = "Your professional information will be imported automatically";
 "userCamera" = "DSODentist would like to access your Camera";
 "usePhoto" = "Your photos will be used solely for setting up your profile photo";
+"import" = "Import from LinkedIn";
+"information" = "Information imported from LinkedIn will not be shared without your permission";

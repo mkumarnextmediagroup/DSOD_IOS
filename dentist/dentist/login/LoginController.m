@@ -170,18 +170,18 @@
 
 	[emailEdit keyboardEmail];
 	[pwdEdit keyboardDefault];
-    [self checkIfRegistByTouchIDorFaceID];
+	[self checkIfRegistByTouchIDorFaceID];
 }
 
 
--(void)checkIfRegistByTouchIDorFaceID{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *account = [userDefaults objectForKey:@"lastAccessUser"];
-    BOOL enabled = [userDefaults boolForKey:@"enableTouchIDorFaceID"];
-    if(enabled){
-        emailEdit.text=account;
-        [self evaluatePolicy];
-    }
+- (void)checkIfRegistByTouchIDorFaceID {
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *account = [userDefaults objectForKey:@"lastAccessUser"];
+	BOOL enabled = [userDefaults boolForKey:@"enableTouchIDorFaceID"];
+	if (enabled) {
+		emailEdit.text = account;
+		[self evaluatePolicy];
+	}
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
@@ -217,11 +217,11 @@
 //    UpdateViewController *up = [UpdateViewController new];
 //    [self openPage:up];
 
-    BaseNavController *nc = [BaseNavController new];
+	BaseNavController *nc = [BaseNavController new];
 	ProfileViewController *ed = [ProfileViewController new];
-    [nc pushViewController:ed animated:NO];
-    UIWindow *keyWin = [UIApplication sharedApplication].keyWindow;
-    keyWin.rootViewController  = nc;
+	[nc pushViewController:ed animated:NO];
+	UIWindow *keyWin = [UIApplication sharedApplication].keyWindow;
+	keyWin.rootViewController = nc;
 //    [self.navigationController pushViewController:ed animated:YES];
 }
 
@@ -412,16 +412,16 @@
 						//其他情况，切换主线程处理
 
 						NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                        NSString *account = [userDefaults objectForKey:@"lastAccessUser"];
-                
-                        if([[self->emailEdit.text trimed] isEqualToString:account]){
-                            NSString *pwd = [SAMKeychain passwordForService:@"lastAccessUser" account:account];
-                            [weakSelf login:account password:pwd];
-                        }else{
-                            [weakSelf login:[self->emailEdit.text trimed] password:[self->pwdEdit.text trimed]];
-                        }
-						
-						
+						NSString *account = [userDefaults objectForKey:@"lastAccessUser"];
+
+						if ([[self->emailEdit.text trimed] isEqualToString:account]) {
+							NSString *pwd = [SAMKeychain passwordForService:@"lastAccessUser" account:account];
+							[weakSelf login:account password:pwd];
+						} else {
+							[weakSelf login:[self->emailEdit.text trimed] password:[self->pwdEdit.text trimed]];
+						}
+
+
 					}];
 
 
@@ -476,14 +476,19 @@
 
 - (void)login:(NSString *)userName password:(NSString *)pwd {
 
-	[self alertOK:@"I'm Title" msg:@"I'm Message" okText:@"确定" onOK:^() {
-		NSLog(@"dialog end.");
-	}];
+//	[self alertOK:@"I'm Title" msg:@"I'm Message" okText:@"确定" onOK:^() {
+//		NSLog(@"dialog end.");
+//	}];
 
 
 	backTask(^() {
 		HttpResult *r = [Proto login:userName pwd:pwd];
 		NSLog(@"lastAccount: %@  Token: %@", getLastAccount(), getUserToken(@"entaoyang@126.com"));
+		if (Proto.isLogined) {
+			foreTask(^() {
+				[AppDelegate.instance switchToMainPage];
+			});
+		}
 	});
 
 }

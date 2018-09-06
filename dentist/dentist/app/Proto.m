@@ -10,6 +10,17 @@
 	NSString *SERVER;
 }
 
++ (BOOL)isLogined {
+	return [self lastToken] != nil;
+}
+
++ (void)logout {
+	NSString *account = getLastAccount();
+	if (account != nil) {
+		putUserToken(account, nil);
+	}
+}
+
 + (HttpResult *)resetPwd:(NSString *)email pwd:(NSString *)pwd code:(NSString *)code {
 	NSString *s = jsonBuild(@{@"userName": email, @"password": pwd, @"email_token": code});
 	return [self postBody:@"" body:s];

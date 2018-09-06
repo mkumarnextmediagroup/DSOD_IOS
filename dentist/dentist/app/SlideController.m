@@ -10,6 +10,9 @@
 #import "ProfileViewController.h"
 #import "IIViewDeckController.h"
 #import "UIViewController+IIViewDeckAdditions.h"
+#import "AppDelegate.h"
+#import "CmsMainController.h"
+#import "SettingController.h"
 
 
 @implementation SlideController {
@@ -21,22 +24,19 @@
 
 	self.view.backgroundColor = UIColor.whiteColor;
 
-	IconLabelView *v1 = [self addMenuItem:@"icon-99" label:@"General Content"];
-
-//	[[[[[[v1 layoutMaker] topParent:100] leftParent:18] rightParent:0] heightEq:50] install];
-
+	IconLabelView *vCMS = [self addMenuItem:@"icon-99" label:@"General Content"];
 	IconLabelView *v2 = [self addMenuItem:@"brain" label:@"Education"];
 	IconLabelView *v3 = [self addMenuItem:@"icon-99" label:@"Careers"];
 	IconLabelView *v4 = [self addMenuItem:@"a" label:@"Events"];
 	IconLabelView *v5 = [self addMenuItem:@"icon-99" label:@"Unite"];
-	IconLabelView *v6 = [self addMenuItem:@"icon-99" label:@"My Profile"];
-	IconLabelView *v7 = [self addMenuItem:@"setting" label:@"Settings"];
+	IconLabelView *vProfile = [self addMenuItem:@"icon-99" label:@"My Profile"];
+	IconLabelView *vSetting = [self addMenuItem:@"setting" label:@"Settings"];
 
 	QueueLayout *ql = [QueueLayout new];
 	ql.edgeLeft = 18;
 	ql.edgeRight = 0;
 
-	[ql add:v1 height:50 marginTop:100];
+	[ql add:vCMS height:50 marginTop:100];
 	[ql add:[self addLine] height:1 marginTop:0];
 	[ql add:v2 height:50 marginTop:0];
 	[ql add:[self addLine] height:1 marginTop:0];
@@ -46,24 +46,40 @@
 	[ql add:[self addLine] height:1 marginTop:0];
 	[ql add:v5 height:50 marginTop:0];
 	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:v6 height:50 marginTop:0];
+	[ql add:vProfile height:50 marginTop:0];
 	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:v7 height:50 marginTop:0];
+	[ql add:vSetting height:50 marginTop:0];
 	[ql add:[self addLine] height:1 marginTop:0];
 	[ql install];
 
-	[v6 onClick:self action:@selector(openProfilePage:)];
+	[vProfile onClick:self action:@selector(openProfilePage:)];
+	[vCMS onClick:self action:@selector(openCMSPage:)];
+	[vSetting onClick:self action:@selector(openSettingPage:)];
 
+}
+
+- (void)openSettingPage:(id)sender {
+	[self openCenterPage:[SettingController new]];
 }
 
 - (void)openProfilePage:(id)sender {
-	NSLog(@"clicked");
-	UINavigationController *c = NavPage([ProfileViewController new]);
+	[self openCenterPage:[ProfileViewController new]];
+}
+
+- (void)openCMSPage:(id)sender {
+	[self openCenterPage:[CmsMainController new]];
+}
+
+- (void)openCenterPage:(UIViewController *)page {
+	UINavigationController *c = NavPage(page);
+	page.navigationItem.leftBarButtonItem = [self navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
 	IIViewDeckController *dc = self.viewDeckController;
 	if (dc != nil) {
-		[[dc centerViewController] presentViewController:c animated:YES completion:nil];
+		[dc closeSide:YES];
+		dc.centerViewController = c;
 	}
 }
+
 
 - (UIView *)addLine {
 	UIView *view = self.view.addView;

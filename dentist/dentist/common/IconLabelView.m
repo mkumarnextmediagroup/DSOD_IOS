@@ -21,7 +21,6 @@
 	[[[[[iv layoutMaker] leftParent:0] centerYParent:0] sizeEq:20 h:20] install];
 	[[[[[[lb layoutMaker] leftParent:36] centerYParent:0] rightParent:0] heightEq:22] install];
 
-	[self setBackgroundColor:<#(UIColor *)backgroundColor#>];
 
 
 	return self;

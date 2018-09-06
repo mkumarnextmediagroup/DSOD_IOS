@@ -107,6 +107,7 @@
 		C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA4B43DAD528FED6AD329 /* UIButton+styled.m */; };
 		C5EEA3FB2294B0B512A2C1DB /* in@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAE085D2BEF383E4F2BA8 /* in@2x.png */; };
 		C5EEA409953B93D9D6261C83 /* Async.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA9AC0839884D27DA2ABA /* Async.m */; };
+		C5EEA4A42A0103E39618676F /* JSONModel+myextend.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAA3E75282AC040EF8353 /* JSONModel+myextend.m */; };
 		C5EEA4A6B29832302A53D7B1 /* error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA18EB9B95E5485DE66DA /* error@3x.png */; };
 		C5EEA55691F65C5A3EF946AF /* checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEABC349DD6EA092977CF3 /* checkbox@2x.png */; };
 		C5EEA57BF745D8F5F4562664 /* NSData+myextend.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA86484528500B78E6108 /* NSData+myextend.m */; };
@@ -123,6 +124,7 @@
 		C5EEA97A363C02981633699C /* StackLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA5618C6AF14B04224B97 /* StackLayout.m */; };
 		C5EEA9C145CEE1C7091EA50F /* info@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAE3E82D71BB36A5623A5 /* info@3x.png */; };
 		C5EEA9C826673B94007566E8 /* checkbox_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA26491F4A964247D88D3 /* checkbox_on@2x.png */; };
+		C5EEA9C9E6DB3F36EC7EAF72 /* Yang.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAEF5DAF099FB743AC414 /* Yang.m */; };
 		C5EEA9E893F712BA5CC4938D /* TextSize.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEACBC931939B104FC3D13 /* TextSize.m */; };
 		C5EEA9F6FFD32D08ABB00CE8 /* UIView+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEABE85BEEC4C83787521E /* UIView+customed.m */; };
 		C5EEAA07EA787A77875B8C95 /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEABC6FFF52CE1B2A65EC2 /* Address.m */; };
@@ -566,6 +568,7 @@
 		C5EEA9B786207E0D6FD7BF5B /* WelcomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomController.h; sourceTree = "<group>"; };
 		C5EEA9D3A642BE4AE5439540 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		C5EEAA2E780A2216C27206F5 /* UIImageView+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+customed.h"; sourceTree = "<group>"; };
+		C5EEAA3E75282AC040EF8353 /* JSONModel+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONModel+myextend.m"; sourceTree = "<group>"; };
 		C5EEAA48C58AF7A1617CC70D /* StudentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentController.h; sourceTree = "<group>"; };
 		C5EEAA6853812943C4C4FC75 /* UIScreen+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+customed.h"; sourceTree = "<group>"; };
 		C5EEAA800E95F5D4324195EC /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
@@ -575,6 +578,8 @@
 		C5EEAAE437209CC4CB67759E /* UITextField+styled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+styled.m"; sourceTree = "<group>"; };
 		C5EEAAFB2FA0ECFDCC818D1D /* checkbox@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox@3x.png"; sourceTree = "<group>"; };
 		C5EEAB29126FE9574783DD4E /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
+		C5EEAB3B83A1186E350F78EE /* Yang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Yang.h; sourceTree = "<group>"; };
+		C5EEABAA2C42E227B1EABA12 /* JSONModel+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONModel+myextend.h"; sourceTree = "<group>"; };
 		C5EEABB3CEAC436B6E598EC8 /* inkedin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inkedin@2x.png"; sourceTree = "<group>"; };
 		C5EEABC349DD6EA092977CF3 /* checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox@2x.png"; sourceTree = "<group>"; };
 		C5EEABC6FFF52CE1B2A65EC2 /* Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Address.m; sourceTree = "<group>"; };
@@ -598,6 +603,7 @@
 		C5EEAE98803C6DEDE38865EB /* StackLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackLayout.h; sourceTree = "<group>"; };
 		C5EEAEAE914013D381D67DEC /* SlideController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideController.h; sourceTree = "<group>"; };
 		C5EEAEBA73BB1DD685EB19FE /* NSMutableAttributedString+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+customed.h"; sourceTree = "<group>"; };
+		C5EEAEF5DAF099FB743AC414 /* Yang.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Yang.m; sourceTree = "<group>"; };
 		C5EEAF174673741A891E08C7 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		C5EEAF2F67ED58D35E984745 /* UIUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIUtil.m; sourceTree = "<group>"; };
 		C5EEAF3D123C1C1B41B8548C /* Experience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Experience.m; sourceTree = "<group>"; };
@@ -1479,6 +1485,10 @@
 				C5EEA68F6001EDFE46F5F104 /* Experience.h */,
 				C5EEABC6FFF52CE1B2A65EC2 /* Address.m */,
 				C5EEA6E4F02A1D4B394C1BAC /* Address.h */,
+				C5EEAEF5DAF099FB743AC414 /* Yang.m */,
+				C5EEAB3B83A1186E350F78EE /* Yang.h */,
+				C5EEAA3E75282AC040EF8353 /* JSONModel+myextend.m */,
+				C5EEABAA2C42E227B1EABA12 /* JSONModel+myextend.h */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2012,6 +2022,8 @@
 				C5EEA88EF87352A514933076 /* Education.m in Sources */,
 				C5EEA79DA0D394B4733FFB2E /* Experience.m in Sources */,
 				C5EEAA07EA787A77875B8C95 /* Address.m in Sources */,
+				C5EEA9C9E6DB3F36EC7EAF72 /* Yang.m in Sources */,
+				C5EEA4A42A0103E39618676F /* JSONModel+myextend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2186,6 +2198,7 @@
 					"\"${PROJECT_DIR}/../Pods\"/**",
 					"\"${PROJECT_DIR}/../Pods\"/**",
 					"\"${PROJECT_DIR}/../Pods\"/**",
+					"\"${PROJECT_DIR}/../Pods\"/**",
 				);
 			};
 			name = Debug;
@@ -2224,6 +2237,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = (
+					"\"${PROJECT_DIR}/../Pods\"/**",
 					"\"${PROJECT_DIR}/../Pods\"/**",
 					"\"${PROJECT_DIR}/../Pods\"/**",
 					"\"${PROJECT_DIR}/../Pods\"/**",

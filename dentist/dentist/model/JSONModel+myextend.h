@@ -6,11 +6,7 @@
 #import <UIKit/UIKit.h>
 #import "JSONModel.h"
 
-@protocol Residency;
+@interface JSONModel (myextend)
 
-@interface Residency : JSONModel
-
-@property(nullable) NSString <Optional> *place;
-@property(nullable) NSString <Optional> *dateCompletion;
-
+- (id)initWithJson:(NSString *)string;
 @end

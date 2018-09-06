@@ -15,6 +15,8 @@
 #import "Async.h"
 #import "Http.h"
 #import "Proto.h"
+#import "Yang.h"
+#import "JSONModel+myextend.h"
 
 
 @interface WelcomController ()
@@ -97,36 +99,7 @@
 	[self openPage:c];
 
 
-//	backAction(self, @selector(testThread:), @"");
-
 }
-
-- (void)testThread:(NSString *)what {
-	[self testHttp];
-//	NSString *s = strBuild(@"A", @"B", @"C");
-//	NSLog(@"%@", s);
-}
-
-
-- (void)testHttp {
-	backTask(^() {
-//		[Proto register:@"entaoyang@126.com" pwd:@"Yang2008" name:@"Entao Yang"];
-//		[Proto login:@"entaoyang@126.com" pwd:@"Yang2008"];
-		[Proto sendEmailCode:@"entaoyang@126.com"];
-	});
-}
-
-//- (void)onHttpStart:(int)total {
-//	NSLog(@"Progress start: %d", total);
-//}
-
-- (void)onHttpProgress:(int)current total:(int)total percent:(int)percent {
-	NSLog(@"Progress : %d  %d  %d", current, total, percent);
-}
-
-//- (void)onHttpFinish:(BOOL)success {
-//	NSLog(@"Progress Finished: %d", success);
-//}
 
 
 @end

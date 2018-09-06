@@ -10,22 +10,22 @@
 #import "Residency.h"
 
 
-@interface UserInfo : NSObject
+@interface UserInfo : JSONModel
 
 @property(nonnull) NSString *email;
-@property(nonnull) NSString *fullName;
-@property(nullable) NSString *phone;
+@property(nonnull) NSString <Optional> *fullName;
+@property(nullable) NSString <Optional> *phone;
 
-@property(nullable) NSString *portraitId;
-@property(nullable) NSString *portraitUrl;
+@property(nullable) NSString <Optional> *portraitId;
+@property(nullable) NSString <Optional> *portraitUrl;
 
-@property(nullable) NSString *specialityId;
-@property(nullable) NSString *specialityLabel;
+@property(nullable) NSString <Optional> *specialityId;
+@property(nullable) NSString <Optional> *specialityLabel;
 
 
-@property(nullable) Address *practiceAddress;
-@property(nullable) NSArray<__kindof Experience *> *experienceArray;
-@property(nullable) NSArray<__kindof Residency *> *residencyArray;
-@property(nullable) NSArray<__kindof Education *> *educationArray;
+@property(nullable) Address <Optional> *practiceAddress;
+@property(nullable) NSArray <Experience, Optional> *experienceArray;
+@property(nullable) NSArray <Residency, Optional> *residencyArray;
+@property(nullable) NSArray <Education, Optional> *educationArray;
 
 @end

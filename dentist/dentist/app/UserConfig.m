@@ -52,3 +52,5 @@ void keychainPutPwd(NSString *account, NSString *pwd) {
 NSString *keychainGetPwd(NSString *account) {
 	return [SAMKeychain passwordForService:@"dentistUser" account:account];
 }
+
+

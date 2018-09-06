@@ -4,18 +4,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JSONModel.h"
 
+@protocol Experience;
 
-@interface Experience : NSObject
+@interface Experience : JSONModel
 
 
 //Owner Dentist / Associate Dentist
-@property NSString *praticeType;
-@property NSString *roleAtPratice;
-@property NSString *dentalName;
-@property NSString *practiceName;
-@property NSString *dateFrom;
-@property NSString *dateTo;
+@property(nullable) NSString <Optional> *praticeType;
+@property(nullable) NSString <Optional> *roleAtPratice;
+@property(nullable) NSString <Optional> *dentalName;
+@property(nullable) NSString <Optional> *practiceName;
+@property(nullable) NSString <Optional> *dateFrom;
+@property(nullable) NSString <Optional> *dateTo;
 @property BOOL workInThisRole;
 
 @end

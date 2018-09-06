@@ -41,10 +41,6 @@
 
 }
 
-- (void)alertConfirm:(NSString *)title msg:(NSString *)msg {
-
-}
-
 
 - (UIBarButtonItem *)navBarText:(NSString *)text target:(nullable id)target action:(SEL)action {
 	UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:text style:UIBarButtonItemStylePlain target:target action:action];

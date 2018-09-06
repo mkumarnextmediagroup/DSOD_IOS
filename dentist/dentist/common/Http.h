@@ -50,6 +50,7 @@ typedef void (^HttpCallback)(HttpResult *);
 - (void)accept:(NSString *)value;
 
 - (void)arg:(NSString *)name value:(NSString *)value;
+- (void) args:(NSDictionary*) dic;
 
 - (void)header:(NSString *)name value:(NSString *)value;
 

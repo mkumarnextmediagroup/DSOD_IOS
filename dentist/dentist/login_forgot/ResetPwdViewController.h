@@ -11,4 +11,6 @@
 
 @interface ResetPwdViewController : BaseController
 
+@property NSString *email;
+
 @end

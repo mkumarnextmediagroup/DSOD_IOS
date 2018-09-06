@@ -29,11 +29,13 @@
 	NSString *alertTitle;
 	NSString *alertHint;
 
+	UITextView *popView;
 }
 
 - (id)init {
 	self = [super init];
 	self.student = false;
+	popView = nil;
 	return self;
 }
 
@@ -173,7 +175,7 @@
 	emailEdit = self.view.addEdit;
 	emailEdit.delegate = self;
 	emailEdit.hint = localStr(@"email_address");
-    emailEdit.text = self.emailStr;
+	emailEdit.text = self.emailStr;
 	[emailEdit returnNext];
 	[emailEdit keyboardEmail];
 	[sl push:emailEdit height:36 marginBottom:10];
@@ -181,7 +183,7 @@
 	nameEdit = self.view.addEdit;
 	nameEdit.delegate = self;
 	nameEdit.hint = localStr(@"full_name");
-    nameEdit.text = self.nameStr;
+	nameEdit.text = self.nameStr;
 	[nameEdit returnNext];
 	[nameEdit keyboardDefault];
 	[sl push:nameEdit height:36 marginBottom:10];
@@ -201,6 +203,7 @@
 	[backView onClick:self action:@selector(clickGoBack:)];
 	[regButton onClick:self action:@selector(clickReg:)];
 	[loginLabel onClickView:self action:@selector(clickLogin:)];
+	[reqLabel onClickView:self action:@selector(clickReqLabel:)];
 
 
 	context = [[LAContext alloc] init];
@@ -229,6 +232,41 @@
 		checkButton.selected = NO;
 		checkButton.enabled = NO;
 	}
+
+}
+
+- (UITextView *)pwdReqView {
+	UITextView *noticelb = [UITextView new];
+	noticelb.backgroundColor = Colors.secondary;
+	noticelb.textColor = UIColor.whiteColor;
+	noticelb.tag = 11;
+	noticelb.editable = NO;
+	noticelb.textContainerInset = UIEdgeInsetsMake(10, 0, 0, 15);
+	noticelb.font = [Fonts regular:10];
+
+	UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
+	b.frame = makeRect(SCREENWIDTH - 88, 0, 60, BTN_HEIGHT);
+	[b setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+	[noticelb addSubview:b];
+	[b onClick:self action:@selector(deletePwdReqView:)];
+	return noticelb;
+}
+
+- (void)deletePwdReqView:(UIButton *)btn {
+	[btn.superview removeFromSuperview];
+	popView = nil;
+}
+
+- (void)clickReqLabel:(UILabel *)sender {
+	if (popView != nil) {
+		return;
+	}
+	UITextView *tv = [self pwdReqView];
+	tv.text = localStr(@"pwdstandard");
+	[self.view addSubview:tv];
+	[[[[[[tv layoutMaker] leftParent:EDGE] rightParent:-EDGE] heightEq:45] below:sender offset:16] install];
+
+	popView = tv;
 
 }
 

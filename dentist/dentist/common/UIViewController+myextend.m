@@ -41,6 +41,10 @@
 
 }
 
+- (void)alertMsg:(nonnull NSString *)msg onOK:(void (^ __nullable)(void))onOK {
+	[self alertOK:nil msg:msg okText:nil onOK:onOK];
+}
+
 
 - (UIBarButtonItem *)navBarText:(NSString *)text target:(nullable id)target action:(SEL)action {
 	UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:text style:UIBarButtonItemStylePlain target:target action:action];

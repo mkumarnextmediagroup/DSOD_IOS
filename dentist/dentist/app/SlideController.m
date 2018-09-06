@@ -24,6 +24,7 @@
 
 	self.view.backgroundColor = UIColor.whiteColor;
 
+	UIView *userView = [self makeUserView];
 
 	UIButton *bCms = [self makeButtonItem:@"General Content" image:@"menu-dso"];
 	UIButton *bEdu = [self makeButtonItem:@"Education" image:@"menu-edu"];
@@ -38,7 +39,10 @@
 	ql.edgeLeft = 18;
 	ql.edgeRight = 0;
 
-	[ql add:bCms height:50 marginTop:100];
+	[ql add:userView height:115 marginTop:16 + 65];
+	[ql add:[self addLine] height:1 marginTop:16];
+
+	[ql add:bCms height:50 marginTop:0];
 	[ql add:[self addLine] height:1 marginTop:0];
 	[ql add:bEdu height:50 marginTop:0];
 	[ql add:[self addLine] height:1 marginTop:0];
@@ -58,6 +62,26 @@
 	[bCms onClick:self action:@selector(openCMSPage:)];
 	[bSetting onClick:self action:@selector(openSettingPage:)];
 
+}
+
+- (UIView *)makeUserView {
+	UIView *v = self.view.addView;
+	UIImageView *iv = v.addImageView;
+	iv.imageName = @"Img-User-Dentist";
+	[[[[iv.layoutMaker sizeFit] leftParent:0] topParent:0] install];
+	UILabel *lbName = v.addLabel;
+	lbName.text = @"John Stewart";
+	lbName.font = [Fonts semiBold:15];
+	[lbName textColorMain];
+	[[[[[lbName layoutMaker] sizeFit] toRightOf:iv offset:16] topParent:6] install];
+
+	UILabel *lbSub = v.addLabel;
+	lbSub.text = @"New Jersey, NJ";
+	lbSub.font = [Fonts regular:12];
+	[lbSub textColorSecondary];
+	[[[[[lbSub layoutMaker] sizeFit] toRightOf:iv offset:16] below:lbName offset:5] install];
+
+	return v;
 }
 
 - (UIButton *)makeButtonItem:(NSString *)label image:(NSString *)image {

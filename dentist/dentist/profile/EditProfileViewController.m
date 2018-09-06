@@ -398,7 +398,13 @@
 - (void)addExperience:(UIButton *)btn
 {
     switch (btn.tag) {
-        case 13://click the add Residency button
+        case 13://click the add Experience button
+        {
+            NSLog(@"Experience button click");
+            
+        }
+            break;
+        case 14://click the add Residency button
         {
             NSLog(@"Residency button click");
             EditResidencyViewController *editRes = [EditResidencyViewController new];
@@ -407,7 +413,7 @@
             [self.navigationController pushViewController:editRes animated:YES];
         }
             break;
-        case 14://click the add Education button
+        case 15://click the add Education button
         {
             NSLog(@"Education button click");
             EditEduViewController *editEdu = [EditEduViewController new];

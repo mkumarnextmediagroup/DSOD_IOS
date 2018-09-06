@@ -4,10 +4,70 @@
 //
 
 #import "Proto.h"
+#import "UserInfo.h"
 
 
 @implementation Proto {
 	NSString *SERVER;
+}
+
+
++ (UserInfo *)addExperience:(nonnull NSString *)email exp:(Experience *)exp {
+
+	return [self userInfo:email];
+}
+
++ (UserInfo *)saveExperience:(nonnull NSString *)email exp:(Experience *)exp {
+
+	return [self userInfo:email];
+}
+
++ (UserInfo *)addResidency:(nonnull NSString *)email residency:(Residency *)residency {
+
+	return [self userInfo:email];
+}
+
++ (UserInfo *)saveResidency:(nonnull NSString *)email residency:(Residency *)residency {
+
+	return [self userInfo:email];
+}
+
++ (UserInfo *)addEducation:(nonnull NSString *)email edu:(Education *)edu {
+
+	return [self userInfo:email];
+}
+
++ (UserInfo *)saveEducation:(nonnull NSString *)email edu:(Education *)edu {
+
+	return [self userInfo:email];
+}
+
++ (UserInfo *)savePractice:(nonnull NSString *)email address:(Address *)address {
+
+	return [self userInfo:email];
+}
+
++ (UserInfo *)userInfo:(nonnull NSString *)email {
+
+	NSUserDefaults *d = userConfig(email);
+	NSString *json = [d objectForKey:@"userInfo"];
+
+	UserInfo *ui = [UserInfo new];
+	ui.email = email;
+	ui.fullName = @"Entao Yang";
+	ui.phone = @"15098760059";
+	ui.portraitUrl = nil;
+	ui.specialityId = @"100";
+	ui.specialityLabel = @"Orthodontics";
+	ui.practiceAddress = [Address new];
+	ui.practiceAddress.stateId = @"100";
+	ui.practiceAddress.stateLabel = @"New York";
+	ui.practiceAddress.city = @"New York";
+	ui.practiceAddress.address1 = @"XXX Street XXX ";
+	ui.practiceAddress.address2 = nil;
+
+
+	return ui;
 }
 
 + (BOOL)isLogined {

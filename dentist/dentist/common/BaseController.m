@@ -8,6 +8,7 @@
 #import "Common.h"
 #import "AppDelegate.h"
 #import "ToastItem.h"
+#import "Async.h"
 
 @implementation BaseController {
 	UIView *toastView;
@@ -274,10 +275,9 @@
 	if (toastArray.count == 0) {
 		return;
 	}
-	ToastItem *item = toastArray[0];
-	[toastArray removeObjectAtIndex:0];
-
 	if (toastView == nil) {
+		ToastItem *item = toastArray[0];
+		[toastArray removeObjectAtIndex:0];
 		toastView = [self buildToastView:item];
 	}
 
@@ -302,12 +302,23 @@
 
 	[btn onClick:self action:@selector(clickToastButton:)];
 
+	foreDelay(5000, ^() {
+		[self closeToast];
+	});
 
 	return v;
 }
 
 - (void)clickToastButton:(id)sender {
+	[self closeToast];
+}
 
+- (void)closeToast {
+	[toastView removeFromSuperview];
+	toastView = nil;
+	foreTask(^() {
+		[self nextToast];
+	});
 }
 
 

@@ -69,7 +69,7 @@
 
 
 	[self.view addSubview:myTable];
-	[[[[[myTable.layoutMaker leftParent:0] rightParent:0] topParent:65] bottomParent:0] install];
+	[[[[[myTable.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
 
 	[self initData];
 }
@@ -181,13 +181,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 	if (section == 0) {
-		return 0;
+		return 0.1;
 	}
 	return 24;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-	return 0;
+	return 0.1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

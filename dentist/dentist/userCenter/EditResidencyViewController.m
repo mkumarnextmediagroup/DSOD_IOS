@@ -1,39 +1,32 @@
 //
-//  EditEduViewController.m
+//  EditResidencyViewController.m
 //  dentist
 //
-//  Created by Jacksun on 2018/9/3.
+//  Created by Jacksun on 2018/9/6.
 //  Copyright © 2018年 thenextmediagroup.com. All rights reserved.
 //
 
-#import "EditEduViewController.h"
-#import "SwitchTableViewCell.h"
+#import "EditResidencyViewController.h"
 #import "CommSelectTableViewCell.h"
 #import "UpdateViewController.h"
 #import "PickerViewController.h"
 
-@interface EditEduViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface EditResidencyViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *myTable;
-    BOOL        isSwitchOn;
-    NSString    *selectStr;//picker select the string
+    NSString    *selectStr;
 }
 @end
 
-@implementation EditEduViewController
+@implementation EditResidencyViewController
 
 - (void)viewDidLoad {
-    
-    self.isCloseTheGesture = YES;
-    
     [super viewDidLoad];
     
-    isSwitchOn = YES;
     UINavigationItem *item = self.navigationItem;
-    item.title = @"editEdu";
+    item.title = self.titleStr;
     item.rightBarButtonItem = [self navBarText:@"SAVE" target: self  action:@selector(saveBtnClick:)];
     item.leftBarButtonItem = [self navBarImage:@"back_arrow"  target: self action:@selector(back)];
-    // Do any additional setup after loading the view.
     
     myTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     myTable.backgroundColor = UIColor.whiteColor;
@@ -43,7 +36,7 @@
     myTable.separatorInset =UIEdgeInsetsZero;
     [self.view addSubview:myTable];
     [[[[[myTable.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
-    
+
     UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [editBtn setTitleColor:Colors.textDisabled forState:UIControlStateNormal];
     [editBtn setTitle:self.btnTitle forState:UIControlStateNormal];
@@ -51,105 +44,51 @@
     [editBtn.titleLabel setFont:[Fonts semiBold:15]];
     [self.view addSubview:editBtn];
     [[[editBtn.layoutMaker sizeEq:SCREENWIDTH h:40] bottomParent:-20] install];
-}
-
-- (void)back
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)saveBtnClick:(UIButton *)btn
-{
-    NSLog(@"save");
-}
-
-- (void)editBtnClick:(UIButton *)btn
-{
-    if ([btn.currentTitle isEqualToString:@"Cancel"])//this funcation is the same as back
-    {
-        [self back];
-    }else
-    {
-        
-    }
+    
+    // Do any additional setup after loading the view.
 }
 
 #pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        return 49;
-    }else
-    {
-        return 76;
-    }
-    return 0;
+    return 76;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        static NSString *brand_region_Cell = @"switchCell";
-        
-        SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:brand_region_Cell];
-        
-        if (cell == nil) {
-            cell = [[SwitchTableViewCell alloc]
-                    initWithStyle:UITableViewCellStyleDefault
-                    reuseIdentifier:brand_region_Cell];
-        }
-        
-        [cell.onSwitch addTarget:self action:@selector(switchClick:) forControlEvents:UIControlEventValueChanged];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }else
-    {
-        static NSString *brand_region_Cell = @"commCell";
-        
-        CommSelectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:brand_region_Cell];
-        
-        if (cell == nil) {
-            cell = [[CommSelectTableViewCell alloc]
-                    initWithStyle:UITableViewCellStyleDefault
-                    reuseIdentifier:brand_region_Cell];
-        }
-        
-        if (indexPath.row == 1)
-        {
-            if (isSwitchOn)//can select the school
-            {
-                [cell.imageBtn setImage:[UIImage imageNamed:@"arrow"] forState:UIControlStateNormal];
-                cell.contentField.hidden = YES;
-                cell.contentLab.hidden = NO;
-            }
-            else
-            {
-                [cell.imageBtn setImage:[UIImage imageNamed:@"write"] forState:UIControlStateNormal];
-                cell.contentField.hidden = NO;
-                cell.contentLab.hidden = YES;
-            }
-        }else
-        {
-            cell.titleLab.text = localStr(@"graduation");
-            if (selectStr != nil) {
-                cell.contentLab.text = selectStr;
-            }
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+
+    static NSString *brand_region_Cell = @"commCell";
+    
+    CommSelectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:brand_region_Cell];
+    
+    if (cell == nil) {
+        cell = [[CommSelectTableViewCell alloc]
+                initWithStyle:UITableViewCellStyleDefault
+                reuseIdentifier:brand_region_Cell];
     }
-    return nil;
+    
+    if (indexPath.row == 0)
+    {
+        cell.titleLab.text = @"Residency at";
+    }
+    else
+    {
+        cell.titleLab.text = @"Year of completion";
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 1 && isSwitchOn) {
+    if (indexPath.row == 1) {
         UpdateViewController *update = [UpdateViewController new];
         [self.navigationController pushViewController:update animated:YES];
     }else if (indexPath.row == 2)
@@ -166,22 +105,29 @@
         picker.definesPresentationContext = YES;
         [self presentViewController:picker animated:YES completion:nil];
         [picker showPicker];
-
+        
     }
 }
 
-- (void)switchClick:(UISwitch *)mySwitch
+- (void)editBtnClick:(UIButton *)btn
 {
-    if (mySwitch.on) {
-        NSLog(@"on press");
-        isSwitchOn = YES;
+    if ([btn.currentTitle isEqualToString:@"Cancel"])//this funcation is the same as back
+    {
+        [self back];
+    }else
+    {
+        
     }
-    else{
-        NSLog(@"off press");
-        isSwitchOn = NO;
-    }
-    [myTable reloadData];
+}
 
+- (void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)saveBtnClick:(UIButton *)btn
+{
+    NSLog(@"save");
 }
 
 - (void)didReceiveMemoryWarning {

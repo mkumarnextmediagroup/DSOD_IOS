@@ -12,4 +12,7 @@
 @property BOOL student;
 @property (copy,nonatomic)void(^registSuccessBlock)(void);//申明回调函数
 
+@property (strong, nonatomic)NSString *nameStr;
+@property (strong, nonatomic)NSString *emailStr;
+
 @end

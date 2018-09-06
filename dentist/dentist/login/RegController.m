@@ -173,6 +173,7 @@
 	emailEdit = self.view.addEdit;
 	emailEdit.delegate = self;
 	emailEdit.hint = localStr(@"email_address");
+    emailEdit.text = self.emailStr;
 	[emailEdit returnNext];
 	[emailEdit keyboardEmail];
 	[sl push:emailEdit height:36 marginBottom:10];
@@ -180,6 +181,7 @@
 	nameEdit = self.view.addEdit;
 	nameEdit.delegate = self;
 	nameEdit.hint = localStr(@"full_name");
+    nameEdit.text = self.nameStr;
 	[nameEdit returnNext];
 	[nameEdit keyboardDefault];
 	[sl push:nameEdit height:36 marginBottom:10];

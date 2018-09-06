@@ -10,6 +10,8 @@
 @implementation UIViewController (myextend)
 
 
+
+
 - (UINavigationBar *)navBar {
 	if (self.navigationController != nil) {
 		return self.navigationController.navigationBar;

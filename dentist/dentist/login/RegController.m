@@ -203,23 +203,25 @@
 
 	context = [[LAContext alloc] init];
 	if ([self isSupportBiometrics]) {
-		switch (context.biometryType) {
-			case LABiometryNone:
-				checkButton.selected = NO;
-				checkButton.enabled = NO;
-				break;
-			case LABiometryTypeTouchID:
-				touchLabel.text = localStr(@"enable_touch");
-				alertTitle = localStr(@"useTouchIDTitle");
-				alertHint = localStr(@"useTouchIDHint");
-				break;
-			case LABiometryTypeFaceID:
-				touchLabel.text = localStr(@"enable_face");
-				alertTitle = localStr(@"useFaceIDTitle");
-				alertHint = localStr(@"useFaceIDHint");
-				break;
-			default:
-				break;
+		if (@available(iOS 11.0, *)) {
+			switch (context.biometryType) {
+				case LABiometryNone:
+					checkButton.selected = NO;
+					checkButton.enabled = NO;
+					break;
+				case LABiometryTypeTouchID:
+					touchLabel.text = localStr(@"enable_touch");
+					alertTitle = localStr(@"useTouchIDTitle");
+					alertHint = localStr(@"useTouchIDHint");
+					break;
+				case LABiometryTypeFaceID:
+					touchLabel.text = localStr(@"enable_face");
+					alertTitle = localStr(@"useFaceIDTitle");
+					alertHint = localStr(@"useFaceIDHint");
+					break;
+				default:
+					break;
+			}
 		}
 	} else {
 		checkButton.selected = NO;

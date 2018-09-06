@@ -20,18 +20,18 @@
         _titleLab.font = [Fonts regular:12];
         _titleLab.textColor = Colors.textAlternate;
         [self addSubview:_titleLab];
-        [[[[_titleLab.layoutMaker sizeEq:180 h:34] leftParent:16] topParent:10] install];
+        [[[[_titleLab.layoutMaker sizeEq:180 h:44] leftParent:16] topParent:0] install];
         
         _imageBtn = [UIButton new];
         [_imageBtn setImage:[UIImage imageNamed:@"write"] forState:UIControlStateNormal];
         [self addSubview:_imageBtn];
-        [[[[_imageBtn.layoutMaker sizeEq:42 h:42] rightParent:0] topParent:34] install];
+        [[[[_imageBtn.layoutMaker sizeEq:42 h:44] rightParent:0] topParent:34] install];
         
         _contentField = [[UITextField alloc] init];
         _contentField.font = [Fonts regular:15];
         _contentField.textColor = UIColor.blackColor;
         [self addSubview:_contentField];
-        [[[[_contentField.layoutMaker sizeEq:260 h:42] leftParent:16] topParent:34] install];
+        [[[[_contentField.layoutMaker sizeEq:260 h:44] leftParent:16] topParent:34] install];
         
         
         UILabel *lineLab = [[UILabel alloc] init];

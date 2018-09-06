@@ -6,6 +6,7 @@
   Copyright © 2018年 nextmedia.com. All rights reserved.
 */
 "ok" = "OK";
+"cancel" = "Cancel";
 "yes" = "Yes";
 "no" = "No";
 "welcome" = "Welcome! ";
@@ -57,6 +58,7 @@
 "SendMess" = "Send message";
 "resetPwd" = "RESET PASSWORD";
 "resetPwdLower" = "Reset Password";
+"resetOK" = "Reset Success!";
 "pwdstandard" = "Your password should be at least 8 - 16 characters in length with at least one uppercase letter and one number";
 "haveIssue" = "Still having issues?Contact us";
 "nevermind" = "Nevermind,Take me back";

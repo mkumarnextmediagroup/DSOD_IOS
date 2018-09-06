@@ -3,6 +3,7 @@
 // Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
 //
 
+#import <SAMKeychain/SAMKeychain.h>
 #import "UserConfig.h"
 #import "Common.h"
 
@@ -41,4 +42,13 @@ NSString *getUserToken(NSString *account) {
 void putUserToken(NSString *account, NSString *token) {
 	NSUserDefaults *ud = userConfig(account);
 	[ud setObject:token forKey:@"token"];
+}
+
+
+void keychainPutPwd(NSString *account, NSString *pwd) {
+	[SAMKeychain setPassword:pwd forService:@"dentistUser" account:account];
+}
+
+NSString *keychainGetPwd(NSString *account) {
+	return [SAMKeychain passwordForService:@"dentistUser" account:account];
 }

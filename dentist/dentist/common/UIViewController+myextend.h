@@ -13,7 +13,6 @@
 
 - (void)alertOK:(nullable NSString *)title msg:(nonnull NSString *)msg okText:(nullable NSString *)okText onOK:(void (^ __nullable)(void))onOK;
 
-- (void)alertConfirm:(nullable NSString *)title msg:(nonnull NSString *)msg;
 
 - (UIBarButtonItem *)navBarText:(NSString *)text target:(nullable id)target action:(SEL)action;
 

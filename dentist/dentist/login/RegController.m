@@ -9,6 +9,9 @@
 #import <LocalAuthentication/LAContext.h>
 #import <LocalAuthentication/LAError.h>
 #import "SAMKeychain.h"
+#import "Async.h"
+#import "Proto.h"
+#import "AppDelegate.h"
 
 @interface RegController ()
 
@@ -25,6 +28,7 @@
 	LAContext *context;
 	NSString *alertTitle;
 	NSString *alertHint;
+
 }
 
 - (id)init {
@@ -143,35 +147,6 @@
 	touchLabel.font = [Fonts medium:15];
 	[[[[[touchLabel layoutMaker] sizeFit] toRightOf:checkButton offset:10] centerYParent:0] install];
 
-	context = [[LAContext alloc] init];
-	BOOL isCanEvaluatePolicy = [self isSupportBiometrics];
-	if (isCanEvaluatePolicy) {
-		// 判断设备支持TouchID还是FaceID
-		if (@available(iOS 11.0, *)) {
-			switch (context.biometryType) {
-				case LABiometryNone:
-					[self justSupportBiometricsType:0];
-					break;
-				case LABiometryTypeTouchID:
-					[self justSupportBiometricsType:1];
-					break;
-				case LABiometryTypeFaceID:
-					[self justSupportBiometricsType:2];
-					break;
-				default:
-					break;
-			}
-		} else {
-			// Fallback on earlier versions
-			NSLog(@"iOS 11之前不需要判断 biometryType");
-			// 因为iPhoneX起始系统版本都已经是iOS11.0，所以iOS11.0系统版本下不需要再去判断是否支持faceID，直接走支持TouchID逻辑即可。
-			[self justSupportBiometricsType:1];
-		}
-
-	} else {
-		[self justSupportBiometricsType:0];
-	}
-
 
 	[sl push:checkPanel height:30 marginBottom:20];
 
@@ -225,6 +200,32 @@
 	[regButton onClick:self action:@selector(clickReg:)];
 	[loginLabel onClickView:self action:@selector(clickLogin:)];
 
+
+	context = [[LAContext alloc] init];
+	if ([self isSupportBiometrics]) {
+		switch (context.biometryType) {
+			case LABiometryNone:
+				checkButton.selected = NO;
+				checkButton.enabled = NO;
+				break;
+			case LABiometryTypeTouchID:
+				touchLabel.text = localStr(@"enable_touch");
+				alertTitle = localStr(@"useTouchIDTitle");
+				alertHint = localStr(@"useTouchIDHint");
+				break;
+			case LABiometryTypeFaceID:
+				touchLabel.text = localStr(@"enable_face");
+				alertTitle = localStr(@"useFaceIDTitle");
+				alertHint = localStr(@"useFaceIDHint");
+				break;
+			default:
+				break;
+		}
+	} else {
+		checkButton.selected = NO;
+		checkButton.enabled = NO;
+	}
+
 }
 
 
@@ -267,267 +268,136 @@
 
 - (void)clickReg:(id)sender {
 	NSLog(@"clickLogin");
+	NSString *email = [emailEdit.text trimed];
+	NSString *pwd = [pwdEdit.text trimed];
+	NSString *fullName = [nameEdit.text trimed];
 
-	if (!emailEdit.text.matchEmail) {
+	if (!email.matchEmail) {
 		[emailEdit themeError];
 		return;
 
 	}
-	if (!pwdEdit.text.matchPassword) {
-
+	if (!pwd.matchPassword) {
 		[pwdEdit themeError];
-
-		UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:localStr(@"pwdstandard") preferredStyle:UIAlertControllerStyleAlert];
-
-		UIAlertAction *okButton = [UIAlertAction actionWithTitle:localStr(@"ok") style:UIAlertActionStyleDefault handler:nil];
-		[alert addAction:okButton];
-		[self presentViewController:alert animated:YES completion:nil];
+		[self alertOK:nil msg:localStr(@"pwdstandard") okText:nil onOK:nil];
 		return;
-
+	}
+	if (checkButton.hidden || !checkButton.isSelected) {
+		[self doReg:email pwd:pwd fullName:fullName];
+		return;
 	}
 
-	//TODO 成功后，保存用户账号
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	[userDefaults setObject:([emailEdit.text trimed]) forKey:(@"lastAccessUser")];
-	[userDefaults synchronize];
-    
-    [userDefaults setBool:(checkButton.isSelected) forKey:(@"enableTouchIDorFaceID")];
-    [userDefaults synchronize];
 
-	//TODO 成功后，保存到钥匙串
-	[SAMKeychain setPassword:[pwdEdit.text trimed] forService:@"lastAccessUser" account:[emailEdit.text trimed]];
+	Confirm *cf = [Confirm new];
+	cf.title = alertTitle;
+	cf.msg = alertHint;
+	cf.cancelText = localStr(@"notallow");
+	[cf show:self onOK:^() {
+		NSError *error;
+		if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+			[context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:localStr(@"authenticateHint") reply:
+					^(BOOL success, NSError *authenticationError) {
+						if (success) {
+							[self doReg:email pwd:pwd fullName:fullName];
+						}
+					}];
+		}
 
-	if (checkButton.isSelected) {
-
-		UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:alertHint preferredStyle:UIAlertControllerStyleAlert];
-
-		UIAlertAction *okButton = [UIAlertAction actionWithTitle:localStr(@"ok") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-			// Do something after clicking OK button
-			LAContext *context = [[LAContext alloc] init];
-			NSError *error;
-			BOOL success;
-
-			// test if we can evaluate the policy, this test will tell us if Touch ID is available and enrolled
-			success = [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
-
-			if (success) {
-				NSLog(@"支持");
-				[self evaluatePolicy];
-			} else {
-				switch (error.code) {
-					// 没有设置指纹（没有设置密码也会走到这），但是支持指纹识别
-					case LAErrorBiometryNotEnrolled:
-						NSLog(@"没有设置指纹");
-						break;
-						// 理论上是没有设置密码,待测试
-					case LAErrorPasscodeNotSet:
-						NSLog(@"没有设置密码");
-						break;
-						// 在使用touchID的场景中,错误太多次而导致touchID被锁不可用
-					case LAErrorBiometryLockout:
-						NSLog(@"被锁");
-						break;
-					default:
-						NSLog(@"不支持");
-						break;
-
-				}
-			}
+	}];
 
 
-		}];
-		UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:localStr(@"notallow") style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-			// Do something after clicking Cancel button
-		}];
-		[alert addAction:okButton];
-		[alert addAction:cancelButton];
-		[self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)doReg:(NSString *)email pwd:(NSString *)pwd fullName:(NSString *)fullName {
+
+	backTask(^() {
+		HttpResult *r = [Proto register:email pwd:pwd name:fullName student:self.student];
+		if (r.OK) {
+			keychainPutPwd(email, pwd);
+		}
+		if (Proto.isLogined) {
+			foreTask(^() {
+				[AppDelegate.instance switchToMainPage];
+			});
+		}
+	});
 
 
-	} else {
-		//模拟注册成功
-//        [self dismiss];
-//        if (self.registSuccessBlock) {
-//            self.registSuccessBlock();
-//        }
-
-		NSString *msg = @"Regist Success";
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:msg message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-		[alertView show];
-	}
 }
 
 - (BOOL)isSupportBiometrics {
 
 	NSError *error;
 	BOOL success;
-	// test if we can evaluate the policy, this test will tell us if Touch ID is available and enrolled
 	success = [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
 	return success;
 
 }
 
-// 判断生物识别类型，更新UI
-- (void)justSupportBiometricsType:(NSInteger)biometryType {
-	switch (biometryType) {
-		case 0://需求方说没有这种情况
-			NSLog(@"该设备支持不支持FaceID和TouchID");
-			break;
-		case 1://该设备支持TouchID
-			NSLog(@"该设备支持TouchID");
-			touchLabel.text = localStr(@"enable_touch");
-			alertTitle = localStr(@"useTouchIDTitle");
-			alertHint = localStr(@"useTouchIDHint");
-
-			break;
-		case 2://该设备支持FaceID
-			NSLog(@"该设备支持Face ID");
-			touchLabel.text = localStr(@"enable_face");
-			alertTitle = localStr(@"useFaceIDTitle");
-			alertHint = localStr(@"useFaceIDHint");
-
-			break;
-		default:
-			break;
-	}
-}
-
-
-- (void)evaluatePolicy {
-
-	__block NSString *msg;
-
-	// show the authentication UI with our reason string
-	__weak __typeof(self) weakSelf = self;
-	[context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:localStr(@"authenticateHint") reply:
-			^(BOOL success, NSError *authenticationError) {
-				if (success) {
-					[[NSOperationQueue mainQueue] addOperationWithBlock:^{
-						//TODO 此处模拟通过验证后注册成功，关掉当前页面
-//                        [weakSelf dismiss];
-//                        if (self.registSuccessBlock) {
-//                            self.registSuccessBlock();
-//                        }
-                        
-
-						NSString *msg = @"Regist Success";
-						UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:msg message:nil delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
-						[alertView show];
-
-					}];
-
-				} else {
-
-					switch (authenticationError.code) {
-						//  指纹识别3次失败进入这里
-						case LAErrorAuthenticationFailed:
-							NSLog(@"验证失败");
-							break;
-							//   指纹识别时，点击取消
-						case LAErrorUserCancel:
-							NSLog(@"点击取消按钮");
-							break;
-							//  指纹识别时，点击输入密码按钮
-						case LAErrorUserFallback:
-							NSLog(@"点击输入密码按钮");
-							break;
-							//  没有在设备上设置密码
-						case LAErrorPasscodeNotSet:
-							NSLog(@"没有在设备上设置密码");
-							break;
-							//  设备上TouchID不可用，例如未打开
-						case LAErrorBiometryNotAvailable:
-							NSLog(@"设备不支持TouchID");
-							break;
-							//  没有设置TouchID
-						case LAErrorBiometryNotEnrolled:
-							NSLog(@"设备没有注册TouchID");
-							break;
-							// 设备TouchID被锁，且只会在iOS9以上设备出现
-						case LAErrorBiometryLockout:
-							NSLog(@"TouchID被锁");
-							break;
-							// 由于不可抗拒力，应用进入后台（其实很简单，你写两个测试demo，在一个启动指纹时开启另一个项目，你的指纹项目就会因为不可抗力进入后台，这时候就会走到这）
-						case LAErrorSystemCancel:
-							NSLog(@"由于系统阻止，转入后台");
-							break;
-						default:
-							NSLog(@"不支持");
-							break;
-					}
-
-					//msg = [NSString stringWithFormat:@"EVALUATE_POLICY_WITH_ERROR : %@",
-					//uthenticationError];
-				}
-
-			}];
-
-}
 
 - (void)clickLinkedin:(id)sender {
 	NSLog(@"clickLinkedin ");
-    [self Den_showAlertWithTitle:localStr(@"permission") message:localStr(@"WouldYou") appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
-        alertMaker.
-        addActionCancelTitle(@"Dont't Allow").
-        addActionDefaultTitle(@"OK");
-    } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
-        if ([action.title isEqualToString:@"Dont't Allow"]) {
-            NSLog(@"Dont't Allow");
-        }
-        else if ([action.title isEqualToString:@"OK"]) {
-            NSLog(@"OK");
-            
-            
-            //request the linkedin
-            LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
-            // If user has already connected via linkedin in and access token is still valid then
-            // No need to fetch authorizationCode and then accessToken again!
-            
-            if (linkedIn.isValidToken) {
-                
-                linkedIn.customSubPermissions = [NSString stringWithFormat:@"%@,%@", first_name, last_name];
-                
-                // So Fetch member info by elderyly access token
-                [linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
-                    // Whole User Info
-                    
-                    NSLog(@"user Info : %@", userInfo);
-                    
-                } failUserInfo:^(NSError *error) {
-                    NSLog(@"error : %@", error.userInfo.description);
-                }];
-            } else {
-                
-                linkedIn.cancelButtonText = @"Close"; // Or any other language But Default is Close
-                
-                NSArray *permissions = @[@(BasicProfile),
-                                         @(EmailAddress),
-                                         @(Share),
-                                         @(CompanyAdmin)];
-                
-                linkedIn.showActivityIndicator = YES;
-                [linkedIn requestMeWithSenderViewController:self
-                                                   clientId:@"81nb85ffrekjgr"
-                                               clientSecret:@"K0pwDPX4ptU1Qodg"
-                                                redirectUrl:@"https://com.appcoda.linkedin.oauth/oauth"
-                                                permissions:permissions
-                                                      state:@""
-                                            successUserInfo:^(NSDictionary *userInfo) {
-                                                
-                                                NSLog(@"userInfo:%@",userInfo);
-                                                
-                                            } cancelBlock:^{
-                                                NSLog(@"User cancelled the request Action");
-                                                
-                                            } failUserInfoBlock:^(NSError *error) {
-                                                NSLog(@"error : %@", error.userInfo.description);
-                                                
-                                            }
-                 ];
-            }
-            
-        }
-    }];
+	[self Den_showAlertWithTitle:localStr(@"permission") message:localStr(@"WouldYou") appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
+		alertMaker.
+				addActionCancelTitle(@"Dont't Allow").
+				addActionDefaultTitle(@"OK");
+	}               actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
+		if ([action.title isEqualToString:@"Dont't Allow"]) {
+			NSLog(@"Dont't Allow");
+		} else if ([action.title isEqualToString:@"OK"]) {
+			NSLog(@"OK");
+
+
+			//request the linkedin
+			LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
+			// If user has already connected via linkedin in and access token is still valid then
+			// No need to fetch authorizationCode and then accessToken again!
+
+			if (linkedIn.isValidToken) {
+
+				linkedIn.customSubPermissions = [NSString stringWithFormat:@"%@,%@", first_name, last_name];
+
+				// So Fetch member info by elderyly access token
+				[linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
+					// Whole User Info
+
+					NSLog(@"user Info : %@", userInfo);
+
+				}                         failUserInfo:^(NSError *error) {
+					NSLog(@"error : %@", error.userInfo.description);
+				}];
+			} else {
+
+				linkedIn.cancelButtonText = @"Close"; // Or any other language But Default is Close
+
+				NSArray *permissions = @[@(BasicProfile),
+						@(EmailAddress),
+						@(Share),
+						@(CompanyAdmin)];
+
+				linkedIn.showActivityIndicator = YES;
+				[linkedIn requestMeWithSenderViewController:self
+				                                   clientId:@"81nb85ffrekjgr"
+				                               clientSecret:@"K0pwDPX4ptU1Qodg"
+				                                redirectUrl:@"https://com.appcoda.linkedin.oauth/oauth"
+				                                permissions:permissions
+				                                      state:@""
+				                            successUserInfo:^(NSDictionary *userInfo) {
+
+					                            NSLog(@"userInfo:%@", userInfo);
+
+				                            } cancelBlock:^{
+							NSLog(@"User cancelled the request Action");
+
+						}                 failUserInfoBlock:^(NSError *error) {
+							NSLog(@"error : %@", error.userInfo.description);
+
+						}
+				];
+			}
+
+		}
+	}];
 }
 
 - (void)clickLogin:(id)sender {

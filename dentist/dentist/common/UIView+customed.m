@@ -129,6 +129,8 @@
 - (UITextField *)resetEdit {
 	UITextField *reset = [UITextField new];
 	reset.tag = FORGOTFIELDTAG;
+	reset.autocapitalizationType = UITextAutocapitalizationTypeNone;
+	reset.autocorrectionType = UITextAutocorrectionTypeNo;
 	[reset rounded];
 	[self addSubview:reset];
 	return reset;

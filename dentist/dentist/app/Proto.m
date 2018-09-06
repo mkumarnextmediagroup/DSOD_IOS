@@ -22,13 +22,13 @@
 }
 
 + (HttpResult *)resetPwd:(NSString *)email pwd:(NSString *)pwd code:(NSString *)code {
-	NSString *s = jsonBuild(@{@"userName": email, @"password": pwd, @"email_token": code});
-	return [self postBody:@"" body:s];
+	NSString *s = jsonBuild(@{@"username": email, @"password": pwd, @"email_token": code});
+	return [self postBody:@"userAccount/resetPassWord" body:s];
 }
 
 
 + (HttpResult *)sendEmailCode:(NSString *)email {
-	return [self get:@"emailtoken/sendEmail" key:@"email" param:email];
+	return [self post:@"emailToken/sendEmail" dic:@{@"email": email}];
 }
 
 + (HttpResult *)sendLinkedInInfo:(NSString *)access_token {
@@ -62,7 +62,18 @@
 + (HttpResult *)register:(NSString *)email pwd:(NSString *)pwd name:(NSString *)name student:(BOOL)student {
 	NSNumber *stu = @(student);
 	NSString *s = jsonBuild(@{@"username": email, @"password": pwd, @"full_name": name, @"student": stu});
-	return [self postBody:@"userAccount/register" body:s];
+	HttpResult *r = [self postBody:@"userAccount/register" body:s];
+	if (r.OK) {
+		NSDictionary *d = r.resultMap;
+		if (d != nil) {
+			NSString *token = d[@"accesstoken"];
+			putUserToken(email, token);
+			putLastAccount(email);
+		}
+	}
+
+
+	return r;
 }
 
 + (HttpResult *)postBody:(NSString *)action
@@ -95,5 +106,13 @@
 	return r;
 }
 
++ (HttpResult *)post:(NSString *)action dic:(NSDictionary *)dic {
+	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
+	Http *h = [Http new];
+	h.url = strBuild(baseUrl, action);
+	[h args:dic];
+	HttpResult *r = [h post];
+	return r;
+}
 
 @end

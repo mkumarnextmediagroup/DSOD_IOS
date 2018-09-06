@@ -19,3 +19,7 @@ extern NSString *getUserToken(NSString *account);
 
 extern void putUserToken(NSString *account, NSString *token);
 
+extern void keychainPutPwd(NSString *account, NSString *pwd);
+
+extern NSString *keychainGetPwd(NSString *account);
+

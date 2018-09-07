@@ -16,6 +16,7 @@
     UITableView *myTable;
     NSInteger  indexPathRow;
 }
+@property (strong, nonatomic)NSArray *infoArr;
 @end
 
 @implementation UpdateViewController
@@ -40,6 +41,12 @@
     // Do any additional setup after loading the view.
 }
 
+- (NSArray *)infoArr
+{
+    _infoArr = [NSArray arrayWithObjects:@"General Practitioner",@"Dental Public Health",@"Endodontics",@"Oral & Maxillofacial Pathology",@"Oral & Maxillofacial Radiology",@"Oral & Maxillofacial Surgery",@"Orthodontics",@"Pediatric Dentistry",@"Periodontics",@"Prosthodontics", nil];
+    return _infoArr;
+}
+
 - (void)popBtnClick:(UIButton *)btn
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -49,7 +56,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.infoArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -65,7 +72,7 @@
                 reuseIdentifier:brand_region_Cell];
     }
     
-    cell.textLabel.text = @"General Practitioner";
+    cell.textLabel.text = self.infoArr[indexPath.row];
     
     [cell.selectBtn addTarget:self action:@selector(selectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     

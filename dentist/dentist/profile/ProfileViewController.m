@@ -61,9 +61,11 @@
 	];
 
 	myTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+	myTable.sectionFooterHeight = 0 ;
 	myTable.delegate = self;
 	myTable.dataSource = self;
 	myTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+	myTable.separatorColor = UIColor.whiteColor ;
 
 //    myTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 
@@ -165,6 +167,7 @@
 
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	ProfileGroup *pGroup = _profileArray[section];
 	return pGroup.profiles.count;
@@ -187,7 +190,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-	return 0.1;
+	return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -213,7 +216,7 @@
 		[cell setData:pGroup.profiles[(NSUInteger) indexPath.row]];
 		return cell;
 
-	} else if (section == pGroup.profiles.count - 1) {
+	} else if (section == _profileArray.count - 1) {
 		static NSString *brand_region_Cell = @"tailCell";
 
 		ProfileTailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:brand_region_Cell];

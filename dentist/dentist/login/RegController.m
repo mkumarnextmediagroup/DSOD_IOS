@@ -362,6 +362,13 @@
 				[AppDelegate.instance switchToMainPage];
 			});
 		}
+        
+        if (self.student) {
+            [DenGlobalInfo sharedInstance].identity = @"student";
+        }else
+        {
+            [DenGlobalInfo sharedInstance].identity = @"user";
+        }
 	});
 
 
@@ -403,6 +410,7 @@
 				[linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
 					// Whole User Info
 
+                    [DenGlobalInfo sharedInstance].identity = @"linkedin";
 					NSLog(@"user Info : %@", userInfo);
 
 				}                         failUserInfo:^(NSError *error) {
@@ -426,6 +434,7 @@
 				                                      state:@""
 				                            successUserInfo:^(NSDictionary *userInfo) {
 
+                                                [DenGlobalInfo sharedInstance].identity = @"linkedin";
 					                            NSLog(@"userInfo:%@", userInfo);
 
 				                            } cancelBlock:^{

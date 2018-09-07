@@ -40,14 +40,6 @@
 	self.window.frame = [[UIScreen mainScreen] bounds];
 	self.window.backgroundColor = UIColor.whiteColor;
 	[self configGlobalStyle];
-//	LoginController *c = [[LoginController alloc] init];
-//    WelcomController *c = [WelcomController new];
-//    ProfileViewController *c = [ProfileViewController new];
-//    self.window.rootViewController = c;
-//    BaseNavController *nc = [BaseNavController new];
-//    [nc pushViewController:c animated:NO];
-
-
 
 	if (Proto.isLogined) {
 		self.window.rootViewController = [self makeMainPage];

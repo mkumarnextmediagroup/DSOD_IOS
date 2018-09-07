@@ -155,7 +155,7 @@
 }
 
 + (HttpResult *)sendLinkedInInfo:(NSString *)access_token {
-	return [self post:@"linkedInLogin" dic:@{@"accessToken": access_token}];
+	return [self postBody:@"linkedInLogin" dic:@{@"accessToken": access_token}];
 }
 
 
@@ -176,6 +176,7 @@
 			NSString *token = d[@"accesstoken"];
 			putUserToken(email, token);
 			putLastAccount(email);
+			NSLog(@"Login Success: lastAccount = %@ lastToken:= %@ ", getLastAccount(), [self lastToken]);
 		}
 	}
 	return r;

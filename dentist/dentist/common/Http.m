@@ -191,15 +191,15 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	NSString *s = @"";
 	for (NSString *key in argMap) {
 		if (s.length > 0) {
-			s = [s add:@"&"];
+			s = strBuild(s, @"&");
 		}
 		NSString *value = argMap[key];
 		if (encodeUrl) {
 			NSString *k = key.urlEncoded;
 			NSString *v = value.urlEncoded;
-			s = [[[[s add:s] add:k] add:@"="] add:v];
+			s = strBuild(s, k, @"=", v);
 		} else {
-			s = [[[[s add:s] add:key] add:@"="] add:value];
+			s = strBuild(s, key, @"=", value);
 		}
 	}
 	return s;

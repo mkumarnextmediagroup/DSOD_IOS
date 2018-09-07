@@ -97,8 +97,6 @@
 - (void)clickLogin:(id)sender {
 	LoginController *c = [LoginController new];
 	[self openPage:c];
-
-
 }
 
 

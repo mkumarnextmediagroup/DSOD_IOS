@@ -188,9 +188,9 @@
 }
 
 - (void)clickGoReg:(id)sender {
-	
-    StudentController *c = [StudentController new];
-    [self presentViewController:c animated:YES completion:nil];
+
+	StudentController *c = [StudentController new];
+	[self presentViewController:c animated:YES completion:nil];
 
 }
 
@@ -253,7 +253,7 @@
 
 			//request the linkedin
 			LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
-            
+
 			// If user has already connected via linkedin in and access token is still valid then
 			// No need to fetch authorizationCode and then accessToken again!
 			if (linkedIn.isValidToken) {
@@ -267,13 +267,13 @@
 					//send the token to the server
 					HttpResult *result = [Proto sendLinkedInInfo:token];
 					NSLog(@"%@", result);
-                    if ([result.jsonBody[@"msg"] isEqualToString:@"password is null"]) {//go to the register page
-                        RegController *reg = [RegController new];
-                        reg.student = NO;
-                        reg.nameStr = result.resultMap[@"full_name"];
-                        reg.emailStr = result.resultMap[@"username"];
-                        [self openPage:reg];
-                    }
+					if ([result.jsonBody[@"msg"] isEqualToString:@"password is null"]) {//go to the register page
+						RegController *reg = [RegController new];
+						reg.student = NO;
+						reg.nameStr = result.resultMap[@"full_name"];
+						reg.emailStr = result.resultMap[@"username"];
+						[self openPage:reg];
+					}
 
 				}                         failUserInfo:^(NSError *error) {
 					NSLog(@"error : %@", error.userInfo.description);
@@ -301,14 +301,14 @@
 					                            //send the token to the server
 					                            HttpResult *result = [Proto sendLinkedInInfo:token];
 
-                                                if ([result.jsonBody[@"msg"] isEqualToString:@"password is null"]) {//go to the register page
-                                                    RegController *reg = [RegController new];
-                                                    reg.student = NO;
-                                                    reg.nameStr = result.resultMap[@"full_name"];
-                                                    reg.emailStr = result.resultMap[@"username"];
-                                                    [self openPage:reg];
-                                                }
-                                                
+					                            if ([result.jsonBody[@"msg"] isEqualToString:@"password is null"]) {//go to the register page
+						                            RegController *reg = [RegController new];
+						                            reg.student = NO;
+						                            reg.nameStr = result.resultMap[@"full_name"];
+						                            reg.emailStr = result.resultMap[@"username"];
+						                            [self openPage:reg];
+					                            }
+
 				                            } cancelBlock:^{
 							NSLog(@"User cancelled the request Action");
 
@@ -340,7 +340,6 @@
 
 	backTask(^() {
 		HttpResult *r = [Proto login:userName pwd:pwd];
-		NSLog(@"lastAccount: %@  Token: %@", getLastAccount(), getUserToken(@"entaoyang@126.com"));
 		if (Proto.isLogined) {
 			foreTask(^() {
 				[AppDelegate.instance switchToMainPage];

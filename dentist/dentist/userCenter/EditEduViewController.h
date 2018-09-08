@@ -11,6 +11,6 @@
 
 @interface EditEduViewController : BaseController
 
-@property (strong, nonatomic)NSString *btnTitle;
+@property (strong, nonatomic)NSString *addOrEdit;
 
 @end

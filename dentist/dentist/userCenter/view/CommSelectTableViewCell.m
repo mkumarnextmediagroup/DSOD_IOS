@@ -36,6 +36,7 @@
         [_imageBtn setImage:[UIImage imageNamed:@"arrow"] forState:UIControlStateNormal];
         [self addSubview:_imageBtn];
         [[[[_imageBtn.layoutMaker sizeEq:42 h:42] rightParent:0] topParent:34] install];
+        [_imageBtn onClick:self action:@selector(clickSelectImage:)];
         
         _contentField = [[UITextField alloc] init];
         _contentField.font = [Fonts regular:15];
@@ -63,6 +64,13 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+
+- (void)clickSelectImage:(id)sender {
+    if(self.selctBtnClickBlock){
+        _selctBtnClickBlock();
+    }
 }
 
 @end

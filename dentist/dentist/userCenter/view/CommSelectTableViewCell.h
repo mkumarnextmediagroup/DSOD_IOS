@@ -15,5 +15,6 @@
 @property (strong, nonatomic)UILabel *contentLab;
 @property (strong, nonatomic)UIButton *imageBtn;
 @property (strong, nonatomic)UITextField *contentField;
+@property (copy,nonatomic)void(^selctBtnClickBlock)(void);
 
 @end

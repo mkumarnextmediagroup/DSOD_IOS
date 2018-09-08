@@ -12,5 +12,5 @@
 @interface UpdateViewController : BaseController
 @property (copy,nonatomic)void(^selctBtnClickBlock)(NSString *code);
 @property (nonatomic,strong) NSMutableArray *dataList;
-
+@property (copy, nonatomic) NSString *selectStr;
 @end

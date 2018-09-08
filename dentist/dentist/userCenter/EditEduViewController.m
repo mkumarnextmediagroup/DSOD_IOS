@@ -17,20 +17,34 @@
     UITableView *myTable;
     BOOL        isSwitchOn;
     NSString    *selectStr;//picker select the string
+    NSString    *pageSelect;//back return the select
 }
 @end
 
 @implementation EditEduViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [myTable reloadData];
+
+}
+
 - (void)viewDidLoad {
     
+    //cancel the gestrue to make sure the tableview can selected
     self.isCloseTheGesture = YES;
     
     [super viewDidLoad];
     
     isSwitchOn = YES;
     UINavigationItem *item = self.navigationItem;
-    item.title = @"editEdu";
+    if ([self.addOrEdit isEqualToString:@"add"]) {
+        item.title = localStr(@"addEdu");
+    }else
+    {
+        item.title = localStr(@"editEdu");
+    }
     item.rightBarButtonItem = [self navBarText:@"SAVE" target: self  action:@selector(saveBtnClick:)];
     item.leftBarButtonItem = [self navBarImage:@"back_arrow"  target: self action:@selector(back)];
     // Do any additional setup after loading the view.
@@ -46,7 +60,13 @@
     
     UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [editBtn setTitleColor:Colors.textDisabled forState:UIControlStateNormal];
-    [editBtn setTitle:self.btnTitle forState:UIControlStateNormal];
+    if ([self.addOrEdit isEqualToString:@"add"])
+    {
+        [editBtn setTitle:@"Cancel" forState:UIControlStateNormal];
+    }else
+    {
+        [editBtn setTitle:localStr(@"delEdu") forState:UIControlStateNormal];
+    }
     [editBtn addTarget:self action:@selector(editBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [editBtn.titleLabel setFont:[Fonts semiBold:15]];
     [self.view addSubview:editBtn];
@@ -70,7 +90,19 @@
         [self back];
     }else
     {
-        
+        [self Den_showAlertWithTitle:localStr(@"delEdu") message:localStr(@"sureDelete") appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"Cancel").
+            addActionDefaultTitle(@"Yes");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+            if ([action.title isEqualToString:@"Cancel"]) {
+                NSLog(@"Cancel");
+            } else if ([action.title isEqualToString:@"Yes"]) {
+                NSLog(@"Yes");
+                
+            }
+            
+        }];
     }
 }
 
@@ -127,6 +159,9 @@
                 [cell.imageBtn setImage:[UIImage imageNamed:@"arrow"] forState:UIControlStateNormal];
                 cell.contentField.hidden = YES;
                 cell.contentLab.hidden = NO;
+                if (pageSelect != nil) {
+                    cell.contentLab.text = pageSelect;
+                }
             }
             else
             {
@@ -151,6 +186,10 @@
 {
     if (indexPath.row == 1 && isSwitchOn) {
         UpdateViewController *update = [UpdateViewController new];
+        update.selctBtnClickBlock = ^(NSString *selectStr){
+            self->pageSelect = selectStr;
+        };
+        update.selectStr = pageSelect;
         [self.navigationController pushViewController:update animated:YES];
     }else if (indexPath.row == 2)
     {

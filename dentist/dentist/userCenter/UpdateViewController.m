@@ -15,8 +15,9 @@
     UISearchBarView *searchBar;
     UITableView *myTable;
     NSInteger  indexPathRow;
+    BOOL       isSelectBoolean;
 }
-@property (strong, nonatomic)NSArray *infoArr;
+@property (strong, nonatomic)NSMutableArray *infoArr;
 @end
 
 @implementation UpdateViewController
@@ -32,9 +33,8 @@
     searchBar = self.view.createSearchBar;
     searchBar.delegate = self;
     [searchBar layoutCenterXOffsetTop:SCREENWIDTH height:57 offset:NAVHEIGHT];
-    
-    self.dataList=[NSMutableArray arrayWithObjects:
-                   @"General Practitioner",
+    self.infoArr = [[NSMutableArray alloc] init];
+    self.dataList=[[NSMutableArray alloc] initWithObjects:@"General Practitioner",
                    @"Dental Public Health",
                    @"Endodontics",
                    @"Oral & Maxillofacial Pathology",
@@ -43,18 +43,20 @@
                    @"Orthodontics",
                    @"Pediatric Dentistry",
                    @"Periodontics",
-                   @"Prosthodontics",nil];
+                   @"Prosthodontics", nil];
+    for (NSString *str in self.dataList) {
+        [self.infoArr addObject:str];
+    }
     
-  
-    
-    
-    
-   
-    
-    
-    
-    
-    
+    //judge the current select string
+    if (self.selectStr != nil) {
+        isSelectBoolean = YES;
+        for (int i = 0; i < self.dataList.count; i++) {
+            if ([self.selectStr isEqualToString:self.dataList[i]]) {
+                indexPathRow = i;
+            }
+        }
+    }
     
     myTable = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(searchBar.frame), SCREENWIDTH, SCREENHEIGHT - NAVHEIGHT - 60) style:UITableViewStylePlain];
     myTable.separatorInset =UIEdgeInsetsZero;
@@ -62,17 +64,14 @@
     myTable.dataSource = self;
     myTable.tableFooterView =  [[UIView alloc] init];
     [self.view addSubview:myTable];
+    
     // Do any additional setup after loading the view.
-}
-
-- (NSArray *)infoArr
-{
-    _infoArr = [NSArray arrayWithObjects:@"General Practitioner",@"Dental Public Health",@"Endodontics",@"Oral & Maxillofacial Pathology",@"Oral & Maxillofacial Radiology",@"Oral & Maxillofacial Surgery",@"Orthodontics",@"Pediatric Dentistry",@"Periodontics",@"Prosthodontics", nil];
-    return _infoArr;
 }
 
 - (void)popBtnClick:(UIButton *)btn
 {
+    
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -100,7 +99,7 @@
     
     [cell.selectBtn addTarget:self action:@selector(selectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    if (indexPathRow == indexPath.row) {
+    if (indexPathRow == indexPath.row && isSelectBoolean) {
         // 如果是当前cell
         [cell.selectBtn setImage:[UIImage imageNamed:@"select"] forState:UIControlStateNormal];
 
@@ -120,9 +119,12 @@
 
 - (void)selectBtnClick:(UIButton *)btn
 {
+    isSelectBoolean = YES;
     // 通过button计算出其所在的cell
     UpdateTableViewCell * cell = (UpdateTableViewCell *)[btn superview];
     NSIndexPath * path = [myTable indexPathForCell:cell];
+    
+    NSLog(@"the current cell label is :%@",cell.textLabel.text);
     
     // 刷新数据源方法
     [myTable reloadData];
@@ -137,6 +139,15 @@
 - (void)updateTheSearchText:(NSString *)fieldTest
 {
     NSLog(@"%@",fieldTest);
+    
+    [self.dataList removeAllObjects];
+    for (NSString *str in self.infoArr) {
+        if ([str hasPrefix:fieldTest]) {
+            [self.dataList addObject:str];
+        }
+    }
+    
+    [myTable reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

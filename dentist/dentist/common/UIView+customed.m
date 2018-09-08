@@ -113,6 +113,7 @@
 
 - (UIImageView *)addImageView {
 	UIImageView *imageView = [UIImageView new];
+	[imageView alignCenter];
 	[self addSubview:imageView];
 	return imageView;
 }

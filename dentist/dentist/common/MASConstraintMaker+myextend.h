@@ -44,9 +44,9 @@
 
 - (MASConstraintMaker *)heightOf:(UIView *)v;
 
-- (MASConstraintMaker *)topOf:(UIView *)v;
+- (MASConstraintMaker *)topOf:(UIView *)v offset:(CGFloat)offset;
 
-- (MASConstraintMaker *)bottomOf:(UIView *)v;
+- (MASConstraintMaker *)bottomOf:(UIView *)v offset:(CGFloat)offset;
 
 - (MASConstraintMaker *)leftOf:(UIView *)v;
 
@@ -64,5 +64,7 @@
 - (MASConstraintMaker *)centerYOf:(UIView *)v offset:(CGFloat)offset;
 
 - (MASConstraintMaker *)centerXOf:(UIView *)v offset:(CGFloat)offset;
+
+- (MASConstraintMaker *)fillParent;
 
 @end

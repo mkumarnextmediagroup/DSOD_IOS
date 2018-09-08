@@ -111,13 +111,13 @@
 	return self;
 }
 
-- (MASConstraintMaker *)topOf:(UIView *)v {
-	self.top.mas_equalTo(v.mas_top);
+- (MASConstraintMaker *)topOf:(UIView *)v offset:(CGFloat)offset {
+	self.top.equalTo(v).offset(offset);
 	return self;
 }
 
-- (MASConstraintMaker *)bottomOf:(UIView *)v {
-	self.bottom.mas_equalTo(v.mas_bottom);
+- (MASConstraintMaker *)bottomOf:(UIView *)v offset:(CGFloat)offset {
+	self.bottom.equalTo(v).offset(offset);
 	return self;
 }
 
@@ -133,7 +133,8 @@
 
 
 - (MASConstraintMaker *)above:(UIView *)v offset:(CGFloat)offset {
-	self.bottom.mas_equalTo(v.mas_top).offset(offset);
+	self.bottom.equalTo(v.mas_top).offset(offset);
+//	self.bottom.equalTo(v.mas_top).offset(offset);
 	return self;
 }
 
@@ -159,6 +160,12 @@
 
 - (MASConstraintMaker *)centerXOf:(UIView *)v offset:(CGFloat)offset {
 	self.centerX.mas_equalTo(v.mas_centerX).offset(offset);
+	return self;
+}
+
+- (MASConstraintMaker *)fillParent {
+	UIView *view = [self valueForKey:@"view"];
+	self.edges.equalTo(view);
 	return self;
 }
 

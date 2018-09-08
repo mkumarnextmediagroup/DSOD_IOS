@@ -47,4 +47,6 @@
 
 + (UserInfo *)savePractice:(nonnull NSString *)email address:(Address *)address;
 
++ (UserInfo *)lastUserInfo;
+
 @end

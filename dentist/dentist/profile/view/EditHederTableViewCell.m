@@ -35,6 +35,7 @@
 
         _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_editBtn setImage:[UIImage imageNamed:@"edit_photo"] forState:UIControlStateNormal];
+        [_editBtn onClick:self action:@selector(clickEditImage:)];
         [self addSubview:_editBtn];
         [[[[_editBtn.layoutMaker sizeEq:38 h:38] toRightOf:_headerImg offset:-19] below:_headerImg offset:-19] install];
         
@@ -56,6 +57,12 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)clickEditImage:(id)sender {
+    if(self.editBtnClickBlock){
+        _editBtnClickBlock();
+    }
 }
 
 @end

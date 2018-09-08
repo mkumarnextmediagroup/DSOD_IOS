@@ -10,5 +10,7 @@
 #import "BaseController.h"
 
 @interface UpdateViewController : BaseController
+@property (copy,nonatomic)void(^selctBtnClickBlock)(NSString *code);
+@property (nonatomic,strong) NSMutableArray *dataList;
 
 @end

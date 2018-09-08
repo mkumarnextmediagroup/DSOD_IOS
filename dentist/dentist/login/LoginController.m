@@ -268,6 +268,7 @@
 					HttpResult *result = [Proto sendLinkedInInfo:token];
 					NSLog(@"%@", result);
 					if ([result.jsonBody[@"msg"] isEqualToString:@"password is null"]) {//go to the register page
+                        [DenGlobalInfo sharedInstance].identity = @"linkedin";
 						RegController *reg = [RegController new];
 						reg.student = NO;
 						reg.nameStr = result.resultMap[@"full_name"];
@@ -301,6 +302,7 @@
 					                            //send the token to the server
 					                            HttpResult *result = [Proto sendLinkedInInfo:token];
 
+                                                [DenGlobalInfo sharedInstance].identity = @"linkedin";
 					                            if ([result.jsonBody[@"msg"] isEqualToString:@"password is null"]) {//go to the register page
 						                            RegController *reg = [RegController new];
 						                            reg.student = NO;

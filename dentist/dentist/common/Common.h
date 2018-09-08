@@ -28,6 +28,7 @@
 #import "Http.h"
 #import "Json.h"
 #import "NSData+myextend.h"
+#import "DenGlobalInfo.h"
 
 #import "UserConfig.h"
 

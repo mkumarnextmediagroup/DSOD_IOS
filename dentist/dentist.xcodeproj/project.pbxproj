@@ -61,6 +61,7 @@
 		4E846F8F213FCB8D00DC2B51 /* edit_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8D213FCB8D00DC2B51 /* edit_photo@2x.png */; };
 		4E846F92213FFEB300DC2B51 /* EditWriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F91213FFEB300DC2B51 /* EditWriteTableViewCell.m */; };
 		4E846F952140FCD200DC2B51 /* EditResidencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F942140FCD200DC2B51 /* EditResidencyViewController.m */; };
+		4E85DA8B21429C45007C40C3 /* DenGlobalInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E85DA8A21429C45007C40C3 /* DenGlobalInfo.m */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -473,6 +474,8 @@
 		4E846F91213FFEB300DC2B51 /* EditWriteTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditWriteTableViewCell.m; sourceTree = "<group>"; };
 		4E846F932140FCD200DC2B51 /* EditResidencyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditResidencyViewController.h; sourceTree = "<group>"; };
 		4E846F942140FCD200DC2B51 /* EditResidencyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditResidencyViewController.m; sourceTree = "<group>"; };
+		4E85DA8921429C45007C40C3 /* DenGlobalInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenGlobalInfo.h; sourceTree = "<group>"; };
+		4E85DA8A21429C45007C40C3 /* DenGlobalInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DenGlobalInfo.m; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -1474,7 +1477,8 @@
 				E11E1A544B506B69CDC58F55 /* ToastItem.h */,
 				E11E1E2E7E559C1B3A86C40D /* Toast.m */,
 				E11E1329ED4940C074E4CB2B /* Toast.h */,
-				C5EEACCE91D3CD16193DBC11 /* list */,
+				4E85DA8921429C45007C40C3 /* DenGlobalInfo.h */,
+				4E85DA8A21429C45007C40C3 /* DenGlobalInfo.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -2019,6 +2023,7 @@
 				E11E1F3374C0062C790089B8 /* TitleBar.m in Sources */,
 				E11E1A6226F32868524CF272 /* BaseTabController.m in Sources */,
 				E11E1FDF20B6B0E9F9C926B1 /* CmsMainController.m in Sources */,
+				4E85DA8B21429C45007C40C3 /* DenGlobalInfo.m in Sources */,
 				E11E1ADBC83B9657D14256E2 /* UserConfig.m in Sources */,
 				E11E13D762D175EF23115B92 /* AppDelegate.m in Sources */,
 				E11E147FF4FE738E0561AF6A /* Proto.m in Sources */,
@@ -2182,7 +2187,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 48BA5XP347;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -2230,7 +2235,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 48BA5XP347;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

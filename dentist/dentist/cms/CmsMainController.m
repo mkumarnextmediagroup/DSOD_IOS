@@ -5,6 +5,7 @@
 
 #import "CmsMainController.h"
 #import "IIViewDeckController.h"
+#import "TestPage.h"
 
 
 @implementation CmsMainController {
@@ -32,5 +33,7 @@
 
 
 - (void)onClickEdit:(id)sender {
+	UIViewController *c = [TestPage new];
+	[self pushPage:c];
 }
 @end

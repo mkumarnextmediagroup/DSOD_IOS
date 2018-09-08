@@ -29,23 +29,6 @@
 @implementation ProfileViewController
 
 - (void)onClickEdit:(id)sender {
-	backTask(^() {
-//		[Proto register:@"entaoyang@126.com" pwd:@"Yang2008" name:@"Entao Yang"];
-		[Proto login:@"entaoyang@126.com" pwd:@"Yang2018"];
-//		[Proto sendEmailCode:@"entaoyang@126.com"];
-	});
-
-	EditProfileViewController *edit = [EditProfileViewController new];
-	[self.navigationController pushViewController:edit animated:YES];
-}
-
-- (void)onClickMenu:(id)sender {
-	backTask(^() {
-//		[Proto register:@"entaoyang@126.com" pwd:@"Yang2008" name:@"Entao Yang"];
-		[Proto login:@"entaoyang@126.com" pwd:@"Yang2018"];
-//		[Proto sendEmailCode:@"entaoyang@126.com"];
-	});
-
 	EditProfileViewController *edit = [EditProfileViewController new];
 	[self.navigationController pushViewController:edit animated:YES];
 }
@@ -61,11 +44,11 @@
 	];
 
 	myTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-	myTable.sectionFooterHeight = 0 ;
+	myTable.sectionFooterHeight = 0;
 	myTable.delegate = self;
 	myTable.dataSource = self;
 	myTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-	myTable.separatorColor = UIColor.whiteColor ;
+	myTable.separatorColor = UIColor.whiteColor;
 
 //    myTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 

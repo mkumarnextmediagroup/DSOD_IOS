@@ -10,8 +10,6 @@
 @implementation UIViewController (myextend)
 
 
-
-
 - (UINavigationBar *)navBar {
 	if (self.navigationController != nil) {
 		return self.navigationController.navigationBar;
@@ -59,5 +57,22 @@
 	return bi;
 }
 
+- (void)openPage:(UIViewController *)page {
+	[self presentViewController:page animated:YES completion:nil];
+}
+
+- (void)pushPage:(UIViewController *)page {
+	if ([self isKindOfClass:[UINavigationController class]]) {
+		UINavigationController *c = (UINavigationController *) self;
+		[c pushViewController:page animated:YES];
+		return;
+	}
+	UINavigationController *c = self.navigationController;
+	if (c != nil) {
+		[c pushViewController:page animated:YES];
+		return;
+	}
+	[self presentViewController:page animated:YES completion:nil];
+}
 
 @end

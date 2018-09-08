@@ -4,19 +4,11 @@
 //
 
 #import "WelcomController.h"
-#import "Common.h"
-#import "Masonry.h"
 #import "LoginController.h"
-#import "UIControl+customed.h"
-#import "UIView+customed.h"
 #import "StudentController.h"
-#import "StackLayout.h"
-#import "UILabel+customed.h"
-#import "Async.h"
-#import "Http.h"
 #import "Proto.h"
-#import "Yang.h"
-#import "JSONModel+myextend.h"
+#import "ListPage.h"
+#import "TestPage.h"
 
 
 @interface WelcomController ()
@@ -25,8 +17,10 @@
 
 @implementation WelcomController
 
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
+
 	UIImage *image = [UIImage imageNamed:@"bg_1.png"];
 	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 	[self.view addSubview:imageView];
@@ -88,6 +82,15 @@
 	[loginButton onClick:self action:@selector(clickLogin:)];
 	[startButton onClick:self action:@selector(clickStudent:)];
 
+
+	UIButton *testBtn = self.view.addButton;
+	[testBtn title:localStr(@"测试")];
+	[testBtn stylePrimary];
+	[[[[[[testBtn layoutMaker] topParent:160] centerXParent:0] widthEq:330] heightEq:BTN_HEIGHT] install];
+
+	[testBtn onClick:self action:@selector(clickTest:)];
+	testBtn.hidden = NO;
+
 }
 
 - (void)clickStudent:(id)sender {
@@ -99,5 +102,9 @@
 	[self openPage:c];
 }
 
+- (void)clickTest:(id)sender {
+	UIViewController *c = [TestPage new];
+	[self pushPage:c];
+}
 
 @end

@@ -72,6 +72,8 @@
 "profile" = "PROFILE";
 "edit" = "Edit";
 "editEdu" = "EDIT EDUCATION";
+"addEdu" = "ADD EDUCATION";
+"delEdu" = "Delete Education";
 "attended" = "Attended Dental School in the US";
 "dental" = "Dental School";
 "graduation" = "Year of Graduation";
@@ -84,3 +86,8 @@
 "usePhoto" = "Your photos will be used solely for setting up your profile photo";
 "import" = "Import from LinkedIn";
 "information" = "Information imported from LinkedIn will not be shared without your permission";
+"sureDelete" = "Are you sure you want to delete this education?";
+"sureDeleteRes" = "Are you sure you want to delete this residency?";
+"addRes" = "ADD RESIDENCY";
+"editRes" = "EDIT RESIDENCY";
+"delRes" = "Delete Residency";

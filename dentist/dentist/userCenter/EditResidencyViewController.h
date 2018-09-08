@@ -11,7 +11,6 @@
 
 @interface EditResidencyViewController : BaseController
 
-@property (strong, nonatomic)NSString *titleStr;
-@property (strong, nonatomic)NSString *btnTitle;
+@property (strong, nonatomic)NSString *addOrEdit;
 
 @end

@@ -428,8 +428,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
         {
             NSLog(@"Residency button click");
             EditResidencyViewController *editRes = [EditResidencyViewController new];
-            editRes.titleStr = @"ADD RESIDENCY";
-            editRes.btnTitle = @"Cancel";
+            editRes.addOrEdit = @"add";
             [self.navigationController pushViewController:editRes animated:YES];
         }
             break;
@@ -437,6 +436,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
         {
             NSLog(@"Education button click");
             EditEduViewController *editEdu = [EditEduViewController new];
+            editEdu.addOrEdit = @"add";
             [self.navigationController pushViewController:editEdu animated:YES];
         }
             break;

@@ -27,9 +27,33 @@
     item.title = @"STATE";
     item.leftBarButtonItem = [self navBarImage:@"back_arrow"  target: self  action:@selector(popBtnClick:)];
     
+    
     searchBar = self.view.createSearchBar;
     searchBar.delegate = self;
     [searchBar layoutCenterXOffsetTop:SCREENWIDTH height:57 offset:NAVHEIGHT];
+    
+    self.dataList=[NSMutableArray arrayWithObjects:
+                   @"General Practitioner",
+                   @"Dental Public Health",
+                   @"Endodontics",
+                   @"Oral & Maxillofacial Pathology",
+                   @"Oral & Maxillofacial Radiology",
+                   @"Oral & Maxillofacial Surgery",
+                   @"Orthodontics",
+                   @"Pediatric Dentistry",
+                   @"Periodontics",
+                   @"Prosthodontics",nil];
+    
+  
+    
+    
+    
+   
+    
+    
+    
+    
+    
     
     myTable = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(searchBar.frame), SCREENWIDTH, SCREENHEIGHT - NAVHEIGHT - 60) style:UITableViewStylePlain];
     myTable.separatorInset =UIEdgeInsetsZero;
@@ -49,7 +73,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.dataList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -65,7 +89,7 @@
                 reuseIdentifier:brand_region_Cell];
     }
     
-    cell.textLabel.text = @"General Practitioner";
+    cell.textLabel.text = self.dataList[indexPath.row];
     
     [cell.selectBtn addTarget:self action:@selector(selectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -98,6 +122,9 @@
     
     // 记录下当前的IndexPath.row
     indexPathRow = path.row;
+    if(self.selctBtnClickBlock){
+        _selctBtnClickBlock(self.dataList[indexPathRow]);
+    }
 }
 
 - (void)updateTheSearchText:(NSString *)fieldTest

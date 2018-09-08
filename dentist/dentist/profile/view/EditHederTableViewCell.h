@@ -12,5 +12,6 @@
 
 @property (strong, nonatomic)UIImageView *headerImg;
 @property (strong, nonatomic)UIButton *editBtn;
+@property (copy,nonatomic)void(^editBtnClickBlock)(void);
 
 @end

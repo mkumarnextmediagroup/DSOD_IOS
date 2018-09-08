@@ -70,7 +70,6 @@
 	myTable.tableFooterView = [UIView new];
 	myTable.sectionFooterHeight = 0;
 
-//    myTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 
 
 	[self.view addSubview:myTable];

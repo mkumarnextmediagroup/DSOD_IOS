@@ -13,10 +13,17 @@
 #import "EditWriteTableViewCell.h"
 #import "EditEduViewController.h"
 #import "EditResidencyViewController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "UpdateViewController.h"
+#import "Async.h"
 
-@interface EditProfileViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface EditProfileViewController ()<UITableViewDelegate,UITableViewDataSource,
+UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     UITableView *myTable;
+    UIImage     *selectImage;
+    NSString    *selectImageName;
+    NSString    *selectSpeciality;
 }
 @end
 
@@ -122,9 +129,17 @@
                             reuseIdentifier:edit_header_Cell];
                 }
                 
-                [cell.editBtn addTarget:self action:@selector(editHeaderImg) forControlEvents:UIControlEventTouchUpInside];
-                
+                cell.editBtnClickBlock = ^{
+                    [self editHeaderImg];
+                };
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                
+                if (selectImageName.length != 0) {
+                    [cell.headerImg setImage:selectImage];
+                }
+                
+                
                 return cell;
             }
             break;
@@ -148,8 +163,12 @@
             }else
             {
                 cell.titleLab.text = @"Speciality";
+                cell.contentLab.text=selectSpeciality;
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.selctBtnClickBlock = ^{
+                [self selectSpecialty];
+            };
             return cell;
         }
             break;
@@ -390,8 +409,9 @@
             NSLog(@"Dont't Allow");
         } else if ([action.title isEqualToString:@"OK"]) {
             NSLog(@"OK");
+            [self callActionSheetFunc];
         }
-
+        
     }];
 }
 
@@ -408,8 +428,7 @@
         {
             NSLog(@"Residency button click");
             EditResidencyViewController *editRes = [EditResidencyViewController new];
-            editRes.titleStr = @"ADD RESIDENCY";
-            editRes.btnTitle = @"Cancel";
+            editRes.addOrEdit = @"add";
             [self.navigationController pushViewController:editRes animated:YES];
         }
             break;
@@ -417,12 +436,28 @@
         {
             NSLog(@"Education button click");
             EditEduViewController *editEdu = [EditEduViewController new];
+            editEdu.addOrEdit = @"add";
             [self.navigationController pushViewController:editEdu animated:YES];
         }
             break;
         default:
             break;
     }
+}
+
+//tap on Specialty field in the Personal info section
+- (void)selectSpecialty
+{
+    
+    UpdateViewController *update = [UpdateViewController new];
+    update.selctBtnClickBlock = ^(NSString *code) {
+        self->selectSpeciality = code;//TODO 是否为code？
+        foreTask(^{
+            [self->myTable reloadData];
+        });
+    };
+    [self.navigationController pushViewController:update animated:YES];
+    NSLog(@"selectSpecialty");
 }
 
 //user tap the back button
@@ -442,14 +477,89 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)callActionSheetFunc{
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        
+        [self Den_showActionSheetWithTitle:nil message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"cancel").
+            addActionDefaultTitle(@"Camera").
+            addActionDefaultTitle(@"Gallery");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+            if ([action.title isEqualToString:@"cancel"]) {
+                NSLog(@"cancel");
+            }
+            else if ([action.title isEqualToString:@"Camera"]) {
+                NSLog(@"Camera");
+                [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypeCamera];
+            }else if ([action.title isEqualToString:@"Gallery"]) {
+                NSLog(@"Gallery");
+                [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            }
+        }];
+        
+    }else{
+        [self Den_showActionSheetWithTitle:nil message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"cancel").
+            addActionDefaultTitle(@"Gallery");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+            if ([action.title isEqualToString:@"cancel"]) {
+                NSLog(@"cancel");
+            }
+            else if ([action.title isEqualToString:@"Gallery"]) {
+                NSLog(@"Gallery");
+                [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            }
+        }];
+    }
 }
-*/
+
+- (void)clickTheBtnWithSourceType:(UIImagePickerControllerSourceType)sourceType
+{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.sourceType = sourceType;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = nil;
+    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+        picker.cameraDevice =  UIImagePickerControllerCameraDeviceFront;
+        image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+        
+        NSString *imageName = [info valueForKey:UIImagePickerControllerMediaType];
+        NSLog(@"imageName1:%@", imageName);
+        selectImageName = imageName;
+        selectImage = image;
+        [myTable reloadData];
+        
+    }else{
+        image = info[UIImagePickerControllerOriginalImage];
+        
+        NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
+        
+        ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+        //根据url获取asset信息, 并通过block进行回调
+        [assetsLibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
+            ALAssetRepresentation *representation = [asset defaultRepresentation];
+            NSString *imageName = representation.filename;
+            NSLog(@"imageName:%@", imageName);
+            self->selectImageName = imageName;
+            selectImage = image;
+            [myTable reloadData];
+            
+        } failureBlock:^(NSError *error) {
+            NSLog(@"%@", [error localizedDescription]);
+        }];
+    }
+    [self dismissViewControllerAnimated:NO completion:nil];
+    
+    
+}
 
 @end

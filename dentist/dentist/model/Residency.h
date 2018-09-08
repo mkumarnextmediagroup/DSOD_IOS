@@ -11,6 +11,7 @@
 @interface Residency : JSONModel
 
 @property(nullable) NSString <Optional> *place;
-@property(nullable) NSString <Optional> *dateCompletion;
+@property(nullable) NSString <Optional> *dateFrom;
+@property(nullable) NSString <Optional> *dateTo;
 
 @end

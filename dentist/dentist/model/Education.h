@@ -8,10 +8,13 @@
 
 @protocol Education;
 
+
 @interface Education : JSONModel
 
 @property NSString <Optional> *schoolName;
-@property(nullable) NSString <Optional> *dateGraduation;
+@property NSString <Optional> *certificate;
+@property(nullable) NSString <Optional> *dateFrom;
+@property(nullable) NSString <Optional> *dateTo;
 @property BOOL attendDentalSchoolInUS;
 
 

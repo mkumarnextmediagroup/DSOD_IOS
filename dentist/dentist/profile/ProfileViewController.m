@@ -67,7 +67,6 @@
 	myTable.separatorStyle = UITableViewCellSeparatorStyleNone;
 	myTable.separatorColor = UIColor.whiteColor ;
 
-//    myTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 
 
 	[self.view addSubview:myTable];

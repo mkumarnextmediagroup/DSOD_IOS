@@ -20,13 +20,14 @@
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource> {
 	UITableView *myTable;
 	NSMutableArray *_profileArray;
-
+	UserInfo *userInfo;
 }
 
 @end
 
 
 @implementation ProfileViewController
+
 
 - (void)onClickEdit:(id)sender {
 	EditProfileViewController *edit = [EditProfileViewController new];

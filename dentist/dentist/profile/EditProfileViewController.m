@@ -15,6 +15,7 @@
 #import "EditResidencyViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "UpdateViewController.h"
+#import "EditPracticeAddressViewController.h"
 #import "Async.h"
 
 @interface EditProfileViewController ()<UITableViewDelegate,UITableViewDataSource,
@@ -24,6 +25,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     UIImage     *selectImage;
     NSString    *selectImageName;
     NSString    *selectSpeciality;
+    NSString    *selectPracticeAddress;
 }
 @end
 
@@ -164,11 +166,13 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
             {
                 cell.titleLab.text = @"Speciality";
                 cell.contentLab.text=selectSpeciality;
+                  __weak typeof(self) weakSelf = self;
+                cell.selctBtnClickBlock = ^{
+                    [weakSelf toSelectSpecialty];
+                };
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.selctBtnClickBlock = ^{
-                [self selectSpecialty];
-            };
+            
             return cell;
         }
             break;
@@ -295,6 +299,11 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
                             reuseIdentifier:edit_header_Cell];
                 }
                 cell.titleLab.text = @"Practice address";
+                cell.contentLab.text=selectPracticeAddress;
+                 __weak typeof(self) weakSelf = self;
+                cell.selctBtnClickBlock = ^{
+                    [weakSelf toSelectPracticeAddress];
+                };
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
             }else
@@ -446,10 +455,11 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 }
 
 //tap on Specialty field in the Personal info section
-- (void)selectSpecialty
+- (void)toSelectSpecialty
 {
     
     UpdateViewController *update = [UpdateViewController new];
+    update.titleStr=@"SPECIALITY";
     update.selctBtnClickBlock = ^(NSString *code) {
         self->selectSpeciality = code;//TODO 是否为code？
         foreTask(^{
@@ -458,6 +468,22 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     };
     [self.navigationController pushViewController:update animated:YES];
     NSLog(@"selectSpecialty");
+}
+
+
+//tap on Practice field in the Personal info section
+- (void)toSelectPracticeAddress
+{
+    
+    EditPracticeAddressViewController *editPracticeAddressViewController = [EditPracticeAddressViewController new];
+    editPracticeAddressViewController.saveBtnClickBlock = ^(NSString *code) {
+        self->selectPracticeAddress =code;
+        foreTask(^{
+            [self->myTable reloadData];
+        });
+    };
+    [self.navigationController pushViewController:editPracticeAddressViewController animated:YES];
+    NSLog(@"toSelectPracticeAddress");
 }
 
 //user tap the back button

@@ -16,8 +16,12 @@
 
 - (void)textColorWhite;
 
+- (void)textColorBlack;
+
 - (void)textColorMain;
+
 - (void)textColorPrimary;
+
 - (void)textColorSecondary;
 
 - (void)textAlignCenter;

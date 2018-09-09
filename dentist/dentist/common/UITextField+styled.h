@@ -9,6 +9,7 @@
 
 @property NSString *hint;
 
+- (void)textColorBlack;
 - (void)textColorWhite;
 
 - (void)textAlignCenter;

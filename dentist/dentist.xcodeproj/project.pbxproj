@@ -155,6 +155,7 @@
 		C5EEAB5B6FF45C046B7CF9E6 /* IconLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA6381F155CD9A33B6ACA /* IconLabelView.m */; };
 		C5EEAC3B3E7352E6EE7B998F /* ProfileEditPage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA11136959D571134A012 /* ProfileEditPage.m */; };
 		C5EEAC84691A5246841E615B /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA7921005BA1AD231EC66 /* info@2x.png */; };
+		C5EEACA37317B44B87084801 /* UITextView+myextend.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEACA72D14C6A6E02E8876 /* UITextView+myextend.m */; };
 		C5EEACBF759E368D6653D927 /* QueueLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA042B303A304B3A77094 /* QueueLayout.m */; };
 		C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAF6B331211FDA925279D /* UIScreen+customed.m */; };
 		C5EEAD868056CEA29BDACC95 /* logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAFA6847EBD5CB2040106 /* logo@3x.png */; };
@@ -640,6 +641,7 @@
 		C5EEAC36ADFF1B9F8DEBA913 /* NSMutableAttributedString+customed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+customed.m"; sourceTree = "<group>"; };
 		C5EEAC3BE69CD7BD9524FE69 /* WelcomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomController.m; sourceTree = "<group>"; };
 		C5EEAC56322EB38F34BC5D19 /* Fonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fonts.m; sourceTree = "<group>"; };
+		C5EEACA72D14C6A6E02E8876 /* UITextView+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+myextend.m"; sourceTree = "<group>"; };
 		C5EEACA9044F373ABAF0AFDA /* Education.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Education.h; sourceTree = "<group>"; };
 		C5EEACBC931939B104FC3D13 /* TextSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextSize.m; sourceTree = "<group>"; };
 		C5EEAD01E5D2BFC4923EE71F /* IconTitleMsgCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconTitleMsgCell.m; sourceTree = "<group>"; };
@@ -656,6 +658,7 @@
 		C5EEAE085D2BEF383E4F2BA8 /* in@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "in@2x.png"; sourceTree = "<group>"; };
 		C5EEAE3E82D71BB36A5623A5 /* info@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@3x.png"; sourceTree = "<group>"; };
 		C5EEAE7BE32AD0ABDBFAC74B /* UserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
+		C5EEAE8FC3D16D615FEF51FE /* UITextView+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+myextend.h"; sourceTree = "<group>"; };
 		C5EEAE98803C6DEDE38865EB /* StackLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackLayout.h; sourceTree = "<group>"; };
 		C5EEAEAE914013D381D67DEC /* SlideController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideController.h; sourceTree = "<group>"; };
 		C5EEAEB2CEEA283D0FCC0B9C /* IconTitleMsgDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconTitleMsgDetailCell.m; sourceTree = "<group>"; };
@@ -1549,6 +1552,8 @@
 				C5EEA66BB74A043772234307 /* LayoutParam.h */,
 				C5EEA3D61E006611E93D2772 /* Padding.m */,
 				C5EEA77B4826E7BAE9FF4B6F /* Padding.h */,
+				C5EEACA72D14C6A6E02E8876 /* UITextView+myextend.m */,
+				C5EEAE8FC3D16D615FEF51FE /* UITextView+myextend.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -2144,6 +2149,7 @@
 				C5EEA373DDF182E577189856 /* TitleEditView.m in Sources */,
 				C5EEA0D05177B02E9AA2A4F5 /* Padding.m in Sources */,
 				C5EEA6200E06A5C46512F9B0 /* TitleMsgArrowView.m in Sources */,
+				C5EEACA37317B44B87084801 /* UITextView+myextend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

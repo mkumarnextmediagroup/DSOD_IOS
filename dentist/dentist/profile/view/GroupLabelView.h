@@ -6,5 +6,9 @@
 #import <UIKit/UIKit.h>
 
 
-@interface GroupLabelView : UILabel
+@interface GroupLabelView : UIView
+@property(readonly) UILabel *label;
+@property(readonly) UIButton *button;
+
+
 @end

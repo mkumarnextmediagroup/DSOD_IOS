@@ -38,6 +38,7 @@
 	[[[[iconView.layoutMaker sizeEq:16 h:16] rightParent:-p.right] bottomParent:-p.bottom] install];
 	[[[[[_edit.layoutMaker heightEq:25] leftParent:p.left] bottomParent:-p.bottom] toLeftOf:iconView offset:10] install];
 
+	self.layoutParam.height = 78 ;
 
 	return self;
 }

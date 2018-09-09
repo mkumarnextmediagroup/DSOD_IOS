@@ -6,11 +6,13 @@
 #import <UIKit/UIKit.h>
 
 
-@interface IconTitleMsgDetailCell : UIView
+@interface IconTitleMsgDetailCell : UIControl
 
 @property(readonly) UIImageView *imageView;
 @property(readonly) UILabel *titleLabel;
 @property(readonly) UILabel *msgLabel;
 @property(readonly) UILabel *detailLabel;
+
+@property BOOL hasArrow ;
 
 @end

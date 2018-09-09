@@ -4,9 +4,14 @@
 //
 
 #import "Address.h"
+#import "Common.h"
 
 
 @implementation Address {
 
+}
+
+-(NSString*) detailAddress {
+	return strBuild(self.address2, @",", self.address1, @",", self.city, @",", self.stateLabel, @"-", self.zipCode);
 }
 @end

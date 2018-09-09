@@ -10,6 +10,6 @@
 #import "BaseController.h"
 #import "BaseController.h"
 
-@interface ProfileViewController : BaseController
+@interface ProfileViewController : ScrollPage
 
 @end

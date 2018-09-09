@@ -195,15 +195,6 @@ static char layoutParamAttr = 0;
 	}];
 }
 
-- (void)layoutCenterXOffsetBottom:(CGFloat)width height:(CGFloat)height offset:(CGFloat)offset {
-	[self makeLayout:^(MASConstraintMaker *m) {
-		m.width.mas_equalTo(width);
-		m.height.mas_equalTo(height);
-		m.centerX.equalTo(self.superview.mas_centerX);
-		m.bottom.equalTo(self.superview.mas_bottom).offset(-offset);
-	}];
-}
-
 
 - (void)layoutFill {
 	[self makeLayout:^(MASConstraintMaker *m) {
@@ -223,23 +214,6 @@ static char layoutParamAttr = 0;
 	}];
 }
 
-- (void)layoutFillXOffsetTop:(CGFloat)height offset:(CGFloat)offset {
-	[self makeLayout:^(MASConstraintMaker *m) {
-		m.left.equalTo(self.superview.mas_left).offset(EDGE);
-		m.right.equalTo(self.superview.mas_right).offset(-EDGE);
-		m.height.mas_equalTo(height);
-		m.top.equalTo(self.superview.mas_top).offset(offset);
-	}];
-}
-
-- (void)layoutFillXOffsetBottom:(CGFloat)height offset:(CGFloat)offset {
-	[self makeLayout:^(MASConstraintMaker *m) {
-		m.left.equalTo(self.superview.mas_left).offset(EDGE);
-		m.right.equalTo(self.superview.mas_right).offset(-EDGE);
-		m.height.mas_equalTo(height);
-		m.bottom.equalTo(self.superview.mas_bottom).offset(-offset);
-	}];
-}
 
 - (NSArray *)makeLayout:(void (^)(MASConstraintMaker *))block {
 	self.translatesAutoresizingMaskIntoConstraints = NO;
@@ -259,11 +233,13 @@ static char layoutParamAttr = 0;
 	constraintMaker.removeExisting = YES;
 	return constraintMaker;
 }
-- (MASConstraintMaker *)layoutUpdate{
+
+- (MASConstraintMaker *)layoutUpdate {
 	self.translatesAutoresizingMaskIntoConstraints = NO;
 	MASConstraintMaker *constraintMaker = [[MASConstraintMaker alloc] initWithView:self];
 	constraintMaker.updateExisting = YES;
 	return constraintMaker;
 }
+
 
 @end

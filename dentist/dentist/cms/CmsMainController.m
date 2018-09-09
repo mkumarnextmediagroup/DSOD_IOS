@@ -8,6 +8,7 @@
 #import "TestPage.h"
 #import "ScrollPage.h"
 #import "TestScrollPage.h"
+#import "ProfileEditPage.h"
 
 
 @implementation CmsMainController {
@@ -36,7 +37,7 @@
 
 - (void)onClickEdit:(id)sender {
 //	UIViewController *c = [TestPage new];
-	UIViewController *c = [TestScrollPage new];
+	UIViewController *c = [ProfileEditPage new];
 	[self pushPage:c];
 }
 @end

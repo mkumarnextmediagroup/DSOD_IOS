@@ -14,4 +14,5 @@
 
 - (void)layoutLinearVertical;
 
+-(UIView*)addGrayLine:(CGFloat)marginLeft marginRight:(CGFloat) marginRight;
 @end

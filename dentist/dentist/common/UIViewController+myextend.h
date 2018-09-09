@@ -20,4 +20,7 @@
 
 - (UIBarButtonItem *)navBarImage:(NSString *)imageName target:(nullable id)target action:(SEL)action;
 
+-(void) openPage:(UIViewController*) page;
+-(void) pushPage:(UIViewController*) page;
+
 @end

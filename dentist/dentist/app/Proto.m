@@ -87,11 +87,10 @@
 }
 
 + (UserInfo *)userInfo:(nonnull NSString *)email {
-
-	NSString *json = [self userInfoLocal:email];
-	if (json != nil) {
-		return [[UserInfo alloc] initWithJson:json];
-	}
+//	NSString *json = [self userInfoLocal:email];
+//	if (json != nil) {
+//		return [[UserInfo alloc] initWithJson:json];
+//	}
 
 	UserInfo *ui = [UserInfo alloc];
 	ui.email = email;
@@ -102,19 +101,39 @@
 	ui.specialityLabel = @"Orthodontics";
 
 	Address *addr = [Address new];
+	addr.stateLabel = @"MA";
+	addr.city = @"Boston";
+	addr.address1 = @"45th Street";
+	addr.address2 = @"124 Park Avenue";
+	addr.zipCode = @"20230";
 	ui.practiceAddress = addr;
-
-	addr.stateId = @"100";
-	addr.stateLabel = @"New York";
-	addr.city = @"New York";
-	addr.address1 = @"XXX Street XXX ";
-	addr.address2 = nil;
 
 	Education *edu = [Education new];
 	edu.schoolName = @"Peiking University";
+	edu.certificate = @"Doctor of Dental Surgery";
+	edu.dateFrom = @"Sep 2006";
+	edu.dateTo = @"July 2011";
 	Education *edu2 = [Education new];
 	edu2.schoolName = @"Tsinghua University";
+	edu.certificate = @"Doctor of Dental Surgery";
+	edu2.dateFrom = @"Sep 2006";
+	edu2.dateTo = @"July 2011";
 	ui.educationArray = @[edu, edu2];
+
+	Experience *exp = [Experience new];
+	exp.dentalName = @"Smile Dental";
+	exp.praticeType = @"Owner Dentist";
+	exp.dateFrom = @"Jun 2017";
+	exp.dateTo = @"Present";
+	ui.experienceArray = @[exp];
+
+	Residency *r = [Residency new];
+	r.place = @"Boston Hospital";
+	r.dateFrom = @"Sep 2011";
+	r.dateTo = @"March 2013";
+
+	ui.residencyArray = @[r];
+
 
 	NSString *s = [ui toJSONString];
 
@@ -132,6 +151,10 @@
 + (void)saveUserInfoLocal:(NSString *)email info:(NSString *)info {
 	NSUserDefaults *d = userConfig(email);
 	[d setObject:info forKey:@"userInfo"];
+}
+
++ (UserInfo *)lastUserInfo {
+	return [self userInfo:[self lastAccount]];
 }
 
 + (BOOL)isLogined {

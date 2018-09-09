@@ -15,12 +15,24 @@
 #import "ProfileGroup.h"
 #import "Async.h"
 #import "Proto.h"
+#import "GroupItem.h"
+#import "UserCell.h"
+#import "IconTitleMsgDetailCell.h"
+#import "IconTitleMsgCell.h"
+#import "LineTableCell.h"
+
+#define GROUP_BASE @"base"
+#define GROUP_RESIDENCY @"Residency"
+#define GROUP_EDUCATION @"Education"
+#define GROUP_CONTACT @"Contact"
+#define GROUP_EXP @"Experience"
 
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource> {
 	UITableView *myTable;
-	NSMutableArray *_profileArray;
+	UserInfo *userInfo;
 
+	NSMutableArray<GroupItem *> *groupArray;
 }
 
 @end
@@ -28,30 +40,17 @@
 
 @implementation ProfileViewController
 
+
 - (void)onClickEdit:(id)sender {
-	backTask(^() {
-//		[Proto register:@"entaoyang@126.com" pwd:@"Yang2008" name:@"Entao Yang"];
-		[Proto login:@"entaoyang@126.com" pwd:@"Yang2018"];
-//		[Proto sendEmailCode:@"entaoyang@126.com"];
-	});
-
-	EditProfileViewController *edit = [EditProfileViewController new];
-	[self.navigationController pushViewController:edit animated:YES];
-}
-
-- (void)onClickMenu:(id)sender {
-	backTask(^() {
-//		[Proto register:@"entaoyang@126.com" pwd:@"Yang2008" name:@"Entao Yang"];
-		[Proto login:@"entaoyang@126.com" pwd:@"Yang2018"];
-//		[Proto sendEmailCode:@"entaoyang@126.com"];
-	});
-
 	EditProfileViewController *edit = [EditProfileViewController new];
 	[self.navigationController pushViewController:edit animated:YES];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	userInfo = [Proto lastUserInfo];
+	groupArray = [NSMutableArray arrayWithCapacity:16];
+
 
 	UINavigationItem *item = self.navigationItem;
 	item.title = @"PROFILE";
@@ -61,11 +60,15 @@
 	];
 
 	myTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-	myTable.sectionFooterHeight = 0 ;
+	myTable.sectionFooterHeight = 0;
 	myTable.delegate = self;
 	myTable.dataSource = self;
+//	myTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 	myTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-	myTable.separatorColor = UIColor.whiteColor ;
+	myTable.separatorColor = Colors.strokes;
+	myTable.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+	myTable.tableFooterView = [UIView new];
+	myTable.sectionFooterHeight = 0;
 
 
 
@@ -76,72 +79,53 @@
 }
 
 - (void)initData {
-	Profile *p1 = [Profile new];
-	p1.name = @"Edward Norton";
-	p1.specialityTitle = @"Speciality";
-	p1.speciality = @"Orthodontics";
+	GroupItem *baseGroup = [GroupItem new];
+	baseGroup.title = GROUP_BASE;
+	[baseGroup.children addObject:@"base"];
 
-	ProfileGroup *pGroup1 = [ProfileGroup new];
-	pGroup1.groupName = nil;
-	pGroup1.profiles = [NSMutableArray arrayWithObjects:p1, nil];
+	GroupItem *residencyGroup = [GroupItem new];
+	residencyGroup.title = GROUP_RESIDENCY;
+	if (userInfo.residencyArray != nil) {
+		for (Residency *r in userInfo.residencyArray) {
+			[residencyGroup.children addObject:r];
+		}
+	} else {
+		[residencyGroup.children addObject:@""];
+	}
 
-	Profile *p2 = [Profile new];
-	p2.name = @"Residency";
-	p2.specialityTitle = @"Boston Hospital";
-	p2.speciality = @"September 2015 - Present";
-	p2.avataName = @"residency";
-
-
-	ProfileGroup *pGroup2 = [ProfileGroup new];
-	pGroup2.groupName = @"Residency";
-	pGroup2.profiles = [NSMutableArray arrayWithObjects:p2, nil];
-
-
-	Profile *p3 = [Profile new];
-	p3.name = @"California Dental School";
-	p3.specialityTitle = @"Certificate, Advanced Periodontology";
-	p3.speciality = @"September 2014 - March 2015";
-	p3.avataName = @"edu";
-	p3.lineType = 1;
+	GroupItem *eduGroup = [GroupItem new];
+	eduGroup.title = GROUP_EDUCATION;
+	if (userInfo.educationArray != nil) {
+		for (Education *e in userInfo.educationArray) {
+			[eduGroup.children addObject:e];
+		}
+	} else {
+		[eduGroup.children addObject:@""];
+	}
 
 
-	Profile *p4 = [Profile new];
-	p4.name = @"Arizona Dental School";
-	p4.specialityTitle = @"Doctorate of Dental Medicine (DMD)";
-	p4.speciality = @"September 2010 - August 2014";
-	p4.avataName = @"school";
+	GroupItem *expGroup = [GroupItem new];
+	expGroup.title = GROUP_EXP;
+	if (userInfo.experienceArray != nil) {
+		for (Experience *e in userInfo.experienceArray) {
+			[expGroup.children addObject:e];
+		}
+	} else {
+		[expGroup.children addObject:@""];
+	}
+	GroupItem *contactGroup = [GroupItem new];
+	contactGroup.title = GROUP_CONTACT;
+	[contactGroup.children addObject:@"address"];
+	[contactGroup.children addObject:@"phone"];
+	[contactGroup.children addObject:@"email"];
 
-
-	ProfileGroup *pGroup3 = [ProfileGroup new];
-	pGroup3.groupName = @"Education";
-	pGroup3.profiles = [NSMutableArray arrayWithObjects:p3, p4, nil];
-
-
-	Profile *p5 = [Profile new];
-	p5.specialityTitle = @"Mobile Number";
-	p5.speciality = @"207-782-8410";
-	p5.avataName = @"phone";
-	p5.lineType = 1;
-
-
-	Profile *p6 = [Profile new];
-	p6.specialityTitle = @"Preferred Email Address";
-	p6.speciality = @"edward.norton@cads.edu";
-	p6.avataName = @"mail";
-
-	ProfileGroup *pGroup4 = [ProfileGroup new];
-	pGroup4.groupName = @"Contact";
-	pGroup4.profiles = [NSMutableArray arrayWithObjects:p5, p6, nil];
-
-	_profileArray = [NSMutableArray arrayWithObjects:pGroup1, pGroup2, pGroup3, pGroup4, nil];
-
-
+	[groupArray addObjectsFromArray:@[baseGroup, expGroup, residencyGroup, eduGroup, contactGroup]];
 }
 
 #pragma mark UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return _profileArray.count;
+	return groupArray.count;
 }
 
 #pragma mark UITableViewDatasource
@@ -151,25 +135,16 @@
 		return nil;
 	}
 	UILabel *lb = [UILabel new];
-	ProfileGroup *pGroup = _profileArray[section];
-	lb.text = [NSString stringWithFormat:@"%s%@", "     ", pGroup.groupName];
+	lb.text = strBuild(@"     ", groupArray[(NSUInteger) section].title);
 	lb.font = [Fonts regular:12];
 	lb.textColor = Colors.textAlternate;
 	lb.backgroundColor = UIColor.whiteColor;
-
-
 	return lb;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-	return nil;
-
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	ProfileGroup *pGroup = _profileArray[section];
-	return pGroup.profiles.count;
+	return groupArray[(NSUInteger) section].children.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -188,61 +163,124 @@
 	return 24;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-	return 0;
-}
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-
-	ProfileGroup *pGroup = _profileArray[section];
-	return pGroup.groupName;
+	if (section == 0) {
+		return nil;
+	}
+	return groupArray[(NSUInteger) section].title;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSUInteger section = (NSUInteger) indexPath.section;
-	ProfileGroup *pGroup = _profileArray[section];
-	if (section == 0) {
-		static NSString *brand_region_Cell = @"userCell";
+	GroupItem *group = groupArray[section];
+	NSString *groupName = group.title;
 
-		ProfileHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:brand_region_Cell];
-
+	if ([groupName isEqualToString:GROUP_BASE]) {
+		LineTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"userCell"];
 		if (cell == nil) {
-			cell = [[ProfileHeaderTableViewCell alloc]
-					initWithStyle:UITableViewCellStyleDefault
-				  reuseIdentifier:brand_region_Cell];
+			cell = [[LineTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"userCell"];
+			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+			UserCell *userCell = [UserCell new];
+			[cell.contentView addSubview:userCell];
+			[[[[[[userCell layoutMaker] leftParent:0] topParent:0] rightParent:0] heightEq:95] install];
 		}
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		[cell setData:pGroup.profiles[(NSUInteger) indexPath.row]];
-		return cell;
-
-	} else if (section == _profileArray.count - 1) {
-		static NSString *brand_region_Cell = @"tailCell";
-
-		ProfileTailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:brand_region_Cell];
-
-		if (cell == nil) {
-			cell = [[ProfileTailTableViewCell alloc]
-					initWithStyle:UITableViewCellStyleDefault
-				  reuseIdentifier:brand_region_Cell];
-		}
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		[cell setData:pGroup.profiles[(NSUInteger) indexPath.row]];
-		return cell;
-
-	} else {
-		static NSString *brand_region_Cell = @"normalCell";
-
-		ProfileNormalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:brand_region_Cell];
-
-		if (cell == nil) {
-			cell = [[ProfileNormalTableViewCell alloc]
-					initWithStyle:UITableViewCellStyleDefault
-				  reuseIdentifier:brand_region_Cell];
-		}
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		[cell setData:pGroup.profiles[(NSUInteger) indexPath.row]];
+		UserCell *userCell = cell.contentView.subviews[0];
+		[userCell.imageView sd_setImageWithURL:[NSURL URLWithString:userInfo.portraitUrl]
+		                      placeholderImage:[UIImage imageNamed:@"default_avatar"]];
+		userCell.nameLabel.text = userInfo.fullName;
+		userCell.specTitleLabel.text = @"Speciality";
+		userCell.specNameLabel.text = userInfo.specialityLabel;
+		cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
 		return cell;
 	}
+	if ([groupName isEqualToString:GROUP_CONTACT]) {
+		LineTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contact"];
+		if (cell == nil) {
+			cell = [[LineTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"contact"];
+			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+			IconTitleMsgCell *c = [IconTitleMsgCell new];
+			[cell.contentView addSubview:c];
+			[[[[[[c layoutMaker] leftParent:0] topParent:0] rightParent:0] heightEq:78] install];
+		}
+		IconTitleMsgCell *cellView = cell.contentView.subviews[0];
+		NSString *item = groupArray[section].children[(NSUInteger) indexPath.row];
+		if ([item isEqualToString:@"phone"]) {
+			cellView.imageView.imageName = @"phone";
+			cellView.titleLabel.text = @"Mobile Number";
+			cellView.msgLabel.text = userInfo.phone;
+		} else if ([item isEqualToString:@"email"]) {
+			cellView.imageView.imageName = @"mail";
+			cellView.titleLabel.text = @"Preferred Email Address";
+			cellView.msgLabel.text = userInfo.email;
+		} else if ([item isEqualToString:@"address"]) {
+			Address *addr = userInfo.practiceAddress;
+			cellView.imageView.imageName = @"icon-99";
+			cellView.titleLabel.text = @"Practice Address";
+			cellView.msgLabel.text = strBuild(addr.address2, @",", addr.address1, @",", addr.city, @",", addr.stateLabel, @"-", addr.zipCode);
+		}
+		cell.separatorInset = UIEdgeInsetsMake(0, 78, 0, 0);
+
+		return cell;
+	}
+
+
+	LineTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"normal"];
+	if (cell == nil) {
+		cell = [[LineTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"normal"];
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		IconTitleMsgDetailCell *c = [IconTitleMsgDetailCell new];
+		[cell.contentView addSubview:c];
+		[[[[[[c layoutMaker] leftParent:0] topParent:0] rightParent:0] heightEq:78] install];
+	}
+	IconTitleMsgDetailCell *cellView = cell.contentView.subviews[0];
+	NSObject *item = groupArray[section].children[(NSUInteger) indexPath.row];
+
+	if ([groupName isEqualToString:GROUP_EXP]) {
+		cellView.imageView.imageName = @"dental-blue";
+
+		if ([item isKindOfClass:[NSString class]]) {
+			cellView.msgLabel.text = @"-";
+			cellView.detailLabel.text = @"-";
+		} else {
+			Experience *r = (Experience *) item;
+			cellView.titleLabel.text = r.praticeType;
+			cellView.msgLabel.text = r.dentalName;
+			cellView.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
+		}
+	}
+	if ([groupName isEqualToString:GROUP_RESIDENCY]) {
+		cellView.imageView.imageName = @"residency";
+		cellView.titleLabel.text = @"Residency";
+		if ([item isKindOfClass:[NSString class]]) {
+			cellView.msgLabel.text = @"-";
+			cellView.detailLabel.text = @"-";
+		} else {
+			Residency *r = (Residency *) item;
+			cellView.msgLabel.text = r.place;
+			cellView.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
+		}
+	}
+	if ([groupName isEqualToString:GROUP_EDUCATION]) {
+		cellView.imageView.imageName = @"edu";
+		if ([item isKindOfClass:[NSString class]]) {
+			cellView.titleLabel.text = @"-";
+			cellView.msgLabel.text = @"-";
+			cellView.detailLabel.text = @"-";
+
+		} else {
+			Education *r = (Education *) item;
+			cellView.titleLabel.text = r.schoolName;
+			cellView.msgLabel.text = r.certificate;
+			cellView.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
+		}
+	}
+	if (groupArray[section].children.count - 1 == indexPath.row) {
+		cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+	} else {
+		cell.separatorInset = UIEdgeInsetsMake(0, 78, 0, 0);
+	}
+	return cell;
 }
 
 @end

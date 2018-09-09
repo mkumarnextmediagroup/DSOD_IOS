@@ -8,17 +8,29 @@
 
 
 @implementation TestScrollPage {
+	UILabel *lb;
+}
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	self.navigationItem.rightBarButtonItem = [self navBarText:@"Test" target:self action:@selector(clickTest:)];
 
 }
 
 - (UIView *)onCreateContent {
-	UILabel *lb = [UILabel new];
+	lb = [UILabel new];
 	lb.backgroundColor = UIColor.blueColor;
 	lb.text = @"=====================";
 	[self.contentView addSubview:lb];
-	[[[[[[lb layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:200] install];
+	[[[[[[lb layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:1200] install];
 
 	return lb;
+}
+
+
+- (void)clickTest:(id)sender {
+	NSLog(@"click ");
+	[lb removeFromSuperview];
 }
 
 @end

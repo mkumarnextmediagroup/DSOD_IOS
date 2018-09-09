@@ -35,7 +35,7 @@
 	MASConstraintMaker *m = [_contentView layoutMaker];
 	m.edges.equalTo(_scrollView);
 	m.width.equalTo(_scrollView);
-	m.height.equalTo(_scrollView).priority(200);
+	m.height.equalTo(_scrollView).with.priority(200);
 	[m install];
 
 	_contentView.backgroundColor = UIColor.whiteColor;

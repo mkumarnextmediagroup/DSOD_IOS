@@ -8,7 +8,11 @@
 
 #import "UISearchBarView.h"
 
+@class LayoutParam;
+
 @interface UIView (customed)
+
+@property LayoutParam *layoutParam;
 
 - (CGRect)toScreenFrame;
 
@@ -43,7 +47,11 @@
 - (UIButton *)addCheckbox;
 
 
-- (MASConstraintMaker *)layoutMaker;
+@property(readonly) MASConstraintMaker *layoutMaker;
+
+@property(readonly) MASConstraintMaker *layoutRemaker;
+
+@property(readonly) MASConstraintMaker *layoutUpdate;
 
 - (NSArray *)makeLayout:(void (^)(MASConstraintMaker *))block;
 

@@ -3,12 +3,32 @@
 // Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
 //
 
+#import <objc/runtime.h>
 #import "UIView+customed.h"
 #import "Common.h"
 #import "TapGesture.h"
 #import "Platform.h"
+#import "LayoutParam.h"
+#import "UISearchBarView.h"
+
+static char layoutParamAttr = 0;
 
 @implementation UIView (customed)
+
+- (LayoutParam *)layoutParam {
+	LayoutParam *p = objc_getAssociatedObject(self, &layoutParamAttr);
+	if (p == nil) {
+		LayoutParam *pp = [LayoutParam new];
+		objc_setAssociatedObject(self, &layoutParamAttr, pp, OBJC_ASSOCIATION_RETAIN);
+		return pp;
+	}
+	return p;
+}
+
+- (void)setLayoutParam:(LayoutParam *)p {
+	objc_setAssociatedObject(self, &layoutParamAttr, p, OBJC_ASSOCIATION_RETAIN);
+}
+
 
 - (CGRect)toScreenFrame {
 	UIWindow *w = [[UIApplication sharedApplication] keyWindow];
@@ -233,5 +253,17 @@
 	return [[MASConstraintMaker alloc] initWithView:self];
 }
 
+- (MASConstraintMaker *)layoutRemaker {
+	self.translatesAutoresizingMaskIntoConstraints = NO;
+	MASConstraintMaker *constraintMaker = [[MASConstraintMaker alloc] initWithView:self];
+	constraintMaker.removeExisting = YES;
+	return constraintMaker;
+}
+- (MASConstraintMaker *)layoutUpdate{
+	self.translatesAutoresizingMaskIntoConstraints = NO;
+	MASConstraintMaker *constraintMaker = [[MASConstraintMaker alloc] initWithView:self];
+	constraintMaker.updateExisting = YES;
+	return constraintMaker;
+}
 
 @end

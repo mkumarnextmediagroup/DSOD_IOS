@@ -12,8 +12,6 @@
 @property(readonly) UIScrollView *scrollView;
 @property(readonly) UIView *contentView;
 
-//返回最底部的view;
-- (UIView *)onCreateContent;
-
+- (void)layoutLinearVertical;
 
 @end

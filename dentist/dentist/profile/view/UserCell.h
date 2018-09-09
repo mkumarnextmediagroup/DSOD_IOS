@@ -4,9 +4,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseItemView.h"
 
 
-@interface UserCell : UIView
+@interface UserCell : BaseItemView
 
 @property(readonly) UIImageView *imageView;
 @property(readonly) UILabel *nameLabel;

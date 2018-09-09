@@ -17,6 +17,17 @@
 #import "UpdateViewController.h"
 #import "EditPracticeAddressViewController.h"
 #import "Async.h"
+#import "Proto.h"
+#import "GroupItem.h"
+#import "UserInfo.h"
+
+#define GROUP_BASE @"base"
+#define GROUP_RESIDENCY @"Residency"
+#define GROUP_EDUCATION @"Education"
+#define GROUP_CONTACT @"Contact info"
+#define GROUP_EXP @"Experience"
+#define GROUP_PERSONALINFO @"Personal Info"
+#define GROUP_UPLOAD localStr(@"uploadResu")
 
 @interface EditProfileViewController ()<UITableViewDelegate,UITableViewDataSource,
 UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -26,6 +37,8 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     NSString    *selectImageName;
     NSString    *selectSpeciality;
     NSString    *selectPracticeAddress;
+    UserInfo *userInfo;
+    NSMutableArray<GroupItem *> *groupArray;
 }
 @end
 
@@ -33,6 +46,9 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    userInfo = [Proto lastUserInfo];
+    groupArray = [NSMutableArray arrayWithCapacity:16];
     
     UINavigationItem *item = self.navigationItem;
     item.title = localStr(@"editProfile");
@@ -46,74 +62,98 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
     [self.view addSubview:myTable];
     myTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     [[[[[myTable.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
+    
+    [self initBaseData];
     // Do any additional setup after loading the view.
+}
+
+- (void)initBaseData {
+    
+    GroupItem *baseGroup = [GroupItem new];
+    baseGroup.title = GROUP_BASE;
+    [baseGroup.children addObject:@"base"];
+    
+    GroupItem *personInfo = [GroupItem new];
+    personInfo.title = GROUP_PERSONALINFO;
+    if (userInfo.personInfoArray != nil) {
+        for (PersonInfo *e in userInfo.personInfoArray) {
+            [personInfo.children addObject:e];
+        }
+    } else {
+        [personInfo.children addObject:@""];
+    }
+    
+    GroupItem *uploadDataGroup = [GroupItem new];
+    uploadDataGroup.title = GROUP_UPLOAD;
+    if (userInfo.residencyArray != nil) {
+        for (UploadData *r in userInfo.uploadDataArray) {
+            [uploadDataGroup.children addObject:r];
+        }
+    } else {
+        [uploadDataGroup.children addObject:@""];
+    }
+    
+    GroupItem *expGroup = [GroupItem new];
+    expGroup.title = GROUP_EXP;
+    if (userInfo.experienceArray != nil) {
+        for (Experience *e in userInfo.experienceArray) {
+            [expGroup.children addObject:e];
+        }
+    } else {
+        [expGroup.children addObject:@""];
+    }
+
+    
+    GroupItem *residencyGroup = [GroupItem new];
+    residencyGroup.title = GROUP_RESIDENCY;
+    if (userInfo.residencyArray != nil) {
+        for (Residency *r in userInfo.residencyArray) {
+            [residencyGroup.children addObject:r];
+        }
+    } else {
+        [residencyGroup.children addObject:@""];
+    }
+    
+    GroupItem *eduGroup = [GroupItem new];
+    eduGroup.title = GROUP_EDUCATION;
+    if (userInfo.educationArray != nil) {
+        for (Education *e in userInfo.educationArray) {
+            [eduGroup.children addObject:e];
+        }
+    } else {
+        [eduGroup.children addObject:@""];
+    }
+    
+    
+    GroupItem *contactGroup = [GroupItem new];
+    contactGroup.title = GROUP_CONTACT;
+    [contactGroup.children addObject:@"address"];
+    [contactGroup.children addObject:@"phone"];
+    [contactGroup.children addObject:@"email"];
+    
+    [groupArray addObjectsFromArray:@[baseGroup, personInfo, uploadDataGroup, expGroup, residencyGroup, eduGroup, contactGroup]];
+
 }
 
 #pragma mark UITableViewDelegate UITableViewDataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.section) {
-        case 0:
-            return 200;
-            break;
-        case 1:
-            return 76;
-            break;
-        case 2:
-            return 78;
-            break;
-        case 3:
-            return 78;
-            break;
-        case 4:
-            return 78;
-            break;
-        case 5:
-            return 78;
-            break;
-        case 6:
-            return 78;
-            break;
-        default:
-            break;
+    if (indexPath.section == 0) {
+        return 200;
+    } else {
+        return 78;
     }
-    return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 7;
+    return groupArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    switch (section) {
-        case 0:
-            return 1;
-            break;
-        case 1:
-            return 2;
-            break;
-        case 2:
-            return 2;
-            break;
-        case 3:
-            return 2;
-            break;
-        case 4:
-            return 1;
-            break;
-        case 5:
-            return 2;
-            break;
-        case 6:
-            return 3;
-            break;
-        default:
-            break;
-    }
-    return 1;
+    return groupArray[(NSUInteger) section].children.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -334,6 +374,11 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate>
             break;
     }
     return nil;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

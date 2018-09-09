@@ -55,15 +55,13 @@
 
 - (NSArray *)makeLayout:(void (^)(MASConstraintMaker *))block;
 
-- (void)layoutFillXOffsetTop:(CGFloat)height offset:(CGFloat)offset;
-
-- (void)layoutFillXOffsetBottom:(CGFloat)height offset:(CGFloat)offset;
 
 - (void)layoutFill;
 
 - (void)layoutCenterXOffsetTop:(CGFloat)width height:(CGFloat)height offset:(CGFloat)offset;
 
-- (void)layoutCenterXOffsetBottom:(CGFloat)width height:(CGFloat)height offset:(CGFloat)offset;
-
 - (void)layoutFillXOffsetCenterY:(CGFloat)height offset:(CGFloat)offset;
+
+
+
 @end

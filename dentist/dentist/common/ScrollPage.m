@@ -67,5 +67,15 @@
 	}
 }
 
+- (UIView *)addGrayLine:(CGFloat)marginLeft marginRight:(CGFloat)marginRight {
+	UIView *v = [UIView new];
+	v.layoutParam.height = 1;
+	v.layoutParam.marginLeft = marginLeft;
+	v.layoutParam.marginRight = marginRight;
+	[self.contentView addSubview:v];
+	v.backgroundColor = Colors.cellLineColor;
+	return v;
+}
+
 
 @end

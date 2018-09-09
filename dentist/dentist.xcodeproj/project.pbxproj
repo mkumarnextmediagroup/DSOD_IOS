@@ -127,6 +127,7 @@
 		C5EEA77FC67A0537194AE788 /* StudentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA36D27849EDE93EE982E /* StudentController.m */; };
 		C5EEA79DA0D394B4733FFB2E /* Experience.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAF3D123C1C1B41B8548C /* Experience.m */; };
 		C5EEA83B50B6C4A767E00729 /* UIControl+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAD9C9F70275E545F3182 /* UIControl+customed.m */; };
+		C5EEA84D75BB70B84734A025 /* GroupLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAFDDFEAFB22A568AFE95 /* GroupLabelView.m */; };
 		C5EEA88EF87352A514933076 /* Education.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA08BC599D4B0CDB588FF /* Education.m */; };
 		C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAAE437209CC4CB67759E /* UITextField+styled.m */; };
 		C5EEA97A363C02981633699C /* StackLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA5618C6AF14B04224B97 /* StackLayout.m */; };
@@ -569,6 +570,7 @@
 		C5EEA5F9F6A770ECFEAE79BD /* checkbox_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_on@3x.png"; sourceTree = "<group>"; };
 		C5EEA5FC699E9927D1269E63 /* RegController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegController.h; sourceTree = "<group>"; };
 		C5EEA6381F155CD9A33B6ACA /* IconLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconLabelView.m; sourceTree = "<group>"; };
+		C5EEA63D36337007E8E7F300 /* GroupLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupLabelView.h; sourceTree = "<group>"; };
 		C5EEA642E8440AC95E0E0CEA /* Residency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Residency.h; sourceTree = "<group>"; };
 		C5EEA64F84AE34B5F5F79A7F /* ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ok@3x.png"; sourceTree = "<group>"; };
 		C5EEA66BB74A043772234307 /* LayoutParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutParam.h; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 		C5EEAF6B331211FDA925279D /* UIScreen+customed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+customed.m"; sourceTree = "<group>"; };
 		C5EEAF8E7EDDD03188A629E5 /* TapGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapGesture.h; sourceTree = "<group>"; };
 		C5EEAFA6847EBD5CB2040106 /* logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@3x.png"; sourceTree = "<group>"; };
+		C5EEAFDDFEAFB22A568AFE95 /* GroupLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupLabelView.m; sourceTree = "<group>"; };
 		C5EEAFF4A200D9CA4A66028D /* TestScrollPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestScrollPage.m; sourceTree = "<group>"; };
 		D18A46C0F072296ED5347389 /* libPods-dentist.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dentist.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11E101818FD3D3064AB8B90 /* menu-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-profile.png"; sourceTree = "<group>"; };
@@ -931,7 +934,7 @@
 				4E846F84213FBEAE00DC2B51 /* EditProfileViewController.m */,
 				3E49F90D2144A22E00F32146 /* EditPracticeAddressViewController.h */,
 				3E49F90E2144A22E00F32146 /* EditPracticeAddressViewController.m */,
-                C5EEA11136959D571134A012 /* ProfileEditPage.m */,
+				C5EEA11136959D571134A012 /* ProfileEditPage.m */,
 				C5EEA11065C868C1B0BA3075 /* ProfileEditPage.h */,
 			);
 			path = profile;
@@ -1048,6 +1051,8 @@
 				C5EEA5573BA1BEB2CA6EA124 /* LineTableCell.h */,
 				C5EEA7741DB76DA5BD03A532 /* EditUserView.m */,
 				C5EEA4C7A8EC5F3B66201EB0 /* EditUserView.h */,
+				C5EEAFDDFEAFB22A568AFE95 /* GroupLabelView.m */,
+				C5EEA63D36337007E8E7F300 /* GroupLabelView.h */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2110,6 +2115,7 @@
 				C5EEADD593CFF58DCAB8626E /* LayoutParam.m in Sources */,
 				C5EEAC3B3E7352E6EE7B998F /* ProfileEditPage.m in Sources */,
 				C5EEADF2AD177B5CE17DB0CF /* EditUserView.m in Sources */,
+				C5EEA84D75BB70B84734A025 /* GroupLabelView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

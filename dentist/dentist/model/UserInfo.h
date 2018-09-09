@@ -8,7 +8,8 @@
 #import "Education.h"
 #import "Experience.h"
 #import "Residency.h"
-
+#import "PersonInfo.h"
+#import "UploadData.h"
 
 @interface UserInfo : JSONModel
 
@@ -27,5 +28,7 @@
 @property(nullable) NSArray <Experience, Optional> *experienceArray;
 @property(nullable) NSArray <Residency, Optional> *residencyArray;
 @property(nullable) NSArray <Education, Optional> *educationArray;
+@property(nullable) NSArray <PersonInfo, Optional> *personInfoArray;
+@property(nullable) NSArray <UploadData, Optional> *uploadDataArray;
 
 @end

@@ -5,11 +5,12 @@
 
 #import <UIKit/UIKit.h>
 #import "ListPage.h"
+#import "GroupListPage.h"
 
 @class Pair;
 
 
-@interface SearchPage : ListPage
+@interface SearchPage : GroupListPage
 
 
 @property NSObject *checkedItem;

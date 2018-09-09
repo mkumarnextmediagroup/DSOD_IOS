@@ -186,6 +186,7 @@
 {
     if (indexPath.row == 1 && isSwitchOn) {
         UpdateViewController *update = [UpdateViewController new];
+        update.titleStr=@"Dental School";
         update.selctBtnClickBlock = ^(NSString *selectStr){
             self->pageSelect = selectStr;
         };

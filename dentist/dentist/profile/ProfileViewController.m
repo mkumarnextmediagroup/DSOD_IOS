@@ -7,19 +7,12 @@
 //
 
 #import "ProfileViewController.h"
-#import "EditProfileViewController.h"
 #import "Proto.h"
 #import "UserCell.h"
 #import "IconTitleMsgDetailCell.h"
 #import "IconTitleMsgCell.h"
 #import "GroupLabelView.h"
 #import "ProfileEditPage.h"
-
-#define GROUP_BASE @"base"
-#define GROUP_RESIDENCY @"Residency"
-#define GROUP_EDUCATION @"Education"
-#define GROUP_CONTACT @"Contact"
-#define GROUP_EXP @"Experience"
 
 
 @interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource> {

@@ -1,11 +1,17 @@
 //
-// Created by entaoyang on 2018/9/8.
+// Created by entaoyang on 2018/9/10.
 // Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "ListPage.h"
 
+@class Pair;
 
-@interface TestPage : ListPage
+
+@interface SearchPage : ListPage
+
+
+@property NSObject *checkedItem;
+
 @end

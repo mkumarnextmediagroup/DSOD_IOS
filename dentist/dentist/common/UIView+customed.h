@@ -9,8 +9,11 @@
 #import "UISearchBarView.h"
 
 @class LayoutParam;
+@class Padding;
 
 @interface UIView (customed)
+
+@property Padding *padding;
 
 @property LayoutParam *layoutParam;
 
@@ -27,6 +30,7 @@
 - (UITextView *)noticeLabel;
 
 - (UITextField *)addEdit;
+- (UITextField *)addEditRaw;
 
 - (UITextField *)resetEdit;
 
@@ -61,7 +65,6 @@
 - (void)layoutCenterXOffsetTop:(CGFloat)width height:(CGFloat)height offset:(CGFloat)offset;
 
 - (void)layoutFillXOffsetCenterY:(CGFloat)height offset:(CGFloat)offset;
-
 
 
 @end

@@ -40,6 +40,10 @@
 	self.textAlignment = NSTextAlignmentRight;
 }
 
+- (void)textColorBlack {
+	self.textColor = UIColor.blackColor;
+}
+
 - (void)textColorWhite {
 	self.textColor = UIColor.whiteColor;
 }

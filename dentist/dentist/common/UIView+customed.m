@@ -9,17 +9,35 @@
 #import "TapGesture.h"
 #import "Platform.h"
 #import "LayoutParam.h"
+#import "Padding.h"
 #import "UISearchBarView.h"
 
 static char layoutParamAttr = 0;
+static char paddingAttr = 0;
 
 @implementation UIView (customed)
+
+
+- (Padding *)padding {
+	Padding *p = objc_getAssociatedObject(self, &paddingAttr);
+	if (p == nil) {
+		Padding *pp = [Padding new];
+		[self setPadding:pp];
+		return pp;
+	}
+	return p;
+}
+
+- (void)setPadding:(Padding *)p {
+	objc_setAssociatedObject(self, &paddingAttr, p, OBJC_ASSOCIATION_RETAIN);
+}
+
 
 - (LayoutParam *)layoutParam {
 	LayoutParam *p = objc_getAssociatedObject(self, &layoutParamAttr);
 	if (p == nil) {
 		LayoutParam *pp = [LayoutParam new];
-		objc_setAssociatedObject(self, &layoutParamAttr, pp, OBJC_ASSOCIATION_RETAIN);
+		[self setLayoutParam:pp];
 		return pp;
 	}
 	return p;
@@ -143,6 +161,14 @@ static char layoutParamAttr = 0;
 	edit.autocapitalizationType = UITextAutocapitalizationTypeNone;
 	edit.autocorrectionType = UITextAutocorrectionTypeNo;
 	[edit rounded];
+	[self addSubview:edit];
+	return edit;
+}
+
+- (UITextField *)addEditRaw {
+	UITextField *edit = [UITextField new];
+	edit.autocapitalizationType = UITextAutocapitalizationTypeNone;
+	edit.autocorrectionType = UITextAutocorrectionTypeNo;
 	[self addSubview:edit];
 	return edit;
 }

@@ -39,6 +39,10 @@
 	self.textColor = UIColor.whiteColor;
 }
 
+- (void)textColorBlack {
+	self.textColor = UIColor.blackColor;
+}
+
 - (void)textColorMain {
 	self.textColor = Colors.textMain;
 }

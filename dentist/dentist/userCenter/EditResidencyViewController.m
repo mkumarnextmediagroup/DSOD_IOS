@@ -10,6 +10,7 @@
 #import "CommSelectTableViewCell.h"
 #import "UpdateViewController.h"
 #import "PickerViewController.h"
+#import "Residency.h"
 
 @interface EditResidencyViewController ()<UITableViewDelegate,UITableViewDataSource>
 {

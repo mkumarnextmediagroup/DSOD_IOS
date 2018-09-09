@@ -146,11 +146,13 @@
 		C5EEAB4FF315CAB5733FE9C5 /* SlideController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA2DA2AD9CFD4AAC3565C /* SlideController.m */; };
 		C5EEAB5755227C042888D693 /* Json.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA3BC65A98C300E252D89 /* Json.m */; };
 		C5EEAB5B6FF45C046B7CF9E6 /* IconLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA6381F155CD9A33B6ACA /* IconLabelView.m */; };
+		C5EEAC3B3E7352E6EE7B998F /* ProfileEditPage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA11136959D571134A012 /* ProfileEditPage.m */; };
 		C5EEAC84691A5246841E615B /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA7921005BA1AD231EC66 /* info@2x.png */; };
 		C5EEACBF759E368D6653D927 /* QueueLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA042B303A304B3A77094 /* QueueLayout.m */; };
 		C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAF6B331211FDA925279D /* UIScreen+customed.m */; };
 		C5EEAD868056CEA29BDACC95 /* logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAFA6847EBD5CB2040106 /* logo@3x.png */; };
 		C5EEADD593CFF58DCAB8626E /* LayoutParam.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAA32464A7E5623530A22 /* LayoutParam.m */; };
+		C5EEADF2AD177B5CE17DB0CF /* EditUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA7741DB76DA5BD03A532 /* EditUserView.m */; };
 		C5EEAE3B78A71516A252C86F /* StackLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAF6550A8BFEA1922A8F1 /* StackLayoutItem.m */; };
 		C5EEAE562042AC89740F25B0 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAC2EE0E713EE63B492A5 /* checkbox.png */; };
 		C5EEAE86F4DCB0CEF09C5B49 /* logo_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA0DE73B049D946E71EA1 /* logo_white@2x.png */; };
@@ -532,6 +534,8 @@
 		C5EEA0D6F3D346ABA57627E3 /* in@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "in@3x.png"; sourceTree = "<group>"; };
 		C5EEA0DE73B049D946E71EA1 /* logo_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_white@2x.png"; sourceTree = "<group>"; };
 		C5EEA0EC3A98C21A3F5DDBE8 /* Fonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fonts.h; sourceTree = "<group>"; };
+		C5EEA11065C868C1B0BA3075 /* ProfileEditPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileEditPage.h; sourceTree = "<group>"; };
+		C5EEA11136959D571134A012 /* ProfileEditPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileEditPage.m; sourceTree = "<group>"; };
 		C5EEA1491E2D8BE3A1E73723 /* BaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseController.m; sourceTree = "<group>"; };
 		C5EEA1860B2742E7ECFF40DC /* IconLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconLabelView.h; sourceTree = "<group>"; };
 		C5EEA18EB9B95E5485DE66DA /* error@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@3x.png"; sourceTree = "<group>"; };
@@ -550,6 +554,7 @@
 		C5EEA4256B021E478012CC56 /* StackLayoutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackLayoutItem.h; sourceTree = "<group>"; };
 		C5EEA48D7B111AE46CEB2898 /* UIControl+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+customed.h"; sourceTree = "<group>"; };
 		C5EEA4B43DAD528FED6AD329 /* UIButton+styled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+styled.m"; sourceTree = "<group>"; };
+		C5EEA4C7A8EC5F3B66201EB0 /* EditUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditUserView.h; sourceTree = "<group>"; };
 		C5EEA52D798B7B8BA9FF1CC9 /* Http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Http.m; sourceTree = "<group>"; };
 		C5EEA5573BA1BEB2CA6EA124 /* LineTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineTableCell.h; sourceTree = "<group>"; };
 		C5EEA5618C6AF14B04224B97 /* StackLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackLayout.m; sourceTree = "<group>"; };
@@ -570,6 +575,7 @@
 		C5EEA6D41AA021EC38370EA9 /* HttpProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpProgress.h; sourceTree = "<group>"; };
 		C5EEA6E4F02A1D4B394C1BAC /* Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Address.h; sourceTree = "<group>"; };
 		C5EEA6FEB228DB3B32C4E6DF /* ListPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListPage.m; sourceTree = "<group>"; };
+		C5EEA7741DB76DA5BD03A532 /* EditUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserView.m; sourceTree = "<group>"; };
 		C5EEA774D7153D4B1BEEBA57 /* checkbox_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_on.png; sourceTree = "<group>"; };
 		C5EEA7921005BA1AD231EC66 /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
 		C5EEA7B9D5BECBFD7E0084C4 /* Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Http.h; sourceTree = "<group>"; };
@@ -920,6 +926,8 @@
 				3ED0764A213A9FE3004D4083 /* ProfileViewController.m */,
 				4E846F83213FBEAE00DC2B51 /* EditProfileViewController.h */,
 				4E846F84213FBEAE00DC2B51 /* EditProfileViewController.m */,
+				C5EEA11136959D571134A012 /* ProfileEditPage.m */,
+				C5EEA11065C868C1B0BA3075 /* ProfileEditPage.h */,
 			);
 			path = profile;
 			sourceTree = "<group>";
@@ -1033,6 +1041,8 @@
 				C5EEAE7BE32AD0ABDBFAC74B /* UserCell.m */,
 				C5EEAD2062BF25897D205401 /* LineTableCell.m */,
 				C5EEA5573BA1BEB2CA6EA124 /* LineTableCell.h */,
+				C5EEA7741DB76DA5BD03A532 /* EditUserView.m */,
+				C5EEA4C7A8EC5F3B66201EB0 /* EditUserView.h */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2092,6 +2102,8 @@
 				C5EEA66CD5497EA5AA5FB7AF /* UserCell.m in Sources */,
 				C5EEA589835658EF943EF59C /* LineTableCell.m in Sources */,
 				C5EEADD593CFF58DCAB8626E /* LayoutParam.m in Sources */,
+				C5EEAC3B3E7352E6EE7B998F /* ProfileEditPage.m in Sources */,
+				C5EEADF2AD177B5CE17DB0CF /* EditUserView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

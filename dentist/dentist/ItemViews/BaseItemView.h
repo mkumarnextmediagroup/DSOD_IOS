@@ -10,5 +10,10 @@
 
 @interface BaseItemView : UIControl
 
--(void)resetLayout;
+@property NSObject *argObj;
+@property NSString *argStr;
+@property NSInteger argN;
+@property CGFloat argF;
+
+- (void)resetLayout;
 @end

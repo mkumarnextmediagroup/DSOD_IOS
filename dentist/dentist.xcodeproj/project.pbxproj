@@ -55,8 +55,6 @@
 		4E846F7B213E84E900DC2B51 /* write@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F79213E84E900DC2B51 /* write@3x.png */; };
 		4E846F7E213EB16200DC2B51 /* CustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F7D213EB16200DC2B51 /* CustomPicker.m */; };
 		4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F80213F70A200DC2B51 /* PickerViewController.m */; };
-		4E846F85213FBEAE00DC2B51 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F84213FBEAE00DC2B51 /* EditProfileViewController.m */; };
-		4E846F89213FC3ED00DC2B51 /* EditHederTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F88213FC3ED00DC2B51 /* EditHederTableViewCell.m */; };
 		4E846F8B213FC57A00DC2B51 /* headerImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8A213FC57A00DC2B51 /* headerImage@2x.png */; };
 		4E846F8E213FCB8D00DC2B51 /* edit_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8C213FCB8C00DC2B51 /* edit_photo@3x.png */; };
 		4E846F8F213FCB8D00DC2B51 /* edit_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8D213FCB8D00DC2B51 /* edit_photo@2x.png */; };
@@ -484,10 +482,6 @@
 		4E846F7D213EB16200DC2B51 /* CustomPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomPicker.m; sourceTree = "<group>"; };
 		4E846F7F213F70A200DC2B51 /* PickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		4E846F80213F70A200DC2B51 /* PickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
-		4E846F83213FBEAE00DC2B51 /* EditProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
-		4E846F84213FBEAE00DC2B51 /* EditProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
-		4E846F87213FC3ED00DC2B51 /* EditHederTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditHederTableViewCell.h; sourceTree = "<group>"; };
-		4E846F88213FC3ED00DC2B51 /* EditHederTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditHederTableViewCell.m; sourceTree = "<group>"; };
 		4E846F8A213FC57A00DC2B51 /* headerImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headerImage@2x.png"; sourceTree = "<group>"; };
 		4E846F8C213FCB8C00DC2B51 /* edit_photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_photo@3x.png"; sourceTree = "<group>"; };
 		4E846F8D213FCB8D00DC2B51 /* edit_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_photo@2x.png"; sourceTree = "<group>"; };
@@ -951,8 +945,6 @@
 				4E846F82213FBE8800DC2B51 /* Model */,
 				3ED07649213A9FE3004D4083 /* ProfileViewController.h */,
 				3ED0764A213A9FE3004D4083 /* ProfileViewController.m */,
-				4E846F83213FBEAE00DC2B51 /* EditProfileViewController.h */,
-				4E846F84213FBEAE00DC2B51 /* EditProfileViewController.m */,
 				3E49F90D2144A22E00F32146 /* EditPracticeAddressViewController.h */,
 				3E49F90E2144A22E00F32146 /* EditPracticeAddressViewController.m */,
 				C5EEA11136959D571134A012 /* ProfileEditPage.m */,
@@ -1058,8 +1050,6 @@
 		4E846F86213FC3CC00DC2B51 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				4E846F87213FC3ED00DC2B51 /* EditHederTableViewCell.h */,
-				4E846F88213FC3ED00DC2B51 /* EditHederTableViewCell.m */,
 				4E846F90213FFEB300DC2B51 /* EditWriteTableViewCell.h */,
 				4E846F91213FFEB300DC2B51 /* EditWriteTableViewCell.m */,
 				C5EEAF3E5EB5C0977639AA71 /* UserCell.h */,
@@ -2094,7 +2084,6 @@
 				4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
 				4E1957402137D0F100420563 /* PermissionContactInfoFields.m in Sources */,
-				4E846F85213FBEAE00DC2B51 /* EditProfileViewController.m in Sources */,
 				4EBCE6DB212D6D8600A0672D /* ResetPwdViewController.m in Sources */,
 				C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */,
 				4E1957472137D0F100420563 /* LinkedInAuthorizationViewController.m in Sources */,
@@ -2106,7 +2095,6 @@
 				4E2351A2213A76ED003BA59B /* UISearchBar+style.m in Sources */,
 				4E846F92213FFEB300DC2B51 /* EditWriteTableViewCell.m in Sources */,
 				4E1957412137D0F100420563 /* PermissionFullProfileFields.m in Sources */,
-				4E846F89213FC3ED00DC2B51 /* EditHederTableViewCell.m in Sources */,
 				4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */,
 				4E23522D213D12CB003BA59B /* UpdateTableViewCell.m in Sources */,
 				3E043B9F213C2C610044CD77 /* Profile.m in Sources */,

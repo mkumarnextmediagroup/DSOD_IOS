@@ -15,6 +15,9 @@
 #import "IconTitleMsgDetailCell.h"
 #import "GroupLabelView.h"
 #import "EditPracticeAddressViewController.h"
+#import "EditResidencyViewController.h"
+#import "EditEduViewController.h"
+#import "UpdateViewController.h"
 
 
 @implementation ProfileEditPage {
@@ -90,6 +93,9 @@
 
 		residView.hasArrow = YES;
 
+		residView.argN = i;
+		[residView onClick:self action:@selector(clickResidency:)];
+
 		[self.contentView addSubview:residView];
 		[residencyViews addObject:residView];
 		if (i == userInfo.residencyArray.count - 1) {
@@ -113,6 +119,9 @@
 		v.msgLabel.text = @"-";
 		v.detailLabel.text = @"-";
 		v.hasArrow = YES;
+		v.argN = i;
+		[v onClick:self action:@selector(clickEdu:)];
+
 		[self.contentView addSubview:v];
 		[eduViews addObject:v];
 		if (i == userInfo.educationArray.count - 1) {
@@ -188,8 +197,11 @@
 }
 
 - (void)clickSpec:(id)sender {
-
+	UpdateViewController *update = [UpdateViewController new];
+	update.titleStr = @"SPECIALITY";
+	[self pushPage:update];
 }
+
 
 - (void)clickAddResidency:(id)sender {
 	NSLog(@"click add residency");
@@ -200,7 +212,26 @@
 }
 
 - (void)clickPraticeAddress:(id)sender {
-	[self pushPage:[EditPracticeAddressViewController new]];
+	EditPracticeAddressViewController *p = [EditPracticeAddressViewController new];
+	p.address = userInfo.practiceAddress;
+	[self pushPage:p];
+}
+
+- (void)clickResidency:(IconTitleMsgDetailCell *)sender {
+	int n = sender.argN;
+	Residency *r = userInfo.residencyArray[n];
+	EditResidencyViewController *editRes = [EditResidencyViewController new];
+	editRes.addOrEdit = @"edit";
+	editRes.residency = r;
+	[self pushPage:editRes];
+}
+
+- (void)clickEdu:(IconTitleMsgDetailCell *)sender {
+	NSInteger n = sender.argN;
+	EditEduViewController *editRes = [EditEduViewController new];
+	editRes.addOrEdit = @"edit";
+	editRes.education = userInfo.educationArray[n];
+	[self pushPage:editRes];
 }
 
 - (void)onBack:(id)sender {

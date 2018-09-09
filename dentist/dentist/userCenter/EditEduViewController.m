@@ -11,6 +11,7 @@
 #import "CommSelectTableViewCell.h"
 #import "UpdateViewController.h"
 #import "PickerViewController.h"
+#import "Education.h"
 
 @interface EditEduViewController ()<UITableViewDelegate,UITableViewDataSource>
 {

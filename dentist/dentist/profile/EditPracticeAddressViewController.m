@@ -12,6 +12,7 @@
 #import "UpdateViewController.h"
 #import "Async.h"
 #import "Common.h"
+#import "Address.h"
 
 @interface EditPracticeAddressViewController ()<UITableViewDelegate,UITableViewDataSource>
 {

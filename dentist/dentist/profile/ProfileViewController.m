@@ -7,20 +7,13 @@
 //
 
 #import "ProfileViewController.h"
-#import "ProfileHeaderTableViewCell.h"
-#import "ProfileNormalTableViewCell.h"
-#import "ProfileTailTableViewCell.h"
 #import "EditProfileViewController.h"
-#import "Profile.h"
-#import "ProfileGroup.h"
-#import "Async.h"
 #import "Proto.h"
-#import "GroupItem.h"
 #import "UserCell.h"
 #import "IconTitleMsgDetailCell.h"
 #import "IconTitleMsgCell.h"
-#import "LineTableCell.h"
 #import "GroupLabelView.h"
+#import "ProfileEditPage.h"
 
 #define GROUP_BASE @"base"
 #define GROUP_RESIDENCY @"Residency"
@@ -41,8 +34,8 @@
 
 
 - (void)onClickEdit:(id)sender {
-	EditProfileViewController *edit = [EditProfileViewController new];
-	[self.navigationController pushViewController:edit animated:YES];
+	ProfileEditPage *edit = [ProfileEditPage new];
+	[self pushPage:edit];
 }
 
 - (void)viewDidLoad {
@@ -74,6 +67,7 @@
 	userCell.imageView.imageName = @"user_img";
 	userCell.nameLabel.text = userInfo.fullName;
 	userCell.specNameLabel.text = userInfo.specialityLabel;
+	[userCell.imageView loadUrl:userInfo.portraitUrl placeholderImage:@"user_img"];
 	[self.contentView addSubview:userCell];
 
 	[self addGroupTitle:@"Residency"];
@@ -121,6 +115,15 @@
 	}
 
 	[self addGroupTitle:@"Contact"];
+
+	IconTitleMsgCell *pCell = [IconTitleMsgCell new];
+	pCell.imageView.imageName = @"icon-99";
+	pCell.titleLabel.text = @"Practice Address";
+	pCell.msgLabel.text = userInfo.practiceAddress.detailAddress;
+	[self.contentView addSubview:pCell];
+
+	[self addGrayLine:78 marginRight:0];
+
 	IconTitleMsgCell *phoneCell = [IconTitleMsgCell new];
 	phoneCell.imageView.imageName = @"phone";
 	phoneCell.titleLabel.text = @"Mobile Number";

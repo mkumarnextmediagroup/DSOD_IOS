@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
 
+@class Education;
+
 @interface EditEduViewController : BaseController
 
 @property (strong, nonatomic)NSString *addOrEdit;
+@property Education * education ;
 
 @end

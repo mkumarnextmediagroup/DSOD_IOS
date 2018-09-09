@@ -39,8 +39,12 @@
 - (void)onClickEdit:(id)sender {
 //	UIViewController *c = [TestPage new];
 	SearchPage *c = [SearchPage new];
-	c.items = @[@"Alibaba", @"Cool", @"Yang"];
-	c.checkedItem = @"Yang";
+	NSArray *arr = @[@"Alibaba", @"Aha", @"Alibaba", @"Aha", @"Alibaba", @"Aha", @"Alibaba", @"Aha", @"Alibaba", @"Aha", @"Alibaba", @"Aha", @"Alibaba", @"Aha", @"Cool", @"Yang", @"YangEntao", @"Yang", @"YangEntao", @"Yang", @"YangEntao", @"Yang", @"YangEntao", @"Yang", @"YangEntao", @"Yang", @"YangEntao", @"Yang", @"YangEntao"];
+	[c setItems:arr groupBy:^(NSObject *item) {
+		NSString *s = (NSString *) item;
+		return [s substringToIndex:1];
+	}];
+//	c.checkedItem = @"Yang";
 	[self pushPage:c];
 
 

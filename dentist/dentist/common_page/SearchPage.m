@@ -18,15 +18,10 @@
 	[super viewDidLoad];
 	[self.table setSectionIndexBackgroundColor:rgb255(233, 233, 233)];
 	[self.table setSectionIndexColor:rgb255(158, 174, 185)];
+	[self.table setSectionIndexTrackingBackgroundColor:rgb255(80, 80, 80)];
 
 }
 
-- (nullable NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-	return @[@"A", @"C", @"Y"];
-}
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
-	return 0 ;
-}
 
 - (Class)viewClassOfItem:(NSObject *)item {
 	return LabelCheckView.class;
@@ -54,4 +49,11 @@
 	[self.table reloadData];
 }
 
+- (void)onClickItem3:(NSObject *)item cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
+
+}
+
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	return nil;
+}
 @end

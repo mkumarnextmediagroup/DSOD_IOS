@@ -4,6 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GroupItem.h"
 
 
 @interface GroupListPage : UIViewController
@@ -13,8 +14,12 @@
 //table offset bottom
 @property CGFloat bottomOffset;
 
+@property BOOL withIndexBar ;
 @property(readonly) UITableView *table;
-@property NSArray<NSObject *> *items;
+@property NSArray<GroupItem *> *items;
+
+
+-(void) setItems:(NSArray*) arr groupBy:(NSString*(^)(NSObject*)) groupBy;
 
 
 - (Class)viewClassOfItem:(NSObject *)item;

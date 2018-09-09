@@ -13,6 +13,9 @@
 - (instancetype)init {
 	self = [super init];
 	_children = [NSMutableArray arrayWithCapacity:8];
+	self.argN = 0;
+	self.argS = nil;
+	self.argObj = nil;
 	return self;
 }
 

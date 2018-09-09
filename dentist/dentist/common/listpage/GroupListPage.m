@@ -1,18 +1,18 @@
 //
-// Created by entaoyang on 2018/9/8.
+// Created by entaoyang on 2018/9/10.
 // Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
 //
 
-#import "ListPage.h"
+#import "GroupListPage.h"
 #import "Common.h"
 
 
-@interface ListPage () <UITableViewDataSource, UITableViewDelegate> {
+@interface GroupListPage () <UITableViewDataSource, UITableViewDelegate> {
 
 }
 @end
 
-@implementation ListPage {
+@implementation GroupListPage {
 	UITableView *_table;
 	NSArray *_items;
 }

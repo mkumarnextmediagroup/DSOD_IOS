@@ -90,6 +90,7 @@
 
 
 	loginButton = self.view.addButton;
+	[loginButton styleWhite];
 	[loginButton title:localStr(@"login")];
 	[loginButton styleSecondary];
 

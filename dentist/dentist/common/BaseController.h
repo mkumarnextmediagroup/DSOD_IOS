@@ -10,20 +10,10 @@
 
 @property(assign, nonatomic) BOOL isCloseTheGesture;
 
-- (void)openPage:(UIViewController *)c;
-
-- (void)dismiss;
 
 - (void)onTextFieldDone:(UITextField *)textField;
 
 - (void)setTopTitle:(NSString *)title bgColor:(UIColor *)bgColor imageName:(UIImage *)imageName;
-
-- (void)setTopTitle:(NSString *)title leftImageName:(UIImage *)imageName
-     rightImageName:(UIImage *)rightImageName rightTitle:(NSString *)rightTitle;
-
-- (void)toastCenter:(NSString *)text;
-
-- (void)toastBelow:(UIView *)anchor text:(NSString *)text;
 
 
 @end

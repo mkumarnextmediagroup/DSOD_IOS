@@ -6,11 +6,6 @@
 #import <objc/runtime.h>
 #import "UIView+customed.h"
 #import "Common.h"
-#import "TapGesture.h"
-#import "Platform.h"
-#import "LayoutParam.h"
-#import "Padding.h"
-#import "UISearchBarView.h"
 
 static char layoutParamAttr = 0;
 static char paddingAttr = 0;
@@ -115,7 +110,7 @@ static char paddingAttr = 0;
 	UITextView *v = [UITextView new];
 	[self addSubview:v];
 	v.backgroundColor = UIColor.clearColor;
-	v.editable = NO ;
+	v.editable = NO;
 	return v;
 }
 
@@ -185,8 +180,7 @@ static char paddingAttr = 0;
 }
 
 - (UIButton *)addButton {
-	UIButton *button = [UIButton new];
-	[button styleWhite];
+	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 	[self addSubview:button];
 	return button;
 }

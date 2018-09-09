@@ -23,4 +23,6 @@
 -(void) openPage:(UIViewController*) page;
 -(void) pushPage:(UIViewController*) page;
 
+- (void)dismiss;
+
 @end

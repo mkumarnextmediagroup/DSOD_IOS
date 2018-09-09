@@ -75,4 +75,13 @@
 	[self presentViewController:page animated:YES completion:nil];
 }
 
+
+- (void)dismiss {
+	if (self.navigationController != nil) {
+		[self.navigationController popViewControllerAnimated:YES];
+		return;
+	}
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

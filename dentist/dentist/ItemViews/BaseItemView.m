@@ -13,6 +13,7 @@
 - (instancetype)init {
 	self = [super init];
 	self.layoutParam.height = 78;
+	self.userInteractionEnabled = NO;
 	return self;
 }
 

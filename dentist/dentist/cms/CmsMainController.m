@@ -9,6 +9,7 @@
 #import "ScrollPage.h"
 #import "TestScrollPage.h"
 #import "ProfileEditPage.h"
+#import "SearchPage.h"
 
 
 @implementation CmsMainController {
@@ -37,7 +38,9 @@
 
 - (void)onClickEdit:(id)sender {
 //	UIViewController *c = [TestPage new];
-	UIViewController *c = [ProfileEditPage new];
+	SearchPage *c = [SearchPage new];
+	c.items = @[@"Alibaba", @"Cool", @"Yang"];
+	c.checkedItem = @"Yang";
 	[self pushPage:c];
 
 

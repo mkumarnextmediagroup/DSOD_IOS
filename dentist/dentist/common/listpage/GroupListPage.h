@@ -1,12 +1,12 @@
 //
-// Created by entaoyang on 2018/9/8.
+// Created by entaoyang on 2018/9/10.
 // Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 
-@interface ListPage : UIViewController
+@interface GroupListPage : UIViewController
 
 //table offset top
 @property CGFloat topOffset;

@@ -26,7 +26,7 @@
     [super viewDidLoad];
     
     UINavigationItem *item = self.navigationItem;
-    item.title = @"STATE";
+    item.title = self.titleStr;
     item.leftBarButtonItem = [self navBarImage:@"back_arrow"  target: self  action:@selector(popBtnClick:)];
     
     

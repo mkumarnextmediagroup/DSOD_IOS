@@ -21,7 +21,7 @@
         UILabel *noticeLab = [[UILabel alloc] init];
         noticeLab.textColor = Colors.textAlternate;
         noticeLab.font = [Fonts regular:12];
-        noticeLab.text = @"profile photo";
+        noticeLab.text = @"Profile photo";
         noticeLab.textAlignment = NSTextAlignmentCenter;
         [self addSubview:noticeLab];
         [[[[noticeLab.layoutMaker sizeEq:100 h:20] topParent:22] leftParent:(SCREENWIDTH - 100)/2] install];

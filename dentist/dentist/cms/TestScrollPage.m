@@ -29,6 +29,7 @@
 	[self.contentView addSubview:lb2];
 	lb2.layoutParam.height = 500;
 	lb2.layoutParam.marginLeft = 0;
+	lb2.layoutParam.marginTop = 20 ;
 
 	[self layoutLinearVertical];
 }
@@ -50,7 +51,8 @@
 	UILabel *lb2 = [UILabel new];
 	lb2.backgroundColor = UIColor.greenColor;
 	lb2.text = @"======333333333===============";
-	[self.contentView addSubview:lb2];
+//	[self.contentView addSubview:lb2];
+	[self.contentView insertSubview:lb2 aboveSubview:lb];
 	lb2.layoutParam.height = 500;
 	lb2.layoutParam.marginLeft = 0;
 

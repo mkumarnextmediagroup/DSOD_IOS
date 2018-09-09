@@ -39,3 +39,6 @@ __attribute__((overloadable)) extern NSString *strBuild(NSString *value, NSStrin
 __attribute__((overloadable)) extern NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5);
 
 __attribute__((overloadable)) extern NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5, NSString *v6);
+__attribute__((overloadable)) extern NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5, NSString *v6, NSString *v7);
+__attribute__((overloadable)) extern NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5, NSString *v6, NSString *v7, NSString *v8);
+__attribute__((overloadable)) extern NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5, NSString *v6, NSString *v7, NSString *v8, NSString *v9);

@@ -68,10 +68,13 @@
 
 
 __attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2) {
+	if (value == nil) {
+		return v2;
+	}
 	if (v2 == nil) {
 		return value;
 	}
-	return [value add:v2];
+	return [value stringByAppendingString:v2];
 }
 
 __attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2, NSString *v3) {
@@ -79,13 +82,26 @@ __attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2
 }
 
 __attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4) {
-	return strBuild(strBuild(strBuild(value, v2), v3), v4);
+	return strBuild(strBuild(value, v2, v3), v4);
 }
 
 __attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5) {
-	return strBuild(strBuild(strBuild(strBuild(value, v2), v3), v4), v5);
+	return strBuild(strBuild(value, v2, v3, v4), v5);
 }
 
 __attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5, NSString *v6) {
-	return strBuild(strBuild(strBuild(strBuild(strBuild(value, v2), v3), v4), v5), v6);
+	return strBuild(strBuild(value, v2, v3, v4, v5), v6);
 }
+
+__attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5, NSString *v6, NSString *v7) {
+	return strBuild(strBuild(value, v2, v3, v4, v5, v6), v7);
+}
+
+__attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5, NSString *v6, NSString *v7, NSString *v8) {
+	return strBuild(strBuild(value, v2, v3, v4, v5, v6, v7), v8);
+}
+
+__attribute__((overloadable))   NSString *strBuild(NSString *value, NSString *v2, NSString *v3, NSString *v4, NSString *v5, NSString *v6, NSString *v7, NSString *v8, NSString *v9) {
+	return strBuild(strBuild(value, v2, v3, v4, v5, v6, v7, v8), v9);
+}
+

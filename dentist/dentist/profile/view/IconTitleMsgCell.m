@@ -8,9 +8,7 @@
 
 
 @implementation IconTitleMsgCell {
-	UIImageView *_imageView;
-	UILabel *_titleLabel;
-	UILabel *_msgLabel;
+
 }
 
 - (instancetype)init {
@@ -26,25 +24,16 @@
 
 	[_msgLabel textColorMain];
 	_msgLabel.font = [Fonts regular:12];
+	_msgLabel.numberOfLines = 0;
 
 	[[[[[_imageView layoutMaker] sizeEq:48 h:48] leftParent:18] centerYParent:0] install];
-	[[[[[[_titleLabel layoutMaker] centerYParent:-8] leftParent:78] rightParent:0] heightEq:16] install];
-	[[[[[[_msgLabel layoutMaker] centerYParent:10] leftParent:78] rightParent:0] heightEq:16] install];
+	[[[[[[_titleLabel layoutMaker] topOf:_imageView offset:0] leftParent:78] rightParent:0] heightEq:20] install];
+	[[[[[[_msgLabel layoutMaker] bottomOf:_imageView offset:0] leftParent:78] rightParent:0] heightGe:24] install];
 
+	self.layoutParam.height = 78;
 
 	return self;
 }
 
-- (UIImageView *)imageView {
-	return _imageView;
-}
-
-- (UILabel *)titleLabel {
-	return _titleLabel;
-}
-
-- (UILabel *)msgLabel {
-	return _msgLabel;
-}
 
 @end

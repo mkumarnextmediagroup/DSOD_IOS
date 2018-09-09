@@ -115,6 +115,7 @@ static char paddingAttr = 0;
 	UITextView *v = [UITextView new];
 	[self addSubview:v];
 	v.backgroundColor = UIColor.clearColor;
+	v.editable = NO ;
 	return v;
 }
 

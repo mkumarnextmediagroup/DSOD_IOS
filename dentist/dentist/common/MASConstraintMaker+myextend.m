@@ -41,8 +41,28 @@
 	return self;
 }
 
+- (MASConstraintMaker *)widthGe:(CGFloat)w {
+	self.width.mas_greaterThanOrEqualTo(w);
+	return self;
+}
+
+- (MASConstraintMaker *)widthLe:(CGFloat)w {
+	self.width.mas_lessThanOrEqualTo(w);
+	return self;
+}
+
 - (MASConstraintMaker *)heightEq:(CGFloat)h {
 	self.height.mas_equalTo(h);
+	return self;
+}
+
+- (MASConstraintMaker *)heightGe:(CGFloat)h {
+	self.height.mas_greaterThanOrEqualTo(h);
+	return self;
+}
+
+- (MASConstraintMaker *)heightLe:(CGFloat)h {
+	self.height.mas_lessThanOrEqualTo(h);
 	return self;
 }
 
@@ -112,12 +132,12 @@
 }
 
 - (MASConstraintMaker *)topOf:(UIView *)v offset:(CGFloat)offset {
-	self.top.equalTo(v).offset(offset);
+	self.top.equalTo(v.mas_top).offset(offset);
 	return self;
 }
 
 - (MASConstraintMaker *)bottomOf:(UIView *)v offset:(CGFloat)offset {
-	self.bottom.equalTo(v).offset(offset);
+	self.bottom.equalTo(v.mas_bottom).offset(offset);
 	return self;
 }
 

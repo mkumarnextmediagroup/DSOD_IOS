@@ -150,6 +150,7 @@
 		C5EEACBF759E368D6653D927 /* QueueLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA042B303A304B3A77094 /* QueueLayout.m */; };
 		C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAF6B331211FDA925279D /* UIScreen+customed.m */; };
 		C5EEAD868056CEA29BDACC95 /* logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAFA6847EBD5CB2040106 /* logo@3x.png */; };
+		C5EEADD593CFF58DCAB8626E /* LayoutParam.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAA32464A7E5623530A22 /* LayoutParam.m */; };
 		C5EEAE3B78A71516A252C86F /* StackLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAF6550A8BFEA1922A8F1 /* StackLayoutItem.m */; };
 		C5EEAE562042AC89740F25B0 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAC2EE0E713EE63B492A5 /* checkbox.png */; };
 		C5EEAE86F4DCB0CEF09C5B49 /* logo_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA0DE73B049D946E71EA1 /* logo_white@2x.png */; };
@@ -562,6 +563,7 @@
 		C5EEA6381F155CD9A33B6ACA /* IconLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconLabelView.m; sourceTree = "<group>"; };
 		C5EEA642E8440AC95E0E0CEA /* Residency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Residency.h; sourceTree = "<group>"; };
 		C5EEA64F84AE34B5F5F79A7F /* ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ok@3x.png"; sourceTree = "<group>"; };
+		C5EEA66BB74A043772234307 /* LayoutParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutParam.h; sourceTree = "<group>"; };
 		C5EEA66D516C103A72D92922 /* Async.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Async.h; sourceTree = "<group>"; };
 		C5EEA68F6001EDFE46F5F104 /* Experience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Experience.h; sourceTree = "<group>"; };
 		C5EEA6C2E9723639C9F2F3FF /* BaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
@@ -589,6 +591,7 @@
 		C5EEA9C3073AC342EC7CFC60 /* IconTitleMsgCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconTitleMsgCell.h; sourceTree = "<group>"; };
 		C5EEA9D3A642BE4AE5439540 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		C5EEAA2E780A2216C27206F5 /* UIImageView+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+customed.h"; sourceTree = "<group>"; };
+		C5EEAA32464A7E5623530A22 /* LayoutParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayoutParam.m; sourceTree = "<group>"; };
 		C5EEAA3E75282AC040EF8353 /* JSONModel+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONModel+myextend.m"; sourceTree = "<group>"; };
 		C5EEAA48C58AF7A1617CC70D /* StudentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentController.h; sourceTree = "<group>"; };
 		C5EEAA6853812943C4C4FC75 /* UIScreen+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+customed.h"; sourceTree = "<group>"; };
@@ -1505,6 +1508,8 @@
 				C5EEA9571CA03121F5E1041D /* listpage */,
 				C5EEA9BAE0F7C243CABD0E49 /* ScrollPage.m */,
 				C5EEA05E62E80E9D1AB0F2F0 /* ScrollPage.h */,
+				C5EEAA32464A7E5623530A22 /* LayoutParam.m */,
+				C5EEA66BB74A043772234307 /* LayoutParam.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -2086,6 +2091,7 @@
 				C5EEAFAA5CA7261E636A22E7 /* GroupItem.m in Sources */,
 				C5EEA66CD5497EA5AA5FB7AF /* UserCell.m in Sources */,
 				C5EEA589835658EF943EF59C /* LineTableCell.m in Sources */,
+				C5EEADD593CFF58DCAB8626E /* LayoutParam.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

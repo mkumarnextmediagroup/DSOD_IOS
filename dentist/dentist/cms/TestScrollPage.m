@@ -5,6 +5,7 @@
 
 #import "TestScrollPage.h"
 #import "Common.h"
+#import "LayoutParam.h"
 
 
 @implementation TestScrollPage {
@@ -15,22 +16,46 @@
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = [self navBarText:@"Test" target:self action:@selector(clickTest:)];
 
-}
-
-- (UIView *)onCreateContent {
 	lb = [UILabel new];
 	lb.backgroundColor = UIColor.blueColor;
-	lb.text = @"=====================";
+	lb.text = @"==========11111===========";
 	[self.contentView addSubview:lb];
-	[[[[[[lb layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:1200] install];
+	lb.layoutParam.height = 500;
+	lb.layoutParam.marginLeft = 20;
 
-	return lb;
+	UILabel *lb2 = [UILabel new];
+	lb2.backgroundColor = UIColor.redColor;
+	lb2.text = @"==========22222===========";
+	[self.contentView addSubview:lb2];
+	lb2.layoutParam.height = 500;
+	lb2.layoutParam.marginLeft = 0;
+
+	[self layoutLinearVertical];
+}
+
+
+- (void)rebuild {
+	for (int i = 0; i < 10; ++i) {
+		UILabel *lb = [UILabel new];
+		lb.backgroundColor = rgb255(i * 10, 255 - i * 10, 0);
+		lb.text = [NSString stringWithFormat:@"%d", i];
+		[self.contentView addSubview:lb];
+		[[[[[[lb layoutMaker] leftParent:0] rightParent:0] topParent:100 * i] heightEq:100] install];
+	}
 }
 
 
 - (void)clickTest:(id)sender {
 	NSLog(@"click ");
-	[lb removeFromSuperview];
+	UILabel *lb2 = [UILabel new];
+	lb2.backgroundColor = UIColor.greenColor;
+	lb2.text = @"======333333333===============";
+	[self.contentView addSubview:lb2];
+	lb2.layoutParam.height = 500;
+	lb2.layoutParam.marginLeft = 0;
+
+	[self layoutLinearVertical];
+
 }
 
 @end

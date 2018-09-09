@@ -5,6 +5,7 @@
 
 #import "ScrollPage.h"
 #import "Common.h"
+#import "LayoutParam.h"
 
 
 @implementation ScrollPage {
@@ -40,10 +41,6 @@
 
 	_contentView.backgroundColor = UIColor.whiteColor;
 
-	UIView *bottomView = [self onCreateContent];
-	if (bottomView != nil) {
-		[[_contentView layoutMaker].bottom.greaterThanOrEqualTo(bottomView) install];
-	}
 }
 
 - (UIScrollView *)scrollView {
@@ -54,8 +51,20 @@
 	return _contentView;
 }
 
-- (UIView *)onCreateContent {
-	return nil;
+
+- (void)layoutLinearVertical {
+	CGFloat top = 0;
+	UIView *lastView = nil;
+	for (UIView *v in self.contentView.subviews) {
+		LayoutParam *p = v.layoutParam;
+		CGFloat y = top + p.marginTop;
+		[[[[[[v layoutRemaker] leftParent:p.marginLeft] rightParent:p.marginRight] topParent:y] heightEq:p.height] install];
+		top = y + p.height;
+		lastView = v;
+	}
+	if (lastView != nil) {
+		[_contentView.layoutUpdate.bottom.greaterThanOrEqualTo(lastView) install];
+	}
 }
 
 

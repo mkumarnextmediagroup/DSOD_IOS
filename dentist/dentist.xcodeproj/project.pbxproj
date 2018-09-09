@@ -62,6 +62,8 @@
 		4E846F92213FFEB300DC2B51 /* EditWriteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F91213FFEB300DC2B51 /* EditWriteTableViewCell.m */; };
 		4E846F952140FCD200DC2B51 /* EditResidencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F942140FCD200DC2B51 /* EditResidencyViewController.m */; };
 		4E85DA8B21429C45007C40C3 /* DenGlobalInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E85DA8A21429C45007C40C3 /* DenGlobalInfo.m */; };
+		4E85DA8E21450F51007C40C3 /* PersonInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E85DA8D21450F51007C40C3 /* PersonInfo.m */; };
+		4E85DA9121451D3B007C40C3 /* UploadData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E85DA9021451D3B007C40C3 /* UploadData.m */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -484,6 +486,10 @@
 		4E846F942140FCD200DC2B51 /* EditResidencyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditResidencyViewController.m; sourceTree = "<group>"; };
 		4E85DA8921429C45007C40C3 /* DenGlobalInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenGlobalInfo.h; sourceTree = "<group>"; };
 		4E85DA8A21429C45007C40C3 /* DenGlobalInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DenGlobalInfo.m; sourceTree = "<group>"; };
+		4E85DA8C21450F51007C40C3 /* PersonInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonInfo.h; sourceTree = "<group>"; };
+		4E85DA8D21450F51007C40C3 /* PersonInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonInfo.m; sourceTree = "<group>"; };
+		4E85DA8F21451D3B007C40C3 /* UploadData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadData.h; sourceTree = "<group>"; };
+		4E85DA9021451D3B007C40C3 /* UploadData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadData.m; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -1088,7 +1094,6 @@
 				E11E1071C5BB25C5DF71E7E4 /* Podfile */,
 				6E480191105E9BD9865E05CE /* Pods */,
 				9E8CFB7155047C0648622D0F /* Frameworks */,
-				4E235221213D123D003BA59B,
 			);
 			sourceTree = "<group>";
 		};
@@ -1421,7 +1426,6 @@
 		C5EEA322192BD641D58220D8 /* common */ = {
 			isa = PBXGroup;
 			children = (
-				57AA55D12143E21B005066B8,
 				4E1957222137D0F100420563 /* LinkedIn */,
 				C5EEAA800E95F5D4324195EC /* Colors.m */,
 				C5EEAB29126FE9574783DD4E /* Colors.h */,
@@ -1542,6 +1546,10 @@
 				C5EEABAA2C42E227B1EABA12 /* JSONModel+myextend.h */,
 				C5EEAD3930CA94AF31725C3E /* GroupItem.h */,
 				C5EEA0CFD5C4A1529D385CCF /* GroupItem.m */,
+				4E85DA8C21450F51007C40C3 /* PersonInfo.h */,
+				4E85DA8D21450F51007C40C3 /* PersonInfo.m */,
+				4E85DA8F21451D3B007C40C3 /* UploadData.h */,
+				4E85DA9021451D3B007C40C3 /* UploadData.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2003,6 +2011,7 @@
 				C5EEA2ECCE69B6CBF0D20BA6 /* BaseController.m in Sources */,
 				C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */,
 				4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */,
+				4E85DA8E21450F51007C40C3 /* PersonInfo.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
 				4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */,
@@ -2078,6 +2087,7 @@
 				C5EEAFE8EAD63945F8FEFE29 /* UserInfo.m in Sources */,
 				C5EEAADD1628D0BD23430FFF /* Residency.m in Sources */,
 				C5EEA88EF87352A514933076 /* Education.m in Sources */,
+				4E85DA9121451D3B007C40C3 /* UploadData.m in Sources */,
 				C5EEA79DA0D394B4733FFB2E /* Experience.m in Sources */,
 				C5EEAA07EA787A77875B8C95 /* Address.m in Sources */,
 				C5EEA9C9E6DB3F36EC7EAF72 /* Yang.m in Sources */,
@@ -2238,7 +2248,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2286,7 +2296,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

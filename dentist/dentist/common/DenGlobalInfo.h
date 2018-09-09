@@ -12,6 +12,6 @@
 
 + (instancetype)sharedInstance;
 
-@property (copy, nonatomic)NSString *identity;
+@property (copy, nonatomic)NSString *identity;//role
 
 @end

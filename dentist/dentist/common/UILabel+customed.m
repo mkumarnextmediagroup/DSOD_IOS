@@ -99,8 +99,13 @@
 }
 
 
-- (void)graySmallStyle {
+- (void)itemTitleStyle {
 	self.font = [Fonts regular:12];
 	[self textColorAlternate];
+}
+
+- (void)itemPrimaryStyle {
+	self.font = [Fonts regular:15];
+	[self textColorBlack];
 }
 @end

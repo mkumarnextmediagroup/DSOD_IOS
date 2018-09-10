@@ -27,7 +27,7 @@
 	_msgLabel = self.addLabel;
 	iconView = self.addImageView;
 
-	[_titleLabel graySmallStyle];
+	[_titleLabel itemTitleStyle];
 
 	_msgLabel.font = [Fonts regular:15];
 	[_msgLabel textColorBlack];

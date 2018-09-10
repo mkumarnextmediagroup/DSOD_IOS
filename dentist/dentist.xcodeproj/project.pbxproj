@@ -132,6 +132,7 @@
 		C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAAE437209CC4CB67759E /* UITextField+styled.m */; };
 		C5EEA93A818CA571610A938C /* GroupLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA3A620D2C320128871A9 /* GroupLabelView.m */; };
 		C5EEA97A363C02981633699C /* StackLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA5618C6AF14B04224B97 /* StackLayout.m */; };
+		C5EEA998A2E6E6E97A8E5259 /* FromToView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA2A238138DF4B4EE06F6 /* FromToView.m */; };
 		C5EEA99D93B0E72671A097C2 /* TitleMsgArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAAE91E61E9C298D12463 /* TitleMsgArrowView.m */; };
 		C5EEA9C145CEE1C7091EA50F /* info@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAE3E82D71BB36A5623A5 /* info@3x.png */; };
 		C5EEA9C826673B94007566E8 /* checkbox_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA26491F4A964247D88D3 /* checkbox_on@2x.png */; };
@@ -550,6 +551,8 @@
 		C5EEA23D71D65F3BEC2AE0F4 /* TitleSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleSwitchView.h; sourceTree = "<group>"; };
 		C5EEA26491F4A964247D88D3 /* checkbox_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_on@2x.png"; sourceTree = "<group>"; };
 		C5EEA26FE0A8A22D3399DE3E /* TapGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapGesture.m; sourceTree = "<group>"; };
+		C5EEA2716C786FCB7E7F0984 /* FromToView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FromToView.h; sourceTree = "<group>"; };
+		C5EEA2A238138DF4B4EE06F6 /* FromToView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FromToView.m; sourceTree = "<group>"; };
 		C5EEA2A29513587290050D7A /* TestPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPage.m; sourceTree = "<group>"; };
 		C5EEA2DA2AD9CFD4AAC3565C /* SlideController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideController.m; sourceTree = "<group>"; };
 		C5EEA2DE71E15F126C0310E0 /* TestScrollPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestScrollPage.h; sourceTree = "<group>"; };
@@ -1563,6 +1566,8 @@
 				C5EEACA95A1F53AE211D1A7F /* LabelCheckView.h */,
 				C5EEA05DD2DCBEE09844CE6D /* TitleSwitchView.m */,
 				C5EEA23D71D65F3BEC2AE0F4 /* TitleSwitchView.h */,
+				C5EEA2A238138DF4B4EE06F6 /* FromToView.m */,
+				C5EEA2716C786FCB7E7F0984 /* FromToView.h */,
 			);
 			path = ItemViews;
 			sourceTree = "<group>";
@@ -2164,6 +2169,7 @@
 				C5EEAE6124816A6F31F4FA05 /* GroupListPage.m in Sources */,
 				C5EEAA627C4FFCCCA4202E92 /* MyStyle.m in Sources */,
 				C5EEAC52F1B1B7FA36FDBEA2 /* TitleSwitchView.m in Sources */,
+				C5EEA998A2E6E6E97A8E5259 /* FromToView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

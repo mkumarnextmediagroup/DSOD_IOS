@@ -58,6 +58,7 @@
 - (UITextView *)addTextView;
 
 - (UIButton *)addCheckbox;
+- (UIButton *)addSmallButton;
 
 
 @property(readonly) MASConstraintMaker *layoutMaker;

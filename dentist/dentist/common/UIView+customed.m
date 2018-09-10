@@ -218,6 +218,16 @@ static char styleAttr = 0;
 	return button;
 }
 
+- (UIButton *)addSmallButton {
+	UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+	[btn title:@"Button"];
+	[btn setTitleColor:Colors.primary forState:UIControlStateNormal];
+	[btn setTitleColor:Colors.buttonPrimaryActive forState:UIControlStateHighlighted];
+	btn.titleLabel.font = [Fonts semiBold:15];
+	[self addSubview:btn];
+	return btn;
+}
+
 - (UIButton *)contactButton {
 	NSString *aStr = localStr(@"haveIssue");
 	NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", aStr]];

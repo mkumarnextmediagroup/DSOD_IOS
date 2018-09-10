@@ -8,7 +8,7 @@
 @class Padding;
 
 
-@interface BaseItemView : UIControl
+@interface BaseItemView : UIView
 
 @property NSObject *argObj;
 @property NSString *argStr;
@@ -16,4 +16,6 @@
 @property CGFloat argF;
 
 - (void)resetLayout;
+
+- (UIImageView *)addArrowView;
 @end

@@ -12,6 +12,7 @@
 #import "TitleMsgArrowView.h"
 #import "Experience.h"
 #import "TitleSwitchView.h"
+#import "FromToView.h"
 
 @interface EditExperiencePage ()
 
@@ -77,8 +78,28 @@
 	[self.contentView addSubview:switchView];
 	[self addGrayLine:0 marginRight:0];
 
+
+	FromToView *fromToView = [FromToView new];
+	[self.contentView addSubview:fromToView];
+	[fromToView.fromDateLabel onClickView:self action:@selector(clickFromDate:)];
+
+
+	UIButton *btn = self.view.addSmallButton;
+	[btn title:@"Cancel"];
+	[[[[[btn.layoutMaker centerXParent:0] bottomParent:-50] heightButton] widthEq:64] install];
+	[btn onClick:self action:@selector(clickCancel:)];
+
 	[self layoutLinearVertical];
 
+}
+
+- (void)clickFromDate:(id)sender {
+
+}
+
+- (void)clickCancel:(id)sender {
+	Log(@"cancel");
+	[self popPage];
 }
 
 

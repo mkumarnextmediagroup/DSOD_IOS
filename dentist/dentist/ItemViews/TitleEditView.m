@@ -27,7 +27,7 @@
 	_edit = self.addEditRaw;
 	iconView = self.addImageView;
 
-	[_label graySmallStyle];
+	[_label itemTitleStyle];
 
 	_edit.font = [Fonts regular:15];
 	[_edit textColorBlack];

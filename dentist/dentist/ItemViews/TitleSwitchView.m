@@ -29,7 +29,7 @@
 	_switchView.layer.masksToBounds = YES ;
 	[self addSubview:_switchView];
 
-	[_titleLabel graySmallStyle];
+	[_titleLabel itemTitleStyle];
 
 	[[[[_switchView.layoutMaker sizeFit] rightParent:-p.right] centerYParent:0] install];
 

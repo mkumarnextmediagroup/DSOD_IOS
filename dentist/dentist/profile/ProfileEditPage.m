@@ -205,10 +205,19 @@
 
 - (void)clickAddResidency:(id)sender {
 	NSLog(@"click add residency");
+    
+    EditResidencyViewController *editRes = [EditResidencyViewController new];
+    editRes.addOrEdit = @"add";
+//    editRes.residency = r;
+    [self pushPage:editRes];
+    
 }
 
 - (void)clickAddEducation:(id)sender {
-	NSLog(@"click add residency");
+	NSLog(@"click add education");
+    EditEduViewController *editRes = [EditEduViewController new];
+    editRes.addOrEdit = @"add";
+    [self pushPage:editRes];
 }
 
 - (void)clickPraticeAddress:(id)sender {
@@ -222,6 +231,7 @@
 	Residency *r = userInfo.residencyArray[n];
 	EditResidencyViewController *editRes = [EditResidencyViewController new];
 	editRes.addOrEdit = @"edit";
+    editRes.updateIndex = n;
 	editRes.residency = r;
 	[self pushPage:editRes];
 }

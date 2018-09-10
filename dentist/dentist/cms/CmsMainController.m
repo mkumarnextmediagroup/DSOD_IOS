@@ -10,6 +10,7 @@
 #import "TestScrollPage.h"
 #import "ProfileEditPage.h"
 #import "SearchPage.h"
+#import "WelcomController.h"
 
 
 @implementation CmsMainController {
@@ -38,6 +39,11 @@
 
 - (void)onClickEdit:(id)sender {
 //	UIViewController *c = [TestPage new];
+
+	[self pushPage:[WelcomController new]];
+
+	return;
+
 	SearchPage *c = [SearchPage new];
 	c.withIndexBar = NO;
 	NSArray *arr = @[@"Alibaba", @"Aha", @"Alibaba1", @"Aha1", @"Alibaba2", @"Aha2", @"Alibaba3", @"Aha3", @"Alibaba4", @"Aha4", @"Alibaba5", @"Aha5", @"Alibaba6", @"Aha6", @"Cool", @"Yang", @"YangEntao", @"Yang1", @"YangEntao1", @"Yang2", @"YangEntao2", @"Yang3", @"YangEntao3", @"Yang4", @"YangEntao4", @"Yang5", @"YangEntao5", @"Yang6", @"YangEntao6"];

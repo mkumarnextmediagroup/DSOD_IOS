@@ -89,14 +89,11 @@
 }
 
 
-
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-	NSLog(@"begin editing");
 	[textField themeActive];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-	NSLog(@"end  editing");
 	[textField themeNormal];
 }
 

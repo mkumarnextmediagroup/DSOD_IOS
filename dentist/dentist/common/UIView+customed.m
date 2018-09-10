@@ -11,8 +11,23 @@ static char layoutParamAttr = 0;
 static char paddingAttr = 0;
 static char themeAttr = 0;
 static char styleAttr = 0;
+static char subStyleAttr = 0;
 
 @implementation UIView (customed)
+
+
+- (NSInteger)subStyle {
+	NSNumber *v = objc_getAssociatedObject(self, &subStyleAttr);
+	if (v == nil) {
+		[self setSubStyle:0];
+		return 0;
+	}
+	return [v integerValue];
+}
+
+- (void)setSubStyle:(NSInteger)style {
+	objc_setAssociatedObject(self, &subStyleAttr, @(style), OBJC_ASSOCIATION_COPY);
+}
 
 
 - (NSInteger)style {
@@ -181,12 +196,27 @@ static char styleAttr = 0;
 	return imageView;
 }
 
-- (UITextField *)addEdit {
-	UITextField *edit = [UITextField new];
-	edit.autocapitalizationType = UITextAutocapitalizationTypeNone;
-	edit.autocorrectionType = UITextAutocorrectionTypeNo;
+- (UITextField *)addEditRoundedGray {
+	UITextField *reset = [self addEditRaw];
+	[reset styleRoundedGray];
+	return reset;
+}
+
+- (UITextField *)addEditRounded {
+	UITextField *edit = [self addEditRaw];
 	[edit styleRounded];
-	[self addSubview:edit];
+	return edit;
+}
+
+- (UITextField *)addEditLined {
+	UITextField *edit = [self addEditRaw];
+	[edit styleLined];
+	return edit;
+}
+
+- (UITextField *)addEditPwd {
+	UITextField *edit = [self addEditRaw];
+	[edit stylePassword];
 	return edit;
 }
 
@@ -198,15 +228,6 @@ static char styleAttr = 0;
 	return edit;
 }
 
-- (UITextField *)resetEdit {
-	UITextField *reset = [UITextField new];
-	reset.tag = FORGOTFIELDTAG;
-	reset.autocapitalizationType = UITextAutocapitalizationTypeNone;
-	reset.autocorrectionType = UITextAutocorrectionTypeNo;
-	[reset styleRounded];
-	[self addSubview:reset];
-	return reset;
-}
 
 - (UIButton *)addButton {
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];

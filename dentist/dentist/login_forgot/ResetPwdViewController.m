@@ -58,7 +58,7 @@
 	[[[[[infoImgView layoutMaker] sizeEq:15 h:15] leftParent:0] centerYParent:0] install];
 	[sl push:reqLabel height:[reqLabel heightThatFit] marginBottom:15];
 
-	rePwdEdit = self.view.resetEdit;
+	rePwdEdit = self.view.addEditRoundedGray;
 	rePwdEdit.delegate = self;
 	rePwdEdit.hint = localStr(@"conpwd");
 	[rePwdEdit returnNext];
@@ -66,14 +66,14 @@
 	[rePwdEdit keyboardDefault];
 	[sl push:rePwdEdit height:36 marginBottom:10];
 
-	pwdEdit = self.view.resetEdit;
+	pwdEdit = self.view.addEditRoundedGray;
 	pwdEdit.delegate = self;
 	pwdEdit.hint = localStr(@"newpwd");
 	[pwdEdit returnNext];
 	[pwdEdit keyboardEmail];
 	[sl push:pwdEdit height:36 marginBottom:10];
 
-	codeEdit = self.view.resetEdit;
+	codeEdit = self.view.addEditRoundedGray;
 	codeEdit.delegate = self;
 	codeEdit.hint = localStr(@"temppwd");
 	[codeEdit returnNext];
@@ -101,27 +101,27 @@
 
 	if ([codeEdit.text trimed].length == 0) {
 		isContinue = NO;
-		[codeEdit resetError];
+		[codeEdit themeError];
 		return;
 	} else {
 		isContinue = YES;
-		[pwdEdit resetNormal];
+		[pwdEdit themeNormal];
 	}
 	if (!pwdEdit.text.matchPassword) {
 		isContinue = NO;
-		[pwdEdit resetError];
+		[pwdEdit themeError];
 		return;
 	} else {
 		isContinue = YES;
-		[pwdEdit resetNormal];
+		[pwdEdit themeNormal];
 	}
 	if (![[rePwdEdit.text trimed] isEqualToString:[pwdEdit.text trimed]]) {
 		isContinue = NO;
-		[rePwdEdit resetError];
+		[rePwdEdit themeError];
 		return;
 	} else {
 		isContinue = YES;
-		[rePwdEdit resetNormal];
+		[rePwdEdit themeNormal];
 	}
 
 }

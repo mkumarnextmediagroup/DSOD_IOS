@@ -14,6 +14,7 @@
 @interface EditResidencyViewController : BaseController
 
 @property(strong, nonatomic) NSString *addOrEdit;
+@property(assign, nonatomic) int      updateIndex;
 @property Residency *residency;
 
 @end

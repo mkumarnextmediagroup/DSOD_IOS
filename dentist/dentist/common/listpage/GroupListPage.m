@@ -116,14 +116,14 @@
 	} else {
 		_displayBlock = displayBlock;
 		NSArray *arrSoted = [arr sortedArrayUsingComparator:^NSComparisonResult(NSObject *left, NSObject *right) {
-			NSString *s1 = displayBlock(left);
-			NSString *s2 = displayBlock(right);
+			NSString *s1 = [self _labelOf:left];
+			NSString *s2 = [self _labelOf:right];
 			return [s1 compare:s2];
 		}];
 		NSMutableArray *allItems = [NSMutableArray arrayWithCapacity:arr.count / 8 + 1];
 		GroupItem *group = nil;
 		for (NSObject *item in arrSoted) {
-			NSString *displayLabel = displayBlock(item);
+			NSString *displayLabel = [self _labelOf:item];
 			NSString *firstChar = @"#";
 			if (displayLabel != nil && displayLabel.length > 0) {
 				firstChar = [[displayLabel substringToIndex:1] uppercaseString];

@@ -16,6 +16,7 @@
 
 @property BOOL isAdd;
 @property UserInfo *userInfo;
-@property Experience *exp;
+
+@property(nonnull) Experience *exp;
 
 @end

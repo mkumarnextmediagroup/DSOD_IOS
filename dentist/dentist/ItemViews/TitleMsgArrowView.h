@@ -4,9 +4,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseItemView.h"
 
 
-@interface TitleMsgArrowView : UIControl
+@interface TitleMsgArrowView : BaseItemView
 
 
 @property(readonly) UILabel *titleLabel;

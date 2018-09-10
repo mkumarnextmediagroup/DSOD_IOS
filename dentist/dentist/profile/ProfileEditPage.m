@@ -78,7 +78,7 @@
 
 	specView = [TitleMsgArrowView new];
 	specView.titleLabel.text = @"Speciality";
-	[specView onClick:self action:@selector(clickSpec:)];
+	[specView onClickView:self action:@selector(clickSpec:)];
 	[self.contentView addSubview:specView];
 
 	[self addGrayLine:0 marginRight:0];
@@ -179,7 +179,7 @@
 	practiceAddressView = [TitleMsgArrowView new];
 	practiceAddressView.titleLabel.text = @"Practice address";
 	practiceAddressView.msgLabel.text = @"-";
-	[practiceAddressView onClick:self action:@selector(clickPraticeAddress:)];
+	[practiceAddressView onClickView:self action:@selector(clickPraticeAddress:)];
 	[self.contentView addSubview:practiceAddressView];
 	[self addGrayLine:0 marginRight:0];
 

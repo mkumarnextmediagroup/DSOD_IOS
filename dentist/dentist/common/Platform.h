@@ -16,4 +16,7 @@ extern void objcSendMsg(id target, SEL action, id arg);
 
 extern void _Log(NSObject *first, NSArray *array);
 
+//m in [1, 12]
+extern NSString *nameOfMonth(NSInteger m);
+
 #endif

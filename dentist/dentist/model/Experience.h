@@ -18,8 +18,15 @@
 @property(nullable) NSString <Optional> *practiceName;
 @property(nullable) NSString <Optional> *dateFrom;
 @property(nullable) NSString <Optional> *dateTo;
+
+@property NSInteger fromMonth;
+@property NSInteger fromYear;
+@property NSInteger toMonth;
+@property NSInteger toYear;
+
+
 @property BOOL workInThisRole;
 
 
--(BOOL) isOwnerDentist;
+- (BOOL)isOwnerDentist;
 @end

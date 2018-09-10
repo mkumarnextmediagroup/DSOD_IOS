@@ -14,12 +14,28 @@
 #import "TitleSwitchView.h"
 #import "FromToView.h"
 #import "DatePickerPage.h"
+#import "PickerPage.h"
+#import "SearchPage.h"
+#import "Proto.h"
 
-@interface EditExperiencePage ()
 
-@end
+@implementation EditExperiencePage {
+	NSInteger fromMonth;
+	NSInteger fromYear;
+	NSInteger toMonth;
+	NSInteger toYear;
 
-@implementation EditExperiencePage
+	NSString *praticeType;
+	NSString *roleAtPratice;
+	NSString *nameOfDental;
+	BOOL workInThisRole;
+
+	FromToView *fromToView;
+	TitleSwitchView *switchView;
+	TitleMsgArrowView *typeView;
+	TitleMsgArrowView *roleView;
+	TitleMsgArrowView *dentalView;
+}
 
 - (instancetype)init {
 	self = [super init];
@@ -38,51 +54,67 @@
 	item.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
 	item.rightBarButtonItem = [self navBarText:@"Save" target:self action:@selector(clickSave:)];
 
-	TitleMsgArrowView *typeView = [TitleMsgArrowView new];
+	praticeType = self.exp.praticeType;
+	roleAtPratice = self.exp.roleAtPratice;
+	nameOfDental = self.exp.dentalName;
+	workInThisRole = self.exp.workInThisRole;
+
+	fromMonth = self.exp.fromMonth;
+	fromYear = self.exp.fromYear;
+	toMonth = self.exp.toMonth;
+	toYear = self.exp.toYear;
+
+
+	typeView = [TitleMsgArrowView new];
 	typeView.titleLabel.text = @"Practice Type";
 	if (self.isAdd) {
 		typeView.msgLabel.text = @"Select";
 	} else {
-		typeView.msgLabel.text = self.exp.praticeType;
+		typeView.msgLabel.text = praticeType;
 	}
+	[typeView onClickView:self action:@selector(clickType:)];
 	[self.contentView addSubview:typeView];
 	[self addGrayLine:0 marginRight:0];
 
 
-	TitleMsgArrowView *roleView = [TitleMsgArrowView new];
+	roleView = [TitleMsgArrowView new];
 	roleView.titleLabel.text = @"Role at Practice";
 	if (self.isAdd) {
 		roleView.msgLabel.text = @"Select";
 	} else {
-		roleView.msgLabel.text = self.exp.roleAtPratice;
+		roleView.msgLabel.text = roleAtPratice;
 	}
+	[roleView onClickView:self action:@selector(clickRole:)];
 	[self.contentView addSubview:roleView];
 	[self addGrayLine:0 marginRight:0];
 
-	TitleMsgArrowView *dentalView = [TitleMsgArrowView new];
+	dentalView = [TitleMsgArrowView new];
 	dentalView.titleLabel.text = @"Name of Dental Support Organization (DSO)";
 	if (self.isAdd) {
 		dentalView.msgLabel.text = @"Select";
 	} else {
-		dentalView.msgLabel.text = self.exp.dentalName;
+		dentalView.msgLabel.text = nameOfDental;
 	}
+	[dentalView onClickView:self action:@selector(clickDental:)];
 	[self.contentView addSubview:dentalView];
 	[self addGrayLine:0 marginRight:0];
 
-	TitleSwitchView *switchView = [TitleSwitchView new];
+	switchView = [TitleSwitchView new];
 	switchView.titleLabel.text = @"I currently work in this role";
 	if (self.isAdd) {
-
+		switchView.switchView.on = NO;
 	} else {
-
+		switchView.switchView.on = workInThisRole;
 	}
+	[switchView.switchView addTarget:self action:@selector(onSwitchChanged:) forControlEvents:UIControlEventValueChanged];
 	[self.contentView addSubview:switchView];
 	[self addGrayLine:0 marginRight:0];
 
 
-	FromToView *fromToView = [FromToView new];
+	fromToView = [FromToView new];
 	[self.contentView addSubview:fromToView];
 	[fromToView.fromDateLabel onClickView:self action:@selector(clickFromDate:)];
+	[fromToView.toDateLabel onClickView:self action:@selector(clickToDate:)];
 
 
 	UIButton *btn = self.view.addSmallButton;
@@ -94,8 +126,112 @@
 
 }
 
+- (void)clickType:(id)sender {
+	SearchPage *p = [SearchPage new];
+	p.checkedItem = praticeType;
+	p.titleText = @"PRACTICE TYPE";
+	NSArray *ls = [Proto listPracticeType];
+	[p setItemsPlain:ls displayBlock:nil];
+
+	p.onResult = ^(NSObject *item) {
+		praticeType = (NSString *) item;
+
+		[self bindViews];
+	};
+	[self pushPage:p];
+}
+
+- (void)clickRole:(id)sender {
+	SearchPage *p = [SearchPage new];
+	p.checkedItem = roleAtPratice;
+	p.titleText = @"ROLE AT PRACTICE";
+	NSArray *ls = [Proto listRoleAtPractice];
+	[p setItemsPlain:ls displayBlock:nil];
+
+	p.onResult = ^(NSObject *item) {
+		roleAtPratice = (NSString *) item;
+		[self bindViews];
+	};
+	[self pushPage:p];
+}
+
+- (void)clickDental:(id)sender {
+	SearchPage *p = [SearchPage new];
+	p.checkedItem = nameOfDental;
+	p.titleText = @"NAME OF DSO";
+	NSArray *ls = [Proto listDentalNames];
+	[p setItemsPlain:ls displayBlock:nil];
+
+	p.onResult = ^(NSObject *item) {
+		nameOfDental = (NSString *) item;
+		[self bindViews];
+	};
+	[self pushPage:p];
+}
+
+- (void)onSwitchChanged:(id)sender {
+	workInThisRole = switchView.switchView.on;
+}
+
+- (void)bindViews {
+	if (fromMonth > 0 && fromYear > 0) {
+		fromToView.fromDateLabel.text = strBuild(nameOfMonth(fromMonth), @" ", [@(fromYear) description]);
+	} else {
+		fromToView.fromDateLabel.text = @"Select";
+	}
+	if (toMonth > 0 && toYear > 0) {
+		fromToView.toDateLabel.text = strBuild(nameOfMonth(toMonth), @" ", [@(toYear) description]);
+	} else {
+		fromToView.toDateLabel.text = @"Select";
+	}
+	if (praticeType == nil || praticeType.length == 0) {
+		typeView.msgLabel.text = @"Select";
+	} else {
+		typeView.msgLabel.text = praticeType;
+	}
+	if (roleAtPratice == nil || roleAtPratice.length == 0) {
+		roleView.msgLabel.text = @"Select";
+	} else {
+		roleView.msgLabel.text = roleAtPratice;
+	}
+	if (nameOfDental == nil || nameOfDental.length == 0) {
+		dentalView.msgLabel.text = @"Select";
+	} else {
+		dentalView.msgLabel.text = nameOfDental;
+	}
+}
+
 - (void)clickFromDate:(id)sender {
-	DatePickerPage *p = [DatePickerPage new];
+	PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1930];
+	if (!self.isAdd) {
+		p.preSelectData = @[@(fromMonth), @(fromYear)];
+	}
+	p.resultCallback = ^(NSArray *result) {
+		Log(result);
+		NSNumber *num1 = result[0];
+		fromMonth = num1.integerValue;
+		NSNumber *num2 = result[1];
+		fromYear = num2.integerValue;
+		[self bindViews];
+
+	};
+	[self presentViewController:p animated:YES completion:nil];
+}
+
+- (void)clickToDate:(id)sender {
+	PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1930];
+	if (!self.isAdd) {
+		p.preSelectData = @[@(toMonth), @(toYear)];
+	}
+	p.resultCallback = ^(NSArray *result) {
+		Log(result);
+		NSNumber *num1 = result[0];
+		toMonth = num1.integerValue;
+		NSNumber *num2 = result[1];
+		toYear = num2.integerValue;
+		[self bindViews];
+
+	};
 	[self presentViewController:p animated:YES completion:nil];
 }
 

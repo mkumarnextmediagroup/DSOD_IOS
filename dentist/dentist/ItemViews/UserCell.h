@@ -14,4 +14,8 @@
 @property(readonly) UILabel *specTitleLabel;
 @property(readonly) UILabel *specNameLabel;
 
+
+@property(readonly) UIImageView *linkedinView;
+
+
 @end

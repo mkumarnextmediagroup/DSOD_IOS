@@ -137,6 +137,7 @@
 		C5EEA9F6FFD32D08ABB00CE8 /* UIView+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEABE85BEEC4C83787521E /* UIView+customed.m */; };
 		C5EEAA07EA787A77875B8C95 /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEABC6FFF52CE1B2A65EC2 /* Address.m */; };
 		C5EEAA269C87F480239BF21E /* TapGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA26FE0A8A22D3399DE3E /* TapGesture.m */; };
+		C5EEAA627C4FFCCCA4202E92 /* MyStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA9086B15C099681EB077 /* MyStyle.m */; };
 		C5EEAADD1628D0BD23430FFF /* Residency.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEADB786114F48DDE19825 /* Residency.m */; };
 		C5EEAAE976626BD0AD7F87A8 /* in.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA8718BE48E66BCDCCD90 /* in.png */; };
 		C5EEAAF068D2FF7E482A0CC2 /* LabelCheckView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA2146C8C9A3434A29FA9 /* LabelCheckView.m */; };
@@ -595,6 +596,7 @@
 		C5EEA8718BE48E66BCDCCD90 /* in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = in.png; sourceTree = "<group>"; };
 		C5EEA8A22AAACC2B56D30F80 /* Consts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Consts.h; sourceTree = "<group>"; };
 		C5EEA8A31FA41618FB71AF02 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
+		C5EEA9086B15C099681EB077 /* MyStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStyle.m; sourceTree = "<group>"; };
 		C5EEA95369D33A011F3F2489 /* SearchPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPage.m; sourceTree = "<group>"; };
 		C5EEA98234740EE42CF9DEF0 /* UserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
 		C5EEA987B083DB10CDE9D9E0 /* MASConstraintMaker+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MASConstraintMaker+myextend.m"; sourceTree = "<group>"; };
@@ -605,6 +607,7 @@
 		C5EEA9B786207E0D6FD7BF5B /* WelcomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomController.h; sourceTree = "<group>"; };
 		C5EEA9BAE0F7C243CABD0E49 /* ScrollPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollPage.m; sourceTree = "<group>"; };
 		C5EEA9D3A642BE4AE5439540 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
+		C5EEAA1AF3DD3E6E2AD01EF2 /* MyStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyStyle.h; sourceTree = "<group>"; };
 		C5EEAA2E780A2216C27206F5 /* UIImageView+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+customed.h"; sourceTree = "<group>"; };
 		C5EEAA32464A7E5623530A22 /* LayoutParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayoutParam.m; sourceTree = "<group>"; };
 		C5EEAA3E75282AC040EF8353 /* JSONModel+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONModel+myextend.m"; sourceTree = "<group>"; };
@@ -1515,6 +1518,8 @@
 				C5EEAE8FC3D16D615FEF51FE /* UITextView+myextend.h */,
 				C5EEA76DFE7CB743EF96591C /* Pair.m */,
 				C5EEA36A4F5A952924A85914 /* Pair.h */,
+				C5EEA9086B15C099681EB077 /* MyStyle.m */,
+				C5EEAA1AF3DD3E6E2AD01EF2 /* MyStyle.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -2138,6 +2143,7 @@
 				C5EEA80345D17C8493BB8709 /* SearchPage.m in Sources */,
 				C5EEAAF068D2FF7E482A0CC2 /* LabelCheckView.m in Sources */,
 				C5EEAE6124816A6F31F4FA05 /* GroupListPage.m in Sources */,
+				C5EEAA627C4FFCCCA4202E92 /* MyStyle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

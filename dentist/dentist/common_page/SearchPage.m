@@ -32,10 +32,19 @@
 	navItem.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
 	navItem.title = self.titleText;
 
-	searchEdit = [self.view addEditRaw];
+	searchEdit = [self.view addEditSearch];
+	searchEdit.delegate = self;
+
 	[[[[[searchEdit.layoutMaker leftParent:16] rightParent:-16] topParent:65 + 10] heightEq:EDIT_HEIGHT] install];
+	UIView *lineView = [self.view addView];
+	lineView.backgroundColor = Colors.cellLineColor;
+	[[[[[lineView.layoutMaker heightEq:1] leftParent:0] rightParent:0] below:searchEdit offset:10] install];
 
+}
 
+- (void)onTextFieldDone:(UITextField *)textField {
+	NSString *s = textField.textTrimed;
+	NSLog(@"%@", s);
 }
 
 - (void)clickBack:(id)sender {

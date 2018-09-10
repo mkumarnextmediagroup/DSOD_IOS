@@ -5,9 +5,10 @@
 
 #import <UIKit/UIKit.h>
 #import "GroupItem.h"
+#import "BaseController.h"
 
 
-@interface GroupListPage : UIViewController
+@interface GroupListPage : BaseController
 
 //table offset top
 @property CGFloat topOffset;

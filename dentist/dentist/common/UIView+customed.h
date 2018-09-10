@@ -10,12 +10,11 @@
 
 @class LayoutParam;
 @class Padding;
+@class MyStyle;
 
 @interface UIView (customed)
 
-@property NSInteger theme;
-@property NSInteger style;
-@property NSInteger subStyle;
+@property MyStyle *style;
 
 @property Padding *padding;
 
@@ -34,10 +33,15 @@
 - (UITextView *)noticeLabel;
 
 - (UITextField *)addEditRaw;
+
 - (UITextField *)addEditRounded;
+
 - (UITextField *)addEditRoundedGray;
+
 - (UITextField *)addEditLined;
+
 - (UITextField *)addEditPwd;
+- (UITextField *)addEditSearch;
 
 - (UIButton *)addButton;
 

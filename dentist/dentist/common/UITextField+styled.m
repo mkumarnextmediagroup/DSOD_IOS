@@ -8,6 +8,7 @@
 #import "NSMutableAttributedString+customed.h"
 #import "Fonts.h"
 #import "Common.h"
+#import "MyStyle.h"
 
 
 @implementation UITextField (styled)
@@ -61,7 +62,7 @@
 	self.leftViewMode = UITextFieldViewModeAlways;
 	self.autocapitalizationType = UITextAutocapitalizationTypeNone;
 	self.autocorrectionType = UITextAutocorrectionTypeNo;
-	switch (self.style) {
+	switch (self.style.style) {
 		case EDIT_STYLE_NONE:
 			break;
 		case EDIT_STYLE_ROUNDED:
@@ -91,7 +92,7 @@
 	}
 	ly.backgroundColor = Colors.borderNormal.CGColor;
 	[self textColorMain];
-	switch (self.theme) {
+	switch (self.style.theme) {
 		case EDIT_THEME_ACTIVE:
 			ly.backgroundColor = Colors.borderActive.CGColor;
 			break;
@@ -125,7 +126,11 @@
 	self.clearButtonMode = UITextFieldViewModeWhileEditing;
 	[self textColorMain];
 
-	if (self.subStyle == EDIT_SUBSTYLE_PWD) {
+	if (self.style.subStyle == EDIT_SUBSTYLE_SEARCH) {
+		self.layer.cornerRadius = 8;
+	}
+
+	if (self.style.subStyle == EDIT_SUBSTYLE_PWD) {
 		self.clearButtonMode = UITextFieldViewModeNever;
 		[self setSecureTextEntry:YES];
 		UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -140,9 +145,9 @@
 	}
 
 
-	switch (self.theme) {
+	switch (self.style.theme) {
 		case EDIT_THEME_NORMAL:
-			if (self.subStyle == EDIT_SUBSTYLE_GRAY) {
+			if (self.style.subStyle == EDIT_SUBSTYLE_GRAY || self.style.subStyle == EDIT_SUBSTYLE_SEARCH) {
 				self.layer.borderColor = rgb255(247, 247, 247).CGColor;
 				self.backgroundColor = rgb255(247, 247, 247);
 			}
@@ -174,7 +179,7 @@
 			self.backgroundColor = UIColor.whiteColor;
 			if (self.rightView == nil || [self.rightView isKindOfClass:[UIImageView class]]) {
 				NSString *imgName = @"error";
-				if (self.subStyle == EDIT_SUBSTYLE_GRAY) {
+				if (self.style.subStyle == EDIT_SUBSTYLE_GRAY) {
 					imgName = @"error_red";
 				}
 				UIImage *img = [UIImage imageNamed:imgName];
@@ -193,56 +198,64 @@
 }
 
 - (void)styleLined {
-	self.style = EDIT_STYLE_LINED;
-	self.subStyle = EDIT_SUBSTYLE_NONE;
-	self.theme = EDIT_THEME_NORMAL;
+	self.style.style = EDIT_STYLE_LINED;
+	self.style.subStyle = EDIT_SUBSTYLE_NONE;
+	self.style.theme = EDIT_THEME_NORMAL;
 	[self applyStyleTheme];
 }
 
 
 - (void)styleRounded {
-	self.style = EDIT_STYLE_ROUNDED;
-	self.subStyle = EDIT_SUBSTYLE_NONE;
-	self.theme = EDIT_THEME_NORMAL;
+	self.style.style = EDIT_STYLE_ROUNDED;
+	self.style.subStyle = EDIT_SUBSTYLE_NONE;
+	self.style.theme = EDIT_THEME_NORMAL;
 	[self applyStyleTheme];
 }
 
 - (void)styleRoundedGray {
-	self.style = EDIT_STYLE_ROUNDED;
-	self.subStyle = EDIT_SUBSTYLE_GRAY;
-	self.theme = EDIT_THEME_NORMAL;
+	self.style.style = EDIT_STYLE_ROUNDED;
+	self.style.subStyle = EDIT_SUBSTYLE_GRAY;
+	self.style.theme = EDIT_THEME_NORMAL;
+	[self applyStyleTheme];
+}
+
+- (void)styleSearch {
+	self.style.style = EDIT_STYLE_ROUNDED;
+	self.style.subStyle = EDIT_SUBSTYLE_SEARCH;
+	self.style.theme = EDIT_THEME_NORMAL;
+	[self returnSearch];
 	[self applyStyleTheme];
 }
 
 - (void)stylePassword {
-	self.style = EDIT_STYLE_ROUNDED;
-	self.subStyle = EDIT_SUBSTYLE_PWD;
-	self.theme = EDIT_THEME_NORMAL;
+	self.style.style = EDIT_STYLE_ROUNDED;
+	self.style.subStyle = EDIT_SUBSTYLE_PWD;
+	self.style.theme = EDIT_THEME_NORMAL;
 	[self applyStyleTheme];
 }
 
 - (void)themeDisabled {
-	self.theme = EDIT_THEME_DISABLED;
+	self.style.theme = EDIT_THEME_DISABLED;
 	[self applyStyleTheme];
 }
 
 - (void)themeActive {
-	self.theme = EDIT_THEME_ACTIVE;
+	self.style.theme = EDIT_THEME_ACTIVE;
 	[self applyStyleTheme];
 }
 
 - (void)themeError {
-	self.theme = EDIT_THEME_ERROR;
+	self.style.theme = EDIT_THEME_ERROR;
 	[self applyStyleTheme];
 }
 
 - (void)themeSuccess {
-	self.theme = EDIT_THEME_SUCCESS;
+	self.style.theme = EDIT_THEME_SUCCESS;
 	[self applyStyleTheme];
 }
 
 - (void)themeNormal {
-	self.theme = EDIT_THEME_NORMAL;
+	self.style.theme = EDIT_THEME_NORMAL;
 	[self applyStyleTheme];
 }
 
@@ -322,5 +335,9 @@
 	self.keyboardType = UIKeyboardTypeDecimalPad;
 }
 
+
+-(NSString *)textTrimed{
+	return [self.text trimed];
+};
 
 @end

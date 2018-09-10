@@ -8,6 +8,7 @@
 @interface UITextField (styled)
 
 @property NSString *hint;
+@property(readonly) NSString *textTrimed;
 
 
 - (void)styleRounded;
@@ -17,6 +18,8 @@
 - (void)styleLined;
 
 - (void)stylePassword;
+
+- (void)styleSearch;
 
 - (void)themeSuccess;
 

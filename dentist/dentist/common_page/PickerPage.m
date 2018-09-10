@@ -53,11 +53,15 @@
 	}
 	for (NSUInteger i = 0; i < result.count; ++i) {
 		NSInteger r = [self.data[i] indexOfObject:result[i]];
-		if (r >= 0) {
+		if (r != NSNotFound) {
 			[picker selectRow:r inComponent:i animated:NO];
 		}
 	}
 
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 
 }
 
@@ -83,7 +87,6 @@
 
 
 - (void)tapBackground {
-	Log(result);
 	if (self.resultCallback) {
 		self.resultCallback(result);
 	}

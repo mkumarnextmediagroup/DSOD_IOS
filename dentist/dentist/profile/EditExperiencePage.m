@@ -203,9 +203,7 @@
 
 - (void)clickFromDate:(id)sender {
 	PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1930];
-	if (!self.isAdd) {
-		p.preSelectData = @[@(fromMonth), @(fromYear)];
-	}
+	p.preSelectData = @[@(fromMonth), @(fromYear)];
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];
@@ -220,9 +218,7 @@
 
 - (void)clickToDate:(id)sender {
 	PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1930];
-	if (!self.isAdd) {
-		p.preSelectData = @[@(toMonth), @(toYear)];
-	}
+	p.preSelectData = @[@(toMonth), @(toYear)];
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];

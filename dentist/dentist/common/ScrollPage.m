@@ -5,7 +5,6 @@
 
 #import "ScrollPage.h"
 #import "Common.h"
-#import "LayoutParam.h"
 
 
 @implementation ScrollPage {

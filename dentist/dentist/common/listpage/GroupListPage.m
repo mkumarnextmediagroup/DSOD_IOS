@@ -4,7 +4,7 @@
 //
 
 #import "GroupListPage.h"
-
+#import "Common.h"
 
 @interface GroupListPage () <UITableViewDataSource, UITableViewDelegate> {
 

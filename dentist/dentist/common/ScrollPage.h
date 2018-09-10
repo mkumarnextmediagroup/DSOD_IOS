@@ -4,9 +4,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseController.h"
 
 
-@interface ScrollPage : UIViewController
+@interface ScrollPage : BaseController
 
 
 @property(readonly) UIScrollView *scrollView;
@@ -14,5 +15,5 @@
 
 - (void)layoutLinearVertical;
 
--(UIView*)addGrayLine:(CGFloat)marginLeft marginRight:(CGFloat) marginRight;
+- (UIView *)addGrayLine:(CGFloat)marginLeft marginRight:(CGFloat)marginRight;
 @end

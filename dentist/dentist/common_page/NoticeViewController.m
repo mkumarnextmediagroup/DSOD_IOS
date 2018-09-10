@@ -8,6 +8,7 @@
 
 #import "NoticeViewController.h"
 #import "ContactViewController.h"
+#import "Common.h"
 
 @interface NoticeViewController ()
 

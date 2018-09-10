@@ -49,4 +49,6 @@
 
 + (UserInfo *)lastUserInfo;
 
++ (NSArray *)listSpeciality;
+
 @end

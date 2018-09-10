@@ -4,13 +4,8 @@
 //
 
 #import "CmsMainController.h"
-#import "IIViewDeckController.h"
-#import "TestPage.h"
-#import "ScrollPage.h"
-#import "TestScrollPage.h"
-#import "ProfileEditPage.h"
 #import "SearchPage.h"
-#import "WelcomController.h"
+#import "Common.h"
 
 
 @implementation CmsMainController {

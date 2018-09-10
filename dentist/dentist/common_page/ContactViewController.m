@@ -9,6 +9,7 @@
 #import "ContactViewController.h"
 #import "ContactTableViewCell.h"
 #import "MagazineTableViewCell.h"
+#import "Common.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @interface ContactViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UITextViewDelegate>

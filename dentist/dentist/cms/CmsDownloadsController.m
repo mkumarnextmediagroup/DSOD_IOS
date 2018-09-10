@@ -4,7 +4,7 @@
 //
 
 #import "CmsDownloadsController.h"
-
+#import "Common.h"
 
 @implementation CmsDownloadsController {
 

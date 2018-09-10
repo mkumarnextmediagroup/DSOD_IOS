@@ -4,7 +4,7 @@
 //
 
 #import "CmsBookmarkController.h"
-
+#import "Common.h"
 
 @implementation CmsBookmarkController {
 

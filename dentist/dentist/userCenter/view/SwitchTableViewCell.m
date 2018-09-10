@@ -9,6 +9,7 @@
 #import "SwitchTableViewCell.h"
 #import "Fonts.h"
 #import "Colors.h"
+#import "Common.h"
 
 @implementation SwitchTableViewCell
 

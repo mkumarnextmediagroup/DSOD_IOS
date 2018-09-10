@@ -58,10 +58,42 @@
 
 	UserCell *userCell = [UserCell new];
 	userCell.imageView.imageName = @"user_img";
+	[userCell.imageView loadUrl:userInfo.portraitUrl placeholderImage:@"user_img"];
 	userCell.nameLabel.text = userInfo.fullName;
-	userCell.specNameLabel.text = userInfo.specialityLabel;
+	if (userInfo.specialityLabel == nil || userInfo.specialityLabel.length == 0) {
+		userCell.specNameLabel.text = @"-";
+	} else {
+		userCell.specNameLabel.text = userInfo.specialityLabel;
+
+	}
 	[userCell.imageView loadUrl:userInfo.portraitUrl placeholderImage:@"user_img"];
 	[self.contentView addSubview:userCell];
+
+	[self addGroupTitle:@"Experience"];
+	if(!userInfo.isStudent) {
+		if(userInfo.experienceArray == nil || userInfo.experienceArray.count == 0) {
+			userInfo.experienceArray = @[[Experience new] ];
+		}
+		for (int i = 0; i < userInfo.experienceArray.count; ++i) {
+			Experience *exp = userInfo.experienceArray[i];
+			IconTitleMsgDetailCell *expView = [IconTitleMsgDetailCell new];
+			expView.imageView.imageName = @"exp";
+			if (exp.dentalName== nil || exp.dentalName.length == 0) {
+				[expView showEmpty:@"No experience added yet."];
+			} else {
+				expView.titleLabel.text = exp.praticeType;
+				expView.msgLabel.text = exp.dentalName;
+				expView.detailLabel.text = strBuild(exp.dateFrom, @"-", exp.dateTo);
+			}
+			[self.contentView addSubview:expView];
+			if (i == userInfo.experienceArray.count - 1) {
+				[self addGrayLine:0 marginRight:0];
+			} else {
+				[self addGrayLine:78 marginRight:0];
+			}
+		}
+	}
+
 
 	[self addGroupTitle:@"Residency"];
 	if (userInfo.residencyArray == nil || userInfo.residencyArray.count == 0) {
@@ -70,15 +102,14 @@
 	for (int i = 0; i < userInfo.residencyArray.count; ++i) {
 		Residency *r = userInfo.residencyArray[i];
 		IconTitleMsgDetailCell *residView = [IconTitleMsgDetailCell new];
-		residView.titleLabel.text = @"Residency";
 		residView.imageView.imageName = @"residency";
 		if (r.place == nil || r.place.length == 0) {
-			residView.msgLabel.text = @"-";
+			[residView showEmpty:@"No residency added yet."];
 		} else {
+			residView.titleLabel.text = @"Residency";
 			residView.msgLabel.text = r.place;
+			residView.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
 		}
-		residView.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
-
 		[self.contentView addSubview:residView];
 		if (i == userInfo.residencyArray.count - 1) {
 			[self addGrayLine:0 marginRight:0];
@@ -95,10 +126,14 @@
 	for (int i = 0; i < userInfo.educationArray.count; ++i) {
 		Education *edu = userInfo.educationArray[i];
 		IconTitleMsgDetailCell *v = [IconTitleMsgDetailCell new];
-		v.imageView.imageName = @"edu";
-		v.titleLabel.text = edu.schoolName;
-		v.msgLabel.text = edu.certificate;
-		v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
+		v.imageView.imageName = @"school";
+		if (edu.schoolName == nil || edu.schoolName.length == 0) {
+			[v showEmpty:@"No education added yet."];
+		} else {
+			v.titleLabel.text = edu.schoolName;
+			v.msgLabel.text = edu.certificate;
+			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
+		}
 		[self.contentView addSubview:v];
 		if (i == userInfo.educationArray.count - 1) {
 			[self addGrayLine:0 marginRight:0];

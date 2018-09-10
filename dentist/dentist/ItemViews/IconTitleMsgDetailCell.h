@@ -13,7 +13,11 @@
 @property(readonly) UILabel *titleLabel;
 @property(readonly) UILabel *msgLabel;
 @property(readonly) UILabel *detailLabel;
+@property(readonly) UILabel *emptyLabel;
 
 @property BOOL hasArrow;
+
+-(void) showEmpty:(NSString*) text;
+-(void) hideEmpty;
 
 @end

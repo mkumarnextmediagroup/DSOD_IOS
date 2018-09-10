@@ -43,15 +43,36 @@
 	arrowView.imageName = @"arrow_small";
 	arrowView.hidden = YES;
 
+	_emptyLabel = [self addLabel];
+	_emptyLabel.font = [Fonts regular:14];
+	[_emptyLabel textColorAlternate];
+	_emptyLabel.hidden = YES;
+
 	[[[[[_imageView layoutMaker] sizeEq:48 h:48] leftParent:self.padding.left] centerYParent:0] install];
 	[[[[[[_titleLabel layoutMaker] heightEq:16] topOf:_imageView offset:-2] toRightOf:_imageView offset:12] rightParent:-self.padding.right] install];
 	[[[[[[_msgLabel layoutMaker] heightEq:16] centerYParent:2] toRightOf:_imageView offset:12] rightParent:-self.padding.right] install];
 	[[[[[[_detailLabel layoutMaker] heightEq:16] bottomOf:_imageView offset:2] toRightOf:_imageView offset:12] rightParent:-self.padding.right] install];
 	[[[[[arrowView layoutMaker] centerYParent:0] rightParent:-self.padding.right] sizeEq:16 h:16] install];
+	[[[[[_emptyLabel.layoutMaker toRightOf:_imageView offset:12] centerYParent:0] heightEq:18] rightParent:-self.padding.right] install];
 
 	self.layoutParam.height = 78;
 
 	return self;
+}
+
+- (void)showEmpty:(NSString *)text {
+	_titleLabel.hidden = YES;
+	_msgLabel.hidden = YES;
+	_detailLabel.hidden = YES;
+	_emptyLabel.hidden = NO;
+	_emptyLabel.text = text;
+}
+
+- (void)hideEmpty {
+	_titleLabel.hidden = NO;
+	_msgLabel.hidden = NO;
+	_detailLabel.hidden = NO;
+	_emptyLabel.hidden = YES;
 }
 
 - (BOOL)hasArrow {

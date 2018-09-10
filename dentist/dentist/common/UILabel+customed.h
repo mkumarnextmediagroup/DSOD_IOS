@@ -24,6 +24,8 @@
 
 - (void)textColorSecondary;
 
+- (void)textColorAlternate;
+
 - (void)textAlignCenter;
 
 - (void)textAlignLeft;

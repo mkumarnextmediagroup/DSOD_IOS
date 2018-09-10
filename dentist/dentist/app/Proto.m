@@ -94,9 +94,10 @@
 
 	UserInfo *ui = [UserInfo alloc];
 	ui.email = email;
+	ui.isStudent = NO;
 	ui.fullName = @"Entao Yang";
 	ui.phone = @"15098760059";
-	ui.portraitUrl = nil;
+	ui.portraitUrl = @"http://app800.cn/i/p.png";
 	ui.specialityId = @"100";
 	ui.specialityLabel = @"Orthodontics";
 
@@ -135,20 +136,20 @@
 	ui.residencyArray = @[r];
 
 
-    PersonInfo *pe1 = [PersonInfo new];
-    pe1.infoLabel = @"Full name";
-    PersonInfo *pe2 = [PersonInfo new];
-    pe2.infoLabel = @"Speciality";
-    ui.personInfoArray = @[pe1, pe2];
-    
-    UploadData *up = [UploadData new];
-    up.uploadName = localStr(@"upResume");
-    up.detailLabel = localStr(@"professional");
-    UploadData *up1 = [UploadData new];
-    up1.uploadName = localStr(@"import");
-    up1.detailLabel = localStr(@"information");
-    ui.uploadDataArray = @[up,up1];
-    
+	PersonInfo *pe1 = [PersonInfo new];
+	pe1.infoLabel = @"Full name";
+	PersonInfo *pe2 = [PersonInfo new];
+	pe2.infoLabel = @"Speciality";
+	ui.personInfoArray = @[pe1, pe2];
+
+	UploadData *up = [UploadData new];
+	up.uploadName = localStr(@"upResume");
+	up.detailLabel = localStr(@"professional");
+	UploadData *up1 = [UploadData new];
+	up1.uploadName = localStr(@"import");
+	up1.detailLabel = localStr(@"information");
+	ui.uploadDataArray = @[up, up1];
+
 	NSString *s = [ui toJSONString];
 
 	[self saveUserInfoLocal:email info:s];

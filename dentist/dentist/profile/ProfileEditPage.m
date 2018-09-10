@@ -18,7 +18,16 @@
 #import "EditResidencyViewController.h"
 #import "EditEduViewController.h"
 #import "UpdateViewController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
+
+@interface ProfileEditPage ()<UIImagePickerControllerDelegate>
+{
+    UIImage     *selectImage;
+    NSString    *selectImageName;
+}
+@end
 
 @implementation ProfileEditPage {
 	UserInfo *userInfo;
@@ -50,6 +59,10 @@
 	userView = [EditUserView new];
 	userView.layoutParam.height = 200;
 	[self.contentView addSubview:userView];
+     __weak typeof(self) weakSelf = self;
+    userView.editBtnClickBlock = ^{
+        [weakSelf callActionSheetFunc];
+    };
 
 	[self addGrayLine:0 marginRight:0];
 
@@ -172,6 +185,10 @@
 
 
 - (void)bindData {
+    if(selectImage){
+        [userView.headerImg setImage:selectImage];
+    }
+    
 	nameView.edit.text = userInfo.fullName;
 	specView.msgLabel.text = userInfo.specialityLabel;
 	if (userInfo.residencyArray != nil) {
@@ -199,6 +216,7 @@
 - (void)clickSpec:(id)sender {
 	UpdateViewController *update = [UpdateViewController new];
 	update.titleStr = @"SPECIALITY";
+    
 	[self pushPage:update];
 }
 
@@ -250,4 +268,90 @@
 
 - (void)onSave:(id)sender {
 }
+
+- (void)callActionSheetFunc{
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        
+        [self Den_showActionSheetWithTitle:nil message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"cancel").
+            addActionDefaultTitle(@"Camera").
+            addActionDefaultTitle(@"Gallery");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+            if ([action.title isEqualToString:@"cancel"]) {
+                NSLog(@"cancel");
+            }
+            else if ([action.title isEqualToString:@"Camera"]) {
+                NSLog(@"Camera");
+                [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypeCamera];
+            }else if ([action.title isEqualToString:@"Gallery"]) {
+                NSLog(@"Gallery");
+                [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            }
+        }];
+        
+    }else{
+        [self Den_showActionSheetWithTitle:nil message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"cancel").
+            addActionDefaultTitle(@"Gallery");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+            if ([action.title isEqualToString:@"cancel"]) {
+                NSLog(@"cancel");
+            }
+            else if ([action.title isEqualToString:@"Gallery"]) {
+                NSLog(@"Gallery");
+                [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            }
+        }];
+    }
+}
+
+- (void)clickTheBtnWithSourceType:(UIImagePickerControllerSourceType)sourceType
+{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.sourceType = sourceType;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = nil;
+    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+        picker.cameraDevice =  UIImagePickerControllerCameraDeviceFront;
+        image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+        
+        NSString *imageName = [info valueForKey:UIImagePickerControllerMediaType];
+        NSLog(@"imageName1:%@", imageName);
+        selectImageName = imageName;
+        selectImage = image;
+        [self bindData];
+        
+    }else{
+        image = info[UIImagePickerControllerOriginalImage];
+        
+        NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
+        
+        ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+        //根据url获取asset信息, 并通过block进行回调
+        [assetsLibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
+            ALAssetRepresentation *representation = [asset defaultRepresentation];
+            NSString *imageName = representation.filename;
+            NSLog(@"imageName:%@", imageName);
+            self->selectImageName = imageName;
+            self->selectImage = image;
+            [self bindData];
+            
+        } failureBlock:^(NSError *error) {
+            NSLog(@"%@", [error localizedDescription]);
+        }];
+    }
+    [self dismissViewControllerAnimated:NO completion:nil];
+    
+    
+}
+
 @end

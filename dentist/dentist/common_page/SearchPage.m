@@ -31,6 +31,7 @@
 	UINavigationItem *navItem = self.navigationItem;
 	navItem.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
 	navItem.title = self.titleText;
+	navItem.rightBarButtonItem = [self navBarText:localStr(@"ok") target:self action:@selector(onClickOK:)];
 
 	searchEdit = [self.view addEditSearch];
 	searchEdit.delegate = self;
@@ -40,6 +41,16 @@
 	lineView.backgroundColor = Colors.cellLineColor;
 	[[[[[lineView.layoutMaker heightEq:1] leftParent:0] rightParent:0] below:searchEdit offset:10] install];
 
+}
+
+- (void)onClickOK:(id)sender {
+	if (self.checkedItem == nil) {
+		return;
+	}
+	if (self.onResult != nil) {
+		[self popPage];
+		self.onResult(self.checkedItem);
+	}
 }
 
 - (void)onTextFieldDone:(UITextField *)textField {

@@ -31,6 +31,7 @@
 	UINavigationItem *navItem = self.navigationItem;
 	navItem.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
 	navItem.title = self.titleText;
+	navItem.rightBarButtonItem = [self navBarText:localStr(@"ok") target:self action:@selector(onClickOK:)];
 
 	searchEdit = [self.view addEditSearch];
 	searchEdit.delegate = self;
@@ -42,9 +43,19 @@
 
 }
 
+- (void)onClickOK:(id)sender {
+	if (self.checkedItem == nil) {
+		return;
+	}
+	if (self.onResult != nil) {
+		[self popPage];
+		self.onResult(self.checkedItem);
+	}
+}
+
 - (void)onTextFieldDone:(UITextField *)textField {
 	NSString *s = textField.textTrimed;
-	NSLog(@"%@", s);
+	[self filterBy:s];
 }
 
 - (void)clickBack:(id)sender {
@@ -62,7 +73,9 @@
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
 	LabelCheckView *v = (LabelCheckView *) view;
-	if ([item isKindOfClass:NSString.class]) {
+	if (self.displayBlock != nil) {
+		v.label.text = self.displayBlock(item);
+	} else if ([item isKindOfClass:NSString.class]) {
 		v.label.text = (NSString *) item;
 	} else if ([item isKindOfClass:Pair.class]) {
 		v.label.text = ((Pair *) item).value;

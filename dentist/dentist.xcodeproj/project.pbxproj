@@ -20,6 +20,7 @@
 		3E043B9F213C2C610044CD77 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E043B9E213C2C610044CD77 /* Profile.m */; };
 		3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E137172212B0E6100B206CC /* LocalAuthentication.framework */; };
 		3E49F90F2144A22E00F32146 /* EditPracticeAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E49F90E2144A22E00F32146 /* EditPracticeAddressViewController.m */; };
+		3E49F915214569D000F32146 /* EditExperiencePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E49F914214569D000F32146 /* EditExperiencePage.m */; };
 		3ED0764B213A9FE3004D4083 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0764A213A9FE3004D4083 /* ProfileViewController.m */; };
 		3ED0764E213ADDC6004D4083 /* ProfileHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0764D213ADDC6004D4083 /* ProfileHeaderTableViewCell.m */; };
 		3ED07651213ADE01004D4083 /* ProfileNormalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED07650213ADE01004D4083 /* ProfileNormalTableViewCell.m */; };
@@ -421,6 +422,8 @@
 		3E137172212B0E6100B206CC /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		3E49F90D2144A22E00F32146 /* EditPracticeAddressViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditPracticeAddressViewController.h; sourceTree = "<group>"; };
 		3E49F90E2144A22E00F32146 /* EditPracticeAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditPracticeAddressViewController.m; sourceTree = "<group>"; };
+		3E49F913214569D000F32146 /* EditExperiencePage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditExperiencePage.h; sourceTree = "<group>"; };
+		3E49F914214569D000F32146 /* EditExperiencePage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditExperiencePage.m; sourceTree = "<group>"; };
 		3ED07649213A9FE3004D4083 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		3ED0764A213A9FE3004D4083 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		3ED0764C213ADDC6004D4083 /* ProfileHeaderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileHeaderTableViewCell.h; sourceTree = "<group>"; };
@@ -954,6 +957,8 @@
 				3E49F90E2144A22E00F32146 /* EditPracticeAddressViewController.m */,
 				C5EEA11136959D571134A012 /* ProfileEditPage.m */,
 				C5EEA11065C868C1B0BA3075 /* ProfileEditPage.h */,
+				3E49F913214569D000F32146 /* EditExperiencePage.h */,
+				3E49F914214569D000F32146 /* EditExperiencePage.m */,
 			);
 			path = profile;
 			sourceTree = "<group>";
@@ -2041,6 +2046,7 @@
 				4E23522E213D12CB003BA59B /* UITextFieldCustom.m in Sources */,
 				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,
 				C5EEA9E893F712BA5CC4938D /* TextSize.m in Sources */,
+				3E49F915214569D000F32146 /* EditExperiencePage.m in Sources */,
 				4E19573E2137D0F100420563 /* PermissionNetworkFields.m in Sources */,
 				4E846F73213E781100DC2B51 /* CommSelectTableViewCell.m in Sources */,
 				4E1957482137D0F100420563 /* LinkedInServiceManager.m in Sources */,

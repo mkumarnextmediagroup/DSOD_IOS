@@ -25,9 +25,7 @@
 @implementation EditPracticeAddressViewController
 
 - (void)viewDidLoad {
-    //cancel the gestrue to make sure the tableview can selected
-    self.isCloseTheGesture = YES;
-    
+
     [super viewDidLoad];
     
    

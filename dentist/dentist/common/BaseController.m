@@ -31,9 +31,6 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.view.backgroundColor = [UIColor whiteColor];
-	if (!_isCloseTheGesture) {
-		[self.view onClickView:self action:@selector(_onClickControllerView:)];
-	}
 }
 
 
@@ -84,9 +81,7 @@
 
 }
 
-- (void)_onClickControllerView:(UIView *)sender {
-	[self.view endEditing:YES];
-}
+
 
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {

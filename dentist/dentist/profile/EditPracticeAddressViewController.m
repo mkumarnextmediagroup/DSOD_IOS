@@ -32,7 +32,7 @@
     UINavigationItem *item = self.navigationItem;
     item.title = localStr(@"editPractice");
     item.rightBarButtonItem = [self navBarText:@"SAVE" target: self  action:@selector(saveBtnClick:)];
-    item.leftBarButtonItem = [self navBarImage:@"back_arrow"  target: self action:@selector(back)];
+	item.leftBarButtonItem = [self navBarImage:@"back_arrow" target: self action:@selector(back)];
     // Do any additional setup after loading the view.
     
     myTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];

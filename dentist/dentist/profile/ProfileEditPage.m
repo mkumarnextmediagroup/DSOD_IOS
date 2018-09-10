@@ -17,6 +17,7 @@
 #import "EditResidencyViewController.h"
 #import "EditEduViewController.h"
 #import "SearchPage.h"
+#import "EditExperiencePage.h"
 
 #import <AssetsLibrary/ALAsset.h>
 
@@ -278,8 +279,9 @@
 }
 
 - (void)clickAddExp:(id)sender {
-	NSLog(@"click add exp");
-	//TODO add exp
+	EditExperiencePage *p = [EditExperiencePage new];
+	p.isAdd = YES;
+	[self pushPage:p];
 
 }
 

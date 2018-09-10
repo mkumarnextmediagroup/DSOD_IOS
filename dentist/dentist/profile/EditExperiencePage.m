@@ -8,6 +8,10 @@
 
 #import "EditExperiencePage.h"
 #import "Common.h"
+#import "UserInfo.h"
+#import "TitleMsgArrowView.h"
+#import "Experience.h"
+#import "TitleSwitchView.h"
 
 @interface EditExperiencePage ()
 
@@ -15,36 +19,84 @@
 
 @implementation EditExperiencePage
 
+- (instancetype)init {
+	self = [super init];
+	_isAdd = NO;
+	return self;
+}
+
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    
-    UINavigationItem *item = self.navigationItem;
-    item.title = localStr(@"editExperience");
-    item.rightBarButtonItem = [self navBarText:@"SAVE" target: self  action:@selector(saveBtnClick:)];
-    item.leftBarButtonItem = [self navBarImage:@"back_arrow"  target: self action:@selector(back)];
+	[super viewDidLoad];
+	UINavigationItem *item = self.navigationItem;
+	if (self.isAdd) {
+		item.title = @"ADD EXPERIENCE";
+	} else {
+		item.title = @"EDIT EXPERIENCE";
+	}
+	item.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
+	item.rightBarButtonItem = [self navBarText:@"Save" target:self action:@selector(clickSave:)];
+
+	TitleMsgArrowView *typeView = [TitleMsgArrowView new];
+	typeView.titleLabel.text = @"Practice Type";
+	if (self.isAdd) {
+		typeView.msgLabel.text = @"Select";
+	} else {
+		typeView.msgLabel.text = self.exp.praticeType;
+	}
+	[self.contentView addSubview:typeView];
+	[self addGrayLine:0 marginRight:0];
+
+
+	TitleMsgArrowView *roleView = [TitleMsgArrowView new];
+	roleView.titleLabel.text = @"Role at Practice";
+	if (self.isAdd) {
+		roleView.msgLabel.text = @"Select";
+	} else {
+		roleView.msgLabel.text = self.exp.roleAtPratice;
+	}
+	[self.contentView addSubview:roleView];
+	[self addGrayLine:0 marginRight:0];
+
+	TitleMsgArrowView *dentalView = [TitleMsgArrowView new];
+	dentalView.titleLabel.text = @"Name of Dental Support Organization (DSO)";
+	if (self.isAdd) {
+		dentalView.msgLabel.text = @"Select";
+	} else {
+		dentalView.msgLabel.text = self.exp.dentalName;
+	}
+	[self.contentView addSubview:dentalView];
+	[self addGrayLine:0 marginRight:0];
+
+	TitleSwitchView *switchView = [TitleSwitchView new];
+	switchView.titleLabel.text = @"I currently work in this role";
+	if (self.isAdd) {
+
+	} else {
+
+	}
+	[self.contentView addSubview:switchView];
+	[self addGrayLine:0 marginRight:0];
+
+	[self layoutLinearVertical];
+
 }
 
 
-- (void)back
-{
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)clickBack:(id)sender {
+	[self popPage];
 }
 
-- (void)saveBtnClick:(UIButton *)btn
-{
-    NSLog(@"save");
+- (void)clickSave:(UIButton *)btn {
+	NSLog(@"save");
 }
 
-- (void)delBtnClick:(UIButton *)btn
-{
-    NSLog(@"del");
+- (void)delBtnClick:(UIButton *)btn {
+	NSLog(@"del");
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
 /*

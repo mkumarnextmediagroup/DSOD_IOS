@@ -8,6 +8,14 @@
 
 #import "ScrollPage.h"
 
+@class UserInfo;
+@class Experience;
+
 @interface EditExperiencePage : ScrollPage
+
+
+@property BOOL isAdd;
+@property UserInfo *userInfo;
+@property Experience *exp;
 
 @end

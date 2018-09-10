@@ -35,7 +35,7 @@
     
     UINavigationItem *item = self.navigationItem;
     item.rightBarButtonItem = [self navBarText:@"SAVE" target: self  action:@selector(saveBtnClick:)];
-    item.leftBarButtonItem = [self navBarImage:@"back_arrow"  target: self action:@selector(back)];
+	item.leftBarButtonItem = [self navBarImage:@"back_arrow" target: self action:@selector(back)];
     
     myTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     myTable.backgroundColor = UIColor.whiteColor;

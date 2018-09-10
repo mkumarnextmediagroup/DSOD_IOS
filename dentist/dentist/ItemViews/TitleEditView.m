@@ -27,8 +27,7 @@
 	_edit = self.addEditRaw;
 	iconView = self.addImageView;
 
-	_label.font = [Fonts regular:12];
-	[_label textColorSecondary];
+	[_label graySmallStyle];
 
 	_edit.font = [Fonts regular:15];
 	[_edit textColorBlack];

@@ -154,6 +154,7 @@
 		C5EEAB669DB328611B63F777 /* TitleEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA3016149DB3A0FA494A0 /* TitleEditView.m */; };
 		C5EEAC3B3E7352E6EE7B998F /* ProfileEditPage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA11136959D571134A012 /* ProfileEditPage.m */; };
 		C5EEAC42C838DDD8928A5017 /* IconTitleMsgDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEACC8A54951053770CF3B /* IconTitleMsgDetailCell.m */; };
+		C5EEAC52F1B1B7FA36FDBEA2 /* TitleSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA05DD2DCBEE09844CE6D /* TitleSwitchView.m */; };
 		C5EEAC84691A5246841E615B /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA7921005BA1AD231EC66 /* info@2x.png */; };
 		C5EEACA37317B44B87084801 /* UITextView+myextend.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEACA72D14C6A6E02E8876 /* UITextView+myextend.m */; };
 		C5EEACBF759E368D6653D927 /* QueueLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA042B303A304B3A77094 /* QueueLayout.m */; };
@@ -530,6 +531,7 @@
 		BFCE80B52123CB59008F3A7F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		BFCE80B72123CB61008F3A7F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C5EEA042B303A304B3A77094 /* QueueLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueueLayout.m; sourceTree = "<group>"; };
+		C5EEA05DD2DCBEE09844CE6D /* TitleSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleSwitchView.m; sourceTree = "<group>"; };
 		C5EEA05E62E80E9D1AB0F2F0 /* ScrollPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollPage.h; sourceTree = "<group>"; };
 		C5EEA0777BE54B8ACED4F445 /* HttpResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpResult.h; sourceTree = "<group>"; };
 		C5EEA08BC599D4B0CDB588FF /* Education.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Education.m; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 		C5EEA18EB9B95E5485DE66DA /* error@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@3x.png"; sourceTree = "<group>"; };
 		C5EEA2081FE1E7048216CB0F /* RegController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegController.m; sourceTree = "<group>"; };
 		C5EEA2146C8C9A3434A29FA9 /* LabelCheckView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelCheckView.m; sourceTree = "<group>"; };
+		C5EEA23D71D65F3BEC2AE0F4 /* TitleSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleSwitchView.h; sourceTree = "<group>"; };
 		C5EEA26491F4A964247D88D3 /* checkbox_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_on@2x.png"; sourceTree = "<group>"; };
 		C5EEA26FE0A8A22D3399DE3E /* TapGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapGesture.m; sourceTree = "<group>"; };
 		C5EEA2A29513587290050D7A /* TestPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPage.m; sourceTree = "<group>"; };
@@ -1558,6 +1561,8 @@
 				C5EEADEE834253888CE48D5C /* UserCell.h */,
 				C5EEA2146C8C9A3434A29FA9 /* LabelCheckView.m */,
 				C5EEACA95A1F53AE211D1A7F /* LabelCheckView.h */,
+				C5EEA05DD2DCBEE09844CE6D /* TitleSwitchView.m */,
+				C5EEA23D71D65F3BEC2AE0F4 /* TitleSwitchView.h */,
 			);
 			path = ItemViews;
 			sourceTree = "<group>";
@@ -2158,6 +2163,7 @@
 				C5EEAAF068D2FF7E482A0CC2 /* LabelCheckView.m in Sources */,
 				C5EEAE6124816A6F31F4FA05 /* GroupListPage.m in Sources */,
 				C5EEAA627C4FFCCCA4202E92 /* MyStyle.m in Sources */,
+				C5EEAC52F1B1B7FA36FDBEA2 /* TitleSwitchView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,7 @@
 #import "UpdateViewController.h"
 #import "PickerViewController.h"
 #import "Residency.h"
+#import "Proto.h"
 
 @interface EditResidencyViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -57,9 +58,12 @@
     {
         item.title = localStr(@"editRes");
         [editBtn setTitle:localStr(@"delRes") forState:UIControlStateNormal];
-
+        pageSelect = self.residency.place;
+        selectStr = self.residency.dateTo;
     }
 
+    
+    
     [editBtn addTarget:self action:@selector(editBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [editBtn.titleLabel setFont:[Fonts semiBold:15]];
     [self.view addSubview:editBtn];
@@ -170,7 +174,26 @@
 
 - (void)saveBtnClick:(UIButton *)btn
 {
-    NSLog(@"save");
+    
+    if (pageSelect != nil && selectStr != nil) {
+        
+        NSLog(@"save");
+        self.residency.place = pageSelect;
+        self.residency.dateTo = [NSString stringWithFormat:@"March %@",selectStr];
+        if ([self.addOrEdit isEqualToString:@"add"]) {
+            [Proto addResidency:[Proto lastAccount] residency:self.residency];
+        }else
+        {
+            [Proto saveResidency:[Proto lastAccount] index:self.updateIndex residency:self.residency];
+        }
+        
+        [self Den_showAlertWithTitle:@"Saved Successfully" message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionDefaultTitle(@"Okey");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+            
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

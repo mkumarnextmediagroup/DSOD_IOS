@@ -12,12 +12,18 @@
 }
 - (instancetype)init {
 	self = [super init];
-	self.layoutParam.height = 78;
-	self.userInteractionEnabled = NO;
+	self.layoutParam.height = 76;
 	return self;
 }
 
 - (void)resetLayout {
 
+}
+
+- (UIImageView *)addArrowView {
+	UIImageView *iconView = self.addImageView;
+	iconView.imageName = @"arrow_small";
+	[iconView alignCenter];
+	return iconView;
 }
 @end

@@ -7,10 +7,12 @@
 #import "BaseItemView.h"
 
 
-@interface TitleSwitchView : BaseItemView
+@interface FromToView : BaseItemView
 
-@property(readonly) UILabel *titleLabel;
-@property(readonly) UISwitch *switchView;
+@property NSDate *fromDate;
+@property NSDate *toDate;
 
+@property UILabel *fromDateLabel;
+@property UILabel *toDateLabel;
 
 @end

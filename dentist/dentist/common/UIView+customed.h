@@ -15,6 +15,7 @@
 
 @property NSInteger theme;
 @property NSInteger style;
+@property NSInteger subStyle;
 
 @property Padding *padding;
 
@@ -32,10 +33,11 @@
 
 - (UITextView *)noticeLabel;
 
-- (UITextField *)addEdit;
 - (UITextField *)addEditRaw;
-
-- (UITextField *)resetEdit;
+- (UITextField *)addEditRounded;
+- (UITextField *)addEditRoundedGray;
+- (UITextField *)addEditLined;
+- (UITextField *)addEditPwd;
 
 - (UIButton *)addButton;
 

@@ -17,4 +17,17 @@
 
 #define TAG_ERROR_SUCCESS 999
 
+
+#define EDIT_STYLE_NONE    0
+#define EDIT_STYLE_ROUNDED    100
+#define EDIT_STYLE_LINED    200
+
+#define EDIT_THEME_NONE         0
+#define EDIT_THEME_NORMAL       100
+#define EDIT_THEME_ACTIVE       200
+#define EDIT_THEME_DISABLED     300
+#define EDIT_THEME_SUCCESS      400
+#define EDIT_THEME_ERROR        400
+
+
 #endif

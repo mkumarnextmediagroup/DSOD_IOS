@@ -57,6 +57,10 @@
 	return bi;
 }
 
+- (UIBarButtonItem *)navBarBack:(nullable id)target action:(SEL)action {
+	return [self navBarImage:@"back_arrow" target:target action:action];
+}
+
 - (void)openPage:(UIViewController *)page {
 	[self presentViewController:page animated:YES completion:nil];
 }
@@ -75,6 +79,9 @@
 	[self presentViewController:page animated:YES completion:nil];
 }
 
+- (void)popPage {
+	[self dismiss];
+}
 
 - (void)dismiss {
 	if (self.navigationController != nil) {

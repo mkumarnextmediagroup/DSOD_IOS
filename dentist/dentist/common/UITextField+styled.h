@@ -10,6 +10,7 @@
 @property NSString *hint;
 
 - (void)textColorBlack;
+
 - (void)textColorWhite;
 
 - (void)textAlignCenter;
@@ -22,25 +23,30 @@
 
 - (void)textColorAlternate;
 
-- (void)rounded;
 
-- (void)themeNormal;
+- (void)styleRounded;
 
-- (void)themeActive;
-
-- (void)resetNormal;
-
-- (void)resetError;
-
-- (void)themeError;
+- (void)styleLine;
 
 - (void)themeSuccess;
 
 - (void)themeDisabled;
 
-- (void)styleLine;
+
+- (void)themeNormal;
+
+- (void)themeActive;
+
+- (void)themeError;
+
+
+- (void)resetNormal;
+
+- (void)resetError;
+
 
 - (void)stylePassword;
+
 
 - (void)returnDone;
 

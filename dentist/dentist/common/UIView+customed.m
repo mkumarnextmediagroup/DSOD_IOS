@@ -9,8 +9,37 @@
 
 static char layoutParamAttr = 0;
 static char paddingAttr = 0;
+static char themeAttr = 0;
+static char styleAttr = 0;
 
 @implementation UIView (customed)
+
+
+- (NSInteger)style {
+	NSNumber *v = objc_getAssociatedObject(self, &styleAttr);
+	if (v == nil) {
+		[self setStyle:0];
+		return 0;
+	}
+	return [v integerValue];
+}
+
+- (void)setStyle:(NSInteger)style {
+	objc_setAssociatedObject(self, &styleAttr, @(style), OBJC_ASSOCIATION_COPY);
+}
+
+- (NSInteger)theme {
+	NSNumber *v = objc_getAssociatedObject(self, &themeAttr);
+	if (v == nil) {
+		[self setTheme:0];
+		return 0;
+	}
+	return [v integerValue];
+}
+
+- (void)setTheme:(NSInteger)theme {
+	objc_setAssociatedObject(self, &themeAttr, @(theme), OBJC_ASSOCIATION_COPY);
+}
 
 
 - (Padding *)padding {
@@ -156,7 +185,7 @@ static char paddingAttr = 0;
 	UITextField *edit = [UITextField new];
 	edit.autocapitalizationType = UITextAutocapitalizationTypeNone;
 	edit.autocorrectionType = UITextAutocorrectionTypeNo;
-	[edit rounded];
+	[edit styleRounded];
 	[self addSubview:edit];
 	return edit;
 }
@@ -174,7 +203,7 @@ static char paddingAttr = 0;
 	reset.tag = FORGOTFIELDTAG;
 	reset.autocapitalizationType = UITextAutocapitalizationTypeNone;
 	reset.autocorrectionType = UITextAutocorrectionTypeNo;
-	[reset rounded];
+	[reset styleRounded];
 	[self addSubview:reset];
 	return reset;
 }

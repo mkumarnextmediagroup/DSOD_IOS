@@ -14,12 +14,14 @@
 //table offset bottom
 @property CGFloat bottomOffset;
 
-@property BOOL withIndexBar ;
+@property BOOL withIndexBar;
+@property BOOL withGroupLabel;
 @property(readonly) UITableView *table;
 @property NSArray<GroupItem *> *items;
 
 
--(void) setItems:(NSArray*) arr groupBy:(NSString*(^)(NSObject*)) groupBy;
+//arr is an sorted array .
+- (void)setItems:(NSArray *)arr groupBy:(NSString *(^)(NSObject *))groupBy;
 
 
 - (Class)viewClassOfItem:(NSObject *)item;

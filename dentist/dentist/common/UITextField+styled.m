@@ -56,7 +56,31 @@
 	self.textColor = Colors.textAlternate;
 }
 
-- (void)rounded {
+- (void)applyStyleTheme {
+	switch (self.style) {
+		case EDIT_STYLE_NONE:
+			break;
+		case EDIT_STYLE_ROUNDED:
+			switch (self.theme) {
+				case EDIT_THEME_NORMAL:
+					break;
+//				case EDIT_THEME_:
+//					break;
+//				case EDIT_THEME_NORMAL:
+//					break;
+//				case EDIT_THEME_NORMAL:
+//					break;
+//				case EDIT_THEME_NORMAL:
+//					break;
+
+			}
+			break;
+		case EDIT_STYLE_LINED:
+			break;
+	}
+}
+
+- (void)styleRounded {
 	if (self.tag == FORGOTFIELDTAG) {
 		self.borderStyle = UITextBorderStyleRoundedRect;
 		self.backgroundColor = UIColor.whiteColor;

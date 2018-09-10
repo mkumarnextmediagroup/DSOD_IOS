@@ -13,6 +13,9 @@
 
 @interface UIView (customed)
 
+@property NSInteger theme;
+@property NSInteger style;
+
 @property Padding *padding;
 
 @property LayoutParam *layoutParam;

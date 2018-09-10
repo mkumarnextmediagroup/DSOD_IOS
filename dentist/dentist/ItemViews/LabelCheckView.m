@@ -36,9 +36,5 @@
 	return self;
 }
 
-- (void)setSelected:(BOOL)selected {
-	[super setSelected:selected];
-	_checkButton.selected = self.selected;
-}
 
 @end

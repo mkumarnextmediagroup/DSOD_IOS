@@ -94,7 +94,7 @@
 		residView.hasArrow = YES;
 
 		residView.argN = i;
-		[residView onClick:self action:@selector(clickResidency:)];
+		[residView onClickView:self action:@selector(clickResidency:)];
 
 		[self.contentView addSubview:residView];
 		[residencyViews addObject:residView];
@@ -120,7 +120,7 @@
 		v.detailLabel.text = @"-";
 		v.hasArrow = YES;
 		v.argN = i;
-		[v onClick:self action:@selector(clickEdu:)];
+		[v onClickView:self action:@selector(clickEdu:)];
 
 		[self.contentView addSubview:v];
 		[eduViews addObject:v];

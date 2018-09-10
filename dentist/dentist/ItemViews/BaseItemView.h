@@ -8,7 +8,7 @@
 @class Padding;
 
 
-@interface BaseItemView : UIControl
+@interface BaseItemView : UIView
 
 @property NSObject *argObj;
 @property NSString *argStr;

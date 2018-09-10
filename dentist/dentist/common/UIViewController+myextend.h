@@ -21,10 +21,14 @@
 
 - (UIBarButtonItem *)navBarImage:(NSString *)imageName target:(nullable id)target action:(SEL)action;
 
--(void) openPage:(UIViewController*) page;
--(void) pushPage:(UIViewController*) page;
--(void) popPage;
+- (void)openPage:(UIViewController *)page;
+
+- (void)pushPage:(UIViewController *)page;
+
+- (void)popPage;
 
 - (void)dismiss;
+
+- (void)closeKeyboardWhenClickSelfView;
 
 @end

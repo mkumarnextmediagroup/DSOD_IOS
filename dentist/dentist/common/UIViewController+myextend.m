@@ -91,4 +91,13 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)closeKeyboardWhenClickSelfView {
+	[self.view onClickView:self action:@selector(_onClickControllerView:)];
+}
+
+
+- (void)_onClickControllerView:(UIView *)sender {
+	[self.view endEditing:YES];
+}
+
 @end

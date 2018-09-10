@@ -46,9 +46,9 @@
 	}];
 
 
-//	SearchPage *c = [SearchPage new];
-//	c.withIndexBar = NO;
-	GroupListPage *c = [GroupListPage new];
+	SearchPage *c = [SearchPage new];
+	c.withIndexBar = NO;
+//	GroupListPage *c = [GroupListPage new];
 
 	[c setItems:arrSorted groupBy:^(NSObject *item) {
 		NSString *s = (NSString *) item;

@@ -8,8 +8,6 @@
 
 @interface BaseController : UIViewController <UITextFieldDelegate>
 
-@property(assign, nonatomic) BOOL isCloseTheGesture;
-
 
 - (void)onTextFieldDone:(UITextField *)textField;
 

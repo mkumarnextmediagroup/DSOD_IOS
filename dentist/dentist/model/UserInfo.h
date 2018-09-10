@@ -17,6 +17,7 @@
 @property(nonnull) NSString <Optional> *fullName;
 @property(nullable) NSString <Optional> *phone;
 @property  BOOL isStudent;
+@property  BOOL isLinkedinUser;
 
 @property(nullable) NSString <Optional> *portraitId;
 @property(nullable) NSString <Optional> *portraitUrl;

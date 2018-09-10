@@ -12,4 +12,8 @@
 extern void objcSendMsg(id target, SEL action, id arg);
 
 
+#define Log(first, ...)  _Log(first, @[ __VA_ARGS__ ])
+
+extern void _Log(NSObject *first, NSArray *array);
+
 #endif

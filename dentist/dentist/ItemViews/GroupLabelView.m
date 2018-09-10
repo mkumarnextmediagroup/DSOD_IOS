@@ -15,6 +15,10 @@
 	self.backgroundColor = UIColor.whiteColor;
 	self.padding.left = 16;
 	self.padding.right = 16;
+	self.padding.top = 0;
+	self.padding.bottom = 0;
+	self.layoutParam.height = 26;
+
 	_label = self.addLabel;
 	[_label textColorSecondary];
 	_label.font = [Fonts regular:12];
@@ -23,7 +27,6 @@
 	btn = nil;
 
 
-	self.layoutParam.height = 26;
 	return self;
 }
 
@@ -37,6 +40,13 @@
 	}
 
 	return btn;
+}
+
+- (void)resetLayout {
+	[[[[[_label.layoutRemaker leftParent:self.padding.left] rightParent:-50] centerYParent:0] heightEq:20] install];
+	if (btn != nil) {
+		[[[[btn.layoutRemaker rightParent:-self.padding.right] centerYParent:0] sizeEq:23 h:23] install];
+	}
 }
 
 @end

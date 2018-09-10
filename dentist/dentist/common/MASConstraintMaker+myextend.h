@@ -8,6 +8,10 @@
 
 @interface MASConstraintMaker (myextend)
 
+- (MASConstraintMaker *)heightEdit;
+
+- (MASConstraintMaker *)heightButton;
+
 - (MASConstraintMaker *)widthFit;
 
 - (MASConstraintMaker *)heightFit;
@@ -17,11 +21,15 @@
 - (MASConstraintMaker *)sizeEq:(CGFloat)w h:(CGFloat)h;
 
 - (MASConstraintMaker *)widthEq:(CGFloat)w;
+
 - (MASConstraintMaker *)widthGe:(CGFloat)w;
+
 - (MASConstraintMaker *)widthLe:(CGFloat)w;
 
 - (MASConstraintMaker *)heightEq:(CGFloat)h;
+
 - (MASConstraintMaker *)heightGe:(CGFloat)h;
+
 - (MASConstraintMaker *)heightLe:(CGFloat)h;
 
 

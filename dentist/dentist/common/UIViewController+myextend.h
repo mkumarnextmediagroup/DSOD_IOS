@@ -15,12 +15,20 @@
 
 - (void)alertMsg:(nonnull NSString *)msg onOK:(void (^ __nullable)(void))onOK;
 
+- (UIBarButtonItem *)navBarBack:(nullable id)target action:(SEL)action;
 
 - (UIBarButtonItem *)navBarText:(NSString *)text target:(nullable id)target action:(SEL)action;
 
 - (UIBarButtonItem *)navBarImage:(NSString *)imageName target:(nullable id)target action:(SEL)action;
 
--(void) openPage:(UIViewController*) page;
--(void) pushPage:(UIViewController*) page;
+- (void)openPage:(UIViewController *)page;
+
+- (void)pushPage:(UIViewController *)page;
+
+- (void)popPage;
+
+- (void)dismiss;
+
+- (void)closeKeyboardWhenClickSelfView;
 
 @end

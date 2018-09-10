@@ -6,24 +6,34 @@
 #import <objc/runtime.h>
 #import "UIView+customed.h"
 #import "Common.h"
-#import "TapGesture.h"
-#import "Platform.h"
-#import "LayoutParam.h"
-#import "Padding.h"
-#import "UISearchBarView.h"
+#import "MyStyle.h"
 
 static char layoutParamAttr = 0;
 static char paddingAttr = 0;
+static char styleAttr = 0;
 
 @implementation UIView (customed)
+
+
+- (MyStyle *)style {
+	MyStyle *v = objc_getAssociatedObject(self, &styleAttr);
+	if (v == nil) {
+		v = [MyStyle new];
+		[self setStyle:v];
+	}
+	return v;
+}
+
+- (void)setStyle:(MyStyle *)style {
+	objc_setAssociatedObject(self, &styleAttr, style, OBJC_ASSOCIATION_RETAIN);
+}
 
 
 - (Padding *)padding {
 	Padding *p = objc_getAssociatedObject(self, &paddingAttr);
 	if (p == nil) {
-		Padding *pp = [Padding new];
-		[self setPadding:pp];
-		return pp;
+		p = [Padding new];
+		[self setPadding:p];
 	}
 	return p;
 }
@@ -36,9 +46,8 @@ static char paddingAttr = 0;
 - (LayoutParam *)layoutParam {
 	LayoutParam *p = objc_getAssociatedObject(self, &layoutParamAttr);
 	if (p == nil) {
-		LayoutParam *pp = [LayoutParam new];
-		[self setLayoutParam:pp];
-		return pp;
+		p = [LayoutParam new];
+		[self setLayoutParam:p];
 	}
 	return p;
 }
@@ -115,7 +124,7 @@ static char paddingAttr = 0;
 	UITextView *v = [UITextView new];
 	[self addSubview:v];
 	v.backgroundColor = UIColor.clearColor;
-	v.editable = NO ;
+	v.editable = NO;
 	return v;
 }
 
@@ -157,12 +166,33 @@ static char paddingAttr = 0;
 	return imageView;
 }
 
-- (UITextField *)addEdit {
-	UITextField *edit = [UITextField new];
-	edit.autocapitalizationType = UITextAutocapitalizationTypeNone;
-	edit.autocorrectionType = UITextAutocorrectionTypeNo;
-	[edit rounded];
-	[self addSubview:edit];
+- (UITextField *)addEditRoundedGray {
+	UITextField *reset = [self addEditRaw];
+	[reset styleRoundedGray];
+	return reset;
+}
+
+- (UITextField *)addEditRounded {
+	UITextField *edit = [self addEditRaw];
+	[edit styleRounded];
+	return edit;
+}
+
+- (UITextField *)addEditLined {
+	UITextField *edit = [self addEditRaw];
+	[edit styleLined];
+	return edit;
+}
+
+- (UITextField *)addEditPwd {
+	UITextField *edit = [self addEditRaw];
+	[edit stylePassword];
+	return edit;
+}
+
+- (UITextField *)addEditSearch {
+	UITextField *edit = [self addEditRaw];
+	[edit styleSearch];
 	return edit;
 }
 
@@ -174,19 +204,9 @@ static char paddingAttr = 0;
 	return edit;
 }
 
-- (UITextField *)resetEdit {
-	UITextField *reset = [UITextField new];
-	reset.tag = FORGOTFIELDTAG;
-	reset.autocapitalizationType = UITextAutocapitalizationTypeNone;
-	reset.autocorrectionType = UITextAutocorrectionTypeNo;
-	[reset rounded];
-	[self addSubview:reset];
-	return reset;
-}
 
 - (UIButton *)addButton {
-	UIButton *button = [UIButton new];
-	[button styleWhite];
+	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 	[self addSubview:button];
 	return button;
 }

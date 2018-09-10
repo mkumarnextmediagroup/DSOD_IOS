@@ -3,6 +3,7 @@
 // Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
 //
 
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "UIImageView+customed.h"
 #import "TapGesture.h"
 #import "Platform.h"
@@ -79,6 +80,10 @@
 - (void)_onClickLabel:(UITapGestureRecognizer *)recognizer {
 	TapGesture *t = (TapGesture *) recognizer;
 	objcSendMsg(t.target, t.action, t.view);
+}
+
+- (void)loadUrl:(NSString *)url placeholderImage:(NSString *)localImage {
+	[self sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:localImage]];
 }
 
 

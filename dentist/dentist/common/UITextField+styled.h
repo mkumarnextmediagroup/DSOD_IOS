@@ -8,8 +8,32 @@
 @interface UITextField (styled)
 
 @property NSString *hint;
+@property(readonly) NSString *textTrimed;
+
+
+- (void)styleRounded;
+
+- (void)styleRoundedGray;
+
+- (void)styleLined;
+
+- (void)stylePassword;
+
+- (void)styleSearch;
+
+- (void)themeSuccess;
+
+- (void)themeNormal;
+
+- (void)themeActive;
+
+- (void)themeError;
+
+- (void)themeDisabled;
+
 
 - (void)textColorBlack;
+
 - (void)textColorWhite;
 
 - (void)textAlignCenter;
@@ -22,25 +46,6 @@
 
 - (void)textColorAlternate;
 
-- (void)rounded;
-
-- (void)themeNormal;
-
-- (void)themeActive;
-
-- (void)resetNormal;
-
-- (void)resetError;
-
-- (void)themeError;
-
-- (void)themeSuccess;
-
-- (void)themeDisabled;
-
-- (void)styleLine;
-
-- (void)stylePassword;
 
 - (void)returnDone;
 

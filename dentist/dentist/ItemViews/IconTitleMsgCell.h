@@ -4,9 +4,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseItemView.h"
 
 
-@interface IconTitleMsgCell : UIView
+@interface IconTitleMsgCell : BaseItemView
 
 @property(readonly) UIImageView *imageView;
 @property(readonly) UILabel *titleLabel;

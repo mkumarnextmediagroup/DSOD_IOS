@@ -11,6 +11,7 @@
 #import "CommSelectTableViewCell.h"
 #import "UpdateViewController.h"
 #import "PickerViewController.h"
+#import "Education.h"
 
 @interface EditEduViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -32,9 +33,7 @@
 
 - (void)viewDidLoad {
     
-    //cancel the gestrue to make sure the tableview can selected
-    self.isCloseTheGesture = YES;
-    
+
     [super viewDidLoad];
     
     isSwitchOn = YES;

@@ -11,14 +11,13 @@
 }
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.listDelegate = self;
 	self.items = @[@"Yang", @"Entao"];
 
 
 }
 
--(void)onClickItem:(NSObject *)item {
-	NSLog(@"click %@", item );
+- (void)onClickItem:(NSObject *)item {
+	NSLog(@"click %@", item);
 }
 
 - (Class)viewClassOfItem:(NSObject *)item {

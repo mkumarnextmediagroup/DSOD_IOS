@@ -35,6 +35,7 @@
 	TitleMsgArrowView *specView;
 	IconTitleMsgCell *resumeView;
 
+	NSMutableArray<IconTitleMsgDetailCell * > *expViews;
 	NSMutableArray<IconTitleMsgDetailCell * > *residencyViews;
 	NSMutableArray<IconTitleMsgDetailCell * > *eduViews;
 	TitleEditView *phoneView;
@@ -52,8 +53,10 @@
 
 
 	userInfo = [Proto lastUserInfo];
+	expViews = [NSMutableArray arrayWithCapacity:4];
 	residencyViews = [NSMutableArray arrayWithCapacity:4];
 	eduViews = [NSMutableArray arrayWithCapacity:4];
+
 
 	userView = [EditUserView new];
 	userView.layoutParam.height = 200;
@@ -87,6 +90,34 @@
 
 	[self addGrayLine:0 marginRight:0];
 
+	if (![userInfo isStudent]) {
+		GroupLabelView *expGroupView = [self addGroupTitle:@"Experience"];
+		[expGroupView.button onClick:self action:@selector(clickAddExp:)];
+
+		if (userInfo.experienceArray == nil || userInfo.experienceArray.count == 0) {
+			userInfo.experienceArray = @[[Experience new]];
+		}
+		for (int i = 0; i < userInfo.experienceArray.count; ++i) {
+			IconTitleMsgDetailCell *expView = [IconTitleMsgDetailCell new];
+			expView.imageView.imageName = @"exp";
+			expView.titleLabel.text = @"-";
+			expView.msgLabel.text = @"-";
+			expView.detailLabel.text = @"-";
+
+			expView.hasArrow = YES;
+
+			expView.argN = i;
+			[expView onClickView:self action:@selector(clickExp:)];
+
+			[self.contentView addSubview:expView];
+			[expViews addObject:expView];
+			if (i == userInfo.experienceArray.count - 1) {
+				[self addGrayLine:0 marginRight:0];
+			} else {
+				[self addGrayLine:78 marginRight:0];
+			}
+		}
+	}
 	GroupLabelView *residGroupView = [self addGroupTitle:@"Residency"];
 	[residGroupView.button onClick:self action:@selector(clickAddResidency:)];
 
@@ -183,6 +214,20 @@
 - (void)bindData {
 	nameView.edit.text = userInfo.fullName;
 	specView.msgLabel.text = userInfo.specialityLabel;
+	if (userInfo.experienceArray != nil) {
+		for (int i = 0; i < userInfo.experienceArray.count; ++i) {
+			Experience *r = userInfo.experienceArray[i];
+			IconTitleMsgDetailCell *v = expViews[i];
+			if ([r isOwnerDentist]) {
+				v.imageView.imageName = @"dental-blue";
+			} else {
+				v.imageView.imageName = @"exp";
+			}
+			v.titleLabel.text = r.praticeType;
+			v.msgLabel.text = r.dentalName;
+			v.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
+		}
+	}
 	if (userInfo.residencyArray != nil) {
 		for (int i = 0; i < userInfo.residencyArray.count; ++i) {
 			Residency *r = userInfo.residencyArray[i];
@@ -211,6 +256,11 @@
 	[self pushPage:update];
 }
 
+- (void)clickAddExp:(id)sender {
+	NSLog(@"click add exp");
+	//TODO add exp
+
+}
 
 - (void)clickAddResidency:(id)sender {
 	NSLog(@"click add residency");
@@ -234,6 +284,13 @@
 	p.address = userInfo.practiceAddress;
 	[self pushPage:p];
 }
+
+- (void)clickExp:(IconTitleMsgDetailCell *)sender {
+	int n = sender.argN;
+	Experience *r = userInfo.experienceArray[n];
+	//TODO edit exp
+}
+
 
 - (void)clickResidency:(IconTitleMsgDetailCell *)sender {
 	int n = sender.argN;

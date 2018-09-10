@@ -20,4 +20,6 @@
 @property(nullable) NSString <Optional> *dateTo;
 @property BOOL workInThisRole;
 
+
+-(BOOL) isOwnerDentist;
 @end

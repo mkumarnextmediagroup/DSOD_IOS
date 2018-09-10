@@ -70,17 +70,22 @@
 	[self.contentView addSubview:userCell];
 
 	[self addGroupTitle:@"Experience"];
-	if(!userInfo.isStudent) {
-		if(userInfo.experienceArray == nil || userInfo.experienceArray.count == 0) {
-			userInfo.experienceArray = @[[Experience new] ];
+	if (!userInfo.isStudent) {
+		if (userInfo.experienceArray == nil || userInfo.experienceArray.count == 0) {
+			userInfo.experienceArray = @[[Experience new]];
 		}
 		for (int i = 0; i < userInfo.experienceArray.count; ++i) {
 			Experience *exp = userInfo.experienceArray[i];
 			IconTitleMsgDetailCell *expView = [IconTitleMsgDetailCell new];
-			expView.imageView.imageName = @"exp";
-			if (exp.dentalName== nil || exp.dentalName.length == 0) {
+			if (exp.dentalName == nil || exp.dentalName.length == 0) {
+				expView.imageView.imageName = @"exp";
 				[expView showEmpty:@"No experience added yet."];
 			} else {
+				if ([exp isOwnerDentist]) {
+					expView.imageView.imageName = @"dental-blue";
+				} else {
+					expView.imageView.imageName = @"exp";
+				}
 				expView.titleLabel.text = exp.praticeType;
 				expView.msgLabel.text = exp.dentalName;
 				expView.detailLabel.text = strBuild(exp.dateFrom, @"-", exp.dateTo);

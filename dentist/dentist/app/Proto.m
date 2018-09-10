@@ -122,11 +122,19 @@
 	ui.educationArray = @[edu, edu2];
 
 	Experience *exp = [Experience new];
-	exp.dentalName = @"Smile Dental";
 	exp.praticeType = @"Owner Dentist";
+	exp.dentalName = @"Smile Dental";
 	exp.dateFrom = @"Jun 2017";
 	exp.dateTo = @"Present";
-	ui.experienceArray = @[exp];
+
+	Experience *exp2 = [Experience new];
+	exp2.praticeType = @"Associate Dentist";
+	exp2.dentalName = @"Smile Dental";
+	exp2.dateFrom = @"Jun 2017";
+	exp2.dateTo = @"Present";
+
+	ui.experienceArray = @[exp, exp2];
+
 
 	Residency *r = [Residency new];
 	r.place = @"Boston Hospital";

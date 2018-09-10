@@ -9,4 +9,8 @@
 @implementation Experience {
 
 }
+
+-(BOOL) isOwnerDentist{
+	return  [@"Owner Dentist" isEqualToString:self.praticeType ];
+}
 @end

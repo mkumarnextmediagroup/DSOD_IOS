@@ -51,4 +51,9 @@
 
 + (NSArray *)listSpeciality;
 
++ (NSArray *)listPracticeType;
+
++ (NSArray *)listRoleAtPractice;
+
++ (NSArray *)listDentalNames;
 @end

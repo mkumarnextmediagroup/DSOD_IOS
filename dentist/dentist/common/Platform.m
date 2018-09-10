@@ -29,3 +29,12 @@ void _Log(NSObject *first, NSArray *array) {
 	}
 	NSLog(@"%@", buf);
 }
+
+
+NSString *nameOfMonth(NSInteger m) {
+	NSArray *ar = @[@"Jan", @"Feb", @"Mar", @"Apr", @"May", @"Jun", @"Jul", @"Aug", @"Sep", @"Oct", @"Nov", @"Dec"];
+	if (m >= 1 && m <= 12) {
+		return ar[(NSUInteger) (m - 1)];
+	}
+	return @"";
+}

@@ -12,6 +12,45 @@
 	NSString *SERVER;
 }
 
++ (NSArray *)listDentalNames {
+	return @[
+			@"Allied Dental",
+			@"American Dental Partners",
+			@"Aspen Dental Practice",
+			@"Birner Dental",
+			@"Dental Care Alliance",
+			@"DentalOne Partners",
+			@"Dental Practice Solutions",
+			@"Great Expressions Dental",
+			@"Heartland Dental Care",
+			@"InterDent",
+			@"Katsur Management Group",
+			@"MB2  Dental Solutions",
+	];
+}
+
+
++ (NSArray *)listRoleAtPractice {
+	return @[
+			@"Owner Dentist",
+			@"Associate Dentist",
+			@"Dental Hygienist",
+			@"Dental Assistant",
+			@"Treatment Coordinator",
+			@"Office Staff / Nonclinical",
+	];
+}
+
++ (NSArray *)listPracticeType {
+	return @[
+			@"Solo Practice",
+			@"Small Group Practice - Affiliated",
+			@"Small Group Practice - Unaffiliated",
+			@"Large Group Practice - Affiliated",
+			@"Large Group Practice - Unaffiliated",
+			@"Nonprofit"
+	];
+}
 
 + (NSArray *)listSpeciality {
 	return @[

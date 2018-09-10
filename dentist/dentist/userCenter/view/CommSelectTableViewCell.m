@@ -10,6 +10,7 @@
 #import "Fonts.h"
 #import "Colors.h"
 #import "UILabel+customed.h"
+#import "Common.h"
 
 @implementation CommSelectTableViewCell
 

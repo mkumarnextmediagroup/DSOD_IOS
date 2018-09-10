@@ -9,6 +9,7 @@
 #import "UpdateViewController.h"
 #import "UpdateTableViewCell.h"
 #import "UISearchBarView.h"
+#import "Common.h"
 
 @interface UpdateViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarViewDelegate> {
 	UISearchBarView *searchBar;

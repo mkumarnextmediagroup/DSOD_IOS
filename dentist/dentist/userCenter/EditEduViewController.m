@@ -12,6 +12,7 @@
 #import "UpdateViewController.h"
 #import "PickerViewController.h"
 #import "Education.h"
+#import "Common.h"
 
 @interface EditEduViewController ()<UITableViewDelegate,UITableViewDataSource>
 {

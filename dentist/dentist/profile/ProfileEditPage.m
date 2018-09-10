@@ -6,7 +6,6 @@
 #import "ProfileEditPage.h"
 #import "EditUserView.h"
 #import "Common.h"
-#import "LayoutParam.h"
 #import "UserInfo.h"
 #import "Proto.h"
 #import "TitleEditView.h"
@@ -17,7 +16,7 @@
 #import "EditPracticeAddressViewController.h"
 #import "EditResidencyViewController.h"
 #import "EditEduViewController.h"
-#import "UpdateViewController.h"
+#import "SearchPage.h"
 
 #import <AssetsLibrary/ALAsset.h>
 
@@ -45,6 +44,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	userInfo = [Proto lastUserInfo];
 
 	UINavigationItem *item = self.navigationItem;
 	item.title = localStr(@"editPractice");
@@ -60,7 +60,7 @@
 
 	userView = [EditUserView new];
 	userView.layoutParam.height = 200;
-	[userView.editBtn onClick:self action:@selector(editHeaderImg:)];
+	[userView.editBtn onClick:self action:@selector(editPortrait:)];
 	[self.contentView addSubview:userView];
 
 	[self addGrayLine:0 marginRight:0];
@@ -69,6 +69,8 @@
 
 	nameView = [TitleEditView new];
 	nameView.label.text = @"Full name";
+	nameView.edit.delegate = self;
+	[nameView.edit returnDone];
 	[self.contentView addSubview:nameView];
 
 	[self addGrayLine:0 marginRight:0];
@@ -206,7 +208,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	userInfo = [Proto lastUserInfo];
+
 	[self bindData];
 }
 
@@ -250,10 +252,29 @@
 	practiceAddressView.msgLabel.text = userInfo.practiceAddress.detailAddress;
 }
 
+
+- (void)selectText:(NSString *)title value:(NSString *)value array:(NSArray *)array result:(void (^)(NSString *))result {
+	SearchPage *c = [SearchPage new];
+	c.titleText = @"SPECIALITY";
+	c.withIndexBar = YES;
+	[c setItemsPlain:array displayBlock:^(NSObject *item) {
+		NSString *s = (NSString *) item;
+		return s;
+	}];
+	c.checkedItem = value;
+	c.onResult = ^(NSObject *item) {
+		result((NSString *) item);
+	};
+	[self pushPage:c];
+}
+
 - (void)clickSpec:(id)sender {
-	UpdateViewController *update = [UpdateViewController new];
-	update.titleStr = @"SPECIALITY";
-	[self pushPage:update];
+	NSArray *ls = [Proto listSpeciality];
+	[self selectText:@"SPECIALITY" value:userInfo.specialityLabel array:ls result:^(NSString *spec) {
+		userInfo.specialityLabel = spec;
+		[self bindData];
+	}];
+
 }
 
 - (void)clickAddExp:(id)sender {
@@ -317,7 +338,7 @@
 - (void)onSave:(id)sender {
 }
 
-- (void)editHeaderImg:(id)sender {
+- (void)editPortrait:(id)sender {
 
 	Confirm *cf = [Confirm new];
 	cf.title = localStr(@"userCamera");

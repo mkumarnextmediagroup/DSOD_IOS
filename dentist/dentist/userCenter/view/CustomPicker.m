@@ -8,6 +8,8 @@
 
 #import "CustomPicker.h"
 #import "Masonry.h"
+#import "UIView+customed.h"
+#import "Common.h"
 
 @interface CustomPicker()<UIPickerViewDelegate,UIPickerViewDataSource>
 {

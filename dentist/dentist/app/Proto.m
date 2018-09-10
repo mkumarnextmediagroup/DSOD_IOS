@@ -13,6 +13,21 @@
 }
 
 
++ (NSArray *)listSpeciality {
+	return @[
+			@"General Practitioner",
+			@"Dental Public Health",
+			@"Endodontics",
+			@"Oral & Maxillofacial Pathology",
+			@"Oral & Maxillofacial Radiology",
+			@"Oral & Maxillofacial Surgery",
+			@"Orthodontics",
+			@"Pediatric Dentistry",
+			@"Periodontics",
+			@"Prosthodontics"
+	];
+}
+
 + (UserInfo *)addExperience:(nonnull NSString *)email exp:(Experience *)exp {
 	UserInfo *u = [self userInfo:email];
 	if (u.experienceArray == nil) {
@@ -95,7 +110,7 @@
 	UserInfo *ui = [UserInfo alloc];
 	ui.email = email;
 	ui.isStudent = NO;
-	ui.isLinkedinUser = YES  ;
+	ui.isLinkedinUser = YES;
 	ui.fullName = @"Entao Yang";
 	ui.phone = @"15098760059";
 	ui.portraitUrl = @"http://app800.cn/i/p.png";

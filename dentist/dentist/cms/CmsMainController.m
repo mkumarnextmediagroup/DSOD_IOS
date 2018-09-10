@@ -6,6 +6,8 @@
 #import "CmsMainController.h"
 #import "SearchPage.h"
 #import "Common.h"
+#import "PickerPage.h"
+#import "NSDate+myextend.h"
 
 
 @implementation CmsMainController {
@@ -35,20 +37,9 @@
 - (void)onClickEdit:(id)sender {
 //	UIViewController *c = [TestPage new];
 
-	NSArray *arr = @[@"Alibaba", @"Aha", @"Alibaba1", @"Aha1", @"Alibaba2", @"Aha2", @"Alibaba3", @"Aha3", @"Alibaba4", @"Aha4", @"Alibaba5", @"Aha5", @"Alibaba6", @"Aha6", @"Cool", @"Yang", @"YangEntao", @"Yang1", @"YangEntao1", @"Yang2", @"YangEntao2", @"Yang3", @"YangEntao3", @"Yang4", @"YangEntao4", @"Yang5", @"YangEntao5", @"Yang6", @"YangEntao6"];
+	PickerPage *c = [PickerPage pickYearMonthFromNowDownTo:1930];
 
-	SearchPage *c = [SearchPage new];
-	c.titleText = @"Select State";
-	c.withIndexBar = YES;
-	[c setItemsPlain:arr displayBlock:^(NSObject *item) {
-		NSString *s = (NSString *) item;
-		return s;
-	}];
-	c.checkedItem = @"Yang";
-	c.onResult = ^(NSObject *item) {
-		Log(@"Select: ", item);
-	};
-	[self pushPage:c];
+	[self.navigationController presentViewController:c animated:YES completion:nil];
 
 
 }

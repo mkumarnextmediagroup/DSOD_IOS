@@ -13,6 +13,7 @@
 #import "Experience.h"
 #import "TitleSwitchView.h"
 #import "FromToView.h"
+#import "DatePickerPage.h"
 
 @interface EditExperiencePage ()
 
@@ -94,7 +95,8 @@
 }
 
 - (void)clickFromDate:(id)sender {
-
+	DatePickerPage *p = [DatePickerPage new];
+	[self presentViewController:p animated:YES completion:nil];
 }
 
 - (void)clickCancel:(id)sender {

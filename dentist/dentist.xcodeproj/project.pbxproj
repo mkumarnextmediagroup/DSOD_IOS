@@ -130,6 +130,7 @@
 		C5EEA89AB807C5486DB95496 /* exp.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA9745FC560927DCC61FE /* exp.png */; };
 		C5EEA8BE604C65ED8143D334 /* exp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA68087A244F8BC3C6D03 /* exp@2x.png */; };
 		C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAAE437209CC4CB67759E /* UITextField+styled.m */; };
+		C5EEA924251B1D227E0C597D /* NSDate+myextend.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEADBEF18D97609F532EEB /* NSDate+myextend.m */; };
 		C5EEA93A818CA571610A938C /* GroupLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA3A620D2C320128871A9 /* GroupLabelView.m */; };
 		C5EEA97A363C02981633699C /* StackLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA5618C6AF14B04224B97 /* StackLayout.m */; };
 		C5EEA998A2E6E6E97A8E5259 /* FromToView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA2A238138DF4B4EE06F6 /* FromToView.m */; };
@@ -148,11 +149,13 @@
 		C5EEAB1A147F6CA1BA5970E8 /* TestScrollPage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAFF4A200D9CA4A66028D /* TestScrollPage.m */; };
 		C5EEAB1B08FE088DAFBA7763 /* Fonts.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAC56322EB38F34BC5D19 /* Fonts.m */; };
 		C5EEAB39CFA076691E67BA42 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAF174673741A891E08C7 /* info.png */; };
+		C5EEAB40C81644F1288B9E7A /* PickerPage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA86684C4AF368DC41D30 /* PickerPage.m */; };
 		C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA2081FE1E7048216CB0F /* RegController.m */; };
 		C5EEAB4FF315CAB5733FE9C5 /* SlideController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA2DA2AD9CFD4AAC3565C /* SlideController.m */; };
 		C5EEAB5755227C042888D693 /* Json.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA3BC65A98C300E252D89 /* Json.m */; };
 		C5EEAB5B6FF45C046B7CF9E6 /* IconLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA6381F155CD9A33B6ACA /* IconLabelView.m */; };
 		C5EEAB669DB328611B63F777 /* TitleEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA3016149DB3A0FA494A0 /* TitleEditView.m */; };
+		C5EEAC226A4350FB406AFD22 /* DatePickerPage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA254211CB1279FC9EB90 /* DatePickerPage.m */; };
 		C5EEAC3B3E7352E6EE7B998F /* ProfileEditPage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA11136959D571134A012 /* ProfileEditPage.m */; };
 		C5EEAC42C838DDD8928A5017 /* IconTitleMsgDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEACC8A54951053770CF3B /* IconTitleMsgDetailCell.m */; };
 		C5EEAC52F1B1B7FA36FDBEA2 /* TitleSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA05DD2DCBEE09844CE6D /* TitleSwitchView.m */; };
@@ -549,6 +552,7 @@
 		C5EEA2081FE1E7048216CB0F /* RegController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegController.m; sourceTree = "<group>"; };
 		C5EEA2146C8C9A3434A29FA9 /* LabelCheckView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelCheckView.m; sourceTree = "<group>"; };
 		C5EEA23D71D65F3BEC2AE0F4 /* TitleSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleSwitchView.h; sourceTree = "<group>"; };
+		C5EEA254211CB1279FC9EB90 /* DatePickerPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerPage.m; sourceTree = "<group>"; };
 		C5EEA26491F4A964247D88D3 /* checkbox_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_on@2x.png"; sourceTree = "<group>"; };
 		C5EEA26FE0A8A22D3399DE3E /* TapGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapGesture.m; sourceTree = "<group>"; };
 		C5EEA2716C786FCB7E7F0984 /* FromToView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FromToView.h; sourceTree = "<group>"; };
@@ -605,10 +609,12 @@
 		C5EEA811A5ED37C88C49CB9A /* TextSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextSize.h; sourceTree = "<group>"; };
 		C5EEA81D4DDFD7F3E1A1AB7C /* QueueLayoutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueueLayoutItem.m; sourceTree = "<group>"; };
 		C5EEA86484528500B78E6108 /* NSData+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+myextend.m"; sourceTree = "<group>"; };
+		C5EEA86684C4AF368DC41D30 /* PickerPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerPage.m; sourceTree = "<group>"; };
 		C5EEA8718BE48E66BCDCCD90 /* in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = in.png; sourceTree = "<group>"; };
 		C5EEA8A22AAACC2B56D30F80 /* Consts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Consts.h; sourceTree = "<group>"; };
 		C5EEA8A31FA41618FB71AF02 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
 		C5EEA9086B15C099681EB077 /* MyStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStyle.m; sourceTree = "<group>"; };
+		C5EEA91DC1E4106A405760DA /* NSDate+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+myextend.h"; sourceTree = "<group>"; };
 		C5EEA95369D33A011F3F2489 /* SearchPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPage.m; sourceTree = "<group>"; };
 		C5EEA9745FC560927DCC61FE /* exp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exp.png; sourceTree = "<group>"; };
 		C5EEA98234740EE42CF9DEF0 /* UserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
@@ -625,6 +631,7 @@
 		C5EEAA32464A7E5623530A22 /* LayoutParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayoutParam.m; sourceTree = "<group>"; };
 		C5EEAA3E75282AC040EF8353 /* JSONModel+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONModel+myextend.m"; sourceTree = "<group>"; };
 		C5EEAA48C58AF7A1617CC70D /* StudentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentController.h; sourceTree = "<group>"; };
+		C5EEAA56FAA8CB2A62661969 /* DatePickerPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerPage.h; sourceTree = "<group>"; };
 		C5EEAA6853812943C4C4FC75 /* UIScreen+customed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+customed.h"; sourceTree = "<group>"; };
 		C5EEAA800E95F5D4324195EC /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
 		C5EEAA8CD71EDF24A77E7F18 /* LineTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineTableCell.m; sourceTree = "<group>"; };
@@ -636,6 +643,7 @@
 		C5EEAAFB2FA0ECFDCC818D1D /* checkbox@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox@3x.png"; sourceTree = "<group>"; };
 		C5EEAB29126FE9574783DD4E /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 		C5EEAB3B83A1186E350F78EE /* Yang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Yang.h; sourceTree = "<group>"; };
+		C5EEABA2B9A5FC549F032538 /* PickerPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerPage.h; sourceTree = "<group>"; };
 		C5EEABAA2C42E227B1EABA12 /* JSONModel+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONModel+myextend.h"; sourceTree = "<group>"; };
 		C5EEABB3CEAC436B6E598EC8 /* inkedin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inkedin@2x.png"; sourceTree = "<group>"; };
 		C5EEABC349DD6EA092977CF3 /* checkbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox@2x.png"; sourceTree = "<group>"; };
@@ -664,6 +672,7 @@
 		C5EEADA20900AEC4F88BB5B2 /* UITextField+styled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+styled.h"; sourceTree = "<group>"; };
 		C5EEADB73500333182433F3A /* UIImage+customed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+customed.m"; sourceTree = "<group>"; };
 		C5EEADB786114F48DDE19825 /* Residency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Residency.m; sourceTree = "<group>"; };
+		C5EEADBEF18D97609F532EEB /* NSDate+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+myextend.m"; sourceTree = "<group>"; };
 		C5EEADEE834253888CE48D5C /* UserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCell.h; sourceTree = "<group>"; };
 		C5EEAE085D2BEF383E4F2BA8 /* in@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "in@2x.png"; sourceTree = "<group>"; };
 		C5EEAE3E82D71BB36A5623A5 /* info@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@3x.png"; sourceTree = "<group>"; };
@@ -1082,6 +1091,10 @@
 				4EBCE6C0212BF76500A0672D /* ContactViewController.m */,
 				C5EEA95369D33A011F3F2489 /* SearchPage.m */,
 				C5EEA38E957A9038CB053D01 /* SearchPage.h */,
+				C5EEA254211CB1279FC9EB90 /* DatePickerPage.m */,
+				C5EEAA56FAA8CB2A62661969 /* DatePickerPage.h */,
+				C5EEA86684C4AF368DC41D30 /* PickerPage.m */,
+				C5EEABA2B9A5FC549F032538 /* PickerPage.h */,
 			);
 			path = common_page;
 			sourceTree = "<group>";
@@ -1537,6 +1550,8 @@
 				C5EEA36A4F5A952924A85914 /* Pair.h */,
 				C5EEA9086B15C099681EB077 /* MyStyle.m */,
 				C5EEAA1AF3DD3E6E2AD01EF2 /* MyStyle.h */,
+				C5EEADBEF18D97609F532EEB /* NSDate+myextend.m */,
+				C5EEA91DC1E4106A405760DA /* NSDate+myextend.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -2170,6 +2185,9 @@
 				C5EEAA627C4FFCCCA4202E92 /* MyStyle.m in Sources */,
 				C5EEAC52F1B1B7FA36FDBEA2 /* TitleSwitchView.m in Sources */,
 				C5EEA998A2E6E6E97A8E5259 /* FromToView.m in Sources */,
+				C5EEAC226A4350FB406AFD22 /* DatePickerPage.m in Sources */,
+				C5EEAB40C81644F1288B9E7A /* PickerPage.m in Sources */,
+				C5EEA924251B1D227E0C597D /* NSDate+myextend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

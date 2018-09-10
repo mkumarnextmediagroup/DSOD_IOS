@@ -36,4 +36,6 @@
 
 - (void)wordSpace:(CGFloat)f;
 
+-(void) graySmallStyle;
+
 @end

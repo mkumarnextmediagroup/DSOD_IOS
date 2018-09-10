@@ -9,6 +9,7 @@
 #import "TapGesture.h"
 #import "Platform.h"
 #import "Colors.h"
+#import "Fonts.h"
 
 @implementation UILabel (customed)
 
@@ -55,6 +56,7 @@
 - (void)textColorSecondary {
 	self.textColor = Colors.secondary;
 }
+
 - (void)textColorAlternate {
 	self.textColor = Colors.textAlternate;
 }
@@ -97,4 +99,8 @@
 }
 
 
+- (void)graySmallStyle {
+	self.font = [Fonts regular:12];
+	[self textColorAlternate];
+}
 @end

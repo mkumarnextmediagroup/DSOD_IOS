@@ -57,13 +57,13 @@
 	return _items;
 }
 
-- (void)setItems:(NSArray *)arr groupBy:(NSString *(^)(NSObject *))groupBy {
-	if (arr == nil) {
+- (void)setItems:(NSArray *)sortedArray groupBy:(NSString *(^)(NSObject *))groupBy {
+	if (sortedArray == nil) {
 		self.items = @[];
 	} else {
-		NSMutableArray *allItems = [NSMutableArray arrayWithCapacity:arr.count / 8 + 1];
+		NSMutableArray *allItems = [NSMutableArray arrayWithCapacity:sortedArray.count / 8 + 1];
 		GroupItem *group = nil;
-		for (NSObject *item in arr) {
+		for (NSObject *item in sortedArray) {
 			NSString *title = groupBy(item);
 			if (group != nil && [group.title isEqualToString:title]) {
 				[group.children addObject:item];
@@ -124,6 +124,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	Log(@"did select row ",  indexPath );
 	NSObject *item = _items[(NSUInteger) indexPath.section].children[(NSUInteger) indexPath.row];
 	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 	[self onClickItem3:item cell:cell indexPath:indexPath];

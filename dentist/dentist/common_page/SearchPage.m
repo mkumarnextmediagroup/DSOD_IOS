@@ -69,7 +69,7 @@
 	} else {
 		v.label.text = item.description;
 	}
-	v.selected = [item isEqual:self.checkedItem];
+	v.checkButton.selected = [item isEqual:self.checkedItem];
 }
 
 - (void)onClickItem:(NSObject *)item {

@@ -40,13 +40,16 @@
 - (void)onClickEdit:(id)sender {
 //	UIViewController *c = [TestPage new];
 
-
-	SearchPage *c = [SearchPage new];
-	c.withIndexBar = NO;
 	NSArray *arr = @[@"Alibaba", @"Aha", @"Alibaba1", @"Aha1", @"Alibaba2", @"Aha2", @"Alibaba3", @"Aha3", @"Alibaba4", @"Aha4", @"Alibaba5", @"Aha5", @"Alibaba6", @"Aha6", @"Cool", @"Yang", @"YangEntao", @"Yang1", @"YangEntao1", @"Yang2", @"YangEntao2", @"Yang3", @"YangEntao3", @"Yang4", @"YangEntao4", @"Yang5", @"YangEntao5", @"Yang6", @"YangEntao6"];
 	NSArray *arrSorted = [arr sortedArrayUsingComparator:^NSComparisonResult(NSString *a, NSString *b) {
 		return [a compare:b];
 	}];
+
+
+//	SearchPage *c = [SearchPage new];
+//	c.withIndexBar = NO;
+	GroupListPage *c = [GroupListPage new];
+
 	[c setItems:arrSorted groupBy:^(NSObject *item) {
 		NSString *s = (NSString *) item;
 		return [s substringToIndex:1];

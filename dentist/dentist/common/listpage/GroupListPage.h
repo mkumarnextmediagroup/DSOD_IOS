@@ -22,7 +22,7 @@
 
 
 //arr is an sorted array .
-- (void)setItems:(NSArray *)arr groupBy:(NSString *(^)(NSObject *))groupBy;
+- (void)setItems:(NSArray *)sortedArray groupBy:(NSString *(^)(NSObject *))groupBy;
 
 
 - (Class)viewClassOfItem:(NSObject *)item;

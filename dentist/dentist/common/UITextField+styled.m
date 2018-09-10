@@ -58,10 +58,20 @@
 }
 
 - (void)applyStyleTheme {
-	self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4, 10)];
-	self.leftViewMode = UITextFieldViewModeAlways;
 	self.autocapitalizationType = UITextAutocapitalizationTypeNone;
 	self.autocorrectionType = UITextAutocorrectionTypeNo;
+	self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4, 10)];
+	self.leftViewMode = UITextFieldViewModeAlways;
+
+	if (self.style.subStyle == EDIT_SUBSTYLE_SEARCH) {
+		UIButton *iv = [UIButton new];
+		[iv setImage:[UIImage imageNamed:@"searchIcon"] forState:UIControlStateNormal];
+		iv.frame = CGRectMake(0, 0, 30, 36);
+		iv.userInteractionEnabled = NO  ;
+		self.leftView = iv;
+	}
+
+
 	switch (self.style.style) {
 		case EDIT_STYLE_NONE:
 			break;
@@ -70,6 +80,8 @@
 			break;
 		case EDIT_STYLE_LINED:
 			[self applyLineTheme];
+			break;
+		default:
 			break;
 	}
 }
@@ -223,6 +235,8 @@
 	self.style.style = EDIT_STYLE_ROUNDED;
 	self.style.subStyle = EDIT_SUBSTYLE_SEARCH;
 	self.style.theme = EDIT_THEME_NORMAL;
+	self.font = [Fonts regular:15];
+	self.placeholder = @"Search ...";
 	[self returnSearch];
 	[self applyStyleTheme];
 }
@@ -336,7 +350,7 @@
 }
 
 
--(NSString *)textTrimed{
+- (NSString *)textTrimed {
 	return [self.text trimed];
 };
 

@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
 
-@interface EditPracticeAddressViewController : BaseController
-@property (strong, nonatomic)NSString *selectPracticeAddress;
-@property (copy,nonatomic)void(^saveBtnClickBlock)(NSString *code);
+@class Address;
 
+@interface EditPracticeAddressViewController : BaseController
+@property(strong, nonatomic) NSString *selectPracticeAddress;
+@property(copy, nonatomic) void (^saveBtnClickBlock)(NSString *code);
+@property Address *address;
 @end

@@ -12,6 +12,8 @@
 
 @property(nonnull, readonly) NSMutableArray *children;
 
-@property(nullable) NSObject *arg;
+@property(nullable) NSObject *argObj;
+@property  NSInteger argN;
+@property  NSString* argS;
 
 @end

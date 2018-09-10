@@ -164,15 +164,14 @@
 	[sl push:reqLabel height:[reqLabel heightThatFit] marginBottom:22];
 
 
-	pwdEdit = self.view.addEdit;
+	pwdEdit = self.view.addEditPwd;
 	pwdEdit.delegate = self;
 	pwdEdit.hint = localStr(@"pwd");
-	[pwdEdit stylePassword];
 	[pwdEdit returnDone];
 	[pwdEdit keyboardDefault];
 	[sl push:pwdEdit height:36 marginBottom:10];
 
-	emailEdit = self.view.addEdit;
+	emailEdit = self.view.addEditRounded;
 	emailEdit.delegate = self;
 	emailEdit.hint = localStr(@"email_address");
 	emailEdit.text = self.emailStr;
@@ -180,7 +179,7 @@
 	[emailEdit keyboardEmail];
 	[sl push:emailEdit height:36 marginBottom:10];
 
-	nameEdit = self.view.addEdit;
+	nameEdit = self.view.addEditRounded;
 	nameEdit.delegate = self;
 	nameEdit.hint = localStr(@"full_name");
 	nameEdit.text = self.nameStr;

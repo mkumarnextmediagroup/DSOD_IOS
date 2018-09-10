@@ -14,6 +14,10 @@
 #import "IconTitleMsgCell.h"
 #import "IconTitleMsgDetailCell.h"
 #import "GroupLabelView.h"
+#import "EditPracticeAddressViewController.h"
+#import "EditResidencyViewController.h"
+#import "EditEduViewController.h"
+#import "UpdateViewController.h"
 
 
 @implementation ProfileEditPage {
@@ -27,10 +31,18 @@
 	NSMutableArray<IconTitleMsgDetailCell * > *eduViews;
 	TitleEditView *phoneView;
 	TitleEditView *emailView;
+	TitleMsgArrowView *practiceAddressView;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+
+	UINavigationItem *item = self.navigationItem;
+	item.title = localStr(@"editPractice");
+	item.rightBarButtonItem = [self navBarText:@"SAVE" target:self action:@selector(onSave:)];
+	item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(onBack:)];
+
+
 	userInfo = [Proto lastUserInfo];
 	residencyViews = [NSMutableArray arrayWithCapacity:4];
 	eduViews = [NSMutableArray arrayWithCapacity:4];
@@ -81,6 +93,9 @@
 
 		residView.hasArrow = YES;
 
+		residView.argN = i;
+		[residView onClickView:self action:@selector(clickResidency:)];
+
 		[self.contentView addSubview:residView];
 		[residencyViews addObject:residView];
 		if (i == userInfo.residencyArray.count - 1) {
@@ -99,12 +114,14 @@
 	}
 	for (int i = 0; i < userInfo.educationArray.count; ++i) {
 		IconTitleMsgDetailCell *v = [IconTitleMsgDetailCell new];
-		NSLog(@"Edu Create %@", v);
 		v.imageView.imageName = @"edu";
 		v.titleLabel.text = @"-";
 		v.msgLabel.text = @"-";
 		v.detailLabel.text = @"-";
 		v.hasArrow = YES;
+		v.argN = i;
+		[v onClickView:self action:@selector(clickEdu:)];
+
 		[self.contentView addSubview:v];
 		[eduViews addObject:v];
 		if (i == userInfo.educationArray.count - 1) {
@@ -115,6 +132,15 @@
 	}
 
 	[self addGroupTitle:@"Contact Info"];
+
+	practiceAddressView = [TitleMsgArrowView new];
+	practiceAddressView.titleLabel.text = @"Practice address";
+	practiceAddressView.msgLabel.text = @"-";
+	[practiceAddressView onClick:self action:@selector(clickPraticeAddress:)];
+	[self.contentView addSubview:practiceAddressView];
+	[self addGrayLine:0 marginRight:0];
+
+
 	phoneView = [TitleEditView new];
 	phoneView.label.text = @"Mobile number";
 	[self.contentView addSubview:phoneView];
@@ -138,6 +164,13 @@
 	return v;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	userInfo = [Proto lastUserInfo];
+	[self bindData];
+}
+
+
 - (void)bindData {
 	nameView.edit.text = userInfo.fullName;
 	specView.msgLabel.text = userInfo.specialityLabel;
@@ -152,10 +185,7 @@
 	if (userInfo.educationArray != nil) {
 		for (int i = 0; i < userInfo.educationArray.count; ++i) {
 			Education *edu = userInfo.educationArray[i];
-			NSLog(@"Education: %@  %@", edu.schoolName, edu.certificate);
-
 			IconTitleMsgDetailCell *v = eduViews[(NSUInteger) i];
-			NSLog(@"Edu %@", v);
 			v.titleLabel.text = edu.schoolName;
 			v.msgLabel.text = edu.certificate;
 			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
@@ -163,17 +193,61 @@
 	}
 	phoneView.edit.text = userInfo.phone;
 	emailView.edit.text = userInfo.email;
+	practiceAddressView.msgLabel.text = userInfo.practiceAddress.detailAddress;
 }
 
 - (void)clickSpec:(id)sender {
-
+	UpdateViewController *update = [UpdateViewController new];
+	update.titleStr = @"SPECIALITY";
+	[self pushPage:update];
 }
+
 
 - (void)clickAddResidency:(id)sender {
 	NSLog(@"click add residency");
+    
+    EditResidencyViewController *editRes = [EditResidencyViewController new];
+    editRes.addOrEdit = @"add";
+//    editRes.residency = r;
+    [self pushPage:editRes];
+    
 }
 
 - (void)clickAddEducation:(id)sender {
-	NSLog(@"click add residency");
+	NSLog(@"click add education");
+    EditEduViewController *editRes = [EditEduViewController new];
+    editRes.addOrEdit = @"add";
+    [self pushPage:editRes];
+}
+
+- (void)clickPraticeAddress:(id)sender {
+	EditPracticeAddressViewController *p = [EditPracticeAddressViewController new];
+	p.address = userInfo.practiceAddress;
+	[self pushPage:p];
+}
+
+- (void)clickResidency:(IconTitleMsgDetailCell *)sender {
+	int n = sender.argN;
+	Residency *r = userInfo.residencyArray[n];
+	EditResidencyViewController *editRes = [EditResidencyViewController new];
+	editRes.addOrEdit = @"edit";
+    editRes.updateIndex = n;
+	editRes.residency = r;
+	[self pushPage:editRes];
+}
+
+- (void)clickEdu:(IconTitleMsgDetailCell *)sender {
+	NSInteger n = sender.argN;
+	EditEduViewController *editRes = [EditEduViewController new];
+	editRes.addOrEdit = @"edit";
+	editRes.education = userInfo.educationArray[n];
+	[self pushPage:editRes];
+}
+
+- (void)onBack:(id)sender {
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)onSave:(id)sender {
 }
 @end

@@ -1,20 +1,31 @@
 //
-// Created by entaoyang on 2018/9/8.
+// Created by entaoyang on 2018/9/10.
 // Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
 //
 
-#import "ListPage.h"
+#import "GroupListPage.h"
 #import "Common.h"
+#import "GroupItem.h"
+#import "UIView+customed.h"
 
 
-@interface ListPage () <UITableViewDataSource, UITableViewDelegate> {
+@interface GroupListPage () <UITableViewDataSource, UITableViewDelegate> {
 
 }
 @end
 
-@implementation ListPage {
+@implementation GroupListPage {
 	UITableView *_table;
-	NSArray *_items;
+	NSArray<GroupItem *> *_items;
+}
+
+- (instancetype)init {
+	self = [super init];
+	_table = nil;
+	_items = @[];
+	self.withIndexBar = YES;
+	self.withGroupLabel = YES;
+	return self;
 }
 
 - (void)viewDidLoad {
@@ -46,39 +57,94 @@
 	return _items;
 }
 
+- (void)setItems:(NSArray *)sortedArray groupBy:(NSString *(^)(NSObject *))groupBy {
+	if (sortedArray == nil) {
+		self.items = @[];
+	} else {
+		NSMutableArray *allItems = [NSMutableArray arrayWithCapacity:sortedArray.count / 8 + 1];
+		GroupItem *group = nil;
+		for (NSObject *item in sortedArray) {
+			NSString *title = groupBy(item);
+			if (group != nil && [group.title isEqualToString:title]) {
+				[group.children addObject:item];
+			} else {
+				group = [GroupItem new];
+				group.title = title;
+				[group.children addObject:item];
+				[allItems addObject:group];
+			}
+		}
+		self.items = allItems;
+	}
+}
+
 - (void)setItems:(NSArray *)items {
-	_items = items;
+	if (items == nil) {
+		_items = @[];
+	} else {
+		_items = items;
+	}
 	if (_table != nil) {
 		[_table reloadData];
 	}
 }
 
+- (nullable NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+	if (self.withIndexBar) {
+		NSMutableArray *arr = [NSMutableArray arrayWithCapacity:self.items.count + 1];
+		for (GroupItem *g in self.items) {
+			[arr addObject:[g.title substringToIndex:1]];
+		}
+		return arr;
+	} else {
+		return nil;
+	}
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+	return index;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return _items.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return _items[(NSUInteger) section].children.count;
+}
+
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	if (self.withGroupLabel) {
+		GroupItem *g = _items[(NSUInteger) section];
+		return g.title;
+	} else {
+		return nil;
+	}
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSObject *item = _items[(NSUInteger) indexPath.row];
+	Log(@"did select row ",  indexPath );
+	NSObject *item = _items[(NSUInteger) indexPath.section].children[(NSUInteger) indexPath.row];
 	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 	[self onClickItem3:item cell:cell indexPath:indexPath];
 	[self onClickItem:item];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSObject *item = _items[(NSUInteger) indexPath.row];
+	NSObject *item = _items[(NSUInteger) indexPath.section].children[(NSUInteger) indexPath.row];
 	return [self heightOfItem:item];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (_items == nil) {
-		return 0;
-	}
-	return _items.count;
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSObject *item = _items[(NSUInteger) indexPath.row];
+	NSObject *item = _items[(NSUInteger) indexPath.section].children[(NSUInteger) indexPath.row];
 	Class viewCls = [self viewClassOfItem:item];
 	NSString *viewClsName = NSStringFromClass(viewCls);
 	UITableViewCell *cell = [_table dequeueReusableCellWithIdentifier:viewClsName];
 	if (cell == nil) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:viewClsName];
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		UIView *v = (UIView *) [[viewCls alloc] init];
 		[cell.contentView addSubview:v];
 		[[[[[[v layoutMaker] leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];

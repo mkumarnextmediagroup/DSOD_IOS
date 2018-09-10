@@ -47,7 +47,7 @@
 	textLab.backgroundColor = UIColor.clearColor;
 	[self.view addSubview:textLab];
 
-	emailEdit = self.view.resetEdit;
+	emailEdit = self.view.addEditRoundedGray;
 	emailEdit.delegate = self;
 	emailEdit.hint = localStr(@"email_address");
 	[emailEdit keyboardEmail];
@@ -92,10 +92,10 @@
 - (void)sendPwdClick {
 	NSString *email = [emailEdit.text trimed];
 	if (email.length < 5 || !email.matchEmail) {
-		[emailEdit resetError];
+		[emailEdit themeError];
 		return;
 	}
-	[emailEdit resetNormal];
+	[emailEdit themeNormal];
 
 	[self sendCode:email];
 
@@ -127,9 +127,9 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 
 	if ([emailEdit.text trimed].length < 5 || !emailEdit.text.matchEmail) {
-		[emailEdit resetError];
+		[emailEdit themeError];
 	} else {
-		[emailEdit resetNormal];
+		[emailEdit themeNormal];
 	}
 
 }

@@ -4,15 +4,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseItemView.h"
 
 
-@interface IconTitleMsgDetailCell : UIControl
+@interface IconTitleMsgDetailCell : BaseItemView
 
 @property(readonly) UIImageView *imageView;
 @property(readonly) UILabel *titleLabel;
 @property(readonly) UILabel *msgLabel;
 @property(readonly) UILabel *detailLabel;
 
-@property BOOL hasArrow ;
+@property BOOL hasArrow;
 
 @end

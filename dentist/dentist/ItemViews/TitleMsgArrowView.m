@@ -9,7 +9,7 @@
 #import "Common.h"
 
 @implementation TitleMsgArrowView {
-
+	UIImageView *iconView;
 }
 
 - (instancetype)init {
@@ -19,12 +19,13 @@
 	p.right = 16;
 	p.top = 16;
 	p.bottom = 16;
+	self.layoutParam.height = 78;
 
 	self.backgroundColor = UIColor.whiteColor;
 
 	_titleLabel = self.addLabel;
 	_msgLabel = self.addLabel;
-	UIImageView *iconView = self.addImageView;
+	iconView = self.addImageView;
 
 	_titleLabel.font = [Fonts regular:12];
 	[_titleLabel textColorSecondary];
@@ -38,8 +39,15 @@
 	[[[[iconView.layoutMaker sizeEq:16 h:16] rightParent:-p.right] bottomParent:-p.bottom] install];
 	[[[[[_msgLabel.layoutMaker heightEq:25] leftParent:p.left] bottomParent:-p.bottom] toLeftOf:iconView offset:10] install];
 
-	self.layoutParam.height = 78 ;
 
 	return self;
+}
+
+- (void)resetLayout {
+	Padding *p = self.padding;
+	[[[[[_titleLabel.layoutRemaker heightEq:14] leftParent:p.left] rightParent:-p.right] topParent:p.top] install];
+	[[[[iconView.layoutRemaker sizeEq:16 h:16] rightParent:-p.right] bottomParent:-p.bottom] install];
+	[[[[[_msgLabel.layoutRemaker heightEq:25] leftParent:p.left] bottomParent:-p.bottom] toLeftOf:iconView offset:10] install];
+
 }
 @end

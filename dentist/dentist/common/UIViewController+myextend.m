@@ -57,6 +57,10 @@
 	return bi;
 }
 
+- (UIBarButtonItem *)navBarBack:(nullable id)target action:(SEL)action {
+	return [self navBarImage:@"back_arrow" target:target action:action];
+}
+
 - (void)openPage:(UIViewController *)page {
 	[self presentViewController:page animated:YES completion:nil];
 }
@@ -73,6 +77,27 @@
 		return;
 	}
 	[self presentViewController:page animated:YES completion:nil];
+}
+
+- (void)popPage {
+	[self dismiss];
+}
+
+- (void)dismiss {
+	if (self.navigationController != nil) {
+		[self.navigationController popViewControllerAnimated:YES];
+		return;
+	}
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)closeKeyboardWhenClickSelfView {
+	[self.view onClickView:self action:@selector(_onClickControllerView:)];
+}
+
+
+- (void)_onClickControllerView:(UIView *)sender {
+	[self.view endEditing:YES];
 }
 
 @end

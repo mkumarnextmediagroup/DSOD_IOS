@@ -17,4 +17,6 @@
 @property(nullable) NSString <Optional> *address1;
 @property(nullable) NSString <Optional> *address2;
 
+@property (readonly) NSString* detailAddress;
+
 @end

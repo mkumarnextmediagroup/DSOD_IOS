@@ -36,4 +36,5 @@
 - (void)alignBottomLeft;
 
 
+- (void)loadUrl:(NSString *)url placeholderImage:(NSString *)localImage;
 @end

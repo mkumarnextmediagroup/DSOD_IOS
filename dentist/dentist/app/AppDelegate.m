@@ -34,6 +34,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+
 	//notificate for the internet
 	// Override point for customization after application launch.
 	self.window = [[UIWindow alloc] init];

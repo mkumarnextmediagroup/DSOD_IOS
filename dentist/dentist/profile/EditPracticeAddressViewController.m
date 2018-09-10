@@ -12,6 +12,7 @@
 #import "UpdateViewController.h"
 #import "Async.h"
 #import "Common.h"
+#import "Address.h"
 
 @interface EditPracticeAddressViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -24,9 +25,7 @@
 @implementation EditPracticeAddressViewController
 
 - (void)viewDidLoad {
-    //cancel the gestrue to make sure the tableview can selected
-    self.isCloseTheGesture = YES;
-    
+
     [super viewDidLoad];
     
    

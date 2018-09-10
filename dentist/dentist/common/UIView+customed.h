@@ -10,8 +10,11 @@
 
 @class LayoutParam;
 @class Padding;
+@class MyStyle;
 
 @interface UIView (customed)
+
+@property MyStyle *style;
 
 @property Padding *padding;
 
@@ -29,10 +32,16 @@
 
 - (UITextView *)noticeLabel;
 
-- (UITextField *)addEdit;
 - (UITextField *)addEditRaw;
 
-- (UITextField *)resetEdit;
+- (UITextField *)addEditRounded;
+
+- (UITextField *)addEditRoundedGray;
+
+- (UITextField *)addEditLined;
+
+- (UITextField *)addEditPwd;
+- (UITextField *)addEditSearch;
 
 - (UIButton *)addButton;
 

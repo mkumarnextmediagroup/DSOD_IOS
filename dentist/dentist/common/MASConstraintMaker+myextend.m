@@ -4,6 +4,7 @@
 //
 
 #import "MASConstraintMaker+myextend.h"
+#import "Common.h"
 
 
 @implementation MASConstraintMaker (myextend)
@@ -50,7 +51,14 @@
 	self.width.mas_lessThanOrEqualTo(w);
 	return self;
 }
-
+- (MASConstraintMaker *)heightEdit{
+	self.height.mas_equalTo(EDIT_HEIGHT);
+	return self;
+}
+- (MASConstraintMaker *)heightButton{
+	self.height.mas_equalTo(BTN_HEIGHT);
+	return self;
+}
 - (MASConstraintMaker *)heightEq:(CGFloat)h {
 	self.height.mas_equalTo(h);
 	return self;

@@ -48,7 +48,7 @@
 		m.top.mas_equalTo(self.view.mas_top).offset(30);
 	}];
 
-	emailEdit = self.view.addEdit;
+	emailEdit = self.view.addEditRounded;
 	emailEdit.delegate = self;
 	emailEdit.hint = localStr(@"email_address");
 	[emailEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:-23];
@@ -61,10 +61,9 @@
 	[lb layoutFillXOffsetCenterY:46 offset:-80];
 
 
-	pwdEdit = self.view.addEdit;
+	pwdEdit = self.view.addEditPwd;
 	pwdEdit.delegate = self;
 	pwdEdit.hint = localStr(@"pwd");
-	[pwdEdit stylePassword];
 //	[pwdEdit themeError];
 	[pwdEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:23];
 
@@ -90,6 +89,7 @@
 
 
 	loginButton = self.view.addButton;
+	[loginButton styleWhite];
 	[loginButton title:localStr(@"login")];
 	[loginButton styleSecondary];
 

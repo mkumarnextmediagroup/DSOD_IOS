@@ -25,6 +25,7 @@
 #define EDIT_SUBSTYLE_NONE          0
 #define EDIT_SUBSTYLE_GRAY          100
 #define EDIT_SUBSTYLE_PWD           200
+#define EDIT_SUBSTYLE_SEARCH           300
 
 #define EDIT_THEME_NORMAL       0
 #define EDIT_THEME_ACTIVE       200

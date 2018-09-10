@@ -6,63 +6,34 @@
 #import <objc/runtime.h>
 #import "UIView+customed.h"
 #import "Common.h"
+#import "MyStyle.h"
 
 static char layoutParamAttr = 0;
 static char paddingAttr = 0;
-static char themeAttr = 0;
 static char styleAttr = 0;
-static char subStyleAttr = 0;
 
 @implementation UIView (customed)
 
 
-- (NSInteger)subStyle {
-	NSNumber *v = objc_getAssociatedObject(self, &subStyleAttr);
+- (MyStyle *)style {
+	MyStyle *v = objc_getAssociatedObject(self, &styleAttr);
 	if (v == nil) {
-		[self setSubStyle:0];
-		return 0;
+		v = [MyStyle new];
+		[self setStyle:v];
 	}
-	return [v integerValue];
+	return v;
 }
 
-- (void)setSubStyle:(NSInteger)style {
-	objc_setAssociatedObject(self, &subStyleAttr, @(style), OBJC_ASSOCIATION_COPY);
-}
-
-
-- (NSInteger)style {
-	NSNumber *v = objc_getAssociatedObject(self, &styleAttr);
-	if (v == nil) {
-		[self setStyle:0];
-		return 0;
-	}
-	return [v integerValue];
-}
-
-- (void)setStyle:(NSInteger)style {
-	objc_setAssociatedObject(self, &styleAttr, @(style), OBJC_ASSOCIATION_COPY);
-}
-
-- (NSInteger)theme {
-	NSNumber *v = objc_getAssociatedObject(self, &themeAttr);
-	if (v == nil) {
-		[self setTheme:0];
-		return 0;
-	}
-	return [v integerValue];
-}
-
-- (void)setTheme:(NSInteger)theme {
-	objc_setAssociatedObject(self, &themeAttr, @(theme), OBJC_ASSOCIATION_COPY);
+- (void)setStyle:(MyStyle *)style {
+	objc_setAssociatedObject(self, &styleAttr, style, OBJC_ASSOCIATION_RETAIN);
 }
 
 
 - (Padding *)padding {
 	Padding *p = objc_getAssociatedObject(self, &paddingAttr);
 	if (p == nil) {
-		Padding *pp = [Padding new];
-		[self setPadding:pp];
-		return pp;
+		p = [Padding new];
+		[self setPadding:p];
 	}
 	return p;
 }
@@ -75,9 +46,8 @@ static char subStyleAttr = 0;
 - (LayoutParam *)layoutParam {
 	LayoutParam *p = objc_getAssociatedObject(self, &layoutParamAttr);
 	if (p == nil) {
-		LayoutParam *pp = [LayoutParam new];
-		[self setLayoutParam:pp];
-		return pp;
+		p = [LayoutParam new];
+		[self setLayoutParam:p];
 	}
 	return p;
 }
@@ -217,6 +187,12 @@ static char subStyleAttr = 0;
 - (UITextField *)addEditPwd {
 	UITextField *edit = [self addEditRaw];
 	[edit stylePassword];
+	return edit;
+}
+
+- (UITextField *)addEditSearch {
+	UITextField *edit = [self addEditRaw];
+	[edit styleSearch];
 	return edit;
 }
 

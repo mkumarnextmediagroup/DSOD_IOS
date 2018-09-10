@@ -40,9 +40,6 @@
 - (void)onClickEdit:(id)sender {
 //	UIViewController *c = [TestPage new];
 
-	[self pushPage:[WelcomController new]];
-
-	return;
 
 	SearchPage *c = [SearchPage new];
 	c.withIndexBar = NO;

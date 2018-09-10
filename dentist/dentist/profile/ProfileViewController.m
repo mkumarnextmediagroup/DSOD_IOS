@@ -64,9 +64,9 @@
 		userCell.specNameLabel.text = @"-";
 	} else {
 		userCell.specNameLabel.text = userInfo.specialityLabel;
-
 	}
 	[userCell.imageView loadUrl:userInfo.portraitUrl placeholderImage:@"user_img"];
+	userCell.linkedinView.hidden = !userInfo.isLinkedinUser;
 	[self.contentView addSubview:userCell];
 
 	[self addGroupTitle:@"Experience"];

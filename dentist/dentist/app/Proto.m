@@ -95,6 +95,7 @@
 	UserInfo *ui = [UserInfo alloc];
 	ui.email = email;
 	ui.isStudent = NO;
+	ui.isLinkedinUser = YES  ;
 	ui.fullName = @"Entao Yang";
 	ui.phone = @"15098760059";
 	ui.portraitUrl = @"http://app800.cn/i/p.png";

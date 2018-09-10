@@ -47,14 +47,12 @@
 
 
 	SearchPage *c = [SearchPage new];
-	c.withIndexBar = NO;
-//	GroupListPage *c = [GroupListPage new];
-
-	[c setItems:arrSorted groupBy:^(NSObject *item) {
+	c.withIndexBar = YES ;
+	[c setItemsPlain:arrSorted displayBlock:^(NSObject *item) {
 		NSString *s = (NSString *) item;
-		return [s substringToIndex:1];
+		return s;
 	}];
-//	c.checkedItem = @"Yang";
+	c.checkedItem = @"Yang";
 	[self pushPage:c];
 
 

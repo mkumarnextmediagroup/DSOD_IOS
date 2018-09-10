@@ -24,6 +24,7 @@
 	_table = nil;
 	_items = @[];
 	self.withIndexBar = YES;
+	self.withGroupLabel = YES;
 	return self;
 }
 
@@ -78,18 +79,26 @@
 }
 
 - (void)setItems:(NSArray *)items {
-	_items = items;
+	if (items == nil) {
+		_items = @[];
+	} else {
+		_items = items;
+	}
 	if (_table != nil) {
 		[_table reloadData];
 	}
 }
 
 - (nullable NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-	NSMutableArray *arr = [NSMutableArray arrayWithCapacity:self.items.count + 1];
-	for (GroupItem *g in self.items) {
-		[arr addObject:[g.title substringToIndex:1]];
+	if (self.withIndexBar) {
+		NSMutableArray *arr = [NSMutableArray arrayWithCapacity:self.items.count + 1];
+		for (GroupItem *g in self.items) {
+			[arr addObject:[g.title substringToIndex:1]];
+		}
+		return arr;
+	} else {
+		return nil;
 	}
-	return arr;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
@@ -101,30 +110,34 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return _items[section].children.count;
+	return _items[(NSUInteger) section].children.count;
 }
 
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	GroupItem *g = _items[(NSUInteger) section];
-	return g.title;
+	if (self.withGroupLabel) {
+		GroupItem *g = _items[(NSUInteger) section];
+		return g.title;
+	} else {
+		return nil;
+	}
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSObject *item = _items[indexPath.section].children[indexPath.row];
+	NSObject *item = _items[(NSUInteger) indexPath.section].children[(NSUInteger) indexPath.row];
 	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 	[self onClickItem3:item cell:cell indexPath:indexPath];
 	[self onClickItem:item];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSObject *item = _items[indexPath.section].children[indexPath.row];
+	NSObject *item = _items[(NSUInteger) indexPath.section].children[(NSUInteger) indexPath.row];
 	return [self heightOfItem:item];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSObject *item = _items[indexPath.section].children[indexPath.row];
+	NSObject *item = _items[(NSUInteger) indexPath.section].children[(NSUInteger) indexPath.row];
 	Class viewCls = [self viewClassOfItem:item];
 	NSString *viewClsName = NSStringFromClass(viewCls);
 	UITableViewCell *cell = [_table dequeueReusableCellWithIdentifier:viewClsName];

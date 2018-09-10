@@ -10,16 +10,36 @@
 
 
 @implementation SearchPage {
+	UITextField *searchEdit;
+}
 
+- (instancetype)init {
+	self = [super init];
+	self.topOffset = 56;
+	self.withGroupLabel = NO;
+	self.withIndexBar = YES;
+	self.titleText = @"Select";
+	return self;
 }
 
 - (void)viewDidLoad {
-	self.topOffset = 56;
 	[super viewDidLoad];
 	[self.table setSectionIndexBackgroundColor:rgb255(233, 233, 233)];
 	[self.table setSectionIndexColor:rgb255(158, 174, 185)];
-	[self.table setSectionIndexTrackingBackgroundColor:rgb255(80, 80, 80)];
+	[self.table setSectionIndexTrackingBackgroundColor:rgb255(220, 220, 220)];
 
+	UINavigationItem *navItem = self.navigationItem;
+	navItem.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
+	navItem.title = self.titleText;
+
+	searchEdit = [self.view addEditRaw];
+	[[[[[searchEdit.layoutMaker leftParent:16] rightParent:-16] topParent:65 + 10] heightEq:EDIT_HEIGHT] install];
+
+
+}
+
+- (void)clickBack:(id)sender {
+	[self popPage];
 }
 
 
@@ -49,11 +69,4 @@
 	[self.table reloadData];
 }
 
-- (void)onClickItem3:(NSObject *)item cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
-
-}
-
-- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return nil;
-}
 @end

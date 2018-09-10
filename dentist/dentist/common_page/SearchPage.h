@@ -12,7 +12,10 @@
 
 @interface SearchPage : GroupListPage
 
+@property(nullable) NSString *titleText;
 
-@property NSObject *checkedItem;
+@property(nullable) NSObject *checkedItem;
+
+@property(nullable) void ( ^  onResult)(NSObject *item);
 
 @end

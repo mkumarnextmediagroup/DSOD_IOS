@@ -10,6 +10,5 @@
 
 @property(readonly) UIImageView *headerImg;
 @property(readonly) UIButton *editBtn;
-@property(copy, nonatomic) void (^editBtnClickBlock)(void);
 
 @end

@@ -36,13 +36,7 @@
 	[[[[_editBtn.layoutMaker sizeEq:38 h:38] toRightOf:_headerImg offset:-19] below:_headerImg offset:-19] install];
 
 
-	[_editBtn onClick:self action:@selector(clickEditImage:)];
 	return self;
 }
 
-- (void)clickEditImage:(id)sender {
-	if (self.editBtnClickBlock) {
-		_editBtnClickBlock();
-	}
-}
 @end

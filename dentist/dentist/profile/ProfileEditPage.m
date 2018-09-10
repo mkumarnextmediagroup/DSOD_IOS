@@ -19,6 +19,14 @@
 #import "EditEduViewController.h"
 #import "UpdateViewController.h"
 
+#import <AssetsLibrary/ALAsset.h>
+
+@interface ProfileEditPage () <UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+	NSString *selectImageName;
+	UIImage *selectImage;
+}
+@end
+
 
 @implementation ProfileEditPage {
 	UserInfo *userInfo;
@@ -49,6 +57,7 @@
 
 	userView = [EditUserView new];
 	userView.layoutParam.height = 200;
+	[userView.editBtn onClick:self action:@selector(editHeaderImg:)];
 	[self.contentView addSubview:userView];
 
 	[self addGrayLine:0 marginRight:0];
@@ -205,19 +214,19 @@
 
 - (void)clickAddResidency:(id)sender {
 	NSLog(@"click add residency");
-    
-    EditResidencyViewController *editRes = [EditResidencyViewController new];
-    editRes.addOrEdit = @"add";
+
+	EditResidencyViewController *editRes = [EditResidencyViewController new];
+	editRes.addOrEdit = @"add";
 //    editRes.residency = r;
-    [self pushPage:editRes];
-    
+	[self pushPage:editRes];
+
 }
 
 - (void)clickAddEducation:(id)sender {
 	NSLog(@"click add education");
-    EditEduViewController *editRes = [EditEduViewController new];
-    editRes.addOrEdit = @"add";
-    [self pushPage:editRes];
+	EditEduViewController *editRes = [EditEduViewController new];
+	editRes.addOrEdit = @"add";
+	[self pushPage:editRes];
 }
 
 - (void)clickPraticeAddress:(id)sender {
@@ -231,7 +240,7 @@
 	Residency *r = userInfo.residencyArray[n];
 	EditResidencyViewController *editRes = [EditResidencyViewController new];
 	editRes.addOrEdit = @"edit";
-    editRes.updateIndex = n;
+	editRes.updateIndex = n;
 	editRes.residency = r;
 	[self pushPage:editRes];
 }
@@ -250,4 +259,98 @@
 
 - (void)onSave:(id)sender {
 }
+
+- (void)editHeaderImg:(id)sender {
+
+	Confirm *cf = [Confirm new];
+	cf.title = localStr(@"userCamera");
+	cf.msg = localStr(@"usePhoto");
+	cf.cancelText = localStr(@"notallow");
+	[cf show:self onOK:^() {
+		Log(@"click OK ");
+		[self callActionSheetFunc];
+	}];
+
+
+}
+
+- (void)callActionSheetFunc {
+	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+
+		[self Den_showActionSheetWithTitle:nil message:nil appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
+			alertMaker.
+					addActionCancelTitle(@"cancel").
+					addActionDefaultTitle(@"Camera").
+					addActionDefaultTitle(@"Gallery");
+		}                     actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
+			if ([action.title isEqualToString:@"cancel"]) {
+				NSLog(@"cancel");
+			} else if ([action.title isEqualToString:@"Camera"]) {
+				NSLog(@"Camera");
+				[self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypeCamera];
+			} else if ([action.title isEqualToString:@"Gallery"]) {
+				NSLog(@"Gallery");
+				[self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+			}
+		}];
+
+	} else {
+		[self Den_showActionSheetWithTitle:nil message:nil appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
+			alertMaker.
+					addActionCancelTitle(@"cancel").
+					addActionDefaultTitle(@"Gallery");
+		}                     actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
+			if ([action.title isEqualToString:@"cancel"]) {
+				NSLog(@"cancel");
+			} else if ([action.title isEqualToString:@"Gallery"]) {
+				NSLog(@"Gallery");
+				[self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+			}
+		}];
+	}
+}
+
+- (void)clickTheBtnWithSourceType:(UIImagePickerControllerSourceType)sourceType {
+	UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+	imagePickerController.delegate = self;
+	imagePickerController.allowsEditing = YES;
+	imagePickerController.sourceType = sourceType;
+	[self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	UIImage *image = nil;
+	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+		picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+		image = info[@"UIImagePickerControllerOriginalImage"];
+		UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+
+		NSString *imageName = [info valueForKey:UIImagePickerControllerMediaType];
+		NSLog(@"imageName1:%@", imageName);
+		selectImageName = imageName;
+		selectImage = image;
+
+	} else {
+		image = info[UIImagePickerControllerOriginalImage];
+
+		NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
+
+		ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+		//根据url获取asset信息, 并通过block进行回调
+		[assetsLibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
+			ALAssetRepresentation *representation = [asset defaultRepresentation];
+//			NSString *imageName = representation.filename;
+//			NSLog(@"imageName:%@", imageName);
+//			self->selectImageName = imageName;
+			selectImage = image;
+
+		}             failureBlock:^(NSError *error) {
+			NSLog(@"%@", [error localizedDescription]);
+		}];
+	}
+	[self dismissViewControllerAnimated:NO completion:nil];
+
+
+}
+
 @end

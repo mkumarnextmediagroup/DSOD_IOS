@@ -55,6 +55,9 @@
 - (void)textColorSecondary {
 	self.textColor = Colors.secondary;
 }
+- (void)textColorAlternate {
+	self.textColor = Colors.textAlternate;
+}
 
 - (void)lineSpace:(CGFloat)space {
 	NSMutableAttributedString *as = self.mutableAttrString;

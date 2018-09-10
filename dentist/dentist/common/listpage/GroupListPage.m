@@ -4,9 +4,6 @@
 //
 
 #import "GroupListPage.h"
-#import "Common.h"
-#import "GroupItem.h"
-#import "UIView+customed.h"
 
 
 @interface GroupListPage () <UITableViewDataSource, UITableViewDelegate> {
@@ -17,12 +14,16 @@
 @implementation GroupListPage {
 	UITableView *_table;
 	NSArray<GroupItem *> *_items;
+	NSArray<GroupItem *> *_itemsRaw;
 }
 
 - (instancetype)init {
 	self = [super init];
 	_table = nil;
 	_items = @[];
+	_itemsRaw = nil;
+	_displayBlock = nil;
+	_filterBlock = nil;
 	self.withIndexBar = YES;
 	self.withGroupLabel = YES;
 	return self;
@@ -49,6 +50,58 @@
 
 }
 
+- (void)filterBy:(NSString *)text {
+	if (text == nil || text.length == 0) {
+		if (_itemsRaw != nil) {
+			_items = _itemsRaw;
+			_itemsRaw = nil;
+		}
+		[_table reloadData];
+		return;
+	}
+	NSString *lowText = [text lowercaseString];
+	if (_itemsRaw == nil) {
+		_itemsRaw = _items;
+	}
+	NSMutableArray<GroupItem *> *newItems = [NSMutableArray arrayWithCapacity:_itemsRaw.count];
+	for (GroupItem *group in _itemsRaw) {
+		GroupItem *newGroup = [GroupItem new];
+		newGroup.title = group.title;
+		newGroup.argN = group.argN;
+		newGroup.argObj = group.argObj;
+		newGroup.argS = group.argS;
+		for (NSObject *item in group.children) {
+			if ([self _accept:item text:lowText]) {
+				[newGroup.children addObject:item];
+			}
+		}
+		if (newGroup.children.count > 0) {
+			[newItems addObject:newGroup];
+		}
+	}
+	_items = newItems;
+	[_table reloadData];
+}
+
+- (BOOL)_accept:(NSObject *)item text:(NSString *)lowerText {
+	if (_filterBlock != nil) {
+		return _filterBlock(item, lowerText);
+	}
+	NSString *s = [[self _labelOf:item] lowercaseString];
+	return [s containsString:lowerText];
+}
+
+- (NSString *)_labelOf:(NSObject *)item {
+	if (_displayBlock != nil) {
+		return _displayBlock(item);
+	}
+	if ([item isKindOfClass:[NSString class]]) {
+		return (NSString *) item;
+	}
+	return [item description];
+}
+
+
 - (UITableView *)table {
 	return _table;
 };
@@ -57,19 +110,29 @@
 	return _items;
 }
 
-- (void)setItems:(NSArray *)sortedArray groupBy:(NSString *(^)(NSObject *))groupBy {
-	if (sortedArray == nil) {
+- (void)setItemsPlain:(NSArray *)arr displayBlock:(DisplayBlock)displayBlock {
+	if (arr == nil) {
 		self.items = @[];
 	} else {
-		NSMutableArray *allItems = [NSMutableArray arrayWithCapacity:sortedArray.count / 8 + 1];
+		_displayBlock = displayBlock;
+		NSArray *arrSoted = [arr sortedArrayUsingComparator:^NSComparisonResult(NSObject *left, NSObject *right) {
+			NSString *s1 = displayBlock(left);
+			NSString *s2 = displayBlock(right);
+			return [s1 compare:s2];
+		}];
+		NSMutableArray *allItems = [NSMutableArray arrayWithCapacity:arr.count / 8 + 1];
 		GroupItem *group = nil;
-		for (NSObject *item in sortedArray) {
-			NSString *title = groupBy(item);
-			if (group != nil && [group.title isEqualToString:title]) {
+		for (NSObject *item in arrSoted) {
+			NSString *displayLabel = displayBlock(item);
+			NSString *firstChar = @"#";
+			if (displayLabel != nil && displayLabel.length > 0) {
+				firstChar = [[displayLabel substringToIndex:1] uppercaseString];
+			}
+			if (group != nil && [group.title isEqualToString:firstChar]) {
 				[group.children addObject:item];
 			} else {
 				group = [GroupItem new];
-				group.title = title;
+				group.title = firstChar;
 				[group.children addObject:item];
 				[allItems addObject:group];
 			}
@@ -124,7 +187,6 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	Log(@"did select row ",  indexPath );
 	NSObject *item = _items[(NSUInteger) indexPath.section].children[(NSUInteger) indexPath.row];
 	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 	[self onClickItem3:item cell:cell indexPath:indexPath];
@@ -168,7 +230,7 @@
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
 	if ([view isKindOfClass:UILabel.class]) {
-		((UILabel *) view).text = [item description];
+		((UILabel *) view).text = [self _labelOf:item];
 	}
 }
 

@@ -44,7 +44,7 @@
 
 - (void)onTextFieldDone:(UITextField *)textField {
 	NSString *s = textField.textTrimed;
-	NSLog(@"%@", s);
+	[self filterBy:s];
 }
 
 - (void)clickBack:(id)sender {
@@ -62,7 +62,9 @@
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
 	LabelCheckView *v = (LabelCheckView *) view;
-	if ([item isKindOfClass:NSString.class]) {
+	if (self.displayBlock != nil) {
+		v.label.text = self.displayBlock(item);
+	} else if ([item isKindOfClass:NSString.class]) {
 		v.label.text = (NSString *) item;
 	} else if ([item isKindOfClass:Pair.class]) {
 		v.label.text = ((Pair *) item).value;

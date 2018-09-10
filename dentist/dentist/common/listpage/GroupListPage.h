@@ -8,7 +8,14 @@
 #import "BaseController.h"
 
 
-@interface GroupListPage : BaseController
+typedef NSString *(^DisplayBlock)(NSObject *);
+
+typedef BOOL (^FilterBlock)(NSObject *, NSString *);
+
+@interface GroupListPage : BaseController {
+
+}
+
 
 //table offset top
 @property CGFloat topOffset;
@@ -20,10 +27,13 @@
 @property(readonly) UITableView *table;
 @property NSArray<GroupItem *> *items;
 
+@property FilterBlock filterBlock;
+@property DisplayBlock displayBlock;
 
-//arr is an sorted array .
-- (void)setItems:(NSArray *)sortedArray groupBy:(NSString *(^)(NSObject *))groupBy;
 
+- (void)setItemsPlain:(NSArray *)arr displayBlock:(DisplayBlock)displayBlock;
+
+- (void)filterBy:(NSString *)text;
 
 - (Class)viewClassOfItem:(NSObject *)item;
 

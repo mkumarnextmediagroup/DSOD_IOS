@@ -15,7 +15,7 @@
 
 @property(nullable) Residency *residency;
 @property BOOL isAdd;
-@property(nonnull) void (^saveCallback)(Residency *r);
-@property(nonnull) void (^deleteCallback)(Residency *exp);
+@property(nonnull) void (^saveCallback)(Residency * _Nullable r);
+@property(nonnull) void (^deleteCallback)(Residency * _Nullable exp);
 
 @end

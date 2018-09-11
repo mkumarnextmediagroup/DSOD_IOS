@@ -58,7 +58,7 @@
 		item.title = @"EDIT EDUCATION";
 	}
 	item.rightBarButtonItem = [self navBarText:@"Save" target:self action:@selector(saveBtnClick:)];
-	item.leftBarButtonItem = [self navBarBack:self action:@selector(back)];
+    item.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
 
 	[self buildViews];
 
@@ -144,9 +144,9 @@
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];
-		fromMonth = num1.integerValue;
+        self->fromMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
-		fromYear = num2.integerValue;
+        self->fromYear = num2.integerValue;
 		[self bindData];
 
 	};
@@ -159,9 +159,9 @@
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];
-		toMonth = num1.integerValue;
+        self->toMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
-		toYear = num2.integerValue;
+        self->toYear = num2.integerValue;
 		[self bindData];
 
 	};
@@ -176,7 +176,7 @@
 	[p setItemsPlain:ls displayBlock:nil];
 
 	p.onResult = ^(NSObject *item) {
-		schoolName = (NSString *) item;
+        self->schoolName = (NSString *) item;
 		[self bindData];
 	};
 	[self pushPage:p];

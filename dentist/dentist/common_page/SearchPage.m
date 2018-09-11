@@ -15,7 +15,7 @@
 
 - (instancetype)init {
 	self = [super init];
-	self.topOffset = 56;
+//    self.topOffset = 56;
 	self.withGroupLabel = NO;
 	self.withIndexBar = YES;
 	self.titleText = @"Select";

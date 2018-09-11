@@ -360,7 +360,7 @@
 }
 
 - (void)clickResidency:(IconTitleMsgDetailCell *)sender {
-	int n = sender.argN;
+	NSInteger n = sender.argN;
 	Residency *r = userInfo.residencyArray[n];
 	EditResidencyViewController *editRes = [EditResidencyViewController new];
 	editRes.isAdd = NO;
@@ -554,14 +554,14 @@
 
 		ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
 		//根据url获取asset信息, 并通过block进行回调
-		[assetsLibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
-			ALAssetRepresentation *representation = [asset defaultRepresentation];
-//			NSString *imageName = representation.filename;
-//			NSLog(@"imageName:%@", imageName);
-//			self->selectImageName = imageName;
-			selectImage = image;
-
-		}             failureBlock:^(NSError *error) {
+        [assetsLibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
+            ALAssetRepresentation *representation = [asset defaultRepresentation];
+            //            NSString *imageName = representation.filename;
+            //            NSLog(@"imageName:%@", imageName);
+            //            self->selectImageName = imageName;
+            selectImage = image;
+            
+        }             failureBlock:^(NSError *error) {
 			NSLog(@"%@", [error localizedDescription]);
 		}];
 	}

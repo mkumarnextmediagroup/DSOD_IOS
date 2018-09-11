@@ -22,6 +22,8 @@
 	NSInteger fromYear;
 	NSInteger toMonth;
 	NSInteger toYear;
+    
+    NSString *nameOfDental;
 }
 
 - (void)viewDidLoad {
@@ -34,6 +36,8 @@
 	fromYear = self.residency.fromYear;
 	toMonth = self.residency.toMonth;
 	toYear = self.residency.toYear;
+    
+    nameOfDental = self.residency.place;
 
 	UINavigationItem *item = self.navigationItem;
 	item.rightBarButtonItem = [self navBarText:@"Save" target:self action:@selector(saveBtnClick:)];
@@ -47,7 +51,11 @@
 
 	resView = [TitleMsgArrowView new];
 	resView.titleLabel.text = @"Residency at";
-	resView.msgLabel.text = @"Select";
+    if (self.isAdd) {
+        resView.msgLabel.text = @"Select";
+    } else {
+        resView.msgLabel.text = nameOfDental;
+    }
 	[resView onClickView:self action:@selector(clickResidency:)];
 	[self.contentView addSubview:resView];
 
@@ -92,9 +100,9 @@
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];
-		fromMonth = num1.integerValue;
+        self->fromMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
-		fromYear = num2.integerValue;
+        self->fromYear = num2.integerValue;
 		[self bindData];
 
 	};
@@ -107,9 +115,9 @@
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];
-		toMonth = num1.integerValue;
+        self->toMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
-		toYear = num2.integerValue;
+        self->toYear = num2.integerValue;
 		[self bindData];
 
 	};
@@ -124,7 +132,7 @@
 	[p setItemsPlain:ls displayBlock:nil];
 
 	p.onResult = ^(NSObject *item) {
-		resView.msgLabel.text = (NSString *) item;
+        self->resView.msgLabel.text = (NSString *) item;
 	};
 	[self pushPage:p];
 }
@@ -151,7 +159,7 @@
 	self.residency.fromYear = fromYear;
 	self.residency.toMonth = toMonth;
 	self.residency.toYear = toYear;
-
+    
 	self.saveCallback(self.residency);
 
 	[self alertMsg:@"Saved Successfullly" onOK:^() {

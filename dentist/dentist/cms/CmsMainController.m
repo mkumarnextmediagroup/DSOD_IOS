@@ -8,6 +8,7 @@
 #import "Common.h"
 #import "PickerPage.h"
 #import "NSDate+myextend.h"
+#import "WelcomController.h"
 
 
 @implementation CmsMainController {
@@ -37,9 +38,12 @@
 - (void)onClickEdit:(id)sender {
 //	UIViewController *c = [TestPage new];
 
-	PickerPage *c = [PickerPage pickYearMonthFromNowDownTo:1930];
+//	PickerPage *c = [PickerPage pickYearMonthFromNowDownTo:1930];
 
+	WelcomController * c = [WelcomController new];
 	[self.navigationController presentViewController:c animated:YES completion:nil];
+
+
 
 
 }

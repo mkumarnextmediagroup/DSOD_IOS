@@ -333,8 +333,12 @@
 }
 
 + (HttpResult *)register:(NSString *)email pwd:(NSString *)pwd name:(NSString *)name student:(BOOL)student {
-	NSNumber *stu = @(student);
-	NSDictionary *d = @{@"username": email, @"password": pwd, @"full_name": name, @"student": stu};
+	NSString *stu = @"0";
+	if (student) {
+		stu = @"1";
+	}
+
+	NSDictionary *d = @{@"username": email, @"password": pwd, @"full_name": name, @"is_student": stu, @"is_linkedin": @"0"};
 	HttpResult *r = [self postBody:@"userAccount/register" dic:d];
 	if (r.OK) {
 		NSDictionary *d = r.resultMap;

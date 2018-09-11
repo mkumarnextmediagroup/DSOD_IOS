@@ -10,5 +10,6 @@
 
 @property(readonly) UIImageView *headerImg;
 @property(readonly) UIButton *editBtn;
+@property(readonly) NSString *avatarUrl;
 
 @end

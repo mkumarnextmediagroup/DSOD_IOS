@@ -229,6 +229,9 @@
 
 
 - (void)bindData {
+    if(selectImage){
+        [userView.headerImg setImage:selectImage];
+    }
 	nameView.edit.text = userInfo.fullName;
 	specView.msgLabel.text = userInfo.specialityLabel;
 	if (userInfo.experienceArray != nil) {
@@ -546,6 +549,7 @@
 		NSLog(@"imageName1:%@", imageName);
 		selectImageName = imageName;
 		selectImage = image;
+        [self bindData];
 
 	} else {
 		image = info[UIImagePickerControllerOriginalImage];
@@ -560,6 +564,7 @@
             //            NSLog(@"imageName:%@", imageName);
             //            self->selectImageName = imageName;
             selectImage = image;
+            [self bindData];
             
         }             failureBlock:^(NSError *error) {
 			NSLog(@"%@", [error localizedDescription]);

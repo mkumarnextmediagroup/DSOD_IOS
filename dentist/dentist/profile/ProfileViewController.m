@@ -15,9 +15,8 @@
 #import "ProfileEditPage.h"
 
 
-@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource> {
+@interface ProfileViewController (){
 	UserInfo *userInfo;
-
 }
 
 @end
@@ -31,10 +30,16 @@
 	[self pushPage:edit];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self buildViews];
+    [self layoutLinearVertical];
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	userInfo = [Proto lastUserInfo];
-
+    
 	UINavigationItem *item = self.navigationItem;
 	item.title = @"PROFILE";
 	item.rightBarButtonItems = @[
@@ -56,6 +61,15 @@
 
 - (void)buildViews {
 
+    userInfo = [Proto lastUserInfo];
+    
+    NSArray *allSubView = self.contentView.subviews;
+    if (allSubView != nil) {
+        for (UIView *v in allSubView) {
+            [v removeFromSuperview];
+        }
+    }
+    
 	UserCell *userCell = [UserCell new];
 	userCell.imageView.imageName = @"user_img";
 	[userCell.imageView loadUrl:userInfo.portraitUrl placeholderImage:@"user_img"];

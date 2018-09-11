@@ -25,7 +25,7 @@
 
 	_headerImg = [UIImageView new];
 	_headerImg.imageName = @"headerImage";
-	[_headerImg sd_setImageWithURL:[NSURL URLWithString:@""]
+	[_headerImg sd_setImageWithURL:[NSURL URLWithString:self.avatarUrl]
 	              placeholderImage:[UIImage imageNamed:@"default_avatar"]];
 	[self addSubview:_headerImg];
 	[[[[_headerImg.layoutMaker sizeEq:115 h:115] topParent:44] centerXParent:0] install];

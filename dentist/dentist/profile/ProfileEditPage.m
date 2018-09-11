@@ -75,6 +75,7 @@
 
 	userView = [EditUserView new];
 	userView.layoutParam.height = 200;
+    userView.avatarUrl=userInfo.portraitUrl;
 	[userView.editBtn onClick:self action:@selector(editPortrait:)];
 	[self.contentView addSubview:userView];
 
@@ -229,6 +230,9 @@
 
 
 - (void)bindData {
+    if(selectImage){
+        [userView.headerImg setImage:selectImage];
+    }
 	nameView.edit.text = userInfo.fullName;
 	specView.msgLabel.text = userInfo.specialityLabel;
 	if (userInfo.experienceArray != nil) {
@@ -360,7 +364,7 @@
 }
 
 - (void)clickResidency:(IconTitleMsgDetailCell *)sender {
-	int n = sender.argN;
+	NSInteger n = sender.argN;
 	Residency *r = userInfo.residencyArray[n];
 	EditResidencyViewController *editRes = [EditResidencyViewController new];
 	editRes.isAdd = NO;
@@ -459,7 +463,7 @@
 	EditPracticeAddressViewController *p = [EditPracticeAddressViewController new];
 	p.address = userInfo.practiceAddress;
 	p.saveCallback = ^(Address *addr) {
-		userInfo.practiceAddress = addr;
+        self->userInfo.practiceAddress = addr;
 		[self bindData];
 	};
 	[self pushPage:p];
@@ -471,6 +475,13 @@
 }
 
 - (void)onSave:(id)sender {
+    
+    //save the edit content
+     userInfo.fullName = nameView.edit.text;
+     userInfo.phone = phoneView.edit.text;
+     userInfo.email = emailView.edit.text;
+//     userInfo.practiceAddress.detailAddress = practiceAddressView.msgLabel.text;
+    
 	[Proto saveLastUserInfo:userInfo];
 	[self alertMsg:@"Saved successfully" onOK:^() {
 		[self popPage];
@@ -546,6 +557,7 @@
 		NSLog(@"imageName1:%@", imageName);
 		selectImageName = imageName;
 		selectImage = image;
+        [self bindData];
 
 	} else {
 		image = info[UIImagePickerControllerOriginalImage];
@@ -554,14 +566,15 @@
 
 		ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
 		//根据url获取asset信息, 并通过block进行回调
-		[assetsLibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
-			ALAssetRepresentation *representation = [asset defaultRepresentation];
-//			NSString *imageName = representation.filename;
-//			NSLog(@"imageName:%@", imageName);
-//			self->selectImageName = imageName;
-			selectImage = image;
-
-		}             failureBlock:^(NSError *error) {
+        [assetsLibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
+            ALAssetRepresentation *representation = [asset defaultRepresentation];
+            //            NSString *imageName = representation.filename;
+            //            NSLog(@"imageName:%@", imageName);
+            //            self->selectImageName = imageName;
+            selectImage = image;
+            [self bindData];
+            
+        }             failureBlock:^(NSError *error) {
 			NSLog(@"%@", [error localizedDescription]);
 		}];
 	}

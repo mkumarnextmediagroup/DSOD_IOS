@@ -15,7 +15,9 @@
 
 - (instancetype)init {
 	self = [super init];
-//    self.topOffset = 56;
+    if ([SYSTEMVERSION doubleValue] > 11.0) {
+        self.topOffset = 56;
+    }
 	self.withGroupLabel = NO;
 	self.withIndexBar = YES;
 	self.titleText = @"Select";

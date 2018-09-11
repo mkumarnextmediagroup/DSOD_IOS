@@ -7,8 +7,6 @@
 #import "UITextField+styled.h"
 #import "Common.h"
 #import "AppDelegate.h"
-#import "ToastItem.h"
-#import "Async.h"
 
 @implementation BaseController {
 	UIView *toastView;
@@ -62,8 +60,10 @@
 	if (ed == nil) {
 		return;
 	}
+	CGRect editRect = [ed toScreenFrame];
+
 	CGRect kbFrame = [n.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-	CGFloat offset = (ed.frame.origin.y + ed.frame.size.height - kbFrame.origin.y + 10);
+	CGFloat offset = (editRect.origin.y + editRect.size.height - kbFrame.origin.y + 10);
 	double duration = [n.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
 	if (offset > 0) {
 		[UIView animateWithDuration:duration animations:^{
@@ -80,8 +80,6 @@
 	}];
 
 }
-
-
 
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {

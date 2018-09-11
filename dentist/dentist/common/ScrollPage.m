@@ -17,11 +17,11 @@
 	_scrollView = [UIScrollView new];
 	[self.view addSubview:_scrollView];
 	MASConstraintMaker *sm = [[[_scrollView layoutMaker] leftParent:0] rightParent:0];
-	if (self.navigationController == nil) {
+//    if (self.navigationController == nil) {
 		[sm topParent:0];
-	} else {
-		[sm topParent:65];
-	}
+//    } else {
+//        [sm topParent:65];
+//    }
 	if (self.tabBarController == nil) {
 		[sm bottomParent:0];
 	} else {

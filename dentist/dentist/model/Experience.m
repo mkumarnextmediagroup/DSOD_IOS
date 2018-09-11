@@ -4,13 +4,28 @@
 //
 
 #import "Experience.h"
+#import "Common.h"
 
 
 @implementation Experience {
 
 }
 
--(BOOL) isOwnerDentist{
-	return  [@"Owner Dentist" isEqualToString:self.praticeType ];
+- (BOOL)isOwnerDentist {
+	return [@"Owner Dentist" isEqualToString:self.praticeType];
+}
+
+- (NSString *)dateFrom {
+	if (_fromMonth == 0) {
+		return @"";
+	}
+	return strBuild(nameOfMonth(_fromMonth), @" ", [@(_fromYear) description]);
+}
+
+- (NSString *)dateTo {
+	if (_toMonth == 0) {
+		return @"";
+	}
+	return strBuild(nameOfMonth(_toMonth), @" ", [@(_toYear) description]);
 }
 @end

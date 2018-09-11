@@ -48,13 +48,19 @@
 			size = result.count;
 		}
 		for (NSUInteger i = 0; i < size; ++i) {
-			result[i] = self.preSelectData[i];
+			NSObject *v = self.preSelectData[i];
+			if ([self.data[i] containsObject:v]) {
+				result[i] = v;
+			}
 		}
 	}
 	for (NSUInteger i = 0; i < result.count; ++i) {
 		NSInteger r = [self.data[i] indexOfObject:result[i]];
 		if (r != NSNotFound) {
 			[picker selectRow:r inComponent:i animated:NO];
+		} else {
+			result[i] = self.data[i][0];
+			[picker selectRow:0 inComponent:i animated:NO];
 		}
 	}
 

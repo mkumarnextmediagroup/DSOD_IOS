@@ -65,6 +65,7 @@
 	toYear = self.exp.toYear;
 
 
+
 	typeView = [TitleMsgArrowView new];
 	typeView.titleLabel.text = @"Practice Type";
 	if (self.isAdd) {
@@ -118,11 +119,18 @@
 
 
 	UIButton *btn = self.view.addSmallButton;
-	[btn title:@"Cancel"];
-	[[[[[btn.layoutMaker centerXParent:0] bottomParent:-50] heightButton] widthEq:64] install];
-	[btn onClick:self action:@selector(clickCancel:)];
+	if (self.isAdd) {
+		[btn title:@"Cancel"];
+		[btn onClick:self action:@selector(clickCancel:)];
+		[[[[[btn.layoutMaker centerXParent:0] bottomParent:-50] heightButton] widthEq:64] install];
+	} else {
+		[btn title:@"Delete Experience"];
+		[btn onClick:self action:@selector(clickDelete:)];
+		[[[[[btn.layoutMaker centerXParent:0] bottomParent:-50] heightButton] widthEq:160] install];
+	}
 
 	[self layoutLinearVertical];
+	[self bindData];
 
 }
 
@@ -136,7 +144,7 @@
 	p.onResult = ^(NSObject *item) {
 		praticeType = (NSString *) item;
 
-		[self bindViews];
+		[self bindData];
 	};
 	[self pushPage:p];
 }
@@ -150,7 +158,7 @@
 
 	p.onResult = ^(NSObject *item) {
 		roleAtPratice = (NSString *) item;
-		[self bindViews];
+		[self bindData];
 	};
 	[self pushPage:p];
 }
@@ -164,7 +172,7 @@
 
 	p.onResult = ^(NSObject *item) {
 		nameOfDental = (NSString *) item;
-		[self bindViews];
+		[self bindData];
 	};
 	[self pushPage:p];
 }
@@ -173,7 +181,7 @@
 	workInThisRole = switchView.switchView.on;
 }
 
-- (void)bindViews {
+- (void)bindData {
 	if (fromMonth > 0 && fromYear > 0) {
 		fromToView.fromDateLabel.text = strBuild(nameOfMonth(fromMonth), @" ", [@(fromYear) description]);
 	} else {
@@ -210,7 +218,7 @@
 		fromMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
 		fromYear = num2.integerValue;
-		[self bindViews];
+		[self bindData];
 
 	};
 	[self presentViewController:p animated:YES completion:nil];
@@ -225,7 +233,7 @@
 		toMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
 		toYear = num2.integerValue;
-		[self bindViews];
+		[self bindData];
 
 	};
 	[self presentViewController:p animated:YES completion:nil];
@@ -236,6 +244,20 @@
 	[self popPage];
 }
 
+- (void)clickDelete:(id)sender {
+	Log(@"delete");
+	Confirm *dlg = [Confirm new];
+	dlg.okText = @"Yes";
+	dlg.title = @"Delete Experience";
+	dlg.msg = @"Are you sure you want to delete this experience?";
+	[dlg show:self onOK:^() {
+		[self popPage];
+		if (self.deleteCallback) {
+			self.deleteCallback(self.exp);
+		}
+	}];
+}
+
 
 - (void)clickBack:(id)sender {
 	[self popPage];
@@ -243,25 +265,21 @@
 
 - (void)clickSave:(UIButton *)btn {
 	NSLog(@"save");
+	self.exp.dentalName = nameOfDental;
+	self.exp.roleAtPratice = roleAtPratice;
+	self.exp.workInThisRole = workInThisRole;
+	self.exp.praticeType = praticeType;
+
+	self.exp.fromYear = fromYear;
+	self.exp.fromMonth = fromMonth;
+	self.exp.toYear = toYear;
+	self.exp.toMonth = toMonth;
+
+	if (self.saveCallback) {
+		self.saveCallback(self.exp);
+	}
+	[self popPage];
 }
 
-- (void)delBtnClick:(UIButton *)btn {
-	NSLog(@"del");
-}
-
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -179,14 +179,18 @@
 	Experience *exp = [Experience new];
 	exp.praticeType = @"Owner Dentist";
 	exp.dentalName = @"Smile Dental";
-	exp.dateFrom = @"Jun 2017";
-	exp.dateTo = @"Present";
+	exp.fromMonth = 7;
+	exp.fromYear = 2015;
+	exp.toMonth = 1;
+	exp.toYear = 2017;
 
 	Experience *exp2 = [Experience new];
 	exp2.praticeType = @"Associate Dentist";
 	exp2.dentalName = @"Smile Dental";
-	exp2.dateFrom = @"Jun 2017";
-	exp2.dateTo = @"Present";
+	exp2.fromMonth = 7;
+	exp2.fromYear = 2015;
+	exp2.toMonth = 1;
+	exp2.toYear = 2017;
 
 	ui.experienceArray = @[exp, exp2];
 

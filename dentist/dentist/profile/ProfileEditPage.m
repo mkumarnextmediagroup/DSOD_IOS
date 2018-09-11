@@ -58,6 +58,20 @@
 	residencyViews = [NSMutableArray arrayWithCapacity:4];
 	eduViews = [NSMutableArray arrayWithCapacity:4];
 
+	[self buildViews];
+	[self bindData];
+}
+
+- (void)buildViews {
+	NSArray *allSubView = self.contentView.subviews;
+	if (allSubView != nil) {
+		for (UIView *v in allSubView) {
+			[v removeFromSuperview];
+		}
+	}
+	[expViews removeAllObjects];
+	[residencyViews removeAllObjects];
+	[eduViews removeAllObjects];
 
 	userView = [EditUserView new];
 	userView.layoutParam.height = 200;
@@ -106,9 +120,7 @@
 			expView.titleLabel.text = @"-";
 			expView.msgLabel.text = @"-";
 			expView.detailLabel.text = @"-";
-
 			expView.hasArrow = YES;
-
 			expView.argN = i;
 			[expView onClickView:self action:@selector(clickExp:)];
 
@@ -194,8 +206,6 @@
 	[self.contentView addSubview:emailView];
 	[self addGrayLine:0 marginRight:0];
 
-
-	[self bindData];
 	[self layoutLinearVertical];
 }
 
@@ -229,6 +239,10 @@
 			v.titleLabel.text = r.praticeType;
 			v.msgLabel.text = r.dentalName;
 			v.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
+			if (r.dentalName == nil || r.dentalName.length == 0) {
+				v.imageView.imageName = @"exp";
+				[v showEmpty:@"No experience added yet."];
+			}
 		}
 	}
 	if (userInfo.residencyArray != nil) {
@@ -281,7 +295,51 @@
 - (void)clickAddExp:(id)sender {
 	EditExperiencePage *p = [EditExperiencePage new];
 	p.isAdd = YES;
+	p.userInfo = userInfo;
+	p.exp = [Experience new];
+	p.saveCallback = ^(Experience *ex) {
+		[self saveExp:ex];
+	};
 	[self pushPage:p];
+
+}
+
+- (void)clickExp:(IconTitleMsgDetailCell *)sender {
+	int n = sender.argN;
+	Experience *r = userInfo.experienceArray[n];
+	EditExperiencePage *p = [EditExperiencePage new];
+	p.isAdd = r.dentalName == nil || r.dentalName.length == 0;
+	p.exp = r;
+	p.userInfo = userInfo;
+	p.deleteCallback = ^(Experience *ex) {
+		[self deleteExp:ex];
+	};
+	p.saveCallback = ^(Experience *ex) {
+		[self saveExp:ex];
+	};
+
+	[self pushPage:p];
+}
+
+- (void)saveExp:(Experience *)e {
+	NSMutableArray *a = [NSMutableArray arrayWithArray:userInfo.experienceArray];
+	if (![a containsObject:e]) {
+		[a addObject:e];
+	}
+	userInfo.experienceArray = a;
+	[self buildViews];
+	[self bindData];
+}
+
+- (void)deleteExp:(Experience *)e {
+	NSMutableArray *a = [NSMutableArray arrayWithArray:userInfo.experienceArray];
+	[a removeObject:e];
+	if (a.count == 0) {
+		[a addObject:[Experience new]];
+	}
+	userInfo.experienceArray = a;
+	[self buildViews];
+	[self bindData];
 
 }
 
@@ -306,12 +364,6 @@
 	EditPracticeAddressViewController *p = [EditPracticeAddressViewController new];
 	p.address = userInfo.practiceAddress;
 	[self pushPage:p];
-}
-
-- (void)clickExp:(IconTitleMsgDetailCell *)sender {
-	int n = sender.argN;
-	Experience *r = userInfo.experienceArray[n];
-	//TODO edit exp
 }
 
 

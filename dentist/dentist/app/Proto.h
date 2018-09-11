@@ -56,4 +56,6 @@
 + (NSArray *)listRoleAtPractice;
 
 + (NSArray *)listDentalNames;
+
++ (NSArray *)listStates;
 @end

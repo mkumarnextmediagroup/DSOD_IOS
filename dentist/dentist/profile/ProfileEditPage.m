@@ -367,6 +367,10 @@
 - (void)clickPraticeAddress:(id)sender {
 	EditPracticeAddressViewController *p = [EditPracticeAddressViewController new];
 	p.address = userInfo.practiceAddress;
+	p.saveCallback = ^(Address *addr) {
+		userInfo.practiceAddress = addr;
+		[self bindData];
+	};
 	[self pushPage:p];
 }
 

@@ -7,172 +7,114 @@
 //
 
 #import "EditPracticeAddressViewController.h"
-#import "EditWriteTableViewCell.h"
-#import "CommSelectTableViewCell.h"
-#import "UpdateViewController.h"
-#import "Async.h"
 #import "Common.h"
 #import "Address.h"
+#import "TitleEditView.h"
+#import "TitleMsgArrowView.h"
+#import "SearchPage.h"
+#import "Proto.h"
 
-@interface EditPracticeAddressViewController ()<UITableViewDelegate,UITableViewDataSource>
-{
-    UITableView *myTable;
-    NSMutableArray *titleArray;
+
+@implementation EditPracticeAddressViewController {
+	TitleEditView *addr1View;
+	TitleEditView *addr2View;
+	TitleEditView *zipView;
+	TitleEditView *cityView;
+	TitleMsgArrowView *stateView;
+
 }
-@end
-
-
-@implementation EditPracticeAddressViewController
 
 - (void)viewDidLoad {
+	[super viewDidLoad];
+	UINavigationItem *item = self.navigationItem;
+	item.title = @"PRACTICE ADDRESS";
+	item.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
+	item.rightBarButtonItem = [self navBarText:@"Save" target:self action:@selector(clickSave:)];
 
-    [super viewDidLoad];
-    
-   
-    UINavigationItem *item = self.navigationItem;
-    item.title = localStr(@"editPractice");
-    item.rightBarButtonItem = [self navBarText:@"SAVE" target: self  action:@selector(saveBtnClick:)];
-	item.leftBarButtonItem = [self navBarImage:@"back_arrow" target: self action:@selector(back)];
-    // Do any additional setup after loading the view.
-    
-    myTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    myTable.backgroundColor = UIColor.whiteColor;
-    myTable.delegate = self;
-    myTable.dataSource = self;
-    myTable.tableFooterView =  [[UIView alloc] init];
-    myTable.separatorInset =UIEdgeInsetsZero;
-    [self.view addSubview:myTable];
-    [[[[[myTable.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
-    
-    
-    UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [editBtn setTitleColor:Colors.textDisabled forState:UIControlStateNormal];
-    [editBtn setTitle:@"Cancel" forState:UIControlStateNormal];
-    [editBtn addTarget:self action:@selector(editBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [editBtn.titleLabel setFont:[Fonts semiBold:15]];
-    [self.view addSubview:editBtn];
-    [[[editBtn.layoutMaker sizeEq:SCREENWIDTH h:40] bottomParent:-20] install];
-    
-    
-    titleArray = [NSMutableArray arrayWithObjects:@"Address 1", @"Address 2",@"Zip Code",@"City",@"State",nil];
+	if (self.address == nil) {
+		self.address = [Address new];
+	}
+
+	addr1View = [TitleEditView new];
+	addr1View.label.text = @"Address1";
+	addr1View.edit.delegate = self;
+	[addr1View.edit returnDone];
+	[self.contentView addSubview:addr1View];
+
+	addr2View = [TitleEditView new];
+	addr2View.label.text = @"Address2";
+	addr2View.edit.delegate = self;
+	[addr2View.edit returnDone];
+	[self.contentView addSubview:addr2View];
+
+	zipView = [TitleEditView new];
+	zipView.label.text = @"Zip Code";
+	[self.contentView addSubview:zipView];
+
+	cityView = [TitleEditView new];
+	cityView.label.text = @"City";
+	cityView.edit.delegate = self;
+	[cityView.edit returnDone];
+	[self.contentView addSubview:cityView];
+
+	stateView = [TitleMsgArrowView new];
+	stateView.titleLabel.text = @"State";
+	[stateView onClickView:self action:@selector(clickState:)];
+	[self.contentView addSubview:stateView];
+
+	[self layoutLinearVertical];
+
+	[self bindData];
+
+	UIButton *cancelBtn = [self.view addSmallButton];
+	[cancelBtn setTitle:@"Cancel" forState:UIControlStateNormal];
+	[cancelBtn addTarget:self action:@selector(clickCancel:) forControlEvents:UIControlEventTouchUpInside];
+	[[[[cancelBtn.layoutMaker sizeEq:60 h:BTN_HEIGHT] centerXParent:0] bottomParent:-20] install];
 }
 
-- (void)back
-{
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)bindData {
+	addr1View.edit.text = self.address.address1;
+	addr2View.edit.text = self.address.address2;
+	zipView.edit.text = self.address.zipCode;
+	cityView.edit.text = self.address.city;
+	stateView.msgLabel.text = self.address.stateLabel;
 }
 
-- (void)saveBtnClick:(UIButton *)btn
-{
-    NSString *address=@"";
-    address = strBuild(@"", @"", @"",@"",self.selectPracticeAddress);//TODO Simulation data
-    if(_saveBtnClickBlock){
-        if(self.selectPracticeAddress){//
-            _saveBtnClickBlock(address);
-        }
-    }
-    
-    NSLog(@"save");
+- (void)clickBack:(id)sender {
+	[self popPage];
 }
 
-- (void)editBtnClick:(UIButton *)btn
-{
-    if ([btn.currentTitle isEqualToString:@"Cancel"])//this funcation is the same as back
-    {
-        [self back];
-    }
+- (void)clickCancel:(UIButton *)btn {
+	[self popPage];
 }
 
-#pragma mark UITableViewDelegate
+- (void)clickSave:(UIButton *)btn {
+	self.address.address1 = addr1View.edit.textTrimed;
+	self.address.address2 = addr2View.edit.textTrimed;
+	self.address.zipCode = zipView.edit.textTrimed;
+	self.address.city = cityView.edit.textTrimed;
+	self.address.stateLabel = stateView.msgLabel.text;
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    return 76;
-   
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return titleArray.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row != titleArray.count-1) {
-        
-      
-        static NSString *brand_region_Cell = @"editwriteCell";
-        
-        EditWriteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:brand_region_Cell];
-        
-        if (cell == nil) {
-            cell = [[EditWriteTableViewCell alloc]
-                    initWithStyle:UITableViewCellStyleDefault
-                    reuseIdentifier:brand_region_Cell];
-        }
-        cell.titleLab.text=titleArray[indexPath.row];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }else
-    {
-        static NSString *brand_region_Cell = @"commCell";
-        
-        CommSelectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:brand_region_Cell];
-        
-        if (cell == nil) {
-            cell = [[CommSelectTableViewCell alloc]
-                    initWithStyle:UITableViewCellStyleDefault
-                    reuseIdentifier:brand_region_Cell];
-        }
-        
-        cell.titleLab.text=titleArray[indexPath.row];
-        if (self.selectPracticeAddress != nil) {
-            cell.contentLab.text = self.selectPracticeAddress;
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }
-    return nil;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row == titleArray.count-1) {
-        [self toSelectPracticeAddress];
-    }
-}
-
-- (void)toSelectPracticeAddress
-{
-    
-    UpdateViewController *update = [UpdateViewController new];
-    update.titleStr=@"STATE";
-     __weak typeof(self) weakSelf = self;
-    update.selctBtnClickBlock = ^(NSString *code) {
-        weakSelf.selectPracticeAddress = code;//TODO 是否为code？
-        foreTask(^{
-            [self->myTable reloadData];
-        });
-    };
-    [self.navigationController pushViewController:update animated:YES];
-    NSLog(@"selectPracticeAddress");
+	if (self.saveCallback) {
+		self.saveCallback(self.address);
+	}
+	[self popPage];
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)clickState:(id)sender {
+	SearchPage *p = [SearchPage new];
+	p.checkedItem = stateView.msgLabel.text;
+	p.titleText = @"STATE";
+	NSArray *ls = [Proto listStates];
+	[p setItemsPlain:ls displayBlock:nil];
+
+	p.onResult = ^(NSObject *item) {
+		stateView.msgLabel.text = (NSString *) item;
+	};
+	[self pushPage:p];
+
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

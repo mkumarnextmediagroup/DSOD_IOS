@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseController.h"
+#import "ScrollPage.h"
 
 @class Address;
 
-@interface EditPracticeAddressViewController : BaseController
-@property(strong, nonatomic) NSString *selectPracticeAddress;
-@property(copy, nonatomic) void (^saveBtnClickBlock)(NSString *code);
-@property Address *address;
+@interface EditPracticeAddressViewController : ScrollPage
+
+@property(nullable) Address *address;
+@property void (^saveCallback)(Address *address);
+
 @end

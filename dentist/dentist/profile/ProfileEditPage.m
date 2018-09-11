@@ -463,7 +463,7 @@
 	EditPracticeAddressViewController *p = [EditPracticeAddressViewController new];
 	p.address = userInfo.practiceAddress;
 	p.saveCallback = ^(Address *addr) {
-		userInfo.practiceAddress = addr;
+        self->userInfo.practiceAddress = addr;
 		[self bindData];
 	};
 	[self pushPage:p];
@@ -475,6 +475,13 @@
 }
 
 - (void)onSave:(id)sender {
+    
+    //save the edit content
+     userInfo.fullName = nameView.edit.text;
+     userInfo.phone = phoneView.edit.text;
+     userInfo.email = emailView.edit.text;
+//     userInfo.practiceAddress.detailAddress = practiceAddressView.msgLabel.text;
+    
 	[Proto saveLastUserInfo:userInfo];
 	[self alertMsg:@"Saved successfully" onOK:^() {
 		[self popPage];

@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseController.h"
+#import "ScrollPage.h"
 
 @class Education;
 
-@interface EditEduViewController : BaseController
+@interface EditEduViewController : ScrollPage
 
-@property (strong, nonatomic)NSString *addOrEdit;
-@property Education * education ;
+@property Education *education;
+@property BOOL isAdd;
+@property(nonnull) void (^saveCallback)(Education *e);
+@property(nonnull) void (^deleteCallback)(Education *e);
 
 @end

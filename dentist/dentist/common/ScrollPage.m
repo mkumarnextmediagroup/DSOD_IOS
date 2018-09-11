@@ -55,11 +55,13 @@
 	CGFloat top = 0;
 	UIView *lastView = nil;
 	for (UIView *v in self.contentView.subviews) {
-		LayoutParam *p = v.layoutParam;
-		CGFloat y = top + p.marginTop;
-		[[[[[[v layoutRemaker] leftParent:p.marginLeft] rightParent:-p.marginRight] topParent:y] heightEq:p.height] install];
-		top = y + p.height;
-		lastView = v;
+		if (!v.hidden) {
+			LayoutParam *p = v.layoutParam;
+			CGFloat y = top + p.marginTop;
+			[[[[[[v layoutRemaker] leftParent:p.marginLeft] rightParent:-p.marginRight] topParent:y] heightEq:p.height] install];
+			top = y + p.height;
+			lastView = v;
+		}
 	}
 	if (lastView != nil) {
 		[_contentView.layoutUpdate.bottom.greaterThanOrEqualTo(lastView) install];

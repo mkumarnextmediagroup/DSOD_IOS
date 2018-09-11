@@ -76,5 +76,6 @@
 
 - (void)layoutFillXOffsetCenterY:(CGFloat)height offset:(CGFloat)offset;
 
+- (void)removeAllChildren;
 
 @end

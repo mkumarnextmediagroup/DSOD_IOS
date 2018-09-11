@@ -12,6 +12,23 @@
 	NSString *SERVER;
 }
 
++ (NSArray *)listStates {
+	return @[
+			@"Alabama",
+			@"Alaska",
+			@"Arizona",
+			@"Arkansas",
+			@"Califonia",
+			@"Colorado",
+			@"Connecticut",
+			@"Delaware",
+			@"Florida",
+			@"Georigia",
+			@"Hawaii",
+			@"Idaho",
+	];
+}
+
 + (NSArray *)listDentalNames {
 	return @[
 			@"Allied Dental",

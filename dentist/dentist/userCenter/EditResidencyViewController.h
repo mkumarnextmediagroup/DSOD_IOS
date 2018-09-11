@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseController.h"
+#import "ScrollPage.h"
 
 @class Residency;
 
-@interface EditResidencyViewController : BaseController
+@interface EditResidencyViewController : ScrollPage
 
-@property(strong, nonatomic) NSString *addOrEdit;
-@property(assign, nonatomic) int      updateIndex;
-@property Residency *residency;
+@property(nullable) Residency *residency;
+@property BOOL isAdd;
+@property(nonnull) void (^saveCallback)(Residency *r);
+@property(nonnull) void (^deleteCallback)(Residency *exp);
 
 @end

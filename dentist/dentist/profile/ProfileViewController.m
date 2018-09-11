@@ -81,6 +81,7 @@
 				expView.imageView.imageName = @"exp";
 				[expView showEmpty:@"No experience added yet."];
 			} else {
+				[expView hideEmpty];
 				if ([exp isOwnerDentist]) {
 					expView.imageView.imageName = @"dental-blue";
 				} else {
@@ -111,6 +112,7 @@
 		if (r.place == nil || r.place.length == 0) {
 			[residView showEmpty:@"No residency added yet."];
 		} else {
+			[residView hideEmpty];
 			residView.titleLabel.text = @"Residency";
 			residView.msgLabel.text = r.place;
 			residView.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
@@ -135,6 +137,7 @@
 		if (edu.schoolName == nil || edu.schoolName.length == 0) {
 			[v showEmpty:@"No education added yet."];
 		} else {
+			[v hideEmpty];
 			v.titleLabel.text = edu.schoolName;
 			v.msgLabel.text = edu.certificate;
 			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);

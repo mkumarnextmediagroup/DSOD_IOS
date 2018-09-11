@@ -7,206 +7,158 @@
 //
 
 #import "EditResidencyViewController.h"
-#import "CommSelectTableViewCell.h"
-#import "UpdateViewController.h"
-#import "PickerViewController.h"
 #import "Residency.h"
 #import "Proto.h"
+#import "TitleMsgArrowView.h"
+#import "FromToView.h"
+#import "SearchPage.h"
+#import "PickerPage.h"
 
-@interface EditResidencyViewController ()<UITableViewDelegate,UITableViewDataSource>
-{
-    UITableView *myTable;
-    NSString    *selectStr;//picker select the string
-    NSString    *pageSelect;//back return the select
+
+@implementation EditResidencyViewController {
+	TitleMsgArrowView *resView;
+	FromToView *fromToView;
+	NSInteger fromMonth;
+	NSInteger fromYear;
+	NSInteger toMonth;
+	NSInteger toYear;
 }
-@end
 
-@implementation EditResidencyViewController
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [myTable reloadData];
-    
-}
 - (void)viewDidLoad {
+	[super viewDidLoad];
 
-    [super viewDidLoad];
-    
-    UINavigationItem *item = self.navigationItem;
-    item.rightBarButtonItem = [self navBarText:@"SAVE" target: self  action:@selector(saveBtnClick:)];
-	item.leftBarButtonItem = [self navBarImage:@"back_arrow" target: self action:@selector(back)];
-    
-    myTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    myTable.backgroundColor = UIColor.whiteColor;
-    myTable.delegate = self;
-    myTable.dataSource = self;
-    myTable.tableFooterView =  [[UIView alloc] init];
-    myTable.separatorInset =UIEdgeInsetsZero;
-    [self.view addSubview:myTable];
-    [[[[[myTable.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
+	if (self.residency == nil) {
+		self.residency = [Residency new];
+	}
+	fromMonth = self.residency.fromMonth;
+	fromYear = self.residency.fromYear;
+	toMonth = self.residency.toMonth;
+	toYear = self.residency.toYear;
 
-    UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [editBtn setTitleColor:Colors.textDisabled forState:UIControlStateNormal];
-    if ([self.addOrEdit isEqualToString:@"add"]) {
-        item.title = localStr(@"addRes");
-        [editBtn setTitle:@"Cancel" forState:UIControlStateNormal];
+	UINavigationItem *item = self.navigationItem;
+	item.rightBarButtonItem = [self navBarText:@"Save" target:self action:@selector(saveBtnClick:)];
+	item.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
+	if (self.isAdd) {
+		item.title = @"ADD RESIDENCY";
+	} else {
+		item.title = @"EDIT RESIDENCY";
+	}
 
-    }else
-    {
-        item.title = localStr(@"editRes");
-        [editBtn setTitle:localStr(@"delRes") forState:UIControlStateNormal];
-        pageSelect = self.residency.place;
-        selectStr = self.residency.dateTo;
-    }
 
-    
-    
-    [editBtn addTarget:self action:@selector(editBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [editBtn.titleLabel setFont:[Fonts semiBold:15]];
-    [self.view addSubview:editBtn];
-    [[[editBtn.layoutMaker sizeEq:SCREENWIDTH h:40] bottomParent:-20] install];
-    
-    // Do any additional setup after loading the view.
+	resView = [TitleMsgArrowView new];
+	resView.titleLabel.text = @"Residency at";
+	resView.msgLabel.text = @"Select";
+	[resView onClickView:self action:@selector(clickResidency:)];
+	[self.contentView addSubview:resView];
+
+	fromToView = [FromToView new];
+	[self.contentView addSubview:fromToView];
+	[fromToView.fromDateLabel onClickView:self action:@selector(clickFromDate:)];
+	[fromToView.toDateLabel onClickView:self action:@selector(clickToDate:)];
+
+
+	[self layoutLinearVertical];
+	[self bindData];
+
+
+	UIButton *editBtn = [self.view addSmallButton];
+	if (self.isAdd) {
+		[editBtn setTitle:@"Cancel" forState:UIControlStateNormal];
+		[editBtn onClick:self action:@selector(clickBack:)];
+	} else {
+		[editBtn setTitle:@"Delete Residency" forState:UIControlStateNormal];
+		[editBtn onClick:self action:@selector(clickDelete:)];
+	}
+	[self.view addSubview:editBtn];
+	[[[[editBtn.layoutMaker sizeEq:160 h:BTN_HEIGHT] bottomParent:-20] centerXParent:0] install];
 }
 
-#pragma mark UITableViewDelegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 76;
+- (void)bindData {
+	if (fromMonth > 0 && fromYear > 0) {
+		fromToView.fromDateLabel.text = strBuild(nameOfMonth(fromMonth), @" ", [@(fromYear) description]);
+	} else {
+		fromToView.fromDateLabel.text = @"Select";
+	}
+	if (toMonth > 0 && toYear > 0) {
+		fromToView.toDateLabel.text = strBuild(nameOfMonth(toMonth), @" ", [@(toYear) description]);
+	} else {
+		fromToView.toDateLabel.text = @"Select";
+	}
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 2;
+- (void)clickFromDate:(id)sender {
+	PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1930];
+	p.preSelectData = @[@(fromMonth), @(fromYear)];
+	p.resultCallback = ^(NSArray *result) {
+		Log(result);
+		NSNumber *num1 = result[0];
+		fromMonth = num1.integerValue;
+		NSNumber *num2 = result[1];
+		fromYear = num2.integerValue;
+		[self bindData];
+
+	};
+	[self presentViewController:p animated:YES completion:nil];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)clickToDate:(id)sender {
+	PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1930];
+	p.preSelectData = @[@(toMonth), @(toYear)];
+	p.resultCallback = ^(NSArray *result) {
+		Log(result);
+		NSNumber *num1 = result[0];
+		toMonth = num1.integerValue;
+		NSNumber *num2 = result[1];
+		toYear = num2.integerValue;
+		[self bindData];
 
-    static NSString *brand_region_Cell = @"commCell";
-    
-    CommSelectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:brand_region_Cell];
-    
-    if (cell == nil) {
-        cell = [[CommSelectTableViewCell alloc]
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:brand_region_Cell];
-    }
-    
-    if (indexPath.row == 0)
-    {
-        cell.titleLab.text = @"Residency at";
-        if (pageSelect != nil) {
-            cell.contentLab.text = pageSelect;
-        }
-    }
-    else
-    {
-        cell.titleLab.text = @"Year of completion";
-        if (selectStr != nil) {
-            cell.contentLab.text = selectStr;
-        }
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-    
+	};
+	[self presentViewController:p animated:YES completion:nil];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row == 0) {
-        UpdateViewController *update = [UpdateViewController new];
-        update.titleStr=@"Residency at";
-        update.selctBtnClickBlock = ^(NSString *selectStr){
-            self->pageSelect = selectStr;
-        };
-        update.selectStr = pageSelect;
-        [self.navigationController pushViewController:update animated:YES];
-    }else if (indexPath.row == 1)
-    {
-        PickerViewController *picker = [[PickerViewController alloc] init];
-        picker.infoArr = [NSArray arrayWithObjects:@"2013",@"2014", @"2015",@"2016",@"2017",@"2018",nil];
-        picker.pickerSelectBlock = ^(NSString *pickerSelect){
-            self->selectStr = pickerSelect;
-            [self->myTable reloadData];
-        };
-        picker.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-        picker.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        picker.providesPresentationContextTransitionStyle = YES;
-        picker.definesPresentationContext = YES;
-        [self presentViewController:picker animated:YES completion:nil];
-        [picker showPicker];
-        
-    }
+- (void)clickResidency:(id)sender {
+	SearchPage *p = [SearchPage new];
+	p.checkedItem = self.residency.place;
+	p.titleText = @"RESIDENCY AT";
+	NSArray *ls = [Proto listResidency];
+	[p setItemsPlain:ls displayBlock:nil];
+
+	p.onResult = ^(NSObject *item) {
+		resView.msgLabel.text = (NSString *) item;
+	};
+	[self pushPage:p];
 }
 
-- (void)editBtnClick:(UIButton *)btn
-{
-    if ([btn.currentTitle isEqualToString:@"Cancel"])//this funcation is the same as back
-    {
-        [self back];
-    }else
-    {
-        [self Den_showAlertWithTitle:localStr(@"delRes") message:localStr(@"sureDeleteRes") appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
-            alertMaker.
-            addActionCancelTitle(@"Cancel").
-            addActionDefaultTitle(@"Yes");
-        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
-            if ([action.title isEqualToString:@"Cancel"]) {
-                NSLog(@"Cancel");
-            } else if ([action.title isEqualToString:@"Yes"]) {
-                NSLog(@"Yes");
-                
-            }
-            
-        }];
-    }
+- (void)clickDelete:(UIButton *)btn {
+	Confirm *d = [Confirm new];
+	d.title = @"Delete Residency";
+	d.msg = @"Are you sure you want to delete this residency?";
+	d.okText = @"Yes";
+
+	[d show:self onOK:^() {
+		self.deleteCallback(self.residency);
+		[self popPage];
+	}];
 }
 
-- (void)back
-{
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)clickBack:(id)sender {
+	[self popPage];
 }
 
-- (void)saveBtnClick:(UIButton *)btn
-{
-    
-    if (pageSelect != nil && selectStr != nil) {
-        
-        NSLog(@"save");
-        self.residency.place = pageSelect;
-        self.residency.dateTo = [NSString stringWithFormat:@"March %@",selectStr];
-        if ([self.addOrEdit isEqualToString:@"add"]) {
-            [Proto addResidency:[Proto lastAccount] residency:self.residency];
-        }else
-        {
-            [Proto saveResidency:[Proto lastAccount] index:self.updateIndex residency:self.residency];
-        }
-        
-        [self Den_showAlertWithTitle:@"Saved Successfully" message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
-            alertMaker.
-            addActionDefaultTitle(@"Okey");
-        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
-            
-        }];
-    }
+- (void)saveBtnClick:(UIButton *)btn {
+	self.residency.place = resView.msgLabel.text;
+	self.residency.fromMonth = fromMonth;
+	self.residency.fromYear = fromYear;
+	self.residency.toMonth = toMonth;
+	self.residency.toYear = toYear;
+
+	self.saveCallback(self.residency);
+
+	[self alertMsg:@"Saved Successfullly" onOK:^() {
+		[self popPage];
+	}];
+
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

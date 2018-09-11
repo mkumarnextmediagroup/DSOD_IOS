@@ -11,6 +11,22 @@
 @implementation Proto {
 	NSString *SERVER;
 }
++ (NSArray *)listResidency {
+	return @[
+			@"Creighton University School of Dentistry",
+			@"Howard University College of Dentistry",
+			@"Indiana University School of Dentistry",
+			@"LECOM College of Dental Medicine",
+			@"Marquette University School of Dentistry",
+			@"Meharry Medical College School of Dentistry",
+			@"Missouri School of Dentistry and Oral Health",
+			@"New York University College of Dentistry",
+			@"Ohio State University College of Dentistry",
+			@"Rutgers School of Dental Medicine",
+			@"Texas A&M University College of Dentistry",
+			@"University of Kentucky College of Dentistry",
+	];
+}
 
 + (NSArray *)listStates {
 	return @[
@@ -158,10 +174,10 @@
 }
 
 + (UserInfo *)userInfo:(nonnull NSString *)email {
-//	NSString *json = [self userInfoLocal:email];
-//	if (json != nil) {
-//		return [[UserInfo alloc] initWithJson:json];
-//	}
+	NSString *json = [self userInfoLocal:email];
+	if (json != nil) {
+		return [[UserInfo alloc] initWithJson:json];
+	}
 
 	UserInfo *ui = [UserInfo alloc];
 	ui.email = email;
@@ -184,13 +200,17 @@
 	Education *edu = [Education new];
 	edu.schoolName = @"Peiking University";
 	edu.certificate = @"Doctor of Dental Surgery";
-	edu.dateFrom = @"Sep 2006";
-	edu.dateTo = @"July 2011";
+	edu.fromMonth = 7;
+	edu.fromYear = 2015;
+	edu.toMonth = 1;
+	edu.toYear = 2017;
 	Education *edu2 = [Education new];
 	edu2.schoolName = @"Tsinghua University";
 	edu.certificate = @"Doctor of Dental Surgery";
-	edu2.dateFrom = @"Sep 2006";
-	edu2.dateTo = @"July 2011";
+	edu2.fromMonth = 7;
+	edu2.fromYear = 2015;
+	edu2.toMonth = 1;
+	edu2.toYear = 2017;
 	ui.educationArray = @[edu, edu2];
 
 	Experience *exp = [Experience new];
@@ -214,8 +234,10 @@
 
 	Residency *r = [Residency new];
 	r.place = @"Boston Hospital";
-	r.dateFrom = @"Sep 2011";
-	r.dateTo = @"March 2013";
+	r.fromMonth = 7;
+	r.fromYear = 2015;
+	r.toMonth = 1;
+	r.toYear = 2017;
 
 	ui.residencyArray = @[r];
 
@@ -254,6 +276,12 @@
 
 + (UserInfo *)lastUserInfo {
 	return [self userInfo:[self lastAccount]];
+}
+
++ (void)saveLastUserInfo:(UserInfo *)info {
+	NSString *s = [info toJSONString];
+	NSUserDefaults *d = userConfig([self lastAccount]);
+	[d setObject:s forKey:@"userInfo"];
 }
 
 + (BOOL)isLogined {

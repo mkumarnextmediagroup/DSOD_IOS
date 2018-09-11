@@ -299,4 +299,12 @@ static char styleAttr = 0;
 }
 
 
+- (void)removeAllChildren {
+	NSArray *arr = self.subviews;
+	for (UIView *v in arr) {
+		[v removeFromSuperview];
+	}
+}
+
+
 @end

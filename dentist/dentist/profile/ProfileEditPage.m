@@ -48,9 +48,9 @@
 	userInfo = [Proto lastUserInfo];
 
 	UINavigationItem *item = self.navigationItem;
-	item.title = localStr(@"editPractice");
+	item.title = @"EDIT PROFILE";
 	item.rightBarButtonItem = [self navBarText:@"SAVE" target:self action:@selector(onSave:)];
-	item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(onBack:)];
+	item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
 
 
 	userInfo = [Proto lastUserInfo];
@@ -246,6 +246,8 @@
 			if (r.dentalName == nil || r.dentalName.length == 0) {
 				v.imageView.imageName = @"exp";
 				[v showEmpty:@"No experience added yet."];
+			} else {
+				[v hideEmpty];
 			}
 		}
 	}
@@ -255,6 +257,11 @@
 			IconTitleMsgDetailCell *v = residencyViews[i];
 			v.msgLabel.text = r.place;
 			v.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
+			if (r.place == nil || r.place.length == 0) {
+				[v showEmpty:@"No residency added yet"];
+			} else {
+				[v hideEmpty];
+			}
 		}
 	}
 	if (userInfo.educationArray != nil) {
@@ -264,6 +271,11 @@
 			v.titleLabel.text = edu.schoolName;
 			v.msgLabel.text = edu.certificate;
 			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
+			if (edu.schoolName == nil || edu.schoolName.length == 0) {
+				[v showEmpty:@"No education added yet"];
+			} else {
+				[v hideEmpty];
+			}
 		}
 	}
 	phoneView.edit.text = userInfo.phone;
@@ -347,21 +359,100 @@
 
 }
 
+- (void)clickResidency:(IconTitleMsgDetailCell *)sender {
+	int n = sender.argN;
+	Residency *r = userInfo.residencyArray[n];
+	EditResidencyViewController *editRes = [EditResidencyViewController new];
+	editRes.isAdd = NO;
+	editRes.residency = r;
+
+	editRes.saveCallback = ^(Residency *r) {
+		[self saveResidency:r];
+	};
+
+	editRes.deleteCallback = ^(Residency *r) {
+		[self deleteResidency:r];
+	};
+
+	[self pushPage:editRes];
+}
+
 - (void)clickAddResidency:(id)sender {
 	NSLog(@"click add residency");
 
 	EditResidencyViewController *editRes = [EditResidencyViewController new];
-	editRes.addOrEdit = @"add";
-//    editRes.residency = r;
-	[self pushPage:editRes];
+	editRes.isAdd = YES;
+	editRes.saveCallback = ^(Residency *r) {
+		[self saveResidency:r];
+	};
 
+	[self pushPage:editRes];
+}
+
+- (void)deleteResidency:(Residency *)r {
+	NSMutableArray *a = [NSMutableArray arrayWithArray:userInfo.residencyArray];
+	[a removeObject:r];
+	if (a.count == 0) {
+		[a addObject:[Residency new]];
+	}
+	userInfo.residencyArray = a;
+	[self buildViews];
+	[self bindData];
+}
+
+- (void)saveResidency:(Residency *)r {
+	NSMutableArray *ar = [NSMutableArray arrayWithArray:userInfo.residencyArray];
+	if (![ar containsObject:r]) {
+		[ar addObject:r];
+		userInfo.residencyArray = ar;
+	}
+	[self buildViews];
+	[self bindData];
+}
+
+- (void)saveEducation:(Education *)e {
+	NSMutableArray *ar = [NSMutableArray arrayWithArray:userInfo.educationArray];
+	if (![ar containsObject:e]) {
+		[ar addObject:e];
+		userInfo.educationArray = ar;
+	}
+	[self buildViews];
+	[self bindData];
+}
+
+- (void)deleteEducation:(Education *)e {
+	NSMutableArray *a = [NSMutableArray arrayWithArray:userInfo.educationArray];
+	[a removeObject:e];
+	if (a.count == 0) {
+		[a addObject:[Education new]];
+	}
+	userInfo.educationArray = a;
+	[self buildViews];
+	[self bindData];
 }
 
 - (void)clickAddEducation:(id)sender {
-	NSLog(@"click add education");
-	EditEduViewController *editRes = [EditEduViewController new];
-	editRes.addOrEdit = @"add";
-	[self pushPage:editRes];
+	EditEduViewController *p = [EditEduViewController new];
+	p.isAdd = YES;
+	p.saveCallback = ^(Education *e) {
+		[self saveEducation:e];
+	};
+	[self pushPage:p];
+}
+
+- (void)clickEdu:(IconTitleMsgDetailCell *)sender {
+	NSInteger n = sender.argN;
+	Education *education = userInfo.educationArray[n];
+	EditEduViewController *p = [EditEduViewController new];
+	p.education = education;
+	p.isAdd = NO;
+	p.saveCallback = ^(Education *e) {
+		[self saveEducation:e];
+	};
+	p.deleteCallback = ^(Education *e) {
+		[self deleteEducation:e];
+	};
+	[self pushPage:p];
 }
 
 - (void)clickPraticeAddress:(id)sender {
@@ -375,29 +466,15 @@
 }
 
 
-- (void)clickResidency:(IconTitleMsgDetailCell *)sender {
-	int n = sender.argN;
-	Residency *r = userInfo.residencyArray[n];
-	EditResidencyViewController *editRes = [EditResidencyViewController new];
-	editRes.addOrEdit = @"edit";
-	editRes.updateIndex = n;
-	editRes.residency = r;
-	[self pushPage:editRes];
-}
-
-- (void)clickEdu:(IconTitleMsgDetailCell *)sender {
-	NSInteger n = sender.argN;
-	EditEduViewController *editRes = [EditEduViewController new];
-	editRes.addOrEdit = @"edit";
-	editRes.education = userInfo.educationArray[n];
-	[self pushPage:editRes];
-}
-
 - (void)onBack:(id)sender {
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)onSave:(id)sender {
+	[Proto saveLastUserInfo:userInfo];
+	[self alertMsg:@"Saved successfully" onOK:^() {
+		[self popPage];
+	}];
 }
 
 - (void)editPortrait:(id)sender {

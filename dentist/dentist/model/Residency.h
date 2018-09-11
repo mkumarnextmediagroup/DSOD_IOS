@@ -11,7 +11,15 @@
 @interface Residency : JSONModel
 
 @property(nullable) NSString <Optional> *place;
-@property(nullable) NSString <Optional> *dateFrom;
-@property(nullable) NSString <Optional> *dateTo;
+
+@property NSInteger fromMonth;
+@property NSInteger fromYear;
+@property NSInteger toMonth;
+@property NSInteger toYear;
+
+
+
+-(NSString*) dateFrom;
+-(NSString*) dateTo;
 
 @end

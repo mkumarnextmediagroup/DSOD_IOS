@@ -13,11 +13,17 @@
 
 @property NSString <Optional> *schoolName;
 @property NSString <Optional> *certificate;
-@property(nullable) NSString <Optional> *dateFrom;
-@property(nullable) NSString <Optional> *dateTo;
-@property BOOL attendDentalSchoolInUS;
+@property BOOL schoolInUS;
+
+@property NSInteger fromMonth;
+@property NSInteger fromYear;
+@property NSInteger toMonth;
+@property NSInteger toYear;
 
 
+- (NSString *)dateFrom;
+
+- (NSString *)dateTo;
 
 
 @end

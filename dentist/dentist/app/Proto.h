@@ -47,6 +47,8 @@
 
 + (UserInfo *)savePractice:(nonnull NSString *)email address:(Address *)address;
 
++ (void)saveLastUserInfo:(UserInfo *)info;
+
 + (UserInfo *)lastUserInfo;
 
 + (NSArray *)listSpeciality;
@@ -58,4 +60,6 @@
 + (NSArray *)listDentalNames;
 
 + (NSArray *)listStates;
+
++ (NSArray *)listResidency;
 @end

@@ -19,4 +19,7 @@
 
 @property(nonnull) Experience *exp;
 
+@property void (^deleteCallback)(Experience *exp);
+@property void (^saveCallback)(Experience *exp);
+
 @end

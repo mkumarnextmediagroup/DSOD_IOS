@@ -17,9 +17,6 @@
 
 @interface ProfileViewController (){
 	UserInfo *userInfo;
-    NSMutableArray<IconTitleMsgDetailCell * > *expViews;
-    NSMutableArray<IconTitleMsgDetailCell * > *residencyViews;
-    NSMutableArray<IconTitleMsgDetailCell * > *eduViews;
 }
 
 @end
@@ -42,9 +39,6 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    expViews = [NSMutableArray arrayWithCapacity:4];
-    residencyViews = [NSMutableArray arrayWithCapacity:4];
-    eduViews = [NSMutableArray arrayWithCapacity:4];
     
 	UINavigationItem *item = self.navigationItem;
 	item.title = @"PROFILE";
@@ -75,10 +69,6 @@
             [v removeFromSuperview];
         }
     }
-    
-    [expViews removeAllObjects];
-    [residencyViews removeAllObjects];
-    [eduViews removeAllObjects];
     
 	UserCell *userCell = [UserCell new];
 	userCell.imageView.imageName = @"user_img";
@@ -116,7 +106,6 @@
 				expView.detailLabel.text = strBuild(exp.dateFrom, @"-", exp.dateTo);
 			}
 			[self.contentView addSubview:expView];
-            [expViews addObject:expView];
 			if (i == userInfo.experienceArray.count - 1) {
 				[self addGrayLine:0 marginRight:0];
 			} else {
@@ -143,7 +132,6 @@
 			residView.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
 		}
 		[self.contentView addSubview:residView];
-        [residencyViews addObject:residView];
 		if (i == userInfo.residencyArray.count - 1) {
 			[self addGrayLine:0 marginRight:0];
 		} else {
@@ -169,7 +157,6 @@
 			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
 		}
 		[self.contentView addSubview:v];
-        [eduViews addObject:v];
 		if (i == userInfo.educationArray.count - 1) {
 			[self addGrayLine:0 marginRight:0];
 		} else {

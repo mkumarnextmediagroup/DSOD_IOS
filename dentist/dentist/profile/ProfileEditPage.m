@@ -75,7 +75,7 @@
 
 	userView = [EditUserView new];
 	userView.layoutParam.height = 200;
-    [userView.headerImg loadUrl:userInfo.portraitUrl placeholderImage:@"headerImage"];
+    userView.avatarUrl=userInfo.portraitUrl;
 	[userView.editBtn onClick:self action:@selector(editPortrait:)];
 	[self.contentView addSubview:userView];
 

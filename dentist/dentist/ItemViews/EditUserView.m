@@ -24,9 +24,9 @@
 	[[[[noticeLab.layoutMaker sizeEq:100 h:20] topParent:22] centerXParent:0] install];
 
 	_headerImg = [UIImageView new];
-	_headerImg.imageName = @"headerImage";
-	[_headerImg sd_setImageWithURL:[NSURL URLWithString:@""]
-	              placeholderImage:[UIImage imageNamed:@"default_avatar"]];
+//    _headerImg.imageName = @"headerImage";
+//    [_headerImg sd_setImageWithURL:[NSURL URLWithString:@""]
+//                  placeholderImage:[UIImage imageNamed:@"default_avatar"]];
 	[self addSubview:_headerImg];
 	[[[[_headerImg.layoutMaker sizeEq:115 h:115] topParent:44] centerXParent:0] install];
 

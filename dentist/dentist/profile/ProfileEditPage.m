@@ -198,11 +198,15 @@
 
 	phoneView = [TitleEditView new];
 	phoneView.label.text = @"Mobile number";
+	phoneView.edit.delegate = self;
+	[phoneView.edit returnDone];
 	[self.contentView addSubview:phoneView];
 	[self addGrayLine:0 marginRight:0];
 
 	emailView = [TitleEditView new];
 	emailView.label.text = @"Preferred email address";
+	emailView.edit.delegate = self;
+	[emailView.edit returnDone];
 	[self.contentView addSubview:emailView];
 	[self addGrayLine:0 marginRight:0];
 

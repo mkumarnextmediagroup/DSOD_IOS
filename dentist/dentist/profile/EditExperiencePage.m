@@ -79,7 +79,8 @@
 
 
 	roleView = [TitleMsgArrowView new];
-	roleView.titleLabel.text = @"Role at Practice";
+//    roleView.titleLabel.text = @"Role at Practice";
+    [roleView.titleLabel setTextWithDifColor:@"Role at Practice *"];
 	if (self.isAdd) {
 		roleView.msgLabel.text = @"Select";
 	} else {
@@ -90,7 +91,8 @@
 	[self addGrayLine:0 marginRight:0];
 
 	dentalView = [TitleMsgArrowView new];
-	dentalView.titleLabel.text = @"Name of Dental Support Organization (DSO)";
+//    dentalView.titleLabel.text = @"Name of Dental Support Organization (DSO)";
+    [dentalView.titleLabel setTextWithDifColor:@"Name of Dental Support Organization (DSO) *"];
 	if (self.isAdd) {
 		dentalView.msgLabel.text = @"Select";
 	} else {

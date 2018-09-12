@@ -11,6 +11,14 @@
 
 }
 
++ (UIColor *)starColor {
+    static UIColor *_c = nil;
+    if (_c == nil) {
+        _c = rgb255(66, 107, 242);
+    }
+    return _c;
+}
+
 + (UIColor *)cellLineColor {
     static UIColor *_c = nil;
     if (_c == nil) {

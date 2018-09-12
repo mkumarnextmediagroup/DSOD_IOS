@@ -8,6 +8,7 @@
 
 @interface Colors : NSObject
 
+@property(class, nonatomic, readonly) UIColor *starColor;
 @property(class, nonatomic, readonly) UIColor *bgNavBarColor;
 @property(class, nonatomic, readonly) UIColor *primary;
 @property(class, nonatomic, readonly) UIColor *secondary;

@@ -104,6 +104,17 @@
 	[self textColorAlternate];
 }
 
+- (void)setTextWithDifColor:(NSString *)text
+{
+    NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:text];
+    NSRange redRange = NSMakeRange([[noteStr string] rangeOfString:@"*"].location, [[noteStr string] rangeOfString:@"*"].length);
+    //the location need to set
+    [noteStr addAttribute:NSForegroundColorAttributeName value:Colors.starColor range:redRange];
+    //set color
+    [self setAttributedText:noteStr];
+
+}
+
 - (void)itemPrimaryStyle {
 	self.font = [Fonts regular:15];
 	[self textColorBlack];

@@ -123,7 +123,7 @@
     NSArray *monthArr = [NSArray arrayWithObjects:@"Jaunary",@"February",@"March",@"April",@"May",@"June",@"July",@"August",@"September",@"October",@"November",@"December", nil];
 	NSMutableArray *yearArr = [NSMutableArray arrayWithCapacity:60];
 
-	NSInteger yearNow = [[NSDate date] year];
+	NSInteger yearNow = 2026;
 	for (NSInteger n = yearNow; n >= yearTo; --n) {
 		[yearArr addObject:@(n)];
 	}

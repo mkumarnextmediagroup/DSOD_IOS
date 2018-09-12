@@ -215,9 +215,9 @@
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];
-		fromMonth = num1.integerValue;
+        self->fromMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
-		fromYear = num2.integerValue;
+        self->fromYear = num2.integerValue;
 		[self bindData];
 
 	};
@@ -230,9 +230,9 @@
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];
-		toMonth = num1.integerValue;
+        self->toMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
-		toYear = num2.integerValue;
+        self->toYear = num2.integerValue;
 		[self bindData];
 
 	};

@@ -33,8 +33,7 @@
 
 	picker.delegate = self;
 	picker.dataSource = self;
-
-
+    
 	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackground)];
 	[self.view addGestureRecognizer:tap];
 
@@ -80,7 +79,7 @@
 }
 
 - (nullable NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-	NSObject *item = self.data[(NSUInteger) component][(NSUInteger) row];
+	NSObject *item = self.showArr[(NSUInteger) component][(NSUInteger) row];
 	if (self.displayBlock) {
 		return self.displayBlock(item);
 	}
@@ -97,7 +96,7 @@
 		self.resultCallback(result);
 	}
 	[UIView animateWithDuration:.2 animations:^{
-		picker.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, 216);
+        self->picker.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, 216);
 	}                completion:^(BOOL finished) {
 		[self dismissViewControllerAnimated:YES completion:nil];
 	}];
@@ -107,18 +106,21 @@
 + (PickerPage *)pickYearMonth:(NSInteger)yearFrom yearTo:(NSInteger)yearTo {
 	PickerPage *p = [PickerPage new];
 	NSArray *mArr = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12];
+    NSArray *monthArr = [NSArray arrayWithObjects:@"Jaunary",@"February",@"March",@"April",@"May",@"June",@"July",@"August",@"September",@"October",@"November",@"December", nil];
+
 	NSMutableArray *yearArr = [NSMutableArray arrayWithCapacity:60];
 	for (NSInteger n = yearFrom; n <= yearTo; ++n) {
 		[yearArr addObject:@(n)];
 	}
 	p.data = @[mArr, yearArr];
-
+    p.showArr = @[monthArr,yearArr];
 	return p;
 }
 
 + (PickerPage *)pickYearMonthFromNowDownTo:(NSInteger)yearTo {
 	PickerPage *p = [PickerPage new];
 	NSArray *mArr = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12];
+    NSArray *monthArr = [NSArray arrayWithObjects:@"Jaunary",@"February",@"March",@"April",@"May",@"June",@"July",@"August",@"September",@"October",@"November",@"December", nil];
 	NSMutableArray *yearArr = [NSMutableArray arrayWithCapacity:60];
 
 	NSInteger yearNow = [[NSDate date] year];
@@ -126,7 +128,7 @@
 		[yearArr addObject:@(n)];
 	}
 	p.data = @[mArr, yearArr];
-
+    p.showArr = @[monthArr,yearArr];
 	return p;
 }
 

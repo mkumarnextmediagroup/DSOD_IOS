@@ -10,13 +10,14 @@
 
 @property(nonnull) NSArray<NSArray *> *data;
 @property(nullable) NSArray *preSelectData;
+@property(nonnull) NSArray<NSArray *> *showArr;
 
-@property(nullable) void (^resultCallback)(NSArray *columns);
-@property(nullable) NSString *(^displayBlock)(NSObject *item);
+@property(nullable) void (^resultCallback)(NSArray * _Nullable columns);
+@property(nullable) NSString *_Nullable(^displayBlock)(NSObject * _Nullable item);
 
 
-+ (PickerPage *)pickYearMonth:(NSInteger)yearFrom yearTo:(NSInteger)yearTo;
++ (PickerPage *_Nullable)pickYearMonth:(NSInteger)yearFrom yearTo:(NSInteger)yearTo;
 
-+ (PickerPage *)pickYearMonthFromNowDownTo:(NSInteger)yearTo;
++ (PickerPage *_Nullable)pickYearMonthFromNowDownTo:(NSInteger)yearTo;
 
 @end

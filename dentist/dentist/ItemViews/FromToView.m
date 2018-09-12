@@ -30,9 +30,9 @@
 	[_fromDateLabel itemPrimaryStyle];
 	[_toDateLabel itemPrimaryStyle];
 
-	fromLabel.text = @"From";
-	toLabel.text = @"To";
-
+    [fromLabel setTextWithDifColor:@"From *"];
+    [toLabel setTextWithDifColor:@"To *"];
+    
 	_fromDateLabel.text = @"Select";
 	_toDateLabel.text = @"Select";
 

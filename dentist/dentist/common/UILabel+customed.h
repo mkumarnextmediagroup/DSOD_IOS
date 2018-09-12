@@ -36,6 +36,8 @@
 
 - (void)wordSpace:(CGFloat)f;
 
+- (void)setTextWithDifColor:(NSString *)text;//set different color
+
 - (void)itemTitleStyle;
 
 - (void)itemPrimaryStyle;

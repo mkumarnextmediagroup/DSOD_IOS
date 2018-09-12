@@ -81,7 +81,17 @@
 }
 
 - (void)clickBack:(id)sender {
-	[self popPage];
+    
+    [self Den_showAlertWithTitle:nil message:localStr(@"delAndBack") appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+        alertMaker.
+        addActionCancelTitle(@"Cancel").
+        addActionDefaultTitle(@"Yes");
+    } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+        if ([action.title isEqualToString:@"Yes"]) {
+            [self popPage];
+        }
+    }];
+    
 }
 
 - (void)clickCancel:(UIButton *)btn {

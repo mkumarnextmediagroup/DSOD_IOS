@@ -49,7 +49,6 @@
 		4E846F77213E7AED00DC2B51 /* arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F75213E7AEC00DC2B51 /* arrow@3x.png */; };
 		4E846F7A213E84E900DC2B51 /* write@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F78213E84E900DC2B51 /* write@2x.png */; };
 		4E846F7B213E84E900DC2B51 /* write@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F79213E84E900DC2B51 /* write@3x.png */; };
-		4E846F7E213EB16200DC2B51 /* CustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F7D213EB16200DC2B51 /* CustomPicker.m */; };
 		4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F80213F70A200DC2B51 /* PickerViewController.m */; };
 		4E846F8B213FC57A00DC2B51 /* headerImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8A213FC57A00DC2B51 /* headerImage@2x.png */; };
 		4E846F8E213FCB8D00DC2B51 /* edit_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F8C213FCB8C00DC2B51 /* edit_photo@3x.png */; };
@@ -478,8 +477,6 @@
 		4E846F75213E7AEC00DC2B51 /* arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@3x.png"; sourceTree = "<group>"; };
 		4E846F78213E84E900DC2B51 /* write@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "write@2x.png"; sourceTree = "<group>"; };
 		4E846F79213E84E900DC2B51 /* write@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "write@3x.png"; sourceTree = "<group>"; };
-		4E846F7C213EB16200DC2B51 /* CustomPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomPicker.h; sourceTree = "<group>"; };
-		4E846F7D213EB16200DC2B51 /* CustomPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomPicker.m; sourceTree = "<group>"; };
 		4E846F7F213F70A200DC2B51 /* PickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		4E846F80213F70A200DC2B51 /* PickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
 		4E846F8A213FC57A00DC2B51 /* headerImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headerImage@2x.png"; sourceTree = "<group>"; };
@@ -1053,8 +1050,6 @@
 				4E846F6F213E619100DC2B51 /* SwitchTableViewCell.m */,
 				4E846F71213E781100DC2B51 /* CommSelectTableViewCell.h */,
 				4E846F72213E781100DC2B51 /* CommSelectTableViewCell.m */,
-				4E846F7C213EB16200DC2B51 /* CustomPicker.h */,
-				4E846F7D213EB16200DC2B51 /* CustomPicker.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2066,7 +2061,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E846F7E213EB16200DC2B51 /* CustomPicker.m in Sources */,
 				4E1957492137D0F100420563 /* LinkedInConnectionHandler.m in Sources */,
 				4EBCE6C5212D0AED00A0672D /* ContactTableViewCell.m in Sources */,
 				E11E10BD74EC149921ADD708 /* LoginController.m in Sources */,

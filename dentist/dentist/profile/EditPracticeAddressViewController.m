@@ -120,7 +120,14 @@
 	[p setItemsPlain:ls displayBlock:nil];
 
 	p.onResult = ^(NSObject *item) {
-		stateView.msgLabel.text = (NSString *) item;
+//        stateView.msgLabel.text = (NSString *) item;
+        NSString *currentState = (NSString *) item;
+        NSArray *shLs = [Proto shortStates];
+        for (int i = 0; i < ls.count; i++) {
+            if ([ls[i] isEqualToString:currentState]) {
+                self->stateView.msgLabel.text = shLs[i];
+            }
+        }
 	};
 	[self pushPage:p];
 

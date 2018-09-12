@@ -61,5 +61,7 @@
 
 + (NSArray *)listStates;
 
++ (NSArray *)shortStates;
+
 + (NSArray *)listResidency;
 @end

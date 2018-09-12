@@ -26,6 +26,6 @@
 - (BOOL)isOwnerDentist;
 
 
--(NSString*) dateFrom;
--(NSString*) dateTo;
+-(NSString*_Nullable) dateFrom;
+-(NSString*_Nullable) dateTo;
 @end

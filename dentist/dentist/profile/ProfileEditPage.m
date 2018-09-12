@@ -435,6 +435,14 @@
 	[self bindData];
 }
 
+- (NSMutableArray *)sortArrayByTime:(NSMutableArray *)compArr
+{
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"toYear" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    
+    return [compArr sortedArrayUsingDescriptors:sortDescriptors];
+}
+
 - (void)clickAddEducation:(id)sender {
 	EditEduViewController *p = [EditEduViewController new];
 	p.isAdd = YES;

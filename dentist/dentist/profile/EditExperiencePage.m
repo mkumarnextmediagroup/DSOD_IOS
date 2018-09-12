@@ -211,6 +211,12 @@
 
 - (void)onSwitchChanged:(id)sender {
 	workInThisRole = switchView.switchView.on;
+    if (workInThisRole) {
+        fromToView.toDateLabel.text = @"Present";
+    }else
+    {
+        [self bindData];
+    }
 }
 
 - (void)bindData {

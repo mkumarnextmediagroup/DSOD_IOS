@@ -206,10 +206,10 @@
 	edu.toYear = 2017;
 	Education *edu2 = [Education new];
 	edu2.schoolName = @"Tsinghua University";
-	edu.certificate = @"Doctor of Dental Surgery";
+	edu2.certificate = @"Doctor of Dental Surgery";
 	edu2.fromMonth = 7;
 	edu2.fromYear = 2015;
-	edu2.toMonth = 1;
+	edu2.toMonth = 2;
 	edu2.toYear = 2017;
 	ui.educationArray = @[edu, edu2];
 

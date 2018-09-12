@@ -33,7 +33,6 @@
 	UINavigationItem *navItem = self.navigationItem;
 	navItem.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
 	navItem.title = self.titleText;
-	navItem.rightBarButtonItem = [self navBarText:localStr(@"ok") target:self action:@selector(onClickOK:)];
 
 	searchEdit = [self.view addEditSearch];
 	searchEdit.delegate = self;
@@ -45,15 +44,15 @@
 
 }
 
-- (void)onClickOK:(id)sender {
-	if (self.checkedItem == nil) {
-		return;
-	}
-	if (self.onResult != nil) {
-		[self popPage];
-		self.onResult(self.checkedItem);
-	}
-}
+//- (void)onClickOK:(id)sender {
+//    if (self.checkedItem == nil) {
+//        return;
+//    }
+//    if (self.onResult != nil) {
+//        [self popPage];
+//        self.onResult(self.checkedItem);
+//    }
+//}
 
 - (void)onTextFieldDone:(UITextField *)textField {
 	NSString *s = textField.textTrimed;
@@ -91,6 +90,11 @@
 	NSLog(@"click item %@", item);
 	self.checkedItem = item;
 	[self.table reloadData];
+    
+    if (self.onResult != nil) {
+        [self popPage];
+        self.onResult(self.checkedItem);
+    }
 }
 
 @end

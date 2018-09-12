@@ -346,7 +346,7 @@
 	if (![a containsObject:e]) {
 		[a addObject:e];
 	}
-	userInfo.experienceArray = a;
+	userInfo.experienceArray = [self sortArrayByTime:a];
 	[self buildViews];
 	[self bindData];
 }
@@ -357,7 +357,7 @@
 	if (a.count == 0) {
 		[a addObject:[Experience new]];
 	}
-	userInfo.experienceArray = a;
+	userInfo.experienceArray = [self sortArrayByTime:a];
 	[self buildViews];
 	[self bindData];
 
@@ -399,7 +399,7 @@
 	if (a.count == 0) {
 		[a addObject:[Residency new]];
 	}
-	userInfo.residencyArray = a;
+	userInfo.residencyArray = [self sortArrayByTime:a];
 	[self buildViews];
 	[self bindData];
 }
@@ -410,6 +410,7 @@
 		[ar addObject:r];
 		userInfo.residencyArray = ar;
 	}
+    userInfo.residencyArray = [self sortArrayByTime:ar];
 	[self buildViews];
 	[self bindData];
 }
@@ -418,8 +419,14 @@
 	NSMutableArray *ar = [NSMutableArray arrayWithArray:userInfo.educationArray];
 	if (![ar containsObject:e]) {
 		[ar addObject:e];
+        
+        ar = [self sortArrayByTime:ar];
+        
 		userInfo.educationArray = ar;
 	}
+    
+    userInfo.educationArray = [self sortArrayByTime:ar];
+
 	[self buildViews];
 	[self bindData];
 }
@@ -430,14 +437,14 @@
 	if (a.count == 0) {
 		[a addObject:[Education new]];
 	}
-	userInfo.educationArray = a;
+	userInfo.educationArray = [self sortArrayByTime:a];
 	[self buildViews];
 	[self bindData];
 }
 
 - (NSMutableArray *)sortArrayByTime:(NSMutableArray *)compArr
 {
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"toYear" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"toYear" ascending:NO];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     
     return [compArr sortedArrayUsingDescriptors:sortDescriptors];

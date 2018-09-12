@@ -15,7 +15,7 @@
 
 @property Education * _Nullable education;
 @property BOOL isAdd;
-@property(nonnull) void (^saveCallback)(Education *e);
+@property(nonnull) void (^saveCallback)(Education * _Nullable e);
 @property(nonnull) void (^deleteCallback)(Education * _Nullable e);
 
 @end

@@ -89,7 +89,7 @@
 	[[[[[[testBtn layoutMaker] topParent:160] centerXParent:0] widthEq:330] heightEq:BTN_HEIGHT] install];
 
 	[testBtn onClick:self action:@selector(clickTest:)];
-	testBtn.hidden = NO;
+	testBtn.hidden = YES;
 
 }
 

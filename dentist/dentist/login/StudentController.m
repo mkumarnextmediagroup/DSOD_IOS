@@ -20,6 +20,12 @@
 	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 	[self.view addSubview:imageView];
 	[imageView layoutFill];
+    
+    UIImageView *backView = self.view.addImageView;
+    backView.imageName = @"back_arrow";
+    [[[[[backView layoutMaker] sizeFit] leftParent:16] topParent:30] install];
+    [backView onClick:self action:@selector(popBtnClick:)];
+    
 
 	UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_white"]];
 	[self.view addSubview:logoView];
@@ -67,6 +73,12 @@
 	[yesButton onClick:self action:@selector(clickYes:)];
 
 }
+
+- (void)popBtnClick:(id)sender {
+    NSLog(@"popBtnClick");
+    [self popPage];
+}
+
 
 - (void)clickYes:(id)sender {
 	RegController *c = [RegController new];

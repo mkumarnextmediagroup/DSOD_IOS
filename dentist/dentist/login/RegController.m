@@ -13,6 +13,8 @@
 #import "Proto.h"
 #import "AppDelegate.h"
 
+#define TAG_NAME_FIELD 100
+
 @interface RegController ()
 
 @end
@@ -181,6 +183,7 @@
 
 	nameEdit = self.view.addEditRounded;
 	nameEdit.delegate = self;
+    nameEdit.tag=100;
 	nameEdit.hint = localStr(@"full_name");
 	nameEdit.text = self.nameStr;
 	[nameEdit returnNext];
@@ -292,6 +295,18 @@
 		[pwdEdit themeNormal];
 	}
 	regButton.enabled = !err;
+}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    //The maximum user name of the registration page is 50 characters.
+    if(textField.tag==TAG_NAME_FIELD){
+        NSString *toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if ([toBeString length] > 50) {
+            textField.text = [toBeString substringToIndex:50];
+            return NO;
+        }
+    }
+    return YES;
 }
 
 

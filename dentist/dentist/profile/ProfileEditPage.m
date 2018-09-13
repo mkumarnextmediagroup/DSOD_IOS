@@ -196,7 +196,6 @@
 	[self.contentView addSubview:practiceAddressView];
 	[self addGrayLine:0 marginRight:0];
 
-
 	phoneView = [TitleEditView new];
 	phoneView.label.text = @"Mobile number";
 	phoneView.edit.delegate = self;
@@ -285,6 +284,7 @@
 	phoneView.edit.text = userInfo.phone;
 	emailView.edit.text = userInfo.email;
 	practiceAddressView.msgLabel.text = userInfo.practiceAddress.detailAddress;
+    [practiceAddressView resetLayout];
 }
 
 

@@ -130,6 +130,7 @@ static char styleAttr = 0;
 
 - (UILabel *)addLabel {
 	UILabel *lb = [UILabel new];
+    lb.numberOfLines = 0;
 	lb.backgroundColor = UIColor.clearColor;
 	[lb textColorMain];
 	[self addSubview:lb];

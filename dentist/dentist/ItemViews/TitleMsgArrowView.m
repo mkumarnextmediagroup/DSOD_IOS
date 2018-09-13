@@ -35,18 +35,19 @@
 	iconView.imageName = @"arrow_small";
 
 	[[[[[_titleLabel.layoutMaker heightEq:14] leftParent:p.left] rightParent:-p.right] topParent:p.top] install];
-	[[[[iconView.layoutMaker sizeEq:16 h:16] rightParent:-p.right] bottomParent:-p.bottom] install];
-	[[[[[_msgLabel.layoutMaker heightEq:25] leftParent:p.left] bottomParent:-p.bottom] toLeftOf:iconView offset:10] install];
+	[[[[iconView.layoutMaker sizeEq:16 h:16] rightParent:-p.right] bottomParent:-p.bottom - 5] install];
+	[[[[[_msgLabel.layoutMaker heightEq:25] leftParent:p.left] bottomParent:-p.bottom] toLeftOf:iconView offset:-10] install];
 
 
 	return self;
 }
 
 - (void)resetLayout {
+    self.layoutParam.height = 90;
 	Padding *p = self.padding;
-	[[[[[_titleLabel.layoutRemaker heightEq:14] leftParent:p.left] rightParent:-p.right] topParent:p.top] install];
+	[[[[[_titleLabel.layoutRemaker heightEq:14] leftParent:p.left] rightParent:-p.right] topParent:p.top-10] install];
 	[[[[iconView.layoutRemaker sizeEq:16 h:16] rightParent:-p.right] bottomParent:-p.bottom] install];
-	[[[[[_msgLabel.layoutRemaker heightEq:25] leftParent:p.left] bottomParent:-p.bottom] toLeftOf:iconView offset:10] install];
+	[[[[[_msgLabel.layoutRemaker heightEq:45] leftParent:p.left] bottomParent:-p.bottom + 8] toLeftOf:iconView offset:-10] install];
 
 }
 @end

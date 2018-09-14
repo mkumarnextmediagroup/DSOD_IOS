@@ -115,11 +115,13 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 }
 
 - (void)args:(NSDictionary *)dic {
-	for (NSString *k in dic) {
-		id v = dic[k];
-		NSString *value = [NSString stringWithFormat:@"%@", v];
-		[self arg:k value:value];
+	if(dic ) {
+		for (NSString *k in dic) {
+			id v = dic[k];
+			NSString *value = [NSString stringWithFormat:@"%@", v];
+			[self arg:k value:value];
 
+		}
 	}
 }
 

@@ -40,8 +40,8 @@
 
 //	PickerPage *c = [PickerPage pickYearMonthFromNowDownTo:1930];
 
-	WelcomController * c = [WelcomController new];
-	[self.navigationController presentViewController:c animated:YES completion:nil];
+//    WelcomController * c = [WelcomController new];
+//    [self.navigationController presentViewController:c animated:YES completion:nil];
 
 
 

@@ -107,7 +107,7 @@ static char styleAttr = 0;
 - (UIButton *)retryBtn {
 	UIButton *needHelpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 	[needHelpBtn title:localStr(@"Retry")];
-	[needHelpBtn styleWhite];
+	[needHelpBtn stylePrimary];
 	[self addSubview:needHelpBtn];
 	return needHelpBtn;
 }
@@ -115,7 +115,7 @@ static char styleAttr = 0;
 - (UIButton *)needHelpBtn {
 	UIButton *retryButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[retryButton title:localStr(@"Need help?")];
-	[retryButton stylePrimary];
+	[retryButton styleWhite];
 	[self addSubview:retryButton];
 	return retryButton;
 }

@@ -183,7 +183,7 @@
 
 	nameEdit = self.view.addEditRounded;
 	nameEdit.delegate = self;
-    nameEdit.tag=100;
+    nameEdit.tag=TAG_NAME_FIELD;
 	nameEdit.hint = localStr(@"full_name");
 	nameEdit.text = self.nameStr;
 	[nameEdit returnNext];

@@ -53,7 +53,7 @@
 	[logoView layoutCenterXOffsetTop:260 height:54 offset:54];
 
 	UIImageView *backView = self.view.addImageView;
-	backView.imageName = @"back.png";
+	backView.imageName = @"back_arrow";
 	[backView scaleFit];
 	[[[[backView.layoutMaker sizeEq:23 h:23] leftParent:16] topParent:30] install];
 
@@ -165,10 +165,15 @@
 	[[[[[infoImgView layoutMaker] sizeEq:15 h:15] leftParent:0] centerYParent:0] install];
 	[sl push:reqLabel height:[reqLabel heightThatFit] marginBottom:22];
 
-
+    
 	pwdEdit = self.view.addEditPwd;
 	pwdEdit.delegate = self;
-	pwdEdit.hint = localStr(@"pwd");
+    if (self.student) {
+        pwdEdit.hint = localStr(@"schpwd");
+    }else
+    {
+        pwdEdit.hint = localStr(@"pwd");
+    }
 	[pwdEdit returnDone];
 	[pwdEdit keyboardDefault];
 	[sl push:pwdEdit height:36 marginBottom:10];
@@ -424,8 +429,14 @@
 				[linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
 					// Whole User Info
 
-                    [DenGlobalInfo sharedInstance].identity = @"linkedin";
-					NSLog(@"user Info : %@", userInfo);
+                    NSString *token = userInfo[@"access_token"];
+                    //send the token to the server
+                    HttpResult *result = [Proto sendLinkedInInfo:token];
+                    NSLog(@"%@", result);
+                    if (result.code == 0) {//go to the register page
+                        
+                        [self linkedinLogin:result.resultMap[@"userId"] token:result.resultMap[@"tokenValue"]];
+                    }
 
 				}                         failUserInfo:^(NSError *error) {
 					NSLog(@"error : %@", error.userInfo.description);
@@ -448,8 +459,14 @@
 				                                      state:@""
 				                            successUserInfo:^(NSDictionary *userInfo) {
 
-                                                [DenGlobalInfo sharedInstance].identity = @"linkedin";
-					                            NSLog(@"userInfo:%@", userInfo);
+                                                NSString *token = userInfo[@"access_token"];
+                                                //send the token to the server
+                                                HttpResult *result = [Proto sendLinkedInInfo:token];
+                                                NSLog(@"%@", result);
+                                                if (result.code == 0) {//go to the register page
+                                                    
+                                                    [self linkedinLogin:result.resultMap[@"userId"] token:result.resultMap[@"tokenValue"]];
+                                                }
 
 				                            } cancelBlock:^{
 							NSLog(@"User cancelled the request Action");
@@ -467,6 +484,21 @@
 
 - (void)clickLogin:(id)sender {
 	LoginController *c = [LoginController new];
+    c.student = self.student;
 	[self openPage:c];
 }
+
+- (void)linkedinLogin:(NSString *)userid token:(NSString *)token {
+    
+    backTask(^() {
+        [Proto linkedinLogin:token userid:userid];
+        if (Proto.isLogined) {
+            foreTask(^() {
+                [AppDelegate.instance switchToMainPage];
+            });
+        }
+    });
+    
+}
+
 @end

@@ -24,6 +24,7 @@
 #import "HttpResult.h"
 #import "IconLabelView.h"
 
+#import "DenCamera.h"
 #import "Json.h"
 #import "LayoutParam.h"
 #import "MASConstraintMaker+myextend.h"

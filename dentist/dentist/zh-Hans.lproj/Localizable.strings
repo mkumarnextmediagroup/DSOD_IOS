@@ -27,7 +27,8 @@
 "create_account" = "Create an account";
 "login_using_linkedin" = "Log In using Linkedin";
 "email_address" = "Email address";
-"pwd" = "Password";
+"pwd" = "Set password";
+"schpwd" = "School email address";
 "conpwd" = "Confirm Password";
 "newpwd" = "New Password";
 "hereyou" = "Here you can change the password for your DSOD account.";
@@ -60,7 +61,7 @@
 "resetPwdLower" = "Reset Password";
 "resetOK" = "Reset Success!";
 "pwdstandard" = "Your password should be at least 8 - 16 characters in length with at least one uppercase letter and one number";
-"haveIssue" = "Still having issues?Contact us";
+"haveIssue" = "Still having issues?Contact Us";
 "nevermind" = "Nevermind,Take me back";
 "newPwdSend" = "Your new password is on its way to your email address.";
 "SeemsLike" = "Seems like you are currently not connected to the internet.";

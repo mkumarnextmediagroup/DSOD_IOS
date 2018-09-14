@@ -82,6 +82,12 @@
 
 	[backLabel onClickView:self action:@selector(clickGoBack:)];
 	[sendButton onClick:self action:@selector(sendPwdClick)];
+    
+    [emailEdit returnDone];
+    NSString *account = getLastAccount();
+    if (account != nil) {
+        emailEdit.text = account;
+    }
 	// Do any additional setup after loading the view.
 }
 

@@ -29,6 +29,8 @@
 //LinkedIn request
 + (HttpResult *)sendLinkedInInfo:(NSString *)access_token;
 
++ (void)linkedinLogin:(NSString *)token userid:(NSString *)userid;
+
 + (void)logout;
 
 + (UserInfo *)userInfo:(nonnull NSString *)email;

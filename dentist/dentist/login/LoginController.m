@@ -11,9 +11,10 @@
 #import "Async.h"
 #import "AppDelegate.h"
 #import "RegController.h"
+#import "NoIntenetViewController.h"
 
 @interface LoginController ()
-
+ 
 @end
 
 @implementation LoginController {
@@ -48,6 +49,8 @@
 		m.top.mas_equalTo(self.view.mas_top).offset(30);
 	}];
 
+    StackLayout *sl = [StackLayout new];
+    
 	emailEdit = self.view.addEditRounded;
 	emailEdit.delegate = self;
 	emailEdit.hint = localStr(@"email_address");
@@ -93,30 +96,32 @@
 	[loginButton title:localStr(@"login")];
 	[loginButton styleSecondary];
 
+    
+    UILabel *regLabel = self.view.addLabel;
+    [regLabel textAlignCenter];
+    regLabel.font = [Fonts medium:15];
+    regLabel.textColor = UIColor.whiteColor;
+    regLabel.text = localStr(@"create_account");
+    [regLabel underLineSingle];
+    
+    [sl push:regLabel height:20 marginBottom:33];
 
-	UIButton *linkedinButton = self.view.addButton;
-	[linkedinButton title:localStr(@"login_using_linkedin")];
-	[linkedinButton styleBlue];
-	UIImageView *inView = linkedinButton.addImageView;
-	inView.imageName = @"in";
-	[inView scaleFit];
-	[[[[inView.layoutMaker sizeEq:20 h:20] leftParent:10] centerYParent:0] install];
-	UIView *lineView = linkedinButton.addView;
-	lineView.backgroundColor = rgb255(0x2F, 0x9c, 0xD5);
-	[[[[[lineView.layoutMaker widthEq:1] topParent:0] bottomParent:0] leftParent:40] install];
+    if (!self.student) {
+        UIButton *linkedinButton = self.view.addButton;
+        [linkedinButton title:localStr(@"login_using_linkedin")];
+        [linkedinButton styleBlue];
+        UIImageView *inView = linkedinButton.addImageView;
+        inView.imageName = @"in";
+        [inView scaleFit];
+        [[[[inView.layoutMaker sizeEq:20 h:20] leftParent:10] centerYParent:0] install];
+        UIView *lineView = linkedinButton.addView;
+        lineView.backgroundColor = rgb255(0x2F, 0x9c, 0xD5);
+        [[[[[lineView.layoutMaker widthEq:1] topParent:0] bottomParent:0] leftParent:40] install];
+        [linkedinButton onClick:self action:@selector(clickLinkedin:)];
 
+        [sl push:linkedinButton height:BTN_HEIGHT marginBottom:22];
 
-	UILabel *regLabel = self.view.addLabel;
-	[regLabel textAlignCenter];
-	regLabel.font = [Fonts medium:15];
-	regLabel.textColor = UIColor.whiteColor;
-	regLabel.text = localStr(@"create_account");
-	[regLabel underLineSingle];
-
-
-	StackLayout *sl = [StackLayout new];
-	[sl push:regLabel height:20 marginBottom:33];
-	[sl push:linkedinButton height:BTN_HEIGHT marginBottom:22];
+    }
 	[sl push:loginButton height:BTN_HEIGHT marginBottom:8];
 	[sl install];
 
@@ -124,7 +129,6 @@
 	[regLabel onClickView:self action:@selector(clickGoReg:)];
 	[backView onClick:self action:@selector(clickGoBack:)];
 	[loginButton onClick:self action:@selector(clickLogin:)];
-	[linkedinButton onClick:self action:@selector(clickLinkedin:)];
 	[forgotLabel onClickView:self action:@selector(clickForgot:)];
 
 	[emailEdit returnNext];
@@ -234,94 +238,86 @@
 
 - (void)clickLinkedin:(id)sender {
 	NSLog(@"clickLinkedin ");
-//    NoIntenetViewController *intenet = [NoIntenetViewController new];
-//    intenet.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-//    intenet.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//    intenet.providesPresentationContextTransitionStyle = YES;
-//    intenet.definesPresentationContext = YES;
-//    [self openPage:intenet];
+    NoIntenetViewController *intenet = [NoIntenetViewController new];
+    intenet.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    intenet.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    intenet.providesPresentationContextTransitionStyle = YES;
+    intenet.definesPresentationContext = YES;
+    [self openPage:intenet];
 
-	[self Den_showAlertWithTitle:localStr(@"permission") message:localStr(@"WouldYou") appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
-		alertMaker.
-				addActionCancelTitle(@"Dont't Allow").
-				addActionDefaultTitle(@"OK");
-	}               actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
-		if ([action.title isEqualToString:@"Dont't Allow"]) {
-			NSLog(@"Dont't Allow");
-		} else if ([action.title isEqualToString:@"OK"]) {
-			NSLog(@"OK");
-
-			//request the linkedin
-			LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
-
-			// If user has already connected via linkedin in and access token is still valid then
-			// No need to fetch authorizationCode and then accessToken again!
-			if (linkedIn.isValidToken) {
-
-				linkedIn.customSubPermissions = [NSString stringWithFormat:@"%@,%@", first_name, last_name];
-
-				// So Fetch member info by elderyly access token
-				[linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
-					// get the access_token
-					NSString *token = userInfo[@"access_token"];
-					//send the token to the server
-					HttpResult *result = [Proto sendLinkedInInfo:token];
-					NSLog(@"%@", result);
-					if ([result.jsonBody[@"msg"] isEqualToString:@"password is null"]) {//go to the register page
-                        [DenGlobalInfo sharedInstance].identity = @"linkedin";
-						RegController *reg = [RegController new];
-						reg.student = NO;
-						reg.nameStr = result.resultMap[@"full_name"];
-						reg.emailStr = result.resultMap[@"username"];
-						[self openPage:reg];
-					}
-
-				}                         failUserInfo:^(NSError *error) {
-					NSLog(@"error : %@", error.userInfo.description);
-				}];
-			} else {
-
-				linkedIn.cancelButtonText = @"Close";// Or any other language But Default is Close
-
-				NSArray *permissions = @[@(BasicProfile),
-						@(EmailAddress),
-						@(Share),
-						@(CompanyAdmin)];
-
-				linkedIn.showActivityIndicator = YES;
-				[linkedIn requestMeWithSenderViewController:self
-				                                   clientId:@"81nb85ffrekjgr"
-				                               clientSecret:@"K0pwDPX4ptU1Qodg"
-				                                redirectUrl:@"https://com.appcoda.linkedin.oauth/oauth"
-				                                permissions:permissions
-				                                      state:@""
-				                            successUserInfo:^(NSDictionary *userInfo) {
-
-					                            // get the access_token
-					                            NSString *token = userInfo[@"access_token"];
-					                            //send the token to the server
-					                            HttpResult *result = [Proto sendLinkedInInfo:token];
-
-                                                [DenGlobalInfo sharedInstance].identity = @"linkedin";
-					                            if ([result.jsonBody[@"msg"] isEqualToString:@"password is null"]) {//go to the register page
-						                            RegController *reg = [RegController new];
-						                            reg.student = NO;
-						                            reg.nameStr = result.resultMap[@"full_name"];
-						                            reg.emailStr = result.resultMap[@"username"];
-						                            [self openPage:reg];
-					                            }
-
-				                            } cancelBlock:^{
-							NSLog(@"User cancelled the request Action");
-
-						}                 failUserInfoBlock:^(NSError *error) {
-							NSLog(@"error : %@", error.userInfo.description);
-
-						}
-				];
-			}
-		}
-	}];
+//    [self Den_showAlertWithTitle:localStr(@"permission") message:localStr(@"WouldYou") appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
+//        alertMaker.
+//                addActionCancelTitle(@"Dont't Allow").
+//                addActionDefaultTitle(@"OK");
+//    }               actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
+//        if ([action.title isEqualToString:@"Dont't Allow"]) {
+//            NSLog(@"Dont't Allow");
+//        } else if ([action.title isEqualToString:@"OK"]) {
+//            NSLog(@"OK");
+//
+//            //request the linkedin
+//            LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
+//
+//            // If user has already connected via linkedin in and access token is still valid then
+//            // No need to fetch authorizationCode and then accessToken again!
+//            if (linkedIn.isValidToken) {
+//
+//                linkedIn.customSubPermissions = [NSString stringWithFormat:@"%@,%@", first_name, last_name];
+//
+//                // So Fetch member info by elderyly access token
+//                [linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
+//                    // get the access_token
+//                    NSString *token = userInfo[@"access_token"];
+//                    //send the token to the server
+//                    HttpResult *result = [Proto sendLinkedInInfo:token];
+//                    NSLog(@"%@", result);
+//                    if (result.code == 0) {//go to the register page
+//
+//                        [self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
+//                    }
+//
+//                }                         failUserInfo:^(NSError *error) {
+//                    NSLog(@"error : %@", error.userInfo.description);
+//                }];
+//            } else {
+//
+//                linkedIn.cancelButtonText = @"Close";// Or any other language But Default is Close
+//
+//                NSArray *permissions = @[@(BasicProfile),
+//                        @(EmailAddress),
+//                        @(Share),
+//                        @(CompanyAdmin)];
+//
+//                linkedIn.showActivityIndicator = YES;
+//                [linkedIn requestMeWithSenderViewController:self
+//                                                   clientId:@"81nb85ffrekjgr"
+//                                               clientSecret:@"K0pwDPX4ptU1Qodg"
+//                                                redirectUrl:@"https://com.appcoda.linkedin.oauth/oauth"
+//                                                permissions:permissions
+//                                                      state:@""
+//                                            successUserInfo:^(NSDictionary *userInfo) {
+//
+//                                                // get the access_token
+//                                                NSString *token = userInfo[@"access_token"];
+//                                                //send the token to the server
+//                                                HttpResult *result = [Proto sendLinkedInInfo:token];
+//
+//                                                if (result.code == 0) {//go to the register page
+//
+//                                                    [self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
+//                                                }
+//
+//                                            } cancelBlock:^{
+//                            NSLog(@"User cancelled the request Action");
+//
+//                        }                 failUserInfoBlock:^(NSError *error) {
+//                            NSLog(@"error : %@", error.userInfo.description);
+//
+//                        }
+//                ];
+//            }
+//        }
+//    }];
 
 }
 
@@ -337,6 +333,18 @@
 	return [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
 }
 
+- (void)linkedinLogin:(NSString *)userid token:(NSString *)token {
+    
+    backTask(^() {
+        [Proto linkedinLogin:token userid:userid];
+        if (Proto.isLogined) {
+            foreTask(^() {
+                [AppDelegate.instance switchToMainPage];
+            });
+        }
+    });
+    
+}
 
 - (void)login:(NSString *)userName password:(NSString *)pwd {
 

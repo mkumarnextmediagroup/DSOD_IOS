@@ -398,7 +398,8 @@
 }
 
 + (HttpResult *)sendLinkedInInfo:(NSString *)access_token {
-	return [self postBody:@"linkedInLogin" dic:@{@"accessToken": access_token}];
+    NSString *url = [NSString stringWithFormat:@"linkedInLogin/%@/fooClientIdPassword",access_token];
+	return [self get:url dic:nil];
 }
 
 
@@ -423,6 +424,12 @@
 		}
 	}
 	return r;
+}
+
++ (void)linkedinLogin:(NSString *)token userid:(NSString *)userid
+{
+    putUserToken(userid, token);
+    putLastAccount(userid);
 }
 
 + (HttpResult *)register:(NSString *)email pwd:(NSString *)pwd name:(NSString *)name student:(BOOL)student {

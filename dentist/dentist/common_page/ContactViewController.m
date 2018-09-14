@@ -11,6 +11,7 @@
 #import "MagazineTableViewCell.h"
 #import "Common.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
 
 @interface ContactViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,UITextViewDelegate>
 {
@@ -52,8 +53,12 @@
 - (void)clickSend:(UIButton *)btn
 {
     NSLog(@"send message");
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:localStr(@"Send Success!") delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-    [alert show];
+    [self Den_showAlertWithTitle:@"Message sent successfully" message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+        alertMaker.
+        addActionCancelTitle(@"OK");
+    } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+        
+    }];
 }
 
 #pragma mark UITableViewDelegate
@@ -257,20 +262,43 @@
 
 - (void)clickTheBtnWithSourceType:(UIImagePickerControllerSourceType)sourceType
 {
+    [DenCamera clickTheBtnWithSourceType:sourceType block:^(NSString *isAllow) {
+        NSLog(@"%@",isAllow);
+        if ([isAllow isEqualToString:@"CameraRefuse"]) {
+            Confirm *cf = [Confirm new];
+            cf.title = @"Unauthorized use of camera";
+            cf.msg = @"Please open it in IOS “settings”-“privacy”-“camera”";
+            [cf show:self onOK:^() {
+            }];
+        }else if ([isAllow isEqualToString:@"PhotoRefuse"])
+        {
+            Confirm *cf = [Confirm new];
+            cf.title = @"Unauthorized use of photo";
+            cf.msg = @"Please open it in IOS “settings”-“privacy”-“photo”";
+            [cf show:self onOK:^() {
+            }];
+        }else if ([isAllow isEqualToString:@"allow"])
+        {
+            [self presentImagePickerViewController:sourceType];
+        }
+    }];
+}
+
+- (void)presentImagePickerViewController:(UIImagePickerControllerSourceType)sourceType
+{
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;
     imagePickerController.allowsEditing = YES;
     imagePickerController.sourceType = sourceType;
     [self presentViewController:imagePickerController animated:YES completion:nil];
+
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = nil;
     if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-        picker.cameraDevice =  UIImagePickerControllerCameraDeviceFront;
         image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
         
         NSString *imageName = [info valueForKey:UIImagePickerControllerMediaType];
         NSLog(@"imageName1:%@", imageName);
@@ -296,6 +324,21 @@
         } failureBlock:^(NSError *error) {
             NSLog(@"%@", [error localizedDescription]);
         }];
+        
+        PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+        if (status == PHAuthorizationStatusNotDetermined) {
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                if(status == PHAuthorizationStatusAuthorized) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        // user click "OK"
+                    });
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        // user click refuse
+                    });
+                }
+            }];
+        }
     }
     [self dismissViewControllerAnimated:NO completion:nil];
     

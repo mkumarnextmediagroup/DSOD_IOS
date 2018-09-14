@@ -8,4 +8,6 @@
 
 @interface LoginController : BaseController
 
+@property BOOL student;
+
 @end

@@ -43,6 +43,7 @@
 		4E23522E213D12CB003BA59B /* UITextFieldCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23522A213D12CB003BA59B /* UITextFieldCustom.m */; };
 		4E23522F213D12CB003BA59B /* UISearchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23522B213D12CB003BA59B /* UISearchBarView.m */; };
 		4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2352C3213D5B7C003BA59B /* EditEduViewController.m */; };
+		4E23E6CD214B99DA00D61C90 /* DenCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23E6CC214B99DA00D61C90 /* DenCamera.m */; };
 		4E846F70213E619100DC2B51 /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F6F213E619100DC2B51 /* SwitchTableViewCell.m */; };
 		4E846F73213E781100DC2B51 /* CommSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F72213E781100DC2B51 /* CommSelectTableViewCell.m */; };
 		4E846F76213E7AED00DC2B51 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F74213E7AEC00DC2B51 /* arrow@2x.png */; };
@@ -469,6 +470,8 @@
 		4E23522B213D12CB003BA59B /* UISearchBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISearchBarView.m; sourceTree = "<group>"; };
 		4E2352C2213D5B7C003BA59B /* EditEduViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditEduViewController.h; sourceTree = "<group>"; };
 		4E2352C3213D5B7C003BA59B /* EditEduViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditEduViewController.m; sourceTree = "<group>"; };
+		4E23E6CB214B99DA00D61C90 /* DenCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenCamera.h; sourceTree = "<group>"; };
+		4E23E6CC214B99DA00D61C90 /* DenCamera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DenCamera.m; sourceTree = "<group>"; };
 		4E846F6E213E619100DC2B51 /* SwitchTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchTableViewCell.h; sourceTree = "<group>"; };
 		4E846F6F213E619100DC2B51 /* SwitchTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitchTableViewCell.m; sourceTree = "<group>"; };
 		4E846F71213E781100DC2B51 /* CommSelectTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommSelectTableViewCell.h; sourceTree = "<group>"; };
@@ -1090,6 +1093,8 @@
 				C5EEAA56FAA8CB2A62661969 /* DatePickerPage.h */,
 				C5EEA86684C4AF368DC41D30 /* PickerPage.m */,
 				C5EEABA2B9A5FC549F032538 /* PickerPage.h */,
+				4E23E6CB214B99DA00D61C90 /* DenCamera.h */,
+				4E23E6CC214B99DA00D61C90 /* DenCamera.m */,
 			);
 			path = common_page;
 			sourceTree = "<group>";
@@ -2077,6 +2082,7 @@
 				4E23522F213D12CB003BA59B /* UISearchBarView.m in Sources */,
 				C5EEA2ECCE69B6CBF0D20BA6 /* BaseController.m in Sources */,
 				C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */,
+				4E23E6CD214B99DA00D61C90 /* DenCamera.m in Sources */,
 				4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */,
 				4E85DA8E21450F51007C40C3 /* PersonInfo.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,

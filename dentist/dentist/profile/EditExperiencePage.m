@@ -34,7 +34,8 @@
 	NSString *nameOfDental;
 	BOOL workInThisRole;
 
-    BOOL isShowDSO;
+    BOOL  isShowDSO;
+    BOOL  showOthers;
 	FromToView *fromToView;
 	TitleSwitchView *switchView;
 	TitleMsgArrowView *typeView;
@@ -78,6 +79,10 @@
     
     [self.contentView removeAllChildren];
     
+    if ([praticeType isEqualToString:SMALLAFF] || [praticeType isEqualToString:LARGEAFF]) {
+        isShowDSO = YES;
+    }
+    
     typeView = [TitleMsgArrowView new];
     typeView.titleLabel.text = @"Practice Type";
     if (self.isAdd) {
@@ -101,59 +106,63 @@
     [roleView onClickView:self action:@selector(clickRole:)];
     [self.contentView addSubview:roleView];
     [self addGrayLine:0 marginRight:0];
+    [self bindData];
     
-    if (isShowDSO) {
-        dentalView = [TitleMsgArrowView new];
-        //    dentalView.titleLabel.text = @"Name of Dental Support Organization (DSO)";
-        [dentalView.titleLabel setTextWithDifColor:@"Name of Dental Support Organization (DSO) *"];
-        if (self.isAdd) {
-            dentalView.msgLabel.text = @"Select";
-        } else {
-            dentalView.msgLabel.text = nameOfDental;
+    if (![typeView.msgLabel.text isEqualToString:@"Select"]) {
+        
+        if (isShowDSO) {
+            dentalView = [TitleMsgArrowView new];
+            //    dentalView.titleLabel.text = @"Name of Dental Support Organization (DSO)";
+            [dentalView.titleLabel setTextWithDifColor:@"Name of Dental Support Organization (DSO) *"];
+            if (self.isAdd) {
+                dentalView.msgLabel.text = @"Select";
+            } else {
+                dentalView.msgLabel.text = nameOfDental;
+            }
+            [dentalView onClickView:self action:@selector(clickDental:)];
+            [self.contentView addSubview:dentalView];
+            [self addGrayLine:0 marginRight:0];
+        }else
+        {
+            dentalEditView = [TitleEditView new];
+            dentalEditView.label.text = @"Name of Practice";
+            dentalEditView.edit.delegate = self;
+            [dentalEditView.edit returnDone];
+            [self.contentView addSubview:dentalEditView];
+            [self addGrayLine:0 marginRight:0];
         }
-        [dentalView onClickView:self action:@selector(clickDental:)];
-        [self.contentView addSubview:dentalView];
+        
+        
+        switchView = [TitleSwitchView new];
+        switchView.titleLabel.text = @"I currently work in this role";
+        if (self.isAdd) {
+            switchView.switchView.on = NO;
+        } else {
+            switchView.switchView.on = workInThisRole;
+        }
+        [switchView.switchView addTarget:self action:@selector(onSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+        [self.contentView addSubview:switchView];
         [self addGrayLine:0 marginRight:0];
-    }else
-    {
-        dentalEditView = [TitleEditView new];
-        dentalEditView.label.text = @"Name of Practice";
-        dentalEditView.edit.delegate = self;
-        [dentalEditView.edit returnDone];
-        [self.contentView addSubview:dentalEditView];
-        [self addGrayLine:0 marginRight:0];
+        
+        
+        fromToView = [FromToView new];
+        [self.contentView addSubview:fromToView];
+        [fromToView.fromDateLabel onClickView:self action:@selector(clickFromDate:)];
+        [fromToView.toDateLabel onClickView:self action:@selector(clickToDate:)];
+        
+        
+        UIButton *btn = self.view.addSmallButton;
+        if (self.isAdd) {
+            [btn title:@"Cancel"];
+            [btn onClick:self action:@selector(clickCancel:)];
+            [[[[[btn.layoutMaker centerXParent:0] bottomParent:-50] heightButton] widthEq:64] install];
+        } else {
+            [btn title:@"Delete Experience"];
+            [btn onClick:self action:@selector(clickDelete:)];
+            [[[[[btn.layoutMaker centerXParent:0] bottomParent:-50] heightButton] widthEq:160] install];
+        }
+        
     }
-    
-    
-    switchView = [TitleSwitchView new];
-    switchView.titleLabel.text = @"I currently work in this role";
-    if (self.isAdd) {
-        switchView.switchView.on = NO;
-    } else {
-        switchView.switchView.on = workInThisRole;
-    }
-    [switchView.switchView addTarget:self action:@selector(onSwitchChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.contentView addSubview:switchView];
-    [self addGrayLine:0 marginRight:0];
-    
-    
-    fromToView = [FromToView new];
-    [self.contentView addSubview:fromToView];
-    [fromToView.fromDateLabel onClickView:self action:@selector(clickFromDate:)];
-    [fromToView.toDateLabel onClickView:self action:@selector(clickToDate:)];
-    
-    
-    UIButton *btn = self.view.addSmallButton;
-    if (self.isAdd) {
-        [btn title:@"Cancel"];
-        [btn onClick:self action:@selector(clickCancel:)];
-        [[[[[btn.layoutMaker centerXParent:0] bottomParent:-50] heightButton] widthEq:64] install];
-    } else {
-        [btn title:@"Delete Experience"];
-        [btn onClick:self action:@selector(clickDelete:)];
-        [[[[[btn.layoutMaker centerXParent:0] bottomParent:-50] heightButton] widthEq:160] install];
-    }
-    
     [self layoutLinearVertical];
     [self bindData];
 
@@ -255,7 +264,7 @@
 }
 
 - (void)clickFromDate:(id)sender {
-	PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1960];
+	PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1950];
 	p.preSelectData = @[@(fromMonth), @(fromYear)];
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
@@ -270,7 +279,7 @@
 }
 
 - (void)clickToDate:(id)sender {
-	PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1960];
+	PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1950];
 	p.preSelectData = @[@(toMonth), @(toYear)];
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);

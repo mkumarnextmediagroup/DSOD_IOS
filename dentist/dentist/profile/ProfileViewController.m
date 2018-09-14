@@ -171,7 +171,7 @@
 	pCell.titleLabel.text = @"Practice Address";
 	pCell.msgLabel.text = userInfo.practiceAddress.detailAddress;
 	[self.contentView addSubview:pCell];
-
+    
 	[self addGrayLine:78 marginRight:0];
 
 	IconTitleMsgCell *phoneCell = [IconTitleMsgCell new];

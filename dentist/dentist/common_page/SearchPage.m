@@ -16,7 +16,7 @@
 - (instancetype)init {
 	self = [super init];
     if ([SYSTEMVERSION doubleValue] > 11.0) {
-        self.topOffset = 56;
+        self.topOffset = 56;//TEXTFIELD HEIGHT
     }
 	self.withGroupLabel = NO;
 	self.withIndexBar = YES;
@@ -37,7 +37,7 @@
 	searchEdit = [self.view addEditSearch];
 	searchEdit.delegate = self;
 
-	[[[[[searchEdit.layoutMaker leftParent:16] rightParent:-16] topParent:65 + 10] heightEq:EDIT_HEIGHT] install];
+	[[[[[searchEdit.layoutMaker leftParent:16] rightParent:-16] topParent:NAVHEIGHT + 10] heightEq:EDIT_HEIGHT] install];
 	UIView *lineView = [self.view addView];
 	lineView.backgroundColor = Colors.cellLineColor;
 	[[[[[lineView.layoutMaker heightEq:1] leftParent:0] rightParent:0] below:searchEdit offset:10] install];

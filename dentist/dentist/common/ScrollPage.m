@@ -25,7 +25,7 @@
 	if (self.tabBarController == nil) {
 		[sm bottomParent:0];
 	} else {
-		[sm bottomParent:-49];
+		[sm bottomParent:-TABLEBAR_HEIGHT];
 	}
 	[sm install];
 

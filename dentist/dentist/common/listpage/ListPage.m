@@ -22,10 +22,10 @@
 	CGFloat _topBarH = 0;
 	CGFloat _bottomBarH = 0;
 	if (self.navigationController != nil) {
-		_topBarH = 65;
+		_topBarH = NAVHEIGHT;
 	}
 	if (self.tabBarController != nil) {
-		_bottomBarH = 49;
+		_bottomBarH = TABLEBAR_HEIGHT;
 	}
 	_table = [UITableView new];
 	[self.view addSubview:_table];

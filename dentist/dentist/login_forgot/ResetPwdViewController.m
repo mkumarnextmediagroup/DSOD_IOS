@@ -37,7 +37,7 @@
 	StackLayout *sl = [StackLayout new];
 
 	UIButton *contactButton = self.view.contactButton;
-	[sl push:contactButton height:BTN_HEIGHT marginBottom:12];
+	[sl push:contactButton height:BTN_HEIGHT marginBottom:12+TABLEBAR_SAFE_BOTTOM_MARGIN];
 
 	UIButton *resetButton = self.view.resetButton;
 	[resetButton title:localStr(@"resetPwdLower")];

@@ -44,18 +44,25 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	UIImageView *imageView = self.view.addImageView;
-	imageView.imageName = @"bg_3.png";
-	[imageView layoutFill];
+//    UIImageView *imageView = self.view.addImageView;
+//    imageView.imageName = @"bg_3.png";
+//    [imageView layoutFill];
+    
+    UIImage *image = [UIImage imageNamed:@"bg_3.png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    [self.view addSubview:imageView];
+    [imageView layoutFill];
+    
+    
 
 	UIImageView *logoView = self.view.addImageView;
 	logoView.imageName = @"logo_white";
-	[logoView layoutCenterXOffsetTop:260 height:54 offset:54];
+	[logoView layoutCenterXOffsetTop:260 height:54 offset:54+NAVHEIGHT_OFFSET];
 
 	UIImageView *backView = self.view.addImageView;
 	backView.imageName = @"back_arrow";
 	[backView scaleFit];
-	[[[[backView.layoutMaker sizeEq:23 h:23] leftParent:16] topParent:30] install];
+	[[[[backView.layoutMaker sizeEq:23 h:23] leftParent:16] topParent:30+NAVHEIGHT_OFFSET] install];
 
 
 	//arrange controls from bottom to top
@@ -76,7 +83,7 @@
 	[loginLabel underLineSingle];
 	[[[[[loginLabel layoutMaker] sizeFit] toRightOf:alreadyLabel offset:4] centerYParent:0] install];
 
-	[sl push:loginPanel height:20 marginBottom:33];
+	[sl push:loginPanel height:20 marginBottom:33+TABLEBAR_SAFE_BOTTOM_MARGIN];
 
 	if (!self.student) {
 		UIButton *linkedinButton = self.view.addButton;

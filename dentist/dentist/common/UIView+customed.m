@@ -157,7 +157,7 @@ static char styleAttr = 0;
 	NSLog(@"delelte");
 	[btn removeFromSuperview];
 	UITextView *notice = [self viewWithTag:11];
-	notice.hidden = YES;
+	[notice removeFromSuperview];
 }
 
 - (UIImageView *)addImageView {

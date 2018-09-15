@@ -23,13 +23,13 @@
     
     UIImageView *backView = self.view.addImageView;
     backView.imageName = @"back_arrow";
-    [[[[[backView layoutMaker] sizeFit] leftParent:16] topParent:30] install];
+    [[[[[backView layoutMaker] sizeFit] leftParent:16] topParent:30+NAVHEIGHT_OFFSET] install];
     [backView onClick:self action:@selector(popBtnClick:)];
     
 
 	UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_white"]];
 	[self.view addSubview:logoView];
-	[logoView layoutCenterXOffsetTop:260 height:54 offset:54];
+	[logoView layoutCenterXOffsetTop:260 height:54 offset:54+NAVHEIGHT_OFFSET];
 
 
 	UILabel *studentText = [UILabel new];

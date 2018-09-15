@@ -78,7 +78,7 @@
 		[editBtn onClick:self action:@selector(clickDelete:)];
 	}
 	[self.view addSubview:editBtn];
-	[[[[editBtn.layoutMaker sizeEq:160 h:BTN_HEIGHT] bottomParent:-20] centerXParent:0] install];
+	[[[[editBtn.layoutMaker sizeEq:160 h:BTN_HEIGHT] bottomParent:-47] centerXParent:0] install];
 }
 
 - (void)bindData {

@@ -41,7 +41,7 @@
 	ql.edgeLeft = 18;
 	ql.edgeRight = 0;
 
-	[ql add:userView height:115 marginTop:16 + 65];
+	[ql add:userView height:115 marginTop:16 + NAVHEIGHT];
 	[ql add:[self addLine] height:1 marginTop:16];
 
 	[ql add:bCms height:50 marginTop:0];

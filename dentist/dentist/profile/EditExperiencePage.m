@@ -155,11 +155,11 @@
         if (self.isAdd) {
             [btn title:@"Cancel"];
             [btn onClick:self action:@selector(clickCancel:)];
-            [[[[[btn.layoutMaker centerXParent:0] bottomParent:-50] heightButton] widthEq:64] install];
+            [[[[[btn.layoutMaker centerXParent:0] bottomParent:-47] heightButton] widthEq:64] install];
         } else {
             [btn title:@"Delete Experience"];
             [btn onClick:self action:@selector(clickDelete:)];
-            [[[[[btn.layoutMaker centerXParent:0] bottomParent:-50] heightButton] widthEq:160] install];
+            [[[[[btn.layoutMaker centerXParent:0] bottomParent:-47] heightButton] widthEq:160] install];
         }
         
     }

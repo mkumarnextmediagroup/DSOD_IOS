@@ -41,7 +41,7 @@
     [self.view addSubview:retryButton];
     
     StackLayout *sl = [StackLayout new];
-    [sl push:retryButton height:BTN_HEIGHT marginBottom:15];
+    [sl push:retryButton height:BTN_HEIGHT marginBottom:15+TABLEBAR_SAFE_BOTTOM_MARGIN];
     [sl install];
     
     [retryButton onClick:self action:@selector(contactClick:)];

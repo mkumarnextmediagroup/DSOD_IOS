@@ -27,7 +27,7 @@
     [backView onClick:self action:@selector(popBtnClick:)];
     
 
-	UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_white"]];
+	UIImageView *logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
 	[self.view addSubview:logoView];
 	[logoView layoutCenterXOffsetTop:260 height:54 offset:54];
 

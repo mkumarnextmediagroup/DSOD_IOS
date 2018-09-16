@@ -36,7 +36,7 @@
 	[imageView layoutFill];
 
 	UIImageView *logoView = self.view.addImageView;
-	logoView.imageName = @"logo_white";
+	logoView.imageName = @"logo";
 	[logoView layoutCenterXOffsetTop:260 height:54 offset:54];
 
 	UIImageView *backView = self.view.addImageView;

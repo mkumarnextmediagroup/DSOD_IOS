@@ -74,8 +74,9 @@
 	[eduViews removeAllObjects];
 
 	userView = [EditUserView new];
-	userView.layoutParam.height = 200;
+	userView.layoutParam.height = 240;
     userView.avatarUrl=userInfo.portraitUrl;
+    userView.percent=0.13;
 	[userView.editBtn onClick:self action:@selector(editPortrait:)];
 	[self.contentView addSubview:userView];
 
@@ -285,6 +286,81 @@
 	emailView.edit.text = userInfo.email;
 	practiceAddressView.msgLabel.text = userInfo.practiceAddress.detailAddress;
     [practiceAddressView resetLayout];
+    
+    
+    /**
+     For students, there are 6 sections: Name, Specialty, Residency, Education, Mobile number and Email address.
+     Percentage value for section is 100/6 = 16.7. We can round this up to 17. So, if two sections have been completed (for example, Name and Email address), then the percentage completion is 34%.
+     For non-students, there are 8 sections: Name, Specialty, Experience, Residency, Education, Practice address, Mobile number and Email address.
+     Percentage value for each section is 100/8 = 12.5. We can round this up to a round number. If three sections have been completed, then the value will be 37.5 - this can be rounded up to 38.
+     */
+    
+    [userView reset:[self getProfilePercent]];
+    
+}
+-(float) getProfilePercent{
+   
+    int count=0;
+    int countParent=0;
+    if ([userInfo isStudent]) {
+        countParent=6;
+    }else{
+        countParent=8;
+    }
+    if(nameView.edit.text!=nil && nameView.edit.text.length>0){
+        count=count+1;
+    }
+    if(phoneView.edit.text!=nil && phoneView.edit.text.length>0){
+        count=count+1;
+    }
+    if(emailView.edit.text!=nil && emailView.edit.text.length>0){
+        count=count+1;
+    }
+    
+    if(specView.msgLabel.text!=nil && specView.msgLabel.text.length>0){
+        count=count+1;
+    }
+    
+    if(practiceAddressView.msgLabel.text!=nil && practiceAddressView.msgLabel.text.length>0){
+        count=count+1;
+    }
+    
+    if(userInfo.experienceArray!=nil && userInfo.experienceArray.count>0){
+        if(userInfo.experienceArray.count==1){
+            Experience *r = userInfo.experienceArray[0];
+            if (r.dentalName != nil &&  r.dentalName.length> 0) {
+                count=count+1;
+            }
+        }else{
+            count=count+1;
+        }
+    }
+    
+
+    if(userInfo.residencyArray!=nil && userInfo.residencyArray.count>0){
+        if(userInfo.residencyArray.count==1){
+            Residency *r = userInfo.residencyArray[0];
+            if (r.place != nil &&  r.place.length> 0) {
+                count=count+1;
+            }
+        }else{
+            count=count+1;
+        }
+        
+    }
+    if(userInfo.educationArray!=nil && userInfo.educationArray.count>0){
+        if(userInfo.educationArray.count==1){
+            Education *r = userInfo.educationArray[0];
+            if (r.schoolName != nil &&  r.schoolName.length> 0) {
+                count=count+1;
+            }
+        }else{
+            count=count+1;
+        }
+    }
+    NSLog(@"count==%i",count);
+    NSLog(@"countParent==%i",countParent);
+    return (float)count/countParent;
 }
 
 

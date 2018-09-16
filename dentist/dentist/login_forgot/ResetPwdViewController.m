@@ -16,6 +16,7 @@
 	UITextField *rePwdEdit;
 	UITextField *pwdEdit;
 	UITextField *codeEdit;
+    UITextView  *noticelb;
 	BOOL isContinue;
 }
 @end
@@ -37,17 +38,35 @@
 	StackLayout *sl = [StackLayout new];
 
 	UIButton *contactButton = self.view.contactButton;
-	[sl push:contactButton height:BTN_HEIGHT marginBottom:12];
+	[sl push:contactButton height:BTN_HEIGHT marginBottom:12+TABLEBAR_SAFE_BOTTOM_MARGIN];
 
 	UIButton *resetButton = self.view.resetButton;
 	[resetButton title:localStr(@"resetPwdLower")];
 	[sl push:resetButton height:BTN_HEIGHT marginBottom:5];
 
-	UITextView *noticeLab = self.view.noticeLabel;
-	noticeLab.text = localStr(@"pwdstandard");
-	noticeLab.font = [Fonts light:10];
-	[sl push:noticeLab height:45 marginBottom:30];
+    noticelb = [UITextView new];
+    noticelb.backgroundColor = Colors.secondary;
+    noticelb.textColor = UIColor.whiteColor;
+    noticelb.tag = 11;
+    noticelb.editable = NO;
+    noticelb.textContainerInset = UIEdgeInsetsMake(10, 0, 0, 15);
+    noticelb.font = [Fonts regular:10];
+    
+    UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
+    b.frame = makeRect(SCREENWIDTH - 88, 0, 60, BTN_HEIGHT);
+    [b setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+    [noticelb addSubview:b];
+    noticelb.text = localStr(@"pwdstandard");
+    [self.view addSubview:noticelb];
+    [sl push:noticelb height:45 marginBottom:30];
+    
+    [b onClick:self action:@selector(deletePwdReqView:)];
+//    UITextView *noticeLab = self.view.noticeLabel;
+//    noticeLab.text = localStr(@"pwdstandard");
+//    noticeLab.font = [Fonts light:10];
+//    [sl push:noticeLab height:45 marginBottom:30];
 
+    //password requirements
 	UILabel *reqLabel = self.view.addLabel;
 	reqLabel.text = localStr(@"pwd_req");
 	reqLabel.font = [Fonts light:12];
@@ -58,6 +77,8 @@
 	[[[[[infoImgView layoutMaker] sizeEq:15 h:15] leftParent:0] centerYParent:0] install];
 	[sl push:reqLabel height:[reqLabel heightThatFit] marginBottom:15];
 
+    [reqLabel onClickView:self action:@selector(clickReqLabel:)];
+    
 	rePwdEdit = self.view.addEditRoundedGray;
 	rePwdEdit.delegate = self;
 	rePwdEdit.hint = localStr(@"conpwd");
@@ -96,6 +117,17 @@
 
 	// Do any additional setup after loading the view.
 }
+
+- (void)deletePwdReqView:(UIButton *)btn {
+    btn.superview.hidden = YES;
+}
+
+- (void)clickReqLabel:(UILabel *)sender {
+    
+    noticelb.hidden = NO;
+    
+}
+
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 

@@ -43,7 +43,7 @@
     [sendButton stylePrimary];
     [self.view addSubview:sendButton];
     StackLayout *sl = [StackLayout new];
-    [sl push:sendButton height:BTN_HEIGHT marginBottom:20];
+    [sl push:sendButton height:BTN_HEIGHT marginBottom:20+TABLEBAR_SAFE_BOTTOM_MARGIN];
     [sl install];
     
     [sendButton onClick:self action:@selector(clickSend:)];
@@ -357,12 +357,12 @@
     content.textColor = [UIColor blackColor];
     content.text = title;
     content.textAlignment = NSTextAlignmentCenter;
-    content.frame = CGRectMake(50, 23, SCREENWIDTH - 100, 40);
+    content.frame = CGRectMake(50, 23+NAVHEIGHT_OFFSET, SCREENWIDTH - 100, 40);
     [topVi addSubview:content];
     
     UIButton *dismissBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [dismissBtn setImage:imageName forState:UIControlStateNormal];
-    dismissBtn.frame = CGRectMake(SCREENWIDTH - 60, 24, 60, 40);
+    dismissBtn.frame = CGRectMake(SCREENWIDTH - 60, 24+NAVHEIGHT_OFFSET, 60, 40);
     [topVi addSubview:dismissBtn];
     [dismissBtn addTarget:self action:@selector(dismissBtnClick) forControlEvents:UIControlEventTouchUpInside];
     

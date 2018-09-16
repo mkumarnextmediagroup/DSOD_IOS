@@ -51,7 +51,7 @@
     UIImageView *backView = self.view.addImageView;
     backView.imageName = @"close_white";
     [backView scaleFit];
-    [[[[backView.layoutMaker sizeEq:23 h:23] rightParent:-40] topParent:30] install];
+    [[[[backView.layoutMaker sizeEq:23 h:23] rightParent:-40] topParent:30+NAVHEIGHT_OFFSET] install];
     
     StackLayout *sl = [StackLayout new];
     

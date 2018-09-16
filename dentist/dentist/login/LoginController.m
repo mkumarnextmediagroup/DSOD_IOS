@@ -31,13 +31,20 @@
 	[super viewDidLoad];
 
 
-	UIImageView *imageView = self.view.addImageView;
-	imageView.imageName = @"bg_3.png";
-	[imageView layoutFill];
+//    UIImageView *imageView = self.view.addImageView;
+//    imageView.imageName = @"bg_3.png";
+//    [imageView layoutFill];
+    
+    UIImage *image = [UIImage imageNamed:@"bg_3.png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    [self.view addSubview:imageView];
+    [imageView layoutFill];
+    
+    
 
 	UIImageView *logoView = self.view.addImageView;
 	logoView.imageName = @"logo";
-	[logoView layoutCenterXOffsetTop:260 height:54 offset:54];
+	[logoView layoutCenterXOffsetTop:260 height:54 offset:54+NAVHEIGHT_OFFSET];
 
 	UIImageView *backView = self.view.addImageView;
 	backView.imageName = @"back_arrow";
@@ -46,7 +53,7 @@
 		m.width.mas_equalTo(23);
 		m.height.mas_equalTo(23);
 		m.left.mas_equalTo(self.view.mas_left).offset(16);
-		m.top.mas_equalTo(self.view.mas_top).offset(30);
+		m.top.mas_equalTo(self.view.mas_top).offset(30+NAVHEIGHT_OFFSET);
 	}];
 
     StackLayout *sl = [StackLayout new];
@@ -104,7 +111,7 @@
     regLabel.text = localStr(@"create_account");
     [regLabel underLineSingle];
     
-    [sl push:regLabel height:20 marginBottom:33];
+    [sl push:regLabel height:20 marginBottom:33+TABLEBAR_SAFE_BOTTOM_MARGIN];
 
     if (!self.student) {
         UIButton *linkedinButton = self.view.addButton;

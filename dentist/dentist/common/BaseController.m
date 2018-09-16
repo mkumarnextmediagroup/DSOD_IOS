@@ -166,18 +166,19 @@
 	topVi.frame = CGRectMake(0, 0, SCREENWIDTH, NAVHEIGHT);
 	topVi.backgroundColor = bgColor;
 	[self.view addSubview:topVi];
+   
 
 	UILabel *content = [UILabel new];
 	content.font = [UIFont systemFontOfSize:19];
 	content.textColor = [UIColor blackColor];
 	content.text = title;
 	content.textAlignment = NSTextAlignmentCenter;
-	content.frame = CGRectMake(50, 23, SCREENWIDTH - 100, 40);
+	content.frame = CGRectMake(50, 23+NAVHEIGHT_OFFSET, SCREENWIDTH - 100, 40);
 	[topVi addSubview:content];
 
 	UIButton *dismissBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 	[dismissBtn setImage:imageName forState:UIControlStateNormal];
-	dismissBtn.frame = CGRectMake(SCREENWIDTH - 60, 24, 60, 40);
+	dismissBtn.frame = CGRectMake(SCREENWIDTH - 60, 24+NAVHEIGHT_OFFSET, 60, 40);
 	[topVi addSubview:dismissBtn];
 	[dismissBtn addTarget:self action:@selector(dismissBtnClick) forControlEvents:UIControlEventTouchUpInside];
 

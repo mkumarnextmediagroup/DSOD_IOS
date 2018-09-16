@@ -12,8 +12,15 @@
 #define SCREENWIDTH  [UIScreen mainScreen].bounds.size.width
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
 
-#define NAVHEIGHT 64
+// iPhone X
+#define IS_IPHONE_X (SCREENHEIGHT == 812.f ? YES : NO)
+#define NAVHEIGHT (IS_IPHONE_X ? 88.0f : 64.0f)
+#define NAVHEIGHT_OFFSET (IS_IPHONE_X ? 24.0f : 0)
+#define TABLEBAR_SAFE_BOTTOM_MARGIN  (IS_IPHONE_X ? 34.0f : 0.f)
+#define TABLEBAR_HEIGHT  (IS_IPHONE_X ? (49.f+34.f) : 49.f)
+
 #define FORGOTFIELDTAG 111
+
 
 #define SYSTEMVERSION [UIDevice currentDevice].systemVersion
 // Include any system framework and library headers here that should be included in all compilation units.

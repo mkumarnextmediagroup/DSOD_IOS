@@ -69,7 +69,7 @@
 	UIButton *cancelBtn = [self.view addSmallButton];
 	[cancelBtn setTitle:@"Cancel" forState:UIControlStateNormal];
 	[cancelBtn addTarget:self action:@selector(clickCancel:) forControlEvents:UIControlEventTouchUpInside];
-	[[[[cancelBtn.layoutMaker sizeEq:60 h:BTN_HEIGHT] centerXParent:0] bottomParent:-20] install];
+	[[[[cancelBtn.layoutMaker sizeEq:60 h:BTN_HEIGHT] centerXParent:0] bottomParent:-47] install];
 }
 
 - (void)bindData {

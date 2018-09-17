@@ -19,8 +19,6 @@
 #define TABLEBAR_SAFE_BOTTOM_MARGIN  (IS_IPHONE_X ? 34.0f : 0.f)
 #define TABLEBAR_HEIGHT  (IS_IPHONE_X ? (49.f+34.f) : 49.f)
 
-#define FORGOTFIELDTAG 111
-
 
 #define SYSTEMVERSION [UIDevice currentDevice].systemVersion
 // Include any system framework and library headers here that should be included in all compilation units.

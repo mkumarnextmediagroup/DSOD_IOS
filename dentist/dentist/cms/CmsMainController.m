@@ -9,6 +9,8 @@
 #import "PickerPage.h"
 #import "NSDate+myextend.h"
 #import "WelcomController.h"
+#import "TestScrollPage.h"
+#import "TestPage.h"
 
 
 @implementation CmsMainController {
@@ -28,7 +30,7 @@
 	item.title = @"DSODENTIST";
 	item.rightBarButtonItems = @[
 			[self navBarImage:@"edit" target:self action:@selector(onClickEdit:)],
-			[self navBarText:@"Edit" target:self action:@selector(onClickEdit:)]
+			[self navBarText:@"Edit" target:self action:@selector(onClickEdit2:)]
 	];
 
 
@@ -36,15 +38,13 @@
 
 
 - (void)onClickEdit:(id)sender {
-//	UIViewController *c = [TestPage new];
+//	UIViewController *c = [TestScrollPage new];
+	UIViewController *c = [TestPage new];
+	[self pushPage:c];
+}
 
-//	PickerPage *c = [PickerPage pickYearMonthFromNowDownTo:1930];
-
-//    WelcomController * c = [WelcomController new];
-//    [self.navigationController presentViewController:c animated:YES completion:nil];
-
-
-
-
+- (void)onClickEdit2:(id)sender {
+	UIViewController *c = [TestScrollPage new];
+	[self pushPage:c];
 }
 @end

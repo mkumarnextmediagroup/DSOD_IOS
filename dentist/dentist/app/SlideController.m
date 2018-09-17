@@ -15,56 +15,95 @@
 #import "SettingController.h"
 #import "UserInfo.h"
 #import "Proto.h"
+#import "SlideItem.h"
+#import "EducationPage.h"
+#import "CareerPage.h"
+#import "EventsPage.h"
+#import "UnitePage.h"
+#import "CmsBookmarkController.h"
+#import "CmsDownloadsController.h"
 
 
 @implementation SlideController {
-
+	NSArray *items;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
 	self.view.backgroundColor = UIColor.whiteColor;
 
 	UIView *userView = [self makeUserView];
 
-	UIButton *bCms = [self makeButtonItem:@"General Content" image:@"menu-dso"];
-	UIButton *bEdu = [self makeButtonItem:@"Education" image:@"menu-edu"];
-	UIButton *bCareer = [self makeButtonItem:@"Careers" image:@"menu-community"];
-	UIButton *bEvent = [self makeButtonItem:@"Events" image:@"menu-calendar"];
-	UIButton *bUnite = [self makeButtonItem:@"Unite" image:@"menu-unite"];
-	UIButton *bProfile = [self makeButtonItem:@"My Profile" image:@"menu-profile"];
-	UIButton *bSetting = [self makeButtonItem:@"Settings" image:@"menu-settings"];
-
+	items = @[
+			[self makeSlideItem:@"General Content" image:@"menu-dso"],
+			[self makeSlideItem:@"Education" image:@"menu-edu"],
+			[self makeSlideItem:@"Careers" image:@"menu-community"],
+			[self makeSlideItem:@"Events" image:@"menu-calendar"],
+			[self makeSlideItem:@"Unite" image:@"menu-unite"],
+			[self makeSlideItem:@"My Profile" image:@"menu-profile"],
+			[self makeSlideItem:@"Settings" image:@"menu-settings"],
+	];
 
 	QueueLayout *ql = [QueueLayout new];
 	ql.edgeLeft = 18;
 	ql.edgeRight = 0;
-
 	[ql add:userView height:115 marginTop:16 + NAVHEIGHT];
 	[ql add:[self addLine] height:1 marginTop:16];
 
-	[ql add:bCms height:50 marginTop:0];
-	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:bEdu height:50 marginTop:0];
-	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:bCareer height:50 marginTop:0];
-	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:bEvent height:50 marginTop:0];
-	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:bUnite height:50 marginTop:0];
-	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:bProfile height:50 marginTop:0];
-	[ql add:[self addLine] height:1 marginTop:0];
-	[ql add:bSetting height:50 marginTop:0];
-	[ql add:[self addLine] height:1 marginTop:0];
+	for (SlideItem *item in items) {
+		UIButton *b = [self makeButtonItem:item.title image:item.image];
+		[ql add:b height:50 marginTop:0];
+		[ql add:[self addLine] height:1 marginTop:0];
+		[b onClick:self action:@selector(clickSlideItem:)];
+		item.button = b;
+	}
 	[ql install];
 
-	[bProfile onClick:self action:@selector(openProfilePage:)];
-	[bCms onClick:self action:@selector(openCMSPage:)];
-	[bSetting onClick:self action:@selector(openSettingPage:)];
+	[self selectButton:nil];
 
+	Log(@"View Did Load ");
 }
+
+- (UIViewController *)onMakePage:(NSString *)title {
+	if ([@"General Content" isEqualToString:title]) {
+		CmsMainController *c = [CmsMainController new];
+		UINavigationController *nc1 = NavPage(c);
+		[nc1 tabItem:@"Home" imageName:@"home"];
+		c.navigationItem.leftBarButtonItem = [c navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
+
+		CmsBookmarkController *c2 = [CmsBookmarkController new];
+		UINavigationController *nc2 = NavPage(c2);
+		[nc2 tabItem:@"Bookmark" imageName:@"bookmark"];
+		c2.navigationItem.leftBarButtonItem = [c2 navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
+
+		CmsDownloadsController *c3 = [CmsDownloadsController new];
+		UINavigationController *nc3 = NavPage(c3);
+		[nc3 tabItem:@"Downloads" imageName:@"download"];
+		c3.navigationItem.leftBarButtonItem = [c3 navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
+
+		return TabPage(@[nc1, nc2, nc3]);
+	}
+	if ([@"Education" isEqualToString:title]) {
+		return [EducationPage new];
+	}
+	if ([@"Careers" isEqualToString:title]) {
+		return [CareerPage new];
+	}
+	if ([@"Events" isEqualToString:title]) {
+		return [EventsPage new];
+	}
+	if ([@"Unite" isEqualToString:title]) {
+		return [UnitePage new];
+	}
+	if ([@"My Profile" isEqualToString:title]) {
+		return [ProfileViewController new];
+	}
+	if ([@"Settings" isEqualToString:title]) {
+		return [SettingController new];
+	}
+	return nil;
+}
+
 
 - (UIView *)makeUserView {
 	UserInfo *userInfo = [Proto lastUserInfo];
@@ -91,12 +130,11 @@
 
 - (UIButton *)makeButtonItem:(NSString *)label image:(NSString *)image {
 	UIButton *b = [UIButton buttonWithType:UIButtonTypeCustom];
-
 	[b setTitle:label forState:UIControlStateNormal];
-
+	b.titleLabel.font = [Fonts medium:15];
 	[b setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
-	[b setTitleColor:Colors.textMain forState:UIControlStateSelected];
-	[b setTitleColor:Colors.textMain forState:UIControlStateHighlighted];
+	[b setTitleColor:UIColor.blackColor forState:UIControlStateSelected];
+	[b setTitleColor:UIColor.blackColor forState:UIControlStateHighlighted];
 	[b setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
 	[b setImage:[UIImage imageNamed:strBuild(image, @"_light")] forState:UIControlStateSelected];
 	b.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -110,17 +148,34 @@
 	return b;
 }
 
-- (void)openSettingPage:(id)sender {
-	[self openCenterPage:[SettingController new]];
+- (SlideItem *)makeSlideItem:(NSString *)title image:(NSString *)image {
+	SlideItem *item = [SlideItem new];
+	item.title = title;
+	item.image = image;
+	return item;
 }
 
-- (void)openProfilePage:(id)sender {
-	[self openCenterPage:[ProfileViewController new]];
+- (void)clickSlideItem:(UIButton *)sender {
+	[self selectButton:sender];
+	UIViewController *c = [self onMakePage:[sender titleForState:UIControlStateNormal]];
+	[self openCenterPage:c];
 }
 
-- (void)openCMSPage:(id)sender {
-	[self openCenterPage:[CmsMainController new]];
+- (void)selectButton:(UIButton *)b {
+	if (b == nil) {
+		SlideItem *first = items[0];
+		b = first.button;
+	}
+	for (SlideItem *item in items) {
+		item.button.selected = (item.button == b);
+		if (item.button.isSelected) {
+			item.button.titleLabel.font = [Fonts semiBold:15];
+		} else {
+			item.button.titleLabel.font = [Fonts medium:15];
+		}
+	}
 }
+
 
 - (void)openCenterPage:(UIViewController *)page {
 	UINavigationController *c = NavPage(page);
@@ -137,12 +192,6 @@
 	UIView *view = self.view.addView;
 	view.backgroundColor = Colors.strokes;
 	return view;
-}
-
-- (IconLabelView *)addMenuItem:(NSString *)icon label:(NSString *)label {
-	IconLabelView *v = [IconLabelView make:icon label:label];
-	[self.view addSubview:v];
-	return v;
 }
 
 @end

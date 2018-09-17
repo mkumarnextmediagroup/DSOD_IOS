@@ -15,6 +15,8 @@
 @implementation PickerPage {
 	UIPickerView *picker;
 	NSMutableArray *result;
+    NSInteger yearNow;
+    NSInteger monthNow;
 }
 - (instancetype)init {
 	self = [super init];
@@ -26,6 +28,9 @@
 	[super viewDidLoad];
 	self.view.backgroundColor = rgba255(0, 0, 0, 100);
 
+    yearNow = [[NSDate date] year];
+    monthNow = [[NSDate date] month];
+    
 	picker = [UIPickerView new];
 	picker.backgroundColor = [UIColor whiteColor];
 	[self.view addSubview:picker];
@@ -87,7 +92,35 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    
+    NSInteger selYear = 0;
+    NSInteger selMonth = 0;
+    NSInteger yearIndex = 0;
+    NSLog(@"=====%@",self.data[0][(NSUInteger) row]);
+    
+    for (int i = 0; i < self.data[1].count; i++) {
+        if ([self.data[1][i] integerValue] == yearNow) {
+            yearIndex = i;
+        }
+    }
 	result[(NSUInteger) component] = self.data[(NSUInteger) component][(NSUInteger) row];
+    for (int i = 0; i < result.count; i++) {
+        selMonth = [result[0] integerValue];
+        selYear = [result[1] integerValue];
+    }
+    if (component == 0) {
+        if (selMonth >= monthNow && selYear >= yearNow) {
+            [picker selectRow:monthNow - 1 inComponent:0 animated:YES];
+            result[(NSUInteger) component] = self.data[0][(NSUInteger) monthNow - 1];
+        }
+    }
+    if (component == 1) {
+        if (selYear >= yearNow) {
+            [picker selectRow:yearIndex inComponent:1 animated:YES];
+            result[(NSUInteger) component] = self.data[1][(NSUInteger) yearIndex];
+        }
+    }
+    
 }
 
 
@@ -123,7 +156,7 @@
     NSArray *monthArr = [NSArray arrayWithObjects:@"Jaunary",@"February",@"March",@"April",@"May",@"June",@"July",@"August",@"September",@"October",@"November",@"December", nil];
 	NSMutableArray *yearArr = [NSMutableArray arrayWithCapacity:60];
 
-	NSInteger yearNow = [[NSDate date] year];
+    NSInteger yearNow = [[NSDate date] year];
 	for (NSInteger n = yearNow; n >= yearTo; --n) {
 		[yearArr addObject:@(n)];
 	}

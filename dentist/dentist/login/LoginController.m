@@ -60,7 +60,12 @@
     
 	emailEdit = self.view.addEditRounded;
 	emailEdit.delegate = self;
-	emailEdit.hint = localStr(@"email_address");
+    if (self.student) {
+        emailEdit.hint = localStr(@"schemail");
+    }else
+    {
+        emailEdit.hint = localStr(@"email_address");
+    }
 	[emailEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:-23];
 
 	UILabel *lb = self.view.addLabel;

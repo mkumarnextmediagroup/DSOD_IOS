@@ -28,7 +28,7 @@
 "login_using_linkedin" = "Log In using Linkedin";
 "email_address" = "Email address";
 "pwd" = "Set password";
-"schpwd" = "School email address";
+"schemail" = "School email address";
 "conpwd" = "Confirm Password";
 "newpwd" = "New Password";
 "hereyou" = "Here you can change the password for your DSOD account.";

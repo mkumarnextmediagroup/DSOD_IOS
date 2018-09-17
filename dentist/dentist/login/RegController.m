@@ -175,19 +175,19 @@
     
 	pwdEdit = self.view.addEditPwd;
 	pwdEdit.delegate = self;
-    if (self.student) {
-        pwdEdit.hint = localStr(@"schpwd");
-    }else
-    {
-        pwdEdit.hint = localStr(@"pwd");
-    }
+    pwdEdit.hint = localStr(@"pwd");
 	[pwdEdit returnDone];
 	[pwdEdit keyboardDefault];
 	[sl push:pwdEdit height:36 marginBottom:10];
 
 	emailEdit = self.view.addEditRounded;
 	emailEdit.delegate = self;
-	emailEdit.hint = localStr(@"email_address");
+    if (self.student) {
+        emailEdit.hint = localStr(@"schemail");
+    }else
+    {
+        emailEdit.hint = localStr(@"email_address");
+    }
 	emailEdit.text = self.emailStr;
 	[emailEdit returnNext];
 	[emailEdit keyboardEmail];

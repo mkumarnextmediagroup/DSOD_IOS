@@ -222,8 +222,10 @@
 	workInThisRole = switchView.switchView.on;
     if (workInThisRole) {
         fromToView.toDateLabel.text = @"Present";
+        fromToView.toDateLabel.userInteractionEnabled = NO;
     }else
     {
+        fromToView.toDateLabel.userInteractionEnabled = YES;
         [self bindData];
     }
 }
@@ -234,9 +236,13 @@
 	} else {
 		fromToView.fromDateLabel.text = @"Select";
 	}
-	if (toMonth > 0 && toYear > 0) {
+	if (toMonth > 0 && toYear > 0 && !workInThisRole) {
 		fromToView.toDateLabel.text = strBuild(nameOfMonth(toMonth), @" ", [@(toYear) description]);
-	} else {
+    }else if (workInThisRole) {
+        fromToView.toDateLabel.text = @"Present";
+        
+    }
+    else {
 		fromToView.toDateLabel.text = @"Select";
 	}
 	if (praticeType == nil || praticeType.length == 0) {

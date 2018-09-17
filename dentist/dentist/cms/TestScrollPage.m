@@ -20,16 +20,8 @@
 	lb.backgroundColor = UIColor.blueColor;
 	lb.text = @"==========11111===========";
 	[self.contentView addSubview:lb];
-	lb.layoutParam.height = 500;
-	lb.layoutParam.marginLeft = 20;
+	lb.layoutParam.height = 60;
 
-	UILabel *lb2 = [UILabel new];
-	lb2.backgroundColor = UIColor.redColor;
-	lb2.text = @"==========22222===========";
-	[self.contentView addSubview:lb2];
-	lb2.layoutParam.height = 500;
-	lb2.layoutParam.marginLeft = 0;
-	lb2.layoutParam.marginTop = 20 ;
 
 	[self layoutLinearVertical];
 }

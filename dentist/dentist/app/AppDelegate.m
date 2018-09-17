@@ -61,27 +61,15 @@
 }
 
 - (UIViewController *)makeMainPage {
-	CmsMainController *c = [CmsMainController new];
-	UINavigationController *nc1 = NavPage(c);
-	[nc1 tabItem:@"Home" imageName:@"home"];
-	c.navigationItem.leftBarButtonItem = [c navBarImage:@"menu" target:self action:@selector(onOpenMenu:)];
-
-	CmsBookmarkController *c2 = [CmsBookmarkController new];
-	[c2 tabItem:@"Bookmark" imageName:@"bookmark"];
-
-	CmsDownloadsController *c3 = [CmsDownloadsController new];
-	[c3 tabItem:@"Downloads" imageName:@"download"];
-
-	UITabBarController *tc = TabPage(@[nc1, c2, c3]);
-
 	SlideController *sc = [SlideController new];
 	sc.preferredContentSize = makeSize(SCREENWIDTH - 90, SCREENHEIGHT);
 	UINavigationController *snav = NavPage(sc);
-	sc.navigationItem.leftBarButtonItem = [c navBarImage:@"menu" target:self action:@selector(closeMenu:)];
+	sc.navigationItem.leftBarButtonItem = [sc navBarImage:@"menu" target:self action:@selector(closeMenu:)];
 	snav.navigationBar.tintColor = Colors.primary;
 	snav.navigationBar.barTintColor = UIColor.whiteColor;
 
-	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:tc leftViewController:snav rightViewController:nil];
+	UIViewController *centerPage = [sc onMakePage:@"General Content"];
+	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:centerPage leftViewController:snav rightViewController:nil];
 	return deck;
 }
 

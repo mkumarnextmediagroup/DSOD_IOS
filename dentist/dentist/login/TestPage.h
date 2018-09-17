@@ -7,5 +7,5 @@
 #import "ListPage.h"
 
 
-@interface TestPage : ListPage
+@interface TestPage : UIViewController
 @end

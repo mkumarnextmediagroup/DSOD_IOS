@@ -61,6 +61,14 @@
 	return [self navBarImage:@"back_arrow" target:target action:action];
 }
 
+- (UIBarButtonItem *)backBarButtonClose {
+	return [self navBarImage:@"back_arrow" target:self action:@selector(_closePage:)];
+}
+
+- (void)_closePage:(id)sender {
+	[self popPage];
+}
+
 - (void)openPage:(UIViewController *)page {
 	[self presentViewController:page animated:YES completion:nil];
 }

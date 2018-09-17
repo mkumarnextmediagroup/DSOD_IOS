@@ -21,6 +21,8 @@
 
 - (UIBarButtonItem *)navBarImage:(NSString *)imageName target:(nullable id)target action:(SEL)action;
 
+- (UIBarButtonItem *)backBarButtonClose;
+
 - (void)openPage:(UIViewController *)page;
 
 - (void)pushPage:(UIViewController *)page;

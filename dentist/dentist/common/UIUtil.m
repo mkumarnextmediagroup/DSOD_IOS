@@ -61,3 +61,14 @@ UITabBarController *TabPage(NSArray<__kindof UIViewController *> *cs) {
 	[tabC setViewControllers:cs];
 	return tabC;
 }
+
+UITabBarController *TabNavPage(NSArray<__kindof UIViewController *> *cs) {
+	UITabBarController *tabC = [UITabBarController new];
+	NSMutableArray *arr = [NSMutableArray arrayWithCapacity:cs.count];
+	for (UIViewController *c in cs) {
+		UINavigationController *nc = NavPage(c);
+		[arr addObject:nc];
+	}
+	[tabC setViewControllers:arr];
+	return tabC;
+}

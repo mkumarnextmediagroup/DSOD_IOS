@@ -7,4 +7,7 @@
 
 
 @interface SlideController : UIViewController
+
+- (UIViewController *)onMakePage:(NSString *)title;
+
 @end

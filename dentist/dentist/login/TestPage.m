@@ -4,6 +4,7 @@
 //
 
 #import "TestPage.h"
+#import "Common.h"
 
 
 @implementation TestPage {
@@ -11,38 +12,13 @@
 }
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.items = @[@"Yang", @"Entao"];
+	self.navigationItem.leftBarButtonItem = [self backBarButtonClose];
+	UILabel *lb = [self.view addLabel];
+	lb.backgroundColor = UIColor.greenColor;
+	lb.text = @"Hello";
 
-
+	[[[[[lb.layoutMaker heightEq:120] topParent:0] leftParent:0] rightParent:0] install];
 }
 
-- (void)onClickItem:(NSObject *)item {
-	NSLog(@"click %@", item);
-}
-
-- (Class)viewClassOfItem:(NSObject *)item {
-	return [UILabel class];
-}
-
-- (CGFloat)heightOfItem:(NSObject *)item {
-	return 80;
-}
-
-- (void)onBindItem:(NSObject *)item view:(UIView *)view {
-	UILabel *lb = (UILabel *) view;
-	NSString *v = (NSString *) item;
-	lb.text = v;
-	NSLog(@"Bind %@", v);
-}
-
-- (void)onConfigCell:(NSObject *)item cell:(UITableViewCell *)cell {
-	NSString *v = (NSString *) item;
-	if ([v isEqualToString:@"Yang"]) {
-		cell.indentationLevel = 8;
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	}
-	cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-}
 
 @end

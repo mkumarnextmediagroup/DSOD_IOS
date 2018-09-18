@@ -325,6 +325,18 @@
 
 - (void)clickSave:(UIButton *)btn {
 	NSLog(@"save");
+    
+    if (fromYear > toYear || (fromYear == toYear && fromMonth > toMonth)) {
+        [self Den_showAlertWithTitle:localStr(@"notice") message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+            alertMaker.
+            addActionDefaultTitle(@"OK");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+            if ([action.title isEqualToString:@"Yes"]) {
+                [self popPage];
+            }
+        }];
+    }
+    
     if (!isShowDSO) {
         nameOfDental = dentalEditView.edit.text;
     }

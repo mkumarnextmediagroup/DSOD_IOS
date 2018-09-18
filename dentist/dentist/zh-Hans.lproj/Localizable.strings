@@ -104,3 +104,4 @@
 "showLast" = "' already exists. Try logging in with it or use another email address";
 "logIn" = "Log In               ";
 "emailUse" = "Email address already in use";
+"notice" = "The From Date should be smaller than the To Date.";

@@ -31,6 +31,7 @@
 
 	_msgLabel.font = [Fonts regular:15];
 	[_msgLabel textColorBlack];
+	_msgLabel.numberOfLines = 0;
 
 	iconView.imageName = @"arrow_small";
 
@@ -43,11 +44,10 @@
 }
 
 - (void)resetLayout {
-    self.layoutParam.height = 90;
-	Padding *p = self.padding;
-	[[[[[_titleLabel.layoutRemaker heightEq:14] leftParent:p.left] rightParent:-p.right] topParent:p.top-10] install];
-	[[[[iconView.layoutRemaker sizeEq:16 h:16] rightParent:-p.right] bottomParent:-p.bottom] install];
-	[[[[[_msgLabel.layoutRemaker heightEq:45] leftParent:p.left] bottomParent:-p.bottom + 8] toLeftOf:iconView offset:-10] install];
+	CGSize sz = [_msgLabel sizeThatFits:makeSize(310, 1000)];
+	Log(@"resetLayout ", @(sz.width), @(sz.height), @(_msgLabel.frame.size.width));
+	[[_msgLabel.layoutUpdate heightEq:sz.height] install];
+	self.layoutParam.height = 78 + (sz.height - 25);
 
 }
 @end

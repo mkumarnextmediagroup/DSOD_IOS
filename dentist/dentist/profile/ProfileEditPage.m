@@ -296,6 +296,10 @@
      */
     
     [userView reset:[self getProfilePercent]];
+
+
+
+	[self layoutLinearVertical];
     
 }
 -(float) getProfilePercent{

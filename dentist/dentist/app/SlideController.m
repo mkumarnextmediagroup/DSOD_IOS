@@ -22,6 +22,9 @@
 #import "UnitePage.h"
 #import "CmsBookmarkController.h"
 #import "CmsDownloadsController.h"
+#import "CmsForYouPage.h"
+#import "CmsSearchPage.h"
+#import "CmsCategoryPage.h"
 
 
 @implementation SlideController {
@@ -64,24 +67,38 @@
 	Log(@"View Did Load ");
 }
 
+- (UIBarButtonItem *)menuButton {
+	return [self navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
+}
+
 - (UIViewController *)onMakePage:(NSString *)title {
 	if ([@"General Content" isEqualToString:title]) {
-		CmsMainController *c = [CmsMainController new];
-		UINavigationController *nc1 = NavPage(c);
-		[nc1 tabItem:@"Home" imageName:@"home"];
-		c.navigationItem.leftBarButtonItem = [c navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
+		CmsForYouPage *forYouPage = [CmsForYouPage new];
+		UINavigationController *ncForYou = NavPage(forYouPage);
+		[ncForYou tabItem:@"Home" imageName:@"home"];
+		forYouPage.navigationItem.leftBarButtonItem = [self menuButton];
 
-		CmsBookmarkController *c2 = [CmsBookmarkController new];
-		UINavigationController *nc2 = NavPage(c2);
-		[nc2 tabItem:@"Bookmark" imageName:@"bookmark"];
-		c2.navigationItem.leftBarButtonItem = [c2 navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
+		CmsSearchPage *cSearch = [CmsSearchPage new];
+		UINavigationController *ncSearch = NavPage(cSearch);
+		[ncSearch tabItem:@"Search" imageName:@"search"];
+		cSearch.navigationItem.leftBarButtonItem = [self menuButton];
 
-		CmsDownloadsController *c3 = [CmsDownloadsController new];
-		UINavigationController *nc3 = NavPage(c3);
-		[nc3 tabItem:@"Downloads" imageName:@"download"];
-		c3.navigationItem.leftBarButtonItem = [c3 navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
+		CmsCategoryPage *catPage = [CmsCategoryPage new];
+		UINavigationController *ncCat = NavPage(catPage);
+		[ncCat tabItem:@"Category" imageName:@"category"];
+		catPage.navigationItem.leftBarButtonItem = [self menuButton];
 
-		return TabPage(@[nc1, nc2, nc3]);
+		CmsBookmarkController *bookPage = [CmsBookmarkController new];
+		UINavigationController *ncBook = NavPage(bookPage);
+		[ncBook tabItem:@"Bookmark" imageName:@"bookmark"];
+		bookPage.navigationItem.leftBarButtonItem = [self menuButton];
+
+		CmsDownloadsController *downPage = [CmsDownloadsController new];
+		UINavigationController *ncDown = NavPage(downPage);
+		[ncDown tabItem:@"Downloads" imageName:@"download"];
+		downPage.navigationItem.leftBarButtonItem = [self menuButton];
+
+		return TabPage(@[ncForYou, ncSearch, ncCat, ncBook, ncDown]);
 	}
 	if ([@"Education" isEqualToString:title]) {
 		return [EducationPage new];

@@ -362,11 +362,38 @@
 
 	backTask(^() {
 		HttpResult *r = [Proto login:userName pwd:pwd];
-		if (Proto.isLogined) {
-			foreTask(^() {
-				[AppDelegate.instance switchToMainPage];
-			});
-		}
+        if (r.code == 1001)//pwd is error
+        {
+            NSString *content = [NSString stringWithFormat:@"%@\n%@",localStr(@"sorry"),userName];
+            [self Den_showAlertWithTitle:localStr(@"incorrect") message:content appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+                alertMaker.
+                addActionCancelTitle(@"Try Again").
+                addActionDefaultTitle(localStr(@"resetPwdLower"));
+            } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+                if ([action.title isEqualToString:localStr(@"resetPwdLower")]) {
+                    [self clickForgot:nil];
+                }
+            }];
+        }else if (r.code == 1003)//username is error
+        {
+            NSString *content = [NSString stringWithFormat:@"%@\n%@",localStr(@"sorryEmail"),userName];
+            [self Den_showAlertWithTitle:localStr(@"incorrMail") message:content appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+                alertMaker.
+                addActionCancelTitle(@"Try Again").
+                addActionDefaultTitle(localStr(@"create_newAccount"));
+            } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+                if ([action.title isEqualToString:localStr(@"create_newAccount")]) {
+                    [self clickGoReg:nil];
+                }
+            }];
+        }else if (r.code == 0)//login success
+        {
+            if (Proto.isLogined) {
+                foreTask(^() {
+                    [AppDelegate.instance switchToMainPage];
+                });
+            }
+        }
 	});
 
 }

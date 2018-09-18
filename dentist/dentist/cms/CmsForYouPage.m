@@ -26,8 +26,8 @@
 	item.title = @"DSODENTIST";
 
 	self.table.tableHeaderView = [self makeHeaderView];
-//	self.table.rowHeight = UITableViewAutomaticDimension;
-//	self.table.estimatedRowHeight = 400;
+	self.table.rowHeight = UITableViewAutomaticDimension;
+	self.table.estimatedRowHeight = 400;
 
 	NSArray *ls = [Proto listArticle];
 	self.items = ls;
@@ -102,7 +102,8 @@
 }
 
 - (CGFloat)heightOfItem:(NSObject *)item {
-	return 430;
+//	return 430;
+	return UITableViewAutomaticDimension;
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {

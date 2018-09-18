@@ -8,7 +8,7 @@
 
 @interface ArticleComment : NSObject
 
-@property NSString *articleId;
+@property NSInteger articleId;
 
 @property NSString *authAccount;
 @property NSString *authName;

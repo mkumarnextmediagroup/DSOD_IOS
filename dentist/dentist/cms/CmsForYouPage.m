@@ -1,12 +1,12 @@
 //
-// Created by entaoyang@163.com on 2018/9/5.
+// Created by entaoyang on 2018/9/18.
 // Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
 //
 
-#import "CmsDownloadsController.h"
+#import "CmsForYouPage.h"
 #import "Common.h"
 
-@implementation CmsDownloadsController {
+@implementation CmsForYouPage {
 
 }
 
@@ -14,13 +14,12 @@
 	[super viewDidLoad];
 
 	UILabel *lb = self.view.addLabel;
-	lb.text = @"Downloads Page";
+	lb.text = @"For You Page";
 	[lb textColorMain];
 
 	[[[lb.layoutMaker centerParent] sizeFit] install];
 
 	UINavigationItem *item = [self navigationItem];
-	item.title = @"DSODENTIST";
-
+	item.title = @"For You";
 }
 @end

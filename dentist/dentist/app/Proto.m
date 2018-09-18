@@ -6,11 +6,46 @@
 #import "Proto.h"
 #import "UserInfo.h"
 #import "JSONModel+myextend.h"
+#import "Article.h"
+#import "ArticleComment.h"
 
 
 @implementation Proto {
 	NSString *SERVER;
 }
+
++ (NSArray *)listArticle {
+	Article *a = [Article new];
+	a.id = 1;
+	a.isSponsor = NO;
+	a.publishDate = @"May 15,2018";
+
+	a.type = @"orthodontics";
+	a.authAccount = @"tom@gmail.com";
+	a.authName = @"Dr.Sandra Tai";
+	a.title = @"Mastering the art of Dental Surgery";
+	a.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n"
+	            "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n"
+	            "Once you have completed the expectations with the patient the first step is to test the attachment template and the first aligner. This is an expert thinking process for you.";
+	a.resImage = @"http://app800.cn/i/d.png";
+	a.resType = @"image";
+
+	ArticleComment *c = [ArticleComment new];
+	c.articleId = 100;
+	c.authAccount = @"peter@gmail.com";
+	c.authName = @"Peter";
+	c.authPortrait = @"http://app800.cn/i/p.png";
+	c.rate = 3;
+	c.content = @"Good !";
+	c.publishDate = @"Sep 16, 2018";
+
+	a.comments = @[c];
+
+	NSArray *arr = @[a];
+	return arr;
+}
+
+
 + (NSArray *)listResidency {
 	return @[
 			@"Creighton University School of Dentistry",
@@ -29,58 +64,58 @@
 }
 
 + (NSArray *)shortStates {
-    return @[
-             @"AL",
-             @"AK",
-             @"AZ",
-             @"AR",
-             @"CA",
-             @"CO",
-             @"CT",
-             @"DE",
-             @"FL",
-             @"GA",
-             @"HI",
-             @"ID",
-             @"IL",
-             @"IN",
-             @"IA",
-             @"KS",
-             @"KY",
-             @"LA",
-             @"ME",
-             @"MD",
-             @"MA",
-             @"MI",
-             @"MN",
-             @"MS",
-             @"MO",
-             @"MT",
-             @"NE",
-             @"NV",
-             @"NH",
-             @"NJ",
-             @"NM",
-             @"NY",
-             @"NC",
-             @"ND",
-             @"OH",
-             @"OK",
-             @"OR",
-             @"PA",
-             @"RI",
-             @"SC",
-             @"SD",
-             @"TN",
-             @"TX",
-             @"UT",
-             @"VT",
-             @"VA",
-             @"WA",
-             @"WV",
-             @"WI",
-             @"WY",
-             ];
+	return @[
+			@"AL",
+			@"AK",
+			@"AZ",
+			@"AR",
+			@"CA",
+			@"CO",
+			@"CT",
+			@"DE",
+			@"FL",
+			@"GA",
+			@"HI",
+			@"ID",
+			@"IL",
+			@"IN",
+			@"IA",
+			@"KS",
+			@"KY",
+			@"LA",
+			@"ME",
+			@"MD",
+			@"MA",
+			@"MI",
+			@"MN",
+			@"MS",
+			@"MO",
+			@"MT",
+			@"NE",
+			@"NV",
+			@"NH",
+			@"NJ",
+			@"NM",
+			@"NY",
+			@"NC",
+			@"ND",
+			@"OH",
+			@"OK",
+			@"OR",
+			@"PA",
+			@"RI",
+			@"SC",
+			@"SD",
+			@"TN",
+			@"TX",
+			@"UT",
+			@"VT",
+			@"VA",
+			@"WA",
+			@"WV",
+			@"WI",
+			@"WY",
+	];
 }
 
 + (NSArray *)listStates {
@@ -97,44 +132,44 @@
 			@"Georigia",
 			@"Hawaii",
 			@"Idaho",
-            @"Illinois",
-            @"Indiana",
-            @"Iowa",
-            @"Kansas",
-            @"Kentucky",
-            @"Louisiana",
-            @"Maine",
-            @"Maryland",
-            @"Massachusetts",
-            @"Michigan",
-            @"Minnesota",
-            @"Mississippi",
-            @"Missouri",
-            @"Montana",
-            @"Nebraska",
-            @"Nevada",
-            @"New Hampshire",
-            @"New Jersey",
-            @"New Mexico",
-            @"New York",
-            @"North Carolina",
-            @"North Dakota",
-            @"Ohio",
-            @"Oklahoma",
-            @"Oregon",
-            @"Pennsylvania",
-            @"Rhode Island",
-            @"South Carolina",
-            @"South Dakota",
-            @"Tennessee",
-            @"Texas",
-            @"Utah",
-            @"Vermont",
-            @"Virginia",
-            @"Washington",
-            @"West Virginia",
-            @"Wisconsin",
-            @"Wyoming",
+			@"Illinois",
+			@"Indiana",
+			@"Iowa",
+			@"Kansas",
+			@"Kentucky",
+			@"Louisiana",
+			@"Maine",
+			@"Maryland",
+			@"Massachusetts",
+			@"Michigan",
+			@"Minnesota",
+			@"Mississippi",
+			@"Missouri",
+			@"Montana",
+			@"Nebraska",
+			@"Nevada",
+			@"New Hampshire",
+			@"New Jersey",
+			@"New Mexico",
+			@"New York",
+			@"North Carolina",
+			@"North Dakota",
+			@"Ohio",
+			@"Oklahoma",
+			@"Oregon",
+			@"Pennsylvania",
+			@"Rhode Island",
+			@"South Carolina",
+			@"South Dakota",
+			@"Tennessee",
+			@"Texas",
+			@"Utah",
+			@"Vermont",
+			@"Virginia",
+			@"Washington",
+			@"West Virginia",
+			@"Wisconsin",
+			@"Wyoming",
 	];
 }
 
@@ -398,7 +433,7 @@
 }
 
 + (HttpResult *)sendLinkedInInfo:(NSString *)access_token {
-    NSString *url = [NSString stringWithFormat:@"linkedInLogin/%@/fooClientIdPassword",access_token];
+	NSString *url = [NSString stringWithFormat:@"linkedInLogin/%@/fooClientIdPassword", access_token];
 	return [self get:url dic:nil];
 }
 
@@ -426,10 +461,9 @@
 	return r;
 }
 
-+ (void)linkedinLogin:(NSString *)token userid:(NSString *)userid
-{
-    putUserToken(userid, token);
-    putLastAccount(userid);
++ (void)linkedinLogin:(NSString *)token userid:(NSString *)userid {
+	putUserToken(userid, token);
+	putLastAccount(userid);
 }
 
 + (HttpResult *)register:(NSString *)email pwd:(NSString *)pwd name:(NSString *)name student:(BOOL)student {

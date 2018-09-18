@@ -21,7 +21,7 @@
 	UITabBarItem *item = self.tabBarItem;
 	item.title = title;
 	item.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-	item.selectedImage = [[UIImage imageNamed:strBuild(imageName, @"_light")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+	item.selectedImage = [[UIImage imageNamed:strBuild(imageName, @"-light")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
 
 

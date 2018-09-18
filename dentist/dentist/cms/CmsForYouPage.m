@@ -26,9 +26,13 @@
 	item.title = @"DSODENTIST";
 
 	self.table.tableHeaderView = [self makeHeaderView];
+//	self.table.rowHeight = UITableViewAutomaticDimension;
+//	self.table.estimatedRowHeight = 400;
+
 	NSArray *ls = [Proto listArticle];
 	self.items = ls;
 }
+
 
 - (UIView *)makeHeaderView {
 	UIView *panel = [UIView new];
@@ -70,6 +74,7 @@
 	for (NSUInteger i = 0; i < segItems.count; ++i) {
 		[seg setWidth:90 forSegmentAtIndex:i];
 	}
+	seg.selectedSegmentIndex = 0;
 
 	UIScrollView *sv = [UIScrollView new];
 	[sv addSubview:seg];
@@ -97,7 +102,7 @@
 }
 
 - (CGFloat)heightOfItem:(NSObject *)item {
-	return 400;
+	return 430;
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {

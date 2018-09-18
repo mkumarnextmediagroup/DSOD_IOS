@@ -109,16 +109,16 @@
 }
 
 - (void)sendCode:(NSString *)email {
-//    backTask(^() {
-//        HttpResult *r = [Proto sendEmailCode:email];
-//        foreTask(^() {
-//            if (r.OK) {
+    backTask(^() {
+        HttpResult *r = [Proto sendEmailCode:email];
+        foreTask(^() {
+            if (r.OK) {
 				[self onSendCodeOK:email];
-//            } else {
-//                [self alertOK:@"Error" msg:r.msg okText:nil onOK:nil];
-//            }
-//        });
-//    });
+            } else {
+                [self alertOK:@"Error" msg:r.msg okText:nil onOK:nil];
+            }
+        });
+    });
 }
 
 - (void)onSendCodeOK:(NSString *)email {

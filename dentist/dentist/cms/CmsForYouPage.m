@@ -36,7 +36,7 @@
 
 - (UIView *)makeHeaderView {
 	UIView *panel = [UIView new];
-	panel.frame = makeRect(0, 0, SCREENWIDTH, 210);
+	panel.frame = makeRect(0, 0, SCREENWIDTH, 211);
 	UIImageView *iv = [panel addImageView];
 	[iv scaleFillAspect];
 	iv.imageName = @"ad";

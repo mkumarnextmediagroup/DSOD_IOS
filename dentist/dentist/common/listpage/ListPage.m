@@ -13,7 +13,6 @@
 @end
 
 @implementation ListPage {
-	UITableView *_table;
 	NSArray *_items;
 }
 
@@ -38,9 +37,6 @@
 
 }
 
-- (UITableView *)table {
-	return _table;
-};
 
 - (NSArray *)items {
 	return _items;

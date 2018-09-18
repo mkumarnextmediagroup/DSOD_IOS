@@ -41,7 +41,34 @@
 
 	a.comments = @[c];
 
-	NSArray *arr = @[a];
+
+	Article *b = [Article new];
+	b.id = 1;
+	b.isSponsor = NO;
+	b.publishDate = @"May 15,2018";
+
+	b.type = @"orthodontics";
+	b.authAccount = @"tom@gmail.com";
+	b.authName = @"Dr.Sandra Tai";
+	b.title = @"Mastering the art of Dental Surgery";
+	b.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n"
+	            "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n"
+	            "Once you have completed the expectations with the patient the first step is to test the attachment template and the first aligner. This is an expert thinking process for you.";
+	b.resImage = @"http://app800.cn/i/d.png";
+	b.resType = @"image";
+
+	ArticleComment *bc = [ArticleComment new];
+	bc.articleId = 100;
+	bc.authAccount = @"peter@gmail.com";
+	bc.authName = @"Peter";
+	bc.authPortrait = @"http://app800.cn/i/p.png";
+	bc.rate = 3;
+	bc.content = @"Good !";
+	bc.publishDate = @"Sep 16, 2018";
+
+	b.comments = @[bc];
+
+	NSArray *arr = @[a, b];
 	return arr;
 }
 

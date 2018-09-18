@@ -11,7 +11,6 @@
 #import "IIViewDeckController.h"
 #import "UIViewController+IIViewDeckAdditions.h"
 #import "AppDelegate.h"
-#import "CmsMainController.h"
 #import "SettingController.h"
 #import "UserInfo.h"
 #import "Proto.h"

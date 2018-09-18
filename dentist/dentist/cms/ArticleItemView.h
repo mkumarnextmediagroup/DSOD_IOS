@@ -4,7 +4,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ListPage.h"
 
-@interface CmsForYouPage : ListPage
+@class Article;
+
+
+@interface ArticleItemView : UIView
+
+-(void) bind:(Article*)item ;
 @end

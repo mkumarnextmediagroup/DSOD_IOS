@@ -388,6 +388,9 @@
             }];
         }else if (r.code == 0)//login success
         {
+            if (r.OK) {
+                keychainPutPwd(userName, pwd);
+            }
             if (Proto.isLogined) {
                 foreTask(^() {
                     [AppDelegate.instance switchToMainPage];

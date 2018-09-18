@@ -54,12 +54,12 @@
 	[titleLabel textColorMain];
 	titleLabel.numberOfLines = 0;
 //	[[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] heightEq:24] install];
-	[[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] bottomParent:-107] install];
+	[[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] bottomParent:-103] install];
 
 	contentLabel = [self addLabel];
 	contentLabel.font = [Fonts regular:15];
 	[contentLabel textColorMain];
-	[[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge] heightEq:80] bottomParent:-12] install];
+	[[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge] heightEq:80] bottomParent:-16] install];
 
 	return self;
 }

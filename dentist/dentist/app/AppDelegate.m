@@ -8,17 +8,12 @@
 
 #import "AppDelegate.h"
 #import "LoginController.h"
-#import "ProfileViewController.h"
-#import "BaseNavController.h"
 #import "WelcomController.h"
-#import "CmsMainController.h"
-#import "CmsBookmarkController.h"
-#import "CmsDownloadsController.h"
 #import "UIViewController+myextend.h"
 #import "IIViewDeckController.h"
 #import "SlideController.h"
-#import "UIViewController+IIViewDeckAdditions.h"
 #import "Proto.h"
+#import "Common.h"
 
 @interface AppDelegate ()
 
@@ -102,6 +97,9 @@
 	[[UINavigationBar appearance] setBarTintColor:Colors.bgNavBarColor];
 	[[UINavigationBar appearance] setTintColor:UIColor.whiteColor];
 	[[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [Fonts semiBold:15]}];
+
+	[[UINavigationBar appearance] setShadowImage:[UIImage new]];
+
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {

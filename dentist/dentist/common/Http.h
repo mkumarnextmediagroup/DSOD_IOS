@@ -40,6 +40,7 @@ typedef void (^HttpCallback)(HttpResult *);
 
 - (void)contentTypeJson;
 - (void)contentType:(NSString *)value;
+- (void)contentTypeWithToken;
 
 - (void)userAgent:(NSString *)value;
 

@@ -8,6 +8,7 @@
 #import "Common.h"
 #import "NSData+myextend.h"
 #import "Async.h"
+#import "Proto.h"
 
 static int GET = 0;
 static int POST = 1;
@@ -86,10 +87,16 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	[self header:@"Content-Type" value:value];
 }
 
+- (void)contentTypeWithToken
+{
+    NSString *author = [NSString stringWithFormat:@"Bearer %@",[Proto lastToken]];
+    [self header:@"Authorization" value:author];
+}
+
 - (void)auth:(NSString *)user value:(NSString *)pwd {
 	NSString *s = [[user add:@":"] add:pwd];
 	NSString *ss = [s.dataUTF8 base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
-	NSString *sss = @"Basic ";
+	NSString *sss = @"Bearer ";
 	[self header:@"Authorization" value:[sss add:ss]];
 }
 

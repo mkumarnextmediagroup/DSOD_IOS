@@ -18,6 +18,7 @@
     UITableView *myTable;
     UIImage     *selectImage;
     NSString    *selectImageName;
+    UIButton    *sendButton;
 }
 
 
@@ -38,14 +39,14 @@
     myTable.dataSource = self;
     [self.view addSubview:myTable];
     
-    UIButton *sendButton = [UIButton new];
+    sendButton = [UIButton new];
     [sendButton title:localStr(@"SendMess")];
     [sendButton stylePrimary];
     [self.view addSubview:sendButton];
     StackLayout *sl = [StackLayout new];
     [sl push:sendButton height:BTN_HEIGHT marginBottom:20+TABLEBAR_SAFE_BOTTOM_MARGIN];
     [sl install];
-    
+    sendButton.enabled = NO;
     [sendButton onClick:self action:@selector(clickSend:)];
     // Do any additional setup after loading the view.
 }
@@ -173,6 +174,7 @@
                 cell.notice.text = localStr(@"your email");
                 cell.emailField.hidden = NO;
                 cell.emailField.delegate = self;
+                cell.emailField.text = getLastAccount();
             }
                 break;
             case 2:
@@ -198,6 +200,11 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@"\n"]){
+        
+        NSLog(@"asdsdf");
+        if (textView.text != nil) {
+            sendButton.enabled = YES;
+        }
         
         [textView resignFirstResponder];
         return NO; 
@@ -374,6 +381,7 @@
 
 - (void)dismissBtnClick
 {
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

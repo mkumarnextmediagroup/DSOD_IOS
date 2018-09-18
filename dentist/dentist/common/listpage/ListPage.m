@@ -26,13 +26,19 @@
 	if (self.tabBarController != nil) {
 		_bottomBarH = TABLEBAR_HEIGHT;
 	}
-	_table = [UITableView new];
+
+	self.automaticallyAdjustsScrollViewInsets = NO;
+
+
+	_table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+	if (@available(iOS 11.0, *)) {
+		_table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+	}
 	[self.view addSubview:_table];
+
 	_table.dataSource = self;
 	_table.delegate = self;
 	_table.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-	_table.tableFooterView = [UIView new];
-	_table.tableHeaderView = nil;
 	[[[[[[_table layoutMaker] leftParent:0] rightParent:0] topParent:self.topOffset + _topBarH] bottomParent:-(self.bottomOffset + _bottomBarH)] install];
 
 }
@@ -47,6 +53,10 @@
 	if (_table != nil) {
 		[_table reloadData];
 	}
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+	return 0.01f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

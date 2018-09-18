@@ -453,6 +453,29 @@
 	return r;
 }
 
++ (HttpResult *)getProfileInfo
+{
+    NSDictionary *d = @{@"email": getLastAccount()};
+    HttpResult *r = [self postBodyWithToken:@"userProfile/findOneByEmail" dic:d];
+    if (r.OK) {
+    }
+    return r;
+}
+
++ (HttpResult *)postBodyWithToken:(NSString *)action dic:(NSDictionary *)dic {
+    NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
+    Http *h = [Http new];
+    h.url = strBuild(baseUrl, action);
+    [h contentTypeJson];
+    [h contentTypeWithToken];
+    
+    NSMutableDictionary *md = [NSMutableDictionary dictionaryWithDictionary:dic];
+//    md[@"client_id"] = @"fooClientIdPassword";
+    NSString *s = jsonBuild(md);
+    HttpResult *r = [h postRaw:s.dataUTF8];
+    return r;
+}
+
 + (HttpResult *)postBody:(NSString *)action dic:(NSDictionary *)dic {
 	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
 	Http *h = [Http new];

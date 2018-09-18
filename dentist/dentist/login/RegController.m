@@ -462,7 +462,7 @@
                     NSLog(@"%@", result);
                     if (result.code == 0) {//go to the register page
                         
-                        [self linkedinLogin:result.resultMap[@"userId"] token:result.resultMap[@"tokenValue"]];
+                        [self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
                     }
 
 				}                         failUserInfo:^(NSError *error) {
@@ -492,7 +492,7 @@
                                                 NSLog(@"%@", result);
                                                 if (result.code == 0) {//go to the register page
                                                     
-                                                    [self linkedinLogin:result.resultMap[@"userId"] token:result.resultMap[@"tokenValue"]];
+                                                    [self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
                                                 }
 
 				                            } cancelBlock:^{

@@ -241,10 +241,16 @@
 				default:
 					break;
 			}
-		}
+		}else
+        {
+            touchLabel.text = localStr(@"enable_touch");
+            alertTitle = localStr(@"useTouchIDTitle");
+            alertHint = localStr(@"useTouchIDHint");
+
+        }
 	} else {
-		checkButton.selected = NO;
-		checkButton.enabled = NO;
+        checkButton.selected = NO;
+        checkButton.enabled = NO;
 	}
 
 }
@@ -362,8 +368,8 @@
 	cf.cancelText = localStr(@"notallow");
 	[cf show:self onOK:^() {
 		NSError *error;
-		if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
-			[context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:localStr(@"authenticateHint") reply:
+        if ([self->context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+            [self->context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:localStr(@"authenticateHint") reply:
 					^(BOOL success, NSError *authenticationError) {
 						if (success) {
 							[self doReg:email pwd:pwd fullName:fullName];
@@ -380,14 +386,28 @@
 
 	backTask(^() {
 		HttpResult *r = [Proto register:email pwd:pwd name:fullName student:self.student];
-		if (r.OK) {
-			keychainPutPwd(email, pwd);
-		}
-		if (Proto.isLogined) {
-			foreTask(^() {
-				[AppDelegate.instance switchToMainPage];
-			});
-		}
+        if (r.code == 0) {//register success
+            if (r.OK) {
+                keychainPutPwd(email, pwd);
+            }
+            if (Proto.isLogined) {
+                foreTask(^() {
+                    [AppDelegate.instance switchToMainPage];
+                });
+            }
+        }else if (r.code == 1002)
+        {
+            NSString *content = [NSString stringWithFormat:@"%@%@%@",localStr(@"showFir"),email,localStr(@"showLast")];
+            [self Den_showAlertWithTitle:localStr(@"emailUse") message:content appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+                alertMaker.
+                addActionCancelTitle(@"Try Again").
+                addActionDefaultTitle(localStr(@"logIn"));
+            } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+                if ([action.title isEqualToString:localStr(@"logIn")]) {
+                    [self clickLogin:nil];
+                }
+            }];
+        }
         
         if (self.student) {
             [DenGlobalInfo sharedInstance].identity = @"student";
@@ -442,7 +462,7 @@
                     NSLog(@"%@", result);
                     if (result.code == 0) {//go to the register page
                         
-                        [self linkedinLogin:result.resultMap[@"userId"] token:result.resultMap[@"tokenValue"]];
+                        [self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
                     }
 
 				}                         failUserInfo:^(NSError *error) {
@@ -472,7 +492,7 @@
                                                 NSLog(@"%@", result);
                                                 if (result.code == 0) {//go to the register page
                                                     
-                                                    [self linkedinLogin:result.resultMap[@"userId"] token:result.resultMap[@"tokenValue"]];
+                                                    [self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
                                                 }
 
 				                            } cancelBlock:^{

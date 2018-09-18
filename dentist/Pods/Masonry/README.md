@@ -200,8 +200,8 @@ make.edges.equalTo(superview).insets(UIEdgeInsetsMake(5, 10, 15, 20))
 #### size
 
 ```obj-c
-// make width and height greater than or equal to nameLabel
-make.size.greaterThanOrEqualTo(nameLabel)
+// make width and height greater than or equal to titleLabel
+make.size.greaterThanOrEqualTo(titleLabel)
 
 // make width = superview.width + 100, height = superview.height - 50
 make.size.equalTo(superview).sizeOffset(CGSizeMake(100, -50))

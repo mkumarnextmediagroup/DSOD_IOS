@@ -35,38 +35,38 @@
 
 + (UserInfo *)userInfo:(nonnull NSString *)email;
 
-+ (UserInfo *)addExperience:(nonnull NSString *)email exp:(Experience *)exp;
++ (UserInfo *_Nullable)addExperience:(nonnull NSString *)email exp:(Experience *_Nullable)exp;
 
-+ (UserInfo *)saveExperience:(nonnull NSString *)email index:(int)index exp:(Experience *)exp;
++ (UserInfo *_Nullable)saveExperience:(nonnull NSString *)email index:(int)index exp:(Experience *_Nullable)exp;
 
-+ (UserInfo *)addResidency:(nonnull NSString *)email residency:(Residency *)residency;
++ (UserInfo *_Nullable)addResidency:(nonnull NSString *)email residency:(Residency *_Nullable)residency;
 
-+ (UserInfo *)saveResidency:(nonnull NSString *)email index:(int)index residency:(Residency *)residency;
++ (UserInfo *_Nullable)saveResidency:(nonnull NSString *)email index:(int)index residency:(Residency *_Nullable)residency;
 
-+ (UserInfo *)addEducation:(nonnull NSString *)email edu:(Education *)edu;
++ (UserInfo *_Nullable)addEducation:(nonnull NSString *)email edu:(Education *_Nullable)edu;
 
-+ (UserInfo *)saveEducation:(nonnull NSString *)email index:(int)index edu:(Education *)edu;
++ (UserInfo *_Nullable)saveEducation:(nonnull NSString *)email index:(int)index edu:(Education *_Nullable)edu;
 
-+ (UserInfo *)savePractice:(nonnull NSString *)email address:(Address *)address;
++ (UserInfo *_Nullable)savePractice:(nonnull NSString *)email address:(Address *_Nullable)address;
 
-+ (void)saveLastUserInfo:(UserInfo *)info;
++ (void)saveLastUserInfo:(UserInfo *_Nullable)info;
 
-+ (UserInfo *)lastUserInfo;
++ (UserInfo *_Nullable)lastUserInfo;
 
-+ (NSArray *)listSpeciality;
++ (NSArray *_Nullable)listSpeciality;
 
-+ (NSArray *)listPracticeType;
++ (NSArray *_Nullable)listPracticeType;
 
-+ (NSArray *)listRoleAtPractice;
++ (NSArray *_Nullable)listRoleAtPractice;
 
-+ (NSArray *)listDentalNames;
++ (NSArray *_Nullable)listDentalNames;
 
-+ (NSArray *)listStates;
++ (NSArray *_Nullable)listStates;
 
-+ (NSArray *)shortStates;
++ (NSArray *_Nullable)shortStates;
 
-+ (NSArray *)listResidency;
++ (NSArray *_Nullable)listResidency;
 
++ (HttpResult *)getProfileInfo;
 + (NSArray *)listArticle;
-
 @end

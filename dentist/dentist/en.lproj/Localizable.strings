@@ -25,6 +25,7 @@
 "areyoustudent" = "Are you a student?";
 "stu_info" = "We use this information to show personalized content that is relevant to you.";
 "create_account" = "Create an account";
+"create_newAccount" = "Create a New Account";
 "login_using_linkedin" = "Log In using Linkedin";
 "email_address" = "Email address";
 "pwd" = "Set password";
@@ -94,3 +95,11 @@
 "editPractice" = "PRACTICE ADDRESS";
 "editExperience" = "Edit Experience";
 "delAndBack" = "Are you sure you want to delete all the update made to Practice Address?";
+"incorrect" = "Incorrect Password";
+"incorrMail" = "Incorrect Email";
+"sorry" = "Sorry,that password is incorrect for the account with the email address:";
+"sorryEmail" = "Sorry,we can't find an account with the email address:";
+"showFir" = "An account with the email address '";
+"showLast" = "' already exists. Try logging in with it or use another email address";
+"logIn" = "Log In               ";
+"emailUse" = "Email address already in use";

@@ -49,6 +49,9 @@
 
 	[self buildViews];
 	[self layoutLinearVertical];
+    
+    HttpResult *result = [Proto getProfileInfo];
+    NSLog(@"获取到的result为：%@",result);
 }
 
 - (GroupLabelView *)addGroupTitle:(NSString *)title {

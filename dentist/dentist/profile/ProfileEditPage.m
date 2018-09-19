@@ -113,7 +113,7 @@
 
 	[self addGrayLine:0 marginRight:0];
 
-	if (![userInfo isStudent]) {
+	if (!userInfo.isStudent) {
 		GroupLabelView *expGroupView = [self addGroupTitle:@"Experience"];
 		[expGroupView.button onClick:self action:@selector(clickAddExp:)];
 
@@ -265,9 +265,9 @@
 		for (int i = 0; i < userInfo.residencyArray.count; ++i) {
 			Residency *r = userInfo.residencyArray[i];
 			IconTitleMsgDetailCell *v = residencyViews[i];
-			v.msgLabel.text = r.place;
+			v.msgLabel.text = r.schoolName;
 			v.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
-			if (r.place == nil || r.place.length == 0) {
+			if (r.schoolId == nil || r.schoolId.length == 0) {
 				[v showEmpty:@"No residency added yet"];
 			} else {
 				[v hideEmpty];
@@ -312,7 +312,7 @@
 
 	int count = 0;
 	int countParent = 0;
-	if ([userInfo isStudent]) {
+	if (userInfo.isStudent) {
 		countParent = 6;
 	} else {
 		countParent = 8;
@@ -350,7 +350,7 @@
 	if (userInfo.residencyArray != nil && userInfo.residencyArray.count > 0) {
 		if (userInfo.residencyArray.count == 1) {
 			Residency *r = userInfo.residencyArray[0];
-			if (r.place != nil && r.place.length > 0) {
+			if (r.schoolId != nil && r.schoolId.length > 0) {
 				count = count + 1;
 			}
 		} else {
@@ -461,7 +461,9 @@
 	editRes.residency = r;
 
 	editRes.saveCallback = ^(Residency *r) {
-		[self saveResidency:r];
+//		[self saveResidency:r];
+		[self buildViews];
+		[self bindData];
 	};
 
 	editRes.deleteCallback = ^(Residency *r) {
@@ -594,8 +596,8 @@
 			@"full_name": nameView.edit.textTrimed,
 			@"email": emailView.edit.textTrimed,
 			@"phone": phoneView.edit.textTrimed,
-			@"is_student": @"0",
-			@"is_linkedin": @"0",
+			@"is_student": userInfo.isStudent ? @"1" : @"0",
+			@"is_linkedin": userInfo.isLinkedin ? @"1" : @"0",
 			@"sex": @"",
 			@"status": @"1",
 			@"document_library": @{

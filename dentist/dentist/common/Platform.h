@@ -12,11 +12,25 @@
 extern void objcSendMsg(id target, SEL action, id arg);
 
 
-#define Log(first, ...)  _Log(first, @[ __VA_ARGS__ ])
-
-extern void _Log(NSObject *first, NSArray *array);
-
 //m in [1, 12]
 extern NSString *nameOfMonth(NSInteger m);
+
+__attribute__((overloadable)) extern void Log(id value);
+
+__attribute__((overloadable)) extern void Log(id value, id v2);
+
+__attribute__((overloadable)) extern void Log(id value, id v2, id v3);
+
+__attribute__((overloadable)) extern void Log(id value, id v2, id v3, id v4);
+
+__attribute__((overloadable)) extern void Log(id value, id v2, id v3, id v4, id v5);
+
+__attribute__((overloadable)) extern void Log(id value, id v2, id v3, id v4, id v5, id v6);
+
+__attribute__((overloadable)) extern void Log(id value, id v2, id v3, id v4, id v5, id v6, id v7);
+
+__attribute__((overloadable)) extern void Log(id value, id v2, id v3, id v4, id v5, id v6, id v7, id v8);
+
+__attribute__((overloadable)) extern void Log(id value, id v2, id v3, id v4, id v5, id v6, id v7, id v8, id v9);
 
 #endif

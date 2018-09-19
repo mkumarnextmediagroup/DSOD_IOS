@@ -19,6 +19,7 @@
 #import "SearchPage.h"
 #import "EditExperiencePage.h"
 #import "IdName.h"
+#import "NSDate+myextend.h"
 
 #import <AssetsLibrary/ALAsset.h>
 
@@ -368,8 +369,6 @@
 			count = count + 1;
 		}
 	}
-	NSLog(@"count==%i", count);
-	NSLog(@"countParent==%i", countParent);
 	return (float) count / countParent;
 }
 
@@ -461,7 +460,7 @@
 	editRes.residency = r;
 
 	editRes.saveCallback = ^(Residency *r) {
-//		[self saveResidency:r];
+		Log(r.schoolId, r.schoolName, @(r.fromYear), @(r.toYear));
 		[self buildViews];
 		[self bindData];
 	};
@@ -617,6 +616,7 @@
 			},
 	};
 
+
 	NSMutableDictionary *md = [NSMutableDictionary dictionaryWithDictionary:d];
 	if (uploadPortraitResult != nil) {
 		md[@"photo_album"] = @{@"photo_name": uploadPortraitResult};
@@ -627,6 +627,30 @@
 		md[@"specialty"] = @{@"id": userInfo.speciality.id};
 	} else {
 		md[@"specialty"] = @{@"id": @""};
+	}
+
+	if (userInfo.residencyArray.count > 0) {
+		NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+		md[@"profileResidency"] = arr;
+
+		for (Residency *r in userInfo.residencyArray) {
+			if (r.schoolId != nil) {
+				NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:8];
+				d[@"dental_School"] = @{
+						@"id": r.schoolId,
+						@"name": r.schoolName,
+				};
+				d[@"start_time"] = @(buildDateLong(r.fromYear, r.fromMonth, 0));
+				d[@"end_time"] = @(buildDateLong(r.toYear, r.toMonth, 0));
+				d[@"email"] = [Proto lastAccount];
+				d[@"create_time"] = nil;
+				d[@"user_id"] = nil;
+				d[@"id"] = nil;
+
+				[arr addObject:d];
+			}
+		}
+
 	}
 
 

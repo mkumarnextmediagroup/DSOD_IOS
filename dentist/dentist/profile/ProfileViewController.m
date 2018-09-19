@@ -189,7 +189,6 @@
 	[self.contentView addSubview:pCell];
 
 	CGSize sz = [pCell.msgLabel sizeThatFits:makeSize(300, 1000)];
-	Log(@"address size: ", @(sz.height));
 	if (sz.height > 24) {
 		pCell.layoutParam.height = pCell.layoutParam.height - 24 + sz.height;
 	}

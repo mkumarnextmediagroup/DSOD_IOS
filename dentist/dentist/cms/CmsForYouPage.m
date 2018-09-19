@@ -12,6 +12,9 @@
 @implementation CmsForYouPage {
 	NSArray<NSString *> *segItems;
 	UISegmentedControl *segView;
+
+	BOOL _a;
+
 }
 - (instancetype)init {
 	self = [super init];
@@ -20,11 +23,25 @@
 	return self;
 }
 
+- (void)clickTest:(id)sender {
+	if (_a) {
+		[self hideIndicator];
+	} else {
+		[self showIndicator];
+	}
+	_a = !_a;
+//	backTask(^() {
+//		[Proto getProfileInfo];
+//		[Proto queryDentalSchool:@""];
+//	});
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"DSODENTIST";
+	item.rightBarButtonItem = [self navBarText:@"Test" target:self action:@selector(clickTest:)];
 
 	self.table.tableHeaderView = [self makeHeaderView];
 	self.table.rowHeight = UITableViewAutomaticDimension;

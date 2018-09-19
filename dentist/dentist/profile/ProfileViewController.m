@@ -15,7 +15,7 @@
 #import "ProfileEditPage.h"
 
 
-@interface ProfileViewController (){
+@interface ProfileViewController () {
 	UserInfo *userInfo;
 }
 
@@ -30,16 +30,15 @@
 	[self pushPage:edit];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self buildViews];
-    [self layoutLinearVertical];
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[self buildViews];
+	[self layoutLinearVertical];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    
+
 	UINavigationItem *item = self.navigationItem;
 	item.title = @"PROFILE";
 	item.rightBarButtonItems = @[
@@ -49,9 +48,7 @@
 
 	[self buildViews];
 	[self layoutLinearVertical];
-    
-    HttpResult *result = [Proto getProfileInfo];
-    NSLog(@"获取到的result为：%@",result);
+
 }
 
 - (GroupLabelView *)addGroupTitle:(NSString *)title {
@@ -64,15 +61,15 @@
 
 - (void)buildViews {
 
-    userInfo = [Proto lastUserInfo];
-    
-    NSArray *allSubView = self.contentView.subviews;
-    if (allSubView != nil) {
-        for (UIView *v in allSubView) {
-            [v removeFromSuperview];
-        }
-    }
-    
+	userInfo = [Proto lastUserInfo];
+
+	NSArray *allSubView = self.contentView.subviews;
+	if (allSubView != nil) {
+		for (UIView *v in allSubView) {
+			[v removeFromSuperview];
+		}
+	}
+
 	UserCell *userCell = [UserCell new];
 	userCell.imageView.imageName = @"user_img";
 	[userCell.imageView loadUrl:userInfo.portraitUrl placeholderImage:@"user_img"];
@@ -174,7 +171,7 @@
 	pCell.titleLabel.text = @"Practice Address";
 	pCell.msgLabel.text = userInfo.practiceAddress.detailAddress;
 	[self.contentView addSubview:pCell];
-    
+
 	[self addGrayLine:78 marginRight:0];
 
 	IconTitleMsgCell *phoneCell = [IconTitleMsgCell new];

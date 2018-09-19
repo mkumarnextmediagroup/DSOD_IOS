@@ -73,6 +73,13 @@
 
 + (NSArray *_Nullable)listArticle;
 
+<<<<<<< HEAD
++ (HttpResult *_Nullable)getStateAndCity:(NSString *_Nullable)zip;
+
++ (NSMutableArray <IdName *> *_Nullable)queryDentalSchool:(NSString *_Nullable)name;
+
++ (HttpResult *_Nullable)queryPracticeDSO:(NSString *_Nullable)name;
+=======
 + (nullable StateCity *)getStateAndCity:(NSString *)zipCode;
 
 + (NSMutableArray <IdName *> *)queryDentalSchool:(NSString *)name;
@@ -82,6 +89,7 @@
 + (NSArray<IdName *> *)queryPracticeRoles:(NSString *)name;
 
 + (NSArray<IdName *> *)queryPracticeTypes:(NSString *)name;
+>>>>>>> 631ebdd39bba1fb626732498c6344a583c1d779c
 
 + (HttpResult *_Nullable)uploadHeaderImage:(NSURL *)imageUrl_Nullable;
 @end

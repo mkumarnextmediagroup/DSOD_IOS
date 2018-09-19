@@ -39,6 +39,7 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	NSMutableDictionary *headerMap;
 	NSMutableDictionary *fileMap;
 	NSMutableDictionary *fileDataMap;
+	NSMutableDictionary *fileNameMap;
 
 	NSURLSession *session;
 	NSData *rawData;
@@ -62,6 +63,7 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	headerMap = [NSMutableDictionary new];
 	fileMap = [NSMutableDictionary new];
 	fileDataMap = [NSMutableDictionary new];
+	fileNameMap = [NSMutableDictionary new];
 	rawData = nil;
 	session = [NSURLSession sharedSession];
 	self.timeout = 15;
@@ -136,6 +138,10 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 
 - (void)fileData:(NSString *)name value:(NSData *)value {
 	fileDataMap[name] = value;
+}
+
+- (void)fileName:(NSString *)name filename:(NSString *)filename {
+	fileNameMap[name] = filename;
 }
 
 - (HttpResult *)get {
@@ -222,7 +228,10 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	for (NSString *key in fileMap) {
 		NSString *value = fileMap[key];
 		NSData *fileData = [NSData dataWithContentsOfFile:value];
-		NSString *filename = [value stringByDeletingLastPathComponent];
+		NSString *filename = fileNameMap[key];
+		if (filename == nil) {
+			filename = [value lastPathComponent];
+		}
 		[data appendUTF8:BOUNDARY_START];
 		[data appendUTF8:strBuild(@"Content-Disposition:form-data;name=\"", key, @"\";filename=\"", filename, @"\"", CRLF)];
 		[data appendUTF8:@"Content-Type:application/octet-stream\r\n"];
@@ -232,7 +241,10 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 		[data appendUTF8:CRLF];
 	}
 	for (NSString *key in fileDataMap) {
-		NSString *filename = key;
+		NSString *filename = fileNameMap[key];
+		if (filename == nil) {
+			filename = key;
+		}
 		[data appendUTF8:BOUNDARY_START];
 		[data appendUTF8:strBuild(@"Content-Disposition:form-data;name=\"", key, @"\";filename=\"", filename, @"\"", CRLF)];
 		[data appendUTF8:@"Content-Type:application/octet-stream\r\n"];

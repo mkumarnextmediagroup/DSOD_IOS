@@ -58,4 +58,6 @@ typedef void (^HttpCallback)(HttpResult *);
 
 - (void)fileData:(NSString *)name value:(NSData *)value;
 
+- (void)fileName:(NSString *)name filename:(NSString *)filename;
+
 @end

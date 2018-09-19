@@ -140,6 +140,13 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	fileDataMap[name] = value;
 }
 
+- (void)fileURL:(NSString *)name url:(NSURL *)url {
+	NSData *data = [NSData dataWithContentsOfURL:url];
+	[self fileData:name value:data];
+	[self fileName:name filename:[url lastPathComponent]];
+}
+
+
 - (void)fileName:(NSString *)name filename:(NSString *)filename {
 	fileNameMap[name] = filename;
 }

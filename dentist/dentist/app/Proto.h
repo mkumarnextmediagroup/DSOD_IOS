@@ -9,6 +9,7 @@
 
 @class HttpResult;
 @class IdName;
+@class StateCity;
 
 
 @interface Proto : NSObject
@@ -72,11 +73,14 @@
 
 + (NSArray *_Nullable)listArticle;
 
-+ (HttpResult *)getStateAndCity:(NSString *)zip;
++ (nullable StateCity *)getStateAndCity:(NSString *)zipCode;
 
 + (NSMutableArray <IdName *> *)queryDentalSchool:(NSString *)name;
 
-+ (HttpResult *)queryPracticeDSO:(NSString *)name;
++ (NSArray<IdName *> *)queryPracticeDSO:(NSString *)name;
 
++ (NSArray<IdName *> *)queryPracticeRoles:(NSString *)name;
+
++ (NSArray<IdName *> *)queryPracticeTypes:(NSString *)name;
 
 @end

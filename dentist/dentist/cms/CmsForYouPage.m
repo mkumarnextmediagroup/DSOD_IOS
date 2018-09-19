@@ -8,13 +8,12 @@
 #import "ArticleItemView.h"
 #import "Proto.h"
 #import "CMSDetailViewController.h"
+#import "StateCity.h"
+#import "IdName.h"
 
 @implementation CmsForYouPage {
 	NSArray<NSString *> *segItems;
 	UISegmentedControl *segView;
-
-	BOOL _a;
-
 }
 - (instancetype)init {
 	self = [super init];
@@ -24,16 +23,14 @@
 }
 
 - (void)clickTest:(id)sender {
-	if (_a) {
-		[self hideIndicator];
-	} else {
-		[self showIndicator];
-	}
-	_a = !_a;
-//	backTask(^() {
+
+	backTask(^() {
 //		[Proto getProfileInfo];
-//		[Proto queryDentalSchool:@""];
-//	});
+		NSArray *arr = [Proto queryPracticeTypes:@""];
+		for (IdName *item in arr) {
+			Log([item toJSONString]);
+		}
+	});
 }
 
 - (void)viewDidLoad {
@@ -131,9 +128,9 @@
 }
 
 - (void)onClickItem:(NSObject *)item {
-    CMSDetailViewController *detail = [CMSDetailViewController new];
-    detail.articleInfo = (Article *)item;
-    [self pushPage:detail];
+	CMSDetailViewController *detail = [CMSDetailViewController new];
+	detail.articleInfo = (Article *) item;
+	[self pushPage:detail];
 }
 
 

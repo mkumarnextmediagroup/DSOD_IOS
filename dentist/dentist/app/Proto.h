@@ -68,7 +68,14 @@
 + (NSArray *_Nullable)listResidency;
 
 + (HttpResult *_Nullable)getProfileInfo;
+
 + (NSArray *_Nullable)listArticle;
 
-+ (HttpResult *)getStateAndCity;
++ (HttpResult *)getStateAndCity:(NSString *)zip;
+
++ (HttpResult *)queryDentalSchool:(NSString *)name;
+
++ (HttpResult *)queryPracticeDSO:(NSString *)name;
+
+
 @end

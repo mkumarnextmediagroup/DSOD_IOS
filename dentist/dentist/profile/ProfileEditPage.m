@@ -556,8 +556,8 @@
 
 - (void)clickPraticeAddress:(id)sender {
     
-    HttpResult *result = [Proto getStateAndCity];
-    NSLog(@"%@",result);
+//    HttpResult *result = [Proto getStateAndCity];
+//    NSLog(@"%@",result);
     
 	EditPracticeAddressViewController *p = [EditPracticeAddressViewController new];
 	p.address = userInfo.practiceAddress;
@@ -662,6 +662,7 @@
 		image = info[UIImagePickerControllerOriginalImage];
 
 		NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
+		NSLog(@"image url:  %@", imageURL);
 
 		ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
 		//根据url获取asset信息, 并通过block进行回调

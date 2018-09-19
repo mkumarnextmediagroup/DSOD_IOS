@@ -25,7 +25,10 @@
 - (NSString *)dateTo {
 	if (_toMonth == 0) {
 		return @"";
-	}
+	}else if (_toYear == 9999)
+    {
+        return @"Present";
+    }
 	return strBuild(nameOfMonth(_toMonth), @" ", [@(_toYear) description]);
 }
 @end

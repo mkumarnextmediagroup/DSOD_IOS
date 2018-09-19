@@ -81,7 +81,6 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
 - (void)buildViews {
 	playView = [PlayerView new];
 	[self.contentView addSubview:playView];

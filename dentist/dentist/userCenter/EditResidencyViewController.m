@@ -154,6 +154,20 @@
 }
 
 - (void)saveBtnClick:(UIButton *)btn {
+    if (fromYear>toYear) {
+        [self alertMsg:@"Date wrong" onOK:^() {
+            
+        }];
+        return ;
+    }else if(fromYear==toYear){
+        if(fromMonth>toMonth){
+            [self alertMsg:@"Date wrong" onOK:^() {
+                
+            }];
+            return ;
+        }
+    }
+    
 	self.residency.place = resView.msgLabel.text;
 	self.residency.fromMonth = fromMonth;
 	self.residency.fromYear = fromYear;

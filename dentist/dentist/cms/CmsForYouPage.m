@@ -22,7 +22,7 @@
 - (void)clickTest:(id)sender {
 	backTask(^() {
 //		[Proto getProfileInfo];
-		[Proto queryPracticeDSO:@""];
+		[Proto queryDentalSchool:@""];
 	});
 }
 

@@ -8,6 +8,7 @@
 #import "JSONModel+myextend.h"
 #import "Article.h"
 #import "ArticleComment.h"
+#import "IdName.h"
 
 
 @implementation Proto {
@@ -589,16 +590,32 @@
 //			"msg": "success",
 //			"resultMap": {
 //		"data": [
-//				[
-//						"2",
-//								"Boston University Goldman School of Dental Medicine"
-//				]
-//		]
-//	}
-//}
-+ (HttpResult *)queryDentalSchool:(NSString *)name {
+//						{
+//								"id": "1",
+//						"name": "A.T. Still University Arizona School of Dentistry and Oral Health"
+//						},
+//						{
+//								"id": "2",
+//						"name": "Boston University Goldman School of Dental Medicine"
+//						},
++ (NSMutableArray <IdName *> *)queryDentalSchool:(NSString *)name {
 	HttpResult *r = [self post2:@"dentalSchool/getAll" dic:@{@"name": name}];
-	return r;
+	NSMutableArray <IdName *> *items = [NSMutableArray arrayWithCapacity:32];
+	if (r.OK) {
+		NSDictionary *m = r.resultMap;
+		if (m) {
+			NSArray *arr = m[@"data"];
+			for (NSDictionary *d in arr) {
+				IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+				[items addObject:item];
+			}
+		}
+	}
+
+	for (IdName *item in items) {
+		NSLog(@"%d %@", item.id, item.name);
+	}
+	return items;
 }
 
 + (HttpResult *)queryPracticeDSO:(NSString *)name {

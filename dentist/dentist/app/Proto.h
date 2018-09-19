@@ -8,6 +8,7 @@
 #import "UserInfo.h"
 
 @class HttpResult;
+@class IdName;
 
 
 @interface Proto : NSObject
@@ -73,7 +74,7 @@
 
 + (HttpResult *)getStateAndCity:(NSString *)zip;
 
-+ (HttpResult *)queryDentalSchool:(NSString *)name;
++ (NSMutableArray <IdName *> *)queryDentalSchool:(NSString *)name;
 
 + (HttpResult *)queryPracticeDSO:(NSString *)name;
 

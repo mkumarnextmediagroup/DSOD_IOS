@@ -47,8 +47,6 @@
     [self.contentView addSubview:playView];
     [playView bind:self.articleInfo];
     
-    [playView resetLayout];
-    
     [self layoutLinearVertical];
 
 }

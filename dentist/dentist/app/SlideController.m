@@ -63,8 +63,6 @@
 	[ql install];
 
 	[self selectButton:nil];
-
-	Log(@"View Did Load ");
 }
 
 - (UIBarButtonItem *)menuButton {

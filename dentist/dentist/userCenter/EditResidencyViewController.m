@@ -140,8 +140,8 @@
 - (void)selectSchool:(NSArray *)array {
 
 	[self selectIdName:@"RESIDENCY AT" array:array selectedId:self.residency.schoolId result:^(IdName *item) {
-		self.residency.schoolId = item.id;
-		self.residency.schoolName = item.name;
+		idOfDental = item.id;
+		nameOfDental = item.name;
 		self->resView.msgLabel.text = item.name;
 	}];
 }

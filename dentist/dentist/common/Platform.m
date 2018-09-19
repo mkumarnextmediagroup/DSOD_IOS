@@ -23,9 +23,9 @@ NSString *nameOfMonth(NSInteger m) {
 
 NSString *_toString(NSObject *obj) {
 	if (obj == nil) {
-		return @"null";
+		return @"null, ";
 	}
-	return [obj description];
+	return strBuild([obj description], @", ");
 }
 
 __attribute__((overloadable)) extern void Log(id value) {

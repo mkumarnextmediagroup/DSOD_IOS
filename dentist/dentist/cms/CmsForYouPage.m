@@ -11,6 +11,7 @@
 #import "StateCity.h"
 #import "IdName.h"
 #import "TestScrollPage.h"
+#import "NSDate+myextend.h"
 
 @implementation CmsForYouPage {
 	NSArray<NSString *> *segItems;
@@ -24,11 +25,11 @@
 }
 
 - (void)clickTest:(id)sender {
+	long l = buildDateLong(2018, 9, 20);
+	NSDate *d = [NSDate dateWithTimeIntervalSince1970:l];
 
-	backTask(^() {
-		[Proto querySpecialty];
+	Log(@(d.year), @(d.month), @(d.day));
 
-	});
 }
 
 - (void)viewDidLoad {

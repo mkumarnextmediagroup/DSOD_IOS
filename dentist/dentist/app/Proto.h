@@ -15,10 +15,10 @@
 @interface Proto : NSObject
 
 
-@property(class) BOOL isLogined;
+@property(class, readonly) BOOL isLogined;
 
-@property(class) NSString *lastAccount;
-@property(class) NSString *lastToken;
+@property(class, readonly) NSString *lastAccount;
+@property(class, readonly) NSString *lastToken;
 
 + (HttpResult *)resetPwd:(NSString *)email pwd:(NSString *)pwd code:(NSString *)code;
 

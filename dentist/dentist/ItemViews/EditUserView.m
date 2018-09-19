@@ -70,7 +70,6 @@
 	float p = [self roundFloat:percent];
 	_pView.progress = p;
 	NSString *percentStr = [NSString stringWithFormat:@"%i", (int) (p * 100)];
-	NSLog(@"percentStr==%@", percentStr);
 	_percentageLab.text = strBuild(@"Profile ", percentStr, @"%", @" complete");
 }
 

@@ -192,7 +192,7 @@
 
 	practiceAddressView = [TitleMsgArrowView new];
 	practiceAddressView.titleLabel.text = @"Practice address";
-	practiceAddressView.msgLabel.text = @"-";
+//    practiceAddressView.msgLabel.text = @"-";
 	[practiceAddressView onClickView:self action:@selector(clickPraticeAddress:)];
 	[self.contentView addSubview:practiceAddressView];
 	[self addGrayLine:0 marginRight:0];

@@ -142,6 +142,9 @@
         } else {
             showOthers = workInThisRole;
             switchView.switchView.on = workInThisRole;
+            if (workInThisRole) {
+                toYear = [[NSDate date] year];
+            }
         }
         [switchView.switchView addTarget:self action:@selector(onSwitchChanged:) forControlEvents:UIControlEventValueChanged];
         [self.contentView addSubview:switchView];
@@ -373,7 +376,7 @@
         self.exp.toYear = 9999;
     }else
     {
-        self.exp.toYear = toYear;
+        self.exp.toYear = [[NSDate date] year];
     }
 	self.exp.fromMonth = fromMonth;
 	self.exp.fromYear = fromYear;

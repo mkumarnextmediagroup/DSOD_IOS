@@ -555,6 +555,10 @@
 }
 
 - (void)clickPraticeAddress:(id)sender {
+    
+    HttpResult *result = [Proto getStateAndCity];
+    NSLog(@"%@",result);
+    
 	EditPracticeAddressViewController *p = [EditPracticeAddressViewController new];
 	p.address = userInfo.practiceAddress;
 	p.saveCallback = ^(Address *addr) {

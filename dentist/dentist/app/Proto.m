@@ -21,7 +21,7 @@
 	a.id = 1;
 	a.isSponsor = NO;
 	a.publishDate = @"May 15,2018";
-	a.gskString = @"Sponsored content brought to you by GSK";
+	a.gskString = @"  Sponsored content brought to you by GSK";
 	a.type = @"orthodontics";
 	a.authAccount = @"tom@gmail.com";
 	a.authName = @"Dr.Sandra Tai";
@@ -52,7 +52,7 @@
 	b.id = 1;
 	b.isSponsor = NO;
 	b.publishDate = @"May 15,2018";
-	b.gskString = @"Sponsored content brought to you by GSK";
+	b.gskString = @"  Sponsored content brought to you by GSK";
 	b.type = @"orthodontics";
 	b.authAccount = @"tom@gmail.com";
 	b.authName = @"Dr.Sandra Tai";

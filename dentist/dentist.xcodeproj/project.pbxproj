@@ -120,6 +120,7 @@
 		C5EEA2B81C84D4F3EDB29C44 /* NSMutableAttributedString+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAC36ADFF1B9F8DEBA913 /* NSMutableAttributedString+customed.m */; };
 		C5EEA2B94B1448427D266481 /* QueueLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA81D4DDFD7F3E1A1AB7C /* QueueLayoutItem.m */; };
 		C5EEA2BA0180646BF8FF57BF /* Platform.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAA9D22157E0B66DD5102 /* Platform.m */; };
+		C5EEA2E604C9E5CD496542A0 /* StateCity.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA928DD1074289E6CB07E /* StateCity.m */; };
 		C5EEA2ECCE69B6CBF0D20BA6 /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA1491E2D8BE3A1E73723 /* BaseController.m */; };
 		C5EEA2F9830CC5E8FD47394F /* HttpResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA0A74380E626C20CF6B7 /* HttpResult.m */; };
 		C5EEA304546737C29C822865 /* inkedin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA30917CCFA40C14CC248 /* inkedin@3x.png */; };
@@ -623,6 +624,7 @@
 		C5EEA26FE0A8A22D3399DE3E /* TapGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapGesture.m; sourceTree = "<group>"; };
 		C5EEA2716C786FCB7E7F0984 /* FromToView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FromToView.h; sourceTree = "<group>"; };
 		C5EEA285ACEA31047B9E0172 /* SlideItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideItem.h; sourceTree = "<group>"; };
+		C5EEA293C7B2FCD5561A8AA9 /* StateCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateCity.h; sourceTree = "<group>"; };
 		C5EEA2A238138DF4B4EE06F6 /* FromToView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FromToView.m; sourceTree = "<group>"; };
 		C5EEA2A29513587290050D7A /* TestPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPage.m; sourceTree = "<group>"; };
 		C5EEA2DA2AD9CFD4AAC3565C /* SlideController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideController.m; sourceTree = "<group>"; };
@@ -710,6 +712,7 @@
 		C5EEA8B3C10EEB8C6781E157 /* book9-light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "book9-light@2x.png"; sourceTree = "<group>"; };
 		C5EEA9086B15C099681EB077 /* MyStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStyle.m; sourceTree = "<group>"; };
 		C5EEA91DC1E4106A405760DA /* NSDate+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+myextend.h"; sourceTree = "<group>"; };
+		C5EEA928DD1074289E6CB07E /* StateCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateCity.m; sourceTree = "<group>"; };
 		C5EEA95369D33A011F3F2489 /* SearchPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPage.m; sourceTree = "<group>"; };
 		C5EEA9745FC560927DCC61FE /* exp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exp.png; sourceTree = "<group>"; };
 		C5EEA976C989B35F77283F17 /* CareerPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CareerPage.m; sourceTree = "<group>"; };
@@ -1828,6 +1831,8 @@
 				C5EEAE33975FF89D4480455C /* ArticleComment.h */,
 				C5EEAA08D56319E3C8291855 /* IdName.m */,
 				C5EEA626F9F9F62DDE300617 /* IdName.h */,
+				C5EEA928DD1074289E6CB07E /* StateCity.m */,
+				C5EEA293C7B2FCD5561A8AA9 /* StateCity.h */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2466,6 +2471,7 @@
 				C5EEAFAD1B55BB349102460C /* CmsForYouPage.m in Sources */,
 				C5EEA742EA03F97F5FF1B234 /* ArticleItemView.m in Sources */,
 				C5EEA32DD334BD1A936C8AF7 /* IdName.m in Sources */,
+				C5EEA2E604C9E5CD496542A0 /* StateCity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

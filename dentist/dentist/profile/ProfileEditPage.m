@@ -75,8 +75,8 @@
 
 	userView = [EditUserView new];
 	userView.layoutParam.height = 240;
-    userView.avatarUrl=userInfo.portraitUrl;
-    userView.percent=0.13;
+	userView.avatarUrl = userInfo.portraitUrl;
+	userView.percent = 0.13;
 	[userView.editBtn onClick:self action:@selector(editPortrait:)];
 	[self.contentView addSubview:userView];
 
@@ -230,9 +230,9 @@
 
 
 - (void)bindData {
-    if(selectImage){
-        [userView.headerImg setImage:selectImage];
-    }
+	if (selectImage) {
+		[userView.headerImg setImage:selectImage];
+	}
 	nameView.edit.text = userInfo.fullName;
 	specView.msgLabel.text = userInfo.specialityLabel;
 	if (userInfo.experienceArray != nil) {
@@ -285,86 +285,86 @@
 	phoneView.edit.text = userInfo.phone;
 	emailView.edit.text = userInfo.email;
 	practiceAddressView.msgLabel.text = userInfo.practiceAddress.detailAddress;
-    [practiceAddressView resetLayout];
-    
-    
-    /**
-     For students, there are 6 sections: Name, Specialty, Residency, Education, Mobile number and Email address.
-     Percentage value for section is 100/6 = 16.7. We can round this up to 17. So, if two sections have been completed (for example, Name and Email address), then the percentage completion is 34%.
-     For non-students, there are 8 sections: Name, Specialty, Experience, Residency, Education, Practice address, Mobile number and Email address.
-     Percentage value for each section is 100/8 = 12.5. We can round this up to a round number. If three sections have been completed, then the value will be 37.5 - this can be rounded up to 38.
-     */
-    
-    [userView reset:[self getProfilePercent]];
+	[practiceAddressView resetLayout];
 
+
+	/**
+	 For students, there are 6 sections: Name, Specialty, Residency, Education, Mobile number and Email address.
+	 Percentage value for section is 100/6 = 16.7. We can round this up to 17. So, if two sections have been completed (for example, Name and Email address), then the percentage completion is 34%.
+	 For non-students, there are 8 sections: Name, Specialty, Experience, Residency, Education, Practice address, Mobile number and Email address.
+	 Percentage value for each section is 100/8 = 12.5. We can round this up to a round number. If three sections have been completed, then the value will be 37.5 - this can be rounded up to 38.
+	 */
+
+	[userView reset:[self getProfilePercent]];
 
 
 	[self layoutLinearVertical];
-    
-}
--(float) getProfilePercent{
-   
-    int count=0;
-    int countParent=0;
-    if ([userInfo isStudent]) {
-        countParent=6;
-    }else{
-        countParent=8;
-    }
-    if(nameView.edit.text!=nil && nameView.edit.text.length>0){
-        count=count+1;
-    }
-    if(phoneView.edit.text!=nil && phoneView.edit.text.length>0){
-        count=count+1;
-    }
-    if(emailView.edit.text!=nil && emailView.edit.text.length>0){
-        count=count+1;
-    }
-    
-    if(specView.msgLabel.text!=nil && specView.msgLabel.text.length>0){
-        count=count+1;
-    }
-    
-    if(practiceAddressView.msgLabel.text!=nil && practiceAddressView.msgLabel.text.length>0){
-        count=count+1;
-    }
-    
-    if(userInfo.experienceArray!=nil && userInfo.experienceArray.count>0){
-        if(userInfo.experienceArray.count==1){
-            Experience *r = userInfo.experienceArray[0];
-            if (r.dentalName != nil &&  r.dentalName.length> 0) {
-                count=count+1;
-            }
-        }else{
-            count=count+1;
-        }
-    }
-    
 
-    if(userInfo.residencyArray!=nil && userInfo.residencyArray.count>0){
-        if(userInfo.residencyArray.count==1){
-            Residency *r = userInfo.residencyArray[0];
-            if (r.place != nil &&  r.place.length> 0) {
-                count=count+1;
-            }
-        }else{
-            count=count+1;
-        }
-        
-    }
-    if(userInfo.educationArray!=nil && userInfo.educationArray.count>0){
-        if(userInfo.educationArray.count==1){
-            Education *r = userInfo.educationArray[0];
-            if (r.schoolName != nil &&  r.schoolName.length> 0) {
-                count=count+1;
-            }
-        }else{
-            count=count+1;
-        }
-    }
-    NSLog(@"count==%i",count);
-    NSLog(@"countParent==%i",countParent);
-    return (float)count/countParent;
+}
+
+- (float)getProfilePercent {
+
+	int count = 0;
+	int countParent = 0;
+	if ([userInfo isStudent]) {
+		countParent = 6;
+	} else {
+		countParent = 8;
+	}
+	if (nameView.edit.text != nil && nameView.edit.text.length > 0) {
+		count = count + 1;
+	}
+	if (phoneView.edit.text != nil && phoneView.edit.text.length > 0) {
+		count = count + 1;
+	}
+	if (emailView.edit.text != nil && emailView.edit.text.length > 0) {
+		count = count + 1;
+	}
+
+	if (specView.msgLabel.text != nil && specView.msgLabel.text.length > 0) {
+		count = count + 1;
+	}
+
+	if (practiceAddressView.msgLabel.text != nil && practiceAddressView.msgLabel.text.length > 0) {
+		count = count + 1;
+	}
+
+	if (userInfo.experienceArray != nil && userInfo.experienceArray.count > 0) {
+		if (userInfo.experienceArray.count == 1) {
+			Experience *r = userInfo.experienceArray[0];
+			if (r.dentalName != nil && r.dentalName.length > 0) {
+				count = count + 1;
+			}
+		} else {
+			count = count + 1;
+		}
+	}
+
+
+	if (userInfo.residencyArray != nil && userInfo.residencyArray.count > 0) {
+		if (userInfo.residencyArray.count == 1) {
+			Residency *r = userInfo.residencyArray[0];
+			if (r.place != nil && r.place.length > 0) {
+				count = count + 1;
+			}
+		} else {
+			count = count + 1;
+		}
+
+	}
+	if (userInfo.educationArray != nil && userInfo.educationArray.count > 0) {
+		if (userInfo.educationArray.count == 1) {
+			Education *r = userInfo.educationArray[0];
+			if (r.schoolName != nil && r.schoolName.length > 0) {
+				count = count + 1;
+			}
+		} else {
+			count = count + 1;
+		}
+	}
+	NSLog(@"count==%i", count);
+	NSLog(@"countParent==%i", countParent);
+	return (float) count / countParent;
 }
 
 
@@ -490,7 +490,7 @@
 		[ar addObject:r];
 		userInfo.residencyArray = ar;
 	}
-    userInfo.residencyArray = [self sortArrayByTime:ar];
+	userInfo.residencyArray = [self sortArrayByTime:ar];
 	[self buildViews];
 	[self bindData];
 }
@@ -499,13 +499,13 @@
 	NSMutableArray *ar = [NSMutableArray arrayWithArray:userInfo.educationArray];
 	if (![ar containsObject:e]) {
 		[ar addObject:e];
-        
-        ar = [self sortArrayByTime:ar];
-        
+
+		ar = [self sortArrayByTime:ar];
+
 		userInfo.educationArray = ar;
 	}
-    
-    userInfo.educationArray = [self sortArrayByTime:ar];
+
+	userInfo.educationArray = [self sortArrayByTime:ar];
 
 	[self buildViews];
 	[self bindData];
@@ -522,12 +522,11 @@
 	[self bindData];
 }
 
-- (NSMutableArray *)sortArrayByTime:(NSMutableArray *)compArr
-{
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"toYear" ascending:NO];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    
-    return [compArr sortedArrayUsingDescriptors:sortDescriptors];
+- (NSMutableArray *)sortArrayByTime:(NSMutableArray *)compArr {
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"toYear" ascending:NO];
+	NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+
+	return [compArr sortedArrayUsingDescriptors:sortDescriptors];
 }
 
 - (void)clickAddEducation:(id)sender {
@@ -555,14 +554,14 @@
 }
 
 - (void)clickPraticeAddress:(id)sender {
-    
+
 //    HttpResult *result = [Proto getStateAndCity];
 //    NSLog(@"%@",result);
-    
+
 	EditPracticeAddressViewController *p = [EditPracticeAddressViewController new];
 	p.address = userInfo.practiceAddress;
 	p.saveCallback = ^(Address *addr) {
-        self->userInfo.practiceAddress = addr;
+		self->userInfo.practiceAddress = addr;
 		[self bindData];
 	};
 	[self pushPage:p];
@@ -574,13 +573,13 @@
 }
 
 - (void)onSave:(id)sender {
-    
-    //save the edit content
-     userInfo.fullName = nameView.edit.text;
-     userInfo.phone = phoneView.edit.text;
-     userInfo.email = emailView.edit.text;
+
+	//save the edit content
+	userInfo.fullName = nameView.edit.text;
+	userInfo.phone = phoneView.edit.text;
+	userInfo.email = emailView.edit.text;
 //     userInfo.practiceAddress.detailAddress = practiceAddressView.msgLabel.text;
-    
+
 	[Proto saveLastUserInfo:userInfo];
 	[self alertMsg:@"Saved successfully" onOK:^() {
 		[self popPage];
@@ -656,13 +655,14 @@
 		NSLog(@"imageName1:%@", imageName);
 		selectImageName = imageName;
 		selectImage = image;
-        [self bindData];
-        [self saveImageDocuments:selectImage];
-        NSURL *url = [self getDocumentImage];
-        if (url != nil) {
-            [self uploadHeaderImage:url];
-        }
-        
+		[self bindData];
+		[self saveImageDocuments:selectImage];
+		NSString *localFile = [self getDocumentImage];
+		if (localFile != nil) {
+			Log(@"Image From Camera: ", localFile);
+			[self uploadHeaderImage:localFile];
+		}
+
 	} else {
 		image = info[UIImagePickerControllerOriginalImage];
 
@@ -671,16 +671,17 @@
 
 		ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
 		//根据url获取asset信息, 并通过block进行回调
-        [assetsLibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
-            ALAssetRepresentation *representation = [asset defaultRepresentation];
-            selectImage = image;
-            [self bindData];
-            [self saveImageDocuments:selectImage];
-            NSURL *url = [self getDocumentImage];
-            if (url != nil) {
-                [self uploadHeaderImage:url];
-            }
-        }             failureBlock:^(NSError *error) {
+		[assetsLibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
+			ALAssetRepresentation *representation = [asset defaultRepresentation];
+			selectImage = image;
+			[self bindData];
+			[self saveImageDocuments:selectImage];
+			NSString *localFile = [self getDocumentImage];
+			if (localFile != nil) {
+				Log(@"Image File: ", localFile);
+				[self uploadHeaderImage:localFile];
+			}
+		}             failureBlock:^(NSError *error) {
 			NSLog(@"%@", [error localizedDescription]);
 		}];
 	}
@@ -689,27 +690,31 @@
 
 }
 
--(NSURL *)getDocumentImage{
-    // 读取沙盒路径图片
-    NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@.png",NSHomeDirectory(),@"test"];
-    NSURL *imageurl = [NSURL URLWithString:aPath3];
-    return imageurl;
+- (NSString *)getDocumentImage {
+	// 读取沙盒路径图片
+	NSString *aPath3 = [NSString stringWithFormat:@"%@/Documents/%@.png", NSHomeDirectory(), @"test"];
+	return aPath3;
+//    NSURL *imageurl = [NSURL URLWithString:aPath3];
+//    return imageurl;
 }
 
--(void)saveImageDocuments:(UIImage *)image{
-    
-    //拿到图片
-    UIImage *imagesave = image;
-    NSString *path_sandox = NSHomeDirectory();
-    //设置一个图片的存储路径
-    NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/test.png"];
-    [UIImagePNGRepresentation(imagesave) writeToFile:imagePath atomically:YES];
+- (void)saveImageDocuments:(UIImage *)image {
+
+	CGFloat f = 300.0f / image.size.width;
+	//拿到图片
+	UIImage *imagesave = [image scaledBy:f];
+	NSString *path_sandox = NSHomeDirectory();
+	//设置一个图片的存储路径
+	NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/test.png"];
+	[UIImagePNGRepresentation(imagesave) writeToFile:imagePath atomically:YES];
 }
 
-- (void)uploadHeaderImage:(NSURL *)url
-{
-    HttpResult *result = [Proto uploadHeaderImage:url];
-    NSLog(@"======%@",result);
+- (void)uploadHeaderImage:(NSString *)url {
+	backTask(^() {
+		BOOL b = [Proto uploadHeaderImage:url];
+		NSLog(@"======%d", b);
+	});
+
 }
 
 @end

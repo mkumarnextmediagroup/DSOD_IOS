@@ -634,7 +634,6 @@
 		[Proto saveProfileInfo:md];
 	});
 
-	[Proto saveLastUserInfo:userInfo];
 	[self alertMsg:@"Saved successfully" onOK:^() {
 		[self popPage];
 	}];

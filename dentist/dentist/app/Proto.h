@@ -38,11 +38,7 @@
 + (UserInfo *)userInfo:(nonnull NSString *)email;
 
 
-+ (void)saveLastUserInfo:(UserInfo *_Nullable)info;
-
 + (UserInfo *_Nullable)lastUserInfo;
-
-+ (NSArray *_Nullable)listSpeciality;
 
 
 + (NSArray *_Nullable)listRoleAtPractice;
@@ -63,7 +59,7 @@
 
 + (nullable StateCity *)getStateAndCity:(NSString *)zipCode;
 
-+ (NSMutableArray <IdName *> *)queryDentalSchool ;
++ (NSMutableArray <IdName *> *)queryDentalSchool;
 
 + (NSArray<IdName *> *)queryPracticeDSO:(NSString *)name;
 

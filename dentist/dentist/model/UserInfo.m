@@ -44,10 +44,6 @@
 
 }
 
-- (NSString *)toJson {
-	return @"";
-}
-
 
 - (NSString *)portraitUrlFull {
 	NSString *u = self.photo_url;

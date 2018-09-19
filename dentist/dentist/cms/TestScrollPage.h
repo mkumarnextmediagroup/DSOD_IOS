@@ -7,7 +7,16 @@
 #import "ScrollPage.h"
 
 
-@interface TestScrollPage : ScrollPage
+@interface TestScrollPage : BaseController
 
+
+
+
+@property(readonly) UIScrollView *scrollView;
+@property(readonly) UIView *contentView;
+
+- (void)layoutLinearVertical;
+
+- (UIView *)addGrayLine:(CGFloat)marginLeft marginRight:(CGFloat)marginRight;
 
 @end

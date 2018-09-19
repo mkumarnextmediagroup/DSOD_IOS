@@ -90,7 +90,7 @@
 		[[[[[[v layoutMaker] leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
 		[self onConfigCell:item cell:cell];
 	}
-
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	UIView *itemView = cell.contentView.subviews[0];
 	[self onBindItem3:item view:itemView cell:cell];
 	[self onBindItem:item view:itemView];

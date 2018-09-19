@@ -15,6 +15,7 @@
 @property NSString *type;
 @property NSString *title;
 @property NSString *content;
+@property NSString *subContent;
 //May 14,2018
 @property NSString *publishDate;
 

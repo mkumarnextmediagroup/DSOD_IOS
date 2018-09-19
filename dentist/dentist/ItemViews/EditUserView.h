@@ -10,7 +10,6 @@
 
 @property(readonly) UIImageView *headerImg;
 @property(readonly) UIButton *editBtn;
-@property(nonatomic,strong) NSString *avatarUrl;
 @property(readonly) UILabel *percentageLab;
 @property(readonly) UIProgressView * pView;
 @property(nonatomic) float percent;

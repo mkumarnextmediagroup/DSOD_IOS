@@ -18,6 +18,7 @@
 #import "EditEduViewController.h"
 #import "SearchPage.h"
 #import "EditExperiencePage.h"
+#import "IdName.h"
 
 #import <AssetsLibrary/ALAsset.h>
 
@@ -41,11 +42,14 @@
 	TitleEditView *phoneView;
 	TitleEditView *emailView;
 	TitleMsgArrowView *practiceAddressView;
+
+	NSString *uploadPortraitResult;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	userInfo = [Proto lastUserInfo];
+	uploadPortraitResult = nil;
 
 	UINavigationItem *item = self.navigationItem;
 	item.title = @"EDIT PROFILE";
@@ -75,7 +79,7 @@
 
 	userView = [EditUserView new];
 	userView.layoutParam.height = 240;
-	userView.avatarUrl = userInfo.portraitUrl;
+	[userView.headerImg loadUrl:userInfo.portraitUrlFull placeholderImage:@"default_avatar"];
 	userView.percent = 0.13;
 	[userView.editBtn onClick:self action:@selector(editPortrait:)];
 	[self.contentView addSubview:userView];
@@ -232,9 +236,11 @@
 - (void)bindData {
 	if (selectImage) {
 		[userView.headerImg setImage:selectImage];
+	} else {
+		[userView.headerImg loadUrl:userInfo.portraitUrlFull placeholderImage:@"default_avatar"];
 	}
 	nameView.edit.text = userInfo.fullName;
-	specView.msgLabel.text = userInfo.specialityLabel;
+	specView.msgLabel.text = userInfo.speciality.name;
 	if (userInfo.experienceArray != nil) {
 		for (int i = 0; i < userInfo.experienceArray.count; ++i) {
 			Experience *r = userInfo.experienceArray[i];
@@ -384,12 +390,16 @@
 }
 
 - (void)clickSpec:(id)sender {
-	NSArray *ls = [Proto listSpeciality];
-	[self selectText:@"SPECIALITY" value:userInfo.specialityLabel array:ls result:^(NSString *spec) {
-		userInfo.specialityLabel = spec;
-		[self bindData];
-	}];
 
+	backTask(^() {
+		NSArray *ls = [Proto querySpecialty];
+		foreTask(^() {
+			[self selectIdName:@"SPECIALITY" array:ls selectedId:userInfo.speciality.id result:^(IdName *item) {
+				userInfo.speciality = item;
+				[self bindData];
+			}];
+		});
+	});
 }
 
 - (void)clickAddExp:(id)sender {
@@ -580,6 +590,48 @@
 	userInfo.email = emailView.edit.text;
 //     userInfo.practiceAddress.detailAddress = practiceAddressView.msgLabel.text;
 
+	NSDictionary *d = @{
+			@"full_name": nameView.edit.textTrimed,
+			@"email": emailView.edit.textTrimed,
+			@"phone": phoneView.edit.textTrimed,
+			@"is_student": @"0",
+			@"is_linkedin": @"0",
+			@"sex": @"",
+			@"status": @"1",
+			@"document_library": @{
+					@"document_name": @"",
+			},
+			@"create_time": @"2018-09-12T06:16:53.603Z",
+			@"educations": NSNull.null,
+			@"experiences": NSNull.null,
+			@"profileResidency": NSNull.null,
+			@"document_library": NSNull.null,
+			@"practiceAddress": @{
+					@"address1": userInfo.practiceAddress.address1,
+					@"address2": userInfo.practiceAddress.address2,
+					@"city": userInfo.practiceAddress.city,
+					@"states": userInfo.practiceAddress.stateLabel,
+					@"zipCode": userInfo.practiceAddress.zipCode,
+			},
+	};
+
+	NSMutableDictionary *md = [NSMutableDictionary dictionaryWithDictionary:d];
+	if (uploadPortraitResult != nil) {
+		md[@"photo_album"] = @{@"photo_name": uploadPortraitResult};
+	} else {
+		md[@"photo_album"] = @{@"photo_name": @""};
+	}
+	if (userInfo.speciality.id != nil) {
+		md[@"specialty"] = @{@"id": userInfo.speciality.id};
+	} else {
+		md[@"specialty"] = @{@"id": @""};
+	}
+
+
+	backTask(^() {
+		[Proto saveProfileInfo:md];
+	});
+
 	[Proto saveLastUserInfo:userInfo];
 	[self alertMsg:@"Saved successfully" onOK:^() {
 		[self popPage];
@@ -711,8 +763,8 @@
 
 - (void)uploadHeaderImage:(NSString *)url {
 	backTask(^() {
-		BOOL b = [Proto uploadHeaderImage:url];
-		NSLog(@"======%d", b);
+		uploadPortraitResult = [Proto uploadHeaderImage:url];
+		NSLog(@"======%@", uploadPortraitResult);
 	});
 
 }

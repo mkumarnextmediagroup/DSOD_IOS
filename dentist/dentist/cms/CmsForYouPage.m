@@ -10,6 +10,7 @@
 #import "CMSDetailViewController.h"
 #import "StateCity.h"
 #import "IdName.h"
+#import "TestScrollPage.h"
 
 @implementation CmsForYouPage {
 	NSArray<NSString *> *segItems;
@@ -25,7 +26,7 @@
 - (void)clickTest:(id)sender {
 
 	backTask(^() {
-		[Proto getProfileInfo];
+		[Proto querySpecialty];
 
 	});
 }

@@ -126,9 +126,9 @@
 	UIView *v = self.view.addView;
 	UIImageView *iv = v.addImageView;
 	iv.imageName = @"Img-User-Dentist";
-	[iv scaleFillAspect];
-	[iv loadUrl:userInfo.portraitUrl placeholderImage:@"Img-User-Dentist"];
-	[[[[iv.layoutMaker sizeFit] leftParent:0] topParent:0] install];
+	[iv scaleFit];
+	[iv loadUrl:userInfo.portraitUrlFull placeholderImage:@"Img-User-Dentist"];
+	[[[[iv.layoutMaker sizeEq:115 h:115] leftParent:0] topParent:0] install];
 	UILabel *lbName = v.addLabel;
 	lbName.text = @"John Stewart";
 	lbName.font = [Fonts semiBold:15];

@@ -129,11 +129,11 @@
 - (UIView *)makeUserView {
 	UserInfo *userInfo = [Proto lastUserInfo];
 	UIView *v = self.view.addView;
-	imageView = v.addImageView;
-	imageView.imageName = @"Img-User-Dentist";
-	[imageView scaleFit];
-	[imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"Img-User-Dentist"];
-	[[[[imageView.layoutMaker sizeEq:115 h:115] leftParent:0] topParent:0] install];
+    imageView = v.addImageView;
+    imageView.imageName = @"Img-User-Dentist";
+    [imageView scaleFit];
+    [imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"Img-User-Dentist"];
+    [[[[imageView.layoutMaker sizeEq:115 h:115] leftParent:0] topParent:0] install];
 	UILabel *lbName = v.addLabel;
 	lbName.text = @"John Stewart";
 	lbName.font = [Fonts semiBold:15];

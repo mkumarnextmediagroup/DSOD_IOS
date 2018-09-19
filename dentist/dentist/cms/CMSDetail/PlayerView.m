@@ -9,6 +9,7 @@
 #import "PlayerView.h"
 #import "Common.h"
 #import "Article.h"
+#import "XHStarRateView.h"
 
 @implementation PlayerView {
 	UILabel *typeLabel;
@@ -24,7 +25,7 @@
 	UILabel *contentLabel;
 	UIView *view;
     UILabel *contentLabel2;
-    UILabel *lineLabel3;
+    UIButton *gskBtn;
 }
 
 - (instancetype)init {
@@ -118,13 +119,14 @@
     //    [[[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] heightEq:30] below:view offset:5] install];
     [[[[contentLabel2.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:imgCon offset:15] install];
     
-    lineLabel3 = [self lineLabel];
+    UILabel *lineLabel3 = [self lineLabel];
     [[[[[lineLabel3.layoutMaker leftParent:0] rightParent:0] below:contentLabel2 offset:25] heightEq:1] install];
     
 //    [lineLabel3.layoutMaker.bottom.equalTo(self.mas_bottom) install];
     
     [self moreView];
-
+    [self createStarView];
+    
 	return self;
 }
 
@@ -139,17 +141,49 @@
     conLabel.text = @"Want more content from GSK?";
     [[[[[conLabel.layoutMaker leftParent:18] rightParent:-18] topParent:0] heightEq:50] install];
     
-    UIButton *gskBtn = [moreView addButton];
+    gskBtn = [moreView addButton];
     gskBtn.backgroundColor = Colors.primary;
     [gskBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [gskBtn setTitle:@"Access GSK Science" forState:UIControlStateNormal];
     gskBtn.titleLabel.font = [Fonts regular:14];
     [[[[[gskBtn.layoutMaker leftParent:18] rightParent:-18] below:conLabel offset:0] heightEq:36] install];
     
-    [moreView.layoutMaker.bottom.equalTo(self.mas_bottom) install];
-    
     UILabel *lineLabel4 = [self lineLabel];
     [[[[[lineLabel4.layoutMaker leftParent:0] rightParent:0] below:gskBtn offset:28] heightEq:1] install];
+}
+
+- (void)createStarView
+{
+    UIView *starView = [UIView new];
+    starView.backgroundColor = rgb255(248, 248, 248);
+    [self addSubview:starView];
+    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:gskBtn offset:26] install];
+    
+    UILabel *finLabel = [starView addLabel];
+    finLabel.font = [Fonts regular:12];
+    [finLabel textColorAlternate];
+    finLabel.textAlignment = NSTextAlignmentCenter;
+    finLabel.text = @"Finished the content?";
+    [[[[[finLabel.layoutMaker leftParent:18] rightParent:-18] topParent:15] heightEq:20] install];
+    
+    UILabel *reviewLabel = [starView addLabel];
+    reviewLabel.font = [Fonts semiBold:12];
+    [reviewLabel textColorMain];
+    reviewLabel.textAlignment = NSTextAlignmentCenter;
+    reviewLabel.text = @"Add your review";
+    [[[[[reviewLabel.layoutMaker leftParent:18] rightParent:-18] below:finLabel offset:0] heightEq:20] install];
+    
+    XHStarRateView *star = [[XHStarRateView alloc] initWithFrame:CGRectMake((SCREENWIDTH - 160)/2, 60, 160, 30)];
+    star.isAnimation = YES;
+    star.rateStyle = IncompleteStar;
+    star.tag = 1;
+    [starView addSubview:star];
+    
+    UILabel *lineLabel4 = [starView lineLabel];
+    [[[[[lineLabel4.layoutMaker leftParent:0] rightParent:0]
+       topParent:99] heightEq:1] install];
+    [starView.layoutMaker.bottom.equalTo(self.mas_bottom) install];
+
 
 }
 

@@ -523,6 +523,24 @@
     return r;
 }
 
++ (HttpResult *)getStateAndCity
+{
+    NSDictionary *d = @{@"zip": @""};
+    HttpResult *r = [self postBodyWithToken:@"usZipSv/findAllusZipSvByZip" dic:d];
+    if (r.OK) {
+    }
+    return r;
+}
+
++ (HttpResult *)uploadHeaderImage:(NSURL *)imageUrl
+{
+    NSDictionary *d = @{@"File": imageUrl};
+    HttpResult *r = [self postBodyWithToken:@"photoUpload" dic:d];
+    if (r.OK) {
+    }
+    return r;
+}
+
 + (HttpResult *)postBodyWithToken:(NSString *)action dic:(NSDictionary *)dic {
     NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
     Http *h = [Http new];
@@ -530,10 +548,8 @@
     [h contentTypeJson];
     [h contentTypeWithToken];
     
-    NSMutableDictionary *md = [NSMutableDictionary dictionaryWithDictionary:dic];
-//    md[@"client_id"] = @"fooClientIdPassword";
-    NSString *s = jsonBuild(md);
-    HttpResult *r = [h postRaw:s.dataUTF8];
+    [h arg:[dic allKeys][0] value:@""];
+    HttpResult *r = h.post;
     return r;
 }
 

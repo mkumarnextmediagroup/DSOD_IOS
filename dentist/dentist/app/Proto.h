@@ -67,6 +67,8 @@
 
 + (NSArray *_Nullable)listResidency;
 
-+ (HttpResult *)getProfileInfo;
-+ (NSArray *)listArticle;
++ (HttpResult *_Nullable)getProfileInfo;
++ (NSArray *_Nullable)listArticle;
+
++ (HttpResult *)getStateAndCity;
 @end

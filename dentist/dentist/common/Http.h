@@ -39,6 +39,7 @@ typedef void (^HttpCallback)(HttpResult *);
 - (void)auth:(NSString *)user value:(NSString *)pwd;
 
 - (void)contentTypeJson;
+
 - (void)contentType:(NSString *)value;
 
 - (void)userAgent:(NSString *)value;
@@ -50,12 +51,17 @@ typedef void (^HttpCallback)(HttpResult *);
 - (void)accept:(NSString *)value;
 
 - (void)arg:(NSString *)name value:(NSString *)value;
-- (void) args:(NSDictionary*) dic;
+
+- (void)args:(NSDictionary *)dic;
 
 - (void)header:(NSString *)name value:(NSString *)value;
 
 - (void)file:(NSString *)name value:(NSString *)value;
 
 - (void)fileData:(NSString *)name value:(NSData *)value;
+
+- (void)fileURL:(NSString *)name url:(NSURL *)url;
+
+- (void)fileName:(NSString *)name filename:(NSString *)filename;
 
 @end

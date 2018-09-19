@@ -17,5 +17,11 @@
 	return img;
 }
 
+- (UIImage *)scaledBy:(CGFloat)f {
+	CGFloat w = self.size.width * f;
+	CGFloat h = self.size.height * f;
+	return [self scaledTo:w h:h];
+}
+
 
 @end

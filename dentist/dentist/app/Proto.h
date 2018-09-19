@@ -37,19 +37,6 @@
 
 + (UserInfo *)userInfo:(nonnull NSString *)email;
 
-+ (UserInfo *_Nullable)addExperience:(nonnull NSString *)email exp:(Experience *_Nullable)exp;
-
-+ (UserInfo *_Nullable)saveExperience:(nonnull NSString *)email index:(int)index exp:(Experience *_Nullable)exp;
-
-+ (UserInfo *_Nullable)addResidency:(nonnull NSString *)email residency:(Residency *_Nullable)residency;
-
-+ (UserInfo *_Nullable)saveResidency:(nonnull NSString *)email index:(int)index residency:(Residency *_Nullable)residency;
-
-+ (UserInfo *_Nullable)addEducation:(nonnull NSString *)email edu:(Education *_Nullable)edu;
-
-+ (UserInfo *_Nullable)saveEducation:(nonnull NSString *)email index:(int)index edu:(Education *_Nullable)edu;
-
-+ (UserInfo *_Nullable)savePractice:(nonnull NSString *)email address:(Address *_Nullable)address;
 
 + (void)saveLastUserInfo:(UserInfo *_Nullable)info;
 
@@ -69,7 +56,7 @@
 
 + (NSArray *_Nullable)listResidency;
 
-+ (HttpResult *_Nullable)getProfileInfo;
++ (NSDictionary *_Nullable)getProfileInfo;
 
 + (NSArray *_Nullable)listArticle;
 

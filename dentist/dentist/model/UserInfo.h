@@ -11,22 +11,25 @@
 #import "PersonInfo.h"
 #import "UploadData.h"
 
+@class IdName;
+
 @interface UserInfo : NSObject
 
-@property NSDictionary *dic;
+@property NSMutableDictionary *dic;
 
 
-@property(nonnull) NSString *email;
-@property(nonnull) NSString <Optional> *fullName;
+@property NSString *userId;
+@property NSString *email;
+@property NSString <Optional> *fullName;
 @property(nullable) NSString <Optional> *phone;
 @property BOOL isStudent;
 @property BOOL isLinkedinUser;
 
-@property(nullable) NSString <Optional> *portraitId;
+//@property(nullable) NSString <Optional> *portraitId;
 @property(nullable) NSString <Optional> *portraitUrl;
+@property(readonly) NSString <Optional> *portraitUrlFull;
 
-@property(nullable) NSString <Optional> *specialityId;
-@property(nullable) NSString <Optional> *specialityLabel;
+@property(nullable) IdName <Optional> *speciality;
 
 
 @property(nullable) Address <Optional> *practiceAddress;

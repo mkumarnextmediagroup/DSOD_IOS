@@ -44,7 +44,6 @@
 
 + (NSArray *_Nullable)listSpeciality;
 
-+ (NSArray *_Nullable)listPracticeType;
 
 + (NSArray *_Nullable)listRoleAtPractice;
 
@@ -58,6 +57,8 @@
 
 + (NSDictionary *_Nullable)getProfileInfo;
 
++ (BOOL)saveProfileInfo:(NSDictionary *)dic;
+
 + (NSArray *_Nullable)listArticle;
 
 + (nullable StateCity *)getStateAndCity:(NSString *)zipCode;
@@ -70,5 +71,8 @@
 
 + (NSArray<IdName *> *)queryPracticeTypes:(NSString *)name;
 
-+ (BOOL)uploadHeaderImage:(NSString *)localFilePath;
++ (NSString *)uploadHeaderImage:(NSString *)localFilePath;
+
++ (NSMutableArray <IdName *> *)querySpecialty;
+
 @end

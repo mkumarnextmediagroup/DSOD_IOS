@@ -297,8 +297,10 @@
 	UserInfo *ui = [UserInfo new];
 	NSString *json = [self userInfoLocal:email];
 	if (json != nil) {
-		ui.dic = jsonParse(json);
+		ui.dic = [NSMutableDictionary dictionaryWithDictionary:jsonParse(json)];
 		return ui;
+	} else {
+		ui.dic = [NSMutableDictionary dictionaryWithCapacity:16];
 	}
 
 	ui.email = email;
@@ -307,8 +309,6 @@
 	ui.fullName = @"Entao Yang";
 	ui.phone = @"15098760059";
 	ui.portraitUrl = @"http://app800.cn/i/p.png";
-	ui.specialityId = @"100";
-	ui.specialityLabel = @"Orthodontics";
 
 	Address *addr = [Address new];
 	addr.stateLabel = @"MA";
@@ -475,6 +475,14 @@
 	return r;
 }
 
++ (BOOL)saveProfileInfo:(NSDictionary *)dic {
+	HttpResult *r = [self postBody:@"userProfile/save" dic:dic];
+	if (r.OK) {
+		[self getProfileInfo];
+	}
+	return r.OK;
+}
+
 //{
 //	"code": 0,
 //			"msg": "success",
@@ -561,6 +569,26 @@
 	return nil;
 }
 
++ (NSMutableArray <IdName *> *)querySpecialty {
+	HttpResult *r = [self post2:@"residencySpecialty/findAllSpecialty" dic:@{}];
+	NSMutableArray <IdName *> *items = [NSMutableArray arrayWithCapacity:32];
+	if (r.OK) {
+		NSDictionary *m = r.resultMap;
+		if (m) {
+			NSArray *arr = m[@"data"];
+			for (NSDictionary *d in arr) {
+				IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+				[items addObject:item];
+			}
+		}
+	}
+
+	for (IdName *item in items) {
+		NSLog(@"%@ %@", item.id, item.name);
+	}
+	return items;
+}
+
 //{
 //	"code": 0,
 //			"msg": "success",
@@ -639,11 +667,21 @@
 	return resultArray;
 }
 
-+ (BOOL)uploadHeaderImage:(NSString *)localFilePath {
++ (NSString *)uploadHeaderImage:(NSString *)localFilePath {
 	HttpResult *r = [self upload:@"photoUpload" localFilePath:localFilePath];
 	if (r.OK) {
+		//{"photoName":"5d7a4a76219e4c78b2b4656cf4bc80f2_test.png"}
+		id v = r.resultMap[@"photoName"];
+		if (v == nil || v == NSNull.null) {
+			return nil;
+		}
+		return v;
 	}
-	return r.OK;
+	return nil;
+}
+
++ (NSString *)portraitUrl:(UserInfo *)info {
+	return strBuild(@"http://dsod.aikontec.com/profile-service/v1/", info.portraitUrl);
 }
 
 
@@ -652,6 +690,10 @@
 	Http *h = [Http new];
 	h.url = strBuild(baseUrl, action);
 	[h contentTypeJson];
+	NSString *token = [self lastToken];
+	if (token != nil) {
+		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+	}
 
 	NSMutableDictionary *md = [NSMutableDictionary dictionaryWithDictionary:dic];
 	md[@"client_id"] = @"fooClientIdPassword";
@@ -666,6 +708,10 @@
 	h.url = strBuild(baseUrl, action);
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
+	NSString *token = [self lastToken];
+	if (token != nil) {
+		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+	}
 	HttpResult *r = [h get];
 	return r;
 }
@@ -676,6 +722,10 @@
 	h.url = strBuild(baseUrl, action);
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
+	NSString *token = [self lastToken];
+	if (token != nil) {
+		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+	}
 	HttpResult *r = [h post];
 	return r;
 }
@@ -685,7 +735,10 @@
 	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
 	Http *h = [Http new];
 	h.url = strBuild(baseUrl, action);
-	[h header:@"Authorization" value:strBuild(@"Bearer ", [self lastToken])];
+	NSString *token = [self lastToken];
+	if (token != nil) {
+		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+	}
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
 	HttpResult *r = [h multipart];
@@ -697,7 +750,10 @@
 	Http *h = [Http new];
 	h.timeout = 20;
 	h.url = strBuild(baseUrl, action);
-	[h header:@"Authorization" value:strBuild(@"Bearer ", [self lastToken])];
+	NSString *token = [self lastToken];
+	if (token != nil) {
+		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+	}
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h file:@"file" value:localFilePath];
 	HttpResult *r = [h multipart];

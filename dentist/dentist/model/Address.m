@@ -12,6 +12,6 @@
 }
 
 -(NSString*) detailAddress {
-	return strBuild(self.address2, @",", self.address1, @",", self.city, @",", self.stateLabel, @"-", self.zipCode);
+	return strBuild(self.address1, self.address2, self.city, @",", self.stateLabel, @" ", self.zipCode);
 }
 @end

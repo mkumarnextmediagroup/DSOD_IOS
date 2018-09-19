@@ -127,6 +127,7 @@
 - (void)onClickItem:(NSObject *)item {
 	CMSDetailViewController *detail = [CMSDetailViewController new];
 	detail.articleInfo = (Article *) item;
+    UINavigationController *nav = ;
 	[self pushPage:detail];
 }
 

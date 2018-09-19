@@ -77,7 +77,6 @@
     [self addSubview:view];
     [[[[[view.layoutMaker leftParent:0] rightParent:0] below:lineLabel offset:0] heightEq:58] install];
     headerImg = [UIImageView new];
-    headerImg.backgroundColor = [UIColor redColor];
     [view addSubview:headerImg];
     [[[[headerImg.layoutMaker sizeEq:32 h:32] leftParent:edge] centerYParent:0] install];
 
@@ -101,8 +100,14 @@
     contentLabel = [self addLabel];
     contentLabel.font = [Fonts regular:15];
     [contentLabel textColorMain];
-    titleLabel.numberOfLines = 0;
+    contentLabel.numberOfLines = 0;
     [[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
+    
+    UIImageView *imgCon = [UIImageView new];
+    imgCon.backgroundColor = [UIColor redColor];
+    [self addSubview:imgCon];
+    [[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:contentLabel offset:5] install];
+
     return self;
 }
 

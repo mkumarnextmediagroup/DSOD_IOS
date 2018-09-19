@@ -23,6 +23,7 @@
 	UILabel *addressLabel;
 	UILabel *contentLabel;
 	UIView *view;
+    UILabel *contentLabel2;
 }
 
 - (instancetype)init {
@@ -105,11 +106,18 @@
 	[[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
 
 	UIImageView *imgCon = [UIImageView new];
-	imgCon.backgroundColor = [UIColor redColor];
+    imgCon.image = [UIImage imageNamed:@"content_bg"];
 	[self addSubview:imgCon];
-	[[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:contentLabel offset:5] install];
+	[[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:contentLabel offset:25] install];
 
-	[imgCon.layoutMaker.bottom.equalTo(self.mas_bottom) install];
+    contentLabel2 = [self addLabel];
+    contentLabel2.font = [Fonts regular:15];
+    [contentLabel2 textColorMain];
+    contentLabel2.numberOfLines = 0;
+    //    [[[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] heightEq:30] below:view offset:5] install];
+    [[[[contentLabel2.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:imgCon offset:15] install];
+    
+	[contentLabel2.layoutMaker.bottom.equalTo(self.mas_bottom) install];
 
 	return self;
 }
@@ -124,12 +132,14 @@
 	nameLabel.text = bindInfo.authName;
 	addressLabel.text = bindInfo.authAdd;
 	contentLabel.text = bindInfo.content;
-
+    contentLabel2.text = bindInfo.subContent;
 }
 
 - (void)resetLayout {
 	CGSize size = [contentLabel sizeThatFits:CGSizeMake(290, 1000)];
+    CGSize size2 = [contentLabel2 sizeThatFits:CGSizeMake(290, 1000)];
 	[[contentLabel.layoutUpdate heightEq:size.height] install];
+    [[contentLabel2.layoutUpdate heightEq:size2.height] install];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

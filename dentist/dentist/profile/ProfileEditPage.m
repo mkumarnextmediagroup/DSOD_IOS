@@ -657,7 +657,12 @@
 		selectImageName = imageName;
 		selectImage = image;
         [self bindData];
-
+        [self saveImageDocuments:selectImage];
+        NSURL *url = [self getDocumentImage];
+        if (url != nil) {
+            [self uploadHeaderImage:url];
+        }
+        
 	} else {
 		image = info[UIImagePickerControllerOriginalImage];
 
@@ -668,12 +673,13 @@
 		//根据url获取asset信息, 并通过block进行回调
         [assetsLibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
             ALAssetRepresentation *representation = [asset defaultRepresentation];
-            //            NSString *imageName = representation.filename;
-            //            NSLog(@"imageName:%@", imageName);
-            //            self->selectImageName = imageName;
             selectImage = image;
             [self bindData];
-            
+            [self saveImageDocuments:selectImage];
+            NSURL *url = [self getDocumentImage];
+            if (url != nil) {
+                [self uploadHeaderImage:url];
+            }
         }             failureBlock:^(NSError *error) {
 			NSLog(@"%@", [error localizedDescription]);
 		}];
@@ -681,6 +687,29 @@
 	[self dismissViewControllerAnimated:NO completion:nil];
 
 
+}
+
+-(NSURL *)getDocumentImage{
+    // 读取沙盒路径图片
+    NSString *aPath3=[NSString stringWithFormat:@"%@/Documents/%@.png",NSHomeDirectory(),@"test"];
+    NSURL *imageurl = [NSURL URLWithString:aPath3];
+    return imageurl;
+}
+
+-(void)saveImageDocuments:(UIImage *)image{
+    
+    //拿到图片
+    UIImage *imagesave = image;
+    NSString *path_sandox = NSHomeDirectory();
+    //设置一个图片的存储路径
+    NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/test.png"];
+    [UIImagePNGRepresentation(imagesave) writeToFile:imagePath atomically:YES];
+}
+
+- (void)uploadHeaderImage:(NSURL *)url
+{
+    HttpResult *result = [Proto uploadHeaderImage:url];
+    NSLog(@"======%@",result);
 }
 
 @end

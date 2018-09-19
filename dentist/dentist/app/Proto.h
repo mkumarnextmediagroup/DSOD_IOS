@@ -83,4 +83,5 @@
 
 + (NSArray<IdName *> *)queryPracticeTypes:(NSString *)name;
 
++ (HttpResult *_Nullable)uploadHeaderImage:(NSURL *)imageUrl_Nullable;
 @end

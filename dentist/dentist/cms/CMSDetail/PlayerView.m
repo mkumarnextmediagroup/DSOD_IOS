@@ -24,6 +24,7 @@
 	UILabel *contentLabel;
 	UIView *view;
     UILabel *contentLabel2;
+    UILabel *lineLabel3;
 }
 
 - (instancetype)init {
@@ -117,9 +118,39 @@
     //    [[[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] heightEq:30] below:view offset:5] install];
     [[[[contentLabel2.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:imgCon offset:15] install];
     
-	[contentLabel2.layoutMaker.bottom.equalTo(self.mas_bottom) install];
+    lineLabel3 = [self lineLabel];
+    [[[[[lineLabel3.layoutMaker leftParent:0] rightParent:0] below:contentLabel2 offset:25] heightEq:1] install];
+    
+//    [lineLabel3.layoutMaker.bottom.equalTo(self.mas_bottom) install];
+    
+    [self moreView];
 
 	return self;
+}
+
+- (void)moreView{
+    
+    UIView *moreView = [UIView new];
+    [self addSubview:moreView];
+    [[[[[[moreView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:120] below:contentLabel2 offset:26] install];
+    UILabel *conLabel = [moreView addLabel];
+    conLabel.font = [Fonts regular:12];
+    [conLabel textColorAlternate];
+    conLabel.text = @"Want more content from GSK?";
+    [[[[[conLabel.layoutMaker leftParent:18] rightParent:-18] topParent:0] heightEq:50] install];
+    
+    UIButton *gskBtn = [moreView addButton];
+    gskBtn.backgroundColor = Colors.primary;
+    [gskBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [gskBtn setTitle:@"Access GSK Science" forState:UIControlStateNormal];
+    gskBtn.titleLabel.font = [Fonts regular:14];
+    [[[[[gskBtn.layoutMaker leftParent:18] rightParent:-18] below:conLabel offset:0] heightEq:36] install];
+    
+    [moreView.layoutMaker.bottom.equalTo(self.mas_bottom) install];
+    
+    UILabel *lineLabel4 = [self lineLabel];
+    [[[[[lineLabel4.layoutMaker leftParent:0] rightParent:0] below:gskBtn offset:28] heightEq:1] install];
+
 }
 
 - (void)bind:(Article *)bindInfo {

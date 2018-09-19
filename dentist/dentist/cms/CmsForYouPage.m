@@ -10,6 +10,7 @@
 #import "CMSDetailViewController.h"
 #import "StateCity.h"
 #import "IdName.h"
+#import "AppDelegate.h"
 #import "TestScrollPage.h"
 #import "NSDate+myextend.h"
 
@@ -129,7 +130,7 @@
 - (void)onClickItem:(NSObject *)item {
 	CMSDetailViewController *detail = [CMSDetailViewController new];
 	detail.articleInfo = (Article *) item;
-	[self pushPage:detail];
+    [self.navigationController.tabBarController presentViewController:detail animated:YES  completion:nil];
 }
 
 

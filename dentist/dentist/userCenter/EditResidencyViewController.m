@@ -163,8 +163,22 @@
 }
 
 - (void)saveBtnClick:(UIButton *)btn {
-	self.residency.schoolName = nameOfDental;
-	self.residency.schoolId = idOfDental;
+    if (fromYear>toYear) {
+        [self alertMsg:@"Date wrong" onOK:^() {
+            
+        }];
+        return ;
+    }else if(fromYear==toYear){
+        if(fromMonth>toMonth){
+            [self alertMsg:@"Date wrong" onOK:^() {
+                
+            }];
+            return ;
+        }
+    }
+    
+    self.residency.schoolName = nameOfDental;
+    self.residency.schoolId = idOfDental;
 	self.residency.fromMonth = fromMonth;
 	self.residency.fromYear = fromYear;
 	self.residency.toMonth = toMonth;

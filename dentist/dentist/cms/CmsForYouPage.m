@@ -19,11 +19,19 @@
 	return self;
 }
 
+- (void)clickTest:(id)sender {
+	backTask(^() {
+//		[Proto getProfileInfo];
+		[Proto queryPracticeDSO:@""];
+	});
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"DSODENTIST";
+	item.rightBarButtonItem = [self navBarText:@"Test" target:self action:@selector(clickTest:)];
 
 	self.table.tableHeaderView = [self makeHeaderView];
 	self.table.rowHeight = UITableViewAutomaticDimension;

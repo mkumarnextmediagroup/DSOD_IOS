@@ -11,6 +11,9 @@
 @implementation CmsForYouPage {
 	NSArray<NSString *> *segItems;
 	UISegmentedControl *segView;
+
+	BOOL _a;
+
 }
 - (instancetype)init {
 	self = [super init];
@@ -20,10 +23,16 @@
 }
 
 - (void)clickTest:(id)sender {
-	backTask(^() {
+	if (_a) {
+		[self hideIndicator];
+	} else {
+		[self showIndicator];
+	}
+	_a = !_a;
+//	backTask(^() {
 //		[Proto getProfileInfo];
-		[Proto queryDentalSchool:@""];
-	});
+//		[Proto queryDentalSchool:@""];
+//	});
 }
 
 - (void)viewDidLoad {

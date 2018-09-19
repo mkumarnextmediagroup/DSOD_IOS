@@ -11,7 +11,10 @@
 #import "PersonInfo.h"
 #import "UploadData.h"
 
-@interface UserInfo : JSONModel
+@interface UserInfo : NSObject
+
+@property NSDictionary *dic;
+
 
 @property(nonnull) NSString *email;
 @property(nonnull) NSString <Optional> *fullName;

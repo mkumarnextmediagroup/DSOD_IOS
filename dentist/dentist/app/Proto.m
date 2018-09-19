@@ -293,86 +293,14 @@
 	];
 }
 
-+ (UserInfo *)addExperience:(nonnull NSString *)email exp:(Experience *)exp {
-	UserInfo *u = [self userInfo:email];
-	if (u.experienceArray == nil) {
-		u.experienceArray = @[exp];
-	} else {
-		NSMutableArray *a = [NSMutableArray arrayWithArray:u.experienceArray];
-		[a addObject:exp];
-		u.experienceArray = a;
-	}
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
-
-+ (UserInfo *)saveExperience:(nonnull NSString *)email index:(int)index exp:(Experience *)exp {
-	UserInfo *u = [self userInfo:email];
-	NSMutableArray *a = [NSMutableArray arrayWithArray:u.experienceArray];
-	a[index] = exp;
-	u.experienceArray = a;
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
-
-+ (UserInfo *)addResidency:(nonnull NSString *)email residency:(Residency *)residency {
-	UserInfo *u = [self userInfo:email];
-	if (u.residencyArray == nil) {
-		u.residencyArray = @[residency];
-	} else {
-		NSMutableArray *a = [NSMutableArray arrayWithArray:u.residencyArray];
-		[a addObject:residency];
-		u.residencyArray = a;
-	}
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
-
-+ (UserInfo *)saveResidency:(nonnull NSString *)email index:(int)index residency:(Residency *)residency {
-	UserInfo *u = [self userInfo:email];
-	NSMutableArray *a = [NSMutableArray arrayWithArray:u.residencyArray];
-	a[index] = residency;
-	u.residencyArray = a;
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
-
-+ (UserInfo *)addEducation:(nonnull NSString *)email edu:(Education *)edu {
-	UserInfo *u = [self userInfo:email];
-	if (u.educationArray == nil) {
-		u.educationArray = @[edu];
-	} else {
-		NSMutableArray *a = [NSMutableArray arrayWithArray:u.educationArray];
-		[a addObject:edu];
-		u.educationArray = a;
-	}
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
-
-+ (UserInfo *)saveEducation:(nonnull NSString *)email index:(int)index edu:(Education *)edu {
-	UserInfo *u = [self userInfo:email];
-	NSMutableArray *a = [NSMutableArray arrayWithArray:u.educationArray];
-	a[index] = edu;
-	u.educationArray = a;
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
-
-+ (UserInfo *)savePractice:(nonnull NSString *)email address:(Address *)address {
-	UserInfo *u = [self userInfo:email];
-	u.practiceAddress = address;
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
-
 + (UserInfo *)userInfo:(nonnull NSString *)email {
+	UserInfo *ui = [UserInfo new];
 	NSString *json = [self userInfoLocal:email];
 	if (json != nil) {
-		return [[UserInfo alloc] initWithJson:json];
+		ui.dic = jsonParse(json);
+		return ui;
 	}
 
-	UserInfo *ui = [UserInfo alloc];
 	ui.email = email;
 	ui.isStudent = NO;
 	ui.isLinkedinUser = YES;
@@ -448,11 +376,6 @@
 	up1.uploadName = localStr(@"import");
 	up1.detailLabel = localStr(@"information");
 	ui.uploadDataArray = @[up, up1];
-
-	NSString *s = [ui toJSONString];
-
-	[self saveUserInfoLocal:email info:s];
-
 	return ui;
 }
 
@@ -472,7 +395,7 @@
 }
 
 + (void)saveLastUserInfo:(UserInfo *)info {
-	NSString *s = [info toJSONString];
+	NSString *s = jsonBuild(info.dic);
 	NSUserDefaults *d = userConfig([self lastAccount]);
 	[d setObject:s forKey:@"userInfo"];
 }
@@ -583,11 +506,16 @@
 //		}
 //	}
 //}
-+ (HttpResult *)getProfileInfo {
++ (NSDictionary *)getProfileInfo {
 	HttpResult *r = [self post2:@"userProfile/findOneByEmail" dic:@{@"email": getLastAccount()}];
 	if (r.OK) {
+		NSDictionary *d = r.resultMap[@"data"];
+		if (d) {
+			[self saveUserInfoLocal:[self lastAccount] info:jsonBuild(d)];
+		}
+		return d;
 	}
-	return r;
+	return nil;
 }
 
 //{

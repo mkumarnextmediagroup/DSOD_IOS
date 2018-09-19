@@ -4,8 +4,6 @@
 //
 
 #import "UserInfo.h"
-#import "Address.h"
-#import "Experience.h"
 
 
 @implementation UserInfo {

@@ -21,6 +21,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
+    [self createNav];
+    
 	UINavigationItem *item = self.navigationItem;
 	item.title = @"SPONSORED CONTENT";
 	item.rightBarButtonItems = @[
@@ -35,8 +37,48 @@
 //    [self layoutLinearVertical];
 }
 
+- (void)createNav
+{
+    UIView *topVi = [UIView new];
+    topVi.frame = CGRectMake(0, 0, SCREENWIDTH, NAVHEIGHT);
+    topVi.backgroundColor = Colors.bgNavBarColor;
+    [self.view addSubview:topVi];
+    
+    
+    UILabel *content = [UILabel new];
+    content.font = [UIFont systemFontOfSize:15];
+    content.textColor = [UIColor whiteColor];
+    content.text = @"SPONSORED CONTENT";
+    content.textAlignment = NSTextAlignmentCenter;
+    content.frame = CGRectMake(50, 23+NAVHEIGHT_OFFSET, SCREENWIDTH - 100, 40);
+    [topVi addSubview:content];
+    
+    UIButton *dismissBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [dismissBtn setImage:[UIImage imageNamed:@"back_arrow"] forState:UIControlStateNormal];
+    dismissBtn.frame = CGRectMake(0, 24+NAVHEIGHT_OFFSET, 60, 40);
+    [topVi addSubview:dismissBtn];
+    [dismissBtn addTarget:self action:@selector(onBack:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [nextBtn setImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateNormal];
+    nextBtn.frame = CGRectMake(SCREENWIDTH - 80, 24+NAVHEIGHT_OFFSET, 40, 40);
+    [topVi addSubview:nextBtn];
+    [nextBtn addTarget:self action:@selector(onClickDown:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *preBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [preBtn setImage:[UIImage imageNamed:@"arrow_up"] forState:UIControlStateNormal];
+    preBtn.frame = CGRectMake(SCREENWIDTH - 40, 24+NAVHEIGHT_OFFSET, 40, 40);
+    [topVi addSubview:preBtn];
+    [preBtn addTarget:self action:@selector(onClickUp:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *line = [UILabel new];
+    line.frame = CGRectMake(0, NAVHEIGHT - 1.5, SCREENWIDTH, 1.5);
+    line.backgroundColor = rgb255(222, 222, 222);
+    [topVi addSubview:line];
+}
+
 - (void)onBack:(UIButton *)btn {
-	[self.navigationController popViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

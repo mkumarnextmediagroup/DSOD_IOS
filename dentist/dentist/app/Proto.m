@@ -765,4 +765,15 @@
 	return r;
 }
 
++ (HttpResult *)upload:(NSString *)action fileData:(NSData *)fileData {
+	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
+	Http *h = [Http new];
+	h.url = strBuild(baseUrl, action);
+	[h header:@"Authorization" value:strBuild(@"Bearer ", [self lastToken])];
+	[h arg:@"client_id" value:@"fooClientIdPassword"];
+	[h fileData:@"File" value:fileData];
+	HttpResult *r = [h multipart];
+	return r;
+}
+
 @end

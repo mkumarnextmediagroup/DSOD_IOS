@@ -33,4 +33,8 @@
 
 - (void)closeKeyboardWhenClickSelfView;
 
+- (void)showIndicator;
+
+- (void)hideIndicator;
+
 @end

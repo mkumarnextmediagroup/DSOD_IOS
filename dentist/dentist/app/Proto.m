@@ -8,6 +8,7 @@
 #import "JSONModel+myextend.h"
 #import "Article.h"
 #import "ArticleComment.h"
+#import "IdName.h"
 
 
 @implementation Proto {
@@ -548,44 +549,122 @@
 	return r;
 }
 
-+ (HttpResult *)getProfileInfo
-{
-    NSDictionary *d = @{@"email": getLastAccount()};
-    HttpResult *r = [self postBodyWithToken:@"userProfile/findOneByEmail" dic:d];
-    if (r.OK) {
-    }
-    return r;
+//{
+//	"code": 0,
+//			"msg": "success",
+//			"resultMap": {
+//		"data": {
+//			"id": "bd0612c7a2dc46b1a6189c66e4030ee2",
+//					"full_name": "Entao Yang",
+//					"email": "entaoyang@163.com",
+//					"photo_url": null,
+//					"resume_url": null,
+//					"phone": null,
+//					"sex": null,
+//					"street_address": null,
+//					"city": null,
+//					"state": null,
+//					"zip": null,
+//					"create_time": 1535619710731,
+//					"status": null,
+//					"residency_id": null,
+//					"dental_school_id": null,
+//					"is_student": null,
+//					"is_linkedin": null,
+//					"educations": [],
+//					"experiences": [],
+//					"profileResidency": [],
+//					"practiceAddress": null,
+//					"photo_album": null,
+//					"document_library": null
+//		}
+//	}
+//}
++ (HttpResult *)getProfileInfo {
+	HttpResult *r = [self post2:@"userProfile/findOneByEmail" dic:@{@"email": getLastAccount()}];
+	if (r.OK) {
+	}
+	return r;
 }
 
-+ (HttpResult *)getStateAndCity
-{
-    NSDictionary *d = @{@"zip": @""};
-    HttpResult *r = [self postBodyWithToken:@"usZipSv/findAllusZipSvByZip" dic:d];
-    if (r.OK) {
-    }
-    return r;
+//{
+//	"code": 0,
+//			"msg": "success",
+//			"resultMap": {
+//		"data": [
+//				{
+//						"id": "1",
+//				"zip": "00501",
+//				"lat": null,
+//				"lng": null,
+//				"city": "Holtsville",
+//				"state": "NY",
+//				"zcta": null,
+//				"parent_zcta": null,
+//				"pop": null,
+//				"county_fips": null,
+//				"county_name": null,
+//				"county_weight": null,
+//				"all_county_weights": null,
+//				"imprecise": null,
+//				"military": null
+//				}
+//		]
+//	}
+//}
++ (HttpResult *)getStateAndCity:(NSString *)zip {
+	HttpResult *r = [self post2:@"usZipSv/findAllusZipSvByZip" dic:@{@"zip": zip}];
+	if (r.OK) {
+	}
+	return r;
 }
 
-+ (HttpResult *)uploadHeaderImage:(NSURL *)imageUrl
-{
-    NSDictionary *d = @{@"File": imageUrl};
-    HttpResult *r = [self postBodyWithToken:@"photoUpload" dic:d];
-    if (r.OK) {
-    }
-    return r;
+//{
+//	"code": 0,
+//			"msg": "success",
+//			"resultMap": {
+//		"data": [
+//						{
+//								"id": "1",
+//						"name": "A.T. Still University Arizona School of Dentistry and Oral Health"
+//						},
+//						{
+//								"id": "2",
+//						"name": "Boston University Goldman School of Dental Medicine"
+//						},
++ (NSMutableArray <IdName *> *)queryDentalSchool:(NSString *)name {
+	HttpResult *r = [self post2:@"dentalSchool/getAll" dic:@{@"name": name}];
+	NSMutableArray <IdName *> *items = [NSMutableArray arrayWithCapacity:32];
+	if (r.OK) {
+		NSDictionary *m = r.resultMap;
+		if (m) {
+			NSArray *arr = m[@"data"];
+			for (NSDictionary *d in arr) {
+				IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+				[items addObject:item];
+			}
+		}
+	}
+
+	for (IdName *item in items) {
+		NSLog(@"%d %@", item.id, item.name);
+	}
+	return items;
 }
 
-+ (HttpResult *)postBodyWithToken:(NSString *)action dic:(NSDictionary *)dic {
-    NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
-    Http *h = [Http new];
-    h.url = strBuild(baseUrl, action);
-    [h contentTypeJson];
-    [h contentTypeWithToken];
-    
-    [h arg:[dic allKeys][0] value:@""];
-    HttpResult *r = h.post;
-    return r;
++ (HttpResult *)queryPracticeDSO:(NSString *)name {
+	HttpResult *r = [self post2:@"experience/findAllPracticeDSO" dic:@{@"name": name}];
+	return r;
 }
+
++ (HttpResult *)uploadHeaderImage:(NSURL *)imageUrl {
+	NSDictionary *d = @{@"File": imageUrl};
+	HttpResult *r = [self post2:@"photoUpload" dic:d];
+	if (r.OK) {
+	}
+	return r;
+}
+
 
 + (HttpResult *)postBody:(NSString *)action dic:(NSDictionary *)dic {
 	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
@@ -617,6 +696,18 @@
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
 	HttpResult *r = [h post];
+	return r;
+}
+
+
++ (HttpResult *)post2:(NSString *)action dic:(NSDictionary *)dic {
+	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
+	Http *h = [Http new];
+	h.url = strBuild(baseUrl, action);
+	[h header:@"Authorization" value:strBuild(@"Bearer ", [self lastToken])];
+	[h arg:@"client_id" value:@"fooClientIdPassword"];
+	[h args:dic];
+	HttpResult *r = [h multipart];
 	return r;
 }
 

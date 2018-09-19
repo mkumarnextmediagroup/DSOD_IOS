@@ -108,4 +108,37 @@
 	[self.view endEditing:YES];
 }
 
+
+- (void)showIndicator {
+	UIActivityIndicatorView *iv = nil;
+	for (UIView *a in self.view.subviews) {
+		if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 998) {
+			iv = (UIActivityIndicatorView *) a;
+			break;
+		}
+	}
+	if (iv == nil) {
+		iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+		iv.tag = 998;
+		[self.view addSubview:iv];
+		iv.backgroundColor = [UIColor clearColor];
+		iv.hidesWhenStopped = YES;
+		iv.center = self.view.center;
+	}
+	[self.view bringSubviewToFront:iv];
+	iv.hidden = NO;
+	[iv startAnimating];
+}
+
+- (void)hideIndicator {
+	UIActivityIndicatorView *iv = nil;
+	for (UIView *a in self.view.subviews) {
+		if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 998) {
+			iv = (UIActivityIndicatorView *) a;
+			[iv stopAnimating];
+			return;
+		}
+	}
+}
+
 @end

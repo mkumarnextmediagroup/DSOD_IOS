@@ -63,7 +63,7 @@
 
 + (nullable StateCity *)getStateAndCity:(NSString *)zipCode;
 
-+ (NSMutableArray <IdName *> *)queryDentalSchool:(NSString *)name;
++ (NSMutableArray <IdName *> *)queryDentalSchool ;
 
 + (NSArray<IdName *> *)queryPracticeDSO:(NSString *)name;
 

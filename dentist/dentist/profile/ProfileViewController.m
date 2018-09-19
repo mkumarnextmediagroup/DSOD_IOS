@@ -96,7 +96,7 @@
 
 	Log(@"Portrait Url: ", userInfo.portraitUrlFull);
 
-	userCell.linkedinView.hidden = !userInfo.isLinkedinUser;
+	userCell.linkedinView.hidden = !userInfo.isLinkedin;
 	[self.contentView addSubview:userCell];
 
 	[self addGroupTitle:@"Experience"];
@@ -139,12 +139,12 @@
 		Residency *r = userInfo.residencyArray[i];
 		IconTitleMsgDetailCell *residView = [IconTitleMsgDetailCell new];
 		residView.imageView.imageName = @"residency";
-		if (r.place == nil || r.place.length == 0) {
+		if (r.schoolId == nil || r.schoolId.length == 0) {
 			[residView showEmpty:@"No residency added yet."];
 		} else {
 			[residView hideEmpty];
 			residView.titleLabel.text = @"Residency";
-			residView.msgLabel.text = r.place;
+			residView.msgLabel.text = r.schoolName;
 			residView.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
 		}
 		[self.contentView addSubview:residView];

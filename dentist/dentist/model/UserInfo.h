@@ -15,24 +15,26 @@
 
 @interface UserInfo : NSObject
 
-@property NSMutableDictionary *dic;
+- (void)fromDic:(NSDictionary *)dic;
 
+-(NSString*) toJson;
 
 @property NSString *userId;
 @property NSString *email;
-@property NSString <Optional> *fullName;
-@property(nullable) NSString <Optional> *phone;
+
+@property NSString *fullName;
+@property(nullable) NSString *phone;
+
 @property BOOL isStudent;
-@property BOOL isLinkedinUser;
-
-//@property(nullable) NSString <Optional> *portraitId;
-@property(nullable) NSString <Optional> *portraitUrl;
-@property(readonly) NSString <Optional> *portraitUrlFull;
-
-@property(nullable) IdName <Optional> *speciality;
+@property BOOL isLinkedin;
 
 
-@property(nullable) Address <Optional> *practiceAddress;
+@property(nullable) NSString *photo_url;
+@property(readonly) NSString *portraitUrlFull;
+
+@property(nullable) IdName *speciality;
+@property(nullable) Address *practiceAddress;
+
 @property(nullable) NSMutableArray <Experience, Optional> *experienceArray;
 @property(nullable) NSMutableArray <Residency, Optional> *residencyArray;
 @property(nullable) NSMutableArray <Education, Optional> *educationArray;

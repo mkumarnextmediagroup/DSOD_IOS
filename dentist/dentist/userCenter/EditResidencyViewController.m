@@ -13,6 +13,7 @@
 #import "FromToView.h"
 #import "SearchPage.h"
 #import "PickerPage.h"
+#import "IdName.h"
 
 
 @implementation EditResidencyViewController {
@@ -22,8 +23,9 @@
 	NSInteger fromYear;
 	NSInteger toMonth;
 	NSInteger toYear;
-    
-    NSString *nameOfDental;
+
+	NSString *nameOfDental;
+	NSString *idOfDental;
 }
 
 - (void)viewDidLoad {
@@ -36,8 +38,9 @@
 	fromYear = self.residency.fromYear;
 	toMonth = self.residency.toMonth;
 	toYear = self.residency.toYear;
-    
-    nameOfDental = self.residency.place;
+
+	nameOfDental = self.residency.schoolName;
+	idOfDental = self.residency.schoolId;
 
 	UINavigationItem *item = self.navigationItem;
 	item.rightBarButtonItem = [self navBarText:@"Save" target:self action:@selector(saveBtnClick:)];
@@ -51,11 +54,11 @@
 
 	resView = [TitleMsgArrowView new];
 	resView.titleLabel.text = @"Residency at";
-    if (self.isAdd) {
-        resView.msgLabel.text = @"Select";
-    } else {
-        resView.msgLabel.text = nameOfDental;
-    }
+	if (self.isAdd) {
+		resView.msgLabel.text = @"Select";
+	} else {
+		resView.msgLabel.text = nameOfDental;
+	}
 	[resView onClickView:self action:@selector(clickResidency:)];
 	[self.contentView addSubview:resView];
 
@@ -100,9 +103,9 @@
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];
-        self->fromMonth = num1.integerValue;
+		self->fromMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
-        self->fromYear = num2.integerValue;
+		self->fromYear = num2.integerValue;
 		[self bindData];
 
 	};
@@ -115,9 +118,9 @@
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];
-        self->toMonth = num1.integerValue;
+		self->toMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
-        self->toYear = num2.integerValue;
+		self->toYear = num2.integerValue;
 		[self bindData];
 
 	};
@@ -125,16 +128,22 @@
 }
 
 - (void)clickResidency:(id)sender {
-	SearchPage *p = [SearchPage new];
-	p.checkedItem = self.residency.place;
-	p.titleText = @"RESIDENCY AT";
-	NSArray *ls = [Proto listResidency];
-	[p setItemsPlain:ls displayBlock:nil];
+	backTask(^() {
+		NSArray *array = [Proto queryDentalSchool];
+		foreTask(^() {
+			[self selectSchool:array];
+		});
+	});
 
-	p.onResult = ^(NSObject *item) {
-        self->resView.msgLabel.text = (NSString *) item;
-	};
-	[self pushPage:p];
+}
+
+- (void)selectSchool:(NSArray *)array {
+
+	[self selectIdName:@"RESIDENCY AT" array:array selectedId:self.residency.schoolId result:^(IdName *item) {
+		self.residency.schoolId = item.id;
+		self.residency.schoolName = item.name;
+		self->resView.msgLabel.text = item.name;
+	}];
 }
 
 - (void)clickDelete:(UIButton *)btn {
@@ -154,12 +163,13 @@
 }
 
 - (void)saveBtnClick:(UIButton *)btn {
-	self.residency.place = resView.msgLabel.text;
+	self.residency.schoolName = nameOfDental;
+	self.residency.schoolId = idOfDental;
 	self.residency.fromMonth = fromMonth;
 	self.residency.fromYear = fromYear;
 	self.residency.toMonth = toMonth;
 	self.residency.toYear = toYear;
-    
+
 	self.saveCallback(self.residency);
 
 	[self alertMsg:@"Saved Successfullly" onOK:^() {

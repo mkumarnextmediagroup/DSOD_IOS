@@ -9,6 +9,7 @@
 #import "Article.h"
 #import "ArticleComment.h"
 #import "IdName.h"
+#import "StateCity.h"
 
 
 @implementation Proto {
@@ -20,11 +21,11 @@
 	a.id = 1;
 	a.isSponsor = NO;
 	a.publishDate = @"May 15,2018";
-    a.gskString = @"Sponsored content brought to you by GSK";
+	a.gskString = @"Sponsored content brought to you by GSK";
 	a.type = @"orthodontics";
 	a.authAccount = @"tom@gmail.com";
 	a.authName = @"Dr.Sandra Tai";
-    a.authAdd = @"Vancouver, BC";
+	a.authAdd = @"Vancouver, BC";
 	a.title = @"Mastering the art of Dental Surgery  - Mastering the art of Dental Surgery - Mastering the art of Dental Surgery  ";
 	a.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n\n"
 	            "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n\n"
@@ -51,11 +52,11 @@
 	b.id = 1;
 	b.isSponsor = NO;
 	b.publishDate = @"May 15,2018";
-    b.gskString = @"Sponsored content brought to you by GSK";
+	b.gskString = @"Sponsored content brought to you by GSK";
 	b.type = @"orthodontics";
 	b.authAccount = @"tom@gmail.com";
 	b.authName = @"Dr.Sandra Tai";
-    b.authAdd = @"Vancouver, BC";
+	b.authAdd = @"Vancouver, BC";
 	b.title = @"Mastering the art of Dental Surgery";
 	b.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n"
 	            "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n"
@@ -79,36 +80,35 @@
 }
 
 
-+ (Article *)getArticleInfo
-{
-    Article *a = [Article new];
-    a.id = 1;
-    a.isSponsor = NO;
-    a.publishDate = @"May 15,2018";
-    
-    a.gskString = @"Sponsored content brought to you by GSK";
-    a.type = @"orthodontics";
-    a.authAccount = @"tom@gmail.com";
-    a.authName = @"Dr.Sandra Tai";
-    a.title = @"Mastering the art of Dental Surgery  - Mastering the art of Dental Surgery - Mastering the art of Dental Surgery  ";
-    a.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n"
-    "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n"
-    "Once you have completed the expectations with the patient the first step is to test the attachment template and the first aligner. This is an expert thinking process for you.";
-    a.resImage = @"http://app800.cn/i/d.png";
-    a.resType = @"image";
-    
-    ArticleComment *c = [ArticleComment new];
-    c.articleId = 100;
-    c.authAccount = @"peter@gmail.com";
-    c.authName = @"Peter";
-    c.authPortrait = @"http://app800.cn/i/p.png";
-    c.rate = 3;
-    c.content = @"Good !";
-    c.publishDate = @"Sep 16, 2018";
-    
-    a.comments = @[c];
-    
-    return a;
++ (Article *)getArticleInfo {
+	Article *a = [Article new];
+	a.id = 1;
+	a.isSponsor = NO;
+	a.publishDate = @"May 15,2018";
+
+	a.gskString = @"Sponsored content brought to you by GSK";
+	a.type = @"orthodontics";
+	a.authAccount = @"tom@gmail.com";
+	a.authName = @"Dr.Sandra Tai";
+	a.title = @"Mastering the art of Dental Surgery  - Mastering the art of Dental Surgery - Mastering the art of Dental Surgery  ";
+	a.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n"
+	            "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n"
+	            "Once you have completed the expectations with the patient the first step is to test the attachment template and the first aligner. This is an expert thinking process for you.";
+	a.resImage = @"http://app800.cn/i/d.png";
+	a.resType = @"image";
+
+	ArticleComment *c = [ArticleComment new];
+	c.articleId = 100;
+	c.authAccount = @"peter@gmail.com";
+	c.authName = @"Peter";
+	c.authPortrait = @"http://app800.cn/i/p.png";
+	c.rate = 3;
+	c.content = @"Good !";
+	c.publishDate = @"Sep 16, 2018";
+
+	a.comments = @[c];
+
+	return a;
 }
 
 + (NSArray *)listResidency {
@@ -615,11 +615,22 @@
 //		]
 //	}
 //}
-+ (HttpResult *)getStateAndCity:(NSString *)zip {
-	HttpResult *r = [self post2:@"usZipSv/findAllusZipSvByZip" dic:@{@"zip": zip}];
++ (nullable StateCity *)getStateAndCity:(NSString *)zipCode {
+	HttpResult *r = [self post2:@"usZipSv/findAllusZipSvByZip" dic:@{@"zip": zipCode}];
 	if (r.OK) {
+		NSDictionary *d = r.resultMap;
+		if (d) {
+			NSArray *arr = d[@"data"];
+			if (arr && arr.count > 0) {
+				NSDictionary *dd = arr[0];
+				StateCity *item = [StateCity new];
+				item.state = dd[@"state"];
+				item.city = dd[@"city"];
+				return item;
+			}
+		}
 	}
-	return r;
+	return nil;
 }
 
 //{
@@ -655,9 +666,49 @@
 	return items;
 }
 
-+ (HttpResult *)queryPracticeDSO:(NSString *)name {
+//{"code":0,"msg":"success","resultMap":{"data":[{"id":"1","name":"Allied Dental"},{"id":"10","name":"InterDent"},{"id":"11","name":"Katsur Management Group"},{"id":"2","name":"American Dental Partners"},{"id":"3","name":"Aspen Dental Practice"},{"id":"4","name":"Birner Dental"},{"id":"5","name":"Dental Care Alliance"},{"id":"6","name":"Dental One Partners"},{"id":"7","name":"Dental Practice Solutions"},{"id":"8","name":"Freat Expressions Dental"},{"id":"9","name":"Heartland Dental Care"}]}}
++ (NSArray<IdName *> *)queryPracticeDSO:(NSString *)name {
 	HttpResult *r = [self post2:@"experience/findAllPracticeDSO" dic:@{@"name": name}];
-	return r;
+
+	NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
+	if (r.OK) {
+		NSArray *arr = r.resultMap[@"data"];
+		for (NSDictionary *d in arr) {
+			IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+			[resultArray addObject:item];
+		}
+	}
+	return resultArray;
+}
+
+//{"code":0,"msg":"success","resultMap":{"data":[{"id":"1","name":"Owner Dentist"},{"id":"2","name":"Associate Dentist"},{"id":"3","name":"Dental Hygienist"},{"id":"4","name":"Dental Assistant"},{"id":"5","name":"Treatment Coordinator"},{"id":"6","name":"Office Staff / Nonclinical"}]}}
++ (NSArray<IdName *> *)queryPracticeRoles:(NSString *)name {
+	HttpResult *r = [self post2:@"experience/findAllPracticeRole" dic:@{@"name": name}];
+
+	NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
+	if (r.OK) {
+		NSArray *arr = r.resultMap[@"data"];
+		for (NSDictionary *d in arr) {
+			IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+			[resultArray addObject:item];
+		}
+	}
+	return resultArray;
+}
+
+
++ (NSArray<IdName *> *)queryPracticeTypes:(NSString *)name {
+	HttpResult *r = [self post2:@"experience/findAllPracticeType" dic:@{@"name": name}];
+
+	NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
+	if (r.OK) {
+		NSArray *arr = r.resultMap[@"data"];
+		for (NSDictionary *d in arr) {
+			IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+			[resultArray addObject:item];
+		}
+	}
+	return resultArray;
 }
 
 + (HttpResult *)uploadHeaderImage:(NSURL *)imageUrl {
@@ -710,6 +761,17 @@
 	[h header:@"Authorization" value:strBuild(@"Bearer ", [self lastToken])];
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
+	HttpResult *r = [h multipart];
+	return r;
+}
+
++ (HttpResult *)upload:(NSString *)action fileData:(NSData *)fileData {
+	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
+	Http *h = [Http new];
+	h.url = strBuild(baseUrl, action);
+	[h header:@"Authorization" value:strBuild(@"Bearer ", [self lastToken])];
+	[h arg:@"client_id" value:@"fooClientIdPassword"];
+	[h fileData:@"File" value:fileData];
 	HttpResult *r = [h multipart];
 	return r;
 }

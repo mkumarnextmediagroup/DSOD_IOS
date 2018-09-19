@@ -137,6 +137,13 @@ static char styleAttr = 0;
 	return lb;
 }
 
+- (UILabel *)lineLabel {
+    UILabel *lb = [UILabel new];
+    lb.backgroundColor = Colors.strokes;
+    [self addSubview:lb];
+    return lb;
+}
+
 - (UITextView *)noticeLabel {
 	UITextView *noticelb = [UITextView new];
 	noticelb.backgroundColor = Colors.secondary;

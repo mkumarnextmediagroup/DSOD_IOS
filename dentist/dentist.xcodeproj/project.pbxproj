@@ -78,6 +78,12 @@
 		4EBCE6E2212EABF100A0672D /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6E0212EABF000A0672D /* delete@2x.png */; };
 		4EBCE6E3212EABF100A0672D /* delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6E1212EABF000A0672D /* delete@3x.png */; };
 		4EBCE724212FD1CE00A0672D /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBCE723212FD1CE00A0672D /* Photos.framework */; };
+		4EE025452151EE5800BBD290 /* CMSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE025442151EE5800BBD290 /* CMSDetailViewController.m */; };
+		4EE025482151F10900BBD290 /* arrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE025462151F10800BBD290 /* arrowDown@2x.png */; };
+		4EE025492151F10900BBD290 /* arrowDown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE025472151F10900BBD290 /* arrowDown@3x.png */; };
+		4EE0254C2151F17F00BBD290 /* arrowUp@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE0254A2151F17E00BBD290 /* arrowUp@3x.png */; };
+		4EE0254D2151F17F00BBD290 /* arrowUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE0254B2151F17E00BBD290 /* arrowUp@2x.png */; };
+		4EE025502151F59400BBD290 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0254F2151F59400BBD290 /* PlayerView.m */; };
 		574B3A2B212338E100C37095 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 574B3A2A212338E100C37095 /* Assets.xcassets */; };
 		57B0990721256E840010597B /* bg_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B0990121256E830010597B /* bg_1.png */; };
 		57B0990821256E840010597B /* bg_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B0990221256E830010597B /* bg_3.png */; };
@@ -571,6 +577,14 @@
 		4EBCE6E0212EABF000A0672D /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
 		4EBCE6E1212EABF000A0672D /* delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@3x.png"; sourceTree = "<group>"; };
 		4EBCE723212FD1CE00A0672D /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		4EE025432151EE5800BBD290 /* CMSDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMSDetailViewController.h; sourceTree = "<group>"; };
+		4EE025442151EE5800BBD290 /* CMSDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSDetailViewController.m; sourceTree = "<group>"; };
+		4EE025462151F10800BBD290 /* arrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowDown@2x.png"; sourceTree = "<group>"; };
+		4EE025472151F10900BBD290 /* arrowDown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowDown@3x.png"; sourceTree = "<group>"; };
+		4EE0254A2151F17E00BBD290 /* arrowUp@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowUp@3x.png"; sourceTree = "<group>"; };
+		4EE0254B2151F17E00BBD290 /* arrowUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowUp@2x.png"; sourceTree = "<group>"; };
+		4EE0254E2151F59400BBD290 /* PlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
+		4EE0254F2151F59400BBD290 /* PlayerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
 		574B3A1E212338DF00C37095 /* dentist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dentist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		574B3A2A212338E100C37095 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57B0990121256E830010597B /* bg_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_1.png; sourceTree = "<group>"; };
@@ -1216,6 +1230,17 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		4EE025422151EE3A00BBD290 /* CMSDetail */ = {
+			isa = PBXGroup;
+			children = (
+				4EE025432151EE5800BBD290 /* CMSDetailViewController.h */,
+				4EE025442151EE5800BBD290 /* CMSDetailViewController.m */,
+				4EE0254E2151F59400BBD290 /* PlayerView.h */,
+				4EE0254F2151F59400BBD290 /* PlayerView.m */,
+			);
+			path = CMSDetail;
+			sourceTree = "<group>";
+		};
 		574B3A15212338DF00C37095 = {
 			isa = PBXGroup;
 			children = (
@@ -1576,6 +1601,10 @@
 				C5EEA61C3066DABC4C1999C0 /* dot3.png */,
 				C5EEA4EA39C8BC5996465C65 /* dot3@2x.png */,
 				C5EEA5DCE04EBAF88DE9995C /* dot3@3x.png */,
+				4EE025462151F10800BBD290 /* arrowDown@2x.png */,
+				4EE025472151F10900BBD290 /* arrowDown@3x.png */,
+				4EE0254B2151F17E00BBD290 /* arrowUp@2x.png */,
+				4EE0254A2151F17E00BBD290 /* arrowUp@3x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -1731,9 +1760,9 @@
 				C5EEAF742BEE6781754BA337 /* IconTitleMsgCell.m */,
 				C5EEA3A620D2C320128871A9 /* GroupLabelView.m */,
 				C5EEAD516837A587E05C099F /* TitleMsgArrowView.h */,
+				C5EEAAE91E61E9C298D12463 /* TitleMsgArrowView.m */,
 				C5EEAE79069BD8BFD25C6A79 /* IconTitleMsgDetailCell.h */,
 				C5EEAA8CD71EDF24A77E7F18 /* LineTableCell.m */,
-				C5EEAAE91E61E9C298D12463 /* TitleMsgArrowView.m */,
 				C5EEA7A9E628048C34145862 /* IconTitleMsgCell.h */,
 				C5EEA3016149DB3A0FA494A0 /* TitleEditView.m */,
 				C5EEAC154EF6F97F75A79548 /* LineTableCell.h */,
@@ -1843,6 +1872,7 @@
 		E11E19B1ECDCD262FD50AD67 /* cms */ = {
 			isa = PBXGroup;
 			children = (
+				4EE025422151EE3A00BBD290 /* CMSDetail */,
 				E11E178F238B69C2B94A44C3 /* CmsBookmarkController.m */,
 				E11E1CFFA98FF6362C5D4A5F /* CmsBookmarkController.h */,
 				E11E1201A20178DF5A3A24CF /* CmsDownloadsController.m */,
@@ -2042,6 +2072,7 @@
 				E11E1086344D390AF2D6860F /* b_light.png in Resources */,
 				E11E183212474344E7473445 /* b_light@2x.png in Resources */,
 				E11E1EC34DFC2D9A69DA0157 /* b_light@3x.png in Resources */,
+				4EE0254D2151F17F00BBD290 /* arrowUp@2x.png in Resources */,
 				E11E11F71BFF2211010C52D6 /* b.png in Resources */,
 				E11E1B804B5E1ED49BA54752 /* b@2x.png in Resources */,
 				E11E1A977657FA96734E2F52 /* b@3x.png in Resources */,
@@ -2050,6 +2081,7 @@
 				E11E1DCF08AB8D1BFC11C364 /* bookmark@3x.png in Resources */,
 				E11E1AC4BBED116FB3F3ECE9 /* c_light.png in Resources */,
 				E11E1497D7A71B5891E77F74 /* c_light@2x.png in Resources */,
+				4EE025492151F10900BBD290 /* arrowDown@3x.png in Resources */,
 				E11E1CA8734B5222C9D2AA54 /* c_light@3x.png in Resources */,
 				E11E171119FF6A0E476AE897 /* c.png in Resources */,
 				E11E107FA1682BF99483D798 /* c@2x.png in Resources */,
@@ -2173,7 +2205,9 @@
 				E11E160760062CE6F440D2D3 /* menu-legislation_light@3x.png in Resources */,
 				E11E1B2EE64E98E7D0954EFD /* menu-legislation.png in Resources */,
 				E11E1C12597130B14505F7E0 /* menu-legislation@2x.png in Resources */,
+				4EE025482151F10900BBD290 /* arrowDown@2x.png in Resources */,
 				E11E14E41197A55644E98E13 /* menu-legislation@3x.png in Resources */,
+				4EE0254C2151F17F00BBD290 /* arrowUp@3x.png in Resources */,
 				E11E1663029672A8D1832256 /* menu-msg_light.png in Resources */,
 				E11E19C345E6CACD8601A8A1 /* menu-msg_light@2x.png in Resources */,
 				E11E12244E61BD3A021BECE0 /* menu-msg_light@3x.png in Resources */,
@@ -2365,6 +2399,7 @@
 				C5EEA2F9830CC5E8FD47394F /* HttpResult.m in Sources */,
 				C5EEA57BF745D8F5F4562664 /* NSData+myextend.m in Sources */,
 				C5EEAB5755227C042888D693 /* Json.m in Sources */,
+				4EE025502151F59400BBD290 /* PlayerView.m in Sources */,
 				E11E1EDBB2AFC925F1DEBFB2 /* BaseNavController.m in Sources */,
 				E11E1F3374C0062C790089B8 /* TitleBar.m in Sources */,
 				E11E1A6226F32868524CF272 /* BaseTabController.m in Sources */,
@@ -2393,6 +2428,7 @@
 				C5EEAA07EA787A77875B8C95 /* Address.m in Sources */,
 				C5EEA9C9E6DB3F36EC7EAF72 /* Yang.m in Sources */,
 				C5EEA4A42A0103E39618676F /* JSONModel+myextend.m in Sources */,
+				4EE025452151EE5800BBD290 /* CMSDetailViewController.m in Sources */,
 				C5EEA2942B009067B0D2EC11 /* TestPage.m in Sources */,
 				C5EEA5F5DA5885242D00A070 /* ListPage.m in Sources */,
 				C5EEA2375FBE0E853D04F130 /* ScrollPage.m in Sources */,

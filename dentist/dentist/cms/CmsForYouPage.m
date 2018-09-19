@@ -26,10 +26,7 @@
 
 	backTask(^() {
 //		[Proto getProfileInfo];
-		NSArray *arr = [Proto queryPracticeTypes:@""];
-		for (IdName *item in arr) {
-			Log([item toJSONString]);
-		}
+
 	});
 }
 

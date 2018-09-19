@@ -7,6 +7,7 @@
 #import "Common.h"
 #import "ArticleItemView.h"
 #import "Proto.h"
+#import "CMSDetailViewController.h"
 
 @implementation CmsForYouPage {
 	NSArray<NSString *> *segItems;
@@ -113,7 +114,9 @@
 }
 
 - (void)onClickItem:(NSObject *)item {
-
+    CMSDetailViewController *detail = [CMSDetailViewController new];
+    detail.articleInfo = (Article *)item;
+    [self pushPage:detail];
 }
 
 

@@ -18,9 +18,14 @@
 //May 14,2018
 @property NSString *publishDate;
 
+//GSK
+@property NSString *gskString;
+
+
 //author or sponsor account
 @property NSString *authAccount;
 @property NSString *authName;
+@property NSString *authAdd;
 
 //an image resource for list item
 @property NSString *resImage;

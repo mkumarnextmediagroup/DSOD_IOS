@@ -101,7 +101,7 @@
     contentLabel.font = [Fonts regular:15];
     [contentLabel textColorMain];
     contentLabel.numberOfLines = 0;
-    [[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
+    [[[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] heightEq:30] below:view offset:5] install];
     
     UIImageView *imgCon = [UIImageView new];
     imgCon.backgroundColor = [UIColor redColor];
@@ -126,7 +126,7 @@
 
 - (void)resetLayout {
     CGSize size = [contentLabel sizeThatFits:CGSizeMake(290, 1000)];
-    [contentLabel.layoutUpdate heightEq:size.height];
+    [[contentLabel.layoutUpdate heightEq:size.height] install];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

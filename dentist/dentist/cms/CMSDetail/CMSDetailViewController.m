@@ -12,7 +12,9 @@
 #import "Proto.h"
 
 @interface CMSDetailViewController ()
-
+{
+    PlayerView *playView;
+}
 @end
 
 @implementation CMSDetailViewController
@@ -29,7 +31,8 @@
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
     
     [self buildViews];
-    
+    [playView resetLayout];
+
     [self layoutLinearVertical];
     // Do any additional setup after loading the view.
 }
@@ -43,10 +46,9 @@
 
 - (void)buildViews
 {
-    PlayerView *playView = [PlayerView new];
+    playView = [PlayerView new];
     [self.contentView addSubview:playView];
     [playView bind:self.articleInfo];
-    
     [self layoutLinearVertical];
 
 }

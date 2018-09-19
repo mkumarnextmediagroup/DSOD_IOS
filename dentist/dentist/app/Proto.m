@@ -306,11 +306,6 @@
 	return [self userInfo:[self lastAccount]];
 }
 
-+ (void)saveLastUserInfo:(UserInfo *)info {
-	NSString *s = [info toJson];
-	NSUserDefaults *d = userConfig([self lastAccount]);
-	[d setObject:s forKey:@"userInfo"];
-}
 
 + (BOOL)isLogined {
 	return [self lastToken] != nil;

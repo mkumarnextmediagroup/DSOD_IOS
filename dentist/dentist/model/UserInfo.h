@@ -17,7 +17,6 @@
 
 - (void)fromDic:(NSDictionary *)dic;
 
--(NSString*) toJson;
 
 @property NSString *userId;
 @property NSString *email;

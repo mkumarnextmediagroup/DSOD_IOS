@@ -72,11 +72,11 @@
 
 + (NSArray *_Nullable)listArticle;
 
-+ (HttpResult *)getStateAndCity:(NSString *)zip;
++ (HttpResult *_Nullable)getStateAndCity:(NSString *_Nullable)zip;
 
-+ (NSMutableArray <IdName *> *)queryDentalSchool:(NSString *)name;
++ (NSMutableArray <IdName *> *_Nullable)queryDentalSchool:(NSString *_Nullable)name;
 
-+ (HttpResult *)queryPracticeDSO:(NSString *)name;
++ (HttpResult *_Nullable)queryPracticeDSO:(NSString *_Nullable)name;
 
-
++ (HttpResult *_Nullable)uploadHeaderImage:(NSURL *)imageUrl_Nullable;
 @end

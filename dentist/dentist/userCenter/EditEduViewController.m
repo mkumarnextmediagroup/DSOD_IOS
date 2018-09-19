@@ -199,6 +199,20 @@
 }
 
 - (void)saveBtnClick:(UIButton *)btn {
+    
+    if (fromYear>toYear) {
+        [self alertMsg:@"Date wrong" onOK:^() {
+            
+        }];
+        return ;
+    }else if(fromYear==toYear){
+        if(fromMonth>toMonth){
+            [self alertMsg:@"Date wrong" onOK:^() {
+                
+            }];
+            return ;
+        }
+    }
 	self.education.schoolInUS = switchView.switchView.on;
 	if (self.education.schoolInUS) {
 		self.education.schoolName = schoolSelectView.msgLabel.text;

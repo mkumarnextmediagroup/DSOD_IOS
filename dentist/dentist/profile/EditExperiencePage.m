@@ -18,6 +18,7 @@
 #import "SearchPage.h"
 #import "Proto.h"
 #import "TitleEditView.h"
+#import "NSDate+myextend.h"
 
 //show "Name of Dental Support Organization (DSO)"
 #define SMALLAFF @"Small Group Practice - Affiliated"
@@ -226,8 +227,12 @@
         fromToView.toDateLabel.text = @"Present";
         showOthers = YES;
         fromToView.toDateLabel.userInteractionEnabled = NO;
-    }else
-    {
+        
+    
+        self->toMonth =[[NSDate date] month];
+        self->toYear = [[NSDate date] year];
+        
+    }else{
         fromToView.toDateLabel.userInteractionEnabled = YES;
         showOthers = NO;
         [self bindData];
@@ -329,6 +334,21 @@
 
 - (void)clickSave:(UIButton *)btn {
 	NSLog(@"save");
+    
+    if (fromYear>toYear) {
+        [self alertMsg:@"Date wrong" onOK:^() {
+            
+        }];
+        return ;
+    }else if(fromYear==toYear){
+        if(fromMonth>toMonth){
+            [self alertMsg:@"Date wrong" onOK:^() {
+                
+            }];
+            return ;
+        }
+    }
+    
     
     if (fromYear > toYear || (fromYear == toYear && fromMonth > toMonth)) {
         [self Den_showAlertWithTitle:localStr(@"notice") message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {

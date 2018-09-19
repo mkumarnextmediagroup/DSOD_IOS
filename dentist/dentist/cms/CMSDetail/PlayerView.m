@@ -160,6 +160,7 @@
 	[headerImg loadUrl:@"http://app800.cn/i/p.png" placeholderImage:@"user_img"];
 	titleLabel.text = bindInfo.title;
 	[greeBtn setTitle:bindInfo.gskString forState:UIControlStateNormal];
+    [greeBtn setImage:[UIImage imageNamed:@"gskIcon"] forState:UIControlStateNormal];
 	nameLabel.text = bindInfo.authName;
 	addressLabel.text = bindInfo.authAdd;
 	contentLabel.text = bindInfo.content;

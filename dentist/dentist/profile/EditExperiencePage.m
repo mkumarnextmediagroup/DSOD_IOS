@@ -136,8 +136,10 @@
         switchView = [TitleSwitchView new];
         switchView.titleLabel.text = @"I currently work in this role";
         if (self.isAdd) {
+            showOthers = NO;
             switchView.switchView.on = NO;
         } else {
+            showOthers = workInThisRole;
             switchView.switchView.on = workInThisRole;
         }
         [switchView.switchView addTarget:self action:@selector(onSwitchChanged:) forControlEvents:UIControlEventValueChanged];
@@ -222,10 +224,12 @@
 	workInThisRole = switchView.switchView.on;
     if (workInThisRole) {
         fromToView.toDateLabel.text = @"Present";
+        showOthers = YES;
         fromToView.toDateLabel.userInteractionEnabled = NO;
     }else
     {
         fromToView.toDateLabel.userInteractionEnabled = YES;
+        showOthers = NO;
         [self bindData];
     }
 }
@@ -345,9 +349,14 @@
 	self.exp.workInThisRole = workInThisRole;
 	self.exp.praticeType = praticeType;
 
-	self.exp.fromYear = fromYear;
+    if (showOthers) {
+        self.exp.toYear = 9999;
+    }else
+    {
+        self.exp.toYear = toYear;
+    }
 	self.exp.fromMonth = fromMonth;
-	self.exp.toYear = toYear;
+	self.exp.fromYear = fromYear;
 	self.exp.toMonth = toMonth;
 
 	if (self.saveCallback) {

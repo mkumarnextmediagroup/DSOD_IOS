@@ -99,8 +99,13 @@
 }
 
 - (void)clickSave:(UIButton *)btn {
-	self.address.address1 = addr1View.edit.textTrimed;
-	self.address.address2 = addr2View.edit.textTrimed;
+	self.address.address1 = [NSString stringWithFormat:@"%@\n",addr1View.edit.textTrimed];
+    if (![addr2View.edit.textTrimed isEqualToString:@""]) {
+        self.address.address2 = [NSString stringWithFormat:@"%@\n",addr2View.edit.textTrimed];
+    }else
+    {
+        self.address.address2 = @"";
+    }
 	self.address.zipCode = zipView.edit.textTrimed;
 	self.address.city = cityView.edit.textTrimed;
 	self.address.stateLabel = stateView.msgLabel.text;

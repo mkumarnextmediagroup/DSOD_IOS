@@ -92,10 +92,45 @@
 			NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:endTime.doubleValue / 1000];
 			edu.toYear = endDate.year;
 			edu.toMonth = endDate.month;
+		}
+	}
+
+	self.experienceArray = [NSMutableArray arrayWithCapacity:8];
+	id expArr = dic[@"experiences"];
+	if (expArr && expArr != NSNull.null) {
+		for (NSDictionary *d in expArr) {
+			Experience *e = [Experience new];
+			[self.experienceArray addObject:e];
+			e.pracName = [d strValue:@"practice_name"];
+			e.praticeTypeId = d[@"practice_Type"][@"id"];
+			e.praticeType = d[@"practice_Type"][@"name"];
+			e.roleAtPraticeId = d[@"practice_Role"][@"id"];
+			e.roleAtPratice = d[@"practice_Role"][@"name"];
+
+			NSDictionary *dsoDic = d[@"practice_DSO"];
+			if (dsoDic && dsoDic != NSNull.null) {
+				e.dsoId = dsoDic[@"id"];
+				e.dsoName = dsoDic[@"name"];
+			} else {
+				e.dsoId = nil;
+				e.dsoName = nil;
+			}
+
+
+			NSNumber *startTime = d[@"start_time"];
+			NSDate *fromDate = [NSDate dateWithTimeIntervalSince1970:startTime.doubleValue / 1000];
+			e.fromYear = fromDate.year;
+			e.fromMonth = fromDate.month;
+
+			NSNumber *endTime = d[@"end_time"];
+			NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:endTime.doubleValue / 1000];
+			e.toYear = endDate.year;
+			e.toMonth = endDate.month;
 
 
 		}
 	}
+
 
 }
 

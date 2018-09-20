@@ -252,7 +252,11 @@
 				v.imageView.imageName = @"exp";
 			}
 			v.titleLabel.text = r.praticeType;
-			v.msgLabel.text = r.dsoName;
+			if (r.dsoId == nil || r.dsoId.length == 0) {
+				v.msgLabel.text = r.pracName;
+			} else {
+				v.msgLabel.text = r.dsoName;
+			}
 			v.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
 			if (r.praticeTypeId == nil || r.praticeTypeId.length == 0) {
 				v.imageView.imageName = @"exp";
@@ -687,7 +691,7 @@
 					d[@"practice_name"] = @"";
 				} else {
 					d[@"practice_DSO"] = nil;
-					d[@"practice_name"] = ex.dsoName;
+					d[@"practice_name"] = ex.pracName;
 				}
 				d[@"practice_Role"] = @{@"id": ex.roleAtPraticeId};
 				d[@"practice_Type"] = @{@"id": ex.praticeTypeId};

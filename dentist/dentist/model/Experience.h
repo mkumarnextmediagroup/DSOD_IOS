@@ -20,6 +20,8 @@
 @property(nullable) NSString *dsoId;
 @property(nullable) NSString *dsoName;
 
+@property(nullable) NSString *pracName;
+
 @property NSInteger fromMonth;
 @property NSInteger fromYear;
 @property NSInteger toMonth;
@@ -30,7 +32,7 @@
 
 - (BOOL)isOwnerDentist;
 
-@property (readonly) BOOL useDSO;
+@property(readonly) BOOL useDSO;
 
 
 - (NSString *_Nullable)dateFrom;

@@ -7,6 +7,8 @@
 
 @interface UITextField (styled)
 
+@property NSInteger maxLength;
+
 @property NSString *hint;
 @property(readonly) NSString *textTrimed;
 

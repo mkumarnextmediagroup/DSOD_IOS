@@ -149,6 +149,7 @@
 		C5EEA452EB12AA0C19121E68 /* search-light.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAD1D13E18979FD2F7346 /* search-light.png */; };
 		C5EEA4A42A0103E39618676F /* JSONModel+myextend.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAA3E75282AC040EF8353 /* JSONModel+myextend.m */; };
 		C5EEA4A6B29832302A53D7B1 /* error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA18EB9B95E5485DE66DA /* error@3x.png */; };
+		C5EEA4F5057D8AD20840551B /* NSDictionary+myextend.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA91D5A1E6B3A8A6AB23A /* NSDictionary+myextend.m */; };
 		C5EEA55691F65C5A3EF946AF /* checkbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEABC349DD6EA092977CF3 /* checkbox@2x.png */; };
 		C5EEA571919F79190E5F28EB /* search-light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEADB6D6F9C2ACB49728B1 /* search-light@2x.png */; };
 		C5EEA57BF745D8F5F4562664 /* NSData+myextend.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA86484528500B78E6108 /* NSData+myextend.m */; };
@@ -736,6 +737,7 @@
 		C5EEA8A31FA41618FB71AF02 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
 		C5EEA8B3C10EEB8C6781E157 /* book9-light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "book9-light@2x.png"; sourceTree = "<group>"; };
 		C5EEA9086B15C099681EB077 /* MyStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStyle.m; sourceTree = "<group>"; };
+		C5EEA91D5A1E6B3A8A6AB23A /* NSDictionary+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+myextend.m"; sourceTree = "<group>"; };
 		C5EEA91DC1E4106A405760DA /* NSDate+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+myextend.h"; sourceTree = "<group>"; };
 		C5EEA928DD1074289E6CB07E /* StateCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateCity.m; sourceTree = "<group>"; };
 		C5EEA95369D33A011F3F2489 /* SearchPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchPage.m; sourceTree = "<group>"; };
@@ -804,6 +806,7 @@
 		C5EEACA72D14C6A6E02E8876 /* UITextView+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+myextend.m"; sourceTree = "<group>"; };
 		C5EEACA9044F373ABAF0AFDA /* Education.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Education.h; sourceTree = "<group>"; };
 		C5EEACA95A1F53AE211D1A7F /* LabelCheckView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelCheckView.h; sourceTree = "<group>"; };
+		C5EEACAF5C76583BF58E8085 /* NSDictionary+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+myextend.h"; sourceTree = "<group>"; };
 		C5EEACB478958682F4764755 /* home-light@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-light@3x.png"; sourceTree = "<group>"; };
 		C5EEACBC931939B104FC3D13 /* TextSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextSize.m; sourceTree = "<group>"; };
 		C5EEACC8A54951053770CF3B /* IconTitleMsgDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconTitleMsgDetailCell.m; sourceTree = "<group>"; };
@@ -1775,6 +1778,8 @@
 				C5EEAA1AF3DD3E6E2AD01EF2 /* MyStyle.h */,
 				C5EEADBEF18D97609F532EEB /* NSDate+myextend.m */,
 				C5EEA91DC1E4106A405760DA /* NSDate+myextend.h */,
+				C5EEA91D5A1E6B3A8A6AB23A /* NSDictionary+myextend.m */,
+				C5EEACAF5C76583BF58E8085 /* NSDictionary+myextend.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -2522,6 +2527,7 @@
 				C5EEA742EA03F97F5FF1B234 /* ArticleItemView.m in Sources */,
 				C5EEA32DD334BD1A936C8AF7 /* IdName.m in Sources */,
 				C5EEA2E604C9E5CD496542A0 /* StateCity.m in Sources */,
+				C5EEA4F5057D8AD20840551B /* NSDictionary+myextend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

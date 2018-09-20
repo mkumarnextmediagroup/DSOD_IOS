@@ -13,6 +13,7 @@
 #import "IconTitleMsgCell.h"
 #import "GroupLabelView.h"
 #import "ProfileEditPage.h"
+#import "IdName.h"
 
 
 @interface ProfileViewController () {
@@ -46,8 +47,20 @@
 			[self navBarText:@"Edit" target:self action:@selector(onClickEdit:)]
 	];
 
+
 	[self buildViews];
 	[self layoutLinearVertical];
+
+	[self showIndicator];
+	backTask(^() {
+		[Proto getProfileInfo];
+
+		foreTask(^() {
+			[self hideIndicator];
+			[self buildViews];
+			[self layoutLinearVertical];
+		});
+	});
 
 }
 
@@ -72,15 +85,18 @@
 
 	UserCell *userCell = [UserCell new];
 	userCell.imageView.imageName = @"user_img";
-	[userCell.imageView loadUrl:userInfo.portraitUrl placeholderImage:@"user_img"];
+	[userCell.imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"user_img"];
 	userCell.nameLabel.text = userInfo.fullName;
-	if (userInfo.specialityLabel == nil || userInfo.specialityLabel.length == 0) {
+	if (userInfo.speciality == nil || userInfo.speciality.id == nil) {
 		userCell.specNameLabel.text = @"-";
 	} else {
-		userCell.specNameLabel.text = userInfo.specialityLabel;
+		userCell.specNameLabel.text = userInfo.speciality.name;
 	}
-	[userCell.imageView loadUrl:userInfo.portraitUrl placeholderImage:@"user_img"];
-	userCell.linkedinView.hidden = !userInfo.isLinkedinUser;
+	[userCell.imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"user_img"];
+
+	Log(@"Portrait Url: ", userInfo.portraitUrlFull);
+
+	userCell.linkedinView.hidden = !userInfo.isLinkedin;
 	[self.contentView addSubview:userCell];
 
 	[self addGroupTitle:@"Experience"];
@@ -123,12 +139,12 @@
 		Residency *r = userInfo.residencyArray[i];
 		IconTitleMsgDetailCell *residView = [IconTitleMsgDetailCell new];
 		residView.imageView.imageName = @"residency";
-		if (r.place == nil || r.place.length == 0) {
+		if (r.schoolId == nil || r.schoolId.length == 0) {
 			[residView showEmpty:@"No residency added yet."];
 		} else {
 			[residView hideEmpty];
 			residView.titleLabel.text = @"Residency";
-			residView.msgLabel.text = r.place;
+			residView.msgLabel.text = r.schoolName;
 			residView.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
 		}
 		[self.contentView addSubview:residView];
@@ -171,6 +187,12 @@
 	pCell.titleLabel.text = @"Practice Address";
 	pCell.msgLabel.text = userInfo.practiceAddress.detailAddress;
 	[self.contentView addSubview:pCell];
+
+	CGSize sz = [pCell.msgLabel sizeThatFits:makeSize(300, 1000)];
+	if (sz.height > 24) {
+		pCell.layoutParam.height = pCell.layoutParam.height - 24 + sz.height;
+	}
+
 
 	[self addGrayLine:78 marginRight:0];
 

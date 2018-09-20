@@ -10,7 +10,6 @@
 
 @interface Address : JSONModel
 
-@property(nullable) NSString <Optional> *stateId;
 @property(nullable) NSString <Optional> *stateLabel;
 @property(nullable) NSString <Optional> *city;
 @property(nullable) NSString <Optional> *zipCode;

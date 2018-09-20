@@ -19,6 +19,7 @@
 #import "Proto.h"
 #import "TitleEditView.h"
 #import "NSDate+myextend.h"
+#import "IdName.h"
 
 //show "Name of Dental Support Organization (DSO)"
 #define SMALLAFF @"Small Group Practice - Affiliated"
@@ -35,14 +36,18 @@
 	NSString *nameOfDental;
 	BOOL workInThisRole;
 
-    BOOL  isShowDSO;
-    BOOL  showOthers;
+	BOOL isShowDSO;
+	BOOL showOthers;
 	FromToView *fromToView;
 	TitleSwitchView *switchView;
 	TitleMsgArrowView *typeView;
 	TitleMsgArrowView *roleView;
 	TitleMsgArrowView *dentalView;
-    TitleEditView     *dentalEditView;
+	TitleEditView *dentalEditView;
+
+	NSArray<IdName *> *pracTypes;
+	NSString* pracId;
+	NSString* pracName;
 }
 
 - (instancetype)init {
@@ -72,7 +77,12 @@
 	toMonth = self.exp.toMonth;
 	toYear = self.exp.toYear;
 
-    [self buildView];
+	[self buildView];
+
+	pracTypes = nil;
+	backTask(^() {
+		pracTypes = [Proto queryPracticeTypes:@""];
+	});
 
 }
 
@@ -177,20 +187,21 @@
 //click Practice Type and select back
 - (void)clickType:(id)sender {
 	SearchPage *p = [SearchPage new];
-	p.checkedItem = praticeType;
+//	p.checkedItem = praticeType;
 	p.titleText = @"PRACTICE TYPE";
-	NSArray *ls = [Proto listPracticeType];
-	[p setItemsPlain:ls displayBlock:nil];
+	[p setItemsPlain:pracTypes displayBlock:^(NSObject *item) {
+		IdName *a = item;
+		return a.name;
+	}];
 
 	p.onResult = ^(NSObject *item) {
-        
-        self->praticeType = (NSString *) item;
-        if ([self->praticeType isEqualToString:SMALLAFF] || [self->praticeType isEqualToString:LARGEAFF]) {
-            self->isShowDSO = YES;
-        }else
-        {
-            self->isShowDSO = NO;
-        }
+		IdName *idName = (id) item;
+		self->praticeType = idName.id;
+		if ([self->praticeType isEqualToString:SMALLAFF] || [self->praticeType isEqualToString:LARGEAFF]) {
+			self->isShowDSO = YES;
+		} else {
+			self->isShowDSO = NO;
+		}
 		[self buildView];
 	};
 	[self pushPage:p];
@@ -204,7 +215,7 @@
 	[p setItemsPlain:ls displayBlock:nil];
 
 	p.onResult = ^(NSObject *item) {
-        self->roleAtPratice = (NSString *) item;
+		self->roleAtPratice = (NSString *) item;
 		[self bindData];
 	};
 	[self pushPage:p];
@@ -218,7 +229,7 @@
 	[p setItemsPlain:ls displayBlock:nil];
 
 	p.onResult = ^(NSObject *item) {
-        self->nameOfDental = (NSString *) item;
+		self->nameOfDental = (NSString *) item;
 		[self bindData];
 	};
 	[self pushPage:p];
@@ -250,11 +261,10 @@
 	}
 	if (toMonth > 0 && toYear > 0 && !workInThisRole) {
 		fromToView.toDateLabel.text = strBuild(nameOfMonth(toMonth), @" ", [@(toYear) description]);
-    }else if (workInThisRole) {
-        fromToView.toDateLabel.text = @"Present";
-        
-    }
-    else {
+	} else if (workInThisRole) {
+		fromToView.toDateLabel.text = @"Present";
+
+	} else {
 		fromToView.toDateLabel.text = @"Select";
 	}
 	if (praticeType == nil || praticeType.length == 0) {
@@ -267,18 +277,18 @@
 	} else {
 		roleView.msgLabel.text = roleAtPratice;
 	}
-    
-    if (dentalView != nil) {
-        if (nameOfDental == nil || nameOfDental.length == 0) {
-            dentalView.msgLabel.text = @"Select";
-        } else {
-            dentalView.msgLabel.text = nameOfDental;
-        }
-    } else {
-        dentalEditView.edit.text = nameOfDental;
-    }
-    
-	
+
+	if (dentalView != nil) {
+		if (nameOfDental == nil || nameOfDental.length == 0) {
+			dentalView.msgLabel.text = @"Select";
+		} else {
+			dentalView.msgLabel.text = nameOfDental;
+		}
+	} else {
+		dentalEditView.edit.text = nameOfDental;
+	}
+
+
 }
 
 - (void)clickFromDate:(id)sender {
@@ -287,9 +297,9 @@
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];
-        self->fromMonth = num1.integerValue;
+		self->fromMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
-        self->fromYear = num2.integerValue;
+		self->fromYear = num2.integerValue;
 		[self bindData];
 
 	};
@@ -302,9 +312,9 @@
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];
-        self->toMonth = num1.integerValue;
+		self->toMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
-        self->toYear = num2.integerValue;
+		self->toYear = num2.integerValue;
 		[self bindData];
 
 	};

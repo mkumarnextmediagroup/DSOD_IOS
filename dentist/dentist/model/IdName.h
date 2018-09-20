@@ -11,7 +11,7 @@
 
 @interface IdName : JSONModel
 
-@property NSInteger id;
+@property NSString *id;
 
 @property NSString  <Optional> *name;
 

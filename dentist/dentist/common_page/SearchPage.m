@@ -89,8 +89,7 @@
 - (void)onClickItem:(NSObject *)item {
 	NSLog(@"click item %@", item);
 	self.checkedItem = item;
-	[self.table reloadData];
-    
+
     if (self.onResult != nil) {
         [self popPage];
         self.onResult(self.checkedItem);

@@ -22,7 +22,7 @@
 	_specTitleLabel = self.addLabel;
 	_specNameLabel = self.addLabel;
 
-	[_imageView scaleFillAspect];
+	[_imageView scaleFit];
 
 	_nameLabel.textColor = UIColor.blackColor;
 	_nameLabel.font = [Fonts semiBold:17];

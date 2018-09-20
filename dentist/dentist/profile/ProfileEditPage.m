@@ -18,6 +18,8 @@
 #import "EditEduViewController.h"
 #import "SearchPage.h"
 #import "EditExperiencePage.h"
+#import "IdName.h"
+#import "NSDate+myextend.h"
 
 #import <AssetsLibrary/ALAsset.h>
 
@@ -41,11 +43,14 @@
 	TitleEditView *phoneView;
 	TitleEditView *emailView;
 	TitleMsgArrowView *practiceAddressView;
+
+	NSString *uploadPortraitResult;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	userInfo = [Proto lastUserInfo];
+	uploadPortraitResult = nil;
 
 	UINavigationItem *item = self.navigationItem;
 	item.title = @"EDIT PROFILE";
@@ -75,7 +80,7 @@
 
 	userView = [EditUserView new];
 	userView.layoutParam.height = 240;
-	userView.avatarUrl = userInfo.portraitUrl;
+	[userView.headerImg loadUrl:userInfo.portraitUrlFull placeholderImage:@"default_avatar"];
 	userView.percent = 0.13;
 	[userView.editBtn onClick:self action:@selector(editPortrait:)];
 	[self.contentView addSubview:userView];
@@ -109,7 +114,7 @@
 
 	[self addGrayLine:0 marginRight:0];
 
-	if (![userInfo isStudent]) {
+	if (!userInfo.isStudent) {
 		GroupLabelView *expGroupView = [self addGroupTitle:@"Experience"];
 		[expGroupView.button onClick:self action:@selector(clickAddExp:)];
 
@@ -232,9 +237,11 @@
 - (void)bindData {
 	if (selectImage) {
 		[userView.headerImg setImage:selectImage];
+	} else {
+		[userView.headerImg loadUrl:userInfo.portraitUrlFull placeholderImage:@"default_avatar"];
 	}
 	nameView.edit.text = userInfo.fullName;
-	specView.msgLabel.text = userInfo.specialityLabel;
+	specView.msgLabel.text = userInfo.speciality.name;
 	if (userInfo.experienceArray != nil) {
 		for (int i = 0; i < userInfo.experienceArray.count; ++i) {
 			Experience *r = userInfo.experienceArray[i];
@@ -259,9 +266,9 @@
 		for (int i = 0; i < userInfo.residencyArray.count; ++i) {
 			Residency *r = userInfo.residencyArray[i];
 			IconTitleMsgDetailCell *v = residencyViews[i];
-			v.msgLabel.text = r.place;
+			v.msgLabel.text = r.schoolName;
 			v.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
-			if (r.place == nil || r.place.length == 0) {
+			if (r.schoolId == nil || r.schoolId.length == 0) {
 				[v showEmpty:@"No residency added yet"];
 			} else {
 				[v hideEmpty];
@@ -306,7 +313,7 @@
 
 	int count = 0;
 	int countParent = 0;
-	if ([userInfo isStudent]) {
+	if (userInfo.isStudent) {
 		countParent = 6;
 	} else {
 		countParent = 8;
@@ -344,7 +351,7 @@
 	if (userInfo.residencyArray != nil && userInfo.residencyArray.count > 0) {
 		if (userInfo.residencyArray.count == 1) {
 			Residency *r = userInfo.residencyArray[0];
-			if (r.place != nil && r.place.length > 0) {
+			if (r.schoolId != nil && r.schoolId.length > 0) {
 				count = count + 1;
 			}
 		} else {
@@ -362,8 +369,6 @@
 			count = count + 1;
 		}
 	}
-	NSLog(@"count==%i", count);
-	NSLog(@"countParent==%i", countParent);
 	return (float) count / countParent;
 }
 
@@ -384,12 +389,16 @@
 }
 
 - (void)clickSpec:(id)sender {
-	NSArray *ls = [Proto listSpeciality];
-	[self selectText:@"SPECIALITY" value:userInfo.specialityLabel array:ls result:^(NSString *spec) {
-		userInfo.specialityLabel = spec;
-		[self bindData];
-	}];
 
+	backTask(^() {
+		NSArray *ls = [Proto querySpecialty];
+		foreTask(^() {
+			[self selectIdName:@"SPECIALITY" array:ls selectedId:userInfo.speciality.id result:^(IdName *item) {
+				userInfo.speciality = item;
+				[self bindData];
+			}];
+		});
+	});
 }
 
 - (void)clickAddExp:(id)sender {
@@ -451,7 +460,9 @@
 	editRes.residency = r;
 
 	editRes.saveCallback = ^(Residency *r) {
-		[self saveResidency:r];
+		Log(r.schoolId, r.schoolName, @(r.fromYear), @(r.toYear));
+		[self buildViews];
+		[self bindData];
 	};
 
 	editRes.deleteCallback = ^(Residency *r) {
@@ -580,7 +591,73 @@
 	userInfo.email = emailView.edit.text;
 //     userInfo.practiceAddress.detailAddress = practiceAddressView.msgLabel.text;
 
-	[Proto saveLastUserInfo:userInfo];
+	NSDictionary *d = @{
+			@"full_name": nameView.edit.textTrimed,
+			@"email": emailView.edit.textTrimed,
+			@"phone": phoneView.edit.textTrimed,
+			@"is_student": userInfo.isStudent ? @"1" : @"0",
+			@"is_linkedin": userInfo.isLinkedin ? @"1" : @"0",
+			@"sex": @"",
+			@"status": @"1",
+			@"document_library": @{
+					@"document_name": @"",
+			},
+			@"create_time": @"2018-09-12T06:16:53.603Z",
+			@"educations": NSNull.null,
+			@"experiences": NSNull.null,
+			@"profileResidency": NSNull.null,
+			@"document_library": NSNull.null,
+			@"practiceAddress": @{
+					@"address1": userInfo.practiceAddress.address1,
+					@"address2": userInfo.practiceAddress.address2,
+					@"city": userInfo.practiceAddress.city,
+					@"states": userInfo.practiceAddress.stateLabel,
+					@"zipCode": userInfo.practiceAddress.zipCode,
+			},
+	};
+
+
+	NSMutableDictionary *md = [NSMutableDictionary dictionaryWithDictionary:d];
+	if (uploadPortraitResult != nil) {
+		md[@"photo_album"] = @{@"photo_name": uploadPortraitResult};
+	} else {
+		md[@"photo_album"] = @{@"photo_name": @""};
+	}
+	if (userInfo.speciality.id != nil) {
+		md[@"specialty"] = @{@"id": userInfo.speciality.id};
+	} else {
+		md[@"specialty"] = @{@"id": @""};
+	}
+
+	if (userInfo.residencyArray.count > 0) {
+		NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+		md[@"profileResidency"] = arr;
+
+		for (Residency *r in userInfo.residencyArray) {
+			if (r.schoolId != nil) {
+				NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:8];
+				d[@"dental_School"] = @{
+						@"id": r.schoolId,
+						@"name": r.schoolName,
+				};
+				d[@"start_time"] = @(buildDateLong(r.fromYear, r.fromMonth, 0));
+				d[@"end_time"] = @(buildDateLong(r.toYear, r.toMonth, 0));
+				d[@"email"] = [Proto lastAccount];
+				d[@"create_time"] = nil;
+				d[@"user_id"] = nil;
+				d[@"id"] = nil;
+
+				[arr addObject:d];
+			}
+		}
+
+	}
+
+
+	backTask(^() {
+		[Proto saveProfileInfo:md];
+	});
+
 	[self alertMsg:@"Saved successfully" onOK:^() {
 		[self popPage];
 	}];
@@ -711,8 +788,8 @@
 
 - (void)uploadHeaderImage:(NSString *)url {
 	backTask(^() {
-		BOOL b = [Proto uploadHeaderImage:url];
-		NSLog(@"======%d", b);
+		uploadPortraitResult = [Proto uploadHeaderImage:url];
+		NSLog(@"======%@", uploadPortraitResult);
 	});
 
 }

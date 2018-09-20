@@ -5,6 +5,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class IdName;
+
 @interface UIViewController (myextend)
 
 @property(readonly) UINavigationBar *navBar;
@@ -36,5 +38,8 @@
 - (void)showIndicator;
 
 - (void)hideIndicator;
+
+
+- (void)selectIdName:(NSString *)title array:(NSArray<IdName *> *)array selectedId:(NSString *)selectedId result:(void (^)(IdName *))result;
 
 @end

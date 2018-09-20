@@ -28,6 +28,7 @@
 
 @implementation SlideController {
 	NSArray *items;
+	UIImageView *imageView;
 }
 
 - (void)viewDidLoad {
@@ -62,8 +63,6 @@
 	[ql install];
 
 	[self selectButton:nil];
-
-	Log(@"View Did Load ");
 }
 
 - (UIBarButtonItem *)menuButton {
@@ -120,26 +119,32 @@
 	return nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	UserInfo *userInfo = [Proto lastUserInfo];
+	[imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"Img-User-Dentist"];
+}
+
 
 - (UIView *)makeUserView {
 	UserInfo *userInfo = [Proto lastUserInfo];
 	UIView *v = self.view.addView;
-	UIImageView *iv = v.addImageView;
-	iv.imageName = @"Img-User-Dentist";
-	[iv scaleFillAspect];
-	[iv loadUrl:userInfo.portraitUrl placeholderImage:@"Img-User-Dentist"];
-	[[[[iv.layoutMaker sizeEq:115 h:115] leftParent:0] topParent:0] install];
+    imageView = v.addImageView;
+    imageView.imageName = @"Img-User-Dentist";
+    [imageView scaleFit];
+    [imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"Img-User-Dentist"];
+    [[[[imageView.layoutMaker sizeEq:115 h:115] leftParent:0] topParent:0] install];
 	UILabel *lbName = v.addLabel;
 	lbName.text = @"John Stewart";
 	lbName.font = [Fonts semiBold:15];
 	[lbName textColorMain];
-	[[[[[lbName layoutMaker] sizeFit] toRightOf:iv offset:16] topParent:6] install];
+	[[[[[lbName layoutMaker] sizeFit] toRightOf:imageView offset:16] topParent:6] install];
 
 	UILabel *lbSub = v.addLabel;
 	lbSub.text = @"New Jersey, NJ";
 	lbSub.font = [Fonts regular:12];
 	[lbSub textColorSecondary];
-	[[[[[lbSub layoutMaker] sizeFit] toRightOf:iv offset:16] below:lbName offset:5] install];
+	[[[[[lbSub layoutMaker] sizeFit] toRightOf:imageView offset:16] below:lbName offset:5] install];
 
 	return v;
 }

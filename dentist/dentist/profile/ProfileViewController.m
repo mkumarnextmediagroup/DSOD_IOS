@@ -169,7 +169,7 @@
 		} else {
 			[v hideEmpty];
 			v.titleLabel.text = edu.schoolName;
-			v.msgLabel.text = edu.certificate;
+			v.msgLabel.text = edu.major;
 			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
 		}
 		[self.contentView addSubview:v];

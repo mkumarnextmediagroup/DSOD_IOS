@@ -11,7 +11,7 @@
 
 @property NSString *schoolId;
 @property NSString *schoolName;
-@property NSString *certificate;
+@property NSString *major;
 @property BOOL schoolInUS;
 
 @property NSInteger fromMonth;

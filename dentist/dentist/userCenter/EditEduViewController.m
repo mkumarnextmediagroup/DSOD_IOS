@@ -7,10 +7,6 @@
 //
 
 #import "EditEduViewController.h"
-#import "SwitchTableViewCell.h"
-#import "CommSelectTableViewCell.h"
-#import "UpdateViewController.h"
-#import "PickerViewController.h"
 #import "Education.h"
 #import "Common.h"
 #import "TitleSwitchView.h"
@@ -18,7 +14,6 @@
 #import "TitleEditView.h"
 #import "FromToView.h"
 #import "PickerPage.h"
-#import "SearchPage.h"
 #import "Proto.h"
 #import "IdName.h"
 
@@ -181,9 +176,11 @@
 
 - (void)clickSchool:(id)sender {
 
+	[self showIndicator];
 	backTask(^() {
 		NSArray *array = [Proto queryDentalSchool];
 		foreTask(^() {
+			[self hideIndicator];
 			[self selectSchool:array];
 		});
 	});

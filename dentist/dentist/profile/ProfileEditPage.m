@@ -450,6 +450,15 @@
 - (void)addExp:(Experience *)e {
 	Log(@"Add Exp: ", @(e.useDSO), e.pracName, e.dsoName);
 	NSMutableArray *a = [NSMutableArray arrayWithArray:userInfo.experienceArray];
+
+	if(a.count > 0){
+		Experience * e = a[0];
+		if(e.praticeTypeId == nil || e.praticeTypeId.length == 0) {
+			[a removeObjectAtIndex:0];
+		}
+	}
+
+
 	if (![a containsObject:e]) {
 		[a addObject:e];
 	}
@@ -515,6 +524,15 @@
 
 - (void)addResidency:(Residency *)r {
 	NSMutableArray *ar = [NSMutableArray arrayWithArray:userInfo.residencyArray];
+
+	if(ar.count > 0){
+		Residency * e = ar[0];
+		if(e.schoolId == nil || e.schoolId.length == 0) {
+			[ar removeObjectAtIndex:0];
+		}
+	}
+
+
 	if (![ar containsObject:r]) {
 		[ar addObject:r];
 	}
@@ -525,6 +543,12 @@
 
 - (void)addEducation:(Education *)e {
 	NSMutableArray *ar = [NSMutableArray arrayWithArray:userInfo.educationArray];
+	if(ar.count > 0){
+		Education * e = ar[0];
+		if(e.schoolId == nil || e.schoolId.length == 0) {
+			[ar removeObjectAtIndex:0];
+		}
+	}
 	if (![ar containsObject:e]) {
 		[ar addObject:e];
 	}

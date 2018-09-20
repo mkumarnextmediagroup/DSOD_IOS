@@ -217,7 +217,7 @@
 	IconTitleMsgCell *emailCell = [IconTitleMsgCell new];
 	emailCell.imageView.imageName = @"menu-msg";
 	emailCell.titleLabel.text = @"Preferred Email Address";
-	emailCell.msgLabel.text = userInfo.email;
+	emailCell.msgLabel.text = userInfo.emailContact;
 	[self.contentView addSubview:emailCell];
 }
 

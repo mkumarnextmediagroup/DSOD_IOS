@@ -17,6 +17,7 @@
 - (void)fromDic:(NSDictionary *)dic {
 	_userId = [dic strValue:@"id"];
 	_email = [dic strValue:@"email"];
+	_emailContact = [dic strValue:@"contact_email"];
 	_fullName = [dic strValue:@"full_name"];
 	_phone = [dic strValue:@"phone"];
 	_isStudent = [dic boolValue:@"is_student"];

@@ -297,7 +297,7 @@
 		}
 	}
 	phoneView.edit.text = userInfo.phone;
-	emailView.edit.text = userInfo.email;
+	emailView.edit.text = userInfo.emailContact;
 	practiceAddressView.msgLabel.text = userInfo.practiceAddress.detailAddress;
 	[practiceAddressView resetLayout];
 
@@ -320,7 +320,7 @@
 	[super onTextFieldDone:textField];
 	userInfo.fullName = nameView.edit.textTrimed;
 	userInfo.phone = phoneView.edit.textTrimed;
-	userInfo.email = emailView.edit.textTrimed;
+	userInfo.emailContact = emailView.edit.textTrimed;
 	[userView reset:[self getProfilePercent]];
 }
 
@@ -602,7 +602,7 @@
 	//save the edit content
 	userInfo.fullName = nameView.edit.text;
 	userInfo.phone = phoneView.edit.text;
-	userInfo.email = emailView.edit.text;
+	userInfo.emailContact = emailView.edit.text;
 //     userInfo.practiceAddress.detailAddress = practiceAddressView.msgLabel.text;
 
 	if (userInfo.practiceAddress.address1 == nil) {

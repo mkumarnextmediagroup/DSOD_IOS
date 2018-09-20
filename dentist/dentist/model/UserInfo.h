@@ -20,6 +20,7 @@
 
 @property NSString *userId;
 @property NSString *email;
+@property NSString *emailContact;
 
 @property NSString *fullName;
 @property(nullable) NSString *phone;

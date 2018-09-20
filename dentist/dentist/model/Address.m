@@ -12,6 +12,11 @@
 }
 
 -(NSString*) detailAddress {
-	return strBuild(self.address1, self.address2, self.city, @",", self.stateLabel, @" ", self.zipCode);
+    NSString *detailAddr = strBuild(self.address1, self.address2, self.city, @",", self.stateLabel, @" ", self.zipCode);
+    if ([detailAddr isEqualToString:@", "])
+    {
+        detailAddr = @"";
+    }
+    return detailAddr;
 }
 @end

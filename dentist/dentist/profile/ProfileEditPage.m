@@ -398,7 +398,7 @@
 		NSArray *ls = [Proto querySpecialty];
 		foreTask(^() {
 			[self selectIdName:@"SPECIALITY" array:ls selectedId:userInfo.speciality.id result:^(IdName *item) {
-				userInfo.speciality = item;
+                self->userInfo.speciality = item;
 				[self bindData];
 			}];
 		});
@@ -591,6 +591,27 @@
 	userInfo.email = emailView.edit.text;
 //     userInfo.practiceAddress.detailAddress = practiceAddressView.msgLabel.text;
 
+    if (userInfo.practiceAddress.address1 == nil)
+    {
+        userInfo.practiceAddress.address1 = @"";
+    }
+    if (userInfo.practiceAddress.address2 == nil)
+    {
+        userInfo.practiceAddress.address2 = @"";
+    }
+    if (userInfo.practiceAddress.city == nil)
+    {
+        userInfo.practiceAddress.city = @"";
+    }
+    if (userInfo.practiceAddress.stateLabel == nil)
+    {
+        userInfo.practiceAddress.stateLabel = @"";
+    }
+    if (userInfo.practiceAddress.zipCode == nil)
+    {
+        userInfo.practiceAddress.zipCode = @"";
+    }
+    
 	NSDictionary *d = @{
 			@"full_name": nameView.edit.textTrimed,
 			@"email": emailView.edit.textTrimed,
@@ -693,14 +714,21 @@
 		}
 	}
 
-
+    [self showIndicator];
 	backTask(^() {
-		[Proto saveProfileInfo:md];
+        [self hideIndicator];
+		HttpResult *saveInfo = [Proto saveProfileInfo:md];
+        if (saveInfo.OK)
+        {
+            [self alertMsg:@"Saved successfully" onOK:^() {
+                [self popPage];
+            }];
+        }else
+        {
+            [self alertMsg:saveInfo.msg onOK:^() {
+            }];
+        }
 	});
-
-	[self alertMsg:@"Saved successfully" onOK:^() {
-		[self popPage];
-	}];
 }
 
 - (void)editPortrait:(id)sender {
@@ -766,7 +794,7 @@
 	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
 		picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
 		image = info[@"UIImagePickerControllerOriginalImage"];
-		UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+//        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 
 		NSString *imageName = [info valueForKey:UIImagePickerControllerMediaType];
 		NSLog(@"imageName1:%@", imageName);
@@ -828,7 +856,7 @@
 
 - (void)uploadHeaderImage:(NSString *)url {
 	backTask(^() {
-		uploadPortraitResult = [Proto uploadHeaderImage:url];
+        self->uploadPortraitResult = [Proto uploadHeaderImage:url];
 	});
 
 }

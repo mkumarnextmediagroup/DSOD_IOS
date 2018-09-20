@@ -297,7 +297,7 @@
 			dsoView.msgLabel.text = dsoName;
 		}
 	}
-	if (dentalEditView) {
+	if (dentalEditView && dentalEditView.edit.text.length == 0) {
 		dentalEditView.edit.text = pracName;
 	}
 

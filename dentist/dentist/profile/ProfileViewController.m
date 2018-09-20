@@ -88,7 +88,7 @@
 	[userCell.imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"user_img"];
 	userCell.nameLabel.text = userInfo.fullName;
 	if (userInfo.speciality == nil || userInfo.speciality.id == nil) {
-		userCell.specNameLabel.text = @"-";
+		userCell.specNameLabel.text = @"";
 	} else {
 		userCell.specNameLabel.text = userInfo.speciality.name;
 	}

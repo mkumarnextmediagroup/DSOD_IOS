@@ -576,6 +576,7 @@
 }
 
 + (NSString *)uploadHeaderImage:(NSString *)localFilePath {
+    
 	HttpResult *r = [self upload:@"photoUpload" localFilePath:localFilePath];
 	if (r.OK) {
 		//{"photoName":"5d7a4a76219e4c78b2b4656cf4bc80f2_test.png"}

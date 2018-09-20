@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "DiscussInfo.h"
+
 @interface DiscussTableViewCell : UITableViewCell
+
+@property (strong, nonatomic)DiscussInfo *disInfo;
 
 @end

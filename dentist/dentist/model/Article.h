@@ -6,7 +6,7 @@
 #import <UIKit/UIKit.h>
 
 @class ArticleComment;
-
+@class DiscussInfo;
 
 @interface Article : NSObject
 
@@ -36,5 +36,6 @@
 @property BOOL isSponsor;
 
 @property NSArray<ArticleComment *> *comments;
+@property NSArray<DiscussInfo *> *discussInfo;
 
 @end

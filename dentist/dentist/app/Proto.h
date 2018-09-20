@@ -56,6 +56,7 @@
 + (BOOL)saveProfileInfo:(NSDictionary *)dic;
 
 + (NSArray *_Nullable)listArticle;
++ (NSArray *_Nullable)listBookmark;
 
 + (nullable StateCity *)getStateAndCity:(NSString *)zipCode;
 

@@ -4,8 +4,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseController.h"
+#import "ListPage.h"
 
 
-@interface CmsBookmarkController : BaseController
+@interface CmsBookmarkController : ListPage
 @end

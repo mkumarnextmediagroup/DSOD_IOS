@@ -29,6 +29,8 @@
 @implementation SlideController {
 	NSArray *items;
 	UIImageView *imageView;
+	UILabel *lbName;
+	UILabel *lbSub;
 }
 
 - (void)viewDidLoad {
@@ -123,28 +125,34 @@
 	[super viewWillAppear:animated];
 	UserInfo *userInfo = [Proto lastUserInfo];
 	[imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"Img-User-Dentist"];
+	lbName.text = userInfo.fullName;
+	if (userInfo.practiceAddress) {
+		lbSub.text = strBuild(userInfo.practiceAddress.city, @", ", userInfo.practiceAddress.stateLabel);
+	} else {
+		lbSub.text = @"-";
+	}
 }
 
 
 - (UIView *)makeUserView {
 	UserInfo *userInfo = [Proto lastUserInfo];
 	UIView *v = self.view.addView;
-    imageView = v.addImageView;
-    imageView.imageName = @"Img-User-Dentist";
-    [imageView scaleFit];
-    [imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"Img-User-Dentist"];
-    [[[[imageView.layoutMaker sizeEq:115 h:115] leftParent:0] topParent:0] install];
-	UILabel *lbName = v.addLabel;
-	lbName.text = @"John Stewart";
+	imageView = v.addImageView;
+	imageView.imageName = @"Img-User-Dentist";
+	[imageView scaleFill];
+	[imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"Img-User-Dentist"];
+	[[[[imageView.layoutMaker sizeEq:115 h:115] leftParent:0] topParent:0] install];
+	lbName = v.addLabel;
+	lbName.text = @"-";
 	lbName.font = [Fonts semiBold:15];
 	[lbName textColorMain];
-	[[[[[lbName layoutMaker] sizeFit] toRightOf:imageView offset:16] topParent:6] install];
+	[[[[[[lbName layoutMaker] heightEq:22] toRightOf:imageView offset:16] topParent:6] rightParent:16] install];
 
-	UILabel *lbSub = v.addLabel;
-	lbSub.text = @"New Jersey, NJ";
+	lbSub = v.addLabel;
+	lbSub.text = @"-";
 	lbSub.font = [Fonts regular:12];
 	[lbSub textColorSecondary];
-	[[[[[lbSub layoutMaker] sizeFit] toRightOf:imageView offset:16] below:lbName offset:5] install];
+	[[[[[[lbSub layoutMaker] heightEq:16] toRightOf:imageView offset:16] below:lbName offset:5] rightParent:16] install];
 
 	return v;
 }

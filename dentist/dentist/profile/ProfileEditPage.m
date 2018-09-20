@@ -205,8 +205,9 @@
 	phoneView = [TitleEditView new];
 	phoneView.label.text = @"Mobile number";
 	phoneView.edit.delegate = self;
-	[phoneView.edit keyboardPhone];
+//	[phoneView.edit keyboardPhone];
 	[phoneView.edit returnDone];
+	phoneView.edit.maxLength = 10;
 	[self.contentView addSubview:phoneView];
 	[self addGrayLine:0 marginRight:0];
 
@@ -387,18 +388,6 @@
 		}
 	}
 	return (float) count / countParent;
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-	if (textField == phoneView.edit) {
-		NSInteger newLen = textField.text.length + string.length - range.length;
-		if (newLen > 10) {
-			return NO;
-		}
-	}
-
-
-	return YES;
 }
 
 
@@ -734,7 +723,7 @@
 				d[@"email"] = [Proto lastAccount];
 				d[@"start_time"] = [[NSDate dateBy:edu.fromYear month:edu.fromMonth day:0] format:DATE_FORMAT];
 				d[@"end_time"] = [[NSDate dateBy:edu.toYear month:edu.toMonth day:0] format:DATE_FORMAT];
-				d[@"major"] = @"-";
+				d[@"major"] = @"";
 			}
 		}
 	}

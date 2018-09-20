@@ -10,7 +10,7 @@
 #import "ArticleComment.h"
 #import "IdName.h"
 #import "StateCity.h"
-
+#import "DiscussInfo.h"
 
 @implementation Proto {
 	NSString *SERVER;
@@ -36,6 +36,28 @@
 	a.resImage = @"http://app800.cn/i/d.png";
 	a.resType = @"image";
 
+    DiscussInfo *dis = [DiscussInfo new];
+    dis.disImg = @"http://app800.cn/i/p.png";
+    dis.name = @"Matt Heafy rated it";
+    dis.starCount = 4;
+    dis.disDate = @"3 Jul,2017";
+    dis.content = @"A wonderful experence reading up on the new trends of dental health.";
+    
+    DiscussInfo *dis2 = [DiscussInfo new];
+    dis2.disImg = @"http://app800.cn/i/p.png";
+    dis2.name = @"Amanda Brown rated it";
+    dis2.starCount = 4;
+    dis2.disDate = @"15 May,2017";
+    dis2.content = @"A nice read! Will be sure to recommend this magazine to others.";
+    
+    DiscussInfo *dis3 = [DiscussInfo new];
+    dis3.disImg = @"http://app800.cn/i/p.png";
+    dis3.name = @"Gareth Bale rated it";
+    dis3.starCount = 4;
+    dis3.disDate = @"23 Apr,2017";
+    dis3.content = @"Best dental health magazine I have read in my life. Would recommend reading it with something else to do dles make the aeddef";
+    a.discussInfo = @[dis,dis2,dis3];
+    
 	ArticleComment *c = [ArticleComment new];
 	c.articleId = 100;
 	c.authAccount = @"peter@gmail.com";
@@ -64,6 +86,28 @@
 	b.resImage = @"http://app800.cn/i/d.png";
 	b.resType = @"image";
 
+    DiscussInfo *disb = [DiscussInfo new];
+    disb.disImg = @"http://app800.cn/i/p.png";
+    disb.name = @"Matt Heafy rated it";
+    disb.starCount = 4;
+    disb.disDate = @"3 Jul,2017";
+    disb.content = @"A wonderful experence reading up on the new trends of dental health.";
+    
+    DiscussInfo *disb2 = [DiscussInfo new];
+    disb2.disImg = @"http://app800.cn/i/p.png";
+    disb2.name = @"Amanda Brown rated it";
+    disb2.starCount = 4;
+    disb2.disDate = @"15 May,2017";
+    disb2.content = @"A nice read! Will be sure to recommend this magazine to others.";
+    
+    DiscussInfo *disb3 = [DiscussInfo new];
+    disb3.disImg = @"http://app800.cn/i/p.png";
+    disb3.name = @"Gareth Bale rated it";
+    disb3.starCount = 4;
+    disb3.disDate = @"23 Apr,2017";
+    disb3.content = @"Best dental health magazine I have read in my life. Would recommend reading it with something else to do dles make the aeddef";
+    b.discussInfo = @[disb,disb2,disb3];
+    
 	ArticleComment *bc = [ArticleComment new];
 	bc.articleId = 100;
 	bc.authAccount = @"peter@gmail.com";

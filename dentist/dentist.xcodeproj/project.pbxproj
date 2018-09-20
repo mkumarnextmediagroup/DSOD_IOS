@@ -57,6 +57,7 @@
 		4E23E0862152A37200EDCE08 /* star_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E23E0822152A37100EDCE08 /* star_select@2x.png */; };
 		4E23E0872152A37200EDCE08 /* star_unselect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E23E0832152A37200EDCE08 /* star_unselect@3x.png */; };
 		4E23E08A2152A97B00EDCE08 /* DiscussTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23E0892152A97B00EDCE08 /* DiscussTableViewCell.m */; };
+		4E23E08D215325AE00EDCE08 /* DiscussInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23E08C215325AE00EDCE08 /* DiscussInfo.m */; };
 		4E23E6CD214B99DA00D61C90 /* DenCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23E6CC214B99DA00D61C90 /* DenCamera.m */; };
 		4E846F70213E619100DC2B51 /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F6F213E619100DC2B51 /* SwitchTableViewCell.m */; };
 		4E846F73213E781100DC2B51 /* CommSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F72213E781100DC2B51 /* CommSelectTableViewCell.m */; };
@@ -550,6 +551,8 @@
 		4E23E0832152A37200EDCE08 /* star_unselect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_unselect@3x.png"; sourceTree = "<group>"; };
 		4E23E0882152A97B00EDCE08 /* DiscussTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscussTableViewCell.h; sourceTree = "<group>"; };
 		4E23E0892152A97B00EDCE08 /* DiscussTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscussTableViewCell.m; sourceTree = "<group>"; };
+		4E23E08B215325AE00EDCE08 /* DiscussInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscussInfo.h; sourceTree = "<group>"; };
+		4E23E08C215325AE00EDCE08 /* DiscussInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscussInfo.m; sourceTree = "<group>"; };
 		4E23E6CB214B99DA00D61C90 /* DenCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenCamera.h; sourceTree = "<group>"; };
 		4E23E6CC214B99DA00D61C90 /* DenCamera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DenCamera.m; sourceTree = "<group>"; };
 		4E846F6E213E619100DC2B51 /* SwitchTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchTableViewCell.h; sourceTree = "<group>"; };
@@ -1867,6 +1870,8 @@
 				C5EEA626F9F9F62DDE300617 /* IdName.h */,
 				C5EEA928DD1074289E6CB07E /* StateCity.m */,
 				C5EEA293C7B2FCD5561A8AA9 /* StateCity.h */,
+				4E23E08B215325AE00EDCE08 /* DiscussInfo.h */,
+				4E23E08C215325AE00EDCE08 /* DiscussInfo.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2505,6 +2510,7 @@
 				C5EEA924251B1D227E0C597D /* NSDate+myextend.m in Sources */,
 				C5EEA34AC51BB6847157C34C /* SlideItem.m in Sources */,
 				C5EEA068F55D7B423D889014 /* EducationPage.m in Sources */,
+				4E23E08D215325AE00EDCE08 /* DiscussInfo.m in Sources */,
 				C5EEAF4D7420DCA0CCBD9D37 /* EventsPage.m in Sources */,
 				C5EEACBCD8E0C648F24C3CBD /* UnitePage.m in Sources */,
 				C5EEA3F0CF05284FD745DF70 /* CareerPage.m in Sources */,

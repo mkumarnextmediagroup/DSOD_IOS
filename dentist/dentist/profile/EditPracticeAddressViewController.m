@@ -49,6 +49,7 @@
 
 	zipView = [TitleEditView new];
 	zipView.label.text = @"Zip Code";
+    zipView.edit.keyboardType = UIKeyboardTypeNumberPad;
 	[self.contentView addSubview:zipView];
 
 	cityView = [TitleEditView new];

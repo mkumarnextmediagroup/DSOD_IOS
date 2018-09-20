@@ -73,6 +73,10 @@
 		4E85DA8B21429C45007C40C3 /* DenGlobalInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E85DA8A21429C45007C40C3 /* DenGlobalInfo.m */; };
 		4E85DA8E21450F51007C40C3 /* PersonInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E85DA8D21450F51007C40C3 /* PersonInfo.m */; };
 		4E85DA9121451D3B007C40C3 /* UploadData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E85DA9021451D3B007C40C3 /* UploadData.m */; };
+		4E923D6B2153761E00779268 /* DownloadsItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E923D672153761D00779268 /* DownloadsItemView.m */; };
+		4E923D6C2153761E00779268 /* BookMarkItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E923D692153761D00779268 /* BookMarkItemView.m */; };
+		4E923D712153769700779268 /* DentistFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E923D6E2153769700779268 /* DentistFilterView.m */; };
+		4E923D722153769700779268 /* DentistPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E923D6F2153769700779268 /* DentistPickerView.m */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -578,6 +582,14 @@
 		4E85DA8D21450F51007C40C3 /* PersonInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonInfo.m; sourceTree = "<group>"; };
 		4E85DA8F21451D3B007C40C3 /* UploadData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadData.h; sourceTree = "<group>"; };
 		4E85DA9021451D3B007C40C3 /* UploadData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadData.m; sourceTree = "<group>"; };
+		4E923D672153761D00779268 /* DownloadsItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadsItemView.m; sourceTree = "<group>"; };
+		4E923D682153761D00779268 /* DownloadsItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadsItemView.h; sourceTree = "<group>"; };
+		4E923D692153761D00779268 /* BookMarkItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookMarkItemView.m; sourceTree = "<group>"; };
+		4E923D6A2153761E00779268 /* BookMarkItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookMarkItemView.h; sourceTree = "<group>"; };
+		4E923D6D2153769600779268 /* DentistFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistFilterView.h; sourceTree = "<group>"; };
+		4E923D6E2153769700779268 /* DentistFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistFilterView.m; sourceTree = "<group>"; };
+		4E923D6F2153769700779268 /* DentistPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistPickerView.m; sourceTree = "<group>"; };
+		4E923D702153769700779268 /* DentistPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistPickerView.h; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -1780,6 +1792,10 @@
 				C5EEA91DC1E4106A405760DA /* NSDate+myextend.h */,
 				C5EEA91D5A1E6B3A8A6AB23A /* NSDictionary+myextend.m */,
 				C5EEACAF5C76583BF58E8085 /* NSDictionary+myextend.h */,
+				4E923D6D2153769600779268 /* DentistFilterView.h */,
+				4E923D6E2153769700779268 /* DentistFilterView.m */,
+				4E923D702153769700779268 /* DentistPickerView.h */,
+				4E923D6F2153769700779268 /* DentistPickerView.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -1935,6 +1951,10 @@
 				C5EEAB7FF5BB436A30C7D2D9 /* CmsForYouPage.h */,
 				C5EEAC298A4794820C13E2D5 /* ArticleItemView.m */,
 				C5EEAF59E1948B5A692BBE6A /* ArticleItemView.h */,
+				4E923D6A2153761E00779268 /* BookMarkItemView.h */,
+				4E923D692153761D00779268 /* BookMarkItemView.m */,
+				4E923D682153761D00779268 /* DownloadsItemView.h */,
+				4E923D672153761D00779268 /* DownloadsItemView.m */,
 			);
 			path = cms;
 			sourceTree = "<group>";
@@ -2406,6 +2426,7 @@
 				C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */,
 				4E23E6CD214B99DA00D61C90 /* DenCamera.m in Sources */,
 				4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */,
+				4E923D722153769700779268 /* DentistPickerView.m in Sources */,
 				4E85DA8E21450F51007C40C3 /* PersonInfo.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
@@ -2446,12 +2467,14 @@
 				4E2351A2213A76ED003BA59B /* UISearchBar+style.m in Sources */,
 				4E846F92213FFEB300DC2B51 /* EditWriteTableViewCell.m in Sources */,
 				4E1957412137D0F100420563 /* PermissionFullProfileFields.m in Sources */,
+				4E923D6B2153761E00779268 /* DownloadsItemView.m in Sources */,
 				4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */,
 				4E23522D213D12CB003BA59B /* UpdateTableViewCell.m in Sources */,
 				C5EEA2763E400C04C2570656 /* Http.m in Sources */,
 				C5EEA409953B93D9D6261C83 /* Async.m in Sources */,
 				C5EEA2F9830CC5E8FD47394F /* HttpResult.m in Sources */,
 				C5EEA57BF745D8F5F4562664 /* NSData+myextend.m in Sources */,
+				4E923D712153769700779268 /* DentistFilterView.m in Sources */,
 				C5EEAB5755227C042888D693 /* Json.m in Sources */,
 				4EE025502151F59400BBD290 /* PlayerView.m in Sources */,
 				E11E1EDBB2AFC925F1DEBFB2 /* BaseNavController.m in Sources */,
@@ -2500,6 +2523,7 @@
 				C5EEA3BF2E6ADEBCD49244FB /* LineTableCell.m in Sources */,
 				C5EEA99D93B0E72671A097C2 /* TitleMsgArrowView.m in Sources */,
 				C5EEAB669DB328611B63F777 /* TitleEditView.m in Sources */,
+				4E923D6C2153761E00779268 /* BookMarkItemView.m in Sources */,
 				C5EEAC42C838DDD8928A5017 /* IconTitleMsgDetailCell.m in Sources */,
 				C5EEA6D4E3D99C517A1F11F1 /* EditUserView.m in Sources */,
 				C5EEA1C6749DC002B0822BA4 /* UserCell.m in Sources */,
@@ -2664,9 +2688,9 @@
 			baseConfigurationReference = 68B426216C681447B0595866 /* Pods-dentist.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6Q9M9K233P;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = HPA69P8D2K;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -2689,8 +2713,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "3646d598-fcde-437f-b9d6-ab7d17f5de94";
+				PROVISIONING_PROFILE_SPECIFIER = adhoc_profile;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${PROJECT_DIR}/../Pods\"/**",
@@ -2712,9 +2736,9 @@
 			baseConfigurationReference = AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6Q9M9K233P;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = HPA69P8D2K;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -2737,8 +2761,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "3646d598-fcde-437f-b9d6-ab7d17f5de94";
+				PROVISIONING_PROFILE_SPECIFIER = adhoc_profile;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${PROJECT_DIR}/../Pods\"/**",

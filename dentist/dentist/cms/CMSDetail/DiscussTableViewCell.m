@@ -37,9 +37,9 @@
         finLabel.text = @"Finished the content?";
         [[[[finLabel.layoutMaker toRightOf:headerImg offset:10] topParent:edge] sizeEq:70 h:20] install];
         
-        star = [[XHStarRateView alloc] initWithFrame:CGRectMake(180, 15, 100, 30)];
+        star = [[XHStarRateView alloc] initWithFrame:CGRectMake(180, 15, 100, 16)];
         star.isAnimation = YES;
-        star.rateStyle = IncompleteStar;
+        star.rateStyle = WholeStar;
         star.tag = 4;
         [self addSubview:star];
         
@@ -66,7 +66,7 @@
     finLabel.text = disInfo.name;
     CGSize size = [finLabel sizeThatFits:CGSizeMake(1000, 20)];
     [[finLabel.layoutUpdate sizeEq:size.width h:20] install];
-    star.frame = CGRectMake(size.width + 85, edge-5, 140, 30);
+    star.frame = CGRectMake(size.width + 85, edge+2, 90, 16);
     reviewLabel.text = disInfo.disDate;
     conLabel.text = disInfo.content;
 }

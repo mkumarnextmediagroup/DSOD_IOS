@@ -205,6 +205,7 @@
 	phoneView = [TitleEditView new];
 	phoneView.label.text = @"Mobile number";
 	phoneView.edit.delegate = self;
+	[phoneView.edit keyboardPhone];
 	[phoneView.edit returnDone];
 	[self.contentView addSubview:phoneView];
 	[self addGrayLine:0 marginRight:0];
@@ -285,7 +286,7 @@
 			IconTitleMsgDetailCell *v = eduViews[(NSUInteger) i];
 			v.titleLabel.text = edu.schoolName;
 			v.msgLabel.text = edu.major;
-			if([v.msgLabel.text isEqualToString:@"-"]) {
+			if ([v.msgLabel.text isEqualToString:@"-"]) {
 				v.msgLabel.text = @"";
 			}
 			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
@@ -388,6 +389,18 @@
 	return (float) count / countParent;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	if (textField == phoneView.edit) {
+		NSInteger newLen = textField.text.length + string.length - range.length;
+		if (newLen > 10) {
+			return NO;
+		}
+	}
+
+
+	return YES;
+}
+
 
 - (void)selectText:(NSString *)title value:(NSString *)value array:(NSArray *)array result:(void (^)(NSString *))result {
 	SearchPage *c = [SearchPage new];
@@ -451,9 +464,9 @@
 	Log(@"Add Exp: ", @(e.useDSO), e.pracName, e.dsoName);
 	NSMutableArray *a = [NSMutableArray arrayWithArray:userInfo.experienceArray];
 
-	if(a.count > 0){
-		Experience * e = a[0];
-		if(e.praticeTypeId == nil || e.praticeTypeId.length == 0) {
+	if (a.count > 0) {
+		Experience *e = a[0];
+		if (e.praticeTypeId == nil || e.praticeTypeId.length == 0) {
 			[a removeObjectAtIndex:0];
 		}
 	}
@@ -525,9 +538,9 @@
 - (void)addResidency:(Residency *)r {
 	NSMutableArray *ar = [NSMutableArray arrayWithArray:userInfo.residencyArray];
 
-	if(ar.count > 0){
-		Residency * e = ar[0];
-		if(e.schoolId == nil || e.schoolId.length == 0) {
+	if (ar.count > 0) {
+		Residency *e = ar[0];
+		if (e.schoolId == nil || e.schoolId.length == 0) {
 			[ar removeObjectAtIndex:0];
 		}
 	}
@@ -543,9 +556,9 @@
 
 - (void)addEducation:(Education *)e {
 	NSMutableArray *ar = [NSMutableArray arrayWithArray:userInfo.educationArray];
-	if(ar.count > 0){
-		Education * e = ar[0];
-		if(e.schoolId == nil || e.schoolId.length == 0) {
+	if (ar.count > 0) {
+		Education *e = ar[0];
+		if (e.schoolId == nil || e.schoolId.length == 0) {
 			[ar removeObjectAtIndex:0];
 		}
 	}
@@ -647,7 +660,7 @@
 
 	NSDictionary *d = @{
 			@"full_name": nameView.edit.textTrimed,
-            @"email":getLastAccount(),
+			@"email": getLastAccount(),
 			@"contact_email": emailView.edit.textTrimed,
 			@"phone": phoneView.edit.textTrimed,
 			@"is_student": userInfo.isStudent ? @"1" : @"0",

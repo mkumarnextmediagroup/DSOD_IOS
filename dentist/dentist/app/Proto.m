@@ -111,23 +111,6 @@
 	return a;
 }
 
-+ (NSArray *)listResidency {
-	return @[
-			@"Creighton University School of Dentistry",
-			@"Howard University College of Dentistry",
-			@"Indiana University School of Dentistry",
-			@"LECOM College of Dental Medicine",
-			@"Marquette University School of Dentistry",
-			@"Meharry Medical College School of Dentistry",
-			@"Missouri School of Dentistry and Oral Health",
-			@"New York University College of Dentistry",
-			@"Ohio State University College of Dentistry",
-			@"Rutgers School of Dental Medicine",
-			@"Texas A&M University College of Dentistry",
-			@"University of Kentucky College of Dentistry",
-	];
-}
-
 + (NSArray *)shortStates {
 	return @[
 			@"AL",
@@ -235,46 +218,6 @@
 			@"West Virginia",
 			@"Wisconsin",
 			@"Wyoming",
-	];
-}
-
-+ (NSArray *)listDentalNames {
-	return @[
-			@"Allied Dental",
-			@"American Dental Partners",
-			@"Aspen Dental Practice",
-			@"Birner Dental",
-			@"Dental Care Alliance",
-			@"DentalOne Partners",
-			@"Dental Practice Solutions",
-			@"Great Expressions Dental",
-			@"Heartland Dental Care",
-			@"InterDent",
-			@"Katsur Management Group",
-			@"MB2  Dental Solutions",
-	];
-}
-
-
-+ (NSArray *)listRoleAtPractice {
-	return @[
-			@"Owner Dentist",
-			@"Associate Dentist",
-			@"Dental Hygienist",
-			@"Dental Assistant",
-			@"Treatment Coordinator",
-			@"Office Staff / Nonclinical",
-	];
-}
-
-+ (NSArray *)listPracticeType {
-	return @[
-			@"Solo Practice",
-			@"Small Group Practice - Affiliated",
-			@"Small Group Practice - Unaffiliated",
-			@"Large Group Practice - Affiliated",
-			@"Large Group Practice - Unaffiliated",
-			@"Nonprofit"
 	];
 }
 
@@ -516,8 +459,8 @@
 }
 
 
-+ (NSArray<IdName *> *)queryPracticeTypes:(NSString *)name {
-	HttpResult *r = [self post2:@"experience/findAllPracticeType" dic:@{@"name": name}];
++ (NSArray<IdName *> *)queryPracticeTypes {
+	HttpResult *r = [self post2:@"experience/findAllPracticeType" dic:@{@"name": @""}];
 
 	NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
 	if (r.OK) {

@@ -252,9 +252,9 @@
 				v.imageView.imageName = @"exp";
 			}
 			v.titleLabel.text = r.praticeType;
-			v.msgLabel.text = r.dentalName;
+			v.msgLabel.text = r.dsoName;
 			v.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
-			if (r.dentalName == nil || r.dentalName.length == 0) {
+			if (r.praticeTypeId == nil || r.praticeTypeId.length == 0) {
 				v.imageView.imageName = @"exp";
 				[v showEmpty:@"No experience added yet."];
 			} else {
@@ -339,7 +339,7 @@
 	if (userInfo.experienceArray != nil && userInfo.experienceArray.count > 0) {
 		if (userInfo.experienceArray.count == 1) {
 			Experience *r = userInfo.experienceArray[0];
-			if (r.dentalName != nil && r.dentalName.length > 0) {
+			if (r.praticeTypeId != nil && r.praticeTypeId.length > 0) {
 				count = count + 1;
 			}
 		} else {
@@ -417,14 +417,15 @@
 	int n = sender.argN;
 	Experience *r = userInfo.experienceArray[n];
 	EditExperiencePage *p = [EditExperiencePage new];
-	p.isAdd = r.dentalName == nil || r.dentalName.length == 0;
+	p.isAdd = r.praticeTypeId == nil || r.praticeTypeId.length == 0;
 	p.exp = r;
 	p.userInfo = userInfo;
 	p.deleteCallback = ^(Experience *ex) {
 		[self deleteExp:ex];
 	};
 	p.saveCallback = ^(Experience *ex) {
-		[self saveExp:ex];
+		[self buildViews];
+		[self bindData];
 	};
 
 	[self pushPage:p];
@@ -672,6 +673,28 @@
 		}
 	}
 
+	if (userInfo.experienceArray.count > 0) {
+		NSMutableArray *arr = [NSMutableArray arrayWithCapacity:8];
+		md[@"experiences"] = arr;
+		for (Experience *ex in userInfo.experienceArray) {
+			if (ex.praticeTypeId != nil && ex.praticeTypeId.length > 0) {
+				NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:8];
+				[arr addObject:d];
+				d[@"start_time"] = [[NSDate dateBy:ex.fromYear month:ex.fromMonth day:0] format:DATE_FORMAT];
+				d[@"end_time"] = [[NSDate dateBy:ex.toYear month:ex.toMonth day:0] format:DATE_FORMAT];
+				if (ex.useDSO) {
+					d[@"practice_DSO"] = @{@"id": ex.dsoId};
+					d[@"practice_name"] = @"";
+				} else {
+					d[@"practice_DSO"] = nil;
+					d[@"practice_name"] = ex.dsoName;
+				}
+				d[@"practice_Role"] = @{@"id": ex.roleAtPraticeId};
+				d[@"practice_Type"] = @{@"id": ex.praticeTypeId};
+			}
+		}
+	}
+
 
 	backTask(^() {
 		[Proto saveProfileInfo:md];
@@ -808,7 +831,6 @@
 - (void)uploadHeaderImage:(NSString *)url {
 	backTask(^() {
 		uploadPortraitResult = [Proto uploadHeaderImage:url];
-		NSLog(@"======%@", uploadPortraitResult);
 	});
 
 }

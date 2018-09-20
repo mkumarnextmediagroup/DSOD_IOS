@@ -99,8 +99,10 @@
 	userCell.linkedinView.hidden = !userInfo.isLinkedin;
 	[self.contentView addSubview:userCell];
 
-	[self addGroupTitle:@"Experience"];
 	if (!userInfo.isStudent) {
+        
+        [self addGroupTitle:@"Experience"];
+        
 		if (userInfo.experienceArray == nil || userInfo.experienceArray.count == 0) {
 			userInfo.experienceArray = @[[Experience new]];
 		}

@@ -689,7 +689,7 @@
 				d[@"email"] = [Proto lastAccount];
 				d[@"start_time"] = [[NSDate dateBy:edu.fromYear month:edu.fromMonth day:0] format:DATE_FORMAT];
 				d[@"end_time"] = [[NSDate dateBy:edu.toYear month:edu.toMonth day:0] format:DATE_FORMAT];
-				d[@"major"] = @"";
+				d[@"major"] = @"-";
 			}
 		}
 	}

@@ -190,8 +190,8 @@
 
 - (void)selectPracTypes:(NSArray *)ls {
 	[self selectIdName:@"PRACTICE TYPE" array:ls selectedId:typeId result:^(IdName *item) {
-		typeId = item.id;
-		typeName = item.name;
+        self->typeId = item.id;
+        self->typeName = item.name;
 		[self buildView];
 	}];
 }
@@ -212,8 +212,8 @@
 
 - (void)selectRoles:(NSArray *)ls {
 	[self selectIdName:@"ROLE AT PRACTICE" array:ls selectedId:roleId result:^(IdName *item) {
-		roleId = item.id;
-		roleName = item.name;
+        self->roleId = item.id;
+        self->roleName = item.name;
 		[self bindData];
 	}];
 }
@@ -231,8 +231,8 @@
 
 - (void)selectDSO:(NSArray *)ls {
 	[self selectIdName:@"NAME OF DSO" array:ls selectedId:nil result:^(IdName *item) {
-		dsoId = item.id;
-		dsoName = item.name;
+        self->dsoId = item.id;
+        self->dsoName = item.name;
 		[self bindData];
 	}];
 }
@@ -379,14 +379,15 @@
 	self.exp.workInThisRole = currentWorking;
 
 	if (currentWorking) {
-		self.exp.toYear = [[NSDate date] year] + 100;
-	} else {
-		self.exp.toYear = [[NSDate date] year];
+		toYear = [[NSDate date] year] + 100;
+	}
+    if (!currentWorking && (toYear == [[NSDate date] year] + 100)){
+		toYear = [[NSDate date] year];
 	}
 	self.exp.fromMonth = fromMonth;
 	self.exp.fromYear = fromYear;
 	self.exp.toMonth = toMonth;
-
+    self.exp.toYear = toYear;
 	if (self.saveCallback) {
 		self.saveCallback(self.exp);
 	}

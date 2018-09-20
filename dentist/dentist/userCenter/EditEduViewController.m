@@ -77,6 +77,11 @@
 - (void)buildViews {
 	[self.contentView removeAllChildren];
 
+	switchView = nil;
+	schoolSelectView = nil;
+	schoolEditView = nil;
+	fromToView = nil;
+
 	switchView = [TitleSwitchView new];
 	switchView.titleLabel.text = @"Attended Dental School in the US";
 	[self.contentView addSubview:switchView];

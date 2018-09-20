@@ -41,7 +41,6 @@
 
 	BOOL currentWorking;
 
-	BOOL isShowDSO;
 	FromToView *fromToView;
 	TitleSwitchView *switchView;
 	TitleMsgArrowView *typeView;
@@ -94,14 +93,13 @@
 - (void)buildView {
 
 	[self.contentView removeAllChildren];
-
+	fromToView = nil;
+	switchView = nil;
+	typeView = nil;
+	roleView = nil;
 	dsoView = nil;
 	dentalEditView = nil;
 
-	isShowDSO = NO;
-	if (typeName != nil) {
-		isShowDSO = [typeName hasSuffix:AFFILIATED];
-	}
 
 	typeView = [TitleMsgArrowView new];
 	typeView.titleLabel.text = @"Practice Type";
@@ -145,6 +143,7 @@
 			dentalEditView.label.text = @"Name of Practice";
 			dentalEditView.edit.delegate = self;
 			[dentalEditView.edit returnDone];
+			dentalEditView.edit.text = pracName;
 			[self.contentView addSubview:dentalEditView];
 			[self addGrayLine:0 marginRight:0];
 		}
@@ -297,7 +296,8 @@
 		} else {
 			dsoView.msgLabel.text = dsoName;
 		}
-	} else {
+	}
+	if (dentalEditView) {
 		dentalEditView.edit.text = pracName;
 	}
 
@@ -362,9 +362,8 @@
 
 	if (dentalEditView) {
 		pracName = dentalEditView.edit.textTrimed;
-	} else {
-		pracName = @"";
 	}
+
 
 	self.exp.praticeTypeId = typeId;
 	self.exp.praticeType = typeName;

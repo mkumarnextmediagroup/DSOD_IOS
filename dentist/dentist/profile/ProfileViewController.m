@@ -118,10 +118,10 @@
 					expView.imageView.imageName = @"exp";
 				}
 				expView.titleLabel.text = exp.praticeType;
-				if (exp.dsoId == nil || exp.dsoId.length == 0) {
-					expView.msgLabel.text = exp.pracName;
-				} else {
+				if (exp.useDSO) {
 					expView.msgLabel.text = exp.dsoName;
+				} else {
+					expView.msgLabel.text = exp.pracName;
 				}
 
 				expView.detailLabel.text = strBuild(exp.dateFrom, @"-", exp.dateTo);

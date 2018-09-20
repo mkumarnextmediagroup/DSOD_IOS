@@ -752,16 +752,21 @@
 
 	[self showIndicator];
 	backTask(^() {
-		[self hideIndicator];
 		HttpResult *saveInfo = [Proto saveProfileInfo:md];
-		if (saveInfo.OK) {
-			[self alertMsg:@"Saved successfully" onOK:^() {
-				[self popPage];
-			}];
-		} else {
-			[self alertMsg:saveInfo.msg onOK:^() {
-			}];
-		}
+		foreTask(^() {
+			if (saveInfo.OK) {
+				[self alertMsg:@"Saved successfully" onOK:^() {
+					[self popPage];
+				}];
+			} else if (saveInfo.error.code == -1001) {
+				[self alertMsg:@"Failed, please try again." onOK:^() {
+				}];
+			} else {
+				[self alertMsg:saveInfo.msg onOK:^() {
+				}];
+			}
+			[self hideIndicator];
+		});
 	});
 }
 
@@ -889,8 +894,12 @@
 }
 
 - (void)uploadHeaderImage:(NSString *)url {
+	[self showIndicator];
 	backTask(^() {
 		self->uploadPortraitResult = [Proto uploadHeaderImage:url];
+		foreTask(^(){
+			[self hideIndicator];
+		});
 	});
 
 }

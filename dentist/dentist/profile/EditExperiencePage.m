@@ -36,6 +36,8 @@
 	NSString *dsoName;
 	NSString *dsoId;
 
+	NSString *pracName;
+
 
 	BOOL currentWorking;
 
@@ -76,6 +78,8 @@
 	dsoId = self.exp.dsoId;
 	dsoName = self.exp.dsoName;
 
+	pracName = self.exp.pracName;
+
 	currentWorking = self.exp.workInThisRole;
 
 	fromMonth = self.exp.fromMonth;
@@ -90,6 +94,9 @@
 - (void)buildView {
 
 	[self.contentView removeAllChildren];
+
+	dsoView = nil;
+	dentalEditView = nil;
 
 	isShowDSO = NO;
 	if (typeName != nil) {
@@ -291,7 +298,7 @@
 			dsoView.msgLabel.text = dsoName;
 		}
 	} else {
-		dentalEditView.edit.text = dsoName;
+		dentalEditView.edit.text = pracName;
 	}
 
 
@@ -353,8 +360,10 @@
 
 - (void)clickSave:(UIButton *)btn {
 
-	if (typeName != nil && ![typeName hasSuffix:AFFILIATED]) {
-		dsoName = dentalEditView.edit.text;
+	if (dentalEditView) {
+		pracName = dentalEditView.edit.textTrimed;
+	} else {
+		pracName = @"";
 	}
 
 	self.exp.praticeTypeId = typeId;
@@ -365,6 +374,8 @@
 
 	self.exp.dsoName = dsoName;
 	self.exp.dsoId = dsoId;
+
+	self.exp.pracName = pracName;
 
 	self.exp.workInThisRole = currentWorking;
 

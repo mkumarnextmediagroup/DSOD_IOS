@@ -6,6 +6,7 @@
 #import "UserInfo.h"
 #import "Common.h"
 #import "IdName.h"
+#import "NSDate+myextend.h"
 
 
 @implementation UserInfo {
@@ -40,7 +41,28 @@
 		_practiceAddress.stateLabel = [d strValue:@"states"];
 		_practiceAddress.zipCode = [d strValue:@"zipCode"];
 	}
+	self.residencyArray = [NSMutableArray arrayWithCapacity:8];
 
+	id arrRes = dic[@"profileResidency"];
+	if (arrRes && arrRes != NSNull.null) {
+		for (NSDictionary *d in arrRes) {
+			Residency *r = [Residency new];
+
+			NSNumber *startTime = d[@"start_time"];
+			NSDate *fromDate = [NSDate dateWithTimeIntervalSince1970:startTime.doubleValue / 1000];
+			r.fromYear = fromDate.year;
+			r.fromMonth = fromDate.month;
+
+			NSNumber *endTime = d[@"end_time"];
+			NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:endTime.doubleValue / 1000];
+			r.toYear = endDate.year;
+			r.toMonth = endDate.month;
+			NSDictionary *ddd = d[@"residency_school"];
+			r.schoolName = ddd[@"name"];
+			r.schoolId = ddd[@"id"];
+			[self.residencyArray addObject:r];
+		}
+	}
 
 }
 

@@ -13,6 +13,6 @@
 @property NSString *name;
 @property NSInteger age;
 
-@property NSArray <Education> *edu;
+@property NSArray *edu;
 
 @end

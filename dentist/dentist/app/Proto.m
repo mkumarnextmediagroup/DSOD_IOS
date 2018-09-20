@@ -433,31 +433,7 @@
 	return nil;
 }
 
-//{
-//	"code": 0,
-//			"msg": "success",
-//			"resultMap": {
-//		"data": [
-//				{
-//						"id": "1",
-//				"zip": "00501",
-//				"lat": null,
-//				"lng": null,
-//				"city": "Holtsville",
-//				"state": "NY",
-//				"zcta": null,
-//				"parent_zcta": null,
-//				"pop": null,
-//				"county_fips": null,
-//				"county_name": null,
-//				"county_weight": null,
-//				"all_county_weights": null,
-//				"imprecise": null,
-//				"military": null
-//				}
-//		]
-//	}
-//}
+
 + (nullable StateCity *)getStateAndCity:(NSString *)zipCode {
 	HttpResult *r = [self post2:@"usZipSv/findAllusZipSvByZip" dic:@{@"zip": zipCode}];
 	if (r.OK) {
@@ -489,26 +465,10 @@
 			}
 		}
 	}
-
-	for (IdName *item in items) {
-		NSLog(@"%@ %@", item.id, item.name);
-	}
 	return items;
 }
 
-//{
-//	"code": 0,
-//			"msg": "success",
-//			"resultMap": {
-//		"data": [
-//						{
-//								"id": "1",
-//						"name": "A.T. Still University Arizona School of Dentistry and Oral Health"
-//						},
-//						{
-//								"id": "2",
-//						"name": "Boston University Goldman School of Dental Medicine"
-//						},
+
 + (NSMutableArray <IdName *> *)queryDentalSchool {
 	HttpResult *r = [self post2:@"dentalSchool/getAll" dic:@{@"name": @""}];
 	NSMutableArray <IdName *> *items = [NSMutableArray arrayWithCapacity:32];
@@ -521,10 +481,6 @@
 				[items addObject:item];
 			}
 		}
-	}
-
-	for (IdName *item in items) {
-		NSLog(@"%d %@", item.id, item.name);
 	}
 	return items;
 }

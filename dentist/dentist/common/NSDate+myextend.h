@@ -12,6 +12,11 @@
 - (NSInteger)month;
 - (NSInteger)day;
 
+-(NSString*) format:(NSString*) pattern;
+
+
++ (NSDate*) dateBy:(NSInteger)year month:(NSInteger) month day:(NSInteger)day;
+
 @end
 
 

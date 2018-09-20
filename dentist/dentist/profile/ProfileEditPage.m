@@ -280,7 +280,7 @@
 			Education *edu = userInfo.educationArray[i];
 			IconTitleMsgDetailCell *v = eduViews[(NSUInteger) i];
 			v.titleLabel.text = edu.schoolName;
-			v.msgLabel.text = edu.certificate;
+			v.msgLabel.text = edu.major;
 			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
 			if (edu.schoolName == nil || edu.schoolName.length == 0) {
 				[v showEmpty:@"No education added yet"];
@@ -556,7 +556,8 @@
 	p.education = education;
 	p.isAdd = NO;
 	p.saveCallback = ^(Education *e) {
-		[self saveEducation:e];
+		[self buildViews];
+		[self bindData];
 	};
 	p.deleteCallback = ^(Education *e) {
 		[self deleteEducation:e];
@@ -646,7 +647,29 @@
 				[arr addObject:d];
 			}
 		}
-
+	}
+	if (userInfo.educationArray.count > 0) {
+		NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+		md[@"educations"] = arr;
+		for (Education *edu in userInfo.educationArray) {
+			if (edu.schoolName && edu.schoolName.length > 0) {
+				NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:8];
+				[arr addObject:d];
+				if (edu.schoolInUS) {
+					d[@"types"] = @"0";
+					d[@"school_name"] = @"";
+					d[@"dental_school"] = @{@"id": edu.schoolId};
+				} else {
+					d[@"types"] = @"1";
+					d[@"school_name"] = edu.schoolName;
+					d[@"dental_school"] = @{@"id": @""};
+				}
+				d[@"email"] = [Proto lastAccount];
+				d[@"start_time"] = [[NSDate dateBy:edu.fromYear month:edu.fromMonth day:0] format:DATE_FORMAT];
+				d[@"end_time"] = [[NSDate dateBy:edu.toYear month:edu.toMonth day:0] format:DATE_FORMAT];
+				d[@"major"] = @"my major";
+			}
+		}
 	}
 
 

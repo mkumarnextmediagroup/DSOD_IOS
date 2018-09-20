@@ -64,6 +64,39 @@
 		}
 	}
 
+	self.educationArray = [NSMutableArray arrayWithCapacity:8];
+	id eduArr = dic[@"educations"];
+	if (eduArr && eduArr != NSNull.null) {
+		for (NSDictionary *d in eduArr) {
+			Education *edu = [Education new];
+			[self.educationArray addObject:edu];
+
+			edu.schoolInUS = [@"0" isEqualToString:d[@"types"]];
+			if (edu.schoolInUS) {
+				edu.schoolId = d[@"dental_school"][@"id"];
+				edu.schoolName = d[@"dental_school"][@"name"];
+
+			} else {
+				edu.schoolId = nil;
+				edu.schoolName = d[@"school_name"];
+			}
+
+			edu.major = d[@"major"];
+
+			NSNumber *startTime = d[@"start_time"];
+			NSDate *fromDate = [NSDate dateWithTimeIntervalSince1970:startTime.doubleValue / 1000];
+			edu.fromYear = fromDate.year;
+			edu.fromMonth = fromDate.month;
+
+			NSNumber *endTime = d[@"end_time"];
+			NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:endTime.doubleValue / 1000];
+			edu.toYear = endDate.year;
+			edu.toMonth = endDate.month;
+
+
+		}
+	}
+
 }
 
 

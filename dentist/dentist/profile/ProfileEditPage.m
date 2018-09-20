@@ -894,9 +894,12 @@
 }
 
 - (void)uploadHeaderImage:(NSString *)url {
-
+	[self showIndicator];
 	backTask(^() {
 		self->uploadPortraitResult = [Proto uploadHeaderImage:url];
+		foreTask(^(){
+			[self hideIndicator];
+		});
 	});
 
 }

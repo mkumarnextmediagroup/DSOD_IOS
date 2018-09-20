@@ -15,9 +15,9 @@
 
 - (instancetype)init {
 	self = [super init];
-    if ([SYSTEMVERSION doubleValue] > 11.0) {
-        self.topOffset = 56;//TEXTFIELD HEIGHT
-    }
+	if ([SYSTEMVERSION doubleValue] > 11.0) {
+		self.topOffset = 56;//TEXTFIELD HEIGHT
+	}
 	self.withGroupLabel = NO;
 	self.withIndexBar = YES;
 	self.titleText = @"Select";
@@ -87,13 +87,12 @@
 }
 
 - (void)onClickItem:(NSObject *)item {
-	NSLog(@"click item %@", item);
 	self.checkedItem = item;
 
-    if (self.onResult != nil) {
-        [self popPage];
-        self.onResult(self.checkedItem);
-    }
+	if (self.onResult != nil) {
+		[self popPage];
+		self.onResult(self.checkedItem);
+	}
 }
 
 @end

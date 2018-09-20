@@ -10,20 +10,17 @@
 #import "Common.h"
 #import "UserInfo.h"
 #import "TitleMsgArrowView.h"
-#import "Experience.h"
 #import "TitleSwitchView.h"
 #import "FromToView.h"
-#import "DatePickerPage.h"
 #import "PickerPage.h"
-#import "SearchPage.h"
 #import "Proto.h"
 #import "TitleEditView.h"
 #import "NSDate+myextend.h"
 #import "IdName.h"
 
 //show "Name of Dental Support Organization (DSO)"
-#define SMALLAFF @"Small Group Practice - Affiliated"
-#define LARGEAFF @"Large Group Practice - Affiliated"
+
+#define AFFILIATED  @"Affiliated"
 
 @implementation EditExperiencePage {
 	NSInteger fromMonth;
@@ -31,23 +28,25 @@
 	NSInteger toMonth;
 	NSInteger toYear;
 
-	NSString *praticeType;
-	NSString *roleAtPratice;
-	NSString *nameOfDental;
-	BOOL workInThisRole;
+	NSString *typeId;
+	NSString *typeName;
+	NSString *roleId;
+	NSString *roleName;
+
+	NSString *dsoName;
+	NSString *dsoId;
+
+
+	BOOL currentWorking;
 
 	BOOL isShowDSO;
-	BOOL showOthers;
 	FromToView *fromToView;
 	TitleSwitchView *switchView;
 	TitleMsgArrowView *typeView;
 	TitleMsgArrowView *roleView;
-	TitleMsgArrowView *dentalView;
+	TitleMsgArrowView *dsoView;
 	TitleEditView *dentalEditView;
 
-	NSArray<IdName *> *pracTypes;
-	NSString* pracId;
-	NSString* pracName;
 }
 
 - (instancetype)init {
@@ -67,10 +66,17 @@
 	item.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
 	item.rightBarButtonItem = [self navBarText:@"Save" target:self action:@selector(clickSave:)];
 
-	praticeType = self.exp.praticeType;
-	roleAtPratice = self.exp.roleAtPratice;
-	nameOfDental = self.exp.dentalName;
-	workInThisRole = self.exp.workInThisRole;
+
+	typeId = self.exp.praticeTypeId;
+	typeName = self.exp.praticeType;
+
+	roleId = self.exp.roleAtPraticeId;
+	roleName = self.exp.roleAtPratice;
+
+	dsoId = self.exp.dsoId;
+	dsoName = self.exp.dsoName;
+
+	currentWorking = self.exp.workInThisRole;
 
 	fromMonth = self.exp.fromMonth;
 	fromYear = self.exp.fromYear;
@@ -79,178 +85,174 @@
 
 	[self buildView];
 
-	pracTypes = nil;
-	backTask(^() {
-		pracTypes = [Proto queryPracticeTypes:@""];
-	});
-
 }
 
 - (void)buildView {
-    
-    [self.contentView removeAllChildren];
-    
-    if ([praticeType isEqualToString:SMALLAFF] || [praticeType isEqualToString:LARGEAFF]) {
-        isShowDSO = YES;
-    }
-    
-    typeView = [TitleMsgArrowView new];
-    typeView.titleLabel.text = @"Practice Type";
-    if (self.isAdd) {
-        typeView.msgLabel.text = @"Select";
-    } else {
-        typeView.msgLabel.text = praticeType;
-    }
-    [typeView onClickView:self action:@selector(clickType:)];
-    [self.contentView addSubview:typeView];
-    [self addGrayLine:0 marginRight:0];
-    
-    
-    roleView = [TitleMsgArrowView new];
-    //    roleView.titleLabel.text = @"Role at Practice";
-    [roleView.titleLabel setTextWithDifColor:@"Role at Practice *"];
-    if (self.isAdd) {
-        roleView.msgLabel.text = @"Select";
-    } else {
-        roleView.msgLabel.text = roleAtPratice;
-    }
-    [roleView onClickView:self action:@selector(clickRole:)];
-    [self.contentView addSubview:roleView];
-    [self addGrayLine:0 marginRight:0];
-    [self bindData];
-    
-    if (![typeView.msgLabel.text isEqualToString:@"Select"]) {
-        
-        if (isShowDSO) {
-            dentalView = [TitleMsgArrowView new];
-            //    dentalView.titleLabel.text = @"Name of Dental Support Organization (DSO)";
-            [dentalView.titleLabel setTextWithDifColor:@"Name of Dental Support Organization (DSO) *"];
-            if (self.isAdd) {
-                dentalView.msgLabel.text = @"Select";
-            } else {
-                dentalView.msgLabel.text = nameOfDental;
-            }
-            [dentalView onClickView:self action:@selector(clickDental:)];
-            [self.contentView addSubview:dentalView];
-            [self addGrayLine:0 marginRight:0];
-        }else
-        {
-            dentalEditView = [TitleEditView new];
-            dentalEditView.label.text = @"Name of Practice";
-            dentalEditView.edit.delegate = self;
-            [dentalEditView.edit returnDone];
-            [self.contentView addSubview:dentalEditView];
-            [self addGrayLine:0 marginRight:0];
-        }
-        
-        
-        switchView = [TitleSwitchView new];
-        switchView.titleLabel.text = @"I currently work in this role";
-        if (self.isAdd) {
-            showOthers = NO;
-            switchView.switchView.on = NO;
-        } else {
-            showOthers = workInThisRole;
-            switchView.switchView.on = workInThisRole;
-            if (workInThisRole) {
-                toYear = [[NSDate date] year];
-            }
-        }
-        [switchView.switchView addTarget:self action:@selector(onSwitchChanged:) forControlEvents:UIControlEventValueChanged];
-        [self.contentView addSubview:switchView];
-        [self addGrayLine:0 marginRight:0];
-        
-        
-        fromToView = [FromToView new];
-        [self.contentView addSubview:fromToView];
-        [fromToView.fromDateLabel onClickView:self action:@selector(clickFromDate:)];
-        [fromToView.toDateLabel onClickView:self action:@selector(clickToDate:)];
-        
-        
-        UIButton *btn = self.view.addSmallButton;
-        if (self.isAdd) {
-            [btn title:@"Cancel"];
-            [btn onClick:self action:@selector(clickCancel:)];
-            [[[[[btn.layoutMaker centerXParent:0] bottomParent:-47] heightButton] widthEq:64] install];
-        } else {
-            [btn title:@"Delete Experience"];
-            [btn onClick:self action:@selector(clickDelete:)];
-            [[[[[btn.layoutMaker centerXParent:0] bottomParent:-47] heightButton] widthEq:160] install];
-        }
-        
-    }
-    [self layoutLinearVertical];
-    [self bindData];
 
+	[self.contentView removeAllChildren];
+
+	isShowDSO = NO;
+	if (typeName != nil) {
+		isShowDSO = [typeName hasSuffix:AFFILIATED];
+	}
+
+	typeView = [TitleMsgArrowView new];
+	typeView.titleLabel.text = @"Practice Type";
+	if (self.isAdd) {
+		typeView.msgLabel.text = @"Select";
+	} else {
+		typeView.msgLabel.text = typeName;
+	}
+	[typeView onClickView:self action:@selector(clickType:)];
+	[self.contentView addSubview:typeView];
+	[self addGrayLine:0 marginRight:0];
+
+
+	roleView = [TitleMsgArrowView new];
+	//    roleView.titleLabel.text = @"Role at Practice";
+	[roleView.titleLabel setTextWithDifColor:@"Role at Practice *"];
+	if (self.isAdd) {
+		roleView.msgLabel.text = @"Select";
+	} else {
+		roleView.msgLabel.text = roleName;
+	}
+	[roleView onClickView:self action:@selector(clickRole:)];
+	[self.contentView addSubview:roleView];
+	[self addGrayLine:0 marginRight:0];
+
+	if (typeId && typeId.length > 0) {
+		if (typeName != nil && [typeName hasSuffix:AFFILIATED]) {
+			dsoView = [TitleMsgArrowView new];
+			//    dentalView.titleLabel.text = @"Name of Dental Support Organization (DSO)";
+			[dsoView.titleLabel setTextWithDifColor:@"Name of Dental Support Organization (DSO) *"];
+			if (self.isAdd) {
+				dsoView.msgLabel.text = @"Select";
+			} else {
+				dsoView.msgLabel.text = dsoName;
+			}
+			[dsoView onClickView:self action:@selector(clickDental:)];
+			[self.contentView addSubview:dsoView];
+			[self addGrayLine:0 marginRight:0];
+		} else {
+			dentalEditView = [TitleEditView new];
+			dentalEditView.label.text = @"Name of Practice";
+			dentalEditView.edit.delegate = self;
+			[dentalEditView.edit returnDone];
+			[self.contentView addSubview:dentalEditView];
+			[self addGrayLine:0 marginRight:0];
+		}
+
+
+		switchView = [TitleSwitchView new];
+		switchView.titleLabel.text = @"I currently work in this role";
+		if (self.isAdd) {
+			switchView.switchView.on = NO;
+		} else {
+			switchView.switchView.on = currentWorking;
+			if (currentWorking) {
+				toYear = [[NSDate date] year];
+				toMonth = [[NSDate date] month];
+			}
+		}
+		[switchView.switchView addTarget:self action:@selector(onSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+		[self.contentView addSubview:switchView];
+		[self addGrayLine:0 marginRight:0];
+
+
+		fromToView = [FromToView new];
+		[self.contentView addSubview:fromToView];
+		[fromToView.fromDateLabel onClickView:self action:@selector(clickFromDate:)];
+		[fromToView.toDateLabel onClickView:self action:@selector(clickToDate:)];
+
+
+		UIButton *btn = self.view.addSmallButton;
+		if (self.isAdd) {
+			[btn title:@"Cancel"];
+			[btn onClick:self action:@selector(clickCancel:)];
+			[[[[[btn.layoutMaker centerXParent:0] bottomParent:-47] heightButton] widthEq:64] install];
+		} else {
+			[btn title:@"Delete Experience"];
+			[btn onClick:self action:@selector(clickDelete:)];
+			[[[[[btn.layoutMaker centerXParent:0] bottomParent:-47] heightButton] widthEq:160] install];
+		}
+
+	}
+	[self layoutLinearVertical];
+	[self bindData];
+
+}
+
+- (void)selectPracTypes:(NSArray *)ls {
+	[self selectIdName:@"PRACTICE TYPE" array:ls selectedId:typeId result:^(IdName *item) {
+		typeId = item.id;
+		typeName = item.name;
+		[self buildView];
+	}];
 }
 
 //click Practice Type and select back
 - (void)clickType:(id)sender {
-	SearchPage *p = [SearchPage new];
-//	p.checkedItem = praticeType;
-	p.titleText = @"PRACTICE TYPE";
-	[p setItemsPlain:pracTypes displayBlock:^(NSObject *item) {
-		IdName *a = item;
-		return a.name;
-	}];
+	[self showIndicator];
+	backTask(^() {
+		NSArray *array = [Proto queryPracticeTypes];
+		foreTask(^() {
+			[self hideIndicator];
+			[self selectPracTypes:array];
+		});
+	});
 
-	p.onResult = ^(NSObject *item) {
-		IdName *idName = (id) item;
-		self->praticeType = idName.id;
-		if ([self->praticeType isEqualToString:SMALLAFF] || [self->praticeType isEqualToString:LARGEAFF]) {
-			self->isShowDSO = YES;
-		} else {
-			self->isShowDSO = NO;
-		}
-		[self buildView];
-	};
-	[self pushPage:p];
+}
+
+
+- (void)selectRoles:(NSArray *)ls {
+	[self selectIdName:@"ROLE AT PRACTICE" array:ls selectedId:roleId result:^(IdName *item) {
+		roleId = item.id;
+		roleName = item.name;
+		[self bindData];
+	}];
 }
 
 - (void)clickRole:(id)sender {
-	SearchPage *p = [SearchPage new];
-	p.checkedItem = roleAtPratice;
-	p.titleText = @"ROLE AT PRACTICE";
-	NSArray *ls = [Proto listRoleAtPractice];
-	[p setItemsPlain:ls displayBlock:nil];
+	[self showIndicator];
+	backTask(^() {
+		NSArray *array = [Proto queryPracticeRoles:@""];
+		foreTask(^() {
+			[self hideIndicator];
+			[self selectRoles:array];
+		});
+	});
+}
 
-	p.onResult = ^(NSObject *item) {
-		self->roleAtPratice = (NSString *) item;
+- (void)selectDSO:(NSArray *)ls {
+	[self selectIdName:@"NAME OF DSO" array:ls selectedId:nil result:^(IdName *item) {
+		dsoId = item.id;
+		dsoName = item.name;
 		[self bindData];
-	};
-	[self pushPage:p];
+	}];
 }
 
 - (void)clickDental:(id)sender {
-	SearchPage *p = [SearchPage new];
-	p.checkedItem = nameOfDental;
-	p.titleText = @"NAME OF DSO";
-	NSArray *ls = [Proto listDentalNames];
-	[p setItemsPlain:ls displayBlock:nil];
-
-	p.onResult = ^(NSObject *item) {
-		self->nameOfDental = (NSString *) item;
-		[self bindData];
-	};
-	[self pushPage:p];
+	[self showIndicator];
+	backTask(^() {
+		NSArray *array = [Proto queryPracticeDSO:@""];
+		foreTask(^() {
+			[self hideIndicator];
+			[self selectDSO:array];
+		});
+	});
 }
 
 - (void)onSwitchChanged:(id)sender {
-	workInThisRole = switchView.switchView.on;
-    if (workInThisRole) {
-        fromToView.toDateLabel.text = @"Present";
-        showOthers = YES;
-        fromToView.toDateLabel.userInteractionEnabled = NO;
-        
-    
-        self->toMonth =[[NSDate date] month];
-        self->toYear = [[NSDate date] year];
-        
-    }else{
-        fromToView.toDateLabel.userInteractionEnabled = YES;
-        showOthers = NO;
-        [self bindData];
-    }
+	currentWorking = switchView.switchView.on;
+	if (currentWorking) {
+		fromToView.toDateLabel.text = @"Present";
+		fromToView.toDateLabel.userInteractionEnabled = NO;
+		self->toMonth = [[NSDate date] month];
+		self->toYear = [[NSDate date] year];
+	} else {
+		fromToView.toDateLabel.userInteractionEnabled = YES;
+	}
+	[self bindData];
 }
 
 - (void)bindData {
@@ -259,33 +261,37 @@
 	} else {
 		fromToView.fromDateLabel.text = @"Select";
 	}
-	if (toMonth > 0 && toYear > 0 && !workInThisRole) {
-		fromToView.toDateLabel.text = strBuild(nameOfMonth(toMonth), @" ", [@(toYear) description]);
-	} else if (workInThisRole) {
-		fromToView.toDateLabel.text = @"Present";
 
+	fromToView.toDateLabel.userInteractionEnabled = !currentWorking;
+	if (currentWorking) {
+		fromToView.toDateLabel.text = @"Present";
 	} else {
-		fromToView.toDateLabel.text = @"Select";
+		if (toMonth > 0 && toYear > 0) {
+			fromToView.toDateLabel.text = strBuild(nameOfMonth(toMonth), @" ", [@(toYear) description]);
+		} else {
+			fromToView.toDateLabel.text = @"Select";
+		}
 	}
-	if (praticeType == nil || praticeType.length == 0) {
+
+	if (typeName == nil || typeName.length == 0) {
 		typeView.msgLabel.text = @"Select";
 	} else {
-		typeView.msgLabel.text = praticeType;
+		typeView.msgLabel.text = typeName;
 	}
-	if (roleAtPratice == nil || roleAtPratice.length == 0) {
+	if (roleName == nil || roleName.length == 0) {
 		roleView.msgLabel.text = @"Select";
 	} else {
-		roleView.msgLabel.text = roleAtPratice;
+		roleView.msgLabel.text = roleName;
 	}
 
-	if (dentalView != nil) {
-		if (nameOfDental == nil || nameOfDental.length == 0) {
-			dentalView.msgLabel.text = @"Select";
+	if (dsoView != nil) {
+		if (dsoName == nil || dsoName.length == 0) {
+			dsoView.msgLabel.text = @"Select";
 		} else {
-			dentalView.msgLabel.text = nameOfDental;
+			dsoView.msgLabel.text = dsoName;
 		}
 	} else {
-		dentalEditView.edit.text = nameOfDental;
+		dentalEditView.edit.text = dsoName;
 	}
 
 
@@ -346,48 +352,27 @@
 }
 
 - (void)clickSave:(UIButton *)btn {
-	NSLog(@"save");
-    
-    if (fromYear>toYear) {
-        [self alertMsg:@"Date wrong" onOK:^() {
-            
-        }];
-        return ;
-    }else if(fromYear==toYear){
-        if(fromMonth>toMonth){
-            [self alertMsg:@"Date wrong" onOK:^() {
-                
-            }];
-            return ;
-        }
-    }
-    
-    
-    if (fromYear > toYear || (fromYear == toYear && fromMonth > toMonth)) {
-        [self Den_showAlertWithTitle:localStr(@"notice") message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
-            alertMaker.
-            addActionDefaultTitle(@"OK");
-        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
-            if ([action.title isEqualToString:@"Yes"]) {
-                [self popPage];
-            }
-        }];
-    }
-    
-    if (!isShowDSO) {
-        nameOfDental = dentalEditView.edit.text;
-    }
-	self.exp.dentalName = nameOfDental;
-	self.exp.roleAtPratice = roleAtPratice;
-	self.exp.workInThisRole = workInThisRole;
-	self.exp.praticeType = praticeType;
 
-    if (showOthers) {
-        self.exp.toYear = 9999;
-    }else
-    {
-        self.exp.toYear = [[NSDate date] year];
-    }
+	if (typeName != nil && ![typeName hasSuffix:AFFILIATED]) {
+		dsoName = dentalEditView.edit.text;
+	}
+
+	self.exp.praticeTypeId = typeId;
+	self.exp.praticeType = typeName;
+
+	self.exp.roleAtPratice = roleName;
+	self.exp.roleAtPraticeId = roleId;
+
+	self.exp.dsoName = dsoName;
+	self.exp.dsoId = dsoId;
+
+	self.exp.workInThisRole = currentWorking;
+
+	if (currentWorking) {
+		self.exp.toYear = [[NSDate date] year] + 100;
+	} else {
+		self.exp.toYear = [[NSDate date] year];
+	}
 	self.exp.fromMonth = fromMonth;
 	self.exp.fromYear = fromYear;
 	self.exp.toMonth = toMonth;

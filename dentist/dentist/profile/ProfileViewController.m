@@ -107,7 +107,7 @@
 		for (int i = 0; i < userInfo.experienceArray.count; ++i) {
 			Experience *exp = userInfo.experienceArray[i];
 			IconTitleMsgDetailCell *expView = [IconTitleMsgDetailCell new];
-			if (exp.dentalName == nil || exp.dentalName.length == 0) {
+			if (exp.praticeTypeId == nil || exp.praticeTypeId.length == 0) {
 				expView.imageView.imageName = @"exp";
 				[expView showEmpty:@"No experience added yet."];
 			} else {
@@ -118,7 +118,7 @@
 					expView.imageView.imageName = @"exp";
 				}
 				expView.titleLabel.text = exp.praticeType;
-				expView.msgLabel.text = exp.dentalName;
+				expView.msgLabel.text = exp.dsoName;
 				expView.detailLabel.text = strBuild(exp.dateFrom, @"-", exp.dateTo);
 			}
 			[self.contentView addSubview:expView];

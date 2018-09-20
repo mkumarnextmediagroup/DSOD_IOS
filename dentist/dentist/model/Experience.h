@@ -6,15 +6,19 @@
 #import <UIKit/UIKit.h>
 #import "JSONModel.h"
 
-@protocol Experience;
 
-@interface Experience : JSONModel
+@interface Experience : NSObject
 
 
 //Owner Dentist / Associate Dentist
-@property(nullable) NSString <Optional> *praticeType;
-@property(nullable) NSString <Optional> *roleAtPratice;
-@property(nullable) NSString <Optional> *dentalName;
+@property(nullable) NSString *praticeTypeId;
+@property(nullable) NSString *praticeType;
+
+@property(nullable) NSString *roleAtPraticeId;
+@property(nullable) NSString *roleAtPratice;
+
+@property(nullable) NSString *dsoId;
+@property(nullable) NSString *dsoName;
 
 @property NSInteger fromMonth;
 @property NSInteger fromYear;
@@ -23,9 +27,13 @@
 
 
 @property BOOL workInThisRole;
+
 - (BOOL)isOwnerDentist;
 
+@property (readonly) BOOL useDSO;
 
--(NSString*_Nullable) dateFrom;
--(NSString*_Nullable) dateTo;
+
+- (NSString *_Nullable)dateFrom;
+
+- (NSString *_Nullable)dateTo;
 @end

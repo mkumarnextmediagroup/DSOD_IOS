@@ -41,15 +41,12 @@
 + (UserInfo *_Nullable)lastUserInfo;
 
 
-+ (NSArray *_Nullable)listRoleAtPractice;
 
-+ (NSArray *_Nullable)listDentalNames;
 
 + (NSArray *_Nullable)listStates;
 
 + (NSArray *_Nullable)shortStates;
 
-+ (NSArray *_Nullable)listResidency;
 
 + (NSDictionary *_Nullable)getProfileInfo;
 
@@ -65,7 +62,7 @@
 
 + (NSArray<IdName *> *)queryPracticeRoles:(NSString *)name;
 
-+ (NSArray<IdName *> *)queryPracticeTypes:(NSString *)name;
++ (NSArray<IdName *> *)queryPracticeTypes;
 
 + (NSString *)uploadHeaderImage:(NSString *)localFilePath;
 

@@ -30,6 +30,7 @@
 #import "MASConstraintMaker+myextend.h"
 #import "NSData+myextend.h"
 #import "NSMutableAttributedString+customed.h"
+#import "NSDictionary+myextend.h"
 #import "NSString+myextend.h"
 #import "Padding.h"
 #import "Platform.h"

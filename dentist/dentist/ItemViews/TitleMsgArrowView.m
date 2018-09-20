@@ -45,7 +45,6 @@
 
 - (void)resetLayout {
 	CGSize sz = [_msgLabel sizeThatFits:makeSize(310, 1000)];
-	Log(@"resetLayout ", @(sz.width), @(sz.height), @(_msgLabel.frame.size.width));
 	[[_msgLabel.layoutUpdate heightEq:sz.height] install];
 	self.layoutParam.height = 78 + (sz.height - 25);
 

@@ -322,181 +322,16 @@
 	];
 }
 
-+ (NSArray *)listSpeciality {
-	return @[
-			@"General Practitioner",
-			@"Dental Public Health",
-			@"Endodontics",
-			@"Oral & Maxillofacial Pathology",
-			@"Oral & Maxillofacial Radiology",
-			@"Oral & Maxillofacial Surgery",
-			@"Orthodontics",
-			@"Pediatric Dentistry",
-			@"Periodontics",
-			@"Prosthodontics"
-	];
-}
-
-+ (UserInfo *)addExperience:(nonnull NSString *)email exp:(Experience *)exp {
-	UserInfo *u = [self userInfo:email];
-	if (u.experienceArray == nil) {
-		u.experienceArray = @[exp];
-	} else {
-		NSMutableArray *a = [NSMutableArray arrayWithArray:u.experienceArray];
-		[a addObject:exp];
-		u.experienceArray = a;
-	}
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
-
-+ (UserInfo *)saveExperience:(nonnull NSString *)email index:(int)index exp:(Experience *)exp {
-	UserInfo *u = [self userInfo:email];
-	NSMutableArray *a = [NSMutableArray arrayWithArray:u.experienceArray];
-	a[index] = exp;
-	u.experienceArray = a;
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
-
-+ (UserInfo *)addResidency:(nonnull NSString *)email residency:(Residency *)residency {
-	UserInfo *u = [self userInfo:email];
-	if (u.residencyArray == nil) {
-		u.residencyArray = @[residency];
-	} else {
-		NSMutableArray *a = [NSMutableArray arrayWithArray:u.residencyArray];
-		[a addObject:residency];
-		u.residencyArray = a;
-	}
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
-
-+ (UserInfo *)saveResidency:(nonnull NSString *)email index:(int)index residency:(Residency *)residency {
-	UserInfo *u = [self userInfo:email];
-	NSMutableArray *a = [NSMutableArray arrayWithArray:u.residencyArray];
-	a[index] = residency;
-	u.residencyArray = a;
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
-
-+ (UserInfo *)addEducation:(nonnull NSString *)email edu:(Education *)edu {
-	UserInfo *u = [self userInfo:email];
-	if (u.educationArray == nil) {
-		u.educationArray = @[edu];
-	} else {
-		NSMutableArray *a = [NSMutableArray arrayWithArray:u.educationArray];
-		[a addObject:edu];
-		u.educationArray = a;
-	}
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
-
-+ (UserInfo *)saveEducation:(nonnull NSString *)email index:(int)index edu:(Education *)edu {
-	UserInfo *u = [self userInfo:email];
-	NSMutableArray *a = [NSMutableArray arrayWithArray:u.educationArray];
-	a[index] = edu;
-	u.educationArray = a;
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
-
-+ (UserInfo *)savePractice:(nonnull NSString *)email address:(Address *)address {
-	UserInfo *u = [self userInfo:email];
-	u.practiceAddress = address;
-	[self saveUserInfoLocal:email info:[u toJSONString]];
-	return [self userInfo:email];
-}
 
 + (UserInfo *)userInfo:(nonnull NSString *)email {
+	UserInfo *ui = [UserInfo new];
 	NSString *json = [self userInfoLocal:email];
 	if (json != nil) {
-		return [[UserInfo alloc] initWithJson:json];
+		NSDictionary *d = [NSMutableDictionary dictionaryWithDictionary:jsonParse(json)];
+		[ui fromDic:d];
+	} else {
+		[ui fromDic:@{}];
 	}
-
-	UserInfo *ui = [UserInfo alloc];
-	ui.email = email;
-	ui.isStudent = NO;
-	ui.isLinkedinUser = YES;
-	ui.fullName = @"Entao Yang";
-	ui.phone = @"15098760059";
-	ui.portraitUrl = @"http://app800.cn/i/p.png";
-	ui.specialityId = @"100";
-	ui.specialityLabel = @"Orthodontics";
-
-	Address *addr = [Address new];
-	addr.stateLabel = @"MA";
-	addr.city = @"Boston";
-	addr.address1 = @"45th Street";
-	addr.address2 = @"124 Park Avenue";
-	addr.zipCode = @"20230";
-	ui.practiceAddress = addr;
-
-	Education *edu = [Education new];
-	edu.schoolName = @"Peiking University";
-	edu.certificate = @"Doctor of Dental Surgery";
-	edu.fromMonth = 7;
-	edu.fromYear = 2015;
-	edu.toMonth = 1;
-	edu.toYear = 2017;
-	Education *edu2 = [Education new];
-	edu2.schoolName = @"Tsinghua University";
-	edu2.certificate = @"Doctor of Dental Surgery";
-	edu2.fromMonth = 7;
-	edu2.fromYear = 2015;
-	edu2.toMonth = 2;
-	edu2.toYear = 2017;
-	ui.educationArray = @[edu, edu2];
-
-	Experience *exp = [Experience new];
-	exp.praticeType = @"Owner Dentist";
-	exp.dentalName = @"Smile Dental";
-	exp.fromMonth = 7;
-	exp.fromYear = 2015;
-	exp.toMonth = 1;
-	exp.toYear = 2017;
-
-	Experience *exp2 = [Experience new];
-	exp2.praticeType = @"Associate Dentist";
-	exp2.dentalName = @"Smile Dental";
-	exp2.fromMonth = 7;
-	exp2.fromYear = 2015;
-	exp2.toMonth = 1;
-	exp2.toYear = 2017;
-
-	ui.experienceArray = @[exp, exp2];
-
-
-	Residency *r = [Residency new];
-	r.place = @"Boston Hospital";
-	r.fromMonth = 7;
-	r.fromYear = 2015;
-	r.toMonth = 1;
-	r.toYear = 2017;
-
-	ui.residencyArray = @[r];
-
-
-	PersonInfo *pe1 = [PersonInfo new];
-	pe1.infoLabel = @"Full name";
-	PersonInfo *pe2 = [PersonInfo new];
-	pe2.infoLabel = @"Speciality";
-	ui.personInfoArray = @[pe1, pe2];
-
-	UploadData *up = [UploadData new];
-	up.uploadName = localStr(@"upResume");
-	up.detailLabel = localStr(@"professional");
-	UploadData *up1 = [UploadData new];
-	up1.uploadName = localStr(@"import");
-	up1.detailLabel = localStr(@"information");
-	ui.uploadDataArray = @[up, up1];
-
-	NSString *s = [ui toJSONString];
-
-	[self saveUserInfoLocal:email info:s];
-
 	return ui;
 }
 
@@ -515,11 +350,6 @@
 	return [self userInfo:[self lastAccount]];
 }
 
-+ (void)saveLastUserInfo:(UserInfo *)info {
-	NSString *s = [info toJSONString];
-	NSUserDefaults *d = userConfig([self lastAccount]);
-	[d setObject:s forKey:@"userInfo"];
-}
 
 + (BOOL)isLogined {
 	return [self lastToken] != nil;
@@ -596,6 +426,14 @@
 	return r;
 }
 
++ (BOOL)saveProfileInfo:(NSDictionary *)dic {
+	HttpResult *r = [self postBody:@"userProfile/save" dic:dic];
+	if (r.OK) {
+		[self getProfileInfo];
+	}
+	return r.OK;
+}
+
 //{
 //	"code": 0,
 //			"msg": "success",
@@ -627,11 +465,16 @@
 //		}
 //	}
 //}
-+ (HttpResult *)getProfileInfo {
++ (NSDictionary *)getProfileInfo {
 	HttpResult *r = [self post2:@"userProfile/findOneByEmail" dic:@{@"email": getLastAccount()}];
 	if (r.OK) {
+		NSDictionary *d = r.resultMap[@"data"];
+		if (d) {
+			[self saveUserInfoLocal:[self lastAccount] info:jsonBuild(d)];
+		}
+		return d;
 	}
-	return r;
+	return nil;
 }
 
 //{
@@ -677,6 +520,26 @@
 	return nil;
 }
 
++ (NSMutableArray <IdName *> *)querySpecialty {
+	HttpResult *r = [self post2:@"residencySpecialty/findAllSpecialty" dic:@{}];
+	NSMutableArray <IdName *> *items = [NSMutableArray arrayWithCapacity:32];
+	if (r.OK) {
+		NSDictionary *m = r.resultMap;
+		if (m) {
+			NSArray *arr = m[@"data"];
+			for (NSDictionary *d in arr) {
+				IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+				[items addObject:item];
+			}
+		}
+	}
+
+	for (IdName *item in items) {
+		NSLog(@"%@ %@", item.id, item.name);
+	}
+	return items;
+}
+
 //{
 //	"code": 0,
 //			"msg": "success",
@@ -690,8 +553,8 @@
 //								"id": "2",
 //						"name": "Boston University Goldman School of Dental Medicine"
 //						},
-+ (NSMutableArray <IdName *> *)queryDentalSchool:(NSString *)name {
-	HttpResult *r = [self post2:@"dentalSchool/getAll" dic:@{@"name": name}];
++ (NSMutableArray <IdName *> *)queryDentalSchool {
+	HttpResult *r = [self post2:@"dentalSchool/getAll" dic:@{@"name": @""}];
 	NSMutableArray <IdName *> *items = [NSMutableArray arrayWithCapacity:32];
 	if (r.OK) {
 		NSDictionary *m = r.resultMap;
@@ -755,11 +618,17 @@
 	return resultArray;
 }
 
-+ (BOOL)uploadHeaderImage:(NSString *)localFilePath {
++ (NSString *)uploadHeaderImage:(NSString *)localFilePath {
 	HttpResult *r = [self upload:@"photoUpload" localFilePath:localFilePath];
 	if (r.OK) {
+		//{"photoName":"5d7a4a76219e4c78b2b4656cf4bc80f2_test.png"}
+		id v = r.resultMap[@"photoName"];
+		if (v == nil || v == NSNull.null) {
+			return nil;
+		}
+		return v;
 	}
-	return r.OK;
+	return nil;
 }
 
 
@@ -768,6 +637,10 @@
 	Http *h = [Http new];
 	h.url = strBuild(baseUrl, action);
 	[h contentTypeJson];
+	NSString *token = [self lastToken];
+	if (token != nil) {
+		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+	}
 
 	NSMutableDictionary *md = [NSMutableDictionary dictionaryWithDictionary:dic];
 	md[@"client_id"] = @"fooClientIdPassword";
@@ -782,6 +655,10 @@
 	h.url = strBuild(baseUrl, action);
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
+	NSString *token = [self lastToken];
+	if (token != nil) {
+		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+	}
 	HttpResult *r = [h get];
 	return r;
 }
@@ -792,6 +669,10 @@
 	h.url = strBuild(baseUrl, action);
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
+	NSString *token = [self lastToken];
+	if (token != nil) {
+		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+	}
 	HttpResult *r = [h post];
 	return r;
 }
@@ -801,7 +682,10 @@
 	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
 	Http *h = [Http new];
 	h.url = strBuild(baseUrl, action);
-	[h header:@"Authorization" value:strBuild(@"Bearer ", [self lastToken])];
+	NSString *token = [self lastToken];
+	if (token != nil) {
+		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+	}
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
 	HttpResult *r = [h multipart];
@@ -813,7 +697,10 @@
 	Http *h = [Http new];
 	h.timeout = 20;
 	h.url = strBuild(baseUrl, action);
-	[h header:@"Authorization" value:strBuild(@"Bearer ", [self lastToken])];
+	NSString *token = [self lastToken];
+	if (token != nil) {
+		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+	}
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h file:@"file" value:localFilePath];
 	HttpResult *r = [h multipart];

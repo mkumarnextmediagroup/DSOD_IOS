@@ -15,10 +15,10 @@
 @interface Proto : NSObject
 
 
-@property(class) BOOL isLogined;
+@property(class, readonly) BOOL isLogined;
 
-@property(class) NSString *lastAccount;
-@property(class) NSString *lastToken;
+@property(class, readonly) NSString *lastAccount;
+@property(class, readonly) NSString *lastToken;
 
 + (HttpResult *)resetPwd:(NSString *)email pwd:(NSString *)pwd code:(NSString *)code;
 
@@ -37,27 +37,9 @@
 
 + (UserInfo *)userInfo:(nonnull NSString *)email;
 
-+ (UserInfo *_Nullable)addExperience:(nonnull NSString *)email exp:(Experience *_Nullable)exp;
-
-+ (UserInfo *_Nullable)saveExperience:(nonnull NSString *)email index:(int)index exp:(Experience *_Nullable)exp;
-
-+ (UserInfo *_Nullable)addResidency:(nonnull NSString *)email residency:(Residency *_Nullable)residency;
-
-+ (UserInfo *_Nullable)saveResidency:(nonnull NSString *)email index:(int)index residency:(Residency *_Nullable)residency;
-
-+ (UserInfo *_Nullable)addEducation:(nonnull NSString *)email edu:(Education *_Nullable)edu;
-
-+ (UserInfo *_Nullable)saveEducation:(nonnull NSString *)email index:(int)index edu:(Education *_Nullable)edu;
-
-+ (UserInfo *_Nullable)savePractice:(nonnull NSString *)email address:(Address *_Nullable)address;
-
-+ (void)saveLastUserInfo:(UserInfo *_Nullable)info;
 
 + (UserInfo *_Nullable)lastUserInfo;
 
-+ (NSArray *_Nullable)listSpeciality;
-
-+ (NSArray *_Nullable)listPracticeType;
 
 + (NSArray *_Nullable)listRoleAtPractice;
 
@@ -69,13 +51,15 @@
 
 + (NSArray *_Nullable)listResidency;
 
-+ (HttpResult *_Nullable)getProfileInfo;
++ (NSDictionary *_Nullable)getProfileInfo;
+
++ (BOOL)saveProfileInfo:(NSDictionary *)dic;
 
 + (NSArray *_Nullable)listArticle;
 
 + (nullable StateCity *)getStateAndCity:(NSString *)zipCode;
 
-+ (NSMutableArray <IdName *> *)queryDentalSchool:(NSString *)name;
++ (NSMutableArray <IdName *> *)queryDentalSchool;
 
 + (NSArray<IdName *> *)queryPracticeDSO:(NSString *)name;
 
@@ -83,5 +67,8 @@
 
 + (NSArray<IdName *> *)queryPracticeTypes:(NSString *)name;
 
-+ (BOOL)uploadHeaderImage:(NSString *)localFilePath;
++ (NSString *)uploadHeaderImage:(NSString *)localFilePath;
+
++ (NSMutableArray <IdName *> *)querySpecialty;
+
 @end

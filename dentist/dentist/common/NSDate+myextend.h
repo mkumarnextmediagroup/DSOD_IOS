@@ -7,7 +7,12 @@
 
 @interface NSDate (myextend)
 
--(NSInteger) year;
--(NSInteger) month;
+- (NSInteger)year;
+
+- (NSInteger)month;
+- (NSInteger)day;
 
 @end
+
+
+extern long buildDateLong(NSInteger year, NSInteger month, NSInteger day);

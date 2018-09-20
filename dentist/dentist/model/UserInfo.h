@@ -11,22 +11,29 @@
 #import "PersonInfo.h"
 #import "UploadData.h"
 
-@interface UserInfo : JSONModel
+@class IdName;
 
-@property(nonnull) NSString *email;
-@property(nonnull) NSString <Optional> *fullName;
-@property(nullable) NSString <Optional> *phone;
+@interface UserInfo : NSObject
+
+- (void)fromDic:(NSDictionary *)dic;
+
+
+@property NSString *userId;
+@property NSString *email;
+
+@property NSString *fullName;
+@property(nullable) NSString *phone;
+
 @property BOOL isStudent;
-@property BOOL isLinkedinUser;
-
-@property(nullable) NSString <Optional> *portraitId;
-@property(nullable) NSString <Optional> *portraitUrl;
-
-@property(nullable) NSString <Optional> *specialityId;
-@property(nullable) NSString <Optional> *specialityLabel;
+@property BOOL isLinkedin;
 
 
-@property(nullable) Address <Optional> *practiceAddress;
+@property(nullable) NSString *photo_url;
+@property(readonly) NSString *portraitUrlFull;
+
+@property(nullable) IdName *speciality;
+@property(nullable) Address *practiceAddress;
+
 @property(nullable) NSMutableArray <Experience, Optional> *experienceArray;
 @property(nullable) NSMutableArray <Residency, Optional> *residencyArray;
 @property(nullable) NSMutableArray <Education, Optional> *educationArray;

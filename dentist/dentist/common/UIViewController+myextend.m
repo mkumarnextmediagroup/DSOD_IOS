@@ -5,6 +5,8 @@
 
 #import "UIViewController+myextend.h"
 #import "Common.h"
+#import "IdName.h"
+#import "SearchPage.h"
 
 
 @implementation UIViewController (myextend)
@@ -139,6 +141,29 @@
 			return;
 		}
 	}
+}
+
+- (void)selectIdName:(NSString *)title array:(NSArray<IdName *> *)array selectedId:(NSString *)selectedId result:(void (^)(IdName *))result {
+	SearchPage *c = [SearchPage new];
+	c.titleText = title;
+	c.withIndexBar = YES;
+	[c setItemsPlain:array displayBlock:^(NSObject *item) {
+		IdName *s = (IdName *) item;
+		return s.name;
+	}];
+
+	if (selectedId != nil) {
+		for (IdName *item in array) {
+			if ([item.id isEqualToString:selectedId]) {
+				c.checkedItem = item;
+				break;
+			}
+		}
+	}
+	c.onResult = ^(NSObject *item) {
+		result((IdName *) item);
+	};
+	[self pushPage:c];
 }
 
 @end

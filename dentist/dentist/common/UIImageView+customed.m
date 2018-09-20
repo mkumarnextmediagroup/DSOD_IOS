@@ -83,7 +83,11 @@
 }
 
 - (void)loadUrl:(NSString *)url placeholderImage:(NSString *)localImage {
-	[self sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:localImage]];
+	if (url != nil && ![url isKindOfClass:NSNull.class]) {
+		[self sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:localImage]];
+	} else {
+		self.imageName = localImage;
+	}
 }
 
 

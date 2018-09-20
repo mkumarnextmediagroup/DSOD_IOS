@@ -252,10 +252,10 @@
 				v.imageView.imageName = @"exp";
 			}
 			v.titleLabel.text = r.praticeType;
-			if (r.dsoId == nil || r.dsoId.length == 0) {
-				v.msgLabel.text = r.pracName;
-			} else {
+			if (r.useDSO) {
 				v.msgLabel.text = r.dsoName;
+			} else {
+				v.msgLabel.text = r.pracName;
 			}
 			v.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
 			if (r.praticeTypeId == nil || r.praticeTypeId.length == 0) {
@@ -411,7 +411,7 @@
 	p.userInfo = userInfo;
 	p.exp = [Experience new];
 	p.saveCallback = ^(Experience *ex) {
-		[self saveExp:ex];
+		[self addExp:ex];
 	};
 	[self pushPage:p];
 
@@ -435,7 +435,8 @@
 	[self pushPage:p];
 }
 
-- (void)saveExp:(Experience *)e {
+- (void)addExp:(Experience *)e {
+	Log(@"Add Exp: ", @(e.useDSO), e.pracName, e.dsoName);
 	NSMutableArray *a = [NSMutableArray arrayWithArray:userInfo.experienceArray];
 	if (![a containsObject:e]) {
 		[a addObject:e];
@@ -483,7 +484,7 @@
 	EditResidencyViewController *editRes = [EditResidencyViewController new];
 	editRes.isAdd = YES;
 	editRes.saveCallback = ^(Residency *r) {
-		[self saveResidency:r];
+		[self addResidency:r];
 	};
 
 	[self pushPage:editRes];
@@ -500,29 +501,22 @@
 	[self bindData];
 }
 
-- (void)saveResidency:(Residency *)r {
+- (void)addResidency:(Residency *)r {
 	NSMutableArray *ar = [NSMutableArray arrayWithArray:userInfo.residencyArray];
 	if (![ar containsObject:r]) {
 		[ar addObject:r];
-		userInfo.residencyArray = ar;
 	}
 	userInfo.residencyArray = [self sortArrayByTime:ar];
 	[self buildViews];
 	[self bindData];
 }
 
-- (void)saveEducation:(Education *)e {
+- (void)addEducation:(Education *)e {
 	NSMutableArray *ar = [NSMutableArray arrayWithArray:userInfo.educationArray];
 	if (![ar containsObject:e]) {
 		[ar addObject:e];
-
-		ar = [self sortArrayByTime:ar];
-
-		userInfo.educationArray = ar;
 	}
-
 	userInfo.educationArray = [self sortArrayByTime:ar];
-
 	[self buildViews];
 	[self bindData];
 }
@@ -549,7 +543,7 @@
 	EditEduViewController *p = [EditEduViewController new];
 	p.isAdd = YES;
 	p.saveCallback = ^(Education *e) {
-		[self saveEducation:e];
+		[self addEducation:e];
 	};
 	[self pushPage:p];
 }
@@ -672,7 +666,7 @@
 				d[@"email"] = [Proto lastAccount];
 				d[@"start_time"] = [[NSDate dateBy:edu.fromYear month:edu.fromMonth day:0] format:DATE_FORMAT];
 				d[@"end_time"] = [[NSDate dateBy:edu.toYear month:edu.toMonth day:0] format:DATE_FORMAT];
-				d[@"major"] = @"my major";
+				d[@"major"] = @"";
 			}
 		}
 	}
@@ -690,7 +684,7 @@
 					d[@"practice_DSO"] = @{@"id": ex.dsoId};
 					d[@"practice_name"] = @"";
 				} else {
-					d[@"practice_DSO"] = nil;
+					d[@"practice_DSO"] = @{};
 					d[@"practice_name"] = ex.pracName;
 				}
 				d[@"practice_Role"] = @{@"id": ex.roleAtPraticeId};

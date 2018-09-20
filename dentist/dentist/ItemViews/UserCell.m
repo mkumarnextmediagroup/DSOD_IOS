@@ -22,7 +22,7 @@
 	_specTitleLabel = self.addLabel;
 	_specNameLabel = self.addLabel;
 
-	[_imageView scaleFit];
+	[_imageView scaleFill];
 
 	_nameLabel.textColor = UIColor.blackColor;
 	_nameLabel.font = [Fonts semiBold:17];
@@ -35,7 +35,7 @@
 	_specNameLabel.font = [Fonts semiBold:14];
 
 	_linkedinView = self.addImageView;
-	[_linkedinView scaleFillAspect];
+	[_linkedinView scaleFill];
 	_linkedinView.hidden = YES;
 	_linkedinView.imageName = @"linkedin";
 

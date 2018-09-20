@@ -313,6 +313,15 @@
 
 }
 
+- (void)onTextFieldDone:(UITextField *)textField {
+	[super onTextFieldDone:textField];
+	userInfo.fullName = nameView.edit.textTrimed;
+	userInfo.phone = phoneView.edit.textTrimed;
+	userInfo.email = emailView.edit.textTrimed;
+	[userView reset:[self getProfilePercent]];
+}
+
+
 - (float)getProfilePercent {
 
 	int count = 0;
@@ -346,7 +355,7 @@
 			if (r.praticeTypeId != nil && r.praticeTypeId.length > 0) {
 				count = count + 1;
 			}
-		} else {
+		} else if (userInfo.experienceArray.count > 1) {
 			count = count + 1;
 		}
 	}
@@ -358,7 +367,7 @@
 			if (r.schoolId != nil && r.schoolId.length > 0) {
 				count = count + 1;
 			}
-		} else {
+		} else if (userInfo.residencyArray.count > 1) {
 			count = count + 1;
 		}
 
@@ -369,7 +378,7 @@
 			if (r.schoolName != nil && r.schoolName.length > 0) {
 				count = count + 1;
 			}
-		} else {
+		} else if (userInfo.educationArray.count > 1) {
 			count = count + 1;
 		}
 	}
@@ -398,7 +407,7 @@
 		NSArray *ls = [Proto querySpecialty];
 		foreTask(^() {
 			[self selectIdName:@"SPECIALITY" array:ls selectedId:userInfo.speciality.id result:^(IdName *item) {
-                self->userInfo.speciality = item;
+				self->userInfo.speciality = item;
 				[self bindData];
 			}];
 		});
@@ -585,35 +594,30 @@
 
 - (void)onSave:(id)sender {
 
-    [self.view endEditing:YES];
-    
+	[self.view endEditing:YES];
+
 	//save the edit content
 	userInfo.fullName = nameView.edit.text;
 	userInfo.phone = phoneView.edit.text;
 	userInfo.email = emailView.edit.text;
 //     userInfo.practiceAddress.detailAddress = practiceAddressView.msgLabel.text;
 
-    if (userInfo.practiceAddress.address1 == nil)
-    {
-        userInfo.practiceAddress.address1 = @"";
-    }
-    if (userInfo.practiceAddress.address2 == nil)
-    {
-        userInfo.practiceAddress.address2 = @"";
-    }
-    if (userInfo.practiceAddress.city == nil)
-    {
-        userInfo.practiceAddress.city = @"";
-    }
-    if (userInfo.practiceAddress.stateLabel == nil)
-    {
-        userInfo.practiceAddress.stateLabel = @"";
-    }
-    if (userInfo.practiceAddress.zipCode == nil)
-    {
-        userInfo.practiceAddress.zipCode = @"";
-    }
-    
+	if (userInfo.practiceAddress.address1 == nil) {
+		userInfo.practiceAddress.address1 = @"";
+	}
+	if (userInfo.practiceAddress.address2 == nil) {
+		userInfo.practiceAddress.address2 = @"";
+	}
+	if (userInfo.practiceAddress.city == nil) {
+		userInfo.practiceAddress.city = @"";
+	}
+	if (userInfo.practiceAddress.stateLabel == nil) {
+		userInfo.practiceAddress.stateLabel = @"";
+	}
+	if (userInfo.practiceAddress.zipCode == nil) {
+		userInfo.practiceAddress.zipCode = @"";
+	}
+
 	NSDictionary *d = @{
 			@"full_name": nameView.edit.textTrimed,
             @"email":getLastAccount(),
@@ -690,7 +694,7 @@
 				d[@"email"] = [Proto lastAccount];
 				d[@"start_time"] = [[NSDate dateBy:edu.fromYear month:edu.fromMonth day:0] format:DATE_FORMAT];
 				d[@"end_time"] = [[NSDate dateBy:edu.toYear month:edu.toMonth day:0] format:DATE_FORMAT];
-				d[@"major"] = @"";
+				d[@"major"] = @"-";
 			}
 		}
 	}
@@ -717,20 +721,18 @@
 		}
 	}
 
-    [self showIndicator];
+	[self showIndicator];
 	backTask(^() {
-        [self hideIndicator];
+		[self hideIndicator];
 		HttpResult *saveInfo = [Proto saveProfileInfo:md];
-        if (saveInfo.OK)
-        {
-            [self alertMsg:@"Saved successfully" onOK:^() {
-                [self popPage];
-            }];
-        }else
-        {
-            [self alertMsg:saveInfo.msg onOK:^() {
-            }];
-        }
+		if (saveInfo.OK) {
+			[self alertMsg:@"Saved successfully" onOK:^() {
+				[self popPage];
+			}];
+		} else {
+			[self alertMsg:saveInfo.msg onOK:^() {
+			}];
+		}
 	});
 }
 
@@ -859,7 +861,7 @@
 
 - (void)uploadHeaderImage:(NSString *)url {
 	backTask(^() {
-        self->uploadPortraitResult = [Proto uploadHeaderImage:url];
+		self->uploadPortraitResult = [Proto uploadHeaderImage:url];
 	});
 
 }

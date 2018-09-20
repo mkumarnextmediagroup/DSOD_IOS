@@ -636,17 +636,13 @@
 		for (Residency *r in userInfo.residencyArray) {
 			if (r.schoolId != nil) {
 				NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:8];
-				d[@"dental_School"] = @{
+				d[@"residency_school"] = @{
 						@"id": r.schoolId,
-						@"name": r.schoolName,
 				};
-				d[@"start_time"] = @(buildDateLong(r.fromYear, r.fromMonth, 0));
-				d[@"end_time"] = @(buildDateLong(r.toYear, r.toMonth, 0));
-				d[@"email"] = [Proto lastAccount];
-				d[@"create_time"] = nil;
-				d[@"user_id"] = nil;
-				d[@"id"] = nil;
 
+				d[@"start_time"] = [[NSDate dateBy:r.fromYear month:r.fromMonth day:0] format:DATE_FORMAT];
+				d[@"end_time"] = [[NSDate dateBy:r.toYear month:r.toMonth day:0] format:DATE_FORMAT];
+				d[@"email"] = [Proto lastAccount];
 				[arr addObject:d];
 			}
 		}

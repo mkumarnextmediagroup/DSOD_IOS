@@ -34,4 +34,7 @@
 #define EDIT_THEME_ERROR        500
 
 
+#define DATE_FORMAT @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+
+
 #endif

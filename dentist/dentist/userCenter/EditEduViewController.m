@@ -20,10 +20,12 @@
 #import "PickerPage.h"
 #import "SearchPage.h"
 #import "Proto.h"
+#import "IdName.h"
 
 
 @implementation EditEduViewController {
 	BOOL schoolInUS;
+	NSString *schoolId;
 	NSString *schoolName;
 	NSInteger fromMonth;
 	NSInteger fromYear;
@@ -45,6 +47,7 @@
 
 	schoolInUS = self.education.schoolInUS;
 	schoolName = self.education.schoolName;
+	schoolId = self.education.schoolId;
 	fromMonth = self.education.fromMonth;
 	fromYear = self.education.fromYear;
 	toMonth = self.education.toMonth;
@@ -58,7 +61,7 @@
 		item.title = @"EDIT EDUCATION";
 	}
 	item.rightBarButtonItem = [self navBarText:@"Save" target:self action:@selector(saveBtnClick:)];
-    item.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
+	item.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
 
 	[self buildViews];
 
@@ -144,9 +147,9 @@
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];
-        self->fromMonth = num1.integerValue;
+		self->fromMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
-        self->fromYear = num2.integerValue;
+		self->fromYear = num2.integerValue;
 		[self bindData];
 
 	};
@@ -159,27 +162,31 @@
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
 		NSNumber *num1 = result[0];
-        self->toMonth = num1.integerValue;
+		self->toMonth = num1.integerValue;
 		NSNumber *num2 = result[1];
-        self->toYear = num2.integerValue;
+		self->toYear = num2.integerValue;
 		[self bindData];
 
 	};
 	[self presentViewController:p animated:YES completion:nil];
 }
 
-- (void)clickSchool:(id)sender {
-	SearchPage *p = [SearchPage new];
-	p.checkedItem = schoolName;
-	p.titleText = @"DENTAL SCHOOL";
-	NSArray *ls = [Proto listResidency];
-	[p setItemsPlain:ls displayBlock:nil];
-
-	p.onResult = ^(NSObject *item) {
-        self->schoolName = (NSString *) item;
+- (void)selectSchool:(NSArray *)ls {
+	[self selectIdName:@"DENTAL SCHOOL" array:ls selectedId:schoolId result:^(IdName *item) {
+		schoolName = item.name;
+		schoolId = item.id;
 		[self bindData];
-	};
-	[self pushPage:p];
+	}];
+}
+
+- (void)clickSchool:(id)sender {
+
+	backTask(^() {
+		NSArray *array = [Proto queryDentalSchool];
+		foreTask(^() {
+			[self selectSchool:array];
+		});
+	});
 }
 
 - (void)clickDelete:(UIButton *)btn {
@@ -199,25 +206,27 @@
 }
 
 - (void)saveBtnClick:(UIButton *)btn {
-    
-    if (fromYear>toYear) {
-        [self alertMsg:@"Date wrong" onOK:^() {
-            
-        }];
-        return ;
-    }else if(fromYear==toYear){
-        if(fromMonth>toMonth){
-            [self alertMsg:@"Date wrong" onOK:^() {
-                
-            }];
-            return ;
-        }
-    }
+
+	if (fromYear > toYear) {
+		[self alertMsg:@"Date wrong" onOK:^() {
+
+		}];
+		return;
+	} else if (fromYear == toYear) {
+		if (fromMonth > toMonth) {
+			[self alertMsg:@"Date wrong" onOK:^() {
+
+			}];
+			return;
+		}
+	}
 	self.education.schoolInUS = switchView.switchView.on;
 	if (self.education.schoolInUS) {
 		self.education.schoolName = schoolSelectView.msgLabel.text;
+		self.education.schoolId = schoolId;
 	} else {
 		self.education.schoolName = schoolEditView.edit.textTrimed;
+		self.education.schoolId = nil;
 	}
 	self.education.fromMonth = fromMonth;
 	self.education.fromYear = fromYear;

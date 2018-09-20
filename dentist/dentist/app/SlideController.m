@@ -124,7 +124,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	UserInfo *userInfo = [Proto lastUserInfo];
-	[imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"Img-User-Dentist"];
+	[imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"user_img"];
 	lbName.text = userInfo.fullName;
 	if (userInfo.practiceAddress) {
 		lbSub.text = strBuild(userInfo.practiceAddress.city, @", ", userInfo.practiceAddress.stateLabel);

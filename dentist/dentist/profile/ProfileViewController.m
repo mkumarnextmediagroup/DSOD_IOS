@@ -100,9 +100,9 @@
 	[self.contentView addSubview:userCell];
 
 	if (!userInfo.isStudent) {
-        
-        [self addGroupTitle:@"Experience"];
-        
+
+		[self addGroupTitle:@"Experience"];
+
 		if (userInfo.experienceArray == nil || userInfo.experienceArray.count == 0) {
 			userInfo.experienceArray = @[[Experience new]];
 		}
@@ -177,6 +177,9 @@
 			[v hideEmpty];
 			v.titleLabel.text = edu.schoolName;
 			v.msgLabel.text = edu.major;
+			if ([v.msgLabel.text isEqualToString:@"-"]) {
+				v.msgLabel.text = @"";
+			}
 			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
 		}
 		[self.contentView addSubview:v];

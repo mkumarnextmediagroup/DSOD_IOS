@@ -54,7 +54,7 @@
 
 	UINavigationItem *item = self.navigationItem;
 	item.title = @"EDIT PROFILE";
-	item.rightBarButtonItem = [self navBarText:@"SAVE" target:self action:@selector(onSave:)];
+	item.rightBarButtonItem = [self navBarText:@"Save" target:self action:@selector(onSave:)];
 	item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
 
 
@@ -285,6 +285,9 @@
 			IconTitleMsgDetailCell *v = eduViews[(NSUInteger) i];
 			v.titleLabel.text = edu.schoolName;
 			v.msgLabel.text = edu.major;
+			if([v.msgLabel.text isEqualToString:@"-"]) {
+				v.msgLabel.text = @"";
+			}
 			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
 			if (edu.schoolName == nil || edu.schoolName.length == 0) {
 				[v showEmpty:@"No education added yet"];

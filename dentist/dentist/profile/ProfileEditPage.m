@@ -585,6 +585,8 @@
 
 - (void)onSave:(id)sender {
 
+    [self.view endEditing:YES];
+    
 	//save the edit content
 	userInfo.fullName = nameView.edit.text;
 	userInfo.phone = phoneView.edit.text;

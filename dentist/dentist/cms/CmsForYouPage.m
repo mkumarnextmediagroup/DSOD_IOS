@@ -38,7 +38,7 @@
 
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"DSODENTIST";
-//	item.rightBarButtonItem = [self navBarText:@"Test" target:self action:@selector(clickTest:)];
+//    item.rightBarButtonItem = [self navBarText:@"Test" target:self action:@selector(clickTest:)];
 
 	self.table.tableHeaderView = [self makeHeaderView];
 	self.table.rowHeight = UITableViewAutomaticDimension;

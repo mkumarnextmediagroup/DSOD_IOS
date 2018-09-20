@@ -54,7 +54,7 @@
 
 	UINavigationItem *item = self.navigationItem;
 	item.title = @"EDIT PROFILE";
-	item.rightBarButtonItem = [self navBarText:@"SAVE" target:self action:@selector(onSave:)];
+	item.rightBarButtonItem = [self navBarText:@"Save" target:self action:@selector(onSave:)];
 	item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
 
 
@@ -616,7 +616,8 @@
     
 	NSDictionary *d = @{
 			@"full_name": nameView.edit.textTrimed,
-			@"email": emailView.edit.textTrimed,
+            @"email":getLastAccount(),
+			@"contact_email": emailView.edit.textTrimed,
 			@"phone": phoneView.edit.textTrimed,
 			@"is_student": userInfo.isStudent ? @"1" : @"0",
 			@"is_linkedin": userInfo.isLinkedin ? @"1" : @"0",

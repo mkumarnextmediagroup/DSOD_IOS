@@ -10,9 +10,11 @@
 #import "PlayerView.h"
 #import "Common.h"
 #import "Proto.h"
+#import "DiscussTableViewCell.h"
 
-@interface CMSDetailViewController () {
-	PlayerView *playView;
+@interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource> {
+	PlayerView  *playView;
+    UITableView *myTable;
 }
 @end
 
@@ -23,19 +25,10 @@
 
     [self createNav];
     
-	UINavigationItem *item = self.navigationItem;
-	item.title = @"SPONSORED CONTENT";
-	item.rightBarButtonItems = @[
-			[self navBarImage:@"arrowUp" target:self action:@selector(onClickUp:)],
-			[self navBarImage:@"arrowDown" target:self action:@selector(onClickDown:)]
-	];
-	item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
-
 	[self buildViews];
-//    [playView resetLayout];
-//
-//    [self layoutLinearVertical];
 }
+
+
 
 - (void)createNav
 {
@@ -87,10 +80,43 @@
 	[playView bind:self.articleInfo];
 //    [self layoutLinearVertical];
 	[[[[playView.layoutMaker leftParent:0] rightParent:0] topParent:0] install];
-	[self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
+   
+ [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
+    
+    myTable = [UITableView new];
+    [self.contentView addSubview:myTable];
+    myTable.dataSource = self;
+    myTable.delegate = self;
+    myTable.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    myTable.tableHeaderView = [UIView new];
+
+    [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:playView offset:0] sizeEq:SCREENWIDTH h:350] install];
+    [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
 
 }
 
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.articleInfo.discussInfo.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 110;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *cellIden = @"cell";
+    DiscussTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
+    if (cell == nil) {
+        cell = [[DiscussTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
+    }
+    cell.disInfo = self.articleInfo.discussInfo[indexPath.row];
+    return cell;
+
+}
 
 - (void)onClickUp:(UIButton *)btn {
 	NSLog(@"clickup");

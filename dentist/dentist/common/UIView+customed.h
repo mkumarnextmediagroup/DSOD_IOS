@@ -74,6 +74,8 @@
 
 @property(readonly) MASConstraintMaker *layoutUpdate;
 
+- (void)layoutRemoveAllConstraints;
+
 - (NSArray *)makeLayout:(void (^)(MASConstraintMaker *))block;
 
 

@@ -126,10 +126,19 @@
 	UserInfo *userInfo = [Proto lastUserInfo];
 	[imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"user_img"];
 	lbName.text = userInfo.fullName;
+	lbSub.text = @"-";
 	if (userInfo.practiceAddress) {
-		lbSub.text = strBuild(userInfo.practiceAddress.city, @", ", userInfo.practiceAddress.stateLabel);
-	} else {
-		lbSub.text = @"-";
+		NSString *city = userInfo.practiceAddress.city;
+		NSString *st = userInfo.practiceAddress.stateLabel;
+		if (city && city.length > 0) {
+			if (st && st.length > 0) {
+				lbSub.text = strBuild(userInfo.practiceAddress.city, @", ", userInfo.practiceAddress.stateLabel);
+			} else {
+				lbSub.text = userInfo.practiceAddress.city;
+			}
+		} else if (st && st.length > 0) {
+			lbSub.text = userInfo.practiceAddress.stateLabel;
+		}
 	}
 }
 

@@ -41,8 +41,6 @@
 + (UserInfo *_Nullable)lastUserInfo;
 
 
-
-
 + (NSArray *_Nullable)listStates;
 
 + (NSArray *_Nullable)shortStates;
@@ -53,6 +51,7 @@
 + (HttpResult *)saveProfileInfo:(NSDictionary *_Nullable)dic;
 
 + (NSArray *_Nullable)listArticle;
+
 + (NSArray *_Nullable)listBookmark;
 
 + (nullable StateCity *)getStateAndCity:(NSString *_Nullable)zipCode;
@@ -69,5 +68,4 @@
 
 + (NSMutableArray <IdName *> *_Nullable)querySpecialty;
 
-+ (NSArray *_Nullable)listBookmark;
 @end

@@ -318,8 +318,8 @@
 
 }
 
-- (void)onTextFieldDone:(UITextField *)textField {
-	[super onTextFieldDone:textField];
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+	[super textFieldDidEndEditing:textField];
 	userInfo.fullName = nameView.edit.textTrimed;
 	userInfo.phone = phoneView.edit.textTrimed;
 	userInfo.emailContact = emailView.edit.textTrimed;
@@ -407,19 +407,22 @@
 }
 
 - (void)clickSpec:(id)sender {
-
+	[self.view endEditing:YES];
+	[self showIndicator];
 	backTask(^() {
 		NSArray *ls = [Proto querySpecialty];
 		foreTask(^() {
+			[self hideIndicator];
 			[self selectIdName:@"SPECIALITY" array:ls selectedId:userInfo.speciality.id result:^(IdName *item) {
 				self->userInfo.speciality = item;
-				[self bindData];
+				self->specView.msgLabel.text = userInfo.speciality.name;
 			}];
 		});
 	});
 }
 
 - (void)clickAddExp:(id)sender {
+	[self.view endEditing:YES];
 	EditExperiencePage *p = [EditExperiencePage new];
 	p.isAdd = YES;
 	p.userInfo = userInfo;
@@ -432,6 +435,7 @@
 }
 
 - (void)clickExp:(IconTitleMsgDetailCell *)sender {
+	[self.view endEditing:YES];
 	int n = sender.argN;
 	Experience *r = userInfo.experienceArray[n];
 	EditExperiencePage *p = [EditExperiencePage new];
@@ -482,6 +486,7 @@
 }
 
 - (void)clickResidency:(IconTitleMsgDetailCell *)sender {
+	[self.view endEditing:YES];
 	NSInteger n = sender.argN;
 	Residency *r = userInfo.residencyArray[n];
 	EditResidencyViewController *editRes = [EditResidencyViewController new];
@@ -502,7 +507,7 @@
 }
 
 - (void)clickAddResidency:(id)sender {
-	NSLog(@"click add residency");
+	[self.view endEditing:YES];
 
 	EditResidencyViewController *editRes = [EditResidencyViewController new];
 	editRes.isAdd = YES;
@@ -578,6 +583,7 @@
 }
 
 - (void)clickAddEducation:(id)sender {
+	[self.view endEditing:YES];
 	EditEduViewController *p = [EditEduViewController new];
 	p.isAdd = YES;
 	p.saveCallback = ^(Education *e) {
@@ -587,6 +593,7 @@
 }
 
 - (void)clickEdu:(IconTitleMsgDetailCell *)sender {
+	[self.view endEditing:YES];
 	NSInteger n = sender.argN;
 	Education *education = userInfo.educationArray[n];
 	EditEduViewController *p = [EditEduViewController new];
@@ -603,7 +610,7 @@
 }
 
 - (void)clickPraticeAddress:(id)sender {
-
+	[self.view endEditing:YES];
 //    HttpResult *result = [Proto getStateAndCity];
 //    NSLog(@"%@",result);
 
@@ -754,6 +761,7 @@
 	backTask(^() {
 		HttpResult *saveInfo = [Proto saveProfileInfo:md];
 		foreTask(^() {
+			[self hideIndicator];
 			if (saveInfo.OK) {
 				[self alertMsg:@"Saved successfully" onOK:^() {
 					[self popPage];
@@ -765,7 +773,7 @@
 				[self alertMsg:saveInfo.msg onOK:^() {
 				}];
 			}
-			[self hideIndicator];
+
 		});
 	});
 }
@@ -897,7 +905,7 @@
 	[self showIndicator];
 	backTask(^() {
 		self->uploadPortraitResult = [Proto uploadHeaderImage:url];
-		foreTask(^(){
+		foreTask(^() {
 			[self hideIndicator];
 		});
 	});

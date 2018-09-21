@@ -318,6 +318,13 @@ static char argObjectAttr = 0;
 	return constraintMaker;
 }
 
+- (void)layoutRemoveAllConstraints {
+	NSArray *installedConstraints = [MASViewConstraint installedConstraintsForView:self];
+	for (MASConstraint *constraint in installedConstraints) {
+		[constraint uninstall];
+	}
+}
+
 
 - (void)removeAllChildren {
 	NSArray *arr = self.subviews;

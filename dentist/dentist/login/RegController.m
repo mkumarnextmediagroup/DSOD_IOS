@@ -47,22 +47,21 @@
 //    UIImageView *imageView = self.view.addImageView;
 //    imageView.imageName = @"bg_3.png";
 //    [imageView layoutFill];
-    
-    UIImage *image = [UIImage imageNamed:@"bg_3.png"];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    [self.view addSubview:imageView];
-    [imageView layoutFill];
-    
-    
+
+	UIImage *image = [UIImage imageNamed:@"bg_3.png"];
+	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+	[self.view addSubview:imageView];
+	[imageView layoutFill];
+
 
 	UIImageView *logoView = self.view.addImageView;
 	logoView.imageName = @"logo";
-	[logoView layoutCenterXOffsetTop:260 height:54 offset:54+NAVHEIGHT_OFFSET];
+	[logoView layoutCenterXOffsetTop:260 height:54 offset:54 + NAVHEIGHT_OFFSET];
 
 	UIImageView *backView = self.view.addImageView;
 	backView.imageName = @"back_arrow";
 	[backView scaleFit];
-	[[[[backView.layoutMaker sizeEq:23 h:23] leftParent:16] topParent:30+NAVHEIGHT_OFFSET] install];
+	[[[[backView.layoutMaker sizeEq:23 h:23] leftParent:16] topParent:30 + NAVHEIGHT_OFFSET] install];
 
 
 	//arrange controls from bottom to top
@@ -83,7 +82,7 @@
 	[loginLabel underLineSingle];
 	[[[[[loginLabel layoutMaker] sizeFit] toRightOf:alreadyLabel offset:4] centerYParent:0] install];
 
-	[sl push:loginPanel height:20 marginBottom:33+TABLEBAR_SAFE_BOTTOM_MARGIN];
+	[sl push:loginPanel height:20 marginBottom:33 + TABLEBAR_SAFE_BOTTOM_MARGIN];
 
 	if (!self.student) {
 		UIButton *linkedinButton = self.view.addButton;
@@ -172,22 +171,21 @@
 	[[[[[infoImgView layoutMaker] sizeEq:15 h:15] leftParent:0] centerYParent:0] install];
 	[sl push:reqLabel height:[reqLabel heightThatFit] marginBottom:22];
 
-    
+
 	pwdEdit = self.view.addEditPwd;
 	pwdEdit.delegate = self;
-    pwdEdit.hint = localStr(@"pwd");
+	pwdEdit.hint = localStr(@"pwd");
 	[pwdEdit returnDone];
 	[pwdEdit keyboardDefault];
 	[sl push:pwdEdit height:36 marginBottom:10];
 
 	emailEdit = self.view.addEditRounded;
 	emailEdit.delegate = self;
-    if (self.student) {
-        emailEdit.hint = localStr(@"schemail");
-    }else
-    {
-        emailEdit.hint = localStr(@"email_address");
-    }
+	if (self.student) {
+		emailEdit.hint = localStr(@"schemail");
+	} else {
+		emailEdit.hint = localStr(@"email_address");
+	}
 	emailEdit.text = self.emailStr;
 	[emailEdit returnNext];
 	[emailEdit keyboardEmail];
@@ -195,7 +193,7 @@
 
 	nameEdit = self.view.addEditRounded;
 	nameEdit.delegate = self;
-    nameEdit.tag=TAG_NAME_FIELD;
+	nameEdit.tag = TAG_NAME_FIELD;
 	nameEdit.hint = localStr(@"full_name");
 	nameEdit.text = self.nameStr;
 	[nameEdit returnNext];
@@ -241,16 +239,15 @@
 				default:
 					break;
 			}
-		}else
-        {
-            touchLabel.text = localStr(@"enable_touch");
-            alertTitle = localStr(@"useTouchIDTitle");
-            alertHint = localStr(@"useTouchIDHint");
+		} else {
+			touchLabel.text = localStr(@"enable_touch");
+			alertTitle = localStr(@"useTouchIDTitle");
+			alertHint = localStr(@"useTouchIDHint");
 
-        }
+		}
 	} else {
-        checkButton.selected = NO;
-        checkButton.enabled = NO;
+		checkButton.selected = NO;
+		checkButton.enabled = NO;
 	}
 
 }
@@ -314,17 +311,18 @@
 	}
 	regButton.enabled = !err;
 }
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    
-    //The maximum user name of the registration page is 50 characters.
-    if(textField.tag==TAG_NAME_FIELD){
-        NSString *toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-        if ([toBeString length] > 50) {
-            textField.text = [toBeString substringToIndex:50];
-            return NO;
-        }
-    }
-    return YES;
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+
+	//The maximum user name of the registration page is 50 characters.
+	if (textField.tag == TAG_NAME_FIELD) {
+		NSString *toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+		if ([toBeString length] > 50) {
+			textField.text = [toBeString substringToIndex:50];
+			return NO;
+		}
+	}
+	return YES;
 }
 
 
@@ -368,8 +366,8 @@
 	cf.cancelText = localStr(@"notallow");
 	[cf show:self onOK:^() {
 		NSError *error;
-        if ([self->context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
-            [self->context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:localStr(@"authenticateHint") reply:
+		if ([self->context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+			[self->context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:localStr(@"authenticateHint") reply:
 					^(BOOL success, NSError *authenticationError) {
 						if (success) {
 							[self doReg:email pwd:pwd fullName:fullName];
@@ -384,37 +382,39 @@
 
 - (void)doReg:(NSString *)email pwd:(NSString *)pwd fullName:(NSString *)fullName {
 
+	[self showIndicator];
 	backTask(^() {
 		HttpResult *r = [Proto register:email pwd:pwd name:fullName student:self.student];
-        if (r.code == 0) {//register success
-            if (r.OK) {
-                keychainPutPwd(email, pwd);
-            }
-            if (Proto.isLogined) {
-                foreTask(^() {
-                    [AppDelegate.instance switchToMainPage];
-                });
-            }
-        }else if (r.code == 1002)
-        {
-            NSString *content = [NSString stringWithFormat:@"%@%@%@",localStr(@"showFir"),email,localStr(@"showLast")];
-            [self Den_showAlertWithTitle:localStr(@"emailUse") message:content appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
-                alertMaker.
-                addActionCancelTitle(@"Try Again").
-                addActionDefaultTitle(localStr(@"logIn"));
-            } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
-                if ([action.title isEqualToString:localStr(@"logIn")]) {
-                    [self clickLogin:nil];
-                }
-            }];
-        }
-        
-        if (self.student) {
-            [DenGlobalInfo sharedInstance].identity = @"student";
-        }else
-        {
-            [DenGlobalInfo sharedInstance].identity = @"user";
-        }
+		foreTask(^() {
+			[self hideIndicator];
+			if (r.code == 0) {//register success
+				if (r.OK) {
+					keychainPutPwd(email, pwd);
+				}
+				if (Proto.isLogined) {
+					foreTask(^() {
+						[AppDelegate.instance switchToMainPage];
+					});
+				}
+			} else if (r.code == 1002) {
+				NSString *content = [NSString stringWithFormat:@"%@%@%@", localStr(@"showFir"), email, localStr(@"showLast")];
+				[self Den_showAlertWithTitle:localStr(@"emailUse") message:content appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
+					alertMaker.
+							addActionCancelTitle(@"Try Again").
+							addActionDefaultTitle(localStr(@"logIn"));
+				}               actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
+					if ([action.title isEqualToString:localStr(@"logIn")]) {
+						[self clickLogin:nil];
+					}
+				}];
+			}
+
+			if (self.student) {
+				[DenGlobalInfo sharedInstance].identity = @"student";
+			} else {
+				[DenGlobalInfo sharedInstance].identity = @"user";
+			}
+		});
 	});
 
 
@@ -456,14 +456,14 @@
 				[linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
 					// Whole User Info
 
-                    NSString *token = userInfo[@"access_token"];
-                    //send the token to the server
-                    HttpResult *result = [Proto sendLinkedInInfo:token];
-                    NSLog(@"%@", result);
-                    if (result.code == 0) {//go to the register page
-                        
-                        [self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
-                    }
+					NSString *token = userInfo[@"access_token"];
+					//send the token to the server
+					HttpResult *result = [Proto sendLinkedInInfo:token];
+					NSLog(@"%@", result);
+					if (result.code == 0) {//go to the register page
+
+						[self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
+					}
 
 				}                         failUserInfo:^(NSError *error) {
 					NSLog(@"error : %@", error.userInfo.description);
@@ -486,14 +486,14 @@
 				                                      state:@""
 				                            successUserInfo:^(NSDictionary *userInfo) {
 
-                                                NSString *token = userInfo[@"access_token"];
-                                                //send the token to the server
-                                                HttpResult *result = [Proto sendLinkedInInfo:token];
-                                                NSLog(@"%@", result);
-                                                if (result.code == 0) {//go to the register page
-                                                    
-                                                    [self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
-                                                }
+					                            NSString *token = userInfo[@"access_token"];
+					                            //send the token to the server
+					                            HttpResult *result = [Proto sendLinkedInInfo:token];
+					                            NSLog(@"%@", result);
+					                            if (result.code == 0) {//go to the register page
+
+						                            [self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
+					                            }
 
 				                            } cancelBlock:^{
 							NSLog(@"User cancelled the request Action");
@@ -511,21 +511,23 @@
 
 - (void)clickLogin:(id)sender {
 	LoginController *c = [LoginController new];
-    c.student = self.student;
+	c.student = self.student;
 	[self openPage:c];
 }
 
 - (void)linkedinLogin:(NSString *)userid token:(NSString *)token {
-    
-    backTask(^() {
-        [Proto linkedinLogin:token userid:userid];
-        if (Proto.isLogined) {
-            foreTask(^() {
-                [AppDelegate.instance switchToMainPage];
-            });
-        }
-    });
-    
+
+	[self showIndicator];
+	backTask(^() {
+		[Proto linkedinLogin:token userid:userid];
+		foreTask(^() {
+			[self hideIndicator];
+			if (Proto.isLogined) {
+				[AppDelegate.instance switchToMainPage];
+			}
+		});
+	});
+
 }
 
 @end

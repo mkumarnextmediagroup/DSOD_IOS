@@ -35,6 +35,19 @@
 	return [self characterAtIndex:self.length - 1];
 }
 
+- (NSString *)textAddPhoneNor {
+    NSMutableString *compStr = [[NSMutableString alloc] initWithCapacity:15];
+    for (int i = 0; i < self.length; i++) {
+        NSString *letter = [self substringWithRange:NSMakeRange(i,1)];
+        if (i == 3 || i == 6) {
+            [compStr appendString:@"-"];
+        }
+        [compStr appendString:letter];
+    }
+    return compStr;
+}
+
+
 
 - (NSString *)urlEncoded {
 	return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

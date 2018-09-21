@@ -51,6 +51,7 @@
 	zipView = [TitleEditView new];
 	zipView.label.text = @"Zip Code";
 	zipView.edit.delegate = self;
+    zipView.edit.maxLength = 5;
 	zipView.edit.keyboardType = UIKeyboardTypeNumberPad;
 	[self.contentView addSubview:zipView];
 

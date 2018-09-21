@@ -126,7 +126,7 @@
 	UserInfo *userInfo = [Proto lastUserInfo];
 	[imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"user_img"];
 	lbName.text = userInfo.fullName;
-	lbSub.text = @"-";
+	lbSub.text = @"";
 	if (userInfo.practiceAddress) {
 		NSString *city = userInfo.practiceAddress.city;
 		NSString *st = userInfo.practiceAddress.stateLabel;
@@ -152,16 +152,16 @@
 	[imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"Img-User-Dentist"];
 	[[[[imageView.layoutMaker sizeEq:115 h:115] leftParent:0] topParent:0] install];
 	lbName = v.addLabel;
-	lbName.text = @"-";
+	lbName.text = @"";
 	lbName.font = [Fonts semiBold:15];
 	[lbName textColorMain];
-	[[[[[[lbName layoutMaker] heightEq:22] toRightOf:imageView offset:16] topParent:6] rightParent:16] install];
+	[[[[[[lbName layoutMaker] heightEq:22] toRightOf:imageView offset:16] topParent:6] rightParent:-10] install];
 
 	lbSub = v.addLabel;
-	lbSub.text = @"-";
+	lbSub.text = @"";
 	lbSub.font = [Fonts regular:12];
 	[lbSub textColorSecondary];
-	[[[[[[lbSub layoutMaker] heightEq:16] toRightOf:imageView offset:16] below:lbName offset:5] rightParent:16] install];
+	[[[[[[lbSub layoutMaker] heightEq:16] toRightOf:imageView offset:16] below:lbName offset:5] rightParent:-10] install];
 
 	return v;
 }

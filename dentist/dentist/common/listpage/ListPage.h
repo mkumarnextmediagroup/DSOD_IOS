@@ -32,5 +32,5 @@
 
 - (void)onBindItem3:(NSObject *)item view:(UIView *)view cell:(UITableViewCell *)cell;
 
-
+-(void)addEmptyViewWithImageName:(NSString*)imageName title:(NSString*)title;
 @end

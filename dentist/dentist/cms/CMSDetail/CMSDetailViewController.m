@@ -41,8 +41,10 @@
     countLab.text = @"40,543 Reviews";
     [[[[countLab.layoutMaker leftParent:edge] topParent:20] sizeEq:200 h:20] install];
     
-    XHStarRateView *star = [[XHStarRateView alloc] initWithFrame:CGRectMake(edge, 50, 100, 16)];
+    XHStarRateView *star = [[XHStarRateView alloc] initWithFrame:CGRectMake(edge, 50, 92, 16)];
     star.isAnimation = YES;
+    star.currentScore = 4.5;
+    star.userInteractionEnabled = NO;
     star.rateStyle = HalfStar;
     [headerVi addSubview:star];
     

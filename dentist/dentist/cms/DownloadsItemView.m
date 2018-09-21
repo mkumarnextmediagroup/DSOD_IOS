@@ -47,7 +47,7 @@
     [[[[[statusLabel.layoutMaker toRightOf:imageView offset:15] toLeftOf:markButton offset:-20] bottomOf:imageView offset:0] heightEq:20] install];
     
     contentLabel = [self addLabel];
-    contentLabel.font = [Fonts semiBold:20];
+    contentLabel.font = [Fonts regular:15];
     [contentLabel textColorMain];
     contentLabel.numberOfLines = 0;
     

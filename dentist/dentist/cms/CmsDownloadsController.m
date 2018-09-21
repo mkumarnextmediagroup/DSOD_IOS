@@ -22,7 +22,8 @@
     [super viewDidLoad];
     
     UINavigationItem *item = [self navigationItem];
-    item.title = @"DSODENTIST";
+    item.title = @"DOWNLOADS";
+    item.rightBarButtonItem = [self navBarText:@"" target:self action:nil];
     
     self.table.tableHeaderView = [self makeHeaderView];
     self.table.rowHeight = 160;
@@ -35,11 +36,11 @@
 - (UIView *)makeHeaderView {
     UIView *panel = [UIView new];
     panel.frame = makeRect(0, 0, SCREENWIDTH, 32);
-    panel.backgroundColor=rgb255(249.0,250.0,253.0);
+    panel.backgroundColor=rgb255(250,251,253);
     
     UIButton *filterButton = [panel addButton];
-    [filterButton setImage:[UIImage imageNamed:@"searchIcon"] forState:UIControlStateNormal];
-    [[[[filterButton.layoutMaker topParent:4] rightParent:-10] sizeEq:24 h:24] install];
+    [filterButton setImage:[UIImage imageNamed:@"desc"] forState:UIControlStateNormal];
+    [[[[filterButton.layoutMaker topParent:4] rightParent:-15] sizeEq:24 h:24] install];
     [filterButton onClick:self action:@selector(clickFilter:)];
     return panel;
 }

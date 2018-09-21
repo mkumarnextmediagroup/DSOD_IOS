@@ -128,9 +128,11 @@
 }
 
 - (void)clickResidency:(id)sender {
+	[self showIndicator];
 	backTask(^() {
 		NSArray *array = [Proto queryDentalSchool];
 		foreTask(^() {
+			[self hideIndicator];
 			[self selectSchool:array];
 		});
 	});

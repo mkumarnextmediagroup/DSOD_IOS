@@ -109,10 +109,12 @@
 }
 
 - (void)sendCode:(NSString *)email {
-    backTask(^() {
+	[self showIndicator];
+	backTask(^() {
         HttpResult *r = [Proto sendEmailCode:email];
         foreTask(^() {
-            if (r.OK) {
+	        [self hideIndicator];
+	        if (r.OK) {
 				[self onSendCodeOK:email];
             } else {
                 [self alertOK:@"Error" msg:r.msg okText:nil onOK:nil];

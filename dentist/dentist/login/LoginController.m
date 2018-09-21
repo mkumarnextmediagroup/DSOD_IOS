@@ -14,7 +14,7 @@
 #import "NoIntenetViewController.h"
 
 @interface LoginController ()
- 
+
 @end
 
 @implementation LoginController {
@@ -34,17 +34,16 @@
 //    UIImageView *imageView = self.view.addImageView;
 //    imageView.imageName = @"bg_3.png";
 //    [imageView layoutFill];
-    
-    UIImage *image = [UIImage imageNamed:@"bg_3.png"];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    [self.view addSubview:imageView];
-    [imageView layoutFill];
-    
-    
+
+	UIImage *image = [UIImage imageNamed:@"bg_3.png"];
+	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+	[self.view addSubview:imageView];
+	[imageView layoutFill];
+
 
 	UIImageView *logoView = self.view.addImageView;
 	logoView.imageName = @"logo";
-	[logoView layoutCenterXOffsetTop:260 height:54 offset:54+NAVHEIGHT_OFFSET];
+	[logoView layoutCenterXOffsetTop:260 height:54 offset:54 + NAVHEIGHT_OFFSET];
 
 	UIImageView *backView = self.view.addImageView;
 	backView.imageName = @"back_arrow";
@@ -53,19 +52,18 @@
 		m.width.mas_equalTo(23);
 		m.height.mas_equalTo(23);
 		m.left.mas_equalTo(self.view.mas_left).offset(16);
-		m.top.mas_equalTo(self.view.mas_top).offset(30+NAVHEIGHT_OFFSET);
+		m.top.mas_equalTo(self.view.mas_top).offset(30 + NAVHEIGHT_OFFSET);
 	}];
 
-    StackLayout *sl = [StackLayout new];
-    
+	StackLayout *sl = [StackLayout new];
+
 	emailEdit = self.view.addEditRounded;
 	emailEdit.delegate = self;
-    if (self.student) {
-        emailEdit.hint = localStr(@"schemail");
-    }else
-    {
-        emailEdit.hint = localStr(@"email_address");
-    }
+	if (self.student) {
+		emailEdit.hint = localStr(@"schemail");
+	} else {
+		emailEdit.hint = localStr(@"email_address");
+	}
 	[emailEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:-23];
 
 	UILabel *lb = self.view.addLabel;
@@ -85,7 +83,7 @@
 	checkButton = self.view.addCheckbox;
 	checkButton.selected = YES;
 	[[[[[checkButton layoutMaker] sizeEq:24 h:24] leftParent:EDGE] below:pwdEdit offset:16] install];
-    [checkButton onClick:self action:@selector(clickCheckBox:)];
+	[checkButton onClick:self action:@selector(clickCheckBox:)];
 
 
 	touchLabel = self.view.addLabel;
@@ -109,32 +107,32 @@
 	[loginButton title:localStr(@"login")];
 	[loginButton styleSecondary];
 
-    
-    UILabel *regLabel = self.view.addLabel;
-    [regLabel textAlignCenter];
-    regLabel.font = [Fonts medium:15];
-    regLabel.textColor = UIColor.whiteColor;
-    regLabel.text = localStr(@"create_account");
-    [regLabel underLineSingle];
-    
-    [sl push:regLabel height:20 marginBottom:33+TABLEBAR_SAFE_BOTTOM_MARGIN];
 
-    if (!self.student) {
-        UIButton *linkedinButton = self.view.addButton;
-        [linkedinButton title:localStr(@"login_using_linkedin")];
-        [linkedinButton styleBlue];
-        UIImageView *inView = linkedinButton.addImageView;
-        inView.imageName = @"in";
-        [inView scaleFit];
-        [[[[inView.layoutMaker sizeEq:20 h:20] leftParent:10] centerYParent:0] install];
-        UIView *lineView = linkedinButton.addView;
-        lineView.backgroundColor = rgb255(0x2F, 0x9c, 0xD5);
-        [[[[[lineView.layoutMaker widthEq:1] topParent:0] bottomParent:0] leftParent:40] install];
-        [linkedinButton onClick:self action:@selector(clickLinkedin:)];
+	UILabel *regLabel = self.view.addLabel;
+	[regLabel textAlignCenter];
+	regLabel.font = [Fonts medium:15];
+	regLabel.textColor = UIColor.whiteColor;
+	regLabel.text = localStr(@"create_account");
+	[regLabel underLineSingle];
 
-        [sl push:linkedinButton height:BTN_HEIGHT marginBottom:22];
+	[sl push:regLabel height:20 marginBottom:33 + TABLEBAR_SAFE_BOTTOM_MARGIN];
 
-    }
+	if (!self.student) {
+		UIButton *linkedinButton = self.view.addButton;
+		[linkedinButton title:localStr(@"login_using_linkedin")];
+		[linkedinButton styleBlue];
+		UIImageView *inView = linkedinButton.addImageView;
+		inView.imageName = @"in";
+		[inView scaleFit];
+		[[[[inView.layoutMaker sizeEq:20 h:20] leftParent:10] centerYParent:0] install];
+		UIView *lineView = linkedinButton.addView;
+		lineView.backgroundColor = rgb255(0x2F, 0x9c, 0xD5);
+		[[[[[lineView.layoutMaker widthEq:1] topParent:0] bottomParent:0] leftParent:40] install];
+		[linkedinButton onClick:self action:@selector(clickLinkedin:)];
+
+		[sl push:linkedinButton height:BTN_HEIGHT marginBottom:22];
+
+	}
 	[sl push:loginButton height:BTN_HEIGHT marginBottom:8];
 	[sl install];
 
@@ -191,15 +189,15 @@
 		[emailEdit themeNormal];
 	}
 	if ([pwdEdit.text trimed].length < 2) {
-        [pwdEdit themeError];
-        err = YES;
+		[pwdEdit themeError];
+		err = YES;
 	} else {
 		[pwdEdit themeNormal];
 	}
-    
-    BOOL flag =[self shouldEableloginBtn];
-    loginButton.enabled = flag;
-    
+
+	BOOL flag = [self shouldEableloginBtn];
+	loginButton.enabled = flag;
+
 //    loginButton.enabled = !err;
 }
 
@@ -217,25 +215,25 @@
 
 - (void)clickCheckBox:(id)sender {
 
-    BOOL flag =[self shouldEableloginBtn];
-    loginButton.enabled = flag;
+	BOOL flag = [self shouldEableloginBtn];
+	loginButton.enabled = flag;
 }
 
 - (BOOL)shouldEableloginBtn {
-    
-    NSString *email =[emailEdit.text trimed];
-    NSString *pwd = keychainGetPwd(email);
-    if (email.matchEmail && [pwdEdit.text trimed].length > 2) {
-        return YES;
-    }
-    if(checkButton.isSelected){
-        if (email.matchEmail && pwd!=nil) {
-            return YES;
-        }
-    }
-    
-    return NO;
-    
+
+	NSString *email = [emailEdit.text trimed];
+	NSString *pwd = keychainGetPwd(email);
+	if (email.matchEmail && [pwdEdit.text trimed].length > 2) {
+		return YES;
+	}
+	if (checkButton.isSelected) {
+		if (email.matchEmail && pwd != nil) {
+			return YES;
+		}
+	}
+
+	return NO;
+
 }
 
 
@@ -285,79 +283,79 @@
 //    intenet.definesPresentationContext = YES;
 //    [self openPage:intenet];
 
-    [self Den_showAlertWithTitle:localStr(@"permission") message:localStr(@"WouldYou") appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
-        alertMaker.
-                addActionCancelTitle(@"Dont't Allow").
-                addActionDefaultTitle(@"OK");
-    }               actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
-        if ([action.title isEqualToString:@"Dont't Allow"]) {
-            NSLog(@"Dont't Allow");
-        } else if ([action.title isEqualToString:@"OK"]) {
-            NSLog(@"OK");
+	[self Den_showAlertWithTitle:localStr(@"permission") message:localStr(@"WouldYou") appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
+		alertMaker.
+				addActionCancelTitle(@"Dont't Allow").
+				addActionDefaultTitle(@"OK");
+	}               actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
+		if ([action.title isEqualToString:@"Dont't Allow"]) {
+			NSLog(@"Dont't Allow");
+		} else if ([action.title isEqualToString:@"OK"]) {
+			NSLog(@"OK");
 
-            //request the linkedin
-            LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
+			//request the linkedin
+			LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
 
-            // If user has already connected via linkedin in and access token is still valid then
-            // No need to fetch authorizationCode and then accessToken again!
-            if (linkedIn.isValidToken) {
+			// If user has already connected via linkedin in and access token is still valid then
+			// No need to fetch authorizationCode and then accessToken again!
+			if (linkedIn.isValidToken) {
 
-                linkedIn.customSubPermissions = [NSString stringWithFormat:@"%@,%@", first_name, last_name];
+				linkedIn.customSubPermissions = [NSString stringWithFormat:@"%@,%@", first_name, last_name];
 
-                // So Fetch member info by elderyly access token
-                [linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
-                    // get the access_token
-                    NSString *token = userInfo[@"access_token"];
-                    //send the token to the server
-                    HttpResult *result = [Proto sendLinkedInInfo:token];
-                    NSLog(@"%@", result);
-                    if (result.code == 0) {//go to the register page
+				// So Fetch member info by elderyly access token
+				[linkedIn autoFetchUserInfoWithSuccess:^(NSDictionary *userInfo) {
+					// get the access_token
+					NSString *token = userInfo[@"access_token"];
+					//send the token to the server
+					HttpResult *result = [Proto sendLinkedInInfo:token];
+					NSLog(@"%@", result);
+					if (result.code == 0) {//go to the register page
 
-                        [self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
-                    }
+						[self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
+					}
 
-                }                         failUserInfo:^(NSError *error) {
-                    NSLog(@"error : %@", error.userInfo.description);
-                }];
-            } else {
+				}                         failUserInfo:^(NSError *error) {
+					NSLog(@"error : %@", error.userInfo.description);
+				}];
+			} else {
 
-                linkedIn.cancelButtonText = @"Close";// Or any other language But Default is Close
+				linkedIn.cancelButtonText = @"Close";// Or any other language But Default is Close
 
-                NSArray *permissions = @[@(BasicProfile),
-                        @(EmailAddress),
-                        @(Share),
-                        @(CompanyAdmin)];
+				NSArray *permissions = @[@(BasicProfile),
+						@(EmailAddress),
+						@(Share),
+						@(CompanyAdmin)];
 
-                linkedIn.showActivityIndicator = YES;
-                [linkedIn requestMeWithSenderViewController:self
-                                                   clientId:@"81nb85ffrekjgr"
-                                               clientSecret:@"K0pwDPX4ptU1Qodg"
-                                                redirectUrl:@"https://com.appcoda.linkedin.oauth/oauth"
-                                                permissions:permissions
-                                                      state:@""
-                                            successUserInfo:^(NSDictionary *userInfo) {
+				linkedIn.showActivityIndicator = YES;
+				[linkedIn requestMeWithSenderViewController:self
+				                                   clientId:@"81nb85ffrekjgr"
+				                               clientSecret:@"K0pwDPX4ptU1Qodg"
+				                                redirectUrl:@"https://com.appcoda.linkedin.oauth/oauth"
+				                                permissions:permissions
+				                                      state:@""
+				                            successUserInfo:^(NSDictionary *userInfo) {
 
-                                                // get the access_token
-                                                NSString *token = userInfo[@"access_token"];
-                                                //send the token to the server
-                                                HttpResult *result = [Proto sendLinkedInInfo:token];
+					                            // get the access_token
+					                            NSString *token = userInfo[@"access_token"];
+					                            //send the token to the server
+					                            HttpResult *result = [Proto sendLinkedInInfo:token];
 
-                                                if (result.code == 0) {//go to the register page
+					                            if (result.code == 0) {//go to the register page
 
-                                                    [self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
-                                                }
+						                            [self linkedinLogin:result.resultMap[@"email"] token:result.resultMap[@"tokenValue"]];
+					                            }
 
-                                            } cancelBlock:^{
-                            NSLog(@"User cancelled the request Action");
+				                            } cancelBlock:^{
+							NSLog(@"User cancelled the request Action");
 
-                        }                 failUserInfoBlock:^(NSError *error) {
-                            NSLog(@"error : %@", error.userInfo.description);
+						}                 failUserInfoBlock:^(NSError *error) {
+							NSLog(@"error : %@", error.userInfo.description);
 
-                        }
-                ];
-            }
-        }
-    }];
+						}
+				];
+			}
+		}
+	}];
 
 }
 
@@ -374,57 +372,64 @@
 }
 
 - (void)linkedinLogin:(NSString *)userid token:(NSString *)token {
-    
-    backTask(^() {
-        [Proto linkedinLogin:token userid:userid];
-        if (Proto.isLogined) {
-            foreTask(^() {
-                [AppDelegate.instance switchToMainPage];
-            });
-        }
-    });
-    
+
+	[self showIndicator];
+	backTask(^() {
+		[Proto linkedinLogin:token userid:userid];
+		foreTask(^() {
+			[self hideIndicator];
+			if (Proto.isLogined) {
+				[AppDelegate.instance switchToMainPage];
+			}
+		});
+	});
+
 }
 
 - (void)login:(NSString *)userName password:(NSString *)pwd {
 
+	[self showIndicator];
 	backTask(^() {
 		HttpResult *r = [Proto login:userName pwd:pwd];
-        if (r.code == 1001)//pwd is error
-        {
-            NSString *content = [NSString stringWithFormat:@"%@\n%@",localStr(@"sorry"),userName];
-            [self Den_showAlertWithTitle:localStr(@"incorrect") message:content appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
-                alertMaker.
-                addActionCancelTitle(@"Try Again").
-                addActionDefaultTitle(localStr(@"resetPwdLower"));
-            } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
-                if ([action.title isEqualToString:localStr(@"resetPwdLower")]) {
-                    [self clickForgot:nil];
-                }
-            }];
-        }else if (r.code == 1003)//username is error
-        {
-            NSString *content = [NSString stringWithFormat:@"%@\n%@",localStr(@"sorryEmail"),userName];
-            [self Den_showAlertWithTitle:localStr(@"incorrMail") message:content appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
-                alertMaker.
-                addActionCancelTitle(@"Try Again").
-                addActionDefaultTitle(localStr(@"create_newAccount"));
-            } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
-                if ([action.title isEqualToString:localStr(@"create_newAccount")]) {
-                    [self clickGoReg:nil];
-                }
-            }];
-        }else if (r.code == 0)//login success
-        {
-            if (r.OK) {
-                keychainPutPwd(userName, pwd);
-            }
-            if (Proto.isLogined) {
-                foreTask(^() {
-                    [AppDelegate.instance switchToMainPage];
-                });
-            }
-        }
+		foreTask(^() {
+			[self hideIndicator];
+
+			if (r.code == 1001)//pwd is error
+			{
+				NSString *content = [NSString stringWithFormat:@"%@\n%@", localStr(@"sorry"), userName];
+				[self Den_showAlertWithTitle:localStr(@"incorrect") message:content appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
+					alertMaker.
+							addActionCancelTitle(@"Try Again").
+							addActionDefaultTitle(localStr(@"resetPwdLower"));
+				}               actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
+					if ([action.title isEqualToString:localStr(@"resetPwdLower")]) {
+						[self clickForgot:nil];
+					}
+				}];
+			} else if (r.code == 1003)//username is error
+			{
+				NSString *content = [NSString stringWithFormat:@"%@\n%@", localStr(@"sorryEmail"), userName];
+				[self Den_showAlertWithTitle:localStr(@"incorrMail") message:content appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
+					alertMaker.
+							addActionCancelTitle(@"Try Again").
+							addActionDefaultTitle(localStr(@"create_newAccount"));
+				}               actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
+					if ([action.title isEqualToString:localStr(@"create_newAccount")]) {
+						[self clickGoReg:nil];
+					}
+				}];
+			} else if (r.code == 0)//login success
+			{
+				if (r.OK) {
+					keychainPutPwd(userName, pwd);
+				}
+				if (Proto.isLogined) {
+					foreTask(^() {
+						[AppDelegate.instance switchToMainPage];
+					});
+				}
+			}
+		});
 	});
 
 }

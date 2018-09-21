@@ -54,7 +54,6 @@
 	[self showIndicator];
 	backTask(^() {
 		[Proto getProfileInfo];
-
 		foreTask(^() {
 			[self hideIndicator];
 			[self buildViews];

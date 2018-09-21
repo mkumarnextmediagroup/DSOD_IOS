@@ -38,9 +38,9 @@
 
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"DSODENTIST";
-    //TODO 还不太明白为啥 不设置rightBarButtonItem，title不显示
-    item.rightBarButtonItem = [self navBarText:@"" target:self action:@selector(clickTest:)];
-   
+	//TODO 还不太明白为啥 不设置rightBarButtonItem，title不显示
+	item.rightBarButtonItem = [self navBarText:@"" target:self action:@selector(clickTest:)];
+
 
 	self.table.tableHeaderView = [self makeHeaderView];
 	self.table.rowHeight = UITableViewAutomaticDimension;
@@ -48,6 +48,11 @@
 
 	NSArray *ls = [Proto listArticle];
 	self.items = ls;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	self.navigationItem.title = @"DSODENTIST";
 }
 
 
@@ -132,7 +137,7 @@
 - (void)onClickItem:(NSObject *)item {
 	CMSDetailViewController *detail = [CMSDetailViewController new];
 	detail.articleInfo = (Article *) item;
-    [self.navigationController.tabBarController presentViewController:detail animated:YES  completion:nil];
+	[self.navigationController.tabBarController presentViewController:detail animated:YES completion:nil];
 }
 
 

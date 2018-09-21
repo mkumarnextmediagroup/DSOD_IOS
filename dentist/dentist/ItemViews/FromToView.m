@@ -5,6 +5,7 @@
 
 #import "FromToView.h"
 #import "Common.h"
+#import "NSDate+myextend.h"
 
 @implementation FromToView {
 
@@ -20,6 +21,8 @@
 
 	self.backgroundColor = UIColor.whiteColor;
 
+	_showPresentWhenGreatNow = NO;
+
 	UILabel *fromLabel = self.addLabel;
 	UILabel *toLabel = self.addLabel;
 	[fromLabel itemTitleStyle];
@@ -30,9 +33,9 @@
 	[_fromDateLabel itemPrimaryStyle];
 	[_toDateLabel itemPrimaryStyle];
 
-    [fromLabel setTextWithDifColor:@"From *"];
-    [toLabel setTextWithDifColor:@"To *"];
-    
+	[fromLabel setTextWithDifColor:@"From *"];
+	[toLabel setTextWithDifColor:@"To *"];
+
 	_fromDateLabel.text = @"Select";
 	_toDateLabel.text = @"Select";
 
@@ -70,4 +73,40 @@
 
 	return self;
 }
+
+
+- (void)fromValue:(NSInteger)year month:(NSInteger)month {
+	if (month > 0 && year > 0) {
+		if (_showPresentWhenGreatNow) {
+			NSInteger y = [[NSDate date] year];
+			NSInteger m = [[NSDate date] month];
+			if (year > y || (year == y && month > m)) {
+				self.fromDateLabel.text = @"Present";
+				return;
+			}
+		}
+		self.fromDateLabel.text = strBuild(nameOfMonth(month), @" ", [@(year) description]);
+	} else {
+		self.fromDateLabel.text = @"Select";
+	}
+
+
+}
+
+- (void)toValue:(NSInteger)year month:(NSInteger)month {
+	if (month > 0 && year > 0) {
+		if (_showPresentWhenGreatNow) {
+			NSInteger y = [[NSDate date] year];
+			NSInteger m = [[NSDate date] month];
+			if (year > y || (year == y && month > m)) {
+				self.toDateLabel.text = @"Present";
+				return;
+			}
+		}
+		self.toDateLabel.text = strBuild(nameOfMonth(month), @" ", [@(year) description]);
+	} else {
+		self.toDateLabel.text = @"Select";
+	}
+}
+
 @end

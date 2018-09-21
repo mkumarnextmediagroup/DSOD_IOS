@@ -75,8 +75,6 @@
 		4E85DA9121451D3B007C40C3 /* UploadData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E85DA9021451D3B007C40C3 /* UploadData.m */; };
 		4E923D6B2153761E00779268 /* DownloadsItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E923D672153761D00779268 /* DownloadsItemView.m */; };
 		4E923D6C2153761E00779268 /* BookMarkItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E923D692153761D00779268 /* BookMarkItemView.m */; };
-		4E923D712153769700779268 /* DentistFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E923D6E2153769700779268 /* DentistFilterView.m */; };
-		4E923D722153769700779268 /* DentistPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E923D6F2153769700779268 /* DentistPickerView.m */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -105,10 +103,8 @@
 		57B0990A21256E840010597B /* linked_in.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B0990421256E840010597B /* linked_in.png */; };
 		57B0990B21256E840010597B /* bg_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B0990521256E840010597B /* bg_2.png */; };
 		74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D18A46C0F072296ED5347389 /* libPods-dentist.a */; };
-		A97089A32153689A00BD9663 /* DentistFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = A970899F2153689800BD9663 /* DentistFilterView.m */; };
-		A97089A42153689A00BD9663 /* DentistPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A97089A22153689900BD9663 /* DentistPickerView.m */; };
-		A97089A9215368AA00BD9663 /* BookMarkItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A97089A5215368A700BD9663 /* BookMarkItemView.m */; };
-		A97089AA215368AA00BD9663 /* DownloadsItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A97089A8215368A900BD9663 /* DownloadsItemView.m */; };
+		A956C52C21548EC900E528EB /* DentistFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = A956C52A21548EC800E528EB /* DentistFilterView.m */; };
+		A956C52D21548EC900E528EB /* DentistPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A956C52B21548EC800E528EB /* DentistPickerView.m */; };
 		BFCE80B42123CB59008F3A7F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BFCE80B62123CB59008F3A7F /* Localizable.strings */; };
 		C5EEA00883327B721F4F63A6 /* seg-bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA865BCD7831629957081 /* seg-bg@3x.png */; };
 		C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEADB73500333182433F3A /* UIImage+customed.m */; };
@@ -590,10 +586,6 @@
 		4E923D682153761D00779268 /* DownloadsItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadsItemView.h; sourceTree = "<group>"; };
 		4E923D692153761D00779268 /* BookMarkItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookMarkItemView.m; sourceTree = "<group>"; };
 		4E923D6A2153761E00779268 /* BookMarkItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookMarkItemView.h; sourceTree = "<group>"; };
-		4E923D6D2153769600779268 /* DentistFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistFilterView.h; sourceTree = "<group>"; };
-		4E923D6E2153769700779268 /* DentistFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistFilterView.m; sourceTree = "<group>"; };
-		4E923D6F2153769700779268 /* DentistPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistPickerView.m; sourceTree = "<group>"; };
-		4E923D702153769700779268 /* DentistPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistPickerView.h; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -634,14 +626,10 @@
 		57B0990421256E840010597B /* linked_in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linked_in.png; sourceTree = "<group>"; };
 		57B0990521256E840010597B /* bg_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_2.png; sourceTree = "<group>"; };
 		68B426216C681447B0595866 /* Pods-dentist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dentist/Pods-dentist.debug.xcconfig"; sourceTree = "<group>"; };
-		A970899F2153689800BD9663 /* DentistFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistFilterView.m; sourceTree = "<group>"; };
-		A97089A02153689800BD9663 /* DentistPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistPickerView.h; sourceTree = "<group>"; };
-		A97089A12153689900BD9663 /* DentistFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistFilterView.h; sourceTree = "<group>"; };
-		A97089A22153689900BD9663 /* DentistPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistPickerView.m; sourceTree = "<group>"; };
-		A97089A5215368A700BD9663 /* BookMarkItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookMarkItemView.m; sourceTree = "<group>"; };
-		A97089A6215368A800BD9663 /* DownloadsItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadsItemView.h; sourceTree = "<group>"; };
-		A97089A7215368A800BD9663 /* BookMarkItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookMarkItemView.h; sourceTree = "<group>"; };
-		A97089A8215368A900BD9663 /* DownloadsItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadsItemView.m; sourceTree = "<group>"; };
+		A956C52821548EC700E528EB /* DentistPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistPickerView.h; sourceTree = "<group>"; };
+		A956C52921548EC700E528EB /* DentistFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistFilterView.h; sourceTree = "<group>"; };
+		A956C52A21548EC800E528EB /* DentistFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistFilterView.m; sourceTree = "<group>"; };
+		A956C52B21548EC800E528EB /* DentistPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistPickerView.m; sourceTree = "<group>"; };
 		AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentist.release.xcconfig"; path = "Pods/Target Support Files/Pods-dentist/Pods-dentist.release.xcconfig"; sourceTree = "<group>"; };
 		BFCE80B52123CB59008F3A7F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		BFCE80B72123CB61008F3A7F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1804,10 +1792,10 @@
 				C5EEA91DC1E4106A405760DA /* NSDate+myextend.h */,
 				C5EEA91D5A1E6B3A8A6AB23A /* NSDictionary+myextend.m */,
 				C5EEACAF5C76583BF58E8085 /* NSDictionary+myextend.h */,
-				A97089A12153689900BD9663 /* DentistFilterView.h */,
-				A970899F2153689800BD9663 /* DentistFilterView.m */,
-				A97089A02153689800BD9663 /* DentistPickerView.h */,
-				A97089A22153689900BD9663 /* DentistPickerView.m */,
+				A956C52921548EC700E528EB /* DentistFilterView.h */,
+				A956C52A21548EC800E528EB /* DentistFilterView.m */,
+				A956C52821548EC700E528EB /* DentistPickerView.h */,
+				A956C52B21548EC800E528EB /* DentistPickerView.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -2438,9 +2426,8 @@
 				C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */,
 				4E23E6CD214B99DA00D61C90 /* DenCamera.m in Sources */,
 				4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */,
-				4E923D722153769700779268 /* DentistPickerView.m in Sources */,
+				A956C52D21548EC900E528EB /* DentistPickerView.m in Sources */,
 				4E85DA8E21450F51007C40C3 /* PersonInfo.m in Sources */,
-				A97089AA215368AA00BD9663 /* DownloadsItemView.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
 				4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */,
@@ -2448,7 +2435,6 @@
 				4E23522C213D12CB003BA59B /* UpdateViewController.m in Sources */,
 				4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */,
 				3ED0764B213A9FE3004D4083 /* ProfileViewController.m in Sources */,
-				A97089A9215368AA00BD9663 /* BookMarkItemView.m in Sources */,
 				C5EEA83B50B6C4A767E00729 /* UIControl+customed.m in Sources */,
 				4E1957442137D0F100420563 /* LinkedinSimpleKeychain.m in Sources */,
 				C5EEA9F6FFD32D08ABB00CE8 /* UIView+customed.m in Sources */,
@@ -2488,14 +2474,13 @@
 				C5EEA409953B93D9D6261C83 /* Async.m in Sources */,
 				C5EEA2F9830CC5E8FD47394F /* HttpResult.m in Sources */,
 				C5EEA57BF745D8F5F4562664 /* NSData+myextend.m in Sources */,
-				4E923D712153769700779268 /* DentistFilterView.m in Sources */,
+				A956C52C21548EC900E528EB /* DentistFilterView.m in Sources */,
 				C5EEAB5755227C042888D693 /* Json.m in Sources */,
 				4EE025502151F59400BBD290 /* PlayerView.m in Sources */,
 				E11E1EDBB2AFC925F1DEBFB2 /* BaseNavController.m in Sources */,
 				E11E1F3374C0062C790089B8 /* TitleBar.m in Sources */,
 				E11E1A6226F32868524CF272 /* BaseTabController.m in Sources */,
 				4E85DA8B21429C45007C40C3 /* DenGlobalInfo.m in Sources */,
-				A97089A42153689A00BD9663 /* DentistPickerView.m in Sources */,
 				E11E1ADBC83B9657D14256E2 /* UserConfig.m in Sources */,
 				E11E13D762D175EF23115B92 /* AppDelegate.m in Sources */,
 				E11E147FF4FE738E0561AF6A /* Proto.m in Sources */,
@@ -2543,7 +2528,6 @@
 				C5EEA6D4E3D99C517A1F11F1 /* EditUserView.m in Sources */,
 				C5EEA1C6749DC002B0822BA4 /* UserCell.m in Sources */,
 				C5EEAE849A9D7BECFA31FC89 /* Pair.m in Sources */,
-				A97089A32153689A00BD9663 /* DentistFilterView.m in Sources */,
 				C5EEA80345D17C8493BB8709 /* SearchPage.m in Sources */,
 				C5EEAAF068D2FF7E482A0CC2 /* LabelCheckView.m in Sources */,
 				C5EEAE6124816A6F31F4FA05 /* GroupListPage.m in Sources */,

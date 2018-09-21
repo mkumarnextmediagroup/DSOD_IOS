@@ -27,7 +27,6 @@
     
     NSArray *ls = [Proto listBookmark];
     self.items = ls;
-    //    [self.view addSubview:self.filterView];
 }
 
 - (UIView *)makeHeaderView {

@@ -83,6 +83,7 @@
 - (void)clickYes:(id)sender {
 	RegController *c = [RegController new];
 	c.student = YES;
+    NSLog(@"%d",c.student);
 	c.registSuccessBlock = ^{
 		[self dismiss];
 	};

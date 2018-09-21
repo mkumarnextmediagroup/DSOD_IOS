@@ -26,6 +26,7 @@
 @interface ProfileEditPage () <UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
 	NSString *selectImageName;
 	UIImage *selectImage;
+    NSInteger _num;
 }
 @end
 
@@ -204,7 +205,8 @@
 
 	phoneView = [TitleEditView new];
 	phoneView.label.text = @"Mobile number";
-	phoneView.edit.delegate = self;
+    [phoneView.edit addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
+    _num = 0;
     [phoneView.edit keyboardPhone];
 	[phoneView.edit returnDone];
 	phoneView.edit.maxLength = 10;
@@ -223,19 +225,33 @@
 	[self layoutLinearVertical];
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+
+-(void)textFieldDidEditing:(UITextField *)textField
 {
     if (textField.tag == PHONEFIELDTag) {
-        if (textField.text.length == 4 || textField.text.length == 8 ) {//输入
-            NSMutableString * str = [[NSMutableString alloc ] initWithString:textField.text];
-            [str insertString:@"-" atIndex:(textField.text.length-1)];
-            textField.text = str;
-        }if (textField.text.length >= 12 ) {//输入完成
-            textField.text = [textField.text substringToIndex:12];
-            [textField resignFirstResponder];
+        
+        if (textField.text.length > _num) {
+            
+            if (textField.text.length == 4 || textField.text.length == 8 ) {//输入
+                NSMutableString * str = [[NSMutableString alloc ] initWithString:textField.text];
+                [str insertString:@"-" atIndex:(textField.text.length-1)];
+                textField.text = str;
+            }if (textField.text.length >= 12 ) {//输入完成
+                textField.text = [textField.text substringToIndex:12];
+                [textField resignFirstResponder];
+            }
+            
+            _num = textField.text.length;
+
+        }else if (textField.text.length < _num){//删除
+            if (textField.text.length == 4 || textField.text.length == 8) {
+                textField.text = [NSString stringWithFormat:@"%@",textField.text];
+                textField.text = [textField.text substringToIndex:(textField.text.length-1)];
+            }
+            _num = textField.text.length;
         }
+        
     }
-    return YES;
 }
 
 - (GroupLabelView *)addGroupTitle:(NSString *)title {

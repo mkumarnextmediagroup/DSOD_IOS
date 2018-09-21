@@ -175,7 +175,7 @@
     
     XHStarRateView *star = [[XHStarRateView alloc] initWithFrame:CGRectMake((SCREENWIDTH - 160)/2, 60, 160, 30)];
     star.isAnimation = YES;
-    star.rateStyle = IncompleteStar;
+    star.rateStyle = HalfStar;
     star.tag = 1;
     [starView addSubview:star];
     

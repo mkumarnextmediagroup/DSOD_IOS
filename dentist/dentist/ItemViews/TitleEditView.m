@@ -30,6 +30,7 @@
 	[_label itemTitleStyle];
 
 	_edit.font = [Fonts regular:15];
+    _edit.tag = 145;
 	[_edit textColorBlack];
 
 	iconView.imageName = @"write";

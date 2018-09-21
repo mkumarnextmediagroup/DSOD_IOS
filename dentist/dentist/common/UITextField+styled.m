@@ -370,4 +370,8 @@ static char maxLengthAttr = 0;
 	return [self.text trimed];
 };
 
+- (NSString *)textReplace {
+    return [self.text stringByReplacingOccurrencesOfString:@"-" withString:@""];
+}
+
 @end

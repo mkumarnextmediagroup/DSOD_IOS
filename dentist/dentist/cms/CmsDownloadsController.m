@@ -10,9 +10,8 @@
 #import "DentistFilterView.h"
 
 @implementation CmsDownloadsController {
-
+    
 }
-
 - (instancetype)init {
     self = [super init];
     self.topOffset = 0;

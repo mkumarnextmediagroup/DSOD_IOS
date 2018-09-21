@@ -53,6 +53,7 @@
 + (HttpResult *)saveProfileInfo:(NSDictionary *_Nullable)dic;
 
 + (NSArray *_Nullable)listArticle;
++ (NSArray *_Nullable)listBookmark;
 
 + (nullable StateCity *)getStateAndCity:(NSString *_Nullable)zipCode;
 

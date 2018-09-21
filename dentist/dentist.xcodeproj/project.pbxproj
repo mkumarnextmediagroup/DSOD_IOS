@@ -75,8 +75,6 @@
 		4E85DA9121451D3B007C40C3 /* UploadData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E85DA9021451D3B007C40C3 /* UploadData.m */; };
 		4E923D6B2153761E00779268 /* DownloadsItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E923D672153761D00779268 /* DownloadsItemView.m */; };
 		4E923D6C2153761E00779268 /* BookMarkItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E923D692153761D00779268 /* BookMarkItemView.m */; };
-		4E923D712153769700779268 /* DentistFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E923D6E2153769700779268 /* DentistFilterView.m */; };
-		4E923D722153769700779268 /* DentistPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E923D6F2153769700779268 /* DentistPickerView.m */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -105,6 +103,8 @@
 		57B0990A21256E840010597B /* linked_in.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B0990421256E840010597B /* linked_in.png */; };
 		57B0990B21256E840010597B /* bg_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B0990521256E840010597B /* bg_2.png */; };
 		74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D18A46C0F072296ED5347389 /* libPods-dentist.a */; };
+		A956C52C21548EC900E528EB /* DentistFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = A956C52A21548EC800E528EB /* DentistFilterView.m */; };
+		A956C52D21548EC900E528EB /* DentistPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A956C52B21548EC800E528EB /* DentistPickerView.m */; };
 		BFCE80B42123CB59008F3A7F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BFCE80B62123CB59008F3A7F /* Localizable.strings */; };
 		C5EEA00883327B721F4F63A6 /* seg-bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA865BCD7831629957081 /* seg-bg@3x.png */; };
 		C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEADB73500333182433F3A /* UIImage+customed.m */; };
@@ -586,10 +586,6 @@
 		4E923D682153761D00779268 /* DownloadsItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadsItemView.h; sourceTree = "<group>"; };
 		4E923D692153761D00779268 /* BookMarkItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookMarkItemView.m; sourceTree = "<group>"; };
 		4E923D6A2153761E00779268 /* BookMarkItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookMarkItemView.h; sourceTree = "<group>"; };
-		4E923D6D2153769600779268 /* DentistFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistFilterView.h; sourceTree = "<group>"; };
-		4E923D6E2153769700779268 /* DentistFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistFilterView.m; sourceTree = "<group>"; };
-		4E923D6F2153769700779268 /* DentistPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistPickerView.m; sourceTree = "<group>"; };
-		4E923D702153769700779268 /* DentistPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistPickerView.h; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -630,6 +626,10 @@
 		57B0990421256E840010597B /* linked_in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linked_in.png; sourceTree = "<group>"; };
 		57B0990521256E840010597B /* bg_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_2.png; sourceTree = "<group>"; };
 		68B426216C681447B0595866 /* Pods-dentist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dentist/Pods-dentist.debug.xcconfig"; sourceTree = "<group>"; };
+		A956C52821548EC700E528EB /* DentistPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistPickerView.h; sourceTree = "<group>"; };
+		A956C52921548EC700E528EB /* DentistFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistFilterView.h; sourceTree = "<group>"; };
+		A956C52A21548EC800E528EB /* DentistFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistFilterView.m; sourceTree = "<group>"; };
+		A956C52B21548EC800E528EB /* DentistPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistPickerView.m; sourceTree = "<group>"; };
 		AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentist.release.xcconfig"; path = "Pods/Target Support Files/Pods-dentist/Pods-dentist.release.xcconfig"; sourceTree = "<group>"; };
 		BFCE80B52123CB59008F3A7F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		BFCE80B72123CB61008F3A7F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1792,10 +1792,10 @@
 				C5EEA91DC1E4106A405760DA /* NSDate+myextend.h */,
 				C5EEA91D5A1E6B3A8A6AB23A /* NSDictionary+myextend.m */,
 				C5EEACAF5C76583BF58E8085 /* NSDictionary+myextend.h */,
-				4E923D6D2153769600779268 /* DentistFilterView.h */,
-				4E923D6E2153769700779268 /* DentistFilterView.m */,
-				4E923D702153769700779268 /* DentistPickerView.h */,
-				4E923D6F2153769700779268 /* DentistPickerView.m */,
+				A956C52921548EC700E528EB /* DentistFilterView.h */,
+				A956C52A21548EC800E528EB /* DentistFilterView.m */,
+				A956C52821548EC700E528EB /* DentistPickerView.h */,
+				A956C52B21548EC800E528EB /* DentistPickerView.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -2389,7 +2389,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-dentist/Pods-dentist-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-dentist/Pods-dentist-resources.sh",
 				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -2398,7 +2398,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-dentist/Pods-dentist-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-dentist/Pods-dentist-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2426,7 +2426,7 @@
 				C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */,
 				4E23E6CD214B99DA00D61C90 /* DenCamera.m in Sources */,
 				4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */,
-				4E923D722153769700779268 /* DentistPickerView.m in Sources */,
+				A956C52D21548EC900E528EB /* DentistPickerView.m in Sources */,
 				4E85DA8E21450F51007C40C3 /* PersonInfo.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
@@ -2474,7 +2474,7 @@
 				C5EEA409953B93D9D6261C83 /* Async.m in Sources */,
 				C5EEA2F9830CC5E8FD47394F /* HttpResult.m in Sources */,
 				C5EEA57BF745D8F5F4562664 /* NSData+myextend.m in Sources */,
-				4E923D712153769700779268 /* DentistFilterView.m in Sources */,
+				A956C52C21548EC900E528EB /* DentistFilterView.m in Sources */,
 				C5EEAB5755227C042888D693 /* Json.m in Sources */,
 				4EE025502151F59400BBD290 /* PlayerView.m in Sources */,
 				E11E1EDBB2AFC925F1DEBFB2 /* BaseNavController.m in Sources */,
@@ -2690,7 +2690,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 48BA5XP347;
+				DEVELOPMENT_TEAM = T9358E6X2D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -2738,7 +2738,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 48BA5XP347;
+				DEVELOPMENT_TEAM = T9358E6X2D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

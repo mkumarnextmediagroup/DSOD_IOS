@@ -9,9 +9,7 @@
 #import "Proto.h"
 #import "DentistFilterView.h"
 
-@implementation CmsBookmarkController {
-
-}
+@implementation CmsBookmarkController
 
 - (instancetype)init {
     self = [super init];
@@ -29,7 +27,6 @@
     
     NSArray *ls = [Proto listBookmark];
     self.items = ls;
-    //    [self.view addSubview:self.filterView];
 }
 
 - (UIView *)makeHeaderView {
@@ -47,7 +44,6 @@
 - (Class)viewClassOfItem:(NSObject *)item {
     return BookMarkItemView.class;
 }
-
 - (CGFloat)heightOfItem:(NSObject *)item {
     return 150;
 }
@@ -66,5 +62,4 @@
         //关闭block回调
     }];
 }
-
 @end

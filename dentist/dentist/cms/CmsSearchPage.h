@@ -4,7 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseController.h"
+#import "ListPage.h"
 
-@interface CmsSearchPage : BaseController
+@interface CmsSearchPage : ListPage
 @end

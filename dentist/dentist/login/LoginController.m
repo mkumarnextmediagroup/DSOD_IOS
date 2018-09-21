@@ -85,6 +85,7 @@
 	checkButton = self.view.addCheckbox;
 	checkButton.selected = YES;
 	[[[[[checkButton layoutMaker] sizeEq:24 h:24] leftParent:EDGE] below:pwdEdit offset:16] install];
+    [checkButton onClick:self action:@selector(clickCheckBox:)];
 
 
 	touchLabel = self.view.addLabel;
@@ -190,12 +191,16 @@
 		[emailEdit themeNormal];
 	}
 	if ([pwdEdit.text trimed].length < 2) {
-		[pwdEdit themeError];
-		err = YES;
+        [pwdEdit themeError];
+        err = YES;
 	} else {
 		[pwdEdit themeNormal];
 	}
-	loginButton.enabled = !err;
+    
+    BOOL flag =[self shouldEableloginBtn];
+    loginButton.enabled = flag;
+    
+//    loginButton.enabled = !err;
 }
 
 
@@ -208,6 +213,29 @@
 	StudentController *c = [StudentController new];
 	[self presentViewController:c animated:YES completion:nil];
 
+}
+
+- (void)clickCheckBox:(id)sender {
+
+    BOOL flag =[self shouldEableloginBtn];
+    loginButton.enabled = flag;
+}
+
+- (BOOL)shouldEableloginBtn {
+    
+    NSString *email =[emailEdit.text trimed];
+    NSString *pwd = keychainGetPwd(email);
+    if (email.matchEmail && [pwdEdit.text trimed].length > 2) {
+        return YES;
+    }
+    if(checkButton.isSelected){
+        if (email.matchEmail && pwd!=nil) {
+            return YES;
+        }
+    }
+    
+    return NO;
+    
 }
 
 

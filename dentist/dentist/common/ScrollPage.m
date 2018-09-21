@@ -10,10 +10,13 @@
 @implementation ScrollPage {
 	UIScrollView *_scrollView;
 	UIView *_contentView;
+
+	UIView *_lastView;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	_lastView = nil;
 	_scrollView = [UIScrollView new];
 	[self.view addSubview:_scrollView];
 	MASConstraintMaker *sm = [[[_scrollView layoutMaker] leftParent:0] rightParent:0];
@@ -48,20 +51,28 @@
 
 
 - (void)layoutLinearVertical {
+	if (_lastView) {
+		[_lastView layoutRemoveAllConstraints];
+	}
+
 	CGFloat top = 0;
 	UIView *lastView = nil;
 	for (UIView *v in self.contentView.subviews) {
 		if (!v.hidden) {
+			[v layoutRemoveAllConstraints];
 			LayoutParam *p = v.layoutParam;
 			CGFloat y = top + p.marginTop;
 			[[[[[[v layoutRemaker] leftParent:p.marginLeft] rightParent:-p.marginRight] topParent:y] heightEq:p.height] install];
 			top = y + p.height;
 			lastView = v;
+		} else {
+			[v layoutRemoveAllConstraints];
 		}
 	}
 	if (lastView != nil) {
 		[_contentView.layoutUpdate.bottom.greaterThanOrEqualTo(lastView) install];
 	}
+	_lastView = lastView;
 }
 
 - (UIView *)addGrayLine:(CGFloat)marginLeft marginRight:(CGFloat)marginRight {

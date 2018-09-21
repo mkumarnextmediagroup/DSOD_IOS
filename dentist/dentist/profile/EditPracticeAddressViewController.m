@@ -13,6 +13,7 @@
 #import "TitleMsgArrowView.h"
 #import "SearchPage.h"
 #import "Proto.h"
+#import "StateCity.h"
 
 
 @implementation EditPracticeAddressViewController {
@@ -49,7 +50,8 @@
 
 	zipView = [TitleEditView new];
 	zipView.label.text = @"Zip Code";
-    zipView.edit.keyboardType = UIKeyboardTypeNumberPad;
+	zipView.edit.delegate = self;
+	zipView.edit.keyboardType = UIKeyboardTypeNumberPad;
 	[self.contentView addSubview:zipView];
 
 	cityView = [TitleEditView new];
@@ -81,18 +83,49 @@
 	stateView.msgLabel.text = self.address.stateLabel;
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+	[super textFieldDidEndEditing:textField];
+	if (zipView) {
+		if (textField == zipView.edit) {
+			[self queryStateCityByZipCode:textField.textTrimed];
+		}
+	}
+}
+
+- (void)queryStateCityByZipCode:(NSString *)zip {
+	if (!zip || zip.length != 5) {
+		return;
+	}
+	[self showIndicator];
+	backTask(^() {
+		StateCity *sc = [Proto getStateAndCity:zip];
+		foreTask(^() {
+			[self hideIndicator];
+			if (sc) {
+				if (sc.city) {
+					cityView.edit.text = sc.city;
+				}
+				if (sc.state) {
+					stateView.msgLabel.text = sc.state;
+				}
+			}
+		});
+
+	});
+}
+
 - (void)clickBack:(id)sender {
-    
-    [self Den_showAlertWithTitle:nil message:localStr(@"delAndBack") appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
-        alertMaker.
-        addActionCancelTitle(@"Cancel").
-        addActionDefaultTitle(@"Yes");
-    } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
-        if ([action.title isEqualToString:@"Yes"]) {
-            [self popPage];
-        }
-    }];
-    
+
+	[self Den_showAlertWithTitle:nil message:localStr(@"delAndBack") appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
+		alertMaker.
+				addActionCancelTitle(@"Cancel").
+				addActionDefaultTitle(@"Yes");
+	}               actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
+		if ([action.title isEqualToString:@"Yes"]) {
+			[self popPage];
+		}
+	}];
+
 }
 
 - (void)clickCancel:(UIButton *)btn {
@@ -100,13 +133,12 @@
 }
 
 - (void)clickSave:(UIButton *)btn {
-	self.address.address1 = [NSString stringWithFormat:@"%@\n",addr1View.edit.textTrimed];
-    if (![addr2View.edit.textTrimed isEqualToString:@""]) {
-        self.address.address2 = [NSString stringWithFormat:@"%@\n",addr2View.edit.textTrimed];
-    }else
-    {
-        self.address.address2 = @"";
-    }
+	self.address.address1 = [NSString stringWithFormat:@"%@\n", addr1View.edit.textTrimed];
+	if (![addr2View.edit.textTrimed isEqualToString:@""]) {
+		self.address.address2 = [NSString stringWithFormat:@"%@\n", addr2View.edit.textTrimed];
+	} else {
+		self.address.address2 = @"";
+	}
 	self.address.zipCode = zipView.edit.textTrimed;
 	self.address.city = cityView.edit.textTrimed;
 	self.address.stateLabel = stateView.msgLabel.text;
@@ -127,13 +159,13 @@
 
 	p.onResult = ^(NSObject *item) {
 //        stateView.msgLabel.text = (NSString *) item;
-        NSString *currentState = (NSString *) item;
-        NSArray *shLs = [Proto shortStates];
-        for (int i = 0; i < ls.count; i++) {
-            if ([ls[i] isEqualToString:currentState]) {
-                self->stateView.msgLabel.text = shLs[i];
-            }
-        }
+		NSString *currentState = (NSString *) item;
+		NSArray *shLs = [Proto shortStates];
+		for (int i = 0; i < ls.count; i++) {
+			if ([ls[i] isEqualToString:currentState]) {
+				self->stateView.msgLabel.text = shLs[i];
+			}
+		}
 	};
 	[self pushPage:p];
 

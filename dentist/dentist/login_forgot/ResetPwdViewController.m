@@ -165,9 +165,12 @@
 	}
 	NSString *code = [codeEdit.text trimed];
 	NSString *pwd = [pwdEdit.text trimed];
+
+	[self showIndicator];
 	backTask(^() {
 		HttpResult *r = [Proto resetPwd:self.email pwd:pwd code:code];
 		foreTask(^() {
+			[self hideIndicator];
 			if (r.OK) {
 				[self onResetOK];
 			} else {

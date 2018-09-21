@@ -37,10 +37,11 @@
         finLabel.text = @"Finished the content?";
         [[[[finLabel.layoutMaker toRightOf:headerImg offset:10] topParent:edge] sizeEq:70 h:20] install];
         
-        star = [[XHStarRateView alloc] initWithFrame:CGRectMake(180, 15, 100, 16)];
+        star = [[XHStarRateView alloc] initWithFrame:CGRectMake(180, 15, 92, 16)];
         star.isAnimation = YES;
+        star.currentScore = 4;
+        star.userInteractionEnabled = NO;
         star.rateStyle = WholeStar;
-        star.tag = 4;
         [self addSubview:star];
         
         reviewLabel = [self addLabel];

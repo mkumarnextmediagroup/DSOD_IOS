@@ -11,8 +11,20 @@
 static char layoutParamAttr = 0;
 static char paddingAttr = 0;
 static char styleAttr = 0;
+static char argObjectAttr = 0;
 
 @implementation UIView (customed)
+
+//@property NSObject *argObject
+
+
+- (NSObject *)argObject {
+	return objc_getAssociatedObject(self, &argObjectAttr);
+}
+
+- (void)setArgObject:(NSObject *)argObj {
+	objc_setAssociatedObject(self, &argObjectAttr, argObj, OBJC_ASSOCIATION_RETAIN);
+}
 
 
 - (MyStyle *)style {
@@ -130,7 +142,7 @@ static char styleAttr = 0;
 
 - (UILabel *)addLabel {
 	UILabel *lb = [UILabel new];
-    lb.numberOfLines = 0;
+	lb.numberOfLines = 0;
 	lb.backgroundColor = UIColor.clearColor;
 	[lb textColorMain];
 	[self addSubview:lb];
@@ -138,10 +150,10 @@ static char styleAttr = 0;
 }
 
 - (UILabel *)lineLabel {
-    UILabel *lb = [UILabel new];
-    lb.backgroundColor = Colors.strokes;
-    [self addSubview:lb];
-    return lb;
+	UILabel *lb = [UILabel new];
+	lb.backgroundColor = Colors.strokes;
+	[self addSubview:lb];
+	return lb;
 }
 
 - (UITextView *)noticeLabel {

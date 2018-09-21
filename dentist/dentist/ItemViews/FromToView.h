@@ -9,10 +9,15 @@
 
 @interface FromToView : BaseItemView
 
-@property NSDate *fromDate;
-@property NSDate *toDate;
 
 @property UILabel *fromDateLabel;
 @property UILabel *toDateLabel;
+
+@property BOOL showPresentWhenGreatNow;
+
+
+- (void)fromValue:(NSInteger)year month:(NSInteger)month;
+
+- (void)toValue:(NSInteger)year month:(NSInteger)month;
 
 @end

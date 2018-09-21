@@ -14,6 +14,9 @@
 
 @interface UIView (customed)
 
+
+@property(nullable) NSObject *argObject;
+
 @property MyStyle *style;
 
 @property Padding *padding;
@@ -43,6 +46,7 @@
 - (UITextField *)addEditLined;
 
 - (UITextField *)addEditPwd;
+
 - (UITextField *)addEditSearch;
 
 - (UIButton *)addButton;
@@ -60,6 +64,7 @@
 - (UITextView *)addTextView;
 
 - (UIButton *)addCheckbox;
+
 - (UIButton *)addSmallButton;
 
 

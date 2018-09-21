@@ -21,7 +21,7 @@
     [super viewDidLoad];
     UINavigationItem *item = [self navigationItem];
     item.title = @"BOOKMARKS";
-    item.rightBarButtonItem = [self navBarText:@"" target:nil action:nil];
+    item.rightBarButtonItem = [self navBarText:@"" target:self action:nil];
     
     self.table.tableHeaderView = [self makeHeaderView];
     self.table.rowHeight = 150;

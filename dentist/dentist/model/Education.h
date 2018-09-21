@@ -6,13 +6,12 @@
 #import <UIKit/UIKit.h>
 #import "JSONModel.h"
 
-@protocol Education;
 
+@interface Education : NSObject
 
-@interface Education : JSONModel
-
-@property NSString <Optional> *schoolName;
-@property NSString <Optional> *certificate;
+@property NSString *schoolId;
+@property NSString *schoolName;
+@property NSString *major;
 @property BOOL schoolInUS;
 
 @property NSInteger fromMonth;

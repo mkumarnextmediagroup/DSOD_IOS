@@ -88,7 +88,7 @@
 	[userCell.imageView loadUrl:userInfo.portraitUrlFull placeholderImage:@"user_img"];
 	userCell.nameLabel.text = userInfo.fullName;
 	if (userInfo.speciality == nil || userInfo.speciality.id == nil) {
-		userCell.specNameLabel.text = @"-";
+		userCell.specNameLabel.text = @"";
 	} else {
 		userCell.specNameLabel.text = userInfo.speciality.name;
 	}
@@ -99,15 +99,17 @@
 	userCell.linkedinView.hidden = !userInfo.isLinkedin;
 	[self.contentView addSubview:userCell];
 
-	[self addGroupTitle:@"Experience"];
 	if (!userInfo.isStudent) {
+
+		[self addGroupTitle:@"Experience"];
+
 		if (userInfo.experienceArray == nil || userInfo.experienceArray.count == 0) {
 			userInfo.experienceArray = @[[Experience new]];
 		}
 		for (int i = 0; i < userInfo.experienceArray.count; ++i) {
 			Experience *exp = userInfo.experienceArray[i];
 			IconTitleMsgDetailCell *expView = [IconTitleMsgDetailCell new];
-			if (exp.dentalName == nil || exp.dentalName.length == 0) {
+			if (exp.praticeTypeId == nil || exp.praticeTypeId.length == 0) {
 				expView.imageView.imageName = @"exp";
 				[expView showEmpty:@"No experience added yet."];
 			} else {
@@ -118,7 +120,12 @@
 					expView.imageView.imageName = @"exp";
 				}
 				expView.titleLabel.text = exp.praticeType;
-				expView.msgLabel.text = exp.dentalName;
+				if (exp.useDSO) {
+					expView.msgLabel.text = exp.dsoName;
+				} else {
+					expView.msgLabel.text = exp.pracName;
+				}
+
 				expView.detailLabel.text = strBuild(exp.dateFrom, @"-", exp.dateTo);
 			}
 			[self.contentView addSubview:expView];
@@ -169,7 +176,10 @@
 		} else {
 			[v hideEmpty];
 			v.titleLabel.text = edu.schoolName;
-			v.msgLabel.text = edu.certificate;
+			v.msgLabel.text = edu.major;
+			if ([v.msgLabel.text isEqualToString:@"-"]) {
+				v.msgLabel.text = @"";
+			}
 			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
 		}
 		[self.contentView addSubview:v];
@@ -207,7 +217,7 @@
 	IconTitleMsgCell *emailCell = [IconTitleMsgCell new];
 	emailCell.imageView.imageName = @"menu-msg";
 	emailCell.titleLabel.text = @"Preferred Email Address";
-	emailCell.msgLabel.text = userInfo.email;
+	emailCell.msgLabel.text = userInfo.emailContact;
 	[self.contentView addSubview:emailCell];
 }
 

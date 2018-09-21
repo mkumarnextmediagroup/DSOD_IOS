@@ -14,7 +14,7 @@
 #define REG_EMAIL @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,8}"
 
 //#define MATCH_PWD  @"^(?![0-9]+$)(?![a-z]+$)[0-9A-Za-z]{8,16}$"
-#define MATCH_PWD  @"^(?=.*[A-Z])(?=.*\d)[\s\S]{8,16}$"
+#define MATCH_PWD  @"^(?=.*[A-Z])(?=.*\\d)[\\s\\S]{8,16}$"
 #define TAG_ERROR_SUCCESS 999
 
 
@@ -32,6 +32,9 @@
 #define EDIT_THEME_DISABLED     300
 #define EDIT_THEME_SUCCESS      400
 #define EDIT_THEME_ERROR        500
+
+
+#define DATE_FORMAT @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
 
 #endif

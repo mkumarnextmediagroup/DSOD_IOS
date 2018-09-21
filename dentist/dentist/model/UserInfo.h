@@ -20,6 +20,7 @@
 
 @property NSString *userId;
 @property NSString *email;
+@property NSString *emailContact;
 
 @property NSString *fullName;
 @property(nullable) NSString *phone;
@@ -34,10 +35,10 @@
 @property(nullable) IdName *speciality;
 @property(nullable) Address *practiceAddress;
 
-@property(nullable) NSMutableArray <Experience, Optional> *experienceArray;
-@property(nullable) NSMutableArray <Residency, Optional> *residencyArray;
-@property(nullable) NSMutableArray <Education, Optional> *educationArray;
-@property(nullable) NSMutableArray <PersonInfo, Optional> *personInfoArray;
-@property(nullable) NSMutableArray <UploadData, Optional> *uploadDataArray;
+@property(nullable) NSMutableArray *experienceArray;
+@property(nullable) NSMutableArray *residencyArray;
+@property(nullable) NSMutableArray *educationArray;
+@property(nullable) NSMutableArray *personInfoArray;
+@property(nullable) NSMutableArray *uploadDataArray;
 
 @end

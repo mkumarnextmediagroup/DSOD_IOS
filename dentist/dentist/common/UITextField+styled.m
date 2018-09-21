@@ -3,6 +3,7 @@
 // Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
 //
 
+#import <objc/runtime.h>
 #import "UITextField+styled.h"
 #import "Colors.h"
 #import "NSMutableAttributedString+customed.h"
@@ -11,7 +12,22 @@
 #import "MyStyle.h"
 
 
+static char maxLengthAttr = 0;
+
 @implementation UITextField (styled)
+
+- (NSInteger)maxLength {
+	NSNumber *v = objc_getAssociatedObject(self, &maxLengthAttr);
+	if (v == nil) {
+		return 0;
+	}
+	return v.integerValue;
+}
+
+
+- (void)setMaxLength:(NSInteger)len {
+	objc_setAssociatedObject(self, &maxLengthAttr, @(len), OBJC_ASSOCIATION_COPY);
+}
 
 - (NSString *)hint {
 	NSAttributedString *s = self.attributedPlaceholder;
@@ -67,7 +83,7 @@
 		UIButton *iv = [UIButton new];
 		[iv setImage:[UIImage imageNamed:@"searchIcon"] forState:UIControlStateNormal];
 		iv.frame = CGRectMake(0, 0, 30, 36);
-		iv.userInteractionEnabled = NO  ;
+		iv.userInteractionEnabled = NO;
 		self.leftView = iv;
 	}
 

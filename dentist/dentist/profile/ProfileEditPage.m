@@ -54,7 +54,7 @@
 
 	UINavigationItem *item = self.navigationItem;
 	item.title = @"EDIT PROFILE";
-	item.rightBarButtonItem = [self navBarText:@"SAVE" target:self action:@selector(onSave:)];
+	item.rightBarButtonItem = [self navBarText:@"Save" target:self action:@selector(onSave:)];
 	item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
 
 
@@ -205,7 +205,9 @@
 	phoneView = [TitleEditView new];
 	phoneView.label.text = @"Mobile number";
 	phoneView.edit.delegate = self;
+//	[phoneView.edit keyboardPhone];
 	[phoneView.edit returnDone];
+	phoneView.edit.maxLength = 10;
 	[self.contentView addSubview:phoneView];
 	[self addGrayLine:0 marginRight:0];
 
@@ -252,9 +254,13 @@
 				v.imageView.imageName = @"exp";
 			}
 			v.titleLabel.text = r.praticeType;
-			v.msgLabel.text = r.dentalName;
+			if (r.useDSO) {
+				v.msgLabel.text = r.dsoName;
+			} else {
+				v.msgLabel.text = r.pracName;
+			}
 			v.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
-			if (r.dentalName == nil || r.dentalName.length == 0) {
+			if (r.praticeTypeId == nil || r.praticeTypeId.length == 0) {
 				v.imageView.imageName = @"exp";
 				[v showEmpty:@"No experience added yet."];
 			} else {
@@ -280,7 +286,10 @@
 			Education *edu = userInfo.educationArray[i];
 			IconTitleMsgDetailCell *v = eduViews[(NSUInteger) i];
 			v.titleLabel.text = edu.schoolName;
-			v.msgLabel.text = edu.certificate;
+			v.msgLabel.text = edu.major;
+			if ([v.msgLabel.text isEqualToString:@"-"]) {
+				v.msgLabel.text = @"";
+			}
 			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
 			if (edu.schoolName == nil || edu.schoolName.length == 0) {
 				[v showEmpty:@"No education added yet"];
@@ -290,7 +299,7 @@
 		}
 	}
 	phoneView.edit.text = userInfo.phone;
-	emailView.edit.text = userInfo.email;
+	emailView.edit.text = userInfo.emailContact;
 	practiceAddressView.msgLabel.text = userInfo.practiceAddress.detailAddress;
 	[practiceAddressView resetLayout];
 
@@ -308,6 +317,15 @@
 	[self layoutLinearVertical];
 
 }
+
+- (void)onTextFieldDone:(UITextField *)textField {
+	[super onTextFieldDone:textField];
+	userInfo.fullName = nameView.edit.textTrimed;
+	userInfo.phone = phoneView.edit.textTrimed;
+	userInfo.emailContact = emailView.edit.textTrimed;
+	[userView reset:[self getProfilePercent]];
+}
+
 
 - (float)getProfilePercent {
 
@@ -339,10 +357,10 @@
 	if (userInfo.experienceArray != nil && userInfo.experienceArray.count > 0) {
 		if (userInfo.experienceArray.count == 1) {
 			Experience *r = userInfo.experienceArray[0];
-			if (r.dentalName != nil && r.dentalName.length > 0) {
+			if (r.praticeTypeId != nil && r.praticeTypeId.length > 0) {
 				count = count + 1;
 			}
-		} else {
+		} else if (userInfo.experienceArray.count > 1) {
 			count = count + 1;
 		}
 	}
@@ -354,7 +372,7 @@
 			if (r.schoolId != nil && r.schoolId.length > 0) {
 				count = count + 1;
 			}
-		} else {
+		} else if (userInfo.residencyArray.count > 1) {
 			count = count + 1;
 		}
 
@@ -365,7 +383,7 @@
 			if (r.schoolName != nil && r.schoolName.length > 0) {
 				count = count + 1;
 			}
-		} else {
+		} else if (userInfo.educationArray.count > 1) {
 			count = count + 1;
 		}
 	}
@@ -394,7 +412,7 @@
 		NSArray *ls = [Proto querySpecialty];
 		foreTask(^() {
 			[self selectIdName:@"SPECIALITY" array:ls selectedId:userInfo.speciality.id result:^(IdName *item) {
-				userInfo.speciality = item;
+				self->userInfo.speciality = item;
 				[self bindData];
 			}];
 		});
@@ -407,7 +425,7 @@
 	p.userInfo = userInfo;
 	p.exp = [Experience new];
 	p.saveCallback = ^(Experience *ex) {
-		[self saveExp:ex];
+		[self addExp:ex];
 	};
 	[self pushPage:p];
 
@@ -417,21 +435,32 @@
 	int n = sender.argN;
 	Experience *r = userInfo.experienceArray[n];
 	EditExperiencePage *p = [EditExperiencePage new];
-	p.isAdd = r.dentalName == nil || r.dentalName.length == 0;
+	p.isAdd = r.praticeTypeId == nil || r.praticeTypeId.length == 0;
 	p.exp = r;
 	p.userInfo = userInfo;
 	p.deleteCallback = ^(Experience *ex) {
 		[self deleteExp:ex];
 	};
 	p.saveCallback = ^(Experience *ex) {
-		[self saveExp:ex];
+		[self buildViews];
+		[self bindData];
 	};
 
 	[self pushPage:p];
 }
 
-- (void)saveExp:(Experience *)e {
+- (void)addExp:(Experience *)e {
+	Log(@"Add Exp: ", @(e.useDSO), e.pracName, e.dsoName);
 	NSMutableArray *a = [NSMutableArray arrayWithArray:userInfo.experienceArray];
+
+	if (a.count > 0) {
+		Experience *e = a[0];
+		if (e.praticeTypeId == nil || e.praticeTypeId.length == 0) {
+			[a removeObjectAtIndex:0];
+		}
+	}
+
+
 	if (![a containsObject:e]) {
 		[a addObject:e];
 	}
@@ -478,7 +507,7 @@
 	EditResidencyViewController *editRes = [EditResidencyViewController new];
 	editRes.isAdd = YES;
 	editRes.saveCallback = ^(Residency *r) {
-		[self saveResidency:r];
+		[self addResidency:r];
 	};
 
 	[self pushPage:editRes];
@@ -495,29 +524,37 @@
 	[self bindData];
 }
 
-- (void)saveResidency:(Residency *)r {
+- (void)addResidency:(Residency *)r {
 	NSMutableArray *ar = [NSMutableArray arrayWithArray:userInfo.residencyArray];
+
+	if (ar.count > 0) {
+		Residency *e = ar[0];
+		if (e.schoolId == nil || e.schoolId.length == 0) {
+			[ar removeObjectAtIndex:0];
+		}
+	}
+
+
 	if (![ar containsObject:r]) {
 		[ar addObject:r];
-		userInfo.residencyArray = ar;
 	}
 	userInfo.residencyArray = [self sortArrayByTime:ar];
 	[self buildViews];
 	[self bindData];
 }
 
-- (void)saveEducation:(Education *)e {
+- (void)addEducation:(Education *)e {
 	NSMutableArray *ar = [NSMutableArray arrayWithArray:userInfo.educationArray];
+	if (ar.count > 0) {
+		Education *e = ar[0];
+		if (e.schoolId == nil || e.schoolId.length == 0) {
+			[ar removeObjectAtIndex:0];
+		}
+	}
 	if (![ar containsObject:e]) {
 		[ar addObject:e];
-
-		ar = [self sortArrayByTime:ar];
-
-		userInfo.educationArray = ar;
 	}
-
 	userInfo.educationArray = [self sortArrayByTime:ar];
-
 	[self buildViews];
 	[self bindData];
 }
@@ -544,7 +581,7 @@
 	EditEduViewController *p = [EditEduViewController new];
 	p.isAdd = YES;
 	p.saveCallback = ^(Education *e) {
-		[self saveEducation:e];
+		[self addEducation:e];
 	};
 	[self pushPage:p];
 }
@@ -556,7 +593,8 @@
 	p.education = education;
 	p.isAdd = NO;
 	p.saveCallback = ^(Education *e) {
-		[self saveEducation:e];
+		[self buildViews];
+		[self bindData];
 	};
 	p.deleteCallback = ^(Education *e) {
 		[self deleteEducation:e];
@@ -585,15 +623,34 @@
 
 - (void)onSave:(id)sender {
 
+	[self.view endEditing:YES];
+
 	//save the edit content
 	userInfo.fullName = nameView.edit.text;
 	userInfo.phone = phoneView.edit.text;
-	userInfo.email = emailView.edit.text;
+	userInfo.emailContact = emailView.edit.text;
 //     userInfo.practiceAddress.detailAddress = practiceAddressView.msgLabel.text;
+
+	if (userInfo.practiceAddress.address1 == nil) {
+		userInfo.practiceAddress.address1 = @"";
+	}
+	if (userInfo.practiceAddress.address2 == nil) {
+		userInfo.practiceAddress.address2 = @"";
+	}
+	if (userInfo.practiceAddress.city == nil) {
+		userInfo.practiceAddress.city = @"";
+	}
+	if (userInfo.practiceAddress.stateLabel == nil) {
+		userInfo.practiceAddress.stateLabel = @"";
+	}
+	if (userInfo.practiceAddress.zipCode == nil) {
+		userInfo.practiceAddress.zipCode = @"";
+	}
 
 	NSDictionary *d = @{
 			@"full_name": nameView.edit.textTrimed,
-			@"email": emailView.edit.textTrimed,
+			@"email": getLastAccount(),
+			@"contact_email": emailView.edit.textTrimed,
 			@"phone": phoneView.edit.textTrimed,
 			@"is_student": userInfo.isStudent ? @"1" : @"0",
 			@"is_linkedin": userInfo.isLinkedin ? @"1" : @"0",
@@ -636,31 +693,81 @@
 		for (Residency *r in userInfo.residencyArray) {
 			if (r.schoolId != nil) {
 				NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:8];
-				d[@"dental_School"] = @{
+				d[@"residency_school"] = @{
 						@"id": r.schoolId,
-						@"name": r.schoolName,
 				};
-				d[@"start_time"] = @(buildDateLong(r.fromYear, r.fromMonth, 0));
-				d[@"end_time"] = @(buildDateLong(r.toYear, r.toMonth, 0));
-				d[@"email"] = [Proto lastAccount];
-				d[@"create_time"] = nil;
-				d[@"user_id"] = nil;
-				d[@"id"] = nil;
 
+				d[@"start_time"] = [[NSDate dateBy:r.fromYear month:r.fromMonth day:0] format:DATE_FORMAT];
+				d[@"end_time"] = [[NSDate dateBy:r.toYear month:r.toMonth day:0] format:DATE_FORMAT];
+				d[@"email"] = [Proto lastAccount];
 				[arr addObject:d];
 			}
 		}
-
+	}
+	if (userInfo.educationArray.count > 0) {
+		NSMutableArray *arr = [NSMutableArray arrayWithCapacity:5];
+		md[@"educations"] = arr;
+		for (Education *edu in userInfo.educationArray) {
+			if (edu.schoolName && edu.schoolName.length > 0) {
+				NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:8];
+				[arr addObject:d];
+				if (edu.schoolInUS) {
+					d[@"types"] = @"0";
+					d[@"school_name"] = @"";
+					d[@"dental_school"] = @{@"id": edu.schoolId};
+				} else {
+					d[@"types"] = @"1";
+					d[@"school_name"] = edu.schoolName;
+					d[@"dental_school"] = @{@"id": @""};
+				}
+				d[@"email"] = [Proto lastAccount];
+				d[@"start_time"] = [[NSDate dateBy:edu.fromYear month:edu.fromMonth day:0] format:DATE_FORMAT];
+				d[@"end_time"] = [[NSDate dateBy:edu.toYear month:edu.toMonth day:0] format:DATE_FORMAT];
+				d[@"major"] = @"";
+			}
+		}
 	}
 
+	if (userInfo.experienceArray.count > 0) {
+		NSMutableArray *arr = [NSMutableArray arrayWithCapacity:8];
+		md[@"experiences"] = arr;
+		for (Experience *ex in userInfo.experienceArray) {
+			if (ex.praticeTypeId != nil && ex.praticeTypeId.length > 0) {
+				NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:8];
+				[arr addObject:d];
+				d[@"start_time"] = [[NSDate dateBy:ex.fromYear month:ex.fromMonth day:0] format:DATE_FORMAT];
+				d[@"end_time"] = [[NSDate dateBy:ex.toYear month:ex.toMonth day:0] format:DATE_FORMAT];
+				if (ex.useDSO) {
+					d[@"practice_DSO"] = @{@"id": ex.dsoId};
+					d[@"practice_name"] = @"";
+				} else {
+					d[@"practice_DSO"] = @{};
+					d[@"practice_name"] = ex.pracName;
+				}
+				d[@"practice_Role"] = @{@"id": ex.roleAtPraticeId};
+				d[@"practice_Type"] = @{@"id": ex.praticeTypeId};
+			}
+		}
+	}
 
+	[self showIndicator];
 	backTask(^() {
-		[Proto saveProfileInfo:md];
+		HttpResult *saveInfo = [Proto saveProfileInfo:md];
+		foreTask(^() {
+			if (saveInfo.OK) {
+				[self alertMsg:@"Saved successfully" onOK:^() {
+					[self popPage];
+				}];
+			} else if (saveInfo.error.code == -1001) {
+				[self alertMsg:@"Failed, please try again." onOK:^() {
+				}];
+			} else {
+				[self alertMsg:saveInfo.msg onOK:^() {
+				}];
+			}
+			[self hideIndicator];
+		});
 	});
-
-	[self alertMsg:@"Saved successfully" onOK:^() {
-		[self popPage];
-	}];
 }
 
 - (void)editPortrait:(id)sender {
@@ -726,7 +833,7 @@
 	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
 		picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
 		image = info[@"UIImagePickerControllerOriginalImage"];
-		UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+//        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
 
 		NSString *imageName = [info valueForKey:UIImagePickerControllerMediaType];
 		NSLog(@"imageName1:%@", imageName);
@@ -787,9 +894,12 @@
 }
 
 - (void)uploadHeaderImage:(NSString *)url {
+	[self showIndicator];
 	backTask(^() {
-		uploadPortraitResult = [Proto uploadHeaderImage:url];
-		NSLog(@"======%@", uploadPortraitResult);
+		self->uploadPortraitResult = [Proto uploadHeaderImage:url];
+		foreTask(^(){
+			[self hideIndicator];
+		});
 	});
 
 }

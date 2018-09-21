@@ -6,12 +6,11 @@
 #import <UIKit/UIKit.h>
 #import "JSONModel.h"
 
-@protocol Residency;
 
-@interface Residency : JSONModel
+@interface Residency : NSObject
 
-@property(nullable) NSString <Optional> *schoolName;
-@property(nullable) NSString <Optional> *schoolId;
+@property(nullable) NSString *schoolName;
+@property(nullable) NSString *schoolId;
 
 @property NSInteger fromMonth;
 @property NSInteger fromYear;

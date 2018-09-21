@@ -5,6 +5,7 @@
 
 #import "Experience.h"
 #import "Common.h"
+#import "NSDate+myextend.h"
 
 
 @implementation Experience {
@@ -25,10 +26,15 @@
 - (NSString *)dateTo {
 	if (_toMonth == 0) {
 		return @"";
-	}else if (_toYear == 9999)
-    {
-        return @"Present";
-    }
+	} else if (_toYear > [[NSDate date] year]) {
+		return @"Present";
+	}
 	return strBuild(nameOfMonth(_toMonth), @" ", [@(_toYear) description]);
 }
+
+- (BOOL)useDSO {
+	return self.praticeType != nil && [self.praticeType hasSuffix:@"Affiliated"];
+}
+
+
 @end

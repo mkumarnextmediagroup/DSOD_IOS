@@ -45,7 +45,6 @@
 - (Class)viewClassOfItem:(NSObject *)item {
     return BookMarkItemView.class;
 }
-
 - (CGFloat)heightOfItem:(NSObject *)item {
     return 150;
 }
@@ -64,6 +63,4 @@
         //关闭block回调
     }];
 }
-
-
 @end

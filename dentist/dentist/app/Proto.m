@@ -155,21 +155,62 @@
 	return a;
 }
 
-+ (NSArray *)listResidency {
-	return @[
-			@"Creighton University School of Dentistry",
-			@"Howard University College of Dentistry",
-			@"Indiana University School of Dentistry",
-			@"LECOM College of Dental Medicine",
-			@"Marquette University School of Dentistry",
-			@"Meharry Medical College School of Dentistry",
-			@"Missouri School of Dentistry and Oral Health",
-			@"New York University College of Dentistry",
-			@"Ohio State University College of Dentistry",
-			@"Rutgers School of Dental Medicine",
-			@"Texas A&M University College of Dentistry",
-			@"University of Kentucky College of Dentistry",
-	];
++ (NSArray *)listBookmark {
+    Article *a = [Article new];
+    a.id = 1;
+    a.isSponsor = NO;
+    a.publishDate = @"May 15,2018";
+    
+    a.type = @"orthodontics";
+    a.authAccount = @"tom@gmail.com";
+    a.authName = @"Dr.Sandra Tai";
+    a.title = @"Mastering the art of Dental Surgery  - Mastering the art of Dental Surgery - Mastering the art of Dental Surgery  ";
+    a.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n"
+    "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n"
+    "Once you have completed the expectations with the patient the first step is to test the attachment template and the first aligner. This is an expert thinking process for you.";
+    a.resImage = @"http://app800.cn/i/d.png";
+    a.resType = @"image";
+    
+    ArticleComment *c = [ArticleComment new];
+    c.articleId = 100;
+    c.authAccount = @"peter@gmail.com";
+    c.authName = @"Peter";
+    c.authPortrait = @"http://app800.cn/i/p.png";
+    c.rate = 3;
+    c.content = @"Good !";
+    c.publishDate = @"Sep 16, 2018";
+    
+    a.comments = @[c];
+    
+    
+    Article *b = [Article new];
+    b.id = 1;
+    b.isSponsor = NO;
+    b.publishDate = @"May 15,2018";
+    
+    b.type = @"orthodontics";
+    b.authAccount = @"tom@gmail.com";
+    b.authName = @"Dr.Sandra Tai";
+    b.title = @"Mastering the art of Dental Surgery";
+    b.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n"
+    "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n"
+    "Once you have completed the expectations with the patient the first step is to test the attachment template and the first aligner. This is an expert thinking process for you.";
+    b.resImage = @"http://app800.cn/i/d.png";
+    b.resType = @"image";
+    
+    ArticleComment *bc = [ArticleComment new];
+    bc.articleId = 100;
+    bc.authAccount = @"peter@gmail.com";
+    bc.authName = @"Peter";
+    bc.authPortrait = @"http://app800.cn/i/p.png";
+    bc.rate = 3;
+    bc.content = @"Good !";
+    bc.publishDate = @"Sep 16, 2018";
+    
+    b.comments = @[bc];
+    
+    NSArray *arr = @[a, b];
+    return arr;
 }
 
 + (NSArray *)shortStates {
@@ -322,65 +363,6 @@
 	];
 }
 
-+ (NSArray *)listBookmark {
-    Article *a = [Article new];
-    a.id = 1;
-    a.isSponsor = NO;
-    a.publishDate = @"May 15,2018";
-    
-    a.type = @"orthodontics";
-    a.authAccount = @"tom@gmail.com";
-    a.authName = @"Dr.Sandra Tai";
-    a.title = @"Mastering the art of Dental Surgery  - Mastering the art of Dental Surgery - Mastering the art of Dental Surgery  ";
-    a.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n"
-    "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n"
-    "Once you have completed the expectations with the patient the first step is to test the attachment template and the first aligner. This is an expert thinking process for you.";
-    a.resImage = @"http://app800.cn/i/d.png";
-    a.resType = @"image";
-    
-    ArticleComment *c = [ArticleComment new];
-    c.articleId = 100;
-    c.authAccount = @"peter@gmail.com";
-    c.authName = @"Peter";
-    c.authPortrait = @"http://app800.cn/i/p.png";
-    c.rate = 3;
-    c.content = @"Good !";
-    c.publishDate = @"Sep 16, 2018";
-    
-    a.comments = @[c];
-    
-    
-    Article *b = [Article new];
-    b.id = 1;
-    b.isSponsor = NO;
-    b.publishDate = @"May 15,2018";
-    
-    b.type = @"orthodontics";
-    b.authAccount = @"tom@gmail.com";
-    b.authName = @"Dr.Sandra Tai";
-    b.title = @"Mastering the art of Dental Surgery";
-    b.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n"
-    "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n"
-    "Once you have completed the expectations with the patient the first step is to test the attachment template and the first aligner. This is an expert thinking process for you.";
-    b.resImage = @"http://app800.cn/i/d.png";
-    b.resType = @"image";
-    
-    ArticleComment *bc = [ArticleComment new];
-    bc.articleId = 100;
-    bc.authAccount = @"peter@gmail.com";
-    bc.authName = @"Peter";
-    bc.authPortrait = @"http://app800.cn/i/p.png";
-    bc.rate = 3;
-    bc.content = @"Good !";
-    bc.publishDate = @"Sep 16, 2018";
-    
-    b.comments = @[bc];
-    
-    NSArray *arr = @[a, b];
-    return arr;
-}
-
-
 + (UserInfo *)userInfo:(nonnull NSString *)email {
 	UserInfo *ui = [UserInfo new];
 	NSString *json = [self userInfoLocal:email];
@@ -484,12 +466,12 @@
 	return r;
 }
 
-+ (BOOL)saveProfileInfo:(NSDictionary *)dic {
++ (HttpResult *)saveProfileInfo:(NSDictionary *)dic {
 	HttpResult *r = [self postBody:@"userProfile/save" dic:dic];
 	if (r.OK) {
 		[self getProfileInfo];
 	}
-	return r.OK;
+	return r;
 }
 
 //{
@@ -535,31 +517,7 @@
 	return nil;
 }
 
-//{
-//	"code": 0,
-//			"msg": "success",
-//			"resultMap": {
-//		"data": [
-//				{
-//						"id": "1",
-//				"zip": "00501",
-//				"lat": null,
-//				"lng": null,
-//				"city": "Holtsville",
-//				"state": "NY",
-//				"zcta": null,
-//				"parent_zcta": null,
-//				"pop": null,
-//				"county_fips": null,
-//				"county_name": null,
-//				"county_weight": null,
-//				"all_county_weights": null,
-//				"imprecise": null,
-//				"military": null
-//				}
-//		]
-//	}
-//}
+
 + (nullable StateCity *)getStateAndCity:(NSString *)zipCode {
 	HttpResult *r = [self post2:@"usZipSv/findAllusZipSvByZip" dic:@{@"zip": zipCode}];
 	if (r.OK) {
@@ -591,26 +549,10 @@
 			}
 		}
 	}
-
-	for (IdName *item in items) {
-		NSLog(@"%@ %@", item.id, item.name);
-	}
 	return items;
 }
 
-//{
-//	"code": 0,
-//			"msg": "success",
-//			"resultMap": {
-//		"data": [
-//						{
-//								"id": "1",
-//						"name": "A.T. Still University Arizona School of Dentistry and Oral Health"
-//						},
-//						{
-//								"id": "2",
-//						"name": "Boston University Goldman School of Dental Medicine"
-//						},
+
 + (NSMutableArray <IdName *> *)queryDentalSchool {
 	HttpResult *r = [self post2:@"dentalSchool/getAll" dic:@{@"name": @""}];
 	NSMutableArray <IdName *> *items = [NSMutableArray arrayWithCapacity:32];
@@ -623,10 +565,6 @@
 				[items addObject:item];
 			}
 		}
-	}
-
-	for (IdName *item in items) {
-		NSLog(@"%d %@", item.id, item.name);
 	}
 	return items;
 }
@@ -662,8 +600,8 @@
 }
 
 
-+ (NSArray<IdName *> *)queryPracticeTypes:(NSString *)name {
-	HttpResult *r = [self post2:@"experience/findAllPracticeType" dic:@{@"name": name}];
++ (NSArray<IdName *> *)queryPracticeTypes {
+	HttpResult *r = [self post2:@"experience/findAllPracticeType" dic:@{@"name": @""}];
 
 	NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
 	if (r.OK) {
@@ -677,6 +615,7 @@
 }
 
 + (NSString *)uploadHeaderImage:(NSString *)localFilePath {
+    
 	HttpResult *r = [self upload:@"photoUpload" localFilePath:localFilePath];
 	if (r.OK) {
 		//{"photoName":"5d7a4a76219e4c78b2b4656cf4bc80f2_test.png"}

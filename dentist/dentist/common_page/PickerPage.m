@@ -96,8 +96,7 @@
     NSInteger selYear = 0;
     NSInteger selMonth = 0;
     NSInteger yearIndex = 0;
-    NSLog(@"=====%@",self.data[0][(NSUInteger) row]);
-    
+
     for (int i = 0; i < self.data[1].count; i++) {
         if ([self.data[1][i] integerValue] == yearNow) {
             yearIndex = i;

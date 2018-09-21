@@ -186,7 +186,7 @@
 
 	self.saveCallback(self.residency);
 
-	[self alertMsg:@"Saved Successfullly" onOK:^() {
+	[self alertMsg:@"Saved Successfully" onOK:^() {
 		[self popPage];
 	}];
 

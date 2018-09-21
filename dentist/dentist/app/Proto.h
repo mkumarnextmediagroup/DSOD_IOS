@@ -41,35 +41,33 @@
 + (UserInfo *_Nullable)lastUserInfo;
 
 
-+ (NSArray *_Nullable)listRoleAtPractice;
 
-+ (NSArray *_Nullable)listDentalNames;
 
 + (NSArray *_Nullable)listStates;
 
 + (NSArray *_Nullable)shortStates;
 
-+ (NSArray *_Nullable)listResidency;
 
 + (NSDictionary *_Nullable)getProfileInfo;
 
-+ (BOOL)saveProfileInfo:(NSDictionary *)dic;
++ (HttpResult *)saveProfileInfo:(NSDictionary *_Nullable)dic;
 
 + (NSArray *_Nullable)listArticle;
 + (NSArray *_Nullable)listBookmark;
 
-+ (nullable StateCity *)getStateAndCity:(NSString *)zipCode;
++ (nullable StateCity *)getStateAndCity:(NSString *_Nullable)zipCode;
 
-+ (NSMutableArray <IdName *> *)queryDentalSchool;
++ (NSMutableArray <IdName *> *_Nullable)queryDentalSchool;
 
-+ (NSArray<IdName *> *)queryPracticeDSO:(NSString *)name;
++ (NSArray<IdName *> *_Nullable)queryPracticeDSO:(NSString *_Nullable)name;
 
-+ (NSArray<IdName *> *)queryPracticeRoles:(NSString *)name;
++ (NSArray<IdName *> *_Nullable)queryPracticeRoles:(NSString *_Nullable)name;
 
-+ (NSArray<IdName *> *)queryPracticeTypes:(NSString *)name;
++ (NSArray<IdName *> *_Nullable)queryPracticeTypes;
 
-+ (NSString *)uploadHeaderImage:(NSString *)localFilePath;
++ (NSString *_Nullable)uploadHeaderImage:(NSString *_Nullable)localFilePath;
 
-+ (NSMutableArray <IdName *> *)querySpecialty;
++ (NSMutableArray <IdName *> *_Nullable)querySpecialty;
 
++ (NSArray *_Nullable)listBookmark;
 @end

@@ -49,9 +49,9 @@
 	_emptyLabel.hidden = YES;
 
 	[[[[[_imageView layoutMaker] sizeEq:48 h:48] leftParent:self.padding.left] centerYParent:0] install];
-	[[[[[[_titleLabel layoutMaker] heightEq:16] topOf:_imageView offset:-2] toRightOf:_imageView offset:12] rightParent:-self.padding.right] install];
-	[[[[[[_msgLabel layoutMaker] heightEq:16] centerYParent:2] toRightOf:_imageView offset:12] rightParent:-self.padding.right] install];
-	[[[[[[_detailLabel layoutMaker] heightEq:16] bottomOf:_imageView offset:2] toRightOf:_imageView offset:12] rightParent:-self.padding.right] install];
+	[[[[[[_titleLabel layoutMaker] heightEq:16] topOf:_imageView offset:-2] toRightOf:_imageView offset:12] rightParent:-35] install];
+	[[[[[[_msgLabel layoutMaker] heightEq:16] centerYParent:2] toRightOf:_imageView offset:12] rightParent:-35] install];
+	[[[[[[_detailLabel layoutMaker] heightEq:16] bottomOf:_imageView offset:2] toRightOf:_imageView offset:12] rightParent:-35] install];
 	[[[[[arrowView layoutMaker] centerYParent:0] rightParent:-self.padding.right] sizeEq:16 h:16] install];
 	[[[[[_emptyLabel.layoutMaker toRightOf:_imageView offset:12] centerYParent:0] heightEq:18] rightParent:-self.padding.right] install];
 
@@ -86,9 +86,9 @@
 
 - (void)resetLayout {
 	[[[[[_imageView layoutRemaker] sizeEq:48 h:48] leftParent:self.padding.left] centerYParent:0] install];
-	[[[[[[_titleLabel layoutRemaker] heightEq:16] topOf:_imageView offset:0] leftParent:self.padding.left + 48] rightParent:-self.padding.right] install];
-	[[[[[[_msgLabel layoutRemaker] heightEq:16] centerYParent:0] leftParent:self.padding.left + 48] rightParent:-self.padding.right] install];
-	[[[[[[_detailLabel layoutRemaker] heightEq:16] bottomOf:_imageView offset:0] leftParent:self.padding.left + 48] rightParent:-self.padding.right] install];
+	[[[[[[_titleLabel layoutRemaker] heightEq:16] topOf:_imageView offset:0] leftParent:self.padding.left + 48] rightParent:-35] install];
+	[[[[[[_msgLabel layoutRemaker] heightEq:16] centerYParent:0] leftParent:self.padding.left + 48] rightParent:-35] install];
+	[[[[[[_detailLabel layoutRemaker] heightEq:16] bottomOf:_imageView offset:0] leftParent:self.padding.left + 48] rightParent:-35] install];
 	[[[[[arrowView layoutRemaker] centerYParent:0] rightParent:-self.padding.right] sizeEq:16 h:16] install];
 
 }

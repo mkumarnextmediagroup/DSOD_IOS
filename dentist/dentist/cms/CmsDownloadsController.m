@@ -18,6 +18,12 @@
     return self;
 }
 
+- (instancetype)init {
+    self = [super init];
+    self.topOffset = 0;
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

@@ -8,6 +8,25 @@
 
 @implementation NSDate (myextend)
 
+
++ (NSDate *)dateBy:(NSInteger)year month:(NSInteger)month day:(NSInteger)day {
+	NSCalendar *c = [NSCalendar currentCalendar];
+	NSDateComponents *y = [NSDateComponents new];
+	y.year = year;
+	y.month = month;
+	y.day = day;
+	NSDate *date = [c dateFromComponents:y];
+	return date;
+}
+
+- (NSString *)format:(NSString *)pattern {
+	NSDateFormatter *fmt = [NSDateFormatter new];
+	fmt.dateFormat = pattern;
+	NSString *dateString = [fmt stringFromDate:self];
+	return dateString;
+}
+
+
 - (NSInteger)year {
 	NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:self];
 	return [components year];

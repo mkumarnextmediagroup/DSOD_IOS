@@ -49,11 +49,14 @@
 	self.items = ls;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	self.navigationItem.title = @"DSODENTIST";
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    self.navigationItem.leftBarButtonItem = [self menuButton];
+//}
 
+- (UIBarButtonItem *)menuButton {
+    return [self navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
+}
 
 - (UIView *)makeHeaderView {
 	UIView *panel = [UIView new];

@@ -42,9 +42,9 @@
 
 	[[[[[_imageView layoutMaker] sizeEq:70 h:70] leftParent:p.left] centerYParent:0] install];
 
-	[[[[[[_nameLabel layoutMaker] toRightOf:_imageView offset:15] topOf:_imageView offset:2] rightParent:-p.right] heightEq:20] install];
-	[[[[[[_specTitleLabel layoutMaker] toRightOf:_imageView offset:15] heightEq:14] topParent:46] rightParent:-p.right] install];
-	[[[[[[_specNameLabel layoutMaker] toRightOf:_imageView offset:15] topParent:64] rightParent:-p.right] heightEq:16] install];
+	[[[[[[_nameLabel layoutMaker] toRightOf:_imageView offset:15] topOf:_imageView offset:2] rightParent:-30] heightEq:20] install];
+	[[[[[[_specTitleLabel layoutMaker] toRightOf:_imageView offset:15] heightEq:14] topParent:46] rightParent:-30] install];
+	[[[[[[_specNameLabel layoutMaker] toRightOf:_imageView offset:15] topParent:64] rightParent:-30] heightEq:16] install];
 
 	[[[[_linkedinView.layoutMaker topParent:p.top] rightParent:-p.right] sizeEq:16 h:16] install];
 

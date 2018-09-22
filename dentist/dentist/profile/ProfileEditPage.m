@@ -26,6 +26,7 @@
 @interface ProfileEditPage () <UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
 	NSString *selectImageName;
 	UIImage *selectImage;
+    NSInteger _num;
 }
 @end
 
@@ -204,21 +205,53 @@
 
 	phoneView = [TitleEditView new];
 	phoneView.label.text = @"Mobile number";
-	phoneView.edit.delegate = self;
-//	[phoneView.edit keyboardPhone];
+    [phoneView.edit addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
+    _num = 0;
+    [phoneView.edit keyboardPhone];
 	[phoneView.edit returnDone];
 	phoneView.edit.maxLength = 10;
 	[self.contentView addSubview:phoneView];
 	[self addGrayLine:0 marginRight:0];
+    phoneView.edit.tag = PHONEFIELDTag;
 
 	emailView = [TitleEditView new];
 	emailView.label.text = @"Preferred email address";
 	emailView.edit.delegate = self;
 	[emailView.edit returnDone];
+    emailView.edit.tag = EMAILFIELDTag;
 	[self.contentView addSubview:emailView];
 	[self addGrayLine:0 marginRight:0];
 
 	[self layoutLinearVertical];
+}
+
+
+-(void)textFieldDidEditing:(UITextField *)textField
+{
+    if (textField.tag == PHONEFIELDTag) {
+        
+        if (textField.text.length > _num) {
+            
+            if (textField.text.length == 4 || textField.text.length == 8 ) {//输入
+                NSMutableString * str = [[NSMutableString alloc ] initWithString:textField.text];
+                [str insertString:@"-" atIndex:(textField.text.length-1)];
+                textField.text = str;
+            }if (textField.text.length >= 12 ) {//输入完成
+                textField.text = [textField.text substringToIndex:12];
+                [textField resignFirstResponder];
+            }
+            
+            _num = textField.text.length;
+
+        }else if (textField.text.length < _num){//删除
+            if (textField.text.length == 4 || textField.text.length == 8) {
+                textField.text = [NSString stringWithFormat:@"%@",textField.text];
+                textField.text = [textField.text substringToIndex:(textField.text.length-1)];
+            }
+            _num = textField.text.length;
+        }
+        
+    }
 }
 
 - (GroupLabelView *)addGroupTitle:(NSString *)title {
@@ -298,7 +331,7 @@
 			}
 		}
 	}
-	phoneView.edit.text = userInfo.phone;
+	phoneView.edit.text = userInfo.phone.textAddPhoneNor;
 	emailView.edit.text = userInfo.emailContact;
 	practiceAddressView.msgLabel.text = userInfo.practiceAddress.detailAddress;
 	[practiceAddressView resetLayout];
@@ -321,7 +354,7 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 	[super textFieldDidEndEditing:textField];
 	userInfo.fullName = nameView.edit.textTrimed;
-	userInfo.phone = phoneView.edit.textTrimed;
+	userInfo.phone = phoneView.edit.textReplace;
 	userInfo.emailContact = emailView.edit.textTrimed;
 	[userView reset:[self getProfilePercent]];
 }
@@ -634,7 +667,7 @@
 
 	//save the edit content
 	userInfo.fullName = nameView.edit.text;
-	userInfo.phone = phoneView.edit.text;
+	userInfo.phone = phoneView.edit.textReplace;
 	userInfo.emailContact = emailView.edit.text;
 //     userInfo.practiceAddress.detailAddress = practiceAddressView.msgLabel.text;
 
@@ -658,7 +691,7 @@
 			@"full_name": nameView.edit.textTrimed,
 			@"email": getLastAccount(),
 			@"contact_email": emailView.edit.textTrimed,
-			@"phone": phoneView.edit.textTrimed,
+			@"phone": phoneView.edit.textReplace,
 			@"is_student": userInfo.isStudent ? @"1" : @"0",
 			@"is_linkedin": userInfo.isLinkedin ? @"1" : @"0",
 			@"sex": @"",

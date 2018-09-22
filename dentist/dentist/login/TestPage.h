@@ -5,7 +5,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ListPage.h"
+#import "ContentPage.h"
 
 
-@interface TestPage : UIViewController
+@interface TestPage : ContentPage
+
+
 @end

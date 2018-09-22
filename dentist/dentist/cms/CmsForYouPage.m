@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "LinearPage.h"
 #import "NSDate+myextend.h"
+#import "TestPage.h"
 
 @implementation CmsForYouPage {
 	NSArray<NSString *> *segItems;
@@ -26,7 +27,7 @@
 }
 
 - (void)clickTest:(id)sender {
-	UIViewController *c = [LinearPage new];
+	UIViewController *c = [TestPage new];
 	[self pushPage:c];
 
 }

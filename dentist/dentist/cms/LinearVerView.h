@@ -9,7 +9,5 @@
 @interface LinearVerView : UIView
 
 
-- (void)layoutLinearVertical;
-
 
 @end

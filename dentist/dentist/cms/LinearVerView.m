@@ -49,7 +49,6 @@
 					|| [v isKindOfClass:[UIActivityIndicatorView class]]
 					) {
 				CGSize a = makeSizeF(rect.size.width - lp.marginLeft - lp.marginRight, rect.size.height);
-//				CGSize a = makeSizeF(rect.size.width - lp.marginLeft - lp.marginRight, 1000);
 				CGSize sz = [v sizeThatFits:a];
 				childFrame.size.height = sz.height;
 			} else {
@@ -67,7 +66,6 @@
 				childFrame.size.height = maxY - b.origin.y;
 
 			}
-
 		} else if (lp.height == LP_FILL) {
 			[v layoutIfNeeded];
 		}
@@ -76,33 +74,11 @@
 
 		Log(@(v.tag), @"==", @(childFrame.origin.x), @(childFrame.origin.y), @(childFrame.size.width), @(childFrame.size.height));
 		v.frame = childFrame;
+
+		Log(@"");
+		Log(@"");
 	}
 }
-//- (CGSize)sizeThatFits:(CGSize)size {
-//	CGRect b = self.bounds;
-//	CGFloat maxY = b.origin.y;
-//	for (UIView *v2 in  self.childrenVisiable) {
-//		CGRect vf = v2.frame;
-//		if (vf.origin.y + vf.size.height > maxY) {
-//			maxY = vf.origin.y + vf.size.height + v2.layoutParam.marginTop + v2.layoutParam.marginBottom;
-//		}
-//	}
-//
-//
-//	NSArray *array = [self childrenVisiable];
-//	CGFloat maxW = 0;
-//	CGFloat maxH = 0;
-//
-//	for (UIView *v in array) {
-//		CGSize sz = [v sizeThatFits:size];
-//		CGFloat w = sz.width + v.layoutParam.marginLeft + v.layoutParam.marginRight;
-//		if (w > maxW) {
-//			maxW = w;
-//		}
-//		maxH += sz.height + v.layoutParam.marginTop + v.layoutParam.marginBottom;
-//	}
-//	return makeSizeF(maxW, maxH);
-//}
 
 
 - (void)didAddSubview:(UIView *)subview {

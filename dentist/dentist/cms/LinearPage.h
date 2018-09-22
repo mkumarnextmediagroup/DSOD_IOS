@@ -5,14 +5,15 @@
 
 #import <UIKit/UIKit.h>
 #import "ScrollPage.h"
+#import "ContentPage.h"
 
 @class LinearView;
 
 
-@interface LinearPage : BaseController
+@interface LinearPage : ContentPage
 
 
-@property(readonly) LinearView *contentView;
+@property(readonly) LinearView *linearView;
 
 
 @end

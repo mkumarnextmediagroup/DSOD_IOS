@@ -176,6 +176,7 @@
 		C5EEA65EECB1E4CBE2716E4A /* download-light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEAF5169BCCD691F2992DC /* download-light@2x.png */; };
 		C5EEA6C81FDEF8289E36E17B /* seg-sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEADB6A032CA6F2044E3F3 /* seg-sel@2x.png */; };
 		C5EEA6D4E3D99C517A1F11F1 /* EditUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAE9E4783FF3FA332E50F /* EditUserView.m */; };
+		C5EEA6E8B19DE7760629756E /* ContentPage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAB70E4258C0EF7555721 /* ContentPage.m */; };
 		C5EEA70CAD83A3FEE9B6BD2C /* UILabel+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAA94A55CA2EC9E7D9694 /* UILabel+customed.m */; };
 		C5EEA7409B28BF6FE9FB06F8 /* CmsCategoryPage.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEA3EFB3172B1C8DF96938 /* CmsCategoryPage.m */; };
 		C5EEA742EA03F97F5FF1B234 /* ArticleItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEAC298A4794820C13E2D5 /* ArticleItemView.m */; };
@@ -761,6 +762,7 @@
 		C5EEA811A5ED37C88C49CB9A /* TextSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextSize.h; sourceTree = "<group>"; };
 		C5EEA81D4DDFD7F3E1A1AB7C /* QueueLayoutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueueLayoutItem.m; sourceTree = "<group>"; };
 		C5EEA8446B26C13708ADC4FC /* category@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "category@2x.png"; sourceTree = "<group>"; };
+		C5EEA852C413FA6F34E98367 /* ContentPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentPage.h; sourceTree = "<group>"; };
 		C5EEA857EB7E3E840B8D482E /* ask-light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ask-light@2x.png"; sourceTree = "<group>"; };
 		C5EEA86484528500B78E6108 /* NSData+myextend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+myextend.m"; sourceTree = "<group>"; };
 		C5EEA865BCD7831629957081 /* seg-bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "seg-bg@3x.png"; sourceTree = "<group>"; };
@@ -814,6 +816,7 @@
 		C5EEAB29126FE9574783DD4E /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 		C5EEAB3B83A1186E350F78EE /* Yang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Yang.h; sourceTree = "<group>"; };
 		C5EEAB5275DFFF7A5B9D684B /* home-light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-light@2x.png"; sourceTree = "<group>"; };
+		C5EEAB70E4258C0EF7555721 /* ContentPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentPage.m; sourceTree = "<group>"; };
 		C5EEAB7FF5BB436A30C7D2D9 /* CmsForYouPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CmsForYouPage.h; sourceTree = "<group>"; };
 		C5EEABA2B9A5FC549F032538 /* PickerPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerPage.h; sourceTree = "<group>"; };
 		C5EEABAA2C42E227B1EABA12 /* JSONModel+myextend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONModel+myextend.h"; sourceTree = "<group>"; };
@@ -1991,6 +1994,8 @@
 				C5EEA262CA879CF3C688E24D /* LinearView.h */,
 				C5EEACE2E119BCA59F4D29F9 /* LinearVerView.m */,
 				C5EEA95A41A5BAF871DF9BA8 /* LinearVerView.h */,
+				C5EEAB70E4258C0EF7555721 /* ContentPage.m */,
+				C5EEA852C413FA6F34E98367 /* ContentPage.h */,
 			);
 			path = cms;
 			sourceTree = "<group>";
@@ -2598,6 +2603,7 @@
 				C5EEA4F5057D8AD20840551B /* NSDictionary+myextend.m in Sources */,
 				C5EEA56D3F74A578D3BA98FA /* LinearView.m in Sources */,
 				C5EEA0319D5E3E079662491B /* LinearVerView.m in Sources */,
+				C5EEA6E8B19DE7760629756E /* ContentPage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

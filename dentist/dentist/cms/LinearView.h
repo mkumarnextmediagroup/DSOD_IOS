@@ -1,19 +1,13 @@
 //
-// Created by entaoyang on 2018/9/8.
+// Created by entaoyang on 2018/9/21.
 // Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "ScrollPage.h"
 
 
-@interface TestScrollPage : BaseController
+@interface LinearView : UIView
 
-
-
-
-@property(readonly) UIScrollView *scrollView;
-@property(readonly) UIView *contentView;
 
 - (void)layoutLinearVertical;
 

@@ -87,4 +87,8 @@
 
 - (void)removeAllChildren;
 
+- (NSArray *)childrenVisiable;
+
+- (UIView *)grayLineHor:(CGFloat)marginLeft marginRight:(CGFloat)marginRight;
+
 @end

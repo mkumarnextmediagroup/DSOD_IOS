@@ -5,6 +5,9 @@
 
 #import <UIKit/UIKit.h>
 
+#define LP_WRAP  -1
+#define LP_FILL  -2
+
 
 @interface LayoutParam : NSObject
 @property CGFloat height;
@@ -13,4 +16,6 @@
 @property CGFloat marginBottom;
 @property CGFloat marginLeft;
 @property CGFloat marginRight;
+
+
 @end

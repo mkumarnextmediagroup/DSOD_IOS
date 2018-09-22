@@ -11,7 +11,7 @@
 #import "StateCity.h"
 #import "IdName.h"
 #import "AppDelegate.h"
-#import "TestScrollPage.h"
+#import "LinearPage.h"
 #import "NSDate+myextend.h"
 
 @implementation CmsForYouPage {
@@ -26,10 +26,8 @@
 }
 
 - (void)clickTest:(id)sender {
-	long l = buildDateLong(2018, 9, 20);
-	NSDate *d = [NSDate dateWithTimeIntervalSince1970:l];
-
-	Log(@(d.year), @(d.month), @(d.day));
+	UIViewController *c = [LinearPage new];
+	[self pushPage:c];
 
 }
 
@@ -39,7 +37,7 @@
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"DSODENTIST";
 	//TODO 还不太明白为啥 不设置rightBarButtonItem，title不显示
-	item.rightBarButtonItem = [self navBarText:@"" target:self action:@selector(clickTest:)];
+	item.rightBarButtonItem = [self navBarText:@"test" target:self action:@selector(clickTest:)];
 
 
 	self.table.tableHeaderView = [self makeHeaderView];

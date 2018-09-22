@@ -334,4 +334,24 @@ static char argObjectAttr = 0;
 }
 
 
+- (NSArray *)childrenVisiable {
+	NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.subviews.count];
+	for (UIView *v in self.subviews) {
+		if (!v.hidden) {
+			[array addObject:v];
+		}
+	}
+	return array;
+}
+
+- (UIView *)grayLineHor:(CGFloat)marginLeft marginRight:(CGFloat)marginRight {
+	UIView *v = [UIView new];
+	v.layoutParam.height = 1;
+	v.layoutParam.marginLeft = marginLeft;
+	v.layoutParam.marginRight = marginRight;
+	[self addSubview:v];
+	v.backgroundColor = Colors.cellLineColor;
+	return v;
+}
+
 @end

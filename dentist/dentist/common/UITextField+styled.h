@@ -11,7 +11,7 @@
 
 @property NSString *hint;
 @property(readonly) NSString *textTrimed;
-
+@property(readonly) NSString *textReplace;
 
 - (void)styleRounded;
 

@@ -208,7 +208,7 @@
 	IconTitleMsgCell *phoneCell = [IconTitleMsgCell new];
 	phoneCell.imageView.imageName = @"phone";
 	phoneCell.titleLabel.text = @"Mobile Number";
-	phoneCell.msgLabel.text = userInfo.phone;
+	phoneCell.msgLabel.text = userInfo.phone.textAddPhoneNor;
 	[self.contentView addSubview:phoneCell];
 
 	[self addGrayLine:78 marginRight:0];

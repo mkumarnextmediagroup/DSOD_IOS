@@ -901,7 +901,7 @@
 		//根据url获取asset信息, 并通过block进行回调
 		[assetsLibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
 			ALAssetRepresentation *representation = [asset defaultRepresentation];
-            selectImage = image;//[UIImage thumbmailWithImageWithoutScale:image size:CGSizeMake(userView.headerImg.frame.size.width, userView.headerImg.frame.size.height)];
+            selectImage = image;
 			[self bindData];
 			[self saveImageDocuments:selectImage];
 			NSString *localFile = [self getDocumentImage];
@@ -933,9 +933,9 @@
 	//设置一个图片的存储路径
 	NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/test.png"];
     
-    UIImage *cutImage = [UIImage thumbmailWithImageWithoutScale:imagesave size:CGSizeMake(userView.headerImg.frame.size.width, userView.headerImg.frame.size.height)];
+//    UIImage *cutImage = [UIImage thumbmailWithImageWithoutScale:imagesave size:CGSizeMake(userView.headerImg.frame.size.width, userView.headerImg.frame.size.height)];
     
-	[UIImagePNGRepresentation(cutImage) writeToFile:imagePath atomically:YES];
+	[UIImagePNGRepresentation(imagesave) writeToFile:imagePath atomically:YES];
 }
 
 - (void)uploadHeaderImage:(NSString *)url {

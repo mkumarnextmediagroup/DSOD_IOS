@@ -59,6 +59,8 @@
 		4E23E08A2152A97B00EDCE08 /* DiscussTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23E0892152A97B00EDCE08 /* DiscussTableViewCell.m */; };
 		4E23E08D215325AE00EDCE08 /* DiscussInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23E08C215325AE00EDCE08 /* DiscussInfo.m */; };
 		4E23E6CD214B99DA00D61C90 /* DenCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23E6CC214B99DA00D61C90 /* DenCamera.m */; };
+		4E2EF4FC215D0D4B00676A4E /* DenActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EF4F9215D0D4900676A4E /* DenActionSheet.m */; };
+		4E2EF4FD215D0D4B00676A4E /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EF4FB215D0D4900676A4E /* UIViewExt.m */; };
 		4E5564C02154A122008C9A6D /* nonSearch@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E5564BE2154A122008C9A6D /* nonSearch@3x.png */; };
 		4E5564C12154A122008C9A6D /* nonSearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E5564BF2154A122008C9A6D /* nonSearch@2x.png */; };
 		4E846F70213E619100DC2B51 /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F6F213E619100DC2B51 /* SwitchTableViewCell.m */; };
@@ -571,6 +573,10 @@
 		4E23E08C215325AE00EDCE08 /* DiscussInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscussInfo.m; sourceTree = "<group>"; };
 		4E23E6CB214B99DA00D61C90 /* DenCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenCamera.h; sourceTree = "<group>"; };
 		4E23E6CC214B99DA00D61C90 /* DenCamera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DenCamera.m; sourceTree = "<group>"; };
+		4E2EF4F8215D0D4900676A4E /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
+		4E2EF4F9215D0D4900676A4E /* DenActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DenActionSheet.m; sourceTree = "<group>"; };
+		4E2EF4FA215D0D4900676A4E /* DenActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DenActionSheet.h; sourceTree = "<group>"; };
+		4E2EF4FB215D0D4900676A4E /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
 		4E5564BE2154A122008C9A6D /* nonSearch@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonSearch@3x.png"; sourceTree = "<group>"; };
 		4E5564BF2154A122008C9A6D /* nonSearch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonSearch@2x.png"; sourceTree = "<group>"; };
 		4E846F6E213E619100DC2B51 /* SwitchTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchTableViewCell.h; sourceTree = "<group>"; };
@@ -1243,6 +1249,17 @@
 				4E846F72213E781100DC2B51 /* CommSelectTableViewCell.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		4E2EF4F7215D0D2C00676A4E /* CMSDownload */ = {
+			isa = PBXGroup;
+			children = (
+				4E2EF4F8215D0D4900676A4E /* UIViewExt.h */,
+				4E2EF4FB215D0D4900676A4E /* UIViewExt.m */,
+				4E2EF4FA215D0D4900676A4E /* DenActionSheet.h */,
+				4E2EF4F9215D0D4900676A4E /* DenActionSheet.m */,
+			);
+			path = CMSDownload;
 			sourceTree = "<group>";
 		};
 		4E846F86213FC3CC00DC2B51 /* view */ = {
@@ -1971,6 +1988,7 @@
 		E11E19B1ECDCD262FD50AD67 /* cms */ = {
 			isa = PBXGroup;
 			children = (
+				4E2EF4F7215D0D2C00676A4E /* CMSDownload */,
 				4EE025422151EE3A00BBD290 /* CMSDetail */,
 				E11E178F238B69C2B94A44C3 /* CmsBookmarkController.m */,
 				E11E1CFFA98FF6362C5D4A5F /* CmsBookmarkController.h */,
@@ -2478,6 +2496,7 @@
 				4E85DA8E21450F51007C40C3 /* PersonInfo.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
+				4E2EF4FD215D0D4B00676A4E /* UIViewExt.m in Sources */,
 				4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */,
 				4E1957432137D0F100420563 /* LinkedinAuthorizationNavBar.m in Sources */,
 				4E23522C213D12CB003BA59B /* UpdateViewController.m in Sources */,
@@ -2534,6 +2553,7 @@
 				E11E13D762D175EF23115B92 /* AppDelegate.m in Sources */,
 				E11E147FF4FE738E0561AF6A /* Proto.m in Sources */,
 				E11E193B11128F898EABFD63 /* main.m in Sources */,
+				4E2EF4FC215D0D4B00676A4E /* DenActionSheet.m in Sources */,
 				E11E153102080FFB4339C7D2 /* CmsBookmarkController.m in Sources */,
 				E11E106CD8257C6C65B6148B /* CmsDownloadsController.m in Sources */,
 				E11E17A97D865580926CB2EB /* UIViewController+myextend.m in Sources */,

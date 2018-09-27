@@ -60,7 +60,11 @@
 		4E23E08D215325AE00EDCE08 /* DiscussInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23E08C215325AE00EDCE08 /* DiscussInfo.m */; };
 		4E23E6CD214B99DA00D61C90 /* DenCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23E6CC214B99DA00D61C90 /* DenCamera.m */; };
 		4E2EF4FC215D0D4B00676A4E /* DenActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EF4F9215D0D4900676A4E /* DenActionSheet.m */; };
-		4E2EF4FD215D0D4B00676A4E /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EF4FB215D0D4900676A4E /* UIViewExt.m */; };
+		4E331041215D23C700E534CD /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E331040215D23C600E534CD /* UIViewExt.m */; };
+		4E331046215D294200E534CD /* deleteDown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331042215D294100E534CD /* deleteDown@3x.png */; };
+		4E331047215D294200E534CD /* deleteDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331043215D294100E534CD /* deleteDown@2x.png */; };
+		4E331048215D294200E534CD /* shareIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331044215D294100E534CD /* shareIcon@3x.png */; };
+		4E331049215D294200E534CD /* shareIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331045215D294100E534CD /* shareIcon@2x.png */; };
 		4E5564C02154A122008C9A6D /* nonSearch@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E5564BE2154A122008C9A6D /* nonSearch@3x.png */; };
 		4E5564C12154A122008C9A6D /* nonSearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E5564BF2154A122008C9A6D /* nonSearch@2x.png */; };
 		4E846F70213E619100DC2B51 /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F6F213E619100DC2B51 /* SwitchTableViewCell.m */; };
@@ -573,10 +577,14 @@
 		4E23E08C215325AE00EDCE08 /* DiscussInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscussInfo.m; sourceTree = "<group>"; };
 		4E23E6CB214B99DA00D61C90 /* DenCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenCamera.h; sourceTree = "<group>"; };
 		4E23E6CC214B99DA00D61C90 /* DenCamera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DenCamera.m; sourceTree = "<group>"; };
-		4E2EF4F8215D0D4900676A4E /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
 		4E2EF4F9215D0D4900676A4E /* DenActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DenActionSheet.m; sourceTree = "<group>"; };
 		4E2EF4FA215D0D4900676A4E /* DenActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DenActionSheet.h; sourceTree = "<group>"; };
-		4E2EF4FB215D0D4900676A4E /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
+		4E33103F215D23C600E534CD /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
+		4E331040215D23C600E534CD /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
+		4E331042215D294100E534CD /* deleteDown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deleteDown@3x.png"; sourceTree = "<group>"; };
+		4E331043215D294100E534CD /* deleteDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deleteDown@2x.png"; sourceTree = "<group>"; };
+		4E331044215D294100E534CD /* shareIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shareIcon@3x.png"; sourceTree = "<group>"; };
+		4E331045215D294100E534CD /* shareIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shareIcon@2x.png"; sourceTree = "<group>"; };
 		4E5564BE2154A122008C9A6D /* nonSearch@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonSearch@3x.png"; sourceTree = "<group>"; };
 		4E5564BF2154A122008C9A6D /* nonSearch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonSearch@2x.png"; sourceTree = "<group>"; };
 		4E846F6E213E619100DC2B51 /* SwitchTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchTableViewCell.h; sourceTree = "<group>"; };
@@ -1254,8 +1262,8 @@
 		4E2EF4F7215D0D2C00676A4E /* CMSDownload */ = {
 			isa = PBXGroup;
 			children = (
-				4E2EF4F8215D0D4900676A4E /* UIViewExt.h */,
-				4E2EF4FB215D0D4900676A4E /* UIViewExt.m */,
+				4E33103F215D23C600E534CD /* UIViewExt.h */,
+				4E331040215D23C600E534CD /* UIViewExt.m */,
 				4E2EF4FA215D0D4900676A4E /* DenActionSheet.h */,
 				4E2EF4F9215D0D4900676A4E /* DenActionSheet.m */,
 			);
@@ -1378,6 +1386,10 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4E331043215D294100E534CD /* deleteDown@2x.png */,
+				4E331042215D294100E534CD /* deleteDown@3x.png */,
+				4E331045215D294100E534CD /* shareIcon@2x.png */,
+				4E331044215D294100E534CD /* shareIcon@3x.png */,
 				4EE52D6B2154CFA10076DC3D /* desc@2x.png */,
 				4EE52D6A2154CFA00076DC3D /* desc@3x.png */,
 				A956C5342154CC4A00E528EB /* Icon-Search.png */,
@@ -2158,6 +2170,8 @@
 				E11E18B9A4153312FC2763EE /* brain_light.png in Resources */,
 				E11E147527F5A0FE7C753405 /* brain_light@2x.png in Resources */,
 				E11E13506B8CB6458D362EC8 /* brain_light@3x.png in Resources */,
+				4E331048215D294200E534CD /* shareIcon@3x.png in Resources */,
+				4E331047215D294200E534CD /* deleteDown@2x.png in Resources */,
 				E11E1073C7B4D6BF333D6521 /* brain.png in Resources */,
 				E11E1B3CFECC7F58E820944B /* brain@2x.png in Resources */,
 				E11E13AC36694C04C2A850C2 /* brain@3x.png in Resources */,
@@ -2176,6 +2190,7 @@
 				E11E1A694CB1915FC4DB878E /* user_light.png in Resources */,
 				E11E1F7242611C8E1537D3A2 /* user_light@2x.png in Resources */,
 				E11E18E75791AACDCB52A653 /* user_light@3x.png in Resources */,
+				4E331046215D294200E534CD /* deleteDown@3x.png in Resources */,
 				E11E18DEA9538DAE333F1686 /* user.png in Resources */,
 				E11E1CC537562D6462C57FA5 /* user@2x.png in Resources */,
 				E11E1A625645EF6A486E1B48 /* user@3x.png in Resources */,
@@ -2323,6 +2338,7 @@
 				4E23E0872152A37200EDCE08 /* star_unselect@3x.png in Resources */,
 				E11E1454B1E079C526298B9F /* menu-dso_light.png in Resources */,
 				E11E1727E478BEC789AB1876 /* menu-dso_light@2x.png in Resources */,
+				4E331049215D294200E534CD /* shareIcon@2x.png in Resources */,
 				E11E1F9F7ADC98BA75CD1730 /* menu-dso_light@3x.png in Resources */,
 				E11E17505E20F374A1980C3F /* menu-dso.png in Resources */,
 				E11E1566B756E99F66C84C2A /* menu-dso@2x.png in Resources */,
@@ -2496,7 +2512,7 @@
 				4E85DA8E21450F51007C40C3 /* PersonInfo.m in Sources */,
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
-				4E2EF4FD215D0D4B00676A4E /* UIViewExt.m in Sources */,
+				4E331041215D23C700E534CD /* UIViewExt.m in Sources */,
 				4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */,
 				4E1957432137D0F100420563 /* LinkedinAuthorizationNavBar.m in Sources */,
 				4E23522C213D12CB003BA59B /* UpdateViewController.m in Sources */,
@@ -2762,7 +2778,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6Q9M9K233P;
+				DEVELOPMENT_TEAM = 48BA5XP347;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -2810,7 +2826,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6Q9M9K233P;
+				DEVELOPMENT_TEAM = 48BA5XP347;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

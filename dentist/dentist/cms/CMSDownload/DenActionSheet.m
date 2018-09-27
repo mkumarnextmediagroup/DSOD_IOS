@@ -7,12 +7,10 @@
 //
 
 #import "DenActionSheet.h"
-#import "UIViewExt.h"
 #import "AppDelegate.h"
-#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
-#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#import "UIViewExt.h"
+#import "Common.h"
 
-#define labelFont  [UIFont systemFontOfSize:18] // 文本的字体
 #define labelTextColor [UIColor blackColor] // 文本的字体颜色
 #define labelHeight 50 // 每个按钮的高度
 
@@ -23,7 +21,7 @@
 
 @implementation DenActionSheet
 
-- (instancetype)initWithDelegate:(id)delegate title:(NSString *)title cancelButton:(NSString *)cancelButton otherTitle:(NSString *)otherTitle, ...
+- (instancetype)initWithDelegate:(id)delegate title:(NSString *)title cancelButton:(NSString *)cancelButton imageArr:(NSArray *)imageArr otherTitle:(NSString *)otherTitle, ...
 {
     
     self = [super init];
@@ -51,48 +49,59 @@
             va_end(params);
         }
         self.titleNameArr = [NSMutableArray array];
+        self.imageArr = imageArr;
         if (title != nil) {
              [self.titleNameArr addObject:title];
         }
         
         [self.titleNameArr addObjectsFromArray:args];
         
-        [self.titleNameArr addObject:cancelButton];
+        if (cancelButton != nil) {
+            [self.titleNameArr addObject:cancelButton];
+        }
         
         if (title.length != 0) {
             _titleName = title;
         }
-        [self _initSubViews];
+        [self _initSubViews:cancelButton];
     }
     
     return self;
 }
 
-- (void)_initSubViews
+- (void)_initSubViews:(NSString *)cancelBtn
 {
-    self.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
     self.backgroundColor = [UIColor blackColor];
-    self.alpha = .3;
+    self.alpha = .6;
     
     // 父视图高
-    CGFloat parentViewHeight = self.titleNameArr.count * labelHeight + self.titleNameArr.count + LastButtonDistans;
+    CGFloat parentViewHeight = self.titleNameArr.count * labelHeight + self.titleNameArr.count;
     
     // 创建装Label的父视图
-    _parentView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, parentViewHeight)];
-    _parentView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    _parentView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, parentViewHeight)];
+    _parentView.backgroundColor = [UIColor whiteColor];
     
     // 创建Label
     for (NSInteger i = 0; i < self.titleNameArr.count; i++) {
-        UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, i * (labelHeight+1), SCREEN_WIDTH, labelHeight)];
+        UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, i * (labelHeight+1), 120, labelHeight)];
         
         myLabel.userInteractionEnabled = YES;
         myLabel.tag = i;
         myLabel.text = self.titleNameArr[i];
-        myLabel.textAlignment = NSTextAlignmentCenter;
-        myLabel.font = labelFont;
+        myLabel.textAlignment = NSTextAlignmentLeft;
+        myLabel.font = [Fonts regular:12];
         myLabel.textColor = labelTextColor;
+        
+        UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, i * labelHeight, SCREENWIDTH, 1)];
+        line.backgroundColor = Colors.cellLineColor;
+        [_parentView addSubview:line];
+        
+        UIButton *iconBtn = [_parentView addButton];
+        [iconBtn setImage:[UIImage imageNamed:self.imageArr[i]] forState:UIControlStateNormal];
+        [[[[iconBtn.layoutMaker sizeEq:70 h:labelHeight] leftParent:SCREENWIDTH-70] topParent:i * (labelHeight+1)] install];
+        
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
-        myLabel.backgroundColor = [UIColor whiteColor];
         [myLabel addGestureRecognizer:tap];
         [_parentView addSubview:myLabel];
         
@@ -105,8 +114,8 @@
             }
         }
         
-        if (i == self.titleNameArr.count - 1) {
-            myLabel.top += LastButtonDistans;
+        if (i == self.titleNameArr.count - 1 && cancelBtn != nil) {
+            myLabel.top += LastButtonDistans*2;
         }
     }
 }
@@ -139,7 +148,7 @@
     
     [UIView animateWithDuration:.35 animations:^{
         
-        self->_parentView.top = SCREEN_HEIGHT - self->_parentView.height;
+        self->_parentView.top = SCREENHEIGHT - self->_parentView.height;
     }];
     [delegate.window.rootViewController.view addSubview:_parentView];
 }
@@ -148,7 +157,7 @@
 - (void)hiddenAnimation
 {
     [UIView animateWithDuration:.35 animations:^{
-        self->_parentView.top = SCREEN_HEIGHT;
+        self->_parentView.top = SCREENHEIGHT;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
     }];

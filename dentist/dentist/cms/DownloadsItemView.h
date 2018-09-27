@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 @class Article;
 @interface DownloadsItemView : UIView
+@property (strong, nonatomic)UIButton *markButton;
 -(void) bind:(Article*)item ;
 @end

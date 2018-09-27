@@ -8,6 +8,7 @@
 #import "DownloadsItemView.h"
 #import "Proto.h"
 #import "DentistFilterView.h"
+#import "DenActionSheet.h"
 
 @implementation CmsDownloadsController {
     
@@ -56,7 +57,15 @@
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
     Article *art = (id) item;
     DownloadsItemView *itemView = (DownloadsItemView *) view;
+    [itemView.markButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [itemView bind:art];
+}
+
+- (void)moreBtnClick:(UIButton *)btn
+{
+    NSArray *imgArr = [NSArray arrayWithObjects:@"deleteDown",@"shareIcon", nil];
+    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Delete",@"Share", nil];
+    [denSheet show];
 }
 
 #pragma mark 打开刷选页面

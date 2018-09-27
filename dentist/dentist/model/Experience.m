@@ -27,6 +27,7 @@
 	if (_toMonth == 0) {
 		return @"";
 	} else if (_toYear > [[NSDate date] year]) {
+        self.workInThisRole = YES;
 		return @"Present";
 	}
 	return strBuild(nameOfMonth(_toMonth), @" ", [@(_toYear) description]);

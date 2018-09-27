@@ -83,30 +83,4 @@
     [self.searchBar resignFirstResponder];
 }
 
-//- (void)buildView
-//{
-//    UIView *bgVi = [UIView new];
-//    bgVi.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:bgVi];
-//    [[[[[bgVi.layoutMaker topParent:260] leftParent:0] rightParent:0] heightEq:250] install];
-//    
-//    UIImageView *img = [bgVi addImageView];
-//    img.image = [UIImage imageNamed:@"nonSearch"];
-//    [[[[img.layoutMaker topParent:0] leftParent:SCREENWIDTH/2-41] sizeEq:82 h:92] install];
-//    
-//    UILabel *noticeLab = [bgVi addLabel];
-//    noticeLab.numberOfLines = 0;
-//    noticeLab.textColor = rgb255(74, 74, 74);
-//    noticeLab.font = [Fonts semiBold:16];
-//    noticeLab.text = localStr(@"searchBy");
-//    [[[[noticeLab.layoutMaker sizeEq:200 h:70] leftParent:SCREENWIDTH/2 - 100] topParent:250-70] install];
-//    
-//
-//}
-//
-//- (void)cancelBtnClick:(UIButton *)btn
-//{
-//    [searchEdit resignFirstResponder];
-//}
-
 @end

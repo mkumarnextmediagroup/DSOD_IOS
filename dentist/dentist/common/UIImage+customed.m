@@ -67,53 +67,32 @@
         
         CGContextRef con = UIGraphicsGetCurrentContext();
         
-        
-        
         CGContextTranslateCTM(con, 0.0, size.height);
         
         CGContextScaleCTM(con, 1.0, -1.0);
         
-        
-        
         CGContextDrawImage(con, CGRectMake(0, 0, size.width, size.height), imageRef);
-        
-        
-        
         UIImage *standardImage = UIGraphicsGetImageFromCurrentImageContext();
-        
-        
         
         UIGraphicsEndImageContext();
         
         CGImageRelease(imageRef);
         
-        
-        
         return standardImage;
     }
-    
-    
     
     //原图长宽有一项大于标准长宽的，对大于标准的那一项进行裁剪，另一项保持不变
     
     else if(originalsize.height>size.height || originalsize.width>size.width)
-        
     {
-        
         CGImageRef imageRef = nil;
-        
-        
-        
         if(originalsize.height>size.height)
             
         {
             
             imageRef = CGImageCreateWithImageInRect([originalImage CGImage], CGRectMake(0, originalsize.height/2-size.height/2, originalsize.width, size.height));//获取图片整体部分
-            
         }
-        
         else if (originalsize.width>size.width)
-            
         {
             imageRef = CGImageCreateWithImageInRect([originalImage CGImage], CGRectMake(originalsize.width/2-size.width/2, 0, size.width, originalsize.height));//获取图片整体部分
         }
@@ -124,43 +103,25 @@
         
         CGContextScaleCTM(con, 1.0, -1.0);
         
-        
-        
         CGContextDrawImage(con, CGRectMake(0, 0, size.width, size.height), imageRef);
-        
-        
         
         UIImage *standardImage = UIGraphicsGetImageFromCurrentImageContext();
         
         NSLog(@"改变后图片的宽度为%f,图片的高度为%f",[standardImage size].width,[standardImage size].height);
         
-        
-        
         UIGraphicsEndImageContext();
         
         CGImageRelease(imageRef);
-        
-        
         
         return standardImage;
         
     }
     
-    
-    
     //原图为标准长宽的，不做处理
-    
     else
-        
     {
-        
         return originalImage;
-        
     }
-    
-    
-
-    
 }
 
 

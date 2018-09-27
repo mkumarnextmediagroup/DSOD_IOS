@@ -14,7 +14,6 @@
     UILabel *titleLabel;
     UILabel *contentLabel;
     UIImageView *imageView;
-    UIButton *markButton;
     UIButton *statusButton;
     UILabel *statusLabel;
 }
@@ -26,9 +25,9 @@
     imageView = self.addImageView;
     [[[[imageView.layoutMaker leftParent:edge]topParent:25] sizeEq:110 h:110] install];
     
-    markButton = [self addButton];
-    [markButton setImage:[UIImage imageNamed:@"dot3"] forState:UIControlStateNormal];
-    [[[[markButton.layoutMaker rightParent:-edge] topParent:25] sizeEq:20 h:20] install];
+    _markButton = [self addButton];
+    [_markButton setImage:[UIImage imageNamed:@"dot3"] forState:UIControlStateNormal];
+    [[[[_markButton.layoutMaker rightParent:-edge] topParent:25] sizeEq:20 h:20] install];
     
     statusButton = [self addButton];
     [statusButton setImage:[UIImage imageNamed:@"select"] forState:UIControlStateNormal];
@@ -38,20 +37,20 @@
     titleLabel.font = [Fonts regular:15];
     [titleLabel textColorMain];
     titleLabel.numberOfLines = 0;
-    [[[[[titleLabel.layoutMaker toRightOf:imageView offset:15] topOf:imageView offset:5] toLeftOf:markButton offset:-20] heightEq:20] install];
+    [[[[[titleLabel.layoutMaker toRightOf:imageView offset:15] topOf:imageView offset:5] toLeftOf:_markButton offset:-20] heightEq:20] install];
     
     statusLabel = [self addLabel];
     statusLabel.font = [Fonts regular:12];
     statusLabel.textColor=rgb255(155, 155, 155);
     statusLabel.numberOfLines = 0;
-    [[[[[statusLabel.layoutMaker toRightOf:imageView offset:15] toLeftOf:markButton offset:-20] bottomOf:imageView offset:0] heightEq:20] install];
+    [[[[[statusLabel.layoutMaker toRightOf:imageView offset:15] toLeftOf:_markButton offset:-20] bottomOf:imageView offset:0] heightEq:20] install];
     
     contentLabel = [self addLabel];
     contentLabel.font = [Fonts regular:15];
     [contentLabel textColorMain];
     contentLabel.numberOfLines = 0;
     
-    [[[[[contentLabel.layoutMaker toRightOf:imageView offset:15] below:titleLabel offset:5] toLeftOf:markButton offset:-20] above:statusLabel offset:-5] install];
+    [[[[[contentLabel.layoutMaker toRightOf:imageView offset:15] below:titleLabel offset:5] toLeftOf:_markButton offset:-20] above:statusLabel offset:-5] install];
     
     return self;
 }

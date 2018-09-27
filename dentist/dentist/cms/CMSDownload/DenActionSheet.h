@@ -24,10 +24,11 @@
 @property (nonatomic, copy) NSString *titleName;
 
 @property (nonatomic, strong) NSMutableArray *titleNameArr;
+@property (nonatomic, strong) NSArray        *imageArr;
 
 - (void)show;
 
-- (instancetype)initWithDelegate:(id)delegate title:(NSString *)title cancelButton:(NSString *)cancelButton otherTitle:(NSString *)otherTitle, ... NS_REQUIRES_NIL_TERMINATION;
+- (instancetype)initWithDelegate:(id)delegate title:(NSString *)title cancelButton:(NSString *)cancelButton imageArr:(NSArray *)imageArr otherTitle:(NSString *)otherTitle, ... NS_REQUIRES_NIL_TERMINATION;
 
 
 

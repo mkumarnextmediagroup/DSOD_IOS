@@ -72,7 +72,7 @@
 			Education *edu = [Education new];
 			[self.educationArray addObject:edu];
 
-			edu.schoolInUS = [@"0" isEqualToString:d[@"types"]];
+			edu.schoolInUS = [@"1" isEqualToString:d[@"types"]];
 			if (edu.schoolInUS) {
 				edu.schoolId = d[@"dental_school"][@"id"];
 				edu.schoolName = d[@"dental_school"][@"name"];

@@ -270,6 +270,8 @@
 
 
 - (void)bindData {
+    
+    
 	if (selectImage) {
 		[userView.headerImg setImage:selectImage];
 	} else {
@@ -383,11 +385,11 @@
 		count = count + 1;
 	}
 
-	if (practiceAddressView.msgLabel.text != nil && practiceAddressView.msgLabel.text.length > 0) {
+	if (practiceAddressView.msgLabel.text != nil && practiceAddressView.msgLabel.text.length > 0 && !userInfo.isStudent) {
 		count = count + 1;
 	}
 
-	if (userInfo.experienceArray != nil && userInfo.experienceArray.count > 0) {
+	if (userInfo.experienceArray != nil && userInfo.experienceArray.count > 0  && userInfo.isStudent) {
 		if (userInfo.experienceArray.count == 1) {
 			Experience *r = userInfo.experienceArray[0];
 			if (r.praticeTypeId != nil && r.praticeTypeId.length > 0) {
@@ -752,13 +754,13 @@
 				NSMutableDictionary *d = [NSMutableDictionary dictionaryWithCapacity:8];
 				[arr addObject:d];
 				if (edu.schoolInUS) {
-					d[@"types"] = @"0";
-					d[@"school_name"] = @"";
-					d[@"dental_school"] = @{@"id": edu.schoolId};
-				} else {
 					d[@"types"] = @"1";
 					d[@"school_name"] = edu.schoolName;
-					d[@"dental_school"] = @{@"id": @""};
+					d[@"dental_school"] = @{@"id": edu.schoolId};
+				} else {
+					d[@"types"] = @"0";
+					d[@"school_name"] = edu.schoolName;
+					d[@"dental_school"] = @{@"id": edu.schoolId};
 				}
 				d[@"email"] = [Proto lastAccount];
 				d[@"start_time"] = [[NSDate dateBy:edu.fromYear month:edu.fromMonth day:0] format:DATE_FORMAT];
@@ -879,7 +881,8 @@
 		NSString *imageName = [info valueForKey:UIImagePickerControllerMediaType];
 		NSLog(@"imageName1:%@", imageName);
 		selectImageName = imageName;
-		selectImage = image;
+        selectImage = image;;
+
 		[self bindData];
 		[self saveImageDocuments:selectImage];
 		NSString *localFile = [self getDocumentImage];
@@ -898,7 +901,7 @@
 		//根据url获取asset信息, 并通过block进行回调
 		[assetsLibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
 			ALAssetRepresentation *representation = [asset defaultRepresentation];
-			selectImage = image;
+            selectImage = image;//[UIImage thumbmailWithImageWithoutScale:image size:CGSizeMake(userView.headerImg.frame.size.width, userView.headerImg.frame.size.height)];
 			[self bindData];
 			[self saveImageDocuments:selectImage];
 			NSString *localFile = [self getDocumentImage];
@@ -919,8 +922,6 @@
 	// 读取沙盒路径图片
 	NSString *aPath3 = [NSString stringWithFormat:@"%@/Documents/%@.png", NSHomeDirectory(), @"test"];
 	return aPath3;
-//    NSURL *imageurl = [NSURL URLWithString:aPath3];
-//    return imageurl;
 }
 
 - (void)saveImageDocuments:(UIImage *)image {
@@ -931,7 +932,10 @@
 	NSString *path_sandox = NSHomeDirectory();
 	//设置一个图片的存储路径
 	NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/test.png"];
-	[UIImagePNGRepresentation(imagesave) writeToFile:imagePath atomically:YES];
+    
+    UIImage *cutImage = [UIImage thumbmailWithImageWithoutScale:imagesave size:CGSizeMake(userView.headerImg.frame.size.width, userView.headerImg.frame.size.height)];
+    
+	[UIImagePNGRepresentation(cutImage) writeToFile:imagePath atomically:YES];
 }
 
 - (void)uploadHeaderImage:(NSString *)url {

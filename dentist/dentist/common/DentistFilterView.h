@@ -11,8 +11,8 @@ typedef void (^DentistFilterViewCloseActionBlock) (void);
 @interface DentistFilterView : UIView<UITextFieldDelegate>
 /** closeblock */
 @property (copy, nonatomic) DentistFilterViewCloseActionBlock closeBlock;
-//弹出
+
 -(void)show;
-//弹出
+
 -(void)show:(DentistFilterViewCloseActionBlock)closeActionBlock;
 @end

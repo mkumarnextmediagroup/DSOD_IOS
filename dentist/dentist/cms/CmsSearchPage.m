@@ -10,9 +10,9 @@
 #import "CMSDetailViewController.h"
 
 @interface CmsSearchPage()<UISearchBarDelegate>
-/*** 搜索bar ***/
+/*** searchbar ***/
 @property (nonatomic,strong) UISearchBar *searchBar;
-/*** 搜索结果数组 ***/
+/*** search result array ***/
 @property (nonatomic,strong) NSArray *resultArr;
 @end
 
@@ -24,7 +24,7 @@
 	[super viewDidLoad];
     
 	UINavigationItem *item = [self navigationItem];
-    item.leftBarButtonItem=nil;//隐藏左边menu
+    item.leftBarButtonItem=nil;//hidden left menu
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     _searchBar.placeholder = @"Search";
     _searchBar.delegate = self;
@@ -70,12 +70,12 @@
 }
 
 #pragma mark ---UISearchBarDelegate
-//MARK:取消按钮被按下时，执行的方法
+//MARK:dismiss button clicked，do this method
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [self.searchBar resignFirstResponder];
 }
-//MARK:键盘中，搜索按钮被按下，执行的方法
+//MARK:keyboard search button clicked，do this method
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     NSArray *ls = [Proto listArticle];

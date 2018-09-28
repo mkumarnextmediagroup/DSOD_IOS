@@ -31,7 +31,7 @@
     [super layoutSubviews];
     
     UILabel *titleLabel=[self addLabel];
-    titleLabel.font = [Fonts semiBold:20];
+    titleLabel.font = [Fonts regular:15];
     [titleLabel textColorMain];
     titleLabel.text=localStr(@"Filter");
     titleLabel.textAlignment=NSTextAlignmentCenter;

@@ -8,8 +8,9 @@
 #import "ArticleItemView.h"
 #import "Proto.h"
 #import "CMSDetailViewController.h"
+#import "DenActionSheet.h"
 
-@interface CmsSearchPage()<UISearchBarDelegate>
+@interface CmsSearchPage()<UISearchBarDelegate,MyActionSheetDelegate>
 /*** searchbar ***/
 @property (nonatomic,strong) UISearchBar *searchBar;
 /*** search result array ***/
@@ -60,7 +61,35 @@
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
     Article *art = (id) item;
     ArticleItemView *itemView = (ArticleItemView *) view;
+    [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [itemView bind:art];
+}
+
+//click more button
+- (void)moreBtnClick:(UIButton *)btn
+{
+    NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
+    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
+    [denSheet show];
+}
+
+#pragma mark ---MyActionSheetDelegate
+- (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index
+{
+    switch (index) {
+        case 0://---click the Download button
+        {
+            NSLog(@"download click");
+        }
+            break;
+        case 1://---click the Share button
+        {
+            NSLog(@"Share click");
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)onClickItem:(NSObject *)item {

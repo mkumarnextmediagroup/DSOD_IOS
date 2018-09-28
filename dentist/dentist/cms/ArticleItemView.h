@@ -10,5 +10,8 @@
 
 @interface ArticleItemView : UIView
 
+@property (strong, nonatomic) UIButton *moreButton;
+
 -(void) bind:(Article*)item ;
+
 @end

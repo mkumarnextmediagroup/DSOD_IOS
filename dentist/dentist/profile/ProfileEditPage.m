@@ -759,7 +759,7 @@
 				} else {
 					d[@"types"] = @"0";
 					d[@"school_name"] = edu.schoolName;
-					d[@"dental_school"] = @{@"id": edu.schoolId};
+					d[@"dental_school"] = @{@"id": @""};
 				}
 				d[@"email"] = [Proto lastAccount];
 				d[@"start_time"] = [[NSDate dateBy:edu.fromYear month:edu.fromMonth day:0] format:DATE_FORMAT];

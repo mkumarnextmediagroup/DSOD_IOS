@@ -15,7 +15,6 @@
 	UILabel *contentLabel;
 	UIImageView *imageView;
 	UIButton *markButton;
-	UIButton *moreButton;
 }
 
 - (instancetype)init {
@@ -41,13 +40,13 @@
 	[imageView scaleFillAspect];
 	[[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:187] install];
 
-	moreButton = [self addButton];
-	[moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
-	[[[[moreButton.layoutMaker rightParent:-edge] below:imageView offset:edge] sizeEq:20 h:20] install];
+	_moreButton = [self addButton];
+	[_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
+	[[[[_moreButton.layoutMaker rightParent:-edge] below:imageView offset:edge] sizeEq:20 h:20] install];
 
 	markButton = [self addButton];
 	[markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-	[[[[markButton.layoutMaker toLeftOf:moreButton offset:-8] below:imageView offset:edge] sizeEq:20 h:20] install];
+	[[[[markButton.layoutMaker toLeftOf:_moreButton offset:-8] below:imageView offset:edge] sizeEq:20 h:20] install];
 
 	titleLabel = [self addLabel];
 	titleLabel.font = [Fonts semiBold:20];

@@ -10,6 +10,9 @@
 #import "DentistFilterView.h"
 #import "DenActionSheet.h"
 
+@interface CmsDownloadsController()<MyActionSheetDelegate>
+
+@end
 @implementation CmsDownloadsController {
     
 }
@@ -66,6 +69,11 @@
     NSArray *imgArr = [NSArray arrayWithObjects:@"deleteDown",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Delete",@"Share", nil];
     [denSheet show];
+}
+
+- (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index
+{
+    NSLog(@"%@===%d",subLabel.text,index);
 }
 
 #pragma mark 打开刷选页面

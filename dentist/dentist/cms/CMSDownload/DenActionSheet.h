@@ -1,9 +1,9 @@
 //
-//  XJLActionSheet.h
+//  ActionSheet.h
 //  mayc
 //
-//  Created by 劳景醒 on 16/3/18.
-//  Copyright © 2016年 laojingxing. All rights reserved.
+//  Created by 孙兴国 on 2018/9/27.
+//  Copyright © 2018年 thenextmediagroup.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -24,7 +24,6 @@
 #import <AssetsLibrary/ALAsset.h>
 
 @interface ProfileEditPage () <UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
-	NSString *selectImageName;
 	UIImage *selectImage;
     NSInteger _num;
 }
@@ -875,47 +874,30 @@
 	UIImage *image = nil;
 	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
 		picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
-		image = info[@"UIImagePickerControllerOriginalImage"];
-//        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+		image = info[@"UIImagePickerControllerEditedImage"];
 
-		NSString *imageName = [info valueForKey:UIImagePickerControllerMediaType];
-		NSLog(@"imageName1:%@", imageName);
-		selectImageName = imageName;
-        selectImage = image;;
-
-		[self bindData];
-		[self saveImageDocuments:selectImage];
-		NSString *localFile = [self getDocumentImage];
-		if (localFile != nil) {
-			Log(@"Image From Camera: ", localFile);
-			[self uploadHeaderImage:localFile];
-		}
+        [self afterSelectDo:image];
 
 	} else {
-		image = info[UIImagePickerControllerOriginalImage];
+		image = info[UIImagePickerControllerEditedImage];
 
-		NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
-		NSLog(@"image url:  %@", imageURL);
-
-		ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
-		//根据url获取asset信息, 并通过block进行回调
-		[assetsLibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
-			ALAssetRepresentation *representation = [asset defaultRepresentation];
-            selectImage = image;
-			[self bindData];
-			[self saveImageDocuments:selectImage];
-			NSString *localFile = [self getDocumentImage];
-			if (localFile != nil) {
-				Log(@"Image File: ", localFile);
-				[self uploadHeaderImage:localFile];
-			}
-		}             failureBlock:^(NSError *error) {
-			NSLog(@"%@", [error localizedDescription]);
-		}];
-	}
+        [self afterSelectDo:image];
+    }
 	[self dismissViewControllerAnimated:NO completion:nil];
 
+}
 
+- (void)afterSelectDo:(UIImage *)image
+{
+    selectImage = image;
+    [self saveImageDocuments:selectImage];
+    [self bindData];
+    
+    NSString *localFile = [self getDocumentImage];
+    if (localFile != nil) {
+        Log(@"Image File: ", localFile);
+        [self uploadHeaderImage:localFile];
+    }
 }
 
 - (NSString *)getDocumentImage {
@@ -926,14 +908,12 @@
 
 - (void)saveImageDocuments:(UIImage *)image {
 
-	CGFloat f = 300.0f / image.size.width;
-	//拿到图片
-	UIImage *imagesave = [image scaledBy:f];
+    CGFloat f = 300.0f / image.size.width;
+    //拿到图片
+    UIImage *imagesave = [image scaledBy:f];
 	NSString *path_sandox = NSHomeDirectory();
 	//设置一个图片的存储路径
 	NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/test.png"];
-    
-//    UIImage *cutImage = [UIImage thumbmailWithImageWithoutScale:imagesave size:CGSizeMake(userView.headerImg.frame.size.width, userView.headerImg.frame.size.height)];
     
 	[UIImagePNGRepresentation(imagesave) writeToFile:imagePath atomically:YES];
 }

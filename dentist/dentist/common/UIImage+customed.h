@@ -9,6 +9,5 @@
 
 -(UIImage*) scaledTo:(CGFloat) w h:(CGFloat)h ;
 -(UIImage*) scaledBy:(CGFloat) f ;
-+ (UIImage *)thumbmailWithImageWithoutScale:(UIImage *)originalImage size:(CGSize)size ;
 
 @end

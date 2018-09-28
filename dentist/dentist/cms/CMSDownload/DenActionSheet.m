@@ -2,8 +2,8 @@
 //  DenActionSheet.m
 //  mayc
 //
-//  Created by 劳景醒 on 16/3/18.
-//  Copyright © 2016年 laojingxing. All rights reserved.
+//  Created by 孙兴国 on 2018/9/27.
+//  Copyright © 2018年 thenextmediagroup.com. All rights reserved.
 //
 
 #import "DenActionSheet.h"
@@ -84,8 +84,8 @@
     
     // 创建Label
     for (NSInteger i = 0; i < self.titleNameArr.count; i++) {
-        UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, i * (labelHeight+1), 120, labelHeight)];
-        
+        UILabel *myLabel = [_parentView addLabel];
+        [[[[myLabel.layoutMaker leftParent:18] topParent:i * (labelHeight+1)] sizeEq:SCREENWIDTH - 18 h:labelHeight] install];
         myLabel.userInteractionEnabled = YES;
         myLabel.tag = i;
         myLabel.text = self.titleNameArr[i];
@@ -93,13 +93,13 @@
         myLabel.font = [Fonts regular:12];
         myLabel.textColor = labelTextColor;
         
-        UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, i * labelHeight, SCREENWIDTH, 1)];
+        UILabel *line = [_parentView addLabel];
+        [[[[line.layoutMaker sizeEq:SCREENWIDTH h:1] topParent:i * labelHeight] leftParent:0] install];
         line.backgroundColor = Colors.cellLineColor;
-        [_parentView addSubview:line];
         
-        UIButton *iconBtn = [_parentView addButton];
-        [iconBtn setImage:[UIImage imageNamed:self.imageArr[i]] forState:UIControlStateNormal];
-        [[[[iconBtn.layoutMaker sizeEq:70 h:labelHeight] leftParent:SCREENWIDTH-70] topParent:i * (labelHeight+1)] install];
+        UIImageView *iconImg = [_parentView addImageView];
+        [iconImg setImage:[UIImage imageNamed:self.imageArr[i]]];
+        [[[[iconImg.layoutMaker sizeEq:70 h:labelHeight] leftParent:SCREENWIDTH-70] topParent:i * (labelHeight+1)] install];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
         [myLabel addGestureRecognizer:tap];
@@ -120,14 +120,6 @@
     }
 }
 
-
-#pragma mark - MyActionSheet Delegate
-- (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index
-{
-    
-}
-
-
 #pragma mark - tapAction
 - (void)tapAction:(UIGestureRecognizer *)gesture
 {
@@ -139,8 +131,6 @@
     [self hiddenAnimation];
 }
 
-
-// 显示
 - (void)show
 {
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -153,7 +143,6 @@
     [delegate.window.rootViewController.view addSubview:_parentView];
 }
 
-// 隐藏
 - (void)hiddenAnimation
 {
     [UIView animateWithDuration:.35 animations:^{

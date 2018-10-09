@@ -15,6 +15,7 @@
 @interface CmsDownloadsController()<MyActionSheetDelegate>
 {
     NSInteger selectIndex;
+    NSMutableArray *ls;
 }
 @end
 @implementation CmsDownloadsController {
@@ -24,6 +25,13 @@
     self = [super init];
     self.topOffset = 0;
     return self;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    ls = [NSMutableArray arrayWithArray:[Proto listBookmark]];
+    self.items = ls;
 }
 
 - (void)viewDidLoad {
@@ -36,7 +44,7 @@
     self.table.tableHeaderView = [self makeHeaderView];
     self.table.rowHeight = 160;
     
-    NSArray *ls = [Proto listBookmark];
+    ls = [NSMutableArray arrayWithArray:[Proto listBookmark]];
     self.items = ls;
     
 }
@@ -81,7 +89,7 @@
 - (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index
 {
     NSLog(@"%@===%d",subLabel.text,index);
-    if([subLabel.text isEqualToString:@"Share"]){
+    if(index==1){
         if(self.items.count>selectIndex){
             Article *art=(Article *)self.items[selectIndex];
             UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[art.title,[NSURL URLWithString:art.resImage]] applicationActivities:nil];
@@ -89,6 +97,9 @@
         }
         
         
+    }else if(index==0){
+        [ls removeObjectAtIndex:selectIndex];
+        self.items=ls;
     }
 }
 

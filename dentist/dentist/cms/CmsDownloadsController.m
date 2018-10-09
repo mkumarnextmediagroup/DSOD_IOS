@@ -9,9 +9,13 @@
 #import "Proto.h"
 #import "DentistFilterView.h"
 #import "DenActionSheet.h"
+#import "Article.h"
+#import <Social/Social.h>
 
 @interface CmsDownloadsController()<MyActionSheetDelegate>
-
+{
+    NSInteger selectIndex;
+}
 @end
 @implementation CmsDownloadsController {
     
@@ -59,13 +63,16 @@
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
     Article *art = (id) item;
+    NSInteger tag=[self.items indexOfObject:item];
     DownloadsItemView *itemView = (DownloadsItemView *) view;
+    itemView.markButton.tag=tag;
     [itemView.markButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [itemView bind:art];
 }
 
 - (void)moreBtnClick:(UIButton *)btn
 {
+    selectIndex=btn.tag;
     NSArray *imgArr = [NSArray arrayWithObjects:@"deleteDown",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Delete",@"Share", nil];
     [denSheet show];
@@ -74,6 +81,15 @@
 - (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index
 {
     NSLog(@"%@===%d",subLabel.text,index);
+    if([subLabel.text isEqualToString:@"Share"]){
+        if(self.items.count>selectIndex){
+            Article *art=(Article *)self.items[selectIndex];
+            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[art.title,[NSURL URLWithString:art.resImage]] applicationActivities:nil];
+            [self presentViewController:avc animated:YES completion:nil];
+        }
+        
+        
+    }
 }
 
 #pragma mark 打开刷选页面

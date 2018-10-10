@@ -57,6 +57,7 @@
 #import "UIView+customed.h"
 #import "UIViewController+myextend.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "SBPlayer.h"
 
 #import "LinkedInHelper.h"
 

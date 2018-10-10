@@ -7,7 +7,6 @@
 //
 
 #import "PlayerView.h"
-#import "Common.h"
 #import "Article.h"
 #import "XHStarRateView.h"
 
@@ -48,10 +47,19 @@
 	[dateLabel textColorAlternate];
 	[[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:24] widthEq:74] install];
 
-	imageView = self.addImageView;
-	[imageView scaleFillAspect];
-	[[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:250] install];
+    /****===the server back data is the movie or picture===****/
+    
+    imageView = self.addImageView;
+    [imageView scaleFillAspect];
+    [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:250] install];
 
+    //初始化播放器
+    self.sbPlayer = [[SBPlayer alloc]initWithUrl:[NSURL URLWithString:@"http://download.3g.joy.cn/video/236/60236937/1451280942752_hd.mp4"]];
+    //set the movie background color
+    self.sbPlayer.backgroundColor = [UIColor blackColor];
+    [self addSubview:self.sbPlayer];
+    [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:250] install];
+    
 	greeBtn = [self addButton];
 	[greeBtn.titleLabel setFont:[Fonts regular:12]];
 	greeBtn.titleLabel.textColor = [UIColor whiteColor];
@@ -190,7 +198,7 @@
 - (void)bind:(Article *)bindInfo {
 	typeLabel.text = [bindInfo.type uppercaseString];
 	dateLabel.text = bindInfo.publishDate;
-	[imageView loadUrl:bindInfo.resImage placeholderImage:@"art-img"];
+//    [imageView loadUrl:bindInfo.resImage placeholderImage:@"art-img"];
 	[headerImg loadUrl:@"http://app800.cn/i/p.png" placeholderImage:@"user_img"];
 	titleLabel.text = bindInfo.title;
 	[greeBtn setTitle:bindInfo.gskString forState:UIControlStateNormal];

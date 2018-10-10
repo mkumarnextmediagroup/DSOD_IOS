@@ -8,7 +8,7 @@
 
 
 @interface ListPage () <UITableViewDataSource, UITableViewDelegate> {
-
+    BOOL isHasEmtyView;
 }
 @property (nonatomic,strong) UIView *emtyView;
 @end
@@ -51,11 +51,16 @@
 
 - (void)setItems:(NSArray *)items {
 	_items = items;
-    if (_items) {
-        _emtyView.hidden=YES;
+    if (isHasEmtyView) {
+        if (_items && _items.count>0) {
+            _emtyView.hidden=YES;
+        }else{
+            _emtyView.hidden=NO;
+        }
     }else{
-        _emtyView.hidden=NO;
+        _emtyView.hidden=YES;
     }
+    
 	if (_table != nil) {
 		[_table reloadData];
 	}
@@ -137,6 +142,7 @@
 #pragma mark --添加空页面
 -(void)addEmptyViewWithImageName:(NSString*)imageName title:(NSString*)title
 {
+    isHasEmtyView=YES;
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     UIImage* image = [UIImage imageNamed:imageName];
     NSString* text = title;
@@ -144,18 +150,24 @@
     _emtyView = [[UIView alloc] initWithFrame:frame];
     _emtyView.backgroundColor = [UIColor whiteColor];
     CGFloat imageh=80;
-    CGFloat imagew=(image.size.width/image.size.height)*imageh;
-    UIImageView *carImageView = [[UIImageView alloc] initWithFrame:CGRectMake((frame.size.width-imagew)/2, frame.size.height/2-imageh, imagew, imageh)];
-    [carImageView setImage:image];
-    [_emtyView addSubview:carImageView];
+    CGFloat spaceh=30;
+    if (imageName) {
+        CGFloat imagew=(image.size.width/image.size.height)*imageh;
+        UIImageView *carImageView = [[UIImageView alloc] initWithFrame:CGRectMake((frame.size.width-imagew)/2, frame.size.height/2-imageh-spaceh, imagew, imageh)];
+        [carImageView setImage:image];
+        [_emtyView addSubview:carImageView];
+    }
     
-    UILabel *noLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(carImageView.frame)+20, self.view.frame.size.width, 80)];
-    noLabel.textAlignment = NSTextAlignmentCenter;
-    [noLabel textColorMain];
-    noLabel.text = text;
-    noLabel.backgroundColor = [UIColor clearColor];
-    noLabel.numberOfLines=0;
-    [_emtyView addSubview:noLabel];
+    if (title) {
+        UILabel *noLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height/2+spaceh, self.view.frame.size.width, 80)];
+        noLabel.textAlignment = NSTextAlignmentCenter;
+        [noLabel textColorMain];
+        noLabel.text = text;
+        noLabel.backgroundColor = [UIColor clearColor];
+        noLabel.numberOfLines=0;
+        [_emtyView addSubview:noLabel];
+    }
+    
     [self.view addSubview:_emtyView];
     _emtyView.hidden=YES;
     

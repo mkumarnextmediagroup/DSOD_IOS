@@ -33,7 +33,8 @@
 
 - (void)onClickLogout:(id)sender {
 	[Proto logout];
-	[AppDelegate.instance switchToWelcomePage];
+    AppDelegate *delegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    [delegate switchToWelcomePage];
     LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
     [linkedIn logout];
 }

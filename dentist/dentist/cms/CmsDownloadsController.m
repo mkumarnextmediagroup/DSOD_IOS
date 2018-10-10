@@ -31,6 +31,13 @@
 {
     [super viewWillAppear:animated];
     ls = [NSMutableArray arrayWithArray:[Proto listBookmark]];
+    self.items = nil;
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadData) userInfo:nil repeats:NO];
+}
+
+-(void)reloadData
+{
+    ls = [NSMutableArray arrayWithArray:[Proto listBookmark]];
     self.items = ls;
 }
 
@@ -43,9 +50,8 @@
     
     self.table.tableHeaderView = [self makeHeaderView];
     self.table.rowHeight = 160;
+    [self addEmptyViewWithImageName:@"nonDownload" title:@"No downloaded content"];
     
-    ls = [NSMutableArray arrayWithArray:[Proto listBookmark]];
-    self.items = ls;
     
 }
 

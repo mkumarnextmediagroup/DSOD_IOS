@@ -17,6 +17,18 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.items = nil;
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadData) userInfo:nil repeats:NO];
+}
+
+-(void)reloadData
+{
+    self.items = [Proto listBookmark];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     UINavigationItem *item = [self navigationItem];
@@ -26,8 +38,7 @@
     self.table.tableHeaderView = [self makeHeaderView];
     self.table.rowHeight = 150;
     
-    NSArray *ls = [Proto listBookmark];
-    self.items = ls;
+    [self addEmptyViewWithImageName:@"nonBookmarks" title:@"No bookmarks added yet"];
 }
 
 - (UIView *)makeHeaderView {

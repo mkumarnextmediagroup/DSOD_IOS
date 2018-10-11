@@ -374,11 +374,12 @@ static NSInteger count = 0;
 }
 //添加控制视图
 -(void)addControlView{
-
+    self.controlView.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.controlView];
     [self.controlView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.mas_equalTo(self);
-        make.height.mas_equalTo(@44);
+        make.left.right.mas_equalTo(self);
+        make.bottom.mas_equalTo(self).offset(32);
+        make.height.mas_equalTo(@32);
     }];
     [self layoutIfNeeded];
 }
@@ -423,7 +424,7 @@ static NSInteger count = 0;
 }
 //设置子视图是否隐藏
 -(void)setSubViewsIsHide:(BOOL)isHide{
-    self.controlView.hidden = isHide;
+//    self.controlView.hidden = isHide;
     self.pauseOrPlayView.hidden = isHide;
     self.titleLabel.hidden = isHide;
 }

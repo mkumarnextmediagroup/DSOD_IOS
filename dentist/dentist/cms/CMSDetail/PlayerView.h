@@ -13,7 +13,7 @@
 
 @interface PlayerView : UIView
 
-@property (assign, nonatomic)SBPlayer *sbPlayer;
+@property (strong, nonatomic)SBPlayer *sbPlayer;
 
 -(void)bind:(Article *)bindInfo ;
 - (void)resetLayout;

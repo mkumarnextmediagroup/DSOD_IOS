@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18CFB0F0216EF285002CC9D0 /* RMDownloadIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB0EF216EF284002CC9D0 /* RMDownloadIndicator.m */; };
+		18CFB0F3216EF88A002CC9D0 /* RMDisplayLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB0F2216EF888002CC9D0 /* RMDisplayLabel.m */; };
 		18DE4D0C216DFF5000A6C61D /* nonBookmarks@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE4D09216DFF4D00A6C61D /* nonBookmarks@3x.png */; };
 		18DE4D0D216DFF5000A6C61D /* nonBookmarks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE4D0A216DFF4E00A6C61D /* nonBookmarks@2x.png */; };
 		18DE4D0E216DFF5000A6C61D /* nonBookmarks.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE4D0B216DFF4F00A6C61D /* nonBookmarks.png */; };
@@ -506,6 +508,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18CFB0EE216EF284002CC9D0 /* RMDownloadIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDownloadIndicator.h; sourceTree = "<group>"; };
+		18CFB0EF216EF284002CC9D0 /* RMDownloadIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDownloadIndicator.m; sourceTree = "<group>"; };
+		18CFB0F1216EF875002CC9D0 /* RMDisplayLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDisplayLabel.h; sourceTree = "<group>"; };
+		18CFB0F2216EF888002CC9D0 /* RMDisplayLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDisplayLabel.m; sourceTree = "<group>"; };
 		18DE4D09216DFF4D00A6C61D /* nonBookmarks@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonBookmarks@3x.png"; sourceTree = "<group>"; };
 		18DE4D0A216DFF4E00A6C61D /* nonBookmarks@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonBookmarks@2x.png"; sourceTree = "<group>"; };
 		18DE4D0B216DFF4F00A6C61D /* nonBookmarks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nonBookmarks.png; sourceTree = "<group>"; };
@@ -1278,6 +1284,10 @@
 		4E2EF4F7215D0D2C00676A4E /* CMSDownload */ = {
 			isa = PBXGroup;
 			children = (
+				18CFB0F1216EF875002CC9D0 /* RMDisplayLabel.h */,
+				18CFB0F2216EF888002CC9D0 /* RMDisplayLabel.m */,
+				18CFB0EE216EF284002CC9D0 /* RMDownloadIndicator.h */,
+				18CFB0EF216EF284002CC9D0 /* RMDownloadIndicator.m */,
 				4E33103F215D23C600E534CD /* UIViewExt.h */,
 				4E331040215D23C600E534CD /* UIViewExt.m */,
 				4E2EF4FA215D0D4900676A4E /* DenActionSheet.h */,
@@ -2530,6 +2540,7 @@
 				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,
 				C5EEA9E893F712BA5CC4938D /* TextSize.m in Sources */,
 				3E49F915214569D000F32146 /* EditExperiencePage.m in Sources */,
+				18CFB0F3216EF88A002CC9D0 /* RMDisplayLabel.m in Sources */,
 				4E19573E2137D0F100420563 /* PermissionNetworkFields.m in Sources */,
 				4E846F73213E781100DC2B51 /* CommSelectTableViewCell.m in Sources */,
 				4E1957482137D0F100420563 /* LinkedInServiceManager.m in Sources */,
@@ -2578,6 +2589,7 @@
 				C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */,
 				3E49F90F2144A22E00F32146 /* EditPracticeAddressViewController.m in Sources */,
 				4E846F952140FCD200DC2B51 /* EditResidencyViewController.m in Sources */,
+				18CFB0F0216EF285002CC9D0 /* RMDownloadIndicator.m in Sources */,
 				C5EEAF6A040452F10D489279 /* NSString+myextend.m in Sources */,
 				C5EEA1CB9C55E45C1CF0F710 /* UIUtil.m in Sources */,
 				4E2351A2213A76ED003BA59B /* UISearchBar+style.m in Sources */,

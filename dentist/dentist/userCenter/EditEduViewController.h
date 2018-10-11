@@ -11,7 +11,7 @@
 
 @class Education;
 
-@interface EditEduViewController : ScrollPage
+@interface EditEduViewController : ScrollPage<UITextFieldDelegate>
 
 @property Education * _Nullable education;
 @property BOOL isAdd;

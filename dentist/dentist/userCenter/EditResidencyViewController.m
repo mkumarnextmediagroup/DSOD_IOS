@@ -14,11 +14,14 @@
 #import "SearchPage.h"
 #import "PickerPage.h"
 #import "IdName.h"
+#import "Common.h"
 
 
 @implementation EditResidencyViewController {
 	TitleMsgArrowView *resView;
 	FromToView *fromToView;
+    BaseItemView *baseView;
+    UITextField *yearTextField;
 	NSInteger fromMonth;
 	NSInteger fromYear;
 	NSInteger toMonth;
@@ -61,16 +64,35 @@
 	}
 	[resView onClickView:self action:@selector(clickResidency:)];
 	[self.contentView addSubview:resView];
+    [self addGrayLine:0 marginRight:0];
 
-	fromToView = [FromToView new];
-	[self.contentView addSubview:fromToView];
-	[fromToView.fromDateLabel onClickView:self action:@selector(clickFromDate:)];
-	[fromToView.toDateLabel onClickView:self action:@selector(clickToDate:)];
+    yearTextField=[UITextField new];
+    yearTextField.keyboardType=UIKeyboardTypeNumberPad;
+    yearTextField.delegate = self;
+    yearTextField.hint = localStr(@"");
+    yearTextField.tag=1;
+    baseView = [BaseItemView new];
+    [baseView addSubview:yearTextField];
+    [baseView addItemSubView:yearTextField titleName:@"Year of Completion" imageName:@"write"];
+    [self.contentView addSubview:baseView];
+    [self addGrayLine:0 marginRight:0];
+    
+    [self layoutLinearVertical];
+    
+    UITapGestureRecognizer *tapkeyboard=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
+    tapkeyboard.cancelsTouchesInView=NO;
+    [self.view addGestureRecognizer:tapkeyboard];
+    
+//    fromToView = [FromToView new];
+//    [self.contentView addSubview:fromToView];
+//    [fromToView.fromDateLabel onClickView:self action:@selector(clickFromDate:)];
+//    [fromToView.toDateLabel onClickView:self action:@selector(clickToDate:)];
+//
+//
+//    [self layoutLinearVertical];
+//    [self bindData];
 
-
-	[self layoutLinearVertical];
-	[self bindData];
-
+    
 
 	UIButton *editBtn = [self.view addSmallButton];
 	if (self.isAdd) {
@@ -84,28 +106,43 @@
 	[[[[editBtn.layoutMaker sizeEq:160 h:BTN_HEIGHT] bottomParent:-47] centerXParent:0] install];
 }
 
+-(void)keyboardHide:(UITapGestureRecognizer *)tap
+{
+    [self.view endEditing:YES];
+}
+
 - (void)bindData {
 	if (fromMonth > 0 && fromYear > 0) {
 		fromToView.fromDateLabel.text = strBuild(nameOfMonth(fromMonth), @" ", [@(fromYear) description]);
-	} else {
+    }else if (fromMonth ==-1 && fromYear > 0) {
+        fromToView.fromDateLabel.text = [@(fromYear) description];
+    }else {
 		fromToView.fromDateLabel.text = @"Select";
 	}
 	if (toMonth > 0 && toYear > 0) {
 		fromToView.toDateLabel.text = strBuild(nameOfMonth(toMonth), @" ", [@(toYear) description]);
-	} else {
+    }else if (toMonth ==-1 && toYear > 0) {
+        fromToView.toDateLabel.text = [@(toYear) description];
+    } else {
 		fromToView.toDateLabel.text = @"Select";
 	}
 }
 
 - (void)clickFromDate:(id)sender {
-	PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1950];
-	p.preSelectData = @[@(fromMonth), @(fromYear)];
+//    PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1950];
+//    p.preSelectData = @[@(fromMonth), @(fromYear)];
+    PickerPage *p = [PickerPage pickYearFromNowDownTo:1950];
+    p.preSelectData =@[@(fromYear)];
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
-		NSNumber *num1 = result[0];
-		self->fromMonth = num1.integerValue;
-		NSNumber *num2 = result[1];
-		self->fromYear = num2.integerValue;
+//        NSNumber *num1 = result[0];
+//        self->fromMonth = num1.integerValue;
+//        NSNumber *num2 = result[1];
+//        self->fromYear = num2.integerValue;
+        self->fromMonth = -1;
+        NSNumber *num2 = result[0];
+        self->fromYear = num2.integerValue;
+		
 		[self bindData];
 
 	};
@@ -113,14 +150,19 @@
 }
 
 - (void)clickToDate:(id)sender {
-	PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1950];
-	p.preSelectData = @[@(toMonth), @(toYear)];
+//    PickerPage *p = [PickerPage pickYearMonthFromNowDownTo:1950];
+//    p.preSelectData = @[@(toMonth), @(toYear)];
+    PickerPage *p = [PickerPage pickYearFromNowDownTo:1950];
+    p.preSelectData =@[@(fromYear)];
 	p.resultCallback = ^(NSArray *result) {
 		Log(result);
-		NSNumber *num1 = result[0];
-		self->toMonth = num1.integerValue;
-		NSNumber *num2 = result[1];
-		self->toYear = num2.integerValue;
+//        NSNumber *num1 = result[0];
+//        self->toMonth = num1.integerValue;
+//        NSNumber *num2 = result[1];
+//        self->toYear = num2.integerValue;
+        self->toMonth = -1;
+        NSNumber *num2 = result[0];
+        self->toYear = num2.integerValue;
 		[self bindData];
 
 	};

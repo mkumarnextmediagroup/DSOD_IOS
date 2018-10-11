@@ -97,28 +97,47 @@
     NSInteger selMonth = 0;
     NSInteger yearIndex = 0;
 
-    for (int i = 0; i < self.data[1].count; i++) {
-        if ([self.data[1][i] integerValue] == yearNow) {
-            yearIndex = i;
+    if(self.pickerType == PickerDataTypeYearAndMonth){
+        for (int i = 0; i < self.data[1].count; i++) {
+            if ([self.data[1][i] integerValue] == yearNow) {
+                yearIndex = i;
+            }
         }
-    }
-	result[(NSUInteger) component] = self.data[(NSUInteger) component][(NSUInteger) row];
-    for (int i = 0; i < result.count; i++) {
-        selMonth = [result[0] integerValue];
-        selYear = [result[1] integerValue];
-    }
-    if (component == 0) {
-        if (selMonth >= monthNow && selYear >= yearNow) {
-            [picker selectRow:monthNow - 1 inComponent:0 animated:YES];
-            result[(NSUInteger) component] = self.data[0][(NSUInteger) monthNow - 1];
+        result[(NSUInteger) component] = self.data[(NSUInteger) component][(NSUInteger) row];
+        for (int i = 0; i < result.count; i++) {
+            selMonth = [result[0] integerValue];
+            selYear = [result[1] integerValue];
         }
-    }
-    if (component == 1) {
+        if (component == 0) {
+            if (selMonth >= monthNow && selYear >= yearNow) {
+                [picker selectRow:monthNow - 1 inComponent:0 animated:YES];
+                result[(NSUInteger) component] = self.data[0][(NSUInteger) monthNow - 1];
+            }
+        }
+        if (component == 1) {
+            if (selYear >= yearNow) {
+                [picker selectRow:yearIndex inComponent:1 animated:YES];
+                result[(NSUInteger) component] = self.data[1][(NSUInteger) yearIndex];
+            }
+        }
+    }else{
+        for (int i = 0; i < self.data[0].count; i++) {
+            if ([self.data[0][i] integerValue] == yearNow) {
+                yearIndex = i;
+            }
+        }
+        result[(NSUInteger) component] = self.data[(NSUInteger) component][(NSUInteger) row];
+        for (int i = 0; i < result.count; i++) {
+            selMonth = 0;
+            selYear = [result[0] integerValue];
+        }
+        
         if (selYear >= yearNow) {
-            [picker selectRow:yearIndex inComponent:1 animated:YES];
-            result[(NSUInteger) component] = self.data[1][(NSUInteger) yearIndex];
+            [picker selectRow:yearIndex inComponent:0 animated:YES];
+            result[(NSUInteger) component] = self.data[0][(NSUInteger) yearIndex];
         }
     }
+    
     
 }
 
@@ -137,6 +156,7 @@
 
 + (PickerPage *)pickYearMonth:(NSInteger)yearFrom yearTo:(NSInteger)yearTo {
 	PickerPage *p = [PickerPage new];
+    p.pickerType=PickerDataTypeYearAndMonth;
 	NSArray *mArr = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12];
     NSArray *monthArr = [NSArray arrayWithObjects:@"Jaunary",@"February",@"March",@"April",@"May",@"June",@"July",@"August",@"September",@"October",@"November",@"December", nil];
 
@@ -151,6 +171,7 @@
 
 + (PickerPage *)pickYearMonthFromNowDownTo:(NSInteger)yearTo {
 	PickerPage *p = [PickerPage new];
+    p.pickerType=PickerDataTypeYearAndMonth;
 	NSArray *mArr = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12];
     NSArray *monthArr = [NSArray arrayWithObjects:@"Jaunary",@"February",@"March",@"April",@"May",@"June",@"July",@"August",@"September",@"October",@"November",@"December", nil];
 	NSMutableArray *yearArr = [NSMutableArray arrayWithCapacity:60];
@@ -162,6 +183,20 @@
 	p.data = @[mArr, yearArr];
     p.showArr = @[monthArr,yearArr];
 	return p;
+}
+
++ (PickerPage *)pickYearFromNowDownTo:(NSInteger)yearTo {
+    PickerPage *p = [PickerPage new];
+    p.pickerType=PickerDataTypeYear;
+    NSMutableArray *yearArr = [NSMutableArray arrayWithCapacity:60];
+    
+    NSInteger yearNow = [[NSDate date] year];
+    for (NSInteger n = yearNow; n >= yearTo; --n) {
+        [yearArr addObject:@(n)];
+    }
+    p.data = @[yearArr];
+    p.showArr = @[yearArr];
+    return p;
 }
 
 @end

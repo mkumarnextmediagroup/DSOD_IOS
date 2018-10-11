@@ -11,7 +11,7 @@
 
 @class Residency;
 
-@interface EditResidencyViewController : ScrollPage
+@interface EditResidencyViewController : ScrollPage<UITextFieldDelegate>
 
 @property(nullable) Residency *residency;
 @property BOOL isAdd;

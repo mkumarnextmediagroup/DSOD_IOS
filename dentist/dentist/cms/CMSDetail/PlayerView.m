@@ -54,11 +54,11 @@
     [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:250] install];
 
     //初始化播放器
-    self.sbPlayer = [[SBPlayer alloc]initWithUrl:[NSURL URLWithString:@"http://download.3g.joy.cn/video/236/60236937/1451280942752_hd.mp4"]];
+    self.sbPlayer = [[SBPlayer alloc] initWithUrl:[NSURL URLWithString:@"http://download.3g.joy.cn/video/236/60236937/1451280942752_hd.mp4"]];
     //set the movie background color
     self.sbPlayer.backgroundColor = [UIColor blackColor];
     [self addSubview:self.sbPlayer];
-    [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:250] install];
+    [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:218] install];
     
 	greeBtn = [self addButton];
 	[greeBtn.titleLabel setFont:[Fonts regular:12]];

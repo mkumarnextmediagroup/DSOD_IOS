@@ -23,6 +23,7 @@
         make.edges.mas_equalTo(self);
     }];
 }
+
 -(void)handleImageTapAction:(UIButton *)button{
     button.selected = !button.selected;
     _state = button.isSelected ? YES : NO;

@@ -75,7 +75,7 @@
 	if ([@"General Content" isEqualToString:title]) {
 		CmsForYouPage *forYouPage = [CmsForYouPage new];
 		UINavigationController *ncForYou = NavPage(forYouPage);
-		[ncForYou tabItem:@"Home" imageName:@"home"];
+		[ncForYou tabItem:@"For you" imageName:@"foryou"];
 		forYouPage.navigationItem.leftBarButtonItem = [self menuButton];
 
 		CmsSearchPage *cSearch = [CmsSearchPage new];

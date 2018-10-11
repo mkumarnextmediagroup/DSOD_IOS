@@ -28,6 +28,8 @@
 	TitleMsgArrowView *schoolSelectView;
 	TitleEditView *schoolEditView;
 	FromToView *fromToView;
+    BaseItemView *baseView;
+    UITextField *yearTextField;
 
 }
 
@@ -86,17 +88,33 @@
 
 	[self addGrayLine:0 marginRight:0];
 
-	fromToView = [FromToView new];
-	[self.contentView addSubview:fromToView];
-	[fromToView.fromDateLabel onClickView:self action:@selector(clickFromDate:)];
-	[fromToView.toDateLabel onClickView:self action:@selector(clickToDate:)];
+    yearTextField=[UITextField new];
+    yearTextField.keyboardType=UIKeyboardTypeNumberPad;
+    yearTextField.delegate = self;
+    yearTextField.hint = localStr(@"");
+    yearTextField.tag=1;
+    baseView = [BaseItemView new];
+    [baseView addSubview:yearTextField];
+    [baseView addItemSubView:yearTextField titleName:@"Year of Completion" imageName:@"write"];
+    [self.contentView addSubview:baseView];
+    [self addGrayLine:0 marginRight:0];
+    
+    [self layoutLinearVertical];
+    
+    UITapGestureRecognizer *tapkeyboard=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
+    tapkeyboard.cancelsTouchesInView=NO;
+    [self.view addGestureRecognizer:tapkeyboard];
+//    fromToView = [FromToView new];
+//    [self.contentView addSubview:fromToView];
+//    [fromToView.fromDateLabel onClickView:self action:@selector(clickFromDate:)];
+//    [fromToView.toDateLabel onClickView:self action:@selector(clickToDate:)];
+//
+//
+//    fromToView.showPresentWhenGreatNow = YES;
+//    [fromToView fromValue:fromYear month:fromMonth];
+//    [fromToView toValue:toYear month:toMonth];
 
-
-	fromToView.showPresentWhenGreatNow = YES;
-	[fromToView fromValue:fromYear month:fromMonth];
-	[fromToView toValue:toYear month:toMonth];
-
-	[self layoutLinearVertical];
+//    [self layoutLinearVertical];
 
 
 	UIButton *editBtn = [self.view addSmallButton];
@@ -111,6 +129,10 @@
 	[[[[editBtn.layoutMaker sizeEq:160 h:BTN_HEIGHT] bottomParent:-47] centerXParent:0] install];
 }
 
+-(void)keyboardHide:(UITapGestureRecognizer *)tap
+{
+    [self.view endEditing:YES];
+}
 
 - (void)onSwitchChange:(id)sender {
 	BOOL b = switchView.switchView.on;

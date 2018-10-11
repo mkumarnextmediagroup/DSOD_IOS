@@ -18,4 +18,5 @@
 - (void)resetLayout;
 
 - (UIImageView *)addArrowView;
+-(void)addItemSubView:(UIView *)subview titleName:(NSString *)titleName imageName:(NSString *)imageName;
 @end

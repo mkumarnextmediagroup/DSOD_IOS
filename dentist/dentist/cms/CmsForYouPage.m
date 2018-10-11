@@ -22,7 +22,7 @@
 - (instancetype)init {
 	self = [super init];
 	self.topOffset = 0;
-	segItems = @[@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEW", @"TECH GUIDE", @"ANIMATIONS", @"TIP SHEETS"];
+	segItems = @[@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"];
 	return self;
 }
 

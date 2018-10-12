@@ -150,7 +150,7 @@
     }else{
         DentistPickerView *picker = [[DentistPickerView alloc]init];
         picker.array = @[@"Videos",@"Videos1",@"Videos2",@"Videos3",@"Videos4",@"Videos5",@"Videos6"];
-        picker.leftTitle=localStr(@"Content");
+        picker.leftTitle=localStr(@"Content Type");
         picker.righTtitle=localStr(@"Cancel");
         [picker show:^(NSString *result) {
             

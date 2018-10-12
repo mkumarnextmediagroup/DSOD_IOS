@@ -151,7 +151,7 @@
 			[residView hideEmpty];
 			residView.titleLabel.text = @"Residency";
 			residView.msgLabel.text = r.schoolName;
-			residView.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
+			residView.detailLabel.text = [NSString stringWithFormat:@"%@",@(r.toYear)];//strBuild(r.dateFrom, @"-", r.dateTo);
 		}
 		[self.contentView addSubview:residView];
 		if (i == userInfo.residencyArray.count - 1) {
@@ -179,7 +179,7 @@
 			if ([v.msgLabel.text isEqualToString:@"-"]) {
 				v.msgLabel.text = @"";
 			}
-			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
+			v.detailLabel.text = [NSString stringWithFormat:@"%@",@(edu.toYear)];//strBuild(edu.dateFrom, @"-", edu.dateTo);
 		}
 		[self.contentView addSubview:v];
 		if (i == userInfo.educationArray.count - 1) {

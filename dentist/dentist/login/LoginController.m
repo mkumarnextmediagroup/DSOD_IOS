@@ -22,9 +22,18 @@
 	UITextField *pwdEdit;
 	UIButton *checkButton;
 	UIButton *loginButton;
+    
 
 	UILabel *touchLabel;
 	LAContext *context;
+}
+
+-(void)lefthandleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
+{
+    if(recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+        NSLog(@"swipe left");
+        
+    }
 }
 
 - (void)viewDidLoad {
@@ -34,6 +43,10 @@
 //    UIImageView *imageView = self.view.addImageView;
 //    imageView.imageName = @"bg_3.png";
 //    [imageView layoutFill];
+    
+    UISwipeGestureRecognizer *leftrecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(lefthandleSwipeFrom:)];
+    [leftrecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+    [self.view addGestureRecognizer:leftrecognizer];
 
 	UIImage *image = [UIImage imageNamed:@"bg_3.png"];
 	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
@@ -106,7 +119,7 @@
 	[loginButton styleWhite];
 	[loginButton title:localStr(@"login")];
 	[loginButton styleSecondary];
-
+    
 
 	UILabel *regLabel = self.view.addLabel;
 	[regLabel textAlignCenter];

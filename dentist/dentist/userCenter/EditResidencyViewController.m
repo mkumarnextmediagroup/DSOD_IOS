@@ -69,7 +69,9 @@
     yearTextField=[UITextField new];
     yearTextField.keyboardType=UIKeyboardTypeNumberPad;
     yearTextField.delegate = self;
-    yearTextField.hint = localStr(@"");
+    if (fromYear>0) {
+        yearTextField.hint = [NSString stringWithFormat:@"%@",@(toYear)];
+    }
     yearTextField.tag=1;
     baseView = [BaseItemView new];
     [baseView addSubview:yearTextField];
@@ -207,28 +209,31 @@
 }
 
 - (void)saveBtnClick:(UIButton *)btn {
-    if (fromYear>toYear) {
-        [self alertMsg:@"Date wrong" onOK:^() {
-            
-        }];
-        return ;
-    }else if(fromYear==toYear){
-        if(fromMonth>toMonth){
-            [self alertMsg:@"Date wrong" onOK:^() {
-                
-            }];
-            return ;
-        }
-    }
+//    if (fromYear>toYear) {
+//        [self alertMsg:@"Date wrong" onOK:^() {
+//
+//        }];
+//        return ;
+//    }else if(fromYear==toYear){
+//        if(fromMonth>toMonth){
+//            [self alertMsg:@"Date wrong" onOK:^() {
+//
+//            }];
+//            return ;
+//        }
+//    }
     
     self.residency.schoolName = nameOfDental;
     self.residency.schoolId = idOfDental;
 	self.residency.fromMonth = fromMonth;
-	self.residency.fromYear = fromYear;
+    self.residency.fromYear = fromYear;
 	self.residency.toMonth = toMonth;
-	self.residency.toYear = toYear;
+	self.residency.toYear = [yearTextField.text integerValue];//toYear;
 
-	self.saveCallback(self.residency);
+    if(self.saveCallback){
+        self.saveCallback(self.residency);
+    }
+	
 
 	[self alertMsg:@"Saved Successfully" onOK:^() {
 		[self popPage];

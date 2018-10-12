@@ -91,7 +91,9 @@
     yearTextField=[UITextField new];
     yearTextField.keyboardType=UIKeyboardTypeNumberPad;
     yearTextField.delegate = self;
-    yearTextField.hint = localStr(@"");
+    if (fromYear>0) {
+        yearTextField.hint = [NSString stringWithFormat:@"%@",@(toYear)];
+    }
     yearTextField.tag=1;
     baseView = [BaseItemView new];
     [baseView addSubview:yearTextField];
@@ -208,19 +210,19 @@
 
 - (void)saveBtnClick:(UIButton *)btn {
 
-	if (fromYear > toYear) {
-		[self alertMsg:@"Date wrong" onOK:^() {
-
-		}];
-		return;
-	} else if (fromYear == toYear) {
-		if (fromMonth > toMonth) {
-			[self alertMsg:@"Date wrong" onOK:^() {
-
-			}];
-			return;
-		}
-	}
+//    if (fromYear > toYear) {
+//        [self alertMsg:@"Date wrong" onOK:^() {
+//
+//        }];
+//        return;
+//    } else if (fromYear == toYear) {
+//        if (fromMonth > toMonth) {
+//            [self alertMsg:@"Date wrong" onOK:^() {
+//
+//            }];
+//            return;
+//        }
+//    }
 	self.education.schoolInUS = switchView.switchView.on;
 	if (self.education.schoolInUS) {
 		self.education.schoolName = schoolSelectView.msgLabel.text;
@@ -232,9 +234,12 @@
 	self.education.fromMonth = fromMonth;
 	self.education.fromYear = fromYear;
 	self.education.toMonth = toMonth;
-	self.education.toYear = toYear;
+	self.education.toYear = [yearTextField.text integerValue];//toYear;
 
-	self.saveCallback(self.education);
+    if(self.saveCallback){
+        self.saveCallback(self.education);
+    }
+	
 
 	[self alertMsg:@"Saved Successfully" onOK:^() {
 		[self popPage];

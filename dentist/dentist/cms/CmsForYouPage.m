@@ -38,8 +38,7 @@
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"DSODENTIST";
 	//TODO 还不太明白为啥 不设置rightBarButtonItem，title不显示
-	item.rightBarButtonItem = [self navBarText:@"test" target:self action:@selector(clickTest:)];
-
+    item.rightBarButtonItem = [self navBarText:@"test" target:self action:@selector(clickTest:)];
 
 	self.table.tableHeaderView = [self makeHeaderView];
 	self.table.rowHeight = UITableViewAutomaticDimension;

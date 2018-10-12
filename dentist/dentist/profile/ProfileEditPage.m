@@ -307,7 +307,7 @@
 			Residency *r = userInfo.residencyArray[i];
 			IconTitleMsgDetailCell *v = residencyViews[i];
 			v.msgLabel.text = r.schoolName;
-			v.detailLabel.text = strBuild(r.dateFrom, @"-", r.dateTo);
+            v.detailLabel.text = [NSString stringWithFormat:@"%@",@(r.toYear)];//strBuild(r.dateFrom, @"-", r.dateTo);
 			if (r.schoolId == nil || r.schoolId.length == 0) {
 				[v showEmpty:@"No residency added yet"];
 			} else {
@@ -324,7 +324,7 @@
 			if ([v.msgLabel.text isEqualToString:@"-"]) {
 				v.msgLabel.text = @"";
 			}
-			v.detailLabel.text = strBuild(edu.dateFrom, @"-", edu.dateTo);
+			v.detailLabel.text = [NSString stringWithFormat:@"%@",@(edu.toYear)];//strBuild(edu.dateFrom, @"-", edu.dateTo);
 			if (edu.schoolName == nil || edu.schoolName.length == 0) {
 				[v showEmpty:@"No education added yet"];
 			} else {

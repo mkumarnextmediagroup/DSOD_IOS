@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Common.h"
 
 @class Article;
 
 @interface PlayerView : UIView
 
--(void)bind:(Article *)bindInfo ;
+@property (strong, nonatomic)SBPlayer *sbPlayer;
 
+-(void)bind:(Article *)bindInfo ;
 - (void)resetLayout;
 
 @end

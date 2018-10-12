@@ -134,6 +134,7 @@
 }
 
 - (void)onBack:(UIButton *)btn {
+    [playView.sbPlayer stop];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

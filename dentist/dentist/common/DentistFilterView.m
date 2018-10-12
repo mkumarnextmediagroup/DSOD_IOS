@@ -44,7 +44,7 @@
     
     //category
     UILabel *categoryLabel=[self addLabel];
-    categoryLabel.font = [Fonts regular:15];
+    categoryLabel.font = [Fonts regular:12];
     categoryLabel.textColor=rgb255(155, 155, 155);
     categoryLabel.text=localStr(@"Category");
     [[[[[categoryLabel.layoutMaker leftParent:20] below:titleLabel offset:30] rightParent:-10] heightEq:20] install];
@@ -58,7 +58,7 @@
     
     //type
     UILabel *typeLabel=[self addLabel];
-    typeLabel.font = [Fonts regular:15];
+    typeLabel.font = [Fonts regular:12];
     typeLabel.textColor=rgb255(155, 155, 155);
     typeLabel.text=localStr(@"Content Type");
     [[[[[typeLabel.layoutMaker leftParent:20] below:categoryTextField offset:20] rightParent:-10] heightEq:20] install];
@@ -69,6 +69,20 @@
     [typeTextField returnDone];
     categoryTextField.textColor=rgb255(0, 0, 0);
     [[[[[typeTextField.layoutMaker leftParent:20] below:typeLabel offset:10] rightParent:-20] heightEq:40] install];
+    
+    UIButton *updateButton = self.addButton;
+    [updateButton styleWhite];
+    [updateButton title:localStr(@"Update")];
+    [updateButton styleSecondary];
+    [[[[[updateButton.layoutMaker leftParent:20] bottomParent:-25] rightParent:-20] heightEq:40] install];
+    [updateButton onClick:self action:@selector(clickUpdate:)];
+    
+    UILabel *clearLabel=[self addLabel];
+    clearLabel.font = [Fonts regular:15];
+    clearLabel.textColor=Colors.secondary;
+    clearLabel.text=localStr(@"Clear all");
+    clearLabel.textAlignment=NSTextAlignmentCenter;
+    [[[[[clearLabel.layoutMaker leftParent:20] above:updateButton offset:-20] rightParent:-20] heightEq:20] install];
 }
 
 //弹出
@@ -105,12 +119,25 @@
         [self removeFromSuperview];
     }];
 }
+
+-(void)clickUpdate:(UIButton *)sender
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        //将view.frame 设置在屏幕下方
+        self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
+    } completion:^(BOOL finished) {
+        if (self.closeBlock) {
+            self.closeBlock();
+        }
+        [self removeFromSuperview];
+    }];
+}
 #pragma mark textfielddelegate
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if (textField.tag==1) {
         DentistPickerView *picker = [[DentistPickerView alloc]init];
-        picker.array = @[@"DSOs",@"DSOs1",@"DSOs2",@"DSOs3",@"DSOs4",@"DSOs5",@"DSOs6"];
+        picker.array = @[@"Orthodontics",@"Practice Management",@"DSOs",@"General Dentistry",@"Implant Dentistry"];
         picker.leftTitle=localStr(@"Category");
         picker.righTtitle=localStr(@"Cancel");
         [picker show:^(NSString *result) {
@@ -122,8 +149,8 @@
         }];
     }else{
         DentistPickerView *picker = [[DentistPickerView alloc]init];
-        picker.array = @[@"Videos",@"Videos1",@"Videos2",@"Videos3",@"Videos4",@"Videos5",@"Videos6"];
-        picker.leftTitle=localStr(@"Content");
+        picker.array = @[@"Animations",@"Tip Sheets",@"Videos",@"Article",@"Podcasts"];
+        picker.leftTitle=localStr(@"Content Type");
         picker.righTtitle=localStr(@"Cancel");
         [picker show:^(NSString *result) {
             

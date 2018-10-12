@@ -7,6 +7,7 @@
 //
 
 #import "DentistPickerView.h"
+#import "Common.h"
 #define DSPickBackColor [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1]
 #define DSSCREENWIDTH  [UIScreen mainScreen].bounds.size.width
 #define DSSCREENHEIGHT [UIScreen mainScreen].bounds.size.height
@@ -62,31 +63,40 @@
 //    maskLayer.frame = self.topView.bounds;
 //    maskLayer.path = maskPath.CGPath;
 //    self.topView.layer.mask = maskLayer;
-    
+    CGSize strSize=CGSizeMake(MAXFLOAT, 40);
+    NSDictionary *attr=@{NSFontAttributeName:[UIFont systemFontOfSize:13.0]};
+    CGSize leftlableSize=CGSizeZero;
+    CGSize rightlableSize=CGSizeZero;
     self.leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     if (self.leftTitle) {
         [self.leftBtn setTitle:self.leftTitle forState:UIControlStateNormal];
+        leftlableSize=[self.leftTitle boundingRectWithSize:strSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attr context:nil].size;
     }else{
         [self.leftBtn setTitle:@"" forState:UIControlStateNormal];
     }
     
+    CGFloat leftbtnw=leftlableSize.width+30;
     [self.leftBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [self.leftBtn setFrame:CGRectMake(10, 5, 100, 40)];
+    [self.leftBtn setFrame:CGRectMake(0, 5, leftbtnw, 40)];
+    self.leftBtn.titleLabel.font=[UIFont systemFontOfSize:13.0];
     [self.leftBtn addTarget:self action:@selector(leftaction) forControlEvents:UIControlEventTouchUpInside];
     [self.topView addSubview:self.leftBtn];
     
     self.rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.rightBtn.titleLabel.font=[UIFont systemFontOfSize:13.0];
     if (self.righTtitle) {
         [self.rightBtn setTitle:self.righTtitle forState:UIControlStateNormal];
+        rightlableSize=[self.righTtitle boundingRectWithSize:strSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attr context:nil].size;
     }else{
         [self.rightBtn setTitle:@"Cancel" forState:UIControlStateNormal];
     }
-    [self.rightBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [self.rightBtn setFrame:CGRectMake(DSSCREENWIDTH-100-10, 5, 100, 40)];
+    CGFloat rightbtnw=rightlableSize.width+30;
+    [self.rightBtn setTitleColor:Colors.secondary forState:UIControlStateNormal];
+    [self.rightBtn setFrame:CGRectMake(DSSCREENWIDTH-rightbtnw, 5, rightbtnw, 40)];
     [self.rightBtn addTarget:self action:@selector(rightaction) forControlEvents:UIControlEventTouchUpInside];
     [self.topView addSubview:self.rightBtn];
     
-    UILabel *titlelb = [[UILabel alloc]initWithFrame:CGRectMake(110, 0, DSSCREENWIDTH-200-20, 50)];
+    UILabel *titlelb = [[UILabel alloc]initWithFrame:CGRectMake(leftbtnw+10, 0, DSSCREENWIDTH-(leftbtnw+rightbtnw)-20, 50)];
     titlelb.backgroundColor = [UIColor clearColor];
     titlelb.textAlignment = NSTextAlignmentCenter;
     titlelb.text = self.title;
@@ -197,6 +207,11 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
     return [self.array count];
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+{
+    return 40;
 }
 
 #pragma mark - 代理

@@ -7,6 +7,8 @@
 //
 
 #import "SBPlayer.h"
+#import "PlayerView.h"
+
 @interface SBPlayer ()
 {
     BOOL forwardOrBack;
@@ -277,12 +279,16 @@ static NSInteger count = 0;
         case UIInterfaceOrientationPortrait:
         {
             _isFullScreen = NO;
-            [[self getCurrentVC].view addSubview:self];
+            [self.addView addSubview:self];
             //删除UIView animate可以去除横竖屏切换过渡动画
             [UIView animateKeyframesWithDuration:kTransitionTime delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear animations:^{
                 if (self.oldConstriants) {
                     [[self getCurrentVC].view addConstraints:self.oldConstriants];
                 }
+                
+                PlayerView *playerVi = (PlayerView *)self.addView;
+                [[[[[self.layoutMaker leftParent:0] rightParent:0] below:playerVi.topView offset:0] heightEq:250] install];
+                
                 [self layoutIfNeeded];
             } completion:nil];
         }
@@ -307,27 +313,29 @@ static NSInteger count = 0;
 //获取当前屏幕显示的viewcontroller
 - (UIViewController *)getCurrentVC
 {
-    UIViewController *result = nil;
-    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-    if (window.windowLevel != UIWindowLevelNormal)
-    {
-        NSArray *windows = [[UIApplication sharedApplication] windows];
-        for(UIWindow * tmpWin in windows)
-        {
-            if (tmpWin.windowLevel == UIWindowLevelNormal)
-            {
-                window = tmpWin;
-                break;
-            }
-        }
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
+    return currentVC;
+}
+
+- (UIViewController *)getCurrentVCFrom:(UIViewController *)rootVC
+{
+    UIViewController *currentVC;
+    if ([rootVC presentedViewController]) {
+        rootVC = [rootVC presentedViewController];
     }
-    UIView *frontView = [[window subviews] objectAtIndex:0];
-    id nextResponder = [frontView nextResponder];
-    if ([nextResponder isKindOfClass:[UIViewController class]])
-        result = nextResponder;
-    else
-        result = window.rootViewController;
-    return result;
+    
+    if ([rootVC isKindOfClass:[UITabBarController class]]) {
+        currentVC = [self getCurrentVCFrom:[(UITabBarController *)rootVC selectedViewController]];
+    }else if ([rootVC isKindOfClass:[UINavigationController class]])
+    {
+        currentVC = [self getCurrentVCFrom:[(UINavigationController *)rootVC visibleViewController]];
+    }else
+    {
+        currentVC = rootVC;
+    }
+    
+    return currentVC;
 }
 - (void)drawRect:(CGRect)rect {
     [self setupPlayerUI];
@@ -460,13 +468,6 @@ static NSInteger count = 0;
     {
         forwardOrBack = YES;
         [_item seekToTime:CMTimeMakeWithSeconds(_item.currentTime.value/_item.currentTime.timescale+10, _item.currentTime.timescale) toleranceBefore:CMTimeMake(1, _item.currentTime.timescale) toleranceAfter:CMTimeMake(1, _item.currentTime.timescale)];
-//        [UIView animateWithDuration:0.3 animations:^{
-//            self->_pauseOrPlayView.fastGoBtn.alpha=1.0;
-//        }completion:^(BOOL finished) {
-//            [UIView animateWithDuration:0.3 animations:^{
-//                self->_pauseOrPlayView.fastGoBtn.alpha=0.0;
-//            }];
-//        }];
     }
 }
 
@@ -477,13 +478,6 @@ static NSInteger count = 0;
     {
         forwardOrBack = YES;
         [_item seekToTime:CMTimeMakeWithSeconds(_item.currentTime.value/_item.currentTime.timescale-10, _item.currentTime.timescale)];
-//        [UIView animateWithDuration:0.3 animations:^{
-//            self->_pauseOrPlayView.fastBackBtn.alpha=1.0;
-//        }completion:^(BOOL finished) {
-//            [UIView animateWithDuration:0.3 animations:^{
-//               self->_pauseOrPlayView.fastBackBtn.alpha=0.0;
-//            }];
-//        }];
     }
 }
 
@@ -553,6 +547,19 @@ static NSInteger count = 0;
 -(void)play{
     if (self.player) {
         [self.player play];
+        
+        int second = [[[NSUserDefaults standardUserDefaults] valueForKey:@"play"] intValue];
+        
+        long totalSecond = self.anAsset.duration.value / self.anAsset.duration.timescale;
+        if (second != 0 && second <= totalSecond) {
+            
+            if(_isPlaying)
+            {
+                forwardOrBack = YES;
+                [_item seekToTime:CMTimeMakeWithSeconds(_item.currentTime.value/_item.currentTime.timescale+second, _item.currentTime.timescale) toleranceBefore:CMTimeMake(1, _item.currentTime.timescale) toleranceAfter:CMTimeMake(1, _item.currentTime.timescale)];
+            }
+        }
+        
     }
 }
 -(void)pause{
@@ -561,6 +568,9 @@ static NSInteger count = 0;
     }
 }
 -(void)stop{
+    
+    long currentSecond = _item.currentTime.value/_item.currentTime.timescale;
+    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%ld",currentSecond] forKey:@"play"];
     [self.item removeObserver:self forKeyPath:@"status"];
     [self.player removeTimeObserver:playbackTimerObserver];
     [self.item removeObserver:self forKeyPath:@"loadedTimeRanges"];

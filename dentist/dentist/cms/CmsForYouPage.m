@@ -136,9 +136,15 @@
 }
 
 - (void)onClickItem:(NSObject *)item {
-	CMSDetailViewController *detail = [CMSDetailViewController new];
-	detail.articleInfo = (Article *) item;
-	[self.navigationController.tabBarController presentViewController:detail animated:YES completion:nil];
+    
+//    CMSDetailViewController *detail = [CMSDetailViewController new];
+//    detail.articleInfo = (Article *) item;
+//    [self.navigationController.tabBarController presentViewController:detail animated:YES completion:nil];
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+    newVC.articleInfo = (Article *) item;
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 

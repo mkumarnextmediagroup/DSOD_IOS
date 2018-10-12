@@ -91,6 +91,7 @@
 		4E528B1D21704BE3008C151B /* pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E528B1C21704BE2008C151B /* pause@2x.png */; };
 		4E528B21217073E6008C151B /* fastGo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E528B20217073E5008C151B /* fastGo@2x.png */; };
 		4E528B23217074F2008C151B /* fastBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E528B22217074F2008C151B /* fastBack@2x.png */; };
+		4E528B2A2170C8BA008C151B /* GSKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E528B292170C8BA008C151B /* GSKViewController.m */; };
 		4E5564C02154A122008C9A6D /* nonSearch@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E5564BE2154A122008C9A6D /* nonSearch@3x.png */; };
 		4E5564C12154A122008C9A6D /* nonSearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E5564BF2154A122008C9A6D /* nonSearch@2x.png */; };
 		4E846F70213E619100DC2B51 /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F6F213E619100DC2B51 /* SwitchTableViewCell.m */; };
@@ -643,6 +644,8 @@
 		4E528B1C21704BE2008C151B /* pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@2x.png"; sourceTree = "<group>"; };
 		4E528B20217073E5008C151B /* fastGo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fastGo@2x.png"; sourceTree = "<group>"; };
 		4E528B22217074F2008C151B /* fastBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fastBack@2x.png"; sourceTree = "<group>"; };
+		4E528B282170C8BA008C151B /* GSKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSKViewController.h; sourceTree = "<group>"; };
+		4E528B292170C8BA008C151B /* GSKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSKViewController.m; sourceTree = "<group>"; };
 		4E5564BE2154A122008C9A6D /* nonSearch@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonSearch@3x.png"; sourceTree = "<group>"; };
 		4E5564BF2154A122008C9A6D /* nonSearch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonSearch@2x.png"; sourceTree = "<group>"; };
 		4E846F6E213E619100DC2B51 /* SwitchTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchTableViewCell.h; sourceTree = "<group>"; };
@@ -1361,6 +1364,19 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
+		4E528B272170C882008C151B /* CMSView */ = {
+			isa = PBXGroup;
+			children = (
+				4EE0254E2151F59400BBD290 /* PlayerView.h */,
+				4EE0254F2151F59400BBD290 /* PlayerView.m */,
+				4E23E07D21529D6D00EDCE08 /* XHStarRateView.h */,
+				4E23E07E21529D6E00EDCE08 /* XHStarRateView.m */,
+				4E23E0882152A97B00EDCE08 /* DiscussTableViewCell.h */,
+				4E23E0892152A97B00EDCE08 /* DiscussTableViewCell.m */,
+			);
+			path = CMSView;
+			sourceTree = "<group>";
+		};
 		4E846F86213FC3CC00DC2B51 /* view */ = {
 			isa = PBXGroup;
 			children = (
@@ -1417,15 +1433,12 @@
 		4EE025422151EE3A00BBD290 /* CMSDetail */ = {
 			isa = PBXGroup;
 			children = (
+				4E528B272170C882008C151B /* CMSView */,
 				4E528AC9216DF9D0008C151B /* MoviePlayer */,
 				4EE025432151EE5800BBD290 /* CMSDetailViewController.h */,
 				4EE025442151EE5800BBD290 /* CMSDetailViewController.m */,
-				4EE0254E2151F59400BBD290 /* PlayerView.h */,
-				4EE0254F2151F59400BBD290 /* PlayerView.m */,
-				4E23E07D21529D6D00EDCE08 /* XHStarRateView.h */,
-				4E23E07E21529D6E00EDCE08 /* XHStarRateView.m */,
-				4E23E0882152A97B00EDCE08 /* DiscussTableViewCell.h */,
-				4E23E0892152A97B00EDCE08 /* DiscussTableViewCell.m */,
+				4E528B282170C8BA008C151B /* GSKViewController.h */,
+				4E528B292170C8BA008C151B /* GSKViewController.m */,
 			);
 			path = CMSDetail;
 			sourceTree = "<group>";
@@ -2655,6 +2668,7 @@
 				C5EEAE3B78A71516A252C86F /* StackLayoutItem.m in Sources */,
 				C5EEA5EB7EC226DCBF96A2BA /* UIImageView+customed.m in Sources */,
 				4E1957452137D0F100420563 /* LinkedInAppSettings.m in Sources */,
+				4E528B2A2170C8BA008C151B /* GSKViewController.m in Sources */,
 				4EBCE6C8212D0DF000A0672D /* MagazineTableViewCell.m in Sources */,
 				4EBCE6BB212AACE600A0672D /* NoticeViewController.m in Sources */,
 				4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */,
@@ -2910,7 +2924,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T9358E6X2D;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -2958,7 +2972,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T9358E6X2D;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

@@ -13,7 +13,9 @@
 
 @interface PlayerView : UIView
 
-@property (strong, nonatomic)SBPlayer *sbPlayer;
+@property (nonatomic,strong)SBPlayer *sbPlayer;
+@property (nonatomic,strong)UIView *topView;
+@property (nonatomic,strong)UIButton *gskBtn;
 
 -(void)bind:(Article *)bindInfo ;
 - (void)resetLayout;

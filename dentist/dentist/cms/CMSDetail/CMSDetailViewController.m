@@ -12,6 +12,7 @@
 #import "Proto.h"
 #import "DiscussTableViewCell.h"
 #import "XHStarRateView.h"
+#import "GSKViewController.h"
 
 #define edge 15
 @interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource> {
@@ -24,7 +25,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
+    self.navigationController.navigationBarHidden = YES;
     [self createNav];
     
 	[self buildViews];
@@ -140,12 +141,13 @@
 
 - (void)buildViews {
 	playView = [PlayerView new];
+    [playView.gskBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
 	[self.contentView addSubview:playView];
 	[playView bind:self.articleInfo];
 //    [self layoutLinearVertical];
 	[[[[playView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT] install];
    
- [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
+// [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
     
     myTable = [UITableView new];
     [self.contentView addSubview:myTable];
@@ -155,6 +157,14 @@
     [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:playView offset:0] sizeEq:SCREENWIDTH h:485] install];
     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
 
+}
+
+//GSK btn click and go to the GSK list page
+- (void)gskBtnClick
+{
+    GSKViewController *gskVC = [GSKViewController new];
+    [self.navigationController pushViewController:gskVC animated:YES];
+    
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

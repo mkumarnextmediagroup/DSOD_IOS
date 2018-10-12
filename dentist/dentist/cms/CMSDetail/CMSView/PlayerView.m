@@ -24,7 +24,6 @@
 	UILabel *contentLabel;
 	UIView *view;
     UILabel *contentLabel2;
-    UIButton *gskBtn;
 }
 
 - (instancetype)init {
@@ -32,16 +31,16 @@
 
 	NSInteger edge = 16;
 
-	UIView *topView = [UIView new];
-	topView.backgroundColor = rgb255(250, 251, 253);
-	[self addSubview:topView];
-	[[[[[topView.layoutMaker topParent:0] leftParent:0] rightParent:0] heightEq:40] install];
-	typeLabel = [topView addLabel];
+	self.topView = [UIView new];
+	self.topView.backgroundColor = rgb255(250, 251, 253);
+	[self addSubview:self.topView];
+	[[[[[self.topView.layoutMaker topParent:0] leftParent:0] rightParent:0] heightEq:40] install];
+	typeLabel = [self.topView addLabel];
 	typeLabel.font = [Fonts semiBold:12];
 	[typeLabel textColorMain];
 	[[[[[typeLabel.layoutMaker centerYParent:0] leftParent:edge] heightEq:24] rightParent:-90] install];
 
-	dateLabel = [topView addLabel];
+	dateLabel = [self.topView addLabel];
 	[dateLabel textAlignRight];
 	dateLabel.font = [Fonts regular:12];
 	[dateLabel textColorAlternate];
@@ -51,14 +50,15 @@
     
     imageView = self.addImageView;
     [imageView scaleFillAspect];
-    [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:250] install];
+    [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
 
     //初始化播放器
     self.sbPlayer = [[SBPlayer alloc] initWithUrl:[NSURL URLWithString:@"http://download.3g.joy.cn/video/236/60236937/1451280942752_hd.mp4"]];
+    self.sbPlayer.addView = self;
     //set the movie background color
     self.sbPlayer.backgroundColor = [UIColor blackColor];
     [self addSubview:self.sbPlayer];
-    [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:250] install];
+    [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
     
 	greeBtn = [self addButton];
 	[greeBtn.titleLabel setFont:[Fonts regular:12]];
@@ -149,15 +149,15 @@
     conLabel.text = @"Want more content from GSK?";
     [[[[[conLabel.layoutMaker leftParent:18] rightParent:-18] topParent:0] heightEq:50] install];
     
-    gskBtn = [moreView addButton];
-    gskBtn.backgroundColor = Colors.primary;
-    [gskBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [gskBtn setTitle:@"Access GSK Science" forState:UIControlStateNormal];
-    gskBtn.titleLabel.font = [Fonts regular:14];
-    [[[[[gskBtn.layoutMaker leftParent:18] rightParent:-18] below:conLabel offset:0] heightEq:36] install];
+    self.gskBtn = [moreView addButton];
+    self.gskBtn.backgroundColor = Colors.primary;
+    [self.gskBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.gskBtn setTitle:@"Access GSK Science" forState:UIControlStateNormal];
+    self.gskBtn.titleLabel.font = [Fonts regular:14];
+    [[[[[self.gskBtn.layoutMaker leftParent:18] rightParent:-18] below:conLabel offset:0] heightEq:36] install];
     
     UILabel *lineLabel4 = [self lineLabel];
-    [[[[[lineLabel4.layoutMaker leftParent:0] rightParent:0] below:gskBtn offset:28] heightEq:1] install];
+    [[[[[lineLabel4.layoutMaker leftParent:0] rightParent:0] below:self.gskBtn offset:28] heightEq:1] install];
 }
 
 - (void)createStarView
@@ -165,7 +165,7 @@
     UIView *starView = [UIView new];
     starView.backgroundColor = rgb255(248, 248, 248);
     [self addSubview:starView];
-    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:gskBtn offset:26] install];
+    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:self.gskBtn offset:26] install];
     
     UILabel *finLabel = [starView addLabel];
     finLabel.font = [Fonts regular:12];

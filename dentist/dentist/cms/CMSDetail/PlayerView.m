@@ -58,7 +58,7 @@
     //set the movie background color
     self.sbPlayer.backgroundColor = [UIColor blackColor];
     [self addSubview:self.sbPlayer];
-    [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:218] install];
+    [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:250] install];
     
 	greeBtn = [self addButton];
 	[greeBtn.titleLabel setFont:[Fonts regular:12]];

@@ -12,16 +12,22 @@
 @protocol SBPauseOrPlayViewDelegate <NSObject>
 @required
 /**
- 暂停和播放视图和状态
+ pause or paly status
 
  @param pauseOrPlayView 暂停或者播放视图
  @param state 返回状态
  */
 -(void)pauseOrPlayView:(SBPauseOrPlayView *)pauseOrPlayView withState:(BOOL)state;
 
+-(void)fastGoAction:(SBPauseOrPlayView *)pauseOrPlayView;
+
+-(void)fastBackAction:(SBPauseOrPlayView *)pauseOrPlayView;
+
 @end
 @interface SBPauseOrPlayView : UIView
 @property (nonatomic,strong) UIButton *imageBtn;
+@property (nonatomic,strong) UIButton *fastGoBtn;
+@property (nonatomic,strong) UIButton *fastBackBtn;
 @property (nonatomic,weak) id<SBPauseOrPlayViewDelegate> delegate;
 @property (nonatomic,assign,readonly) BOOL state;
 

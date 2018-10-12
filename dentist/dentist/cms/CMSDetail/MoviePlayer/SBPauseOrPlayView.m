@@ -22,6 +22,28 @@
     [self.imageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self);
     }];
+    
+    self.fastGoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.fastGoBtn.backgroundColor = [UIColor greenColor];
+    [self.fastGoBtn setImage:[UIImage imageNamed:@"fastGo"] forState:UIControlStateNormal];
+    [self.fastGoBtn addTarget:self action:@selector(fastGoAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.fastGoBtn];
+    [self.fastGoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self).offset(self.frame.size.width/2 + 40);
+        make.bottom.mas_equalTo(self).offset(-self.frame.size.height/2 + 40);
+        make.size.height.mas_equalTo(80);
+    }];
+    
+    self.fastBackBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.fastBackBtn.backgroundColor = [UIColor greenColor];
+    [self.fastBackBtn setImage:[UIImage imageNamed:@"fastBack"] forState:UIControlStateNormal];
+    [self.fastBackBtn addTarget:self action:@selector(fastBackAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.fastBackBtn];
+    [self.fastBackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self).offset(-self.frame.size.width/2 - 40);
+        make.bottom.mas_equalTo(self).offset(-self.frame.size.height/2 + 40);
+        make.size.height.mas_equalTo(80);
+    }];
 }
 
 -(void)handleImageTapAction:(UIButton *)button{
@@ -31,5 +53,20 @@
         [self.delegate pauseOrPlayView:self withState:_state];
     }
 }
+
+- (void)fastGoAction:(UIButton *)button{
+    
+    if ([self.delegate respondsToSelector:@selector(fastGoAction:)]) {
+        [self.delegate fastGoAction:self];
+    }
+}
+
+- (void)fastBackAction:(UIButton *)button{
+    
+    if ([self.delegate respondsToSelector:@selector(fastBackAction:)]) {
+        [self.delegate fastBackAction:self];
+    }
+}
+
 
 @end

@@ -115,6 +115,15 @@
 	return _c;
 }
 
+//RGB color is #354052
++ (UIColor *)textContent {
+    static UIColor *_c = nil;
+    if (_c == nil) {
+        _c = rgb255(53, 64, 82);
+    }
+    return _c;
+}
+
 
 + (UIColor *)borderSuccess {
 	static UIColor *_c = nil;

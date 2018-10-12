@@ -54,19 +54,19 @@
     
     titleLabel = [self addLabel];
     titleLabel.font = [Fonts regular:15];
-    [titleLabel textColorMain];
+    titleLabel.textColor=Colors.textMain;
     titleLabel.numberOfLines = 0;
     [[[[[titleLabel.layoutMaker toRightOf:imageView offset:15] topOf:imageView offset:5] toLeftOf:_markButton offset:-20] heightEq:20] install];
     
     statusLabel = [self addLabel];
-    statusLabel.font = [Fonts regular:12];
-    statusLabel.textColor=rgb255(155, 155, 155);
+    statusLabel.font =[Fonts semiBold:12];
+    statusLabel.textColor=Colors.textAlternate;
     statusLabel.numberOfLines = 0;
     [[[[[statusLabel.layoutMaker toRightOf:imageView offset:15] toLeftOf:_markButton offset:-20] bottomOf:imageView offset:0] heightEq:20] install];
     
     contentLabel = [self addLabel];
-    contentLabel.font = [Fonts regular:15];
-    [contentLabel textColorMain];
+    contentLabel.font = [Fonts semiBold:15];
+    contentLabel.textColor=Colors.textContent;
     contentLabel.numberOfLines = 0;
     
     [[[[[contentLabel.layoutMaker toRightOf:imageView offset:15] below:titleLabel offset:5] toLeftOf:_markButton offset:-20] above:statusLabel offset:-5] install];
@@ -133,7 +133,11 @@
 - (void)updateProgressView:(CGFloat)val
 {
     self.downloadedBytes+=val;
-    statusLabel.text=[NSString stringWithFormat:@"Downloaded %@%@",@(self.downloadedBytes),@"%"];
+    NSString *statusstr=[NSString stringWithFormat:@"Downloaded %@%@",@(self.downloadedBytes),@"%"];
+//    statusLabel.text=statusstr;
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:statusstr];
+    [str addAttribute:NSForegroundColorAttributeName value:Colors.textContent range:NSMakeRange(10,statusstr.length - 10)];
+    statusLabel.attributedText = str;
     [_closedIndicator updateWithTotalBytes:100 downloadedBytes:self.downloadedBytes];
 }
 

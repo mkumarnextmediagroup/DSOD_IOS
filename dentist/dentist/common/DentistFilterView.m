@@ -137,7 +137,7 @@
 {
     if (textField.tag==1) {
         DentistPickerView *picker = [[DentistPickerView alloc]init];
-        picker.array = @[@"DSOs",@"DSOs1",@"DSOs2",@"DSOs3",@"DSOs4",@"DSOs5",@"DSOs6"];
+        picker.array = @[@"Orthodontics",@"Practice Management",@"DSOs",@"General Dentistry",@"Implant Dentistry"];
         picker.leftTitle=localStr(@"Category");
         picker.righTtitle=localStr(@"Cancel");
         [picker show:^(NSString *result) {
@@ -149,7 +149,7 @@
         }];
     }else{
         DentistPickerView *picker = [[DentistPickerView alloc]init];
-        picker.array = @[@"Videos",@"Videos1",@"Videos2",@"Videos3",@"Videos4",@"Videos5",@"Videos6"];
+        picker.array = @[@"Animations",@"Tip Sheets",@"Videos",@"Article",@"Podcasts"];
         picker.leftTitle=localStr(@"Content Type");
         picker.righTtitle=localStr(@"Cancel");
         [picker show:^(NSString *result) {

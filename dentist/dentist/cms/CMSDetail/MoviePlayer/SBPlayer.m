@@ -8,7 +8,9 @@
 
 #import "SBPlayer.h"
 @interface SBPlayer ()
-
+{
+    BOOL forwardOrBack;
+}
 @property (nonatomic,strong,readonly) AVPlayerLayer *playerLayer;
 //当前播放url
 @property (nonatomic,strong) NSURL *url;
@@ -146,11 +148,22 @@ static NSInteger count = 0;
         if (!CMTIME_IS_INDEFINITE(self.anAsset.duration)) {
             weakSelf.controlView.currentTime = [weakSelf convertTime:weakSelf.controlView.value];
         }
-        if (count>=5) {
-            [weakSelf setSubViewsIsHide:YES];
-        }else{
-            [weakSelf setSubViewsIsHide:NO];
+        if (forwardOrBack) {
+            NSLog(@"1111");
+            if (count>=8) {
+                [weakSelf setSubViewsIsHide:YES];
+            }else{
+                [weakSelf setSubViewsIsHide:NO];
+            }
+        }else
+        {
+            if (count>=3) {
+                [weakSelf setSubViewsIsHide:YES];
+            }else{
+                [weakSelf setSubViewsIsHide:NO];
+            }
         }
+        
         count += 1;
     }];
 }
@@ -233,6 +246,7 @@ static NSInteger count = 0;
 -(void)SBPlayerItemDidPlayToEndTimeNotification:(NSNotification *)notification{
     [self.item seekToTime:kCMTimeZero];
     [self setSubViewsIsHide:NO];
+    forwardOrBack = NO;
     count = 0;
     [self pause];
     [self.pauseOrPlayView.imageBtn setSelected:NO];
@@ -283,6 +297,7 @@ static NSInteger count = 0;
 -(void)willResignActive:(NSNotification *)notification{
     if (_isPlaying) {
         [self setSubViewsIsHide:NO];
+        forwardOrBack = NO;
         count = 0;
         [self pause];
         [self.pauseOrPlayView.imageBtn setSelected:NO];
@@ -363,6 +378,7 @@ static NSInteger count = 0;
 }
 -(void)handleTapAction:(UITapGestureRecognizer *)gesture{
     [self setSubViewsIsHide:NO];
+    forwardOrBack = NO;
     count = 0;
 }
 //添加播放和暂停按钮
@@ -374,12 +390,10 @@ static NSInteger count = 0;
 }
 //添加控制视图
 -(void)addControlView{
-    self.controlView.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.controlView];
     [self.controlView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.mas_equalTo(self);
-        make.bottom.mas_equalTo(self).offset(32);
-        make.height.mas_equalTo(@32);
+        make.left.right.bottom.mas_equalTo(self);
+        make.height.mas_equalTo(@44);
     }];
     [self layoutIfNeeded];
 }
@@ -424,12 +438,13 @@ static NSInteger count = 0;
 }
 //设置子视图是否隐藏
 -(void)setSubViewsIsHide:(BOOL)isHide{
-//    self.controlView.hidden = isHide;
+    self.controlView.hidden = isHide;
     self.pauseOrPlayView.hidden = isHide;
     self.titleLabel.hidden = isHide;
 }
 //MARK: SBPauseOrPlayViewDeleagate
 -(void)pauseOrPlayView:(SBPauseOrPlayView *)pauseOrPlayView withState:(BOOL)state{
+    forwardOrBack = NO;
     count = 0;
     if (state) {
         [self play];
@@ -437,18 +452,56 @@ static NSInteger count = 0;
         [self pause];
     }
 }
+
+//MARK: fast go
+-(void)fastGoAction:(SBPauseOrPlayView *)pauseOrPlayView
+{
+    if(_isPlaying)
+    {
+        forwardOrBack = YES;
+        [_item seekToTime:CMTimeMakeWithSeconds(_item.currentTime.value/_item.currentTime.timescale+10, _item.currentTime.timescale) toleranceBefore:CMTimeMake(1, _item.currentTime.timescale) toleranceAfter:CMTimeMake(1, _item.currentTime.timescale)];
+//        [UIView animateWithDuration:0.3 animations:^{
+//            self->_pauseOrPlayView.fastGoBtn.alpha=1.0;
+//        }completion:^(BOOL finished) {
+//            [UIView animateWithDuration:0.3 animations:^{
+//                self->_pauseOrPlayView.fastGoBtn.alpha=0.0;
+//            }];
+//        }];
+    }
+}
+
+//MARK: fast back
+-(void)fastBackAction:(SBPauseOrPlayView *)pauseOrPlayView
+{
+    if(_isPlaying)
+    {
+        forwardOrBack = YES;
+        [_item seekToTime:CMTimeMakeWithSeconds(_item.currentTime.value/_item.currentTime.timescale-10, _item.currentTime.timescale)];
+//        [UIView animateWithDuration:0.3 animations:^{
+//            self->_pauseOrPlayView.fastBackBtn.alpha=1.0;
+//        }completion:^(BOOL finished) {
+//            [UIView animateWithDuration:0.3 animations:^{
+//               self->_pauseOrPlayView.fastBackBtn.alpha=0.0;
+//            }];
+//        }];
+    }
+}
+
 //MARK: SBControlViewDelegate
 -(void)controlView:(SBControlView *)controlView pointSliderLocationWithCurrentValue:(CGFloat)value{
+    forwardOrBack = NO;
     count = 0;
     CMTime pointTime = CMTimeMake(value * self.item.currentTime.timescale, self.item.currentTime.timescale);
     [self.item seekToTime:pointTime toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
 }
 -(void)controlView:(SBControlView *)controlView draggedPositionWithSlider:(UISlider *)slider{
+    forwardOrBack = NO;
     count = 0;
     CMTime pointTime = CMTimeMake(controlView.value * self.item.currentTime.timescale, self.item.currentTime.timescale);
     [self.item seekToTime:pointTime toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
 }
 -(void)controlView:(SBControlView *)controlView withLargeButton:(UIButton *)button{
+    forwardOrBack = NO;
     count = 0;
     if (kScreenWidth<kScreenHeight) {
         [self interfaceOrientation:UIInterfaceOrientationLandscapeRight];

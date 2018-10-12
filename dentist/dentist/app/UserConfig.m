@@ -53,4 +53,16 @@ NSString *keychainGetPwd(NSString *account) {
 	return [SAMKeychain passwordForService:@"dentistUser" account:account];
 }
 
+void putServerDomain(NSInteger value)
+{
+    NSUserDefaults *server = globalConfig();
+    [server setObject:@(value) forKey:@"ServerDomain"];
+    [server synchronize];
+}
+
+NSInteger getServerDomain() {
+    NSUserDefaults *server = globalConfig();
+    NSInteger value = [[server objectForKey:@"ServerDomain"] integerValue];
+    return value;
+}
 

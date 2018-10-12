@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "RegController.h"
 #import "NoIntenetViewController.h"
+#import "DentistPickerView.h"
 
 @interface LoginController ()
 
@@ -26,14 +27,34 @@
 
 	UILabel *touchLabel;
 	LAContext *context;
+    UILabel *serverLabel;
 }
 
 -(void)lefthandleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
 {
     if(recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
         NSLog(@"swipe left");
-        
+        serverLabel.hidden=NO;
     }
+}
+
+-(void)showServerView:(UITapGestureRecognizer *)recognizer
+{
+    DentistPickerView *picker = [[DentistPickerView alloc]init];
+    picker.array = @[@"China",@"Amercia"];
+    picker.righTtitle=localStr(@"OK");
+    [picker show:^(NSString *result) {
+        
+    } rightAction:^(NSString *result) {
+        if([result isEqualToString:@"Amercia"]){
+            putServerDomain(1);
+        }else{
+            putServerDomain(0);
+        }
+        serverLabel.text=result;
+    } selectAction:^(NSString *result) {
+        
+    }];
 }
 
 - (void)viewDidLoad {
@@ -47,6 +68,8 @@
     UISwipeGestureRecognizer *leftrecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(lefthandleSwipeFrom:)];
     [leftrecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
     [self.view addGestureRecognizer:leftrecognizer];
+    
+    
 
 	UIImage *image = [UIImage imageNamed:@"bg_3.png"];
 	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
@@ -67,6 +90,26 @@
 		m.left.mas_equalTo(self.view.mas_left).offset(16);
 		m.top.mas_equalTo(self.view.mas_top).offset(30 + NAVHEIGHT_OFFSET);
 	}];
+    
+    serverLabel = self.view.addLabel;
+    serverLabel.textAlignment=NSTextAlignmentRight;
+    if(getServerDomain()==1){
+         serverLabel.text=@"Amercia";
+    }else{
+         serverLabel.text=@"China";
+    }
+   
+    serverLabel.textColor=[UIColor whiteColor];
+    serverLabel.userInteractionEnabled=YES;
+    [serverLabel makeLayout:^(MASConstraintMaker *m) {
+        m.height.mas_equalTo(30);
+        m.left.mas_equalTo(backView.mas_left).offset(16);
+        m.top.mas_equalTo(self.view.mas_top).offset(30 + NAVHEIGHT_OFFSET);
+        m.right.mas_equalTo(self.view.mas_right).offset(-20);
+    }];
+    serverLabel.hidden=YES;
+    UITapGestureRecognizer *serverrecognizer=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showServerView:)];
+    [serverLabel addGestureRecognizer:serverrecognizer];
 
 	StackLayout *sl = [StackLayout new];
 

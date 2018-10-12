@@ -628,11 +628,22 @@
 	return nil;
 }
 
++(NSString *)baseDomain
+{
+    NSInteger value = getServerDomain();
+    if (value==1) {
+        return @"https://devupapi1.dsodentist.com/";
+    }else{
+        return @"http://dsod.aikontec.com/";
+    }
+}
+
 
 + (HttpResult *)postBody:(NSString *)action dic:(NSDictionary *)dic {
-	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
+	NSString *baseUrl = @"profile-service/v1/";
 	Http *h = [Http new];
-	h.url = strBuild(baseUrl, action);
+	h.url = strBuild([self baseDomain],baseUrl, action);
+    NSLog(@"requesturl=%@", h.url);
 	[h contentTypeJson];
 	NSString *token = [self lastToken];
 	if (token != nil) {
@@ -647,9 +658,10 @@
 }
 
 + (HttpResult *)get:(NSString *)action dic:(NSDictionary *)dic {
-	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
+	NSString *baseUrl = @"profile-service/v1/";
 	Http *h = [Http new];
-	h.url = strBuild(baseUrl, action);
+	h.url = strBuild([self baseDomain],baseUrl, action);
+    NSLog(@"requesturl=%@", h.url);
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
 	NSString *token = [self lastToken];
@@ -661,9 +673,10 @@
 }
 
 + (HttpResult *)post:(NSString *)action dic:(NSDictionary *)dic {
-	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
+	NSString *baseUrl = @"profile-service/v1/";
 	Http *h = [Http new];
-	h.url = strBuild(baseUrl, action);
+	h.url = strBuild([self baseDomain],baseUrl, action);
+    NSLog(@"requesturl=%@", h.url);
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
 	NSString *token = [self lastToken];
@@ -676,9 +689,10 @@
 
 
 + (HttpResult *)post2:(NSString *)action dic:(NSDictionary *)dic {
-	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
+	NSString *baseUrl = @"profile-service/v1/";
 	Http *h = [Http new];
-	h.url = strBuild(baseUrl, action);
+	h.url = strBuild([self baseDomain],baseUrl, action);
+    NSLog(@"requesturl=%@", h.url);
 	NSString *token = [self lastToken];
 	if (token != nil) {
 		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
@@ -690,10 +704,11 @@
 }
 
 + (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath {
-	NSString *baseUrl = @"http://dsod.aikontec.com/profile-service/v1/";
+	NSString *baseUrl = @"profile-service/v1/";
 	Http *h = [Http new];
 	h.timeout = 20;
-	h.url = strBuild(baseUrl, action);
+	h.url = strBuild([self baseDomain],baseUrl, action);
+    NSLog(@"requesturl=%@", h.url);
 	NSString *token = [self lastToken];
 	if (token != nil) {
 		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];

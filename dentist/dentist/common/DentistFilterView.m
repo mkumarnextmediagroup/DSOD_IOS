@@ -44,7 +44,7 @@
     
     //category
     UILabel *categoryLabel=[self addLabel];
-    categoryLabel.font = [Fonts regular:15];
+    categoryLabel.font = [Fonts regular:12];
     categoryLabel.textColor=rgb255(155, 155, 155);
     categoryLabel.text=localStr(@"Category");
     [[[[[categoryLabel.layoutMaker leftParent:20] below:titleLabel offset:30] rightParent:-10] heightEq:20] install];
@@ -58,7 +58,7 @@
     
     //type
     UILabel *typeLabel=[self addLabel];
-    typeLabel.font = [Fonts regular:15];
+    typeLabel.font = [Fonts regular:12];
     typeLabel.textColor=rgb255(155, 155, 155);
     typeLabel.text=localStr(@"Content Type");
     [[[[[typeLabel.layoutMaker leftParent:20] below:categoryTextField offset:20] rightParent:-10] heightEq:20] install];
@@ -69,6 +69,19 @@
     [typeTextField returnDone];
     categoryTextField.textColor=rgb255(0, 0, 0);
     [[[[[typeTextField.layoutMaker leftParent:20] below:typeLabel offset:10] rightParent:-20] heightEq:40] install];
+    
+    UIButton *updateButton = self.addButton;
+    [updateButton styleWhite];
+    [updateButton title:localStr(@"Update")];
+    [updateButton styleSecondary];
+    [[[[[updateButton.layoutMaker leftParent:20] bottomParent:-25] rightParent:-20] heightEq:40] install];
+    
+    UILabel *clearLabel=[self addLabel];
+    clearLabel.font = [Fonts regular:15];
+    clearLabel.textColor=Colors.secondary;
+    clearLabel.text=localStr(@"Clear all");
+    clearLabel.textAlignment=NSTextAlignmentCenter;
+    [[[[[clearLabel.layoutMaker leftParent:20] above:updateButton offset:-20] rightParent:-20] heightEq:20] install];
 }
 
 //弹出

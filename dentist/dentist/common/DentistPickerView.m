@@ -71,7 +71,7 @@
     }
     
     [self.leftBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [self.leftBtn setFrame:CGRectMake(10, 5, 100, 40)];
+    [self.leftBtn setFrame:CGRectMake(0, 5, 100, 40)];
     [self.leftBtn addTarget:self action:@selector(leftaction) forControlEvents:UIControlEventTouchUpInside];
     [self.topView addSubview:self.leftBtn];
     
@@ -82,7 +82,7 @@
         [self.rightBtn setTitle:@"Cancel" forState:UIControlStateNormal];
     }
     [self.rightBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [self.rightBtn setFrame:CGRectMake(DSSCREENWIDTH-100-10, 5, 100, 40)];
+    [self.rightBtn setFrame:CGRectMake(DSSCREENWIDTH-100, 5, 100, 40)];
     [self.rightBtn addTarget:self action:@selector(rightaction) forControlEvents:UIControlEventTouchUpInside];
     [self.topView addSubview:self.rightBtn];
     
@@ -197,6 +197,11 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
     return [self.array count];
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+{
+    return 40;
 }
 
 #pragma mark - 代理

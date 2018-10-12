@@ -23,3 +23,6 @@ extern void keychainPutPwd(NSString *account, NSString *pwd);
 
 extern NSString *keychainGetPwd(NSString *account);
 
+extern void putServerDomain(NSInteger value);
+extern NSInteger getServerDomain(void);
+

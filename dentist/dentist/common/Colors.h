@@ -20,6 +20,7 @@
 @property(class, nonatomic, readonly) UIColor *textMain;
 @property(class, nonatomic, readonly) UIColor *textAlternate;
 @property(class, nonatomic, readonly) UIColor *textDisabled;
+@property(class, nonatomic, readonly) UIColor *textContent;
 
 @property(class, nonatomic, readonly) UIColor *borderSuccess;
 @property(class, nonatomic, readonly) UIColor *borderError;

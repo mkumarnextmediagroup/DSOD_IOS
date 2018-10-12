@@ -162,6 +162,8 @@
         UILabel *noLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height/2+spaceh, self.view.frame.size.width, 80)];
         noLabel.textAlignment = NSTextAlignmentCenter;
         [noLabel textColorMain];
+        noLabel.font = [Fonts regular:15];
+        noLabel.textColor=Colors.textMain;
         noLabel.text = text;
         noLabel.backgroundColor = [UIColor clearColor];
         noLabel.numberOfLines=0;

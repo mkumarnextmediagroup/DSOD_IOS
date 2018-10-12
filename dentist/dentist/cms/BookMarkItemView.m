@@ -29,14 +29,14 @@
     [[[[markButton.layoutMaker rightParent:-edge] topParent:20] sizeEq:20 h:20] install];
     
     titleLabel = [self addLabel];
-    titleLabel.font = [Fonts regular:12];
-    [titleLabel textColorMain];
+    titleLabel.font = [Fonts semiBold:12];
+    titleLabel.textColor=Colors.textMain;
     titleLabel.numberOfLines = 0;
     [[[[[titleLabel.layoutMaker toRightOf:imageView offset:15] topOf:imageView offset:5] toLeftOf:markButton offset:-20] heightEq:20] install];
 
     contentLabel = [self addLabel];
-    contentLabel.font = [Fonts regular:15];
-    [contentLabel textColorMain];
+    contentLabel.font = [Fonts semiBold:15];
+    contentLabel.textColor=Colors.textContent;
     contentLabel.numberOfLines = 0;
 
     [[[[[contentLabel.layoutMaker toRightOf:imageView offset:15] below:titleLabel offset:10] toLeftOf:markButton offset:-20] bottomOf:imageView offset:0] install];

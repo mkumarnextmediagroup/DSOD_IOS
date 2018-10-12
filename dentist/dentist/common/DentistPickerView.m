@@ -76,14 +76,14 @@
     }
     
     CGFloat leftbtnw=leftlableSize.width+30;
-    [self.leftBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [self.leftBtn setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
     [self.leftBtn setFrame:CGRectMake(0, 5, leftbtnw, 40)];
-    self.leftBtn.titleLabel.font=[UIFont systemFontOfSize:13.0];
+    self.leftBtn.titleLabel.font=[Fonts regular:13];
     [self.leftBtn addTarget:self action:@selector(leftaction) forControlEvents:UIControlEventTouchUpInside];
     [self.topView addSubview:self.leftBtn];
     
     self.rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.rightBtn.titleLabel.font=[UIFont systemFontOfSize:13.0];
+    self.rightBtn.titleLabel.font=[Fonts semiBold:13];
     if (self.righTtitle) {
         [self.rightBtn setTitle:self.righTtitle forState:UIControlStateNormal];
         rightlableSize=[self.righTtitle boundingRectWithSize:strSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attr context:nil].size;
@@ -91,7 +91,7 @@
         [self.rightBtn setTitle:@"Cancel" forState:UIControlStateNormal];
     }
     CGFloat rightbtnw=rightlableSize.width+30;
-    [self.rightBtn setTitleColor:Colors.secondary forState:UIControlStateNormal];
+    [self.rightBtn setTitleColor:Colors.textDisabled forState:UIControlStateNormal];
     [self.rightBtn setFrame:CGRectMake(DSSCREENWIDTH-rightbtnw, 5, rightbtnw, 40)];
     [self.rightBtn addTarget:self action:@selector(rightaction) forControlEvents:UIControlEventTouchUpInside];
     [self.topView addSubview:self.rightBtn];

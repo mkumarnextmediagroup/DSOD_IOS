@@ -75,6 +75,7 @@
     [updateButton title:localStr(@"Update")];
     [updateButton styleSecondary];
     [[[[[updateButton.layoutMaker leftParent:20] bottomParent:-25] rightParent:-20] heightEq:40] install];
+    [updateButton onClick:self action:@selector(clickUpdate:)];
     
     UILabel *clearLabel=[self addLabel];
     clearLabel.font = [Fonts regular:15];
@@ -107,6 +108,19 @@
 }
 #pragma mark 关闭刷选页面
 -(void)clickClose:(UIButton *)sender
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        //将view.frame 设置在屏幕下方
+        self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
+    } completion:^(BOOL finished) {
+        if (self.closeBlock) {
+            self.closeBlock();
+        }
+        [self removeFromSuperview];
+    }];
+}
+
+-(void)clickUpdate:(UIButton *)sender
 {
     [UIView animateWithDuration:0.5 animations:^{
         //将view.frame 设置在屏幕下方

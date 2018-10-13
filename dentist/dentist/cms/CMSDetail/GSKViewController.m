@@ -12,18 +12,24 @@
 #import "Proto.h"
 #import "CMSDetailViewController.h"
 #import "StateCity.h"
+#import "UIView+customed.h"
 #import "IdName.h"
 #import "AppDelegate.h"
 #import "LinearPage.h"
 #import "NSDate+myextend.h"
 #import "TestPage.h"
+#import "GSKItemView.h"
 
 @interface GSKViewController ()
 {
     NSArray<NSString *> *segItems;
     UISegmentedControl *segView;
+    UILabel *typeLabel;
+    UILabel *dateLabel;
 }
 @end
+
+#define edge 16;
 
 @implementation GSKViewController
 
@@ -36,7 +42,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     
+    [self createNav];
     
+    self.table.tableHeaderView = [self makeHeaderView];
+    self.table.rowHeight = UITableViewAutomaticDimension;
+    self.table.estimatedRowHeight = 145;
+    
+    NSArray *ls = [Proto listArticle];
+    self.items = ls;
+}
+
+- (void)createNav
+{
     UIView *topVi = [UIView new];
     topVi.backgroundColor = Colors.bgNavBarColor;
     [self.view addSubview:topVi];
@@ -53,26 +71,25 @@
     [dismissBtn setImage:[UIImage imageNamed:@"back_arrow"] forState:UIControlStateNormal];
     [dismissBtn addTarget:self action:@selector(onBack:) forControlEvents:UIControlEventTouchUpInside];
     [[[[dismissBtn.layoutMaker leftParent:0] topParent:24+NAVHEIGHT_OFFSET] sizeEq:60 h:40] install];
-    
-    self.table.tableHeaderView = [self makeHeaderView];
-    self.table.rowHeight = UITableViewAutomaticDimension;
-    self.table.estimatedRowHeight = 400;
-
-    NSArray *ls = [Proto listArticle];
-    self.items = ls;
 }
 
 - (void)onBack:(UIButton *)btn {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (UIView *)makeHeaderView2 {
+    UIView *seg = [self makeSegPanel];
+    seg.frame = makeRect(0, 0, SCREENWIDTH, 51);
+    return seg;
+}
+
 - (UIView *)makeHeaderView {
     UIView *panel = [UIView new];
-    panel.frame = makeRect(0, 0, SCREENWIDTH, 211);
+    panel.frame = makeRect(0, 0, SCREENWIDTH, 300);
     UIImageView *iv = [panel addImageView];
     [iv scaleFillAspect];
-    iv.imageName = @"ad";
-    [[[[[[iv layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:160] install];
+    iv.imageName = @"GSKPic";
+    [[[[[[iv layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:249] install];
     
     UIButton *closeAd = [panel addButton];
     [closeAd setImage:[UIImage imageNamed:@"close-white"] forState:UIControlStateNormal];
@@ -84,12 +101,6 @@
     [[[[[seg.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
     
     return panel;
-}
-
-- (UIView *)makeHeaderView2 {
-    UIView *seg = [self makeSegPanel];
-    seg.frame = makeRect(0, 0, SCREENWIDTH, 51);
-    return seg;
 }
 
 - (UIView *)makeSegPanel {
@@ -130,17 +141,16 @@
 }
 
 - (Class)viewClassOfItem:(NSObject *)item {
-    return ArticleItemView.class;
+    return GSKItemView.class;
 }
 
 - (CGFloat)heightOfItem:(NSObject *)item {
-    //    return 430;
-    return UITableViewAutomaticDimension;
+    return 145;
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
     Article *art = (id) item;
-    ArticleItemView *itemView = (ArticleItemView *) view;
+    GSKItemView *itemView = (GSKItemView *) view;
     [itemView bind:art];
 }
 

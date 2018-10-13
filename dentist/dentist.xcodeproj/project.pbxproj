@@ -32,7 +32,12 @@
 		3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E137172212B0E6100B206CC /* LocalAuthentication.framework */; };
 		3E49F90F2144A22E00F32146 /* EditPracticeAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E49F90E2144A22E00F32146 /* EditPracticeAddressViewController.m */; };
 		3E49F915214569D000F32146 /* EditExperiencePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E49F914214569D000F32146 /* EditExperiencePage.m */; };
+		3E64F12E21720FB6001A7CF2 /* DSOWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E64F12D21720FB5001A7CF2 /* DSOWebViewController.m */; };
+		3E64F13221721D57001A7CF2 /* DSODentist_Privacy_Policy.html in Resources */ = {isa = PBXBuildFile; fileRef = 3E64F13021721D56001A7CF2 /* DSODentist_Privacy_Policy.html */; };
+		3E64F13321721D57001A7CF2 /* DSODentist_Terms_of_Service.html in Resources */ = {isa = PBXBuildFile; fileRef = 3E64F13121721D57001A7CF2 /* DSODentist_Terms_of_Service.html */; };
 		3ED0764B213A9FE3004D4083 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0764A213A9FE3004D4083 /* ProfileViewController.m */; };
+		4E17B3E621722E0C00F75390 /* GSKPic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E17B3E421722E0C00F75390 /* GSKPic@2x.png */; };
+		4E17B3E721722E0C00F75390 /* GSKPic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E17B3E521722E0C00F75390 /* GSKPic@3x.png */; };
 		4E19573E2137D0F100420563 /* PermissionNetworkFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957262137D0F100420563 /* PermissionNetworkFields.m */; };
 		4E19573F2137D0F100420563 /* PermissionBasicProfileFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957282137D0F100420563 /* PermissionBasicProfileFields.m */; };
 		4E1957402137D0F100420563 /* PermissionContactInfoFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957292137D0F100420563 /* PermissionContactInfoFields.m */; };
@@ -555,8 +560,14 @@
 		3E49F90E2144A22E00F32146 /* EditPracticeAddressViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditPracticeAddressViewController.m; sourceTree = "<group>"; };
 		3E49F913214569D000F32146 /* EditExperiencePage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditExperiencePage.h; sourceTree = "<group>"; };
 		3E49F914214569D000F32146 /* EditExperiencePage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditExperiencePage.m; sourceTree = "<group>"; };
+		3E64F12C21720FB5001A7CF2 /* DSOWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSOWebViewController.h; sourceTree = "<group>"; };
+		3E64F12D21720FB5001A7CF2 /* DSOWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOWebViewController.m; sourceTree = "<group>"; };
+		3E64F13021721D56001A7CF2 /* DSODentist_Privacy_Policy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = DSODentist_Privacy_Policy.html; sourceTree = "<group>"; };
+		3E64F13121721D57001A7CF2 /* DSODentist_Terms_of_Service.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = DSODentist_Terms_of_Service.html; sourceTree = "<group>"; };
 		3ED07649213A9FE3004D4083 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		3ED0764A213A9FE3004D4083 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		4E17B3E421722E0C00F75390 /* GSKPic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GSKPic@2x.png"; sourceTree = "<group>"; };
+		4E17B3E521722E0C00F75390 /* GSKPic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GSKPic@3x.png"; sourceTree = "<group>"; };
 		4E1957242137D0F100420563 /* PermissionContactInfoFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermissionContactInfoFields.h; sourceTree = "<group>"; };
 		4E1957252137D0F100420563 /* PermissionFullProfileFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermissionFullProfileFields.h; sourceTree = "<group>"; };
 		4E1957262137D0F100420563 /* PermissionNetworkFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermissionNetworkFields.m; sourceTree = "<group>"; };
@@ -1226,6 +1237,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E64F12F21721CEC001A7CF2 /* localhtml */ = {
+			isa = PBXGroup;
+			children = (
+				3E64F13121721D57001A7CF2 /* DSODentist_Terms_of_Service.html */,
+				3E64F13021721D56001A7CF2 /* DSODentist_Privacy_Policy.html */,
+			);
+			path = localhtml;
+			sourceTree = "<group>";
+		};
 		3ED07648213A9F19004D4083 /* profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -1469,6 +1489,7 @@
 		574B3A20212338DF00C37095 /* dentist */ = {
 			isa = PBXGroup;
 			children = (
+				3E64F12F21721CEC001A7CF2 /* localhtml */,
 				4E235222213D12CB003BA59B /* userCenter */,
 				3ED07648213A9F19004D4083 /* profile */,
 				4EBCE6B1212A5E1000A0672D /* common_page */,
@@ -1494,6 +1515,8 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4E17B3E421722E0C00F75390 /* GSKPic@2x.png */,
+				4E17B3E521722E0C00F75390 /* GSKPic@3x.png */,
 				18CFB0F5216F3B64002CC9D0 /* foryou-light.png */,
 				18CFB0F4216F3B63002CC9D0 /* foryou-light@2x.png */,
 				18CFB0F6216F3B65002CC9D0 /* foryou-light@3x.png */,
@@ -2167,6 +2190,8 @@
 				C5EEA5FC699E9927D1269E63 /* RegController.h */,
 				C5EEA2A29513587290050D7A /* TestPage.m */,
 				C5EEA3DE2654DA32ACB1F449 /* TestPage.h */,
+				3E64F12C21720FB5001A7CF2 /* DSOWebViewController.h */,
+				3E64F12D21720FB5001A7CF2 /* DSOWebViewController.m */,
 			);
 			path = login;
 			sourceTree = "<group>";
@@ -2300,6 +2325,7 @@
 				E11E18B9A4153312FC2763EE /* brain_light.png in Resources */,
 				E11E147527F5A0FE7C753405 /* brain_light@2x.png in Resources */,
 				E11E13506B8CB6458D362EC8 /* brain_light@3x.png in Resources */,
+				3E64F13321721D57001A7CF2 /* DSODentist_Terms_of_Service.html in Resources */,
 				4E331048215D294200E534CD /* shareIcon@3x.png in Resources */,
 				4E528B1B21704BCD008C151B /* play@2x.png in Resources */,
 				4E331047215D294200E534CD /* deleteDown@2x.png in Resources */,
@@ -2379,6 +2405,7 @@
 				E11E12E3ED565398DB96FCF8 /* notice_light@3x.png in Resources */,
 				E11E1B5578CD5D04E0AE85E2 /* notice.png in Resources */,
 				E11E15A2F98BC263DC099B2D /* notice@2x.png in Resources */,
+				3E64F13221721D57001A7CF2 /* DSODentist_Privacy_Policy.html in Resources */,
 				E11E16377FCC3001056067F6 /* notice@3x.png in Resources */,
 				E11E1B0AA3C903E9516DCEEE /* search.png in Resources */,
 				E11E17616B0BFCACE105438A /* search@2x.png in Resources */,
@@ -2484,6 +2511,7 @@
 				E11E17505E20F374A1980C3F /* menu-dso.png in Resources */,
 				E11E1566B756E99F66C84C2A /* menu-dso@2x.png in Resources */,
 				4E23E0852152A37200EDCE08 /* star_unselect@2x.png in Resources */,
+				4E17B3E621722E0C00F75390 /* GSKPic@2x.png in Resources */,
 				E11E1BBF5B8A0BA9CAFB3D48 /* menu-dso@3x.png in Resources */,
 				E11E1C36FB05913E3E3D8427 /* menu-edu_light.png in Resources */,
 				E11E17DA1750DC3EFFFBC584 /* menu-edu_light@2x.png in Resources */,
@@ -2545,6 +2573,7 @@
 				C5EEA777151649C977CD6952 /* ask.png in Resources */,
 				C5EEAE621D9B7BA2ACBC3368 /* ask@2x.png in Resources */,
 				C5EEA15BFBFE1FB1FFA51FD0 /* ask@3x.png in Resources */,
+				4E17B3E721722E0C00F75390 /* GSKPic@3x.png in Resources */,
 				C5EEA987C55330394284EA24 /* box-light.png in Resources */,
 				C5EEA845D7CCB783DC0DFD8E /* box-light@2x.png in Resources */,
 				C5EEACBA33B0A593C425AAA9 /* box-light@3x.png in Resources */,
@@ -2700,6 +2729,7 @@
 				4E2351A2213A76ED003BA59B /* UISearchBar+style.m in Sources */,
 				4E846F92213FFEB300DC2B51 /* EditWriteTableViewCell.m in Sources */,
 				4E1957412137D0F100420563 /* PermissionFullProfileFields.m in Sources */,
+				3E64F12E21720FB6001A7CF2 /* DSOWebViewController.m in Sources */,
 				4E923D6B2153761E00779268 /* DownloadsItemView.m in Sources */,
 				4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */,
 				4E23522D213D12CB003BA59B /* UpdateTableViewCell.m in Sources */,
@@ -2930,7 +2960,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T9358E6X2D;
+				DEVELOPMENT_TEAM = HPA69P8D2K;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -2978,7 +3008,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T9358E6X2D;
+				DEVELOPMENT_TEAM = HPA69P8D2K;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

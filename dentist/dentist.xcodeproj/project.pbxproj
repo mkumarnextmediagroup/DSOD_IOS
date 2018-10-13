@@ -76,6 +76,7 @@
 		4E2EF4FC215D0D4B00676A4E /* DenActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EF4F9215D0D4900676A4E /* DenActionSheet.m */; };
 		4E2EF503215E1BF000676A4E /* downLoadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2EF501215E1BF000676A4E /* downLoadIcon@2x.png */; };
 		4E2EF504215E1BF000676A4E /* downLoadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2EF502215E1BF000676A4E /* downLoadIcon@3x.png */; };
+		4E30ACED217187910016722B /* GSKItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E30ACEC217187910016722B /* GSKItemView.m */; };
 		4E331041215D23C700E534CD /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E331040215D23C600E534CD /* UIViewExt.m */; };
 		4E331046215D294200E534CD /* deleteDown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331042215D294100E534CD /* deleteDown@3x.png */; };
 		4E331047215D294200E534CD /* deleteDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331043215D294100E534CD /* deleteDown@2x.png */; };
@@ -624,6 +625,8 @@
 		4E2EF4FA215D0D4900676A4E /* DenActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DenActionSheet.h; sourceTree = "<group>"; };
 		4E2EF501215E1BF000676A4E /* downLoadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downLoadIcon@2x.png"; sourceTree = "<group>"; };
 		4E2EF502215E1BF000676A4E /* downLoadIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downLoadIcon@3x.png"; sourceTree = "<group>"; };
+		4E30ACEB217187910016722B /* GSKItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSKItemView.h; sourceTree = "<group>"; };
+		4E30ACEC217187910016722B /* GSKItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSKItemView.m; sourceTree = "<group>"; };
 		4E33103F215D23C600E534CD /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
 		4E331040215D23C600E534CD /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
 		4E331042215D294100E534CD /* deleteDown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deleteDown@3x.png"; sourceTree = "<group>"; };
@@ -2139,6 +2142,8 @@
 				4E923D692153761D00779268 /* BookMarkItemView.m */,
 				4E923D682153761D00779268 /* DownloadsItemView.h */,
 				4E923D672153761D00779268 /* DownloadsItemView.m */,
+				4E30ACEB217187910016722B /* GSKItemView.h */,
+				4E30ACEC217187910016722B /* GSKItemView.m */,
 				C5EEA10F83683E9F0B57A555 /* LinearView.m */,
 				C5EEA262CA879CF3C688E24D /* LinearView.h */,
 				C5EEACE2E119BCA59F4D29F9 /* LinearVerView.m */,
@@ -2716,6 +2721,7 @@
 				4E2EF4FC215D0D4B00676A4E /* DenActionSheet.m in Sources */,
 				E11E153102080FFB4339C7D2 /* CmsBookmarkController.m in Sources */,
 				E11E106CD8257C6C65B6148B /* CmsDownloadsController.m in Sources */,
+				4E30ACED217187910016722B /* GSKItemView.m in Sources */,
 				E11E17A97D865580926CB2EB /* UIViewController+myextend.m in Sources */,
 				C5EEAB4FF315CAB5733FE9C5 /* SlideController.m in Sources */,
 				C5EEACBF759E368D6653D927 /* QueueLayout.m in Sources */,
@@ -2922,9 +2928,9 @@
 			baseConfigurationReference = 68B426216C681447B0595866 /* Pods-dentist.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: YANG ENTAO (HPA69P8D2K)";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T9358E6X2D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -2948,7 +2954,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = adhoc_profile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${PROJECT_DIR}/../Pods\"/**",
@@ -2970,9 +2976,9 @@
 			baseConfigurationReference = AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: YANG ENTAO (HPA69P8D2K)";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T9358E6X2D;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -2996,7 +3002,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = adhoc_profile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${PROJECT_DIR}/../Pods\"/**",

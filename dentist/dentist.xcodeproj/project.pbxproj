@@ -36,6 +36,8 @@
 		3E64F13221721D57001A7CF2 /* DSODentist_Privacy_Policy.html in Resources */ = {isa = PBXBuildFile; fileRef = 3E64F13021721D56001A7CF2 /* DSODentist_Privacy_Policy.html */; };
 		3E64F13321721D57001A7CF2 /* DSODentist_Terms_of_Service.html in Resources */ = {isa = PBXBuildFile; fileRef = 3E64F13121721D57001A7CF2 /* DSODentist_Terms_of_Service.html */; };
 		3ED0764B213A9FE3004D4083 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0764A213A9FE3004D4083 /* ProfileViewController.m */; };
+		4E17B3E621722E0C00F75390 /* GSKPic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E17B3E421722E0C00F75390 /* GSKPic@2x.png */; };
+		4E17B3E721722E0C00F75390 /* GSKPic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E17B3E521722E0C00F75390 /* GSKPic@3x.png */; };
 		4E19573E2137D0F100420563 /* PermissionNetworkFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957262137D0F100420563 /* PermissionNetworkFields.m */; };
 		4E19573F2137D0F100420563 /* PermissionBasicProfileFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957282137D0F100420563 /* PermissionBasicProfileFields.m */; };
 		4E1957402137D0F100420563 /* PermissionContactInfoFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1957292137D0F100420563 /* PermissionContactInfoFields.m */; };
@@ -79,6 +81,7 @@
 		4E2EF4FC215D0D4B00676A4E /* DenActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EF4F9215D0D4900676A4E /* DenActionSheet.m */; };
 		4E2EF503215E1BF000676A4E /* downLoadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2EF501215E1BF000676A4E /* downLoadIcon@2x.png */; };
 		4E2EF504215E1BF000676A4E /* downLoadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2EF502215E1BF000676A4E /* downLoadIcon@3x.png */; };
+		4E30ACED217187910016722B /* GSKItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E30ACEC217187910016722B /* GSKItemView.m */; };
 		4E331041215D23C700E534CD /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E331040215D23C600E534CD /* UIViewExt.m */; };
 		4E331046215D294200E534CD /* deleteDown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331042215D294100E534CD /* deleteDown@3x.png */; };
 		4E331047215D294200E534CD /* deleteDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331043215D294100E534CD /* deleteDown@2x.png */; };
@@ -563,6 +566,8 @@
 		3E64F13121721D57001A7CF2 /* DSODentist_Terms_of_Service.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = DSODentist_Terms_of_Service.html; sourceTree = "<group>"; };
 		3ED07649213A9FE3004D4083 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		3ED0764A213A9FE3004D4083 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		4E17B3E421722E0C00F75390 /* GSKPic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GSKPic@2x.png"; sourceTree = "<group>"; };
+		4E17B3E521722E0C00F75390 /* GSKPic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GSKPic@3x.png"; sourceTree = "<group>"; };
 		4E1957242137D0F100420563 /* PermissionContactInfoFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermissionContactInfoFields.h; sourceTree = "<group>"; };
 		4E1957252137D0F100420563 /* PermissionFullProfileFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermissionFullProfileFields.h; sourceTree = "<group>"; };
 		4E1957262137D0F100420563 /* PermissionNetworkFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermissionNetworkFields.m; sourceTree = "<group>"; };
@@ -631,6 +636,8 @@
 		4E2EF4FA215D0D4900676A4E /* DenActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DenActionSheet.h; sourceTree = "<group>"; };
 		4E2EF501215E1BF000676A4E /* downLoadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downLoadIcon@2x.png"; sourceTree = "<group>"; };
 		4E2EF502215E1BF000676A4E /* downLoadIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downLoadIcon@3x.png"; sourceTree = "<group>"; };
+		4E30ACEB217187910016722B /* GSKItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSKItemView.h; sourceTree = "<group>"; };
+		4E30ACEC217187910016722B /* GSKItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSKItemView.m; sourceTree = "<group>"; };
 		4E33103F215D23C600E534CD /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
 		4E331040215D23C600E534CD /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
 		4E331042215D294100E534CD /* deleteDown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deleteDown@3x.png"; sourceTree = "<group>"; };
@@ -1508,6 +1515,8 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4E17B3E421722E0C00F75390 /* GSKPic@2x.png */,
+				4E17B3E521722E0C00F75390 /* GSKPic@3x.png */,
 				18CFB0F5216F3B64002CC9D0 /* foryou-light.png */,
 				18CFB0F4216F3B63002CC9D0 /* foryou-light@2x.png */,
 				18CFB0F6216F3B65002CC9D0 /* foryou-light@3x.png */,
@@ -2156,6 +2165,8 @@
 				4E923D692153761D00779268 /* BookMarkItemView.m */,
 				4E923D682153761D00779268 /* DownloadsItemView.h */,
 				4E923D672153761D00779268 /* DownloadsItemView.m */,
+				4E30ACEB217187910016722B /* GSKItemView.h */,
+				4E30ACEC217187910016722B /* GSKItemView.m */,
 				C5EEA10F83683E9F0B57A555 /* LinearView.m */,
 				C5EEA262CA879CF3C688E24D /* LinearView.h */,
 				C5EEACE2E119BCA59F4D29F9 /* LinearVerView.m */,
@@ -2500,6 +2511,7 @@
 				E11E17505E20F374A1980C3F /* menu-dso.png in Resources */,
 				E11E1566B756E99F66C84C2A /* menu-dso@2x.png in Resources */,
 				4E23E0852152A37200EDCE08 /* star_unselect@2x.png in Resources */,
+				4E17B3E621722E0C00F75390 /* GSKPic@2x.png in Resources */,
 				E11E1BBF5B8A0BA9CAFB3D48 /* menu-dso@3x.png in Resources */,
 				E11E1C36FB05913E3E3D8427 /* menu-edu_light.png in Resources */,
 				E11E17DA1750DC3EFFFBC584 /* menu-edu_light@2x.png in Resources */,
@@ -2561,6 +2573,7 @@
 				C5EEA777151649C977CD6952 /* ask.png in Resources */,
 				C5EEAE621D9B7BA2ACBC3368 /* ask@2x.png in Resources */,
 				C5EEA15BFBFE1FB1FFA51FD0 /* ask@3x.png in Resources */,
+				4E17B3E721722E0C00F75390 /* GSKPic@3x.png in Resources */,
 				C5EEA987C55330394284EA24 /* box-light.png in Resources */,
 				C5EEA845D7CCB783DC0DFD8E /* box-light@2x.png in Resources */,
 				C5EEACBA33B0A593C425AAA9 /* box-light@3x.png in Resources */,
@@ -2738,6 +2751,7 @@
 				4E2EF4FC215D0D4B00676A4E /* DenActionSheet.m in Sources */,
 				E11E153102080FFB4339C7D2 /* CmsBookmarkController.m in Sources */,
 				E11E106CD8257C6C65B6148B /* CmsDownloadsController.m in Sources */,
+				4E30ACED217187910016722B /* GSKItemView.m in Sources */,
 				E11E17A97D865580926CB2EB /* UIViewController+myextend.m in Sources */,
 				C5EEAB4FF315CAB5733FE9C5 /* SlideController.m in Sources */,
 				C5EEACBF759E368D6653D927 /* QueueLayout.m in Sources */,

@@ -248,6 +248,12 @@ static char argObjectAttr = 0;
 	return btn;
 }
 
+- (WKWebView *)addWebview{
+    WKWebView *webv = [WKWebView new];
+    [self addSubview:webv];
+    return webv;
+}
+
 - (UIButton *)contactButton {
 	NSString *aStr = localStr(@"haveIssue");
 	NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", aStr]];

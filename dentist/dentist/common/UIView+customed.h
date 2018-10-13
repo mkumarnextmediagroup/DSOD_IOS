@@ -5,6 +5,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Masonry.h"
+#import <WebKit/WebKit.h>
 
 #import "UISearchBarView.h"
 
@@ -66,6 +67,8 @@
 - (UIButton *)addCheckbox;
 
 - (UIButton *)addSmallButton;
+
+- (WKWebView *)addWebview;
 
 
 @property(readonly) MASConstraintMaker *layoutMaker;

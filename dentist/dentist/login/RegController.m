@@ -12,6 +12,7 @@
 #import "Async.h"
 #import "Proto.h"
 #import "AppDelegate.h"
+#import "DSOWebViewController.h"
 
 #define TAG_NAME_FIELD 100
 
@@ -332,10 +333,19 @@
 
 - (void)clickTerms:(id)sender {
 	NSLog(@"clickTerms");
+    DSOWebViewController *c = [DSOWebViewController new];
+    c.webTitle=@"Terms of Service";
+    c.localHtmlName= @"DSODentist_Terms_of_Service";
+    [self openPage:c];
 }
 
 - (void)clickPolicy:(id)sender {
-	NSLog(@"clickTerms");
+	NSLog(@"clickPolicy");
+
+    DSOWebViewController *c = [DSOWebViewController new];
+    c.webTitle=@"Privacy Policy";
+    c.localHtmlName= @"DSODentist_Privacy_Policy";
+    [self openPage:c];
 }
 
 - (void)clickReg:(id)sender {

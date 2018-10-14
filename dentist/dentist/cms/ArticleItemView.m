@@ -6,7 +6,7 @@
 #import "ArticleItemView.h"
 #import "Common.h"
 #import "Article.h"
-#import "DentistFilterView.h"
+#import "DentistPickerView.h"
 
 @implementation ArticleItemView {
 	UILabel *typeLabel;
@@ -79,9 +79,15 @@
 
 -(void)showFilter
 {
-    DentistFilterView *filterview=[[DentistFilterView alloc] init];
-    [filterview show:^{
-        //关闭block回调
+    DentistPickerView *picker = [[DentistPickerView alloc]init];
+    picker.array = @[@"Orthodontics",@"Practice Management",@"DSOs",@"General Dentistry",@"Implant Dentistry",@"Pediatric Dentistry"];
+    picker.leftTitle=localStr(@"Category");
+    picker.righTtitle=localStr(@"Cancel");
+    [picker show:^(NSString *result) {
+        
+    } rightAction:^(NSString *result) {
+        
+    } selectAction:^(NSString *result) {
     }];
 }
 @end

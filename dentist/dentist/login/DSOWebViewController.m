@@ -19,9 +19,27 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UINavigationItem *item = [self navigationItem];
-    item.title = self.webTitle;
-    item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self  action:@selector(popBtnClick:)];
+//    UINavigationItem *item = [self navigationItem];
+//    item.title = self.webTitle;
+//    item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self  action:@selector(popBtnClick:)];
+    
+    
+    UIView *topVi = [UIView new];
+    topVi.backgroundColor = Colors.bgNavBarColor;
+    [self.view addSubview:topVi];
+    [[[[[topVi.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:NAVHEIGHT] install];
+    
+    UILabel *content = [topVi addLabel];
+    content.font = [Fonts semiBold:15];
+    content.textColor = [UIColor whiteColor];
+    content.text = self.webTitle;
+    content.textAlignment = NSTextAlignmentCenter;
+    [[[[content.layoutMaker leftParent:(SCREENWIDTH - 200)/2] topParent:23+NAVHEIGHT_OFFSET] sizeEq:200 h:40] install];
+    
+    UIButton *dismissBtn = [topVi addButton];
+    [dismissBtn setImage:[UIImage imageNamed:@"back_arrow"] forState:UIControlStateNormal];
+    [dismissBtn addTarget:self action:@selector(popBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [[[[dismissBtn.layoutMaker leftParent:0] topParent:24+NAVHEIGHT_OFFSET] sizeEq:60 h:40] install];
     
     WKWebView *webv = self.view.addWebview;
     [[[[[webv layoutMaker] sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] leftParent:0] topParent:NAVHEIGHT] install];

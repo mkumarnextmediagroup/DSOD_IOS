@@ -9,6 +9,7 @@
 #import "Proto.h"
 #import "CMSDetailViewController.h"
 #import "DenActionSheet.h"
+#import <Social/Social.h>
 
 @interface CmsSearchPage()<UISearchBarDelegate,MyActionSheetDelegate>
 /*** searchbar ***/
@@ -85,6 +86,8 @@
         case 1://---click the Share button
         {
             NSLog(@"Share click");
+            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[@"Mastering the art of Dental Surgery",[NSURL URLWithString:@"http://app800.cn/i/d.png"]] applicationActivities:nil];
+            [self presentViewController:avc animated:YES completion:nil];
         }
             break;
         default:

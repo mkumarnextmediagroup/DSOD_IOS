@@ -6,7 +6,7 @@
 #import "ArticleItemView.h"
 #import "Common.h"
 #import "Article.h"
-
+#import "DentistFilterView.h"
 
 @implementation ArticleItemView {
 	UILabel *typeLabel;
@@ -28,8 +28,13 @@
 	typeLabel = [topView addLabel];
 	typeLabel.font = [Fonts semiBold:12];
 	[typeLabel textColorMain];
-	[[[[[typeLabel.layoutMaker centerYParent:0] leftParent:edge] heightEq:24] rightParent:-90] install];
-
+    
+	[[[[[typeLabel.layoutMaker centerYParent:0] leftParent:edge] heightEq:40] rightParent:-90] install];
+    
+    UIButton *typebutton=[topView addButton];
+    [[[[[typebutton.layoutMaker centerYParent:0] leftParent:edge] heightEq:40] rightParent:-90] install];
+    [typebutton addTarget:self action:@selector(showFilter) forControlEvents:UIControlEventTouchUpInside];
+    
 	dateLabel = [topView addLabel];
 	[dateLabel textAlignRight];
 	dateLabel.font = [Fonts regular:12];
@@ -70,5 +75,13 @@
 	titleLabel.text = item.title;
 	contentLabel.text = item.content;
 	[imageView loadUrl:item.resImage placeholderImage:@"art-img"];
+}
+
+-(void)showFilter
+{
+    DentistFilterView *filterview=[[DentistFilterView alloc] init];
+    [filterview show:^{
+        //关闭block回调
+    }];
 }
 @end

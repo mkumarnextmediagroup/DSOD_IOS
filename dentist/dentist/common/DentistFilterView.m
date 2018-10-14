@@ -151,7 +151,7 @@
 {
     if (textField.tag==1) {
         DentistPickerView *picker = [[DentistPickerView alloc]init];
-        picker.array = @[@"Orthodontics",@"Practice Management",@"DSOs",@"General Dentistry",@"Implant Dentistry"];
+        picker.array = @[@"Orthodontics",@"Practice Management",@"DSOs",@"General Dentistry",@"Implant Dentistry",@"Pediatric Dentistry"];
         picker.leftTitle=localStr(@"Category");
         picker.righTtitle=localStr(@"Cancel");
         [picker show:^(NSString *result) {

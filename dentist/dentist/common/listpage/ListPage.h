@@ -5,7 +5,7 @@
 
 #import <UIKit/UIKit.h>
 
-
+typedef void (^EmptyFilterViewActionBlock) (NSString *result);
 @interface ListPage : UIViewController
 
 //table offset top
@@ -15,6 +15,8 @@
 
 @property(readonly) UITableView *table;
 @property NSArray<NSObject *> *items;
+/** Filterblock */
+@property (copy, nonatomic) EmptyFilterViewActionBlock filterBlock;
 
 
 - (Class)viewClassOfItem:(NSObject *)item;
@@ -33,4 +35,5 @@
 - (void)onBindItem3:(NSObject *)item view:(UIView *)view cell:(UITableViewCell *)cell;
 
 -(void)addEmptyViewWithImageName:(NSString*)imageName title:(NSString*)title;
+-(void)addEmptyFilterViewWithImageName:(NSString*)imageName title:(NSString*)title filterAction:(EmptyFilterViewActionBlock)filterActionBlock;
 @end

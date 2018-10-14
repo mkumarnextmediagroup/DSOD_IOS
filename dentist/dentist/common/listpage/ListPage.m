@@ -5,9 +5,9 @@
 
 #import "ListPage.h"
 #import "Common.h"
+#import "DentistPickerView.h"
 
-
-@interface ListPage () <UITableViewDataSource, UITableViewDelegate> {
+@interface ListPage () <UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate> {
     BOOL isHasEmtyView;
 }
 @property (nonatomic,strong) UIView *emtyView;
@@ -143,23 +143,35 @@
 -(void)addEmptyViewWithImageName:(NSString*)imageName title:(NSString*)title
 {
     isHasEmtyView=YES;
-    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    CGFloat _topBarH = 0;
+    CGFloat _bottomBarH = 0;
+    if (self.navigationController != nil) {
+        _topBarH = NAVHEIGHT;
+    }
+    if (self.tabBarController != nil) {
+        _bottomBarH = TABLEBAR_HEIGHT;
+    }
     UIImage* image = [UIImage imageNamed:imageName];
     NSString* text = title;
     
-    _emtyView = [[UIView alloc] initWithFrame:frame];
+    _emtyView = [UIView new];
     _emtyView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_emtyView];
+    _emtyView.hidden=YES;
+    [[[[[[_emtyView layoutMaker] leftParent:0] rightParent:0] topParent:self.topOffset + _topBarH] bottomParent:-(self.bottomOffset + _bottomBarH)] install];
     CGFloat imageh=80;
     CGFloat spaceh=30;
     if (imageName) {
         CGFloat imagew=(image.size.width/image.size.height)*imageh;
-        UIImageView *carImageView = [[UIImageView alloc] initWithFrame:CGRectMake((frame.size.width-imagew)/2, frame.size.height/2-imageh-spaceh, imagew, imageh)];
+        UIImageView *carImageView =[UIImageView new];
         [carImageView setImage:image];
         [_emtyView addSubview:carImageView];
+        [[[[[carImageView layoutMaker] centerXOf:_emtyView offset:0] centerYOf:_emtyView offset:-imageh] sizeEq:imagew h:imageh] install];
+        
     }
     
     if (title) {
-        UILabel *noLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height/2+spaceh, self.view.frame.size.width, 80)];
+        UILabel *noLabel = [UILabel new];
         noLabel.textAlignment = NSTextAlignmentCenter;
         [noLabel textColorMain];
         noLabel.font = [Fonts regular:15];
@@ -168,10 +180,97 @@
         noLabel.backgroundColor = [UIColor clearColor];
         noLabel.numberOfLines=0;
         [_emtyView addSubview:noLabel];
+         [[[[[[noLabel layoutMaker] leftParent:0] rightParent:0] centerYOf:_emtyView offset:spaceh*2] heightEq:80] install];
     }
     
-    [self.view addSubview:_emtyView];
-    _emtyView.hidden=YES;
     
 }
+
+-(void)addEmptyFilterViewWithImageName:(NSString*)imageName title:(NSString*)title filterAction:(EmptyFilterViewActionBlock)filterActionBlock
+{
+    isHasEmtyView=YES;
+    self.filterBlock = filterActionBlock;
+    CGFloat _topBarH = 0;
+    CGFloat _bottomBarH = 0;
+    if (self.navigationController != nil) {
+        _topBarH = NAVHEIGHT;
+    }
+    if (self.tabBarController != nil) {
+        _bottomBarH = TABLEBAR_HEIGHT;
+    }
+    UIImage* image = [UIImage imageNamed:imageName];
+    NSString* text = title;
+    
+    _emtyView = [UIView new];
+    _emtyView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_emtyView];
+    _emtyView.hidden=YES;
+    [[[[[[_emtyView layoutMaker] leftParent:0] rightParent:0] topParent:self.topOffset + _topBarH] bottomParent:-(self.bottomOffset + _bottomBarH)] install];
+    
+    //category
+    UILabel *categoryLabel=[_emtyView addLabel];
+    categoryLabel.font = [Fonts regular:12];
+    categoryLabel.textColor=Colors.textAlternate;
+    categoryLabel.text=localStr(@"Select a Category");
+    [[[[[categoryLabel.layoutMaker leftParent:20] topParent:20] rightParent:-10] heightEq:20] install];
+    UITextField *categoryTextField=_emtyView.addEditRounded;
+    categoryTextField.delegate = self;
+    categoryTextField.hint = localStr(@"DSOs");
+    categoryTextField.tag=1;
+    [categoryTextField returnNext];
+    categoryTextField.font = [Fonts regular:15];
+    categoryTextField.textColor=rgb255(0, 0, 0);
+    [categoryTextField setValue:rgb255(0, 0, 0) forKeyPath:@"_placeholderLabel.textColor"];
+    [[[[[categoryTextField.layoutMaker leftParent:20] below:categoryLabel offset:10] rightParent:-20] heightEq:44] install];
+    UIImage *img=[UIImage imageNamed:@"arrow"];
+    UIImageView *selectimageview=[UIImageView new];
+    [categoryTextField addSubview:selectimageview];
+    selectimageview.image=[UIImage imageWithCGImage:img.CGImage scale:1.0 orientation:UIImageOrientationRight];
+    [[[[[selectimageview.layoutMaker rightParent:-14] topParent:14] heightEq:16] widthEq:16] install];
+    
+    CGFloat imageh=80;
+    //CGFloat spaceh=30;
+    CGFloat imagew=(image.size.width/image.size.height)*imageh;
+    UIImageView *carImageView =[UIImageView new];
+    [carImageView setImage:image];
+    [_emtyView addSubview:carImageView];
+    [[[[[carImageView layoutMaker] centerXOf:_emtyView offset:0] below:categoryTextField offset:30] sizeEq:imagew h:imageh] install];
+    
+    if (title) {
+        UILabel *noLabel = [UILabel new];
+        noLabel.textAlignment = NSTextAlignmentCenter;
+        [noLabel textColorMain];
+        noLabel.font = [Fonts regular:15];
+        noLabel.textColor=Colors.textMain;
+        noLabel.text = text;
+        noLabel.backgroundColor = [UIColor clearColor];
+        noLabel.numberOfLines=0;
+        [_emtyView addSubview:noLabel];
+        [[[[[[noLabel layoutMaker] leftParent:0] rightParent:0] below:carImageView offset:40] heightEq:80] install];
+    }
+    
+    
+}
+
+#pragma mark textfielddelegate
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField.tag==1) {
+        DentistPickerView *picker = [[DentistPickerView alloc]init];
+        picker.array = @[@"DSOs",@"General Dentistry",@"Implant Dentistry",@"Orthodontics",@"Pediatric Dentistry",@"Practice Management"];
+        picker.leftTitle=localStr(@"Category");
+        picker.righTtitle=localStr(@"Cancel");
+        [picker show:^(NSString *result) {
+            
+        } rightAction:^(NSString *result) {
+            if (self.filterBlock) {
+                self.filterBlock(textField.text);
+            }
+        } selectAction:^(NSString *result) {
+            textField.text=result;
+        }];
+    }
+    return NO;
+}
+
 @end

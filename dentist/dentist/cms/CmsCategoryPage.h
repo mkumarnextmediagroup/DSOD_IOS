@@ -5,6 +5,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
+#import "ListPage.h"
 
-@interface CmsCategoryPage : BaseController
+@interface CmsCategoryPage : ListPage
 @end

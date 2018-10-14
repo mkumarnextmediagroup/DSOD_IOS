@@ -14,6 +14,9 @@
 #import "LinearPage.h"
 #import "NSDate+myextend.h"
 #import "TestPage.h"
+#import "YBImageBrowser.h"
+#import "UIImageView+WebCache.h"
+#import "DentistImageBrowserToolBar.h"
 
 @implementation CmsForYouPage {
 	NSArray<NSString *> *segItems;
@@ -64,7 +67,11 @@
 	[iv scaleFillAspect];
 	iv.imageName = @"ad";
 	[[[[[[iv layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:160] install];
-
+   
+    UIButton *tapad=[panel addButton];
+    [[[[[[tapad layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:160] install];
+    [tapad addTarget:self action:@selector(showImageBrowser) forControlEvents:UIControlEventTouchUpInside];
+    
 	UIButton *closeAd = [panel addButton];
 	[closeAd setImage:[UIImage imageNamed:@"close-white"] forState:UIControlStateNormal];
 	[[[[closeAd.layoutMaker topParent:22] rightParent:-22] sizeEq:24 h:24] install];
@@ -147,5 +154,30 @@
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
+-(void)showImageBrowser
+{
+    NSArray *dataArray = @[
+                       @"https://www.dsodentist.com/assets/images/slide/slide-1.jpg",
+                       @"https://www.dsodentist.com/assets/images/slide/slide-2.jpg",
+                       @"https://www.dsodentist.com/assets/images/slide/slide-3.jpg",
+                       @"https://www.dsodentist.com/assets/images/slide/slide-4.jpg",
+                       @"https://www.dsodentist.com/assets/images/slide/slide-5.jpg"];
+    NSMutableArray *browserDataArr = [NSMutableArray array];
+    [dataArray enumerateObjectsUsingBlock:^(NSString *_Nonnull urlStr, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        YBImageBrowseCellData *data = [YBImageBrowseCellData new];
+        data.url = [NSURL URLWithString:urlStr];
+        [browserDataArr addObject:data];
+    }];
+    
+    YBImageBrowser *browser = [YBImageBrowser new];
+    browser.dataSourceArray = browserDataArr;
+    browser.currentIndex = 0;
+    DentistImageBrowserToolBar *toolBar = [DentistImageBrowserToolBar new];
+    toolBar.detailArray=@[@"Matt Heafy rated it",@"A wonderful experence reading up on the new trends of dental health.",@"A nice read! Will be sure to recommend this magazine to others.",@"Best dental health magazine I have read in my life",@"Would recommend reading it with something"];
+    browser.toolBars = @[toolBar];
+    browser.sheetView = nil;
+    [browser show];
+}
 
 @end

@@ -39,7 +39,7 @@
 	[dateLabel textAlignRight];
 	dateLabel.font = [Fonts regular:12];
 	[dateLabel textColorAlternate];
-	[[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:24] widthEq:74] install];
+	[[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:40] widthEq:74] install];
 
 	imageView = self.addImageView;
 	[imageView scaleFillAspect];

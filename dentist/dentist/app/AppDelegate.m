@@ -59,8 +59,8 @@
 	SlideController *sc = [SlideController new];
 	sc.preferredContentSize = makeSize(SCREENWIDTH - 90, SCREENHEIGHT);
 	UINavigationController *snav = NavPage(sc);
-	sc.navigationItem.leftBarButtonItem = [sc navBarImage:@"menu" target:self action:@selector(closeMenu:)];
-	snav.navigationBar.tintColor = Colors.primary;
+    sc.navigationItem.leftBarButtonItem = [sc navBarImage:@"menu" target:self action:@selector(closeMenu:)];
+    snav.navigationBar.tintColor = Colors.primary;
 	snav.navigationBar.barTintColor = UIColor.whiteColor;
 
 	UIViewController *centerPage = [sc onMakePage:@"General Content"];

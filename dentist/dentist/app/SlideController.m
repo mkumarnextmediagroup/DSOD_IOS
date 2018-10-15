@@ -49,20 +49,20 @@
 			[self makeSlideItem:@"Settings" image:@"menu-settings"],
 	];
 
-	QueueLayout *ql = [QueueLayout new];
-	ql.edgeLeft = 18;
-	ql.edgeRight = 0;
-	[ql add:userView height:115 marginTop:16 + NAVHEIGHT];
-	[ql add:[self addLine] height:1 marginTop:16];
+    QueueLayout *ql = [QueueLayout new];
+    ql.edgeLeft = 18;
+    ql.edgeRight = 0;
+    [ql add:userView height:115 marginTop:16 + NAVHEIGHT];
+    [ql add:[self addLine] height:1 marginTop:16];
 
-	for (SlideItem *item in items) {
-		UIButton *b = [self makeButtonItem:item.title image:item.image];
-		[ql add:b height:50 marginTop:0];
-		[ql add:[self addLine] height:1 marginTop:0];
-		[b onClick:self action:@selector(clickSlideItem:)];
-		item.button = b;
-	}
-	[ql install];
+    for (SlideItem *item in items) {
+        UIButton *b = [self makeButtonItem:item.title image:item.image];
+        [ql add:b height:50 marginTop:0];
+        [ql add:[self addLine] height:1 marginTop:0];
+        [b onClick:self action:@selector(clickSlideItem:)];
+        item.button = b;
+    }
+    [ql install];
 
 	[self selectButton:nil];
 }
@@ -74,9 +74,9 @@
 - (UIViewController *)onMakePage:(NSString *)title {
 	if ([@"General Content" isEqualToString:title]) {
 		CmsForYouPage *forYouPage = [CmsForYouPage new];
-		UINavigationController *ncForYou = NavPage(forYouPage);
+        UINavigationController *ncForYou = NavPage(forYouPage);
 		[ncForYou tabItem:@"For you" imageName:@"foryou"];
-		forYouPage.navigationItem.leftBarButtonItem = [self menuButton];
+        forYouPage.navigationItem.leftBarButtonItem = [self menuButton];
 
 		CmsSearchPage *cSearch = [CmsSearchPage new];
 		UINavigationController *ncSearch = NavPage(cSearch);
@@ -195,8 +195,14 @@
 
 - (void)clickSlideItem:(UIButton *)sender {
 	[self selectButton:sender];
-	UIViewController *c = [self onMakePage:[sender titleForState:UIControlStateNormal]];
-	[self openCenterPage:c];
+    NSString *title=[sender titleForState:UIControlStateNormal];
+	UIViewController *c = [self onMakePage:title];
+    if ([@"General Content" isEqualToString:title]){
+        [self openCenterPage:c hasNav:NO];
+    }else{
+        [self openCenterPage:c hasNav:YES];
+    }
+	
 }
 
 - (void)selectButton:(UIButton *)b {
@@ -216,13 +222,32 @@
 
 
 - (void)openCenterPage:(UIViewController *)page {
-	UINavigationController *c = NavPage(page);
-	page.navigationItem.leftBarButtonItem = [self navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
+    UINavigationController *c = NavPage(page);
+    page.navigationItem.leftBarButtonItem = [self navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
 	IIViewDeckController *dc = self.viewDeckController;
 	if (dc != nil) {
 		[dc closeSide:YES];
-		dc.centerViewController = c;
+        dc.centerViewController = c;
 	}
+}
+
+- (void)openCenterPage:(UIViewController *)page hasNav:(BOOL)hasNav {
+    if (hasNav) {
+        UINavigationController *c = NavPage(page);
+        page.navigationItem.leftBarButtonItem = [self navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
+        IIViewDeckController *dc = self.viewDeckController;
+        if (dc != nil) {
+            [dc closeSide:YES];
+            dc.centerViewController = c;
+        }
+    }else{
+        IIViewDeckController *dc = self.viewDeckController;
+        if (dc != nil) {
+            [dc closeSide:YES];
+            dc.centerViewController = page;
+        }
+    }
+    
 }
 
 

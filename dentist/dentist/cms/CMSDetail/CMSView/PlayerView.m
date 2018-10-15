@@ -167,6 +167,9 @@
     [self addSubview:starView];
     [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:self.gskBtn offset:26] install];
     
+    _bgBtn = starView.addButton;
+    [[[[[_bgBtn.layoutMaker leftParent:0] rightParent:0] sizeEq:SCREENWIDTH h:100] below:self.gskBtn offset:26] install];
+    
     UILabel *finLabel = [starView addLabel];
     finLabel.font = [Fonts regular:12];
     [finLabel textColorAlternate];
@@ -182,7 +185,7 @@
     [[[[[reviewLabel.layoutMaker leftParent:18] rightParent:-18] below:finLabel offset:0] heightEq:20] install];
     
     XHStarRateView *star = [[XHStarRateView alloc] initWithFrame:CGRectMake((SCREENWIDTH - 160)/2, 60, 160, 30)];
-    star.isAnimation = YES;
+    star.isAnimation = NO;
     star.rateStyle = HalfStar;
     star.tag = 1;
     [starView addSubview:star];

@@ -7,7 +7,6 @@
 //
 
 #import "DiscussTableViewCell.h"
-#import "XHStarRateView.h"
 #import "Common.h"
 
 #define edge 15
@@ -18,7 +17,6 @@
     UILabel *finLabel;
     UILabel *reviewLabel;
     UILabel *conLabel;
-    XHStarRateView *star;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -37,12 +35,12 @@
         finLabel.text = @"Finished the content?";
         [[[[finLabel.layoutMaker toRightOf:headerImg offset:10] topParent:edge] sizeEq:70 h:20] install];
         
-        star = [[XHStarRateView alloc] initWithFrame:CGRectMake(180, 15, 92, 16)];
-        star.isAnimation = YES;
-        star.currentScore = 4;
-        star.userInteractionEnabled = NO;
-        star.rateStyle = WholeStar;
-        [self addSubview:star];
+        _star = [[XHStarRateView alloc] initWithFrame:CGRectMake(180, 15, 92, 16)];
+        _star.isAnimation = YES;
+        _star.currentScore = 4;
+        _star.userInteractionEnabled = NO;
+        _star.rateStyle = WholeStar;
+        [self addSubview:_star];
         
         reviewLabel = [self addLabel];
         reviewLabel.font = [Fonts regular:12];
@@ -67,7 +65,7 @@
     finLabel.text = disInfo.name;
     CGSize size = [finLabel sizeThatFits:CGSizeMake(1000, 20)];
     [[finLabel.layoutUpdate sizeEq:size.width h:20] install];
-    star.frame = CGRectMake(size.width + 85, edge+2, 90, 16);
+    _star.frame = CGRectMake(size.width + 85, edge+2, 90, 16);
     reviewLabel.text = disInfo.disDate;
     conLabel.text = disInfo.content;
 }

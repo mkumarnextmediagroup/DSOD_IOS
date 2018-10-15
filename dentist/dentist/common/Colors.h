@@ -32,6 +32,6 @@
 @property(class, nonatomic, readonly) UIColor *buttonPrimaryActive;
 @property(class, nonatomic, readonly) UIColor *buttonSecondaryActive;
 @property(class, nonatomic, readonly) UIColor *buttonDisabled;
-
+@property(class, nonatomic, readonly) UIColor *bgColorNor;
 
 @end

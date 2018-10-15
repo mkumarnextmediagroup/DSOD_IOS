@@ -31,6 +31,17 @@
     _searchBar.placeholder = @"Search";
     _searchBar.delegate = self;
     _searchBar.showsCancelButton = YES;
+    for (id obj in [_searchBar subviews]) {
+        if ([obj isKindOfClass:[UIView class]]) {
+            for (id obj2 in [obj subviews]) {
+                if ([obj2 isKindOfClass:[UIButton class]]) {
+                    UIButton *btn = (UIButton *)obj2;
+                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
+               
+                }
+            }
+        }
+    }
     item.titleView=_searchBar;
     
     self.table.rowHeight = UITableViewAutomaticDimension;

@@ -41,7 +41,8 @@
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"DSODENTIST";
 	//TODO 还不太明白为啥 不设置rightBarButtonItem，title不显示
-    item.rightBarButtonItem = [self navBarText:@"test" target:self action:@selector(clickTest:)];
+//    item.rightBarButtonItem = [self navBarText:@"test" target:self action:@selector(clickTest:)];
+    item.rightBarButtonItem = [self navBarText:@"" target:self action:nil];
 
 	self.table.tableHeaderView = [self makeHeaderView];
 	self.table.rowHeight = UITableViewAutomaticDimension;
@@ -56,9 +57,9 @@
 //    self.navigationItem.leftBarButtonItem = [self menuButton];
 //}
 
-- (UIBarButtonItem *)menuButton {
-    return [self navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
-}
+//- (UIBarButtonItem *)menuButton {
+//    return [self navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
+//}
 
 - (UIView *)makeHeaderView {
 	UIView *panel = [UIView new];
@@ -147,6 +148,7 @@
 //    CMSDetailViewController *detail = [CMSDetailViewController new];
 //    detail.articleInfo = (Article *) item;
 //    [self.navigationController.tabBarController presentViewController:detail animated:YES completion:nil];
+
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];

@@ -10,7 +10,8 @@
 #import "CMSDetailViewController.h"
 #import "DenActionSheet.h"
 #import <Social/Social.h>
-
+@interface CmsCategoryPage()<ArticleItemViewDelegate>
+@end
 @implementation CmsCategoryPage {
 
 }
@@ -24,8 +25,13 @@
     self.table.rowHeight = UITableViewAutomaticDimension;
     self.table.estimatedRowHeight = 400;
     [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by categoy" filterAction:^(NSString *result) {
-        NSArray *ls = [Proto listArticle];
-        self.items=ls;
+        if([result isEqualToString:@"Orthodontics"]){
+            NSArray *ls = [Proto listArticle];
+            self.items=ls;
+        }else{
+            self.items=nil;
+        }
+        
     }];
     
     self.items = nil;
@@ -43,6 +49,7 @@
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
     Article *art = (id) item;
     ArticleItemView *itemView = (ArticleItemView *) view;
+    itemView.delegate=self;
     [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [itemView bind:art];
 }
@@ -80,6 +87,17 @@
     CMSDetailViewController *detail = [CMSDetailViewController new];
     detail.articleInfo = (Article *) item;
     [self.navigationController.tabBarController presentViewController:detail animated:YES  completion:nil];
+}
+
+
+-(void)CategoryPickerSelectAction:(NSString *)result
+{
+    if([result isEqualToString:@"Orthodontics"]){
+        NSArray *ls = [Proto listArticle];
+        self.items=ls;
+    }else{
+        self.items=nil;
+    }
 }
 
 

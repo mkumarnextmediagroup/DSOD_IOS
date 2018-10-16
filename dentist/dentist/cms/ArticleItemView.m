@@ -86,7 +86,9 @@
     [picker show:^(NSString *result) {
         
     } rightAction:^(NSString *result) {
-        
+        if(self.delegate && [self.delegate respondsToSelector:@selector(CategoryPickerSelectAction:)]){
+            [self.delegate CategoryPickerSelectAction:result];
+        }
     } selectAction:^(NSString *result) {
     }];
 }

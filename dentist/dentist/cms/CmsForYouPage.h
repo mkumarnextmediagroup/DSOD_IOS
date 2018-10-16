@@ -6,5 +6,5 @@
 #import <UIKit/UIKit.h>
 #import "ListPage.h"
 
-@interface CmsForYouPage : ListPage
+@interface CmsForYouPage : ListPage<UIScrollViewDelegate>
 @end

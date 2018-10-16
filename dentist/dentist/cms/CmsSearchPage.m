@@ -30,18 +30,19 @@
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     _searchBar.placeholder = @"Search";
     _searchBar.delegate = self;
-    _searchBar.showsCancelButton = YES;
-    for (id obj in [_searchBar subviews]) {
-        if ([obj isKindOfClass:[UIView class]]) {
-            for (id obj2 in [obj subviews]) {
-                if ([obj2 isKindOfClass:[UIButton class]]) {
-                    UIButton *btn = (UIButton *)obj2;
-                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
-               
-                }
-            }
-        }
-    }
+    _searchBar.showsCancelButton = NO;
+//    for (id obj in [_searchBar subviews]) {
+//        if ([obj isKindOfClass:[UIView class]]) {
+//            for (id obj2 in [obj subviews]) {
+//                if ([obj2 isKindOfClass:[UIButton class]]) {
+//                    UIButton *btn = (UIButton *)obj2;
+//                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
+////                    btn.enabled =NO;
+////                    [btn addTarget:self action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//                }
+//            }
+//        }
+//    }
     item.titleView=_searchBar;
     
     self.table.rowHeight = UITableViewAutomaticDimension;
@@ -113,10 +114,43 @@
 }
 
 #pragma mark ---UISearchBarDelegate
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+   _searchBar.showsCancelButton = YES;
+//    [_searchBar setShowsCancelButton:YES animated:YES];
+    for (id obj in [_searchBar subviews]) {
+        if ([obj isKindOfClass:[UIView class]]) {
+            for (id obj2 in [obj subviews]) {
+                if ([obj2 isKindOfClass:[UIButton class]]) {
+                    UIButton *btn = (UIButton *)obj2;
+                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
+//                    btn.enabled =YES;
+//                    [btn addTarget:self action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                }
+            }
+        }
+    }
+    return YES;
+}
 //MARK:dismiss button clicked，do this method
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
+    self.searchBar.text=@"";
     [self.searchBar resignFirstResponder];
+//    [_searchBar setShowsCancelButton:NO animated:YES];
+     _searchBar.showsCancelButton = NO;
+//    for (id obj in [_searchBar subviews]) {
+//        if ([obj isKindOfClass:[UIView class]]) {
+//            for (id obj2 in [obj subviews]) {
+//                if ([obj2 isKindOfClass:[UIButton class]]) {
+//                    UIButton *btn = (UIButton *)obj2;
+//                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
+//                    btn.enabled =NO;
+//                    [btn addTarget:self action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//                }
+//            }
+//        }
+//    }
 }
 //MARK:keyboard search button clicked，do this method
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -124,6 +158,27 @@
     NSArray *ls = [Proto listArticle];
     self.items=ls;
     [self.searchBar resignFirstResponder];
+//    [_searchBar setShowsCancelButton:NO animated:YES];
+     _searchBar.showsCancelButton = NO;
+//    for (id obj in [_searchBar subviews]) {
+//        if ([obj isKindOfClass:[UIView class]]) {
+//            for (id obj2 in [obj subviews]) {
+//                if ([obj2 isKindOfClass:[UIButton class]]) {
+//                    UIButton *btn = (UIButton *)obj2;
+//                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
+////                    btn.enabled =NO;
+////                    [btn addTarget:self action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//                }
+//            }
+//        }
+//    }
+}
+
+-(void)cancelBtnClick:(UIButton *)sender
+{
+    NSLog(@"search cancel click");
+     _searchBar.showsCancelButton = NO;
+    [_searchBar setShowsCancelButton:NO animated:YES];
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "DiscussTableViewCell.h"
 #import "XHStarRateView.h"
 #import "GSKViewController.h"
+#import "AddReviewViewController.h"
 
 #define edge 15
 @interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource> {
@@ -141,10 +142,10 @@
 
 - (void)buildViews {
 	playView = [PlayerView new];
+    [playView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
     [playView.gskBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
 	[self.contentView addSubview:playView];
 	[playView bind:self.articleInfo];
-//    [self layoutLinearVertical];
 	[[[[playView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT] install];
    
 // [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
@@ -157,6 +158,12 @@
     [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:playView offset:0] sizeEq:SCREENWIDTH h:485] install];
     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
 
+}
+
+- (void)gotoReview
+{
+    AddReviewViewController *reviewVC = [AddReviewViewController new];
+    [self.navigationController pushViewController:reviewVC animated:YES];
 }
 
 //GSK btn click and go to the GSK list page

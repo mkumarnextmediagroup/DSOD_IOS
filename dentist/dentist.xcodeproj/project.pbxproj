@@ -46,6 +46,7 @@
 		18DE4D12216DFFE400A6C61D /* nonDownload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE4D0F216DFFD100A6C61D /* nonDownload@2x.png */; };
 		18DE4D13216DFFE400A6C61D /* nonDownload.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE4D10216DFFD200A6C61D /* nonDownload.png */; };
 		18DE4D14216DFFE400A6C61D /* nonDownload@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE4D11216DFFE200A6C61D /* nonDownload@3x.png */; };
+		240BF8F11CE34445153DE3BB /* libPods-dentistTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6B1F2945E33C6DFA044809 /* libPods-dentistTests.a */; };
 		3E043B90213C15480044CD77 /* menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E043B86213C15470044CD77 /* menu@3x.png */; };
 		3E043B91213C15480044CD77 /* phone@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E043B87213C15470044CD77 /* phone@3x.png */; };
 		3E043B92213C15480044CD77 /* residency@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E043B88213C15470044CD77 /* residency@2x.png */; };
@@ -61,6 +62,8 @@
 		3E64F13221721D57001A7CF2 /* DSODentist_Privacy_Policy.html in Resources */ = {isa = PBXBuildFile; fileRef = 3E64F13021721D56001A7CF2 /* DSODentist_Privacy_Policy.html */; };
 		3E64F13321721D57001A7CF2 /* DSODentist_Terms_of_Service.html in Resources */ = {isa = PBXBuildFile; fileRef = 3E64F13121721D57001A7CF2 /* DSODentist_Terms_of_Service.html */; };
 		3ED0764B213A9FE3004D4083 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0764A213A9FE3004D4083 /* ProfileViewController.m */; };
+		43B7252D217650FF000F6797 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252C217650FF000F6797 /* ExampleTests.m */; };
+		43B72530217651A8000F6797 /* KiwiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252F217651A8000F6797 /* KiwiTests.m */; };
 		4E17B3E621722E0C00F75390 /* GSKPic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E17B3E421722E0C00F75390 /* GSKPic@2x.png */; };
 		4E17B3E721722E0C00F75390 /* GSKPic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E17B3E521722E0C00F75390 /* GSKPic@3x.png */; };
 		4E17B3EA2176250800F75390 /* AddReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E17B3E92176250800F75390 /* AddReviewViewController.m */; };
@@ -556,6 +559,16 @@
 		E11E1FF351CEC85509F9850C /* user_img@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E19D9D06DA06D3206C4D4 /* user_img@3x.png */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		43B7252321764CF4000F6797 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 574B3A16212338DF00C37095 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 574B3A1D212338DF00C37095;
+			remoteInfo = dentist;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		188FEC882175BDBD00EE32F3 /* BannerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerScrollView.h; sourceTree = "<group>"; };
 		188FEC892175BDC900EE32F3 /* BannerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerScrollView.m; sourceTree = "<group>"; };
@@ -631,6 +644,7 @@
 		18DE4D0F216DFFD100A6C61D /* nonDownload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonDownload@2x.png"; sourceTree = "<group>"; };
 		18DE4D10216DFFD200A6C61D /* nonDownload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nonDownload.png; sourceTree = "<group>"; };
 		18DE4D11216DFFE200A6C61D /* nonDownload@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonDownload@3x.png"; sourceTree = "<group>"; };
+		222E112A8067C36B6AB7CB97 /* Pods-dentistTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentistTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dentistTests/Pods-dentistTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3E043B86213C15470044CD77 /* menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@3x.png"; sourceTree = "<group>"; };
 		3E043B87213C15470044CD77 /* phone@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "phone@3x.png"; sourceTree = "<group>"; };
 		3E043B88213C15470044CD77 /* residency@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "residency@2x.png"; sourceTree = "<group>"; };
@@ -650,6 +664,10 @@
 		3E64F13121721D57001A7CF2 /* DSODentist_Terms_of_Service.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = DSODentist_Terms_of_Service.html; sourceTree = "<group>"; };
 		3ED07649213A9FE3004D4083 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		3ED0764A213A9FE3004D4083 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		43B7251E21764CF4000F6797 /* dentistTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dentistTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		43B7252221764CF4000F6797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43B7252C217650FF000F6797 /* ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleTests.m; sourceTree = "<group>"; };
+		43B7252F217651A8000F6797 /* KiwiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KiwiTests.m; sourceTree = "<group>"; };
 		4E17B3E421722E0C00F75390 /* GSKPic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GSKPic@2x.png"; sourceTree = "<group>"; };
 		4E17B3E521722E0C00F75390 /* GSKPic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GSKPic@3x.png"; sourceTree = "<group>"; };
 		4E17B3E82176250800F75390 /* AddReviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddReviewViewController.h; sourceTree = "<group>"; };
@@ -826,6 +844,7 @@
 		A956C5352154CC4B00E528EB /* Icon-Search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Search@2x.png"; sourceTree = "<group>"; };
 		A956C5362154CC4B00E528EB /* Icon-Search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Search@3x.png"; sourceTree = "<group>"; };
 		AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentist.release.xcconfig"; path = "Pods/Target Support Files/Pods-dentist/Pods-dentist.release.xcconfig"; sourceTree = "<group>"; };
+		BC6B1F2945E33C6DFA044809 /* libPods-dentistTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dentistTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFCE80B52123CB59008F3A7F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		BFCE80B72123CB61008F3A7F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C5EEA0346494DA6DFFDD5929 /* ask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ask.png; sourceTree = "<group>"; };
@@ -1307,9 +1326,18 @@
 		E11E1FE6CE4FDBB470C681BB /* menu-calendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-calendar@2x.png"; sourceTree = "<group>"; };
 		E11E1FE9BFF6E51E030E88D9 /* edit_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_pressed@2x.png"; sourceTree = "<group>"; };
 		E11E1FEF8DB01C99C8AA5F4D /* menu-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-calendar.png"; sourceTree = "<group>"; };
+		F748AC4766AE72334079C673 /* Pods-dentistTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentistTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-dentistTests/Pods-dentistTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		43B7251B21764CF4000F6797 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				240BF8F11CE34445153DE3BB /* libPods-dentistTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		574B3A1B212338DF00C37095 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1463,6 +1491,40 @@
 				3E49F914214569D000F32146 /* EditExperiencePage.m */,
 			);
 			path = profile;
+			sourceTree = "<group>";
+		};
+		43B7251F21764CF4000F6797 /* dentistTests */ = {
+			isa = PBXGroup;
+			children = (
+				43B7252E2176511C000F6797 /* Support */,
+				43B72528217650A1000F6797 /* Module */,
+			);
+			path = dentistTests;
+			sourceTree = "<group>";
+		};
+		43B72528217650A1000F6797 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				43B72529217650AB000F6797 /* Example */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		43B72529217650AB000F6797 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				43B7252C217650FF000F6797 /* ExampleTests.m */,
+				43B7252F217651A8000F6797 /* KiwiTests.m */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
+		43B7252E2176511C000F6797 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				43B7252221764CF4000F6797 /* Info.plist */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		4E1957222137D0F100420563 /* LinkedIn */ = {
@@ -1676,6 +1738,7 @@
 			children = (
 				BFCE80B62123CB59008F3A7F /* Localizable.strings */,
 				574B3A20212338DF00C37095 /* dentist */,
+				43B7251F21764CF4000F6797 /* dentistTests */,
 				574B3A1F212338DF00C37095 /* Products */,
 				E11E1071C5BB25C5DF71E7E4 /* Podfile */,
 				6E480191105E9BD9865E05CE /* Pods */,
@@ -1687,6 +1750,7 @@
 			isa = PBXGroup;
 			children = (
 				574B3A1E212338DF00C37095 /* dentist.app */,
+				43B7251E21764CF4000F6797 /* dentistTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2079,6 +2143,8 @@
 			children = (
 				68B426216C681447B0595866 /* Pods-dentist.debug.xcconfig */,
 				AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */,
+				222E112A8067C36B6AB7CB97 /* Pods-dentistTests.debug.xcconfig */,
+				F748AC4766AE72334079C673 /* Pods-dentistTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2089,6 +2155,7 @@
 				4EBCE723212FD1CE00A0672D /* Photos.framework */,
 				3E137172212B0E6100B206CC /* LocalAuthentication.framework */,
 				D18A46C0F072296ED5347389 /* libPods-dentist.a */,
+				BC6B1F2945E33C6DFA044809 /* libPods-dentistTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2409,6 +2476,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		43B7251D21764CF4000F6797 /* dentistTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 43B7252721764CF4000F6797 /* Build configuration list for PBXNativeTarget "dentistTests" */;
+			buildPhases = (
+				D0630D7A3519321862C74138 /* [CP] Check Pods Manifest.lock */,
+				43B7251A21764CF4000F6797 /* Sources */,
+				43B7251B21764CF4000F6797 /* Frameworks */,
+				43B7251C21764CF4000F6797 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				43B7252421764CF4000F6797 /* PBXTargetDependency */,
+			);
+			name = dentistTests;
+			productName = dentistTests;
+			productReference = 43B7251E21764CF4000F6797 /* dentistTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		574B3A1D212338DF00C37095 /* dentist */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 574B3A34212338E100C37095 /* Build configuration list for PBXNativeTarget "dentist" */;
@@ -2437,6 +2523,10 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = thenextmediagroup.com;
 				TargetAttributes = {
+					43B7251D21764CF4000F6797 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 574B3A1D212338DF00C37095;
+					};
 					574B3A1D212338DF00C37095 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -2456,11 +2546,19 @@
 			projectRoot = "";
 			targets = (
 				574B3A1D212338DF00C37095 /* dentist */,
+				43B7251D21764CF4000F6797 /* dentistTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		43B7251C21764CF4000F6797 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		574B3A1C212338DF00C37095 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2850,6 +2948,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D0630D7A3519321862C74138 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-dentistTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F6C167CBBA830C68BECC4C22 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2871,6 +2991,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		43B7251A21764CF4000F6797 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43B7252D217650FF000F6797 /* ExampleTests.m in Sources */,
+				43B72530217651A8000F6797 /* KiwiTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		574B3A1A212338DF00C37095 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3063,6 +3192,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		43B7252421764CF4000F6797 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 574B3A1D212338DF00C37095 /* dentist */;
+			targetProxy = 43B7252321764CF4000F6797 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		BFCE80B62123CB59008F3A7F /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -3077,6 +3214,49 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		43B7252521764CF4000F6797 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 222E112A8067C36B6AB7CB97 /* Pods-dentistTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = dentistTests/Support/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist.dentistTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dentist.app/dentist";
+			};
+			name = Debug;
+		};
+		43B7252621764CF4000F6797 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F748AC4766AE72334079C673 /* Pods-dentistTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = dentistTests/Support/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist.dentistTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dentist.app/dentist";
+			};
+			name = Release;
+		};
 		574B3A32212338E100C37095 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3288,6 +3468,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		43B7252721764CF4000F6797 /* Build configuration list for PBXNativeTarget "dentistTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43B7252521764CF4000F6797 /* Debug */,
+				43B7252621764CF4000F6797 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		574B3A19212338DF00C37095 /* Build configuration list for PBXProject "dentist" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

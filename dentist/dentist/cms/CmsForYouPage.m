@@ -17,15 +17,25 @@
 #import "YBImageBrowser.h"
 #import "UIImageView+WebCache.h"
 #import "DentistImageBrowserToolBar.h"
+#import "BannerScrollView.h"
 
 @implementation CmsForYouPage {
 	NSArray<NSString *> *segItems;
 	UISegmentedControl *segView;
+    UIView *panel;
+    BannerScrollView *iv;
+    BOOL isdeletead;
 }
 - (instancetype)init {
 	self = [super init];
 	self.topOffset = 0;
 	segItems = @[@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"];
+//    //开启和监听 设备旋转的通知（不开启的话，设备方向一直是UIInterfaceOrientationUnknown）
+//    if (![UIDevice currentDevice].generatesDeviceOrientationNotifications) {
+//        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+//    }
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleDeviceOrientationChange:)
+//                                                name:UIDeviceOrientationDidChangeNotification object:nil];
 	return self;
 }
 
@@ -62,25 +72,44 @@
 //}
 
 - (UIView *)makeHeaderView {
-	UIView *panel = [UIView new];
-	panel.frame = makeRect(0, 0, SCREENWIDTH, 211);
-	UIImageView *iv = [panel addImageView];
-	[iv scaleFillAspect];
-	iv.imageName = @"ad";
-	[[[[[[iv layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:160] install];
-   
-    UIButton *tapad=[panel addButton];
-    [[[[[[tapad layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:160] install];
-    [tapad addTarget:self action:@selector(showImageBrowser) forControlEvents:UIControlEventTouchUpInside];
-    
-	UIButton *closeAd = [panel addButton];
-	[closeAd setImage:[UIImage imageNamed:@"close-white"] forState:UIControlStateNormal];
-	[[[[closeAd.layoutMaker topParent:22] rightParent:-22] sizeEq:24 h:24] install];
-	[closeAd onClick:self action:@selector(clickCloseAd:)];
+	panel = [UIView new];
+    CGFloat bannerh=(396.0/718.0*SCREENWIDTH);
+	panel.frame = makeRect(0, 0, SCREENWIDTH, bannerh+51);
+//    UIImageView *iv = [panel addImageView];
+//    [iv scaleFillAspect];
+//    iv.imageName = @"ad";
+//    [[[[[[iv layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:160] install];
+//
+//    UIButton *tapad=[panel addButton];
+//    [[[[[[tapad layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:160] install];
+//    [tapad addTarget:self action:@selector(showImageBrowser) forControlEvents:UIControlEventTouchUpInside];
+//
+//    UIButton *closeAd = [panel addButton];
+//    [closeAd setImage:[UIImage imageNamed:@"close-white"] forState:UIControlStateNormal];
+//    [[[[closeAd.layoutMaker topParent:22] rightParent:-22] sizeEq:24 h:24] install];
+//    [closeAd onClick:self action:@selector(clickCloseAd:)];
 
-	UIView *seg = [self makeSegPanel];
-	[panel addSubview:seg];
-	[[[[[seg.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
+    //718*396;
+    
+    NSArray *urls = @[
+                      @"https://www.dsodentist.com/assets/images/slide/slide-1.jpg",
+                      @"https://www.dsodentist.com/assets/images/slide/slide-2.jpg",
+                      @"https://www.dsodentist.com/assets/images/slide/slide-3.jpg",
+                      @"https://www.dsodentist.com/assets/images/slide/slide-4.jpg",
+                      @"https://www.dsodentist.com/assets/images/slide/slide-5.jpg"];
+    iv =[BannerScrollView new];
+    [panel addSubview:iv];
+    typeof(self) __weak weakself = self;
+    [[[[[[iv layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:bannerh] install];
+    [iv addWithImageUrls:urls autoTimerInterval:3 clickBlock:^(NSInteger index) {
+        NSLog(@"index=%@",@(index));
+        //可以做点击处理
+        [weakself showImageBrowser:index-1];
+    }];
+   
+    UIView *seg = [self makeSegPanel];
+    [panel addSubview:seg];
+    [[[[[seg.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
 
 	return panel;
 }
@@ -125,6 +154,7 @@
 }
 
 - (void)clickCloseAd:(id)sender {
+    isdeletead=YES;
 	self.table.tableHeaderView = [self makeHeaderView2];
 }
 
@@ -156,14 +186,19 @@
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
--(void)showImageBrowser
+-(void)showImageBrowser:(NSInteger)index
 {
+    NSInteger tempindex;
+    
     NSArray *dataArray = @[
                        @"https://www.dsodentist.com/assets/images/slide/slide-1.jpg",
                        @"https://www.dsodentist.com/assets/images/slide/slide-2.jpg",
                        @"https://www.dsodentist.com/assets/images/slide/slide-3.jpg",
                        @"https://www.dsodentist.com/assets/images/slide/slide-4.jpg",
                        @"https://www.dsodentist.com/assets/images/slide/slide-5.jpg"];
+    if (index>0 && index <dataArray.count) {
+        tempindex=index;
+    }
     NSMutableArray *browserDataArr = [NSMutableArray array];
     [dataArray enumerateObjectsUsingBlock:^(NSString *_Nonnull urlStr, NSUInteger idx, BOOL * _Nonnull stop) {
         
@@ -174,12 +209,13 @@
     
     YBImageBrowser *browser = [YBImageBrowser new];
     browser.dataSourceArray = browserDataArr;
-    browser.currentIndex = 0;
+    browser.currentIndex = index;
     DentistImageBrowserToolBar *toolBar = [DentistImageBrowserToolBar new];
-    toolBar.detailArray=@[@"Matt Heafy rated it",@"A wonderful experence reading up on the new trends of dental health.",@"A nice read! Will be sure to recommend this magazine to others.",@"Best dental health magazine I have read in my life",@"Would recommend reading it with something"];
+    toolBar.detailArray=@[@"Welcome",@"Reduce Plaque and Gingivitis",@"Today's Peer to Peer community...",@"Understanding the DSO Practice Model",@"All the support I need..."];
     browser.toolBars = @[toolBar];
     browser.sheetView = nil;
     [browser show];
 }
+
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		188FEC8A2175BDCA00EE32F3 /* BannerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FEC892175BDC900EE32F3 /* BannerScrollView.m */; };
 		18B83B082173557D00130DB6 /* YBImageBrowserProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83ACE2173557C00130DB6 /* YBImageBrowserProgressView.m */; };
 		18B83B092173557D00130DB6 /* YBImageBrowserSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83AD02173557C00130DB6 /* YBImageBrowserSheetView.m */; };
 		18B83B0A2173557D00130DB6 /* YBImageBrowserTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83AD22173557C00130DB6 /* YBImageBrowserTipView.m */; };
@@ -555,6 +556,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		188FEC882175BDBD00EE32F3 /* BannerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerScrollView.h; sourceTree = "<group>"; };
+		188FEC892175BDC900EE32F3 /* BannerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerScrollView.m; sourceTree = "<group>"; };
 		18B83ACD2173557C00130DB6 /* YBImageBrowserProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBImageBrowserProgressView.h; sourceTree = "<group>"; };
 		18B83ACE2173557C00130DB6 /* YBImageBrowserProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBImageBrowserProgressView.m; sourceTree = "<group>"; };
 		18B83ACF2173557C00130DB6 /* YBImageBrowserSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBImageBrowserSheetView.h; sourceTree = "<group>"; };
@@ -2205,6 +2208,8 @@
 				18B83B202173596500130DB6 /* DentistImageBrowserToolBar.m */,
 				A956C52E2154A14C00E528EB /* DentistMoreView.h */,
 				A956C52F2154A14C00E528EB /* DentistMoreView.m */,
+				188FEC882175BDBD00EE32F3 /* BannerScrollView.h */,
+				188FEC892175BDC900EE32F3 /* BannerScrollView.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -3031,6 +3036,7 @@
 				C5EEA34AC51BB6847157C34C /* SlideItem.m in Sources */,
 				C5EEA068F55D7B423D889014 /* EducationPage.m in Sources */,
 				4E23E08D215325AE00EDCE08 /* DiscussInfo.m in Sources */,
+				188FEC8A2175BDCA00EE32F3 /* BannerScrollView.m in Sources */,
 				C5EEAF4D7420DCA0CCBD9D37 /* EventsPage.m in Sources */,
 				C5EEACBCD8E0C648F24C3CBD /* UnitePage.m in Sources */,
 				C5EEA3F0CF05284FD745DF70 /* CareerPage.m in Sources */,

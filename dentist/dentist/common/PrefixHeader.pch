@@ -18,6 +18,7 @@
 #define NAVHEIGHT_OFFSET (IS_IPHONE_X ? 24.0f : 0)
 #define TABLEBAR_SAFE_BOTTOM_MARGIN  (IS_IPHONE_X ? 34.0f : 0.f)
 #define TABLEBAR_HEIGHT  (IS_IPHONE_X ? (49.f+34.f) : 49.f)
+#define getRectNavAndStatusHight  (self.navigationController.navigationBar.frame.size.height+[[UIApplication sharedApplication] statusBarFrame].size.height)
 
 #define PHONEFIELDTag 146
 #define EMAILFIELDTag 147

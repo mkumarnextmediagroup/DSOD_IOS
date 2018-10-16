@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "XHStarRateView.h"
 #import "DiscussInfo.h"
 
 @interface DiscussTableViewCell : UITableViewCell
 
 @property (strong, nonatomic)DiscussInfo *disInfo;
+@property (strong, nonatomic)XHStarRateView *star;
 
 @end

@@ -1,11 +1,18 @@
-target 'dentist'
 platform :ios, '9.0'
-pod 'AFNetworking', '3.1.0'
-pod 'FMDB', '2.7.2'
-pod 'Masonry', '1.1.0'
-pod 'SAMKeychain',  '1.5.3'
-pod 'SDWebImage', '4.4.2'
-pod 'ViewDeck', '3.1.0'
-pod 'JSONModel', '1.7.0'
-pod 'MBProgressHUD', '~> 1.1.0'
-pod 'YYImage'
+
+target 'dentist' do
+    pod 'AFNetworking', '3.1.0'
+    pod 'FMDB', '2.7.2'
+    pod 'Masonry', '1.1.0'
+    pod 'SAMKeychain',  '1.5.3'
+    pod 'SDWebImage', '4.4.2'
+    pod 'ViewDeck', '3.1.0'
+    pod 'JSONModel', '1.7.0'
+    pod 'MBProgressHUD', '~> 1.1.0'
+    pod 'YYImage'
+
+    target 'dentistTests' do
+        inherit! :search_paths
+        pod 'Kiwi'
+    end
+end

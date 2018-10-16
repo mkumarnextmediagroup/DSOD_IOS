@@ -84,11 +84,6 @@
 //    [[[[[[tapad layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:160] install];
 //    [tapad addTarget:self action:@selector(showImageBrowser) forControlEvents:UIControlEventTouchUpInside];
 //
-//    UIButton *closeAd = [panel addButton];
-//    [closeAd setImage:[UIImage imageNamed:@"close-white"] forState:UIControlStateNormal];
-//    [[[[closeAd.layoutMaker topParent:22] rightParent:-22] sizeEq:24 h:24] install];
-//    [closeAd onClick:self action:@selector(clickCloseAd:)];
-
     //718*396;
     
     NSArray *urls = @[
@@ -104,9 +99,14 @@
     [iv addWithImageUrls:urls autoTimerInterval:3 clickBlock:^(NSInteger index) {
         NSLog(@"index=%@",@(index));
         //可以做点击处理
-        [weakself showImageBrowser:index-1];
+//        [weakself showImageBrowser:index-1];
     }];
-   
+    
+    UIButton *closeAd = [panel addButton];
+    [closeAd setImage:[UIImage imageNamed:@"close-white"] forState:UIControlStateNormal];
+    [[[[closeAd.layoutMaker topParent:22] rightParent:-22] sizeEq:24 h:24] install];
+    [closeAd onClick:self action:@selector(clickCloseAd:)];
+    
     UIView *seg = [self makeSegPanel];
     [panel addSubview:seg];
     [[[[[seg.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
@@ -215,6 +215,15 @@
     browser.toolBars = @[toolBar];
     browser.sheetView = nil;
     [browser show];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSLog(@"offfsize=%@",NSStringFromCGPoint(scrollView.contentOffset));
+    CGFloat height=scrollView.contentSize.height>self.table.frame.size.height?self.table.frame.size.height:scrollView.contentSize.height;
+    if((-scrollView.contentOffset.y/self.table.frame.size.height)>0.2){
+        self.table.tableHeaderView = [self makeHeaderView];
+    }
 }
 
 

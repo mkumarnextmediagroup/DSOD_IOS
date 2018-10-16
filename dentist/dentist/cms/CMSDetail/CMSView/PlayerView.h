@@ -16,6 +16,7 @@
 @property (nonatomic,strong)SBPlayer *sbPlayer;
 @property (nonatomic,strong)UIView *topView;
 @property (nonatomic,strong)UIButton *gskBtn;
+@property (nonatomic,strong)UIButton *bgBtn;
 
 -(void)bind:(Article *)bindInfo ;
 - (void)resetLayout;

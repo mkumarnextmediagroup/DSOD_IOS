@@ -42,8 +42,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     
-    [self createNav];
+    
+    self.navigationController.navigationBarHidden = NO;
+
+    UINavigationItem *item = self.navigationItem;
+    item.title = @"SPONSORED CONTENT";
+    item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
+
     
     self.table.tableHeaderView = [self makeHeaderView];
     self.table.rowHeight = UITableViewAutomaticDimension;
@@ -51,26 +56,6 @@
     
     NSArray *ls = [Proto listArticle];
     self.items = ls;
-}
-
-- (void)createNav
-{
-    UIView *topVi = [UIView new];
-    topVi.backgroundColor = Colors.bgNavBarColor;
-    [self.view addSubview:topVi];
-    [[[[[topVi.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:NAVHEIGHT] install];
-    
-    UILabel *content = [topVi addLabel];
-    content.font = [Fonts semiBold:15];
-    content.textColor = [UIColor whiteColor];
-    content.text = @"SPONSORED CONTENT";
-    content.textAlignment = NSTextAlignmentCenter;
-    [[[[content.layoutMaker leftParent:(SCREENWIDTH - 200)/2] topParent:23+NAVHEIGHT_OFFSET] sizeEq:200 h:40] install];
-    
-    UIButton *dismissBtn = [topVi addButton];
-    [dismissBtn setImage:[UIImage imageNamed:@"back_arrow"] forState:UIControlStateNormal];
-    [dismissBtn addTarget:self action:@selector(onBack:) forControlEvents:UIControlEventTouchUpInside];
-    [[[[dismissBtn.layoutMaker leftParent:0] topParent:24+NAVHEIGHT_OFFSET] sizeEq:60 h:40] install];
 }
 
 - (void)onBack:(UIButton *)btn {

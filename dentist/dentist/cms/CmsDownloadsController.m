@@ -118,9 +118,10 @@
 {
     DentistFilterView *filterview=[[DentistFilterView alloc] init];
     [filterview show:^(NSString *category, NSString *type) {
+    }select:^(NSString *category, NSString *type) {
         categorytext=category;
         typetext=type;
-        self.items =[Proto getDownloadListByCategory:typetext type:categorytext];
+        self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
     }];
 }
 

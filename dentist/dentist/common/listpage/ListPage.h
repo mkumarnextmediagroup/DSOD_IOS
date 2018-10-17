@@ -15,6 +15,9 @@ typedef void (^EmptyFilterViewActionBlock) (NSString *result);
 
 @property(readonly) UITableView *table;
 @property NSArray<NSObject *> *items;
+
+-(void)setTableViewFrame;
+
 /** Filterblock */
 @property (copy, nonatomic) EmptyFilterViewActionBlock filterBlock;
 

@@ -19,14 +19,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	CGFloat _topBarH = 0;
-	CGFloat _bottomBarH = 0;
-	if (self.navigationController != nil) {
-		_topBarH = NAVHEIGHT;
-	}
-	if (self.tabBarController != nil) {
-		_bottomBarH = TABLEBAR_HEIGHT;
-	}
+	
 
 	self.automaticallyAdjustsScrollViewInsets = NO;
 
@@ -40,8 +33,21 @@
 	_table.dataSource = self;
 	_table.delegate = self;
 	_table.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-	[[[[[[_table layoutMaker] leftParent:0] rightParent:0] topParent:self.topOffset + _topBarH] bottomParent:-(self.bottomOffset + _bottomBarH)] install];
+    [self setTableViewFrame];
 
+}
+
+-(void)setTableViewFrame
+{
+    CGFloat _topBarH = 0;
+    CGFloat _bottomBarH = 0;
+    if (self.navigationController != nil) {
+        _topBarH = NAVHEIGHT;
+    }
+    if (self.tabBarController != nil) {
+        _bottomBarH = TABLEBAR_HEIGHT;
+    }
+    [[[[[[_table layoutMaker] leftParent:0] rightParent:0] topParent: self.topOffset + _topBarH] bottomParent:-(self.bottomOffset + _bottomBarH)] install];
 }
 
 
@@ -263,11 +269,12 @@
         [picker show:^(NSString *result) {
             
         } rightAction:^(NSString *result) {
+            
+        } selectAction:^(NSString *result) {
+            textField.text=result;
             if (self.filterBlock) {
                 self.filterBlock(textField.text);
             }
-        } selectAction:^(NSString *result) {
-            textField.text=result;
         }];
     }
     return NO;

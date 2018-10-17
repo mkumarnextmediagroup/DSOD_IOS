@@ -54,7 +54,9 @@
 //        }
 //    }
     item.titleView=_searchBar;
-    
+    if (@available(iOS 11.0, *)) {
+        [[_searchBar.heightAnchor constraintEqualToConstant:44.0] setActive:YES];
+    }
     self.table.rowHeight = UITableViewAutomaticDimension;
     self.table.estimatedRowHeight = 400;
     [self addEmptyViewWithImageName:@"Icon-Search" title:@"Search by categoy name,\n author,or content type"];

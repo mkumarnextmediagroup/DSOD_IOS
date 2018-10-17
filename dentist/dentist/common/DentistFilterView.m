@@ -52,7 +52,7 @@
     [[[[[categoryLabel.layoutMaker leftParent:20] below:titleLabel offset:30] rightParent:-10] heightEq:20] install];
     UITextField *categoryTextField=self.addEditRounded;
     categoryTextField.delegate = self;
-    categoryTextField.hint = @"";//localStr(@"DSOs");
+    categoryTextField.hint = localStr(@"DSOs");
     categoryTextField.tag=1;
     [categoryTextField returnNext];
     categoryTextField.font = [Fonts regular:15];
@@ -73,7 +73,7 @@
     [[[[[typeLabel.layoutMaker leftParent:20] below:categoryTextField offset:20] rightParent:-10] heightEq:20] install];
     UITextField *typeTextField=self.addEditRounded;
     typeTextField.delegate = self;
-    typeTextField.hint =  @"";//localStr(@"Videos");
+    typeTextField.hint = localStr(@"Videos");
     typeTextField.tag=2;
     [typeTextField returnDone];
     typeTextField.font = [Fonts regular:15];
@@ -138,6 +138,19 @@
         self.frame=CGRectMake(0, NAVHEIGHT, SCREENWIDTH, DSFilterHeight);
     }];
 }
+//弹出
+-(void)show:(DentistFilterViewCloseActionBlock)closeActionBlock select:(DentistFilterViewSelectActionBlock)selectActionBlock;
+{
+    self.closeBlock = closeActionBlock;
+    self.selectBlock = selectActionBlock;
+    AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    [appDelegate.window.rootViewController.view addSubview:self];
+    [UIView animateWithDuration:0.5 animations:^{
+        //将view.frame 设置在屏幕上方
+        self.frame=CGRectMake(0, NAVHEIGHT, SCREENWIDTH, DSFilterHeight);
+    }];
+}
+
 #pragma mark 关闭刷选页面
 -(void)clickClose:(UIButton *)sender
 {
@@ -160,8 +173,8 @@
         //将view.frame 设置在屏幕下方
         self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
     } completion:^(BOOL finished) {
-        if (self.closeBlock) {
-            self.closeBlock(_categorytext,_typetext);
+        if (self.selectBlock) {
+            self.selectBlock(_categorytext,_typetext);
         }
         [self removeFromSuperview];
     }];

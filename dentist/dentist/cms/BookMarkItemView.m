@@ -26,6 +26,7 @@
     
     markButton = [self addButton];
     [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+    [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
     [[[[markButton.layoutMaker rightParent:-edge] topParent:20] sizeEq:20 h:20] install];
     
     titleLabel = [self addLabel];
@@ -45,11 +46,26 @@
 }
 
 - (void)bind:(Article *)item {
+    _model=item;
     titleLabel.text = item.title;
     contentLabel.text = item.content;
     [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
     [imageView scaleFillAspect];
     imageView.clipsToBounds=YES;
+}
+
+-(void)markAction:(UIButton *)sender
+{
+    if (_model.isBookmark) {
+        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    }else{
+        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(BookMarkAction:)]){
+        [self.delegate BookMarkAction:_model.id];
+    }
+    
+    
 }
 
 /*

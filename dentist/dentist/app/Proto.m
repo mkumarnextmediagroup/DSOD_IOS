@@ -37,8 +37,9 @@
 	a.subContent = @"Please be sure to thoroughly dry the attachments template after testing for fit. Generally, it is recommended that when placing attachments, you work in on e arch of the patients' mouth at a time.\n\n"
 	               "If you have more than four attachments per quadrant, then you may decide to bond the attachments one quadrant at a time. If bonding one quadrant at a time, do not cut the attachment template.Instead, just fill one side of the attachment template with composite material.\n\n"
 	               "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 second until a thin adhesive film layer forms.";
-	a.resImage = @"http://app800.cn/i/d.png";
+    a.resImage = @"https://wp.dsodentist.com/wp-content/uploads/2018/09/CA_INVI_D5_T_IOSIM_APAC_0029_rt2_HR_RGB_1280-e1537471186604.jpg";//@"http://app800.cn/i/d.png";
 	a.resType = @"image";
+    a.category=@"LATEST";
 
     DiscussInfo *dis = [DiscussInfo new];
     dis.disImg = @"http://app800.cn/i/p.png";
@@ -79,16 +80,15 @@
 	b.isSponsor = NO;
 	b.publishDate = @"May 15,2018";
 	b.gskString = @"  Sponsored content brought to you by GSK";
-	b.type = @"orthodontics";
+	b.type = @"DSOs";
 	b.authAccount = @"tom@gmail.com";
 	b.authName = @"Dr.Sandra Tai";
 	b.authAdd = @"Vancouver, BC";
-	b.title = @"Mastering the art of Dental Surgery";
-	b.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n"
-	            "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n"
-	            "Once you have completed the expectations with the patient the first step is to test the attachment template and the first aligner. This is an expert thinking process for you.";
-	b.resImage = @"http://app800.cn/i/d.png";
+	b.title = @"Be a Leader in Your DSO-Supported Practice ";
+    b.content = @"Being the boss is not always easy, but it is rewarding once you become an effective leader. There are certain principles to good leadership, and if you follow them diligently, you will reach your full potential. This blog post features five recommendations for being a leader in your DSO-supported practice.\nYou are the CEO in your practice. Dentists, whether they are seasoned professionals or new grads, are ultimately responsible for the success of their practice. This is a huge responsibility. You are now responsible for the overall quality of care, patient satisfaction, and the livelihood of employees who are trying to provide for their families. Many dentists today are delegating some of the day-to-day responsibilities to a Dental Support Organization (DSO), but without you, the practice would grind to a halt.\nBeing an effective CEO in a DSO-supported practice is similar to being a general contractor for building a house. The following are typical responsibilities that must be addressed by a CEO.";
+    b.resImage = @"https://wp.dsodentist.com/wp-content/uploads/2018/09/bigstock-126488318-e1539282816569.jpg";//@"http://app800.cn/i/d.png";
 	b.resType = @"image";
+    b.category=@"LATEST";
 
     DiscussInfo *disb = [DiscussInfo new];
     disb.disImg = @"http://app800.cn/i/p.png";
@@ -122,9 +122,103 @@
 	bc.publishDate = @"Sep 16, 2018";
 
 	b.comments = @[bc];
-
-	NSArray *arr = @[a, b];
+    
+    //
+    NSInteger articleid3=3;
+    NSString *title3=@"Immediate Dentures - Mastering the art of Dental Surgery - Mastering the art of Dental Surgery  ";
+    NSString *content3=@"Patients will generally experience up to a 32% horizontal decrease of their alveolar hard tissue within 3 months of tooth extraction.¹ Further, after a tooth extraction, bone resorption is generally hastened, and the soft tissues may undergo changes as well. This is relevant to the patient receiving immediate dentures because any changes in the underpinning upon which the dentures are fitted will lead to diminished retention, and therefore rebasing.²\nAdvantages of immediate dentures:\nThe dental professional and the patient have the opportunity to first match the color, size, and shape of the soon-to-be dentures to the existing teeth";
+    NSString *subContent3=@"Please be sure to thoroughly dry the attachments template after testing for fit. Generally, it is recommended that when placing attachments, you work in on e arch of the patients' mouth at a time.\n\n"
+    "If you have more than four attachments per quadrant, then you may decide to bond the attachments one quadrant at a time. If bonding one quadrant at a time, do not cut the attachment template.Instead, just fill one side of the attachment template with composite material.\n\n"
+    "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 second until a thin adhesive film layer forms.";
+    
+    NSString *publishDate3=@"May 02,2018";
+    NSString *category3=@"LATEST";
+    NSString *type3=@"General Dentistry";
+    NSString *resImage3=@"https://wp.dsodentist.com/wp-content/uploads/2018/09/Endentulous-E3-Lead-Image-e1537458427743.jpg";
+    Article *a3=[self setNewArtcle:articleid3 title:title3 content:content3 subContent:subContent3 publishDate:publishDate3 category:category3 type:type3 resImage:resImage3];
+    
+    NSInteger articleid4=4;
+    NSString *title4=@"Interproximal Reduction (IPR) - Mastering the art of Dental Surgery";
+    NSString *content4=@"DSOD Staff- Interproximal Reduction, also abbreviated as IPR, is a spacing technique that removes the interproximal enamel to reduce the mesial-distal size of teeth. It strives to create space so teeth can move into their proper positions while preserving the natural shape of each tooth. Doctors can visualize IPR through the ClinCheck® software to ensure treatment is progressing as desired and make adjustments before and during Invisalign® treatment.  ";
+    NSString *subContent4=@"Please be sure to thoroughly dry the attachments template after testing for fit. Generally, it is recommended that when placing attachments, you work in on e arch of the patients' mouth at a time.\n\n"
+    "If you have more than four attachments per quadrant, then you may decide to bond the attachments one quadrant at a time. If bonding one quadrant at a time, do not cut the attachment template.Instead, just fill one side of the attachment template with composite material.\n\n"
+    "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 second until a thin adhesive film layer forms.";
+    
+    NSString *publishDate4=@"Oct 02,2018";
+    NSString *category4=@"VIDEOS";
+    NSString *type4=@"orthodontics";
+    NSString *resImage4=@"https://wp.dsodentist.com/wp-content/uploads/2018/09/EruptionCompensationFeatures_CloseUp_Gray_RGB_640-e1539635942274.jpg";
+    Article *a4=[self setNewArtcle:articleid4 title:title4 content:content4 subContent:subContent4 publishDate:publishDate4 category:category4 type:type4 resImage:resImage4];
+    
+    NSInteger articleid5=5;
+    NSString *title5=@"Platelet-Rich Fibrin: The 411";
+    NSString *content5=@" - Platelet-rich fibrin, or PRF, was introduced in oral surgery almost 20 years ago as a wound-healing enhancer. PRF is a mixture of fibrin matrix, cells (platelets, red blood cells, and leukocytes), and bioactive molecules (growth factors and cytokines), that are released to stimulate repair and regeneration. It is obtained from the patient’s own blood, collected before the surgical procedure, and centrifuged under specific conditions. PRF has been further developed into advanced (a-PRF) and injectable (i-PRF) forms by changing the preparation protocol to incorporate more monocytes.";
+    NSString *subContent5=@"Please be sure to thoroughly dry the attachments template after testing for fit. Generally, it is recommended that when placing attachments, you work in on e arch of the patients' mouth at a time.\n\n"
+    "If you have more than four attachments per quadrant, then you may decide to bond the attachments one quadrant at a time. If bonding one quadrant at a time, do not cut the attachment template.Instead, just fill one side of the attachment template with composite material.\n\n"
+    "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 second until a thin adhesive film layer forms.";
+    
+    NSString *publishDate5=@"Oct 12,2018";
+    NSString *category5=@"ARTICLES";
+    NSString *type5=@"IMPLANT DENTISTRY";
+    NSString *resImage5=@"https://wp.dsodentist.com/wp-content/uploads/2018/09/iStock-852114758.jpg";
+    Article *a5=[self setNewArtcle:articleid5 title:title5 content:content5 subContent:subContent5 publishDate:publishDate5 category:category5 type:type5 resImage:resImage5];
+    
+	NSArray *arr = @[a, b,a3,a4,a5];
 	return arr;
+}
+
+
++(Article *)setNewArtcle:(NSInteger)articleid title:(NSString *)title content:(NSString *)content subContent:(NSString *)subContent publishDate:(NSString *)publishDate category:(NSString *)category type:(NSString *)type resImage:(NSString *)resImage
+{
+    Article *a = [Article new];
+    a.id = articleid;
+    a.isSponsor = NO;
+    a.publishDate = publishDate;
+    a.gskString = @"  Sponsored content brought to you by GSK";
+    a.type = type;
+    a.authAccount = @"tom@gmail.com";
+    a.authName = @"Dr.Sandra Tai";
+    a.authAdd = @"Vancouver, BC";
+    a.title = title;
+    a.content =content;
+    a.subContent = subContent;
+    a.resImage = resImage;
+    a.resType = @"image";
+    a.category=category;
+    
+    DiscussInfo *dis = [DiscussInfo new];
+    dis.disImg = @"http://app800.cn/i/p.png";
+    dis.name = @"Matt Heafy rated it";
+    dis.starCount = 4;
+    dis.disDate = @"3 Jul,2017";
+    dis.content = @"A wonderful experence reading up on the new trends of dental health.";
+    
+    DiscussInfo *dis2 = [DiscussInfo new];
+    dis2.disImg = @"http://app800.cn/i/p.png";
+    dis2.name = @"Amanda Brown rated it";
+    dis2.starCount = 4;
+    dis2.disDate = @"15 May,2017";
+    dis2.content = @"A nice read! Will be sure to recommend this magazine to others.";
+    
+    DiscussInfo *dis3 = [DiscussInfo new];
+    dis3.disImg = @"http://app800.cn/i/p.png";
+    dis3.name = @"Gareth Bale rated it";
+    dis3.starCount = 4;
+    dis3.disDate = @"23 Apr,2017";
+    dis3.content = @"Best dental health magazine I have read in my life. Would recommend reading it with something else to do dles make the aeddef";
+    a.discussInfo = @[dis,dis2,dis3];
+    
+    ArticleComment *c = [ArticleComment new];
+    c.articleId = 100;
+    c.authAccount = @"peter@gmail.com";
+    c.authName = @"Peter";
+    c.authPortrait = @"http://app800.cn/i/p.png";
+    c.rate = 3;
+    c.content = @"Good !";
+    c.publishDate = @"Sep 16, 2018";
+    
+    a.comments = @[c];
+    return a;
 }
 
 
@@ -726,6 +820,26 @@
 
 //MARK:模拟
 
++(BOOL)isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    string=[NSString stringWithFormat:@"%@",string];
+    if ([string isEqualToString:@"(null)"]) {
+        return YES;
+    }
+    if ([string isEqualToString:@"<null>"]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+
 +(BOOL)archiveActicleArr
 {
     if(getIsActicleArchive()==0){
@@ -759,6 +873,83 @@
     return arr;
 }
 
+//MARK:根据category获取Article列表
++(NSArray *)getArticleListByCategory:(NSString *)category
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    NSMutableArray *newDataArr = [NSMutableArray array];
+    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]] ) {
+            [newDataArr addObject:model];
+        }
+    }];
+    return newDataArr;
+}
+
+//MARK:根据type获取Article列表
++(NSArray *)getArticleListByType:(NSString *)type
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    NSMutableArray *newDataArr = [NSMutableArray array];
+    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([[model.type lowercaseString] isEqualToString:[type lowercaseString]] ) {
+            [newDataArr addObject:model];
+        }
+    }];
+    return newDataArr;
+}
+
+//MARK:根据categoryh跟type获取Article列表
++(NSArray *)getArticleListByCategory:(NSString *)category type:(NSString *)type
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    NSMutableArray *newDataArr = [NSMutableArray array];
+    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if(![self isBlankString:category] && ![self isBlankString:type]){
+            if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
+                [newDataArr addObject:model];
+            }
+        }else if (![self isBlankString:category] && [self isBlankString:type]){
+            if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]]) {
+                [newDataArr addObject:model];
+            }
+        }else if ([self isBlankString:category] && ![self isBlankString:type] ){
+            if ([[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
+                [newDataArr addObject:model];
+            }
+        }else{
+            [newDataArr addObject:model];
+        }
+        
+    }];
+    
+    return newDataArr;
+}
+
+//MARK:根据keywords获取Article列表
++(NSArray *)getArticleListByKeywords:(NSString *)keywords
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    NSMutableArray *newDataArr = [NSMutableArray array];
+    if (![self isBlankString:keywords]) {
+        [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([[model.title lowercaseString] containsString:[keywords lowercaseString]] || [[model.content lowercaseString] containsString:[keywords lowercaseString]] || [[model.type lowercaseString] containsString:[keywords lowercaseString]] || [[model.category lowercaseString] containsString:[keywords lowercaseString]]){
+                [newDataArr addObject:model];
+            }
+        }];
+    }
+   
+    return newDataArr;
+}
+
 //MARK:获取bookmark列表
 +(NSArray *)getBookmarksList
 {
@@ -774,6 +965,37 @@
     return bookmarkDataArr;
 }
 
+//MARK:根据Bookmarks跟type获取Article列表
++(NSArray *)getBookmarksListByCategory:(NSString *)category type:(NSString *)type
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    NSMutableArray *newDataArr = [NSMutableArray array];
+    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (model.isBookmark) {
+            if(![self isBlankString:category] && ![self isBlankString:type]){
+                if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
+                    [newDataArr addObject:model];
+                }
+            }else if (![self isBlankString:category] && [self isBlankString:type] ){
+                if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]]) {
+                    [newDataArr addObject:model];
+                }
+            }else if ([self isBlankString:category] && ![self isBlankString:type] ){
+                if ([[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
+                    [newDataArr addObject:model];
+                }
+            }else{
+                [newDataArr addObject:model];
+            }
+        }
+        
+    }];
+    
+    return newDataArr;
+}
+
 //MARK:获取download列表
 +(NSArray *)getDownloadList
 {
@@ -787,6 +1009,37 @@
         }
     }];
     return downloadDataArr;
+}
+
+//MARK:根据DownloadList跟type获取Article列表
++(NSArray *)getDownloadListByCategory:(NSString *)category type:(NSString *)type
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    NSMutableArray *newDataArr = [NSMutableArray array];
+    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (model.isDownload) {
+            if(![self isBlankString:category] && ![self isBlankString:type]){
+                if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
+                    [newDataArr addObject:model];
+                }
+            }else if (![self isBlankString:category] && [self isBlankString:type] ){
+                if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]]) {
+                    [newDataArr addObject:model];
+                }
+            }else if ([self isBlankString:category] && ![self isBlankString:type] ){
+                if ([[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
+                    [newDataArr addObject:model];
+                }
+            }else{
+                [newDataArr addObject:model];
+            }
+        }
+        
+    }];
+    
+    return newDataArr;
 }
 
 //MARK:检测是否bookmark
@@ -863,20 +1116,14 @@
 //MARK:添加bookmark
 +(BOOL)addBookmarks:(NSInteger)articleid
 {
-    if ([self checkIsBookmarkByArticle:articleid]) {
-        return YES;
-    }else{
-//        Article *newmodel=[self getArticleById:articleid];
-        NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-        NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-        [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (model.id==articleid) {
-                model.isBookmark=YES;
-            }
-        }];
-        return [self saveArticleArr:arr];
-        
-    }
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (model.id==articleid) {
+            model.isBookmark=YES;
+        }
+    }];
+    return [self saveArticleArr:arr];
 }
 
 //MARK:删除bookmark
@@ -895,19 +1142,14 @@
 //MARK:添加download
 +(BOOL)addDownload:(NSInteger)articleid
 {
-    if ([self checkIsDownloadByArticle:articleid]) {
-        return YES;
-    }else{
-//        Article *newmodel=[self getArticleById:articleid];
-        NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-        NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-        [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (model.id==articleid) {
-                model.isDownload=YES;
-            }
-        }];
-        return [self saveArticleArr:arr];
-    }
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (model.id==articleid) {
+            model.isDownload=YES;
+        }
+    }];
+    return [self saveArticleArr:arr];
     
 }
 

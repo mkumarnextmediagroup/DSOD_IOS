@@ -8,6 +8,13 @@
 #import "BookMarkItemView.h"
 #import "Proto.h"
 #import "DentistFilterView.h"
+//<BookMarkItemViewDelegate>
+@interface CmsBookmarkController()<BookMarkItemViewDelegate>
+{
+    NSString *categorytext;
+    NSString *typetext;
+}
+@end
 
 @implementation CmsBookmarkController
 
@@ -20,7 +27,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.items =[Proto getBookmarksList];
+    categorytext=nil;
+    typetext=nil;
+    self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
 //    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadData) userInfo:nil repeats:NO];
 }
 
@@ -63,15 +72,34 @@
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
     Article *art = (id) item;
     BookMarkItemView *itemView = (BookMarkItemView *) view;
+    itemView.delegate=self;
     [itemView bind:art];
+}
+
+-(void)BookMarkAction:(NSInteger)articleid
+{
+    NSLog(@"BookMarkAction=%@",@(articleid));
+    //移除bookmark
+    [Proto deleteBookmarks:articleid];
+    self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+        NSLog(@"点击取消");
+    }]];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark 打开刷选页面
 -(void)clickFilter:(UIButton *)sender
 {
     DentistFilterView *filterview=[[DentistFilterView alloc] init];
-    [filterview show:^{
-        //关闭block回调
+    [filterview show:^(NSString *category, NSString *type) {
+        categorytext=category;
+        typetext=type;
+        self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
     }];
 }
+
 @end

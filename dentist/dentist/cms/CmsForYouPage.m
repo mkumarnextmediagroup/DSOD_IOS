@@ -30,6 +30,10 @@
     BannerScrollView *iv;
     BOOL isdeletead;
     NSInteger selectActicleId;
+    NSArray *dataArray;
+    NSString *category;
+    NSString *type;
+    UISegmentedControl *seg;
 }
 - (instancetype)init {
 	self = [super init];
@@ -53,13 +57,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSArray *ls = [Proto getArticleList];
-    self.items = ls;
+    self.items = [Proto getArticleListByCategory:category type:type];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
+    category=@"LATEST";
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"DSODENTIST";
 	//TODO 还不太明白为啥 不设置rightBarButtonItem，title不显示
@@ -69,9 +72,7 @@
 	self.table.tableHeaderView = [self makeHeaderView];
 	self.table.rowHeight = UITableViewAutomaticDimension;
 	self.table.estimatedRowHeight = 400;
-
-	NSArray *ls = [Proto getArticleList];
-	self.items = ls;
+	self.items = [Proto getArticleListByCategory:category type:type];
 }
 
 //- (void)viewWillAppear:(BOOL)animated {
@@ -99,16 +100,16 @@
     //718*396;
     
     NSArray *urls = @[
-                      @"https://www.dsodentist.com/assets/images/slide/slide-1.jpg",
-                      @"https://www.dsodentist.com/assets/images/slide/slide-2.jpg",
-                      @"https://www.dsodentist.com/assets/images/slide/slide-3.jpg",
-                      @"https://www.dsodentist.com/assets/images/slide/slide-4.jpg",
-                      @"https://www.dsodentist.com/assets/images/slide/slide-5.jpg"];
+                      @"slide-1",
+                      @"slide-2",
+                      @"slide-3",
+                      @"slide-4",
+                      @"slide-5"];
     iv =[BannerScrollView new];
     [panel addSubview:iv];
     typeof(self) __weak weakself = self;
     [[[[[[iv layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:bannerh] install];
-    [iv addWithImageUrls:urls autoTimerInterval:3 clickBlock:^(NSInteger index) {
+    [iv addWithImageNames:urls autoTimerInterval:3 clickBlock:^(NSInteger index) {
         NSLog(@"index=%@",@(index));
         //可以做点击处理
 //        [weakself showImageBrowser:index-1];
@@ -133,7 +134,7 @@
 }
 
 - (UIView *)makeSegPanel {
-	UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:segItems];
+	seg = [[UISegmentedControl alloc] initWithItems:segItems];
 	UIImage *img = colorImage(makeSize(1, 1), rgba255(221, 221, 221, 100));
 	[seg setDividerImage:img forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 
@@ -144,14 +145,14 @@
 	[seg setBackgroundImage:[UIImage imageNamed:@"seg-bg"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 	[seg setBackgroundImage:[UIImage imageNamed:@"seg-sel"] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
 	for (NSUInteger i = 0; i < segItems.count; ++i) {
-		[seg setWidth:90 forSegmentAtIndex:i];
+		[seg setWidth:100 forSegmentAtIndex:i];
 	}
 	seg.selectedSegmentIndex = 0;
 
 	UIScrollView *sv = [UIScrollView new];
 	[sv addSubview:seg];
 
-	sv.contentSize = makeSize(90 * segItems.count, 50);
+	sv.contentSize = makeSize(100 * segItems.count, 50);
 	sv.showsHorizontalScrollIndicator = NO;
 	sv.showsVerticalScrollIndicator = NO;
 	segView = seg;
@@ -160,9 +161,12 @@
 }
 
 - (void)onSegValueChanged:(id)sender {
+    type=nil;
 	NSInteger n = segView.selectedSegmentIndex;
-	NSString *title = segItems[n];
-	Log(@(n ), title);
+	category = segItems[n];
+	Log(@(n ), category);
+    self.items=[Proto getArticleListByCategory:category type:type];
+    
 }
 
 - (void)clickCloseAd:(id)sender {
@@ -235,7 +239,11 @@
 //    NSLog(@"offfsize=%@",NSStringFromCGPoint(scrollView.contentOffset));
     CGFloat height=scrollView.contentSize.height>self.table.frame.size.height?self.table.frame.size.height:scrollView.contentSize.height;
     if((-scrollView.contentOffset.y/self.table.frame.size.height)>0.2){
+        category=@"LATEST";
+        type=nil;
+        seg.selectedSegmentIndex=1;
         self.table.tableHeaderView = [self makeHeaderView];
+        self.items=[Proto getArticleListByCategory:category type:type];
     }
 }
 
@@ -256,8 +264,7 @@
     if ([Proto checkIsBookmarkByArticle:articleid]) {
         //移除bookmark
         [Proto deleteBookmarks:articleid];
-        NSArray *ls = [Proto getArticleList];
-        self.items = ls;
+        self.items=[Proto getArticleListByCategory:category type:type];
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -268,8 +275,7 @@
     }else{
         //添加bookmark
         [Proto addBookmarks:articleid];
-        NSArray *ls = [Proto getArticleList];
-        self.items = ls;
+        self.items=[Proto getArticleListByCategory:category type:type];
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -287,17 +293,15 @@
         case 0://---click the Download button
         {
             NSLog(@"download click");
-            if (![Proto checkIsDownloadByArticle:selectActicleId]) {
-                //添加
-                [Proto addDownload:selectActicleId];
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Download is Add" preferredStyle:UIAlertControllerStyleAlert];
+            //添加
+            [Proto addDownload:selectActicleId];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Download is Add" preferredStyle:UIAlertControllerStyleAlert];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    NSLog(@"点击取消");
-                }]];
-                [self presentViewController:alertController animated:YES completion:nil];
-            }
+                NSLog(@"点击取消");
+            }]];
+            [self presentViewController:alertController animated:YES completion:nil];
         }
             break;
         case 1://---click the Share button
@@ -310,6 +314,12 @@
         default:
             break;
     }
+}
+
+-(void)CategoryPickerSelectAction:(NSString *)result
+{
+    type=result;
+    self.items=[Proto getArticleListByCategory:category type:type];
 }
 
 @end

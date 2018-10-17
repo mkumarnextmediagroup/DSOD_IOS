@@ -42,7 +42,7 @@
 	[[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:40] widthEq:74] install];
 
 	imageView = self.addImageView;
-	[imageView scaleFillAspect];
+//    [imageView scaleFillAspect];
 	[[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:187] install];
 
 	_moreButton = [self addButton];
@@ -78,6 +78,8 @@
 	titleLabel.text = item.title;
 	contentLabel.text = item.content;
 	[imageView loadUrl:item.resImage placeholderImage:@"art-img"];
+    imageView.contentMode=UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds=YES;
     if (item.isBookmark) {
         [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{

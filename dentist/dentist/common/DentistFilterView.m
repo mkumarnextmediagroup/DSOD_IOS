@@ -23,6 +23,8 @@
     {
         self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
         self.backgroundColor =[UIColor whiteColor];
+        _categorytext=nil;//@"DSOs";
+        _typetext=nil;//@"Videos";
     }
     return self;
 }
@@ -50,7 +52,7 @@
     [[[[[categoryLabel.layoutMaker leftParent:20] below:titleLabel offset:30] rightParent:-10] heightEq:20] install];
     UITextField *categoryTextField=self.addEditRounded;
     categoryTextField.delegate = self;
-    categoryTextField.hint = localStr(@"DSOs");
+    categoryTextField.hint = @"";//localStr(@"DSOs");
     categoryTextField.tag=1;
     [categoryTextField returnNext];
     categoryTextField.font = [Fonts regular:15];
@@ -71,7 +73,7 @@
     [[[[[typeLabel.layoutMaker leftParent:20] below:categoryTextField offset:20] rightParent:-10] heightEq:20] install];
     UITextField *typeTextField=self.addEditRounded;
     typeTextField.delegate = self;
-    typeTextField.hint = localStr(@"Videos");
+    typeTextField.hint =  @"";//localStr(@"Videos");
     typeTextField.tag=2;
     [typeTextField returnDone];
     typeTextField.font = [Fonts regular:15];
@@ -97,8 +99,24 @@
     clearLabel.text=localStr(@"Clear all");
     clearLabel.textAlignment=NSTextAlignmentCenter;
     [[[[[clearLabel.layoutMaker leftParent:20] above:updateButton offset:-20] rightParent:-20] heightEq:20] install];
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clearAction)];
+    [clearLabel addGestureRecognizer:tap];
 }
 
+-(void)clearAction
+{
+    _categorytext=nil;
+    _typetext=nil;
+    [UIView animateWithDuration:0.5 animations:^{
+        //将view.frame 设置在屏幕下方
+        self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
+    } completion:^(BOOL finished) {
+        if (self.closeBlock) {
+            self.closeBlock(_categorytext,_typetext);
+        }
+        [self removeFromSuperview];
+    }];
+}
 //弹出
 -(void)show
 {
@@ -123,12 +141,14 @@
 #pragma mark 关闭刷选页面
 -(void)clickClose:(UIButton *)sender
 {
+    _categorytext=nil;
+    _typetext=nil;
     [UIView animateWithDuration:0.5 animations:^{
         //将view.frame 设置在屏幕下方
         self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
     } completion:^(BOOL finished) {
         if (self.closeBlock) {
-            self.closeBlock();
+            self.closeBlock(_categorytext,_typetext);
         }
         [self removeFromSuperview];
     }];
@@ -141,7 +161,7 @@
         self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
     } completion:^(BOOL finished) {
         if (self.closeBlock) {
-            self.closeBlock();
+            self.closeBlock(_categorytext,_typetext);
         }
         [self removeFromSuperview];
     }];
@@ -160,6 +180,7 @@
             
         } selectAction:^(NSString *result) {
             textField.text=result;
+            _categorytext=result;
         }];
     }else{
         DentistPickerView *picker = [[DentistPickerView alloc]init];
@@ -172,6 +193,7 @@
             
         } selectAction:^(NSString *result) {
             textField.text=result;
+            _typetext=result;
         }];
     }
     return NO;

@@ -76,8 +76,8 @@
 
 - (void)bind:(Article *)item {
     statusLabel.text=@"Download complete";
-    titleLabel.text = item.title;
-    contentLabel.text = item.content;
+    titleLabel.text = item.type;
+    contentLabel.text = item.title;
     [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
     [imageView scaleFillAspect];
     imageView.clipsToBounds=YES;

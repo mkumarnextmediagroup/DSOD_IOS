@@ -12,6 +12,7 @@
 
 @property(strong, nonatomic) UIWindow *window;
 @property(strong, nonatomic) UIViewController *presentingController;
+@property(assign, nonatomic) BOOL supportRatate;
 
 @property(class) AppDelegate *instance;
 

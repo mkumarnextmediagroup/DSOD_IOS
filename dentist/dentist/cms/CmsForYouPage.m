@@ -134,6 +134,8 @@
 }
 
 - (UIView *)makeSegPanel {
+    CGFloat segw;
+    segw=SCREENWIDTH*2/7.0;
 	seg = [[UISegmentedControl alloc] initWithItems:segItems];
 	UIImage *img = colorImage(makeSize(1, 1), rgba255(221, 221, 221, 100));
 	[seg setDividerImage:img forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -142,17 +144,18 @@
 	[seg setTitleTextAttributes:@{NSFontAttributeName: [Fonts semiBold:12], NSForegroundColorAttributeName: Colors.textMain} forState:UIControlStateSelected];
 
 	//colorImage(makeSize(1, 1), rgba255(247, 247, 247, 255))
+    
 	[seg setBackgroundImage:[UIImage imageNamed:@"seg-bg"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 	[seg setBackgroundImage:[UIImage imageNamed:@"seg-sel"] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
 	for (NSUInteger i = 0; i < segItems.count; ++i) {
-		[seg setWidth:100 forSegmentAtIndex:i];
+		[seg setWidth:segw forSegmentAtIndex:i];
 	}
 	seg.selectedSegmentIndex = 0;
 
 	UIScrollView *sv = [UIScrollView new];
 	[sv addSubview:seg];
 
-	sv.contentSize = makeSize(100 * segItems.count, 50);
+	sv.contentSize = makeSize(segw * segItems.count, 50);
 	sv.showsHorizontalScrollIndicator = NO;
 	sv.showsVerticalScrollIndicator = NO;
 	segView = seg;

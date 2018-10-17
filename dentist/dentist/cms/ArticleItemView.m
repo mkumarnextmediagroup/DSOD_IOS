@@ -20,7 +20,7 @@
 - (instancetype)init {
 	self = [super init];
 
-	NSInteger edge = 16;
+	NSInteger edge = 10;
 
 	UIView *topView = self.addView;
 	topView.backgroundColor = rgb255(250, 251, 253);
@@ -48,7 +48,7 @@
 	_moreButton = [self addButton];
 	[_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
     [_moreButton addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
-	[[[[_moreButton.layoutMaker rightParent:-edge] below:imageView offset:edge] sizeEq:20 h:20] install];
+	[[[[_moreButton.layoutMaker rightParent:-5] below:imageView offset:edge] sizeEq:20 h:20] install];
 
 	markButton = [self addButton];
 	[markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
@@ -60,7 +60,7 @@
 	[titleLabel textColorMain];
 	titleLabel.numberOfLines = 0;
 //	[[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] heightEq:24] install];
-	[[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] bottomParent:-103] install];
+	[[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-10] below:imageView offset:10] bottomParent:-103] install];
 
 	contentLabel = [self addLabel];
 	contentLabel.font = [Fonts regular:15];
@@ -119,10 +119,11 @@
     [picker show:^(NSString *result) {
         
     } rightAction:^(NSString *result) {
+        
+    } selectAction:^(NSString *result) {
         if(self.delegate && [self.delegate respondsToSelector:@selector(CategoryPickerSelectAction:)]){
             [self.delegate CategoryPickerSelectAction:result];
         }
-    } selectAction:^(NSString *result) {
     }];
 }
 @end

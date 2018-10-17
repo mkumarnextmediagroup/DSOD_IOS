@@ -56,11 +56,6 @@
 
 -(void)markAction:(UIButton *)sender
 {
-    if (_model.isBookmark) {
-        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-    }else{
-        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
-    }
     if(self.delegate && [self.delegate respondsToSelector:@selector(BookMarkAction:)]){
         [self.delegate BookMarkAction:_model.id];
     }

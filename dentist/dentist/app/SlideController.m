@@ -52,7 +52,8 @@
     QueueLayout *ql = [QueueLayout new];
     ql.edgeLeft = 18;
     ql.edgeRight = 0;
-    [ql add:userView height:115 marginTop:16 + NAVHEIGHT];
+    [ql add:[self addLine] height:1 marginTop:NAVHEIGHT];
+    [ql add:userView height:115 marginTop:16];
     [ql add:[self addLine] height:1 marginTop:16];
 
     for (SlideItem *item in items) {

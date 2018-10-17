@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ScrollPage.h"
 
-@interface AddReviewViewController : UIViewController
+@interface AddReviewViewController : ScrollPage
 
 @end

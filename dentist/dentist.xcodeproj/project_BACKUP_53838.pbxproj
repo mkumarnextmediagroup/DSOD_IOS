@@ -183,9 +183,6 @@
 		A956C5382154CC4B00E528EB /* Icon-Search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A956C5352154CC4B00E528EB /* Icon-Search@2x.png */; };
 		A956C5392154CC4B00E528EB /* Icon-Search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A956C5362154CC4B00E528EB /* Icon-Search@3x.png */; };
 		A99176FD2176D7A300788D2C /* DataControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A99176FC2176D7A300788D2C /* DataControl.m */; };
-		A99177062176E4CD00788D2C /* NSObject+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = A99177022176E4CD00788D2C /* NSObject+NSCoding.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		A99177072176E4CD00788D2C /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A99177032176E4CD00788D2C /* BaseModel.m */; };
-		A991770B2176E5EF00788D2C /* ClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = A99177092176E5EF00788D2C /* ClassProperty.m */; };
 		BFCE80B42123CB59008F3A7F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BFCE80B62123CB59008F3A7F /* Localizable.strings */; };
 		C5EEA00883327B721F4F63A6 /* seg-bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA865BCD7831629957081 /* seg-bg@3x.png */; };
 		C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEADB73500333182433F3A /* UIImage+customed.m */; };
@@ -852,12 +849,6 @@
 		A956C5362154CC4B00E528EB /* Icon-Search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Search@3x.png"; sourceTree = "<group>"; };
 		A99176FB2176D7A300788D2C /* DataControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataControl.h; sourceTree = "<group>"; };
 		A99176FC2176D7A300788D2C /* DataControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataControl.m; sourceTree = "<group>"; };
-		A99177022176E4CD00788D2C /* NSObject+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+NSCoding.m"; sourceTree = "<group>"; };
-		A99177032176E4CD00788D2C /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
-		A99177042176E4CD00788D2C /* NSObject+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+NSCoding.h"; sourceTree = "<group>"; };
-		A99177052176E4CD00788D2C /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
-		A99177092176E5EF00788D2C /* ClassProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassProperty.m; sourceTree = "<group>"; };
-		A991770A2176E5EF00788D2C /* ClassProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassProperty.h; sourceTree = "<group>"; };
 		AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentist.release.xcconfig"; path = "Pods/Target Support Files/Pods-dentist/Pods-dentist.release.xcconfig"; sourceTree = "<group>"; };
 		BC6B1F2945E33C6DFA044809 /* libPods-dentistTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dentistTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFCE80B52123CB59008F3A7F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -1369,8 +1360,6 @@
 		18B83ACA2173557C00130DB6 /* library */ = {
 			isa = PBXGroup;
 			children = (
-				A99177082176E5EF00788D2C /* ClassProperty */,
-				A99177012176E4CD00788D2C /* AutoEncodeDecode */,
 				18B83ACB2173557C00130DB6 /* YBImageBrowser */,
 			);
 			path = library;
@@ -2177,26 +2166,6 @@
 				BC6B1F2945E33C6DFA044809 /* libPods-dentistTests.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A99177012176E4CD00788D2C /* AutoEncodeDecode */ = {
-			isa = PBXGroup;
-			children = (
-				A99177022176E4CD00788D2C /* NSObject+NSCoding.m */,
-				A99177042176E4CD00788D2C /* NSObject+NSCoding.h */,
-				A99177032176E4CD00788D2C /* BaseModel.m */,
-				A99177052176E4CD00788D2C /* BaseModel.h */,
-			);
-			path = AutoEncodeDecode;
-			sourceTree = "<group>";
-		};
-		A99177082176E5EF00788D2C /* ClassProperty */ = {
-			isa = PBXGroup;
-			children = (
-				A99177092176E5EF00788D2C /* ClassProperty.m */,
-				A991770A2176E5EF00788D2C /* ClassProperty.h */,
-			);
-			path = ClassProperty;
 			sourceTree = "<group>";
 		};
 		C5EEA1D629EAF158031F3B00 /* careers */ = {
@@ -3143,7 +3112,6 @@
 				E11E1F3374C0062C790089B8 /* TitleBar.m in Sources */,
 				18B83B102173557D00130DB6 /* YBIBGestureInteractionProfile.m in Sources */,
 				E11E1A6226F32868524CF272 /* BaseTabController.m in Sources */,
-				A99177062176E4CD00788D2C /* NSObject+NSCoding.m in Sources */,
 				4E85DA8B21429C45007C40C3 /* DenGlobalInfo.m in Sources */,
 				E11E1ADBC83B9657D14256E2 /* UserConfig.m in Sources */,
 				E11E13D762D175EF23115B92 /* AppDelegate.m in Sources */,
@@ -3160,7 +3128,6 @@
 				C5EEACBF759E368D6653D927 /* QueueLayout.m in Sources */,
 				C5EEA2B94B1448427D266481 /* QueueLayoutItem.m in Sources */,
 				C5EEAB5B6FF45C046B7CF9E6 /* IconLabelView.m in Sources */,
-				A99177072176E4CD00788D2C /* BaseModel.m in Sources */,
 				E11E1895C8DEDD3F910A9E71 /* SettingController.m in Sources */,
 				4E23E07F21529D6E00EDCE08 /* XHStarRateView.m in Sources */,
 				E11E111E354E6A130CF12E43 /* Confirm.m in Sources */,
@@ -3226,7 +3193,6 @@
 				C5EEA7409B28BF6FE9FB06F8 /* CmsCategoryPage.m in Sources */,
 				C5EEAFAD1B55BB349102460C /* CmsForYouPage.m in Sources */,
 				C5EEA742EA03F97F5FF1B234 /* ArticleItemView.m in Sources */,
-				A991770B2176E5EF00788D2C /* ClassProperty.m in Sources */,
 				C5EEA32DD334BD1A936C8AF7 /* IdName.m in Sources */,
 				C5EEA2E604C9E5CD496542A0 /* StateCity.m in Sources */,
 				C5EEA4F5057D8AD20840551B /* NSDictionary+myextend.m in Sources */,
@@ -3422,7 +3388,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+<<<<<<< HEAD
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
+=======
 				DEVELOPMENT_TEAM = T9358E6X2D;
+>>>>>>> 8ec464f91ca1a2fc648c6cfb0349c8f7794062dc
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -3470,7 +3440,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+<<<<<<< HEAD
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
+=======
 				DEVELOPMENT_TEAM = T9358E6X2D;
+>>>>>>> 8ec464f91ca1a2fc648c6cfb0349c8f7794062dc
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

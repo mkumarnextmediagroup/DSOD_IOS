@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-typedef void (^DentistFilterViewCloseActionBlock) (void);
+typedef void (^DentistFilterViewCloseActionBlock) (NSString *category,NSString *type);
 @interface DentistFilterView : UIView<UITextFieldDelegate>
 /** closeblock */
 @property (copy, nonatomic) DentistFilterViewCloseActionBlock closeBlock;
-
+@property (nonatomic,strong) NSString *categorytext;
+@property (nonatomic,strong) NSString *typetext;
 -(void)show;
 
 -(void)show:(DentistFilterViewCloseActionBlock)closeActionBlock;

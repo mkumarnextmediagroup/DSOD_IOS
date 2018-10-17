@@ -15,6 +15,7 @@
 {
     NSInteger selectIndex;
     BOOL issearch;
+    NSString *searchKeywords;
 }
 /*** searchbar ***/
 @property (nonatomic,strong) UISearchBar *searchBar;
@@ -29,7 +30,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
 }
 
 - (void)viewDidLoad {
@@ -59,7 +59,7 @@
     self.table.estimatedRowHeight = 400;
     [self addEmptyViewWithImageName:@"Icon-Search" title:@"Search by categoy name,\n author,or content type"];
 
-    self.items = nil;
+    self.items = [Proto getArticleListByKeywords:searchKeywords];
     
 //    searchEdit = [self.navigationController.view addEditSearch];
 //    searchEdit.delegate = self;
@@ -142,8 +142,7 @@
     if ([Proto checkIsBookmarkByArticle:articleid]) {
         //移除bookmark
         [Proto deleteBookmarks:articleid];
-        NSArray *ls = [Proto getArticleList];
-        self.items = ls;
+        self.items=[Proto getArticleListByKeywords:searchKeywords];
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -154,8 +153,7 @@
     }else{
         //添加bookmark
         [Proto addBookmarks:articleid];
-        NSArray *ls = [Proto getArticleList];
-        self.items = ls;
+        self.items=[Proto getArticleListByKeywords:searchKeywords];
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -209,11 +207,11 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     issearch=YES;
-    NSArray *ls = [Proto getArticleList];
-    self.items=ls;
+    searchKeywords=searchBar.text;
     [self.searchBar resignFirstResponder];
 //    [_searchBar setShowsCancelButton:NO animated:YES];
      _searchBar.showsCancelButton = NO;
+    self.items=[Proto getArticleListByKeywords:searchKeywords];
 //    for (id obj in [_searchBar subviews]) {
 //        if ([obj isKindOfClass:[UIView class]]) {
 //            for (id obj2 in [obj subviews]) {

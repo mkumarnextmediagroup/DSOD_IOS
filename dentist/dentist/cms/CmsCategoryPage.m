@@ -13,6 +13,7 @@
 @interface CmsCategoryPage()<ArticleItemViewDelegate>
 {
     NSInteger selectIndex;
+    NSString *type;
 }
 @end
 @implementation CmsCategoryPage {
@@ -23,17 +24,13 @@
 	[super viewDidLoad];
 
 	UINavigationItem *item = [self navigationItem];
-	item.title = @"Category";
+	item.title = @"CATEGORY";
     
     self.table.rowHeight = UITableViewAutomaticDimension;
     self.table.estimatedRowHeight = 400;
     [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by categoy" filterAction:^(NSString *result) {
-        if([result isEqualToString:@"Orthodontics"]){
-            NSArray *ls = [Proto getArticleList];
-            self.items=ls;
-        }else{
-            self.items=nil;
-        }
+        type=result;
+        self.items=[Proto getArticleListByType:type];
         
     }];
     
@@ -107,12 +104,8 @@
 
 -(void)CategoryPickerSelectAction:(NSString *)result
 {
-    if([result isEqualToString:@"Orthodontics"]){
-        NSArray *ls = [Proto listArticle];
-        self.items=ls;
-    }else{
-        self.items=nil;
-    }
+    type=result;
+    self.items=[Proto getArticleListByType:type];
 }
 
 -(void)ArticleMarkAction:(NSInteger)articleid
@@ -121,8 +114,7 @@
     if ([Proto checkIsBookmarkByArticle:articleid]) {
         //移除bookmark
         [Proto deleteBookmarks:articleid];
-        NSArray *ls = [Proto getArticleList];
-        self.items = ls;
+        self.items=[Proto getArticleListByType:type];
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -133,8 +125,7 @@
     }else{
         //添加bookmark
         [Proto addBookmarks:articleid];
-        NSArray *ls = [Proto getArticleList];
-        self.items = ls;
+        self.items=[Proto getArticleListByType:type];
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -144,6 +135,5 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }
 }
-
 
 @end

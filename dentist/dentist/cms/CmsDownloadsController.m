@@ -16,6 +16,8 @@
 {
     NSInteger selectIndex;
     NSMutableArray *ls;
+    NSString *categorytext;
+    NSString *typetext;
     
 }
 @end
@@ -31,8 +33,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    ls = [NSMutableArray arrayWithArray:[Proto listBookmark]];
-    self.items = [Proto getDownloadList];
+    categorytext=nil;
+    typetext=nil;
+    self.items = [Proto getDownloadListByCategory:typetext type:categorytext];
 //    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadData) userInfo:nil repeats:NO];
 }
 
@@ -114,8 +117,10 @@
 -(void)clickFilter:(UIButton *)sender
 {
     DentistFilterView *filterview=[[DentistFilterView alloc] init];
-    [filterview show:^{
-        //关闭block回调
+    [filterview show:^(NSString *category, NSString *type) {
+        categorytext=category;
+        typetext=type;
+        self.items =[Proto getDownloadListByCategory:typetext type:categorytext];
     }];
 }
 

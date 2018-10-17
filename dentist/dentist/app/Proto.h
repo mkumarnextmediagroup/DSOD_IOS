@@ -77,12 +77,28 @@
 
 //MARK:获取Article列表
 +(NSArray *)getArticleList;
+//MARK:根据category获取Article列表
++(NSArray *)getArticleListByCategory:(NSString *)category;
+
+//MARK:根据type获取Article列表
++(NSArray *)getArticleListByType:(NSString *)type;
+
+//MARK:根据categoryh跟type获取Article列表
++(NSArray *)getArticleListByCategory:(NSString *)category type:(NSString *)type;
+
+//MARK:根据keywords获取Article列表
++(NSArray *)getArticleListByKeywords:(NSString *)keywords;
 
 //MARK:获取bookmark列表
 +(NSArray *)getBookmarksList;
+//MARK:根据Bookmarks跟type获取Article列表
++(NSArray *)getBookmarksListByCategory:(NSString *)category type:(NSString *)type;
 
 //MARK:获取download列表
 +(NSArray *)getDownloadList;
+
+//MARK:根据DownloadList跟type获取Article列表
++(NSArray *)getDownloadListByCategory:(NSString *)category type:(NSString *)type;
 
 //MARK:检测是否bookmark
 +(BOOL)checkIsBookmarkByArticle:(NSInteger)articleid;

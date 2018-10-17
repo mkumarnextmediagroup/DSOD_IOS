@@ -14,7 +14,6 @@
 	UILabel *typeLabel;
 	UILabel *dateLabel;
 	UIImageView *imageView;
-	UIButton *greeBtn;
 	UIButton *moreButton;
 	UIButton *markButton;
 	UIImageView *headerImg;
@@ -60,25 +59,25 @@
     [self addSubview:self.sbPlayer];
     [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
     
-	greeBtn = [self addButton];
-	[greeBtn.titleLabel setFont:[Fonts regular:12]];
-	greeBtn.titleLabel.textColor = [UIColor whiteColor];
-	greeBtn.backgroundColor = rgb255(111, 201, 211);
-	[[[[[greeBtn.layoutMaker leftParent:0] rightParent:0] below:imageView offset:0] heightEq:62] install];
+	_greeBtn = [self addButton];
+	[_greeBtn.titleLabel setFont:[Fonts regular:12]];
+	_greeBtn.titleLabel.textColor = [UIColor whiteColor];
+	_greeBtn.backgroundColor = rgb255(111, 201, 211);
+	[[[[[_greeBtn.layoutMaker leftParent:0] rightParent:0] below:imageView offset:0] heightEq:62] install];
 
 	moreButton = [self addButton];
 	[moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
-	[[[[moreButton.layoutMaker rightParent:-edge] below:greeBtn offset:edge] sizeEq:20 h:20] install];
+	[[[[moreButton.layoutMaker rightParent:-edge] below:_greeBtn offset:edge] sizeEq:20 h:20] install];
 
 	markButton = [self addButton];
 	[markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-	[[[[markButton.layoutMaker toLeftOf:moreButton offset:-8] below:greeBtn offset:edge] sizeEq:20 h:20] install];
+	[[[[markButton.layoutMaker toLeftOf:moreButton offset:-8] below:_greeBtn offset:edge] sizeEq:20 h:20] install];
 
 	titleLabel = [self addLabel];
 	titleLabel.font = [Fonts semiBold:20];
 	[titleLabel textColorMain];
 	titleLabel.numberOfLines = 0;
-	[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:greeBtn offset:10] install];
+	[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:_greeBtn offset:10] install];
 	[titleLabel.layoutMaker.height.equalTo(@24).priority(200) install];
 
 	UILabel *lineLabel = [self lineLabel];
@@ -204,8 +203,8 @@
 //    [imageView loadUrl:bindInfo.resImage placeholderImage:@"art-img"];
 	[headerImg loadUrl:@"http://app800.cn/i/p.png" placeholderImage:@"user_img"];
 	titleLabel.text = bindInfo.title;
-	[greeBtn setTitle:bindInfo.gskString forState:UIControlStateNormal];
-    [greeBtn setImage:[UIImage imageNamed:@"gskIcon"] forState:UIControlStateNormal];
+	[_greeBtn setTitle:bindInfo.gskString forState:UIControlStateNormal];
+    [_greeBtn setImage:[UIImage imageNamed:@"gskIcon"] forState:UIControlStateNormal];
 	nameLabel.text = bindInfo.authName;
 	addressLabel.text = bindInfo.authAdd;
 	contentLabel.text = bindInfo.content;

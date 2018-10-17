@@ -17,6 +17,7 @@
 @property (nonatomic,strong)UIView *topView;
 @property (nonatomic,strong)UIButton *gskBtn;
 @property (nonatomic,strong)UIButton *bgBtn;
+@property (nonatomic,strong)UIButton *greeBtn;
 
 -(void)bind:(Article *)bindInfo ;
 - (void)resetLayout;

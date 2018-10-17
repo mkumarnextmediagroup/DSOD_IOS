@@ -941,8 +941,8 @@
     if (![self isBlankString:keywords]) {
         [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            if([[model.title lowercaseString] containsString:[keywords lowercaseString]] || [[model.content lowercaseString] containsString:[keywords lowercaseString]] || [[model.type lowercaseString] containsString:[keywords lowercaseString]] || [[model.category lowercaseString] containsString:[keywords lowercaseString]]){
-                [newDataArr addObject:model];
+            if([[model.title lowercaseString] containsString:[keywords lowercaseString]] || [[model.content lowercaseString] containsString:[keywords lowercaseString]] || [[model.type lowercaseString] containsString:[keywords lowercaseString]] || [[model.category lowercaseString] containsString:[keywords lowercaseString]] || [[model.authName lowercaseString] containsString:[keywords lowercaseString]]){
+                [newDataArr addObject:model];//authName
             }
         }];
     }

@@ -143,6 +143,29 @@
     [delegate.window.rootViewController.view addSubview:_parentView];
 }
 
+- (void)show:(UIView *)superview
+{
+    if (superview) {
+        [superview addSubview:self];
+        
+        [UIView animateWithDuration:.35 animations:^{
+            
+            self->_parentView.top = SCREENHEIGHT - self->_parentView.height;
+        }];
+        [superview addSubview:_parentView];
+    }else{
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate.window.rootViewController.view addSubview:self];
+        
+        [UIView animateWithDuration:.35 animations:^{
+            
+            self->_parentView.top = SCREENHEIGHT - self->_parentView.height;
+        }];
+        [delegate.window.rootViewController.view addSubview:_parentView];
+    }
+    
+}
+
 - (void)hiddenAnimation
 {
     [UIView animateWithDuration:.35 animations:^{

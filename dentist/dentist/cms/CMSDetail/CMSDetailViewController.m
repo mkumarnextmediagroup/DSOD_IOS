@@ -221,7 +221,7 @@
 //    [denSheet show];
     NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
-    [denSheet show];
+    [denSheet show:self.view];
     
     
 }
@@ -315,10 +315,72 @@
 
 - (void)onClickUp:(UIButton *)btn {
 	NSLog(@"clickup");
+//    NSInteger index=(_articleInfo.id-1);
+//    NSArray *arr=[Proto getArticleList];
+//    if (index<=0) {
+//        index=0;
+//    }
+//    if (index>=arr.count) {
+//        index=(arr.count-1);
+//    }
+//    index--;
+//    if (index<0) {
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"is the fist Aritcle" preferredStyle:UIAlertControllerStyleAlert];
+//
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//            NSLog(@"点击取消");
+//        }]];
+//        [self presentViewController:alertController animated:YES completion:nil];
+//    }else if (index>=arr.count) {
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"is the laste Aritcle" preferredStyle:UIAlertControllerStyleAlert];
+//
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//            NSLog(@"点击取消");
+//        }]];
+//        [self presentViewController:alertController animated:YES completion:nil];
+//    }else{
+//        _articleInfo=[arr objectAtIndex:index];
+//
+//        [myTable reloadData];
+//    }
+    
 }
 
 - (void)onClickDown:(UIButton *)btn {
 	NSLog(@"onClickDown");
+//    NSInteger index=(_articleInfo.id-1);
+//    NSArray *arr=[Proto getArticleList];
+//    if (index<=0) {
+//        index=0;
+//    }
+//    if (index>=arr.count) {
+//        index=(arr.count-1);
+//    }
+//    index++;
+//    if (index<0) {
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"is the fist Aritcle" preferredStyle:UIAlertControllerStyleAlert];
+//        
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//            
+//            NSLog(@"点击取消");
+//        }]];
+//        [self presentViewController:alertController animated:YES completion:nil];
+//    }else if (index>=arr.count) {
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"is the laste Aritcle" preferredStyle:UIAlertControllerStyleAlert];
+//        
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//            
+//            NSLog(@"点击取消");
+//        }]];
+//        [self presentViewController:alertController animated:YES completion:nil];
+//    }else{
+//        _articleInfo=[arr objectAtIndex:index];
+//        
+//        [myTable reloadData];
+//    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

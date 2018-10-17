@@ -27,6 +27,7 @@
 @property (nonatomic, strong) NSArray        *imageArr;
 
 - (void)show;
+- (void)show:(UIView *)superview;
 
 - (instancetype)initWithDelegate:(id)delegate title:(NSString *)title cancelButton:(NSString *)cancelButton imageArr:(NSArray *)imageArr otherTitle:(NSString *)otherTitle, ... NS_REQUIRES_NIL_TERMINATION;
 

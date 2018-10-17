@@ -150,26 +150,6 @@
     [[[[[submit.layoutMaker leftParent:22] rightParent:-22] bottomParent:-28] heightEq:40] install];
 }
 
-- (void)createNav
-{
-    UIView *topVi = [UIView new];
-    topVi.backgroundColor = Colors.bgNavBarColor;
-    [self.view addSubview:topVi];
-    [[[[[topVi.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:NAVHEIGHT] install];
-    
-    UILabel *content = [topVi addLabel];
-    content.font = [Fonts semiBold:15];
-    content.textColor = [UIColor whiteColor];
-    content.text = @"ADD A REVIEW";
-    content.textAlignment = NSTextAlignmentCenter;
-    [[[[content.layoutMaker leftParent:(SCREENWIDTH - 200)/2] topParent:23+NAVHEIGHT_OFFSET] sizeEq:200 h:40] install];
-    
-    UIButton *dismissBtn = [topVi addButton];
-    [dismissBtn setImage:[UIImage imageNamed:@"back_arrow"] forState:UIControlStateNormal];
-    [dismissBtn addTarget:self action:@selector(onBack:) forControlEvents:UIControlEventTouchUpInside];
-    [[[[dismissBtn.layoutMaker leftParent:0] topParent:24+NAVHEIGHT_OFFSET] sizeEq:60 h:40] install];
-}
-
 - (void)submitBtnClick
 {
     [self Den_showAlertWithTitle:@"Submit Successful" message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {

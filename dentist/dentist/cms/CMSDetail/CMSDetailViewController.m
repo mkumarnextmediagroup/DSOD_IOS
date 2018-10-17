@@ -26,6 +26,7 @@
 
 @implementation CMSDetailViewController
 
+//control this page can mask all
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -170,9 +171,10 @@
 	playView = [PlayerView new];
     [playView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
     [playView.gskBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [playView.greeBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
 	[self.contentView addSubview:playView];
 	[playView bind:self.articleInfo];
-	[[[[playView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT] install];
+	[[[[playView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
    
 // [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
     

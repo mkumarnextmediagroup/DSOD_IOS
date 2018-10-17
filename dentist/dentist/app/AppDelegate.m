@@ -47,6 +47,16 @@
 	return YES;
 }
 
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    if (self.supportRatate) {
+        return UIInterfaceOrientationMaskAllButUpsideDown;
+    }else
+    {
+        return UIInterfaceOrientationMaskPortrait;
+    }
+}
+
 - (void)switchToMainPage {
 	self.window.rootViewController = [self makeMainPage];
 }

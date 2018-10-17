@@ -51,7 +51,8 @@
         conLabel = [self addLabel];
         conLabel.numberOfLines = 0;
         conLabel.font = [Fonts semiBold:12];
-        [conLabel textColorMain];
+        conLabel.textColor = rgb255(87, 87, 87);
+//        [conLabel textColorMain];
         conLabel.text = @"Finished the content?";
         [[[[conLabel.layoutMaker toRightOf:headerImg offset:10] below:reviewLabel offset:10] sizeEq:SCREENWIDTH - 95 h:40] install];
     }

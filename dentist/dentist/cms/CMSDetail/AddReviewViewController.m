@@ -12,10 +12,11 @@
 #import "XHStarRateView.h"
 
 #define edge 16
-@interface AddReviewViewController ()
+@interface AddReviewViewController ()<UITextViewDelegate>
 {
     UIView *vi;
     UIView *bgVi;
+    UILabel *remainLab;
 }
 @end
 
@@ -24,7 +25,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self createNav];
+//    [self createNav];
+    
+    self.navigationController.navigationBarHidden = NO;
+    UINavigationItem *item = self.navigationItem;
+    item.title = @"ADD A REVIEW";
+    item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
+
     
     [self buildSubViews];
     
@@ -66,11 +73,12 @@
     timeLab.textAlignment = NSTextAlignmentCenter;
     [[[timeLab.layoutMaker sizeEq:SCREENWIDTH h:20] below:noticLab offset:0] install];
     
-    XHStarRateView *star = [[XHStarRateView alloc] initWithFrame:CGRectMake(0, 0, 160, 30)];
-    star.isAnimation = YES;
+    XHStarRateView *star = [[XHStarRateView alloc] initWithFrame:CGRectMake(SCREENWIDTH/2-80, 105, 160, 30)];
+    star.isAnimation = NO;
     star.rateStyle = HalfStar;
+    star.tag = 1;
     [vi addSubview:star];
-    [[[star.layoutMaker below:timeLab offset:10] leftParent:SCREENWIDTH/2-80] install];
+//    [[[star.layoutMaker below:timeLab offset:10] leftParent:SCREENWIDTH/2-80] install];
 }
 
 - (void)buildAuthor
@@ -116,15 +124,27 @@
 
     UITextView *textView = [textVi addTextView];
     textView.font = [Fonts regular:15];
+    textView.editable = YES;
+    textView.delegate = self;
+    textView.returnKeyType = UIReturnKeyDone;
     [[[[[textView.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-330] leftParent:edge] rightParent:-edge] below:reLabel offset:edge] install];
     
+    remainLab = [textVi addLabel];
+    remainLab.font = [Fonts semiBold:12];
+    remainLab.text = @"500 characters remaining";
+    remainLab.textColor = Colors.textDisabled;
+    [[[[remainLab.layoutMaker rightParent:-edge] bottomParent:-edge] heightEq:20] install];
+
     UILabel *lineLab = [textVi addLabel];
     lineLab.backgroundColor = Colors.cellLineColor;
     [[[[lineLab.layoutMaker sizeEq:SCREENWIDTH h:1] bottomParent:-1] leftParent:0] install];
 
     
+    
+    
     UIButton *submit = [self.view addButton];
     submit.backgroundColor =Colors.textDisabled;
+    [submit addTarget:self action:@selector(submitBtnClick) forControlEvents:UIControlEventTouchUpInside];
     submit.titleLabel.font = [Fonts regular:15];
     [submit setTitle:@"Submit Review" forState:UIControlStateNormal];
     [[[[[submit.layoutMaker leftParent:22] rightParent:-22] bottomParent:-28] heightEq:40] install];
@@ -148,6 +168,44 @@
     [dismissBtn setImage:[UIImage imageNamed:@"back_arrow"] forState:UIControlStateNormal];
     [dismissBtn addTarget:self action:@selector(onBack:) forControlEvents:UIControlEventTouchUpInside];
     [[[[dismissBtn.layoutMaker leftParent:0] topParent:24+NAVHEIGHT_OFFSET] sizeEq:60 h:40] install];
+}
+
+- (void)submitBtnClick
+{
+    [self Den_showAlertWithTitle:@"Submit Successful" message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+        alertMaker.
+        addActionCancelTitle(@"OK");
+    } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+        if ([action.title isEqualToString:@"OK"]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    long leftLength = 500 - textView.text.length;
+    if (leftLength <= 0) {
+        leftLength = 0;
+    }
+    remainLab.text = [NSString stringWithFormat:@"%lu characters remaining", leftLength];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if ([text isEqualToString:@"\n"]){
+        
+        [textView resignFirstResponder];
+        return NO;
+    }
+    if (range.location > 500)
+    {
+        return  NO;
+     }else
+     {
+        return YES;
+     }
+    
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

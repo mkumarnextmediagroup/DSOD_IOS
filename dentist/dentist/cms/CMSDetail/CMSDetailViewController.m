@@ -14,6 +14,8 @@
 #import "XHStarRateView.h"
 #import "GSKViewController.h"
 #import "AddReviewViewController.h"
+#import "ViewAllViewController.h"
+#import "AppDelegate.h"
 
 #define edge 15
 @interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource> {
@@ -24,9 +26,25 @@
 
 @implementation CMSDetailViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.supportRatate = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.supportRatate = NO;
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    self.navigationController.navigationBarHidden = YES;
     [self createNav];
     
 	[self buildViews];
@@ -59,12 +77,20 @@
     UIButton *btn = [headerVi addButton];
     [btn setTitleColor:Colors.primary forState:UIControlStateNormal];
     [btn.titleLabel setFont:[Fonts semiBold:12]];
+    [btn addTarget:self action:@selector(goToViewAllPage) forControlEvents:UIControlEventTouchUpInside];
     [btn setTitle:@"View all" forState:UIControlStateNormal];
     [[[[btn.layoutMaker rightParent:-10] topParent:19] sizeEq:100 h:40] install];
     
     UILabel *lineLabel = [headerVi lineLabel];
     [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] topParent:77] heightEq:1] install];
     return headerVi;
+}
+
+- (void)goToViewAllPage
+{
+    ViewAllViewController *viewAll = [ViewAllViewController new];
+    viewAll.discussInfo = self.articleInfo.discussInfo;
+    [self.navigationController pushViewController:viewAll animated:YES];
 }
 
 - (UIView *)footerView

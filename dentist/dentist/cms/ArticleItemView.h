@@ -10,12 +10,15 @@
 
 @optional
 - (void)CategoryPickerSelectAction:(NSString *)result;
+- (void)ArticleMoreAction:(NSInteger)articleid;
+- (void)ArticleMarkAction:(NSInteger)articleid;;
 @end
 
 @interface ArticleItemView : UIView
 
 @property (strong, nonatomic) UIButton *moreButton;
 @property (nonatomic,weak) id<ArticleItemViewDelegate>delegate;
+@property (strong, nonatomic) Article *model;
 
 -(void) bind:(Article*)item ;
 

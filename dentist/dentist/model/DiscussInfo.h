@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DiscussInfo : NSObject
+@interface DiscussInfo : NSObject<NSCoding>
 
 @property NSString *disImg;
 @property NSString *name;
-@property int starCount;
+@property NSInteger starCount;
 @property NSString *disDate;
 @property NSString *content;
 

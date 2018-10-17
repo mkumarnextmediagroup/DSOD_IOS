@@ -47,10 +47,12 @@
 
 	_moreButton = [self addButton];
 	[_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
+    [_moreButton addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
 	[[[[_moreButton.layoutMaker rightParent:-edge] below:imageView offset:edge] sizeEq:20 h:20] install];
 
 	markButton = [self addButton];
 	[markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
 	[[[[markButton.layoutMaker toLeftOf:_moreButton offset:-8] below:imageView offset:edge] sizeEq:20 h:20] install];
 
 	titleLabel = [self addLabel];
@@ -70,11 +72,40 @@
 
 
 - (void)bind:(Article *)item {
+    _model=item;
 	typeLabel.text = [item.type uppercaseString];
 	dateLabel.text = item.publishDate;
 	titleLabel.text = item.title;
 	contentLabel.text = item.content;
 	[imageView loadUrl:item.resImage placeholderImage:@"art-img"];
+    if (item.isBookmark) {
+        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+    }else{
+        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    }
+}
+
+-(void)moreAction:(UIButton *)sender
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMoreAction:)]){
+        [self.delegate ArticleMoreAction:_model.id];
+    }
+}
+
+-(void)markAction:(UIButton *)sender
+{
+    if (_model.isBookmark) {
+//        _model.isBookmark=NO;
+        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    }else{
+//        _model.isBookmark=YES;
+        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMarkAction:)]){
+        [self.delegate ArticleMarkAction:_model.id];
+    }
+    
+    
 }
 
 -(void)showFilter

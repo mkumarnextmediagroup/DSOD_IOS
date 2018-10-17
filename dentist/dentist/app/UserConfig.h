@@ -26,3 +26,6 @@ extern NSString *keychainGetPwd(NSString *account);
 extern void putServerDomain(NSInteger value);
 extern NSInteger getServerDomain(void);
 
+extern void putIsActicleArchive(NSInteger value);
+extern NSInteger getIsActicleArchive(void);
+

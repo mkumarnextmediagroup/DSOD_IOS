@@ -66,3 +66,16 @@ NSInteger getServerDomain() {
     return value;
 }
 
+void putIsActicleArchive(NSInteger value)
+{
+    NSUserDefaults *server = globalConfig();
+    [server setObject:@(value) forKey:@"IsActicleArchive"];
+    [server synchronize];
+}
+
+NSInteger getIsActicleArchive() {
+    NSUserDefaults *server = globalConfig();
+    NSInteger value = [[server objectForKey:@"IsActicleArchive"] integerValue];
+    return value;
+}
+

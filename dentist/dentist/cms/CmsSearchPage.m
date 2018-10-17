@@ -12,6 +12,10 @@
 #import <Social/Social.h>
 
 @interface CmsSearchPage()<UISearchBarDelegate,MyActionSheetDelegate>
+{
+    NSInteger selectIndex;
+    BOOL issearch;
+}
 /*** searchbar ***/
 @property (nonatomic,strong) UISearchBar *searchBar;
 /*** search result array ***/
@@ -20,6 +24,12 @@
 
 @implementation CmsSearchPage {
     UITextField *searchEdit;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
 }
 
 - (void)viewDidLoad {
@@ -75,12 +85,14 @@
     Article *art = (id) item;
     ArticleItemView *itemView = (ArticleItemView *) view;
     [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    itemView.moreButton.tag=art.id;
     [itemView bind:art];
 }
 
 //click more button
 - (void)moreBtnClick:(UIButton *)btn
 {
+    selectIndex=btn.tag;
     NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
     [denSheet show];
@@ -93,6 +105,17 @@
         case 0://---click the Download button
         {
             NSLog(@"download click");
+            if (![Proto checkIsDownloadByArticle:selectIndex]) {
+                //添加
+                [Proto addDownload:selectIndex];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Download is Add" preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
         }
             break;
         case 1://---click the Share button
@@ -111,6 +134,36 @@
     CMSDetailViewController *detail = [CMSDetailViewController new];
     detail.articleInfo = (Article *) item;
     [self.navigationController.tabBarController presentViewController:detail animated:YES  completion:nil];
+}
+
+-(void)ArticleMarkAction:(NSInteger)articleid
+{
+    NSLog(@"ArticleMarkAction=%@",@(articleid));
+    if ([Proto checkIsBookmarkByArticle:articleid]) {
+        //移除bookmark
+        [Proto deleteBookmarks:articleid];
+        NSArray *ls = [Proto getArticleList];
+        self.items = ls;
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击取消");
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }else{
+        //添加bookmark
+        [Proto addBookmarks:articleid];
+        NSArray *ls = [Proto getArticleList];
+        self.items = ls;
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击取消");
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 #pragma mark ---UISearchBarDelegate
@@ -155,7 +208,8 @@
 //MARK:keyboard search button clicked，do this method
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    NSArray *ls = [Proto listArticle];
+    issearch=YES;
+    NSArray *ls = [Proto getArticleList];
     self.items=ls;
     [self.searchBar resignFirstResponder];
 //    [_searchBar setShowsCancelButton:NO animated:YES];

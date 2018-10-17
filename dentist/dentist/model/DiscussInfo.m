@@ -7,7 +7,24 @@
 //
 
 #import "DiscussInfo.h"
-
+#import "NSObject+NSCoding.h"
 @implementation DiscussInfo
+-(void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:_disImg forKey:@"disImg"];
+    [coder encodeObject:_name forKey:@"name"];
+    [coder encodeInteger:_starCount forKey:@"starCount"];
+    [coder encodeObject:_disDate forKey:@"disDate"];
+    [coder encodeObject:_content forKey:@"content"];
+}
 
+-(id)initWithCoder:(NSCoder *)coder {
+    if (self = [super init]) {
+        _disImg = [coder decodeObjectForKey:@"disImg"];
+        _name = [coder decodeObjectForKey:@"name"];
+        _starCount = [coder decodeIntegerForKey:@"starCount"];
+        _disDate = [coder decodeObjectForKey:@"disDate"];
+        _content = [coder decodeObjectForKey:@"content"];
+    }
+    return self;
+}
 @end

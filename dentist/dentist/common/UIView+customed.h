@@ -50,6 +50,8 @@
 
 - (UITextField *)addEditSearch;
 
+- (UIScrollView *)addScrollView;
+
 - (UIButton *)addButton;
 
 - (UIButton *)needHelpBtn;

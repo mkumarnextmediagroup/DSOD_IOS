@@ -18,6 +18,9 @@
 @property (nonatomic,strong)UIButton *gskBtn;
 @property (nonatomic,strong)UIButton *bgBtn;
 @property (nonatomic,strong)UIButton *greeBtn;
+@property (nonatomic,strong)UIButton *moreButton;
+@property (nonatomic,strong)UIButton *markButton;
+
 
 -(void)bind:(Article *)bindInfo ;
 - (void)resetLayout;

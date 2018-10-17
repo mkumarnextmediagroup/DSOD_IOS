@@ -34,9 +34,9 @@
 	a.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n\n"
 	            "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n\n"
 	            "Once you have completed the expectations with the patient the first step is to test the attachment template and the first aligner. This is an expert thinking process for you.";
-	a.subContent = @"Please be sure to thoroughly dry the attachments template after testing for fit. Generally, it is recommended that when placing attachments, you work in on e arch of the patients' mouth at a time.\n\n"
+	a.subContent = @"Please be sure to thoroughly dry the attachments template after testing for fit. Generally, it is recommended that when placing attachments, you work in one arch of the patients' mouth at a time.\n\n"
 	               "If you have more than four attachments per quadrant, then you may decide to bond the attachments one quadrant at a time. If bonding one quadrant at a time, do not cut the attachment template.Instead, just fill one side of the attachment template with composite material.\n\n"
-	               "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 second until a thin adhesive film layer forms.";
+	               "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 seconds until a thin adhesive film layer forms.";
     a.resImage = @"https://wp.dsodentist.com/wp-content/uploads/2018/09/CA_INVI_D5_T_IOSIM_APAC_0029_rt2_HR_RGB_1280-e1537471186604.jpg";//@"http://app800.cn/i/d.png";
 	a.resType = @"image";
     a.category=@"LATEST";
@@ -127,9 +127,9 @@
     NSInteger articleid3=3;
     NSString *title3=@"Immediate Dentures - Mastering the art of Dental Surgery - Mastering the art of Dental Surgery  ";
     NSString *content3=@"Patients will generally experience up to a 32% horizontal decrease of their alveolar hard tissue within 3 months of tooth extraction.¹ Further, after a tooth extraction, bone resorption is generally hastened, and the soft tissues may undergo changes as well. This is relevant to the patient receiving immediate dentures because any changes in the underpinning upon which the dentures are fitted will lead to diminished retention, and therefore rebasing.²\nAdvantages of immediate dentures:\nThe dental professional and the patient have the opportunity to first match the color, size, and shape of the soon-to-be dentures to the existing teeth";
-    NSString *subContent3=@"Please be sure to thoroughly dry the attachments template after testing for fit. Generally, it is recommended that when placing attachments, you work in on e arch of the patients' mouth at a time.\n\n"
+    NSString *subContent3=@"Please be sure to thoroughly dry the attachments template after testing for fit. Generally, it is recommended that when placing attachments, you work in one arch of the patients' mouth at a time.\n\n"
     "If you have more than four attachments per quadrant, then you may decide to bond the attachments one quadrant at a time. If bonding one quadrant at a time, do not cut the attachment template.Instead, just fill one side of the attachment template with composite material.\n\n"
-    "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 second until a thin adhesive film layer forms.";
+    "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 seconds until a thin adhesive film layer forms.";
     
     NSString *publishDate3=@"May 02,2018";
     NSString *category3=@"LATEST";
@@ -140,9 +140,9 @@
     NSInteger articleid4=4;
     NSString *title4=@"Interproximal Reduction (IPR) - Mastering the art of Dental Surgery";
     NSString *content4=@"DSOD Staff- Interproximal Reduction, also abbreviated as IPR, is a spacing technique that removes the interproximal enamel to reduce the mesial-distal size of teeth. It strives to create space so teeth can move into their proper positions while preserving the natural shape of each tooth. Doctors can visualize IPR through the ClinCheck® software to ensure treatment is progressing as desired and make adjustments before and during Invisalign® treatment.  ";
-    NSString *subContent4=@"Please be sure to thoroughly dry the attachments template after testing for fit. Generally, it is recommended that when placing attachments, you work in on e arch of the patients' mouth at a time.\n\n"
+    NSString *subContent4=@"Please be sure to thoroughly dry the attachments template after testing for fit. Generally, it is recommended that when placing attachments, you work in one arch of the patients' mouth at a time.\n\n"
     "If you have more than four attachments per quadrant, then you may decide to bond the attachments one quadrant at a time. If bonding one quadrant at a time, do not cut the attachment template.Instead, just fill one side of the attachment template with composite material.\n\n"
-    "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 second until a thin adhesive film layer forms.";
+    "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 seconds until a thin adhesive film layer forms.";
     
     NSString *publishDate4=@"Oct 02,2018";
     NSString *category4=@"VIDEOS";
@@ -153,9 +153,9 @@
     NSInteger articleid5=5;
     NSString *title5=@"Platelet-Rich Fibrin: The 411";
     NSString *content5=@" - Platelet-rich fibrin, or PRF, was introduced in oral surgery almost 20 years ago as a wound-healing enhancer. PRF is a mixture of fibrin matrix, cells (platelets, red blood cells, and leukocytes), and bioactive molecules (growth factors and cytokines), that are released to stimulate repair and regeneration. It is obtained from the patient’s own blood, collected before the surgical procedure, and centrifuged under specific conditions. PRF has been further developed into advanced (a-PRF) and injectable (i-PRF) forms by changing the preparation protocol to incorporate more monocytes.";
-    NSString *subContent5=@"Please be sure to thoroughly dry the attachments template after testing for fit. Generally, it is recommended that when placing attachments, you work in on e arch of the patients' mouth at a time.\n\n"
+    NSString *subContent5=@"Please be sure to thoroughly dry the attachments template after testing for fit. Generally, it is recommended that when placing attachments, you work in one arch of the patients' mouth at a time.\n\n"
     "If you have more than four attachments per quadrant, then you may decide to bond the attachments one quadrant at a time. If bonding one quadrant at a time, do not cut the attachment template.Instead, just fill one side of the attachment template with composite material.\n\n"
-    "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 second until a thin adhesive film layer forms.";
+    "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 seconds until a thin adhesive film layer forms.";
     
     NSString *publishDate5=@"Oct 12,2018";
     NSString *category5=@"ARTICLES";

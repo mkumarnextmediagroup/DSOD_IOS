@@ -112,10 +112,12 @@
     UIButton *moreButton = [footerVi addButton];
     [moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
     [[[[moreButton.layoutMaker rightParent:-edge] below:lineLabel1 offset:edge] sizeEq:20 h:20] install];
+    [moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *markButton = [footerVi addButton];
     [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     [[[[markButton.layoutMaker toLeftOf:moreButton offset:-15] below:lineLabel1 offset:edge] sizeEq:20 h:20] install];
+    [markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *nextButton = [footerVi addButton];
     [nextButton setTitleColor:Colors.primary forState:UIControlStateNormal];
@@ -231,8 +233,7 @@
     NSInteger articleid = self.articleInfo.id;
     if ([Proto checkIsBookmarkByArticle:articleid]) {
         //移除bookmark
-        [picDetailView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-        [playView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
         [Proto deleteBookmarks:articleid];
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
         
@@ -244,8 +245,8 @@
     }else{
         //添加bookmark
         [Proto addBookmarks:articleid];
-        [picDetailView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
-        [playView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+       
 
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
         

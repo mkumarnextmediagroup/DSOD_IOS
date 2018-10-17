@@ -8,6 +8,7 @@
 
 #import "CMSDetailViewController.h"
 #import "PlayerView.h"
+#import "PicDetailView.h"
 #import "Common.h"
 #import "Proto.h"
 #import "DiscussTableViewCell.h"
@@ -16,16 +17,20 @@
 #import "AddReviewViewController.h"
 #import "ViewAllViewController.h"
 #import "AppDelegate.h"
+#import "DenActionSheet.h"
+#import <Social/Social.h>
 
 #define edge 15
-@interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource> {
+@interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource,MyActionSheetDelegate> {
 	PlayerView  *playView;
+    PicDetailView *picDetailView;
     UITableView *myTable;
 }
 @end
 
 @implementation CMSDetailViewController
 
+//control this page can mask all
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -167,23 +172,89 @@
 }
 
 - (void)buildViews {
-	playView = [PlayerView new];
-    [playView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
-    [playView.gskBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
-	[self.contentView addSubview:playView];
-	[playView bind:self.articleInfo];
-	[[[[playView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT] install];
-   
-// [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
+    
+    if ([self.toWhichPage isEqualToString:@"mo"]) {
+        playView = [PlayerView new];
+        [playView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
+        [playView.gskBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [playView.greeBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [playView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [playView.markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:playView];
+        [playView bind:self.articleInfo];
+        [[[[playView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
+    
+     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
+
+    }else
+    {
+        picDetailView = [PicDetailView new];
+        [picDetailView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [picDetailView.markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:picDetailView];
+        [picDetailView bind:self.articleInfo];
+        [[[[picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
+        
+        [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(picDetailView) install];
+    }
     
     myTable = [UITableView new];
     [self.contentView addSubview:myTable];
     myTable.dataSource = self;
     myTable.delegate = self;
     myTable.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:playView offset:0] sizeEq:SCREENWIDTH h:485] install];
+    if ([self.toWhichPage isEqualToString:@"mo"]) {
+        [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:playView offset:0] sizeEq:SCREENWIDTH h:485] install];
+    }else
+    {
+        [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:picDetailView offset:0] sizeEq:SCREENWIDTH h:485] install];
+    }
     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
 
+}
+
+//click more button
+- (void)moreBtnClick:(UIButton *)btn
+{
+//    NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
+//    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
+//    [denSheet show];
+    NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
+    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
+    [denSheet show];
+    
+    
+}
+
+- (void)markBtnClick:(UIButton *)btn
+{
+    NSInteger articleid = self.articleInfo.id;
+    if ([Proto checkIsBookmarkByArticle:articleid]) {
+        //移除bookmark
+        [picDetailView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+        [playView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+        [Proto deleteBookmarks:articleid];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击取消");
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }else{
+        //添加bookmark
+        [Proto addBookmarks:articleid];
+        [picDetailView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+        [playView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击取消");
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 - (void)gotoReview
@@ -253,6 +324,36 @@
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
 	// Dispose of any resources that can be recreated.
+}
+
+#pragma mark ---MyActionSheetDelegate
+- (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index
+{
+    switch (index) {
+        case 0://---click the Download button
+        {
+            NSLog(@"download click");
+            //添加
+            [Proto addDownload:_articleInfo.id];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Download is Add" preferredStyle:UIAlertControllerStyleAlert];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+                NSLog(@"点击取消");
+            }]];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+            break;
+        case 1://---click the Share button
+        {
+            NSLog(@"Share click");
+            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[@"Mastering the art of Dental Surgery",[NSURL URLWithString:@"http://app800.cn/i/d.png"]] applicationActivities:nil];
+            [self presentViewController:avc animated:YES completion:nil];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 /*

@@ -145,6 +145,7 @@
     [conLabel textColorAlternate];
     conLabel.text = @"Want more content from GSK?";
     [[[[[conLabel.layoutMaker leftParent:18] rightParent:-18] topParent:0] heightEq:50] install];
+    [conLabel textAlignCenter];
     
     self.gskBtn = [moreView addButton];
     self.gskBtn.backgroundColor = rgb255(111, 201, 211);

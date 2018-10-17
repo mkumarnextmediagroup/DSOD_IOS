@@ -4,11 +4,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 @class ArticleComment;
 @class DiscussInfo;
 
-@interface Article : NSObject
+@interface Article : NSObject<NSCoding>
 
 @property NSInteger id;
 //orthodontics, practice managment, ...
@@ -34,6 +35,8 @@
 @property NSString *resType;
 
 @property BOOL isSponsor;
+@property BOOL isBookmark;//test
+@property BOOL isDownload;//test
 
 @property NSArray<ArticleComment *> *comments;
 @property NSArray<DiscussInfo *> *discussInfo;

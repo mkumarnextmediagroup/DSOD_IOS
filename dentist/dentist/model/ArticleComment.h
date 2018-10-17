@@ -6,7 +6,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ArticleComment : NSObject
+@interface ArticleComment : NSObject<NSCoding>
 
 @property NSInteger articleId;
 

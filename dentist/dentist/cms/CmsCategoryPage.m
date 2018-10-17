@@ -11,6 +11,9 @@
 #import "DenActionSheet.h"
 #import <Social/Social.h>
 @interface CmsCategoryPage()<ArticleItemViewDelegate>
+{
+    NSInteger selectIndex;
+}
 @end
 @implementation CmsCategoryPage {
 
@@ -26,7 +29,7 @@
     self.table.estimatedRowHeight = 400;
     [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by categoy" filterAction:^(NSString *result) {
         if([result isEqualToString:@"Orthodontics"]){
-            NSArray *ls = [Proto listArticle];
+            NSArray *ls = [Proto getArticleList];
             self.items=ls;
         }else{
             self.items=nil;
@@ -50,6 +53,7 @@
     Article *art = (id) item;
     ArticleItemView *itemView = (ArticleItemView *) view;
     itemView.delegate=self;
+    itemView.moreButton.tag=art.id;
     [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [itemView bind:art];
 }
@@ -69,6 +73,17 @@
         case 0://---click the Download button
         {
             NSLog(@"download click");
+            if (![Proto checkIsDownloadByArticle:selectIndex]) {
+                //添加
+                [Proto addDownload:selectIndex];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Download is Add" preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
         }
             break;
         case 1://---click the Share button
@@ -97,6 +112,36 @@
         self.items=ls;
     }else{
         self.items=nil;
+    }
+}
+
+-(void)ArticleMarkAction:(NSInteger)articleid
+{
+    NSLog(@"ArticleMarkAction=%@",@(articleid));
+    if ([Proto checkIsBookmarkByArticle:articleid]) {
+        //移除bookmark
+        [Proto deleteBookmarks:articleid];
+        NSArray *ls = [Proto getArticleList];
+        self.items = ls;
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击取消");
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }else{
+        //添加bookmark
+        [Proto addBookmarks:articleid];
+        NSArray *ls = [Proto getArticleList];
+        self.items = ls;
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击取消");
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 

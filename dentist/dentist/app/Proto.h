@@ -10,7 +10,7 @@
 @class HttpResult;
 @class IdName;
 @class StateCity;
-
+@class Article;
 
 @interface Proto : NSObject
 
@@ -67,5 +67,42 @@
 + (NSString *_Nullable)uploadHeaderImage:(NSString *_Nullable)localFilePath;
 
 + (NSMutableArray <IdName *> *_Nullable)querySpecialty;
+
+//MARK:模拟
++(BOOL)archiveActicleArr;
+
++ (NSString*)getFilePath:(NSString *)aFileName;
+//MARK:保存文章列表
++ (BOOL)saveArticleArr:(NSArray *)articleArr;
+
+//MARK:获取Article列表
++(NSArray *)getArticleList;
+
+//MARK:获取bookmark列表
++(NSArray *)getBookmarksList;
+
+//MARK:获取download列表
++(NSArray *)getDownloadList;
+
+//MARK:检测是否bookmark
++(BOOL)checkIsBookmarkByArticle:(NSInteger)articleid;
+
+//MARK:检测是否添加到下载
++(BOOL)checkIsDownloadByArticle:(NSInteger)articleid;
+
+//MARK:根据id获取文章实体
++(Article *)getArticleById:(NSInteger)articleid;
+
+//MARK:添加bookmark
++(BOOL)addBookmarks:(NSInteger)articleid;
+
+//MARK:删除bookmark
++(BOOL)deleteBookmarks:(NSInteger)articleid;
+
+//MARK:添加download
++(BOOL)addDownload:(NSInteger)articleid;
+
+//MARK:删除download
++(BOOL)deleteDownload:(NSInteger)articleid;
 
 @end

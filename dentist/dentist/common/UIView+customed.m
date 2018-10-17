@@ -231,6 +231,12 @@ static char argObjectAttr = 0;
 	return button;
 }
 
+- (UIScrollView *)addScrollView {
+    UIScrollView *scroll = [UIScrollView new];
+    [self addSubview:scroll];
+    return scroll;
+}
+
 - (UIButton *)resetButton {
 	UIButton *button = [UIButton new];
 	[button stylePrimary];

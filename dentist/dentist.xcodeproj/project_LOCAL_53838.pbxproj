@@ -182,7 +182,6 @@
 		A956C5372154CC4B00E528EB /* Icon-Search.png in Resources */ = {isa = PBXBuildFile; fileRef = A956C5342154CC4A00E528EB /* Icon-Search.png */; };
 		A956C5382154CC4B00E528EB /* Icon-Search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A956C5352154CC4B00E528EB /* Icon-Search@2x.png */; };
 		A956C5392154CC4B00E528EB /* Icon-Search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A956C5362154CC4B00E528EB /* Icon-Search@3x.png */; };
-		A99176FD2176D7A300788D2C /* DataControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A99176FC2176D7A300788D2C /* DataControl.m */; };
 		BFCE80B42123CB59008F3A7F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BFCE80B62123CB59008F3A7F /* Localizable.strings */; };
 		C5EEA00883327B721F4F63A6 /* seg-bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5EEA865BCD7831629957081 /* seg-bg@3x.png */; };
 		C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = C5EEADB73500333182433F3A /* UIImage+customed.m */; };
@@ -847,8 +846,6 @@
 		A956C5342154CC4A00E528EB /* Icon-Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Search.png"; sourceTree = "<group>"; };
 		A956C5352154CC4B00E528EB /* Icon-Search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Search@2x.png"; sourceTree = "<group>"; };
 		A956C5362154CC4B00E528EB /* Icon-Search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Search@3x.png"; sourceTree = "<group>"; };
-		A99176FB2176D7A300788D2C /* DataControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataControl.h; sourceTree = "<group>"; };
-		A99176FC2176D7A300788D2C /* DataControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataControl.m; sourceTree = "<group>"; };
 		AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentist.release.xcconfig"; path = "Pods/Target Support Files/Pods-dentist/Pods-dentist.release.xcconfig"; sourceTree = "<group>"; };
 		BC6B1F2945E33C6DFA044809 /* libPods-dentistTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dentistTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFCE80B52123CB59008F3A7F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -2290,8 +2287,6 @@
 				A956C52F2154A14C00E528EB /* DentistMoreView.m */,
 				188FEC882175BDBD00EE32F3 /* BannerScrollView.h */,
 				188FEC892175BDC900EE32F3 /* BannerScrollView.m */,
-				A99176FB2176D7A300788D2C /* DataControl.h */,
-				A99176FC2176D7A300788D2C /* DataControl.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -2986,7 +2981,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-dentist/Pods-dentist-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-dentist/Pods-dentist-resources.sh",
 				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -2995,7 +2990,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-dentist/Pods-dentist-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-dentist/Pods-dentist-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3089,7 +3084,6 @@
 				4E846F952140FCD200DC2B51 /* EditResidencyViewController.m in Sources */,
 				18B83B112173557D00130DB6 /* YBIBLayoutDirectionManager.m in Sources */,
 				18CFB0F0216EF285002CC9D0 /* RMDownloadIndicator.m in Sources */,
-				A99176FD2176D7A300788D2C /* DataControl.m in Sources */,
 				18B83B182173557D00130DB6 /* YBImageBrowseCellData.m in Sources */,
 				C5EEAF6A040452F10D489279 /* NSString+myextend.m in Sources */,
 				C5EEA1CB9C55E45C1CF0F710 /* UIUtil.m in Sources */,
@@ -3388,7 +3382,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T9358E6X2D;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -3436,7 +3430,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T9358E6X2D;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

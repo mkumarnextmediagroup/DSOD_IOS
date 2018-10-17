@@ -14,8 +14,6 @@
 	UILabel *typeLabel;
 	UILabel *dateLabel;
 	UIImageView *imageView;
-	UIButton *moreButton;
-	UIButton *markButton;
 	UIImageView *headerImg;
 	UILabel *titleLabel;
 	UILabel *nameLabel;
@@ -65,13 +63,13 @@
 	_greeBtn.backgroundColor = rgb255(111, 201, 211);
 	[[[[[_greeBtn.layoutMaker leftParent:0] rightParent:0] below:imageView offset:0] heightEq:62] install];
 
-	moreButton = [self addButton];
-	[moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
-	[[[[moreButton.layoutMaker rightParent:-edge] below:_greeBtn offset:edge] sizeEq:20 h:20] install];
+	_moreButton = [self addButton];
+	[_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
+	[[[[_moreButton.layoutMaker rightParent:-edge] below:_greeBtn offset:edge] sizeEq:20 h:20] install];
 
-	markButton = [self addButton];
-	[markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-	[[[[markButton.layoutMaker toLeftOf:moreButton offset:-8] below:_greeBtn offset:edge] sizeEq:20 h:20] install];
+	_markButton = [self addButton];
+	[_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+	[[[[_markButton.layoutMaker toLeftOf:_moreButton offset:-8] below:_greeBtn offset:edge] sizeEq:20 h:20] install];
 
 	titleLabel = [self addLabel];
 	titleLabel.font = [Fonts semiBold:20];
@@ -149,7 +147,7 @@
     [[[[[conLabel.layoutMaker leftParent:18] rightParent:-18] topParent:0] heightEq:50] install];
     
     self.gskBtn = [moreView addButton];
-    self.gskBtn.backgroundColor = Colors.primary;
+    self.gskBtn.backgroundColor = rgb255(111, 201, 211);
     [self.gskBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.gskBtn setTitle:@"Access GSK Science" forState:UIControlStateNormal];
     self.gskBtn.titleLabel.font = [Fonts regular:14];

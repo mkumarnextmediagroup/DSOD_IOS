@@ -7,10 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Common.h"
+
+@class Article;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PicDetailView : UIView
+
+@property (nonatomic,strong)UIView *topView;
+@property (nonatomic,strong)UIButton *bgBtn;
+@property (nonatomic,strong)UIButton *moreButton;
+@property (nonatomic,strong)UIButton *markButton;
+
+-(void)bind:(Article *)bindInfo ;
+- (void)resetLayout;
 
 @end
 

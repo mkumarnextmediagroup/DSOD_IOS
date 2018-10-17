@@ -196,6 +196,7 @@
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
     newVC.articleInfo = (Article *) item;
+    newVC.toWhichPage = @"mo";
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 

@@ -13,5 +13,6 @@
 @interface CMSDetailViewController : ScrollPage
 
 @property Article *articleInfo;
+@property NSString *toWhichPage;
 
 @end

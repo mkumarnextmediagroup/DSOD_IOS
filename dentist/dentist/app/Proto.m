@@ -12,6 +12,10 @@
 #import "StateCity.h"
 #import "DiscussInfo.h"
 
+//测试模拟数据
+#define CMSARTICLELIST @"CMSBOOKMARKLIST"
+#define CMSBOOKMARKLIST @"CMSBOOKMARKLIST"
+#define CMSDOWNLOADLIST @"CMSDOWNLOADLIST"
 @implementation Proto {
 	NSString *SERVER;
 }
@@ -71,7 +75,7 @@
 
 
 	Article *b = [Article new];
-	b.id = 1;
+	b.id = 2;
 	b.isSponsor = NO;
 	b.publishDate = @"May 15,2018";
 	b.gskString = @"  Sponsored content brought to you by GSK";
@@ -171,6 +175,7 @@
     a.resImage = @"http://app800.cn/i/d.png";
     a.resType = @"image";
     
+    
     ArticleComment *c = [ArticleComment new];
     c.articleId = 100;
     c.authAccount = @"peter@gmail.com";
@@ -184,7 +189,7 @@
     
     
     Article *b = [Article new];
-    b.id = 1;
+    b.id = 2;
     b.isSponsor = NO;
     b.publishDate = @"May 15,2018";
     
@@ -717,6 +722,206 @@
 	[h file:@"file" value:localFilePath];
 	HttpResult *r = [h multipart];
 	return r;
+}
+
+//MARK:模拟
+
++(BOOL)archiveActicleArr
+{
+    if(getIsActicleArchive()==0){
+        NSArray *ls=[self listArticle];
+       return [self saveArticleArr:ls];
+    }else{
+        return YES;
+    }
+    
+}
+
++ (NSString*)getFilePath:(NSString *)aFileName {
+    if (aFileName) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        return [documentsDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.archive", aFileName]];
+    }
+    return nil;
+}
+//MARK:保存文章列表
++ (BOOL)saveArticleArr:(NSArray *)articleArr {
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    return [NSKeyedArchiver archiveRootObject:articleArr toFile:fileNameWithPath];
+}
+
+//MARK:获取Article列表
++(NSArray *)getArticleList
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    return arr;
+}
+
+//MARK:获取bookmark列表
++(NSArray *)getBookmarksList
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    NSMutableArray *bookmarkDataArr = [NSMutableArray array];
+    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (model.isBookmark) {
+            [bookmarkDataArr addObject:model];
+        }
+    }];
+    return bookmarkDataArr;
+}
+
+//MARK:获取download列表
++(NSArray *)getDownloadList
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    NSMutableArray *downloadDataArr = [NSMutableArray array];
+    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (model.isDownload) {
+            [downloadDataArr addObject:model];
+        }
+    }];
+    return downloadDataArr;
+}
+
+//MARK:检测是否bookmark
++(BOOL)checkIsBookmarkByArticle:(NSInteger)articleid
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    NSIndexSet *indexSet = [arr indexesOfObjectsWithOptions:NSEnumerationReverse passingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
+        Article *model = obj;
+        if (model.id==articleid && model.isBookmark)
+        {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    
+    if (indexSet.count) {
+        //存在该记录 更新
+        return YES;
+    }else{
+        //不存在该记录 添加
+        return NO;
+    }
+}
+
+//MARK:检测是否添加到下载
++(BOOL)checkIsDownloadByArticle:(NSInteger)articleid
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    NSIndexSet *indexSet = [arr indexesOfObjectsWithOptions:NSEnumerationReverse passingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
+        Article *model = obj;
+        if (model.id==articleid && model.isDownload)
+        {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    
+    if (indexSet.count) {
+        //存在该记录 更新
+        return YES;
+    }else{
+        //不存在该记录 添加
+        return NO;
+    }
+}
+
+//MARK:根据id获取文章实体
++(Article *)getArticleById:(NSInteger)articleid
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    Article *articlemodel;
+    NSIndexSet *indexSet = [arr indexesOfObjectsWithOptions:NSEnumerationReverse passingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
+        Article *model = obj;
+        if (model.id==articleid)
+        {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    
+    if (indexSet.count) {
+        //存在该记录
+        articlemodel=[arr objectAtIndex:indexSet.firstIndex];
+    }
+    return articlemodel;
+}
+
+//MARK:添加bookmark
++(BOOL)addBookmarks:(NSInteger)articleid
+{
+    if ([self checkIsBookmarkByArticle:articleid]) {
+        return YES;
+    }else{
+//        Article *newmodel=[self getArticleById:articleid];
+        NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+        NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+        [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (model.id==articleid) {
+                model.isBookmark=YES;
+            }
+        }];
+        return [self saveArticleArr:arr];
+        
+    }
+}
+
+//MARK:删除bookmark
++(BOOL)deleteBookmarks:(NSInteger)articleid
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (model.id==articleid) {
+            model.isBookmark=NO;
+        }
+    }];
+    return [self saveArticleArr:arr];
+}
+
+//MARK:添加download
++(BOOL)addDownload:(NSInteger)articleid
+{
+    if ([self checkIsDownloadByArticle:articleid]) {
+        return YES;
+    }else{
+//        Article *newmodel=[self getArticleById:articleid];
+        NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+        NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+        [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (model.id==articleid) {
+                model.isDownload=YES;
+            }
+        }];
+        return [self saveArticleArr:arr];
+    }
+    
+}
+
+//MARK:删除download
++(BOOL)deleteDownload:(NSInteger)articleid
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (model.id==articleid) {
+            model.isDownload=NO;
+        }
+    }];
+    return [self saveArticleArr:arr];
 }
 
 @end

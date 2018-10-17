@@ -410,32 +410,32 @@
     UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
     switch (deviceOrientation) {
         case UIDeviceOrientationFaceUp:
-            NSLog(@"屏幕朝上平躺");
+//            NSLog(@"屏幕朝上平躺");
             break;
         case UIDeviceOrientationFaceDown:
-            NSLog(@"屏幕朝下平躺");
+//            NSLog(@"屏幕朝下平躺");
             break;
         case UIDeviceOrientationUnknown:
-            NSLog(@"未知方向");
+//            NSLog(@"未知方向");
             break;
         case UIDeviceOrientationLandscapeLeft:
-            NSLog(@"屏幕向左横置");
+//            NSLog(@"屏幕向左横置");
             break;
         case UIDeviceOrientationLandscapeRight:
-            NSLog(@"屏幕向右橫置");
+//            NSLog(@"屏幕向右橫置");
             break;
         case UIDeviceOrientationPortrait:
-            NSLog(@"屏幕直立");
+//            NSLog(@"屏幕直立");
             break;
         case UIDeviceOrientationPortraitUpsideDown:
-            NSLog(@"屏幕直立，上下顛倒");
+//            NSLog(@"屏幕直立，上下顛倒");
             break;
         default:
-            NSLog(@"无法辨识");
+//            NSLog(@"无法辨识");
             break;
     }
     [self layoutIfNeeded];
-    NSLog(@"_scrollViewframe=%@",NSStringFromCGRect(_scrollView.frame));
+//    NSLog(@"_scrollViewframe=%@",NSStringFromCGRect(_scrollView.frame));
     _scrollView.contentSize=CGSizeMake(_scrollView.frame.size.width*pageCount, _scrollView.frame.size.height);
     NSInteger pageNum = self.pageControl.currentPage;
     CGSize myViewSize = self.scrollView.frame.size;

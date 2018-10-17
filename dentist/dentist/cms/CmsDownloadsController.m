@@ -16,6 +16,7 @@
 {
     NSInteger selectIndex;
     NSMutableArray *ls;
+    
 }
 @end
 @implementation CmsDownloadsController {
@@ -31,8 +32,8 @@
 {
     [super viewWillAppear:animated];
     ls = [NSMutableArray arrayWithArray:[Proto listBookmark]];
-    self.items = nil;
-    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadData) userInfo:nil repeats:NO];
+    self.items = [Proto getDownloadList];
+//    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadData) userInfo:nil repeats:NO];
 }
 
 -(void)reloadData
@@ -79,7 +80,7 @@
     Article *art = (id) item;
     NSInteger tag=[self.items indexOfObject:item];
     DownloadsItemView *itemView = (DownloadsItemView *) view;
-    itemView.markButton.tag=tag;
+    itemView.markButton.tag=art.id;
     [itemView.markButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [itemView bind:art];
 }
@@ -104,8 +105,8 @@
         
         
     }else if(index==0){
-        [ls removeObjectAtIndex:selectIndex];
-        self.items=ls;
+        [Proto deleteDownload:selectIndex];
+        self.items=[Proto getDownloadList];
     }
 }
 

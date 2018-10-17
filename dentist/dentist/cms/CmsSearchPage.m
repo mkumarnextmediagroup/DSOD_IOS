@@ -38,7 +38,7 @@
 	UINavigationItem *item = [self navigationItem];
     item.leftBarButtonItem=nil;//hidden left menu
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
-    _searchBar.placeholder = @"Search";
+    _searchBar.placeholder = @"Search...";
     _searchBar.delegate = self;
     _searchBar.showsCancelButton = NO;
 //    for (id obj in [_searchBar subviews]) {

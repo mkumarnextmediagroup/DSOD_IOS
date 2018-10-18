@@ -135,6 +135,12 @@
 - (void)onClickItem:(NSObject *)item {
     CMSDetailViewController *detail = [CMSDetailViewController new];
     detail.articleInfo = (Article *) item;
+    if ([detail.articleInfo.category isEqualToString:@"VIDEOS"]) {
+        detail.toWhichPage = @"mo";
+    }else
+    {
+        detail.toWhichPage = @"pic";
+    }
     [self.navigationController.tabBarController presentViewController:detail animated:YES  completion:nil];
 }
 

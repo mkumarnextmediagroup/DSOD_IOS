@@ -71,7 +71,7 @@
 	contentLabel = [self addLabel];
 	contentLabel.font = [Fonts regular:15];
 	[contentLabel textColorMain];
-//    contentLabel.lineBreakMode=NSLineBreakByCharWrapping;
+//    contentLabel.lineBreakMode=NSLineBreakByWordWrapping;
 	[[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] bottomParent:-16] install];
 
 	return self;
@@ -83,7 +83,7 @@
 	typeLabel.text = [item.type uppercaseString];
 	dateLabel.text = item.publishDate;
 	titleLabel.text = item.title;
-	contentLabel.text = item.content;
+//    contentLabel.text = item.content;
 	[imageView loadUrl:item.resImage placeholderImage:@"art-img"];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
@@ -94,9 +94,9 @@
     }
     [self layoutIfNeeded];
 //    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
-    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel];
+    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:item.content];
 //    NSLog(@"contentlabel:%@",labelarry);
-    if (labelarry.count>4) {
+    if (labelarry.count>4 && item.content) {
         NSString *line4String = labelarry[3];
         NSString *showText = [NSString stringWithFormat:@"%@%@%@%@...more", labelarry[0], labelarry[1], labelarry[2], [line4String substringToIndex:line4String.length-6]];
         
@@ -105,16 +105,17 @@
         [attStr addAttributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textDisabled} range:NSMakeRange(showText.length-4, 4)];
         contentLabel.attributedText = attStr;
     }else{
-        contentLabel.text = item.content;
+        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:item.content attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
+        contentLabel.attributedText = attStr;;
     }
     
 
     
 }
 
-- (NSArray *)getSeparatedLinesFromLabel:(UILabel *)label
+
+- (NSArray *)getSeparatedLinesFromLabel:(UILabel *)label text:(NSString *)text
 {
-    NSString *text = [label text];
     UIFont   *font = [label font];
     CGRect    rect = [label frame];
     CTFontRef myFont = CTFontCreateWithName((__bridge CFStringRef)([font fontName]), [font pointSize], NULL);

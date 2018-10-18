@@ -52,7 +52,7 @@
     [[[[[categoryLabel.layoutMaker leftParent:20] below:titleLabel offset:30] rightParent:-10] heightEq:20] install];
     UITextField *categoryTextField=self.addEditRounded;
     categoryTextField.delegate = self;
-    categoryTextField.hint = localStr(@"DSOs");
+    categoryTextField.hint = localStr(@"Orthodontics");
     categoryTextField.tag=1;
     [categoryTextField returnNext];
     categoryTextField.font = [Fonts regular:15];
@@ -73,7 +73,7 @@
     [[[[[typeLabel.layoutMaker leftParent:20] below:categoryTextField offset:20] rightParent:-10] heightEq:20] install];
     UITextField *typeTextField=self.addEditRounded;
     typeTextField.delegate = self;
-    typeTextField.hint = localStr(@"Videos");
+    typeTextField.hint = localStr(@"LATEST");
     typeTextField.tag=2;
     [typeTextField returnDone];
     typeTextField.font = [Fonts regular:15];
@@ -197,7 +197,7 @@
         }];
     }else{
         DentistPickerView *picker = [[DentistPickerView alloc]init];
-        picker.array = @[@"Animations",@"Tip Sheets",@"Videos",@"Article",@"Podcasts"];
+        picker.array = @[@"LATEST",@"VIDEOS",@"ARTICLES",@"PODCASTS",@"INTERVIEWS",@"TECH GUIDES",@"ANIMATIONS",@"TIP SHEETS"];
         picker.leftTitle=localStr(@"Content Type");
         picker.righTtitle=localStr(@"Cancel");
         [picker show:^(NSString *result) {

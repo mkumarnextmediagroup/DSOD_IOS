@@ -33,7 +33,6 @@
     NSArray *dataArray;
     NSString *category;
     NSString *type;
-    UISegmentedControl *seg;
 }
 - (instancetype)init {
 	self = [super init];
@@ -136,7 +135,7 @@
 - (UIView *)makeSegPanel {
     CGFloat segw;
     segw=SCREENWIDTH*2/7.0;
-	seg = [[UISegmentedControl alloc] initWithItems:segItems];
+	UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:segItems];
 	UIImage *img = colorImage(makeSize(1, 1), rgba255(221, 221, 221, 100));
 	[seg setDividerImage:img forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 
@@ -302,7 +301,7 @@
     if((-scrollView.contentOffset.y/self.table.frame.size.height)>0.2){
         category=@"LATEST";
         type=nil;
-        seg.selectedSegmentIndex=1;
+        segView.selectedSegmentIndex=0;
         self.table.tableHeaderView = [self makeHeaderView];
         self.items=[Proto getArticleListByCategory:category type:type];
     }

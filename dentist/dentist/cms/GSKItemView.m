@@ -21,25 +21,31 @@
 - (instancetype)init {
     self = [super init];
     
-    NSInteger edge = 16;
+    NSInteger edge = 18;
+    
+    CGFloat topheight=40;
+    if(IS_IPHONE_P_X){
+        topheight=50;
+        edge=24;
+    }
     
     UIView *topView = self.addView;
     topView.backgroundColor = rgb255(250, 251, 253);
-    [[[[[topView.layoutMaker topParent:0] leftParent:0] rightParent:0] heightEq:40] install];
+    [[[[[topView.layoutMaker topParent:0] leftParent:0] rightParent:0] heightEq:topheight] install];
     typeLabel = [topView addLabel];
     typeLabel.font = [Fonts semiBold:12];
     [typeLabel textColorMain];
-    [[[[[typeLabel.layoutMaker centerYParent:0] leftParent:edge] heightEq:24] rightParent:-90] install];
+    [[[[[typeLabel.layoutMaker centerYParent:0] leftParent:edge] heightEq:topheight] rightParent:-90] install];
     
     dateLabel = [topView addLabel];
     [dateLabel textAlignRight];
     dateLabel.font = [Fonts regular:12];
     [dateLabel textColorAlternate];
-    [[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:24] widthEq:74] install];
+    [[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:topheight] widthEq:74] install];
     
     UILabel *lineLabel = [topView lineLabel];
     lineLabel.backgroundColor = Colors.cellLineColor;
-    [[[lineLabel.layoutMaker sizeEq:SCREENWIDTH h:1] topParent:39] install];
+    [[[lineLabel.layoutMaker sizeEq:SCREENWIDTH h:1] topParent:topheight-1] install];
     
     UIView *contentView = self.addView;
     contentView.backgroundColor = rgb255(255, 255, 255);
@@ -51,7 +57,7 @@
     
     _moreButton = [contentView addButton];
     [_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
-    [[[[[_moreButton.layoutMaker rightParent:-edge] below:topView offset:edge] sizeEq:20 h:20] leftParent:SCREENWIDTH-40] install];
+    [[[[[_moreButton.layoutMaker rightParent:-edge+5] below:topView offset:edge] sizeEq:20 h:20] leftParent:SCREENWIDTH-40] install];
     
     markButton = [contentView addButton];
     [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];

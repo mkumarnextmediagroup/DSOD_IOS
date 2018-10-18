@@ -20,9 +20,9 @@
 #import "TestPage.h"
 #import "GSKItemView.h"
 
-@interface GSKViewController ()
+@interface GSKViewController ()<UIScrollViewDelegate>
 {
-    NSArray<NSString *> *segItems;
+    NSMutableArray<NSString *> *segItems;
     UISegmentedControl *segView;
     UILabel *typeLabel;
     UILabel *dateLabel;
@@ -36,7 +36,7 @@
 - (instancetype)init {
     self = [super init];
     self.topOffset = 0;
-    segItems = @[@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"];
+    segItems = [NSMutableArray arrayWithArray:@[@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"]];
     return self;
 }
 
@@ -69,6 +69,7 @@
 }
 
 - (UIView *)makeHeaderView {
+    
     UIView *panel = [UIView new];
     panel.frame = makeRect(0, 0, SCREENWIDTH, 300);
     UIImageView *iv = [panel addImageView];
@@ -89,6 +90,8 @@
 }
 
 - (UIView *)makeSegPanel {
+    CGFloat segw;
+    segw=SCREENWIDTH*2/7.0;
     UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:segItems];
     UIImage *img = colorImage(makeSize(1, 1), rgba255(221, 221, 221, 100));
     [seg setDividerImage:img forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -100,14 +103,14 @@
     [seg setBackgroundImage:[UIImage imageNamed:@"seg-bg"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [seg setBackgroundImage:[UIImage imageNamed:@"seg-sel"] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     for (NSUInteger i = 0; i < segItems.count; ++i) {
-        [seg setWidth:90 forSegmentAtIndex:i];
+        [seg setWidth:segw forSegmentAtIndex:i];
     }
     seg.selectedSegmentIndex = 0;
     
     UIScrollView *sv = [UIScrollView new];
     [sv addSubview:seg];
     
-    sv.contentSize = makeSize(90 * segItems.count, 50);
+    sv.contentSize = makeSize(segw * segItems.count, 50);
     sv.showsHorizontalScrollIndicator = NO;
     sv.showsVerticalScrollIndicator = NO;
     segView = seg;
@@ -144,6 +147,16 @@
     CMSDetailViewController *detail = [CMSDetailViewController new];
     detail.articleInfo = (Article *) item;
     [self.navigationController.tabBarController presentViewController:detail animated:YES completion:nil];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    //    NSLog(@"offfsize=%@",NSStringFromCGPoint(scrollView.contentOffset));
+    CGFloat height=scrollView.contentSize.height>self.table.frame.size.height?self.table.frame.size.height:scrollView.contentSize.height;
+    if((-scrollView.contentOffset.y/self.table.frame.size.height)>0.2){
+        self.table.tableHeaderView = [self makeHeaderView];
+        segView.selectedSegmentIndex=0;
+    }
 }
 
 

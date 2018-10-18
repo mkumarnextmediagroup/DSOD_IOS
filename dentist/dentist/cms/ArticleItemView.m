@@ -7,6 +7,7 @@
 #import "Common.h"
 #import "Article.h"
 #import "DentistPickerView.h"
+#import <CoreText/CoreText.h>
 
 @implementation ArticleItemView {
 	UILabel *typeLabel;
@@ -22,24 +23,28 @@
 
 	NSInteger edge = 10;
 
+    CGFloat topheight=40;
+    if(IS_IPHONE_P_X){
+        topheight=50;
+    }
 	UIView *topView = self.addView;
 	topView.backgroundColor = rgb255(250, 251, 253);
-	[[[[[topView.layoutMaker topParent:0] leftParent:0] rightParent:0] heightEq:40] install];
+	[[[[[topView.layoutMaker topParent:0] leftParent:0] rightParent:0] heightEq:topheight] install];
 	typeLabel = [topView addLabel];
 	typeLabel.font = [Fonts semiBold:12];
 	[typeLabel textColorMain];
     
-	[[[[[typeLabel.layoutMaker centerYParent:0] leftParent:edge] heightEq:40] rightParent:-90] install];
+	[[[[[typeLabel.layoutMaker centerYParent:0] leftParent:edge] heightEq:topheight] rightParent:-90] install];
     
     UIButton *typebutton=[topView addButton];
-    [[[[[typebutton.layoutMaker centerYParent:0] leftParent:edge] heightEq:40] rightParent:-90] install];
+    [[[[[typebutton.layoutMaker centerYParent:0] leftParent:edge] heightEq:topheight] rightParent:-90] install];
     [typebutton addTarget:self action:@selector(showFilter) forControlEvents:UIControlEventTouchUpInside];
     
 	dateLabel = [topView addLabel];
 	[dateLabel textAlignRight];
 	dateLabel.font = [Fonts regular:12];
 	[dateLabel textColorAlternate];
-	[[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:40] widthEq:74] install];
+	[[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:topheight] widthEq:74] install];
 
 	imageView = self.addImageView;
 //    [imageView scaleFillAspect];
@@ -60,7 +65,7 @@
 	[titleLabel textColorMain];
 	titleLabel.numberOfLines = 0;
 //	[[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] heightEq:24] install];
-	[[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-10] below:imageView offset:10] bottomParent:-103] install];
+	[[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-8] below:imageView offset:10] bottomParent:-103] install];
 
 	contentLabel = [self addLabel];
 	contentLabel.font = [Fonts regular:15];
@@ -85,7 +90,45 @@
     }else{
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
+//    [self layoutIfNeeded];
+//    [contentLabel sizeToFit];
+//    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel];
+//    NSLog(@"contentlabel:%@",labelarry);
+    
 }
+
+- (NSArray *)getSeparatedLinesFromLabel:(UILabel *)label
+{
+    NSString *text = [label text];
+    UIFont   *font = [label font];
+    CGRect    rect = [label frame];
+    CTFontRef myFont = CTFontCreateWithName((__bridge CFStringRef)([font fontName]), [font pointSize], NULL);
+    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:text];
+    [attStr addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)myFont range:NSMakeRange(0, attStr.length)];
+    
+    CTFramesetterRef frameSetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)attStr);
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddRect(path, NULL, CGRectMake(0,0,rect.size.width,100000));
+    
+    CTFrameRef frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, 0), path, NULL);
+    
+    NSArray *lines = (__bridge NSArray *)CTFrameGetLines(frame);
+    NSMutableArray *linesArray = [[NSMutableArray alloc]init];
+    
+    for (id line in lines)
+    {
+        CTLineRef lineRef = (__bridge CTLineRef )line;
+        CFRange lineRange = CTLineGetStringRange(lineRef);
+        NSRange range = NSMakeRange(lineRange.location, lineRange.length);
+        
+        NSString *lineString = [text substringWithRange:range];
+        [linesArray addObject:lineString];
+    }
+    return linesArray;
+}
+
+
 
 -(void)moreAction:(UIButton *)sender
 {
@@ -126,4 +169,6 @@
         }
     }];
 }
+
+
 @end

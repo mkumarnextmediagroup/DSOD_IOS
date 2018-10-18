@@ -248,6 +248,11 @@
     addressLabel.text = bindInfo.authAdd;
     contentLabel.text = bindInfo.content;
     contentLabel2.text = bindInfo.subContent;
+    if (bindInfo.isBookmark) {
+        [_markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+    }else{
+        [_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    }
 }
 
 - (void)resetLayout {

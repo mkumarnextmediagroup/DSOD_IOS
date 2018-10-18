@@ -25,6 +25,7 @@
 	PlayerView  *playView;
     PicDetailView *picDetailView;
     UITableView *myTable;
+    UIButton *markButton;
 }
 @end
 
@@ -107,8 +108,12 @@
     [[[[moreButton.layoutMaker rightParent:-edge] below:lineLabel1 offset:edge] sizeEq:20 h:20] install];
     [moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *markButton = [footerVi addButton];
-    [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    markButton = [footerVi addButton];
+    if (_articleInfo.isBookmark) {
+        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+    }else{
+        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    }
     [[[[markButton.layoutMaker toLeftOf:moreButton offset:-15] below:lineLabel1 offset:edge] sizeEq:20 h:20] install];
     [markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -223,7 +228,9 @@
     NSInteger articleid = self.articleInfo.id;
     if ([Proto checkIsBookmarkByArticle:articleid]) {
         //移除bookmark
-        [btn setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+        [playView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+        [picDetailView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
         [Proto deleteBookmarks:articleid];
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
         
@@ -235,7 +242,9 @@
     }else{
         //添加bookmark
         [Proto addBookmarks:articleid];
-        [btn setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+        [playView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+        [picDetailView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
        
 
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];

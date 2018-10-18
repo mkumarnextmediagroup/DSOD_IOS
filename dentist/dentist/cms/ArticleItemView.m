@@ -21,11 +21,12 @@
 - (instancetype)init {
 	self = [super init];
 
-	NSInteger edge = 10;
+	NSInteger edge = 18;
 
     CGFloat topheight=40;
     if(IS_IPHONE_P_X){
         topheight=50;
+        edge=25;
     }
 	UIView *topView = self.addView;
 	topView.backgroundColor = rgb255(250, 251, 253);
@@ -53,24 +54,24 @@
 	_moreButton = [self addButton];
 	[_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
     [_moreButton addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
-	[[[[_moreButton.layoutMaker rightParent:-5] below:imageView offset:edge] sizeEq:20 h:20] install];
+	[[[[_moreButton.layoutMaker rightParent:-edge] below:imageView offset:edge] sizeEq:20 h:20] install];
 
 	markButton = [self addButton];
 	[markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
-	[[[[markButton.layoutMaker toLeftOf:_moreButton offset:-8] below:imageView offset:edge] sizeEq:20 h:20] install];
+	[[[[markButton.layoutMaker toLeftOf:_moreButton offset:-10] below:imageView offset:edge] sizeEq:20 h:20] install];
 
 	titleLabel = [self addLabel];
 	titleLabel.font = [Fonts semiBold:20];
 	[titleLabel textColorMain];
 	titleLabel.numberOfLines = 0;
 //	[[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] heightEq:24] install];
-	[[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-8] below:imageView offset:10] bottomParent:-103] install];
+	[[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:10] bottomParent:-103] install];
 
 	contentLabel = [self addLabel];
 	contentLabel.font = [Fonts regular:15];
 	[contentLabel textColorMain];
-	[[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge] heightEq:80] bottomParent:-16] install];
+	[[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] bottomParent:-16] install];
 
 	return self;
 }

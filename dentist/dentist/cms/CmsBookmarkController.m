@@ -9,7 +9,7 @@
 #import "Proto.h"
 #import "DentistFilterView.h"
 #import "CMSDetailViewController.h"
-//<BookMarkItemViewDelegate>
+
 @interface CmsBookmarkController()<BookMarkItemViewDelegate>
 {
     NSString *categorytext;

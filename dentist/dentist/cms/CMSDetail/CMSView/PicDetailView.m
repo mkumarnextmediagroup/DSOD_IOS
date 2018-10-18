@@ -9,6 +9,8 @@
 #import "PicDetailView.h"
 #import "XHStarRateView.h"
 #import "Article.h"
+#import "YBImageBrowser.h"
+#import "DentistImageBrowserToolBar.h"
 
 @implementation PicDetailView
 {
@@ -139,8 +141,63 @@
     imageScroll = [moreView addScrollView];
     [[[[[imageScroll.layoutMaker leftParent:0] rightParent:0] below:conLabel offset:0] heightEq:140] install];
     
+    NSArray *imageArray = @[
+                            @"slide-1",
+                            @"slide-2",
+                            @"slide-3",
+                            @"slide-4",
+                            @"slide-5"];
+    
+    for (int i = 0; i < imageArray.count; i++) {
+        UIButton *imgBtn = [UIButton new];
+        imgBtn.tag = 10+i;
+        [imgBtn setBackgroundImage:[UIImage imageNamed:imageArray[i]] forState:UIControlStateNormal];
+        [imgBtn addTarget:self action:@selector(imgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        imgBtn.frame = CGRectMake(EDGE + (133 + 10) * i, 4, 133, 133);
+        [imageScroll addSubview:imgBtn];
+    }
+    
+    imageScroll.contentSize = CGSizeMake(EDGE + (133 + 10) * imageArray.count, imageScroll.frame.size.height);
+
+    
     UILabel *lineLabel4 = [self lineLabel];
     [[[[[lineLabel4.layoutMaker leftParent:0] rightParent:0] below:imageScroll offset:28] heightEq:1] install];
+}
+
+- (void)imgBtnClick:(UIButton *)btn
+{
+    [self showImageBrowser:btn.tag-10];
+}
+
+-(void)showImageBrowser:(NSInteger)index
+{
+    NSInteger tempindex;
+    
+    NSArray *dataArray = @[
+                           @"https://www.dsodentist.com/assets/images/slide/slide-1.jpg",
+                           @"https://www.dsodentist.com/assets/images/slide/slide-2.jpg",
+                           @"https://www.dsodentist.com/assets/images/slide/slide-3.jpg",
+                           @"https://www.dsodentist.com/assets/images/slide/slide-4.jpg",
+                           @"https://www.dsodentist.com/assets/images/slide/slide-5.jpg"];
+    if (index>0 && index <dataArray.count) {
+        tempindex=index;
+    }
+    NSMutableArray *browserDataArr = [NSMutableArray array];
+    [dataArray enumerateObjectsUsingBlock:^(NSString *_Nonnull urlStr, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        YBImageBrowseCellData *data = [YBImageBrowseCellData new];
+        data.url = [NSURL URLWithString:urlStr];
+        [browserDataArr addObject:data];
+    }];
+    
+    YBImageBrowser *browser = [YBImageBrowser new];
+    browser.dataSourceArray = browserDataArr;
+    browser.currentIndex = index;
+    DentistImageBrowserToolBar *toolBar = [DentistImageBrowserToolBar new];
+    toolBar.detailArray=@[@"Welcome",@"Reduce Plaque and Gingivitis",@"Today's Peer to Peer community...",@"Understanding the DSO Practice Model",@"All the support I need..."];
+    browser.toolBars = @[toolBar];
+    browser.sheetView = nil;
+    [browser show];
 }
 
 - (void)createStarView
@@ -191,27 +248,6 @@
     addressLabel.text = bindInfo.authAdd;
     contentLabel.text = bindInfo.content;
     contentLabel2.text = bindInfo.subContent;
-    NSArray *imageArray = @[
-                     @"https://www.dsodentist.com/assets/images/slide/slide-1.jpg",
-                     @"https://www.dsodentist.com/assets/images/slide/slide-2.jpg",
-                     @"https://www.dsodentist.com/assets/images/slide/slide-3.jpg",
-                     @"https://www.dsodentist.com/assets/images/slide/slide-4.jpg",
-                     @"https://www.dsodentist.com/assets/images/slide/slide-5.jpg"];
-
-    for (int i = 0; i < imageArray.count; i++) {
-        UIImageView *imgList = [imageScroll addImageView];
-        [imgList loadUrl:imageArray[i] placeholderImage:@"user_img"];
-        [imgList sd_setImageWithURL:imageArray[i] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            imgList.image = image;
-            imgList.frame = CGRectMake(EDGE + (133 + 10) * i, 4, 133, 133);
-
-        }];
-        imgList.frame = CGRectMake(EDGE + (133 + 10) * i, 4, 133, 133);
-
-        NSLog(@"%@",imgList);
-    }
-    
-    imageScroll.contentSize = CGSizeMake(EDGE + (133 + 10) * 4, imageScroll.frame.size.height);
 }
 
 - (void)resetLayout {

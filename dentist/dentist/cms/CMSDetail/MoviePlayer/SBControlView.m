@@ -7,6 +7,8 @@
 //
 
 #import "SBControlView.h"
+#import "AppDelegate.h"
+
 @interface SBControlView ()
 //当前时间
 @property (nonatomic,strong) UILabel *timeLabel;
@@ -123,6 +125,12 @@ static NSInteger padding = 8;
     [self layoutIfNeeded];
 }
 -(void)hanleLargeBtn:(UIButton *)button{
+    
+    [_largeButton setImage:[UIImage imageNamed:@"back_fullScreen"] forState:UIControlStateNormal];
+    
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.supportRatate = YES;
+    
     if ([self.delegate respondsToSelector:@selector(controlView:withLargeButton:)]) {
         [self.delegate controlView:self withLargeButton:button];
     }

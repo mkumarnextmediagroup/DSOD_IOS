@@ -30,22 +30,15 @@
 
 @implementation CMSDetailViewController
 
-//control this page can mask all
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
-
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    delegate.supportRatate = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    delegate.supportRatate = NO;
 }
 
 - (void)viewDidLoad {
@@ -193,6 +186,7 @@
         picDetailView = [PicDetailView new];
         [picDetailView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [picDetailView.markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [picDetailView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:picDetailView];
         [picDetailView bind:self.articleInfo];
         [[[[picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
@@ -218,13 +212,9 @@
 //click more button
 - (void)moreBtnClick:(UIButton *)btn
 {
-//    NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
-//    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
-//    [denSheet show];
     NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
     [denSheet show:self.view];
-    
     
 }
 

@@ -187,7 +187,7 @@
         }else{
             [segscrollView setContentOffset:CGPointMake(leftspace, 0) animated:YES];
         }
-    }if (leftspace<=0) {
+    }else if (leftspace<=0) {
         [segscrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
     

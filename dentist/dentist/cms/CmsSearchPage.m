@@ -11,7 +11,7 @@
 #import "DenActionSheet.h"
 #import <Social/Social.h>
 
-@interface CmsSearchPage()<UISearchBarDelegate,MyActionSheetDelegate>
+@interface CmsSearchPage()<UISearchBarDelegate,MyActionSheetDelegate,ArticleItemViewDelegate>
 {
     NSInteger selectIndex;
     BOOL issearch;
@@ -86,6 +86,7 @@
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
     Article *art = (id) item;
     ArticleItemView *itemView = (ArticleItemView *) view;
+    itemView.delegate=self;
     [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     itemView.moreButton.tag=art.id;
     [itemView bind:art];
@@ -219,7 +220,7 @@
     [self.searchBar resignFirstResponder];
 //    [_searchBar setShowsCancelButton:NO animated:YES];
      _searchBar.showsCancelButton = NO;
-    self.items=[Proto getArticleListByKeywords:searchKeywords];
+    self.items=[Proto getArticleListByKeywords:searchKeywords type:nil];
 //    for (id obj in [_searchBar subviews]) {
 //        if ([obj isKindOfClass:[UIView class]]) {
 //            for (id obj2 in [obj subviews]) {
@@ -239,6 +240,11 @@
     NSLog(@"search cancel click");
      _searchBar.showsCancelButton = NO;
     [_searchBar setShowsCancelButton:NO animated:YES];
+}
+
+-(void)CategoryPickerSelectAction:(NSString *)result
+{
+    self.items=[Proto getArticleListByKeywords:searchKeywords type:result];
 }
 
 @end

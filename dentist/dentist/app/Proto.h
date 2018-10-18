@@ -71,34 +71,38 @@
 //MARK:模拟
 +(BOOL)archiveActicleArr;
 
-+ (NSString*)getFilePath:(NSString *)aFileName;
++ (NSString*_Nullable)getFilePath:(NSString *_Nullable)aFileName;
 //MARK:保存文章列表
-+ (BOOL)saveArticleArr:(NSArray *)articleArr;
++ (BOOL)saveArticleArr:(NSArray *_Nullable)articleArr;
 
 //MARK:获取Article列表
-+(NSArray *)getArticleList;
++(NSArray *_Nullable)getArticleList;
 //MARK:根据category获取Article列表
-+(NSArray *)getArticleListByCategory:(NSString *)category;
++(NSArray *_Nullable)getArticleListByCategory:(NSString *_Nullable)category;
 
 //MARK:根据type获取Article列表
-+(NSArray *)getArticleListByType:(NSString *)type;
++(NSArray *_Nullable)getArticleListByType:(NSString *_Nullable)type;
 
 //MARK:根据categoryh跟type获取Article列表
-+(NSArray *)getArticleListByCategory:(NSString *)category type:(NSString *)type;
++(NSArray *_Nullable)getArticleListByCategory:(NSString *_Nullable)category type:(NSString *_Nullable)type;
 
 //MARK:根据keywords获取Article列表
-+(NSArray *)getArticleListByKeywords:(NSString *)keywords;
++(NSArray *_Nullable)getArticleListByKeywords:(NSString *_Nullable)keywords;
+
+
+//MARK:根据keywords and type获取Article列表
++(NSArray *_Nullable)getArticleListByKeywords:(NSString *_Nullable)keywords type:(NSString *_Nullable)type;
 
 //MARK:获取bookmark列表
-+(NSArray *)getBookmarksList;
++(NSArray *_Nullable)getBookmarksList;
 //MARK:根据Bookmarks跟type获取Article列表
-+(NSArray *)getBookmarksListByCategory:(NSString *)category type:(NSString *)type;
++(NSArray *_Nullable)getBookmarksListByCategory:(NSString *_Nullable)category type:(NSString *)type;
 
 //MARK:获取download列表
-+(NSArray *)getDownloadList;
++(NSArray *_Nullable)getDownloadList;
 
 //MARK:根据DownloadList跟type获取Article列表
-+(NSArray *)getDownloadListByCategory:(NSString *)category type:(NSString *)type;
++(NSArray *_Nullable)getDownloadListByCategory:(NSString *_Nullable)category type:(NSString *)type;
 
 //MARK:检测是否bookmark
 +(BOOL)checkIsBookmarkByArticle:(NSInteger)articleid;
@@ -107,7 +111,7 @@
 +(BOOL)checkIsDownloadByArticle:(NSInteger)articleid;
 
 //MARK:根据id获取文章实体
-+(Article *)getArticleById:(NSInteger)articleid;
++(Article *_Nullable)getArticleById:(NSInteger)articleid;
 
 //MARK:添加bookmark
 +(BOOL)addBookmarks:(NSInteger)articleid;

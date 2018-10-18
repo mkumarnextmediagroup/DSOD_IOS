@@ -950,6 +950,31 @@
     return newDataArr;
 }
 
+//MARK:根据keywords and type获取Article列表
++(NSArray *)getArticleListByKeywords:(NSString *)keywords type:(NSString *)type
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    NSMutableArray *newDataArr = [NSMutableArray array];
+    if (![self isBlankString:keywords]) {
+        [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if([[model.title lowercaseString] containsString:[keywords lowercaseString]] || [[model.content lowercaseString] containsString:[keywords lowercaseString]] || [[model.type lowercaseString] containsString:[keywords lowercaseString]] || [[model.category lowercaseString] containsString:[keywords lowercaseString]] || [[model.authName lowercaseString] containsString:[keywords lowercaseString]]){
+                if (![self isBlankString:type] ){
+                    if ([[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
+                        [newDataArr addObject:model];
+                    }
+                }else{
+                    [newDataArr addObject:model];
+                }
+                
+            }
+        }];
+    }
+    
+    return newDataArr;
+}
+
 //MARK:获取bookmark列表
 +(NSArray *)getBookmarksList
 {

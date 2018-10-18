@@ -504,6 +504,11 @@ static NSInteger count = 0;
 -(void)controlView:(SBControlView *)controlView withLargeButton:(UIButton *)button{
     forwardOrBack = NO;
     count = 0;
+    if ([[UIDevice currentDevice].systemVersion doubleValue] >= 12.0) {
+        self.pauseOrPlayView.imageBtn.hidden = YES;
+        self.pauseOrPlayView.fastGoBtn.hidden = YES;
+        self.pauseOrPlayView.fastBackBtn.hidden = YES;
+    }
     if (kScreenWidth<kScreenHeight) {
         [self interfaceOrientation:UIInterfaceOrientationLandscapeRight];
     }else{

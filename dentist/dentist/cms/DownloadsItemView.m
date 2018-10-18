@@ -55,8 +55,7 @@
     titleLabel = [self addLabel];
     titleLabel.font = [Fonts regular:15];
     titleLabel.textColor=Colors.textMain;
-    titleLabel.numberOfLines = 0;
-    [[[[[titleLabel.layoutMaker toRightOf:imageView offset:15] topOf:imageView offset:5] toLeftOf:_markButton offset:-20] heightEq:20] install];
+    [[[[[titleLabel.layoutMaker toRightOf:imageView offset:15] topOf:imageView offset:5] toLeftOf:_markButton offset:-10] heightEq:18] install];
     
     statusLabel = [self addLabel];
     statusLabel.font =[Fonts semiBold:12];
@@ -65,11 +64,11 @@
     [[[[[statusLabel.layoutMaker toRightOf:imageView offset:15] toLeftOf:_markButton offset:-20] bottomOf:imageView offset:0] heightEq:20] install];
     
     contentLabel = [self addLabel];
-    contentLabel.font = [Fonts semiBold:15];
+    contentLabel.font = [Fonts semiBold:14];
     contentLabel.textColor=Colors.textContent;
     contentLabel.numberOfLines = 0;
     
-    [[[[[contentLabel.layoutMaker toRightOf:imageView offset:15] below:titleLabel offset:5] toLeftOf:_markButton offset:-20] above:statusLabel offset:-5] install];
+    [[[[[contentLabel.layoutMaker toRightOf:imageView offset:15] below:titleLabel offset:5] rightParent:-edge] above:statusLabel offset:-5] install];
     
     return self;
 }
@@ -77,7 +76,7 @@
 - (void)bind:(Article *)item {
     statusLabel.text=@"Download complete";
     titleLabel.text = item.type;
-    contentLabel.text = item.title;
+    contentLabel.text = [item.title stringByAppendingString:@"\n\n\n\n "];
     [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
     [imageView scaleFillAspect];
     imageView.clipsToBounds=YES;

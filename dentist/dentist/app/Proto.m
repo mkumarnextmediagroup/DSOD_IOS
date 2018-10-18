@@ -26,7 +26,7 @@
 	a.isSponsor = NO;
 	a.publishDate = @"May 15,2018";
 	a.gskString = @"  Sponsored content brought to you by GSK";
-	a.type = @"orthodontics";
+	a.type = @"ORTHODONTICS";
 	a.authAccount = @"tom@gmail.com";
 	a.authName = @"Dr.Sandra Tai";
 	a.authAdd = @"Vancouver, BC";
@@ -146,7 +146,7 @@
     
     NSString *publishDate4=@"Oct 02,2018";
     NSString *category4=@"VIDEOS";
-    NSString *type4=@"orthodontics";
+    NSString *type4=@"ORTHODONTICS";
     NSString *resImage4=@"https://wp.dsodentist.com/wp-content/uploads/2018/09/EruptionCompensationFeatures_CloseUp_Gray_RGB_640-e1539635942274.jpg";
     Article *a4=[self setNewArtcle:articleid4 title:title4 content:content4 subContent:subContent4 publishDate:publishDate4 category:category4 type:type4 resImage:resImage4];
     
@@ -229,7 +229,7 @@
 	a.publishDate = @"May 15,2018";
 
 	a.gskString = @"Sponsored content brought to you by GSK";
-	a.type = @"orthodontics";
+	a.type = @"ORTHODONTICS";
 	a.authAccount = @"tom@gmail.com";
 	a.authName = @"Dr.Sandra Tai";
 	a.title = @"Mastering the art of Dental Surgery  - Mastering the art of Dental Surgery - Mastering the art of Dental Surgery  ";

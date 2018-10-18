@@ -71,6 +71,7 @@
 	contentLabel = [self addLabel];
 	contentLabel.font = [Fonts regular:15];
 	[contentLabel textColorMain];
+//    contentLabel.lineBreakMode=NSLineBreakByCharWrapping;
 	[[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] bottomParent:-16] install];
 
 	return self;
@@ -91,10 +92,23 @@
     }else{
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
-//    [self layoutIfNeeded];
-//    [contentLabel sizeToFit];
-//    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel];
+    [self layoutIfNeeded];
+//    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
+    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel];
 //    NSLog(@"contentlabel:%@",labelarry);
+    if (labelarry.count>4) {
+        NSString *line4String = labelarry[3];
+        NSString *showText = [NSString stringWithFormat:@"%@%@%@%@...more", labelarry[0], labelarry[1], labelarry[2], [line4String substringToIndex:line4String.length-6]];
+        
+        //设置label的attributedText
+        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:showText attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
+        [attStr addAttributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textDisabled} range:NSMakeRange(showText.length-4, 4)];
+        contentLabel.attributedText = attStr;
+    }else{
+        contentLabel.text = item.content;
+    }
+    
+
     
 }
 
@@ -127,6 +141,7 @@
         [linesArray addObject:lineString];
     }
     return linesArray;
+    
 }
 
 

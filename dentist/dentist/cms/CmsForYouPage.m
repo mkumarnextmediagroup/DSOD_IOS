@@ -192,21 +192,15 @@
 //        [segscrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 //    }
     CGFloat leftsegpoint=n*segw;
-    //left
-    CGFloat leftspace=(leftsegpoint-SCREENWIDTH/2.0);
-    if (leftspace>0) {
-        //right
-        CGFloat rightsegpoint=segscrollView.contentSize.width-leftsegpoint;
-        CGFloat rightspace=(rightsegpoint-segscrollView.frame.size.width);
-        if (rightspace<=0) {
-            CGFloat rightbottomoffset=segscrollView.contentSize.width-segscrollView.bounds.size.width;
-            [segscrollView setContentOffset:CGPointMake(rightbottomoffset, 0) animated:YES];
-        }else{
-            //left
-            [segscrollView setContentOffset:CGPointMake(leftsegpoint, 0) animated:YES];
-        }
-    }else if (leftspace<=0) {
-        [segscrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    //right
+    CGFloat rightsegpoint=segscrollView.contentSize.width-leftsegpoint;
+    CGFloat rightspace=(rightsegpoint-segscrollView.frame.size.width);
+    if (rightspace<=0) {
+        CGFloat rightbottomoffset=segscrollView.contentSize.width-segscrollView.bounds.size.width;
+        [segscrollView setContentOffset:CGPointMake(rightbottomoffset, 0) animated:YES];
+    }else{
+        //left
+        [segscrollView setContentOffset:CGPointMake(leftsegpoint, 0) animated:YES];
     }
     
 }

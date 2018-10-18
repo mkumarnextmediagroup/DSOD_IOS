@@ -11,6 +11,7 @@
 #import "DenActionSheet.h"
 #import "Article.h"
 #import <Social/Social.h>
+#import "CMSDetailViewController.h"
 
 @interface CmsDownloadsController()<MyActionSheetDelegate>
 {
@@ -94,6 +95,25 @@
     NSArray *imgArr = [NSArray arrayWithObjects:@"deleteDown",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Delete",@"Share", nil];
     [denSheet show];
+}
+
+- (void)onClickItem:(NSObject *)item {
+    
+    //    CMSDetailViewController *detail = [CMSDetailViewController new];
+    //    detail.articleInfo = (Article *) item;
+    //    [self.navigationController.tabBarController presentViewController:detail animated:YES completion:nil];
+    
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+    newVC.articleInfo = (Article *) item;
+    if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
+        newVC.toWhichPage = @"mo";
+    }else
+    {
+        newVC.toWhichPage = @"pic";
+    }
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 - (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index

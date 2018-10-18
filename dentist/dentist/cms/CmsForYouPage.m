@@ -24,7 +24,7 @@
 @interface CmsForYouPage()<ArticleItemViewDelegate,MyActionSheetDelegate>
 @end
 @implementation CmsForYouPage {
-	NSArray<NSString *> *segItems;
+	NSMutableArray<NSString *> *segItems;
 	UISegmentedControl *segView;
     UIView *panel;
     BannerScrollView *iv;
@@ -38,7 +38,7 @@
 - (instancetype)init {
 	self = [super init];
 	self.topOffset = 0;
-	segItems = @[@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"];
+	segItems = [NSMutableArray arrayWithArray:@[@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"]];
 //    //开启和监听 设备旋转的通知（不开启的话，设备方向一直是UIInterfaceOrientationUnknown）
 //    if (![UIDevice currentDevice].generatesDeviceOrientationNotifications) {
 //        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -166,11 +166,30 @@
 - (void)onSegValueChanged:(id)sender {
     type=nil;
 	NSInteger n = segView.selectedSegmentIndex;
+    
 	category = segItems[n];
+    
+    
 	Log(@(n ), category);
     self.items=[Proto getArticleListByCategory:category type:type];
-    UIScrollView *segscrollView=(UIScrollView *)segView.superview;
+    if (n!=0) {
+        CGFloat segw;
+        segw=SCREENWIDTH*2/7.0;
+        [segItems removeObjectAtIndex:n];
+        [segItems insertObject:category atIndex:0];
+        [segView removeSegmentAtIndex:n animated:NO];
+        [segView insertSegmentWithTitle:category atIndex:0 animated:NO];
+        [segView setWidth:segw forSegmentAtIndex:0];
+        segView.selectedSegmentIndex=0;
+    }
     
+//    [segView removeSegmentAtIndex:n animated:YES];
+//    [segView insertSegmentWithImage:[UIImage imageNamed:@"seg-sel"] atIndex:0 animated:YES];
+    
+    
+    
+    UIScrollView *segscrollView=(UIScrollView *)segView.superview;
+    [segscrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     //
     CGFloat segw;
     segw=SCREENWIDTH*2/7.0;
@@ -191,17 +210,17 @@
 //    }else if (leftspace<=0) {
 //        [segscrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 //    }
-    CGFloat leftsegpoint=n*segw;
-    //right
-    CGFloat rightsegpoint=segscrollView.contentSize.width-leftsegpoint;
-    CGFloat rightspace=(rightsegpoint-segscrollView.frame.size.width);
-    if (rightspace<=0) {
-        CGFloat rightbottomoffset=segscrollView.contentSize.width-segscrollView.bounds.size.width;
-        [segscrollView setContentOffset:CGPointMake(rightbottomoffset, 0) animated:YES];
-    }else{
-        //left
-        [segscrollView setContentOffset:CGPointMake(leftsegpoint, 0) animated:YES];
-    }
+//    CGFloat leftsegpoint=n*segw;
+//    //right
+//    CGFloat rightsegpoint=segscrollView.contentSize.width-leftsegpoint;
+//    CGFloat rightspace=(rightsegpoint-segscrollView.frame.size.width);
+//    if (rightspace<=0) {
+//        CGFloat rightbottomoffset=segscrollView.contentSize.width-segscrollView.bounds.size.width;
+//        [segscrollView setContentOffset:CGPointMake(rightbottomoffset, 0) animated:YES];
+//    }else{
+//        //left
+//        [segscrollView setContentOffset:CGPointMake(leftsegpoint, 0) animated:YES];
+//    }
     
 }
 

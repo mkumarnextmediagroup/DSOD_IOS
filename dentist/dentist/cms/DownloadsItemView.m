@@ -67,7 +67,7 @@
     contentLabel.font = [Fonts semiBold:15];
     contentLabel.textColor=Colors.textContent;
     contentLabel.numberOfLines = 0;
-    
+    contentLabel.lineBreakMode=NSLineBreakByWordWrapping | NSLineBreakByTruncatingTail;
     [[[[[contentLabel.layoutMaker toRightOf:imageView offset:15] below:titleLabel offset:5] rightParent:-edge] above:statusLabel offset:-5] install];
     
     return self;

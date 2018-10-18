@@ -30,7 +30,10 @@
 - (instancetype)init {
     self = [super init];
     
-    NSInteger edge = 16;
+    NSInteger edge = 18;
+    if(IS_IPHONE_P_X){
+        edge=24;
+    }
     
     self.topView = [UIView new];
     self.topView.backgroundColor = rgb255(250, 251, 253);
@@ -55,7 +58,7 @@
     
     _moreButton = [self addButton];
     [_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
-    [[[[_moreButton.layoutMaker rightParent:-edge] below:imageView offset:edge] sizeEq:20 h:20] install];
+    [[[[_moreButton.layoutMaker rightParent:-edge+5] below:imageView offset:edge] sizeEq:20 h:20] install];
     
     _markButton = [self addButton];
     [_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
@@ -65,7 +68,7 @@
     titleLabel.font = [Fonts semiBold:20];
     [titleLabel textColorMain];
     titleLabel.numberOfLines = 0;
-    [[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] install];
+    [[[[titleLabel.layoutMaker leftParent:edge]  toLeftOf:_markButton offset:-edge-10] below:imageView offset:10] install];
     [titleLabel.layoutMaker.height.equalTo(@24).priority(200) install];
     
     UILabel *lineLabel = [self lineLabel];
@@ -151,9 +154,11 @@
     for (int i = 0; i < imageArray.count; i++) {
         UIButton *imgBtn = [UIButton new];
         imgBtn.tag = 10+i;
-        [imgBtn setBackgroundImage:[UIImage imageNamed:imageArray[i]] forState:UIControlStateNormal];
+        [imgBtn setImage:[UIImage imageNamed:imageArray[i]] forState:UIControlStateNormal];
         [imgBtn addTarget:self action:@selector(imgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         imgBtn.frame = CGRectMake(EDGE + (133 + 10) * i, 4, 133, 133);
+        imgBtn.imageView.contentMode=UIViewContentModeScaleAspectFill;
+        imgBtn.imageView.clipsToBounds=YES;
         [imageScroll addSubview:imgBtn];
     }
     

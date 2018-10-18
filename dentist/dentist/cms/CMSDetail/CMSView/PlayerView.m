@@ -26,7 +26,10 @@
 - (instancetype)init {
 	self = [super init];
 
-	NSInteger edge = 16;
+    NSInteger edge = 18;
+    if(IS_IPHONE_P_X){
+        edge=24;
+    }
 
 	self.topView = [UIView new];
 	self.topView.backgroundColor = rgb255(250, 251, 253);
@@ -65,7 +68,7 @@
 
 	_moreButton = [self addButton];
 	[_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
-	[[[[_moreButton.layoutMaker rightParent:-edge] below:_greeBtn offset:edge] sizeEq:20 h:20] install];
+	[[[[_moreButton.layoutMaker rightParent:-edge+5] below:_greeBtn offset:edge] sizeEq:20 h:20] install];
 
 	_markButton = [self addButton];
 	[_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
@@ -75,7 +78,7 @@
 	titleLabel.font = [Fonts semiBold:20];
 	[titleLabel textColorMain];
 	titleLabel.numberOfLines = 0;
-	[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:_greeBtn offset:10] install];
+	[[[[titleLabel.layoutMaker leftParent:edge]  toLeftOf:_markButton offset:-edge-10] below:_greeBtn offset:10] install];
 	[titleLabel.layoutMaker.height.equalTo(@24).priority(200) install];
 
 	UILabel *lineLabel = [self lineLabel];

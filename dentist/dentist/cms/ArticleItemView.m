@@ -26,7 +26,7 @@
     CGFloat topheight=40;
     if(IS_IPHONE_P_X){
         topheight=50;
-        edge=25;
+        edge=24;
     }
 	UIView *topView = self.addView;
 	topView.backgroundColor = rgb255(250, 251, 253);
@@ -59,7 +59,7 @@
 	markButton = [self addButton];
 	[markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
-	[[[[markButton.layoutMaker toLeftOf:_moreButton offset:-10] below:imageView offset:edge] sizeEq:20 h:20] install];
+	[[[[markButton.layoutMaker toLeftOf:_moreButton offset:-edge+5] below:imageView offset:edge] sizeEq:20 h:20] install];
 
 	titleLabel = [self addLabel];
 	titleLabel.font = [Fonts semiBold:20];

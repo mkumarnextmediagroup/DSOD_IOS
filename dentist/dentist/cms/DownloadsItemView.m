@@ -53,7 +53,7 @@
     [[[[_closedIndicator.layoutMaker rightParent:-edge] bottomOf:imageView offset:0] sizeEq:20 h:20] install];
     
     titleLabel = [self addLabel];
-    titleLabel.font = [Fonts regular:15];
+    titleLabel.font = [Fonts regular:14];
     titleLabel.textColor=Colors.textMain;
     [[[[[titleLabel.layoutMaker toRightOf:imageView offset:15] topOf:imageView offset:5] toLeftOf:_markButton offset:-10] heightEq:18] install];
     
@@ -64,7 +64,7 @@
     [[[[[statusLabel.layoutMaker toRightOf:imageView offset:15] toLeftOf:_markButton offset:-20] bottomOf:imageView offset:0] heightEq:20] install];
     
     contentLabel = [self addLabel];
-    contentLabel.font = [Fonts semiBold:14];
+    contentLabel.font = [Fonts semiBold:15];
     contentLabel.textColor=Colors.textContent;
     contentLabel.numberOfLines = 0;
     

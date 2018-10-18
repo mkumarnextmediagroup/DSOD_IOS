@@ -9,9 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "Article.h"
 
+
+@protocol GSKItemViewViewDelegate <NSObject>
+
+@optional
+
+- (void)articleMoreAction:(NSInteger)articleid;
+- (void)articleMarkAction:(NSInteger)articleid;;
+@end
 @interface GSKItemView : UIView
 
 @property (strong, nonatomic) UIButton *moreButton;
+@property (nonatomic,weak) id<GSKItemViewViewDelegate>delegate;
+@property (strong, nonatomic) Article *model;
 
 -(void) bind:(Article*)item ;
 

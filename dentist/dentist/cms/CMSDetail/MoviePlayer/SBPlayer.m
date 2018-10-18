@@ -8,6 +8,7 @@
 
 #import "SBPlayer.h"
 #import "PlayerView.h"
+#import "AppDelegate.h"
 
 @interface SBPlayer ()
 {
@@ -278,6 +279,9 @@ static NSInteger count = 0;
         case UIInterfaceOrientationPortraitUpsideDown:
         case UIInterfaceOrientationPortrait:
         {
+            
+            [_controlView.largeButton setImage:[UIImage imageNamed:@"full_screen"] forState:UIControlStateNormal];
+
             _isFullScreen = NO;
             [self.addView addSubview:self];
             //删除UIView animate可以去除横竖屏切换过渡动画
@@ -313,6 +317,9 @@ static NSInteger count = 0;
 //获取当前屏幕显示的viewcontroller
 - (UIViewController *)getCurrentVC
 {
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.supportRatate = NO;
+    
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     UIViewController *currentVC = [self getCurrentVCFrom:rootViewController];
     return currentVC;
@@ -467,7 +474,7 @@ static NSInteger count = 0;
     if(_isPlaying)
     {
         forwardOrBack = YES;
-        [_item seekToTime:CMTimeMakeWithSeconds(_item.currentTime.value/_item.currentTime.timescale+10, _item.currentTime.timescale) toleranceBefore:CMTimeMake(1, _item.currentTime.timescale) toleranceAfter:CMTimeMake(1, _item.currentTime.timescale)];
+        [_item seekToTime:CMTimeMakeWithSeconds(_item.currentTime.value/_item.currentTime.timescale+15, _item.currentTime.timescale) toleranceBefore:CMTimeMake(1, _item.currentTime.timescale) toleranceAfter:CMTimeMake(1, _item.currentTime.timescale)];
     }
 }
 
@@ -477,7 +484,7 @@ static NSInteger count = 0;
     if(_isPlaying)
     {
         forwardOrBack = YES;
-        [_item seekToTime:CMTimeMakeWithSeconds(_item.currentTime.value/_item.currentTime.timescale-10, _item.currentTime.timescale)];
+        [_item seekToTime:CMTimeMakeWithSeconds(_item.currentTime.value/_item.currentTime.timescale-15, _item.currentTime.timescale)];
     }
 }
 

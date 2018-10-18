@@ -15,7 +15,7 @@
 #import "YBIBTransitionManager.h"
 #import "YBIBLayoutDirectionManager.h"
 #import "YBIBCopywriter.h"
-
+#import "AppDelegate.h"
 
 @interface YBImageBrowser () <UIViewControllerTransitioningDelegate, YBImageBrowserViewDelegate, YBImageBrowserDataSource> {
     BOOL _isFirstViewDidAppear;
@@ -85,6 +85,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.supportRatate = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -109,6 +112,10 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.supportRatate = NO;
+    
     [self setStatusBarHide:NO];
 }
 

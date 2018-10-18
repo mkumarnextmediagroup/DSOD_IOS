@@ -133,6 +133,7 @@
 		4E5BA7FC21771B3000386598 /* PicDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BA7FB21771B3000386598 /* PicDetailView.m */; };
 		4E5BA7FF217721D400386598 /* contentPic_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BA7FD217721D300386598 /* contentPic_bg@3x.png */; };
 		4E5BA800217721D400386598 /* contentPic_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BA7FE217721D300386598 /* contentPic_bg@2x.png */; };
+		4E5BA802217835CE00386598 /* back_fullScreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E5BA801217835CE00386598 /* back_fullScreen@2x.png */; };
 		4E846F70213E619100DC2B51 /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F6F213E619100DC2B51 /* SwitchTableViewCell.m */; };
 		4E846F73213E781100DC2B51 /* CommSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E846F72213E781100DC2B51 /* CommSelectTableViewCell.m */; };
 		4E846F76213E7AED00DC2B51 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E846F74213E7AEC00DC2B51 /* arrow@2x.png */; };
@@ -785,6 +786,7 @@
 		4E5BA7FB21771B3000386598 /* PicDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PicDetailView.m; sourceTree = "<group>"; };
 		4E5BA7FD217721D300386598 /* contentPic_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contentPic_bg@3x.png"; sourceTree = "<group>"; };
 		4E5BA7FE217721D300386598 /* contentPic_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contentPic_bg@2x.png"; sourceTree = "<group>"; };
+		4E5BA801217835CE00386598 /* back_fullScreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_fullScreen@2x.png"; sourceTree = "<group>"; };
 		4E846F6E213E619100DC2B51 /* SwitchTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchTableViewCell.h; sourceTree = "<group>"; };
 		4E846F6F213E619100DC2B51 /* SwitchTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitchTableViewCell.m; sourceTree = "<group>"; };
 		4E846F71213E781100DC2B51 /* CommSelectTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommSelectTableViewCell.h; sourceTree = "<group>"; };
@@ -1680,6 +1682,7 @@
 				4E528B1C21704BE2008C151B /* pause@2x.png */,
 				4E528B1A21704BCD008C151B /* play@2x.png */,
 				4E528B1821704A29008C151B /* full_screen@2x.png */,
+				4E5BA801217835CE00386598 /* back_fullScreen@2x.png */,
 				4E528B16216F416E008C151B /* circleWhite.png */,
 				4E528B08216E0800008C151B /* knob.png */,
 			);
@@ -2897,6 +2900,7 @@
 				E11E1C36FB05913E3E3D8427 /* menu-edu_light.png in Resources */,
 				E11E17DA1750DC3EFFFBC584 /* menu-edu_light@2x.png in Resources */,
 				4E5BA7FF217721D400386598 /* contentPic_bg@3x.png in Resources */,
+				4E5BA802217835CE00386598 /* back_fullScreen@2x.png in Resources */,
 				A956C5392154CC4B00E528EB /* Icon-Search@3x.png in Resources */,
 				E11E1D5A2B13CF9CC09A2BBD /* menu-edu_light@3x.png in Resources */,
 				4E23E0772152951E00EDCE08 /* arrow_down@3x.png in Resources */,
@@ -3456,7 +3460,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T9358E6X2D;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -3504,7 +3508,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T9358E6X2D;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

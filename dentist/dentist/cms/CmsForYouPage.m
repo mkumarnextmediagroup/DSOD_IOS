@@ -63,7 +63,16 @@
 	[super viewDidLoad];
     category=@"LATEST";
 	UINavigationItem *item = [self navigationItem];
-	item.title = @"DSODENTIST";
+    //219*43
+    //
+    CGFloat imageheight=20;
+    CGFloat imagewidth=219.0/43.0*imageheight;
+    UIView *titleview=[[UIView alloc] initWithFrame:CGRectMake(0, 0, imagewidth+20, 40)];
+    UIImageView *imageview=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dsodentist"]];
+    imageview.frame=CGRectMake(10, 10, imagewidth, imageheight);
+    [titleview addSubview:imageview];
+    item.titleView=titleview;
+//    item.title = @"DSODENTIST";
 	//TODO 还不太明白为啥 不设置rightBarButtonItem，title不显示
 //    item.rightBarButtonItem = [self navBarText:@"test" target:self action:@selector(clickTest:)];
     item.rightBarButtonItem = [self navBarText:@"" target:self action:nil];
@@ -174,12 +183,12 @@
     if (n!=0) {
         CGFloat segw;
         segw=SCREENWIDTH*2/7.0;
-        [segItems removeObjectAtIndex:n];
-        [segItems insertObject:category atIndex:0];
-        [segView removeSegmentAtIndex:n animated:NO];
-        [segView insertSegmentWithTitle:category atIndex:0 animated:NO];
-        [segView setWidth:segw forSegmentAtIndex:0];
-        segView.selectedSegmentIndex=0;
+//        [segItems removeObjectAtIndex:n];
+//        [segItems insertObject:category atIndex:0];
+//        [segView removeSegmentAtIndex:n animated:NO];
+//        [segView insertSegmentWithTitle:category atIndex:0 animated:NO];
+//        [segView setWidth:segw forSegmentAtIndex:0];
+//        segView.selectedSegmentIndex=0;
     }
     
 //    [segView removeSegmentAtIndex:n animated:YES];

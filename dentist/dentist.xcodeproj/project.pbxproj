@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1866AFB121797DD300970CAB /* dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1866AFB021797DCE00970CAB /* dsodentist.png */; };
 		188FEC8A2175BDCA00EE32F3 /* BannerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FEC892175BDC900EE32F3 /* BannerScrollView.m */; };
 		18B83B082173557D00130DB6 /* YBImageBrowserProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83ACE2173557C00130DB6 /* YBImageBrowserProgressView.m */; };
 		18B83B092173557D00130DB6 /* YBImageBrowserSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83AD02173557C00130DB6 /* YBImageBrowserSheetView.m */; };
@@ -584,6 +585,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1866AFB021797DCE00970CAB /* dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dsodentist.png; sourceTree = "<group>"; };
 		188FEC882175BDBD00EE32F3 /* BannerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerScrollView.h; sourceTree = "<group>"; };
 		188FEC892175BDC900EE32F3 /* BannerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerScrollView.m; sourceTree = "<group>"; };
 		18B83ACD2173557C00130DB6 /* YBImageBrowserProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBImageBrowserProgressView.h; sourceTree = "<group>"; };
@@ -1826,6 +1828,7 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1866AFB021797DCE00970CAB /* dsodentist.png */,
 				A935BE71217737EA007F3619 /* slide-1.png */,
 				A935BE70217737EA007F3619 /* slide-2.png */,
 				A935BE6F217737EA007F3619 /* slide-3.png */,
@@ -2779,6 +2782,7 @@
 				E11E1048C19936CC448A78CA /* help_light@2x.png in Resources */,
 				E11E10A7FD990BE89586D6EF /* help_light@3x.png in Resources */,
 				4E528B1921704A2A008C151B /* full_screen@2x.png in Resources */,
+				1866AFB121797DD300970CAB /* dsodentist.png in Resources */,
 				E11E13EC4653EE4F75B80EF6 /* help.png in Resources */,
 				E11E1750403A8ABA37271662 /* help@2x.png in Resources */,
 				E11E1C5057A006835221E347 /* help@3x.png in Resources */,

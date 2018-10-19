@@ -129,6 +129,7 @@
     NSString *title = segItems[n];
     Log(@(n ), title);
     category=title;
+    self.items = [Proto getArticleListByAuthor:_author category:category type:type];
     UIScrollView *segscrollView=(UIScrollView *)segView.superview;
     [segscrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     //

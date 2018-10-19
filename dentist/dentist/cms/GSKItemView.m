@@ -48,9 +48,9 @@
     [dateLabel textColorAlternate];
     [[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:topheight] widthEq:74] install];
     
-    UILabel *lineLabel = [topView lineLabel];
-    lineLabel.backgroundColor = Colors.cellLineColor;
-    [[[lineLabel.layoutMaker sizeEq:SCREENWIDTH h:1] topParent:topheight-1] install];
+//    UILabel *lineLabel = [topView lineLabel];
+//    lineLabel.backgroundColor = Colors.cellLineColor;
+//    [[[lineLabel.layoutMaker sizeEq:SCREENWIDTH h:1] topParent:topheight-1] install];
     
     UIView *contentView = self.addView;
     contentView.backgroundColor = rgb255(255, 255, 255);

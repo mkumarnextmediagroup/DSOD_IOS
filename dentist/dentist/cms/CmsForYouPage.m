@@ -20,6 +20,7 @@
 #import "BannerScrollView.h"
 #import <Social/Social.h>
 #import "DenActionSheet.h"
+#import "DentistTabView.h"
 
 @interface CmsForYouPage()<ArticleItemViewDelegate,MyActionSheetDelegate>
 @end
@@ -33,6 +34,7 @@
     NSArray *dataArray;
     NSString *category;
     NSString *type;
+    DentistTabView *tabView;
 }
 - (instancetype)init {
 	self = [super init];
@@ -130,7 +132,15 @@
     
     UIView *seg = [self makeSegPanel];
     [panel addSubview:seg];
+    
     [[[[[seg.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
+//    [self.view layoutIfNeeded];
+    
+//    tabView=[[DentistTabView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 51)];
+//    tabView.backgroundColor=[UIColor redColor];
+//    [panel addSubview:tabView];
+//    [[[[[tabView.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
+//    tabView.titleArr=segItems;
 
 	return panel;
 }
@@ -144,30 +154,31 @@
 - (UIView *)makeSegPanel {
     CGFloat segw;
     segw=SCREENWIDTH*2/7.0;
-	UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:segItems];
-	UIImage *img = colorImage(makeSize(1, 1), rgba255(221, 221, 221, 100));
-	[seg setDividerImage:img forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:segItems];
+    UIImage *img = colorImage(makeSize(1, 1), rgba255(221, 221, 221, 100));
+    [seg setDividerImage:img forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 
-	[seg setTitleTextAttributes:@{NSFontAttributeName: [Fonts semiBold:12], NSForegroundColorAttributeName: Colors.textMain} forState:UIControlStateNormal];
-	[seg setTitleTextAttributes:@{NSFontAttributeName: [Fonts semiBold:12], NSForegroundColorAttributeName: Colors.textMain} forState:UIControlStateSelected];
+    [seg setTitleTextAttributes:@{NSFontAttributeName: [Fonts semiBold:12], NSForegroundColorAttributeName: Colors.textMain} forState:UIControlStateNormal];
+    [seg setTitleTextAttributes:@{NSFontAttributeName: [Fonts semiBold:12], NSForegroundColorAttributeName: Colors.textMain} forState:UIControlStateSelected];
 
-	//colorImage(makeSize(1, 1), rgba255(247, 247, 247, 255))
+    //colorImage(makeSize(1, 1), rgba255(247, 247, 247, 255))
+
+    [seg setBackgroundImage:[UIImage imageNamed:@"seg-bg"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [seg setBackgroundImage:[UIImage imageNamed:@"seg-sel"] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    for (NSUInteger i = 0; i < segItems.count; ++i) {
+        [seg setWidth:segw forSegmentAtIndex:i];
+    }
+    seg.selectedSegmentIndex = 0;
+
+    UIScrollView *sv = [UIScrollView new];
+    [sv addSubview:seg];
+
+    sv.contentSize = makeSize(segw * segItems.count, 50);
+    sv.showsHorizontalScrollIndicator = NO;
+    sv.showsVerticalScrollIndicator = NO;
+    segView = seg;
+    [seg addTarget:self action:@selector(onSegValueChanged:) forControlEvents:UIControlEventValueChanged];
     
-	[seg setBackgroundImage:[UIImage imageNamed:@"seg-bg"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-	[seg setBackgroundImage:[UIImage imageNamed:@"seg-sel"] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-	for (NSUInteger i = 0; i < segItems.count; ++i) {
-		[seg setWidth:segw forSegmentAtIndex:i];
-	}
-	seg.selectedSegmentIndex = 0;
-
-	UIScrollView *sv = [UIScrollView new];
-	[sv addSubview:seg];
-
-	sv.contentSize = makeSize(segw * segItems.count, 50);
-	sv.showsHorizontalScrollIndicator = NO;
-	sv.showsVerticalScrollIndicator = NO;
-	segView = seg;
-	[seg addTarget:self action:@selector(onSegValueChanged:) forControlEvents:UIControlEventValueChanged];
 	return sv;
 }
 
@@ -180,16 +191,16 @@
     
 	Log(@(n ), category);
     self.items=[Proto getArticleListByCategory:category type:type];
-    if (n!=0) {
-        CGFloat segw;
-        segw=SCREENWIDTH*2/7.0;
+//    if (n!=0) {
+//        CGFloat segw;
+//        segw=SCREENWIDTH*2/7.0;
 //        [segItems removeObjectAtIndex:n];
 //        [segItems insertObject:category atIndex:0];
 //        [segView removeSegmentAtIndex:n animated:NO];
 //        [segView insertSegmentWithTitle:category atIndex:0 animated:NO];
 //        [segView setWidth:segw forSegmentAtIndex:0];
 //        segView.selectedSegmentIndex=0;
-    }
+//    }
     
 //    [segView removeSegmentAtIndex:n animated:YES];
 //    [segView insertSegmentWithImage:[UIImage imageNamed:@"seg-sel"] atIndex:0 animated:YES];
@@ -218,17 +229,17 @@
 //    }else if (leftspace<=0) {
 //        [segscrollView setContentOffset:CGPointMake(0, 0) animated:YES];
 //    }
-//    CGFloat leftsegpoint=n*segw;
-//    //right
-//    CGFloat rightsegpoint=segscrollView.contentSize.width-leftsegpoint;
-//    CGFloat rightspace=(rightsegpoint-segscrollView.frame.size.width);
-//    if (rightspace<=0) {
-//        CGFloat rightbottomoffset=segscrollView.contentSize.width-segscrollView.bounds.size.width;
-//        [segscrollView setContentOffset:CGPointMake(rightbottomoffset, 0) animated:YES];
-//    }else{
-//        //left
-//        [segscrollView setContentOffset:CGPointMake(leftsegpoint, 0) animated:YES];
-//    }
+    CGFloat leftsegpoint=n*segw;
+    //right
+    CGFloat rightsegpoint=segscrollView.contentSize.width-leftsegpoint;
+    CGFloat rightspace=(rightsegpoint-segscrollView.frame.size.width);
+    if (rightspace<=0) {
+        CGFloat rightbottomoffset=segscrollView.contentSize.width-segscrollView.bounds.size.width;
+        [segscrollView setContentOffset:CGPointMake(rightbottomoffset, 0) animated:YES];
+    }else{
+        //left
+        [segscrollView setContentOffset:CGPointMake(leftsegpoint, 0) animated:YES];
+    }
     
 }
 

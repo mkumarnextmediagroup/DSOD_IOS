@@ -20,6 +20,7 @@
 #import "TestPage.h"
 #import "GSKItemView.h"
 #import "DenActionSheet.h"
+#import <Social/Social.h>
 
 @interface GSKViewController ()<UIScrollViewDelegate,GSKItemViewViewDelegate,MyActionSheetDelegate>
 {
@@ -30,7 +31,7 @@
     
     NSInteger selectActicleId;
     NSString *category;
-//    NSString *type;
+    NSString *type;
 }
 @end
 
@@ -58,10 +59,9 @@
     self.table.tableHeaderView = [self makeHeaderView];
     self.table.rowHeight = UITableViewAutomaticDimension;
     self.table.estimatedRowHeight = 145;
-    
-    NSArray *ls = [Proto listArticle];
-    self.items = ls;
     category=@"LATEST";
+    self.items = [Proto getArticleListByAuthor:_author category:category type:type];
+    
 }
 
 - (void)onBack:(UIButton *)btn {
@@ -129,6 +129,23 @@
     NSString *title = segItems[n];
     Log(@(n ), title);
     category=title;
+    UIScrollView *segscrollView=(UIScrollView *)segView.superview;
+    [segscrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    //
+    CGFloat segw;
+    segw=SCREENWIDTH*2/7.0;
+
+    CGFloat leftsegpoint=n*segw;
+    //right
+    CGFloat rightsegpoint=segscrollView.contentSize.width-leftsegpoint;
+    CGFloat rightspace=(rightsegpoint-segscrollView.frame.size.width);
+    if (rightspace<=0) {
+        CGFloat rightbottomoffset=segscrollView.contentSize.width-segscrollView.bounds.size.width;
+        [segscrollView setContentOffset:CGPointMake(rightbottomoffset, 0) animated:YES];
+    }else{
+        //left
+        [segscrollView setContentOffset:CGPointMake(leftsegpoint, 0) animated:YES];
+    }
 }
 
 - (void)clickCloseAd:(id)sender {
@@ -164,6 +181,8 @@
     if((-scrollView.contentOffset.y/self.table.frame.size.height)>0.2){
         self.table.tableHeaderView = [self makeHeaderView];
         segView.selectedSegmentIndex=0;
+        category=@"LATEST";
+        self.items = [Proto getArticleListByAuthor:_author category:category type:nil];
     }
 }
 
@@ -175,7 +194,7 @@
     NSLog(@"ArticleMoreAction=%@",@(articleid));
     NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
-    [denSheet show];
+    [denSheet show:self.view];
 }
 
 -(void)articleMarkAction:(NSInteger)articleid
@@ -185,7 +204,6 @@
     if ([Proto checkIsBookmarkByArticle:articleid]) {
         //移除bookmark
         [Proto deleteBookmarks:articleid];
-//        self.items=[Proto getArticleListByCategory:category type:type];
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -196,7 +214,6 @@
     }else{
         //添加bookmark
         [Proto addBookmarks:articleid];
-//        self.items=[Proto getArticleListByCategory:category type:type];
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -235,6 +252,12 @@
         default:
             break;
     }
+}
+
+-(void)GSKCategoryPickerSelectAction:(NSString *)result
+{
+    type=result;
+    self.items = [Proto getArticleListByAuthor:_author category:category type:type];
 }
 
 

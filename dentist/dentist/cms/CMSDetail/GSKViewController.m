@@ -19,13 +19,18 @@
 #import "NSDate+myextend.h"
 #import "TestPage.h"
 #import "GSKItemView.h"
+#import "DenActionSheet.h"
 
-@interface GSKViewController ()<UIScrollViewDelegate>
+@interface GSKViewController ()<UIScrollViewDelegate,GSKItemViewViewDelegate,MyActionSheetDelegate>
 {
     NSMutableArray<NSString *> *segItems;
     UISegmentedControl *segView;
     UILabel *typeLabel;
     UILabel *dateLabel;
+    
+    NSInteger selectActicleId;
+    NSString *category;
+//    NSString *type;
 }
 @end
 
@@ -56,6 +61,7 @@
     
     NSArray *ls = [Proto listArticle];
     self.items = ls;
+    category=@"LATEST";
 }
 
 - (void)onBack:(UIButton *)btn {
@@ -122,6 +128,7 @@
     NSInteger n = segView.selectedSegmentIndex;
     NSString *title = segItems[n];
     Log(@(n ), title);
+    category=title;
 }
 
 - (void)clickCloseAd:(id)sender {
@@ -139,6 +146,7 @@
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
     Article *art = (id) item;
     GSKItemView *itemView = (GSKItemView *) view;
+    itemView.delegate=self;
     [itemView bind:art];
 }
 
@@ -156,6 +164,76 @@
     if((-scrollView.contentOffset.y/self.table.frame.size.height)>0.2){
         self.table.tableHeaderView = [self makeHeaderView];
         segView.selectedSegmentIndex=0;
+    }
+}
+
+
+
+-(void)articleMoreAction:(NSInteger)articleid
+{
+    selectActicleId=articleid;
+    NSLog(@"ArticleMoreAction=%@",@(articleid));
+    NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
+    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
+    [denSheet show];
+}
+
+-(void)articleMarkAction:(NSInteger)articleid
+{
+    selectActicleId=articleid;
+    NSLog(@"ArticleMarkAction=%@",@(articleid));
+    if ([Proto checkIsBookmarkByArticle:articleid]) {
+        //移除bookmark
+        [Proto deleteBookmarks:articleid];
+//        self.items=[Proto getArticleListByCategory:category type:type];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击取消");
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }else{
+        //添加bookmark
+        [Proto addBookmarks:articleid];
+//        self.items=[Proto getArticleListByCategory:category type:type];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击取消");
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
+#pragma mark ---MyActionSheetDelegate
+- (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index
+{
+    switch (index) {
+        case 0://---click the Download button
+        {
+            NSLog(@"download click");
+            //添加
+            [Proto addDownload:selectActicleId];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Download is Add" preferredStyle:UIAlertControllerStyleAlert];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+                NSLog(@"点击取消");
+            }]];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+            break;
+        case 1://---click the Share button
+        {
+            NSLog(@"Share click");
+            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[@"Mastering the art of Dental Surgery",[NSURL URLWithString:@"http://app800.cn/i/d.png"]] applicationActivities:nil];
+            [self presentViewController:avc animated:YES completion:nil];
+        }
+            break;
+        default:
+            break;
     }
 }
 

@@ -53,12 +53,14 @@
     [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
 
     //初始化播放器
-    self.sbPlayer = [[SBPlayer alloc] initWithUrl:[NSURL URLWithString:@"http://download.3g.joy.cn/video/236/60236937/1451280942752_hd.mp4"]];
-    self.sbPlayer.addView = self;
-    //set the movie background color
-    self.sbPlayer.backgroundColor = [UIColor blackColor];
-    [self addSubview:self.sbPlayer];
-    [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+    if (!self.sbPlayer) {
+        self.sbPlayer = [[SBPlayer alloc] initWithUrl:[NSURL URLWithString:@"http://download.3g.joy.cn/video/236/60236937/1451280942752_hd.mp4"]];
+        self.sbPlayer.addView = self;
+        //set the movie background color
+        self.sbPlayer.backgroundColor = [UIColor blackColor];
+        [self addSubview:self.sbPlayer];
+        [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+    }
     
 	_greeBtn = [self addButton];
 	[_greeBtn.titleLabel setFont:[Fonts regular:12]];
@@ -187,6 +189,7 @@
     
     XHStarRateView *star = [[XHStarRateView alloc] initWithFrame:CGRectMake((SCREENWIDTH - 160)/2, 60, 160, 30)];
     star.isAnimation = NO;
+    star.userInteractionEnabled = NO;
     star.rateStyle = HalfStar;
     star.tag = 1;
     [starView addSubview:star];

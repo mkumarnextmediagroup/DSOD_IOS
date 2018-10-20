@@ -132,12 +132,11 @@
     
     UIView *seg = [self makeSegPanel];
     [panel addSubview:seg];
-    
+
     [[[[[seg.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
-//    [self.view layoutIfNeeded];
     
-//    tabView=[[DentistTabView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 51)];
-//    tabView.backgroundColor=[UIColor redColor];
+    
+//    tabView=[DentistTabView new];
 //    [panel addSubview:tabView];
 //    [[[[[tabView.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
 //    tabView.titleArr=segItems;

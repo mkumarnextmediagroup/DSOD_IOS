@@ -66,7 +66,7 @@
 	[titleLabel textColorMain];
 	titleLabel.numberOfLines = 0;
 //	[[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] heightEq:24] install];
-	[[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:10] bottomParent:-103] install];
+	[[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] bottomParent:-103] install];
 
 	contentLabel = [self addLabel];
 	contentLabel.font = [Fonts regular:15];

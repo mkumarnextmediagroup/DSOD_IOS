@@ -68,7 +68,7 @@
     titleLabel.font = [Fonts semiBold:20];
     [titleLabel textColorMain];
     titleLabel.numberOfLines = 0;
-    [[[[titleLabel.layoutMaker leftParent:edge]  toLeftOf:_markButton offset:-edge-10] below:imageView offset:10] install];
+    [[[[titleLabel.layoutMaker leftParent:edge]  toLeftOf:_markButton offset:-edge-10] below:imageView offset:edge-5] install];
     [titleLabel.layoutMaker.height.equalTo(@24).priority(200) install];
     
     UILabel *lineLabel = [self lineLabel];

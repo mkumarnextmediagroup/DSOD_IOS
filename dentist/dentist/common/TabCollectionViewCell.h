@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TabCollectionViewCell : UICollectionViewCell
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIImageView *backgroundImageView;
-
 @end
 
 NS_ASSUME_NONNULL_END

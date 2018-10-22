@@ -32,13 +32,13 @@
     titleLabel = [self addLabel];
     titleLabel.font = [Fonts semiBold:14];
     titleLabel.textColor=Colors.textMain;
-    [[[[[titleLabel.layoutMaker toRightOf:imageView offset:15] topOf:imageView offset:5] toLeftOf:markButton offset:-10] heightEq:18] install];
+    [[[[[titleLabel.layoutMaker toRightOf:imageView offset:15] topOf:imageView offset:10] toLeftOf:markButton offset:-10] heightEq:18] install];
 
-    contentLabel = [self addLabel];
+    contentLabel = [self topShowLabel];
     contentLabel.font = [Fonts semiBold:15];
     contentLabel.textColor=Colors.textContent;
-    contentLabel.numberOfLines = 0;
-    contentLabel.lineBreakMode=NSLineBreakByWordWrapping;
+    contentLabel.numberOfLines = 3;
+//    contentLabel.lineBreakMode=NSLineBreakByTruncatingTail;
     [[[[[contentLabel.layoutMaker toRightOf:imageView offset:15] below:titleLabel offset:5] rightParent:-edge] bottomOf:imageView offset:0] install];
     
     return self;
@@ -47,7 +47,7 @@
 - (void)bind:(Article *)item {
     _model=item;
     titleLabel.text = item.type;
-    contentLabel.text = [item.title stringByAppendingString:@"\n\n\n\n "];
+    contentLabel.text = item.title;//[item.title stringByAppendingString:@"\n\n\n\n "];
     [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
     [imageView scaleFillAspect];
     imageView.clipsToBounds=YES;

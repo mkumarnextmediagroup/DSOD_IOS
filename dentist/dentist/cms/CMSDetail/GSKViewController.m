@@ -60,7 +60,8 @@
     
     self.table.tableHeaderView = [self makeHeaderView];
     self.table.rowHeight = UITableViewAutomaticDimension;
-    self.table.estimatedRowHeight = 145;
+    self.table.estimatedRowHeight = 150;
+    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     category=@"LATEST";
     self.items = [Proto getArticleListByAuthor:_author category:category type:type];
     
@@ -174,7 +175,8 @@
 }
 
 - (CGFloat)heightOfItem:(NSObject *)item {
-    return 145;
+    return 150;
+//    return UITableViewAutomaticDimension;
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {

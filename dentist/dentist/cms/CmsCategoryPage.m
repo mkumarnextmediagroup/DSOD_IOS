@@ -28,6 +28,7 @@
     
     self.table.rowHeight = UITableViewAutomaticDimension;
     self.table.estimatedRowHeight = 400;
+//    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by categoy" filterAction:^(NSString *result) {
         type=result;
         self.items=[Proto getArticleListByType:type];

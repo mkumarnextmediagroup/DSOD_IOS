@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol DentistTabViewDelegate <NSObject>
 
+@optional
+- (void)didDentistSelectItemAtIndex:(NSInteger)index;
+@end
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DentistTabView : UIView
-
+@property (nonatomic,weak) id<DentistTabViewDelegate>delegate;
 @property (nonatomic,strong) NSMutableArray *titleArr;
 @end
 

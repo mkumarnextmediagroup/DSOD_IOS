@@ -873,6 +873,35 @@
     return arr;
 }
 
+//MARK:根据author获取Article列表
++(NSArray *)getArticleListByAuthor:(NSString *)author category:(NSString *)category  type:(NSString *)type
+{
+    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
+    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
+    NSMutableArray *newDataArr = [NSMutableArray array];
+    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([[model.authName lowercaseString] isEqualToString:[author lowercaseString]] ) {
+            if(![self isBlankString:category] && ![self isBlankString:type]){
+                if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
+                    [newDataArr addObject:model];
+                }
+            }else if (![self isBlankString:category] && [self isBlankString:type]){
+                if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]]) {
+                    [newDataArr addObject:model];
+                }
+            }else if ([self isBlankString:category] && ![self isBlankString:type] ){
+                if ([[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
+                    [newDataArr addObject:model];
+                }
+            }else{
+                [newDataArr addObject:model];
+            }
+        }
+    }];
+    return newDataArr;
+}
+
 //MARK:根据category获取Article列表
 +(NSArray *)getArticleListByCategory:(NSString *)category
 {

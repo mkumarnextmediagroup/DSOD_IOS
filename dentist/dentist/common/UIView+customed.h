@@ -36,6 +36,8 @@
 
 - (UILabel *)lineLabel;
 
+- (UILabel *)topShowLabel;
+
 - (UITextView *)noticeLabel;
 
 - (UITextField *)addEditRaw;

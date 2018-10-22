@@ -9,6 +9,9 @@
 #import "DentistTabView.h"
 #import "Common.h"
 #import "TabCollectionViewCell.h"
+
+#define itemWidth ceilf(SCREENWIDTH*2/7.0)
+
 static NSString * identifier = @"TabCellID2";
 @interface DentistTabView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
@@ -34,17 +37,14 @@ static NSString * identifier = @"TabCellID2";
 {
     self =[super init];
     if (self) {
-        _groupCount=4;
+        _groupCount=100;
         _indexArr=[[NSMutableArray alloc] init];
         //自动网格布局
         UICollectionViewFlowLayout * flowLayout = [[UICollectionViewFlowLayout alloc]init];
-        
-        
-        CGFloat itemWidth = ceilf(SCREENWIDTH*2/7.0);
 
         //设置单元格大小
         flowLayout.itemSize = CGSizeMake(itemWidth, 51);
-//        flowLayout.estimatedItemSize=CGSizeMake(itemWidth, 40);
+//        flowLayout.estimatedItemSize=CGSizeMake(itemWidth, 51);
 //        flowLayout.itemSize=UICollectionViewFlowLayoutAutomaticSize;
         //最小行间距(默认为10)
         flowLayout.minimumLineSpacing = 0;
@@ -58,7 +58,7 @@ static NSString * identifier = @"TabCellID2";
         //网格布局
         _collectionView=[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
         _collectionView.showsHorizontalScrollIndicator = NO;
-        _collectionView.backgroundColor=[UIColor grayColor];
+        _collectionView.backgroundColor=[UIColor whiteColor];
         [self addSubview:_collectionView];
         [[[[[_collectionView.layoutMaker leftParent:0] topParent:0] rightParent:0] heightEq:51.0] install];
         //设置数据源代理
@@ -86,7 +86,16 @@ static NSString * identifier = @"TabCellID2";
         [_collectionView reloadData];
         selectIndex=(_groupCount / 2 * _titleArr.count);
         NSLog(@"selectindex=%@",@(selectIndex));
-        [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:selectIndex+1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
+//        [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:selectIndex+2 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
+        
+        [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
+        if (_indexArr.count>selectIndex) {
+            NSInteger index = [_indexArr[selectIndex] integerValue];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(didDentistSelectItemAtIndex:)]) {
+                [self.delegate didDentistSelectItemAtIndex:index];
+            }
+        }
+        
     }
 }
 
@@ -120,20 +129,50 @@ static NSString * identifier = @"TabCellID2";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     selectIndex=indexPath.row;
-     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:selectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
+    if (_indexArr.count>selectIndex) {
+        NSInteger index = [_indexArr[selectIndex] integerValue];
+        NSLog(@"index=%@",@(selectIndex));
+        //     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:selectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
+        [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
+        [_collectionView reloadData];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didDentistSelectItemAtIndex:)]) {
+            [self.delegate didDentistSelectItemAtIndex:index];
+        }
+    }
+    
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"=====scrollViewDidEndDecelerating");
-    CGPoint pointinview=[self convertPoint:_collectionView.center toView:_collectionView];
-    NSIndexPath *indexPathNow =[_collectionView indexPathForItemAtPoint:pointinview];
-    NSInteger index=(indexPathNow?indexPathNow.row:0)%_titleArr.count;
-    NSLog(@"index=%@",@(index));
-    NSLog(@"(_groupCount / 2 * _titleArr.count)=%@",@((_groupCount / 2 * _titleArr.count)));
+    CGFloat height = scrollView.frame.size.width;
+    CGFloat contentOffsetX = scrollView.contentOffset.x;//scrollView.contentOffset.
+    CGFloat bottomOffset = scrollView.contentSize.width - contentOffsetX;
+    if(contentOffsetX<=0){
+        //在最底部
+        [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
+    }
+    if (bottomOffset <= height)
+    {
+        //在最底部
+       [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
+    }
     
-    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(_groupCount / 2 * _titleArr.count)+index+1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
 }
+
+//-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+//{
+////    NSLog(@"=====scrollViewDidEndDecelerating");
+////    CGPoint pointinview=[self convertPoint:_collectionView.center toView:_collectionView];
+////    NSIndexPath *indexPathNow =[_collectionView indexPathForItemAtPoint:pointinview];
+////    NSInteger index=(indexPathNow?indexPathNow.row:0)%_titleArr.count;
+////    NSLog(@"index=%@",@(index));
+////    NSLog(@"(_groupCount / 2 * _titleArr.count)=%@",@((_groupCount / 2 * _titleArr.count)));
+//
+////    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(_groupCount / 2 * _titleArr.count)*itemWidth inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
+//
+//    [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
+//}
 
 
 

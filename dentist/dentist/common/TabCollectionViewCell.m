@@ -19,9 +19,11 @@
         _backgroundImageView=[self addImageView];
         [[[[[_backgroundImageView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
         [_backgroundImageView setImage:[UIImage imageNamed:@"seg-sel"]];
-        _backgroundImageView.contentMode=UIViewContentModeScaleAspectFill;
+        _backgroundImageView.contentMode=UIViewContentModeScaleToFill;
         _backgroundImageView.clipsToBounds=YES;
+
         
+        [_backgroundImageView layoutIfNeeded];
         _titleLabel=[self addLabel];
         _titleLabel.font=[Fonts semiBold:12];
         _titleLabel.textColor=Colors.textMain;
@@ -30,7 +32,7 @@
         
         UILabel *line=[self addLabel];
         line.backgroundColor=rgba255(221, 221, 221, 100);
-        [[[[[line.layoutMaker rightParent:-1] topParent:0] bottomParent:0] widthEq:1] install];
+        [[[[[line.layoutMaker leftParent:0] topParent:0] bottomParent:0] widthEq:1] install];
     }
     return self;
 }

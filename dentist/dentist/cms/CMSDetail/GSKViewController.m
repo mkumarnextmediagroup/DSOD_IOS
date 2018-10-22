@@ -21,8 +21,9 @@
 #import "GSKItemView.h"
 #import "DenActionSheet.h"
 #import <Social/Social.h>
+#import "DentistTabView.h"
 
-@interface GSKViewController ()<UIScrollViewDelegate,GSKItemViewViewDelegate,MyActionSheetDelegate>
+@interface GSKViewController ()<UIScrollViewDelegate,GSKItemViewViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 {
     NSMutableArray<NSString *> *segItems;
     UISegmentedControl *segView;
@@ -32,6 +33,7 @@
     NSInteger selectActicleId;
     NSString *category;
     NSString *type;
+    DentistTabView *tabView;
 }
 @end
 
@@ -58,7 +60,8 @@
     
     self.table.tableHeaderView = [self makeHeaderView];
     self.table.rowHeight = UITableViewAutomaticDimension;
-    self.table.estimatedRowHeight = 145;
+    self.table.estimatedRowHeight = 150;
+    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     category=@"LATEST";
     self.items = [Proto getArticleListByAuthor:_author category:category type:type];
     
@@ -69,9 +72,18 @@
 }
 
 - (UIView *)makeHeaderView2 {
-    UIView *seg = [self makeSegPanel];
-    seg.frame = makeRect(0, 0, SCREENWIDTH, 51);
-    return seg;
+//    UIView *seg = [self makeSegPanel];
+//    seg.frame = makeRect(0, 0, SCREENWIDTH, 51);
+//    return seg;
+    UIView *headerview = [UIView new];
+    headerview.frame = makeRect(0, 0, SCREENWIDTH, 51);
+    [headerview addSubview:tabView];
+    tabView=[DentistTabView new];
+    tabView.delegate=self;
+    [headerview addSubview:tabView];
+    [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
+    tabView.titleArr=segItems;
+    return headerview;
 }
 
 - (UIView *)makeHeaderView {
@@ -88,9 +100,14 @@
     [[[[closeAd.layoutMaker topParent:22] rightParent:-22] sizeEq:24 h:24] install];
     [closeAd onClick:self action:@selector(clickCloseAd:)];
     
-    UIView *seg = [self makeSegPanel];
-    [panel addSubview:seg];
-    [[[[[seg.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
+//    UIView *seg = [self makeSegPanel];
+//    [panel addSubview:seg];
+//    [[[[[seg.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
+    tabView=[DentistTabView new];
+    tabView.delegate=self;
+    [panel addSubview:tabView];
+    [[[[[tabView.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
+    tabView.titleArr=segItems;
     
     return panel;
 }
@@ -158,7 +175,8 @@
 }
 
 - (CGFloat)heightOfItem:(NSObject *)item {
-    return 145;
+    return 150;
+//    return UITableViewAutomaticDimension;
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
@@ -260,7 +278,18 @@
     type=result;
     self.items = [Proto getArticleListByAuthor:_author category:category type:type];
 }
-
+#pragma mark -------DentistTabViewDelegate
+-(void)didDentistSelectItemAtIndex:(NSInteger)index
+{
+    if (segItems.count>index) {
+        category = segItems[index];
+        
+        
+        Log(@(index ), category);
+        self.items=[Proto getArticleListByCategory:category type:type];
+    }
+    
+}
 
 @end
 

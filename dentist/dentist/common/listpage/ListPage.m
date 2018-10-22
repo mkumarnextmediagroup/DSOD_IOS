@@ -23,8 +23,7 @@
 
 	self.automaticallyAdjustsScrollViewInsets = NO;
 
-
-	_table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    _table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
 	if (@available(iOS 11.0, *)) {
 		_table.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
 	}

@@ -55,6 +55,7 @@
     
     self.table.tableHeaderView = [self makeHeaderView];
     self.table.rowHeight = 160;
+//    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyViewWithImageName:@"nonDownload" title:@"No downloaded content"];
     
     

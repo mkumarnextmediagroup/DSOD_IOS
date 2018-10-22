@@ -142,19 +142,37 @@ static NSString * identifier = @"TabCellID2";
     
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-//    NSLog(@"=====scrollViewDidEndDecelerating");
-//    CGPoint pointinview=[self convertPoint:_collectionView.center toView:_collectionView];
-//    NSIndexPath *indexPathNow =[_collectionView indexPathForItemAtPoint:pointinview];
-//    NSInteger index=(indexPathNow?indexPathNow.row:0)%_titleArr.count;
-//    NSLog(@"index=%@",@(index));
-//    NSLog(@"(_groupCount / 2 * _titleArr.count)=%@",@((_groupCount / 2 * _titleArr.count)));
+    CGFloat height = scrollView.frame.size.width;
+    CGFloat contentOffsetX = scrollView.contentOffset.x;//scrollView.contentOffset.
+    CGFloat bottomOffset = scrollView.contentSize.width - contentOffsetX;
+    if(contentOffsetX<=0){
+        //在最底部
+        [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
+    }
+    if (bottomOffset <= height)
+    {
+        //在最底部
+       [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
+    }
     
-//    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(_groupCount / 2 * _titleArr.count)*itemWidth inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
-    
-    [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
 }
+
+//-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+//{
+////    NSLog(@"=====scrollViewDidEndDecelerating");
+////    CGPoint pointinview=[self convertPoint:_collectionView.center toView:_collectionView];
+////    NSIndexPath *indexPathNow =[_collectionView indexPathForItemAtPoint:pointinview];
+////    NSInteger index=(indexPathNow?indexPathNow.row:0)%_titleArr.count;
+////    NSLog(@"index=%@",@(index));
+////    NSLog(@"(_groupCount / 2 * _titleArr.count)=%@",@((_groupCount / 2 * _titleArr.count)));
+//
+////    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(_groupCount / 2 * _titleArr.count)*itemWidth inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
+//
+//    [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
+//}
 
 
 

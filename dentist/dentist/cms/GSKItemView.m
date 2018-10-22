@@ -69,10 +69,7 @@
     [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     [[[[markButton.layoutMaker toLeftOf:_moreButton offset:-8] below:topView offset:edge] sizeEq:20 h:20] install];
     [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
 
-    
     titleLabel = [contentView addLabel];
     titleLabel.font = [Fonts regular:14];
     [titleLabel textColorMain];

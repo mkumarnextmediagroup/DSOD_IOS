@@ -47,7 +47,7 @@
     
     self.table.tableHeaderView = [self makeHeaderView];
     self.table.rowHeight = 150;
-    
+//    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyViewWithImageName:@"nonBookmarks" title:@"No bookmarks added yet"];
 }
 

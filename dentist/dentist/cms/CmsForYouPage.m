@@ -82,6 +82,7 @@
 	self.table.tableHeaderView = [self makeHeaderView];
 	self.table.rowHeight = UITableViewAutomaticDimension;
 	self.table.estimatedRowHeight = 400;
+//    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 	self.items = [Proto getArticleListByCategory:category type:type];
 }
 

@@ -22,7 +22,7 @@
 #import "DenActionSheet.h"
 #import "DentistTabView.h"
 
-@interface CmsForYouPage()<ArticleItemViewDelegate,MyActionSheetDelegate>
+@interface CmsForYouPage()<ArticleItemViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 @end
 @implementation CmsForYouPage {
 	NSMutableArray<NSString *> *segItems;
@@ -82,6 +82,7 @@
 	self.table.tableHeaderView = [self makeHeaderView];
 	self.table.rowHeight = UITableViewAutomaticDimension;
 	self.table.estimatedRowHeight = 400;
+//    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 	self.items = [Proto getArticleListByCategory:category type:type];
 }
 
@@ -130,24 +131,35 @@
     [[[[closeAd.layoutMaker topParent:22] rightParent:-22] sizeEq:24 h:24] install];
     [closeAd onClick:self action:@selector(clickCloseAd:)];
     
-    UIView *seg = [self makeSegPanel];
-    [panel addSubview:seg];
-
-    [[[[[seg.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
+//    UIView *seg = [self makeSegPanel];
+//    [panel addSubview:seg];
+//
+//    [[[[[seg.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
     
     
-//    tabView=[DentistTabView new];
-//    [panel addSubview:tabView];
-//    [[[[[tabView.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
-//    tabView.titleArr=segItems;
+    tabView=[DentistTabView new];
+    tabView.delegate=self;
+    [panel addSubview:tabView];
+    [[[[[tabView.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
+    tabView.titleArr=segItems;
 
 	return panel;
 }
 
 - (UIView *)makeHeaderView2 {
-	UIView *seg = [self makeSegPanel];
-	seg.frame = makeRect(0, 0, SCREENWIDTH, 51);
-	return seg;
+//    UIView *seg = [self makeSegPanel];
+//    seg.frame = makeRect(0, 0, SCREENWIDTH, 51);
+//    return seg;
+     UIView *headerview = [UIView new];
+     headerview.frame = makeRect(0, 0, SCREENWIDTH, 51);
+     [headerview addSubview:tabView];
+    tabView=[DentistTabView new];
+    tabView.delegate=self;
+    [headerview addSubview:tabView];
+    [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
+    tabView.titleArr=segItems;
+    
+    return headerview;
 }
 
 - (UIView *)makeSegPanel {
@@ -399,6 +411,19 @@
 {
     type=result;
     self.items=[Proto getArticleListByCategory:category type:type];
+}
+
+#pragma mark -------DentistTabViewDelegate
+-(void)didDentistSelectItemAtIndex:(NSInteger)index
+{
+    if (segItems.count>index) {
+        category = segItems[index];
+        
+        
+        Log(@(index ), category);
+        self.items=[Proto getArticleListByCategory:category type:type];
+    }
+    
 }
 
 @end

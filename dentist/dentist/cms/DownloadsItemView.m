@@ -16,6 +16,7 @@
     UIImageView *imageView;
     UIButton *statusButton;
     UILabel *statusLabel;
+    UIImageView *thumbImageView;
 }
 
 - (AFURLSessionManager *)manager {
@@ -33,6 +34,10 @@
     NSInteger edge = 16;
     imageView = self.addImageView;
     [[[[imageView.layoutMaker leftParent:edge]topParent:25] sizeEq:110 h:110] install];
+    
+    thumbImageView = [UIImageView new];
+    [imageView addSubview:thumbImageView];
+    [[[[thumbImageView.layoutMaker leftParent:10] bottomParent:-10] sizeEq:28 h:28] install];
     
     _markButton = [self addButton];
     [_markButton setImage:[UIImage imageNamed:@"dot3"] forState:UIControlStateNormal];
@@ -63,11 +68,11 @@
     statusLabel.numberOfLines = 0;
     [[[[[statusLabel.layoutMaker toRightOf:imageView offset:15] toLeftOf:_markButton offset:-20] bottomOf:imageView offset:0] heightEq:20] install];
     
-    contentLabel = [self addLabel];
+    contentLabel = [self topShowLabel];
     contentLabel.font = [Fonts semiBold:15];
     contentLabel.textColor=Colors.textContent;
-    contentLabel.numberOfLines = 0;
-    contentLabel.lineBreakMode=NSLineBreakByWordWrapping | NSLineBreakByTruncatingTail;
+    contentLabel.numberOfLines = 3;
+//    contentLabel.lineBreakMode=NSLineBreakByWordWrapping;
     [[[[[contentLabel.layoutMaker toRightOf:imageView offset:15] below:titleLabel offset:5] rightParent:-edge] above:statusLabel offset:-5] install];
     
     return self;
@@ -76,10 +81,25 @@
 - (void)bind:(Article *)item {
     statusLabel.text=@"Download complete";
     titleLabel.text = item.type;
-    contentLabel.text = [item.title stringByAppendingString:@"\n\n\n\n "];
+    contentLabel.text = item.title;//[item.title stringByAppendingString:@"\n\n\n\n "];
     [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
     [imageView scaleFillAspect];
     imageView.clipsToBounds=YES;
+    if ([item.category isEqualToString:@"VIDEOS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"VIDEOS_thumb"]];
+    }else if([item.category isEqualToString:@"PODCASTS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Podcast"]];
+    }else if([item.category isEqualToString:@"INTERVIEWS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Interview"]];
+    }else if([item.category isEqualToString:@"TECH GUIDES"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"TechGuide"]];
+    }else if([item.category isEqualToString:@"ANIMATIONS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Animation"]];
+    }else if([item.category isEqualToString:@"TIP SHEETS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"TipSheet"]];
+    }else{
+        [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
+    }
     [self startAnimation];
 }
 

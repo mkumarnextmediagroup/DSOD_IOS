@@ -59,6 +59,7 @@
     }
     self.table.rowHeight = UITableViewAutomaticDimension;
     self.table.estimatedRowHeight = 400;
+//    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyViewWithImageName:@"Icon-Search" title:@"Search by categoy name,\n author,or content type"];
 
     self.items = [Proto getArticleListByKeywords:searchKeywords];

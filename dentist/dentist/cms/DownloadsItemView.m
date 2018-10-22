@@ -63,11 +63,11 @@
     statusLabel.numberOfLines = 0;
     [[[[[statusLabel.layoutMaker toRightOf:imageView offset:15] toLeftOf:_markButton offset:-20] bottomOf:imageView offset:0] heightEq:20] install];
     
-    contentLabel = [self addLabel];
+    contentLabel = [self topShowLabel];
     contentLabel.font = [Fonts semiBold:15];
     contentLabel.textColor=Colors.textContent;
-    contentLabel.numberOfLines = 0;
-    contentLabel.lineBreakMode=NSLineBreakByWordWrapping;
+    contentLabel.numberOfLines = 3;
+//    contentLabel.lineBreakMode=NSLineBreakByWordWrapping;
     [[[[[contentLabel.layoutMaker toRightOf:imageView offset:15] below:titleLabel offset:5] rightParent:-edge] above:statusLabel offset:-5] install];
     
     return self;
@@ -76,7 +76,7 @@
 - (void)bind:(Article *)item {
     statusLabel.text=@"Download complete";
     titleLabel.text = item.type;
-    contentLabel.text = [item.title stringByAppendingString:@"\n\n\n\n "];
+    contentLabel.text = item.title;//[item.title stringByAppendingString:@"\n\n\n\n "];
     [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
     [imageView scaleFillAspect];
     imageView.clipsToBounds=YES;

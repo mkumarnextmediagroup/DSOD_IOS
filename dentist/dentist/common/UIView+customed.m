@@ -7,6 +7,7 @@
 #import "UIView+customed.h"
 #import "Common.h"
 #import "MyStyle.h"
+#import "TopLabel.h"
 
 static char layoutParamAttr = 0;
 static char paddingAttr = 0;
@@ -138,6 +139,16 @@ static char argObjectAttr = 0;
 	v.backgroundColor = UIColor.clearColor;
 	v.editable = NO;
 	return v;
+}
+
+- (UILabel *)topShowLabel {
+    TopLabel *lb = [TopLabel new];
+    lb.numberOfLines = 0;
+    [lb setVerticalAlignment:VerticalAlignmentTop];
+    lb.backgroundColor = UIColor.clearColor;
+    [lb textColorMain];
+    [self addSubview:lb];
+    return lb;
 }
 
 - (UILabel *)addLabel {

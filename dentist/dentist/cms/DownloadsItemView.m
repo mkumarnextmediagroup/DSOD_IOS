@@ -16,6 +16,7 @@
     UIImageView *imageView;
     UIButton *statusButton;
     UILabel *statusLabel;
+    UIImageView *thumbImageView;
 }
 
 - (AFURLSessionManager *)manager {
@@ -33,6 +34,10 @@
     NSInteger edge = 16;
     imageView = self.addImageView;
     [[[[imageView.layoutMaker leftParent:edge]topParent:25] sizeEq:110 h:110] install];
+    
+    thumbImageView = [UIImageView new];
+    [imageView addSubview:thumbImageView];
+    [[[[thumbImageView.layoutMaker leftParent:10] bottomParent:-10] sizeEq:28 h:28] install];
     
     _markButton = [self addButton];
     [_markButton setImage:[UIImage imageNamed:@"dot3"] forState:UIControlStateNormal];
@@ -80,6 +85,21 @@
     [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
     [imageView scaleFillAspect];
     imageView.clipsToBounds=YES;
+    if ([item.category isEqualToString:@"VIDEOS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"VIDEOS_thumb"]];
+    }else if([item.category isEqualToString:@"PODCASTS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Podcast"]];
+    }else if([item.category isEqualToString:@"INTERVIEWS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Interview"]];
+    }else if([item.category isEqualToString:@"TECH GUIDES"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"TechGuide"]];
+    }else if([item.category isEqualToString:@"ANIMATIONS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Animation"]];
+    }else if([item.category isEqualToString:@"TIP SHEETS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"TipSheet"]];
+    }else{
+        [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
+    }
     [self startAnimation];
 }
 

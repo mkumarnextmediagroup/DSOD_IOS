@@ -13,7 +13,7 @@
 @protocol GSKItemViewViewDelegate <NSObject>
 
 @optional
-
+- (void)GSKCategoryPickerSelectAction:(NSString *)result;
 - (void)articleMoreAction:(NSInteger)articleid;
 - (void)articleMarkAction:(NSInteger)articleid;;
 @end

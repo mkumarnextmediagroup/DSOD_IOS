@@ -77,6 +77,8 @@
 
 //MARK:获取Article列表
 +(NSArray *_Nullable)getArticleList;
+//MARK:根据author获取Article列表
++(NSArray *)getArticleListByAuthor:(NSString *)author category:(NSString *)category  type:(NSString *)type;
 //MARK:根据category获取Article列表
 +(NSArray *_Nullable)getArticleListByCategory:(NSString *_Nullable)category;
 
@@ -96,13 +98,13 @@
 //MARK:获取bookmark列表
 +(NSArray *_Nullable)getBookmarksList;
 //MARK:根据Bookmarks跟type获取Article列表
-+(NSArray *_Nullable)getBookmarksListByCategory:(NSString *_Nullable)category type:(NSString *)type;
++(NSArray *_Nullable)getBookmarksListByCategory:(NSString *_Nullable)category type:(NSString *_Nullable)type;
 
 //MARK:获取download列表
 +(NSArray *_Nullable)getDownloadList;
 
 //MARK:根据DownloadList跟type获取Article列表
-+(NSArray *_Nullable)getDownloadListByCategory:(NSString *_Nullable)category type:(NSString *)type;
++(NSArray *_Nullable)getDownloadListByCategory:(NSString *_Nullable)category type:(NSString *_Nullable)type;
 
 //MARK:检测是否bookmark
 +(BOOL)checkIsBookmarkByArticle:(NSInteger)articleid;

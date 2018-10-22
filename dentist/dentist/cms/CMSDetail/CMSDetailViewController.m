@@ -262,6 +262,7 @@
 - (void)gskBtnClick
 {
     GSKViewController *gskVC = [GSKViewController new];
+    gskVC.author=_articleInfo.authName;
     [self.navigationController pushViewController:gskVC animated:YES];
     
 }

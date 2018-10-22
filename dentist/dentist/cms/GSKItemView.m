@@ -9,6 +9,8 @@
 #import "GSKItemView.h"
 #import "Common.h"
 #import "Article.h"
+#import "DentistPickerView.h"
+#import <CoreText/CoreText.h>
 
 @implementation GSKItemView{
     UILabel *typeLabel;
@@ -36,6 +38,9 @@
     typeLabel.font = [Fonts semiBold:12];
     [typeLabel textColorMain];
     [[[[[typeLabel.layoutMaker centerYParent:0] leftParent:edge] heightEq:topheight] rightParent:-90] install];
+    UIButton *typebutton=[topView addButton];
+    [[[[[typebutton.layoutMaker centerYParent:0] leftParent:edge] heightEq:topheight] rightParent:-90] install];
+    [typebutton addTarget:self action:@selector(showFilter) forControlEvents:UIControlEventTouchUpInside];
     
     dateLabel = [topView addLabel];
     [dateLabel textAlignRight];
@@ -43,9 +48,9 @@
     [dateLabel textColorAlternate];
     [[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:topheight] widthEq:74] install];
     
-    UILabel *lineLabel = [topView lineLabel];
-    lineLabel.backgroundColor = Colors.cellLineColor;
-    [[[lineLabel.layoutMaker sizeEq:SCREENWIDTH h:1] topParent:topheight-1] install];
+//    UILabel *lineLabel = [topView lineLabel];//
+//    lineLabel.backgroundColor = Colors.cellLineColor;
+//    [[[lineLabel.layoutMaker sizeEq:SCREENWIDTH h:1] topParent:topheight-1] install];
     
     UIView *contentView = self.addView;
     contentView.backgroundColor = rgb255(255, 255, 255);
@@ -79,11 +84,13 @@
 }
 
 - (void)bind:(Article *)item {
+    _model=item;
     typeLabel.text = [item.type uppercaseString];
     dateLabel.text = item.publishDate;
     titleLabel.text = item.title;
     [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
-    
+    imageView.contentMode=UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds=YES;
     
     if (item.isBookmark) {
         [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
@@ -112,5 +119,23 @@
     
     
 }
+
+-(void)showFilter
+{
+    DentistPickerView *picker = [[DentistPickerView alloc]init];
+    picker.array = @[@"Orthodontics",@"Practice Management",@"DSOs",@"General Dentistry",@"Implant Dentistry",@"Pediatric Dentistry"];
+    picker.leftTitle=localStr(@"Category");
+    picker.righTtitle=localStr(@"Cancel");
+    [picker show:^(NSString *result) {
+        
+    } rightAction:^(NSString *result) {
+        
+    } selectAction:^(NSString *result) {
+        if(self.delegate && [self.delegate respondsToSelector:@selector(GSKCategoryPickerSelectAction:)]){
+            [self.delegate GSKCategoryPickerSelectAction:result];
+        }
+    }];
+}
+
 
 @end

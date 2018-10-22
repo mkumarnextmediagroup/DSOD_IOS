@@ -19,12 +19,6 @@
 @end
 
 @implementation LoginController {
-	UITextField *emailEdit;
-	UITextField *pwdEdit;
-	UIButton *checkButton;
-	UIButton *loginButton;
-    
-
 	UILabel *touchLabel;
 	LAContext *context;
     UILabel *serverLabel;
@@ -113,14 +107,14 @@
 
 	StackLayout *sl = [StackLayout new];
 
-	emailEdit = self.view.addEditRounded;
-	emailEdit.delegate = self;
+    _emailEdit = self.view.addEditRounded;
+	_emailEdit.delegate = self;
 	if (self.student) {
-		emailEdit.hint = localStr(@"schemail");
+		_emailEdit.hint = localStr(@"schemail");
 	} else {
-		emailEdit.hint = localStr(@"email_address");
+		_emailEdit.hint = localStr(@"email_address");
 	}
-	[emailEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:-23];
+	[_emailEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:-23];
 
 	UILabel *lb = self.view.addLabel;
 	lb.text = localStr(@"login");
@@ -130,23 +124,23 @@
 	[lb layoutFillXOffsetCenterY:46 offset:-80];
 
 
-	pwdEdit = self.view.addEditPwd;
-	pwdEdit.delegate = self;
-	pwdEdit.hint = localStr(@"pwd");
+	_pwdEdit = self.view.addEditPwd;
+	_pwdEdit.delegate = self;
+	_pwdEdit.hint = localStr(@"pwd");
 //	[pwdEdit themeError];
-	[pwdEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:23];
+	[_pwdEdit layoutFillXOffsetCenterY:EDIT_HEIGHT offset:23];
 
-	checkButton = self.view.addCheckbox;
-	checkButton.selected = YES;
-	[[[[[checkButton layoutMaker] sizeEq:24 h:24] leftParent:EDGE] below:pwdEdit offset:16] install];
-	[checkButton onClick:self action:@selector(clickCheckBox:)];
+	_checkButton = self.view.addCheckbox;
+	_checkButton.selected = YES;
+	[[[[[_checkButton layoutMaker] sizeEq:24 h:24] leftParent:EDGE] below:_pwdEdit offset:16] install];
+	[_checkButton onClick:self action:@selector(clickCheckBox:)];
 
 
 	touchLabel = self.view.addLabel;
 	touchLabel.text = localStr(@"enable_touch");
 	[touchLabel textColorWhite];
 	touchLabel.font = [Fonts medium:15];
-	[[[[[touchLabel layoutMaker] sizeFit] toRightOf:checkButton offset:8] centerYOf:checkButton offset:0] install];
+	[[[[[touchLabel layoutMaker] sizeFit] toRightOf:_checkButton offset:8] centerYOf:_checkButton offset:0] install];
 
 
 	UILabel *forgotLabel = self.view.addLabel;
@@ -155,13 +149,13 @@
 	[forgotLabel textColorWhite];
 	forgotLabel.font = [Fonts semiBold:12];
 
-	[[[[[forgotLabel layoutMaker] sizeFit] rightOf:pwdEdit] centerYOf:touchLabel offset:0] install];
+	[[[[[forgotLabel layoutMaker] sizeFit] rightOf:_pwdEdit] centerYOf:touchLabel offset:0] install];
 
 
-	loginButton = self.view.addButton;
-	[loginButton styleWhite];
-	[loginButton title:localStr(@"login")];
-	[loginButton styleSecondary];
+	_loginButton = self.view.addButton;
+	[_loginButton styleWhite];
+	[_loginButton title:localStr(@"login")];
+	[_loginButton styleSecondary];
     
 
 	UILabel *regLabel = self.view.addLabel;
@@ -189,34 +183,33 @@
 		[sl push:linkedinButton height:BTN_HEIGHT marginBottom:22];
 
 	}
-	[sl push:loginButton height:BTN_HEIGHT marginBottom:8];
+	[sl push:_loginButton height:BTN_HEIGHT marginBottom:8];
 	[sl install];
 
 
 	[regLabel onClickView:self action:@selector(clickGoReg:)];
 	[backView onClick:self action:@selector(clickGoBack:)];
-	[loginButton onClick:self action:@selector(clickLogin:)];
+	[_loginButton onClick:self action:@selector(clickLogin:)];
 	[forgotLabel onClickView:self action:@selector(clickForgot:)];
 
-	[emailEdit returnNext];
-	[pwdEdit returnDone];
+	[_emailEdit returnNext];
+	[_pwdEdit returnDone];
 
-	[emailEdit keyboardEmail];
-	[pwdEdit keyboardDefault];
+	[_emailEdit keyboardEmail];
+	[_pwdEdit keyboardDefault];
 
 	NSString *account = getLastAccount();
 	if (account != nil) {
-		emailEdit.text = account;
+		_emailEdit.text = account;
 	}
-
 
 	context = [[LAContext alloc] init];
 	if ([self isSupportBiometrics]) {
 		if (@available(iOS 11.0, *)) {
 			switch (context.biometryType) {
 				case LABiometryNone:
-					checkButton.selected = NO;
-					checkButton.enabled = NO;
+					_checkButton.selected = NO;
+					_checkButton.enabled = NO;
 					break;
 				case LABiometryTypeTouchID:
 					touchLabel.text = localStr(@"enable_touch");
@@ -229,8 +222,8 @@
 			}
 		}
 	} else {
-		checkButton.selected = NO;
-		checkButton.enabled = NO;
+		_checkButton.selected = NO;
+		_checkButton.enabled = NO;
 	}
 }
 
@@ -238,21 +231,21 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 	BOOL err = NO;
 
-	if ([emailEdit.text trimed].length < 5 || !emailEdit.text.matchEmail) {
-		[emailEdit themeError];
+	if ([_emailEdit.text trimed].length < 5 || !_emailEdit.text.matchEmail) {
+		[_emailEdit themeError];
 		err = YES;
 	} else {
-		[emailEdit themeNormal];
+		[_emailEdit themeNormal];
 	}
-	if ([pwdEdit.text trimed].length < 2) {
-		[pwdEdit themeError];
+	if ([_pwdEdit.text trimed].length < 2) {
+		[_pwdEdit themeError];
 		err = YES;
 	} else {
-		[pwdEdit themeNormal];
+		[_pwdEdit themeNormal];
 	}
 
 	BOOL flag = [self shouldEableloginBtn];
-	loginButton.enabled = flag;
+	_loginButton.enabled = flag;
 
 //    loginButton.enabled = !err;
 }
@@ -272,17 +265,17 @@
 - (void)clickCheckBox:(id)sender {
 
 	BOOL flag = [self shouldEableloginBtn];
-	loginButton.enabled = flag;
+	_loginButton.enabled = flag;
 }
 
 - (BOOL)shouldEableloginBtn {
 
-	NSString *email = [emailEdit.text trimed];
+	NSString *email = [_emailEdit.text trimed];
 	NSString *pwd = keychainGetPwd(email);
-	if (email.matchEmail && [pwdEdit.text trimed].length > 2) {
+	if (email.matchEmail && [_pwdEdit.text trimed].length > 2) {
 		return YES;
 	}
-	if (checkButton.isSelected) {
+	if (_checkButton.isSelected) {
 		if (email.matchEmail && pwd != nil) {
 			return YES;
 		}
@@ -295,13 +288,13 @@
 
 - (void)clickLogin:(id)sender {
 	NSLog(@"clickLogin");
-	NSString *email = [emailEdit.text trimed];
-	__block NSString *pwd = [pwdEdit.text trimed];
+	NSString *email = [_emailEdit.text trimed];
+	__block NSString *pwd = [_pwdEdit.text trimed];
 	if (pwd.length > 0) {
 		[self login:email password:pwd];
 		return;
 	}
-	if (!checkButton.isSelected || checkButton.hidden) {
+	if (!_checkButton.isSelected || _checkButton.hidden) {
 		return;
 	}
 	NSError *error;
@@ -310,7 +303,7 @@
 	if (!success) {
 		NSString *msg = @"TouchID may not support";
 		[self alertOK:nil msg:msg okText:nil onOK:nil];
-		checkButton.selected = NO;
+		_checkButton.selected = NO;
 		return;
 	}
 

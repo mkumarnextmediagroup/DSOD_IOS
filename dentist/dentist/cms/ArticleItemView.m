@@ -93,16 +93,21 @@
 	[imageView loadUrl:item.resImage placeholderImage:@"art-img"];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
+    //@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"
     if ([item.category isEqualToString:@"VIDEOS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"VIDEOS_thumb"]];
     }else if([item.category isEqualToString:@"PODCASTS"]) {
-        [thumbImageView setImage:[UIImage imageNamed:@"PODCASTS_thumb"]];
+        [thumbImageView setImage:[UIImage imageNamed:@"Podcast"]];
+    }else if([item.category isEqualToString:@"INTERVIEWS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Interview"]];
     }else if([item.category isEqualToString:@"TECH GUIDES"]) {
-        [thumbImageView setImage:[UIImage imageNamed:@"TECH GUIDES_thumb"]];
-    }else if([item.category isEqualToString:@"TECH GUIDES"]) {
-        [thumbImageView setImage:[UIImage imageNamed:@"TIP SHEETS_thumb"]];
+        [thumbImageView setImage:[UIImage imageNamed:@"TechGuide"]];
+    }else if([item.category isEqualToString:@"ANIMATIONS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Animation"]];
+    }else if([item.category isEqualToString:@"TIP SHEETS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"TipSheet"]];
     }else{
-        [thumbImageView setImage:[UIImage imageNamed:@"ARTICLES_thumb"]];
+        [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
     }
     if (item.isBookmark) {
         [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];

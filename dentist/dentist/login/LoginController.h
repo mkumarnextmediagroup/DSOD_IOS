@@ -9,5 +9,11 @@
 @interface LoginController : BaseController
 
 @property BOOL student;
+@property UITextField *emailEdit;
+@property UITextField *pwdEdit;
+@property UIButton *loginButton;
+@property UIButton *checkButton;
+
+- (void)clickLogin:(id)sender;
 
 @end

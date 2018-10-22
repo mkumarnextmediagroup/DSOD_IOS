@@ -184,6 +184,11 @@
 		57B0990A21256E840010597B /* linked_in.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B0990421256E840010597B /* linked_in.png */; };
 		57B0990B21256E840010597B /* bg_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B0990521256E840010597B /* bg_2.png */; };
 		74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D18A46C0F072296ED5347389 /* libPods-dentist.a */; };
+		A33CA188217D9ADF005288A4 /* PODCASTS_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = A33CA183217D9ADE005288A4 /* PODCASTS_thumb.png */; };
+		A33CA189217D9ADF005288A4 /* VIDEOS_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = A33CA184217D9ADE005288A4 /* VIDEOS_thumb.png */; };
+		A33CA18A217D9ADF005288A4 /* TECH GUIDES_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = A33CA185217D9ADF005288A4 /* TECH GUIDES_thumb.png */; };
+		A33CA18B217D9ADF005288A4 /* ARTICLES_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = A33CA186217D9ADF005288A4 /* ARTICLES_thumb.png */; };
+		A33CA18C217D9ADF005288A4 /* TIP SHEETS_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = A33CA187217D9ADF005288A4 /* TIP SHEETS_thumb.png */; };
 		A935BE74217737EB007F3619 /* slide-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE6F217737EA007F3619 /* slide-3.png */; };
 		A935BE75217737EB007F3619 /* slide-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE70217737EA007F3619 /* slide-2.png */; };
 		A935BE76217737EB007F3619 /* slide-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE71217737EA007F3619 /* slide-1.png */; };
@@ -865,6 +870,11 @@
 		57B0990421256E840010597B /* linked_in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linked_in.png; sourceTree = "<group>"; };
 		57B0990521256E840010597B /* bg_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_2.png; sourceTree = "<group>"; };
 		68B426216C681447B0595866 /* Pods-dentist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dentist/Pods-dentist.debug.xcconfig"; sourceTree = "<group>"; };
+		A33CA183217D9ADE005288A4 /* PODCASTS_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PODCASTS_thumb.png; sourceTree = "<group>"; };
+		A33CA184217D9ADE005288A4 /* VIDEOS_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VIDEOS_thumb.png; sourceTree = "<group>"; };
+		A33CA185217D9ADF005288A4 /* TECH GUIDES_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TECH GUIDES_thumb.png"; sourceTree = "<group>"; };
+		A33CA186217D9ADF005288A4 /* ARTICLES_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ARTICLES_thumb.png; sourceTree = "<group>"; };
+		A33CA187217D9ADF005288A4 /* TIP SHEETS_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TIP SHEETS_thumb.png"; sourceTree = "<group>"; };
 		A935BE6F217737EA007F3619 /* slide-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-3.png"; sourceTree = "<group>"; };
 		A935BE70217737EA007F3619 /* slide-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-2.png"; sourceTree = "<group>"; };
 		A935BE71217737EA007F3619 /* slide-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-1.png"; sourceTree = "<group>"; };
@@ -1845,6 +1855,11 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A33CA186217D9ADF005288A4 /* ARTICLES_thumb.png */,
+				A33CA183217D9ADE005288A4 /* PODCASTS_thumb.png */,
+				A33CA185217D9ADF005288A4 /* TECH GUIDES_thumb.png */,
+				A33CA187217D9ADF005288A4 /* TIP SHEETS_thumb.png */,
+				A33CA184217D9ADE005288A4 /* VIDEOS_thumb.png */,
 				1866AFB021797DCE00970CAB /* dsodentist.png */,
 				A935BE71217737EA007F3619 /* slide-1.png */,
 				A935BE70217737EA007F3619 /* slide-2.png */,
@@ -2866,6 +2881,7 @@
 				E11E157CACFE620953D8E184 /* search_normal@3x.png in Resources */,
 				E11E1637C3C5D620B60A8727 /* search_pressed.png in Resources */,
 				E11E19B5AAAAC717A7E7A8B1 /* search_pressed@2x.png in Resources */,
+				A33CA18B217D9ADF005288A4 /* ARTICLES_thumb.png in Resources */,
 				E11E1CD01A5568FEDC54E1AE /* search_pressed@3x.png in Resources */,
 				4EE52D6D2154CFA10076DC3D /* desc@2x.png in Resources */,
 				18CFB0FE216F3B69002CC9D0 /* foryou.png in Resources */,
@@ -2879,6 +2895,7 @@
 				4E23E07C2152963D00EDCE08 /* gskIcon@3x.png in Resources */,
 				E11E1FF351CEC85509F9850C /* user_img@3x.png in Resources */,
 				E11E11952BEDC54A2AEDAC3E /* Img-User-Dentist.png in Resources */,
+				A33CA18C217D9ADF005288A4 /* TIP SHEETS_thumb.png in Resources */,
 				E11E160A99297597D5439E34 /* Img-User-Dentist@2x.png in Resources */,
 				E11E1FBF82D8A2F932D671B1 /* Img-User-Dentist@3x.png in Resources */,
 				E11E169A696FC1DF78ED2724 /* menu-bookmark_light.png in Resources */,
@@ -2929,6 +2946,7 @@
 				A956C5392154CC4B00E528EB /* Icon-Search@3x.png in Resources */,
 				E11E1D5A2B13CF9CC09A2BBD /* menu-edu_light@3x.png in Resources */,
 				4E23E0772152951E00EDCE08 /* arrow_down@3x.png in Resources */,
+				A33CA189217D9ADF005288A4 /* VIDEOS_thumb.png in Resources */,
 				4E5564C12154A122008C9A6D /* nonSearch@2x.png in Resources */,
 				A935BE74217737EB007F3619 /* slide-3.png in Resources */,
 				E11E14AFA8FAF941E70C9DCC /* menu-edu.png in Resources */,
@@ -2945,6 +2963,7 @@
 				E11E19C345E6CACD8601A8A1 /* menu-msg_light@2x.png in Resources */,
 				E11E12244E61BD3A021BECE0 /* menu-msg_light@3x.png in Resources */,
 				4E2EF504215E1BF000676A4E /* downLoadIcon@3x.png in Resources */,
+				A33CA188217D9ADF005288A4 /* PODCASTS_thumb.png in Resources */,
 				E11E17D0775A0C4B5C6221FD /* menu-msg.png in Resources */,
 				E11E1C0A53F72CB01B64B2AB /* menu-msg@2x.png in Resources */,
 				E11E18003C13FEE9AA408B78 /* menu-msg@3x.png in Resources */,
@@ -2994,6 +3013,7 @@
 				C5EEAF6DB57F48CDBF85EBC0 /* box@3x.png in Resources */,
 				C5EEAA1BE7B80E5D3B12ABA7 /* download-light.png in Resources */,
 				C5EEA65EECB1E4CBE2716E4A /* download-light@2x.png in Resources */,
+				A33CA18A217D9ADF005288A4 /* TECH GUIDES_thumb.png in Resources */,
 				C5EEA28B642FEF60AF01E4E5 /* download-light@3x.png in Resources */,
 				C5EEA43C5D63AE543D25FB62 /* home-light.png in Resources */,
 				C5EEAFEBA7A4012345474AA4 /* home-light@2x.png in Resources */,

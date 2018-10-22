@@ -15,6 +15,7 @@
 	UILabel *titleLabel;
 	UILabel *contentLabel;
 	UIImageView *imageView;
+    UIImageView *thumbImageView;
 	UIButton *markButton;
 }
 
@@ -50,6 +51,11 @@
 	imageView = self.addImageView;
 //    [imageView scaleFillAspect];
 	[[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:187] install];
+    
+    thumbImageView = [UIImageView new];
+    [imageView addSubview:thumbImageView];
+    //    [imageView scaleFillAspect];
+    [[[[thumbImageView.layoutMaker leftParent:edge] bottomParent:-edge] sizeEq:28 h:28] install];
 
 	_moreButton = [self addButton];
 	[_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
@@ -87,6 +93,17 @@
 	[imageView loadUrl:item.resImage placeholderImage:@"art-img"];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
+    if ([item.category isEqualToString:@"VIDEOS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"VIDEOS_thumb"]];
+    }else if([item.category isEqualToString:@"PODCASTS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"PODCASTS_thumb"]];
+    }else if([item.category isEqualToString:@"TECH GUIDES"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"TECH GUIDES_thumb"]];
+    }else if([item.category isEqualToString:@"TECH GUIDES"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"TIP SHEETS_thumb"]];
+    }else{
+        [thumbImageView setImage:[UIImage imageNamed:@"ARTICLES_thumb"]];
+    }
     if (item.isBookmark) {
         [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{

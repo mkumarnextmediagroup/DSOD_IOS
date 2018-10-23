@@ -33,7 +33,7 @@
     
     NSInteger edge = 16;
     imageView = self.addImageView;
-    [[[[imageView.layoutMaker leftParent:edge]topParent:25] sizeEq:110 h:110] install];
+   [[[[[imageView.layoutMaker leftParent:edge]topParent:25] bottomParent:-edge] sizeEq:110 h:110] install];
     
     thumbImageView = [UIImageView new];
     [imageView addSubview:thumbImageView];

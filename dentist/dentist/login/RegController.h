@@ -15,4 +15,10 @@
 @property (strong, nonatomic)NSString *nameStr;
 @property (strong, nonatomic)NSString *emailStr;
 
+@property UITextField *nameEdit;
+@property UITextField *emailEdit;
+@property UITextField *pwdEdit;
+@property UIButton *checkButton;
+@property UIButton *regButton;
+
 @end

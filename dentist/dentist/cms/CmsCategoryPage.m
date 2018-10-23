@@ -35,7 +35,7 @@
     self.table.rowHeight = UITableViewAutomaticDimension;
     self.table.estimatedRowHeight = 400;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by categoy" filterAction:^(NSString *result) {
+    [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by category" filterAction:^(NSString *result) {
         type=result;
         self.items=[Proto getArticleListByType:type];
         
@@ -103,7 +103,18 @@
 }
 
 - (void)onClickItem:(NSObject *)item {
+//    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+//    newVC.articleInfo = (Article *) item;
+//    if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
+//        newVC.toWhichPage = @"mo";
+//    }else
+//    {
+//        newVC.toWhichPage = @"pic";
+//    }
+//    [self.navigationController pushViewController:newVC animated:YES];
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
     newVC.articleInfo = (Article *) item;
     if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
@@ -111,7 +122,7 @@
     {
         newVC.toWhichPage = @"pic";
     }
-    [self.navigationController pushViewController:newVC animated:YES];
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 

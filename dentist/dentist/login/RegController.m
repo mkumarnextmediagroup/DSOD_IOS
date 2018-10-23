@@ -21,12 +21,7 @@
 @end
 
 @implementation RegController {
-	UITextField *nameEdit;
-	UITextField *emailEdit;
-	UITextField *pwdEdit;
-	UIButton *checkButton;
-	UIButton *regButton;
-	UILabel *touchLabel;
+    UILabel *touchLabel;
 
 	LAContext *context;
 	NSString *alertTitle;
@@ -100,11 +95,11 @@
 		[linkedinButton onClick:self action:@selector(clickLinkedin:)];
 	}
 
-	regButton = self.view.addButton;
-	[regButton title:localStr(@"reg")];
-	[regButton styleWhite];
-	regButton.enabled = NO;
-	[sl push:regButton height:BTN_HEIGHT marginBottom:10];
+	_regButton = self.view.addButton;
+	[_regButton title:localStr(@"reg")];
+	[_regButton styleWhite];
+	_regButton.enabled = NO;
+	[sl push:_regButton height:BTN_HEIGHT marginBottom:10];
 
 
 	UIView *termPanel = self.view.addView;
@@ -149,14 +144,14 @@
 
 
 	UIView *checkPanel = self.view.addView;
-	checkButton = checkPanel.addCheckbox;
-	checkButton.selected = YES;
-	[[[[[checkButton layoutMaker] sizeEq:24 h:24] leftParent:0] centerYParent:0] install];
+	_checkButton = checkPanel.addCheckbox;
+	_checkButton.selected = YES;
+	[[[[[_checkButton layoutMaker] sizeEq:24 h:24] leftParent:0] centerYParent:0] install];
 	touchLabel = checkPanel.addLabel;
 	touchLabel.text = localStr(@"enable_touch");
 	[touchLabel textColorWhite];
 	touchLabel.font = [Fonts medium:15];
-	[[[[[touchLabel layoutMaker] sizeFit] toRightOf:checkButton offset:10] centerYParent:0] install];
+	[[[[[touchLabel layoutMaker] sizeFit] toRightOf:_checkButton offset:10] centerYParent:0] install];
 
 
 	[sl push:checkPanel height:30 marginBottom:20];
@@ -173,33 +168,33 @@
 	[sl push:reqLabel height:[reqLabel heightThatFit] marginBottom:22];
 
 
-	pwdEdit = self.view.addEditPwd;
-	pwdEdit.delegate = self;
-	pwdEdit.hint = localStr(@"pwd");
-	[pwdEdit returnDone];
-	[pwdEdit keyboardDefault];
-	[sl push:pwdEdit height:36 marginBottom:10];
+	_pwdEdit = self.view.addEditPwd;
+	_pwdEdit.delegate = self;
+	_pwdEdit.hint = localStr(@"pwd");
+	[_pwdEdit returnDone];
+	[_pwdEdit keyboardDefault];
+	[sl push:_pwdEdit height:36 marginBottom:10];
 
-	emailEdit = self.view.addEditRounded;
-	emailEdit.delegate = self;
+	_emailEdit = self.view.addEditRounded;
+	_emailEdit.delegate = self;
 	if (self.student) {
-		emailEdit.hint = localStr(@"schemail");
+		_emailEdit.hint = localStr(@"schemail");
 	} else {
-		emailEdit.hint = localStr(@"email_address");
+		_emailEdit.hint = localStr(@"email_address");
 	}
-	emailEdit.text = self.emailStr;
-	[emailEdit returnNext];
-	[emailEdit keyboardEmail];
-	[sl push:emailEdit height:36 marginBottom:10];
+	_emailEdit.text = self.emailStr;
+	[_emailEdit returnNext];
+	[_emailEdit keyboardEmail];
+	[sl push:_emailEdit height:36 marginBottom:10];
 
-	nameEdit = self.view.addEditRounded;
-	nameEdit.delegate = self;
-	nameEdit.tag = TAG_NAME_FIELD;
-	nameEdit.hint = localStr(@"full_name");
-	nameEdit.text = self.nameStr;
-	[nameEdit returnNext];
-	[nameEdit keyboardDefault];
-	[sl push:nameEdit height:36 marginBottom:10];
+	_nameEdit = self.view.addEditRounded;
+	_nameEdit.delegate = self;
+	_nameEdit.tag = TAG_NAME_FIELD;
+	_nameEdit.hint = localStr(@"full_name");
+	_nameEdit.text = self.nameStr;
+	[_nameEdit returnNext];
+	[_nameEdit keyboardDefault];
+	[sl push:_nameEdit height:36 marginBottom:10];
 
 
 	UILabel *lbReg = self.view.addLabel;
@@ -214,7 +209,7 @@
 
 
 	[backView onClick:self action:@selector(clickGoBack:)];
-	[regButton onClick:self action:@selector(clickReg:)];
+	[_regButton onClick:self action:@selector(clickReg:)];
 	[loginLabel onClickView:self action:@selector(clickLogin:)];
 	[reqLabel onClickView:self action:@selector(clickReqLabel:)];
 
@@ -224,8 +219,8 @@
 		if (@available(iOS 11.0, *)) {
 			switch (context.biometryType) {
 				case LABiometryNone:
-					checkButton.selected = NO;
-					checkButton.enabled = NO;
+					_checkButton.selected = NO;
+					_checkButton.enabled = NO;
 					break;
 				case LABiometryTypeTouchID:
 					touchLabel.text = localStr(@"enable_touch");
@@ -247,8 +242,8 @@
 
 		}
 	} else {
-		checkButton.selected = NO;
-		checkButton.enabled = NO;
+		_checkButton.selected = NO;
+		_checkButton.enabled = NO;
 	}
 
 }
@@ -292,25 +287,25 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 
 	BOOL err = NO;
-	if ([nameEdit.text trimed].length < 1) {
-		[nameEdit themeError];
+	if ([_nameEdit.text trimed].length < 1) {
+		[_nameEdit themeError];
 		err = YES;
 	} else {
-		[nameEdit themeNormal];
+		[_nameEdit themeNormal];
 	}
-	if ([emailEdit.text trimed].length < 1 || !emailEdit.text.matchEmail) {
-		[emailEdit themeError];
+	if ([_emailEdit.text trimed].length < 1 || !_emailEdit.text.matchEmail) {
+		[_emailEdit themeError];
 		err = YES;
 	} else {
-		[emailEdit themeNormal];
+		[_emailEdit themeNormal];
 	}
-	if (pwdEdit.text.length == 0) {
-		[pwdEdit themeError];
+	if (_pwdEdit.text.length == 0) {
+		[_pwdEdit themeError];
 		err = YES;
 	} else {
-		[pwdEdit themeNormal];
+		[_pwdEdit themeNormal];
 	}
-	regButton.enabled = !err;
+	_regButton.enabled = !err;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -350,21 +345,21 @@
 
 - (void)clickReg:(id)sender {
 	NSLog(@"clickLogin");
-	NSString *email = [emailEdit.text trimed];
-	NSString *pwd = [pwdEdit.text trimed];
-	NSString *fullName = [nameEdit.text trimed];
+	NSString *email = [_emailEdit.text trimed];
+	NSString *pwd = [_pwdEdit.text trimed];
+	NSString *fullName = [_nameEdit.text trimed];
 
 	if (!email.matchEmail) {
-		[emailEdit themeError];
+		[_emailEdit themeError];
 		return;
 
 	}
 	if (!pwd.matchPassword) {
-		[pwdEdit themeError];
+		[_pwdEdit themeError];
 		[self alertOK:nil msg:localStr(@"pwdstandard") okText:nil onOK:nil];
 		return;
 	}
-	if (checkButton.hidden || !checkButton.isSelected) {
+	if (_checkButton.hidden || !_checkButton.isSelected) {
 		[self doReg:email pwd:pwd fullName:fullName];
 		return;
 	}

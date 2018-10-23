@@ -48,6 +48,12 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -187,10 +193,16 @@
 }
 
 - (void)onClickItem:(NSObject *)item {
-    
-    CMSDetailViewController *detail = [CMSDetailViewController new];
-    detail.articleInfo = (Article *) item;
-    [self.navigationController.tabBarController presentViewController:detail animated:YES completion:nil];
+
+    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+    newVC.articleInfo = (Article *) item;
+    if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
+        newVC.toWhichPage = @"mo";
+    }else
+    {
+        newVC.toWhichPage = @"pic";
+    }
+    [self.navigationController pushViewController:newVC animated:YES];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView

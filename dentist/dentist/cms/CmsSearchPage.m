@@ -30,6 +30,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewDidLoad {
@@ -135,15 +136,15 @@
 }
 
 - (void)onClickItem:(NSObject *)item {
-    CMSDetailViewController *detail = [CMSDetailViewController new];
-    detail.articleInfo = (Article *) item;
-    if ([detail.articleInfo.category isEqualToString:@"VIDEOS"]) {
-        detail.toWhichPage = @"mo";
+    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+    newVC.articleInfo = (Article *) item;
+    if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
+        newVC.toWhichPage = @"mo";
     }else
     {
-        detail.toWhichPage = @"pic";
+        newVC.toWhichPage = @"pic";
     }
-    [self.navigationController.tabBarController presentViewController:detail animated:YES  completion:nil];
+    [self.navigationController pushViewController:newVC animated:YES];
 }
 
 -(void)ArticleMarkAction:(NSInteger)articleid

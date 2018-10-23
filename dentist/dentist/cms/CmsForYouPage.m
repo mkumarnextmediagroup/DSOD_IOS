@@ -58,6 +58,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.items = [Proto getArticleListByCategory:category type:type];
 }
 
@@ -277,13 +278,7 @@
 
 - (void)onClickItem:(NSObject *)item {
     
-//    CMSDetailViewController *detail = [CMSDetailViewController new];
-//    detail.articleInfo = (Article *) item;
-//    [self.navigationController.tabBarController presentViewController:detail animated:YES completion:nil];
-
-    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
     newVC.articleInfo = (Article *) item;
     if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
@@ -291,7 +286,8 @@
     {
         newVC.toWhichPage = @"pic";
     }
-    [viewController presentViewController:navVC animated:YES completion:NULL];
+//    [self.navigationController pushViewController:newVC animated:YES];
+    [self pushPage:newVC];
 }
 
 -(void)showImageBrowser:(NSInteger)index

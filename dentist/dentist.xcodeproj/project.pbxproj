@@ -65,9 +65,14 @@
 		3E64F13221721D57001A7CF2 /* DSODentist_Privacy_Policy.html in Resources */ = {isa = PBXBuildFile; fileRef = 3E64F13021721D56001A7CF2 /* DSODentist_Privacy_Policy.html */; };
 		3E64F13321721D57001A7CF2 /* DSODentist_Terms_of_Service.html in Resources */ = {isa = PBXBuildFile; fileRef = 3E64F13121721D57001A7CF2 /* DSODentist_Terms_of_Service.html */; };
 		3ED0764B213A9FE3004D4083 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0764A213A9FE3004D4083 /* ProfileViewController.m */; };
+		43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E85217F4B9B008B3240 /* WelcomeControllerTests.m */; };
+		43277E88217F4D91008B3240 /* StudentControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E87217F4D91008B3240 /* StudentControllerTests.m */; };
+		43277E8A217F4E9E008B3240 /* TestPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E89217F4E9E008B3240 /* TestPageTests.m */; };
+		43277E8C217F4F6A008B3240 /* DSOWebViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E8B217F4F6A008B3240 /* DSOWebViewControllerTests.m */; };
+		43277E8E217F523B008B3240 /* RegControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E8D217F523B008B3240 /* RegControllerTests.m */; };
 		43B7252D217650FF000F6797 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252C217650FF000F6797 /* ExampleTests.m */; };
 		43B72530217651A8000F6797 /* KiwiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252F217651A8000F6797 /* KiwiTests.m */; };
-		43F92B7A217D94B400798462 /* LoginTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F92B79217D94B400798462 /* LoginTests.m */; };
+		43F92B7A217D94B400798462 /* LoginControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F92B79217D94B400798462 /* LoginControllerTests.m */; };
 		4E17B3E621722E0C00F75390 /* GSKPic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E17B3E421722E0C00F75390 /* GSKPic@2x.png */; };
 		4E17B3E721722E0C00F75390 /* GSKPic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E17B3E521722E0C00F75390 /* GSKPic@3x.png */; };
 		4E17B3EA2176250800F75390 /* AddReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E17B3E92176250800F75390 /* AddReviewViewController.m */; };
@@ -709,11 +714,16 @@
 		3E64F13121721D57001A7CF2 /* DSODentist_Terms_of_Service.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = DSODentist_Terms_of_Service.html; sourceTree = "<group>"; };
 		3ED07649213A9FE3004D4083 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		3ED0764A213A9FE3004D4083 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		43277E85217F4B9B008B3240 /* WelcomeControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WelcomeControllerTests.m; sourceTree = "<group>"; };
+		43277E87217F4D91008B3240 /* StudentControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentControllerTests.m; sourceTree = "<group>"; };
+		43277E89217F4E9E008B3240 /* TestPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestPageTests.m; sourceTree = "<group>"; };
+		43277E8B217F4F6A008B3240 /* DSOWebViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOWebViewControllerTests.m; sourceTree = "<group>"; };
+		43277E8D217F523B008B3240 /* RegControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegControllerTests.m; sourceTree = "<group>"; };
 		43B7251E21764CF4000F6797 /* dentistTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dentistTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43B7252221764CF4000F6797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43B7252C217650FF000F6797 /* ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleTests.m; sourceTree = "<group>"; };
 		43B7252F217651A8000F6797 /* KiwiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KiwiTests.m; sourceTree = "<group>"; };
-		43F92B79217D94B400798462 /* LoginTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginTests.m; sourceTree = "<group>"; };
+		43F92B79217D94B400798462 /* LoginControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginControllerTests.m; sourceTree = "<group>"; };
 		4E17B3E421722E0C00F75390 /* GSKPic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GSKPic@2x.png"; sourceTree = "<group>"; };
 		4E17B3E521722E0C00F75390 /* GSKPic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GSKPic@3x.png"; sourceTree = "<group>"; };
 		4E17B3E82176250800F75390 /* AddReviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddReviewViewController.h; sourceTree = "<group>"; };
@@ -1622,7 +1632,12 @@
 		43F92B78217D949A00798462 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				43F92B79217D94B400798462 /* LoginTests.m */,
+				43F92B79217D94B400798462 /* LoginControllerTests.m */,
+				43277E85217F4B9B008B3240 /* WelcomeControllerTests.m */,
+				43277E87217F4D91008B3240 /* StudentControllerTests.m */,
+				43277E89217F4E9E008B3240 /* TestPageTests.m */,
+				43277E8B217F4F6A008B3240 /* DSOWebViewControllerTests.m */,
+				43277E8D217F523B008B3240 /* RegControllerTests.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -3183,8 +3198,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43277E8C217F4F6A008B3240 /* DSOWebViewControllerTests.m in Sources */,
+				43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */,
 				43B7252D217650FF000F6797 /* ExampleTests.m in Sources */,
-				43F92B7A217D94B400798462 /* LoginTests.m in Sources */,
+				43F92B7A217D94B400798462 /* LoginControllerTests.m in Sources */,
+				43277E8E217F523B008B3240 /* RegControllerTests.m in Sources */,
+				43277E88217F4D91008B3240 /* StudentControllerTests.m in Sources */,
+				43277E8A217F4E9E008B3240 /* TestPageTests.m in Sources */,
 				43B72530217651A8000F6797 /* KiwiTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

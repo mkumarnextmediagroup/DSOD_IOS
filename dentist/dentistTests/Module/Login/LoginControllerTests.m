@@ -10,7 +10,7 @@
 #import "LoginController.h"
 #import "Proto.h"
 
-SPEC_BEGIN(LoginTests)
+SPEC_BEGIN(LoginControllerTests)
 
 describe(@"Unit test for Login", ^{
     __block LoginController *controller;

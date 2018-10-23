@@ -4,4 +4,6 @@ dentist/dentist.xcworkspace/xcuserdata
 dentist/Pods/Pods.xcodeproj/xcuserdata
 
 # slather
-html
+code-cover
+
+.DS_Store

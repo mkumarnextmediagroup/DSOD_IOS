@@ -114,7 +114,7 @@
     UIView *textVi = [UIView new];
     textVi.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:textVi];
-    [[[[textVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-310] below:vi offset:0] leftParent:0] install];
+    [[[[textVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-310-48] below:bgVi offset:0] leftParent:0] install];
 
     UILabel *reLabel = [textVi addLabel];
     reLabel.font = [Fonts semiBold:12];

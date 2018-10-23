@@ -95,7 +95,7 @@
     imageView.clipsToBounds=YES;
     //@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"
     if ([item.category isEqualToString:@"VIDEOS"]) {
-        [thumbImageView setImage:[UIImage imageNamed:@"VIDEOS_thumb"]];
+        [thumbImageView setImage:[UIImage imageNamed:@"Video"]];
     }else if([item.category isEqualToString:@"PODCASTS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"Podcast"]];
     }else if([item.category isEqualToString:@"INTERVIEWS"]) {

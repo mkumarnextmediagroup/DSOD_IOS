@@ -95,7 +95,18 @@
 
 - (void)onClickItem:(NSObject *)item {
     
+//    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+//    newVC.articleInfo = (Article *) item;
+//    if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
+//        newVC.toWhichPage = @"mo";
+//    }else
+//    {
+//        newVC.toWhichPage = @"pic";
+//    }
+//    [self.navigationController pushViewController:newVC animated:YES];
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
     newVC.articleInfo = (Article *) item;
     if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
@@ -103,7 +114,7 @@
     {
         newVC.toWhichPage = @"pic";
     }
-    [self.navigationController pushViewController:newVC animated:YES];
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 #pragma mark 打开刷选页面

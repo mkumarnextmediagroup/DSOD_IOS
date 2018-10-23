@@ -101,7 +101,18 @@
 
 - (void)onClickItem:(NSObject *)item {
     
+//    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+//    newVC.articleInfo = (Article *) item;
+//    if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
+//        newVC.toWhichPage = @"mo";
+//    }else
+//    {
+//        newVC.toWhichPage = @"pic";
+//    }
+//    [self.navigationController pushViewController:newVC animated:YES];
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
     newVC.articleInfo = (Article *) item;
     if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
@@ -109,23 +120,24 @@
     {
         newVC.toWhichPage = @"pic";
     }
-    [self.navigationController pushViewController:newVC animated:YES];
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 - (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index
 {
     NSLog(@"%@===%d",subLabel.text,index);
     if(index==1){
-        if(self.items.count>selectIndex){
-            Article *art=(Article *)self.items[selectIndex];
-            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[art.title,[NSURL URLWithString:art.resImage]] applicationActivities:nil];
-            [self presentViewController:avc animated:YES completion:nil];
-        }
-        
+//        if(self.items.count>selectIndex){
+//            Article *art=(Article *)self.items[selectIndex];
+//            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[art.title,[NSURL URLWithString:art.resImage]] applicationActivities:nil];
+//            [self presentViewController:avc animated:YES completion:nil];
+//        }
+        UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[@"Mastering the art of Dental Surgery",[NSURL URLWithString:@"http://app800.cn/i/d.png"]] applicationActivities:nil];
+        [self presentViewController:avc animated:YES completion:nil];
         
     }else if(index==0){
         [Proto deleteDownload:selectIndex];
-        self.items=[Proto getDownloadList];
+        self.items =[Proto getDownloadListByCategory:typetext type:categorytext];
     }
 }
 
@@ -137,7 +149,7 @@
     }select:^(NSString *category, NSString *type) {
         categorytext=category;
         typetext=type;
-        self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
+        self.items =[Proto getDownloadListByCategory:typetext type:categorytext];
     }];
 }
 

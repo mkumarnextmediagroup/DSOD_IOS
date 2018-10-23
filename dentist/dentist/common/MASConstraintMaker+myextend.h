@@ -78,5 +78,4 @@
 - (MASConstraintMaker *)centerXOf:(UIView *)v offset:(CGFloat)offset;
 
 - (MASConstraintMaker *)fillParent;
-
 @end

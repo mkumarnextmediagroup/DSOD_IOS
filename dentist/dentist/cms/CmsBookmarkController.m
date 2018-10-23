@@ -14,6 +14,7 @@
 {
     NSString *categorytext;
     NSString *typetext;
+    CGFloat rowheight;
 }
 @end
 
@@ -45,9 +46,10 @@
     UINavigationItem *item = [self navigationItem];
     item.title = @"BOOKMARKS";
     item.rightBarButtonItem = [self navBarText:@"" target:self action:nil];
-    
+    [self.view layoutIfNeeded];
+    rowheight=(self.table.frame.size.height-32)/4;
     self.table.tableHeaderView = [self makeHeaderView];
-    self.table.rowHeight = 150;
+    self.table.rowHeight = rowheight;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyViewWithImageName:@"nonBookmarks" title:@"No bookmarks added yet"];
 }
@@ -68,7 +70,8 @@
     return BookMarkItemView.class;
 }
 - (CGFloat)heightOfItem:(NSObject *)item {
-    return 150;
+    
+    return rowheight;
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {

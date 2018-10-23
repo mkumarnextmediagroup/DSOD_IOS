@@ -196,5 +196,4 @@
 	self.edges.equalTo(view);
 	return self;
 }
-
 @end

@@ -42,18 +42,6 @@
     _searchBar.placeholder = @"Search...";
     _searchBar.delegate = self;
     _searchBar.showsCancelButton = NO;
-//    for (id obj in [_searchBar subviews]) {
-//        if ([obj isKindOfClass:[UIView class]]) {
-//            for (id obj2 in [obj subviews]) {
-//                if ([obj2 isKindOfClass:[UIButton class]]) {
-//                    UIButton *btn = (UIButton *)obj2;
-//                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
-////                    btn.enabled =NO;
-////                    [btn addTarget:self action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//                }
-//            }
-//        }
-//    }
     item.titleView=_searchBar;
     if (@available(iOS 11.0, *)) {
         [[_searchBar.heightAnchor constraintEqualToConstant:44.0] setActive:YES];
@@ -65,15 +53,6 @@
 
     self.items = [Proto getArticleListByKeywords:searchKeywords];
     
-//    searchEdit = [self.navigationController.view addEditSearch];
-//    searchEdit.delegate = self;
-//    [[[[searchEdit.layoutMaker leftParent:16] topParent:22] sizeEq:SCREENWIDTH - 95 h:EDIT_HEIGHT] install];
-//
-//    UINavigationItem *item = [self navigationItem];
-//    item.rightBarButtonItem = [self navBarText:@"Cancel" target:self action:@selector(cancelBtnClick:)];
-//    item.leftBarButtonItem = [self navBarText:@"" target:self action:@selector(cancelBtnClick:)];
-//
-//    [self buildView];
 }
 
 - (Class)viewClassOfItem:(NSObject *)item {
@@ -136,15 +115,6 @@
 }
 
 - (void)onClickItem:(NSObject *)item {
-//    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
-//    newVC.articleInfo = (Article *) item;
-//    if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
-//        newVC.toWhichPage = @"mo";
-//    }else
-//    {
-//        newVC.toWhichPage = @"pic";
-//    }
-//    [self.navigationController pushViewController:newVC animated:YES];
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
@@ -190,15 +160,12 @@
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
    _searchBar.showsCancelButton = YES;
-//    [_searchBar setShowsCancelButton:YES animated:YES];
     for (id obj in [_searchBar subviews]) {
         if ([obj isKindOfClass:[UIView class]]) {
             for (id obj2 in [obj subviews]) {
                 if ([obj2 isKindOfClass:[UIButton class]]) {
                     UIButton *btn = (UIButton *)obj2;
                     [btn setTitle:@"Cancel" forState:UIControlStateNormal];
-//                    btn.enabled =YES;
-//                    [btn addTarget:self action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
                 }
             }
         }
@@ -210,20 +177,7 @@
 {
     self.searchBar.text=@"";
     [self.searchBar resignFirstResponder];
-//    [_searchBar setShowsCancelButton:NO animated:YES];
      _searchBar.showsCancelButton = NO;
-//    for (id obj in [_searchBar subviews]) {
-//        if ([obj isKindOfClass:[UIView class]]) {
-//            for (id obj2 in [obj subviews]) {
-//                if ([obj2 isKindOfClass:[UIButton class]]) {
-//                    UIButton *btn = (UIButton *)obj2;
-//                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
-//                    btn.enabled =NO;
-//                    [btn addTarget:self action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//                }
-//            }
-//        }
-//    }
 }
 //MARK:keyboard search button clicked，do this method
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -231,21 +185,10 @@
     issearch=YES;
     searchKeywords=searchBar.text;
     [self.searchBar resignFirstResponder];
-//    [_searchBar setShowsCancelButton:NO animated:YES];
      _searchBar.showsCancelButton = NO;
     self.items=[Proto getArticleListByKeywords:searchKeywords type:nil];
-//    for (id obj in [_searchBar subviews]) {
-//        if ([obj isKindOfClass:[UIView class]]) {
-//            for (id obj2 in [obj subviews]) {
-//                if ([obj2 isKindOfClass:[UIButton class]]) {
-//                    UIButton *btn = (UIButton *)obj2;
-//                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
-////                    btn.enabled =NO;
-////                    [btn addTarget:self action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//                }
-//            }
-//        }
-//    }
+//    self.items=[Proto querySearchResults:searchKeywords];
+    NSLog(@"%@",self.items);
 }
 
 -(void)cancelBtnClick:(UIButton *)sender

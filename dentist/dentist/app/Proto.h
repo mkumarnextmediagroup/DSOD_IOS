@@ -6,6 +6,7 @@
 #import <UIKit/UIKit.h>
 #import "Common.h"
 #import "UserInfo.h"
+#import "CMSModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -67,6 +68,9 @@
 + (NSString *_Nullable)uploadHeaderImage:(NSString *_Nullable)localFilePath;
 
 + (NSMutableArray <IdName *> *_Nullable)querySpecialty;
+
+//get search result
++ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue;
 
 //MARK:模拟
 +(BOOL)archiveActicleArr;

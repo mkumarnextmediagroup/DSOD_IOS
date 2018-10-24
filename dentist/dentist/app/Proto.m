@@ -9,6 +9,7 @@
 #import "Article.h"
 #import "ArticleComment.h"
 #import "IdName.h"
+#import "CMSModel.h"
 #import "StateCity.h"
 #import "DiscussInfo.h"
 
@@ -502,17 +503,17 @@
 }
 
 + (HttpResult *)resetPwd:(NSString *)email pwd:(NSString *)pwd code:(NSString *)code {
-	return [self postBody:@"userAccount/resetPassWord" dic:@{@"username": email, @"password": pwd, @"email_token": code}];
+	return [self postBody:@"userAccount/resetPassWord" dic:@{@"username": email, @"password": pwd, @"email_token": code} modular:@"profile"];
 }
 
 
 + (HttpResult *)sendEmailCode:(NSString *)email {
-	return [self post:@"emailToken/sendEmail" dic:@{@"email": email}];
+	return [self post:@"emailToken/sendEmail" dic:@{@"email": email} modular:@"profile"];
 }
 
 + (HttpResult *)sendLinkedInInfo:(NSString *)access_token {
 	NSString *url = [NSString stringWithFormat:@"linkedInLogin/%@/fooClientIdPassword", access_token];
-	return [self get:url dic:nil];
+	return [self get:url dic:nil modular:@"profile"];
 }
 
 
@@ -526,7 +527,7 @@
 }
 
 + (HttpResult *)login:(NSString *)email pwd:(NSString *)pwd {
-	HttpResult *r = [self postBody:@"userAccount/login" dic:@{@"username": email, @"password": pwd}];
+	HttpResult *r = [self postBody:@"userAccount/login" dic:@{@"username": email, @"password": pwd} modular:@"profile"];
 	if (r.OK) {
 		NSDictionary *d = r.resultMap;
 		if (d != nil) {
@@ -551,7 +552,7 @@
 	}
 
 	NSDictionary *d = @{@"username": email, @"password": pwd, @"full_name": name, @"is_student": stu, @"is_linkedin": @"0"};
-	HttpResult *r = [self postBody:@"userAccount/register" dic:d];
+	HttpResult *r = [self postBody:@"userAccount/register" dic:d modular:@"profile"];
 	if (r.OK) {
 		NSDictionary *d = r.resultMap;
 		if (d != nil) {
@@ -566,7 +567,7 @@
 }
 
 + (HttpResult *)saveProfileInfo:(NSDictionary *)dic {
-	HttpResult *r = [self postBody:@"userProfile/save" dic:dic];
+	HttpResult *r = [self postBody:@"userProfile/save" dic:dic modular:@"profile"];
 	if (r.OK) {
 		[self getProfileInfo];
 	}
@@ -605,7 +606,7 @@
 //	}
 //}
 + (NSDictionary *)getProfileInfo {
-	HttpResult *r = [self post2:@"userProfile/findOneByEmail" dic:@{@"email": getLastAccount()}];
+	HttpResult *r = [self post2:@"userProfile/findOneByEmail" dic:@{@"email": getLastAccount()} modular:@"profile"];
 	if (r.OK) {
 		NSDictionary *d = r.resultMap[@"data"];
 		if (d) {
@@ -618,7 +619,7 @@
 
 
 + (nullable StateCity *)getStateAndCity:(NSString *)zipCode {
-	HttpResult *r = [self post2:@"usZipSv/findAllusZipSvByZip" dic:@{@"zip": zipCode}];
+	HttpResult *r = [self post2:@"usZipSv/findAllusZipSvByZip" dic:@{@"zip": zipCode} modular:@"profile"];
 	if (r.OK) {
 		NSDictionary *d = r.resultMap;
 		if (d) {
@@ -636,7 +637,7 @@
 }
 
 + (NSMutableArray <IdName *> *)querySpecialty {
-	HttpResult *r = [self post2:@"residencySpecialty/findAllSpecialty" dic:@{}];
+	HttpResult *r = [self post2:@"residencySpecialty/findAllSpecialty" dic:@{} modular:@"profile"];
 	NSMutableArray <IdName *> *items = [NSMutableArray arrayWithCapacity:32];
 	if (r.OK) {
 		NSDictionary *m = r.resultMap;
@@ -653,7 +654,7 @@
 
 
 + (NSMutableArray <IdName *> *)queryDentalSchool {
-	HttpResult *r = [self post2:@"dentalSchool/getAll" dic:@{@"name": @""}];
+	HttpResult *r = [self post2:@"dentalSchool/getAll" dic:@{@"name": @""} modular:@"profile"];
 	NSMutableArray <IdName *> *items = [NSMutableArray arrayWithCapacity:32];
 	if (r.OK) {
 		NSDictionary *m = r.resultMap;
@@ -670,7 +671,7 @@
 
 //{"code":0,"msg":"success","resultMap":{"data":[{"id":"1","name":"Allied Dental"},{"id":"10","name":"InterDent"},{"id":"11","name":"Katsur Management Group"},{"id":"2","name":"American Dental Partners"},{"id":"3","name":"Aspen Dental Practice"},{"id":"4","name":"Birner Dental"},{"id":"5","name":"Dental Care Alliance"},{"id":"6","name":"Dental One Partners"},{"id":"7","name":"Dental Practice Solutions"},{"id":"8","name":"Freat Expressions Dental"},{"id":"9","name":"Heartland Dental Care"}]}}
 + (NSArray<IdName *> *)queryPracticeDSO:(NSString *)name {
-	HttpResult *r = [self post2:@"experience/findAllPracticeDSO" dic:@{@"name": name}];
+	HttpResult *r = [self post2:@"experience/findAllPracticeDSO" dic:@{@"name": name} modular:@"profile"];
 
 	NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
 	if (r.OK) {
@@ -685,7 +686,7 @@
 
 //{"code":0,"msg":"success","resultMap":{"data":[{"id":"1","name":"Owner Dentist"},{"id":"2","name":"Associate Dentist"},{"id":"3","name":"Dental Hygienist"},{"id":"4","name":"Dental Assistant"},{"id":"5","name":"Treatment Coordinator"},{"id":"6","name":"Office Staff / Nonclinical"}]}}
 + (NSArray<IdName *> *)queryPracticeRoles:(NSString *)name {
-	HttpResult *r = [self post2:@"experience/findAllPracticeRole" dic:@{@"name": name}];
+	HttpResult *r = [self post2:@"experience/findAllPracticeRole" dic:@{@"name": name} modular:@"profile"];
 
 	NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
 	if (r.OK) {
@@ -700,7 +701,7 @@
 
 
 + (NSArray<IdName *> *)queryPracticeTypes {
-	HttpResult *r = [self post2:@"experience/findAllPracticeType" dic:@{@"name": @""}];
+	HttpResult *r = [self post2:@"experience/findAllPracticeType" dic:@{@"name": @""} modular:@"profile"];
 
 	NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
 	if (r.OK) {
@@ -715,7 +716,7 @@
 
 + (NSString *)uploadHeaderImage:(NSString *)localFilePath {
     
-	HttpResult *r = [self upload:@"photoUpload" localFilePath:localFilePath];
+	HttpResult *r = [self upload:@"photoUpload" localFilePath:localFilePath modular:@"profile"];
 	if (r.OK) {
 		//{"photoName":"5d7a4a76219e4c78b2b4656cf4bc80f2_test.png"}
 		id v = r.resultMap[@"photoName"];
@@ -725,6 +726,17 @@
 		return v;
 	}
 	return nil;
+}
+
+//search API
++ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue {
+    HttpResult *r = [self post:@"content/findAllBySearch" dic:@{@"searchValue": serachValue} modular:@"cms"];
+    
+    if (r.OK) {
+        NSArray *arr = r.resultMap[@"data"];
+        return arr;
+    }
+    return nil;
 }
 
 +(NSString *)baseDomain
@@ -738,8 +750,8 @@
 }
 
 
-+ (HttpResult *)postBody:(NSString *)action dic:(NSDictionary *)dic {
-	NSString *baseUrl = @"profile-service/v1/";
++ (HttpResult *)postBody:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular {
+	NSString *baseUrl = [self configUrl:modular];
 	Http *h = [Http new];
 	h.url = strBuild([self baseDomain],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
@@ -756,8 +768,8 @@
 	return r;
 }
 
-+ (HttpResult *)get:(NSString *)action dic:(NSDictionary *)dic {
-	NSString *baseUrl = @"profile-service/v1/";
++ (HttpResult *)get:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular {
+	NSString *baseUrl = [self configUrl:modular];
 	Http *h = [Http new];
 	h.url = strBuild([self baseDomain],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
@@ -771,8 +783,8 @@
 	return r;
 }
 
-+ (HttpResult *)post:(NSString *)action dic:(NSDictionary *)dic {
-	NSString *baseUrl = @"profile-service/v1/";
++ (HttpResult *)post:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular {
+	NSString *baseUrl = [self configUrl:modular];
 	Http *h = [Http new];
 	h.url = strBuild([self baseDomain],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
@@ -787,8 +799,8 @@
 }
 
 
-+ (HttpResult *)post2:(NSString *)action dic:(NSDictionary *)dic {
-	NSString *baseUrl = @"profile-service/v1/";
++ (HttpResult *)post2:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular{
+    NSString *baseUrl = [self configUrl:modular];
 	Http *h = [Http new];
 	h.url = strBuild([self baseDomain],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
@@ -802,8 +814,8 @@
 	return r;
 }
 
-+ (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath {
-	NSString *baseUrl = @"profile-service/v1/";
++ (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath modular:(NSString *)modular {
+	NSString *baseUrl = [self configUrl:modular];
 	Http *h = [Http new];
 	h.timeout = 20;
 	h.url = strBuild([self baseDomain],baseUrl, action);
@@ -816,6 +828,19 @@
 	[h file:@"file" value:localFilePath];
 	HttpResult *r = [h multipart];
 	return r;
+}
+
++ (NSString *)configUrl:(NSString *)modular
+{
+    NSString *baseUrl = nil;
+    if ([modular isEqualToString:@"profile"]) {
+        baseUrl = @"profile-service/v1/";
+    }
+    else if ([modular isEqualToString:@"cms"])
+    {
+        baseUrl = @"content-service/v1/";
+    }
+    return baseUrl;
 }
 
 //MARK:模拟

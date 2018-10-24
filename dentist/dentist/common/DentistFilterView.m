@@ -10,8 +10,13 @@
 #import "Common.h"
 #import "AppDelegate.h"
 #import "DentistPickerView.h"
+#import "Proto.h"
 
 #define DSFilterHeight (SCREENHEIGHT-NAVHEIGHT)
+@interface DentistFilterView()
+@property (nonatomic,strong) NSArray<IdName *> *categoryArray;
+@property (nonatomic,strong) NSArray<IdName *> *contentArray;
+@end
 
 @implementation DentistFilterView
 
@@ -25,6 +30,8 @@
         self.backgroundColor =[UIColor whiteColor];
         _categorytext=nil;//@"DSOs";
         _typetext=nil;//@"Videos";
+        _contentArray=[Proto queryContentTypes];
+        _categoryArray=[Proto queryCategoryTypes];
     }
     return self;
 }

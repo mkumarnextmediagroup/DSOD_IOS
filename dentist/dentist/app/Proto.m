@@ -739,6 +739,36 @@
     return nil;
 }
 
+//MARK:查询Category（CMS_001_15
++ (NSArray<IdName *> *)queryCategoryTypes {
+    HttpResult *r = [self post2:@"category/findAllCategory" dic:nil modular:@"cms"];
+    
+    NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
+    if (r.OK) {
+        NSArray *arr = r.resultMap[@"data"];
+        for (NSDictionary *d in arr) {
+            IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+            [resultArray addObject:item];
+        }
+    }
+    return resultArray;
+}
+
+//MARK:查询Content Type（CMS_004_03）
++ (NSArray<IdName *> *)queryContentTypes {
+    HttpResult *r = [self post2:@"category/findAllContentType" dic:nil modular:@"cms"];
+    
+    NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
+    if (r.OK) {
+        NSArray *arr = r.resultMap[@"data"];
+        for (NSDictionary *d in arr) {
+            IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+            [resultArray addObject:item];
+        }
+    }
+    return resultArray;
+}
+
 +(NSString *)baseDomain
 {
     NSInteger value = getServerDomain();

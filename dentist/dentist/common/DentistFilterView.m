@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "DentistPickerView.h"
 #import "Proto.h"
+#import "IdName.h"
 
 #define DSFilterHeight (SCREENHEIGHT-NAVHEIGHT)
 @interface DentistFilterView()
@@ -30,8 +31,14 @@
         self.backgroundColor =[UIColor whiteColor];
         _categorytext=nil;//@"DSOs";
         _typetext=nil;//@"Videos";
-        _contentArray=[Proto queryContentTypes];
-        _categoryArray=[Proto queryCategoryTypes];
+        backTask(^() {
+            _contentArray=[Proto queryContentTypes];
+            _categoryArray=[Proto queryCategoryTypes];
+            foreTask(^() {
+                
+            });
+        });
+        
     }
     return self;
 }
@@ -190,8 +197,12 @@
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if (textField.tag==1) {
+        NSMutableArray *newDataArr = [NSMutableArray array];
+        [_categoryArray enumerateObjectsUsingBlock:^(IdName* model, NSUInteger idx, BOOL * _Nonnull stop) {
+            [newDataArr addObject:model.name];
+        }];
         DentistPickerView *picker = [[DentistPickerView alloc]init];
-        picker.array = @[@"Orthodontics",@"Practice Management",@"DSOs",@"General Dentistry",@"Implant Dentistry",@"Pediatric Dentistry"];
+        picker.array = newDataArr;//@[@"Orthodontics",@"Practice Management",@"DSOs",@"General Dentistry",@"Implant Dentistry",@"Pediatric Dentistry"];
         picker.leftTitle=localStr(@"Category");
         picker.righTtitle=localStr(@"Cancel");
         [picker show:^(NSString *result) {
@@ -203,8 +214,12 @@
             _categorytext=result;
         }];
     }else{
+        NSMutableArray *newDataArr = [NSMutableArray array];
+        [_contentArray enumerateObjectsUsingBlock:^(IdName* model, NSUInteger idx, BOOL * _Nonnull stop) {
+            [newDataArr addObject:model.name];
+        }];
         DentistPickerView *picker = [[DentistPickerView alloc]init];
-        picker.array = @[@"LATEST",@"VIDEOS",@"ARTICLES",@"PODCASTS",@"INTERVIEWS",@"TECH GUIDES",@"ANIMATIONS",@"TIP SHEETS"];
+        picker.array = newDataArr;//@[@"LATEST",@"VIDEOS",@"ARTICLES",@"PODCASTS",@"INTERVIEWS",@"TECH GUIDES",@"ANIMATIONS",@"TIP SHEETS"];
         picker.leftTitle=localStr(@"Content Type");
         picker.righTtitle=localStr(@"Cancel");
         [picker show:^(NSString *result) {

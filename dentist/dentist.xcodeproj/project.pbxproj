@@ -73,6 +73,7 @@
 		43B7252D217650FF000F6797 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252C217650FF000F6797 /* ExampleTests.m */; };
 		43B72530217651A8000F6797 /* KiwiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252F217651A8000F6797 /* KiwiTests.m */; };
 		43F92B7A217D94B400798462 /* LoginControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F92B79217D94B400798462 /* LoginControllerTests.m */; };
+		4E0C115521806147007DC63D /* CMSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C115421806147007DC63D /* CMSModel.m */; };
 		4E17B3E621722E0C00F75390 /* GSKPic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E17B3E421722E0C00F75390 /* GSKPic@2x.png */; };
 		4E17B3E721722E0C00F75390 /* GSKPic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E17B3E521722E0C00F75390 /* GSKPic@3x.png */; };
 		4E17B3EA2176250800F75390 /* AddReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E17B3E92176250800F75390 /* AddReviewViewController.m */; };
@@ -724,6 +725,8 @@
 		43B7252C217650FF000F6797 /* ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleTests.m; sourceTree = "<group>"; };
 		43B7252F217651A8000F6797 /* KiwiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KiwiTests.m; sourceTree = "<group>"; };
 		43F92B79217D94B400798462 /* LoginControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginControllerTests.m; sourceTree = "<group>"; };
+		4E0C115321806147007DC63D /* CMSModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMSModel.h; sourceTree = "<group>"; };
+		4E0C115421806147007DC63D /* CMSModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSModel.m; sourceTree = "<group>"; };
 		4E17B3E421722E0C00F75390 /* GSKPic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GSKPic@2x.png"; sourceTree = "<group>"; };
 		4E17B3E521722E0C00F75390 /* GSKPic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GSKPic@3x.png"; sourceTree = "<group>"; };
 		4E17B3E82176250800F75390 /* AddReviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddReviewViewController.h; sourceTree = "<group>"; };
@@ -2556,6 +2559,8 @@
 				C5EEA293C7B2FCD5561A8AA9 /* StateCity.h */,
 				4E23E08B215325AE00EDCE08 /* DiscussInfo.h */,
 				4E23E08C215325AE00EDCE08 /* DiscussInfo.m */,
+				4E0C115321806147007DC63D /* CMSModel.h */,
+				4E0C115421806147007DC63D /* CMSModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3318,6 +3323,7 @@
 				E11E1ADBC83B9657D14256E2 /* UserConfig.m in Sources */,
 				E11E13D762D175EF23115B92 /* AppDelegate.m in Sources */,
 				18B83B152173557D00130DB6 /* YBIBWebImageManager.m in Sources */,
+				4E0C115521806147007DC63D /* CMSModel.m in Sources */,
 				4E5BA7F32176E1EB00386598 /* ViewAllViewController.m in Sources */,
 				E11E147FF4FE738E0561AF6A /* Proto.m in Sources */,
 				E11E193B11128F898EABFD63 /* main.m in Sources */,
@@ -3594,7 +3600,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -3642,7 +3648,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

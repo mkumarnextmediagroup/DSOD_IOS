@@ -91,7 +91,7 @@
 
 		CmsBookmarkController *bookPage = [CmsBookmarkController new];
 		UINavigationController *ncBook = NavPage(bookPage);
-		[ncBook tabItem:@"Bookmark" imageName:@"bookmark"];
+		[ncBook tabItem:@"Bookmarks" imageName:@"bookmark"];
 		bookPage.navigationItem.leftBarButtonItem = [self menuButton];
 
 		CmsDownloadsController *downPage = [CmsDownloadsController new];

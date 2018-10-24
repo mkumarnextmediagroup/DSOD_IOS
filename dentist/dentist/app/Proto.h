@@ -72,6 +72,11 @@
 //get search result
 + (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue;
 
+//MARK:查询Category（CMS_001_15
++ (NSArray<IdName *> *)queryCategoryTypes;
+//MARK:查询Content Type（CMS_004_03）
++ (NSArray<IdName *> *)queryContentTypes;
+
 //MARK:模拟
 +(BOOL)archiveActicleArr;
 

@@ -110,8 +110,8 @@
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
-    newVC.articleInfo = (Article *) item;
-    if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
+    Article *article = (Article *) item;
+    if ([article.category isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
     }else
     {

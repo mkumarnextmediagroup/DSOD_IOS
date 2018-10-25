@@ -7,6 +7,7 @@
 #import "Common.h"
 #import "UserInfo.h"
 #import "CMSModel.h"
+#import "DetailModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -68,6 +69,8 @@
 + (NSString *_Nullable)uploadHeaderImage:(NSString *_Nullable)localFilePath;
 
 + (NSMutableArray <IdName *> *_Nullable)querySpecialty;
+
++ (DetailModel *)queryForDetailPage:(NSString *)contentId;
 
 //get search result
 + (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue;

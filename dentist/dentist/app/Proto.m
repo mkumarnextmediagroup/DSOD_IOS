@@ -782,11 +782,26 @@
     return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil pageNumber:pageNumber authorId:nil];
 }
 
+//MARK:查询媒体详情（CMS_002_01/CMS_002_02）
++ (NSArray<CMSModel *> *)queryOneContentsByConentId:(NSString *)contentId {
+    HttpResult *r = [self post3:@"category/findOneContents" dic:@{@"contentId": contentId} modular:@"cms"];
+    
+    NSMutableArray *resultArray = [NSMutableArray array];
+    if (r.OK) {
+        NSArray *arr = r.resultMap[@"data"];
+        for (NSDictionary *d in arr) {
+            CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
+            [resultArray addObject:item];
+        }
+    }
+    return resultArray;
+}
+
 //MARK:查询Category（CMS_001_15
 + (NSArray<IdName *> *)queryCategoryTypes {
     HttpResult *r = [self post3:@"category/findAllCategory" dic:nil modular:@"cms"];
     
-    NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
+    NSMutableArray *resultArray = [NSMutableArray array];
     if (r.OK) {
         NSArray *arr = r.resultMap[@"data"];
         for (NSDictionary *d in arr) {
@@ -801,7 +816,7 @@
 + (NSArray<IdName *> *)queryContentTypes {
     HttpResult *r = [self post3:@"category/findAllContentType" dic:nil modular:@"cms"];
     
-    NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
+    NSMutableArray *resultArray = [NSMutableArray array];
     if (r.OK) {
         NSArray *arr = r.resultMap[@"data"];
         for (NSDictionary *d in arr) {
@@ -810,6 +825,69 @@
         }
     }
     return resultArray;
+}
+
+//MARK:添加评论（CMS_002_06）
++(BOOL)addComment:(NSString *)email contentId:(NSString *)contentId commentText:(NSString *)commentText commentRating:(NSString *)commentRating
+{
+    BOOL result=NO;
+    HttpResult *r = [self post3:@"comment/findAllContentType" dic:@{@"email": email,@"contentId": contentId,@"contentId": commentText,@"commentRating": commentRating} modular:@"cms"];
+    if (r.OK) {
+        result=YES;
+    }
+    return result;
+}
+
+//MARK:查询整个文章的评论（CMS_003_04）
++ (NSArray<CMSModelComment *> *)queryAllCommentByConent:(NSString *)contentId {
+    HttpResult *r = [self post3:@"comment/findAllByContent" dic:@{@"contentId": contentId} modular:@"cms"];
+    
+    NSMutableArray *resultArray = [NSMutableArray array];
+    if (r.OK) {
+        NSArray *arr = r.resultMap[@"data"];
+        for (NSDictionary *d in arr) {
+            CMSModelComment *item = [[CMSModelComment alloc] initWithJson:jsonBuild(d)];
+            [resultArray addObject:item];
+        }
+    }
+    return resultArray;
+}
+
+//MARK:查询收藏列表
++ (NSArray<CMSModel *> *)queryBookmarksByEmail:(NSString *)email {
+    HttpResult *r = [self post3:@"bookmark/findAllByEmail" dic:@{@"email": email} modular:@"cms"];
+    
+    NSMutableArray *resultArray = [NSMutableArray array];
+    if (r.OK) {
+        NSArray *arr = r.resultMap[@"data"];
+        for (NSDictionary *d in arr) {
+            CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
+            [resultArray addObject:item];
+        }
+    }
+    return resultArray;
+}
+
+//MARK:删除收藏
++(BOOL)deleteBookmark:(NSString *)bookmarkid
+{
+    BOOL result=NO;
+    HttpResult *r = [self post3:@"bookmark/deleteOneById" dic:@{@"id": bookmarkid} modular:@"cms"];
+    if (r.OK) {
+        result=YES;
+    }
+    return result;
+}
+
+//MARK:添加收藏
++(BOOL)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url
+{
+    BOOL result=NO;
+    HttpResult *r = [self post3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url} modular:@"cms"];
+    if (r.OK) {
+        result=YES;
+    }
+    return result;
 }
 
 +(NSString *)baseDomain

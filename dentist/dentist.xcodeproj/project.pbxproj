@@ -212,6 +212,7 @@
 		A3E752F7217E35010087713D /* Video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752E2217E35010087713D /* Video@2x.png */; };
 		A3E752F8217E35010087713D /* Podcast@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752E3217E35010087713D /* Podcast@3x.png */; };
 		A3E752F9217E35010087713D /* TipSheet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752E4217E35010087713D /* TipSheet@2x.png */; };
+		A3EE38F62181AEF600C76F3A /* CMSModelComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EE38F52181AEF600C76F3A /* CMSModelComment.m */; };
 		A935BE74217737EB007F3619 /* slide-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE6F217737EA007F3619 /* slide-3.png */; };
 		A935BE75217737EB007F3619 /* slide-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE70217737EA007F3619 /* slide-2.png */; };
 		A935BE76217737EB007F3619 /* slide-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE71217737EA007F3619 /* slide-1.png */; };
@@ -923,6 +924,8 @@
 		A3E752E2217E35010087713D /* Video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Video@2x.png"; sourceTree = "<group>"; };
 		A3E752E3217E35010087713D /* Podcast@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Podcast@3x.png"; sourceTree = "<group>"; };
 		A3E752E4217E35010087713D /* TipSheet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TipSheet@2x.png"; sourceTree = "<group>"; };
+		A3EE38F42181AEF600C76F3A /* CMSModelComment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMSModelComment.h; sourceTree = "<group>"; };
+		A3EE38F52181AEF600C76F3A /* CMSModelComment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSModelComment.m; sourceTree = "<group>"; };
 		A935BE6F217737EA007F3619 /* slide-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-3.png"; sourceTree = "<group>"; };
 		A935BE70217737EA007F3619 /* slide-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-2.png"; sourceTree = "<group>"; };
 		A935BE71217737EA007F3619 /* slide-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-1.png"; sourceTree = "<group>"; };
@@ -2561,6 +2564,8 @@
 				4E23E08C215325AE00EDCE08 /* DiscussInfo.m */,
 				4E0C115321806147007DC63D /* CMSModel.h */,
 				4E0C115421806147007DC63D /* CMSModel.m */,
+				A3EE38F42181AEF600C76F3A /* CMSModelComment.h */,
+				A3EE38F52181AEF600C76F3A /* CMSModelComment.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3235,6 +3240,7 @@
 				4E1957482137D0F100420563 /* LinkedInServiceManager.m in Sources */,
 				C5EEAB1B08FE088DAFBA7763 /* Fonts.m in Sources */,
 				C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */,
+				A3EE38F62181AEF600C76F3A /* CMSModelComment.m in Sources */,
 				4E23522F213D12CB003BA59B /* UISearchBarView.m in Sources */,
 				C5EEA2ECCE69B6CBF0D20BA6 /* BaseController.m in Sources */,
 				C5EEA3D1EFA2848BAA028E53 /* UIButton+styled.m in Sources */,

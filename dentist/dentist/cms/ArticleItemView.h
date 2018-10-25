@@ -6,6 +6,7 @@
 #import <UIKit/UIKit.h>
 
 @class Article;
+@class CMSModel;
 @protocol ArticleItemViewDelegate <NSObject>
 
 @optional
@@ -19,7 +20,8 @@
 @property (strong, nonatomic) UIButton *moreButton;
 @property (nonatomic,weak) id<ArticleItemViewDelegate>delegate;
 @property (strong, nonatomic) Article *model;
-
+@property (strong, nonatomic) CMSModel *cmsmodel;
 -(void) bind:(Article*)item ;
+-(void) bindCMS:(CMSModel*)item;
 
 @end

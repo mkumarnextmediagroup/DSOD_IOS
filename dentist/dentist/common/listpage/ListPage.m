@@ -33,6 +33,7 @@
 	_table.delegate = self;
 	_table.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self setTableViewFrame];
+    
 
 }
 
@@ -49,6 +50,30 @@
     [[[[[[_table layoutMaker] leftParent:0] rightParent:0] topParent: self.topOffset + _topBarH] bottomParent:-(self.bottomOffset + _bottomBarH)] install];
 }
 
+-(void)setIsRefresh:(BOOL)isRefresh
+{
+    _isRefresh=isRefresh;
+    if (_isRefresh) {
+        [self setupRefresh];
+    }
+}
+
+//MARK: 下拉刷新
+- (void)setupRefresh {
+    NSLog(@"setupRefresh -- 下拉刷新");
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshClick:) forControlEvents:UIControlEventValueChanged];
+    [self.table addSubview:refreshControl];
+    [refreshControl beginRefreshing];
+    [self refreshClick:refreshControl];
+}
+
+//MARK: 下拉刷新触发,在此获取数据
+- (void)refreshClick:(UIRefreshControl *)refreshControl {
+    NSLog(@"refreshClick: -- 刷新触发");
+    [self refreshData];
+    [refreshControl endRefreshing];
+}
 
 - (NSArray *)items {
 	return _items;

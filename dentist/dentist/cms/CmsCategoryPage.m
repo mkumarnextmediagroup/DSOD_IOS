@@ -10,10 +10,13 @@
 #import "CMSDetailViewController.h"
 #import "DenActionSheet.h"
 #import <Social/Social.h>
+#import "CMSModel.h"
+
 @interface CmsCategoryPage()<ArticleItemViewDelegate>
 {
     NSInteger selectIndex;
     NSString *type;
+    NSArray *dataArray;
 }
 @end
 @implementation CmsCategoryPage {
@@ -34,10 +37,11 @@
     
     self.table.rowHeight = UITableViewAutomaticDimension;
     self.table.estimatedRowHeight = 400;
+    self.isRefresh=YES;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by category" filterAction:^(NSString *result) {
         type=result;
-        self.items=[Proto getArticleListByType:type];
+//        self.items=[Proto getArticleListByType:type];
         
     }];
     
@@ -54,12 +58,28 @@
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
-    Article *art = (id) item;
+//    Article *art = (id) item;
+//    ArticleItemView *itemView = (ArticleItemView *) view;
+//    itemView.delegate=self;
+//    itemView.moreButton.tag=art.id;
+//    [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [itemView bind:art];
+    CMSModel *model = (id) item;
     ArticleItemView *itemView = (ArticleItemView *) view;
     itemView.delegate=self;
-    itemView.moreButton.tag=art.id;
+    itemView.moreButton.tag=1;//model.id;
     [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [itemView bind:art];
+    [itemView bindCMS:model];
+}
+
+-(void)refreshData
+{
+    backTask(^() {
+        self.items = [Proto queryAllContentsBycontentType:nil pageNumber:1];
+        foreTask(^() {
+            
+        });
+    });
 }
 
 //click more button

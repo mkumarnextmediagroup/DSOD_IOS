@@ -765,7 +765,7 @@
     if (authorId) {
         [paradic setObject:email forKey:@"authorId"];
     }
-    HttpResult *r = [self post:@"content/findAllContents" dic:paradic modular:@"cms"];
+    HttpResult *r = [self post3:@"content/findAllContents" dic:paradic modular:@"cms"];
     NSMutableArray *resultArray = [NSMutableArray array];
     if (r.OK) {
         NSArray *arr = r.resultMap[@"data"];
@@ -784,7 +784,7 @@
 
 //MARK:查询Category（CMS_001_15
 + (NSArray<IdName *> *)queryCategoryTypes {
-    HttpResult *r = [self post2:@"category/findAllCategory" dic:nil modular:@"cms"];
+    HttpResult *r = [self post3:@"category/findAllCategory" dic:nil modular:@"cms"];
     
     NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
     if (r.OK) {
@@ -799,7 +799,7 @@
 
 //MARK:查询Content Type（CMS_004_03）
 + (NSArray<IdName *> *)queryContentTypes {
-    HttpResult *r = [self post2:@"category/findAllContentType" dic:nil modular:@"cms"];
+    HttpResult *r = [self post3:@"category/findAllContentType" dic:nil modular:@"cms"];
     
     NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:30];
     if (r.OK) {
@@ -885,6 +885,22 @@
 	[h args:dic];
 	HttpResult *r = [h multipart];
 	return r;
+}
+
++ (HttpResult *)post3:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular{
+    NSString *baseUrl = [self configUrl:modular];
+    Http *h = [Http new];
+    h.url = strBuild([self baseDomain],baseUrl, action);
+    NSLog(@"requesturl=%@", h.url);
+    NSString *token = [self lastToken];
+    if (token != nil) {
+        [h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+        [h header:@"Content-Type" value:@"application/json"];
+    }
+    NSString *jsondic=jsonBuild(dic);
+    NSData *datadic=[jsondic dataUsingEncoding:NSUTF8StringEncoding];
+    HttpResult *r = [h postRaw:datadic];
+    return r;
 }
 
 + (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath modular:(NSString *)modular {

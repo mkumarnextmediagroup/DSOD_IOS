@@ -126,14 +126,14 @@
  @param email 邮箱 是否必须:Y
  @return 返回CMSModelComment的实体数组
  **/
-+ (NSArray<CMSModel *> *)queryBookmarksByEmail:(NSString *)email;
++ (NSArray<CMSModel *> *)queryBookmarksByEmail:(NSString *_Nullable)email;
 
 //MARK:删除收藏
 /**
  @param bookmarkid 收藏ID 是否必须:Y
  @return yes/no
  **/
-+(BOOL)deleteBookmark:(NSString *)bookmarkid;
++(BOOL)deleteBookmark:(NSString *_Nullable)bookmarkid;
 
 //MARK:添加收藏
 /**
@@ -143,7 +143,7 @@
  @param url 请求url 是否必须:Y
  @return yes/no
  **/
-+(BOOL)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url;
++(BOOL)addBookmark:(NSString *_Nullable)email postId:(NSString *_Nullable)postId title:(NSString *_Nullable)title url:(NSString *_Nullable)url;
 
 //MARK:模拟
 +(BOOL)archiveActicleArr;

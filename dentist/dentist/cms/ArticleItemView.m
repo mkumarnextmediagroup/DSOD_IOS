@@ -163,11 +163,11 @@
     }else{
         [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
     }
-//    if (_cmsmodel.isBookmark) {
-//        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
-//    }else{
-//        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-//    }
+    if (_cmsmodel.isBookmark) {
+        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+    }else{
+        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    }
     [self layoutIfNeeded];
     //    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
     NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:_cmsmodel.content];

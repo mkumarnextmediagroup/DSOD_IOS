@@ -67,7 +67,7 @@
     CMSModel *model = (id) item;
     ArticleItemView *itemView = (ArticleItemView *) view;
     itemView.delegate=self;
-    itemView.moreButton.tag=model.id;
+    itemView.moreButton.tag=1;//;
     [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [itemView bindCMS:model];
 }

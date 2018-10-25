@@ -12,6 +12,7 @@
 #import "CMSModel.h"
 #import "StateCity.h"
 #import "DiscussInfo.h"
+#import "DetailModel.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -728,11 +729,26 @@
 	return nil;
 }
 
+#pragma mark CMS Modular
+
++ (DetailModel *)queryForDetailPage:(NSString *)contentId
+{
+    HttpResult *r = [self post:@"content/findOneContents" dic:@{@"id": contentId} modular:@"cms"];
+    
+    if (r.OK) {
+        NSDictionary *dic = r.resultMap[@"data"];
+        DetailModel *detail = [[DetailModel alloc] initWithJson:jsonBuild(dic)];
+        return detail;
+    }
+    return nil;
+}
+
 //search API
 + (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue {
     HttpResult *r = [self post:@"content/findAllBySearch" dic:@{@"searchValue": serachValue} modular:@"cms"];
     
     if (r.OK) {
+        NSDictionary *dic = r.resultMap[@"data"];
         NSArray *arr = r.resultMap[@"data"];
         return arr;
     }

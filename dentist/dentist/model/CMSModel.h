@@ -31,6 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray  *podcasts;
 @property NSString *title;
 @property NSArray  *videos;
+@property NSString  *nextContentId;
+@property NSString  *previousContentId;
+@property NSString  *countOfComment;
+@property NSString  *avgCommentRating;
+@property NSString  *publishDate;
 @property NSArray<CMSModelComment *> *comment;
 
 @end

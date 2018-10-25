@@ -739,6 +739,49 @@
     return nil;
 }
 
+//MARK:查询媒体列表（CMS_001_01\CMS_001_10）
++ (NSArray<CMSModel *> *)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *)authorId {
+    NSInteger skip=0;
+    NSInteger limit=20;//分页数默认20条
+    if(pageNumber>=1)
+    {
+        skip=(pageNumber-1)*limit;
+    }
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    if (!email) {
+        [paradic setObject:email forKey:@"email"];
+    }
+    if (!contentTypeId) {
+        [paradic setObject:contentTypeId forKey:@"contentTypeId"];
+    }
+    if (!categoryId) {
+        [paradic setObject:categoryId forKey:@"categoryId"];
+    }
+    if (!sponserId) {
+        [paradic setObject:sponserId forKey:@"sponserId"];
+    }
+    if (!authorId) {
+        [paradic setObject:email forKey:@"authorId"];
+    }
+    HttpResult *r = [self post:@"content/findAllContents" dic:paradic modular:@"cms"];
+    NSMutableArray *resultArray = [NSMutableArray array];
+    if (r.OK) {
+        NSArray *arr = r.resultMap[@"data"];
+        for (NSDictionary *d in arr) {
+            CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
+            [resultArray addObject:item];
+        }
+    }
+    return resultArray;
+}
+//MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
++ (NSArray<CMSModel *> *)queryAllContentsBycontentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
+{
+    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil pageNumber:pageNumber authorId:nil];
+}
+
 //MARK:查询Category（CMS_001_15
 + (NSArray<IdName *> *)queryCategoryTypes {
     HttpResult *r = [self post2:@"category/findAllCategory" dic:nil modular:@"cms"];

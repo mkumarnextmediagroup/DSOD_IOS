@@ -18,9 +18,10 @@ typedef void (^EmptyFilterViewActionBlock) (NSString *result);
 
 -(void)setTableViewFrame;
 
-/** Filterblock */
+/** Filterblock **/
 @property (copy, nonatomic) EmptyFilterViewActionBlock filterBlock;
-
+/** 是否下拉刷新 **/
+@property  (nonatomic,assign) BOOL isRefresh;
 
 - (Class)viewClassOfItem:(NSObject *)item;
 
@@ -39,4 +40,6 @@ typedef void (^EmptyFilterViewActionBlock) (NSString *result);
 
 -(void)addEmptyViewWithImageName:(NSString*)imageName title:(NSString*)title;
 -(void)addEmptyFilterViewWithImageName:(NSString*)imageName title:(NSString*)title filterAction:(EmptyFilterViewActionBlock)filterActionBlock;
+
+-(void)refreshData;
 @end

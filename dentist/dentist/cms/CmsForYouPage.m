@@ -83,6 +83,7 @@
 	self.table.tableHeaderView = [self makeHeaderView];
 	self.table.rowHeight = UITableViewAutomaticDimension;
 	self.table.estimatedRowHeight = 400;
+    self.isRefresh=YES;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 	self.items = [Proto getArticleListByCategory:category type:type];
 }
@@ -301,6 +302,16 @@
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
+//MARK:刷新数据
+-(void)refreshData
+{
+    category=@"LATEST";
+    type=nil;
+    segView.selectedSegmentIndex=0;
+    self.table.tableHeaderView = [self makeHeaderView];
+    self.items=[Proto getArticleListByCategory:category type:type];
+}
+
 -(void)showImageBrowser:(NSInteger)index
 {
     NSInteger tempindex;
@@ -332,18 +343,18 @@
     [browser show];
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-//    NSLog(@"offfsize=%@",NSStringFromCGPoint(scrollView.contentOffset));
-    CGFloat height=scrollView.contentSize.height>self.table.frame.size.height?self.table.frame.size.height:scrollView.contentSize.height;
-    if((-scrollView.contentOffset.y/self.table.frame.size.height)>0.2){
-        category=@"LATEST";
-        type=nil;
-        segView.selectedSegmentIndex=0;
-        self.table.tableHeaderView = [self makeHeaderView];
-        self.items=[Proto getArticleListByCategory:category type:type];
-    }
-}
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+////    NSLog(@"offfsize=%@",NSStringFromCGPoint(scrollView.contentOffset));
+//    CGFloat height=scrollView.contentSize.height>self.table.frame.size.height?self.table.frame.size.height:scrollView.contentSize.height;
+//    if((-scrollView.contentOffset.y/self.table.frame.size.height)>0.2){
+//        category=@"LATEST";
+//        type=nil;
+//        segView.selectedSegmentIndex=0;
+//        self.table.tableHeaderView = [self makeHeaderView];
+//        self.items=[Proto getArticleListByCategory:category type:type];
+//    }
+//}
 
 
 -(void)ArticleMoreAction:(NSInteger)articleid

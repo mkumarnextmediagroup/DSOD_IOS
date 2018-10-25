@@ -750,19 +750,19 @@
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
     [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
-    if (!email) {
+    if (email) {
         [paradic setObject:email forKey:@"email"];
     }
-    if (!contentTypeId) {
+    if (contentTypeId) {
         [paradic setObject:contentTypeId forKey:@"contentTypeId"];
     }
-    if (!categoryId) {
+    if (categoryId) {
         [paradic setObject:categoryId forKey:@"categoryId"];
     }
-    if (!sponserId) {
+    if (sponserId) {
         [paradic setObject:sponserId forKey:@"sponserId"];
     }
-    if (!authorId) {
+    if (authorId) {
         [paradic setObject:email forKey:@"authorId"];
     }
     HttpResult *r = [self post:@"content/findAllContents" dic:paradic modular:@"cms"];

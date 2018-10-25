@@ -8,6 +8,7 @@
 #import "Article.h"
 #import "DentistPickerView.h"
 #import <CoreText/CoreText.h>
+#import "CMSModel.h"
 
 @implementation ArticleItemView {
 	UILabel *typeLabel;
@@ -130,11 +131,60 @@
         NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:item.content attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
         contentLabel.attributedText = attStr;;
     }
-    
-
-    
 }
 
+-(void)bindCMS:(CMSModel *)item
+{
+    _cmsmodel=item;
+    typeLabel.text = [_cmsmodel.categoryName uppercaseString];
+    dateLabel.text = @"";//item.publishDate;
+    titleLabel.text = _cmsmodel.title;
+    //    contentLabel.text = item.content;
+    NSString *urlstr;
+    if (_cmsmodel.photos && _cmsmodel.photos.count>0) {
+        urlstr=_cmsmodel.photos[0];
+    }
+    [imageView loadUrl:urlstr placeholderImage:@"art-img"];
+    imageView.contentMode=UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds=YES;
+    //@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"
+    if ([_cmsmodel.categoryName isEqualToString:@"VIDEOS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Video"]];
+    }else if([_cmsmodel.categoryName isEqualToString:@"PODCASTS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Podcast"]];
+    }else if([_cmsmodel.categoryName isEqualToString:@"INTERVIEWS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Interview"]];
+    }else if([_cmsmodel.categoryName isEqualToString:@"TECH GUIDES"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"TechGuide"]];
+    }else if([_cmsmodel.categoryName isEqualToString:@"ANIMATIONS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Animation"]];
+    }else if([_cmsmodel.categoryName isEqualToString:@"TIP SHEETS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"TipSheet"]];
+    }else{
+        [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
+    }
+//    if (_cmsmodel.isBookmark) {
+//        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+//    }else{
+//        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+//    }
+    [self layoutIfNeeded];
+    //    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
+    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:_cmsmodel.content];
+    //    NSLog(@"contentlabel:%@",labelarry);
+    if (labelarry.count>4 && _cmsmodel.content) {
+        NSString *line4String = labelarry[3];
+        NSString *showText = [NSString stringWithFormat:@"%@%@%@%@...more", labelarry[0], labelarry[1], labelarry[2], [line4String substringToIndex:line4String.length-6]];
+        
+        //设置label的attributedText
+        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:showText attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
+        [attStr addAttributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textDisabled} range:NSMakeRange(showText.length-4, 4)];
+        contentLabel.attributedText = attStr;
+    }else{
+        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:_cmsmodel.content attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
+        contentLabel.attributedText = attStr;;
+    }
+}
 
 - (NSArray *)getSeparatedLinesFromLabel:(UILabel *)label text:(NSString *)text
 {

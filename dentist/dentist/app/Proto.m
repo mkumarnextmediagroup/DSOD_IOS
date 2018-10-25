@@ -736,7 +736,8 @@
     HttpResult *r = [self post:@"content/findOneContents" dic:@{@"id": contentId} modular:@"cms"];
     
     if (r.OK) {
-        DetailModel *detail = r.resultMap[@"data"];
+        NSDictionary *dic = r.resultMap[@"data"];
+        DetailModel *detail = [[DetailModel alloc] initWithJson:jsonBuild(dic)];
         return detail;
     }
     return nil;
@@ -747,6 +748,7 @@
     HttpResult *r = [self post:@"content/findAllBySearch" dic:@{@"searchValue": serachValue} modular:@"cms"];
     
     if (r.OK) {
+        NSDictionary *dic = r.resultMap[@"data"];
         NSArray *arr = r.resultMap[@"data"];
         return arr;
     }

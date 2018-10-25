@@ -73,15 +73,77 @@
 + (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue;
 
 //MARK:查询媒体列表（CMS_001_01\CMS_001_10）
+/**
+ @param email 邮箱  是否必须:N
+ @param contentTypeId 文章类型ID  是否必须:N
+ @param categoryId 分类ID  是否必须:N
+ @param sponserId 赞助商ID  是否必须:N
+ @param authorId 作者ID  是否必须:N
+ @param pageNumber 分页数  是否必须:Y
+ @return 返回CMSModel的实体数组
+ **/
 + (NSArray<CMSModel *> *_Nullable)queryAllContents:(NSString *_Nullable)email contentTypeId:(NSString *_Nullable)contentTypeId categoryId:(NSString *_Nullable)categoryId sponserId:(NSString *_Nullable)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *_Nullable)authorId;
 
 //MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
+/**
+ @param contentTypeId 文章类型ID 是否必须:N
+ @param pageNumber 分页数 是否必须:Y
+ @return 返回CMSModel的实体数组
+ **/
 + (NSArray<CMSModel *> *_Nullable)queryAllContentsBycontentType:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
+
+//MARK:查询媒体详情（CMS_002_01/CMS_002_02）
+/**
+ @param contentId ID 是否必须:Y
+ @return 返回CMSModel的实体数组
+ **/
++ (NSArray<CMSModel *> *)queryOneContentsByConentId:(NSString *_Nullable)contentId;
 
 //MARK:查询Category（CMS_001_15
 + (NSArray<IdName *> *_Nullable)queryCategoryTypes;
 //MARK:查询Content Type（CMS_004_03）
 + (NSArray<IdName *> *_Nullable)queryContentTypes;
+
+//MARK:添加评论（CMS_002_06）
+/**
+ @param email 邮箱 是否必须:Y
+ @param contentId 所评论文章ID 是否必须:Y
+ @param commentText 评论内容 是否必须:Y
+ @param commentRating 评论评分 是否必须:Y
+ @return yes/no
+ **/
++(BOOL)addComment:(NSString *_Nullable)email contentId:(NSString * _Nullable)contentId commentText:(NSString *_Nullable)commentText commentRating:(NSString *_Nullable)commentRating;
+
+//MARK:查询整个文章的评论（CMS_003_04）
+/**
+ @param contentId ID 是否必须:Y
+ @return 返回CMSModelComment的实体数组
+ **/
++ (NSArray<CMSModelComment *> *)queryAllCommentByConent:(NSString *_Nullable)contentId;
+
+//MARK:查询收藏列表
+/**
+ @param email 邮箱 是否必须:Y
+ @return 返回CMSModelComment的实体数组
+ **/
++ (NSArray<CMSModel *> *)queryBookmarksByEmail:(NSString *)email;
+
+//MARK:删除收藏
+/**
+ @param bookmarkid 收藏ID 是否必须:Y
+ @return yes/no
+ **/
++(BOOL)deleteBookmark:(NSString *)bookmarkid;
+
+//MARK:添加收藏
+/**
+ @param email 邮箱 是否必须:Y
+ @param postId  是否必须:Y
+ @param title 文章标题 是否必须:Y
+ @param url 请求url 是否必须:Y
+ @return yes/no
+ **/
++(BOOL)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url;
 
 //MARK:模拟
 +(BOOL)archiveActicleArr;

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
+#import "CMSModelComment.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray  *podcasts;
 @property NSString *title;
 @property NSArray  *videos;
+@property NSArray<CMSModelComment *> *comment;
 
 @end
 

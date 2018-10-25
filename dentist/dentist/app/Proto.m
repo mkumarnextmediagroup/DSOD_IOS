@@ -12,6 +12,7 @@
 #import "CMSModel.h"
 #import "StateCity.h"
 #import "DiscussInfo.h"
+#import "DetailModel.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -726,6 +727,19 @@
 		return v;
 	}
 	return nil;
+}
+
+#pragma mark CMS Modular
+
++ (DetailModel *)queryForDetailPage:(NSString *)contentId
+{
+    HttpResult *r = [self post:@"content/findOneContents" dic:@{@"id": contentId} modular:@"cms"];
+    
+    if (r.OK) {
+        DetailModel *detail = r.resultMap[@"data"];
+        return detail;
+    }
+    return nil;
 }
 
 //search API

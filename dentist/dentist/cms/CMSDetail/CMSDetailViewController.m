@@ -19,6 +19,7 @@
 #import "AppDelegate.h"
 #import "DenActionSheet.h"
 #import <Social/Social.h>
+#import "DetailModel.h"
 
 #define edge 15
 @interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource,MyActionSheetDelegate> {
@@ -26,6 +27,8 @@
     PicDetailView *picDetailView;
     UITableView *myTable;
     UIButton *markButton;
+    
+    DetailModel *detailMod;
 }
 @end
 
@@ -40,6 +43,9 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    
+    detailMod = [Proto queryForDetailPage:@"123"];
+    
     [self createNav];
     
 	[self buildViews];

@@ -770,9 +770,11 @@
     if (r.OK) {
         NSArray *arr = r.resultMap[@"data"];
         for (NSDictionary *d in arr) {
-            NSString *jsonstr=jsonBuild(d);
             CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
-            [resultArray addObject:item];
+            if (item) {
+                [resultArray addObject:item];
+            }
+            
         }
     }
     return resultArray;

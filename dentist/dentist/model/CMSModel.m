@@ -9,5 +9,4 @@
 #import "CMSModel.h"
 
 @implementation CMSModel
-
 @end

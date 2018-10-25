@@ -67,7 +67,7 @@
     CMSModel *model = (id) item;
     ArticleItemView *itemView = (ArticleItemView *) view;
     itemView.delegate=self;
-    itemView.moreButton.tag=1;//model.id;
+    itemView.moreButton.tag=model.id;
     [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [itemView bindCMS:model];
 }
@@ -75,9 +75,9 @@
 -(void)refreshData
 {
     backTask(^() {
-        self.items = [Proto queryAllContentsBycontentType:nil pageNumber:1];
+        NSArray *array  = [Proto queryAllContentsBycontentType:nil pageNumber:1];
         foreTask(^() {
-            
+            self.items=array;
         });
     });
 }

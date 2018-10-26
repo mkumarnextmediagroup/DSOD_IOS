@@ -40,6 +40,6 @@
 
 @property NSArray<ArticleComment *> *comments;
 @property NSArray<DiscussInfo *> *discussInfo;
-@property NSString *category;//latest ;videos;articles;
+@property NSString *categoryName;//latest ;videos;articles;
 
 @end

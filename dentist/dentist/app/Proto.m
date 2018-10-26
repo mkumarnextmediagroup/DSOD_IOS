@@ -43,7 +43,7 @@
 	               "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 seconds until a thin adhesive film layer forms.";
     a.resImage = @"https://wp.dsodentist.com/wp-content/uploads/2018/09/CA_INVI_D5_T_IOSIM_APAC_0029_rt2_HR_RGB_1280-e1537471186604.jpg";//@"http://app800.cn/i/d.png";
 	a.resType = @"image";
-    a.category=@"LATEST";
+    a.categoryName=@"LATEST";
 
     DiscussInfo *dis = [DiscussInfo new];
     dis.disImg = @"http://app800.cn/i/p.png";
@@ -92,7 +92,7 @@
     b.content = @"Being the boss is not always easy, but it is rewarding once you become an effective leader. There are certain principles to good leadership, and if you follow them diligently, you will reach your full potential. This blog post features five recommendations for being a leader in your DSO-supported practice.\nYou are the CEO in your practice. Dentists, whether they are seasoned professionals or new grads, are ultimately responsible for the success of their practice. This is a huge responsibility. You are now responsible for the overall quality of care, patient satisfaction, and the livelihood of employees who are trying to provide for their families. Many dentists today are delegating some of the day-to-day responsibilities to a Dental Support Organization (DSO), but without you, the practice would grind to a halt.\nBeing an effective CEO in a DSO-supported practice is similar to being a general contractor for building a house. The following are typical responsibilities that must be addressed by a CEO.";
     b.resImage = @"https://wp.dsodentist.com/wp-content/uploads/2018/09/bigstock-126488318-e1539282816569.jpg";//@"http://app800.cn/i/d.png";
 	b.resType = @"image";
-    b.category=@"LATEST";
+    b.categoryName=@"LATEST";
 
     DiscussInfo *disb = [DiscussInfo new];
     disb.disImg = @"http://app800.cn/i/p.png";
@@ -188,7 +188,7 @@
     a.subContent = subContent;
     a.resImage = resImage;
     a.resType = @"image";
-    a.category=category;
+    a.categoryName=category;
     
     DiscussInfo *dis = [DiscussInfo new];
     dis.disImg = @"http://app800.cn/i/p.png";
@@ -745,16 +745,22 @@
     return nil;
 }
 
-//search API
+//search API（CMS_001_11-A/CMS_001_12）
 + (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue {
     HttpResult *r = [self post:@"content/findAllBySearch" dic:@{@"searchValue": serachValue} modular:@"cms"];
     
+    NSMutableArray *resultArray = [NSMutableArray array];
     if (r.OK) {
-        NSDictionary *dic = r.resultMap[@"data"];
         NSArray *arr = r.resultMap[@"data"];
-        return arr;
+        for (NSDictionary *d in arr) {
+            CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
+            if (item) {
+                [resultArray addObject:item];
+            }
+            
+        }
     }
-    return nil;
+    return resultArray;
 }
 
 //MARK:查询媒体列表（CMS_001_01\CMS_001_10）
@@ -1099,11 +1105,11 @@
         
         if ([[model.authName lowercaseString] isEqualToString:[author lowercaseString]] ) {
             if(![self isBlankString:category] && ![self isBlankString:type]){
-                if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
+                if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
                     [newDataArr addObject:model];
                 }
             }else if (![self isBlankString:category] && [self isBlankString:type]){
-                if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]]) {
+                if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]]) {
                     [newDataArr addObject:model];
                 }
             }else if ([self isBlankString:category] && ![self isBlankString:type] ){
@@ -1126,7 +1132,7 @@
     NSMutableArray *newDataArr = [NSMutableArray array];
     [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]] ) {
+        if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]] ) {
             [newDataArr addObject:model];
         }
     }];
@@ -1157,11 +1163,11 @@
     [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
         
         if(![self isBlankString:category] && ![self isBlankString:type]){
-            if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
+            if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
                 [newDataArr addObject:model];
             }
         }else if (![self isBlankString:category] && [self isBlankString:type]){
-            if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]]) {
+            if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]]) {
                 [newDataArr addObject:model];
             }
         }else if ([self isBlankString:category] && ![self isBlankString:type] ){
@@ -1186,7 +1192,7 @@
     if (![self isBlankString:keywords]) {
         [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            if([[model.title lowercaseString] containsString:[keywords lowercaseString]] || [[model.content lowercaseString] containsString:[keywords lowercaseString]] || [[model.type lowercaseString] containsString:[keywords lowercaseString]] || [[model.category lowercaseString] containsString:[keywords lowercaseString]] || [[model.authName lowercaseString] containsString:[keywords lowercaseString]]){
+            if([[model.title lowercaseString] containsString:[keywords lowercaseString]] || [[model.content lowercaseString] containsString:[keywords lowercaseString]] || [[model.type lowercaseString] containsString:[keywords lowercaseString]] || [[model.categoryName lowercaseString] containsString:[keywords lowercaseString]] || [[model.authName lowercaseString] containsString:[keywords lowercaseString]]){
                 [newDataArr addObject:model];//authName
             }
         }];
@@ -1204,7 +1210,7 @@
     if (![self isBlankString:keywords]) {
         [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            if([[model.title lowercaseString] containsString:[keywords lowercaseString]] || [[model.content lowercaseString] containsString:[keywords lowercaseString]] || [[model.type lowercaseString] containsString:[keywords lowercaseString]] || [[model.category lowercaseString] containsString:[keywords lowercaseString]] || [[model.authName lowercaseString] containsString:[keywords lowercaseString]]){
+            if([[model.title lowercaseString] containsString:[keywords lowercaseString]] || [[model.content lowercaseString] containsString:[keywords lowercaseString]] || [[model.type lowercaseString] containsString:[keywords lowercaseString]] || [[model.categoryName lowercaseString] containsString:[keywords lowercaseString]] || [[model.authName lowercaseString] containsString:[keywords lowercaseString]]){
                 if (![self isBlankString:type] ){
                     if ([[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
                         [newDataArr addObject:model];
@@ -1245,11 +1251,11 @@
         
         if (model.isBookmark) {
             if(![self isBlankString:category] && ![self isBlankString:type]){
-                if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
+                if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
                     [newDataArr addObject:model];
                 }
             }else if (![self isBlankString:category] && [self isBlankString:type] ){
-                if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]]) {
+                if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]]) {
                     [newDataArr addObject:model];
                 }
             }else if ([self isBlankString:category] && ![self isBlankString:type] ){
@@ -1291,11 +1297,11 @@
         
         if (model.isDownload) {
             if(![self isBlankString:category] && ![self isBlankString:type]){
-                if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
+                if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
                     [newDataArr addObject:model];
                 }
             }else if (![self isBlankString:category] && [self isBlankString:type] ){
-                if ([[model.category lowercaseString] isEqualToString:[category lowercaseString]]) {
+                if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]]) {
                     [newDataArr addObject:model];
                 }
             }else if ([self isBlankString:category] && ![self isBlankString:type] ){

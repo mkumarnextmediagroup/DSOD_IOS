@@ -203,8 +203,8 @@
 }
 
 -(void)bind:(DetailModel *)bindInfo {
-//    typeLabel.text = [bindInfo.type uppercaseString];
-//    dateLabel.text = bindInfo.publishDate;
+    typeLabel.text = [bindInfo.categoryName uppercaseString];
+    dateLabel.text = bindInfo.releaseTime;
 //    [imageView loadUrl:bindInfo.resImage placeholderImage:@"art-img"];
 	[headerImg loadUrl:@"http://app800.cn/i/p.png" placeholderImage:@"user_img"];
 	titleLabel.text = bindInfo.title;

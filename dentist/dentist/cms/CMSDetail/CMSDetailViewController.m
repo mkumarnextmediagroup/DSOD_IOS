@@ -44,7 +44,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-    detailMod = [Proto queryForDetailPage:@"5bd17b329a08060d541bcb32"];
+    detailMod = [Proto queryForDetailPage:self.contentId];
     
     [self createNav];
     

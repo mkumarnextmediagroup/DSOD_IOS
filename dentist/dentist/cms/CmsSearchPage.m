@@ -119,7 +119,7 @@
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
     Article *article = (Article *) item;
-    if ([article.category isEqualToString:@"VIDEOS"]) {
+    if ([article.categoryName isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
     }else
     {
@@ -187,7 +187,7 @@
     [self.searchBar resignFirstResponder];
      _searchBar.showsCancelButton = NO;
     self.items=[Proto getArticleListByKeywords:searchKeywords type:nil];
-//    self.items=[Proto querySearchResults:searchKeywords];
+    self.items=[Proto querySearchResults:searchKeywords];
     NSLog(@"%@",self.items);
 }
 

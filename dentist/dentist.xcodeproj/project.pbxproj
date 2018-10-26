@@ -215,6 +215,7 @@
 		A3E752F8217E35010087713D /* Podcast@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752E3217E35010087713D /* Podcast@3x.png */; };
 		A3E752F9217E35010087713D /* TipSheet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752E4217E35010087713D /* TipSheet@2x.png */; };
 		A3EE38F62181AEF600C76F3A /* CMSModelComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EE38F52181AEF600C76F3A /* CMSModelComment.m */; };
+		A3EE38F92183214C00C76F3A /* BookmarkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EE38F82183214C00C76F3A /* BookmarkModel.m */; };
 		A935BE74217737EB007F3619 /* slide-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE6F217737EA007F3619 /* slide-3.png */; };
 		A935BE75217737EB007F3619 /* slide-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE70217737EA007F3619 /* slide-2.png */; };
 		A935BE76217737EB007F3619 /* slide-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE71217737EA007F3619 /* slide-1.png */; };
@@ -932,6 +933,8 @@
 		A3E752E4217E35010087713D /* TipSheet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TipSheet@2x.png"; sourceTree = "<group>"; };
 		A3EE38F42181AEF600C76F3A /* CMSModelComment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMSModelComment.h; sourceTree = "<group>"; };
 		A3EE38F52181AEF600C76F3A /* CMSModelComment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSModelComment.m; sourceTree = "<group>"; };
+		A3EE38F72183214C00C76F3A /* BookmarkModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkModel.h; sourceTree = "<group>"; };
+		A3EE38F82183214C00C76F3A /* BookmarkModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookmarkModel.m; sourceTree = "<group>"; };
 		A935BE6F217737EA007F3619 /* slide-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-3.png"; sourceTree = "<group>"; };
 		A935BE70217737EA007F3619 /* slide-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-2.png"; sourceTree = "<group>"; };
 		A935BE71217737EA007F3619 /* slide-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-1.png"; sourceTree = "<group>"; };
@@ -2584,6 +2587,8 @@
 				4E0C115421806147007DC63D /* CMSModel.m */,
 				A3EE38F42181AEF600C76F3A /* CMSModelComment.h */,
 				A3EE38F52181AEF600C76F3A /* CMSModelComment.m */,
+				A3EE38F72183214C00C76F3A /* BookmarkModel.h */,
+				A3EE38F82183214C00C76F3A /* BookmarkModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3345,6 +3350,7 @@
 				E11E1A6226F32868524CF272 /* BaseTabController.m in Sources */,
 				A99177062176E4CD00788D2C /* NSObject+NSCoding.m in Sources */,
 				4E85DA8B21429C45007C40C3 /* DenGlobalInfo.m in Sources */,
+				A3EE38F92183214C00C76F3A /* BookmarkModel.m in Sources */,
 				E11E1ADBC83B9657D14256E2 /* UserConfig.m in Sources */,
 				E11E13D762D175EF23115B92 /* AppDelegate.m in Sources */,
 				18B83B152173557D00130DB6 /* YBIBWebImageManager.m in Sources */,

@@ -77,6 +77,25 @@
 - (NSString *)add:(NSString *)s {
 	return [self stringByAppendingString:s];
 }
+
+-(BOOL)isBlankString {
+    if (self == nil || self == NULL) {
+        return YES;
+    }
+    if ([self isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([self isEqualToString:@"(null)"]) {
+        return YES;
+    }
+    if ([self isEqualToString:@"<null>"]) {
+        return YES;
+    }
+    if ([[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
 @end
 
 

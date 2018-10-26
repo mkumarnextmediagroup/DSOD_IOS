@@ -12,7 +12,8 @@
 @optional
 - (void)CategoryPickerSelectAction:(NSString *)result;
 - (void)ArticleMoreAction:(NSInteger)articleid;
-- (void)ArticleMarkAction:(NSInteger)articleid;;
+- (void)ArticleMarkAction:(NSInteger)articleid;
+- (void)ArticleMarkActionModel:(CMSModel*)model;
 @end
 
 @interface ArticleItemView : UIView

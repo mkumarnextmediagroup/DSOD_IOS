@@ -27,7 +27,7 @@
 
 - (BOOL)containsChar:(unichar)ch;
 
-
+-(BOOL)isBlankString;
 @end
 
 //遇到nil就回终止

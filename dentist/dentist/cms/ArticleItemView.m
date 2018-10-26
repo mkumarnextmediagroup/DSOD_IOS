@@ -235,8 +235,8 @@
 //        _model.isBookmark=YES;
         [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }
-    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMarkAction:)]){
-        [self.delegate ArticleMarkAction:_model.id];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMarkActionModel:)]){
+        [self.delegate ArticleMarkActionModel:_cmsmodel];
     }
     
     

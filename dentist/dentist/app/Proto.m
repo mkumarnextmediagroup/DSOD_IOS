@@ -13,6 +13,8 @@
 #import "StateCity.h"
 #import "DiscussInfo.h"
 #import "DetailModel.h"
+#import "NSString+myextend.h"
+#import "BookmarkModel.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -874,13 +876,13 @@
 
 //MARK:查询收藏列表
 + (NSArray<CMSModel *> *)queryBookmarksByEmail:(NSString *)email {
-    HttpResult *r = [self post3:@"bookmark/findAllByEmail" dic:@{@"email": email} modular:@"cms"];
+    HttpResult *r = [self post2:@"bookmark/findAllByEmail" dic:@{@"email": email} modular:@"cms"];
     
     NSMutableArray *resultArray = [NSMutableArray array];
     if (r.OK) {
-        NSArray *arr = r.resultMap[@"data"];
+        NSArray *arr = r.resultMap[@"bookmarkList"];
         for (NSDictionary *d in arr) {
-            CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
+            BookmarkModel *item = [[BookmarkModel alloc] initWithJson:jsonBuild(d)];
             [resultArray addObject:item];
         }
     }
@@ -891,7 +893,7 @@
 +(BOOL)deleteBookmark:(NSString *)bookmarkid
 {
     BOOL result=NO;
-    HttpResult *r = [self post3:@"bookmark/deleteOneById" dic:@{@"id": bookmarkid} modular:@"cms"];
+    HttpResult *r = [self post2:@"bookmark/deleteOneById" dic:@{@"id": bookmarkid} modular:@"cms"];
     if (r.OK) {
         result=YES;
     }
@@ -902,10 +904,13 @@
 +(BOOL)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url
 {
     BOOL result=NO;
-    HttpResult *r = [self post3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url} modular:@"cms"];
-    if (r.OK) {
-        result=YES;
+    if(!email.isBlankString && !postId.isBlankString && !title.isBlankString && !url.isBlankString){
+        HttpResult *r = [self post3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url} modular:@"cms"];
+        if (r.OK) {
+            result=YES;
+        }
     }
+    
     return result;
 }
 

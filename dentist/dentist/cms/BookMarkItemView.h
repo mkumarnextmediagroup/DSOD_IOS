@@ -8,13 +8,17 @@
 
 #import <UIKit/UIKit.h>
 @class Article;
+@class BookmarkModel;
 @protocol BookMarkItemViewDelegate <NSObject>
 
 @optional
-- (void)BookMarkAction:(NSInteger)articleid;;
+- (void)BookMarkAction:(NSInteger)articleid;
+- (void)BookMarkActionModel:(BookmarkModel*)model;
 @end
 @interface BookMarkItemView : UIView
 @property (nonatomic,weak) id<BookMarkItemViewDelegate>delegate;
 @property (strong, nonatomic) Article *model;
+@property (strong, nonatomic) BookmarkModel *bookmarkmodel;
 -(void) bind:(Article*)item ;
+-(void)bindCMS:(BookmarkModel *)item;
 @end

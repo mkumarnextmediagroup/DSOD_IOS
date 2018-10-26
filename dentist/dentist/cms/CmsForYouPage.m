@@ -293,6 +293,7 @@
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
     Article *article = (Article *) item;
+    newVC.contentId = [NSString stringWithFormat:@"%ld",(long)article.id];
     if ([article.categoryName isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
     }else

@@ -44,7 +44,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-    detailMod = [Proto queryForDetailPage:@"123"];
+    detailMod = [Proto queryForDetailPage:self.contentId];
     
     [self createNav];
     
@@ -90,7 +90,7 @@
 - (void)goToViewAllPage
 {
     ViewAllViewController *viewAll = [ViewAllViewController new];
-    viewAll.discussInfo = self.articleInfo.discussInfo;
+//    viewAll.discussInfo = self.articleInfo.discussInfo;
     [self.navigationController pushViewController:viewAll animated:YES];
 }
 
@@ -111,7 +111,7 @@
     [moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     markButton = [footerVi addButton];
-    if (_articleInfo.isBookmark) {
+    if (detailMod.isBookmark) {
         [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
@@ -280,7 +280,7 @@
 - (void)gskBtnClick
 {
     GSKViewController *gskVC = [GSKViewController new];
-    gskVC.author=_articleInfo.authName;
+    gskVC.author=_articleInfo.author;
     [self.navigationController pushViewController:gskVC animated:YES];
     
 }
@@ -307,7 +307,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.articleInfo.discussInfo.count;
+    return self.articleInfo.comment.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -322,7 +322,7 @@
     if (cell == nil) {
         cell = [[DiscussTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
-    cell.disInfo = self.articleInfo.discussInfo[indexPath.row];
+    cell.disInfo = self.articleInfo.comment[indexPath.row];
     return cell;
 
 }

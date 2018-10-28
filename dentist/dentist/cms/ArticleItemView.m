@@ -95,17 +95,17 @@
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
     //@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"
-    if ([item.category isEqualToString:@"VIDEOS"]) {
+    if ([item.categoryName isEqualToString:@"VIDEOS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"Video"]];
-    }else if([item.category isEqualToString:@"PODCASTS"]) {
+    }else if([item.categoryName isEqualToString:@"PODCASTS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"Podcast"]];
-    }else if([item.category isEqualToString:@"INTERVIEWS"]) {
+    }else if([item.categoryName isEqualToString:@"INTERVIEWS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"Interview"]];
-    }else if([item.category isEqualToString:@"TECH GUIDES"]) {
+    }else if([item.categoryName isEqualToString:@"TECH GUIDES"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"TechGuide"]];
-    }else if([item.category isEqualToString:@"ANIMATIONS"]) {
+    }else if([item.categoryName isEqualToString:@"ANIMATIONS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"Animation"]];
-    }else if([item.category isEqualToString:@"TIP SHEETS"]) {
+    }else if([item.categoryName isEqualToString:@"TIP SHEETS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"TipSheet"]];
     }else{
         [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
@@ -163,11 +163,11 @@
     }else{
         [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
     }
-//    if (_cmsmodel.isBookmark) {
-//        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
-//    }else{
-//        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-//    }
+    if (_cmsmodel.isBookmark) {
+        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+    }else{
+        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    }
     [self layoutIfNeeded];
     //    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
     NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:_cmsmodel.content];
@@ -235,8 +235,8 @@
 //        _model.isBookmark=YES;
         [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }
-    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMarkAction:)]){
-        [self.delegate ArticleMarkAction:_model.id];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMarkActionModel:)]){
+        [self.delegate ArticleMarkActionModel:_cmsmodel];
     }
     
     

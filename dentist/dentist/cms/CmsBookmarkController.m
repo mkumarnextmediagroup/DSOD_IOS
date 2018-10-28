@@ -9,12 +9,14 @@
 #import "Proto.h"
 #import "DentistFilterView.h"
 #import "CMSDetailViewController.h"
+#import "BookmarkModel.h"
 
 @interface CmsBookmarkController()<BookMarkItemViewDelegate>
 {
     NSString *categorytext;
     NSString *typetext;
     CGFloat rowheight;
+    NSMutableArray *resultArray;
 }
 @end
 
@@ -32,8 +34,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     categorytext=nil;
     typetext=nil;
-    self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
-//    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadData) userInfo:nil repeats:NO];
+//    self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
 }
 
 -(void)reloadData
@@ -50,8 +51,19 @@
     rowheight=(self.table.frame.size.height-32)/4;
     self.table.tableHeaderView = [self makeHeaderView];
     self.table.rowHeight = rowheight;
+    self.isRefresh=YES;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyViewWithImageName:@"nonBookmarks" title:@"No bookmarks added yet"];
+}
+
+-(void)refreshData
+{
+    backTask(^() {
+        self->resultArray  = [[Proto queryBookmarksByEmail:getLastAccount()] mutableCopy];
+        foreTask(^() {
+            self.items=[self->resultArray copy];
+        });
+    });
 }
 
 - (UIView *)makeHeaderView {
@@ -75,10 +87,14 @@
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
-    Article *art = (id) item;
+//    Article *art = (id) item;
+//    BookMarkItemView *itemView = (BookMarkItemView *) view;
+//    itemView.delegate=self;
+//    [itemView bind:art];
+    BookmarkModel *art = (id) item;
     BookMarkItemView *itemView = (BookMarkItemView *) view;
     itemView.delegate=self;
-    [itemView bind:art];
+    [itemView bindCMS:art];
 }
 
 -(void)BookMarkAction:(NSInteger)articleid
@@ -96,6 +112,25 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+-(void)BookMarkActionModel:(BookmarkModel *)model
+{
+    //移除bookmark
+    BOOL result = [Proto deleteBookmark:model._id];
+    if (result) {
+        [self->resultArray removeObject:model];
+        self.items=[self->resultArray copy];
+        [self.table reloadData];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击取消");
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    
+}
+
 - (void)onClickItem:(NSObject *)item {
     
 //    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
@@ -110,8 +145,8 @@
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
-    newVC.articleInfo = (Article *) item;
-    if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
+    Article *article = (Article *) item;
+    if ([article.categoryName isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
     }else
     {

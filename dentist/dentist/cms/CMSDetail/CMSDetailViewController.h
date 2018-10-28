@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "ScrollPage.h"
 #import "Article.h"
+#import "DetailModel.h"
 
 @interface CMSDetailViewController : ScrollPage
 
-@property Article *articleInfo;
+@property DetailModel *articleInfo;
+@property NSString *contentId;
 @property NSString *toWhichPage;
 
 @end

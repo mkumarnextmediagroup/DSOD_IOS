@@ -195,8 +195,8 @@
 - (void)onClickItem:(NSObject *)item {
 
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
-    newVC.articleInfo = (Article *) item;
-    if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
+    Article *article = (Article *) item;
+    if ([article.categoryName isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
     }else
     {

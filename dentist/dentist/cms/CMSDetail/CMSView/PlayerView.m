@@ -202,18 +202,18 @@
 
 }
 
-- (void)bind:(Article *)bindInfo {
-	typeLabel.text = [bindInfo.type uppercaseString];
-	dateLabel.text = bindInfo.publishDate;
+-(void)bind:(DetailModel *)bindInfo {
+    typeLabel.text = [bindInfo.categoryName uppercaseString];
+    dateLabel.text = bindInfo.releaseTime;
 //    [imageView loadUrl:bindInfo.resImage placeholderImage:@"art-img"];
 	[headerImg loadUrl:@"http://app800.cn/i/p.png" placeholderImage:@"user_img"];
 	titleLabel.text = bindInfo.title;
-	[_greeBtn setTitle:bindInfo.gskString forState:UIControlStateNormal];
+//    [_greeBtn setTitle:bindInfo.gskString forState:UIControlStateNormal];
     [_greeBtn setImage:[UIImage imageNamed:@"gskIcon"] forState:UIControlStateNormal];
-	nameLabel.text = bindInfo.authName;
-	addressLabel.text = bindInfo.authAdd;
+	nameLabel.text = bindInfo.author;
+//    addressLabel.text = bindInfo.authAdd;
 	contentLabel.text = bindInfo.content;
-    contentLabel2.text = bindInfo.subContent;
+//    contentLabel2.text = bindInfo.subContent;
     if (bindInfo.isBookmark) {
         [_markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{

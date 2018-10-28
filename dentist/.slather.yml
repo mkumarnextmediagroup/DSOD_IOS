@@ -1,0 +1,5 @@
+coverage_service: html
+xcodeproj: ./dentist.xcodeproj
+scheme: dentist
+workspace: ./dentist.xcworkspace
+output_directory: ./code-cover

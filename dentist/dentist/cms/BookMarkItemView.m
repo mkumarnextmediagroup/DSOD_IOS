@@ -9,6 +9,7 @@
 #import "BookMarkItemView.h"
 #import "Common.h"
 #import "Article.h"
+#import "BookmarkModel.h"
 
 @implementation BookMarkItemView{
     UILabel *titleLabel;
@@ -56,27 +57,51 @@
     [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
     [imageView scaleFillAspect];
     imageView.clipsToBounds=YES;
-    if ([item.category isEqualToString:@"VIDEOS"]) {
+    if ([item.categoryName isEqualToString:@"VIDEOS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"Video"]];
-    }else if([item.category isEqualToString:@"PODCASTS"]) {
+    }else if([item.categoryName isEqualToString:@"PODCASTS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"Podcast"]];
-    }else if([item.category isEqualToString:@"INTERVIEWS"]) {
+    }else if([item.categoryName isEqualToString:@"INTERVIEWS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"Interview"]];
-    }else if([item.category isEqualToString:@"TECH GUIDES"]) {
+    }else if([item.categoryName isEqualToString:@"TECH GUIDES"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"TechGuide"]];
-    }else if([item.category isEqualToString:@"ANIMATIONS"]) {
+    }else if([item.categoryName isEqualToString:@"ANIMATIONS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"Animation"]];
-    }else if([item.category isEqualToString:@"TIP SHEETS"]) {
+    }else if([item.categoryName isEqualToString:@"TIP SHEETS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"TipSheet"]];
     }else{
         [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
     }
 }
 
+-(void)bindCMS:(BookmarkModel *)item
+{
+    _bookmarkmodel=item;
+    titleLabel.text = @"";
+    contentLabel.text = _bookmarkmodel.title;//[item.title stringByAppendingString:@"\n\n\n\n "];
+    [imageView loadUrl:@"" placeholderImage:@"art-img"];
+    [imageView scaleFillAspect];
+    imageView.clipsToBounds=YES;
+//    if ([item.category isEqualToString:@"VIDEOS"]) {
+//        [thumbImageView setImage:[UIImage imageNamed:@"Video"]];
+//    }else if([item.category isEqualToString:@"PODCASTS"]) {
+//        [thumbImageView setImage:[UIImage imageNamed:@"Podcast"]];
+//    }else if([item.category isEqualToString:@"INTERVIEWS"]) {
+//        [thumbImageView setImage:[UIImage imageNamed:@"Interview"]];
+//    }else if([item.category isEqualToString:@"TECH GUIDES"]) {
+//        [thumbImageView setImage:[UIImage imageNamed:@"TechGuide"]];
+//    }else if([item.category isEqualToString:@"ANIMATIONS"]) {
+//        [thumbImageView setImage:[UIImage imageNamed:@"Animation"]];
+//    }else if([item.category isEqualToString:@"TIP SHEETS"]) {
+//        [thumbImageView setImage:[UIImage imageNamed:@"TipSheet"]];
+//    }else{
+//        [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
+//    }
+}
 -(void)markAction:(UIButton *)sender
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(BookMarkAction:)]){
-        [self.delegate BookMarkAction:_model.id];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(BookMarkActionModel:)]){
+        [self.delegate BookMarkActionModel:_bookmarkmodel];
     }
     
     

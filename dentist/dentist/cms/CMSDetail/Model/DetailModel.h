@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *authorId;
 @property NSString *sponserName;
 @property NSString *authorName;
-@property NSString *isBookmark;
+@property BOOL     isBookmark;
 @property NSString *contentUrl;
 @property NSString *commentRating;
 @property NSString *countOfComment;

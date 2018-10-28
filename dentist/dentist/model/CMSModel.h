@@ -13,30 +13,32 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CMSModel : JSONModel
-
-@property NSString *content;
-@property NSString *categoryId;
-@property NSString *contentTypeId;
-@property NSString *sponserId;
-@property NSString *authorId;
-@property NSString *categoryName;
-@property NSString *sponserName;
-@property NSString *authorName;
-@property NSString *email;
-@property NSString *featuredMediaId;
-@property NSString *isComplete;
-@property NSString *isPrivate;
-@property NSString *isPublishNow;
-@property NSArray  *photos;
-@property NSArray  *podcasts;
-@property NSString *title;
-@property NSArray  *videos;
-@property NSString  *nextContentId;
-@property NSString  *previousContentId;
-@property NSString  *countOfComment;
-@property NSString  *avgCommentRating;
-@property NSString  *publishDate;
-@property NSArray<CMSModelComment *> *comment;
+@property NSString <Optional>*id;
+@property NSString <Optional>*content;
+@property NSString <Optional>*categoryId;
+@property NSString <Optional>*contentTypeId;
+@property NSString <Optional>*sponserId;
+@property NSString <Optional>*authorId;
+@property NSString <Optional>*categoryName;
+@property NSString <Optional>*sponserName;
+@property NSString <Optional>*authorName;
+@property NSString <Optional>*email;
+@property NSString <Optional>*featuredMediaId;
+@property NSInteger isComplete;
+@property NSInteger isPrivate;
+@property NSInteger isPublishNow;
+@property NSInteger isBookmark;
+@property NSArray  <Optional>*photos;
+@property NSArray  <Optional>*podcasts;
+@property NSString <Optional>*title;
+@property NSArray  <Optional>*videos;
+@property NSString  <Optional>*nextContentId;
+@property NSString  <Optional>*previousContentId;
+@property NSString  <Optional>*countOfComment;
+@property NSString  <Optional>*avgCommentRating;
+@property NSString  <Optional>*publishDate;
+@property NSString  <Optional>*readNumber;
+@property NSArray   <CMSModelComment*><Optional> *comment;
 
 @end
 

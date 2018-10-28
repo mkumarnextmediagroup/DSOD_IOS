@@ -29,7 +29,7 @@
     [coder encodeBool:_isDownload  forKey:@"isDownload"];
     [coder encodeObject:_comments forKey:@"comments"];
     [coder encodeObject:_discussInfo forKey:@"discussInfo"];
-    [coder encodeObject:_category forKey:@"category"];
+    [coder encodeObject:_categoryName forKey:@"category"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder {
@@ -51,7 +51,7 @@
         _isDownload = [coder decodeBoolForKey:@"isDownload"];
         _comments = [coder decodeObjectForKey:@"comments"];
         _discussInfo = [coder decodeObjectForKey:@"discussInfo"];
-        _category = [coder decodeObjectForKey:@"category"];
+        _categoryName = [coder decodeObjectForKey:@"category"];
     }
     return self;
 }

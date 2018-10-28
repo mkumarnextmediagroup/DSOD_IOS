@@ -11,12 +11,12 @@
 
 @interface CMSModelComment : JSONModel
 /**用户邮箱**/
-@property NSString *email;
+@property NSString <Optional>*email;
 /**评论分数**/
-@property NSString *commentRating;
+@property NSString <Optional>*commentRating;
 /**评论内容**/
-@property NSString *commentText;
+@property NSString <Optional>*commentText;
 /**创建时间**/
-@property NSString *createTime;
+@property NSString <Optional>*createTime;
 @end
 

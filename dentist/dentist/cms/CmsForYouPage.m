@@ -301,7 +301,7 @@
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
     CMSModel *article = (CMSModel *) item;
     
-    newVC.contentId = [NSString stringWithFormat:@"%ld",(long)article.id];
+    newVC.contentId = article.id;
     if ([[article.contentTypeName uppercaseString] isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
     }else

@@ -9,6 +9,7 @@
 #import "DentistTabView.h"
 #import "Common.h"
 #import "TabCollectionViewCell.h"
+#import "IdName.h"
 
 #define itemWidth ceilf(SCREENWIDTH*2/7.0)
 
@@ -99,6 +100,31 @@ static NSString * identifier = @"TabCellID2";
     }
 }
 
+-(void)setModelArr:(NSMutableArray<IdName *> *)modelArr
+{
+    _modelArr=modelArr;
+    if(_modelArr && _modelArr.count>0){
+        for (int i=0; i<_groupCount; i++) {
+            for (int j=0; j<_modelArr.count; j++) {
+                [_indexArr addObject:@(j)];
+            }
+        }
+        [_collectionView reloadData];
+        selectIndex=(_groupCount / 2 * _modelArr.count);
+        NSLog(@"selectindex=%@",@(selectIndex));
+        //        [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:selectIndex+2 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
+        
+        [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
+        if (_indexArr.count>selectIndex) {
+            NSInteger index = [_indexArr[selectIndex] integerValue];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(didDentistSelectItemAtIndex:)]) {
+                [self.delegate didDentistSelectItemAtIndex:index];
+            }
+        }
+        
+    }
+}
+
 #pragma mark - deleDate
 //有多少的分组
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -116,7 +142,13 @@ static NSString * identifier = @"TabCellID2";
     //根据identifier从缓冲池里去出cell
     TabCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     NSInteger index = [_indexArr[indexPath.row] integerValue];
-    cell.titleLabel.text=_titleArr[index];
+    if(_modelArr){
+        IdName *model=_modelArr[index];
+        cell.titleLabel.text=model.name;
+    }else{
+        cell.titleLabel.text=_titleArr[index];
+    }
+    
     if (selectIndex==indexPath.row) {
         [cell.backgroundImageView setImage:[UIImage imageNamed:@"seg-sel"]];
     }else{

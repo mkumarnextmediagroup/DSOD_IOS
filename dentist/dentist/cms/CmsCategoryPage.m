@@ -39,9 +39,14 @@
     self.table.estimatedRowHeight = 400;
     self.isRefresh=YES;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by category" filterAction:^(NSString *result) {
+    [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by category" filterAction:^(NSString *result,NSString *resultname) {
         type=result;
-//        self.items=[Proto getArticleListByType:type];
+        backTask(^() {
+            NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:type pageNumber:1];
+            foreTask(^() {
+                self.items=array;
+            });
+        });
         
     }];
     
@@ -74,12 +79,15 @@
 
 -(void)refreshData
 {
-    backTask(^() {
-        NSArray *array  = [Proto queryAllContentsBycontentType:nil pageNumber:1];
-        foreTask(^() {
-            self.items=array;
+    if (type) {
+        backTask(^() {
+            NSArray *array  = [Proto queryAllContentsByCategoryType:type pageNumber:1];
+            foreTask(^() {
+                self.items=array;
+            });
         });
-    });
+    }
+    
 }
 
 //click more button
@@ -150,7 +158,15 @@
 -(void)CategoryPickerSelectAction:(NSString *)result
 {
     type=result;
-    self.items=[Proto getArticleListByType:type];
+    if (type) {
+        backTask(^() {
+            NSArray *array  = [Proto queryAllContentsByCategoryType:type pageNumber:1];
+            foreTask(^() {
+                self.items=array;
+            });
+        });
+    }
+//    self.items=[Proto getArticleListByType:type];
 }
 
 -(void)ArticleMarkActionModel:(CMSModel *)model
@@ -162,16 +178,18 @@
             foreTask(^() {
                 if (result) {
                     //
+                    model.isBookmark=NO;
                 }
             });
         });
     }else{
         //添加
         backTask(^() {
-            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:@"5bd294a51b1a4606ecaea631"];
+            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId];
             foreTask(^() {
                 if (result) {
                     //
+                    model.isBookmark=YES;
                 }
             });
         });

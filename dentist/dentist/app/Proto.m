@@ -803,8 +803,14 @@
     }
     return resultArray;
 }
+//MARK:根据分类查询媒体列表（CMS_001_01\CMS_001_10）
++ (NSArray<CMSModel *> *)queryAllContentsByCategoryType:(NSString *)categoryTypeId pageNumber:(NSInteger)pageNumber
+{
+    return [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil pageNumber:pageNumber authorId:nil];
+}
+
 //MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
-+ (NSArray<CMSModel *> *)queryAllContentsBycontentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
++ (NSArray<CMSModel *> *)queryAllContentsByContentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
 {
     return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil pageNumber:pageNumber authorId:nil];
 }

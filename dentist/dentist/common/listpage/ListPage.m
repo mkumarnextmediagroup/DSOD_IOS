@@ -6,11 +6,14 @@
 #import "ListPage.h"
 #import "Common.h"
 #import "DentistPickerView.h"
+#import "Proto.h"
+#import "IdName.h"
 
 @interface ListPage () <UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate> {
     BOOL isHasEmtyView;
 }
 @property (nonatomic,strong) UIView *emtyView;
+@property (nonatomic,strong) NSArray<IdName *> *categoryArray;
 @end
 
 @implementation ListPage {
@@ -73,6 +76,38 @@
     NSLog(@"refreshClick: -- 刷新触发");
     [self refreshData];
     [refreshControl endRefreshing];
+}
+
+- (void)showIndicator {
+    UIActivityIndicatorView *iv = nil;
+    for (UIView *a in self.view.subviews) {
+        if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 998) {
+            iv = (UIActivityIndicatorView *) a;
+            break;
+        }
+    }
+    if (iv == nil) {
+        iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        iv.tag = 998;
+        [self.view addSubview:iv];
+        iv.backgroundColor = [UIColor clearColor];
+        iv.hidesWhenStopped = YES;
+        iv.center = self.view.center;
+    }
+    [self.view bringSubviewToFront:iv];
+    iv.hidden = NO;
+    [iv startAnimating];
+}
+
+- (void)hideIndicator {
+    UIActivityIndicatorView *iv = nil;
+    for (UIView *a in self.view.subviews) {
+        if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 998) {
+            iv = (UIActivityIndicatorView *) a;
+            [iv stopAnimating];
+            return;
+        }
+    }
 }
 
 - (NSArray *)items {
@@ -287,19 +322,34 @@
 {
     if (textField.tag==1) {
         DentistPickerView *picker = [[DentistPickerView alloc]init];
-        picker.array = @[@"DSOs",@"General Dentistry",@"Implant Dentistry",@"Orthodontics",@"Pediatric Dentistry",@"Practice Management"];
+        picker.arrayDic=self.categoryArray;
         picker.leftTitle=localStr(@"Category");
         picker.righTtitle=localStr(@"Cancel");
-        [picker show:^(NSString *result) {
+        [picker show:^(NSString *result,NSString *resultname) {
             
-        } rightAction:^(NSString *result) {
+        } rightAction:^(NSString *result,NSString *resultname) {
             
-        } selectAction:^(NSString *result) {
-            textField.text=result;
+        } selectAction:^(NSString *result,NSString *resultname) {
+            textField.text=resultname;
             if (self.filterBlock) {
-                self.filterBlock(textField.text);
+                self.filterBlock(result,resultname);
             }
         }];
+        [picker showIndicator];
+        backTask(^() {
+            if (!self.categoryArray) {
+                self.categoryArray = [Proto queryCategoryTypes];
+            }
+            foreTask(^() {
+                [picker hideIndicator];
+               picker.arrayDic=self.categoryArray;
+                //        picker.array = @[@"DSOs",@"General Dentistry",@"Implant Dentistry",@"Orthodontics",@"Pediatric Dentistry",@"Practice Management"];
+                
+            });
+        });
+        
+        
+       
     }
     return NO;
 }

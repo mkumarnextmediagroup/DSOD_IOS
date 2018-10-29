@@ -803,8 +803,14 @@
     }
     return resultArray;
 }
+//MARK:根据分类查询媒体列表（CMS_001_01\CMS_001_10）
++ (NSArray<CMSModel *> *)queryAllContentsByCategoryType:(NSString *)categoryTypeId pageNumber:(NSInteger)pageNumber
+{
+    return [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil pageNumber:pageNumber authorId:nil];
+}
+
 //MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
-+ (NSArray<CMSModel *> *)queryAllContentsBycontentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
++ (NSArray<CMSModel *> *)queryAllContentsByContentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
 {
     return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil pageNumber:pageNumber authorId:nil];
 }
@@ -906,6 +912,17 @@
     return result;
 }
 
+//MARK:删除收藏
++(BOOL)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId
+{
+    BOOL result=NO;
+    HttpResult *r = [self post2:@"bookmark/deleteOneByEmailAndContentId" dic:@{@"contentId": contentId,@"email": email} modular:@"cms"];
+    if (r.OK) {
+        result=YES;
+    }
+    return result;
+}
+
 //MARK:添加收藏
 +(BOOL)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url
 {
@@ -918,6 +935,14 @@
     }
     
     return result;
+}
+
+//MARK:获取单个文件（ADMIN PORTAL Only）
++(NSString *)getFileUrlByObjectId:(NSString *)objectid
+{
+    NSString *baseUrl = [self configUrl:@"cms"];
+    NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
+    return url;
 }
 
 +(NSString *)baseDomain

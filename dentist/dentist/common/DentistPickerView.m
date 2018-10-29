@@ -8,6 +8,7 @@
 
 #import "DentistPickerView.h"
 #import "Common.h"
+#import "IdName.h"
 #define DSPickBackColor [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1]
 #define DSSCREENWIDTH  [UIScreen mainScreen].bounds.size.width
 #define DSSCREENHEIGHT [UIScreen mainScreen].bounds.size.height
@@ -27,6 +28,9 @@
 @property (nonatomic,strong) UIPickerView *pickerView;
 /** srting */
 @property (nonatomic,strong) NSString *result;
+/** srting */
+@property (nonatomic,strong) NSString *resultname;
+@property (nonatomic,strong) UIActivityIndicatorView *iv;
 
 @end
 @implementation DentistPickerView
@@ -111,6 +115,17 @@
     [self.pickerView selectRow:0 inComponent:0 animated:YES];
     [self.topView addSubview:self.pickerView];
     
+    if (self.iv == nil) {
+        self.iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.iv.tag = 998;
+        [self.topView addSubview:self.iv];
+        self.iv.backgroundColor = [UIColor clearColor];
+        self.iv.hidesWhenStopped = YES;
+        self.iv.center = self.center;
+    }
+    [self.topView bringSubviewToFront:self.iv];
+    self.iv.hidden=YES;
+    
 }
 
 //快速创建
@@ -145,6 +160,18 @@
     [self showInView:[UIApplication sharedApplication].keyWindow];
 }
 
+- (void)showIndicator {
+    [self.topView bringSubviewToFront:self.iv];
+    self.iv.hidden = NO;
+    [self.iv startAnimating];
+}
+
+
+- (void)hideIndicator {
+    self.iv.hidden = YES;
+    [self.iv stopAnimating];
+}
+
 //添加弹出移除的动画效果
 - (void)showInView:(UIView *)view
 {
@@ -167,13 +194,6 @@
         point.y += DSPickHeight;
         self.center = point;
     } completion:^(BOOL finished) {
-        if (!self.result) {
-            self.result = self.array[0];
-        }
-        NSLog(@"%@",self.result);
-        if (self.leftBlock) {
-            self.leftBlock(self.result);
-        }
         [self removeFromSuperview];
     }];
 }
@@ -186,15 +206,14 @@
         point.y += DSPickHeight;
         self.center = point;
     } completion:^(BOOL finished) {
-        if (!self.result) {
-            self.result = self.array[0];
-        }
-        NSLog(@"%@",self.result);
-        if (self.rightBlock) {
-            self.rightBlock(self.result);
-        }
         [self removeFromSuperview];
     }];
+}
+
+-(void)setArrayDic:(NSArray<IdName *> *)arrayDic
+{
+    _arrayDic=arrayDic;
+    [self.pickerView reloadAllComponents];
 }
 
 // returns the number of 'columns' to display.
@@ -206,7 +225,12 @@
 // returns the # of rows in each component.
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return [self.array count];
+    if (self.arrayDic && self.arrayDic.count>0) {
+        return [self.arrayDic count];
+    }else{
+        return [self.array count];
+    }
+    
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
@@ -218,15 +242,27 @@
 // 返回第component列第row行的标题
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return self.array[row];
+    if (self.arrayDic && self.arrayDic.count>row) {
+        IdName* iddic=self.arrayDic[row];
+        return iddic.name;
+    }else{
+        return self.array[row];
+    }
 }
 
 // 选中第component第row的时候调用
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    self.result = self.array[row];
+    if (self.arrayDic && self.arrayDic.count>row) {
+        IdName* iddic=self.arrayDic[row];
+        self.result = iddic.id;
+        self.resultname = iddic.name;
+    }else{
+        self.result = self.array[row];
+        self.resultname = self.array[row];
+    }
     if (self.selectBlock) {
-        self.selectBlock(self.result);
+        self.selectBlock(self.result,self.resultname);
     }
 }
 

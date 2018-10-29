@@ -89,11 +89,20 @@
 
 //MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
 /**
+ @param categoryTypeId 文章分类ID 是否必须:N
+ @param pageNumber 分页数 是否必须:Y
+ @return 返回CMSModel的实体数组
+ **/
++ (NSArray<CMSModel *> *_Nullable)queryAllContentsByCategoryType:(NSString *_Nullable)categoryTypeId pageNumber:(NSInteger)pageNumber;
+
+//MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
+/**
  @param contentTypeId 文章类型ID 是否必须:N
  @param pageNumber 分页数 是否必须:Y
  @return 返回CMSModel的实体数组
  **/
-+ (NSArray<CMSModel *> *_Nullable)queryAllContentsBycontentType:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
+//MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
++ (NSArray<CMSModel *> *)queryAllContentsByContentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber;
 
 //MARK:查询媒体详情（CMS_002_01/CMS_002_02）
 /**
@@ -137,6 +146,13 @@
  @return yes/no
  **/
 +(BOOL)deleteBookmark:(NSString *_Nullable)bookmarkid;
+//MARK:删除收藏
+/**
+ @param email 账号 是否必须:Y
+ @param contentId 文章ID 是否必须:Y
+ @return yes/no
+ **/
++(BOOL)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId;
 
 //MARK:添加收藏
 /**
@@ -147,6 +163,9 @@
  @return yes/no
  **/
 +(BOOL)addBookmark:(NSString *_Nullable)email postId:(NSString *_Nullable)postId title:(NSString *_Nullable)title url:(NSString *_Nullable)url;
+
+//MARK:获取单个文件（ADMIN PORTAL Only）
++(NSString *)getFileUrlByObjectId:(NSString *_Nullable)objectid;
 
 //MARK:模拟
 +(BOOL)archiveActicleArr;

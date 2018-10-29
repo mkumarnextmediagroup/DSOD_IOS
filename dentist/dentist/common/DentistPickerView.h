@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class IdName;
 
-typedef void (^DentistPickerViewLeftActionBlock) (NSString *result);
-typedef void (^DentistPickerViewRightActionBlock) (NSString *result);
-typedef void (^DentistPickerViewdidSelectActionBlock) (NSString *result);
+typedef void (^DentistPickerViewLeftActionBlock) (NSString *result,NSString *resultname);
+typedef void (^DentistPickerViewRightActionBlock) (NSString *result,NSString *resultname);
+typedef void (^DentistPickerViewdidSelectActionBlock) (NSString *result,NSString *resultname);
 @interface DentistPickerView : UIView
 /** Leftblock */
 @property (copy, nonatomic) DentistPickerViewLeftActionBlock leftBlock;
@@ -20,6 +21,8 @@ typedef void (^DentistPickerViewdidSelectActionBlock) (NSString *result);
 @property (copy, nonatomic) DentistPickerViewdidSelectActionBlock selectBlock;
 /** array */
 @property (nonatomic,strong) NSArray *array;
+/** array */
+@property (nonatomic,strong) NSArray<IdName*> *arrayDic;
 /** title */
 @property (nonatomic,strong) NSString *title;
 /** lefttitle */
@@ -31,4 +34,8 @@ typedef void (^DentistPickerViewdidSelectActionBlock) (NSString *result);
 //弹出
 -(void)show;
 -(void)show:(DentistPickerViewLeftActionBlock)leftActionBlock rightAction:(DentistPickerViewRightActionBlock)rightActionBlock selectAction:(DentistPickerViewdidSelectActionBlock)selectActionBlock;
+
+- (void)showIndicator;
+
+- (void)hideIndicator;
 @end

@@ -10,6 +10,7 @@
 #import "Common.h"
 #import "Article.h"
 #import "BookmarkModel.h"
+#import "Proto.h"
 
 @implementation BookMarkItemView{
     UILabel *titleLabel;
@@ -79,7 +80,12 @@
     _bookmarkmodel=item;
     titleLabel.text = @"";
     contentLabel.text = _bookmarkmodel.title;//[item.title stringByAppendingString:@"\n\n\n\n "];
-    [imageView loadUrl:@"" placeholderImage:@"art-img"];
+    NSString *urlstr;
+    if (_bookmarkmodel.url) {
+        urlstr=[Proto getFileUrlByObjectId:_bookmarkmodel.url];
+    }
+    
+    [imageView loadUrl:urlstr placeholderImage:@"art-img"];
     [imageView scaleFillAspect];
     imageView.clipsToBounds=YES;
 //    if ([item.category isEqualToString:@"VIDEOS"]) {

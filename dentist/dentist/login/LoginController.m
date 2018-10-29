@@ -37,16 +37,16 @@
     DentistPickerView *picker = [[DentistPickerView alloc]init];
     picker.array = @[@"China",@"Amercia"];
     picker.righTtitle=localStr(@"OK");
-    [picker show:^(NSString *result) {
+    [picker show:^(NSString *result,NSString *resultname) {
         
-    } rightAction:^(NSString *result) {
+    } rightAction:^(NSString *result,NSString *resultname) {
         if([result isEqualToString:@"Amercia"]){
             putServerDomain(1);
         }else{
             putServerDomain(0);
         }
         serverLabel.text=result;
-    } selectAction:^(NSString *result) {
+    } selectAction:^(NSString *result,NSString *resultname) {
         
     }];
 }

@@ -21,11 +21,14 @@
 #import <Social/Social.h>
 #import "DenActionSheet.h"
 #import "DentistTabView.h"
+#import "CMSModel.h"
+#import "IdName.h"
 
 @interface CmsForYouPage()<ArticleItemViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 @end
 @implementation CmsForYouPage {
 	NSMutableArray<NSString *> *segItems;
+    NSMutableArray<IdName *> *segItemsModel;
 	UISegmentedControl *segView;
     UIView *panel;
     BannerScrollView *iv;
@@ -33,13 +36,13 @@
     NSInteger selectActicleId;
     NSArray *dataArray;
     NSString *category;
-    NSString *type;
+    NSString *contenttype;
     DentistTabView *tabView;
 }
 - (instancetype)init {
 	self = [super init];
 	self.topOffset = 0;
-	segItems = [NSMutableArray arrayWithArray:@[@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"]];
+//    segItems = [NSMutableArray arrayWithArray:@[@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"]];
 //    //开启和监听 设备旋转的通知（不开启的话，设备方向一直是UIInterfaceOrientationUnknown）
 //    if (![UIDevice currentDevice].generatesDeviceOrientationNotifications) {
 //        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -59,7 +62,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    self.items = [Proto getArticleListByCategory:category type:type];
+//    self.items = [Proto getArticleListByCategory:category type:type];
 }
 
 - (void)viewDidLoad {
@@ -85,7 +88,7 @@
 	self.table.estimatedRowHeight = 400;
     self.isRefresh=YES;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
-	self.items = [Proto getArticleListByCategory:category type:type];
+//    self.items = [Proto getArticleListByCategory:category type:type];
 }
 
 //- (void)viewWillAppear:(BOOL)animated {
@@ -143,7 +146,7 @@
     tabView.delegate=self;
     [panel addSubview:tabView];
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
-    tabView.titleArr=segItems;
+//    tabView.modelArr=segItemsModel;
 
 	return panel;
 }
@@ -159,7 +162,7 @@
     tabView.delegate=self;
     [headerview addSubview:tabView];
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
-    tabView.titleArr=segItems;
+//    tabView.titleArr=segItems;
     
     return headerview;
 }
@@ -196,14 +199,14 @@
 }
 
 - (void)onSegValueChanged:(id)sender {
-    type=nil;
+    contenttype=nil;
 	NSInteger n = segView.selectedSegmentIndex;
     
 	category = segItems[n];
     
     
 	Log(@(n ), category);
-    self.items=[Proto getArticleListByCategory:category type:type];
+//    self.items=[Proto getArticleListByCategory:category type:contenttype];
 //    if (n!=0) {
 //        CGFloat segw;
 //        segw=SCREENWIDTH*2/7.0;
@@ -271,10 +274,14 @@
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
-	Article *art = (id) item;
-	ArticleItemView *itemView = (ArticleItemView *) view;
+//    Article *art = (id) item;
+//    ArticleItemView *itemView = (ArticleItemView *) view;
+//    itemView.delegate=self;
+//    [itemView bind:art];
+    CMSModel *model = (id) item;
+    ArticleItemView *itemView = (ArticleItemView *) view;
     itemView.delegate=self;
-	[itemView bind:art];
+    [itemView bindCMS:model];
 }
 
 - (void)onClickItem:(NSObject *)item {
@@ -292,9 +299,10 @@
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
-    Article *article = (Article *) item;
+    CMSModel *article = (CMSModel *) item;
+    
     newVC.contentId = [NSString stringWithFormat:@"%ld",(long)article.id];
-    if ([article.categoryName isEqualToString:@"VIDEOS"]) {
+    if ([[article.contentTypeName uppercaseString] isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
     }else
     {
@@ -307,10 +315,23 @@
 -(void)refreshData
 {
     category=@"LATEST";
-    type=nil;
+    contenttype=nil;
     segView.selectedSegmentIndex=0;
     self.table.tableHeaderView = [self makeHeaderView];
-    self.items=[Proto getArticleListByCategory:category type:type];
+    backTask(^() {
+        segItemsModel  = [Proto queryContentTypes];
+        IdName *latestmodel=[IdName new];
+        latestmodel.id=@"0";
+        latestmodel.name=@"LATEST";
+        [segItemsModel insertObject:latestmodel atIndex:0];
+        contenttype=nil;
+        NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:1];
+        foreTask(^() {
+            tabView.modelArr=segItemsModel;
+            self.items=array;
+        });
+    });
+//    self.items=[Proto getArticleListByCategory:category type:contenttype];
 }
 
 -(void)showImageBrowser:(NSInteger)index
@@ -374,7 +395,7 @@
     if ([Proto checkIsBookmarkByArticle:articleid]) {
         //移除bookmark
         [Proto deleteBookmarks:articleid];
-        self.items=[Proto getArticleListByCategory:category type:type];
+        self.items=[Proto getArticleListByCategory:category type:contenttype];
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -385,7 +406,7 @@
     }else{
         //添加bookmark
         [Proto addBookmarks:articleid];
-        self.items=[Proto getArticleListByCategory:category type:type];
+        self.items=[Proto getArticleListByCategory:category type:contenttype];
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -428,19 +449,34 @@
 
 -(void)CategoryPickerSelectAction:(NSString *)result
 {
-    type=result;
-    self.items=[Proto getArticleListByCategory:category type:type];
+    contenttype=result;
+    self.items=[Proto getArticleListByCategory:category type:contenttype];
 }
 
 #pragma mark -------DentistTabViewDelegate
 -(void)didDentistSelectItemAtIndex:(NSInteger)index
 {
-    if (segItems.count>index) {
-        category = segItems[index];
-        
-        
-        Log(@(index ), category);
-        self.items=[Proto getArticleListByCategory:category type:type];
+//    if (segItems.count>index) {
+//        category = segItems[index];
+//
+//
+//        Log(@(index ), category);
+//        self.items=[Proto getArticleListByCategory:category type:contenttype];
+//    }
+    if (segItemsModel.count>index) {
+        IdName *model=segItemsModel[index];
+        Log(model.id, model.name);
+        backTask(^() {
+            if ([model.id isEqualToString:@"0"]) {
+                contenttype=nil;
+            }else{
+                contenttype=model.id;
+            }
+            NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:1];
+            foreTask(^() {
+                self.items=array;
+            });
+        });
     }
     
 }

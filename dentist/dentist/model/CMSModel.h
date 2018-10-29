@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*content;
 @property NSString <Optional>*categoryId;
 @property NSString <Optional>*contentTypeId;
+@property NSString <Optional>*contentTypeName;
 @property NSString <Optional>*sponserId;
 @property NSString <Optional>*authorId;
 @property NSString <Optional>*categoryName;

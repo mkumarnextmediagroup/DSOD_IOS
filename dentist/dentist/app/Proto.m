@@ -920,6 +920,14 @@
     return result;
 }
 
+//MARK:获取单个文件（ADMIN PORTAL Only）
++(NSString *)getFileUrlByObjectId:(NSString *)objectid
+{
+    NSString *baseUrl = [self configUrl:@"cms"];
+    NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
+    return url;
+}
+
 +(NSString *)baseDomain
 {
     NSInteger value = getServerDomain();

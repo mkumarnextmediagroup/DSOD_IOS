@@ -148,6 +148,9 @@
  **/
 +(BOOL)addBookmark:(NSString *_Nullable)email postId:(NSString *_Nullable)postId title:(NSString *_Nullable)title url:(NSString *_Nullable)url;
 
+//MARK:获取单个文件（ADMIN PORTAL Only）
++(NSString *)getFileUrlByObjectId:(NSString *_Nullable)objectid;
+
 //MARK:模拟
 +(BOOL)archiveActicleArr;
 

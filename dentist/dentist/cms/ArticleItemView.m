@@ -9,6 +9,7 @@
 #import "DentistPickerView.h"
 #import <CoreText/CoreText.h>
 #import "CMSModel.h"
+#import "Proto.h"
 
 @implementation ArticleItemView {
 	UILabel *typeLabel;
@@ -141,9 +142,10 @@
     titleLabel.text = _cmsmodel.title;
     //    contentLabel.text = item.content;
     NSString *urlstr;
-    if (_cmsmodel.photos && _cmsmodel.photos.count>0) {
-        urlstr=_cmsmodel.photos[0];
+    if (_cmsmodel.featuredMediaId) {
+        urlstr=[Proto getFileUrlByObjectId:_cmsmodel.featuredMediaId];
     }
+    
     [imageView loadUrl:urlstr placeholderImage:@"art-img"];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;

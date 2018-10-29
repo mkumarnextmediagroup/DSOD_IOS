@@ -138,7 +138,7 @@
 {
     _cmsmodel=item;
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
-    dateLabel.text = @"";//item.publishDate;
+    dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];//item.publishDate;
     titleLabel.text = _cmsmodel.title;
     //    contentLabel.text = item.content;
     NSString *urlstr;

@@ -5,7 +5,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^EmptyFilterViewActionBlock) (NSString *result);
+typedef void (^EmptyFilterViewActionBlock) (NSString *result,NSString *resultname);
 @interface ListPage : UIViewController
 
 //table offset top

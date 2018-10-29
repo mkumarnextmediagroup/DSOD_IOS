@@ -9,6 +9,7 @@
 #import "DentistPickerView.h"
 #import <CoreText/CoreText.h>
 #import "CMSModel.h"
+#import "Proto.h"
 
 @implementation ArticleItemView {
 	UILabel *typeLabel;
@@ -87,11 +88,11 @@
 
 - (void)bind:(Article *)item {
     _model=item;
-	typeLabel.text = [item.type uppercaseString];
-	dateLabel.text = item.publishDate;
-	titleLabel.text = item.title;
+    typeLabel.text = [item.type uppercaseString];
+    dateLabel.text = item.publishDate;
+    titleLabel.text = item.title;
 //    contentLabel.text = item.content;
-	[imageView loadUrl:item.resImage placeholderImage:@"art-img"];
+    [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
     //@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"
@@ -137,13 +138,14 @@
 {
     _cmsmodel=item;
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
-    dateLabel.text = @"";//item.publishDate;
+    dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];//item.publishDate;
     titleLabel.text = _cmsmodel.title;
     //    contentLabel.text = item.content;
     NSString *urlstr;
-    if (_cmsmodel.photos && _cmsmodel.photos.count>0) {
-        urlstr=_cmsmodel.photos[0];
+    if (_cmsmodel.featuredMediaId) {
+        urlstr=[Proto getFileUrlByObjectId:_cmsmodel.featuredMediaId];
     }
+    
     [imageView loadUrl:urlstr placeholderImage:@"art-img"];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
@@ -170,19 +172,26 @@
     }
     [self layoutIfNeeded];
     //    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
-    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:_cmsmodel.content];
+    NSString *contentstr=[NSString stringWithFormat:@"%@",_cmsmodel.content];
+    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:contentstr];
     //    NSLog(@"contentlabel:%@",labelarry);
-    if (labelarry.count>4 && _cmsmodel.content) {
+    if (labelarry.count>4 && !contentstr.isBlankString) {
         NSString *line4String = labelarry[3];
-        NSString *showText = [NSString stringWithFormat:@"%@%@%@%@...more", labelarry[0], labelarry[1], labelarry[2], [line4String substringToIndex:line4String.length-6]];
+        if (line4String.length>=6) {
+            line4String= [line4String substringToIndex:line4String.length-6];
+        }
+        NSString *showText = [NSString stringWithFormat:@"%@%@%@%@...more", labelarry[0], labelarry[1], labelarry[2], line4String];
         
         //设置label的attributedText
         NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:showText attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
         [attStr addAttributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textDisabled} range:NSMakeRange(showText.length-4, 4)];
         contentLabel.attributedText = attStr;
     }else{
-        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:_cmsmodel.content attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
+        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:contentstr attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
         contentLabel.attributedText = attStr;;
+//        contentLabel.text=contentstr;
     }
 }
 
@@ -245,18 +254,24 @@
 -(void)showFilter
 {
     DentistPickerView *picker = [[DentistPickerView alloc]init];
-    picker.array = @[@"Orthodontics",@"Practice Management",@"DSOs",@"General Dentistry",@"Implant Dentistry",@"Pediatric Dentistry"];
+    
     picker.leftTitle=localStr(@"Category");
     picker.righTtitle=localStr(@"Cancel");
-    [picker show:^(NSString *result) {
+    [picker show:^(NSString *result,NSString *resultname) {
         
-    } rightAction:^(NSString *result) {
+    } rightAction:^(NSString *result,NSString *resultname) {
         
-    } selectAction:^(NSString *result) {
+    } selectAction:^(NSString *result,NSString *resultname) {
         if(self.delegate && [self.delegate respondsToSelector:@selector(CategoryPickerSelectAction:)]){
             [self.delegate CategoryPickerSelectAction:result];
         }
     }];
+    backTask(^() {
+        NSArray<IdName *> *array = [Proto queryCategoryTypes];
+        foreTask(^() {
+            picker.arrayDic=array;
+        });
+    });
 }
 
 

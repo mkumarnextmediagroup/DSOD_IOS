@@ -11,6 +11,7 @@
 #import "Article.h"
 #import "YBImageBrowser.h"
 #import "DentistImageBrowserToolBar.h"
+#import "Proto.h"
 
 @implementation PicDetailView
 {
@@ -244,16 +245,20 @@
     
 }
 
-- (void)bind:(Article *)bindInfo {
-    typeLabel.text = [bindInfo.type uppercaseString];
-    dateLabel.text = bindInfo.publishDate;
-    [imageView loadUrl:@"https://www.dsodentist.com/assets/images/slide/slide-1.jpg" placeholderImage:@"art-img"];
+- (void)bind:(DetailModel *)bindInfo {
+    typeLabel.text = [bindInfo.categoryName uppercaseString];
+    dateLabel.text = [NSString timeWithTimeIntervalString:bindInfo.publishDate];
+    NSString *urlstr;
+    if (bindInfo.featuredMediaId) {
+        urlstr=[Proto getFileUrlByObjectId:bindInfo.featuredMediaId];
+    }
+    [imageView loadUrl:urlstr placeholderImage:@"art-img"];
     [headerImg loadUrl:@"http://app800.cn/i/p.png" placeholderImage:@"user_img"];
     titleLabel.text = bindInfo.title;
-    nameLabel.text = bindInfo.authName;
-    addressLabel.text = bindInfo.authAdd;
+    nameLabel.text = bindInfo.authorName;
+//    addressLabel.text = bindInfo.authAdd;
     contentLabel.text = bindInfo.content;
-    contentLabel2.text = bindInfo.subContent;
+//    contentLabel2.text = bindInfo.subContent;
     if (bindInfo.isBookmark) {
         [_markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{

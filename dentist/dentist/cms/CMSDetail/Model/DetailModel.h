@@ -14,29 +14,34 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DetailModel : JSONModel
 
-@property NSString *id;
+@property NSString <Optional>*id;
+@property NSString *email;
 @property NSString *title;
-@property NSString *author;
 @property NSString *content;
-@property NSString *releaseTime;
-@property NSString *createTime;
+@property NSString <Optional>*authorId;
 @property NSString *contentTypeId;
-@property NSString *contentTypeName;
 @property NSString *categoryId;
+@property NSString *sponsorId;
+@property NSString <Optional>*authorName;
+@property NSString *contentTypeName;
 @property NSString *categoryName;
-@property NSString *sponserId;
-@property NSString *authorId;
-@property NSString *sponserName;
-@property NSString *authorName;
-@property BOOL     isBookmark;
-@property NSString *contentUrl;
-@property NSString *commentRating;
-@property NSString *countOfComment;
+@property NSString *sponsorName;
 @property NSString *featuredMediaId;
-@property NSArray  *photos;
-@property NSArray  *videos;
-@property NSArray  *podcasts;
-@property NSArray<CommentModel *> *comment;
+@property NSArray  <Optional>*photos;
+@property NSArray  <Optional>*videos;
+@property NSArray  <Optional>*podcasts;
+@property BOOL     isPrivate;
+@property BOOL     isComplete;
+@property BOOL     isPublishNow;
+@property BOOL     isBookmark;
+@property NSString <Optional>*nextContentId;
+@property NSString <Optional>*previousContentId;
+@property NSString <Optional>*countOfComment;
+@property NSString <Optional>*avgCommentRating;
+@property NSArray<CommentModel *> <Optional>*comment;
+@property NSString *publishDate;
+@property NSString <Optional>*isFeatured;
+@property NSInteger readNumber;
 
 @end
 

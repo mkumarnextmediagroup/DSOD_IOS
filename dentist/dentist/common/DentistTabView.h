@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class IdName;
 @protocol DentistTabViewDelegate <NSObject>
 
 @optional
@@ -17,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DentistTabView : UIView
 @property (nonatomic,weak) id<DentistTabViewDelegate>delegate;
 @property (nonatomic,strong) NSMutableArray *titleArr;
+@property (nonatomic,strong) NSMutableArray<IdName *> *modelArr;
 @end
 
 NS_ASSUME_NONNULL_END

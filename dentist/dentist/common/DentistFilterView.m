@@ -31,13 +31,13 @@
         self.backgroundColor =[UIColor whiteColor];
         _categorytext=nil;//@"DSOs";
         _typetext=nil;//@"Videos";
-        backTask(^() {
-            _contentArray=[Proto queryContentTypes];
-            _categoryArray=[Proto queryCategoryTypes];
-            foreTask(^() {
-                
-            });
-        });
+//        backTask(^() {
+//            self.contentArray=[Proto queryContentTypes];
+//            self.categoryArray=[Proto queryCategoryTypes];
+//            foreTask(^() {
+//
+//            });
+//        });
         
     }
     return self;
@@ -126,11 +126,12 @@
         self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
     } completion:^(BOOL finished) {
         if (self.closeBlock) {
-            self.closeBlock(_categorytext,_typetext);
+            self.closeBlock(self.categorytext,self.typetext);
         }
         [self removeFromSuperview];
     }];
 }
+
 //弹出
 -(void)show
 {
@@ -175,7 +176,7 @@
         self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
     } completion:^(BOOL finished) {
         if (self.closeBlock) {
-            self.closeBlock(_categorytext,_typetext);
+            self.closeBlock(self.categorytext,self.typetext);
         }
         [self removeFromSuperview];
     }];
@@ -188,7 +189,7 @@
         self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
     } completion:^(BOOL finished) {
         if (self.selectBlock) {
-            self.selectBlock(_categorytext,_typetext);
+            self.selectBlock(self.categorytext,self.typetext);
         }
         [self removeFromSuperview];
     }];
@@ -197,39 +198,48 @@
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if (textField.tag==1) {
-        NSMutableArray *newDataArr = [NSMutableArray array];
-        [_categoryArray enumerateObjectsUsingBlock:^(IdName* model, NSUInteger idx, BOOL * _Nonnull stop) {
-            [newDataArr addObject:model.name];
-        }];
         DentistPickerView *picker = [[DentistPickerView alloc]init];
-        picker.array = newDataArr;//@[@"Orthodontics",@"Practice Management",@"DSOs",@"General Dentistry",@"Implant Dentistry",@"Pediatric Dentistry"];
+        
         picker.leftTitle=localStr(@"Category");
         picker.righTtitle=localStr(@"Cancel");
-        [picker show:^(NSString *result) {
+        [picker show:^(NSString *result,NSString *resultname) {
             
-        } rightAction:^(NSString *result) {
+        } rightAction:^(NSString *result,NSString *resultname) {
             
-        } selectAction:^(NSString *result) {
+        } selectAction:^(NSString *result,NSString *resultname) {
             textField.text=result;
-            _categorytext=result;
+            self.categorytext=result;
         }];
+        backTask(^() {
+            if (!self.categoryArray) {
+                self.categoryArray = [Proto queryCategoryTypes];
+            }
+            foreTask(^() {
+                picker.arrayDic=self.categoryArray;
+            });
+        });
+        
     }else{
-        NSMutableArray *newDataArr = [NSMutableArray array];
-        [_contentArray enumerateObjectsUsingBlock:^(IdName* model, NSUInteger idx, BOOL * _Nonnull stop) {
-            [newDataArr addObject:model.name];
-        }];
         DentistPickerView *picker = [[DentistPickerView alloc]init];
-        picker.array = newDataArr;//@[@"LATEST",@"VIDEOS",@"ARTICLES",@"PODCASTS",@"INTERVIEWS",@"TECH GUIDES",@"ANIMATIONS",@"TIP SHEETS"];
+        picker.arrayDic=self.contentArray;
         picker.leftTitle=localStr(@"Content Type");
         picker.righTtitle=localStr(@"Cancel");
-        [picker show:^(NSString *result) {
+        [picker show:^(NSString *result,NSString *resultname) {
             
-        } rightAction:^(NSString *result) {
+        } rightAction:^(NSString *result,NSString *resultname) {
             
-        } selectAction:^(NSString *result) {
-            textField.text=result;
-            _typetext=result;
+        } selectAction:^(NSString *result,NSString *resultname) {
+            textField.text=resultname;
+            self.typetext=result;
         }];
+        backTask(^() {
+            if (!self.contentArray) {
+                self.contentArray = [Proto queryContentTypes];
+            }
+            foreTask(^() {
+                picker.arrayDic=self.contentArray;
+            });
+        });
     }
     return NO;
 }

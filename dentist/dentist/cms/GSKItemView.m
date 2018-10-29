@@ -11,6 +11,8 @@
 #import "Article.h"
 #import "DentistPickerView.h"
 #import <CoreText/CoreText.h>
+#import "CMSModel.h"
+#import "Proto.h"
 
 @implementation GSKItemView{
     UILabel *typeLabel;
@@ -120,18 +122,24 @@
 -(void)showFilter
 {
     DentistPickerView *picker = [[DentistPickerView alloc]init];
-    picker.array = @[@"Orthodontics",@"Practice Management",@"DSOs",@"General Dentistry",@"Implant Dentistry",@"Pediatric Dentistry"];
+    
     picker.leftTitle=localStr(@"Category");
     picker.righTtitle=localStr(@"Cancel");
-    [picker show:^(NSString *result) {
+    [picker show:^(NSString *result,NSString *resultname) {
         
-    } rightAction:^(NSString *result) {
+    } rightAction:^(NSString *result,NSString *resultname) {
         
-    } selectAction:^(NSString *result) {
+    } selectAction:^(NSString *result,NSString *resultname) {
         if(self.delegate && [self.delegate respondsToSelector:@selector(GSKCategoryPickerSelectAction:)]){
             [self.delegate GSKCategoryPickerSelectAction:result];
         }
     }];
+    backTask(^() {
+        NSArray<IdName *> *array = [Proto queryCategoryTypes];
+        foreTask(^() {
+            picker.arrayDic=array;
+        });
+    });
 }
 
 

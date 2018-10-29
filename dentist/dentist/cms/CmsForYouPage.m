@@ -38,6 +38,7 @@
     NSString *category;
     NSString *contenttype;
     DentistTabView *tabView;
+    NSInteger pagenumber;
 }
 - (instancetype)init {
 	self = [super init];
@@ -68,6 +69,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     category=@"LATEST";
+    pagenumber=1;
 	UINavigationItem *item = [self navigationItem];
     //219*43
     //
@@ -81,7 +83,7 @@
 //    item.title = @"DSODENTIST";
 	//TODO 还不太明白为啥 不设置rightBarButtonItem，title不显示
 //    item.rightBarButtonItem = [self navBarText:@"test" target:self action:@selector(clickTest:)];
-    item.rightBarButtonItem = [self navBarText:@"" target:self action:nil];
+//    item.rightBarButtonItem = [self navBarText:@"" target:self action:nil];
 
 	self.table.tableHeaderView = [self makeHeaderView];
 	self.table.rowHeight = UITableViewAutomaticDimension;
@@ -314,10 +316,12 @@
 //MARK:刷新数据
 -(void)refreshData
 {
+    pagenumber=1;
     category=@"LATEST";
     contenttype=nil;
     segView.selectedSegmentIndex=0;
     self.table.tableHeaderView = [self makeHeaderView];
+    [self showIndicator];
     backTask(^() {
         segItemsModel  = [Proto queryContentTypes];
         IdName *latestmodel=[IdName new];
@@ -325,8 +329,9 @@
         latestmodel.name=@"LATEST";
         [segItemsModel insertObject:latestmodel atIndex:0];
         contenttype=nil;
-        NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:1];
+        NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:pagenumber];
         foreTask(^() {
+            [self hideIndicator];
             tabView.modelArr=segItemsModel;
             self.items=array;
         });
@@ -490,22 +495,52 @@
 //        Log(@(index ), category);
 //        self.items=[Proto getArticleListByCategory:category type:contenttype];
 //    }
+    pagenumber=1;
     if (segItemsModel.count>index) {
         IdName *model=segItemsModel[index];
         Log(model.id, model.name);
+        [self showIndicator];
         backTask(^() {
             if ([model.id isEqualToString:@"0"]) {
                 contenttype=nil;
             }else{
                 contenttype=model.id;
             }
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:1];
+            NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:pagenumber];
             foreTask(^() {
+                [self hideIndicator];
                 self.items=array;
             });
         });
     }
     
 }
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
+    if (bottomOffset <= height-50)
+    {
+        //在最底部
+        [self showIndicator];
+        backTask(^() {
+            NSInteger newpage=pagenumber+1;
+            NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+            NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:newpage];
+            if(array && array.count>0){
+                [newarray addObjectsFromArray:array];
+                pagenumber=newpage;
+            }
+            foreTask(^() {
+                [self hideIndicator];
+                self.items=[newarray copy];
+            });
+        });
+    }
+}
+
+
 
 @end

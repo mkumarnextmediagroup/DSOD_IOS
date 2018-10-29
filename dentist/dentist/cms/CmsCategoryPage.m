@@ -17,6 +17,7 @@
     NSInteger selectIndex;
     NSString *type;
     NSArray *dataArray;
+    NSInteger pagenumber;
 }
 @end
 @implementation CmsCategoryPage {
@@ -31,7 +32,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
+    pagenumber=1;
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"CATEGORY";
     
@@ -41,9 +42,11 @@
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by category" filterAction:^(NSString *result,NSString *resultname) {
         type=result;
+         [self showIndicator];
         backTask(^() {
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:type pageNumber:1];
+            NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:type pageNumber:pagenumber];
             foreTask(^() {
+                 [self hideIndicator];
                 self.items=array;
             });
         });
@@ -80,9 +83,12 @@
 -(void)refreshData
 {
     if (type) {
+        pagenumber=1;
+        [self showIndicator];
         backTask(^() {
             NSArray *array  = [Proto queryAllContentsByCategoryType:type pageNumber:1];
             foreTask(^() {
+                [self hideIndicator];
                 self.items=array;
             });
         });
@@ -219,6 +225,31 @@
 //        }]];
 //        [self presentViewController:alertController animated:YES completion:nil];
 //    }
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
+    if (bottomOffset <= height-50)
+    {
+        //在最底部
+        [self showIndicator];
+        backTask(^() {
+            NSInteger newpage=pagenumber+1;
+            NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+            NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:type pageNumber:pagenumber];
+            if(array && array.count>0){
+                [newarray addObjectsFromArray:array];
+                pagenumber=newpage;
+            }
+            foreTask(^() {
+                [self hideIndicator];
+                self.items=[newarray copy];
+            });
+        });
+    }
 }
 
 @end

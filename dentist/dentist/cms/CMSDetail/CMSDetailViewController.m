@@ -44,11 +44,15 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-    detailMod = [Proto queryForDetailPage:self.contentId];
+    backTask(^() {
+        self.articleInfo = [Proto queryForDetailPage:self.contentId];
+        foreTask(^() {
+            
+            [self createNav];
+            [self buildViews];
+        });
+    });
     
-    [self createNav];
-    
-	[self buildViews];
 }
 
 - (UIView *)headerView
@@ -280,7 +284,7 @@
 - (void)gskBtnClick
 {
     GSKViewController *gskVC = [GSKViewController new];
-    gskVC.author=_articleInfo.author;
+    gskVC.author=_articleInfo.authorName;
     [self.navigationController pushViewController:gskVC animated:YES];
     
 }

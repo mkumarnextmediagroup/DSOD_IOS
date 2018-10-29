@@ -11,6 +11,7 @@
 #import "Article.h"
 #import "YBImageBrowser.h"
 #import "DentistImageBrowserToolBar.h"
+#import "Proto.h"
 
 @implementation PicDetailView
 {
@@ -247,7 +248,11 @@
 - (void)bind:(DetailModel *)bindInfo {
     typeLabel.text = [bindInfo.categoryName uppercaseString];
     dateLabel.text = [NSString timeWithTimeIntervalString:bindInfo.publishDate];
-    [imageView loadUrl:@"https://www.dsodentist.com/assets/images/slide/slide-1.jpg" placeholderImage:@"art-img"];
+    NSString *urlstr;
+    if (bindInfo.featuredMediaId) {
+        urlstr=[Proto getFileUrlByObjectId:bindInfo.featuredMediaId];
+    }
+    [imageView loadUrl:urlstr placeholderImage:@"art-img"];
     [headerImg loadUrl:@"http://app800.cn/i/p.png" placeholderImage:@"user_img"];
     titleLabel.text = bindInfo.title;
     nameLabel.text = bindInfo.authorName;

@@ -9,6 +9,7 @@
 #import "PlayerView.h"
 #import "Article.h"
 #import "XHStarRateView.h"
+#import "Proto.h"
 
 @implementation PlayerView {
 	UILabel *typeLabel;
@@ -205,7 +206,11 @@
 -(void)bind:(DetailModel *)bindInfo {
     typeLabel.text = [bindInfo.categoryName uppercaseString];
     dateLabel.text = [NSString timeWithTimeIntervalString:bindInfo.publishDate];
-//    [imageView loadUrl:bindInfo.resImage placeholderImage:@"art-img"];
+    NSString *urlstr;
+    if (bindInfo.featuredMediaId) {
+        urlstr=[Proto getFileUrlByObjectId:bindInfo.featuredMediaId];
+    }
+    [imageView loadUrl:urlstr placeholderImage:@"art-img"];
 	[headerImg loadUrl:@"http://app800.cn/i/p.png" placeholderImage:@"user_img"];
 	titleLabel.text = bindInfo.title;
 //    [_greeBtn setTitle:bindInfo.gskString forState:UIControlStateNormal];

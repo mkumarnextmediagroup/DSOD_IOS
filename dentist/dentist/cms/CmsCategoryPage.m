@@ -178,6 +178,7 @@
             foreTask(^() {
                 if (result) {
                     //
+                    model.isBookmark=NO;
                 }
             });
         });
@@ -188,6 +189,7 @@
             foreTask(^() {
                 if (result) {
                     //
+                    model.isBookmark=YES;
                 }
             });
         });

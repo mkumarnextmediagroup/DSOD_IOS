@@ -146,6 +146,13 @@
  @return yes/no
  **/
 +(BOOL)deleteBookmark:(NSString *_Nullable)bookmarkid;
+//MARK:删除收藏
+/**
+ @param email 账号 是否必须:Y
+ @param contentId 文章ID 是否必须:Y
+ @return yes/no
+ **/
++(BOOL)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId;
 
 //MARK:添加收藏
 /**

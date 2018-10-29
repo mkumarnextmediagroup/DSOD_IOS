@@ -393,7 +393,7 @@
     if(model.isBookmark){
         //删除
         backTask(^() {
-            BOOL result=[Proto deleteBookmark:model.id];
+            BOOL result=[Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id];
             foreTask(^() {
                 if (result) {
                     //

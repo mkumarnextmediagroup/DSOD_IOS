@@ -10,7 +10,8 @@
 #import "BaseController.h"
 #import "BaseController.h"
 #import "ScrollPage.h"
+#import "UserInfo.h"
 
 @interface ProfileViewController : ScrollPage
-
+@property UserInfo *userInfo;
 @end

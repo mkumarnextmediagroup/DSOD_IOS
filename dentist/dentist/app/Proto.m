@@ -912,6 +912,17 @@
     return result;
 }
 
+//MARK:删除收藏
++(BOOL)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId
+{
+    BOOL result=NO;
+    HttpResult *r = [self post2:@"bookmark/deleteOneByEmailAndContentId" dic:@{@"contentId": contentId,@"email": email} modular:@"cms"];
+    if (r.OK) {
+        result=YES;
+    }
+    return result;
+}
+
 //MARK:添加收藏
 +(BOOL)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url
 {

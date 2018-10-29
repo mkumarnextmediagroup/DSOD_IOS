@@ -46,7 +46,6 @@
     [super viewDidLoad];
     UINavigationItem *item = [self navigationItem];
     item.title = @"BOOKMARKS";
-    item.rightBarButtonItem = [self navBarText:@"" target:self action:nil];
     [self.view layoutIfNeeded];
     rowheight=(self.table.frame.size.height-32)/4;
     self.table.tableHeaderView = [self makeHeaderView];
@@ -58,9 +57,11 @@
 
 -(void)refreshData
 {
+    [self showIndicator];
     backTask(^() {
         self->resultArray  = [[Proto queryBookmarksByEmail:getLastAccount()] mutableCopy];
         foreTask(^() {
+             [self hideIndicator];
             self.items=[self->resultArray copy];
         });
     });

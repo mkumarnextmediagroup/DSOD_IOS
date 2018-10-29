@@ -766,7 +766,7 @@
 //MARK:查询媒体列表（CMS_001_01\CMS_001_10）
 + (NSArray<CMSModel *> *)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *)authorId {
     NSInteger skip=0;
-    NSInteger limit=20;//分页数默认20条
+    NSInteger limit=10;//分页数默认20条
     if(pageNumber>=1)
     {
         skip=(pageNumber-1)*limit;

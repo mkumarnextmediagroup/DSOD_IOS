@@ -65,12 +65,19 @@
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
-    Article *art = (id) item;
+//    Article *art = (id) item;
+//    ArticleItemView *itemView = (ArticleItemView *) view;
+//    itemView.delegate=self;
+//    [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    itemView.moreButton.tag=art.id;
+//    [itemView bind:art];
+    
+    CMSModel *model = (id) item;
     ArticleItemView *itemView = (ArticleItemView *) view;
     itemView.delegate=self;
+    itemView.moreButton.tag=1;//;
     [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    itemView.moreButton.tag=art.id;
-    [itemView bind:art];
+    [itemView bindCMS:model];
 }
 
 //click more button
@@ -118,7 +125,8 @@
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
-    Article *article = (Article *) item;
+    CMSModel *article = (CMSModel *) item;
+    newVC.contentId = article.id;
     if ([article.categoryName isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
     }else
@@ -128,32 +136,53 @@
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
--(void)ArticleMarkAction:(NSInteger)articleid
+- (void)ArticleMarkActionModel:(CMSModel*)model
 {
-    NSLog(@"ArticleMarkAction=%@",@(articleid));
-    if ([Proto checkIsBookmarkByArticle:articleid]) {
-        //移除bookmark
-        [Proto deleteBookmarks:articleid];
-        self.items=[Proto getArticleListByKeywords:searchKeywords];
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-            NSLog(@"点击取消");
-        }]];
-        [self presentViewController:alertController animated:YES completion:nil];
+    if(model.isBookmark){
+        //删除
+        backTask(^() {
+            BOOL result=[Proto deleteBookmark:model.id];
+            foreTask(^() {
+                if (result) {
+                    //
+                }
+            });
+        });
     }else{
-        //添加bookmark
-        [Proto addBookmarks:articleid];
-        self.items=[Proto getArticleListByKeywords:searchKeywords];
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-            NSLog(@"点击取消");
-        }]];
-        [self presentViewController:alertController animated:YES completion:nil];
+        //添加
+        backTask(^() {
+            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:@"5bd294a51b1a4606ecaea631"];
+            foreTask(^() {
+                if (result) {
+                    //
+                }
+            });
+        });
     }
+//    NSLog(@"ArticleMarkAction=%@",@(articleid));
+//    if ([Proto checkIsBookmarkByArticle:articleid]) {
+//        //移除bookmark
+//        [Proto deleteBookmarks:articleid];
+//        self.items=[Proto getArticleListByKeywords:searchKeywords];
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
+//
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//            NSLog(@"点击取消");
+//        }]];
+//        [self presentViewController:alertController animated:YES completion:nil];
+//    }else{
+//        //添加bookmark
+//        [Proto addBookmarks:articleid];
+//        self.items=[Proto getArticleListByKeywords:searchKeywords];
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
+//
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//            NSLog(@"点击取消");
+//        }]];
+//        [self presentViewController:alertController animated:YES completion:nil];
+//    }
 }
 
 #pragma mark ---UISearchBarDelegate
@@ -186,9 +215,9 @@
     searchKeywords=searchBar.text;
     [self.searchBar resignFirstResponder];
      _searchBar.showsCancelButton = NO;
-    self.items=[Proto getArticleListByKeywords:searchKeywords type:nil];
+//    self.items=[Proto getArticleListByKeywords:searchKeywords type:nil];
     self.items=[Proto querySearchResults:searchKeywords];
-    NSLog(@"%@",self.items);
+//    NSLog(@"%@",self.items);
 }
 
 -(void)cancelBtnClick:(UIButton *)sender

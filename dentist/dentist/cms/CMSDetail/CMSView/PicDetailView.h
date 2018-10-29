@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Common.h"
+#import "DetailModel.h"
 
 @class Article;
 
@@ -20,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)UIButton *moreButton;
 @property (nonatomic,strong)UIButton *markButton;
 
--(void)bind:(Article *)bindInfo ;
+-(void)bind:(DetailModel *)bindInfo ;
 - (void)resetLayout;
 
 @end

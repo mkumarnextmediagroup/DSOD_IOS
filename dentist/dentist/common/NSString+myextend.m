@@ -47,7 +47,20 @@
     return compStr;
 }
 
-
++ (NSString *)timeWithTimeIntervalString:(NSString *)timeString
+{
+    // 格式化时间
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"America/Chicago"];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"MMM dd,yyyy"];
+    
+    // 毫秒值转化为秒
+    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[timeString doubleValue]/ 1000.0];
+    NSString* dateString = [formatter stringFromDate:date];
+    return dateString;
+}
 
 - (NSString *)urlEncoded {
 	return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

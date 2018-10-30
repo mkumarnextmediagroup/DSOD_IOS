@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ViewAllViewController : ScrollPage
 
 @property NSArray<DiscussInfo *> *discussInfo;
+@property NSString *contentId;
 
 @end
 

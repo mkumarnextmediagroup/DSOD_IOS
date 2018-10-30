@@ -753,12 +753,13 @@
     if(comments!=nil && comments.count >0){
         discussInfos=[NSMutableArray arrayWithCapacity:comments.count];
         for (int i = 0; i<comments.count; i++) {
+            CommentModel *item = [[CommentModel alloc] initWithJson:jsonBuild(comments[i])];
             DiscussInfo *info = [[DiscussInfo alloc] init];
             info.disImg = nil;
-            info.name = ((CommentModel*)comments[i]).email;
-            info.content = ((CommentModel*)comments[i]).comment_text;
-            info.disDate = ((CommentModel*)comments[i]).create_time;
-            info.starCount = ((CommentModel*)comments[i]).comment_rating;
+            info.name = item.email;
+            info.content = item.comment_text;
+            info.disDate = item.create_time;
+            info.starCount = item.comment_rating;
 
             [discussInfos addObject:info ];
         }

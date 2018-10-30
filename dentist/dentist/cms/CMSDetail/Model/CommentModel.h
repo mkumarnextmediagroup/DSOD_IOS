@@ -11,13 +11,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol CommentModel
+@end
+
 @interface CommentModel : JSONModel
 
 @property NSString *email;
-@property NSString *commentRating;
-@property NSString *commentText;
-@property NSString *createTime;
+@property NSString *comment_rating;
+@property NSString *comment_text;
+@property NSString *create_time;
 
+    
 @end
 
 NS_ASSUME_NONNULL_END

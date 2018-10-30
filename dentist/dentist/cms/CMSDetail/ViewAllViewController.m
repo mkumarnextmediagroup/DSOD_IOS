@@ -9,6 +9,8 @@
 #import "ViewAllViewController.h"
 #import "Common.h"
 #import "DiscussTableViewCell.h"
+#import "Proto.h"
+
 
 @interface ViewAllViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -33,9 +35,27 @@
     myTable.delegate = self;
     myTable.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [[[[[myTable layoutMaker] leftParent:0] rightParent:0] sizeEq:SCREENWIDTH h:SCREENHEIGHT] install];
+    
+//    [myTable layoutFill];
+    
     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
     myTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     // Do any additional setup after loading the view.
+    
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+
+    backTask(^{
+        NSArray<DiscussInfo*> *datas = [Proto queryAllCommentByConent:self.contentId];
+        if(datas != nil && datas.count > 0){
+            self.discussInfo = datas;
+            foreTask(^{
+                [self->myTable reloadData];
+            });
+        }
+    });
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

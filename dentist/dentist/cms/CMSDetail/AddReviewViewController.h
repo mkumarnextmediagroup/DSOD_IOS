@@ -11,4 +11,6 @@
 
 @interface AddReviewViewController : ScrollPage
 
+@property NSString *contentId;
+
 @end

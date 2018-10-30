@@ -12,7 +12,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface DetailModel : JSONModel
+
 
 @property NSString <Optional>*id;
 @property NSString *email;
@@ -38,11 +40,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*previousContentId;
 @property NSString <Optional>*countOfComment;
 @property NSString <Optional>*avgCommentRating;
-@property NSArray<CommentModel *> <Optional>*comment;
+@property NSArray  <CommentModel>*comment;
+@property NSArray  <Optional>*discussInfos;
 @property NSString *publishDate;
 @property NSString <Optional>*isFeatured;
 @property NSInteger readNumber;
 
 @end
+
+
 
 NS_ASSUME_NONNULL_END

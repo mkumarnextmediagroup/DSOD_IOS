@@ -27,7 +27,7 @@
 
 - (BOOL)containsChar:(unichar)ch;
 
--(BOOL)isBlankString;
++(BOOL)isBlankString:(NSString *)string;
 
 + (NSString *)timeWithTimeIntervalString:(NSString *)timeString;
 

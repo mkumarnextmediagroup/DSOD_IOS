@@ -66,7 +66,7 @@
     [[[[[categoryLabel.layoutMaker leftParent:20] below:titleLabel offset:30] rightParent:-10] heightEq:20] install];
     UITextField *categoryTextField=self.addEditRounded;
     categoryTextField.delegate = self;
-    categoryTextField.hint = localStr(@"Orthodontics");
+    categoryTextField.hint = localStr(@"");
     categoryTextField.tag=1;
     [categoryTextField returnNext];
     categoryTextField.font = [Fonts regular:15];
@@ -87,7 +87,7 @@
     [[[[[typeLabel.layoutMaker leftParent:20] below:categoryTextField offset:20] rightParent:-10] heightEq:20] install];
     UITextField *typeTextField=self.addEditRounded;
     typeTextField.delegate = self;
-    typeTextField.hint = localStr(@"LATEST");
+    typeTextField.hint = localStr(@"");
     typeTextField.tag=2;
     [typeTextField returnDone];
     typeTextField.font = [Fonts regular:15];
@@ -126,7 +126,7 @@
         self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
     } completion:^(BOOL finished) {
         if (self.closeBlock) {
-            self.closeBlock(self.categorytext,self.typetext);
+            self.closeBlock(_categorytext,_typetext);
         }
         [self removeFromSuperview];
     }];
@@ -207,7 +207,7 @@
         } rightAction:^(NSString *result,NSString *resultname) {
             
         } selectAction:^(NSString *result,NSString *resultname) {
-            textField.text=result;
+            textField.text=resultname;
             self.categorytext=result;
         }];
         backTask(^() {

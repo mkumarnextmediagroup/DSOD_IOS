@@ -12,18 +12,18 @@
 -(void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:_disImg forKey:@"disImg"];
     [coder encodeObject:_name forKey:@"name"];
-    [coder encodeInteger:_commentRating forKey:@"starCount"];
-    [coder encodeObject:_createTime forKey:@"disDate"];
-    [coder encodeObject:_commentText forKey:@"content"];
+    [coder encodeObject:_starCount forKey:@"starCount"];
+    [coder encodeObject:_disDate forKey:@"disDate"];
+    [coder encodeObject:_content forKey:@"content"];
 }
 
 -(id)initWithCoder:(NSCoder *)coder {
     if (self = [super init]) {
         _disImg = [coder decodeObjectForKey:@"disImg"];
         _name = [coder decodeObjectForKey:@"name"];
-        _commentRating = [coder decodeIntegerForKey:@"starCount"];
-        _createTime = [coder decodeObjectForKey:@"disDate"];
-        _commentText = [coder decodeObjectForKey:@"content"];
+        _starCount = [coder decodeObjectForKey:@"starCount"];
+        _disDate = [coder decodeObjectForKey:@"disDate"];
+        _content = [coder decodeObjectForKey:@"content"];
     }
     return self;
 }

@@ -10,6 +10,7 @@
 #import "Common.h"
 #import "UIView+customed.h"
 #import "XHStarRateView.h"
+#import "Proto.h"
 
 #define edge 16
 @interface AddReviewViewController ()<UITextViewDelegate>
@@ -17,6 +18,8 @@
     UIView *vi;
     UIView *bgVi;
     UILabel *remainLab;
+    UITextView *commentTextView;
+    XHStarRateView *star;
 }
 @end
 
@@ -73,7 +76,7 @@
     timeLab.textAlignment = NSTextAlignmentCenter;
     [[[timeLab.layoutMaker sizeEq:SCREENWIDTH h:20] below:noticLab offset:0] install];
     
-    XHStarRateView *star = [[XHStarRateView alloc] initWithFrame:CGRectMake(SCREENWIDTH/2-80, 105, 160, 30)];
+    star = [[XHStarRateView alloc] initWithFrame:CGRectMake(SCREENWIDTH/2-80, 105, 160, 30)];
     star.isAnimation = NO;
     star.rateStyle = HalfStar;
     star.tag = 1;
@@ -122,12 +125,12 @@
     reLabel.textColor = Colors.textAlternate;
     [[[[reLabel.layoutMaker leftParent:edge] topParent:18] heightEq:20] install];
 
-    UITextView *textView = [textVi addTextView];
-    textView.font = [Fonts regular:15];
-    textView.editable = YES;
-    textView.delegate = self;
-    textView.returnKeyType = UIReturnKeyDone;
-    [[[[[textView.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-330] leftParent:edge] rightParent:-edge] below:reLabel offset:edge] install];
+    commentTextView = [textVi addTextView];
+    commentTextView.font = [Fonts regular:15];
+    commentTextView.editable = YES;
+    commentTextView.delegate = self;
+    commentTextView.returnKeyType = UIReturnKeyDone;
+    [[[[[commentTextView.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-330] leftParent:edge] rightParent:-edge] below:reLabel offset:edge] install];
     
     remainLab = [textVi addLabel];
     remainLab.font = [Fonts semiBold:12];
@@ -150,16 +153,30 @@
     [[[[[submit.layoutMaker leftParent:22] rightParent:-22] bottomParent:-28] heightEq:40] install];
 }
 
-- (void)submitBtnClick
-{
-    [self Den_showAlertWithTitle:@"Submit Successful" message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
-        alertMaker.
-        addActionCancelTitle(@"OK");
-    } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
-        if ([action.title isEqualToString:@"OK"]) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    }];
+- (void)submitBtnClick{
+    
+    NSString *commentText = commentTextView.text;
+    NSString *commentRating = [NSString stringWithFormat:@"%f" ,star.currentScore];
+    
+    [self showIndicator];
+    backTask(^() {
+        HttpResult *r = [Proto addComment:getLastAccount() contentId:self.contentId commentText:commentText commentRating:commentRating];
+        foreTask(^() {
+            [self hideIndicator];
+            
+            [self Den_showAlertWithTitle:r.OK?@"Submit Successful":r.msg message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+                    alertMaker.addActionCancelTitle(@"OK");
+                } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+                        if ([action.title isEqualToString:@"OK"] && r.OK) {
+                            [self.navigationController popViewControllerAnimated:YES];
+                        }
+                    }
+             ];
+        });
+    });
+    
+    return;
+
 }
 
 - (void)textViewDidChange:(UITextView *)textView

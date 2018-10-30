@@ -8,6 +8,7 @@
 #import "UserInfo.h"
 #import "CMSModel.h"
 #import "DetailModel.h"
+#import "DiscussInfo.h"
 
 @class HttpResult;
 @class IdName;
@@ -122,16 +123,16 @@
  @param contentId 所评论文章ID 是否必须:Y
  @param commentText 评论内容 是否必须:Y
  @param commentRating 评论评分 是否必须:Y
- @return yes/no
+ @return HttpResult
  **/
-+(BOOL)addComment:(NSString *_Nullable)email contentId:(NSString * _Nullable)contentId commentText:(NSString *_Nullable)commentText commentRating:(NSString *_Nullable)commentRating;
++(HttpResult*)addComment:(NSString *_Nullable)email contentId:(NSString * _Nullable)contentId commentText:(NSString *_Nullable)commentText commentRating:(NSString *_Nullable)commentRating;
 
 //MARK:查询整个文章的评论（CMS_003_04）
 /**
  @param contentId ID 是否必须:Y
- @return 返回CMSModelComment的实体数组
+ @return 返回DiscussInfo的实体数组
  **/
-+ (NSArray<CMSModelComment *> *)queryAllCommentByConent:(NSString *_Nullable)contentId;
++ (NSArray<DiscussInfo *> *)queryAllCommentByConent:(NSString *_Nullable)contentId;
 
 //MARK:查询收藏列表
 /**

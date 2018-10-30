@@ -48,23 +48,23 @@
     DiscussInfo *dis = [DiscussInfo new];
     dis.disImg = @"http://app800.cn/i/p.png";
     dis.name = @"Matt Heafy rated it";
-    dis.starCount = 4;
-    dis.disDate = @"3 Jul,2017";
-    dis.content = @"A wonderful experence reading up on the new trends of dental health.";
+    dis.commentRating = 4;
+    dis.createTime = @"3 Jul,2017";
+    dis.commentText = @"A wonderful experence reading up on the new trends of dental health.";
     
     DiscussInfo *dis2 = [DiscussInfo new];
     dis2.disImg = @"http://app800.cn/i/p.png";
     dis2.name = @"Amanda Brown rated it";
-    dis2.starCount = 4;
-    dis2.disDate = @"15 May,2017";
-    dis2.content = @"A nice read! Will be sure to recommend this magazine to others.";
+    dis2.commentRating = 4;
+    dis2.createTime = @"15 May,2017";
+    dis2.commentText = @"A nice read! Will be sure to recommend this magazine to others.";
     
     DiscussInfo *dis3 = [DiscussInfo new];
     dis3.disImg = @"http://app800.cn/i/p.png";
     dis3.name = @"Gareth Bale rated it";
-    dis3.starCount = 4;
-    dis3.disDate = @"23 Apr,2017";
-    dis3.content = @"Best dental health magazine I have read in my life. Would recommend reading it with something else to do dles make the aeddef";
+    dis3.commentRating = 4;
+    dis3.createTime = @"23 Apr,2017";
+    dis3.commentText = @"Best dental health magazine I have read in my life. Would recommend reading it with something else to do dles make the aeddef";
     a.discussInfo = @[dis,dis2,dis3];
     
 	ArticleComment *c = [ArticleComment new];
@@ -97,23 +97,23 @@
     DiscussInfo *disb = [DiscussInfo new];
     disb.disImg = @"http://app800.cn/i/p.png";
     disb.name = @"Matt Heafy rated it";
-    disb.starCount = 4;
-    disb.disDate = @"3 Jul,2017";
-    disb.content = @"A wonderful experence reading up on the new trends of dental health.";
+    disb.commentRating = 4;
+    disb.createTime = @"3 Jul,2017";
+    disb.commentText = @"A wonderful experence reading up on the new trends of dental health.";
     
     DiscussInfo *disb2 = [DiscussInfo new];
     disb2.disImg = @"http://app800.cn/i/p.png";
     disb2.name = @"Amanda Brown rated it";
-    disb2.starCount = 4;
-    disb2.disDate = @"15 May,2017";
-    disb2.content = @"A nice read! Will be sure to recommend this magazine to others.";
+    disb2.commentRating = 4;
+    disb2.createTime = @"15 May,2017";
+    disb2.commentText = @"A nice read! Will be sure to recommend this magazine to others.";
     
     DiscussInfo *disb3 = [DiscussInfo new];
     disb3.disImg = @"http://app800.cn/i/p.png";
     disb3.name = @"Gareth Bale rated it";
-    disb3.starCount = 4;
-    disb3.disDate = @"23 Apr,2017";
-    disb3.content = @"Best dental health magazine I have read in my life. Would recommend reading it with something else to do dles make the aeddef";
+    disb3.commentRating = 4;
+    disb3.createTime = @"23 Apr,2017";
+    disb3.commentText = @"Best dental health magazine I have read in my life. Would recommend reading it with something else to do dles make the aeddef";
     b.discussInfo = @[disb,disb2,disb3];
     
 	ArticleComment *bc = [ArticleComment new];
@@ -193,23 +193,23 @@
     DiscussInfo *dis = [DiscussInfo new];
     dis.disImg = @"http://app800.cn/i/p.png";
     dis.name = @"Matt Heafy rated it";
-    dis.starCount = 4;
-    dis.disDate = @"3 Jul,2017";
-    dis.content = @"A wonderful experence reading up on the new trends of dental health.";
+    dis.commentRating = 4;
+    dis.createTime = @"3 Jul,2017";
+    dis.commentText = @"A wonderful experence reading up on the new trends of dental health.";
     
     DiscussInfo *dis2 = [DiscussInfo new];
     dis2.disImg = @"http://app800.cn/i/p.png";
     dis2.name = @"Amanda Brown rated it";
-    dis2.starCount = 4;
-    dis2.disDate = @"15 May,2017";
-    dis2.content = @"A nice read! Will be sure to recommend this magazine to others.";
+    dis2.commentRating = 4;
+    dis2.createTime = @"15 May,2017";
+    dis2.commentText = @"A nice read! Will be sure to recommend this magazine to others.";
     
     DiscussInfo *dis3 = [DiscussInfo new];
     dis3.disImg = @"http://app800.cn/i/p.png";
     dis3.name = @"Gareth Bale rated it";
-    dis3.starCount = 4;
-    dis3.disDate = @"23 Apr,2017";
-    dis3.content = @"Best dental health magazine I have read in my life. Would recommend reading it with something else to do dles make the aeddef";
+    dis3.commentRating = 4;
+    dis3.createTime = @"23 Apr,2017";
+    dis3.commentText = @"Best dental health magazine I have read in my life. Would recommend reading it with something else to do dles make the aeddef";
     a.discussInfo = @[dis,dis2,dis3];
     
     ArticleComment *c = [ArticleComment new];

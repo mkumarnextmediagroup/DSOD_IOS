@@ -37,7 +37,6 @@
         
         _star = [[XHStarRateView alloc] initWithFrame:CGRectMake(180, 15, 92, 16)];
         _star.isAnimation = YES;
-        _star.currentScore = 4;
         _star.userInteractionEnabled = NO;
         _star.rateStyle = WholeStar;
         [self addSubview:_star];
@@ -62,13 +61,15 @@
 
 - (void)setDisInfo:(DiscussInfo *)disInfo
 {
-    [headerImg loadUrl:disInfo.disImg placeholderImage:@"user_img"];
-    finLabel.text = disInfo.name;
+//    [headerImg loadUrl:disInfo.disImg placeholderImage:@"user_img"];
+//    finLabel.text = disInfo.name;
     CGSize size = [finLabel sizeThatFits:CGSizeMake(1000, 20)];
     [[finLabel.layoutUpdate sizeEq:size.width h:20] install];
     _star.frame = CGRectMake(size.width + 85, edge+2, 90, 16);
-    reviewLabel.text = disInfo.disDate;
-    conLabel.text = disInfo.content;
+    _star.currentScore = disInfo.commentRating;
+
+    reviewLabel.text = [NSString timeWithTimeIntervalString:disInfo.createTime];
+    conLabel.text = disInfo.commentText;
 }
 
 - (void)awakeFromNib {

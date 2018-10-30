@@ -23,6 +23,7 @@
 #import "DentistTabView.h"
 #import "CMSModel.h"
 #import "IdName.h"
+#import "ArticleGSkItemView.h"
 
 @interface CmsForYouPage()<ArticleItemViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 @end
@@ -87,7 +88,7 @@
 
 	self.table.tableHeaderView = [self makeHeaderView];
 	self.table.rowHeight = UITableViewAutomaticDimension;
-	self.table.estimatedRowHeight = 400;
+	self.table.estimatedRowHeight = 500;
     self.isRefresh=YES;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 //    self.items = [Proto getArticleListByCategory:category type:type];
@@ -267,7 +268,13 @@
 }
 
 - (Class)viewClassOfItem:(NSObject *)item {
-	return ArticleItemView.class;
+    CMSModel *model = (id) item;
+    if (![NSString isBlankString:model.sponsorId]) {
+        return ArticleGSkItemView.class;
+    }else{
+        return ArticleItemView.class;
+    }
+	
 }
 
 - (CGFloat)heightOfItem:(NSObject *)item {
@@ -281,9 +288,16 @@
 //    itemView.delegate=self;
 //    [itemView bind:art];
     CMSModel *model = (id) item;
-    ArticleItemView *itemView = (ArticleItemView *) view;
-    itemView.delegate=self;
-    [itemView bindCMS:model];
+    if (![NSString isBlankString:model.sponsorId]) {
+        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+        itemView.delegate=self;
+        [itemView bindCMS:model];
+    }else{
+        ArticleItemView *itemView = (ArticleItemView *) view;
+        itemView.delegate=self;
+        [itemView bindCMS:model];
+    }
+    
 }
 
 - (void)onClickItem:(NSObject *)item {

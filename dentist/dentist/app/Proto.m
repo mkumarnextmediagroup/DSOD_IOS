@@ -927,7 +927,7 @@
 +(BOOL)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url
 {
     BOOL result=NO;
-    if(!email.isBlankString && !postId.isBlankString && !title.isBlankString && !url.isBlankString){
+    if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title] && ![NSString isBlankString:url]){
         HttpResult *r = [self post3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url} modular:@"cms"];
         if (r.OK) {
             result=YES;

@@ -37,11 +37,6 @@
 //    self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
 }
 
--(void)reloadData
-{
-    self.items = [Proto listBookmark];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     UINavigationItem *item = [self navigationItem];
@@ -98,21 +93,6 @@
     [itemView bindCMS:art];
 }
 
--(void)BookMarkAction:(NSInteger)articleid
-{
-    NSLog(@"BookMarkAction=%@",@(articleid));
-    //移除bookmark
-    [Proto deleteBookmarks:articleid];
-    self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-        NSLog(@"点击取消");
-    }]];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
 -(void)BookMarkActionModel:(BookmarkModel *)model
 {
     //移除bookmark
@@ -165,7 +145,7 @@
     } select:^(NSString *category, NSString *type) {
         categorytext=category;
         typetext=type;
-        self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
+//        self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
     }];
 }
 

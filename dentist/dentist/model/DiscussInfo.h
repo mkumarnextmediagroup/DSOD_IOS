@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSONModel.h"
 
-@interface DiscussInfo : NSObject<NSCoding>
+@interface DiscussInfo : JSONModel
 
 @property NSString *disImg;
 @property NSString *name;
-@property NSInteger starCount;
+@property NSString *starCount;
 @property NSString *disDate;
 @property NSString *content;
 

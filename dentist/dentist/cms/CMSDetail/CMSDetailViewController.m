@@ -39,10 +39,6 @@
     [super viewWillAppear:animated];
 //    self.navigationController.navigationBarHidden = YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)viewDidLoad {
-	[super viewDidLoad];
     
     backTask(^() {
         self.articleInfo = [Proto queryForDetailPage:self.contentId];
@@ -52,8 +48,8 @@
             [self buildViews];
         });
     });
-    
 }
+
 
 - (UIView *)headerView
 {
@@ -95,6 +91,7 @@
 {
     ViewAllViewController *viewAll = [ViewAllViewController new];
 //    viewAll.discussInfo = self.articleInfo.discussInfo;
+    viewAll.contentId = self.contentId;
     [self.navigationController pushViewController:viewAll animated:YES];
 }
 
@@ -277,6 +274,7 @@
 - (void)gotoReview
 {
     AddReviewViewController *reviewVC = [AddReviewViewController new];
+    reviewVC.contentId = self.contentId;
     [self.navigationController pushViewController:reviewVC animated:YES];
 }
 
@@ -311,7 +309,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.articleInfo.comment.count;
+    return self.articleInfo.discussInfos.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -326,7 +324,7 @@
     if (cell == nil) {
         cell = [[DiscussTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
-    cell.disInfo = self.articleInfo.comment[indexPath.row];
+    cell.disInfo = self.articleInfo.discussInfos[indexPath.row];
     return cell;
 
 }

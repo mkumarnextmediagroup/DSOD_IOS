@@ -12,21 +12,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface DetailModel : JSONModel
 
+
 @property NSString <Optional>*id;
-@property NSString *email;
-@property NSString *title;
-@property NSString *content;
+@property NSString <Optional>*email;
+@property NSString <Optional>*title;
+@property NSString <Optional>*content;
 @property NSString <Optional>*authorId;
-@property NSString *contentTypeId;
-@property NSString *categoryId;
-@property NSString *sponsorId;
+@property NSString <Optional>*contentTypeId;
+@property NSString <Optional>*categoryId;
+@property NSString <Optional>*sponsorId;
 @property NSString <Optional>*authorName;
-@property NSString *contentTypeName;
-@property NSString *categoryName;
-@property NSString *sponsorName;
-@property NSString *featuredMediaId;
+@property NSString <Optional>*contentTypeName;
+@property NSString <Optional>*categoryName;
+@property NSString <Optional>*sponsorName;
+@property NSString <Optional>*featuredMediaId;
 @property NSArray  <Optional>*photos;
 @property NSArray  <Optional>*videos;
 @property NSArray  <Optional>*podcasts;
@@ -38,11 +40,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*previousContentId;
 @property NSString <Optional>*countOfComment;
 @property NSString <Optional>*avgCommentRating;
-@property NSArray<CommentModel *> <Optional>*comment;
-@property NSString *publishDate;
+@property NSArray  <CommentModel *><Optional> *comment;
+@property NSArray  <Optional>*discussInfos;
+@property NSString <Optional>*publishDate;
 @property NSString <Optional>*isFeatured;
 @property NSInteger readNumber;
 
 @end
+
+
 
 NS_ASSUME_NONNULL_END

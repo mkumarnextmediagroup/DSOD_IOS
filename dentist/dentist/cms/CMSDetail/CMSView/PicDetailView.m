@@ -13,6 +13,9 @@
 #import "DentistImageBrowserToolBar.h"
 #import "Proto.h"
 
+@interface PicDetailView()<WKNavigationDelegate>
+@end
+
 @implementation PicDetailView
 {
     UILabel *typeLabel;
@@ -22,7 +25,7 @@
     UILabel *titleLabel;
     UILabel *nameLabel;
     UILabel *addressLabel;
-    UILabel *contentLabel;
+    WKWebView *contentWebView;
     UIView *view;
     UILabel *contentLabel2;
     UIScrollView *imageScroll;
@@ -99,16 +102,20 @@
     UILabel *lineLabel2 = [view lineLabel];
     [[[[[lineLabel2.layoutMaker leftParent:edge] rightParent:0] topParent:57] heightEq:1] install];
     
-    contentLabel = [self addLabel];
-    contentLabel.font = [Fonts regular:15];
-    [contentLabel textColorMain];
-    contentLabel.numberOfLines = 0;
-    [[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
+//    contentLabel = [self addLabel];
+//    contentLabel.font = [Fonts regular:15];
+//    [contentLabel textColorMain];
+//    contentLabel.numberOfLines = 0;
+//    [[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
+    contentWebView = [self addWebview];
+    contentWebView.navigationDelegate = self;
+    contentWebView.scrollView.scrollEnabled = NO;
+    [[[[contentWebView.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
     
     UIImageView *imgCon = [UIImageView new];
     imgCon.image = [UIImage imageNamed:@"contentPic_bg"];
     [self addSubview:imgCon];
-    [[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:contentLabel offset:25] install];
+    [[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:contentWebView offset:25] install];
     
     contentLabel2 = [self addLabel];
     contentLabel2.font = [Fonts regular:15];
@@ -257,7 +264,7 @@
     titleLabel.text = bindInfo.title;
     nameLabel.text = bindInfo.authorName;
 //    addressLabel.text = bindInfo.authAdd;
-    contentLabel.text = bindInfo.content;
+    [contentWebView loadHTMLString:bindInfo.content baseURL:nil];
 //    contentLabel2.text = bindInfo.subContent;
     if (bindInfo.isBookmark) {
         [_markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
@@ -266,11 +273,26 @@
     }
 }
 
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    [webView evaluateJavaScript:@"document.body.scrollWidth" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        CGFloat ratio =  CGRectGetWidth(self->contentWebView.frame) /[result floatValue];
+        
+        [webView evaluateJavaScript:@"document.body.scrollHeight"completionHandler:^(id _Nullable result,NSError * _Nullable error){
+            NSLog(@"scrollHeight高度：%.2f",[result floatValue]);
+            NSLog(@"scrollHeight计算高度：%.2f",[result floatValue]*ratio);
+            CGFloat newHeight = [result floatValue]*ratio;
+            [[self->contentWebView.layoutUpdate heightEq:newHeight] install];
+            
+        }];
+    }];
+}
+
 - (void)resetLayout {
-    CGSize size = [contentLabel sizeThatFits:CGSizeMake(290, 1000)];
-    CGSize size2 = [contentLabel2 sizeThatFits:CGSizeMake(290, 1000)];
-    [[contentLabel.layoutUpdate heightEq:size.height] install];
-    [[contentLabel2.layoutUpdate heightEq:size2.height] install];
+//    CGSize size = [contentLabel sizeThatFits:CGSizeMake(290, 1000)];
+//    CGSize size2 = [contentLabel2 sizeThatFits:CGSizeMake(290, 1000)];
+//    [[contentLabel.layoutUpdate heightEq:size.height] install];
+//    [[contentLabel2.layoutUpdate heightEq:size2.height] install];
 }
 
 /*

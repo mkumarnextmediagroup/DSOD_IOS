@@ -167,7 +167,7 @@
     [headerview addSubview:tabView];
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
     tabView.modelArr=segItemsModel;
-//    tabView.titleArr=segItems;
+//    tabView.titleArr=segItems;//
     
     return headerview;
 }

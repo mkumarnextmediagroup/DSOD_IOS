@@ -24,6 +24,7 @@
 #import "CMSModel.h"
 #import "IdName.h"
 #import "ArticleGSkItemView.h"
+#import "CmsArticleCategoryPage.h"
 
 @interface CmsForYouPage()<ArticleItemViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 @end
@@ -493,10 +494,15 @@
     }
 }
 
--(void)CategoryPickerSelectAction:(NSString *)result
+-(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName
 {
-    contenttype=result;
-    self.items=[Proto getArticleListByCategory:category type:contenttype];
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    CmsArticleCategoryPage *newVC = [[CmsArticleCategoryPage alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+    
+    newVC.categoryId=categoryId;
+    newVC.categoryName=categoryName;
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 #pragma mark -------DentistTabViewDelegate

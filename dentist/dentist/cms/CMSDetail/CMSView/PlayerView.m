@@ -23,6 +23,7 @@
 	UILabel *titleLabel;
 	UILabel *nameLabel;
 	UILabel *addressLabel;
+    UILabel *contentLabel;
 	WKWebView *contentWebView;
 	UIView *view;
     UILabel *contentLabel2;
@@ -115,21 +116,21 @@
 	UILabel *lineLabel2 = [view lineLabel];
 	[[[[[lineLabel2.layoutMaker leftParent:edge] rightParent:0] topParent:57] heightEq:1] install];
 
-//    contentLabel = [self addLabel];
-//    contentLabel.font = [Fonts regular:15];
-//    [contentLabel textColorMain];
-//    contentLabel.numberOfLines = 0;
-//	[[[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] heightEq:30] below:view offset:5] install];
-//    [[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
+    contentLabel = [self addLabel];
+    contentLabel.font = [Fonts regular:15];
+    [contentLabel textColorMain];
+    contentLabel.numberOfLines = 0;
+    [[[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] heightEq:30] below:view offset:5] install];
+    [[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
     
-    contentWebView = [self addWebview];
-    contentWebView.navigationDelegate = self;
-    [[[[contentWebView.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
+//    contentWebView = [self addWebview];
+//    contentWebView.navigationDelegate = self;
+//    [[[[contentWebView.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
 
 	UIImageView *imgCon = [UIImageView new];
     imgCon.image = [UIImage imageNamed:@"content_bg"];
 	[self addSubview:imgCon];
-	[[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:contentWebView offset:25] install];
+	[[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:contentLabel offset:25] install];
 
     contentLabel2 = [self addLabel];
     contentLabel2.font = [Fonts regular:15];
@@ -225,7 +226,8 @@
     [_greeBtn setImage:[UIImage imageNamed:@"gskIcon"] forState:UIControlStateNormal];
 	nameLabel.text = bindInfo.authorName;
 //    addressLabel.text = bindInfo.authAdd;
-	[contentWebView loadHTMLString:bindInfo.content baseURL:nil];
+    contentLabel.text = bindInfo.content;
+//    [contentWebView loadHTMLString:bindInfo.content baseURL:nil];
 //    contentLabel2.text = bindInfo.subContent;
     if (bindInfo.isBookmark) {
         [_markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
@@ -235,10 +237,10 @@
 }
 
 - (void)resetLayout {
-//    CGSize size = [contentLabel sizeThatFits:CGSizeMake(290, 1000)];
-//    CGSize size2 = [contentLabel2 sizeThatFits:CGSizeMake(290, 1000)];
-//    [[contentLabel.layoutUpdate heightEq:size.height] install];
-//    [[contentLabel2.layoutUpdate heightEq:size2.height] install];
+    CGSize size = [contentLabel sizeThatFits:CGSizeMake(290, 1000)];
+    CGSize size2 = [contentLabel2 sizeThatFits:CGSizeMake(290, 1000)];
+    [[contentLabel.layoutUpdate heightEq:size.height] install];
+    [[contentLabel2.layoutUpdate heightEq:size2.height] install];
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation

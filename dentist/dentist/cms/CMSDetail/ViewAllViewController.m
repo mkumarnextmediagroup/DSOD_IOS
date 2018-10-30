@@ -30,17 +30,16 @@
     
     
     myTable = [UITableView new];
-    [self.contentView addSubview:myTable];
+    [self.view addSubview:myTable];
     myTable.dataSource = self;
     myTable.delegate = self;
     myTable.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    [[[[[myTable layoutMaker] leftParent:0] rightParent:0] sizeEq:SCREENWIDTH h:SCREENHEIGHT] install];
+
+    [myTable layoutFill];
     
-//    [myTable layoutFill];
-    
-    [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
-    myTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    // Do any additional setup after loading the view.
+//    [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
+//    myTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+//    // Do any additional setup after loading the view.
     
     
 }

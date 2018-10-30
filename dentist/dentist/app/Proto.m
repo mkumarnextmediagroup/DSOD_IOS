@@ -898,15 +898,9 @@
 + (NSArray<DiscussInfo *> *)queryAllCommentByConent:(NSString *)contentId {
     HttpResult *r = [self post:@"comment/findAllByContent" dic:@{@"contentId": contentId} modular:@"cms"];
     
-    NSMutableArray *resultArray = [NSMutableArray array];
+    NSArray* resultArray = nil;
     if (r.OK) {
-        NSArray *arr = r.resultMap[@"data"];
-        for (NSDictionary *d in arr) {
-            CommentModel *item = [[CommentModel alloc] initWithJson:jsonBuild(d)];
-            [resultArray addObject:item];
-        }
-        
-        resultArray = [self commentConvertDiscussInfo:resultArray];
+        resultArray = [self commentConvertDiscussInfo:r.resultMap[@"data"]];
     }
     return resultArray;
 }

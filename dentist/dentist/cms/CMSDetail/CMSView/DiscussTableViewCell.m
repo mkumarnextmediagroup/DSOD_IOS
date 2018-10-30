@@ -60,32 +60,19 @@
 
 
 - (void)setDisInfo:(DiscussInfo *)disInfo
-{
-    
+{    
     if(disInfo.disImg){
         [headerImg loadUrl:disInfo.disImg placeholderImage:@"user_img"];
     }
-    
     finLabel.text = disInfo.name;
     CGSize size = [finLabel sizeThatFits:CGSizeMake(1000, 20)];
     [[finLabel.layoutUpdate sizeEq:size.width h:20] install];
     _star.frame = CGRectMake(size.width + 85, edge+2, 90, 16);
     _star.currentScore = [disInfo.starCount floatValue];
-    reviewLabel.text = [self getTime:disInfo.disDate];//disInfo.disDate;///
+    reviewLabel.text = [NSString timeWithTimeIntervalString:disInfo.disDate];
     conLabel.text = disInfo.content;
 }
 
--(NSString*) getTime:(NSString*)disData{
-    
-    
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    [formatter setDateFormat:@"yyyyMMddHHMMss"];
-    NSDate *date = [formatter dateFromString:@"1283376197"];
-    return [formatter stringFromDate:date];
-    
-}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

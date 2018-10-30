@@ -12,9 +12,9 @@
 
 @property NSString *disImg;
 @property NSString *name;
-@property NSInteger starCount;
-@property NSString *disDate;
-@property NSString *content;
+@property NSInteger commentRating;
+@property NSString *createTime;
+@property NSString *commentText;
 
 
 @end

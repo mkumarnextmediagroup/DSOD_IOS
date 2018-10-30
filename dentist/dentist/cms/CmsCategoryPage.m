@@ -11,6 +11,7 @@
 #import "DenActionSheet.h"
 #import <Social/Social.h>
 #import "CMSModel.h"
+#import "DentistPickerView.h"
 
 @interface CmsCategoryPage()<ArticleItemViewDelegate>
 {
@@ -161,18 +162,42 @@
 }
 
 
--(void)CategoryPickerSelectAction:(NSString *)result
+-(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName
 {
-    type=result;
-    if (type) {
+//    type=categoryId;
+//    if (type) {
+//        backTask(^() {
+//            NSArray *array  = [Proto queryAllContentsByCategoryType:type pageNumber:1];
+//            foreTask(^() {
+//                self.items=array;
+//            });
+//        });
+//    }
+    DentistPickerView *picker = [[DentistPickerView alloc]init];
+    
+    picker.leftTitle=localStr(@"Category");
+    picker.righTtitle=localStr(@"Cancel");
+    [picker show:^(NSString *result,NSString *resultname) {
+        
+    } rightAction:^(NSString *result,NSString *resultname) {
+        
+    } selectAction:^(NSString *result,NSString *resultname) {
+        pagenumber=1;
+        [self showIndicator];
         backTask(^() {
-            NSArray *array  = [Proto queryAllContentsByCategoryType:type pageNumber:1];
+            NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:result pageNumber:pagenumber];
             foreTask(^() {
+                [self hideIndicator];
                 self.items=array;
             });
         });
-    }
-//    self.items=[Proto getArticleListByType:type];
+    }];
+    backTask(^() {
+        NSArray<IdName *> *array = [Proto queryCategoryTypes];
+        foreTask(^() {
+            picker.arrayDic=array;
+        });
+    });
 }
 
 -(void)ArticleMarkActionModel:(CMSModel *)model

@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *email;
 @property NSString *comment_rating;
 @property NSString *comment_text;
+@property NSString *content_id;
 @property NSString *create_time;
 
     

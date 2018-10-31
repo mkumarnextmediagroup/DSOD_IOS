@@ -16,6 +16,7 @@
 #import "NSString+myextend.h"
 #import "BookmarkModel.h"
 #import "DiscussInfo.h"
+#import "MagazineModel.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -1490,6 +1491,26 @@
         }
     }];
     return [self saveArticleArr:arr];
+}
+
+//MARK:查询杂志列表集合
++(NSArray*)findAllMagazines:(NSInteger)skip{
+    NSNumber *limit= [NSNumber numberWithInteger:10];
+
+    NSDictionary *dic = @{@"skip":[NSNumber numberWithInteger:skip],@"limit":limit};
+
+    HttpResult *r = [self post3:@"magazine/findAll" dic:dic modular:@"cms"];
+    NSMutableArray *resultArray = [NSMutableArray array];
+    if (r.OK) {
+        NSArray *arr = r.resultMap[@"data"];
+        for (NSDictionary *d in arr) {
+            MagazineModel *item = [[MagazineModel alloc] initWithJson:jsonBuild(d)];
+            if (item) {
+                [resultArray addObject:item];
+            }
+        }
+    }
+    return resultArray;
 }
 
 @end

@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString  <Optional>*countOfComment;
 @property NSString  <Optional>*avgCommentRating;
 @property NSString  <Optional>*publishDate;
-@property NSString  <Optional>*readNumber;
+@property NSInteger  readNumber;
 @property NSArray   <CMSModelComment*><Optional> *comment;
 
 @end

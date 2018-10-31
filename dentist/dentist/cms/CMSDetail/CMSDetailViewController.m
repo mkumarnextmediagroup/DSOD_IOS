@@ -39,12 +39,12 @@
     [super viewWillAppear:animated];
 //    self.navigationController.navigationBarHidden = YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
+    [self createNav];
     backTask(^() {
         self.articleInfo = [Proto queryForDetailPage:self.contentId];
         foreTask(^() {
             
-            [self createNav];
+            
             [self buildViews];
         });
     });

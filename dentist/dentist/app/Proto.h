@@ -236,4 +236,7 @@
 //MARK:删除download
 +(BOOL)deleteDownload:(NSInteger)articleid;
 
+//MARK:查询杂志列表集合
++(NSArray*)findAllMagazines:(NSInteger)skip;
+
 @end

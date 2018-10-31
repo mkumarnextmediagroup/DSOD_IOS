@@ -15,6 +15,8 @@
 #import "DetailModel.h"
 #import "NSString+myextend.h"
 #import "BookmarkModel.h"
+#import "DiscussInfo.h"
+#import "MagazineModel.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -48,21 +50,21 @@
     DiscussInfo *dis = [DiscussInfo new];
     dis.disImg = @"http://app800.cn/i/p.png";
     dis.name = @"Matt Heafy rated it";
-    dis.starCount = 4;
+    dis.starCount = @"4";
     dis.disDate = @"3 Jul,2017";
     dis.content = @"A wonderful experence reading up on the new trends of dental health.";
     
     DiscussInfo *dis2 = [DiscussInfo new];
     dis2.disImg = @"http://app800.cn/i/p.png";
     dis2.name = @"Amanda Brown rated it";
-    dis2.starCount = 4;
+    dis2.starCount = @"4";
     dis2.disDate = @"15 May,2017";
     dis2.content = @"A nice read! Will be sure to recommend this magazine to others.";
     
     DiscussInfo *dis3 = [DiscussInfo new];
     dis3.disImg = @"http://app800.cn/i/p.png";
     dis3.name = @"Gareth Bale rated it";
-    dis3.starCount = 4;
+    dis3.starCount = @"4";
     dis3.disDate = @"23 Apr,2017";
     dis3.content = @"Best dental health magazine I have read in my life. Would recommend reading it with something else to do dles make the aeddef";
     a.discussInfo = @[dis,dis2,dis3];
@@ -97,21 +99,21 @@
     DiscussInfo *disb = [DiscussInfo new];
     disb.disImg = @"http://app800.cn/i/p.png";
     disb.name = @"Matt Heafy rated it";
-    disb.starCount = 4;
+    disb.starCount = @"4";
     disb.disDate = @"3 Jul,2017";
     disb.content = @"A wonderful experence reading up on the new trends of dental health.";
     
     DiscussInfo *disb2 = [DiscussInfo new];
     disb2.disImg = @"http://app800.cn/i/p.png";
     disb2.name = @"Amanda Brown rated it";
-    disb2.starCount = 4;
+    disb2.starCount = @"4";
     disb2.disDate = @"15 May,2017";
     disb2.content = @"A nice read! Will be sure to recommend this magazine to others.";
     
     DiscussInfo *disb3 = [DiscussInfo new];
     disb3.disImg = @"http://app800.cn/i/p.png";
     disb3.name = @"Gareth Bale rated it";
-    disb3.starCount = 4;
+    disb3.starCount = @"4";
     disb3.disDate = @"23 Apr,2017";
     disb3.content = @"Best dental health magazine I have read in my life. Would recommend reading it with something else to do dles make the aeddef";
     b.discussInfo = @[disb,disb2,disb3];
@@ -193,21 +195,21 @@
     DiscussInfo *dis = [DiscussInfo new];
     dis.disImg = @"http://app800.cn/i/p.png";
     dis.name = @"Matt Heafy rated it";
-    dis.starCount = 4;
+    dis.starCount = @"4";
     dis.disDate = @"3 Jul,2017";
     dis.content = @"A wonderful experence reading up on the new trends of dental health.";
     
     DiscussInfo *dis2 = [DiscussInfo new];
     dis2.disImg = @"http://app800.cn/i/p.png";
     dis2.name = @"Amanda Brown rated it";
-    dis2.starCount = 4;
+    dis2.starCount = @"4";
     dis2.disDate = @"15 May,2017";
     dis2.content = @"A nice read! Will be sure to recommend this magazine to others.";
     
     DiscussInfo *dis3 = [DiscussInfo new];
     dis3.disImg = @"http://app800.cn/i/p.png";
     dis3.name = @"Gareth Bale rated it";
-    dis3.starCount = 4;
+    dis3.starCount = @"4";
     dis3.disDate = @"23 Apr,2017";
     dis3.content = @"Best dental health magazine I have read in my life. Would recommend reading it with something else to do dles make the aeddef";
     a.discussInfo = @[dis,dis2,dis3];
@@ -740,14 +742,52 @@
     if (r.OK) {
         NSDictionary *dic = r.resultMap[@"data"];
         DetailModel *detail = [[DetailModel alloc] initWithJson:jsonBuild(dic)];
+        detail.discussInfos = [self commentConvertDiscussInfo:detail.comment];
         return detail;
     }
     return nil;
 }
 
+//commentModel to DiscussInfo
++ (NSArray*)commentConvertDiscussInfo : (NSArray*) comments{
+     NSMutableArray *discussInfos = nil;
+    if(comments!=nil && comments.count >0){
+        discussInfos=[NSMutableArray arrayWithCapacity:comments.count];
+        for (int i = 0; i<comments.count; i++) {
+            CommentModel *item = [[CommentModel alloc] initWithJson:jsonBuild(comments[i])];
+            DiscussInfo *info = [[DiscussInfo alloc] init];
+            NSString *urlstr;
+            if (item.content_id) {
+                urlstr=[Proto getFileUrlByObjectId:item.content_id];
+            }
+            info.disImg = urlstr;
+            info.name = item.email;
+            info.content = item.comment_text;
+            info.disDate = item.create_time;
+            info.starCount = item.comment_rating;
+
+            [discussInfos addObject:info ];
+        }
+    }
+    return discussInfos;
+}
+
+
 //search API（CMS_001_11-A/CMS_001_12）
-+ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue {
-    HttpResult *r = [self post:@"content/findAllBySearch" dic:@{@"searchValue": serachValue} modular:@"cms"];
++ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue pageNumber:(NSInteger)pageNumber{
+    
+    NSInteger skip=0;
+    NSInteger limit=10;//分页数默认20条
+    if(pageNumber>=1)
+    {
+        skip=(pageNumber-1)*limit;
+    }
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [paradic setObject:serachValue forKey:@"searchValue"];
+    
+    HttpResult *r = [self post3:@"content/findAllBySearch" dic:paradic modular:@"cms"];
     
     NSMutableArray *resultArray = [NSMutableArray array];
     if (r.OK) {
@@ -766,7 +806,7 @@
 //MARK:查询媒体列表（CMS_001_01\CMS_001_10）
 + (NSArray<CMSModel *> *)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *)authorId {
     NSInteger skip=0;
-    NSInteger limit=20;//分页数默认20条
+    NSInteger limit=10;//分页数默认20条
     if(pageNumber>=1)
     {
         skip=(pageNumber-1)*limit;
@@ -784,7 +824,7 @@
         [paradic setObject:categoryId forKey:@"categoryId"];
     }
     if (sponserId) {
-        [paradic setObject:sponserId forKey:@"sponserId"];
+        [paradic setObject:sponserId forKey:@"sponsorId"];
     }
     if (authorId) {
         [paradic setObject:email forKey:@"authorId"];
@@ -813,6 +853,12 @@
 + (NSArray<CMSModel *> *)queryAllContentsByContentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
 {
     return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil pageNumber:pageNumber authorId:nil];
+}
+
+//MARK:根据赞助商跟内容分类查询媒体列表（CMS_001_01\CMS_001_10）
++ (NSArray<CMSModel *> *)queryAllContentsBySponsorAndContentType:(NSString *)sponsorId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
+{
+    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:sponsorId pageNumber:pageNumber authorId:nil];
 }
 
 //MARK:查询媒体详情（CMS_002_01/CMS_002_02）
@@ -861,27 +907,19 @@
 }
 
 //MARK:添加评论（CMS_002_06）
-+(BOOL)addComment:(NSString *)email contentId:(NSString *)contentId commentText:(NSString *)commentText commentRating:(NSString *)commentRating
++(HttpResult *)addComment:(NSString *)email contentId:(NSString *)contentId commentText:(NSString *)commentText commentRating:(NSString *)commentRating
 {
-    BOOL result=NO;
-    HttpResult *r = [self post3:@"comment/findAllContentType" dic:@{@"email": email,@"contentId": contentId,@"contentId": commentText,@"commentRating": commentRating} modular:@"cms"];
-    if (r.OK) {
-        result=YES;
-    }
-    return result;
+    HttpResult *r = [self post3:@"comment/addComment" dic:@{@"email": email,@"contentId": contentId,@"commentText": commentText,@"commentRating": commentRating} modular:@"cms"];
+    return r;
 }
 
 //MARK:查询整个文章的评论（CMS_003_04）
-+ (NSArray<CMSModelComment *> *)queryAllCommentByConent:(NSString *)contentId {
-    HttpResult *r = [self post3:@"comment/findAllByContent" dic:@{@"contentId": contentId} modular:@"cms"];
++ (NSArray<DiscussInfo *> *)queryAllCommentByConent:(NSString *)contentId {
+    HttpResult *r = [self post:@"comment/findAllByContent" dic:@{@"contentId": contentId} modular:@"cms"];
     
-    NSMutableArray *resultArray = [NSMutableArray array];
+    NSArray* resultArray = nil;
     if (r.OK) {
-        NSArray *arr = r.resultMap[@"data"];
-        for (NSDictionary *d in arr) {
-            CMSModelComment *item = [[CMSModelComment alloc] initWithJson:jsonBuild(d)];
-            [resultArray addObject:item];
-        }
+        resultArray = [self commentConvertDiscussInfo:r.resultMap[@"data"]];
     }
     return resultArray;
 }
@@ -927,7 +965,7 @@
 +(BOOL)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url
 {
     BOOL result=NO;
-    if(!email.isBlankString && !postId.isBlankString && !title.isBlankString && !url.isBlankString){
+    if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title] && ![NSString isBlankString:url]){
         HttpResult *r = [self post3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url} modular:@"cms"];
         if (r.OK) {
             result=YES;
@@ -1465,6 +1503,26 @@
         }
     }];
     return [self saveArticleArr:arr];
+}
+
+//MARK:查询杂志列表集合
++(NSArray*)findAllMagazines:(NSInteger)skip{
+    NSNumber *limit= [NSNumber numberWithInteger:10];
+
+    NSDictionary *dic = @{@"skip":[NSNumber numberWithInteger:skip],@"limit":limit};
+
+    HttpResult *r = [self post3:@"magazine/findAll" dic:dic modular:@"cms"];
+    NSMutableArray *resultArray = [NSMutableArray array];
+    if (r.OK) {
+        NSArray *arr = r.resultMap[@"data"];
+        for (NSDictionary *d in arr) {
+            MagazineModel *item = [[MagazineModel alloc] initWithJson:jsonBuild(d)];
+            if (item) {
+                [resultArray addObject:item];
+            }
+        }
+    }
+    return resultArray;
 }
 
 @end

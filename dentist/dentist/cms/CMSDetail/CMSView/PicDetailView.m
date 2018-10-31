@@ -13,6 +13,12 @@
 #import "DentistImageBrowserToolBar.h"
 #import "Proto.h"
 
+@interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate>
+{
+    UIWebView *mywebView;
+}
+@end
+
 @implementation PicDetailView
 {
     UILabel *typeLabel;
@@ -23,9 +29,11 @@
     UILabel *nameLabel;
     UILabel *addressLabel;
     UILabel *contentLabel;
+    WKWebView *contentWebView;
     UIView *view;
     UILabel *contentLabel2;
     UIScrollView *imageScroll;
+    BOOL allowZoom;
 }
 
 - (instancetype)init {
@@ -35,7 +43,7 @@
     if(IS_IPHONE_P_X){
         edge=24;
     }
-    
+    allowZoom = YES;
     self.topView = [UIView new];
     self.topView.backgroundColor = rgb255(250, 251, 253);
     [self addSubview:self.topView];
@@ -99,16 +107,27 @@
     UILabel *lineLabel2 = [view lineLabel];
     [[[[[lineLabel2.layoutMaker leftParent:edge] rightParent:0] topParent:57] heightEq:1] install];
     
-    contentLabel = [self addLabel];
-    contentLabel.font = [Fonts regular:15];
-    [contentLabel textColorMain];
-    contentLabel.numberOfLines = 0;
-    [[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
+//    contentLabel = [self addLabel];
+//    contentLabel.font = [Fonts regular:15];
+//    [contentLabel textColorMain];
+//    contentLabel.numberOfLines = 0;
+//    [[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
+    
+//    contentWebView = [self addWebview];
+//    contentWebView.navigationDelegate = self;
+//    contentWebView.scrollView.delegate = self;
+//    [[[[contentWebView.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
+    
+    mywebView = [UIWebView new];
+    mywebView.delegate = self;
+    mywebView.scrollView.scrollEnabled = NO;
+    [self addSubview:mywebView];
+    [[[[mywebView.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
     
     UIImageView *imgCon = [UIImageView new];
     imgCon.image = [UIImage imageNamed:@"contentPic_bg"];
     [self addSubview:imgCon];
-    [[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:contentLabel offset:25] install];
+    [[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:mywebView offset:25] install];
     
     contentLabel2 = [self addLabel];
     contentLabel2.font = [Fonts regular:15];
@@ -257,13 +276,47 @@
     titleLabel.text = bindInfo.title;
     nameLabel.text = bindInfo.authorName;
 //    addressLabel.text = bindInfo.authAdd;
-    contentLabel.text = bindInfo.content;
+//    contentLabel.text = bindInfo.content;
+    [mywebView loadHTMLString:bindInfo.content baseURL:nil];
 //    contentLabel2.text = bindInfo.subContent;
     if (bindInfo.isBookmark) {
         [_markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{
         [_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{
+    if(!allowZoom){
+        return nil;
+    }else{
+        return contentWebView.scrollView.subviews.firstObject;
+    }
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    allowZoom = NO;
+    [webView evaluateJavaScript:@"document.body.scrollWidth" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        CGFloat ratio =  CGRectGetWidth(self->contentWebView.frame) /[result floatValue];
+        
+        [webView evaluateJavaScript:@"document.documentElement.style.webkitUserSelect='none';" completionHandler:nil];
+        [webView evaluateJavaScript:@"document.activeElement.blur();" completionHandler:nil];
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%'"completionHandler:nil];
+        [webView evaluateJavaScript:@"document.body.scrollHeight"completionHandler:^(id _Nullable result,NSError * _Nullable error){
+            NSLog(@"scrollHeight高度：%.2f",[result floatValue]);
+            NSLog(@"scrollHeight计算高度：%.2f",[result floatValue]*ratio);
+            CGFloat newHeight = [result floatValue]*ratio;
+            [[self->contentWebView.layoutUpdate heightEq:newHeight] install];
+            
+        }];
+    }];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
+    [[mywebView.layoutUpdate heightEq:webViewHeight] install];
 }
 
 - (void)resetLayout {

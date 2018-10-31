@@ -39,21 +39,17 @@
     [super viewWillAppear:animated];
 //    self.navigationController.navigationBarHidden = YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)viewDidLoad {
-	[super viewDidLoad];
-    
+    [self createNav];
     backTask(^() {
-        self.articleInfo = [Proto queryForDetailPage:self.contentId];
+        self.articleInfo = [Proto queryForDetailPage:@"5bd912074192a80309fe23c1"];//5bd912074192a80309fe23c1
         foreTask(^() {
             
-            [self createNav];
+            
             [self buildViews];
         });
     });
-    
 }
+
 
 - (UIView *)headerView
 {
@@ -63,12 +59,21 @@
     UILabel *countLab = [headerVi addLabel];
     countLab.font = [Fonts semiBold:12];
     [countLab textColorMain];
-    countLab.text = @"40,543 Reviews";
+    countLab.text = [NSString stringWithFormat:@"%@ Reviews",self.articleInfo.countOfComment?self.articleInfo.countOfComment:@"0"];
     [[[[countLab.layoutMaker leftParent:edge] topParent:20] sizeEq:200 h:20] install];
     
     XHStarRateView *star = [[XHStarRateView alloc] initWithFrame:CGRectMake(edge, 50, 92, 16)];
     star.isAnimation = YES;
-    star.currentScore = 4.5;
+    
+
+    //server return  "OptionalDouble[1.5769230769230769]"
+    NSString *avgCommentRatingString = self.articleInfo.avgCommentRating;
+    avgCommentRatingString = [avgCommentRatingString stringByReplacingOccurrencesOfString:@"OptionalDouble["withString:@""];
+    avgCommentRatingString = [avgCommentRatingString stringByReplacingOccurrencesOfString:@"]"withString:@""];
+    avgCommentRatingString = [NSString stringWithFormat:@"%0.1f", [avgCommentRatingString floatValue]];
+
+
+    star.currentScore = [avgCommentRatingString floatValue];
     star.userInteractionEnabled = NO;
     star.rateStyle = HalfStar;
     [headerVi addSubview:star];
@@ -76,7 +81,7 @@
     UILabel *starLab = [headerVi addLabel];
     starLab.font = [Fonts semiBold:12];
     [starLab textColorMain];
-    starLab.text = @"4.5";
+    starLab.text = avgCommentRatingString;
     [[[[starLab.layoutMaker toRightOf:star offset:10] topParent:47] sizeEq:100 h:20] install];
     
     UIButton *btn = [headerVi addButton];
@@ -95,6 +100,7 @@
 {
     ViewAllViewController *viewAll = [ViewAllViewController new];
 //    viewAll.discussInfo = self.articleInfo.discussInfo;
+    viewAll.contentId = self.contentId;
     [self.navigationController pushViewController:viewAll animated:YES];
 }
 
@@ -277,6 +283,7 @@
 - (void)gotoReview
 {
     AddReviewViewController *reviewVC = [AddReviewViewController new];
+    reviewVC.contentId = self.contentId;
     [self.navigationController pushViewController:reviewVC animated:YES];
 }
 
@@ -311,7 +318,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.articleInfo.comment.count;
+    return self.articleInfo.discussInfos.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -326,7 +333,7 @@
     if (cell == nil) {
         cell = [[DiscussTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
-    cell.disInfo = self.articleInfo.comment[indexPath.row];
+    cell.disInfo = self.articleInfo.discussInfos[indexPath.row];
     return cell;
 
 }

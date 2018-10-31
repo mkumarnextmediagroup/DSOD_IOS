@@ -23,6 +23,9 @@
 #import "DentistTabView.h"
 #import "CMSModel.h"
 #import "IdName.h"
+#import "ArticleGSkItemView.h"
+#import "CmsArticleCategoryPage.h"
+#import "GSKViewController.h"
 
 @interface CmsForYouPage()<ArticleItemViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 @end
@@ -38,6 +41,7 @@
     NSString *category;
     NSString *contenttype;
     DentistTabView *tabView;
+    NSInteger pagenumber;
 }
 - (instancetype)init {
 	self = [super init];
@@ -68,6 +72,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     category=@"LATEST";
+    pagenumber=1;
 	UINavigationItem *item = [self navigationItem];
     //219*43
     //
@@ -81,11 +86,11 @@
 //    item.title = @"DSODENTIST";
 	//TODO 还不太明白为啥 不设置rightBarButtonItem，title不显示
 //    item.rightBarButtonItem = [self navBarText:@"test" target:self action:@selector(clickTest:)];
-    item.rightBarButtonItem = [self navBarText:@"" target:self action:nil];
+//    item.rightBarButtonItem = [self navBarText:@"" target:self action:nil];
 
 	self.table.tableHeaderView = [self makeHeaderView];
 	self.table.rowHeight = UITableViewAutomaticDimension;
-	self.table.estimatedRowHeight = 400;
+	self.table.estimatedRowHeight = 500;
     self.isRefresh=YES;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 //    self.items = [Proto getArticleListByCategory:category type:type];
@@ -162,7 +167,8 @@
     tabView.delegate=self;
     [headerview addSubview:tabView];
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
-//    tabView.titleArr=segItems;
+    tabView.modelArr=segItemsModel;
+//    tabView.titleArr=segItems;//
     
     return headerview;
 }
@@ -265,7 +271,13 @@
 }
 
 - (Class)viewClassOfItem:(NSObject *)item {
-	return ArticleItemView.class;
+    CMSModel *model = (id) item;
+    if (![NSString isBlankString:model.sponsorId]) {
+        return ArticleGSkItemView.class;
+    }else{
+        return ArticleItemView.class;
+    }
+	
 }
 
 - (CGFloat)heightOfItem:(NSObject *)item {
@@ -279,9 +291,16 @@
 //    itemView.delegate=self;
 //    [itemView bind:art];
     CMSModel *model = (id) item;
-    ArticleItemView *itemView = (ArticleItemView *) view;
-    itemView.delegate=self;
-    [itemView bindCMS:model];
+    if (![NSString isBlankString:model.sponsorId]) {
+        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+        itemView.delegate=self;
+        [itemView bindCMS:model];
+    }else{
+        ArticleItemView *itemView = (ArticleItemView *) view;
+        itemView.delegate=self;
+        [itemView bindCMS:model];
+    }
+    
 }
 
 - (void)onClickItem:(NSObject *)item {
@@ -314,10 +333,12 @@
 //MARK:刷新数据
 -(void)refreshData
 {
+    pagenumber=1;
     category=@"LATEST";
     contenttype=nil;
     segView.selectedSegmentIndex=0;
     self.table.tableHeaderView = [self makeHeaderView];
+    [self showIndicator];
     backTask(^() {
         segItemsModel  = [Proto queryContentTypes];
         IdName *latestmodel=[IdName new];
@@ -325,8 +346,9 @@
         latestmodel.name=@"LATEST";
         [segItemsModel insertObject:latestmodel atIndex:0];
         contenttype=nil;
-        NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:1];
+        NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:pagenumber];
         foreTask(^() {
+            [self hideIndicator];
             tabView.modelArr=segItemsModel;
             self.items=array;
         });
@@ -415,6 +437,13 @@
     }
 }
 
+-(void)ArticleGSKActionModel:(CMSModel *)model
+{
+    GSKViewController *gskVC = [GSKViewController new];
+    gskVC.sponsorId=model.sponsorId;
+    [self.navigationController pushViewController:gskVC animated:YES];
+}
+
 //-(void)ArticleMarkAction:(NSInteger)articleid
 //{
 //    selectActicleId=articleid;
@@ -474,10 +503,15 @@
     }
 }
 
--(void)CategoryPickerSelectAction:(NSString *)result
+-(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName
 {
-    contenttype=result;
-    self.items=[Proto getArticleListByCategory:category type:contenttype];
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    CmsArticleCategoryPage *newVC = [[CmsArticleCategoryPage alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+    
+    newVC.categoryId=categoryId;
+    newVC.categoryName=categoryName;
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 #pragma mark -------DentistTabViewDelegate
@@ -490,22 +524,52 @@
 //        Log(@(index ), category);
 //        self.items=[Proto getArticleListByCategory:category type:contenttype];
 //    }
+    pagenumber=1;
     if (segItemsModel.count>index) {
         IdName *model=segItemsModel[index];
         Log(model.id, model.name);
+        [self showIndicator];
         backTask(^() {
             if ([model.id isEqualToString:@"0"]) {
                 contenttype=nil;
             }else{
                 contenttype=model.id;
             }
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:1];
+            NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:pagenumber];
             foreTask(^() {
+                [self hideIndicator];
                 self.items=array;
             });
         });
     }
     
 }
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
+    if (bottomOffset <= height-50)
+    {
+        //在最底部
+        [self showIndicator];
+        backTask(^() {
+            NSInteger newpage=pagenumber+1;
+            NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+            NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:newpage];
+            if(array && array.count>0){
+                [newarray addObjectsFromArray:array];
+                pagenumber=newpage;
+            }
+            foreTask(^() {
+                [self hideIndicator];
+                self.items=[newarray copy];
+            });
+        });
+    }
+}
+
+
 
 @end

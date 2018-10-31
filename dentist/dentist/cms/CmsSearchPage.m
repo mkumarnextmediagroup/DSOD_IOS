@@ -14,6 +14,7 @@
 @interface CmsSearchPage()<UISearchBarDelegate,MyActionSheetDelegate,ArticleItemViewDelegate>
 {
     NSInteger selectIndex;
+    NSInteger pagenumber;
     BOOL issearch;
     NSString *searchKeywords;
 }
@@ -36,6 +37,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
+    pagenumber = 1;
+    
 	UINavigationItem *item = [self navigationItem];
     item.leftBarButtonItem=nil;//hidden left menu
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
@@ -51,7 +54,7 @@
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyViewWithImageName:@"Icon-Search" title:@"Search by category name,\n author,or content type"];
 
-    self.items = [Proto getArticleListByKeywords:searchKeywords];
+//    self.items = [Proto getArticleListByKeywords:searchKeywords];
     
 }
 
@@ -65,12 +68,6 @@
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
-//    Article *art = (id) item;
-//    ArticleItemView *itemView = (ArticleItemView *) view;
-//    itemView.delegate=self;
-//    [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    itemView.moreButton.tag=art.id;
-//    [itemView bind:art];
     
     CMSModel *model = (id) item;
     ArticleItemView *itemView = (ArticleItemView *) view;
@@ -216,8 +213,33 @@
     [self.searchBar resignFirstResponder];
      _searchBar.showsCancelButton = NO;
 //    self.items=[Proto getArticleListByKeywords:searchKeywords type:nil];
-    self.items=[Proto querySearchResults:searchKeywords];
+    self.items=[Proto querySearchResults:searchKeywords pageNumber:pagenumber];
 //    NSLog(@"%@",self.items);
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
+    if (bottomOffset <= height+50)
+    {
+        //在最底部
+        [self showIndicator];
+        backTask(^() {
+            NSInteger newpage=self->pagenumber+1;
+            NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+            NSArray<CMSModel *> *array = [Proto querySearchResults:self->searchKeywords pageNumber:newpage];
+            if(array && array.count>0){
+                [newarray addObjectsFromArray:array];
+                self->pagenumber=newpage;
+            }
+            foreTask(^() {
+                [self hideIndicator];
+                self.items=[newarray copy];
+            });
+        });
+    }
 }
 
 -(void)cancelBtnClick:(UIButton *)sender

@@ -1,9 +1,13 @@
 //
-// Created by entaoyang on 2018/9/18.
-// Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
+//  ArticleGSkItemView.m
+//  dentist
+//
+//  Created by feng zhenrong on 2018/10/30.
+//  Copyright © 2018年 thenextmediagroup.com. All rights reserved.
 //
 
-#import "ArticleItemView.h"
+#import "ArticleGSkItemView.h"
+
 #import "Common.h"
 #import "Article.h"
 #import "DentistPickerView.h"
@@ -11,17 +15,19 @@
 #import "CMSModel.h"
 #import "Proto.h"
 
-@implementation ArticleItemView {
-	UILabel *typeLabel;
-	UILabel *dateLabel;
-	UILabel *titleLabel;
-	UILabel *contentLabel;
-	UIImageView *imageView;
+@implementation ArticleGSkItemView {
+    UILabel *typeLabel;
+    UILabel *dateLabel;
+    UILabel *titleLabel;
+    UILabel *contentLabel;
+    UIImageView *imageView;
     UIImageView *thumbImageView;
-	UIButton *markButton;
+    UIButton *markButton;
+    UIButton *gskBtn;
 }
 
-- (instancetype)init {
+-(instancetype)init
+{
     if (self = [super init]) {
         NSInteger edge = 18;
         
@@ -68,12 +74,19 @@
         [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
         [[[[markButton.layoutMaker toLeftOf:_moreButton offset:-edge+5] below:imageView offset:edge] sizeEq:20 h:20] install];
         
+        gskBtn = [self addButton];
+        [gskBtn.titleLabel setFont:[Fonts regular:12]];
+        gskBtn.titleLabel.textColor = [UIColor whiteColor];
+        gskBtn.backgroundColor = rgb255(111, 201, 211);
+        [gskBtn addTarget:self action:@selector(gskAction:) forControlEvents:UIControlEventTouchUpInside];
+        [[[[[gskBtn.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:62] install];
+        
         contentLabel = [self addLabel];
         contentLabel.font = [Fonts regular:15];
         [contentLabel textColorMain];
         //    contentLabel.lineBreakMode=NSLineBreakByWordWrapping;
         //    [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] bottomParent:-16] install];
-        [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] bottomParent:-16] install];
+        [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] above:gskBtn offset:-16] install];
         
         titleLabel = [self addLabel];
         titleLabel.font = [Fonts semiBold:20];
@@ -86,12 +99,13 @@
     return self;
 }
 
+
 - (void)bind:(Article *)item {
     _model=item;
     typeLabel.text = [item.type uppercaseString];
     dateLabel.text = item.publishDate;
     titleLabel.text = item.title;
-//    contentLabel.text = item.content;
+    //    contentLabel.text = item.content;
     [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
@@ -117,9 +131,9 @@
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
     [self layoutIfNeeded];
-//    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
+    //    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
     NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:item.content];
-//    NSLog(@"contentlabel:%@",labelarry);
+    //    NSLog(@"contentlabel:%@",labelarry);
     if (labelarry.count>4 && item.content) {
         NSString *line4String = labelarry[3];
         NSString *showText = [NSString stringWithFormat:@"%@%@%@%@...more", labelarry[0], labelarry[1], labelarry[2], [line4String substringToIndex:line4String.length-6]];
@@ -137,6 +151,9 @@
 -(void)bindCMS:(CMSModel *)item
 {
     _cmsmodel=item;
+    [gskBtn setTitle:@"   Sponsored content brought to you by GSK" forState:UIControlStateNormal];
+    [gskBtn setImage:[UIImage imageNamed:@"gskIcon"] forState:UIControlStateNormal];
+    
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
     dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];//item.publishDate;
     titleLabel.text = _cmsmodel.title;
@@ -191,7 +208,7 @@
     }else{
         NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:contentstr attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
         contentLabel.attributedText = attStr;;
-//        contentLabel.text=contentstr;
+        //        contentLabel.text=contentstr;
     }
 }
 
@@ -238,10 +255,10 @@
 -(void)markAction:(UIButton *)sender
 {
     if (_model.isBookmark) {
-//        _model.isBookmark=NO;
+        //        _model.isBookmark=NO;
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }else{
-//        _model.isBookmark=YES;
+        //        _model.isBookmark=YES;
         [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }
     if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMarkActionModel:)]){
@@ -249,6 +266,13 @@
     }
     
     
+}
+
+-(void)gskAction:(UIButton *)sender
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleGSKActionModel:)]){
+        [self.delegate ArticleGSKActionModel:_cmsmodel];
+    }
 }
 
 -(void)showFilter

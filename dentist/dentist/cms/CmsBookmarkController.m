@@ -37,16 +37,10 @@
 //    self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
 }
 
--(void)reloadData
-{
-    self.items = [Proto listBookmark];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     UINavigationItem *item = [self navigationItem];
     item.title = @"BOOKMARKS";
-    item.rightBarButtonItem = [self navBarText:@"" target:self action:nil];
     [self.view layoutIfNeeded];
     rowheight=(self.table.frame.size.height-32)/4;
     self.table.tableHeaderView = [self makeHeaderView];
@@ -58,9 +52,11 @@
 
 -(void)refreshData
 {
+    [self showIndicator];
     backTask(^() {
         self->resultArray  = [[Proto queryBookmarksByEmail:getLastAccount()] mutableCopy];
         foreTask(^() {
+             [self hideIndicator];
             self.items=[self->resultArray copy];
         });
     });
@@ -95,21 +91,6 @@
     BookMarkItemView *itemView = (BookMarkItemView *) view;
     itemView.delegate=self;
     [itemView bindCMS:art];
-}
-
--(void)BookMarkAction:(NSInteger)articleid
-{
-    NSLog(@"BookMarkAction=%@",@(articleid));
-    //移除bookmark
-    [Proto deleteBookmarks:articleid];
-    self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-        NSLog(@"点击取消");
-    }]];
-    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(void)BookMarkActionModel:(BookmarkModel *)model
@@ -164,7 +145,7 @@
     } select:^(NSString *category, NSString *type) {
         categorytext=category;
         typetext=type;
-        self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
+//        self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
     }];
 }
 

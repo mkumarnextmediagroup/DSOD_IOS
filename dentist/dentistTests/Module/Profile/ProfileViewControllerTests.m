@@ -42,7 +42,7 @@ describe(@"Unit test for ProfileViewController", ^{
 
     context(@"UnitTest For Build Views", ^{
         it(@"User Info Speciality Not Nil", ^{
-            [controller viewDidLoad];
+            [controller buildViews];
             [[controller.view shouldNot] beNil];
         });
     });

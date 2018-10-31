@@ -41,7 +41,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self createNav];
     backTask(^() {
-        self.articleInfo = [Proto queryForDetailPage:self.contentId];
+        self.articleInfo = [Proto queryForDetailPage:@"5bd912074192a80309fe23c1"];//5bd912074192a80309fe23c1
         foreTask(^() {
             
             

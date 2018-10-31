@@ -774,7 +774,7 @@
 
 //search API（CMS_001_11-A/CMS_001_12）
 + (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue {
-    HttpResult *r = [self post:@"content/findAllBySearch" dic:@{@"searchValue": serachValue} modular:@"cms"];
+    HttpResult *r = [self post3:@"content/findAllBySearch" dic:@{@"searchValue": serachValue} modular:@"cms"];
     
     NSMutableArray *resultArray = [NSMutableArray array];
     if (r.OK) {

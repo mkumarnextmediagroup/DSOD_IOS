@@ -59,12 +59,21 @@
     UILabel *countLab = [headerVi addLabel];
     countLab.font = [Fonts semiBold:12];
     [countLab textColorMain];
-    countLab.text = @"40,543 Reviews";
+    countLab.text = [NSString stringWithFormat:@"%@ Reviews",self.articleInfo.countOfComment?self.articleInfo.countOfComment:@"0"];
     [[[[countLab.layoutMaker leftParent:edge] topParent:20] sizeEq:200 h:20] install];
     
     XHStarRateView *star = [[XHStarRateView alloc] initWithFrame:CGRectMake(edge, 50, 92, 16)];
     star.isAnimation = YES;
-    star.currentScore = 4.5;
+    
+
+    //server return  "OptionalDouble[1.5769230769230769]"
+    NSString *avgCommentRatingString = self.articleInfo.avgCommentRating;
+    avgCommentRatingString = [avgCommentRatingString stringByReplacingOccurrencesOfString:@"OptionalDouble["withString:@""];
+    avgCommentRatingString = [avgCommentRatingString stringByReplacingOccurrencesOfString:@"]"withString:@""];
+    avgCommentRatingString = [NSString stringWithFormat:@"%0.1f", [avgCommentRatingString floatValue]];
+
+
+    star.currentScore = [avgCommentRatingString floatValue];
     star.userInteractionEnabled = NO;
     star.rateStyle = HalfStar;
     [headerVi addSubview:star];
@@ -72,7 +81,7 @@
     UILabel *starLab = [headerVi addLabel];
     starLab.font = [Fonts semiBold:12];
     [starLab textColorMain];
-    starLab.text = @"4.5";
+    starLab.text = avgCommentRatingString;
     [[[[starLab.layoutMaker toRightOf:star offset:10] topParent:47] sizeEq:100 h:20] install];
     
     UIButton *btn = [headerVi addButton];

@@ -14,6 +14,7 @@
 }
 @property (nonatomic,strong) UIView *emtyView;
 @property (nonatomic,strong) NSArray<IdName *> *categoryArray;
+@property (nonatomic,strong) UIActivityIndicatorView *iv;
 @end
 
 @implementation ListPage {
@@ -36,6 +37,16 @@
 	_table.delegate = self;
 	_table.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self setTableViewFrame];
+    UINavigationItem *item = [self navigationItem];
+    if (self.iv == nil) {
+        self.iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        self.iv.tag = 998;
+        self.iv.backgroundColor = [UIColor clearColor];
+        self.iv.center = item.rightBarButtonItem.customView.center;
+    }
+    item.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:self.iv];
+    self.iv.hidden=YES;
+    
     
 
 }
@@ -79,35 +90,13 @@
 }
 
 - (void)showIndicator {
-    UIActivityIndicatorView *iv = nil;
-    for (UIView *a in self.view.subviews) {
-        if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 998) {
-            iv = (UIActivityIndicatorView *) a;
-            break;
-        }
-    }
-    if (iv == nil) {
-        iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        iv.tag = 998;
-        [self.view addSubview:iv];
-        iv.backgroundColor = [UIColor clearColor];
-        iv.hidesWhenStopped = YES;
-        iv.center = self.view.center;
-    }
-    [self.view bringSubviewToFront:iv];
-    iv.hidden = NO;
-    [iv startAnimating];
+    self.iv.hidden = NO;
+    [self.iv startAnimating];
 }
 
 - (void)hideIndicator {
-    UIActivityIndicatorView *iv = nil;
-    for (UIView *a in self.view.subviews) {
-        if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 998) {
-            iv = (UIActivityIndicatorView *) a;
-            [iv stopAnimating];
-            return;
-        }
-    }
+    self.iv.hidden = YES;
+    [self.iv stopAnimating];
 }
 
 - (NSArray *)items {

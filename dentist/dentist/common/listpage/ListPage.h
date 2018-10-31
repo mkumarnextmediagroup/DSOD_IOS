@@ -42,4 +42,6 @@ typedef void (^EmptyFilterViewActionBlock) (NSString *result,NSString *resultnam
 -(void)addEmptyFilterViewWithImageName:(NSString*)imageName title:(NSString*)title filterAction:(EmptyFilterViewActionBlock)filterActionBlock;
 
 -(void)refreshData;
+- (void)showIndicator;
+- (void)hideIndicator;
 @end

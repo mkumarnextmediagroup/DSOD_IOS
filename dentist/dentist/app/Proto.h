@@ -8,6 +8,7 @@
 #import "UserInfo.h"
 #import "CMSModel.h"
 #import "DetailModel.h"
+#import "DiscussInfo.h"
 
 @class HttpResult;
 @class IdName;
@@ -73,7 +74,7 @@
 + (DetailModel *)queryForDetailPage:(NSString *)contentId;
 
 //get search result
-+ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue;
++ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue pageNumber:(NSInteger)pageNumber;
 
 //MARK:查询媒体列表（CMS_001_01\CMS_001_10）
 /**
@@ -102,7 +103,16 @@
  @return 返回CMSModel的实体数组
  **/
 //MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
-+ (NSArray<CMSModel *> *)queryAllContentsByContentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber;
++ (NSArray<CMSModel *> *)queryAllContentsByContentType:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
+
+//MARK:根据赞助商跟内容分类查询媒体列表（CMS_001_01\CMS_001_10）
+/**
+  @param sponsorId 赞助商ID 是否必须:N
+ @param contentTypeId 文章类型ID 是否必须:N
+ @param pageNumber 分页数 是否必须:Y
+ @return 返回CMSModel的实体数组
+ **/
++ (NSArray<CMSModel *> *)queryAllContentsBySponsorAndContentType:(NSString *_Nullable)sponsorId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
 
 //MARK:查询媒体详情（CMS_002_01/CMS_002_02）
 /**
@@ -122,16 +132,16 @@
  @param contentId 所评论文章ID 是否必须:Y
  @param commentText 评论内容 是否必须:Y
  @param commentRating 评论评分 是否必须:Y
- @return yes/no
+ @return HttpResult
  **/
-+(BOOL)addComment:(NSString *_Nullable)email contentId:(NSString * _Nullable)contentId commentText:(NSString *_Nullable)commentText commentRating:(NSString *_Nullable)commentRating;
++(HttpResult*)addComment:(NSString *_Nullable)email contentId:(NSString * _Nullable)contentId commentText:(NSString *_Nullable)commentText commentRating:(NSString *_Nullable)commentRating;
 
 //MARK:查询整个文章的评论（CMS_003_04）
 /**
  @param contentId ID 是否必须:Y
- @return 返回CMSModelComment的实体数组
+ @return 返回DiscussInfo的实体数组
  **/
-+ (NSArray<CMSModelComment *> *)queryAllCommentByConent:(NSString *_Nullable)contentId;
++ (NSArray<DiscussInfo *> *)queryAllCommentByConent:(NSString *_Nullable)contentId;
 
 //MARK:查询收藏列表
 /**
@@ -225,5 +235,8 @@
 
 //MARK:删除download
 +(BOOL)deleteDownload:(NSInteger)articleid;
+
+//MARK:查询杂志列表集合
++(NSArray*)findAllMagazines:(NSInteger)skip;
 
 @end

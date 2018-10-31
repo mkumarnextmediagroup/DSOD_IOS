@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Article.h"
 
-
+@class CMSModel;
 @protocol GSKItemViewViewDelegate <NSObject>
 
 @optional
@@ -22,7 +22,9 @@
 @property (strong, nonatomic) UIButton *moreButton;
 @property (nonatomic,weak) id<GSKItemViewViewDelegate>delegate;
 @property (strong, nonatomic) Article *model;
+@property (strong, nonatomic) CMSModel *cmsmodel;
 
 -(void) bind:(Article*)item ;
+-(void) bindCMS:(CMSModel*)item;
 
 @end

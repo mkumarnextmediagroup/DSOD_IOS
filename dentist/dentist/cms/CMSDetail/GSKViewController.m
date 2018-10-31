@@ -22,6 +22,8 @@
 #import "DenActionSheet.h"
 #import <Social/Social.h>
 #import "DentistTabView.h"
+#import "CMSModel.h"
+#import "IdName.h"
 
 @interface GSKViewController ()<UIScrollViewDelegate,GSKItemViewViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 {
@@ -34,6 +36,9 @@
     NSString *category;
     NSString *type;
     DentistTabView *tabView;
+    NSMutableArray<IdName *> *segItemsModel;
+    NSInteger pagenumber;
+    NSString *contentTypeId;
 }
 @end
 
@@ -68,9 +73,34 @@
     self.table.rowHeight = UITableViewAutomaticDimension;
     self.table.estimatedRowHeight = 150;
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    category=@"LATEST";
-    self.items = [Proto getArticleListByAuthor:_author category:category type:type];
+    self.isRefresh=YES;
+//    category=@"LATEST";
+//    self.items = [Proto getArticleListByAuthor:_author category:category type:type];
     
+}
+
+//MARK:刷新数据
+-(void)refreshData
+{
+    pagenumber=1;
+    category=@"LATEST";
+    contentTypeId=nil;
+    self.table.tableHeaderView = [self makeHeaderView];
+    [self showIndicator];
+    backTask(^() {
+        segItemsModel  = [Proto queryContentTypes];
+        IdName *latestmodel=[IdName new];
+        latestmodel.id=@"0";
+        latestmodel.name=@"LATEST";
+        [segItemsModel insertObject:latestmodel atIndex:0];
+        NSArray<CMSModel *> *array  = [Proto queryAllContentsBySponsorAndContentType:_sponsorId contentTypeId:contentTypeId pageNumber:pagenumber];
+        foreTask(^() {
+            [self hideIndicator];
+            tabView.modelArr=segItemsModel;
+            self.items=array;
+        });
+    });
+    //    self.items=[Proto getArticleListByCategory:category type:contenttype];
 }
 
 - (void)onBack:(UIButton *)btn {
@@ -88,7 +118,8 @@
     tabView.delegate=self;
     [headerview addSubview:tabView];
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
-    tabView.titleArr=segItems;
+//    tabView.titleArr=segItems;
+    tabView.modelArr=segItemsModel;
     return headerview;
 }
 
@@ -113,7 +144,8 @@
     tabView.delegate=self;
     [panel addSubview:tabView];
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
-    tabView.titleArr=segItems;
+//    tabView.titleArr=segItems;
+    tabView.modelArr=segItemsModel;
     
     return panel;
 }
@@ -152,7 +184,7 @@
     NSString *title = segItems[n];
     Log(@(n ), title);
     category=title;
-    self.items = [Proto getArticleListByAuthor:_author category:category type:type];
+//    self.items = [Proto getArticleListByAuthor:_author category:category type:type];
     UIScrollView *segscrollView=(UIScrollView *)segView.superview;
     [segscrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     //
@@ -186,10 +218,15 @@
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
-    Article *art = (id) item;
+//    Article *art = (id) item;
+//    GSKItemView *itemView = (GSKItemView *) view;
+//    itemView.delegate=self;
+//    [itemView bind:art];
+    
+    CMSModel *model = (id) item;
     GSKItemView *itemView = (GSKItemView *) view;
     itemView.delegate=self;
-    [itemView bind:art];
+    [itemView bindCMS:model];
 }
 
 - (void)onClickItem:(NSObject *)item {
@@ -207,13 +244,26 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    //    NSLog(@"offfsize=%@",NSStringFromCGPoint(scrollView.contentOffset));
-    CGFloat height=scrollView.contentSize.height>self.table.frame.size.height?self.table.frame.size.height:scrollView.contentSize.height;
-    if((-scrollView.contentOffset.y/self.table.frame.size.height)>0.2){
-        self.table.tableHeaderView = [self makeHeaderView];
-        segView.selectedSegmentIndex=0;
-        category=@"LATEST";
-        self.items = [Proto getArticleListByAuthor:_author category:category type:nil];
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
+    if (bottomOffset <= height-50)
+    {
+        //在最底部
+        [self showIndicator];
+        backTask(^() {
+            NSInteger newpage=pagenumber+1;
+            NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+            NSArray<CMSModel *> *array  = [Proto queryAllContentsBySponsorAndContentType:_sponsorId contentTypeId:contentTypeId pageNumber:newpage];
+            if(array && array.count>0){
+                [newarray addObjectsFromArray:array];
+                pagenumber=newpage;
+            }
+            foreTask(^() {
+                [self hideIndicator];
+                self.items=[newarray copy];
+            });
+        });
     }
 }
 
@@ -287,20 +337,30 @@
 
 -(void)GSKCategoryPickerSelectAction:(NSString *)result
 {
-    type=result;
-    self.items = [Proto getArticleListByAuthor:_author category:category type:type];
+//    type=result;
+//    self.items = [Proto getArticleListByAuthor:_author category:category type:type];
 }
 #pragma mark -------DentistTabViewDelegate
 -(void)didDentistSelectItemAtIndex:(NSInteger)index
 {
-    if (segItems.count>index) {
-        category = segItems[index];
-        
-        
-        Log(@(index ), category);
-        self.items=[Proto getArticleListByCategory:category type:type];
+    pagenumber=1;
+    if (segItemsModel.count>index) {
+        IdName *model=segItemsModel[index];
+        Log(model.id, model.name);
+        [self showIndicator];
+        backTask(^() {
+            if ([model.id isEqualToString:@"0"]) {
+                contentTypeId=nil;
+            }else{
+                contentTypeId=model.id;
+            }
+            NSArray<CMSModel *> *array  = [Proto queryAllContentsBySponsorAndContentType:_sponsorId contentTypeId:contentTypeId pageNumber:pagenumber];
+            foreTask(^() {
+                [self hideIndicator];
+                self.items=array;
+            });
+        });
     }
-    
 }
 
 @end

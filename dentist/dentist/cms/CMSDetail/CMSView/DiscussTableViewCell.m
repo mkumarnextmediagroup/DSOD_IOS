@@ -37,7 +37,6 @@
         
         _star = [[XHStarRateView alloc] initWithFrame:CGRectMake(180, 15, 92, 16)];
         _star.isAnimation = YES;
-        _star.currentScore = 4;
         _star.userInteractionEnabled = NO;
         _star.rateStyle = WholeStar;
         [self addSubview:_star];
@@ -61,15 +60,19 @@
 
 
 - (void)setDisInfo:(DiscussInfo *)disInfo
-{
-    [headerImg loadUrl:disInfo.disImg placeholderImage:@"user_img"];
+{    
+    if(disInfo.disImg){
+        [headerImg loadUrl:disInfo.disImg placeholderImage:@"user_img"];
+    }
     finLabel.text = disInfo.name;
     CGSize size = [finLabel sizeThatFits:CGSizeMake(1000, 20)];
     [[finLabel.layoutUpdate sizeEq:size.width h:20] install];
     _star.frame = CGRectMake(size.width + 85, edge+2, 90, 16);
-    reviewLabel.text = disInfo.disDate;
+    _star.currentScore = [disInfo.starCount floatValue];
+    reviewLabel.text = [NSString timeWithTimeIntervalString:disInfo.disDate];
     conLabel.text = disInfo.content;
 }
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -77,7 +80,7 @@
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+    [super setSelected:NO animated:animated];
 
     // Configure the view for the selected state
 }

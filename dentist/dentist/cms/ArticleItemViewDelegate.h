@@ -15,7 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(NSString *)categoryName;
 - (void)ArticleMoreAction:(NSInteger)articleid;
 - (void)ArticleMarkAction:(NSInteger)articleid;
+- (void)ArticleMoreActionModel:(CMSModel*)model;
 - (void)ArticleMarkActionModel:(CMSModel*)model;
+- (void)ArticleGSKActionModel:(CMSModel*)model;
 @end
 
 NS_ASSUME_NONNULL_END

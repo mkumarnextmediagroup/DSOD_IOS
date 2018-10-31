@@ -78,6 +78,7 @@
         [gskBtn.titleLabel setFont:[Fonts regular:12]];
         gskBtn.titleLabel.textColor = [UIColor whiteColor];
         gskBtn.backgroundColor = rgb255(111, 201, 211);
+        [gskBtn addTarget:self action:@selector(gskAction:) forControlEvents:UIControlEventTouchUpInside];
         [[[[[gskBtn.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:62] install];
         
         contentLabel = [self addLabel];
@@ -265,6 +266,13 @@
     }
     
     
+}
+
+-(void)gskAction:(UIButton *)sender
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleGSKActionModel:)]){
+        [self.delegate ArticleGSKActionModel:_cmsmodel];
+    }
 }
 
 -(void)showFilter

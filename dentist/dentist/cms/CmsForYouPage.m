@@ -25,6 +25,7 @@
 #import "IdName.h"
 #import "ArticleGSkItemView.h"
 #import "CmsArticleCategoryPage.h"
+#import "GSKViewController.h"
 
 @interface CmsForYouPage()<ArticleItemViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 @end
@@ -434,6 +435,13 @@
             });
         });
     }
+}
+
+-(void)ArticleGSKActionModel:(CMSModel *)model
+{
+    GSKViewController *gskVC = [GSKViewController new];
+    gskVC.sponsorId=model.sponsorId;
+    [self.navigationController pushViewController:gskVC animated:YES];
 }
 
 //-(void)ArticleMarkAction:(NSInteger)articleid

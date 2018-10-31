@@ -48,7 +48,7 @@
     [dateLabel textAlignRight];
     dateLabel.font = [Fonts regular:12];
     [dateLabel textColorAlternate];
-    [[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:topheight] widthEq:74] install];
+    [[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:topheight] widthEq:80] install];
     
 //    UILabel *lineLabel = [topView lineLabel];//
 //    lineLabel.backgroundColor = Colors.cellLineColor;
@@ -88,6 +88,27 @@
     dateLabel.text = item.publishDate;
     titleLabel.text = item.title;
     [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
+    imageView.contentMode=UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds=YES;
+    
+    if (item.isBookmark) {
+        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+    }else{
+        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    }
+}
+
+-(void) bindCMS:(CMSModel*)item
+{
+    _cmsmodel=item;
+    typeLabel.text = [_cmsmodel.categoryName uppercaseString];
+    dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];
+    titleLabel.text = _cmsmodel.title;
+    NSString *urlstr;
+    if (_cmsmodel.featuredMediaId) {
+        urlstr=[Proto getFileUrlByObjectId:_cmsmodel.featuredMediaId];
+    }
+    [imageView loadUrl:urlstr placeholderImage:@"art-img"];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
     

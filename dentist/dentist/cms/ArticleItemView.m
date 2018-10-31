@@ -256,25 +256,6 @@
     if(self.delegate && [self.delegate respondsToSelector:@selector(CategoryPickerSelectAction:categoryName:)]){
         [self.delegate CategoryPickerSelectAction:_cmsmodel.categoryId categoryName:_cmsmodel.categoryName];
     }
-//    DentistPickerView *picker = [[DentistPickerView alloc]init];
-//
-//    picker.leftTitle=localStr(@"Category");
-//    picker.righTtitle=localStr(@"Cancel");
-//    [picker show:^(NSString *result,NSString *resultname) {
-//
-//    } rightAction:^(NSString *result,NSString *resultname) {
-//
-//    } selectAction:^(NSString *result,NSString *resultname) {
-//        if(self.delegate && [self.delegate respondsToSelector:@selector(CategoryPickerSelectAction:)]){
-//            [self.delegate CategoryPickerSelectAction:result];
-//        }
-//    }];
-//    backTask(^() {
-//        NSArray<IdName *> *array = [Proto queryCategoryTypes];
-//        foreTask(^() {
-//            picker.arrayDic=array;
-//        });
-//    });
 }
 
 

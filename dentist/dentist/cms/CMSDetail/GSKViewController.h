@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GSKViewController : ListPage
 @property (nonatomic,strong) NSString *author;
+@property (nonatomic,strong) NSString *sponsorId;
 @end
 
 NS_ASSUME_NONNULL_END

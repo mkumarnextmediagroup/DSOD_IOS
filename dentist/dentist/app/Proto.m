@@ -811,7 +811,7 @@
         [paradic setObject:categoryId forKey:@"categoryId"];
     }
     if (sponserId) {
-        [paradic setObject:sponserId forKey:@"sponserId"];
+        [paradic setObject:sponserId forKey:@"sponsorId"];
     }
     if (authorId) {
         [paradic setObject:email forKey:@"authorId"];
@@ -840,6 +840,12 @@
 + (NSArray<CMSModel *> *)queryAllContentsByContentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
 {
     return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil pageNumber:pageNumber authorId:nil];
+}
+
+//MARK:根据赞助商跟内容分类查询媒体列表（CMS_001_01\CMS_001_10）
++ (NSArray<CMSModel *> *)queryAllContentsBySponsorAndContentType:(NSString *)sponsorId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
+{
+    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:sponsorId pageNumber:pageNumber authorId:nil];
 }
 
 //MARK:查询媒体详情（CMS_002_01/CMS_002_02）

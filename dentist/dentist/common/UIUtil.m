@@ -5,6 +5,7 @@
 
 #import "UIUtil.h"
 
+
 NSString *localStr(NSString *name) {
 	return NSLocalizedString(name, nil);
 }

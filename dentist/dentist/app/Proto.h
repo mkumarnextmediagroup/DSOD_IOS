@@ -74,7 +74,7 @@
 + (DetailModel *)queryForDetailPage:(NSString *)contentId;
 
 //get search result
-+ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue;
++ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue pageNumber:(NSInteger)pageNumber;
 
 //MARK:查询媒体列表（CMS_001_01\CMS_001_10）
 /**

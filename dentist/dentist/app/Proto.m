@@ -774,8 +774,20 @@
 
 
 //search API（CMS_001_11-A/CMS_001_12）
-+ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue {
-    HttpResult *r = [self post3:@"content/findAllBySearch" dic:@{@"searchValue": serachValue} modular:@"cms"];
++ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue pageNumber:(NSInteger)pageNumber{
+    
+    NSInteger skip=0;
+    NSInteger limit=10;//分页数默认20条
+    if(pageNumber>=1)
+    {
+        skip=(pageNumber-1)*limit;
+    }
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [paradic setObject:serachValue forKey:@"searchValue"];
+    
+    HttpResult *r = [self post3:@"content/findAllBySearch" dic:paradic modular:@"cms"];
     
     NSMutableArray *resultArray = [NSMutableArray array];
     if (r.OK) {

@@ -267,6 +267,12 @@ static char argObjectAttr = 0;
 
 - (WKWebView *)addWebview{
     WKWebView *webv = [WKWebView new];
+    WKWebViewConfiguration *config = [WKWebViewConfiguration new];
+    config.preferences = [WKPreferences new];
+    config.preferences.minimumFontSize = 10;
+    config.preferences.javaScriptEnabled = YES;
+    config.preferences.javaScriptCanOpenWindowsAutomatically = NO;
+    webv.scrollView.scrollEnabled = NO;
     [self addSubview:webv];
     return webv;
 }

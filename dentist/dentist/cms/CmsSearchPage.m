@@ -14,6 +14,7 @@
 @interface CmsSearchPage()<UISearchBarDelegate,MyActionSheetDelegate,ArticleItemViewDelegate>
 {
     NSInteger selectIndex;
+    NSInteger pagenumber;
     BOOL issearch;
     NSString *searchKeywords;
 }
@@ -35,6 +36,8 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    
+    pagenumber = 1;
     
 	UINavigationItem *item = [self navigationItem];
     item.leftBarButtonItem=nil;//hidden left menu
@@ -218,6 +221,17 @@
 //    self.items=[Proto getArticleListByKeywords:searchKeywords type:nil];
     self.items=[Proto querySearchResults:searchKeywords];
 //    NSLog(@"%@",self.items);
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
+    if (bottomOffset <= height-50)
+    {
+        NSLog(@"scroll to the end");
+    }
 }
 
 -(void)cancelBtnClick:(UIButton *)sender

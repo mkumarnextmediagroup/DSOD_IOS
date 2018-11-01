@@ -197,7 +197,7 @@
             backTask(^() {
                 NSInteger newpage=self->pagenumber+1;
                 NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-                NSArray<BookmarkModel*> *array  = [[Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber] mutableCopy];
+                NSArray<BookmarkModel*> *array  = [[Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:newpage] mutableCopy];
                 if(array && array.count>0){
                     [newarray addObjectsFromArray:array];
                     self->pagenumber=newpage;

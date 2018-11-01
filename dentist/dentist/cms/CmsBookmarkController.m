@@ -13,10 +13,12 @@
 
 @interface CmsBookmarkController()<BookMarkItemViewDelegate>
 {
-    NSString *categorytext;
-    NSString *typetext;
+    NSString *categoryId;
+    NSString *contentTypeId;
     CGFloat rowheight;
     NSMutableArray *resultArray;
+    UIView *nullFilterView;
+    NSInteger pagenumber;
 }
 @end
 
@@ -32,8 +34,6 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    categorytext=nil;
-    typetext=nil;
     if(self.items.count==0){
         [self refreshData];
     }
@@ -55,14 +55,34 @@
 
 -(void)refreshData
 {
+    pagenumber=1;
     [self showIndicator];
     backTask(^() {
-        self->resultArray  = [[Proto queryBookmarksByEmail:getLastAccount()] mutableCopy];
+        self->resultArray  = [[Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber] mutableCopy];
         foreTask(^() {
              [self hideIndicator];
-            self.items=[self->resultArray copy];
+             self.items=[self->resultArray copy];
+            [self updateFilterView];
         });
     });
+}
+-(void)updateFilterView
+{
+    if (!nullFilterView) {
+        CGFloat _topBarH = 0;
+        if (self.navigationController != nil) {
+            _topBarH = NAVHEIGHT;
+        }
+        nullFilterView=[self makeHeaderView];
+        nullFilterView.frame=makeRect(0, _topBarH, SCREENWIDTH, 32);
+        [self.view addSubview:nullFilterView];
+        nullFilterView.hidden=YES;
+    }
+    if (self.items.count==0 && (self->categoryId || self->contentTypeId) ) {
+        nullFilterView.hidden=NO;
+    }else{
+        nullFilterView.hidden=YES;
+    }
 }
 
 - (UIView *)makeHeaderView {
@@ -149,10 +169,48 @@
     [filterview show:^(NSString *category, NSString *type) {
         
     } select:^(NSString *category, NSString *type) {
-        categorytext=category;
-        typetext=type;
-//        self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
+        self->categoryId =category;
+        self->contentTypeId=type;
+        [self showIndicator];
+        backTask(^() {
+            self->resultArray  = [[Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber] mutableCopy];
+            foreTask(^() {
+                [self hideIndicator];
+                self.items=[self->resultArray copy];
+                [self updateFilterView];
+            });
+        });
     }];
+}
+
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
+    if (bottomOffset <= height-50)
+    {
+        if (pagenumber>=1) {
+            //在最底部
+            [self showIndicator];
+            backTask(^() {
+                NSInteger newpage=self->pagenumber+1;
+                NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+                NSArray<BookmarkModel*> *array  = [[Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber] mutableCopy];
+                if(array && array.count>0){
+                    [newarray addObjectsFromArray:array];
+                    self->pagenumber=newpage;
+                }
+                foreTask(^() {
+                    [self hideIndicator];
+                    self.items=[newarray copy];
+                    [self updateFilterView];
+                });
+            });
+        }
+        
+    }
 }
 
 @end

@@ -17,6 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*title;
 @property NSString <Optional>*postId;
 @property NSString <Optional>*create_time;
+@property NSString <Optional>*categoryId;
+@property NSString <Optional>*categoryName;
+@property NSString <Optional>*contentTypeId;
+@property NSString <Optional>*contentTypeName;
 @end
 
 NS_ASSUME_NONNULL_END

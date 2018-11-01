@@ -119,6 +119,15 @@
     }
 }
 
+-(void) updateBookmarkStatus:(BOOL)ismark
+{
+    if (ismark) {
+        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+    }else{
+        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    }
+}
+
 -(void)moreAction:(UIButton *)sender
 {
     if(self.delegate && [self.delegate respondsToSelector:@selector(articleMoreAction:)]){
@@ -128,15 +137,17 @@
 
 -(void)markAction:(UIButton *)sender
 {
-    if (_model.isBookmark) {
-        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-    }else{
-        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
-    }
+//    if (_model.isBookmark) {
+//        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+//    }else{
+//        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+//    }
     if(self.delegate && [self.delegate respondsToSelector:@selector(articleMarkAction:)]){
         [self.delegate articleMarkAction:_model.id];
     }
-    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(articleMarkActionView:view:)]){
+        [self.delegate articleMarkActionView:_cmsmodel view:self];
+    }
     
 }
 

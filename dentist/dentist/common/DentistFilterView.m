@@ -213,14 +213,14 @@
             textField.text=resultname;
             self.categorytext=result;
         }];
-        backTask(^() {
+        [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
             if (!self.categoryArray) {
-                self.categoryArray = [Proto queryCategoryTypes];
+                self.categoryArray = array;
             }
             foreTask(^() {
                 picker.arrayDic=self.categoryArray;
             });
-        });
+        }];
         
     }else{
         DentistPickerView *picker = [[DentistPickerView alloc]init];
@@ -235,14 +235,14 @@
             textField.text=resultname;
             self.typetext=result;
         }];
-        backTask(^() {
+        [Proto queryContentTypes:^(NSArray<IdName *> *array) {
             if (!self.contentArray) {
-                self.contentArray = [Proto queryContentTypes];
+                self.contentArray = array;
             }
             foreTask(^() {
                 picker.arrayDic=self.contentArray;
             });
-        });
+        }];
     }
     return NO;
 }

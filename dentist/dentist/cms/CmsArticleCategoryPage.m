@@ -165,14 +165,12 @@
 {
     pagenumber=1;
     [self showIndicator];
-    backTask(^() {
-        NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:_categoryId pageNumber:pagenumber];
+    [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
         foreTask(^() {
             [self hideIndicator];
             self.items=array;
         });
-    });
-    //    self.items=[Proto getArticleListByCategory:category type:contenttype];
+    }];
 }
 
 
@@ -190,8 +188,7 @@
     CMSModel *model = (id) item;
     if(model.isBookmark){
         //删除
-        backTask(^() {
-            BOOL result=[Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id];
+        [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
@@ -211,11 +208,10 @@
                 }]];
                 [self presentViewController:alertController animated:YES completion:nil];
             });
-        });
+        }];
     }else{
         //添加
-        backTask(^() {
-            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId];
+        [Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
@@ -235,7 +231,7 @@
                 }]];
                 [self presentViewController:alertController animated:YES completion:nil];
             });
-        });
+        }];
     }
     
     
@@ -271,7 +267,7 @@
     }
 }
 
--(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName
+-(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(NSString *)categoryName
 {
     DentistPickerView *picker = [[DentistPickerView alloc]init];
     
@@ -282,24 +278,22 @@
     } rightAction:^(NSString *result,NSString *resultname) {
         
     } selectAction:^(NSString *result,NSString *resultname) {
-        _categoryId=result;
-        titlecontent=categoryName;
-        pagenumber=1;
+        self.categoryId=result;
+        self->titlecontent.text=categoryName;
+        self->pagenumber=1;
         [self showIndicator];
-        backTask(^() {
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:_categoryId pageNumber:pagenumber];
+        [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
                 self.items=array;
             });
-        });
+        }];
     }];
-    backTask(^() {
-        NSArray<IdName *> *array = [Proto queryCategoryTypes];
+    [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
         foreTask(^() {
             picker.arrayDic=array;
         });
-    });
+    }];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -311,19 +305,19 @@
     {
         //在最底部
         [self showIndicator];
-        backTask(^() {
-            NSInteger newpage=pagenumber+1;
-            NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:_categoryId pageNumber:newpage];
-            if(array && array.count>0){
-                [newarray addObjectsFromArray:array];
-                pagenumber=newpage;
-            }
+        [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
-                self.items=[newarray copy];
+                if(array && array.count>0){
+                    NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+                    [newarray addObjectsFromArray:array];
+                    self->pagenumber++;
+                    self.items=[newarray copy];
+                }
             });
-        });
+            
+            
+        }];
     }
 }
 

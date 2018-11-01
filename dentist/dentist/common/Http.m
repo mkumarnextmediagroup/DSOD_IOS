@@ -182,6 +182,11 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	[self requestAsync:POST_RAW callback:callback];
 }
 
+- (void)postRawAsync:(NSData *)data callback:(HttpCallback)callback {
+    rawData = data;
+    [self requestAsync:POST_RAW callback:callback];
+}
+
 - (void)multipartAsync:(HttpCallback)callback {
 	[self requestAsync:POST_MULTIPART callback:callback];
 }
@@ -324,7 +329,9 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 		r.response = (NSHTTPURLResponse *) resp;
 		r.error = err;
 		[r dump];
-		callback(r);
+        if (callback) {
+            callback(r);
+        }
 	}];
 	[task resume];
 	[self watchSend:task];

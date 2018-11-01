@@ -9,11 +9,13 @@
 #import "CMSModel.h"
 #import "DetailModel.h"
 #import "DiscussInfo.h"
+#import "BookmarkModel.h"
 
 @class HttpResult;
 @class IdName;
 @class StateCity;
 @class Article;
+@class BookmarkModel;
 
 @interface Proto : NSObject
 
@@ -87,6 +89,7 @@
  @return 返回CMSModel的实体数组
  **/
 + (NSArray<CMSModel *> *_Nullable)queryAllContents:(NSString *_Nullable)email contentTypeId:(NSString *_Nullable)contentTypeId categoryId:(NSString *_Nullable)categoryId sponserId:(NSString *_Nullable)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *_Nullable)authorId;
++ (void)queryAllContents:(NSString *_Nullable)email contentTypeId:(NSString *_Nullable)contentTypeId categoryId:(NSString *_Nullable)categoryId sponserId:(NSString *_Nullable)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *_Nullable)authorId completed:(void(^)(NSArray<CMSModel *> *array))completed;
 
 //MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
 /**
@@ -95,6 +98,7 @@
  @return 返回CMSModel的实体数组
  **/
 + (NSArray<CMSModel *> *_Nullable)queryAllContentsByCategoryType:(NSString *_Nullable)categoryTypeId pageNumber:(NSInteger)pageNumber;
++ (void)queryAllContentsByCategoryType:(NSString *_Nullable)categoryTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed;
 
 //MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
 /**
@@ -102,8 +106,8 @@
  @param pageNumber 分页数 是否必须:Y
  @return 返回CMSModel的实体数组
  **/
-//MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
-+ (NSArray<CMSModel *> *)queryAllContentsByContentType:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
++ (NSArray<CMSModel *> *_Nullable)queryAllContentsByContentType:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
++ (void)queryAllContentsByContentType:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed;
 
 //MARK:根据赞助商跟内容分类查询媒体列表（CMS_001_01\CMS_001_10）
 /**
@@ -112,19 +116,22 @@
  @param pageNumber 分页数 是否必须:Y
  @return 返回CMSModel的实体数组
  **/
-+ (NSArray<CMSModel *> *)queryAllContentsBySponsorAndContentType:(NSString *_Nullable)sponsorId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
++ (NSArray<CMSModel *> *_Nullable)queryAllContentsBySponsorAndContentType:(NSString *_Nullable)sponsorId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
++ (void)queryAllContentsBySponsorAndContentType:(NSString *_Nullable)sponsorId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed;
 
 //MARK:查询媒体详情（CMS_002_01/CMS_002_02）
 /**
  @param contentId ID 是否必须:Y
  @return 返回CMSModel的实体数组
  **/
-+ (NSArray<CMSModel *> *)queryOneContentsByConentId:(NSString *_Nullable)contentId;
++ (NSArray<CMSModel *> *_Nullable)queryOneContentsByConentId:(NSString *_Nullable)contentId;
 
 //MARK:查询Category（CMS_001_15
 + (NSArray<IdName *> *_Nullable)queryCategoryTypes;
++ (void)queryCategoryTypes:(void(^)(NSArray<IdName *> *array))completed;
 //MARK:查询Content Type（CMS_004_03）
 + (NSArray<IdName *> *_Nullable)queryContentTypes;
++ (void)queryContentTypes:(void(^)(NSArray<IdName *> *array))completed;
 
 //MARK:添加评论（CMS_002_06）
 /**
@@ -151,7 +158,8 @@
  @param pageNumber 分页数 是否必须:Y
  @return 返回CMSModelComment的实体数组
  **/
-+ (NSArray<CMSModel *> *)queryBookmarksByEmail:(NSString *_Nullable)email categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
++ (NSArray<BookmarkModel *> *)queryBookmarksByEmail:(NSString *_Nullable)email categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
++ (void)queryBookmarksByEmail:(NSString *_Nullable)email categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<BookmarkModel *> *array))completed;
 
 //MARK:删除收藏
 /**
@@ -159,6 +167,7 @@
  @return yes/no
  **/
 +(BOOL)deleteBookmark:(NSString *_Nullable)bookmarkid;
++(void)deleteBookmark:(NSString *)bookmarkid completed:(void(^)(BOOL result))completed;
 //MARK:删除收藏
 /**
  @param email 账号 是否必须:Y
@@ -166,6 +175,7 @@
  @return yes/no
  **/
 +(BOOL)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId;
++(void)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId completed:(void(^)(BOOL result))completed;
 
 //MARK:添加收藏
 /**
@@ -176,6 +186,7 @@
  @return yes/no
  **/
 +(BOOL)addBookmark:(NSString *_Nullable)email postId:(NSString *_Nullable)postId title:(NSString *_Nullable)title url:(NSString *_Nullable)url categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId;
++(void)addBookmark:(NSString *)email postId:(NSString *_Nullable)postId title:(NSString *_Nullable)title url:(NSString *_Nullable)url categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId completed:(void(^)(BOOL result))completed;
 
 //MARK:获取单个文件（ADMIN PORTAL Only）
 +(NSString *)getFileUrlByObjectId:(NSString *_Nullable)objectid;

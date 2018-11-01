@@ -148,7 +148,7 @@
     }else{
         //添加
         backTask(^() {
-            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:@"5bd294a51b1a4606ecaea631"];
+            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.id];
             foreTask(^() {
                 if (result) {
                     //

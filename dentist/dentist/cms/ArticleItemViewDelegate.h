@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)ArticleMoreActionModel:(CMSModel*)model;
 - (void)ArticleMarkActionModel:(CMSModel*)model;
 - (void)ArticleGSKActionModel:(CMSModel*)model;
+- (void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view;
 @end
 
 NS_ASSUME_NONNULL_END

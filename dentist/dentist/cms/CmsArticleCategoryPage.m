@@ -44,6 +44,7 @@
     NSInteger pagenumber;
     UILabel *titlecontent;
 }
+@property (nonatomic,strong) UIActivityIndicatorView *categoryiv;
 @end
 
 @implementation CmsArticleCategoryPage
@@ -82,8 +83,34 @@
     [dismissBtn addTarget:self action:@selector(onBack:) forControlEvents:UIControlEventTouchUpInside];
     [[[[dismissBtn.layoutMaker leftParent:0] topParent:24+NAVHEIGHT_OFFSET] sizeEq:60 h:40] install];
     
+    UIView *rightBtn = [topVi addView];
+//    rightBtn.backgroundColor=[UIColor redColor];
+    [[[[rightBtn.layoutMaker rightParent:0] topParent:24+NAVHEIGHT_OFFSET] sizeEq:40 h:40] install];
+    [topVi layoutIfNeeded];
+    if (self.categoryiv == nil) {
+        self.categoryiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        [rightBtn addSubview:self.categoryiv];
+        self.categoryiv.tag = 998;
+        self.categoryiv.backgroundColor = [UIColor clearColor];
+        self.categoryiv.center = rightBtn.center;
+        
+    }
+    [rightBtn bringSubviewToFront: self.categoryiv];
+    self.categoryiv.hidden=YES;
+    
     UILabel *line = [topVi lineLabel];
     [[[[line.layoutMaker topParent:NAVHEIGHT - 1] leftParent:0] sizeEq:SCREENWIDTH h:1] install];
+}
+
+- (void)showCmsIndicator {
+    [self.categoryiv stopAnimating];
+    self.categoryiv.hidden = NO;
+    [self.categoryiv startAnimating];
+}
+
+- (void)hideCmsIndicator {
+    self.categoryiv.hidden = YES;
+    [self.categoryiv stopAnimating];
 }
 
 - (void)onBack:(UIButton *)btn {
@@ -164,10 +191,10 @@
 -(void)refreshData
 {
     pagenumber=1;
-    [self showIndicator];
+    [self showCmsIndicator];
     [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
         foreTask(^() {
-            [self hideIndicator];
+            [self hideCmsIndicator];
             self.items=array;
         });
     }];
@@ -279,12 +306,14 @@
         
     } selectAction:^(NSString *result,NSString *resultname) {
         self.categoryId=result;
-        self->titlecontent.text=categoryName;
+        foreTask(^{
+            [self showCmsIndicator];
+            self->titlecontent.text=resultname;
+        });
         self->pagenumber=1;
-        [self showIndicator];
         [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
-                [self hideIndicator];
+                [self hideCmsIndicator];
                 self.items=array;
             });
         }];
@@ -304,10 +333,10 @@
     if (bottomOffset <= height-50)
     {
         //在最底部
-        [self showIndicator];
+        [self showCmsIndicator];
         [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
-                [self hideIndicator];
+                [self hideCmsIndicator];
                 if(array && array.count>0){
                     NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
                     [newarray addObjectsFromArray:array];

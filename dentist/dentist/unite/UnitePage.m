@@ -7,6 +7,7 @@
 #import "Common.h"
 #import "UnitePageCell.h"
 #import "Proto.h"
+#import "UniteDetailViewController.h"
 
 @interface UnitePage()<UITableViewDelegate,UITableViewDataSource>{
     UITableView *mTableView;
@@ -63,6 +64,15 @@
     
     self.navigationItem.rightBarButtonItems  = @[menuBtnItem,fixedSpaceBarButtonItem,ivItem];
     
+}
+
+- (void)enterTeamCard:(UIButton *)btn
+{
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    UniteDetailViewController *newVC = [[UniteDetailViewController alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+    
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 -(void)setupRefresh{

@@ -992,6 +992,20 @@
     return url;
 }
 
+#pragma mark Unite API
++ (DetailModel *)queryForUniteDetailInfo:(NSString *)contentId
+{
+    HttpResult *r = [self post:@"magazine/findOneById" dic:@{@"id": contentId} modular:@"cms"];
+    
+    if (r.OK) {
+        NSDictionary *dic = r.resultMap[@"data"];
+        DetailModel *detail = [[DetailModel alloc] initWithJson:jsonBuild(dic)];
+        detail.discussInfos = [self commentConvertDiscussInfo:detail.comment];
+        return detail;
+    }
+    return nil;
+}
+
 +(NSString *)baseDomain
 {
     NSInteger value = getServerDomain();

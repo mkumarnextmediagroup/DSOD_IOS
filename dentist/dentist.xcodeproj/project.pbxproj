@@ -196,6 +196,18 @@
 		74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D18A46C0F072296ED5347389 /* libPods-dentist.a */; };
 		A39EE50D21884E3F00F74745 /* ArticleGSkItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A39EE50C21884E3F00F74745 /* ArticleGSkItemView.m */; };
 		A39EE5102188578200F74745 /* CmsArticleCategoryPage.m in Sources */ = {isa = PBXBuildFile; fileRef = A39EE50F2188578200F74745 /* CmsArticleCategoryPage.m */; };
+		A3DF39822189A192006F84DC /* expanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39812189A192006F84DC /* expanding.swift */; };
+		A3DF399C2189A280006F84DC /* BasePageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */; };
+		A3DF399D2189A280006F84DC /* PageCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39892189A280006F84DC /* PageCollectionLayout.swift */; };
+		A3DF399E2189A280006F84DC /* PageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF398A2189A280006F84DC /* PageCollectionView.swift */; };
+		A3DF399F2189A280006F84DC /* ExpandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF398B2189A280006F84DC /* ExpandingViewController.swift */; };
+		A3DF39A02189A280006F84DC /* ExpandingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF398D2189A280006F84DC /* ExpandingTableViewController.swift */; };
+		A3DF39A12189A280006F84DC /* ScreenShotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39902189A280006F84DC /* ScreenShotHelper.swift */; };
+		A3DF39A22189A280006F84DC /* ConstraintsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39922189A280006F84DC /* ConstraintsHelper.swift */; };
+		A3DF39A32189A280006F84DC /* SubviewsForEach.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39942189A280006F84DC /* SubviewsForEach.swift */; };
+		A3DF39A42189A280006F84DC /* ConfigurationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39962189A280006F84DC /* ConfigurationHelper.swift */; };
+		A3DF39A52189A280006F84DC /* CornerAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39992189A280006F84DC /* CornerAnimatable.swift */; };
+		A3DF39A62189A280006F84DC /* TransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF399B2189A280006F84DC /* TransitionDriver.swift */; };
 		A3E752E5217E35010087713D /* Podcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D0217E34FF0087713D /* Podcast@2x.png */; };
 		A3E752E6217E35010087713D /* Article@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D1217E34FF0087713D /* Article@2x.png */; };
 		A3E752E7217E35010087713D /* Animation@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D2217E34FF0087713D /* Animation@3x.png */; };
@@ -919,6 +931,19 @@
 		A39EE50C21884E3F00F74745 /* ArticleGSkItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleGSkItemView.m; sourceTree = "<group>"; };
 		A39EE50E2188578200F74745 /* CmsArticleCategoryPage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CmsArticleCategoryPage.h; sourceTree = "<group>"; };
 		A39EE50F2188578200F74745 /* CmsArticleCategoryPage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsArticleCategoryPage.m; sourceTree = "<group>"; };
+		A3DF39802189A192006F84DC /* dentist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dentist-Bridging-Header.h"; sourceTree = "<group>"; };
+		A3DF39812189A192006F84DC /* expanding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = expanding.swift; sourceTree = "<group>"; };
+		A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageCollectionCell.swift; sourceTree = "<group>"; };
+		A3DF39892189A280006F84DC /* PageCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageCollectionLayout.swift; sourceTree = "<group>"; };
+		A3DF398A2189A280006F84DC /* PageCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageCollectionView.swift; sourceTree = "<group>"; };
+		A3DF398B2189A280006F84DC /* ExpandingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingViewController.swift; sourceTree = "<group>"; };
+		A3DF398D2189A280006F84DC /* ExpandingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingTableViewController.swift; sourceTree = "<group>"; };
+		A3DF39902189A280006F84DC /* ScreenShotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShotHelper.swift; sourceTree = "<group>"; };
+		A3DF39922189A280006F84DC /* ConstraintsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintsHelper.swift; sourceTree = "<group>"; };
+		A3DF39942189A280006F84DC /* SubviewsForEach.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubviewsForEach.swift; sourceTree = "<group>"; };
+		A3DF39962189A280006F84DC /* ConfigurationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationHelper.swift; sourceTree = "<group>"; };
+		A3DF39992189A280006F84DC /* CornerAnimatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerAnimatable.swift; sourceTree = "<group>"; };
+		A3DF399B2189A280006F84DC /* TransitionDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionDriver.swift; sourceTree = "<group>"; };
 		A3E752D0217E34FF0087713D /* Podcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Podcast@2x.png"; sourceTree = "<group>"; };
 		A3E752D1217E34FF0087713D /* Article@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Article@2x.png"; sourceTree = "<group>"; };
 		A3E752D2217E34FF0087713D /* Animation@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Animation@3x.png"; sourceTree = "<group>"; };
@@ -1477,6 +1502,7 @@
 		18B83ACA2173557C00130DB6 /* library */ = {
 			isa = PBXGroup;
 			children = (
+				A3DF39832189A280006F84DC /* expanding-collection */,
 				A99177082176E5EF00788D2C /* ClassProperty */,
 				A99177012176E4CD00788D2C /* AutoEncodeDecode */,
 				18B83ACB2173557C00130DB6 /* YBImageBrowser */,
@@ -1943,6 +1969,8 @@
 				C5EEA1D629EAF158031F3B00 /* careers */,
 				C5EEA3E90A6D12F92D7C893D /* events */,
 				C5EEAFC6F09CDD4CAB592FB5 /* unite */,
+				A3DF39812189A192006F84DC /* expanding.swift */,
+				A3DF39802189A192006F84DC /* dentist-Bridging-Header.h */,
 			);
 			path = dentist;
 			sourceTree = "<group>";
@@ -2354,6 +2382,128 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A3DF39832189A280006F84DC /* expanding-collection */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF39842189A280006F84DC /* ExpandingViewController */,
+				A3DF398C2189A280006F84DC /* ExpandingTableViewController */,
+				A3DF398E2189A280006F84DC /* Helpers */,
+				A3DF399A2189A280006F84DC /* TransitionDriver */,
+			);
+			path = "expanding-collection";
+			sourceTree = "<group>";
+		};
+		A3DF39842189A280006F84DC /* ExpandingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF39852189A280006F84DC /* CollectionView */,
+				A3DF398B2189A280006F84DC /* ExpandingViewController.swift */,
+			);
+			path = ExpandingViewController;
+			sourceTree = "<group>";
+		};
+		A3DF39852189A280006F84DC /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF39862189A280006F84DC /* Cells */,
+				A3DF39882189A280006F84DC /* Layout */,
+				A3DF398A2189A280006F84DC /* PageCollectionView.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		A3DF39862189A280006F84DC /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		A3DF39882189A280006F84DC /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF39892189A280006F84DC /* PageCollectionLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		A3DF398C2189A280006F84DC /* ExpandingTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF398D2189A280006F84DC /* ExpandingTableViewController.swift */,
+			);
+			path = ExpandingTableViewController;
+			sourceTree = "<group>";
+		};
+		A3DF398E2189A280006F84DC /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF398F2189A280006F84DC /* ScreenShot */,
+				A3DF39912189A280006F84DC /* Constraints Helpers */,
+				A3DF39932189A280006F84DC /* SubviewsForEach */,
+				A3DF39952189A280006F84DC /* ConfigurationHelper */,
+				A3DF39972189A280006F84DC /* Animations */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		A3DF398F2189A280006F84DC /* ScreenShot */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF39902189A280006F84DC /* ScreenShotHelper.swift */,
+			);
+			path = ScreenShot;
+			sourceTree = "<group>";
+		};
+		A3DF39912189A280006F84DC /* Constraints Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF39922189A280006F84DC /* ConstraintsHelper.swift */,
+			);
+			path = "Constraints Helpers";
+			sourceTree = "<group>";
+		};
+		A3DF39932189A280006F84DC /* SubviewsForEach */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF39942189A280006F84DC /* SubviewsForEach.swift */,
+			);
+			path = SubviewsForEach;
+			sourceTree = "<group>";
+		};
+		A3DF39952189A280006F84DC /* ConfigurationHelper */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF39962189A280006F84DC /* ConfigurationHelper.swift */,
+			);
+			path = ConfigurationHelper;
+			sourceTree = "<group>";
+		};
+		A3DF39972189A280006F84DC /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF39982189A280006F84DC /* CornerAnimatable */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		A3DF39982189A280006F84DC /* CornerAnimatable */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF39992189A280006F84DC /* CornerAnimatable.swift */,
+			);
+			path = CornerAnimatable;
+			sourceTree = "<group>";
+		};
+		A3DF399A2189A280006F84DC /* TransitionDriver */ = {
+			isa = PBXGroup;
+			children = (
+				A3DF399B2189A280006F84DC /* TransitionDriver.swift */,
+			);
+			path = TransitionDriver;
+			sourceTree = "<group>";
+		};
 		A99177012176E4CD00788D2C /* AutoEncodeDecode */ = {
 			isa = PBXGroup;
 			children = (
@@ -2762,6 +2912,7 @@
 					};
 					574B3A1D212338DF00C37095 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -3276,6 +3427,7 @@
 				4E1957422137D0F100420563 /* PermissionEmailFields.m in Sources */,
 				4E23522E213D12CB003BA59B /* UITextFieldCustom.m in Sources */,
 				4E17B3EA2176250800F75390 /* AddReviewViewController.m in Sources */,
+				A3DF39A02189A280006F84DC /* ExpandingTableViewController.swift in Sources */,
 				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,
 				C5EEA9E893F712BA5CC4938D /* TextSize.m in Sources */,
 				3E49F915214569D000F32146 /* EditExperiencePage.m in Sources */,
@@ -3305,6 +3457,7 @@
 				4E23522C213D12CB003BA59B /* UpdateViewController.m in Sources */,
 				4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */,
 				1866B0012179DFDA00970CAB /* TabCollectionViewCell.m in Sources */,
+				A3DF39A52189A280006F84DC /* CornerAnimatable.swift in Sources */,
 				4E5BA7FC21771B3000386598 /* PicDetailView.m in Sources */,
 				18B83B1A2173557D00130DB6 /* YBVideoBrowseCell.m in Sources */,
 				18B83B172173557D00130DB6 /* YBImageBrowseCell.m in Sources */,
@@ -3312,6 +3465,7 @@
 				C5EEA83B50B6C4A767E00729 /* UIControl+customed.m in Sources */,
 				4E1957442137D0F100420563 /* LinkedinSimpleKeychain.m in Sources */,
 				C5EEA9F6FFD32D08ABB00CE8 /* UIView+customed.m in Sources */,
+				A3DF39A22189A280006F84DC /* ConstraintsHelper.swift in Sources */,
 				4E0C115C2181C8D7007DC63D /* CommentModel.m in Sources */,
 				18B83B1E2173557D00130DB6 /* YBImageBrowser.m in Sources */,
 				C5EEA77FC67A0537194AE788 /* StudentController.m in Sources */,
@@ -3331,12 +3485,14 @@
 				C5EEA70CAD83A3FEE9B6BD2C /* UILabel+customed.m in Sources */,
 				4E1957462137D0F100420563 /* LinkedInHelper.m in Sources */,
 				C5EEA2B81C84D4F3EDB29C44 /* NSMutableAttributedString+customed.m in Sources */,
+				A3DF399F2189A280006F84DC /* ExpandingViewController.swift in Sources */,
 				C5EEAA269C87F480239BF21E /* TapGesture.m in Sources */,
 				18B83B0F2173557D00130DB6 /* YBIBFileManager.m in Sources */,
 				4E846F70213E619100DC2B51 /* SwitchTableViewCell.m in Sources */,
 				C5EEA2BA0180646BF8FF57BF /* Platform.m in Sources */,
 				18B83B162173557D00130DB6 /* YBImage.m in Sources */,
 				4E19573F2137D0F100420563 /* PermissionBasicProfileFields.m in Sources */,
+				A3DF39A62189A280006F84DC /* TransitionDriver.swift in Sources */,
 				4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
 				4E1957402137D0F100420563 /* PermissionContactInfoFields.m in Sources */,
@@ -3347,6 +3503,7 @@
 				C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */,
 				3E49F90F2144A22E00F32146 /* EditPracticeAddressViewController.m in Sources */,
 				18B83B132173557D00130DB6 /* YBIBTransitionManager.m in Sources */,
+				A3DF39A42189A280006F84DC /* ConfigurationHelper.swift in Sources */,
 				4E846F952140FCD200DC2B51 /* EditResidencyViewController.m in Sources */,
 				18B83B112173557D00130DB6 /* YBIBLayoutDirectionManager.m in Sources */,
 				18CFB0F0216EF285002CC9D0 /* RMDownloadIndicator.m in Sources */,
@@ -3374,6 +3531,7 @@
 				18B83B102173557D00130DB6 /* YBIBGestureInteractionProfile.m in Sources */,
 				E11E1A6226F32868524CF272 /* BaseTabController.m in Sources */,
 				A99177062176E4CD00788D2C /* NSObject+NSCoding.m in Sources */,
+				A3DF39822189A192006F84DC /* expanding.swift in Sources */,
 				4E85DA8B21429C45007C40C3 /* DenGlobalInfo.m in Sources */,
 				A3EE38F92183214C00C76F3A /* BookmarkModel.m in Sources */,
 				E11E1ADBC83B9657D14256E2 /* UserConfig.m in Sources */,
@@ -3438,6 +3596,7 @@
 				C5EEAE849A9D7BECFA31FC89 /* Pair.m in Sources */,
 				C5EEA80345D17C8493BB8709 /* SearchPage.m in Sources */,
 				C5EEAAF068D2FF7E482A0CC2 /* LabelCheckView.m in Sources */,
+				A3DF399E2189A280006F84DC /* PageCollectionView.swift in Sources */,
 				C5EEAE6124816A6F31F4FA05 /* GroupListPage.m in Sources */,
 				C5EEAA627C4FFCCCA4202E92 /* MyStyle.m in Sources */,
 				C5EEAC52F1B1B7FA36FDBEA2 /* TitleSwitchView.m in Sources */,
@@ -3445,8 +3604,10 @@
 				C5EEA998A2E6E6E97A8E5259 /* FromToView.m in Sources */,
 				C5EEAC226A4350FB406AFD22 /* DatePickerPage.m in Sources */,
 				C5EEAB40C81644F1288B9E7A /* PickerPage.m in Sources */,
+				A3DF39A12189A280006F84DC /* ScreenShotHelper.swift in Sources */,
 				4E17B3ED217E225900F75390 /* TopLabel.m in Sources */,
 				18B83B0D2173557D00130DB6 /* YBImageBrowserViewLayout.m in Sources */,
+				A3DF399D2189A280006F84DC /* PageCollectionLayout.swift in Sources */,
 				4E0C11592181C75B007DC63D /* DetailModel.m in Sources */,
 				C5EEA924251B1D227E0C597D /* NSDate+myextend.m in Sources */,
 				C5EEA34AC51BB6847157C34C /* SlideItem.m in Sources */,
@@ -3455,6 +3616,7 @@
 				188FEC8A2175BDCA00EE32F3 /* BannerScrollView.m in Sources */,
 				C5EEAF4D7420DCA0CCBD9D37 /* EventsPage.m in Sources */,
 				C5EEACBCD8E0C648F24C3CBD /* UnitePage.m in Sources */,
+				A3DF39A32189A280006F84DC /* SubviewsForEach.swift in Sources */,
 				C5EEA3F0CF05284FD745DF70 /* CareerPage.m in Sources */,
 				C5EEAF27063BEE4721232460 /* Article.m in Sources */,
 				C5EEA61AC52ECB7531FFBA59 /* ArticleComment.m in Sources */,
@@ -3466,6 +3628,7 @@
 				C5EEA32DD334BD1A936C8AF7 /* IdName.m in Sources */,
 				C5EEA2E604C9E5CD496542A0 /* StateCity.m in Sources */,
 				C5EEA4F5057D8AD20840551B /* NSDictionary+myextend.m in Sources */,
+				A3DF399C2189A280006F84DC /* BasePageCollectionCell.swift in Sources */,
 				C5EEA56D3F74A578D3BA98FA /* LinearView.m in Sources */,
 				C5EEA0319D5E3E079662491B /* LinearVerView.m in Sources */,
 				C5EEA6E8B19DE7760629756E /* ContentPage.m in Sources */,
@@ -3500,6 +3663,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 222E112A8067C36B6AB7CB97 /* Pods-dentistTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = dentistTests/Support/Info.plist;
@@ -3522,6 +3686,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F748AC4766AE72334079C673 /* Pods-dentistTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = dentistTests/Support/Info.plist;
@@ -3656,6 +3821,7 @@
 			baseConfigurationReference = 68B426216C681447B0595866 /* Pods-dentist.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HPA69P8D2K;
@@ -3683,6 +3849,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "dentist/dentist-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${PROJECT_DIR}/../Pods\"/**",
@@ -3704,6 +3873,7 @@
 			baseConfigurationReference = AAE9264107E7A868D6D5EAB3 /* Pods-dentist.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HPA69P8D2K;
@@ -3731,6 +3901,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "dentist/dentist-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${PROJECT_DIR}/../Pods\"/**",

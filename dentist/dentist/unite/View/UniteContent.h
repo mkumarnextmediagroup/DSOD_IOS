@@ -1,5 +1,5 @@
 //
-//  UniteDetailViewController.h
+//  UniteContent.h
 //  dentist
 //
 //  Created by Jacksun on 2018/11/1.
@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseController.h"
 #import "Common.h"
+#import "DetailModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UniteDetailViewController : BaseController
+@interface UniteContent : UIView
+
+-(void)bind:(DetailModel *)bindInfo;
 
 @end
 

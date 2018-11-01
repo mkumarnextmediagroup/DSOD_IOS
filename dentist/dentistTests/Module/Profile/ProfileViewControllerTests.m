@@ -15,9 +15,12 @@ SPEC_BEGIN(ProfileViewControllerTests)
 describe(@"Unit test for ProfileViewController", ^{
     __block ProfileViewController *controller;
 
-    beforeEach(^{
+    beforeAll(^{
         putServerDomain(0);
         [Proto login:@"hovansu8@gmail.com" pwd:@"A12345678"];
+    });
+
+    beforeEach(^{
         controller = [ProfileViewController new];
         
     });
@@ -36,13 +39,6 @@ describe(@"Unit test for ProfileViewController", ^{
         it(@"View Did Load and Will Appear", ^{
             [controller viewDidLoad];
             [controller viewWillAppear:NO];
-            [[controller.view shouldNot] beNil];
-        });
-    });
-
-    context(@"UnitTest For Build Views", ^{
-        it(@"User Info Speciality Not Nil", ^{
-            [controller buildViews];
             [[controller.view shouldNot] beNil];
         });
     });

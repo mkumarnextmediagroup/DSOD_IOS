@@ -15,5 +15,5 @@
 @property (strong, nonatomic) CMSModel *cmsmodel;
 -(void) bind:(Article*)item ;
 -(void) bindCMS:(CMSModel*)item;
-
+-(void) updateBookmarkStatus:(BOOL)ismark;
 @end

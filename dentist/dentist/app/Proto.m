@@ -914,8 +914,17 @@
 }
 
 //MARK:查询整个文章的评论（CMS_003_04）
-+ (NSArray<DiscussInfo *> *)queryAllCommentByConent:(NSString *)contentId {
-    HttpResult *r = [self post:@"comment/findAllByContent" dic:@{@"contentId": contentId} modular:@"cms"];
++ (NSArray<DiscussInfo *> *)queryAllCommentByConent:(NSString *)contentId  skip:(NSInteger)skip{
+    
+    
+//    NSDictionary *dic = @{@"contentId": contentId,@"skip":[NSNumber numberWithInteger:skip],@"limit":[NSNumber numberWithInteger:10]};
+    if(skip>0){
+        //服务器没有做分页 不执行加载更多操作
+        return nil;
+    }
+
+    NSDictionary *dic = @{@"contentId": contentId};
+    HttpResult *r = [self post:@"comment/findAllByContent" dic:dic modular:@"cms"];
     
     NSArray* resultArray = nil;
     if (r.OK) {
@@ -981,6 +990,20 @@
     NSString *baseUrl = [self configUrl:@"cms"];
     NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
     return url;
+}
+
+#pragma mark Unite API
++ (DetailModel *)queryForUniteDetailInfo:(NSString *)contentId
+{
+    HttpResult *r = [self post:@"magazine/findOneById" dic:@{@"id": contentId} modular:@"cms"];
+    
+    if (r.OK) {
+        NSDictionary *dic = r.resultMap[@"data"];
+        DetailModel *detail = [[DetailModel alloc] initWithJson:jsonBuild(dic)];
+        detail.discussInfos = [self commentConvertDiscussInfo:detail.comment];
+        return detail;
+    }
+    return nil;
 }
 
 +(NSString *)baseDomain

@@ -7,13 +7,18 @@
 #import "Common.h"
 #import "UnitePageCell.h"
 #import "Proto.h"
+#import "UniteDetailViewController.h"
+#import "YHPopMenuView.h"
 
 @interface UnitePage()<UITableViewDelegate,UITableViewDataSource>{
     UITableView *mTableView;
     UIActivityIndicatorView *iv;
     
+    YHPopMenuView *popView;
+    
     NSArray *datas;
     UIRefreshControl *refreshControl;
+    BOOL isRefreshing;
     
 }
 @end
@@ -54,14 +59,23 @@
     
     
     UIButton *menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [menuBtn addTarget:self action:@selector(enterTeamCard:) forControlEvents:UIControlEventTouchUpInside];
-    [menuBtn setImage:[UIImage imageNamed:@"Animation"] forState:UIControlStateNormal];
+    [menuBtn addTarget:self action:@selector(openMenu) forControlEvents:UIControlEventTouchUpInside];
+    [menuBtn setImage:[UIImage imageNamed:@"FilterIssues"] forState:UIControlStateNormal];
     [menuBtn sizeToFit];
     UIBarButtonItem *menuBtnItem = [[UIBarButtonItem alloc] initWithCustomView:menuBtn];
     
     
     self.navigationItem.rightBarButtonItems  = @[menuBtnItem,fixedSpaceBarButtonItem,ivItem];
     
+}
+
+- (void)enterTeamCard:(UIButton *)btn
+{
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    UniteDetailViewController *newVC = [[UniteDetailViewController alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+    
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 -(void)setupRefresh{
@@ -78,11 +92,13 @@
 - (void)showTopIndicator {
     iv.hidden = NO;
     [iv startAnimating];
+    isRefreshing = YES;
 }
 
 - (void)hideTopIndicator {
     iv.hidden = YES;
     [iv stopAnimating];
+    isRefreshing = NO;
 }
 
 
@@ -93,6 +109,10 @@
 
 
 -(void)getDatas:(BOOL)isMore{
+    if(isRefreshing){
+        return;
+    }
+    
     [self showTopIndicator];
     backTask(^{
         NSArray *arr = [Proto findAllMagazines:isMore?self->datas.count:0];
@@ -117,6 +137,44 @@
 }
 
 
+
+-(void)openMenu{
+    if(popView && popView.isShowing){
+        [popView hide];
+        return;
+    }
+    
+    CGFloat itemH = 50;
+    CGFloat w = 200;
+    CGFloat h = 3*itemH;
+    CGFloat r = 0;
+    CGFloat x = SCREENWIDTH - w - r;
+    CGFloat y = 0;
+    
+    popView = [[YHPopMenuView alloc] initWithFrame:CGRectMake(x, y, w, h)];
+    popView.iconNameArray = @[@"arrow",@"arrow",@"arrow",];
+    popView.itemNameArray = @[@"All Issues",@"Downloaded",@"Go to Bookmarks"];
+    popView.itemH     = itemH;
+    popView.fontSize  = 16.0f;
+    popView.fontColor = [UIColor blackColor];
+    popView.canTouchTabbar = YES;
+    [popView show];
+    
+//    WeakSelf
+    [popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
+        if (!isCanceled) {
+            if(row == 0){
+                
+            }else if(row == 1){
+                
+            }else if(row == 2){
+                
+            }
+        }
+    }];
+    
+}
+
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return datas.count;
@@ -136,5 +194,10 @@
     return cell;
 }
 
-
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    // 下拉到最底部时显示更多数据
+    if(!isRefreshing && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height))){
+        [self getDatas:YES];
+    }
+}
 @end

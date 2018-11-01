@@ -72,7 +72,6 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     category=@"LATEST";
-    pagenumber=1;
 	UINavigationItem *item = [self navigationItem];
     //219*43
     //
@@ -410,17 +409,37 @@
     [denSheet show];
 }
 
--(void)ArticleMarkActionModel:(CMSModel *)model
+-(void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view
 {
+    CMSModel *model = (id) item;
     if(model.isBookmark){
         //删除
         backTask(^() {
             BOOL result=[Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id];
             foreTask(^() {
+                
+                NSString *msg=@"";
                 if (result) {
                     //
                     model.isBookmark=NO;
+                    if (![NSString isBlankString:model.sponsorId]) {
+                        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+                        [itemView updateBookmarkStatus:NO];
+                    }else{
+                        ArticleItemView *itemView = (ArticleItemView *) view;
+                        [itemView updateBookmarkStatus:NO];
+                    }
+                   msg=@"Bookmarks is Delete";
+                }else{
+                    msg=@"error";
                 }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
             });
         });
     }else{
@@ -428,13 +447,33 @@
         backTask(^() {
             BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId];
             foreTask(^() {
+                NSString *msg=@"";
                 if (result) {
                     //
                     model.isBookmark=YES;
+                    if (![NSString isBlankString:model.sponsorId]) {
+                        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+                        [itemView updateBookmarkStatus:YES];
+                    }else{
+                        ArticleItemView *itemView = (ArticleItemView *) view;
+                        [itemView updateBookmarkStatus:YES];
+                    }
+                   msg=@"Bookmarks is Add";
+                }else{
+                    msg=@"error";
                 }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
             });
         });
     }
+    
+    
 }
 
 -(void)ArticleGSKActionModel:(CMSModel *)model

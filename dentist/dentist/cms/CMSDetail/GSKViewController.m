@@ -278,31 +278,61 @@
     [denSheet show:self.view];
 }
 
--(void)articleMarkAction:(NSInteger)articleid
+-(void)articleMarkActionView:(NSObject *)item view:(UIView *)view
 {
-    selectActicleId=articleid;
-    NSLog(@"ArticleMarkAction=%@",@(articleid));
-    if ([Proto checkIsBookmarkByArticle:articleid]) {
-        //移除bookmark
-        [Proto deleteBookmarks:articleid];
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-            NSLog(@"点击取消");
-        }]];
-        [self presentViewController:alertController animated:YES completion:nil];
+    CMSModel *model = (id) item;
+    if(model.isBookmark){
+        //删除
+        backTask(^() {
+            BOOL result=[Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id];
+            foreTask(^() {
+                NSString *msg=@"";
+                if (result) {
+                    //
+                    model.isBookmark=NO;
+                    GSKItemView *itemView = (GSKItemView *) view;
+                    [itemView updateBookmarkStatus:NO];
+                    msg=@"Bookmarks is Delete";
+                }else{
+                    msg=@"error";
+                }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            });
+        });
     }else{
-        //添加bookmark
-        [Proto addBookmarks:articleid];
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-            NSLog(@"点击取消");
-        }]];
-        [self presentViewController:alertController animated:YES completion:nil];
+        //添加
+        backTask(^() {
+            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId];
+            foreTask(^() {
+                NSString *msg=@"";
+                if (result) {
+                    //
+                    model.isBookmark=YES;
+                    GSKItemView *itemView = (GSKItemView *) view;
+                    [itemView updateBookmarkStatus:YES];
+                    msg=@"Bookmarks is Add";
+                    
+                }else{
+                    msg=@"error";
+                }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            });
+        });
     }
+    
+    
 }
 
 #pragma mark ---MyActionSheetDelegate

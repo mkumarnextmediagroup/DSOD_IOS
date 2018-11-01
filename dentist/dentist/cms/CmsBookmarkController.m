@@ -34,6 +34,9 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     categorytext=nil;
     typetext=nil;
+    if(self.items.count==0){
+        [self refreshData];
+    }
 //    self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
 }
 
@@ -126,13 +129,16 @@
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
-    Article *article = (Article *) item;
-    if ([article.categoryName isEqualToString:@"VIDEOS"]) {
-        newVC.toWhichPage = @"mo";
-    }else
-    {
-        newVC.toWhichPage = @"pic";
-    }
+    BookmarkModel *article = (BookmarkModel *) item;
+    
+    newVC.contentId = article.postId;
+    newVC.toWhichPage = @"pic";
+//    if ([[article.contentTypeName uppercaseString] isEqualToString:@"VIDEOS"]) {
+//        newVC.toWhichPage = @"mo";
+//    }else
+//    {
+//        newVC.toWhichPage = @"pic";
+//    }
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 

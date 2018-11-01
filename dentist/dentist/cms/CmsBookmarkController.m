@@ -57,14 +57,14 @@
 {
     pagenumber=1;
     [self showIndicator];
-    backTask(^() {
-        self->resultArray  = [[Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber] mutableCopy];
+    [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
         foreTask(^() {
-             [self hideIndicator];
-             self.items=[self->resultArray copy];
+            self->resultArray=[NSMutableArray arrayWithArray:array];
+            [self hideIndicator];
+            self.items=[self->resultArray copy];
             [self updateFilterView];
         });
-    });
+    }];
 }
 -(void)updateFilterView
 {
@@ -119,19 +119,23 @@
 -(void)BookMarkActionModel:(BookmarkModel *)model
 {
     //移除bookmark
-    BOOL result = [Proto deleteBookmark:model._id];
-    if (result) {
-        [self->resultArray removeObject:model];
-        self.items=[self->resultArray copy];
-        [self.table reloadData];
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-            NSLog(@"点击取消");
-        }]];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
+    [Proto deleteBookmark:model._id completed:^(BOOL result) {
+        foreTask(^{
+            if (result) {
+                [self->resultArray removeObject:model];
+                self.items=[self->resultArray copy];
+                [self.table reloadData];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
+        });
+    }];
+   
     
 }
 
@@ -172,14 +176,14 @@
         self->categoryId =category;
         self->contentTypeId=type;
         [self showIndicator];
-        backTask(^() {
-            self->resultArray  = [[Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber] mutableCopy];
+        [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
+                self->resultArray=[NSMutableArray arrayWithArray:array];
                 [self hideIndicator];
                 self.items=[self->resultArray copy];
                 [self updateFilterView];
             });
-        });
+        }];
     }];
 }
 
@@ -194,20 +198,18 @@
         if (pagenumber>=1) {
             //在最底部
             [self showIndicator];
-            backTask(^() {
-                NSInteger newpage=self->pagenumber+1;
-                NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-                NSArray<BookmarkModel*> *array  = [[Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:newpage] mutableCopy];
-                if(array && array.count>0){
-                    [newarray addObjectsFromArray:array];
-                    self->pagenumber=newpage;
-                }
+            [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
                 foreTask(^() {
                     [self hideIndicator];
-                    self.items=[newarray copy];
-                    [self updateFilterView];
+                    if(array && array.count>0){
+                        NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+                        [newarray addObjectsFromArray:array];
+                        self->pagenumber++;
+                        self.items=[newarray copy];
+                        [self updateFilterView];
+                    }
                 });
-            });
+            }];
         }
         
     }

@@ -35,24 +35,21 @@
 	[super viewDidLoad];
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"CATEGORY";
-    
     self.table.rowHeight = UITableViewAutomaticDimension;
     self.table.estimatedRowHeight = 400;
     self.isRefresh=YES;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by category" filterAction:^(NSString *result,NSString *resultname) {
-        type=result;
-         [self showIndicator];
-        backTask(^() {
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:type pageNumber:pagenumber];
+        self->type=result;
+        [self showIndicator];
+        [Proto queryAllContentsByCategoryType:self->type pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
-                 [self hideIndicator];
+                [self hideIndicator];
                 self.items=array;
             });
-        });
+        }];
         
     }];
-    
     self.items = nil;
 }
 
@@ -85,13 +82,12 @@
     if (type) {
         pagenumber=1;
         [self showIndicator];
-        backTask(^() {
-            NSArray *array  = [Proto queryAllContentsByCategoryType:type pageNumber:1];
+        [Proto queryAllContentsByCategoryType:self->type pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
                 self.items=array;
             });
-        });
+        }];
     }
     
 }
@@ -163,15 +159,6 @@
 
 -(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName
 {
-//    type=categoryId;
-//    if (type) {
-//        backTask(^() {
-//            NSArray *array  = [Proto queryAllContentsByCategoryType:type pageNumber:1];
-//            foreTask(^() {
-//                self.items=array;
-//            });
-//        });
-//    }
     DentistPickerView *picker = [[DentistPickerView alloc]init];
     
     picker.leftTitle=localStr(@"Category");
@@ -181,22 +168,20 @@
     } rightAction:^(NSString *result,NSString *resultname) {
         
     } selectAction:^(NSString *result,NSString *resultname) {
-        pagenumber=1;
+        self->pagenumber=1;
         [self showIndicator];
-        backTask(^() {
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:result pageNumber:pagenumber];
+        [Proto queryAllContentsByCategoryType:result pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
                 self.items=array;
             });
-        });
+        }];
     }];
-    backTask(^() {
-        NSArray<IdName *> *array = [Proto queryCategoryTypes];
+    [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
         foreTask(^() {
             picker.arrayDic=array;
         });
-    });
+    }];
 }
 
 -(void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view
@@ -204,8 +189,7 @@
     CMSModel *model = (id) item;
     if(model.isBookmark){
         //删除
-        backTask(^() {
-            BOOL result=[Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id];
+        [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
@@ -225,11 +209,10 @@
                 }]];
                 [self presentViewController:alertController animated:YES completion:nil];
             });
-        });
+        }];
     }else{
         //添加
-        backTask(^() {
-            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId];
+        [Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
@@ -249,7 +232,7 @@
                 }]];
                 [self presentViewController:alertController animated:YES completion:nil];
             });
-        });
+        }];
     }
     
     
@@ -265,19 +248,17 @@
         if (pagenumber>=1) {
             //在最底部
             [self showIndicator];
-            backTask(^() {
-                NSInteger newpage=self->pagenumber+1;
-                NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-                NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:type pageNumber:newpage];
-                if(array && array.count>0){
-                    [newarray addObjectsFromArray:array];
-                    self->pagenumber=newpage;
-                }
+            [Proto queryAllContentsByCategoryType:self->type pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
                 foreTask(^() {
                     [self hideIndicator];
-                    self.items=[newarray copy];
+                    if(array && array.count>0){
+                        NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+                        [newarray addObjectsFromArray:array];
+                        self->pagenumber++;
+                        self.items=[newarray copy];
+                    }
                 });
-            });
+            }];
         }
         
     }

@@ -445,7 +445,7 @@
     }else{
         //添加
         backTask(^() {
-            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId];
+            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId];
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {

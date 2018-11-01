@@ -229,7 +229,7 @@
     }else{
         //添加
         backTask(^() {
-            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId];
+            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId];
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
@@ -266,12 +266,12 @@
             //在最底部
             [self showIndicator];
             backTask(^() {
-                NSInteger newpage=pagenumber+1;
+                NSInteger newpage=self->pagenumber+1;
                 NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
                 NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:type pageNumber:pagenumber];
                 if(array && array.count>0){
                     [newarray addObjectsFromArray:array];
-                    pagenumber=newpage;
+                    self->pagenumber=newpage;
                 }
                 foreTask(^() {
                     [self hideIndicator];

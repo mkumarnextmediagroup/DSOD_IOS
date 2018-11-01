@@ -934,8 +934,26 @@
 }
 
 //MARK:查询收藏列表
-+ (NSArray<CMSModel *> *)queryBookmarksByEmail:(NSString *)email {
-    HttpResult *r = [self post2:@"bookmark/findAllByEmail" dic:@{@"email": email} modular:@"cms"];
++ (NSArray<CMSModel *> *)queryBookmarksByEmail:(NSString *)email categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber {
+    NSInteger skip=0;
+    NSInteger limit=10;//分页数默认20条
+    if(pageNumber>=1)
+    {
+        skip=(pageNumber-1)*limit;
+    }
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    if (email) {
+        [paradic setObject:email forKey:@"email"];
+    }
+    if (contentTypeId) {
+        [paradic setObject:contentTypeId forKey:@"contentTypeId"];
+    }
+    if (categoryId) {
+        [paradic setObject:categoryId forKey:@"categoryId"];
+    }
+    HttpResult *r = [self post3:@"bookmark/findAllByEmail" dic:paradic modular:@"cms"];
     
     NSMutableArray *resultArray = [NSMutableArray array];
     if (r.OK) {
@@ -971,11 +989,11 @@
 }
 
 //MARK:添加收藏
-+(BOOL)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url
++(BOOL)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId
 {
     BOOL result=NO;
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title] && ![NSString isBlankString:url]){
-        HttpResult *r = [self post3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url} modular:@"cms"];
+        HttpResult *r = [self post3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId} modular:@"cms"];
         if (r.OK) {
             result=YES;
         }

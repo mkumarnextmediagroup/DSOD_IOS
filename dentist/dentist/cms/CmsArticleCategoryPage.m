@@ -185,31 +185,60 @@
     [denSheet show];
 }
 
--(void)ArticleMarkActionModel:(CMSModel *)model
+-(void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view
 {
+    CMSModel *model = (id) item;
     if(model.isBookmark){
         //删除
         backTask(^() {
             BOOL result=[Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id];
             foreTask(^() {
+                NSString *msg=@"";
                 if (result) {
                     //
                     model.isBookmark=NO;
+                    ArticleItemView *itemView = (ArticleItemView *) view;
+                    [itemView updateBookmarkStatus:NO];
+                    msg=@"Bookmarks is Delete";
+                }else{
+                    msg=@"error";
                 }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
             });
         });
     }else{
         //添加
         backTask(^() {
-            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId];
+            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId];
             foreTask(^() {
+                NSString *msg=@"";
                 if (result) {
                     //
                     model.isBookmark=YES;
+                    ArticleItemView *itemView = (ArticleItemView *) view;
+                    [itemView updateBookmarkStatus:YES];
+                    msg=@"Bookmarks is Add";
+                }else{
+                    msg=@"error";
                 }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
             });
         });
     }
+    
+    
 }
 
 #pragma mark ---MyActionSheetDelegate

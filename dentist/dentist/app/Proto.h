@@ -146,9 +146,12 @@
 //MARK:查询收藏列表
 /**
  @param email 邮箱 是否必须:Y
+ @param categoryId 类别ID 是否必须:N
+ @param contentTypeId 内容分类ID 是否必须:N
+ @param pageNumber 分页数 是否必须:Y
  @return 返回CMSModelComment的实体数组
  **/
-+ (NSArray<CMSModel *> *)queryBookmarksByEmail:(NSString *_Nullable)email;
++ (NSArray<CMSModel *> *)queryBookmarksByEmail:(NSString *_Nullable)email categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
 
 //MARK:删除收藏
 /**
@@ -172,7 +175,7 @@
  @param url 请求url 是否必须:Y
  @return yes/no
  **/
-+(BOOL)addBookmark:(NSString *_Nullable)email postId:(NSString *_Nullable)postId title:(NSString *_Nullable)title url:(NSString *_Nullable)url;
++(BOOL)addBookmark:(NSString *_Nullable)email postId:(NSString *_Nullable)postId title:(NSString *_Nullable)title url:(NSString *_Nullable)url categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId;
 
 //MARK:获取单个文件（ADMIN PORTAL Only）
 +(NSString *)getFileUrlByObjectId:(NSString *_Nullable)objectid;

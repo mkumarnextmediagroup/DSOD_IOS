@@ -88,21 +88,21 @@
     [imageView loadUrl:urlstr placeholderImage:@"art-img"];
     [imageView scaleFillAspect];
     imageView.clipsToBounds=YES;
-//    if ([item.category isEqualToString:@"VIDEOS"]) {
-//        [thumbImageView setImage:[UIImage imageNamed:@"Video"]];
-//    }else if([item.category isEqualToString:@"PODCASTS"]) {
-//        [thumbImageView setImage:[UIImage imageNamed:@"Podcast"]];
-//    }else if([item.category isEqualToString:@"INTERVIEWS"]) {
-//        [thumbImageView setImage:[UIImage imageNamed:@"Interview"]];
-//    }else if([item.category isEqualToString:@"TECH GUIDES"]) {
-//        [thumbImageView setImage:[UIImage imageNamed:@"TechGuide"]];
-//    }else if([item.category isEqualToString:@"ANIMATIONS"]) {
-//        [thumbImageView setImage:[UIImage imageNamed:@"Animation"]];
-//    }else if([item.category isEqualToString:@"TIP SHEETS"]) {
-//        [thumbImageView setImage:[UIImage imageNamed:@"TipSheet"]];
-//    }else{
-//        [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
-//    }
+    if ([_bookmarkmodel.categoryName isEqualToString:@"VIDEOS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Video"]];
+    }else if([_bookmarkmodel.categoryName isEqualToString:@"PODCASTS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Podcast"]];
+    }else if([_bookmarkmodel.categoryName isEqualToString:@"INTERVIEWS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Interview"]];
+    }else if([_bookmarkmodel.categoryName isEqualToString:@"TECH GUIDES"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"TechGuide"]];
+    }else if([_bookmarkmodel.categoryName isEqualToString:@"ANIMATIONS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Animation"]];
+    }else if([_bookmarkmodel.categoryName isEqualToString:@"TIP SHEETS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"TipSheet"]];
+    }else{
+        [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
+    }
 }
 -(void)markAction:(UIButton *)sender
 {

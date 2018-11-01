@@ -113,8 +113,11 @@
     clearLabel.text=localStr(@"Clear all");
     clearLabel.textAlignment=NSTextAlignmentCenter;
     [[[[[clearLabel.layoutMaker leftParent:20] above:updateButton offset:-20] rightParent:-20] heightEq:20] install];
-    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clearAction)];
-    [clearLabel addGestureRecognizer:tap];
+    UIButton *clearbutton=[self addButton];
+     [[[[[clearbutton.layoutMaker leftParent:20] above:updateButton offset:-20] rightParent:-20] heightEq:20] install];
+    [clearbutton addTarget:self action:@selector(clearAction) forControlEvents:UIControlEventTouchUpInside];
+//    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clearAction)];
+//    [clearLabel addGestureRecognizer:tap];
 }
 
 -(void)clearAction
@@ -125,8 +128,8 @@
         //将view.frame 设置在屏幕下方
         self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
     } completion:^(BOOL finished) {
-        if (self.closeBlock) {
-            self.closeBlock(_categorytext,_typetext);
+        if (self.selectBlock) {
+            self.selectBlock(self.categorytext,self.typetext);
         }
         [self removeFromSuperview];
     }];

@@ -15,7 +15,8 @@
 @optional
 - (void)GSKCategoryPickerSelectAction:(NSString *)result;
 - (void)articleMoreAction:(NSInteger)articleid;
-- (void)articleMarkAction:(NSInteger)articleid;;
+- (void)articleMarkAction:(NSInteger)articleid;
+- (void)articleMarkActionView:(NSObject *)item view:(UIView *)view;
 @end
 @interface GSKItemView : UIView
 
@@ -26,5 +27,6 @@
 
 -(void) bind:(Article*)item ;
 -(void) bindCMS:(CMSModel*)item;
+-(void) updateBookmarkStatus:(BOOL)ismark;
 
 @end

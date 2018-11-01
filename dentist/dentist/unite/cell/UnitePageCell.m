@@ -10,9 +10,6 @@
 #import "Common.h"
 #define edge 15
 
-#define RGBHex(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-
-
 @implementation UnitePageCell{
     UIImageView *coverImgView;
     UILabel *publishDateLabel;
@@ -29,12 +26,7 @@
         [[[[[coverImgView.layoutMaker topParent:edge] leftParent:edge] rightParent:-edge] heightEq:520]install];
         
         optionBtn = [UIButton new];
-        [optionBtn title:@"Download"];
-        [optionBtn setTitleColor:RGBHex(0x879aa8) forState:UIControlStateNormal];
-        [optionBtn.layer setBorderWidth:1.0];
-        [optionBtn.layer setBorderColor:rgb255(221, 221, 221).CGColor];
-        [optionBtn setBackgroundImage:colorImage(makeSize(1, 1), UIColor.whiteColor) forState:UIControlStateNormal];
-        [optionBtn setBackgroundImage:colorImage(makeSize(1, 1), rgb255(221, 221, 221)) forState:UIControlStateHighlighted];
+        [self optionBtnReadStyle];
         [self addSubview:optionBtn];
         [[[[optionBtn.layoutMaker sizeEq:120 h:36] rightParent:-edge] below:coverImgView offset:edge]install];
         
@@ -55,12 +47,39 @@
 }
 
 - (void)setMagazineModel:(MagazineModel *)magazineModel{
+    
     magazineModel.cover = @"http://app800.cn/i/p.png";
     if(magazineModel.cover){
         [coverImgView loadUrl:magazineModel.cover placeholderImage:@"school"];
     }
     publishDateLabel.text = [NSString timeWithTimeIntervalString:magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",magazineModel.vol?magazineModel.vol:@"", magazineModel.issue?magazineModel.issue:@""];
+    
+    BOOL isDownload = NO;
+    if(isDownload){
+        [self optionBtnReadStyle];
+    }else{
+        [self optionBtnDownloadStyle];
+    }
+}
+
+-(void)optionBtnDownloadStyle{
+    [optionBtn.layer setBorderWidth:1.0];
+    [optionBtn title:@"Download"];
+    [optionBtn setTitleColor:rgbHex(0x879AB9) forState:UIControlStateNormal];
+    [optionBtn.layer setBorderColor:rgb255(221, 221, 221).CGColor];
+    [optionBtn setBackgroundImage:colorImage(makeSize(1, 1), rgbHex(0xffffff)) forState:UIControlStateNormal];
+    [optionBtn setBackgroundImage:colorImage(makeSize(1, 1), rgbHex(0xdddddd)) forState:UIControlStateHighlighted];
+}
+
+-(void)optionBtnReadStyle{
+    [optionBtn.layer setBorderWidth:0.0];
+    [optionBtn title:@"Read"];
+    [optionBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [optionBtn.layer setBorderColor:rgb255(221, 221, 221).CGColor];
+    [optionBtn setBackgroundImage:colorImage(makeSize(1, 1), rgbHex(0x879AA8)) forState:UIControlStateNormal];
+    [optionBtn setBackgroundImage:colorImage(makeSize(1, 1), rgbHex(0x627888)) forState:UIControlStateHighlighted];
+    
 }
 
 

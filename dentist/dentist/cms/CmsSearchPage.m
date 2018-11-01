@@ -146,19 +146,23 @@
         backTask(^() {
             BOOL result=[Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id];
             foreTask(^() {
+                NSString *msg=@"";
                 if (result) {
                     //
                     model.isBookmark=NO;
                     ArticleItemView *itemView = (ArticleItemView *) view;
                     [itemView updateBookmarkStatus:NO];
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                        
-                        NSLog(@"点击取消");
-                    }]];
-                    [self presentViewController:alertController animated:YES completion:nil];
+                    msg=@"Bookmarks is Delete";
+                }else{
+                    msg=@"error";
                 }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
             });
         });
     }else{
@@ -166,20 +170,23 @@
         backTask(^() {
             BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId];
             foreTask(^() {
+                NSString *msg=@"";
                 if (result) {
                     //
                     model.isBookmark=YES;
                     ArticleItemView *itemView = (ArticleItemView *) view;
                     [itemView updateBookmarkStatus:YES];
-                    
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                        
-                        NSLog(@"点击取消");
-                    }]];
-                    [self presentViewController:alertController animated:YES completion:nil];
+                    msg=@"Bookmarks is Add";
+                }else{
+                    msg=@"error";
                 }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
             });
         });
     }

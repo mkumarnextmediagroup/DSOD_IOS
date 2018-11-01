@@ -34,6 +34,9 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     categorytext=nil;
     typetext=nil;
+    if(self.items.count==0){
+        [self refreshData];
+    }
 //    self.items =[Proto getBookmarksListByCategory:typetext type:categorytext];
 }
 

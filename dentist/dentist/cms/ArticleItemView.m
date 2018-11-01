@@ -226,6 +226,14 @@
     
 }
 
+-(void) updateBookmarkStatus:(BOOL)ismark
+{
+    if (ismark) {
+        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+    }else{
+        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    }
+}
 
 
 -(void)moreAction:(UIButton *)sender
@@ -237,15 +245,16 @@
 
 -(void)markAction:(UIButton *)sender
 {
-    if (_model.isBookmark) {
-//        _model.isBookmark=NO;
-        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-    }else{
-//        _model.isBookmark=YES;
-        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
-    }
+//    if (_model.isBookmark) {
+//        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+//    }else{
+//        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+//    }
     if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMarkActionModel:)]){
         [self.delegate ArticleMarkActionModel:_cmsmodel];
+    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMarkActionView:view:)]){
+        [self.delegate ArticleMarkActionView:_cmsmodel view:self];
     }
     
     

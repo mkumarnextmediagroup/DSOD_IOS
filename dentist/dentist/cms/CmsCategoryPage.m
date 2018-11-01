@@ -268,7 +268,7 @@
             backTask(^() {
                 NSInteger newpage=self->pagenumber+1;
                 NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-                NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:type pageNumber:pagenumber];
+                NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:type pageNumber:newpage];
                 if(array && array.count>0){
                     [newarray addObjectsFromArray:array];
                     self->pagenumber=newpage;

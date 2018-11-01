@@ -239,4 +239,7 @@
 //MARK:查询杂志列表集合
 +(NSArray*)findAllMagazines:(NSInteger)skip;
 
+//MARK:get the unite detail 
++ (DetailModel *)queryForUniteDetailInfo:(NSString *)contentId;
+
 @end

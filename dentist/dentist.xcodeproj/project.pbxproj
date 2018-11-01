@@ -133,6 +133,7 @@
 		4E331048215D294200E534CD /* shareIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331044215D294100E534CD /* shareIcon@3x.png */; };
 		4E331049215D294200E534CD /* shareIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331045215D294100E534CD /* shareIcon@2x.png */; };
 		4E33ACC5218AE95000E4CF7E /* UniteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACC4218AE94F00E4CF7E /* UniteDetailViewController.m */; };
+		4E33ACD6218B002500E4CF7E /* UniteContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACD5218B002500E4CF7E /* UniteContent.m */; };
 		4E528AD1216DF9E5008C151B /* SBPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E528ACA216DF9E4008C151B /* SBPlayer.m */; };
 		4E528AD2216DF9E5008C151B /* SBPauseOrPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E528ACC216DF9E5008C151B /* SBPauseOrPlayView.m */; };
 		4E528AD3216DF9E5008C151B /* SBControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E528ACD216DF9E5008C151B /* SBControlView.m */; };
@@ -842,6 +843,8 @@
 		4E331045215D294100E534CD /* shareIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shareIcon@2x.png"; sourceTree = "<group>"; };
 		4E33ACC3218AE94F00E4CF7E /* UniteDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniteDetailViewController.h; sourceTree = "<group>"; };
 		4E33ACC4218AE94F00E4CF7E /* UniteDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteDetailViewController.m; sourceTree = "<group>"; };
+		4E33ACD4218B002500E4CF7E /* UniteContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniteContent.h; sourceTree = "<group>"; };
+		4E33ACD5218B002500E4CF7E /* UniteContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteContent.m; sourceTree = "<group>"; };
 		4E528ACA216DF9E4008C151B /* SBPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPlayer.m; sourceTree = "<group>"; };
 		4E528ACB216DF9E4008C151B /* SBControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBControlView.h; sourceTree = "<group>"; };
 		4E528ACC216DF9E5008C151B /* SBPauseOrPlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPauseOrPlayView.m; sourceTree = "<group>"; };
@@ -1835,6 +1838,15 @@
 			path = CMSDownload;
 			sourceTree = "<group>";
 		};
+		4E33ACD3218B000600E4CF7E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4E33ACD4218B002500E4CF7E /* UniteContent.h */,
+				4E33ACD5218B002500E4CF7E /* UniteContent.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		4E528AC9216DF9D0008C151B /* MoviePlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -2791,6 +2803,7 @@
 		C5EEAFC6F09CDD4CAB592FB5 /* unite */ = {
 			isa = PBXGroup;
 			children = (
+				4E33ACD3218B000600E4CF7E /* View */,
 				18DA49A521897E8C00DA2292 /* cell */,
 				18DA499C21897BBF00DA2292 /* model */,
 				C5EEAC514AE150B227DB4C52 /* UnitePage.h */,
@@ -3552,6 +3565,7 @@
 				4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */,
 				4E23522D213D12CB003BA59B /* UpdateTableViewCell.m in Sources */,
 				C5EEA2763E400C04C2570656 /* Http.m in Sources */,
+				4E33ACD6218B002500E4CF7E /* UniteContent.m in Sources */,
 				C5EEA409953B93D9D6261C83 /* Async.m in Sources */,
 				C5EEA2F9830CC5E8FD47394F /* HttpResult.m in Sources */,
 				C5EEA57BF745D8F5F4562664 /* NSData+myextend.m in Sources */,
@@ -3858,7 +3872,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -3910,7 +3924,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

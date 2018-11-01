@@ -14,4 +14,6 @@
 
 @interface ProfileViewController : ScrollPage
 @property UserInfo *userInfo;
+
+- (void)buildViews;
 @end

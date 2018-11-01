@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) CMSModel *cmsmodel;
 -(void) bind:(Article*)item ;
 -(void) bindCMS:(CMSModel*)item;
+-(void) updateBookmarkStatus:(BOOL)ismark;
 @end
 
 NS_ASSUME_NONNULL_END

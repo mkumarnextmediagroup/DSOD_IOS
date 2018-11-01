@@ -10,6 +10,13 @@ NSString *localStr(NSString *name) {
 	return NSLocalizedString(name, nil);
 }
 
+UIColor *rgbHex(int rgbValue){
+   CGFloat fr = ((float)((rgbValue & 0xFF0000) >> 16)) / 255.0f;
+   CGFloat fg = ((float)((rgbValue & 0xFF00) >> 8)) / 255.0f;
+   CGFloat fb = ((float)(rgbValue & 0xFF)) / 255.0f;
+   return [[UIColor alloc] initWithRed:fr green:fg blue:fb alpha:1.0];
+}
+
 UIColor *rgb255(int r, int g, int b) {
 	CGFloat fr = r / 255.0f;
 	CGFloat fg = g / 255.0f;

@@ -141,7 +141,7 @@
  @param contentId ID 是否必须:Y
  @return 返回DiscussInfo的实体数组
  **/
-+ (NSArray<DiscussInfo *> *)queryAllCommentByConent:(NSString *_Nullable)contentId;
++ (NSArray<DiscussInfo *> *)queryAllCommentByConent:(NSString *_Nullable)contentId skip:(NSInteger)skip;
 
 //MARK:查询收藏列表
 /**
@@ -238,5 +238,8 @@
 
 //MARK:查询杂志列表集合
 +(NSArray*)findAllMagazines:(NSInteger)skip;
+
+//MARK:get the unite detail 
++ (DetailModel *)queryForUniteDetailInfo:(NSString *)contentId;
 
 @end

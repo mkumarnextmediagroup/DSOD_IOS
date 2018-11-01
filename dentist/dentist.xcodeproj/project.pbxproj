@@ -132,6 +132,7 @@
 		4E331047215D294200E534CD /* deleteDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331043215D294100E534CD /* deleteDown@2x.png */; };
 		4E331048215D294200E534CD /* shareIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331044215D294100E534CD /* shareIcon@3x.png */; };
 		4E331049215D294200E534CD /* shareIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331045215D294100E534CD /* shareIcon@2x.png */; };
+		4E33ACC5218AE95000E4CF7E /* UniteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACC4218AE94F00E4CF7E /* UniteDetailViewController.m */; };
 		4E528AD1216DF9E5008C151B /* SBPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E528ACA216DF9E4008C151B /* SBPlayer.m */; };
 		4E528AD2216DF9E5008C151B /* SBPauseOrPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E528ACC216DF9E5008C151B /* SBPauseOrPlayView.m */; };
 		4E528AD3216DF9E5008C151B /* SBControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E528ACD216DF9E5008C151B /* SBControlView.m */; };
@@ -839,6 +840,8 @@
 		4E331043215D294100E534CD /* deleteDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deleteDown@2x.png"; sourceTree = "<group>"; };
 		4E331044215D294100E534CD /* shareIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shareIcon@3x.png"; sourceTree = "<group>"; };
 		4E331045215D294100E534CD /* shareIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shareIcon@2x.png"; sourceTree = "<group>"; };
+		4E33ACC3218AE94F00E4CF7E /* UniteDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniteDetailViewController.h; sourceTree = "<group>"; };
+		4E33ACC4218AE94F00E4CF7E /* UniteDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteDetailViewController.m; sourceTree = "<group>"; };
 		4E528ACA216DF9E4008C151B /* SBPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPlayer.m; sourceTree = "<group>"; };
 		4E528ACB216DF9E4008C151B /* SBControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBControlView.h; sourceTree = "<group>"; };
 		4E528ACC216DF9E5008C151B /* SBPauseOrPlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPauseOrPlayView.m; sourceTree = "<group>"; };
@@ -2792,6 +2795,8 @@
 				18DA499C21897BBF00DA2292 /* model */,
 				C5EEAC514AE150B227DB4C52 /* UnitePage.h */,
 				C5EEAE8DB86D4C0358C3B958 /* UnitePage.m */,
+				4E33ACC3218AE94F00E4CF7E /* UniteDetailViewController.h */,
+				4E33ACC4218AE94F00E4CF7E /* UniteDetailViewController.m */,
 			);
 			path = unite;
 			sourceTree = "<group>";
@@ -3455,6 +3460,7 @@
 				4E17B3EA2176250800F75390 /* AddReviewViewController.m in Sources */,
 				A3DF39A02189A280006F84DC /* ExpandingTableViewController.swift in Sources */,
 				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,
+				4E33ACC5218AE95000E4CF7E /* UniteDetailViewController.m in Sources */,
 				C5EEA9E893F712BA5CC4938D /* TextSize.m in Sources */,
 				3E49F915214569D000F32146 /* EditExperiencePage.m in Sources */,
 				18CFB0F3216EF88A002CC9D0 /* RMDisplayLabel.m in Sources */,

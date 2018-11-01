@@ -16,6 +16,7 @@
 #import "NSString+myextend.h"
 #import "BookmarkModel.h"
 #import "DiscussInfo.h"
+#import "MagazineModel.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -773,8 +774,20 @@
 
 
 //search API（CMS_001_11-A/CMS_001_12）
-+ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue {
-    HttpResult *r = [self post3:@"content/findAllBySearch" dic:@{@"searchValue": serachValue} modular:@"cms"];
++ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue pageNumber:(NSInteger)pageNumber{
+    
+    NSInteger skip=0;
+    NSInteger limit=10;//分页数默认20条
+    if(pageNumber>=1)
+    {
+        skip=(pageNumber-1)*limit;
+    }
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [paradic setObject:serachValue forKey:@"searchValue"];
+    
+    HttpResult *r = [self post3:@"content/findAllBySearch" dic:paradic modular:@"cms"];
     
     NSMutableArray *resultArray = [NSMutableArray array];
     if (r.OK) {
@@ -901,8 +914,17 @@
 }
 
 //MARK:查询整个文章的评论（CMS_003_04）
-+ (NSArray<DiscussInfo *> *)queryAllCommentByConent:(NSString *)contentId {
-    HttpResult *r = [self post:@"comment/findAllByContent" dic:@{@"contentId": contentId} modular:@"cms"];
++ (NSArray<DiscussInfo *> *)queryAllCommentByConent:(NSString *)contentId  skip:(NSInteger)skip{
+    
+    
+//    NSDictionary *dic = @{@"contentId": contentId,@"skip":[NSNumber numberWithInteger:skip],@"limit":[NSNumber numberWithInteger:10]};
+    if(skip>0){
+        //服务器没有做分页 不执行加载更多操作
+        return nil;
+    }
+
+    NSDictionary *dic = @{@"contentId": contentId};
+    HttpResult *r = [self post:@"comment/findAllByContent" dic:dic modular:@"cms"];
     
     NSArray* resultArray = nil;
     if (r.OK) {
@@ -1490,6 +1512,26 @@
         }
     }];
     return [self saveArticleArr:arr];
+}
+
+//MARK:查询杂志列表集合
++(NSArray*)findAllMagazines:(NSInteger)skip{
+    NSNumber *limit= [NSNumber numberWithInteger:10];
+
+    NSDictionary *dic = @{@"skip":[NSNumber numberWithInteger:skip],@"limit":limit};
+
+    HttpResult *r = [self post3:@"magazine/findAll" dic:dic modular:@"cms"];
+    NSMutableArray *resultArray = [NSMutableArray array];
+    if (r.OK) {
+        NSArray *arr = r.resultMap[@"data"];
+        for (NSDictionary *d in arr) {
+            MagazineModel *item = [[MagazineModel alloc] initWithJson:jsonBuild(d)];
+            if (item) {
+                [resultArray addObject:item];
+            }
+        }
+    }
+    return resultArray;
 }
 
 @end

@@ -72,7 +72,6 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     category=@"LATEST";
-    pagenumber=1;
 	UINavigationItem *item = [self navigationItem];
     //219*43
     //

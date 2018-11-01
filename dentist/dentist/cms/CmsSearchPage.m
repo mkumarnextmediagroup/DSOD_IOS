@@ -37,8 +37,6 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-    pagenumber = 1;
-    
 	UINavigationItem *item = [self navigationItem];
     item.leftBarButtonItem=nil;//hidden left menu
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
@@ -53,9 +51,16 @@
     self.table.estimatedRowHeight = 400;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyViewWithImageName:@"Icon-Search" title:@"Search by category name,\n author,or content type"];
+    self.isRefresh=YES;
 
 //    self.items = [Proto getArticleListByKeywords:searchKeywords];
     
+}
+
+//MARK:刷新数据
+-(void)refreshData
+{
+    self.items=nil;
 }
 
 - (Class)viewClassOfItem:(NSObject *)item {
@@ -209,6 +214,7 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     issearch=YES;
+    pagenumber=1;
     searchKeywords=searchBar.text;
     [self.searchBar resignFirstResponder];
      _searchBar.showsCancelButton = NO;
@@ -224,21 +230,24 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height+50)
     {
-        //在最底部
-        [self showIndicator];
-        backTask(^() {
-            NSInteger newpage=self->pagenumber+1;
-            NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-            NSArray<CMSModel *> *array = [Proto querySearchResults:self->searchKeywords pageNumber:newpage];
-            if(array && array.count>0){
-                [newarray addObjectsFromArray:array];
-                self->pagenumber=newpage;
-            }
-            foreTask(^() {
-                [self hideIndicator];
-                self.items=[newarray copy];
+        if (pagenumber>=1) {
+            //在最底部
+            [self showIndicator];
+            backTask(^() {
+                NSInteger newpage=self->pagenumber+1;
+                NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+                NSArray<CMSModel *> *array = [Proto querySearchResults:self->searchKeywords pageNumber:newpage];
+                if(array && array.count>0){
+                    [newarray addObjectsFromArray:array];
+                    self->pagenumber=newpage;
+                }
+                foreTask(^() {
+                    [self hideIndicator];
+                    self.items=[newarray copy];
+                });
             });
-        });
+        }
+        
     }
 }
 

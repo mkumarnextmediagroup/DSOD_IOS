@@ -33,7 +33,6 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    pagenumber=1;
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"CATEGORY";
     
@@ -256,21 +255,24 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height-50)
     {
-        //在最底部
-        [self showIndicator];
-        backTask(^() {
-            NSInteger newpage=pagenumber+1;
-            NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:type pageNumber:pagenumber];
-            if(array && array.count>0){
-                [newarray addObjectsFromArray:array];
-                pagenumber=newpage;
-            }
-            foreTask(^() {
-                [self hideIndicator];
-                self.items=[newarray copy];
+        if (pagenumber>=1) {
+            //在最底部
+            [self showIndicator];
+            backTask(^() {
+                NSInteger newpage=pagenumber+1;
+                NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+                NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:type pageNumber:pagenumber];
+                if(array && array.count>0){
+                    [newarray addObjectsFromArray:array];
+                    pagenumber=newpage;
+                }
+                foreTask(^() {
+                    [self hideIndicator];
+                    self.items=[newarray copy];
+                });
             });
-        });
+        }
+        
     }
 }
 

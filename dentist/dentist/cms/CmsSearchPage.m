@@ -138,53 +138,53 @@
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
-- (void)ArticleMarkActionModel:(CMSModel*)model
+-(void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view
 {
+    CMSModel *model = (id) item;
     if(model.isBookmark){
         //删除
         backTask(^() {
-            BOOL result=[Proto deleteBookmark:model.id];
+            BOOL result=[Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id];
             foreTask(^() {
                 if (result) {
                     //
+                    model.isBookmark=NO;
+                    ArticleItemView *itemView = (ArticleItemView *) view;
+                    [itemView updateBookmarkStatus:NO];
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        
+                        NSLog(@"点击取消");
+                    }]];
+                    [self presentViewController:alertController animated:YES completion:nil];
                 }
             });
         });
     }else{
         //添加
         backTask(^() {
-            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.id];
+            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId];
             foreTask(^() {
                 if (result) {
                     //
+                    model.isBookmark=YES;
+                    ArticleItemView *itemView = (ArticleItemView *) view;
+                    [itemView updateBookmarkStatus:YES];
+                    
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        
+                        NSLog(@"点击取消");
+                    }]];
+                    [self presentViewController:alertController animated:YES completion:nil];
                 }
             });
         });
     }
-//    NSLog(@"ArticleMarkAction=%@",@(articleid));
-//    if ([Proto checkIsBookmarkByArticle:articleid]) {
-//        //移除bookmark
-//        [Proto deleteBookmarks:articleid];
-//        self.items=[Proto getArticleListByKeywords:searchKeywords];
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
-//
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//            NSLog(@"点击取消");
-//        }]];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }else{
-//        //添加bookmark
-//        [Proto addBookmarks:articleid];
-//        self.items=[Proto getArticleListByKeywords:searchKeywords];
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
-//
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//            NSLog(@"点击取消");
-//        }]];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }
+    
+    
 }
 
 #pragma mark ---UISearchBarDelegate

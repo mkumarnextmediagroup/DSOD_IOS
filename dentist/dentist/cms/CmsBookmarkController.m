@@ -126,13 +126,16 @@
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
-    Article *article = (Article *) item;
-    if ([article.categoryName isEqualToString:@"VIDEOS"]) {
-        newVC.toWhichPage = @"mo";
-    }else
-    {
-        newVC.toWhichPage = @"pic";
-    }
+    BookmarkModel *article = (BookmarkModel *) item;
+    
+    newVC.contentId = article.postId;
+    newVC.toWhichPage = @"pic";
+//    if ([[article.contentTypeName uppercaseString] isEqualToString:@"VIDEOS"]) {
+//        newVC.toWhichPage = @"mo";
+//    }else
+//    {
+//        newVC.toWhichPage = @"pic";
+//    }
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 

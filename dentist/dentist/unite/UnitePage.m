@@ -14,6 +14,7 @@
     
     NSArray *datas;
     UIRefreshControl *refreshControl;
+    BOOL isRefreshing;
     
 }
 @end
@@ -78,11 +79,13 @@
 - (void)showTopIndicator {
     iv.hidden = NO;
     [iv startAnimating];
+    isRefreshing = YES;
 }
 
 - (void)hideTopIndicator {
     iv.hidden = YES;
     [iv stopAnimating];
+    isRefreshing = NO;
 }
 
 
@@ -93,6 +96,10 @@
 
 
 -(void)getDatas:(BOOL)isMore{
+    if(isRefreshing){
+        return;
+    }
+    
     [self showTopIndicator];
     backTask(^{
         NSArray *arr = [Proto findAllMagazines:isMore?self->datas.count:0];
@@ -136,5 +143,10 @@
     return cell;
 }
 
-
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    // 下拉到最底部时显示更多数据
+    if(!isRefreshing && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height))){
+        [self getDatas:YES];
+    }
+}
 @end

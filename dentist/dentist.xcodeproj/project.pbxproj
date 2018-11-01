@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18106AAB218ACC0D00EEE2DC /* FilterIssues@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AA8218ACC0C00EEE2DC /* FilterIssues@2x.png */; };
+		18106AAC218ACC0D00EEE2DC /* FilterIssues@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AA9218ACC0C00EEE2DC /* FilterIssues@3x.png */; };
+		18106AAD218ACC0D00EEE2DC /* FilterIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AAA218ACC0C00EEE2DC /* FilterIssues.png */; };
+		18106AB1218AF0CE00EEE2DC /* YHPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */; };
 		1866AFB121797DD300970CAB /* dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1866AFB021797DCE00970CAB /* dsodentist.png */; };
 		1866AFFE2179DF3900970CAB /* DentistTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866AFFD2179DF3900970CAB /* DentistTabView.m */; };
 		1866B0012179DFDA00970CAB /* TabCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */; };
@@ -638,6 +642,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18106AA8218ACC0C00EEE2DC /* FilterIssues@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterIssues@2x.png"; sourceTree = "<group>"; };
+		18106AA9218ACC0C00EEE2DC /* FilterIssues@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterIssues@3x.png"; sourceTree = "<group>"; };
+		18106AAA218ACC0C00EEE2DC /* FilterIssues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FilterIssues.png; sourceTree = "<group>"; };
+		18106AAF218AF0CE00EEE2DC /* YHPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHPopMenuView.h; sourceTree = "<group>"; };
+		18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHPopMenuView.m; sourceTree = "<group>"; };
 		1866AFB021797DCE00970CAB /* dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dsodentist.png; sourceTree = "<group>"; };
 		1866AFFC2179DF3900970CAB /* DentistTabView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DentistTabView.h; sourceTree = "<group>"; };
 		1866AFFD2179DF3900970CAB /* DentistTabView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DentistTabView.m; sourceTree = "<group>"; };
@@ -1508,9 +1517,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18106AAE218AF0AC00EEE2DC /* YHPopMenu */ = {
+			isa = PBXGroup;
+			children = (
+				18106AAF218AF0CE00EEE2DC /* YHPopMenuView.h */,
+				18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */,
+			);
+			path = YHPopMenu;
+			sourceTree = "<group>";
+		};
 		18B83ACA2173557C00130DB6 /* library */ = {
 			isa = PBXGroup;
 			children = (
+				18106AAE218AF0AC00EEE2DC /* YHPopMenu */,
 				A3DF39832189A280006F84DC /* expanding-collection */,
 				A99177082176E5EF00788D2C /* ClassProperty */,
 				A99177012176E4CD00788D2C /* AutoEncodeDecode */,
@@ -2005,6 +2024,9 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				18106AAA218ACC0C00EEE2DC /* FilterIssues.png */,
+				18106AA8218ACC0C00EEE2DC /* FilterIssues@2x.png */,
+				18106AA9218ACC0C00EEE2DC /* FilterIssues@3x.png */,
 				A3E752E0217E35010087713D /* Animation.png */,
 				A3E752DF217E35010087713D /* Animation@2x.png */,
 				A3E752D2217E34FF0087713D /* Animation@3x.png */,
@@ -3044,6 +3066,7 @@
 				C5EEA9C145CEE1C7091EA50F /* info@3x.png in Resources */,
 				18CFB0FD216F3B69002CC9D0 /* foryou@2x.png in Resources */,
 				E11E1C22447E15F69ECEC8B8 /* back_arrow.png in Resources */,
+				18106AAB218ACC0D00EEE2DC /* FilterIssues@2x.png in Resources */,
 				A3E752F0217E35010087713D /* TipSheet@3x.png in Resources */,
 				A3E752EB217E35010087713D /* Interview@3x.png in Resources */,
 				E11E18380D1E9ABDF5847389 /* back_arrow@2x.png in Resources */,
@@ -3132,6 +3155,7 @@
 				E11E17F4407FAF144D6FF697 /* download.png in Resources */,
 				E11E17660111A7577F8FEE1B /* download@2x.png in Resources */,
 				E11E1F7EA0D81ABAA1082A58 /* download@3x.png in Resources */,
+				18106AAD218ACC0D00EEE2DC /* FilterIssues.png in Resources */,
 				E11E1449B37EB9554A51F750 /* help_light.png in Resources */,
 				E11E1048C19936CC448A78CA /* help_light@2x.png in Resources */,
 				E11E10A7FD990BE89586D6EF /* help_light@3x.png in Resources */,
@@ -3140,6 +3164,7 @@
 				E11E13EC4653EE4F75B80EF6 /* help.png in Resources */,
 				E11E1750403A8ABA37271662 /* help@2x.png in Resources */,
 				E11E1C5057A006835221E347 /* help@3x.png in Resources */,
+				18106AAC218ACC0D00EEE2DC /* FilterIssues@3x.png in Resources */,
 				E11E11F479857699537757C1 /* notice_light.png in Resources */,
 				E11E1BE37EB4B443A57E766D /* notice_light@2x.png in Resources */,
 				E11E12E3ED565398DB96FCF8 /* notice_light@3x.png in Resources */,
@@ -3647,6 +3672,7 @@
 				C5EEA068F55D7B423D889014 /* EducationPage.m in Sources */,
 				4E23E08D215325AE00EDCE08 /* DiscussInfo.m in Sources */,
 				188FEC8A2175BDCA00EE32F3 /* BannerScrollView.m in Sources */,
+				18106AB1218AF0CE00EEE2DC /* YHPopMenuView.m in Sources */,
 				C5EEAF4D7420DCA0CCBD9D37 /* EventsPage.m in Sources */,
 				C5EEACBCD8E0C648F24C3CBD /* UnitePage.m in Sources */,
 				A3DF39A32189A280006F84DC /* SubviewsForEach.swift in Sources */,

@@ -143,8 +143,7 @@
     CMSModel *model = (id) item;
     if(model.isBookmark){
         //删除
-        backTask(^() {
-            BOOL result=[Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id];
+        [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
@@ -164,11 +163,10 @@
                 }]];
                 [self presentViewController:alertController animated:YES completion:nil];
             });
-        });
+        }];
     }else{
         //添加
-        backTask(^() {
-            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId];
+        [Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
@@ -188,7 +186,7 @@
                 }]];
                 [self presentViewController:alertController animated:YES completion:nil];
             });
-        });
+        }];
     }
     
     

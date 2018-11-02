@@ -42,6 +42,7 @@
     NSString *contenttype;
     DentistTabView *tabView;
     NSInteger pagenumber;
+    BOOL isdownrefresh;
 }
 - (instancetype)init {
 	self = [super init];
@@ -338,21 +339,21 @@
     segView.selectedSegmentIndex=0;
     self.table.tableHeaderView = [self makeHeaderView];
     [self showIndicator];
-    backTask(^() {
-        segItemsModel  = [Proto queryContentTypes];
+    [Proto queryContentTypes:^(NSArray<IdName *> *array) {
+        self->segItemsModel=[NSMutableArray arrayWithArray:array];
         IdName *latestmodel=[IdName new];
         latestmodel.id=@"0";
         latestmodel.name=@"LATEST";
-        [segItemsModel insertObject:latestmodel atIndex:0];
-        contenttype=nil;
-        NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:pagenumber];
-        foreTask(^() {
-            [self hideIndicator];
-            tabView.modelArr=segItemsModel;
-            self.items=array;
-        });
-    });
-//    self.items=[Proto getArticleListByCategory:category type:contenttype];
+        [self->segItemsModel insertObject:latestmodel atIndex:0];
+        self->contenttype=nil;
+        [Proto queryAllContentsByContentType:self->contenttype pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+            foreTask(^() {
+                [self hideIndicator];
+                self->tabView.modelArr=self->segItemsModel;
+                self.items=array;
+            });
+        }];
+    }];
 }
 
 -(void)showImageBrowser:(NSInteger)index
@@ -414,8 +415,7 @@
     CMSModel *model = (id) item;
     if(model.isBookmark){
         //删除
-        backTask(^() {
-            BOOL result=[Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id];
+        [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(BOOL result) {
             foreTask(^() {
                 
                 NSString *msg=@"";
@@ -429,7 +429,7 @@
                         ArticleItemView *itemView = (ArticleItemView *) view;
                         [itemView updateBookmarkStatus:NO];
                     }
-                   msg=@"Bookmarks is Delete";
+                    msg=@"Bookmarks is Delete";
                 }else{
                     msg=@"error";
                 }
@@ -441,11 +441,10 @@
                 }]];
                 [self presentViewController:alertController animated:YES completion:nil];
             });
-        });
+        }];
     }else{
         //添加
-        backTask(^() {
-            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId];
+        [Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
@@ -458,7 +457,7 @@
                         ArticleItemView *itemView = (ArticleItemView *) view;
                         [itemView updateBookmarkStatus:YES];
                     }
-                   msg=@"Bookmarks is Add";
+                    msg=@"Bookmarks is Add";
                 }else{
                     msg=@"error";
                 }
@@ -470,7 +469,7 @@
                 }]];
                 [self presentViewController:alertController animated:YES completion:nil];
             });
-        });
+        }];
     }
     
     
@@ -482,35 +481,6 @@
     gskVC.sponsorId=model.sponsorId;
     [self.navigationController pushViewController:gskVC animated:YES];
 }
-
-//-(void)ArticleMarkAction:(NSInteger)articleid
-//{
-//    selectActicleId=articleid;
-//    NSLog(@"ArticleMarkAction=%@",@(articleid));
-//    if ([Proto checkIsBookmarkByArticle:articleid]) {
-//        //移除bookmark
-//        [Proto deleteBookmarks:articleid];
-//        self.items=[Proto getArticleListByCategory:category type:contenttype];
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
-//
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//            NSLog(@"点击取消");
-//        }]];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }else{
-//        //添加bookmark
-//        [Proto addBookmarks:articleid];
-//        self.items=[Proto getArticleListByCategory:category type:contenttype];
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
-//
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//            NSLog(@"点击取消");
-//        }]];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }
-//}
 
 #pragma mark ---MyActionSheetDelegate
 - (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index
@@ -556,30 +526,22 @@
 #pragma mark -------DentistTabViewDelegate
 -(void)didDentistSelectItemAtIndex:(NSInteger)index
 {
-//    if (segItems.count>index) {
-//        category = segItems[index];
-//
-//
-//        Log(@(index ), category);
-//        self.items=[Proto getArticleListByCategory:category type:contenttype];
-//    }
     pagenumber=1;
     if (segItemsModel.count>index) {
         IdName *model=segItemsModel[index];
         Log(model.id, model.name);
         [self showIndicator];
-        backTask(^() {
-            if ([model.id isEqualToString:@"0"]) {
-                contenttype=nil;
-            }else{
-                contenttype=model.id;
-            }
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:pagenumber];
+        if ([model.id isEqualToString:@"0"]) {
+            self->contenttype=nil;
+        }else{
+            self->contenttype=model.id;
+        }
+        [Proto queryAllContentsByContentType:self->contenttype pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
                 self.items=array;
             });
-        });
+        }];
     }
     
 }
@@ -591,21 +553,26 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height-50)
     {
-        //在最底部
-        [self showIndicator];
-        backTask(^() {
-            NSInteger newpage=pagenumber+1;
-            NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsByContentType:contenttype pageNumber:newpage];
-            if(array && array.count>0){
-                [newarray addObjectsFromArray:array];
-                pagenumber=newpage;
-            }
-            foreTask(^() {
-                [self hideIndicator];
-                self.items=[newarray copy];
-            });
-        });
+        if (!isdownrefresh) {
+            isdownrefresh=YES;
+            //在最底部
+            [self showIndicator];
+            [Proto queryAllContentsByContentType:self->contenttype pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
+                self->isdownrefresh=NO;
+                foreTask(^() {
+                    [self hideIndicator];
+                    if(array && array.count>0){
+                        NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+                        [newarray addObjectsFromArray:array];
+                        self->pagenumber++;
+                        self.items=[newarray copy];
+                        
+                    }
+                });
+                
+            }];
+        }
+        
     }
 }
 

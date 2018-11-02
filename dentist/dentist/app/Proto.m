@@ -843,10 +843,62 @@
     }
     return resultArray;
 }
+
++ (void)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *)authorId completed:(void(^)(NSArray<CMSModel *> *array))completed {
+    NSInteger skip=0;
+    NSInteger limit=10;//分页数默认20条
+    if(pageNumber>=1)
+    {
+        skip=(pageNumber-1)*limit;
+    }
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    if (email) {
+        [paradic setObject:email forKey:@"email"];
+    }
+    if (contentTypeId) {
+        [paradic setObject:contentTypeId forKey:@"contentTypeId"];
+    }
+    if (categoryId) {
+        [paradic setObject:categoryId forKey:@"categoryId"];
+    }
+    if (sponserId) {
+        [paradic setObject:sponserId forKey:@"sponsorId"];
+    }
+    if (authorId) {
+        [paradic setObject:email forKey:@"authorId"];
+    }
+    [self postAsync3:@"content/findAllContents" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"data"];
+            for (NSDictionary *d in arr) {
+                CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
+                if (item) {
+                    [resultArray addObject:item];
+                }
+            }
+            if (completed) {
+                completed(resultArray);
+            }
+        }else{
+            if (completed) {
+                completed(nil);
+            }
+        }
+    }];
+}
+
 //MARK:根据分类查询媒体列表（CMS_001_01\CMS_001_10）
 + (NSArray<CMSModel *> *)queryAllContentsByCategoryType:(NSString *)categoryTypeId pageNumber:(NSInteger)pageNumber
 {
     return [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil pageNumber:pageNumber authorId:nil];
+}
+
++ (void)queryAllContentsByCategoryType:(NSString *)categoryTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed
+{
+    return [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil pageNumber:pageNumber authorId:nil completed:completed];
 }
 
 //MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
@@ -855,10 +907,20 @@
     return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil pageNumber:pageNumber authorId:nil];
 }
 
++ (void)queryAllContentsByContentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed
+{
+    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil pageNumber:pageNumber authorId:nil completed:completed];
+}
+
 //MARK:根据赞助商跟内容分类查询媒体列表（CMS_001_01\CMS_001_10）
 + (NSArray<CMSModel *> *)queryAllContentsBySponsorAndContentType:(NSString *)sponsorId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
 {
     return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:sponsorId pageNumber:pageNumber authorId:nil];
+}
+
++ (void)queryAllContentsBySponsorAndContentType:(NSString *)sponsorId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed
+{
+    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:sponsorId pageNumber:pageNumber authorId:nil completed:completed];
 }
 
 //MARK:查询媒体详情（CMS_002_01/CMS_002_02）
@@ -891,6 +953,26 @@
     return resultArray;
 }
 
++ (void)queryCategoryTypes:(void(^)(NSArray<IdName *> *array))completed {
+    [self postAsync3:@"category/findAllCategory" dic:nil modular:@"cms" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"data"];
+            for (NSDictionary *d in arr) {
+                IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+                [resultArray addObject:item];
+            }
+            if (completed) {
+                completed(resultArray);
+            }
+        }else{
+            if (completed) {
+                completed(nil);
+            }
+        }
+    }];
+}
+
 //MARK:查询Content Type（CMS_004_03）
 + (NSArray<IdName *> *)queryContentTypes {
     HttpResult *r = [self post3:@"category/findAllContentType" dic:nil modular:@"cms"];
@@ -906,6 +988,26 @@
     return resultArray;
 }
 
++ (void)queryContentTypes:(void(^)(NSArray<IdName *> *array))completed  {
+    [self postAsync3:@"category/findAllContentType" dic:nil modular:@"cms" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"data"];
+            for (NSDictionary *d in arr) {
+                IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+                [resultArray addObject:item];
+            }
+            if (completed) {
+                completed(resultArray);
+            }
+        }else{
+            if (completed) {
+                completed(nil);
+            }
+        }
+    }];
+}
+
 //MARK:添加评论（CMS_002_06）
 +(HttpResult *)addComment:(NSString *)email contentId:(NSString *)contentId commentText:(NSString *)commentText commentRating:(NSString *)commentRating
 {
@@ -915,16 +1017,9 @@
 
 //MARK:查询整个文章的评论（CMS_003_04）
 + (NSArray<DiscussInfo *> *)queryAllCommentByConent:(NSString *)contentId  skip:(NSInteger)skip{
-    
-    
-//    NSDictionary *dic = @{@"contentId": contentId,@"skip":[NSNumber numberWithInteger:skip],@"limit":[NSNumber numberWithInteger:10]};
-    if(skip>0){
-        //服务器没有做分页 不执行加载更多操作
-        return nil;
-    }
+    NSDictionary *dic = @{@"contentId": contentId,@"skip":[NSNumber numberWithInteger:skip],@"limit":[NSNumber numberWithInteger:10]};
 
-    NSDictionary *dic = @{@"contentId": contentId};
-    HttpResult *r = [self post:@"comment/findAllByContent" dic:dic modular:@"cms"];
+    HttpResult *r = [self post3:@"comment/findAllByContent" dic:dic modular:@"cms"];
     
     NSArray* resultArray = nil;
     if (r.OK) {
@@ -934,8 +1029,26 @@
 }
 
 //MARK:查询收藏列表
-+ (NSArray<CMSModel *> *)queryBookmarksByEmail:(NSString *)email {
-    HttpResult *r = [self post2:@"bookmark/findAllByEmail" dic:@{@"email": email} modular:@"cms"];
++ (NSArray<BookmarkModel *> *)queryBookmarksByEmail:(NSString *)email categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber {
+    NSInteger skip=0;
+    NSInteger limit=10;//分页数默认20条
+    if(pageNumber>=1)
+    {
+        skip=(pageNumber-1)*limit;
+    }
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    if (email) {
+        [paradic setObject:email forKey:@"email"];
+    }
+    if (contentTypeId) {
+        [paradic setObject:contentTypeId forKey:@"contentTypeId"];
+    }
+    if (categoryId) {
+        [paradic setObject:categoryId forKey:@"categoryId"];
+    }
+    HttpResult *r = [self post3:@"bookmark/findAllByEmail" dic:paradic modular:@"cms"];
     
     NSMutableArray *resultArray = [NSMutableArray array];
     if (r.OK) {
@@ -948,40 +1061,138 @@
     return resultArray;
 }
 
++ (void)queryBookmarksByEmail:(NSString *)email categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber skip:(NSInteger)skip completed:(void(^)(NSArray<BookmarkModel *> *array))completed {
+//    NSInteger skip=0;
+    NSInteger limit=10;//分页数默认20条
+//    if(pageNumber>=1)
+//    {
+//        skip=(pageNumber-1)*limit;
+//    }
+    if (skip<=0) {
+        skip=0;
+    }
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    if (email) {
+        [paradic setObject:email forKey:@"email"];
+    }
+    if (contentTypeId) {
+        [paradic setObject:contentTypeId forKey:@"contentTypeId"];
+    }
+    if (categoryId) {
+        [paradic setObject:categoryId forKey:@"categoryId"];
+    }
+    [self postAsync3:@"bookmark/findAllByEmail" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
+        
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"bookmarkList"];
+            for (NSDictionary *d in arr) {
+                BookmarkModel *item = [[BookmarkModel alloc] initWithJson:jsonBuild(d)];
+                [resultArray addObject:item];
+            }
+            if (completed) {
+                completed(resultArray);
+            }
+        }else{
+            if (completed) {
+                completed(nil);
+            }
+        }
+        
+    }];
+}
+
 //MARK:删除收藏
 +(BOOL)deleteBookmark:(NSString *)bookmarkid
 {
     BOOL result=NO;
-    HttpResult *r = [self post2:@"bookmark/deleteOneById" dic:@{@"id": bookmarkid} modular:@"cms"];
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (bookmarkid) {
+        [paradic setObject:bookmarkid forKey:@"id"];
+    }
+    HttpResult *r = [self post2:@"bookmark/deleteOneById" dic:paradic modular:@"cms"];
     if (r.OK) {
         result=YES;
     }
     return result;
+}
+
++(void)deleteBookmark:(NSString *)bookmarkid completed:(void(^)(BOOL result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (bookmarkid) {
+        [paradic setObject:bookmarkid forKey:@"id"];
+    }
+    [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r.OK);
+        }
+    }];
 }
 
 //MARK:删除收藏
 +(BOOL)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId
 {
     BOOL result=NO;
-    HttpResult *r = [self post2:@"bookmark/deleteOneByEmailAndContentId" dic:@{@"contentId": contentId,@"email": email} modular:@"cms"];
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (email) {
+        [paradic setObject:email forKey:@"email"];
+    }
+    if (contentId) {
+        [paradic setObject:contentId forKey:@"contentId"];
+    }
+    HttpResult *r = [self post2:@"bookmark/deleteOneByEmailAndContentId" dic:paradic modular:@"cms"];
     if (r.OK) {
         result=YES;
     }
     return result;
 }
 
++(void)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId completed:(void(^)(BOOL result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (email) {
+        [paradic setObject:email forKey:@"email"];
+    }
+    if (contentId) {
+        [paradic setObject:contentId forKey:@"contentId"];
+    }
+    [self postAsync2:@"bookmark/deleteOneByEmailAndContentId" dic:paradic modular:@"cms"callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r.OK);
+        }
+    }];
+}
+
 //MARK:添加收藏
-+(BOOL)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url
++(BOOL)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId
 {
     BOOL result=NO;
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title] && ![NSString isBlankString:url]){
-        HttpResult *r = [self post3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url} modular:@"cms"];
+        HttpResult *r = [self post3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId} modular:@"cms"];
         if (r.OK) {
             result=YES;
         }
     }
     
     return result;
+}
++(void)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId completed:(void(^)(BOOL result))completed
+{
+    if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title] && ![NSString isBlankString:url]){
+        [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId} modular:@"cms" callback:^(HttpResult *r) {
+            if (completed) {
+                completed(r.OK);
+            }
+        }];
+    }else{
+        if (completed) {
+            completed(NO);
+        }
+    }
+
 }
 
 //MARK:获取单个文件（ADMIN PORTAL Only）
@@ -1095,6 +1306,61 @@
     NSData *datadic=[jsondic dataUsingEncoding:NSUTF8StringEncoding];
     HttpResult *r = [h postRaw:datadic];
     return r;
+}
+
++ (void)post:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback{
+    NSString *baseUrl = [self configUrl:modular];
+    Http *h = [Http new];
+    h.url = strBuild([self baseDomain],baseUrl, action);
+    NSLog(@"requesturl=%@", h.url);
+    [h arg:@"client_id" value:@"fooClientIdPassword"];
+    [h args:dic];
+    NSString *token = [self lastToken];
+    if (token != nil) {
+        [h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+    }
+    [h postAsync:^(HttpResult *r) {
+        if (callback) {
+            callback(r);
+        }
+    }];
+}
+
++ (void)postAsync2:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback{
+    NSString *baseUrl = [self configUrl:modular];
+    Http *h = [Http new];
+    h.url = strBuild([self baseDomain],baseUrl, action);
+    NSLog(@"requesturl=%@", h.url);
+    NSString *token = [self lastToken];
+    if (token != nil) {
+        [h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+    }
+    [h arg:@"client_id" value:@"fooClientIdPassword"];
+    [h args:dic];
+    [h multipartAsync:^(HttpResult *r) {
+        if (callback) {
+            callback(r);
+        }
+    }];
+}
+
++(void)postAsync3:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback{
+    NSString *baseUrl = [self configUrl:modular];
+    Http *h = [Http new];
+    h.url = strBuild([self baseDomain],baseUrl, action);
+    NSLog(@"requesturl=%@", h.url);
+    NSString *token = [self lastToken];
+    if (token != nil) {
+        [h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+        [h header:@"Content-Type" value:@"application/json"];
+    }
+    NSString *jsondic=jsonBuild(dic);
+    NSData *datadic=[jsondic dataUsingEncoding:NSUTF8StringEncoding];
+    [h postRawAsync:datadic callback:^(HttpResult *r) {
+        if (callback) {
+            callback(r);
+        }
+    }];
 }
 
 + (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath modular:(NSString *)modular {

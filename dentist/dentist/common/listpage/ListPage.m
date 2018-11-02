@@ -90,6 +90,7 @@
 }
 
 - (void)showIndicator {
+    [self.iv stopAnimating];
     self.iv.hidden = NO;
     [self.iv startAnimating];
 }
@@ -325,17 +326,15 @@
             }
         }];
         [picker showIndicator];
-        backTask(^() {
+        [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
             if (!self.categoryArray) {
-                self.categoryArray = [Proto queryCategoryTypes];
+                self.categoryArray = array;
             }
             foreTask(^() {
                 [picker hideIndicator];
-               picker.arrayDic=self.categoryArray;
-                //        picker.array = @[@"DSOs",@"General Dentistry",@"Implant Dentistry",@"Orthodontics",@"Pediatric Dentistry",@"Practice Management"];
-                
+                picker.arrayDic=self.categoryArray;
             });
-        });
+        }];
         
         
        

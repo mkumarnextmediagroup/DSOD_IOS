@@ -34,6 +34,7 @@ typedef void (^HttpCallback)(HttpResult *);
 - (void)multipartAsync:(HttpCallback)callback;
 
 - (void)postRawAsync:(HttpCallback)callback;
+- (void)postRawAsync:(NSData *)data callback:(HttpCallback)callback;
 
 
 - (void)auth:(NSString *)user value:(NSString *)pwd;

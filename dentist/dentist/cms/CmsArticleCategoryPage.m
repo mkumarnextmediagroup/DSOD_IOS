@@ -43,7 +43,9 @@
     DentistTabView *tabView;
     NSInteger pagenumber;
     UILabel *titlecontent;
+     BOOL isdownrefresh;
 }
+@property (nonatomic,strong) UIActivityIndicatorView *categoryiv;
 @end
 
 @implementation CmsArticleCategoryPage
@@ -65,6 +67,7 @@
 
 - (void)createNav
 {
+    [self.view layoutIfNeeded];
     UIView *topVi = [UIView new];
     topVi.backgroundColor = Colors.bgNavBarColor;
     [self.view addSubview:topVi];
@@ -82,8 +85,37 @@
     [dismissBtn addTarget:self action:@selector(onBack:) forControlEvents:UIControlEventTouchUpInside];
     [[[[dismissBtn.layoutMaker leftParent:0] topParent:24+NAVHEIGHT_OFFSET] sizeEq:60 h:40] install];
     
+    
+    
     UILabel *line = [topVi lineLabel];
     [[[[line.layoutMaker topParent:NAVHEIGHT - 1] leftParent:0] sizeEq:SCREENWIDTH h:1] install];
+    UIView *rightView = [self.view addView];
+//    rightView.backgroundColor=[UIColor redColor];
+    [[[[rightView.layoutMaker rightParent:0] topParent:44+NAVHEIGHT_OFFSET] sizeEq:40 h:40] install];
+//    [topVi layoutIfNeeded];
+//    [self.view layoutIfNeeded];
+    if (self.categoryiv == nil) {
+        self.categoryiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        [rightView addSubview:self.categoryiv];
+        self.categoryiv.tag = 990;
+        self.categoryiv.hidesWhenStopped = YES;
+        self.categoryiv.backgroundColor = [UIColor clearColor];
+        self.categoryiv.center = rightView.center;
+        
+    }
+    [rightView bringSubviewToFront: self.categoryiv];
+    self.categoryiv.hidden=YES;
+}
+
+- (void)showCmsIndicator {
+    [self.categoryiv stopAnimating];
+    self.categoryiv.hidden = NO;
+    [self.categoryiv startAnimating];
+}
+
+- (void)hideCmsIndicator {
+    self.categoryiv.hidden = YES;
+    [self.categoryiv stopAnimating];
 }
 
 - (void)onBack:(UIButton *)btn {
@@ -164,15 +196,13 @@
 -(void)refreshData
 {
     pagenumber=1;
-    [self showIndicator];
-    backTask(^() {
-        NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:_categoryId pageNumber:pagenumber];
+    [self showCmsIndicator];
+    [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
         foreTask(^() {
-            [self hideIndicator];
+            [self hideCmsIndicator];
             self.items=array;
         });
-    });
-    //    self.items=[Proto getArticleListByCategory:category type:contenttype];
+    }];
 }
 
 
@@ -185,31 +215,58 @@
     [denSheet show];
 }
 
--(void)ArticleMarkActionModel:(CMSModel *)model
+-(void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view
 {
+    CMSModel *model = (id) item;
     if(model.isBookmark){
         //删除
-        backTask(^() {
-            BOOL result=[Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id];
+        [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(BOOL result) {
             foreTask(^() {
+                NSString *msg=@"";
                 if (result) {
                     //
                     model.isBookmark=NO;
+                    ArticleItemView *itemView = (ArticleItemView *) view;
+                    [itemView updateBookmarkStatus:NO];
+                    msg=@"Bookmarks is Delete";
+                }else{
+                    msg=@"error";
                 }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
             });
-        });
+        }];
     }else{
         //添加
-        backTask(^() {
-            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId];
+        [Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId completed:^(BOOL result) {
             foreTask(^() {
+                NSString *msg=@"";
                 if (result) {
                     //
                     model.isBookmark=YES;
+                    ArticleItemView *itemView = (ArticleItemView *) view;
+                    [itemView updateBookmarkStatus:YES];
+                    msg=@"Bookmarks is Add";
+                }else{
+                    msg=@"error";
                 }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
             });
-        });
+        }];
     }
+    
+    
 }
 
 #pragma mark ---MyActionSheetDelegate
@@ -242,7 +299,7 @@
     }
 }
 
--(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName
+-(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(NSString *)categoryName
 {
     DentistPickerView *picker = [[DentistPickerView alloc]init];
     
@@ -253,24 +310,24 @@
     } rightAction:^(NSString *result,NSString *resultname) {
         
     } selectAction:^(NSString *result,NSString *resultname) {
-        _categoryId=result;
-        titlecontent=categoryName;
-        pagenumber=1;
-        [self showIndicator];
-        backTask(^() {
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:_categoryId pageNumber:pagenumber];
+        self.categoryId=result;
+        foreTask(^{
+            [self showCmsIndicator];
+            self->titlecontent.text=resultname;
+        });
+        self->pagenumber=1;
+        [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
-                [self hideIndicator];
+                [self hideCmsIndicator];
                 self.items=array;
             });
-        });
+        }];
     }];
-    backTask(^() {
-        NSArray<IdName *> *array = [Proto queryCategoryTypes];
+    [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
         foreTask(^() {
             picker.arrayDic=array;
         });
-    });
+    }];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -280,21 +337,26 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height-50)
     {
-        //在最底部
-        [self showIndicator];
-        backTask(^() {
-            NSInteger newpage=pagenumber+1;
-            NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsByCategoryType:_categoryId pageNumber:newpage];
-            if(array && array.count>0){
-                [newarray addObjectsFromArray:array];
-                pagenumber=newpage;
-            }
-            foreTask(^() {
-                [self hideIndicator];
-                self.items=[newarray copy];
-            });
-        });
+        if (pagenumber>=1 && !isdownrefresh) {
+            isdownrefresh=YES;
+            //在最底部
+            [self showCmsIndicator];
+            [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
+                self->isdownrefresh=NO;
+                foreTask(^() {
+                    [self hideCmsIndicator];
+                    if(array && array.count>0){
+                        NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+                        [newarray addObjectsFromArray:array];
+                        self->pagenumber++;
+                        self.items=[newarray copy];
+                    }
+                });
+                
+                
+            }];
+        }
+       
     }
 }
 

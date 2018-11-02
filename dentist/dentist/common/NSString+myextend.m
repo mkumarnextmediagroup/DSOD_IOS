@@ -54,7 +54,7 @@
     formatter.timeZone = [NSTimeZone timeZoneWithName:@"America/Chicago"];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];
-    [formatter setDateFormat:@"MMM dd,yyyy"];
+    [formatter setDateFormat:@"MMM dd, yyyy"];
     
     // 毫秒值转化为秒
     NSDate* date = [NSDate dateWithTimeIntervalSince1970:[timeString doubleValue]/ 1000.0];

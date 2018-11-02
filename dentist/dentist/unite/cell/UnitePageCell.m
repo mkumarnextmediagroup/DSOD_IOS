@@ -23,21 +23,23 @@
     if (self) {
         coverImgView = [UIImageView new];
         [self addSubview:coverImgView];
-        [[[[[coverImgView.layoutMaker topParent:edge] leftParent:edge] rightParent:-edge] heightEq:520]install];
+        [[[[[coverImgView.layoutMaker topParent:edge] leftParent:edge] rightParent:-edge] heightEq:500]install];
         
-        optionBtn = [UIButton new];
+        optionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [self optionBtnReadStyle];
         [self addSubview:optionBtn];
         [[[[optionBtn.layoutMaker sizeEq:120 h:36] rightParent:-edge] below:coverImgView offset:edge]install];
+        [optionBtn addTarget:self action:@selector(optionBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        
         
         publishDateLabel = [UILabel new];
-        publishDateLabel.font = [Fonts semiBold:12];
+        publishDateLabel.font = [UIFont systemFontOfSize:12];
         [publishDateLabel textColorMain];// 4a4a4a
         [self addSubview:publishDateLabel];
         [[[[[publishDateLabel.layoutMaker below:coverImgView offset:edge]toLeftOf:optionBtn offset:-edge]leftParent:edge] heightEq:18]install];
        
         volIssueLabel = [UILabel new];
-        volIssueLabel.font = [Fonts semiBold:12];
+        volIssueLabel.font = [UIFont systemFontOfSize:12];
         [volIssueLabel textColorAlternate];// 9b
         [self addSubview:volIssueLabel];
         [[[[[volIssueLabel.layoutMaker below:publishDateLabel offset:0]toLeftOf:optionBtn offset:-edge]leftParent:edge] heightEq:18]install];
@@ -47,6 +49,7 @@
 }
 
 - (void)setMagazineModel:(MagazineModel *)magazineModel{
+    _magazineModel = magazineModel;
     
     magazineModel.cover = @"http://app800.cn/i/p.png";
     if(magazineModel.cover){
@@ -55,18 +58,36 @@
     publishDateLabel.text = [NSString timeWithTimeIntervalString:magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",magazineModel.vol?magazineModel.vol:@"", magazineModel.issue?magazineModel.issue:@""];
     
-    BOOL isDownload = NO;
-    if(isDownload){
-        [self optionBtnReadStyle];
-    }else{
-        [self optionBtnDownloadStyle];
+    
+    switch ([self getUnitePageDownloadStatus]) {
+        case UPageNoDownload:
+            [self optionBtnDownloadStyle];
+            break;
+        case UPageDownloading:
+            [self optionBtnDownloadingStyle];
+            break;
+        case UPageDownloaded:
+            [self optionBtnReadStyle];
+            break;
     }
+    
 }
 
 -(void)optionBtnDownloadStyle{
     [optionBtn.layer setBorderWidth:1.0];
+    optionBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [optionBtn title:@"Download"];
-    [optionBtn setTitleColor:rgbHex(0x879AB9) forState:UIControlStateNormal];
+    [optionBtn setTitleColor:rgbHex(0x4A4A4A) forState:UIControlStateNormal];
+    [optionBtn.layer setBorderColor:rgb255(221, 221, 221).CGColor];
+    [optionBtn setBackgroundImage:colorImage(makeSize(1, 1), rgbHex(0xffffff)) forState:UIControlStateNormal];
+    [optionBtn setBackgroundImage:colorImage(makeSize(1, 1), rgbHex(0xdddddd)) forState:UIControlStateHighlighted];
+}
+
+-(void)optionBtnDownloadingStyle{
+    [optionBtn.layer setBorderWidth:1.0];
+    optionBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [optionBtn title:@"Download"];
+    [optionBtn setTitleColor:rgbHex(0x4A4A4A) forState:UIControlStateNormal];
     [optionBtn.layer setBorderColor:rgb255(221, 221, 221).CGColor];
     [optionBtn setBackgroundImage:colorImage(makeSize(1, 1), rgbHex(0xffffff)) forState:UIControlStateNormal];
     [optionBtn setBackgroundImage:colorImage(makeSize(1, 1), rgbHex(0xdddddd)) forState:UIControlStateHighlighted];
@@ -74,14 +95,24 @@
 
 -(void)optionBtnReadStyle{
     [optionBtn.layer setBorderWidth:0.0];
+    optionBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [optionBtn title:@"Read"];
     [optionBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [optionBtn.layer setBorderColor:rgb255(221, 221, 221).CGColor];
     [optionBtn setBackgroundImage:colorImage(makeSize(1, 1), rgbHex(0x879AA8)) forState:UIControlStateNormal];
     [optionBtn setBackgroundImage:colorImage(makeSize(1, 1), rgbHex(0x627888)) forState:UIControlStateHighlighted];
-    
 }
 
+-(UnitePageDownloadStatus)getUnitePageDownloadStatus{
+    //TODO state of judgment
+    return UPageNoDownload;
+}
+
+-(void)optionBtnAction:(UIButton *)sender{
+    if(self.optonBtnOnClickListener){
+        self.optonBtnOnClickListener([self getUnitePageDownloadStatus], self.magazineModel);
+    }
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

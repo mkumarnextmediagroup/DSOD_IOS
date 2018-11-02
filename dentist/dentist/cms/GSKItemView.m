@@ -166,12 +166,11 @@
             [self.delegate GSKCategoryPickerSelectAction:result];
         }
     }];
-    backTask(^() {
-        NSArray<IdName *> *array = [Proto queryCategoryTypes];
+    [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
         foreTask(^() {
             picker.arrayDic=array;
         });
-    });
+    }];
 }
 
 

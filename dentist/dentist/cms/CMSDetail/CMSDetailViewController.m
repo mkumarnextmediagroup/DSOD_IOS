@@ -41,7 +41,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self createNav];
     backTask(^() {
-        self.articleInfo = [Proto queryForDetailPage:@"5bd912074192a80309fe23c1"];//5bd912074192a80309fe23c1
+        self.articleInfo = [Proto queryForDetailPage:self.contentId];//5bdc1e7eb0f3e0701cef0253
         foreTask(^() {
             
             
@@ -99,7 +99,7 @@
 - (void)goToViewAllPage
 {
     ViewAllViewController *viewAll = [ViewAllViewController new];
-//    viewAll.discussInfo = self.articleInfo.discussInfo;
+    viewAll.discussInfo = self.articleInfo.discussInfos;
     viewAll.contentId = self.contentId;
     [self.navigationController pushViewController:viewAll animated:YES];
 }
@@ -248,35 +248,54 @@
 
 - (void)markBtnClick:(UIButton *)btn
 {
-    NSInteger articleid = self.articleInfo.id;
-    if ([Proto checkIsBookmarkByArticle:articleid]) {
-        //移除bookmark
-        [playView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-        [picDetailView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-        [Proto deleteBookmarks:articleid];
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-            NSLog(@"点击取消");
-        }]];
-        [self presentViewController:alertController animated:YES completion:nil];
+    if(_articleInfo.isBookmark){
+        //删除
+        [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:_articleInfo.id completed:^(BOOL result) {
+            foreTask(^() {
+                NSString *msg=@"";
+                if (result) {
+                    //
+                    self.articleInfo.isBookmark=NO;
+                    [self->playView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+                    [self->picDetailView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+                    [self->markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+                    msg=@"Bookmarks is Delete";
+                }else{
+                    msg=@"error";
+                }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            });
+        }];
     }else{
-        //添加bookmark
-        [Proto addBookmarks:articleid];
-        [playView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
-        [picDetailView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
-        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
-       
-
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Add" preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-            NSLog(@"点击取消");
-        }]];
-        [self presentViewController:alertController animated:YES completion:nil];
+        //添加
+        [Proto addBookmark:getLastAccount() postId:_articleInfo.id title:_articleInfo.title url:_articleInfo.featuredMediaId categoryId:_articleInfo.categoryId contentTypeId:_articleInfo.contentTypeId completed:^(BOOL result) {
+            foreTask(^() {
+                NSString *msg=@"";
+                if (result) {
+                    //
+                    self.articleInfo.isBookmark=YES;
+                    [self->playView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+                    [self->picDetailView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+                    [self->markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+                    msg=@"Bookmarks is Add";
+                }else{
+                    msg=@"error";
+                }
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            });
+        }];
     }
 }
 

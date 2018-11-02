@@ -15,6 +15,7 @@
 		1866AFFE2179DF3900970CAB /* DentistTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866AFFD2179DF3900970CAB /* DentistTabView.m */; };
 		1866B0012179DFDA00970CAB /* TabCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */; };
 		188FEC8A2175BDCA00EE32F3 /* BannerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FEC892175BDC900EE32F3 /* BannerScrollView.m */; };
+		189BCB84218C260E0003CA91 /* UniteDownloadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189BCB83218C260E0003CA91 /* UniteDownloadingViewController.m */; };
 		18B83B082173557D00130DB6 /* YBImageBrowserProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83ACE2173557C00130DB6 /* YBImageBrowserProgressView.m */; };
 		18B83B092173557D00130DB6 /* YBImageBrowserSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83AD02173557C00130DB6 /* YBImageBrowserSheetView.m */; };
 		18B83B0A2173557D00130DB6 /* YBImageBrowserTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83AD22173557C00130DB6 /* YBImageBrowserTipView.m */; };
@@ -656,6 +657,8 @@
 		1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabCollectionViewCell.m; sourceTree = "<group>"; };
 		188FEC882175BDBD00EE32F3 /* BannerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerScrollView.h; sourceTree = "<group>"; };
 		188FEC892175BDC900EE32F3 /* BannerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerScrollView.m; sourceTree = "<group>"; };
+		189BCB82218C260D0003CA91 /* UniteDownloadingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniteDownloadingViewController.h; sourceTree = "<group>"; };
+		189BCB83218C260E0003CA91 /* UniteDownloadingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteDownloadingViewController.m; sourceTree = "<group>"; };
 		18B83ACD2173557C00130DB6 /* YBImageBrowserProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBImageBrowserProgressView.h; sourceTree = "<group>"; };
 		18B83ACE2173557C00130DB6 /* YBImageBrowserProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBImageBrowserProgressView.m; sourceTree = "<group>"; };
 		18B83ACF2173557C00130DB6 /* YBImageBrowserSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBImageBrowserSheetView.h; sourceTree = "<group>"; };
@@ -2835,6 +2838,8 @@
 				C5EEAE8DB86D4C0358C3B958 /* UnitePage.m */,
 				4E33ACC3218AE94F00E4CF7E /* UniteDetailViewController.h */,
 				4E33ACC4218AE94F00E4CF7E /* UniteDetailViewController.m */,
+				189BCB82218C260D0003CA91 /* UniteDownloadingViewController.h */,
+				189BCB83218C260E0003CA91 /* UniteDownloadingViewController.m */,
 			);
 			path = unite;
 			sourceTree = "<group>";
@@ -3648,6 +3653,7 @@
 				C5EEA2942B009067B0D2EC11 /* TestPage.m in Sources */,
 				C5EEA5F5DA5885242D00A070 /* ListPage.m in Sources */,
 				4E528AD1216DF9E5008C151B /* SBPlayer.m in Sources */,
+				189BCB84218C260E0003CA91 /* UniteDownloadingViewController.m in Sources */,
 				18DA49A121897C3A00DA2292 /* MagazineModel.m in Sources */,
 				C5EEA2375FBE0E853D04F130 /* ScrollPage.m in Sources */,
 				C5EEAB1A147F6CA1BA5970E8 /* LinearPage.m in Sources */,

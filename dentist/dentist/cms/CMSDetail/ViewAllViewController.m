@@ -93,8 +93,8 @@
     backTask(^{
         NSArray<DiscussInfo*> *datas = [Proto queryAllCommentByConent:self.contentId skip:isMore?self->_discussInfo.count:0];
         foreTask(^{
-            [self hideTopIndicator];
             [self reloadData:[datas copy]  isMore:isMore];
+            [self hideTopIndicator];
         });
     });
 }

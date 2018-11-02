@@ -17,7 +17,7 @@ describe(@"Unit test for ProfileViewController", ^{
 
     beforeAll(^{
         putServerDomain(0);
-        [Proto login:@"hovansu8@gmail.com" pwd:@"A12345678"];
+        [Proto login:@"unit.test@gmail.com" pwd:@"A12345678"];
     });
 
     beforeEach(^{
@@ -93,16 +93,55 @@ describe(@"Unit test for ProfileViewController", ^{
         it(@"Click Spec", ^{
             [controller viewDidLoad];
             [controller clickSpec:NULL];
+            [[controller.view shouldNot] beNil];
         });
 
         it(@"Click Add Exp", ^{
             [controller viewDidLoad];
             [controller clickAddExp:NULL];
+            [[controller.view shouldNot] beNil];
         });
 
         it(@"Click Exp", ^{
             [controller viewDidLoad];
             [controller clickExp:NULL];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"Click Residency", ^{
+            [controller viewDidLoad];
+            [controller clickResidency:NULL];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"callActionSheetFunc", ^{
+            [controller viewDidLoad];
+            [controller callActionSheetFunc];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"Click AddResidency", ^{
+            [controller viewDidLoad];
+            [controller clickAddResidency:NULL];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"Click AddEducation", ^{
+            [controller viewDidLoad];
+            [controller clickAddEducation:NULL];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"Click Edu", ^{
+            [controller viewDidLoad];
+            [controller clickEdu:NULL];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"Click PraticeAddress", ^{
+            [controller viewDidLoad];
+            [controller clickPraticeAddress:NULL];
+            [[controller.view shouldNot] beNil];
         });
     });
 
@@ -110,17 +149,93 @@ describe(@"Unit test for ProfileViewController", ^{
         it(@"Value Of Textfields", ^{
             [controller viewDidLoad];
             [controller selectText:@"" value:@"" array:[NSArray new] result:^(NSString *str) {}];
+            [[controller.view shouldNot] beNil];
         });
     });
 
-    context(@"Unit Test Add Value", ^{
+    context(@"Unit Test modify Value", ^{
         it(@"add exp", ^{
             [controller viewDidLoad];
             Experience *e = [Experience new];
             [controller addExp:e];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"delete exp", ^{
+            [controller viewDidLoad];
+            Experience *e = [Experience new];
+            [controller deleteExp:e];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"delete residency", ^{
+            [controller viewDidLoad];
+            Residency *r = [Residency new];
+            [controller deleteResidency:r];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"add residency", ^{
+            [controller viewDidLoad];
+            Residency *r = [Residency new];
+            [controller addResidency:r];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"delete education", ^{
+            [controller viewDidLoad];
+            Education *e = [Education new];
+            [controller deleteEducation:e];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"add education", ^{
+            [controller viewDidLoad];
+            Education *e = [Education new];
+            [controller addEducation:e];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"edit portrait", ^{
+            [controller viewDidLoad];
+            [controller editPortrait:NULL];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"on save", ^{
+            [controller viewDidLoad];
+            [controller onSave:NULL];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"on back", ^{
+            [controller viewDidLoad];
+            [controller onBack:NULL];
+            [[controller.view shouldNot] beNil];
+        });
+    });
+
+    context(@"Unit Test UIImage", ^{
+        it(@"after select do", ^{
+            [controller viewDidLoad];
+            UIImage *i = [UIImage new];
+            [controller afterSelectDo:i];
+            [[controller.selectImage should] equal:i];
+        });
+
+        it(@"save Image Documents", ^{
+            [controller viewDidLoad];
+            UIImage *i = [UIImage new];
+            [controller saveImageDocuments:i];
+            [[controller.view shouldNot] beNil];
+        });
+
+        it(@"get Document Image", ^{
+            [controller viewDidLoad];
+            NSString *path = [controller getDocumentImage];
+            [[path shouldNot] beNil];
         });
     });
 });
-
 
 SPEC_END

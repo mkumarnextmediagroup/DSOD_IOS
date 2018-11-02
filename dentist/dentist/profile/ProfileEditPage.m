@@ -24,7 +24,6 @@
 #import <AssetsLibrary/ALAsset.h>
 
 @interface ProfileEditPage () <UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
-	UIImage *selectImage;
 }
 @end
 
@@ -268,8 +267,8 @@
 - (void)bindData {
     
     
-	if (selectImage) {
-		[userView.headerImg setImage:selectImage];
+	if (_selectImage) {
+		[userView.headerImg setImage:_selectImage];
 	} else {
 		[userView.headerImg loadUrl:_userInfo.portraitUrlFull placeholderImage:@"default_avatar"];
 	}
@@ -885,8 +884,8 @@
 
 - (void)afterSelectDo:(UIImage *)image
 {
-    selectImage = image;
-    [self saveImageDocuments:selectImage];
+    _selectImage = image;
+    [self saveImageDocuments:_selectImage];
     [self bindData];
     
     NSString *localFile = [self getDocumentImage];

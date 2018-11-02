@@ -17,7 +17,7 @@ describe(@"Unit test for ProfileViewController", ^{
 
     beforeAll(^{
         putServerDomain(0);
-        [Proto login:@"hovansu8@gmail.com" pwd:@"A12345678"];
+        [Proto login:@"unit.test@gmail.com" pwd:@"A12345678"];
     });
 
     beforeEach(^{

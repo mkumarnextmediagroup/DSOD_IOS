@@ -40,7 +40,7 @@
 	UIView *userView = [self makeUserView];
 
 	items = @[
-			[self makeSlideItem:@"General Content" image:@"menu-dso"],
+			[self makeSlideItem:@"Browse Content" image:@"menu-dso"],
 			[self makeSlideItem:@"Education" image:@"menu-edu"],
 			[self makeSlideItem:@"Careers" image:@"menu-community"],
 			[self makeSlideItem:@"Events" image:@"menu-calendar"],
@@ -73,7 +73,7 @@
 }
 
 - (UIViewController *)onMakePage:(NSString *)title {
-	if ([@"General Content" isEqualToString:title]) {
+	if ([@"Browse Content" isEqualToString:title]) {
 		CmsForYouPage *forYouPage = [CmsForYouPage new];
         UINavigationController *ncForYou = NavPage(forYouPage);
 		[ncForYou tabItem:@"For you" imageName:@"foryou"];
@@ -198,7 +198,7 @@
 	[self selectButton:sender];
     NSString *title=[sender titleForState:UIControlStateNormal];
 	UIViewController *c = [self onMakePage:title];
-    if ([@"General Content" isEqualToString:title]){
+    if ([@"Browse Content" isEqualToString:title]){
         [self openCenterPage:c hasNav:NO];
     }else{
         [self openCenterPage:c hasNav:YES];

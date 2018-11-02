@@ -39,6 +39,7 @@
     NSMutableArray<IdName *> *segItemsModel;
     NSInteger pagenumber;
     NSString *contentTypeId;
+    BOOL isdownrefresh;
 }
 @end
 
@@ -87,20 +88,21 @@
     contentTypeId=nil;
     self.table.tableHeaderView = [self makeHeaderView];
     [self showIndicator];
-    backTask(^() {
-        segItemsModel  = [Proto queryContentTypes];
+    [Proto queryContentTypes:^(NSArray<IdName *> *array) {
+        self->segItemsModel  = [NSMutableArray arrayWithArray:array];
         IdName *latestmodel=[IdName new];
         latestmodel.id=@"0";
         latestmodel.name=@"LATEST";
-        [segItemsModel insertObject:latestmodel atIndex:0];
-        NSArray<CMSModel *> *array  = [Proto queryAllContentsBySponsorAndContentType:_sponsorId contentTypeId:contentTypeId pageNumber:pagenumber];
-        foreTask(^() {
-            [self hideIndicator];
-            tabView.modelArr=segItemsModel;
-            self.items=array;
-        });
-    });
-    //    self.items=[Proto getArticleListByCategory:category type:contenttype];
+        [self->segItemsModel insertObject:latestmodel atIndex:0];
+        [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId  pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+            
+            foreTask(^() {
+                [self hideIndicator];
+                self->tabView.modelArr=self->segItemsModel;
+                self.items=array;
+            });
+        }];
+    }];
 }
 
 - (void)onBack:(UIButton *)btn {
@@ -249,21 +251,26 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height-50)
     {
-        //在最底部
-        [self showIndicator];
-        backTask(^() {
-            NSInteger newpage=pagenumber+1;
-            NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsBySponsorAndContentType:_sponsorId contentTypeId:contentTypeId pageNumber:newpage];
-            if(array && array.count>0){
-                [newarray addObjectsFromArray:array];
-                pagenumber=newpage;
-            }
-            foreTask(^() {
-                [self hideIndicator];
-                self.items=[newarray copy];
-            });
-        });
+        if (!isdownrefresh) {
+            isdownrefresh=YES;
+            //在最底部
+            [self showIndicator];
+            [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
+                self->isdownrefresh=NO;
+                foreTask(^() {
+                    [self hideIndicator];
+                    if(array && array.count>0){
+                        NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+                        [newarray addObjectsFromArray:array];
+                        self->pagenumber++;
+                        
+                        self.items=[newarray copy];
+                    }
+                    
+                });
+            }];
+        }
+        
     }
 }
 
@@ -283,8 +290,7 @@
     CMSModel *model = (id) item;
     if(model.isBookmark){
         //删除
-        backTask(^() {
-            BOOL result=[Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id];
+        [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
@@ -304,11 +310,10 @@
                 }]];
                 [self presentViewController:alertController animated:YES completion:nil];
             });
-        });
+        }];
     }else{
         //添加
-        backTask(^() {
-            BOOL result=[Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId];
+        [Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
@@ -329,7 +334,7 @@
                 }]];
                 [self presentViewController:alertController animated:YES completion:nil];
             });
-        });
+        }];
     }
     
     
@@ -378,18 +383,17 @@
         IdName *model=segItemsModel[index];
         Log(model.id, model.name);
         [self showIndicator];
-        backTask(^() {
-            if ([model.id isEqualToString:@"0"]) {
-                contentTypeId=nil;
-            }else{
-                contentTypeId=model.id;
-            }
-            NSArray<CMSModel *> *array  = [Proto queryAllContentsBySponsorAndContentType:_sponsorId contentTypeId:contentTypeId pageNumber:pagenumber];
+        if ([model.id isEqualToString:@"0"]) {
+            contentTypeId=nil;
+        }else{
+            contentTypeId=model.id;
+        }
+        [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
                 self.items=array;
             });
-        });
+        }];
     }
 }
 

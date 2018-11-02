@@ -95,9 +95,14 @@
 	view = [UIView new];
 	[self addSubview:view];
 	[[[[[view.layoutMaker leftParent:0] rightParent:0] below:lineLabel offset:0] heightEq:58] install];
+    
+    UILabel *byLabel = view.addLabel;
+    byLabel.text = @"By";
+    [[[[byLabel.layoutMaker sizeEq:30 h:58] leftParent:edge] topParent:0] install];
+    
 	headerImg = [UIImageView new];
 	[view addSubview:headerImg];
-	[[[[headerImg.layoutMaker sizeEq:32 h:32] leftParent:edge] centerYParent:0] install];
+	[[[[headerImg.layoutMaker sizeEq:32 h:32] toRightOf:byLabel offset:0] centerYParent:0] install];
 
 	headerImg.layer.cornerRadius = 16;
 	headerImg.layer.masksToBounds = YES;

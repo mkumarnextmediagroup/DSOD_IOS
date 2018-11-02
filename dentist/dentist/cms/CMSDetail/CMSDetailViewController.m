@@ -41,7 +41,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self createNav];
     backTask(^() {
-        self.articleInfo = [Proto queryForDetailPage:@"5bd912074192a80309fe23c1"];//5bd912074192a80309fe23c1
+        self.articleInfo = [Proto queryForDetailPage:self.contentId];//5bd912074192a80309fe23c1
         foreTask(^() {
             
             
@@ -99,7 +99,7 @@
 - (void)goToViewAllPage
 {
     ViewAllViewController *viewAll = [ViewAllViewController new];
-//    viewAll.discussInfo = self.articleInfo.discussInfo;
+    viewAll.discussInfo = self.articleInfo.discussInfos;
     viewAll.contentId = self.contentId;
     [self.navigationController pushViewController:viewAll animated:YES];
 }

@@ -1169,6 +1169,10 @@
                 completed(r.OK);
             }
         }];
+    }else{
+        if (completed) {
+            completed(NO);
+        }
     }
 
 }

@@ -11,8 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CmsArticleCategoryPage : ListPage
-@property (nonatomic,strong) NSString *categoryId;
-@property (nonatomic,strong) NSString *categoryName;
+@property (nonatomic,copy) NSString *categoryId;
+@property (nonatomic,copy) NSString *categoryName;
 @end
 
 NS_ASSUME_NONNULL_END

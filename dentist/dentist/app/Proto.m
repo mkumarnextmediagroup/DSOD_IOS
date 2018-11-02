@@ -1017,16 +1017,9 @@
 
 //MARK:查询整个文章的评论（CMS_003_04）
 + (NSArray<DiscussInfo *> *)queryAllCommentByConent:(NSString *)contentId  skip:(NSInteger)skip{
-    
-    
-//    NSDictionary *dic = @{@"contentId": contentId,@"skip":[NSNumber numberWithInteger:skip],@"limit":[NSNumber numberWithInteger:10]};
-    if(skip>0){
-        //服务器没有做分页 不执行加载更多操作
-        return nil;
-    }
+    NSDictionary *dic = @{@"contentId": contentId,@"skip":[NSNumber numberWithInteger:skip],@"limit":[NSNumber numberWithInteger:10]};
 
-    NSDictionary *dic = @{@"contentId": contentId};
-    HttpResult *r = [self post:@"comment/findAllByContent" dic:dic modular:@"cms"];
+    HttpResult *r = [self post3:@"comment/findAllByContent" dic:dic modular:@"cms"];
     
     NSArray* resultArray = nil;
     if (r.OK) {

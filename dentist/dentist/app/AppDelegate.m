@@ -75,7 +75,7 @@
     snav.navigationBar.tintColor = Colors.primary;
 	snav.navigationBar.barTintColor = UIColor.whiteColor;
 
-	UIViewController *centerPage = [sc onMakePage:@"General Content"];
+	UIViewController *centerPage = [sc onMakePage:@"Browse Content"];
 	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:centerPage leftViewController:snav rightViewController:nil];
 	return deck;
 }

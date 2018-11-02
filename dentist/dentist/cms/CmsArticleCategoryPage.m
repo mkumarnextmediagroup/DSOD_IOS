@@ -66,6 +66,7 @@
 
 - (void)createNav
 {
+    [self.view layoutIfNeeded];
     UIView *topVi = [UIView new];
     topVi.backgroundColor = Colors.bgNavBarColor;
     [self.view addSubview:topVi];
@@ -83,23 +84,26 @@
     [dismissBtn addTarget:self action:@selector(onBack:) forControlEvents:UIControlEventTouchUpInside];
     [[[[dismissBtn.layoutMaker leftParent:0] topParent:24+NAVHEIGHT_OFFSET] sizeEq:60 h:40] install];
     
-    UIView *rightBtn = [topVi addView];
-//    rightBtn.backgroundColor=[UIColor redColor];
-    [[[[rightBtn.layoutMaker rightParent:0] topParent:24+NAVHEIGHT_OFFSET] sizeEq:40 h:40] install];
-    [topVi layoutIfNeeded];
-    if (self.categoryiv == nil) {
-        self.categoryiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        [rightBtn addSubview:self.categoryiv];
-        self.categoryiv.tag = 998;
-        self.categoryiv.backgroundColor = [UIColor clearColor];
-        self.categoryiv.center = rightBtn.center;
-        
-    }
-    [rightBtn bringSubviewToFront: self.categoryiv];
-    self.categoryiv.hidden=YES;
+    
     
     UILabel *line = [topVi lineLabel];
     [[[[line.layoutMaker topParent:NAVHEIGHT - 1] leftParent:0] sizeEq:SCREENWIDTH h:1] install];
+    UIView *rightView = [self.view addView];
+//    rightView.backgroundColor=[UIColor redColor];
+    [[[[rightView.layoutMaker rightParent:0] topParent:44+NAVHEIGHT_OFFSET] sizeEq:40 h:40] install];
+//    [topVi layoutIfNeeded];
+//    [self.view layoutIfNeeded];
+    if (self.categoryiv == nil) {
+        self.categoryiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        [rightView addSubview:self.categoryiv];
+        self.categoryiv.tag = 990;
+        self.categoryiv.hidesWhenStopped = YES;
+        self.categoryiv.backgroundColor = [UIColor clearColor];
+        self.categoryiv.center = rightView.center;
+        
+    }
+    [rightView bringSubviewToFront: self.categoryiv];
+    self.categoryiv.hidden=YES;
 }
 
 - (void)showCmsIndicator {

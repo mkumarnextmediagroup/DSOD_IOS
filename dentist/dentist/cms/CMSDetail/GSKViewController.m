@@ -39,6 +39,7 @@
     NSMutableArray<IdName *> *segItemsModel;
     NSInteger pagenumber;
     NSString *contentTypeId;
+    BOOL isdownrefresh;
 }
 @end
 
@@ -250,21 +251,26 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height-50)
     {
-        //在最底部
-        [self showIndicator];
-        [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
-            foreTask(^() {
-                [self hideIndicator];
-                if(array && array.count>0){
-                    NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-                    [newarray addObjectsFromArray:array];
-                    self->pagenumber++;
+        if (!isdownrefresh) {
+            isdownrefresh=YES;
+            //在最底部
+            [self showIndicator];
+            [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
+                self->isdownrefresh=NO;
+                foreTask(^() {
+                    [self hideIndicator];
+                    if(array && array.count>0){
+                        NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+                        [newarray addObjectsFromArray:array];
+                        self->pagenumber++;
+                        
+                        self.items=[newarray copy];
+                    }
                     
-                    self.items=[newarray copy];
-                }
-                
-            });
-        }];
+                });
+            }];
+        }
+        
     }
 }
 

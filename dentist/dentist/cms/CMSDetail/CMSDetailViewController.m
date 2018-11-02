@@ -280,9 +280,9 @@
                 if (result) {
                     //
                     self.articleInfo.isBookmark=YES;
-                    [self->playView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-                    [self->picDetailView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-                    [self->markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+                    [self->playView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+                    [self->picDetailView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+                    [self->markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
                     msg=@"Bookmarks is Add";
                 }else{
                     msg=@"error";

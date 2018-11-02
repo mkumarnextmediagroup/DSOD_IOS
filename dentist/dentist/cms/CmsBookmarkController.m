@@ -19,6 +19,7 @@
     NSMutableArray *resultArray;
     UIView *nullFilterView;
     NSInteger pagenumber;
+    BOOL isdownrefresh;
 }
 @end
 
@@ -57,7 +58,7 @@
 {
     pagenumber=1;
     [self showIndicator];
-    [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+    [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber  skip:0 completed:^(NSArray<CMSModel *> *array) {
         foreTask(^() {
             self->resultArray=[NSMutableArray arrayWithArray:array];
             [self hideIndicator];
@@ -119,7 +120,8 @@
 -(void)BookMarkActionModel:(BookmarkModel *)model
 {
     //移除bookmark
-    [Proto deleteBookmark:model._id completed:^(BOOL result) {
+    
+    [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.postId completed:^(BOOL result) {
         foreTask(^{
             if (result) {
                 [self->resultArray removeObject:model];
@@ -173,10 +175,11 @@
     [filterview show:^(NSString *category, NSString *type) {
         
     } select:^(NSString *category, NSString *type) {
+        self->pagenumber=1;
         self->categoryId =category;
         self->contentTypeId=type;
         [self showIndicator];
-        [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+        [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber skip:0 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 self->resultArray=[NSMutableArray arrayWithArray:array];
                 [self hideIndicator];
@@ -195,19 +198,22 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height-50)
     {
-        if (pagenumber>=1) {
+        NSLog(@"==================================下啦刷选");
+        if (pagenumber>=1 && !isdownrefresh) {
+            isdownrefresh=YES;
             //在最底部
             [self showIndicator];
-            [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
+            [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber+1  skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
+                self->isdownrefresh=NO;
                 foreTask(^() {
                     [self hideIndicator];
                     if(array && array.count>0){
-                        NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-                        [newarray addObjectsFromArray:array];
+                        [self->resultArray addObjectsFromArray:array];
                         self->pagenumber++;
-                        self.items=[newarray copy];
+                        self.items=[self->resultArray copy];
                         [self updateFilterView];
                     }
+                    
                 });
             }];
         }

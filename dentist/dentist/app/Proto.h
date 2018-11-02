@@ -159,7 +159,7 @@
  @return 返回CMSModelComment的实体数组
  **/
 + (NSArray<BookmarkModel *> *)queryBookmarksByEmail:(NSString *_Nullable)email categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
-+ (void)queryBookmarksByEmail:(NSString *_Nullable)email categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<BookmarkModel *> *array))completed;
++ (void)queryBookmarksByEmail:(NSString *_Nullable)email categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber  skip:(NSInteger)skip completed:(void(^)(NSArray<BookmarkModel *> *array))completed;
 
 //MARK:删除收藏
 /**

@@ -9,6 +9,7 @@
 #import "Proto.h"
 #import "UniteDetailViewController.h"
 #import "YHPopMenuView.h"
+#import "UniteDownloadingViewController.h"
 
 @interface UnitePage()<UITableViewDelegate,UITableViewDataSource>{
     UITableView *mTableView;
@@ -78,6 +79,12 @@
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
+- (void)enterUniteDownloading:(MagazineModel*) model{
+    UniteDownloadingViewController *vc = [[UniteDownloadingViewController alloc]init];
+    vc.magazineModel = model;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 -(void)setupRefresh{
     refreshControl=[[UIRefreshControl alloc]init];
     [refreshControl addTarget:self action:@selector(firstRefresh) forControlEvents:UIControlEventValueChanged];
@@ -137,6 +144,9 @@
 }
 
 
+-(void)startUniteDownload{
+    
+}
 
 -(void)openMenu{
     if(popView && popView.isShowing){
@@ -164,7 +174,9 @@
     [popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
         if (!isCanceled) {
             if(row == 0){
-                
+                MagazineModel *model = [[MagazineModel alloc]init];
+                model.publishDate = @"111";
+                [self enterUniteDownloading:model];
             }else if(row == 1){
                 
             }else if(row == 2){
@@ -181,7 +193,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 600;
+    return 580;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -191,6 +203,24 @@
         cell = [[UnitePageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
     cell.magazineModel = datas[indexPath.row];
+    cell.optonBtnOnClickListener = ^(UnitePageDownloadStatus status,MagazineModel *model){
+        switch (status) {
+            case UPageDownloaded:
+                //to detail page
+                [self enterTeamCard:nil];
+                break;
+            case UPageNoDownload:
+                //start download
+                [self startUniteDownload];
+            case UPageDownloading:{
+                //to downloading page
+                [self enterUniteDownloading:model];
+                break;
+            }
+            default:
+                break;
+        }
+    };
     return cell;
 }
 

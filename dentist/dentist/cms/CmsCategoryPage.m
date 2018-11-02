@@ -19,6 +19,7 @@
     NSString *type;
     NSArray *dataArray;
     NSInteger pagenumber;
+    BOOL isdownrefresh;
 }
 @end
 @implementation CmsCategoryPage {
@@ -245,10 +246,12 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height-50)
     {
-        if (pagenumber>=1) {
+        if (pagenumber>=1 && !isdownrefresh) {
+            isdownrefresh=YES;
             //在最底部
             [self showIndicator];
             [Proto queryAllContentsByCategoryType:self->type pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
+                self->isdownrefresh=NO;
                 foreTask(^() {
                     [self hideIndicator];
                     if(array && array.count>0){

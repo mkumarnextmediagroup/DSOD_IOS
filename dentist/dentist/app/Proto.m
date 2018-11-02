@@ -1068,12 +1068,15 @@
     return resultArray;
 }
 
-+ (void)queryBookmarksByEmail:(NSString *)email categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<BookmarkModel *> *array))completed {
-    NSInteger skip=0;
++ (void)queryBookmarksByEmail:(NSString *)email categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber skip:(NSInteger)skip completed:(void(^)(NSArray<BookmarkModel *> *array))completed {
+//    NSInteger skip=0;
     NSInteger limit=10;//分页数默认20条
-    if(pageNumber>=1)
-    {
-        skip=(pageNumber-1)*limit;
+//    if(pageNumber>=1)
+//    {
+//        skip=(pageNumber-1)*limit;
+//    }
+    if (skip<=0) {
+        skip=0;
     }
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
@@ -1112,7 +1115,11 @@
 +(BOOL)deleteBookmark:(NSString *)bookmarkid
 {
     BOOL result=NO;
-    HttpResult *r = [self post2:@"bookmark/deleteOneById" dic:@{@"id": bookmarkid} modular:@"cms"];
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (bookmarkid) {
+        [paradic setObject:bookmarkid forKey:@"id"];
+    }
+    HttpResult *r = [self post2:@"bookmark/deleteOneById" dic:paradic modular:@"cms"];
     if (r.OK) {
         result=YES;
     }
@@ -1121,7 +1128,11 @@
 
 +(void)deleteBookmark:(NSString *)bookmarkid completed:(void(^)(BOOL result))completed
 {
-    [self postAsync2:@"bookmark/deleteOneById" dic:@{@"id": bookmarkid} modular:@"cms" callback:^(HttpResult *r) {
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (bookmarkid) {
+        [paradic setObject:bookmarkid forKey:@"id"];
+    }
+    [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
         if (completed) {
             completed(r.OK);
         }
@@ -1132,7 +1143,14 @@
 +(BOOL)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId
 {
     BOOL result=NO;
-    HttpResult *r = [self post2:@"bookmark/deleteOneByEmailAndContentId" dic:@{@"contentId": contentId,@"email": email} modular:@"cms"];
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (email) {
+        [paradic setObject:email forKey:@"email"];
+    }
+    if (contentId) {
+        [paradic setObject:contentId forKey:@"contentId"];
+    }
+    HttpResult *r = [self post2:@"bookmark/deleteOneByEmailAndContentId" dic:paradic modular:@"cms"];
     if (r.OK) {
         result=YES;
     }
@@ -1141,7 +1159,14 @@
 
 +(void)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId completed:(void(^)(BOOL result))completed
 {
-    [self postAsync2:@"bookmark/deleteOneByEmailAndContentId" dic:@{@"contentId": contentId,@"email": email} modular:@"cms"callback:^(HttpResult *r) {
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (email) {
+        [paradic setObject:email forKey:@"email"];
+    }
+    if (contentId) {
+        [paradic setObject:contentId forKey:@"contentId"];
+    }
+    [self postAsync2:@"bookmark/deleteOneByEmailAndContentId" dic:paradic modular:@"cms"callback:^(HttpResult *r) {
         if (completed) {
             completed(r.OK);
         }

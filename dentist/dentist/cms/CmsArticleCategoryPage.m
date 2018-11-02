@@ -43,6 +43,7 @@
     DentistTabView *tabView;
     NSInteger pagenumber;
     UILabel *titlecontent;
+     BOOL isdownrefresh;
 }
 @property (nonatomic,strong) UIActivityIndicatorView *categoryiv;
 @end
@@ -336,21 +337,26 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height-50)
     {
-        //在最底部
-        [self showCmsIndicator];
-        [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
-            foreTask(^() {
-                [self hideCmsIndicator];
-                if(array && array.count>0){
-                    NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-                    [newarray addObjectsFromArray:array];
-                    self->pagenumber++;
-                    self.items=[newarray copy];
-                }
-            });
-            
-            
-        }];
+        if (pagenumber>=1 && !isdownrefresh) {
+            isdownrefresh=YES;
+            //在最底部
+            [self showCmsIndicator];
+            [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
+                self->isdownrefresh=NO;
+                foreTask(^() {
+                    [self hideCmsIndicator];
+                    if(array && array.count>0){
+                        NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+                        [newarray addObjectsFromArray:array];
+                        self->pagenumber++;
+                        self.items=[newarray copy];
+                    }
+                });
+                
+                
+            }];
+        }
+       
     }
 }
 

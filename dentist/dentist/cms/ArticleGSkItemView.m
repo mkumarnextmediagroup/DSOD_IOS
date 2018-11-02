@@ -167,17 +167,17 @@
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
     //@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"
-    if ([_cmsmodel.categoryName isEqualToString:@"VIDEOS"]) {
+    if ([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"VIDEOS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"Video"]];
-    }else if([_cmsmodel.categoryName isEqualToString:@"PODCASTS"]) {
+    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"PODCASTS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"Podcast"]];
-    }else if([_cmsmodel.categoryName isEqualToString:@"INTERVIEWS"]) {
+    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"INTERVIEWS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"Interview"]];
-    }else if([_cmsmodel.categoryName isEqualToString:@"TECH GUIDES"]) {
+    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"TECH GUIDES"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"TechGuide"]];
-    }else if([_cmsmodel.categoryName isEqualToString:@"ANIMATIONS"]) {
+    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"ANIMATIONS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"Animation"]];
-    }else if([_cmsmodel.categoryName isEqualToString:@"TIP SHEETS"]) {
+    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"TIP SHEETS"]) {
         [thumbImageView setImage:[UIImage imageNamed:@"TipSheet"]];
     }else{
         [thumbImageView setImage:[UIImage imageNamed:@"Article"]];

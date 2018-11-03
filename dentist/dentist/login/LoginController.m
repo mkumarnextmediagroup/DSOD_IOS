@@ -32,6 +32,11 @@
     }
 }
 
+-(void)keywordtapCLick
+{
+    [self.view endEditing:YES];
+}
+
 -(void)showServerView:(UITapGestureRecognizer *)recognizer
 {
     DentistPickerView *picker = [[DentistPickerView alloc]init];
@@ -62,6 +67,9 @@
     UISwipeGestureRecognizer *leftrecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(lefthandleSwipeFrom:)];
     [leftrecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
     [self.view addGestureRecognizer:leftrecognizer];
+    
+    UITapGestureRecognizer *keywordtap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keywordtapCLick)];
+    [self.view addGestureRecognizer:keywordtap];
     
     
 

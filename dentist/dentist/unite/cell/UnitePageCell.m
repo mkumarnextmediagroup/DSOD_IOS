@@ -55,6 +55,8 @@
     if(magazineModel.cover){
         [coverImgView loadUrl:magazineModel.cover placeholderImage:@"school"];
     }
+    coverImgView.contentMode=UIViewContentModeScaleAspectFill;
+    coverImgView.clipsToBounds=YES;
     publishDateLabel.text = [NSString timeWithTimeIntervalString:magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",magazineModel.vol?magazineModel.vol:@"", magazineModel.issue?magazineModel.issue:@""];
     

@@ -10,6 +10,7 @@
 #import "UniteDetailViewController.h"
 #import "YHPopMenuView.h"
 #import "UniteDownloadingViewController.h"
+#import "dentist-Swift.h"
 
 @interface UnitePage()<UITableViewDelegate,UITableViewDataSource>{
     UITableView *mTableView;
@@ -174,11 +175,13 @@
     [popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
         if (!isCanceled) {
             if(row == 0){
+                ThumViewController *thumvc=[ThumViewController new];
+                thumvc.modelarr=self->datas;
+                [self.navigationController pushViewController:thumvc animated:YES];
+            }else if(row == 1){
                 MagazineModel *model = [[MagazineModel alloc]init];
                 model.publishDate = @"111";
                 [self enterUniteDownloading:model];
-            }else if(row == 1){
-                
             }else if(row == 2){
                 
             }

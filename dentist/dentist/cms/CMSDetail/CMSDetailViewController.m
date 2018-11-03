@@ -41,7 +41,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self createNav];
     backTask(^() {
-        self.articleInfo = [Proto queryForDetailPage:self.contentId];//5bdc1e7eb0f3e0701cef0253
+        self.articleInfo = [Proto queryForDetailPage:@"5bdc1e7eb0f3e0701cef0253"];//5bdc1e7eb0f3e0701cef0253
         foreTask(^() {
             
             
@@ -91,9 +91,12 @@
     [btn setTitle:@"View all" forState:UIControlStateNormal];
     [[[[btn.layoutMaker rightParent:-10] topParent:19] sizeEq:100 h:40] install];
     
-    UILabel *lineLabel = [headerVi lineLabel];
-    [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] topParent:77] heightEq:1] install];
+    if (self.articleInfo.discussInfos.count>0) {
+        UILabel *lineLabel = [headerVi lineLabel];
+        [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] topParent:77] heightEq:1] install];
+    }
     return headerVi;
+
 }
 
 - (void)goToViewAllPage
@@ -228,10 +231,10 @@
     myTable.delegate = self;
     myTable.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     if ([self.toWhichPage isEqualToString:@"mo"]) {
-        [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:playView offset:0] sizeEq:SCREENWIDTH h:485] install];
+        [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:playView offset:0] sizeEq:SCREENWIDTH h:150] install];
     }else
     {
-        [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:picDetailView offset:0] sizeEq:SCREENWIDTH h:485] install];
+        [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:picDetailView offset:0] sizeEq:SCREENWIDTH h:150] install];
     }
     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
 
@@ -310,7 +313,7 @@
 - (void)gskBtnClick
 {
     GSKViewController *gskVC = [GSKViewController new];
-    gskVC.author=_articleInfo.authorName;
+    gskVC.author = [NSString stringWithFormat:@"%@ %@",_articleInfo.author.firstName,_articleInfo.author.lastName];
     [self.navigationController pushViewController:gskVC animated:YES];
     
 }
@@ -352,6 +355,13 @@
     if (cell == nil) {
         cell = [[DiscussTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
+    
+    if (self.articleInfo.discussInfos.count > 0) {
+        [[myTable.layoutUpdate heightEq:self.articleInfo.discussInfos.count * 110 + 150] install];
+        myTable.scrollEnabled = NO;
+        [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
+    }
+    
     cell.disInfo = self.articleInfo.discussInfos[indexPath.row];
     return cell;
 

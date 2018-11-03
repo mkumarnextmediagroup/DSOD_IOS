@@ -132,6 +132,7 @@
 		4E2EF4FC215D0D4B00676A4E /* DenActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EF4F9215D0D4900676A4E /* DenActionSheet.m */; };
 		4E2EF503215E1BF000676A4E /* downLoadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2EF501215E1BF000676A4E /* downLoadIcon@2x.png */; };
 		4E2EF504215E1BF000676A4E /* downLoadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2EF502215E1BF000676A4E /* downLoadIcon@3x.png */; };
+		4E2FCD7C218DB0AA00D255A2 /* Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FCD7B218DB0AA00D255A2 /* Author.m */; };
 		4E30ACED217187910016722B /* GSKItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E30ACEC217187910016722B /* GSKItemView.m */; };
 		4E331041215D23C700E534CD /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E331040215D23C600E534CD /* UIViewExt.m */; };
 		4E331046215D294200E534CD /* deleteDown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331042215D294100E534CD /* deleteDown@3x.png */; };
@@ -847,6 +848,8 @@
 		4E2EF4FA215D0D4900676A4E /* DenActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DenActionSheet.h; sourceTree = "<group>"; };
 		4E2EF501215E1BF000676A4E /* downLoadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downLoadIcon@2x.png"; sourceTree = "<group>"; };
 		4E2EF502215E1BF000676A4E /* downLoadIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downLoadIcon@3x.png"; sourceTree = "<group>"; };
+		4E2FCD7A218DB0AA00D255A2 /* Author.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Author.h; sourceTree = "<group>"; };
+		4E2FCD7B218DB0AA00D255A2 /* Author.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Author.m; sourceTree = "<group>"; };
 		4E30ACEB217187910016722B /* GSKItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSKItemView.h; sourceTree = "<group>"; };
 		4E30ACEC217187910016722B /* GSKItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSKItemView.m; sourceTree = "<group>"; };
 		4E33103F215D23C600E534CD /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
@@ -1763,6 +1766,8 @@
 				4E0C11582181C75B007DC63D /* DetailModel.m */,
 				4E0C115A2181C8D7007DC63D /* CommentModel.h */,
 				4E0C115B2181C8D7007DC63D /* CommentModel.m */,
+				4E2FCD7A218DB0AA00D255A2 /* Author.h */,
+				4E2FCD7B218DB0AA00D255A2 /* Author.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3657,6 +3662,7 @@
 				18DA49A121897C3A00DA2292 /* MagazineModel.m in Sources */,
 				C5EEA2375FBE0E853D04F130 /* ScrollPage.m in Sources */,
 				C5EEAB1A147F6CA1BA5970E8 /* LinearPage.m in Sources */,
+				4E2FCD7C218DB0AA00D255A2 /* Author.m in Sources */,
 				C5EEAFAA5CA7261E636A22E7 /* GroupItem.m in Sources */,
 				C5EEADD593CFF58DCAB8626E /* LayoutParam.m in Sources */,
 				C5EEAC3B3E7352E6EE7B998F /* ProfileEditPage.m in Sources */,
@@ -3908,7 +3914,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 48BA5XP347;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -3960,7 +3966,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 48BA5XP347;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

@@ -203,5 +203,14 @@
     return _c;
 }
 
++ (UIColor *)bgColorUnite {
+    //E9EDF1
+    static UIColor *_c = nil;
+    if (_c == nil) {
+        _c = rgb255(239, 239, 239);
+    }
+    return _c;
+}
+
 @end
 

@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*issue;
 @property NSString <Optional>*publishDate;
 @property NSArray <Optional>*articles;
+@property NSString <Optional>*createUser;
 
 @end
 

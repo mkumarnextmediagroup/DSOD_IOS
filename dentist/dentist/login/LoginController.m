@@ -32,6 +32,11 @@
     }
 }
 
+-(void)keywordtapCLick
+{
+    [self.view endEditing:YES];
+}
+
 -(void)showServerView:(UITapGestureRecognizer *)recognizer
 {
     DentistPickerView *picker = [[DentistPickerView alloc]init];
@@ -62,6 +67,9 @@
     UISwipeGestureRecognizer *leftrecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(lefthandleSwipeFrom:)];
     [leftrecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
     [self.view addGestureRecognizer:leftrecognizer];
+    
+    UITapGestureRecognizer *keywordtap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keywordtapCLick)];
+    [self.view addGestureRecognizer:keywordtap];
     
     
 
@@ -199,7 +207,7 @@
 	[_pwdEdit keyboardDefault];
 
 	NSString *account = getLastAccount();
-	if (account != nil) {
+	if (account != nil && getLoginType()==0) {
 		_emailEdit.text = account;
 	}
 
@@ -428,6 +436,7 @@
 		foreTask(^() {
 			[self hideIndicator];
 			if (Proto.isLogined) {
+                putLoginType(1);
 				[AppDelegate.instance switchToMainPage];
 			}
 		});
@@ -474,6 +483,7 @@
 				}
 				if (Proto.isLogined) {
 					foreTask(^() {
+                        putLoginType(0);
 						[AppDelegate.instance switchToMainPage];
 					});
 				}

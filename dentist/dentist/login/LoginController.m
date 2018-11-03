@@ -199,7 +199,7 @@
 	[_pwdEdit keyboardDefault];
 
 	NSString *account = getLastAccount();
-	if (account != nil) {
+	if (account != nil && getLoginType()==0) {
 		_emailEdit.text = account;
 	}
 
@@ -428,6 +428,7 @@
 		foreTask(^() {
 			[self hideIndicator];
 			if (Proto.isLogined) {
+                putLoginType(1);
 				[AppDelegate.instance switchToMainPage];
 			}
 		});
@@ -474,6 +475,7 @@
 				}
 				if (Proto.isLogined) {
 					foreTask(^() {
+                        putLoginType(0);
 						[AppDelegate.instance switchToMainPage];
 					});
 				}

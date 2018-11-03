@@ -106,7 +106,18 @@
 }
 
 - (void)onBack:(UIButton *)btn {
-    [self.navigationController popViewControllerAnimated:YES];
+    //    [self dismissViewControllerAnimated:YES completion:nil];
+    NSArray *viewcontrollers=self.navigationController.viewControllers;
+    if (viewcontrollers.count>1) {
+        if ([viewcontrollers objectAtIndex:viewcontrollers.count-1]==self) {
+            //push方式
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+    else{
+        //present方式
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (UIView *)makeHeaderView2 {
@@ -233,8 +244,22 @@
 
 - (void)onClickItem:(NSObject *)item {
 
+//    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+//    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+//    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+//    CMSModel *article = (CMSModel *) item;
+//
+//    newVC.contentId = article.id;
+//    if ([[article.contentTypeName uppercaseString] isEqualToString:@"VIDEOS"]) {
+//        newVC.toWhichPage = @"mo";
+//    }else
+//    {
+//        newVC.toWhichPage = @"pic";
+//    }
+//    [viewController presentViewController:navVC animated:YES completion:NULL];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
-    Article *article = (Article *) item;
+    CMSModel *article = (CMSModel *) item;
+    newVC.contentId = article.id;
     if ([article.categoryName isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
     }else

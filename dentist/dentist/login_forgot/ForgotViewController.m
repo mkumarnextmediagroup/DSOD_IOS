@@ -23,11 +23,19 @@
 
 @implementation ForgotViewController
 
+-(void)keywordtapCLick
+{
+    [self.view endEditing:YES];
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
 	self.view.backgroundColor = [UIColor whiteColor];
 
+    UITapGestureRecognizer *keywordtap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keywordtapCLick)];
+    [self.view addGestureRecognizer:keywordtap];
+    
 	UIImageView *logoView = self.view.addImageView;
 	logoView.imageName = @"logo";
 	[logoView layoutCenterXOffsetTop:260 height:54 offset:54];

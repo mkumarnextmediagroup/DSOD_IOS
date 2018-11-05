@@ -28,10 +28,8 @@
     UILabel *titleLabel;
     UILabel *nameLabel;
     UILabel *addressLabel;
-    UILabel *contentLabel;
     WKWebView *contentWebView;
     UIView *view;
-    UILabel *contentLabel2;
     UIScrollView *imageScroll;
     BOOL allowZoom;
 }
@@ -129,19 +127,8 @@
     [self addSubview:mywebView];
     [[[[mywebView.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
     
-    UIImageView *imgCon = [UIImageView new];
-    imgCon.image = [UIImage imageNamed:@"contentPic_bg"];
-    [self addSubview:imgCon];
-    [[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:mywebView offset:25] install];
-    
-    contentLabel2 = [self addLabel];
-    contentLabel2.font = [Fonts regular:15];
-    [contentLabel2 textColorMain];
-    contentLabel2.numberOfLines = 0;
-    [[[[contentLabel2.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:imgCon offset:15] install];
-    
     UILabel *lineLabel3 = [self lineLabel];
-    [[[[[lineLabel3.layoutMaker leftParent:0] rightParent:0] below:contentLabel2 offset:25] heightEq:1] install];
+    [[[[[lineLabel3.layoutMaker leftParent:0] rightParent:0] below:mywebView offset:25] heightEq:1] install];
     
     [self moreView];
     [self createStarView];
@@ -153,7 +140,7 @@
     
     UIView *moreView = [UIView new];
     [self addSubview:moreView];
-    [[[[[[moreView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:202] below:contentLabel2 offset:26] install];
+    [[[[[[moreView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:202] below:mywebView offset:26] install];
     UILabel *conLabel = [moreView addLabel];
     conLabel.font = [Fonts regular:12];
     [conLabel textColorAlternate];
@@ -279,11 +266,9 @@
     [imageView loadUrl:urlstr placeholderImage:@"art-img"];
     [headerImg loadUrl:@"http://app800.cn/i/p.png" placeholderImage:@"user_img"];
     titleLabel.text = bindInfo.title;
-    nameLabel.text = bindInfo.authorName;
-//    addressLabel.text = bindInfo.authAdd;
-//    contentLabel.text = bindInfo.content;
+    nameLabel.text = [NSString stringWithFormat:@"%@ %@",bindInfo.author.firstName,bindInfo.author.lastName];
+    addressLabel.text = bindInfo.author.authorDetails;
     [mywebView loadHTMLString:bindInfo.content baseURL:nil];
-//    contentLabel2.text = bindInfo.subContent;
     if (bindInfo.isBookmark) {
         [_markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{
@@ -325,10 +310,6 @@
 }
 
 - (void)resetLayout {
-    CGSize size = [contentLabel sizeThatFits:CGSizeMake(290, 1000)];
-    CGSize size2 = [contentLabel2 sizeThatFits:CGSizeMake(290, 1000)];
-    [[contentLabel.layoutUpdate heightEq:size.height] install];
-    [[contentLabel2.layoutUpdate heightEq:size2.height] install];
 }
 
 /*

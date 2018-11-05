@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
 #import "CommentModel.h"
+#import "Author.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,7 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*contentTypeId;
 @property NSString <Optional>*categoryId;
 @property NSString <Optional>*sponsorId;
-@property NSString <Optional>*authorName;
+@property NSString <Optional>*authorPhotoUrl;
+@property Author   <Optional>*author;
 @property NSString <Optional>*contentTypeName;
 @property NSString <Optional>*categoryName;
 @property NSString <Optional>*sponsorName;

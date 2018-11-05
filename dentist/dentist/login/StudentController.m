@@ -14,8 +14,14 @@
 
 @implementation StudentController
 
+-(void)keywordtapCLick
+{
+    [self.view endEditing:YES];
+}
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    UITapGestureRecognizer *keywordtap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keywordtapCLick)];
+    [self.view addGestureRecognizer:keywordtap];
 	UIImage *image = [UIImage imageNamed:@"bg_3.png"];
 	UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 	[self.view addSubview:imageView];

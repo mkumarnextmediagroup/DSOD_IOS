@@ -79,3 +79,16 @@ NSInteger getIsActicleArchive() {
     return value;
 }
 
+void putLoginType(NSInteger value)
+{
+    NSUserDefaults *server = globalConfig();
+    [server setObject:@(value) forKey:@"LoginType"];
+    [server synchronize];
+}
+
+NSInteger getLoginType() {
+    NSUserDefaults *server = globalConfig();
+    NSInteger value = [[server objectForKey:@"LoginType"] integerValue];
+    return value;
+}
+

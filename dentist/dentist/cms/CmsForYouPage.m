@@ -477,9 +477,14 @@
 
 -(void)ArticleGSKActionModel:(CMSModel *)model
 {
+//    GSKViewController *gskVC = [GSKViewController new];
+//    gskVC.sponsorId=model.sponsorId;
+//    [self.navigationController pushViewController:gskVC animated:YES];
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     GSKViewController *gskVC = [GSKViewController new];
     gskVC.sponsorId=model.sponsorId;
-    [self.navigationController pushViewController:gskVC animated:YES];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:gskVC];
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 #pragma mark ---MyActionSheetDelegate

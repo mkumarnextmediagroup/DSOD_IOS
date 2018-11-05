@@ -8,6 +8,9 @@
 
 #import "UniteDownloadingViewController.h"
 #import "common.h"
+#import "SliderListViewController.h"
+#import "IIViewDeckController.h"
+#import "AppDelegate.h"
 
 @interface UniteDownloadingViewController (){
     UIImageView *coverImgView;
@@ -30,8 +33,7 @@
     UINavigationItem *item = self.navigationItem;
     item.title = @"";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
-    
-    
+    item.rightBarButtonItem = [self menuButton];
 //    UIScrollView *contentView = [UIScrollView new];
 //    contentView.backgroundColor = UIColor.redColor;
 //    contentView.contentSize =  CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 2);
@@ -107,6 +109,10 @@
 
    
     [self loadData];
+}
+
+- (UIBarButtonItem *)menuButton {
+    return [self navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenuAnoSide:)];
 }
 
 -(void)downloadBtnAction{

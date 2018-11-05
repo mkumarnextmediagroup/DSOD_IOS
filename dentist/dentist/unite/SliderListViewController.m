@@ -25,7 +25,7 @@
     
     UIView *navVi = [self makeNavView];
     
-    mTableView = [UITableView new];
+    mTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     mTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     mTableView.dataSource = self;
     mTableView.delegate = self;
@@ -45,30 +45,31 @@
 - (UIView *)headerView{
     
     UIView *headerVi = [UIView new];
-    
+    headerVi.backgroundColor = [UIColor whiteColor];
     UILabel *issueLabel = headerVi.addLabel;
     issueLabel.text = @"Vol1 No1";
     issueLabel.font = [Fonts regular:14];
-    [[[[[issueLabel.layoutMaker leftParent:30] rightParent:30] heightEq:84] topParent:0] install];
+    [[[[[issueLabel.layoutMaker leftParent:30] rightParent:30] heightEq:42] topParent:0] install];
     
     UILabel *line1 = headerVi.addLabel;
-    line1.textColor = [Colors cellLineColor];
+    line1.backgroundColor = [Colors cellLineColor];
     [[[[[line1.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:issueLabel offset:0] install];
     
     UILabel *editLabel = headerVi.addLabel;
     editLabel.text = @"From the editor";
     editLabel.font = [Fonts regular:14];
-    [[[[[editLabel.layoutMaker leftParent:30] rightParent:30] heightEq:84] below:line1 offset:0] install];
+    [[[[[editLabel.layoutMaker leftParent:30] rightParent:30] heightEq:42] below:line1 offset:0] install];
     
     UILabel *line2 = headerVi.addLabel;
-    line2.textColor = [Colors cellLineColor];
+    line2.backgroundColor = [Colors cellLineColor];
     [[[[[line2.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:editLabel offset:0] install];
     
     UIButton *headBtn = headerVi.addButton;
     [headBtn setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
-    headBtn.titleLabel.text = @"in this Issue";
-    headBtn.titleLabel.font = [Fonts regular:12];
-    [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:20] topParent:12] install];
+    [headBtn setTitle:@"in this Issue" forState:UIControlStateNormal];
+    headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    headBtn.titleLabel.font = [Fonts regular:13];
+    [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] below:line2 offset:0] install];
     
     return headerVi;
 }
@@ -77,7 +78,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 242;
+    return 125;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -86,11 +87,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return 8;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 156;
+    return 80;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -30,6 +30,7 @@
 +(BOOL)isBlankString:(NSString *)string;
 
 + (NSString *)timeWithTimeIntervalString:(NSString *)timeString;
++(NSString *)getWithoutHtmlString:(NSString *)string;
 
 @end
 

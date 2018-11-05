@@ -173,8 +173,9 @@
     [self layoutIfNeeded];
     //    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
     NSString *contentstr=[NSString stringWithFormat:@"%@",_cmsmodel.content];
-    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+//    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    contentstr=[NSString getWithoutHtmlString:contentstr];
     NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:contentstr];
     //    NSLog(@"contentlabel:%@",labelarry);
     if (labelarry.count>4 && ![NSString isBlankString:contentstr]) {

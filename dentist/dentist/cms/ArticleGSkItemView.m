@@ -36,6 +36,7 @@
             topheight=50;
             edge=24;
         }
+        CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
         UIView *topView = self.addView;
         topView.backgroundColor = rgb255(250, 251, 253);
         [[[[[topView.layoutMaker topParent:0] leftParent:0] rightParent:0] heightEq:topheight] install];
@@ -64,29 +65,32 @@
         //    [imageView scaleFillAspect];
         [[[[thumbImageView.layoutMaker leftParent:edge] bottomParent:-edge] sizeEq:28 h:28] install];
         
+        gskBtn = [self addButton];
+//        [gskBtn.titleLabel setFont:[Fonts regular:12]];
+//        gskBtn.titleLabel.textColor = [UIColor whiteColor];
+//        gskBtn.backgroundColor = rgb255(111, 201, 211);
+        [gskBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_gsk"] forState:UIControlStateNormal];
+        [gskBtn addTarget:self action:@selector(gskAction:) forControlEvents:UIControlEventTouchUpInside];
+        [[[[[gskBtn.layoutMaker leftParent:0] rightParent:0] below:imageView offset:0] heightEq:sponstorimgh] install];
+        
         _moreButton = [self addButton];
         [_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
         [_moreButton addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
-        [[[[_moreButton.layoutMaker rightParent:-edge] below:imageView offset:edge] sizeEq:20 h:20] install];
+        [[[[_moreButton.layoutMaker rightParent:-edge] below:gskBtn offset:edge] sizeEq:20 h:20] install];
         
         markButton = [self addButton];
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
         [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
-        [[[[markButton.layoutMaker toLeftOf:_moreButton offset:-edge+5] below:imageView offset:edge] sizeEq:20 h:20] install];
+        [[[[markButton.layoutMaker toLeftOf:_moreButton offset:-edge+5] below:gskBtn offset:edge] sizeEq:20 h:20] install];
         
-        gskBtn = [self addButton];
-        [gskBtn.titleLabel setFont:[Fonts regular:12]];
-        gskBtn.titleLabel.textColor = [UIColor whiteColor];
-        gskBtn.backgroundColor = rgb255(111, 201, 211);
-        [gskBtn addTarget:self action:@selector(gskAction:) forControlEvents:UIControlEventTouchUpInside];
-        [[[[[gskBtn.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:62] install];
+        
         
         contentLabel = [self addLabel];
         contentLabel.font = [Fonts regular:15];
         [contentLabel textColorMain];
         //    contentLabel.lineBreakMode=NSLineBreakByWordWrapping;
         //    [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] bottomParent:-16] install];
-        [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] above:gskBtn offset:-16] install];
+        [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] bottomParent:-16] install];
         
         titleLabel = [self addLabel];
         titleLabel.font = [Fonts semiBold:20];
@@ -94,7 +98,7 @@
         titleLabel.numberOfLines = 0;
         //    [[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] heightEq:24] install];
         //    [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] bottomParent:-103] install];
-        [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] above:contentLabel offset:-23] install];
+        [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:gskBtn offset:edge-5] above:contentLabel offset:-23] install];
     }
     return self;
 }
@@ -151,9 +155,15 @@
 -(void)bindCMS:(CMSModel *)item
 {
     _cmsmodel=item;
-    [gskBtn setTitle:@"   Sponsored content brought to you by GSK" forState:UIControlStateNormal];
-    [gskBtn setImage:[UIImage imageNamed:@"gskIcon"] forState:UIControlStateNormal];
-    
+//    [gskBtn setTitle:@"   Sponsored content brought to you by GSK" forState:UIControlStateNormal];
+//    [gskBtn setImage:[UIImage imageNamed:@"gskIcon"] forState:UIControlStateNormal];
+    if ([[_cmsmodel.sponsorName lowercaseString] isEqualToString:@"aln"]) {
+        [gskBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_align"] forState:UIControlStateNormal];
+    }else if ([[_cmsmodel.sponsorName lowercaseString] isEqualToString:@"nobel"]) {
+        [gskBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_nobel"] forState:UIControlStateNormal];
+    }else{
+        [gskBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_gsk"] forState:UIControlStateNormal];
+    }
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
     dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];//item.publishDate;
     titleLabel.text = _cmsmodel.title;
@@ -190,8 +200,9 @@
     [self layoutIfNeeded];
     //    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
     NSString *contentstr=[NSString stringWithFormat:@"%@",_cmsmodel.content];
-    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+//    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    contentstr=[NSString getWithoutHtmlString:contentstr];
     NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:contentstr];
     //    NSLog(@"contentlabel:%@",labelarry);
     if (labelarry.count>4 && ![NSString isBlankString:contentstr]) {

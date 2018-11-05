@@ -141,6 +141,7 @@
 		4E331049215D294200E534CD /* shareIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E331045215D294100E534CD /* shareIcon@2x.png */; };
 		4E33ACC5218AE95000E4CF7E /* UniteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACC4218AE94F00E4CF7E /* UniteDetailViewController.m */; };
 		4E33ACD6218B002500E4CF7E /* UniteContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACD5218B002500E4CF7E /* UniteContent.m */; };
+		4E33ACD92190183E00E4CF7E /* SliderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACD82190183E00E4CF7E /* SliderListViewController.m */; };
 		4E528AD1216DF9E5008C151B /* SBPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E528ACA216DF9E4008C151B /* SBPlayer.m */; };
 		4E528AD2216DF9E5008C151B /* SBPauseOrPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E528ACC216DF9E5008C151B /* SBPauseOrPlayView.m */; };
 		4E528AD3216DF9E5008C151B /* SBControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E528ACD216DF9E5008C151B /* SBControlView.m */; };
@@ -194,6 +195,8 @@
 		4EBCE6E2212EABF100A0672D /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6E0212EABF000A0672D /* delete@2x.png */; };
 		4EBCE6E3212EABF100A0672D /* delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCE6E1212EABF000A0672D /* delete@3x.png */; };
 		4EBCE724212FD1CE00A0672D /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBCE723212FD1CE00A0672D /* Photos.framework */; };
+		4EBE5E83219036E000BFD01E /* UniteArticleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE5E82219036E000BFD01E /* UniteArticleTableViewCell.m */; };
+		4EBE5E862190385200BFD01E /* UniteArticles.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE5E852190385200BFD01E /* UniteArticles.m */; };
 		4EE025452151EE5800BBD290 /* CMSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE025442151EE5800BBD290 /* CMSDetailViewController.m */; };
 		4EE025502151F59400BBD290 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0254F2151F59400BBD290 /* PlayerView.m */; };
 		4EE52D6C2154CFA10076DC3D /* desc@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE52D6A2154CFA00076DC3D /* desc@3x.png */; };
@@ -866,6 +869,8 @@
 		4E33ACC4218AE94F00E4CF7E /* UniteDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteDetailViewController.m; sourceTree = "<group>"; };
 		4E33ACD4218B002500E4CF7E /* UniteContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniteContent.h; sourceTree = "<group>"; };
 		4E33ACD5218B002500E4CF7E /* UniteContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteContent.m; sourceTree = "<group>"; };
+		4E33ACD72190183E00E4CF7E /* SliderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SliderListViewController.h; sourceTree = "<group>"; };
+		4E33ACD82190183E00E4CF7E /* SliderListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SliderListViewController.m; sourceTree = "<group>"; };
 		4E528ACA216DF9E4008C151B /* SBPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPlayer.m; sourceTree = "<group>"; };
 		4E528ACB216DF9E4008C151B /* SBControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBControlView.h; sourceTree = "<group>"; };
 		4E528ACC216DF9E5008C151B /* SBPauseOrPlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPauseOrPlayView.m; sourceTree = "<group>"; };
@@ -945,6 +950,10 @@
 		4EBCE6E0212EABF000A0672D /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
 		4EBCE6E1212EABF000A0672D /* delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@3x.png"; sourceTree = "<group>"; };
 		4EBCE723212FD1CE00A0672D /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		4EBE5E81219036E000BFD01E /* UniteArticleTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniteArticleTableViewCell.h; sourceTree = "<group>"; };
+		4EBE5E82219036E000BFD01E /* UniteArticleTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteArticleTableViewCell.m; sourceTree = "<group>"; };
+		4EBE5E842190385200BFD01E /* UniteArticles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniteArticles.h; sourceTree = "<group>"; };
+		4EBE5E852190385200BFD01E /* UniteArticles.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteArticles.m; sourceTree = "<group>"; };
 		4EE025432151EE5800BBD290 /* CMSDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMSDetailViewController.h; sourceTree = "<group>"; };
 		4EE025442151EE5800BBD290 /* CMSDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSDetailViewController.m; sourceTree = "<group>"; };
 		4EE0254E2151F59400BBD290 /* PlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
@@ -1671,6 +1680,8 @@
 			children = (
 				18DA499F21897C3A00DA2292 /* MagazineModel.h */,
 				18DA49A021897C3A00DA2292 /* MagazineModel.m */,
+				4EBE5E842190385200BFD01E /* UniteArticles.h */,
+				4EBE5E852190385200BFD01E /* UniteArticles.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1682,6 +1693,8 @@
 				A3A5B336218D61C400242E71 /* ThumCollectionViewCell.xib */,
 				18DA49A621897EE200DA2292 /* UnitePageCell.h */,
 				18DA49A721897EE200DA2292 /* UnitePageCell.m */,
+				4EBE5E81219036E000BFD01E /* UniteArticleTableViewCell.h */,
+				4EBE5E82219036E000BFD01E /* UniteArticleTableViewCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2857,6 +2870,8 @@
 				189BCB82218C260D0003CA91 /* UniteDownloadingViewController.h */,
 				189BCB83218C260E0003CA91 /* UniteDownloadingViewController.m */,
 				A3A5B33C218D625700242E71 /* ThumTableViewController.swift */,
+				4E33ACD72190183E00E4CF7E /* SliderListViewController.h */,
+				4E33ACD82190183E00E4CF7E /* SliderListViewController.m */,
 			);
 			path = unite;
 			sourceTree = "<group>";
@@ -3548,12 +3563,14 @@
 				C5EEAD7DA53655763EF20965 /* UIScreen+customed.m in Sources */,
 				C5EEA02ADD33548D359371DD /* WelcomController.m in Sources */,
 				18B83B0C2173557D00130DB6 /* YBImageBrowserView.m in Sources */,
+				4EBE5E83219036E000BFD01E /* UniteArticleTableViewCell.m in Sources */,
 				A39EE50D21884E3F00F74745 /* ArticleGSkItemView.m in Sources */,
 				4E331041215D23C700E534CD /* UIViewExt.m in Sources */,
 				4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */,
 				4E1957432137D0F100420563 /* LinkedinAuthorizationNavBar.m in Sources */,
 				4E23522C213D12CB003BA59B /* UpdateViewController.m in Sources */,
 				4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */,
+				4EBE5E862190385200BFD01E /* UniteArticles.m in Sources */,
 				1866B0012179DFDA00970CAB /* TabCollectionViewCell.m in Sources */,
 				A3DF39A52189A280006F84DC /* CornerAnimatable.swift in Sources */,
 				4E5BA7FC21771B3000386598 /* PicDetailView.m in Sources */,
@@ -3646,6 +3663,7 @@
 				E11E153102080FFB4339C7D2 /* CmsBookmarkController.m in Sources */,
 				E11E106CD8257C6C65B6148B /* CmsDownloadsController.m in Sources */,
 				4E30ACED217187910016722B /* GSKItemView.m in Sources */,
+				4E33ACD92190183E00E4CF7E /* SliderListViewController.m in Sources */,
 				E11E17A97D865580926CB2EB /* UIViewController+myextend.m in Sources */,
 				C5EEAB4FF315CAB5733FE9C5 /* SlideController.m in Sources */,
 				C5EEACBF759E368D6653D927 /* QueueLayout.m in Sources */,
@@ -3930,7 +3948,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 48BA5XP347;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -3982,7 +4000,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 48BA5XP347;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

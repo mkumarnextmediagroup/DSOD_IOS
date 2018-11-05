@@ -8,9 +8,16 @@
 
 import UIKit
 
+@objc enum PageType : Int{
+    case normal
+    case bookmark
+}
+    
 class ThumViewController: ExpandingViewController {
 
     @objc var modelarr : Array<MagazineModel>?
+    @objc var pageType = PageType.normal
+    
     typealias ItemInfo = (imageName: String, title: String)
     fileprivate var cellsIsOpen = [Bool]()
 //    fileprivate let items: [ItemInfo] = [("item0", "Boston"), ("item1", "New York"), ("item2", "San Francisco"), ("item3", "Washington")]
@@ -20,7 +27,11 @@ extension ThumViewController{
     override func viewDidLoad() {
         
         view.backgroundColor=Colors.bgColorUnite
-        self.navigationItem.title="THUMBNAILS"
+        if(pageType == PageType.bookmark){
+            self.navigationItem.title="BOOKMARKS"
+        }else{
+            self.navigationItem.title="THUMBNAILS"
+        }
         let navBarHeight = self.navigationController!.navigationBar.frame.size.height
         
         let stausBarHeight = UIApplication.shared.statusBarFrame.size.height
@@ -129,6 +140,23 @@ extension ThumViewController {
         cell.pushDataLabel.text=NSString.time(withTimeIntervalString: newmodel.publishDate)
 //        cell.customTitle.text = info.title
         cell.cellIsOpen(cellsIsOpen[index], animated: false)
+        
+        if(pageType == PageType.bookmark){
+            cell.ArchiiveButton.isHidden = true;
+            cell.removeBookmarkButton.isHidden = false;
+            cell.removeBookmarkButton.addTarget(self, action: #selector(ThumViewController.removeBookmarkButtonOnclick(_:)), for: .touchUpInside)
+        }else{
+            cell.ArchiiveButton.isHidden = false;
+            cell.removeBookmarkButton.isHidden = true;
+        }
+        
+        
+    }
+    
+   @objc func removeBookmarkButtonOnclick(_ sender: UIButton){
+        self.modelarr!.remove(at: currentIndex);
+        collectionView?.deleteItems(at:[IndexPath(row: currentIndex , section: 0)])
+
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

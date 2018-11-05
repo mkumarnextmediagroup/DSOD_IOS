@@ -35,4 +35,13 @@
 
 @property(nullable) void ( ^  onResult)(NSObject *item);
 
+@property(nullable) UITextField *searchEdit;
+
+- (void)onTextFieldDone:(UITextField *)textField;
+- (void)clickBack:(id)sender;
+- (Class)viewClassOfItem:(NSObject *)item;
+- (CGFloat)heightOfItem:(NSObject *)item;
+- (void)onBindItem:(NSObject *)item view:(UIView *)view;
+- (void)onClickItem:(NSObject *)item;
+
 @end

@@ -79,6 +79,7 @@
 		43277E8E217F523B008B3240 /* RegControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E8D217F523B008B3240 /* RegControllerTests.m */; };
 		437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */; };
 		4388150B218D4EF20066BCB6 /* SearchPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4388150A218D4EF20066BCB6 /* SearchPageTests.m */; };
+		43952B452190704900EB3443 /* EditPracticeAddressViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43952B442190704900EB3443 /* EditPracticeAddressViewControllerTests.m */; };
 		439D55EB2189DBFA003BB940 /* ProfileEditPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 439D55EA2189DBFA003BB940 /* ProfileEditPageTests.m */; };
 		43B7252D217650FF000F6797 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252C217650FF000F6797 /* ExampleTests.m */; };
 		43B72530217651A8000F6797 /* KiwiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252F217651A8000F6797 /* KiwiTests.m */; };
@@ -771,6 +772,7 @@
 		43277E8D217F523B008B3240 /* RegControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegControllerTests.m; sourceTree = "<group>"; };
 		437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewControllerTests.m; sourceTree = "<group>"; };
 		4388150A218D4EF20066BCB6 /* SearchPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPageTests.m; sourceTree = "<group>"; };
+		43952B442190704900EB3443 /* EditPracticeAddressViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditPracticeAddressViewControllerTests.m; sourceTree = "<group>"; };
 		439D55EA2189DBFA003BB940 /* ProfileEditPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileEditPageTests.m; sourceTree = "<group>"; };
 		43B7251E21764CF4000F6797 /* dentistTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dentistTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43B7252221764CF4000F6797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1732,6 +1734,7 @@
 				437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */,
 				439D55EA2189DBFA003BB940 /* ProfileEditPageTests.m */,
 				4388150A218D4EF20066BCB6 /* SearchPageTests.m */,
+				43952B442190704900EB3443 /* EditPracticeAddressViewControllerTests.m */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -3518,6 +3521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43952B452190704900EB3443 /* EditPracticeAddressViewControllerTests.m in Sources */,
 				43277E8C217F4F6A008B3240 /* DSOWebViewControllerTests.m in Sources */,
 				437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */,
 				43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */,

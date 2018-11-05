@@ -17,12 +17,6 @@
 
 
 @implementation EditPracticeAddressViewController {
-	TitleEditView *addr1View;
-	TitleEditView *addr2View;
-	TitleEditView *zipView;
-	TitleEditView *cityView;
-	TitleMsgArrowView *stateView;
-
 }
 
 - (void)viewDidLoad {
@@ -36,35 +30,35 @@
 		self.address = [Address new];
 	}
 
-	addr1View = [TitleEditView new];
-	addr1View.label.text = @"Address1";
-	addr1View.edit.delegate = self;
-	[addr1View.edit returnDone];
-	[self.contentView addSubview:addr1View];
+	_addr1View = [TitleEditView new];
+	_addr1View.label.text = @"Address1";
+	_addr1View.edit.delegate = self;
+	[_addr1View.edit returnDone];
+	[self.contentView addSubview:_addr1View];
 
-	addr2View = [TitleEditView new];
-	addr2View.label.text = @"Address2";
-	addr2View.edit.delegate = self;
-	[addr2View.edit returnDone];
-	[self.contentView addSubview:addr2View];
+	_addr2View = [TitleEditView new];
+	_addr2View.label.text = @"Address2";
+	_addr2View.edit.delegate = self;
+	[_addr2View.edit returnDone];
+	[self.contentView addSubview:_addr2View];
 
-	zipView = [TitleEditView new];
-	zipView.label.text = @"Zip Code";
-	zipView.edit.delegate = self;
-    zipView.edit.maxLength = 5;
-	zipView.edit.keyboardType = UIKeyboardTypeNumberPad;
-	[self.contentView addSubview:zipView];
+	_zipView = [TitleEditView new];
+	_zipView.label.text = @"Zip Code";
+	_zipView.edit.delegate = self;
+    _zipView.edit.maxLength = 5;
+	_zipView.edit.keyboardType = UIKeyboardTypeNumberPad;
+	[self.contentView addSubview:_zipView];
 
-	cityView = [TitleEditView new];
-	cityView.label.text = @"City";
-	cityView.edit.delegate = self;
-	[cityView.edit returnDone];
-	[self.contentView addSubview:cityView];
+	_cityView = [TitleEditView new];
+	_cityView.label.text = @"City";
+	_cityView.edit.delegate = self;
+	[_cityView.edit returnDone];
+	[self.contentView addSubview:_cityView];
 
-	stateView = [TitleMsgArrowView new];
-	stateView.titleLabel.text = @"State";
-	[stateView onClickView:self action:@selector(clickState:)];
-	[self.contentView addSubview:stateView];
+	_stateView = [TitleMsgArrowView new];
+	_stateView.titleLabel.text = @"State";
+	[_stateView onClickView:self action:@selector(clickState:)];
+	[self.contentView addSubview:_stateView];
 
 	[self layoutLinearVertical];
 
@@ -77,17 +71,17 @@
 }
 
 - (void)bindData {
-	addr1View.edit.text = self.address.address1;
-	addr2View.edit.text = self.address.address2;
-	zipView.edit.text = self.address.zipCode;
-	cityView.edit.text = self.address.city;
-	stateView.msgLabel.text = self.address.stateLabel;
+	_addr1View.edit.text = self.address.address1;
+	_addr2View.edit.text = self.address.address2;
+	_zipView.edit.text = self.address.zipCode;
+	_cityView.edit.text = self.address.city;
+	_stateView.msgLabel.text = self.address.stateLabel;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 	[super textFieldDidEndEditing:textField];
-	if (zipView) {
-		if (textField == zipView.edit) {
+	if (_zipView) {
+		if (textField == _zipView.edit) {
 			[self queryStateCityByZipCode:textField.textTrimed];
 		}
 	}
@@ -101,18 +95,22 @@
 	backTask(^() {
 		StateCity *sc = [Proto getStateAndCity:zip];
 		foreTask(^() {
-			[self hideIndicator];
-			if (sc) {
-				if (sc.city) {
-					cityView.edit.text = sc.city;
-				}
-				if (sc.state) {
-					stateView.msgLabel.text = sc.state;
-				}
-			}
+            [self handleStateCity:sc];
 		});
 
 	});
+}
+
+- (void)handleStateCity:(StateCity *)sc {
+    [self hideIndicator];
+    if (sc) {
+        if (sc.city) {
+            _cityView.edit.text = sc.city;
+        }
+        if (sc.state) {
+            _stateView.msgLabel.text = sc.state;
+        }
+    }
 }
 
 - (void)clickBack:(id)sender {
@@ -134,15 +132,15 @@
 }
 
 - (void)clickSave:(UIButton *)btn {
-	self.address.address1 = [NSString stringWithFormat:@"%@\n", addr1View.edit.textTrimed];
-	if (![addr2View.edit.textTrimed isEqualToString:@""]) {
-		self.address.address2 = [NSString stringWithFormat:@"%@\n", addr2View.edit.textTrimed];
+	self.address.address1 = [NSString stringWithFormat:@"%@\n", _addr1View.edit.textTrimed];
+	if (![_addr2View.edit.textTrimed isEqualToString:@""]) {
+		self.address.address2 = [NSString stringWithFormat:@"%@\n", _addr2View.edit.textTrimed];
 	} else {
 		self.address.address2 = @"";
 	}
-	self.address.zipCode = zipView.edit.textTrimed;
-	self.address.city = cityView.edit.textTrimed;
-	self.address.stateLabel = stateView.msgLabel.text;
+	self.address.zipCode = _zipView.edit.textTrimed;
+	self.address.city = _cityView.edit.textTrimed;
+	self.address.stateLabel = _stateView.msgLabel.text;
 
 	if (self.saveCallback) {
 		self.saveCallback(self.address);
@@ -153,24 +151,27 @@
 
 - (void)clickState:(id)sender {
 	SearchPage *p = [SearchPage new];
-	p.checkedItem = stateView.msgLabel.text;
+	p.checkedItem = _stateView.msgLabel.text;
 	p.titleText = @"STATE";
 	NSArray *ls = [Proto listStates];
 	[p setItemsPlain:ls displayBlock:nil];
 
 	p.onResult = ^(NSObject *item) {
-//        stateView.msgLabel.text = (NSString *) item;
-		NSString *currentState = (NSString *) item;
-		NSArray *shLs = [Proto shortStates];
-		for (int i = 0; i < ls.count; i++) {
-			if ([ls[i] isEqualToString:currentState]) {
-				self->stateView.msgLabel.text = shLs[i];
-			}
-		}
+        [self handleResult:item ls:ls];
 	};
 	[self pushPage:p];
 
 }
 
+- (void) handleResult:(NSObject *) item ls:(NSArray *) ls {
+//        stateView.msgLabel.text = (NSString *) item;
+    NSString *currentState = (NSString *) item;
+    NSArray *shLs = [Proto shortStates];
+    for (int i = 0; i < ls.count; i++) {
+        if ([ls[i] isEqualToString:currentState]) {
+            self->_stateView.msgLabel.text = shLs[i];
+        }
+    }
+}
 
 @end

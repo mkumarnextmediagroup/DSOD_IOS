@@ -29,3 +29,6 @@ extern NSInteger getServerDomain(void);
 extern void putIsActicleArchive(NSInteger value);
 extern NSInteger getIsActicleArchive(void);
 
+extern void putLoginType(NSInteger value);
+extern NSInteger getLoginType(void);
+

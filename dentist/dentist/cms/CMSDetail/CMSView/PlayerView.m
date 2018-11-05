@@ -230,8 +230,8 @@
 	titleLabel.text = bindInfo.title;
 //    [_greeBtn setTitle:bindInfo.gskString forState:UIControlStateNormal];
     [_greeBtn setImage:[UIImage imageNamed:@"gskIcon"] forState:UIControlStateNormal];
-	nameLabel.text = bindInfo.authorName;
-//    addressLabel.text = bindInfo.authAdd;
+    nameLabel.text = [NSString stringWithFormat:@"%@ %@",bindInfo.author.firstName,bindInfo.author.lastName];
+    addressLabel.text = bindInfo.author.authorDetails;
     contentLabel.text = bindInfo.content;
 //    [contentWebView loadHTMLString:bindInfo.content baseURL:nil];
 //    contentLabel2.text = bindInfo.subContent;

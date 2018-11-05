@@ -14,6 +14,7 @@
 #import "SlideController.h"
 #import "Proto.h"
 #import "Common.h"
+#import "SliderListViewController.h"
 
 @interface AppDelegate ()
 
@@ -75,15 +76,18 @@
     snav.navigationBar.tintColor = Colors.primary;
 	snav.navigationBar.barTintColor = UIColor.whiteColor;
 
+    SliderListViewController * slider = [SliderListViewController new];
+    slider.preferredContentSize = makeSize(SCREENWIDTH - 187, SCREENHEIGHT);
+    
 	UIViewController *centerPage = [sc onMakePage:@"Browse Content"];
-	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:centerPage leftViewController:snav rightViewController:nil];
+	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:centerPage leftViewController:snav rightViewController:slider];
 	return deck;
 }
 
 - (void)closeMenu:(id)sender {
 	if ([self.window.rootViewController isKindOfClass:[IIViewDeckController class]]) {
-		IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;
-		[tc closeSide:YES];
+        IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;
+        [tc closeSide:YES];
 	}
 }
 
@@ -92,6 +96,13 @@
 		IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;
 		[tc openSide:IIViewDeckSideLeft animated:YES];
 	}
+}
+
+- (void)onOpenMenuAnoSide:(id)sender {
+    if ([self.window.rootViewController isKindOfClass:[IIViewDeckController class]]) {
+        IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;
+        [tc openSide:IIViewDeckSideRight animated:YES];
+    }
 }
 
 - (void)configGlobalStyle {

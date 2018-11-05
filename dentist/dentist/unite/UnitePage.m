@@ -183,7 +183,10 @@
                 model.publishDate = @"111";
                 [self enterUniteDownloading:model];
             }else if(row == 2){
-                
+                ThumViewController *thumvc=[ThumViewController new];
+                thumvc.pageType = PageTypeBookmark;
+                thumvc.modelarr=self->datas;
+                [self.navigationController pushViewController:thumvc animated:YES];
             }
         }
     }];

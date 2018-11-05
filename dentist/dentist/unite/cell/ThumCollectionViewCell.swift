@@ -25,10 +25,15 @@ class ThumCollectionViewCell: BasePageCollectionCell {
     @IBOutlet weak var pushDataLabel: UILabel!
     
     @IBOutlet weak var ArchiiveButton: UIButton!
+    
+    @IBOutlet weak var removeBookmarkButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         ArchiiveButton.layer.borderColor=UIColor.darkGray.cgColor
         ArchiiveButton.layer.borderWidth=1.0
+        removeBookmarkButton.layer.borderColor=UIColor.darkGray.cgColor
+        removeBookmarkButton.layer.borderWidth=1.0
 //        self.backgroundColor=UIColor.red
 //        self.backgroundImageView.loadUrl("http://app800.cn/i/p.png", placeholderImage: "school")
     }

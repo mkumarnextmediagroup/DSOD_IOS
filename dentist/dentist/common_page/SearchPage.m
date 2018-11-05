@@ -10,7 +10,6 @@
 
 
 @implementation SearchPage {
-	UITextField *searchEdit;
 }
 
 - (instancetype)init {
@@ -34,13 +33,13 @@
 	navItem.leftBarButtonItem = [self navBarBack:self action:@selector(clickBack:)];
 	navItem.title = self.titleText;
 
-	searchEdit = [self.view addEditSearch];
-	searchEdit.delegate = self;
+	_searchEdit = [self.view addEditSearch];
+	_searchEdit.delegate = self;
 
-	[[[[[searchEdit.layoutMaker leftParent:16] rightParent:-16] topParent:NAVHEIGHT + 10] heightEq:EDIT_HEIGHT] install];
+	[[[[[_searchEdit.layoutMaker leftParent:16] rightParent:-16] topParent:NAVHEIGHT + 10] heightEq:EDIT_HEIGHT] install];
 	UIView *lineView = [self.view addView];
 	lineView.backgroundColor = Colors.cellLineColor;
-	[[[[[lineView.layoutMaker heightEq:1] leftParent:0] rightParent:0] below:searchEdit offset:10] install];
+	[[[[[lineView.layoutMaker heightEq:1] leftParent:0] rightParent:0] below:_searchEdit offset:10] install];
 
 }
 
@@ -55,8 +54,8 @@
 //}
 
 - (void)onTextFieldDone:(UITextField *)textField {
-	NSString *s = textField.textTrimed;
-	[self filterBy:s];
+    NSString *s = textField.textTrimed;
+    [self filterBy:s];
 }
 
 - (void)clickBack:(id)sender {
@@ -73,17 +72,17 @@
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
-	LabelCheckView *v = (LabelCheckView *) view;
-	if (self.displayBlock != nil) {
-		v.label.text = self.displayBlock(item);
-	} else if ([item isKindOfClass:NSString.class]) {
-		v.label.text = (NSString *) item;
-	} else if ([item isKindOfClass:Pair.class]) {
-		v.label.text = ((Pair *) item).value;
-	} else {
-		v.label.text = item.description;
-	}
-	v.checkButton.selected = [item isEqual:self.checkedItem];
+    LabelCheckView *v = (LabelCheckView *) view;
+    if (self.displayBlock != nil) {
+        v.label.text = self.displayBlock(item);
+    } else if ([item isKindOfClass:NSString.class]) {
+        v.label.text = (NSString *) item;
+    } else if ([item isKindOfClass:Pair.class]) {
+        v.label.text = ((Pair *) item).value;
+    } else {
+        v.label.text = item.description;
+    }
+    v.checkButton.selected = [item isEqual:self.checkedItem];
 }
 
 - (void)onClickItem:(NSObject *)item {

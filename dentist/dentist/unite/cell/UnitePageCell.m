@@ -22,8 +22,11 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         coverImgView = [UIImageView new];
+        [coverImgView setContentMode:UIViewContentModeScaleAspectFill];
+        coverImgView.clipsToBounds = YES;
         [self addSubview:coverImgView];
-        [[[[[coverImgView.layoutMaker topParent:edge] leftParent:edge] rightParent:-edge] heightEq:500]install];
+        [[[[[coverImgView.layoutMaker topParent:edge] leftParent:edge] rightParent:-edge] heightEq:SCREENWIDTH*5/4]install];
+        
         
         optionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [self optionBtnReadStyle];
@@ -51,9 +54,9 @@
 - (void)setMagazineModel:(MagazineModel *)magazineModel{
     _magazineModel = magazineModel;
     
-    magazineModel.cover = @"http://app800.cn/i/p.png";
+    magazineModel.cover = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542037826&di=64e2e24bf769d5c2b71d7372a0515d7d&imgtype=jpg&er=1&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3Dec50dee888025aafc73f76889384c111%2Fa50f4bfbfbedab643e0cd5e8fd36afc379311e9f.jpg";
     if(magazineModel.cover){
-        [coverImgView loadUrl:magazineModel.cover placeholderImage:@"school"];
+        [coverImgView loadUrl:magazineModel.cover placeholderImage:@"bg_1"];
     }
     coverImgView.contentMode=UIViewContentModeScaleAspectFill;
     coverImgView.clipsToBounds=YES;

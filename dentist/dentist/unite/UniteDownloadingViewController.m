@@ -48,13 +48,15 @@
     
     
     coverImgView = [UIImageView new];
+    [coverImgView setContentMode:UIViewContentModeScaleAspectFill];
+    coverImgView.clipsToBounds = YES;
     [contentView addSubview:coverImgView];
-    [[[[[coverImgView.layoutMaker topParent:15] leftParent:15] rightParent:-15] heightEq:500]install];
+    [[[[[coverImgView.layoutMaker topParent:15] leftParent:15] rightParent:-15] heightEq:SCREENWIDTH*6/5]install];
     
     publishDateLabel = [UILabel new];
     publishDateLabel.font = [UIFont systemFontOfSize:15];
     [publishDateLabel textColorMain];    [contentView addSubview:publishDateLabel];
-    [[[publishDateLabel.layoutMaker below:coverImgView offset:15] centerXParent:0]install];
+    [[[publishDateLabel.layoutMaker below:coverImgView offset:10] centerXParent:0]install];
 
     
     volIssueLabel = [UILabel new];
@@ -64,10 +66,10 @@
     [[[volIssueLabel.layoutMaker below:publishDateLabel offset:0] centerXParent:0]install];
     
     sizeLabel = [UILabel new];
-    sizeLabel.font = [Fonts semiBold:12];
+    sizeLabel.font = [UIFont systemFontOfSize:12];
     [sizeLabel textColorAlternate];
     [contentView addSubview:sizeLabel];
-    [[[sizeLabel.layoutMaker below:volIssueLabel offset:10] centerXParent:0]install];
+    [[[sizeLabel.layoutMaker below:volIssueLabel offset:5] centerXParent:0]install];
     
     
     downloadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -131,9 +133,9 @@
 
 
 -(void)loadData{
-    self.magazineModel.cover = @"http://app800.cn/i/p.png";
+
     if(self.magazineModel.cover){
-        [coverImgView loadUrl:self.magazineModel.cover placeholderImage:@"school"];
+        [coverImgView loadUrl:self.magazineModel.cover placeholderImage:@"bg_1"];
     }
     publishDateLabel.text = [NSString timeWithTimeIntervalString:self.magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",self.magazineModel.vol?self.magazineModel.vol:@"", self.magazineModel.issue?self.magazineModel.issue:@""];

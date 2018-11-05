@@ -268,13 +268,22 @@
     titleLabel.text = bindInfo.title;
     nameLabel.text = [NSString stringWithFormat:@"%@ %@",bindInfo.author.firstName,bindInfo.author.lastName];
     addressLabel.text = bindInfo.author.authorDetails;
-    [mywebView loadHTMLString:bindInfo.content baseURL:nil];
+    [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
     if (bindInfo.isBookmark) {
         [_markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{
         [_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
 }
+
+- (NSString *)htmlString:(NSString *)html
+{
+    //do some regular
+//    return [NSString stringWithFormat:@"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'><style type='text/css'>img{width:%fpx}</style>%@", SCREENWIDTH - 20, html];
+    return html;
+    
+}
+
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{
     if(!allowZoom){

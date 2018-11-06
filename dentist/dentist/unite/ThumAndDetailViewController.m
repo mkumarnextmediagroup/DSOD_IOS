@@ -28,6 +28,8 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
         _bottomBarH = TABLEBAR_HEIGHT;
     }
     
+    
+    
     CGFloat collectheight=self.view.frame.size.height-_topBarH;
 //    [[[[[[_table layoutMaker] leftParent:0] rightParent:0] topParent: self.topOffset + _topBarH] bottomParent:-(self.bottomOffset + _bottomBarH)] install];
     
@@ -118,17 +120,17 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     if (indexPath.row==0) {
         UIImage *image1=[UIImage imageNamed:@"unitedetail1"];
         [cell.backgroundImageView setImage:image1];
-        cell.backgroundImageView.frame=CGRectMake(0, 0, cell.backgroundImageView.frame.size.width, image1.size.height);
+        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 1000*cell.backgroundImageView.frame.size.width/747);
         cell.scrollView.contentSize =  CGSizeMake(0, image1.size.height);
     }else if (indexPath.row==1){
         UIImage *image2=[UIImage imageNamed:@"unitedetail2"];
         [cell.backgroundImageView setImage:image2];
-        cell.backgroundImageView.frame=CGRectMake(0, 0, cell.backgroundImageView.frame.size.width, image2.size.height);
+        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 16130*cell.backgroundImageView.frame.size.width/750);
         cell.scrollView.contentSize =  CGSizeMake(0, image2.size.height);
     }else{
         UIImage *image3=[UIImage imageNamed:@"unitedetail3"];
         [cell.backgroundImageView setImage:image3];
-        cell.backgroundImageView.frame=CGRectMake(0, 0, cell.backgroundImageView.frame.size.width, image3.size.height);
+        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 7970*cell.backgroundImageView.frame.size.width/750);
         cell.scrollView.contentSize =  CGSizeMake(0, image3.size.height);
     }
     cell.backgroundImageView.contentMode=UIViewContentModeScaleToFill;

@@ -8,17 +8,21 @@
 
 import UIKit
 
+
 @objc enum PageType : Int{
     case normal
     case bookmark
 }
     
 class ThumViewController: ExpandingViewController,ThumAndDetailViewControllerDelegate {
-
+    typealias didSelectMenu = (_ index:NSInteger) ->Void
+    var thumdidSelectMenu:didSelectMenu?
+    
     @objc var modelarr : Array<MagazineModel>?
     @objc var pageType = PageType.normal
     var detailcollectionView: ThumAndDetailViewController?
     var detailView: UIView?
+    var popView:YHPopMenuView?
 //    var detailimageview:UIImageView?
     typealias ItemInfo = (imageName: String, title: String)
     fileprivate var cellsIsOpen = [Bool]()
@@ -52,6 +56,38 @@ extension ThumViewController{
         createDetailCollection()
     }
     
+   @objc func openMenu(){
+        if let popView=popView,popView.isShowing {
+            popView.hide()
+            return
+        }
+        let itemH = CGFloat(50)
+        let w = CGFloat(200)
+        let h = CGFloat(3*itemH)
+        let r = CGFloat(0.0)
+        let x = CGFloat(self.view.frame.size.width-w-r)
+        let y = CGFloat(0.0)
+        
+        popView=YHPopMenuView(frame: CGRect(x: x, y: y, width: w, height: h))
+        popView?.iconNameArray = ["arrow", "arrow", "arrow"]
+        popView?.itemNameArray = ["All Issues", "Downloaded", "Go to Bookmarks"]
+        popView?.itemH = itemH
+        popView?.fontSize = 16.0
+        popView?.fontColor = UIColor.black
+        popView?.canTouchTabbar = true
+        popView?.show()
+        
+        //    WeakSelf
+        popView!.dismissHandler({ isCanceled, row in
+            if !isCanceled {
+                if (self.thumdidSelectMenu != nil) {
+                    self.thumdidSelectMenu!(row)
+                }
+                
+            }
+        })
+    }
+    
     fileprivate func createDetailCollection(){
         detailcollectionView=ThumAndDetailViewController()
 //        self.addChild(detailcollectionView!)
@@ -68,16 +104,7 @@ extension ThumViewController{
             }
             
         }
-//        self.navigationController?.pushViewController(detailcollectionView!, animated: false)
         self.view.addSubview(detailView!)
-        
-//        let flowLayout = UICollectionViewFlowLayout();
-//        let navBarHeight = self.navigationController!.navigationBar.frame.size.height
-//
-//        let stausBarHeight = UIApplication.shared.statusBarFrame.size.height
-//
-//        let itemheight = self.view.frame.size.height-(navBarHeight+stausBarHeight)
-//        detailcollectionView = UICollectionView(frame: CGRect(x: 0, y: (navBarHeight+stausBarHeight), width: self.view.frame.size.width, height: itemheight), collectionViewLayout: flowLayout)
     }
 }
 
@@ -114,7 +141,7 @@ extension ThumViewController {
     fileprivate func configureNavBar() {
         let menuBtnItem1=UIBarButtonItem(image: UIImage(named:"Content-Options"), style: .plain, target: self, action: #selector(self.onBack))
         let fixedSpaceBarButtonItem=UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        let menuBtnItem2=UIBarButtonItem(image: UIImage(named:"More-Options"), style: .plain, target: self, action: #selector(self.onBack))
+        let menuBtnItem2=UIBarButtonItem(image: UIImage(named:"More-Options"), style: .plain, target: self, action: #selector(openMenu))
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"back_arrow"), style: .plain, target: self, action: #selector(self.onBack))
         navigationItem.rightBarButtonItems=[menuBtnItem2, fixedSpaceBarButtonItem, menuBtnItem1]
@@ -122,6 +149,7 @@ extension ThumViewController {
     @objc func onBack(){
         self.navigationController?.popViewController(animated: true)
     }
+    
 }
 
 /// MARK: Gesture

@@ -145,6 +145,12 @@
     }
 }
 
+-(void)gotoThumView
+{
+    ThumViewController *thumvc=[ThumViewController new];
+    thumvc.modelarr=self->datas;
+    [self.navigationController pushViewController:thumvc animated:YES];
+}
 
 -(void)startUniteDownload{
     
@@ -220,6 +226,7 @@
             case UPageNoDownload:
                 //start download
                 [self startUniteDownload];
+                
             case UPageDownloading:{
                 //to downloading page
                 [self enterUniteDownloading:model];
@@ -230,6 +237,11 @@
         }
     };
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self gotoThumView];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{

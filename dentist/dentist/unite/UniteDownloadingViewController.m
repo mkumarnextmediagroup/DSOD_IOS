@@ -35,12 +35,6 @@
     item.title = @"";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
     item.rightBarButtonItem = [self menuButton];
-//    UIScrollView *contentView = [UIScrollView new];
-//    contentView.backgroundColor = UIColor.redColor;
-//    contentView.contentSize =  CGSizeMake(self.view.frame.size.width, self.view.frame.size.height * 2);
-//
-//
-//    [contentView.layoutMaker ]
     
     UIView *contentView = [UIView new];
     contentView.backgroundColor = UIColor.whiteColor;
@@ -110,7 +104,15 @@
     [[[[cancelBtn.layoutMaker sizeEq:100 h:36] below:sizeLabel offset:15]centerXParent:90 ]install];
     [cancelBtn addTarget:self action:@selector(cancelBtnAction) forControlEvents:UIControlEventTouchUpInside];
 
-   
+    UIActivityIndicatorView *iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    iv.tag = 998;
+    iv.color = UIColor.blueColor;
+    iv.backgroundColor = [UIColor clearColor];
+    [downloadingBtn addSubview:iv];
+    [[[[iv.layoutMaker leftParent:13] topParent:1] bottomParent:1] install];
+    [iv startAnimating];
+    
+    
     [self loadData];
 }
 

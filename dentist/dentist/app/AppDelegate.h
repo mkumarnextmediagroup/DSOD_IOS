@@ -15,6 +15,7 @@
 @property(assign, nonatomic) BOOL supportRatate;
 
 @property(class) AppDelegate *instance;
+- (void)onOpenMenuAnoSide:(id)sender;
 
 -(void) switchToMainPage;
 -(void) switchToWelcomePage;

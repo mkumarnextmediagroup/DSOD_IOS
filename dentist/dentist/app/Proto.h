@@ -25,6 +25,8 @@
 @property(class, readonly) NSString *lastAccount;
 @property(class, readonly) NSString *lastToken;
 
++ (NSArray *)uniteArticleDesc;
+
 + (HttpResult *)resetPwd:(NSString *)email pwd:(NSString *)pwd code:(NSString *)code;
 
 + (HttpResult *)sendEmailCode:(NSString *)email;

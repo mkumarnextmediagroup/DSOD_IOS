@@ -11,6 +11,7 @@
 #import "SliderListViewController.h"
 #import "IIViewDeckController.h"
 #import "AppDelegate.h"
+#import "dentist-Swift.h"
 
 @interface UniteDownloadingViewController (){
     UIImageView *coverImgView;
@@ -126,9 +127,11 @@
     
 }
 -(void)cancelBtnAction{
-    downloadBtn.hidden = NO;
-    downloadingBtn.hidden = YES;
-    cancelBtn.hidden = YES;
+//    downloadBtn.hidden = NO;
+//    downloadingBtn.hidden = YES;
+//    cancelBtn.hidden = YES;
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -142,8 +145,16 @@
 
     sizeLabel.text = @"52 MB";
     
-    downloadingBtn.hidden = YES;
-    cancelBtn.hidden = YES;
+    downloadBtn.hidden = YES;
+    downloadingBtn.hidden = NO;
+    cancelBtn.hidden = NO;
+    
+    WeakSelf
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        ThumViewController *thumvc=[ThumViewController new];
+        thumvc.modelarr=weakSelf.datas;
+        [weakSelf.navigationController pushViewController:thumvc animated:YES];
+    });
 
 }
 

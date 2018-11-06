@@ -49,7 +49,7 @@
 
 -(void)setupNavigation{
     UINavigationItem *item = [self navigationItem];
-    item.title = @"Unite";
+    item.title = @"All ISSUES";
     
     
     iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -85,6 +85,7 @@
 - (void)enterUniteDownloading:(MagazineModel*) model{
     UniteDownloadingViewController *vc = [[UniteDownloadingViewController alloc]init];
     vc.magazineModel = model;
+    vc.datas = datas;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -187,7 +188,7 @@
     CGFloat y = 0;
     
     popView = [[YHPopMenuView alloc] initWithFrame:CGRectMake(x, y, w, h)];
-    popView.iconNameArray = @[@"arrow",@"arrow",@"arrow",];
+    popView.iconNameArray = @[@"arrow",@"arrow",@"arrow"];
     popView.itemNameArray = @[@"All Issues",@"Downloaded",@"Go to Bookmarks"];
     popView.itemH     = itemH;
     popView.fontSize  = 16.0f;
@@ -216,6 +217,8 @@
 -(void)showDownloaded{
     //TODO False data
     onlyDownloadedUinte = YES;
+    UINavigationItem *item = [self navigationItem];
+    item.title = @"DOWNLOADED";
     if(datas.count>3){
         datas = [NSArray arrayWithObjects:datas[1],datas[2],nil];
         [mTableView reloadData];
@@ -224,6 +227,8 @@
 
 -(void)showAllIssues{
     onlyDownloadedUinte = NO;
+    UINavigationItem *item = [self navigationItem];
+    item.title = @"All ISSUES";
     [self firstRefresh];
 }
 

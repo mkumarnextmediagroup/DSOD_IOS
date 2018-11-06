@@ -76,11 +76,10 @@
 
 - (void)enterTeamCard:(UIButton *)btn
 {
-    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    UniteDetailViewController *newVC = [[UniteDetailViewController alloc] init];
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+    ThumViewController *thumvc=[ThumViewController new];
+    thumvc.modelarr=self->datas;
+    [self.navigationController pushViewController:thumvc animated:YES];
     
-    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 - (void)enterUniteDownloading:(MagazineModel*) model{
@@ -147,6 +146,11 @@
         }else{
             datas = newDatas;
         }
+        //TODO False data
+        ((MagazineModel*)datas[0]).cover = @"http://pic41.photophoto.cn/20161202/1155116460723923_b.jpg";
+        ((MagazineModel*)datas[1]).cover = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542037826&di=64e2e24bf769d5c2b71d7372a0515d7d&imgtype=jpg&er=1&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3Dec50dee888025aafc73f76889384c111%2Fa50f4bfbfbedab643e0cd5e8fd36afc379311e9f.jpg";
+       
+        
         [mTableView reloadData];
     }
 }
@@ -182,13 +186,7 @@
     [popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
         if (!isCanceled) {
             if(row == 0){
-
-//                ThumAndDetailViewController *thumvc=[ThumAndDetailViewController new];
-                ThumViewController *thumvc=[ThumViewController new];
-                thumvc.modelarr=self->datas;
-                [self.navigationController pushViewController:thumvc animated:YES];
                 [self showAllIssues];
-
             }else if(row == 1){
                 [self showDownloaded];
             }else if(row == 2){
@@ -203,6 +201,7 @@
 }
 
 -(void)showDownloaded{
+    //TODO False data
     onlyDownloadedUinte = YES;
     if(datas.count>3){
         datas = [NSArray arrayWithObjects:datas[1],datas[2],nil];
@@ -253,6 +252,7 @@
     };
     return cell;
 }
+
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     // 下拉到最底部时显示更多数据

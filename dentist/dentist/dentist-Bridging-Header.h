@@ -9,3 +9,5 @@
 #import "MagazineModel.h"
 #import "NSString+myextend.h"
 #import "UIViewController+myextend.h"
+#import "UnitePage.h"
+#import "ThumAndDetailViewController.h"

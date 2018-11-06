@@ -11,6 +11,7 @@
 #import "YHPopMenuView.h"
 #import "UniteDownloadingViewController.h"
 #import "dentist-Swift.h"
+#import "ThumAndDetailViewController.h"
 
 @interface UnitePage()<UITableViewDelegate,UITableViewDataSource>{
     UITableView *mTableView;
@@ -175,6 +176,7 @@
     [popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
         if (!isCanceled) {
             if(row == 0){
+//                ThumAndDetailViewController *thumvc=[ThumAndDetailViewController new];
                 ThumViewController *thumvc=[ThumViewController new];
                 thumvc.modelarr=self->datas;
                 [self.navigationController pushViewController:thumvc animated:YES];

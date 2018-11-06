@@ -17,6 +17,7 @@
 #import "BookmarkModel.h"
 #import "DiscussInfo.h"
 #import "MagazineModel.h"
+#import "UniteArticles.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -24,6 +25,28 @@
 #define CMSDOWNLOADLIST @"CMSDOWNLOADLIST"
 @implementation Proto {
 	NSString *SERVER;
+}
+
++ (NSArray *)uniteArticleDesc
+{
+    UniteArticles *a1 = [UniteArticles new];
+    a1.issueHeading = @"TRANFORM YOUR THINKING";
+    a1.issueSubHeading = @"Understanding the DSO practise model";
+    
+    UniteArticles *a2 = [UniteArticles new];
+    a2.issueHeading = @"GOING PRO";
+    a2.issueSubHeading = @"Making the leap from Student to Professional";
+    
+    UniteArticles *a3 = [UniteArticles new];
+    a3.issueHeading = @"A BALANCING ACT";
+    a3.issueSubHeading = @"Your professional career and Personal Life";
+    
+    UniteArticles *a4 = [UniteArticles new];
+    a4.issueHeading = @"PREDICTABLE PREPARATION";
+    a4.issueSubHeading = @"Understanding the DSO practise model";
+    
+    NSArray *arr = @[a1, a2, a3, a4];
+    return arr;
 }
 
 + (NSArray *)listArticle {

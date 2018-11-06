@@ -13,11 +13,13 @@ import UIKit
     case bookmark
 }
     
-class ThumViewController: ExpandingViewController {
+class ThumViewController: ExpandingViewController,ThumAndDetailViewControllerDelegate {
 
     @objc var modelarr : Array<MagazineModel>?
     @objc var pageType = PageType.normal
-    
+    var detailcollectionView: ThumAndDetailViewController?
+    var detailView: UIView?
+//    var detailimageview:UIImageView?
     typealias ItemInfo = (imageName: String, title: String)
     fileprivate var cellsIsOpen = [Bool]()
 //    fileprivate let items: [ItemInfo] = [("item0", "Boston"), ("item1", "New York"), ("item2", "San Francisco"), ("item3", "Washington")]
@@ -25,6 +27,7 @@ class ThumViewController: ExpandingViewController {
 
 extension ThumViewController{
     override func viewDidLoad() {
+        
         
         view.backgroundColor=Colors.bgColorUnite
         if(pageType == PageType.bookmark){
@@ -45,6 +48,36 @@ extension ThumViewController{
         fillCellIsOpenArray()
         addGesture(to: collectionView!)
         configureNavBar()
+        collectionView?.isHidden = true
+        createDetailCollection()
+    }
+    
+    fileprivate func createDetailCollection(){
+        detailcollectionView=ThumAndDetailViewController()
+//        self.addChild(detailcollectionView!)
+        detailcollectionView!.delegate=self;
+        detailView=detailcollectionView!.view!
+        detailcollectionView!.scrollToDown={(offsety:CGFloat) in
+            print("offsety1111======%f",offsety)
+            if self.detailView!.isHidden==false {
+                self.pushToViewController3(offsety){
+                    self.collectionView?.isHidden=false
+                    self.detailView?.isHidden=true
+                    self.detailView?.removeFromSuperview()
+                }
+            }
+            
+        }
+//        self.navigationController?.pushViewController(detailcollectionView!, animated: false)
+        self.view.addSubview(detailView!)
+        
+//        let flowLayout = UICollectionViewFlowLayout();
+//        let navBarHeight = self.navigationController!.navigationBar.frame.size.height
+//
+//        let stausBarHeight = UIApplication.shared.statusBarFrame.size.height
+//
+//        let itemheight = self.view.frame.size.height-(navBarHeight+stausBarHeight)
+//        detailcollectionView = UICollectionView(frame: CGRect(x: 0, y: (navBarHeight+stausBarHeight), width: self.view.frame.size.width, height: itemheight), collectionViewLayout: flowLayout)
     }
 }
 
@@ -56,6 +89,7 @@ extension ThumViewController {
         
         let nib = UINib(nibName: String(describing: ThumCollectionViewCell.self), bundle: nil)
         collectionView?.register(nib, forCellWithReuseIdentifier: String(describing: ThumCollectionViewCell.self))
+        
     }
     
     fileprivate func fillCellIsOpenArray() {
@@ -78,8 +112,12 @@ extension ThumViewController {
     }
     
     fileprivate func configureNavBar() {
-        navigationItem.leftBarButtonItem?.image = UIImage(named: "back_arrow")
-//        navigationItem.leftBarButtonItem=self.navBarBack(self, action: Selector(onBack()))
+        let menuBtnItem1=UIBarButtonItem(image: UIImage(named:"Content-Options"), style: .plain, target: self, action: #selector(self.onBack))
+        let fixedSpaceBarButtonItem=UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        let menuBtnItem2=UIBarButtonItem(image: UIImage(named:"More-Options"), style: .plain, target: self, action: #selector(self.onBack))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"back_arrow"), style: .plain, target: self, action: #selector(self.onBack))
+        navigationItem.rightBarButtonItems=[menuBtnItem2, fixedSpaceBarButtonItem, menuBtnItem1]
     }
     @objc func onBack(){
         self.navigationController?.popViewController(animated: true)
@@ -105,14 +143,24 @@ extension ThumViewController {
         let indexPath = IndexPath(row: currentIndex, section: 0)
         guard let cell = collectionView?.cellForItem(at: indexPath) as? ThumCollectionViewCell else { return }
         // double swipe Up transition
-        if cell.isOpened == true && sender.direction == .up {
-            pushToViewController(getViewController())
-//            self.navigationController?.pushViewController(getViewController(), animated: false)
-        }
+//        if cell.isOpened == true && sender.direction == .up {
+//            pushToViewController(getViewController())
+//        }
+//
+//        let open = sender.direction == .up ? true : false
+//        cell.cellIsOpen(open)
+//        cellsIsOpen[indexPath.row] = cell.isOpened
         
-        let open = sender.direction == .up ? true : false
-        cell.cellIsOpen(open)
-        cellsIsOpen[indexPath.row] = cell.isOpened
+//        pushToViewController(getViewController())
+        pushToViewController2 {
+            self.collectionView?.isHidden=true
+            self.detailView?.isHidden=false
+            self.view.addSubview(self.detailView!)
+        }
+    }
+    
+    @objc func thumAndDetailViewControllerDidScroll(_ offsety: CGFloat) {
+        print("offsety2222======%f",offsety)
     }
 }
 
@@ -166,12 +214,12 @@ extension ThumViewController {
         if cell.isOpened == false {
             cell.cellIsOpen(true)
         } else {
-            pushToViewController(getViewController())
-//            self.navigationController?.pushViewController(getViewController(), animated: false)
-            
-//            if let rightButton = navigationItem.rightBarButtonItem as? AnimatingBarButton {
-//                rightButton.animationSelected(true)
-//            }
+//            pushToViewController(getViewController())
+            pushToViewController2 {
+                collectionView.isHidden=true
+                self.detailView?.isHidden=false
+                self.view.addSubview(self.detailView!)
+            }
         }
     }
 }

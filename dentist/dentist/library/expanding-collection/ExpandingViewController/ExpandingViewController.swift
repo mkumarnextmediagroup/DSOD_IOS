@@ -16,7 +16,7 @@ open class ExpandingViewController: UIViewController {
 
     ///  The collection view object managed by this view controller.
     open var collectionView: UICollectionView?
-
+    
     fileprivate var transitionDriver: TransitionDriver?
 
     /// Index of current cell
@@ -71,9 +71,44 @@ public extension ExpandingViewController {
                                                        backImage: backImage,
                                                        headerHeight: viewController.headerHeight,
                                                        insets: tabBarHeight + stausBarHeight) { headerView in
-            viewController.tableView.tableHeaderView = headerView
+//            viewController.tableView.tableHeaderView = headerView
             self.navigationController?.pushViewController(viewController, animated: false)
         }
+    }
+    func pushToViewController2(completion: @escaping () -> Void) {
+        guard let collectionView = self.collectionView,
+        let navigationController = self.navigationController else {
+            return
+        }
+//        viewController.transitionDriver = transitionDriver
+//        let tabBarHeight = insets == true ? navigationController.navigationBar.frame.size.height : 0
+//        let stausBarHeight = insets == true ? UIApplication.shared.statusBarFrame.size.height : 0
+//        let backImage = getBackImage(viewController, headerHeight: viewController.headerHeight)
+        
+        transitionDriver?.pushTransitionAnimationIndex2(currentIndex,
+                                                       collecitionView: collectionView,
+                                                       backImage: nil,
+                                                       headerHeight:0,
+                                                       insets: 0) {_ in
+                                                        completion()
+                                                        
+        }
+    }
+    func pushToViewController3(_ offsety:CGFloat, completion: @escaping () -> Void) {
+        guard let collectionView = self.collectionView,
+            let navigationController = self.navigationController else {
+                return
+        }
+        var offset = offsety
+        
+        let insets = automaticallyAdjustsScrollViewInsets
+        let tabBarHeight = insets == true ? navigationController.navigationBar.frame.size.height : 0
+        let stausBarHeight = insets == true ? UIApplication.shared.statusBarFrame.size.height : 0
+        
+        offset += tabBarHeight+stausBarHeight
+        
+        transitionDriver?.popTransitionAnimationContantOffset2(offset)
+        completion()
     }
 }
 

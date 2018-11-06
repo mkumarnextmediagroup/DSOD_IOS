@@ -12,6 +12,7 @@
 #import "YBImageBrowser.h"
 #import "DentistImageBrowserToolBar.h"
 #import "Proto.h"
+#import "UIButton+WebCache.h"
 
 @interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate>
 {
@@ -130,14 +131,11 @@
     UILabel *lineLabel3 = [self lineLabel];
     [[[[[lineLabel3.layoutMaker leftParent:0] rightParent:0] below:mywebView offset:25] heightEq:1] install];
     
-    [self moreView];
-    [self createStarView];
-    
     return self;
 }
 
-- (void)moreView{
-    
+- (void)createImgScroll:(DetailModel *)bindInfo
+{
     UIView *moreView = [UIView new];
     [self addSubview:moreView];
     [[[[[[moreView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:202] below:mywebView offset:26] install];
@@ -150,22 +148,18 @@
     UILabel *picNumLab = [moreView addLabel];
     picNumLab.font = [Fonts regular:12];
     [picNumLab textColorAlternate];
-    picNumLab.text = @"6 images";
+    picNumLab.text = [NSString stringWithFormat:@"%lu images",(unsigned long)bindInfo.photos.count];
     [[[[picNumLab.layoutMaker rightParent:-18] topParent:0] heightEq:50] install];
     
     imageScroll = [moreView addScrollView];
     [[[[[imageScroll.layoutMaker leftParent:0] rightParent:0] below:conLabel offset:0] heightEq:140] install];
     
-    NSArray *imageArray = @[
-                            @"slide-1",
-                            @"slide-2",
-                            @"slide-3",
-                            @"slide-4",
-                            @"slide-5"];
+    NSArray *imageArray = bindInfo.photos;
     
     for (int i = 0; i < imageArray.count; i++) {
         UIButton *imgBtn = [UIButton new];
         imgBtn.tag = 10+i;
+        [imgBtn sd_setImageWithURL:[NSURL URLWithString:imageArray[i]] forState:UIControlStateNormal];
         [imgBtn setImage:[UIImage imageNamed:imageArray[i]] forState:UIControlStateNormal];
         [imgBtn addTarget:self action:@selector(imgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         imgBtn.frame = CGRectMake(EDGE + (133 + 10) * i, 4, 133, 133);
@@ -175,10 +169,11 @@
     }
     
     imageScroll.contentSize = CGSizeMake(EDGE + (133 + 10) * imageArray.count, imageScroll.frame.size.height);
-
+    
     
     UILabel *lineLabel4 = [self lineLabel];
     [[[[[lineLabel4.layoutMaker leftParent:0] rightParent:0] below:imageScroll offset:28] heightEq:1] install];
+
 }
 
 - (void)imgBtnClick:(UIButton *)btn
@@ -217,15 +212,24 @@
     [browser show];
 }
 
-- (void)createStarView
+- (void)createStarView:(BOOL)isHavePic
 {
     UIView *starView = [UIView new];
     starView.backgroundColor = rgb255(248, 248, 248);
     [self addSubview:starView];
-    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:imageScroll offset:26] install];
     
     _bgBtn = starView.addButton;
-    [[[[[_bgBtn.layoutMaker leftParent:0] rightParent:0] sizeEq:SCREENWIDTH h:100] below:imageScroll offset:26] install];
+    if (isHavePic) {
+        [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:imageScroll offset:26] install];
+        [[[[[_bgBtn.layoutMaker leftParent:0] rightParent:0] sizeEq:SCREENWIDTH h:100] below:imageScroll offset:26] install];
+
+    }else
+    {
+        [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:mywebView offset:0] install];
+        [[[[[_bgBtn.layoutMaker leftParent:0] rightParent:0] sizeEq:SCREENWIDTH h:100] below:mywebView offset:0] install];
+
+    }
+
     
     UILabel *finLabel = [starView addLabel];
     finLabel.font = [Fonts regular:12];
@@ -275,6 +279,15 @@
     }else{
         [_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
+    
+    if (bindInfo.photos.count > 0) {
+        [self createImgScroll:bindInfo];
+        [self createStarView:YES];
+    }else
+    {
+        [self createStarView:NO];
+    }
+
 }
 
 - (NSString *)htmlString:(NSString *)html

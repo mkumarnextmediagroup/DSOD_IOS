@@ -125,7 +125,7 @@
     mywebView.delegate = self;
     mywebView.scrollView.scrollEnabled = NO;
     [self addSubview:mywebView];
-    [[[[mywebView.layoutMaker leftParent:10] rightParent:-10] below:view offset:5] install];
+    [[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] below:view offset:5] install];
     
     UILabel *lineLabel3 = [self lineLabel];
     [[[[[lineLabel3.layoutMaker leftParent:0] rightParent:0] below:mywebView offset:25] heightEq:1] install];
@@ -282,7 +282,7 @@
     //do some regular
 //    return [NSString stringWithFormat:@"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'><style type='text/css'>img{width:%fpx}</style>%@", SCREENWIDTH - 20, html];
     
-    NSString *htmlString = @"<style>.first-big p:first-letter{float: left;font-size:1.9em;padding-right:5px;text-transform:uppercase;color:#4a4a4a;}p{width:100%;color:#4a4a4a;font-size:1em;}</style>";
+    NSString *htmlString = @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'><style>body{padding:0px;margin:0px;}.first-big p:first-letter{float: left;font-size:1.9em;padding-right:5px;text-transform:uppercase;color:#4a4a4a;}p{width:100%;color:#4a4a4a;font-size:1em;}</style>";
     
     
     NSArray *array = [html componentsSeparatedByString:@"<p>"];

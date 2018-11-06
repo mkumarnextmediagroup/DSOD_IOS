@@ -54,7 +54,6 @@
 - (void)setMagazineModel:(MagazineModel *)magazineModel{
     _magazineModel = magazineModel;
     
-    magazineModel.cover = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542037826&di=64e2e24bf769d5c2b71d7372a0515d7d&imgtype=jpg&er=1&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3Dec50dee888025aafc73f76889384c111%2Fa50f4bfbfbedab643e0cd5e8fd36afc379311e9f.jpg";
     if(magazineModel.cover){
         [coverImgView loadUrl:magazineModel.cover placeholderImage:@"bg_1"];
     }
@@ -110,6 +109,14 @@
 
 -(UnitePageDownloadStatus)getUnitePageDownloadStatus{
     //TODO state of judgment
+    //        5bd7ff462676fdc2e88b5496  5bd800192676fdc2e88b5498
+    //TODO False data
+    if([_magazineModel._id isEqualToString:@"5bd7ff462676fdc2e88b5496"]
+       || [_magazineModel._id isEqualToString:@"5bd800192676fdc2e88b5498"]){
+        return UPageDownloaded;
+    }
+    
+    
     return UPageNoDownload;
 }
 

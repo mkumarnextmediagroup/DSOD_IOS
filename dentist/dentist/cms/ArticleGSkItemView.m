@@ -20,7 +20,7 @@
     UILabel *dateLabel;
     UILabel *titleLabel;
     UILabel *contentLabel;
-    UIWebView *contentWebView;
+    WKWebView *contentWebView;
     UILabel *moreLabel;
     UIImageView *imageView;
     UIImageView *thumbImageView;
@@ -105,7 +105,7 @@
         //    [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] bottomParent:-103] install];
         [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:gskBtn offset:edge-5] above:contentLabel offset:-23] install];
         
-        contentWebView = [UIWebView new];
+        contentWebView = [WKWebView new];
         //        contentWebView.delegate = self;
         contentWebView.scrollView.scrollEnabled = NO;
         contentWebView.userInteractionEnabled = NO;
@@ -247,7 +247,7 @@
 
 
 - (NSString *)htmlString:(NSString *)html{
-    NSString *htmlString = @"<style>body{padding:0px;margin:0px;}.first-big p:first-letter{float: left;font-size:1.9em;padding-right:5px;text-transform:uppercase;color:#4a4a4a;}p{width:100%;color:#4a4a4a;font-size:1em;}</style>";
+    NSString *htmlString = @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'><style>body{padding:0px;margin:0px;}.first-big p:first-letter{float: left;font-size:1.9em;padding-right:5px;text-transform:uppercase;color:#4a4a4a;}p{width:100%;color:#4a4a4a;font-size:1em;}</style>";
     
     NSArray *array = [html componentsSeparatedByString:@"<p>"];
     for (int i = 0; i < [array count]; i++) {
@@ -256,7 +256,7 @@
             NSRange startRange = [currentString rangeOfString:@"(By "];
             NSRange endRange = [currentString rangeOfString:@")"];
             NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length);
-            htmlString = [NSString stringWithFormat:@"%@<p><strong>%@</Strong></p>",htmlString,[currentString substringWithRange:range]];
+            htmlString = [NSString stringWithFormat:@"%@<strong>%@</Strong>",htmlString,[currentString substringWithRange:range]];
         }else if(i==2){
             htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
         }else if(i>2){

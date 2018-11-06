@@ -13,7 +13,7 @@
 #import "dentist-Swift.h"
 #import "ThumAndDetailViewController.h"
 
-@interface UnitePage()<UITableViewDelegate,UITableViewDataSource>{
+@interface UnitePage()<UITableViewDelegate,UITableViewDataSource,ThumViewControllerDelegate>{
     UITableView *mTableView;
     UIActivityIndicatorView *iv;
     
@@ -158,7 +158,14 @@
 -(void)gotoThumView
 {
     ThumViewController *thumvc=[ThumViewController new];
+    thumvc.thumSelectMenu = ^(NSInteger row) {
+         NSLog(@"thumDidSelectMenu==========%@",@(row));
+    };
     thumvc.modelarr=self->datas;
+//    thumvc.didSelectMenu =^(NSInteger index) {
+//
+//    }
+
     [self.navigationController pushViewController:thumvc animated:YES];
 }
 
@@ -270,5 +277,10 @@
     if(!isRefreshing && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height))){
         [self getDatas:YES];
     }
+}
+
+-(void)thumDidSelectMenu:(NSInteger)index
+{
+    NSLog(@"thumDidSelectMenu3333==========%@",@(index));
 }
 @end

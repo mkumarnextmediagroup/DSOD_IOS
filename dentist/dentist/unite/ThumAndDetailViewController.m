@@ -31,7 +31,6 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     
     
     CGFloat collectheight=self.view.frame.size.height-_topBarH;
-//    [[[[[[_table layoutMaker] leftParent:0] rightParent:0] topParent: self.topOffset + _topBarH] bottomParent:-(self.bottomOffset + _bottomBarH)] install];
     
     [self setupNavigation];
     //自动网格布局

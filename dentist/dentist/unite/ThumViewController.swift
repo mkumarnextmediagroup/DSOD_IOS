@@ -60,7 +60,22 @@ extension ThumViewController{
         collectionView?.isHidden = true
         createDetailCollection()
         showNavTitle(detailView?.isHidden)
-        self.isfull=true
+        configDefaultMode()
+    }
+    
+    func configDefaultMode(){
+        if(pageType != PageType.bookmark){
+            self.isfull = true
+        }else{
+            self.isfull=false
+            self.pushToViewController3(0){
+                self.collectionView?.isHidden=false
+                self.detailView?.isHidden=true
+                self.detailView?.removeFromSuperview()
+                self.showNavTitle(self.detailView?.isHidden)
+            }
+            
+        }
     }
     
     func showNavTitle(_ status:Bool?) -> Void {
@@ -154,7 +169,7 @@ extension ThumViewController{
                     }
                 }
                 else if row==4 {
-                    self.onBack()
+                    self.goToBookmarks()
                 }
                 
             }
@@ -218,11 +233,20 @@ extension ThumViewController{
                     }
                 }
                 else if row==4 {
-                    self.onBack()
+                    self.goToBookmarks()
                 }
                 
             }
         })
+    }
+    
+    @objc func goToBookmarks(){
+        var thumvc :ThumViewController = ThumViewController()
+        thumvc.pageType = PageType.bookmark;
+        thumvc.modelarr = modelarr;
+        self.navigationController?.pushViewController(thumvc, animated: true)
+//        [self.navigationController pushViewController:thumvc animated:YES];
+        
     }
     
     fileprivate func createDetailCollection(){
@@ -282,7 +306,7 @@ extension ThumViewController {
         navigationItem.rightBarButtonItems=[menuBtnItem2, fixedSpaceBarButtonItem, menuBtnItem1]
     }
     @objc func onBack(){
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
 }

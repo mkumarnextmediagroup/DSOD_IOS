@@ -9,20 +9,29 @@
 import UIKit
 
 
+@objc protocol ThumViewControllerDelegate:NSObjectProtocol {
+    @objc optional func thumDidSelectMenu(_ index: NSInteger) -> Void
+}
+
 @objc enum PageType : Int{
     case normal
     case bookmark
 }
-    
+
+@objc (ThumViewController)
 class ThumViewController: ExpandingViewController,ThumAndDetailViewControllerDelegate {
-    typealias didSelectMenu = (_ index:NSInteger) ->Void
-    var thumdidSelectMenu:didSelectMenu?
     
+    @objc weak var delegate:ThumViewControllerDelegate?
+    typealias didSelectMenu = (_ index:NSInteger) ->Void
+    @objc var thumSelectMenu:didSelectMenu?
     @objc var modelarr : Array<MagazineModel>?
     @objc var pageType = PageType.normal
+    var isfull:Bool?
+    
     var detailcollectionView: ThumAndDetailViewController?
     var detailView: UIView?
     var popView:YHPopMenuView?
+    var popView2:YHPopMenuView?
 //    var detailimageview:UIImageView?
     typealias ItemInfo = (imageName: String, title: String)
     fileprivate var cellsIsOpen = [Bool]()
@@ -34,11 +43,7 @@ extension ThumViewController{
         
         
         view.backgroundColor=Colors.bgColorUnite
-        if(pageType == PageType.bookmark){
-            self.navigationItem.title="BOOKMARKS"
-        }else{
-            self.navigationItem.title="THUMBNAILS"
-        }
+        
         let navBarHeight = self.navigationController!.navigationBar.frame.size.height
         
         let stausBarHeight = UIApplication.shared.statusBarFrame.size.height
@@ -54,23 +59,58 @@ extension ThumViewController{
         configureNavBar()
         collectionView?.isHidden = true
         createDetailCollection()
+        showNavTitle(detailView?.isHidden)
+        self.isfull=true
     }
     
-   @objc func openMenu(){
+    func showNavTitle(_ status:Bool?) -> Void {
+        if status==true {
+            //隐藏
+            if(pageType == PageType.bookmark){
+                self.navigationItem.title="BOOKMARKS"
+            }else{
+                self.navigationItem.title="THUMBNAILS"
+            }
+        }else{
+            self.navigationItem.title=""
+        }
+    }
+    
+    func relaodMenuData(_ isfull:Bool?) -> Void {
+        if isfull==true {
+            popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
+            popView?.itemNameArray = ["Bookmark", "Search", "Share", "Thumbanails", "Go to Bookmarks"]
+            popView?.reloadData()
+        }else{
+            popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
+            popView?.itemNameArray = ["Bookmark", "Search", "Share", "Fullscreen", "Go to Bookmarks"]
+            popView?.reloadData()
+        }
+        
+    }
+    @objc func openMenu(){
+        if self.isfull==true {
+            self.openMenu1()
+        }else{
+            self.openMenu2()
+        }
+        
+    }
+    
+   @objc func openMenu1(){
         if let popView=popView,popView.isShowing {
             popView.hide()
             return
         }
         let itemH = CGFloat(50)
         let w = CGFloat(200)
-        let h = CGFloat(3*itemH)
+        let h = CGFloat(5*itemH)
         let r = CGFloat(0.0)
         let x = CGFloat(self.view.frame.size.width-w-r)
         let y = CGFloat(0.0)
-        
         popView=YHPopMenuView(frame: CGRect(x: x, y: y, width: w, height: h))
-        popView?.iconNameArray = ["arrow", "arrow", "arrow"]
-        popView?.itemNameArray = ["All Issues", "Downloaded", "Go to Bookmarks"]
+        popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
+        popView?.itemNameArray = ["Bookmark", "Search", "Share", "Thumbanails", "Go to Bookmarks"]
         popView?.itemH = itemH
         popView?.fontSize = 16.0
         popView?.fontColor = UIColor.black
@@ -80,8 +120,105 @@ extension ThumViewController{
         //    WeakSelf
         popView!.dismissHandler({ isCanceled, row in
             if !isCanceled {
-                if (self.thumdidSelectMenu != nil) {
-                    self.thumdidSelectMenu!(row)
+                
+                if let delegateOK = self.delegate{
+                    
+                    delegateOK.thumDidSelectMenu!(row)
+                    
+                }
+                if (self.thumSelectMenu != nil) {
+                    self.thumSelectMenu!(row)
+                }
+                if row==1 {
+                    let appdelegate = UIApplication.shared.delegate as! AppDelegate
+                    appdelegate.onOpenMenuAnoSide(nil)
+                }else if row==3 {
+                    if self.isfull==true {
+                        self.isfull=false
+                        self.pushToViewController3(0){
+                            self.collectionView?.isHidden=false
+                            self.detailView?.isHidden=true
+                            self.detailView?.removeFromSuperview()
+                            self.showNavTitle(self.detailView?.isHidden)
+                        }
+                        
+                    }else{
+                        self.isfull=true
+                        self.pushToViewController2 {
+                            self.collectionView?.isHidden=true
+                            self.detailView?.isHidden=false
+                            self.view.addSubview(self.detailView!)
+                            self.showNavTitle(self.detailView?.isHidden)
+                            
+                        }
+                    }
+                }
+                else if row==4 {
+                    self.onBack()
+                }
+                
+            }
+        })
+    }
+    
+    @objc func openMenu2(){
+        if let popView=popView2,popView.isShowing {
+            popView.hide()
+            return
+        }
+        let itemH = CGFloat(50)
+        let w = CGFloat(200)
+        let h = CGFloat(5*itemH)
+        let r = CGFloat(0.0)
+        let x = CGFloat(self.view.frame.size.width-w-r)
+        let y = CGFloat(0.0)
+        popView=YHPopMenuView(frame: CGRect(x: x, y: y, width: w, height: h))
+        popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
+        popView?.itemNameArray = ["Bookmark", "Search", "Share", "Fullscreen", "Go to Bookmarks"]
+        popView?.itemH = itemH
+        popView?.fontSize = 16.0
+        popView?.fontColor = UIColor.black
+        popView?.canTouchTabbar = true
+        popView?.show()
+        
+        //    WeakSelf
+        popView!.dismissHandler({ isCanceled, row in
+            if !isCanceled {
+                
+                if let delegateOK = self.delegate{
+                    
+                    delegateOK.thumDidSelectMenu!(row)
+                    
+                }
+                if (self.thumSelectMenu != nil) {
+                    self.thumSelectMenu!(row)
+                }
+                if row==1 {
+                    let appdelegate = UIApplication.shared.delegate as! AppDelegate
+                    appdelegate.onOpenMenuAnoSide(nil)
+                }else if row==3 {
+                    if self.isfull==true {
+                        self.pushToViewController3(0){
+                            self.collectionView?.isHidden=false
+                            self.detailView?.isHidden=true
+                            self.detailView?.removeFromSuperview()
+                            self.showNavTitle(self.detailView?.isHidden)
+                            self.isfull=false
+                            self.relaodMenuData(self.isfull)
+                        }
+                    }else{
+                        self.pushToViewController2 {
+                            self.collectionView?.isHidden=true
+                            self.detailView?.isHidden=false
+                            self.view.addSubview(self.detailView!)
+                            self.showNavTitle(self.detailView?.isHidden)
+                            self.isfull=true
+                            self.relaodMenuData(self.isfull)
+                        }
+                    }
+                }
+                else if row==4 {
+                    self.onBack()
                 }
                 
             }
@@ -100,6 +237,8 @@ extension ThumViewController{
                     self.collectionView?.isHidden=false
                     self.detailView?.isHidden=true
                     self.detailView?.removeFromSuperview()
+                    self.showNavTitle(self.detailView?.isHidden)
+                    self.isfull=false
                 }
             }
             
@@ -130,12 +269,7 @@ extension ThumViewController {
     }
     
     fileprivate func getViewController() -> ExpandingTableViewController {
-//        let storyboard = UIStoryboard(storyboard: .Main)
-//        let toViewController: DemoTableViewController = storyboard.instantiateViewController()
-//        return toViewController
-        let vc=ThumTableViewController()
-        return vc
-//        return newTableViewController()
+        return ThumTableViewController()
     }
     
     fileprivate func configureNavBar() {
@@ -185,6 +319,8 @@ extension ThumViewController {
             self.collectionView?.isHidden=true
             self.detailView?.isHidden=false
             self.view.addSubview(self.detailView!)
+            self.showNavTitle(self.detailView?.isHidden)
+            self.isfull=true
         }
     }
     
@@ -206,7 +342,7 @@ extension ThumViewController {
 //        let info = items[index]
         let newmodel:MagazineModel! = modelarr?[index]
 //        cell.backgroundImageView?.image = UIImage(named: info.imageName)
-        cell.backgroundImageView.loadUrl("http://app800.cn/i/p.png", placeholderImage: "bg_1")
+        cell.backgroundImageView.loadUrl(newmodel.cover, placeholderImage: "bg_1")
         cell.backgroundImageView.contentMode = .scaleAspectFill
         cell.backgroundImageView.clipsToBounds = true
         cell.serialLabel.text=newmodel.serial
@@ -240,16 +376,19 @@ extension ThumViewController {
         guard let cell = collectionView.cellForItem(at: indexPath) as? ThumCollectionViewCell
             , currentIndex == indexPath.row else { return }
         
-        if cell.isOpened == false {
-            cell.cellIsOpen(true)
-        } else {
-//            pushToViewController(getViewController())
-            pushToViewController2 {
-                collectionView.isHidden=true
-                self.detailView?.isHidden=false
-                self.view.addSubview(self.detailView!)
-            }
+        pushToViewController2 {
+            collectionView.isHidden=true
+            self.detailView?.isHidden=false
+            self.view.addSubview(self.detailView!)
+            self.showNavTitle(self.detailView?.isHidden)
+            self.isfull=true
         }
+//        if cell.isOpened == false {
+//            cell.cellIsOpen(true)
+//        } else {
+//            pushToViewController(getViewController())
+//
+//        }
     }
 }
 

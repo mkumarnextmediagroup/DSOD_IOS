@@ -23,6 +23,8 @@
     UIRefreshControl *refreshControl;
     BOOL isRefreshing;
     
+    BOOL onlyDownloadedUinte;
+    
 }
 @end
 
@@ -122,6 +124,10 @@
         return;
     }
     
+    if(onlyDownloadedUinte){
+        return;
+    }
+    
     [self showTopIndicator];
     backTask(^{
         NSArray *arr = [Proto findAllMagazines:isMore?self->datas.count:0];
@@ -176,14 +182,15 @@
     [popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
         if (!isCanceled) {
             if(row == 0){
+
 //                ThumAndDetailViewController *thumvc=[ThumAndDetailViewController new];
                 ThumViewController *thumvc=[ThumViewController new];
                 thumvc.modelarr=self->datas;
                 [self.navigationController pushViewController:thumvc animated:YES];
+                [self showAllIssues];
+
             }else if(row == 1){
-                MagazineModel *model = [[MagazineModel alloc]init];
-                model.publishDate = @"111";
-                [self enterUniteDownloading:model];
+                [self showDownloaded];
             }else if(row == 2){
                 ThumViewController *thumvc=[ThumViewController new];
                 thumvc.pageType = PageTypeBookmark;
@@ -194,6 +201,21 @@
     }];
     
 }
+
+-(void)showDownloaded{
+    onlyDownloadedUinte = YES;
+    if(datas.count>3){
+        datas = [NSArray arrayWithObjects:datas[1],datas[2],nil];
+        [mTableView reloadData];
+    }
+}
+
+-(void)showAllIssues{
+    onlyDownloadedUinte = NO;
+    [self firstRefresh];
+}
+
+
 
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

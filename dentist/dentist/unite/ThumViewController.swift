@@ -139,7 +139,8 @@ extension ThumViewController {
     }
     
     fileprivate func configureNavBar() {
-        let menuBtnItem1=UIBarButtonItem(image: UIImage(named:"Content-Options"), style: .plain, target: self, action: #selector(self.onBack))
+        let appdelegate = UIApplication.shared.delegate as! AppDelegate
+        let menuBtnItem1=UIBarButtonItem(image: UIImage(named:"Content-Options"), style: .plain, target: appdelegate, action: #selector(appdelegate.onOpenMenuAnoSide(_:)))
         let fixedSpaceBarButtonItem=UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         let menuBtnItem2=UIBarButtonItem(image: UIImage(named:"More-Options"), style: .plain, target: self, action: #selector(openMenu))
         

@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UniteArticles.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UniteArticleTableViewCell : UITableViewCell
 
-
+- (void)bindInfo:(UniteArticles *)article;
 
 @end
 

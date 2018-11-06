@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MagazineModel : JSONModel
 
+
+@property NSString <Optional>*_id;
 @property NSString <Optional>*serial;
 @property NSString <Optional>*cover;
 @property NSString <Optional>*vol;

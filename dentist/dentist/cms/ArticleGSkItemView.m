@@ -20,6 +20,8 @@
     UILabel *dateLabel;
     UILabel *titleLabel;
     UILabel *contentLabel;
+    UIWebView *contentWebView;
+    UILabel *moreLabel;
     UIImageView *imageView;
     UIImageView *thumbImageView;
     UIButton *markButton;
@@ -92,6 +94,9 @@
         //    [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] bottomParent:-16] install];
         [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] bottomParent:-16] install];
         
+        
+
+        
         titleLabel = [self addLabel];
         titleLabel.font = [Fonts semiBold:20];
         [titleLabel textColorMain];
@@ -99,6 +104,20 @@
         //    [[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] heightEq:24] install];
         //    [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] bottomParent:-103] install];
         [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:gskBtn offset:edge-5] above:contentLabel offset:-23] install];
+        
+        contentWebView = [UIWebView new];
+        //        contentWebView.delegate = self;
+        contentWebView.scrollView.scrollEnabled = NO;
+        contentWebView.userInteractionEnabled = NO;
+        [self addSubview:contentWebView];
+        [[[[[contentWebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:100] bottomParent:-8] install];
+        
+        moreLabel = [self addLabel];
+        moreLabel.font = [Fonts semiBold:15];
+        moreLabel.textColor = rgbHex(0x879aa8);
+        moreLabel.text = @"...more";
+        moreLabel.backgroundColor = UIColor.whiteColor;
+        [[[[moreLabel.layoutMaker rightParent:-edge] heightEq:20]bottomParent:-13] install];
     }
     return self;
 }
@@ -221,6 +240,30 @@
         contentLabel.attributedText = attStr;;
         //        contentLabel.text=contentstr;
     }
+    contentLabel.hidden = YES;
+    
+    [contentWebView loadHTMLString:[self htmlString:_cmsmodel.content] baseURL:nil];
+}
+
+
+- (NSString *)htmlString:(NSString *)html{
+    NSString *htmlString = @"<style>body{padding:0px;margin:0px;}.first-big p:first-letter{float: left;font-size:1.9em;padding-right:5px;text-transform:uppercase;color:#4a4a4a;}p{width:100%;color:#4a4a4a;font-size:1em;}</style>";
+    
+    NSArray *array = [html componentsSeparatedByString:@"<p>"];
+    for (int i = 0; i < [array count]; i++) {
+        NSString *currentString = [array objectAtIndex:i];
+        if(i==1){
+            NSRange startRange = [currentString rangeOfString:@"(By "];
+            NSRange endRange = [currentString rangeOfString:@")"];
+            NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length);
+            htmlString = [NSString stringWithFormat:@"%@<p><strong>%@</Strong></p>",htmlString,[currentString substringWithRange:range]];
+        }else if(i==2){
+            htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
+        }else if(i>2){
+            htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];
+        }
+    }
+    return htmlString;
 }
 
 - (NSArray *)getSeparatedLinesFromLabel:(UILabel *)label text:(NSString *)text

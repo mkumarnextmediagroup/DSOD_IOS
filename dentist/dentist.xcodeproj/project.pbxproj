@@ -226,6 +226,8 @@
 		A372958D21913AA300B36409 /* unitedetail2.png in Resources */ = {isa = PBXBuildFile; fileRef = A372958A21913AA300B36409 /* unitedetail2.png */; };
 		A3729590219145F600B36409 /* UniteDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372958E219145F600B36409 /* UniteDetailCollectionViewCell.swift */; };
 		A3729591219145F600B36409 /* UniteDetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A372958F219145F600B36409 /* UniteDetailCollectionViewCell.xib */; };
+		A3729597219284F500B36409 /* DentistDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3729596219284F500B36409 /* DentistDataBaseManager.m */; };
+		A372959A219293F500B36409 /* DetinstDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3729599219293F500B36409 /* DetinstDownloadManager.m */; };
 		A39EE50D21884E3F00F74745 /* ArticleGSkItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A39EE50C21884E3F00F74745 /* ArticleGSkItemView.m */; };
 		A39EE5102188578200F74745 /* CmsArticleCategoryPage.m in Sources */ = {isa = PBXBuildFile; fileRef = A39EE50F2188578200F74745 /* CmsArticleCategoryPage.m */; };
 		A3A5B338218D61C500242E71 /* ThumCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3A5B336218D61C400242E71 /* ThumCollectionViewCell.xib */; };
@@ -1006,6 +1008,10 @@
 		A372958A21913AA300B36409 /* unitedetail2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unitedetail2.png; sourceTree = "<group>"; };
 		A372958E219145F600B36409 /* UniteDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniteDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		A372958F219145F600B36409 /* UniteDetailCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UniteDetailCollectionViewCell.xib; sourceTree = "<group>"; };
+		A3729595219284F500B36409 /* DentistDataBaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DentistDataBaseManager.h; sourceTree = "<group>"; };
+		A3729596219284F500B36409 /* DentistDataBaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DentistDataBaseManager.m; sourceTree = "<group>"; };
+		A3729598219293F500B36409 /* DetinstDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetinstDownloadManager.h; sourceTree = "<group>"; };
+		A3729599219293F500B36409 /* DetinstDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetinstDownloadManager.m; sourceTree = "<group>"; };
 		A39EE50A21884D5300F74745 /* ArticleItemViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleItemViewDelegate.h; sourceTree = "<group>"; };
 		A39EE50B21884E3F00F74745 /* ArticleGSkItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleGSkItemView.h; sourceTree = "<group>"; };
 		A39EE50C21884E3F00F74745 /* ArticleGSkItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleGSkItemView.m; sourceTree = "<group>"; };
@@ -2533,6 +2539,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A37295922192845D00B36409 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				A3729595219284F500B36409 /* DentistDataBaseManager.h */,
+				A3729596219284F500B36409 /* DentistDataBaseManager.m */,
+				A3729598219293F500B36409 /* DetinstDownloadManager.h */,
+				A3729599219293F500B36409 /* DetinstDownloadManager.m */,
+			);
+			path = Download;
+			sourceTree = "<group>";
+		};
 		A3DF39832189A280006F84DC /* expanding-collection */ = {
 			isa = PBXGroup;
 			children = (
@@ -2687,6 +2704,7 @@
 		C5EEA322192BD641D58220D8 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				A37295922192845D00B36409 /* Download */,
 				4E1957222137D0F100420563 /* LinkedIn */,
 				C5EEAA800E95F5D4324195EC /* Colors.m */,
 				C5EEAB29126FE9574783DD4E /* Colors.h */,
@@ -3682,6 +3700,7 @@
 				18B83B162173557D00130DB6 /* YBImage.m in Sources */,
 				4E19573F2137D0F100420563 /* PermissionBasicProfileFields.m in Sources */,
 				A3729590219145F600B36409 /* UniteDetailCollectionViewCell.swift in Sources */,
+				A372959A219293F500B36409 /* DetinstDownloadManager.m in Sources */,
 				A3DF39A62189A280006F84DC /* TransitionDriver.swift in Sources */,
 				4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
@@ -3691,6 +3710,7 @@
 				C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */,
 				4E1957472137D0F100420563 /* LinkedInAuthorizationViewController.m in Sources */,
 				A956C5302154A14C00E528EB /* DentistMoreView.m in Sources */,
+				A3729597219284F500B36409 /* DentistDataBaseManager.m in Sources */,
 				C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */,
 				3E49F90F2144A22E00F32146 /* EditPracticeAddressViewController.m in Sources */,
 				18B83B132173557D00130DB6 /* YBIBTransitionManager.m in Sources */,

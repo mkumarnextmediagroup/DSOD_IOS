@@ -225,8 +225,16 @@ extension ThumViewController{
         })
     }
     
+    // MARK: 详情页
     fileprivate func createDetailCollection(){
+//        let navBarHeight = self.navigationController!.navigationBar.frame.size.height
+//
+//        let stausBarHeight = UIApplication.shared.statusBarFrame.size.height
+//
+//        let itemheight = self.view.frame.size.height-(navBarHeight+stausBarHeight)
+//
         detailcollectionView=ThumAndDetailViewController()
+//        detailcollectionView?.view.frame=CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: itemheight)
 //        self.addChild(detailcollectionView!)
         detailcollectionView!.delegate=self;
         detailView=detailcollectionView!.view!

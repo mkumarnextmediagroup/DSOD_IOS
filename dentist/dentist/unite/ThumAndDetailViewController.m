@@ -30,16 +30,14 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     
     
     
-    CGFloat collectheight=self.view.frame.size.height-_topBarH;
+    CGFloat collectheight=self.view.frame.size.height;
     
-    [self setupNavigation];
+//    [self setupNavigation];
     //自动网格布局
     UICollectionViewFlowLayout * flowLayout = [[UICollectionViewFlowLayout alloc]init];
     
     //设置单元格大小
     flowLayout.itemSize = CGSizeMake(self.view.frame.size.width, collectheight);
-    //        flowLayout.estimatedItemSize=CGSizeMake(itemWidth, 51);
-    //        flowLayout.itemSize=UICollectionViewFlowLayoutAutomaticSize;
     //最小行间距(默认为10)
     flowLayout.minimumLineSpacing = 0;
     //最小item间距（默认为10）
@@ -61,7 +59,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     
     //注册cell
     [_collectionView registerClass:[UniteThumCollectionViewCell class] forCellWithReuseIdentifier:UniteThumidentifier];
-    [[[[[_collectionView.layoutMaker leftParent:0] rightParent:0] topParent:_topBarH] bottomParent:0] install];
+    [[[[[_collectionView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
     // Do any additional setup after loading the view.
 }
 
@@ -131,6 +129,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
         [cell.backgroundImageView setImage:image3];
         cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 7970*cell.backgroundImageView.frame.size.width/750);
         cell.scrollView.contentSize =  CGSizeMake(0, image3.size.height);
+        
     }
     cell.backgroundImageView.contentMode=UIViewContentModeScaleToFill;
     
@@ -163,7 +162,6 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     if (scrollView.contentOffset.x<=SCREENWIDTH/2) {
         row=0;
     }
-//    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0 ];
     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
 }
 

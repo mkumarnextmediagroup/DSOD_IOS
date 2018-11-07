@@ -23,6 +23,7 @@
         [self addSubview:_scrollView];
         _backgroundImageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _scrollView.frame.size.width, 1000*_scrollView.frame.size.width/747)];
         [_scrollView addSubview:_backgroundImageView];
+        [_scrollView setContentOffset:CGPointMake(0, 0)];
 //        [[[[[_scrollView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
 //        [_scrollView layoutIfNeeded];
 //        _backgroundImageView=[_scrollView addImageView];

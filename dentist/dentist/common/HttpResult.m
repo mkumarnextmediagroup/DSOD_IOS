@@ -96,7 +96,7 @@
 	if (self.data != nil) {
 		NSLog(@"Size: %d", self.data.length);
 	}
-	NSLog(@"Response Body: %@", [self strBody]);
+    NSLog(@"Response Body: %@", [self strBody]);
 }
 
 

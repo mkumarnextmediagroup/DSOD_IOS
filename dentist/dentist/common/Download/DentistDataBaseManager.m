@@ -90,14 +90,21 @@
 {
     if (![NSString isBlankString:cmsmodel.id]) {
         [_dbQueue inDatabase:^(FMDatabase *db) {
-            BOOL result = [db executeUpdate:@"INSERT INTO t_CMSCaches (id,title, featuredMediaId,contentTypeId,categoryId,contentTypeName,categoryName,downstatus) VALUES (?,?, ?, ?, ?, ?, ?,?)", cmsmodel.id,cmsmodel.title,cmsmodel.featuredMediaId,cmsmodel.contentTypeId,cmsmodel.categoryId,cmsmodel.contentTypeName,cmsmodel.categoryName,[NSNumber numberWithInteger:1]];
-            if (completed) {
-                completed(result);
+            if ([self CheckIsHasDown:db articleid:cmsmodel.id]) {
+                if (completed) {
+                    completed(YES);
+                }
+            }else{
+                BOOL result = [db executeUpdate:@"INSERT INTO t_CMSCaches (id,title, featuredMediaId,contentTypeId,categoryId,contentTypeName,categoryName,downstatus) VALUES (?,?, ?, ?, ?, ?, ?,?)", cmsmodel.id,cmsmodel.title,cmsmodel.featuredMediaId,cmsmodel.contentTypeId,cmsmodel.categoryId,cmsmodel.contentTypeName,cmsmodel.categoryName,[NSNumber numberWithInteger:1]];
+                if (completed) {
+                    completed(result);
+                }
+                if (result) {
+                }else {
+                    NSLog(@"插入cms失败");
+                }
             }
-            if (result) {
-            }else {
-                NSLog(@"插入cms失败");
-            }
+            
         }];
     }else{
         if (completed) {
@@ -148,6 +155,32 @@
         }
     }
     
+}
+
+-(BOOL)CheckIsHasDown:(FMDatabase *)db articleid :(NSString *)articleid
+{
+    NSInteger status = [db intForQuery:@"SELECT 1 FROM t_CMSCaches WHERE id = ?", articleid];
+    if (status==1) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
+-(void)CheckIsDowned:(CMSModel *)model completed:(void(^)(NSInteger isdown))completed
+{
+    if (model) {
+        [_dbQueue inDatabase:^(FMDatabase *db) {
+            NSInteger status = [db intForQuery:@"SELECT 1 FROM t_CMSCaches WHERE id = ?", model.id];
+            if (completed) {
+                completed(status);
+            }
+        }];
+    }else{
+        if (completed) {
+            completed(0);
+        }
+    }
 }
 
 // 状态变更通知

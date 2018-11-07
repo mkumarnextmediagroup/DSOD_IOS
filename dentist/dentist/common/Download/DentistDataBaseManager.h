@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateCMS:(NSString *)articleid jsontext:(NSString *)jsontext completed:(void(^)(BOOL result))completed;
 // 更新数据
 - (void)deleteCMS:(NSString *)articleid completed:(void(^)(BOOL result))completed;
+-(void)CheckIsDowned:(CMSModel *)model completed:(void(^)(NSInteger isdown))completed;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -9,7 +9,6 @@
 #import "DetinstDownloadManager.h"
 #import "Proto.h"
 #import "NSString+myextend.h"
-#import "DentistDataBaseManager.h"
 #import "DetailModel.h"
 #import "CMSModel.h"
 

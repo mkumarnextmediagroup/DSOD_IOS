@@ -410,6 +410,13 @@
     NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
     [denSheet show];
+    [[DentistDataBaseManager shareManager] CheckIsDowned:model completed:^(NSInteger isdown) {
+        foreTask(^{
+            if (isdown) {
+                [denSheet updateActionTitle:@[@"Update",@"Share"]];
+            }
+        });
+    }];
 }
 
 -(void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view

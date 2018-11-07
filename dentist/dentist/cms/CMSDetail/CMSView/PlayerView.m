@@ -54,7 +54,7 @@
 	[dateLabel textAlignRight];
 	dateLabel.font = [Fonts regular:12];
 	[dateLabel textColorAlternate];
-	[[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:24] widthEq:74] install];
+	[[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:24] widthEq:80] install];
 
     /****===the server back data is the movie or picture===****/
     

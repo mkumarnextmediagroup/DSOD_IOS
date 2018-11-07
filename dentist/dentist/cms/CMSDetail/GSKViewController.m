@@ -303,17 +303,18 @@ CMSModel *selectModel;
 
 
 
--(void)articleMoreAction:(NSInteger)articleid
-{
-    selectActicleId=articleid;
-    NSLog(@"ArticleMoreAction=%@",@(articleid));
-    NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
-    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
-    [denSheet show:self.view];
-}
+//-(void)articleMoreAction:(NSInteger)articleid
+//{
+//    selectActicleId=articleid;
+//    NSLog(@"ArticleMoreAction=%@",@(articleid));
+//    NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
+//    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
+//    [denSheet show:self.view];
+//}
 
 -(void)GSkArticleMoreActionModel:(CMSModel *)model
 {
+    selectModel=model;
     NSLog(@"ArticleMoreAction=%@",model.id);
     NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
@@ -355,7 +356,7 @@ CMSModel *selectModel;
         }];
     }else{
         //添加
-        [Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId completed:^(BOOL result) {
+        [Proto addBookmark:getLastAccount() cmsmodel:model completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {

@@ -241,15 +241,15 @@
         addressLabel.text = bindInfo.author.authorDetails;
     }
     
-//    //初始化播放器
-//    if (!self.sbPlayer) {
-//        self.sbPlayer = [[SBPlayer alloc] initWithUrl:[NSURL URLWithString:urlstr]];
-//        self.sbPlayer.addView = self;
-//        //set the movie background color
-//        self.sbPlayer.backgroundColor = [UIColor blackColor];
-//        [self addSubview:self.sbPlayer];
-//        [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
-//    }
+    //初始化播放器
+    if (!self.sbPlayer) {
+        self.sbPlayer = [[SBPlayer alloc] initWithUrl:[NSURL URLWithString:urlstr]];
+        self.sbPlayer.addView = self;
+        //set the movie background color
+        self.sbPlayer.backgroundColor = [UIColor blackColor];
+        [self addSubview:self.sbPlayer];
+        [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+    }
     
 	titleLabel.text = bindInfo.title;
 //    [_greeBtn setTitle:bindInfo.gskString forState:UIControlStateNormal];

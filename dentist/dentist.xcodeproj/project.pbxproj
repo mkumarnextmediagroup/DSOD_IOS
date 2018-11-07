@@ -11,6 +11,7 @@
 		18106AAC218ACC0D00EEE2DC /* FilterIssues@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AA9218ACC0C00EEE2DC /* FilterIssues@3x.png */; };
 		18106AAD218ACC0D00EEE2DC /* FilterIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AAA218ACC0C00EEE2DC /* FilterIssues.png */; };
 		18106AB1218AF0CE00EEE2DC /* YHPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */; };
+		1812397521927F3E0075A6B0 /* author_dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1812397421927F3E0075A6B0 /* author_dsodentist.png */; };
 		1866AFB121797DD300970CAB /* dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1866AFB021797DCE00970CAB /* dsodentist.png */; };
 		1866AFFE2179DF3900970CAB /* DentistTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866AFFD2179DF3900970CAB /* DentistTabView.m */; };
 		1866B0012179DFDA00970CAB /* TabCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */; };
@@ -676,6 +677,7 @@
 		18106AAA218ACC0C00EEE2DC /* FilterIssues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FilterIssues.png; sourceTree = "<group>"; };
 		18106AAF218AF0CE00EEE2DC /* YHPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHPopMenuView.h; sourceTree = "<group>"; };
 		18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHPopMenuView.m; sourceTree = "<group>"; };
+		1812397421927F3E0075A6B0 /* author_dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = author_dsodentist.png; sourceTree = "<group>"; };
 		1866AFB021797DCE00970CAB /* dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dsodentist.png; sourceTree = "<group>"; };
 		1866AFFC2179DF3900970CAB /* DentistTabView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DentistTabView.h; sourceTree = "<group>"; };
 		1866AFFD2179DF3900970CAB /* DentistTabView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DentistTabView.m; sourceTree = "<group>"; };
@@ -2117,6 +2119,7 @@
 				A372958821913AA300B36409 /* unitedetail1.png */,
 				A372958A21913AA300B36409 /* unitedetail2.png */,
 				A372958921913AA300B36409 /* unitedetail3.png */,
+				1812397421927F3E0075A6B0 /* author_dsodentist.png */,
 				A372958221912DF100B36409 /* Content-Options.png */,
 				A372958321912DF100B36409 /* Content-Options@2x.png */,
 				A372958421912DF100B36409 /* Content-Options@3x.png */,
@@ -3363,6 +3366,7 @@
 				E11E160A99297597D5439E34 /* Img-User-Dentist@2x.png in Resources */,
 				E11E1FBF82D8A2F932D671B1 /* Img-User-Dentist@3x.png in Resources */,
 				E11E169A696FC1DF78ED2724 /* menu-bookmark_light.png in Resources */,
+				1812397521927F3E0075A6B0 /* author_dsodentist.png in Resources */,
 				E11E1F9635BA5DC356C83616 /* menu-bookmark_light@2x.png in Resources */,
 				E11E1BA5E5A229B5E317A46A /* menu-bookmark_light@3x.png in Resources */,
 				E11E10CCF8A41F4D8CF957D3 /* menu-bookmark.png in Resources */,

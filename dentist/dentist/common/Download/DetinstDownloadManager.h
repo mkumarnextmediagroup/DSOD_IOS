@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "DentistDataBaseManager.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class CMSModel;

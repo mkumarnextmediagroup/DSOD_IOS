@@ -1238,9 +1238,14 @@
 //MARK:获取单个文件（ADMIN PORTAL Only）
 +(NSString *)getFileUrlByObjectId:(NSString *)objectid
 {
-    NSString *baseUrl = [self configUrl:@"cms"];
-    NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
-    return url;
+    if (![NSString isBlankString:objectid]) {
+        NSString *baseUrl = [self configUrl:@"cms"];
+        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=%@",objectid);
+        return url;
+    }else{
+        return nil;
+    }
+    
 }
 
 #pragma mark Unite API

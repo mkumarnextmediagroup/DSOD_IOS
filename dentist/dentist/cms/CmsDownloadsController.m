@@ -196,7 +196,7 @@
     }select:^(NSString *category, NSString *type) {
         categorytext=category;
         typetext=type;
-        self.items =[Proto getDownloadListByCategory:typetext type:categorytext];
+//        self.items =[Proto getDownloadListByCategory:typetext type:categorytext];
     }];
 }
 

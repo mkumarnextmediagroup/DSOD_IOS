@@ -69,6 +69,18 @@
     return self;
 }
 
+-(void)updateActionTitle:(NSArray *)titlearr
+{
+    for (UIView *view in _parentView.subviews) {
+        if (view.tag>=100 && [view isKindOfClass:[UILabel class]]) {
+            UILabel *label=(UILabel *)view;
+            if (titlearr.count>(label.tag-100)) {
+                label.text=titlearr[label.tag-100];
+            }
+        }
+    }
+}
+
 - (void)_initSubViews:(NSString *)cancelBtn
 {
     self.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
@@ -87,7 +99,7 @@
         UILabel *myLabel = [_parentView addLabel];
         [[[[myLabel.layoutMaker leftParent:18] topParent:i * (labelHeight+1)] sizeEq:SCREENWIDTH - 18 h:labelHeight] install];
         myLabel.userInteractionEnabled = YES;
-        myLabel.tag = i;
+        myLabel.tag = 100+i;
         myLabel.text = self.titleNameArr[i];
         myLabel.textAlignment = NSTextAlignmentLeft;
         myLabel.font = [Fonts regular:12];
@@ -125,7 +137,7 @@
 {
     UILabel *label = (UILabel *)gesture.view;
     if (self.delgate && [_delgate respondsToSelector:@selector(myActionSheet:parentView:subLabel:index:)]) {
-        [self.delgate myActionSheet:self parentView:_parentView subLabel:label index:label.tag];
+        [self.delgate myActionSheet:self parentView:_parentView subLabel:label index:(label.tag-100)];
     }
     
     [self hiddenAnimation];

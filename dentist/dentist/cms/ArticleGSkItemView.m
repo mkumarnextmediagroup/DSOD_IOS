@@ -187,8 +187,16 @@
     titleLabel.text = _cmsmodel.title;
     //    contentLabel.text = item.content;
     NSString *urlstr;
-    if (_cmsmodel.featuredMediaId) {
-        urlstr=[Proto getFileUrlByObjectId:_cmsmodel.featuredMediaId];
+//    if (_cmsmodel.featuredMediaId) {
+//        urlstr=[Proto getFileUrlByObjectId:_cmsmodel.featuredMediaId];
+//    }
+    NSString* type = _cmsmodel.featuredMedia[@"type"];
+    if([type isEqualToString:@"1"] ){
+        //pic
+        NSDictionary *codeDic = _cmsmodel.featuredMedia[@"code"];
+        urlstr = codeDic[@"thumbnailUrl"];
+    }else{
+        urlstr = _cmsmodel.featuredMedia[@"code"];
     }
     
     [imageView loadUrl:urlstr placeholderImage:@"art-img"];

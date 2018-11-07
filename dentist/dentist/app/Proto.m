@@ -848,7 +848,10 @@
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
     [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
-    [paradic setObject:serachValue forKey:@"searchValue"];
+    if (![NSString isBlankString:serachValue]) {
+        [paradic setObject:serachValue forKey:@"searchValue"];
+    }
+    
     
     [self postAsync3:@"content/findAllBySearch" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
         NSMutableArray *resultArray = [NSMutableArray array];
@@ -1266,11 +1269,6 @@
 +(void)addBookmark:(NSString *)email cmsmodel:(CMSModel *)model completed:(void(^)(BOOL result))completed
 {
     NSString *url;
-    if([NSString isBlankString:model.featuredMediaId]){
-        url=@"";
-    }else{
-        url=model.featuredMediaId;
-    }
     NSString *postId=model.id;
     NSString *title;
     if([NSString isBlankString:model.title]){
@@ -1302,8 +1300,28 @@
     }else{
         contentTypeName=model.contentTypeName;
     }
+    NSString* type = model.featuredMedia[@"type"];
+    
+    NSString *coverUrl;
+    NSString *coverthumbnailUrl;
+    if([type isEqualToString:@"1"] ){
+        //pic
+        NSDictionary *codeDic = model.featuredMedia[@"code"];
+        coverUrl = codeDic[@"originalUrl"];
+        coverthumbnailUrl = codeDic[@"thumbnailUrl"];
+    }else{
+        coverUrl = model.featuredMedia[@"code"];
+        coverthumbnailUrl = model.featuredMedia[@"code"];
+    }
+    if ([NSString isBlankString:coverUrl]) {
+        coverUrl=@"";
+    }
+    if ([NSString isBlankString:coverthumbnailUrl]) {
+        coverthumbnailUrl=@"";
+    }
+    url=coverthumbnailUrl;
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId]){
-        [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"categoryName": categoryName,@"contentTypeName": contentTypeName} modular:@"cms" callback:^(HttpResult *r) {
+        [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"coverUrl": coverUrl,@"coverthumbnailUrl": coverthumbnailUrl,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"categoryName": categoryName,@"contentTypeName": contentTypeName} modular:@"cms" callback:^(HttpResult *r) {
             if (completed) {
                 completed(r.OK);
             }

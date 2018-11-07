@@ -63,7 +63,11 @@
 //MARK:刷新数据
 -(void)refreshData
 {
-    self.items=nil;
+    [Proto querySearchResults:searchKeywords skip:0 completed:^(NSArray<CMSModel *> *array) {
+        foreTask(^{
+            self.items=array;
+        });
+    }];
 }
 
 - (Class)viewClassOfItem:(NSObject *)item {

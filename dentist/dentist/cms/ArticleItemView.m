@@ -159,10 +159,19 @@
     dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];//item.publishDate;
     titleLabel.text = _cmsmodel.title;
     //    contentLabel.text = item.content;
+    NSString* type = _cmsmodel.featuredMedia[@"type"];
     NSString *urlstr;
-    if (_cmsmodel.featuredMediaId) {
-        urlstr=[Proto getFileUrlByObjectId:_cmsmodel.featuredMediaId];
+    if([type isEqualToString:@"1"] ){
+        //pic
+        NSDictionary *codeDic = _cmsmodel.featuredMedia[@"code"];
+        urlstr = codeDic[@"thumbnailUrl"];
+    }else{
+        urlstr = _cmsmodel.featuredMedia[@"code"];
     }
+    
+//    if (_cmsmodel.featuredMediaId) {
+//        urlstr=[Proto getFileUrlByObjectId:_cmsmodel.featuredMediaId];
+//    }
     
     [imageView loadUrl:urlstr placeholderImage:@"art-img"];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
@@ -199,7 +208,7 @@
 //            line4String= [line4String substringToIndex:line4String.length-6];
 //        }
 //        NSString *showText = [NSString stringWithFormat:@"%@%@%@%@...more", labelarry[0], labelarry[1], labelarry[2], line4String];
-//        
+//
 //        //设置label的attributedText
 //        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:showText attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
 //        [attStr addAttributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textDisabled} range:NSMakeRange(showText.length-4, 4)];
@@ -208,7 +217,7 @@
 //        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:contentstr attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
 //        contentLabel.attributedText = attStr;;
 ////        contentLabel.text=contentstr;
-//        
+//
 //    }
     contentLabel.hidden = YES;
     

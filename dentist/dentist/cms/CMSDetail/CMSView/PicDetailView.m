@@ -322,6 +322,22 @@
     
     NSString *htmlString = @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'><style>body{padding:0px;margin:0px;}.first-big p:first-letter{float: left;font-size:1.9em;padding-right:5px;text-transform:uppercase;color:#4a4a4a;}p{width:100%;color:#4a4a4a;font-size:1em;}</style>";
     
+    htmlString = [NSString stringWithFormat:@"%@%@%@%@%@",htmlString,
+                  @"<style type='text/css'>",
+                  @"blockquote{color:#4a4a4a;font-size:1.5em;font-weight:bold;margin: 0px 10px 0px 30px;position:relative;line-height:110%;text-indent:0px}",
+                  @"blockquote:before{color:#4a4a4a;content:'“';font-size:2em;position:absolute;left:-30px;top:10px;line-height:.1em}",
+                  //@"blockquote:after{color:#4a4a4a;content:'”';font-size:5em;position:absolute;right:15px;bottom:0;line-height:.1em}",
+                  @"</style>"
+                  ];
+    
+
+//
+//    @"blockquote{color:#4a4a4a;font-size:1.5em;font-weight:bold;margin: 0px 10px 0px 10px;position:relative;line-height:110%;text-indent:20px}",
+//    @"blockquote:before{color:#4a4a4a;content:'“';font-size:2em;position:absolute;left:-30px;top:15px;line-height:.1em}",
+//
+
+    
+    html = [html stringByReplacingOccurrencesOfString :@"pre" withString:@"blockquote"];
     
     NSArray *array = [html componentsSeparatedByString:@"<p>"];
     for (int i = 0; i < [array count]; i++) {
@@ -369,6 +385,12 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    //禁止用户选择
+    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
+    
+    //禁止长按弹出选择框
+    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
+    
     CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
     [[mywebView.layoutUpdate heightEq:webViewHeight] install];
 }

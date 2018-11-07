@@ -11,6 +11,13 @@
 #import "NSString+myextend.h"
 #import "DetailModel.h"
 #import "CMSModel.h"
+#import "DetailModel.h"
+#import "JSONModel+myextend.h"
+#import "Article.h"
+#import "ArticleComment.h"
+#import "DiscussInfo.h"
+#import "Json.h"
+#import "Proto.h"
 
 @interface DentistDataBaseManager ()
 
@@ -58,6 +65,37 @@
             NSLog(@"缓存数据表创建失败");
         }
     }];
+}
+
+-(void)queryDetailCmsCaches:(NSString *)articleid completed:(void(^)(DetailModel *model))completed
+{
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        NSString *jsontext = [db stringForQuery:@"SELECT jsontext FROM t_CMSCaches WHERE id = ?", articleid];
+        DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
+        detail.discussInfos = [self commentConvertDiscussInfo:detail.comment];
+        if (completed) {
+            completed(detail);
+        }
+    }];
+}
+
+-(NSArray*)commentConvertDiscussInfo : (NSArray*) comments{
+    NSMutableArray *discussInfos = nil;
+    if(comments!=nil && comments.count >0){
+        discussInfos=[NSMutableArray arrayWithCapacity:comments.count];
+        for (int i = 0; i<comments.count; i++) {
+            CommentModel *item = [[CommentModel alloc] initWithJson:jsonBuild(comments[i])];
+            DiscussInfo *info = [[DiscussInfo alloc] init];
+            info.name = item.email;
+            info.content = item.comment_text;
+            info.disDate = item.create_time;
+            info.starCount = item.comment_rating;
+            info.disImg = [NSString stringWithFormat:@"%@photoDownloadByEmail?email=%@",[Proto configUrl:@"profile"],info.name];
+            
+            [discussInfos addObject:info ];
+        }
+    }
+    return discussInfos;
 }
 
 -(void)queryCMSCachesList:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed

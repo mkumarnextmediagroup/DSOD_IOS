@@ -20,6 +20,7 @@
 #import "DenActionSheet.h"
 #import <Social/Social.h>
 #import "DetailModel.h"
+#import "DentistDataBaseManager.h"
 
 #define edge 15
 @interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource,MyActionSheetDelegate> {
@@ -40,14 +41,22 @@
 //    self.navigationController.navigationBarHidden = YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self createNav];
-    backTask(^() {
-        self.articleInfo = [Proto queryForDetailPage:self.contentId];//5bdc1e7eb0f3e0701cef0253
-        foreTask(^() {
-            
-            
-            [self buildViews];
+    [[DentistDataBaseManager shareManager] queryDetailCmsCaches:self.contentId completed:^(DetailModel * _Nonnull model) {
+        if (model) {
+            self.articleInfo=model;
+            foreTask(^() {
+                [self buildViews];
+            });
+        }
+        
+        backTask(^() {
+            self.articleInfo = [Proto queryForDetailPage:self.contentId];//5bdc1e7eb0f3e0701cef0253
+            foreTask(^() {
+                [self buildViews];
+            });
         });
-    });
+    }];
+    
 }
 
 

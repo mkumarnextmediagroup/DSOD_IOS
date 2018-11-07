@@ -21,6 +21,7 @@
 #import <Social/Social.h>
 #import "DetailModel.h"
 #import "DentistDataBaseManager.h"
+#import "DetinstDownloadManager.h"
 
 #define edge 15
 @interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource,MyActionSheetDelegate> {
@@ -294,6 +295,7 @@
         newmodel.categoryName=_articleInfo.categoryName;
         newmodel.contentTypeId=_articleInfo.contentTypeId;
         newmodel.contentTypeName=_articleInfo.contentTypeName;
+        newmodel.featuredMedia=_articleInfo.featuredMedia;
         [Proto addBookmark:getLastAccount() cmsmodel:newmodel completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
@@ -467,14 +469,38 @@
         {
             NSLog(@"download click");
             //添加
-            [Proto addDownload:_articleInfo.id];
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Download is Add" preferredStyle:UIAlertControllerStyleAlert];
+            if (_articleInfo) {
+                CMSModel *newmodel=[[CMSModel alloc] init];
+                newmodel.id=_articleInfo.id;
+                newmodel.title=_articleInfo.title;
+                newmodel.featuredMediaId=_articleInfo.featuredMediaId;
+                newmodel.categoryId=_articleInfo.categoryId;
+                newmodel.categoryName=_articleInfo.categoryName;
+                newmodel.contentTypeId=_articleInfo.contentTypeId;
+                newmodel.contentTypeName=_articleInfo.contentTypeName;
+                newmodel.featuredMedia=_articleInfo.featuredMedia;
+                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:newmodel addCompletion:^(BOOL result) {
+                    
+                    foreTask(^{
+                        NSString *msg=@"";
+                        if (result) {
+                            msg=@"Download is Add";
+                        }else{
+                            msg=@"error";
+                        }
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                            
+                            NSLog(@"点击取消");
+                        }]];
+                        [self presentViewController:alertController animated:YES completion:nil];
+                    });
+                } completed:^(BOOL result) {
+                    
+                }];
+            }
             
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                
-                NSLog(@"点击取消");
-            }]];
-            [self presentViewController:alertController animated:YES completion:nil];
         }
             break;
         case 1://---click the Share button

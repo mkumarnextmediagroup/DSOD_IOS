@@ -17,6 +17,7 @@
 - (void)articleMoreAction:(NSInteger)articleid;
 - (void)articleMarkAction:(NSInteger)articleid;
 - (void)articleMarkActionView:(NSObject *)item view:(UIView *)view;
+- (void)GSkArticleMoreActionModel:(CMSModel*)model;
 @end
 @interface GSKItemView : UIView
 

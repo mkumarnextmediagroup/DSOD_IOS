@@ -796,15 +796,11 @@
         for (int i = 0; i<comments.count; i++) {
             CommentModel *item = [[CommentModel alloc] initWithJson:jsonBuild(comments[i])];
             DiscussInfo *info = [[DiscussInfo alloc] init];
-            NSString *urlstr;
-            if (item.content_id) {
-                urlstr=[Proto getFileUrlByObjectId:item.content_id];
-            }
-            info.disImg = urlstr;
             info.name = item.email;
             info.content = item.comment_text;
             info.disDate = item.create_time;
             info.starCount = item.comment_rating;
+            info.disImg = [NSString stringWithFormat:@"%@photoDownloadByEmail?email=%@",[self configUrl:@"profile"],info.name];
 
             [discussInfos addObject:info ];
         }

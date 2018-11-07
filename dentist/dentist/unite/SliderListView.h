@@ -14,7 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property BOOL isSearch;
 
-- (void)initSliderView;
++ (instancetype)sharedInstance:(UIView *)view;
+
+- (void)showSliderView;
+
+- (void)hideSliderView;
 
 @end
 

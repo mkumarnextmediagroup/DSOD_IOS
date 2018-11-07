@@ -40,8 +40,11 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     categorytext=nil;
     typetext=nil;
-    [[DentistDataBaseManager shareManager] queryCMSCachesList:0 completed:^(NSArray * _Nonnull array) {
-        self.items =array;
+    [[DentistDataBaseManager shareManager] queryCMSCachesList:categorytext contentTypeId:typetext skip:0 completed:^(NSArray * _Nonnull array) {
+        foreTask(^{
+            self.items =array;
+        });
+        
     }];
 //    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadData) userInfo:nil repeats:NO];
 }
@@ -194,9 +197,13 @@
     DentistFilterView *filterview=[[DentistFilterView alloc] init];
     [filterview show:^(NSString *category, NSString *type) {
     }select:^(NSString *category, NSString *type) {
-        categorytext=category;
-        typetext=type;
-//        self.items =[Proto getDownloadListByCategory:typetext type:categorytext];
+        self->categorytext=category;
+        self->typetext=type;
+        [[DentistDataBaseManager shareManager] queryCMSCachesList:self->categorytext contentTypeId:self->typetext skip:self.items.count completed:^(NSArray * _Nonnull array) {
+            foreTask(^{
+                self.items =array;
+            });
+        }];
     }];
 }
 

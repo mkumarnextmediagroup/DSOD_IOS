@@ -23,9 +23,38 @@
 
 @implementation SliderListView
 
++ (instancetype)sharedInstance:(UIView *)view
+{
+    static SliderListView *instance;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[SliderListView alloc] init];
+        [instance initSliderView];
+        [view addSubview:instance];
+        instance.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+
+    });
+    
+    return instance;
+}
+
+- (void)showSliderView
+{
+    [UIView animateWithDuration:.3 animations:^{
+        self.frame = CGRectMake(132, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+    }];
+}
+
+- (void)hideSliderView
+{
+    [UIView animateWithDuration:.3 animations:^{
+        self.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+    }];
+}
+
 - (void)initSliderView
 {
-    _isSearch = YES;
     self.backgroundColor = [UIColor whiteColor];
     UIView *navVi = [self makeNavView];
     [[[[[navVi.layoutMaker leftParent:0] topParent:0] rightParent:0] heightEq:NAVHEIGHT] install];
@@ -177,6 +206,11 @@
         [cell bindInfo:infoArr[indexPath.row]];
     }
     return cell;
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    [mSearch resignFirstResponder];
 }
 
 /*

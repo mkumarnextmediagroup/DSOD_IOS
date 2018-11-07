@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DentistDataBaseManager : NSObject
 + (instancetype)shareManager;
 -(void)queryCMSCachesList:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed;
+-(void)queryCMSCachesList:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed;
 // 插入数据
 - (void)insertCMSModel:(CMSModel *)cmsmodel completed:(void(^)(BOOL result))completed;
 // 插入数据

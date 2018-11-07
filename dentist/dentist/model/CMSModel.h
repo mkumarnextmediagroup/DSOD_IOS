@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString  <Optional>*publishDate;
 @property NSInteger  readNumber;
 @property NSArray   <CMSModelComment*><Optional> *comment;
+@property NSString  <Optional>*downstatus;
 
 @end
 

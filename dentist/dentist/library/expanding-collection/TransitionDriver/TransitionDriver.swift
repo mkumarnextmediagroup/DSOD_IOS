@@ -19,7 +19,7 @@ class TransitionDriver {
     // MARK: Vars
 
     fileprivate let view: UIView
-    fileprivate let duration: Double = 0.4
+    fileprivate let duration: Double = 0.6
 
     // for push animation
     fileprivate var copyCell: BasePageCollectionCell?

@@ -771,6 +771,23 @@
     return nil;
 }
 
++ (void)queryForDetailPage:(NSString *)contentId completed:(void(^)(BOOL result,NSString* jsontext))completed
+{
+    [self postAsync:@"content/findOneContents" dic:@{@"id": contentId} modular:@"cms" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSDictionary *dic = r.resultMap[@"data"];
+            NSString *json=jsonBuild(dic);
+            if (completed) {
+                completed(YES,json);
+            }
+        }else{
+            if (completed) {
+                completed(NO,nil);
+            }
+        }
+    }];
+}
+
 //commentModel to DiscussInfo
 + (NSArray*)commentConvertDiscussInfo : (NSArray*) comments{
      NSMutableArray *discussInfos = nil;
@@ -796,7 +813,7 @@
 }
 
 
-//search API（CMS_001_11-A/CMS_001_12）
+//MARK: search API（CMS_001_11-A/CMS_001_12）
 + (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue pageNumber:(NSInteger)pageNumber{
     
     NSInteger skip=0;
@@ -1331,7 +1348,7 @@
     return r;
 }
 
-+ (void)post:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback{
++ (void)postAsync:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback{
     NSString *baseUrl = [self configUrl:modular];
     Http *h = [Http new];
     h.url = strBuild([self baseDomain],baseUrl, action);

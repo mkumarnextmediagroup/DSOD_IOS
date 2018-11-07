@@ -71,7 +71,7 @@ public extension ExpandingViewController {
                                                        backImage: backImage,
                                                        headerHeight: viewController.headerHeight,
                                                        insets: tabBarHeight + stausBarHeight) { headerView in
-//            viewController.tableView.tableHeaderView = headerView
+            viewController.tableView.tableHeaderView = headerView
             self.navigationController?.pushViewController(viewController, animated: false)
         }
     }
@@ -107,7 +107,7 @@ public extension ExpandingViewController {
         
         offset += tabBarHeight+stausBarHeight
         
-        transitionDriver?.popTransitionAnimationContantOffset2(offset)
+        transitionDriver?.popTransitionAnimationContantOffset2(0)
         completion()
     }
 }

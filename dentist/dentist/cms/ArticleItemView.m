@@ -240,7 +240,10 @@
 -(void)moreAction:(UIButton *)sender
 {
     if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMoreAction:)]){
-        [self.delegate ArticleMoreAction:_model.id];
+        [self.delegate ArticleMoreAction:_cmsmodel.id];
+    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMoreActionModel:)]){
+        [self.delegate ArticleMoreActionModel:_cmsmodel];
     }
 }
 

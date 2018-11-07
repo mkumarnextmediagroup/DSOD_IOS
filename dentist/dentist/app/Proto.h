@@ -76,6 +76,7 @@
 + (NSMutableArray <IdName *> *_Nullable)querySpecialty;
 
 + (DetailModel *)queryForDetailPage:(NSString *)contentId;
++ (void)queryForDetailPage:(NSString *_Nullable)contentId completed:(void(^)(BOOL result,NSString* jsontext))completed;
 
 //get search result
 + (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue pageNumber:(NSInteger)pageNumber;

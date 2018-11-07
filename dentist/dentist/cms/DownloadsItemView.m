@@ -10,6 +10,8 @@
 #import "Common.h"
 #import "Article.h"
 #import "RMDownloadIndicator.h"
+#import "CMSModel.h"
+#import "Proto.h"
 @implementation DownloadsItemView{
     UILabel *titleLabel;
     UILabel *contentLabel;
@@ -41,6 +43,7 @@
     
     _markButton = [self addButton];
     [_markButton setImage:[UIImage imageNamed:@"dot3"] forState:UIControlStateNormal];
+    [_markButton addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
     [[[[_markButton.layoutMaker rightParent:-edge] topParent:25] sizeEq:20 h:20] install];
     
     statusButton = [self addButton];
@@ -100,7 +103,42 @@
     }else{
         [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
     }
-    [self startAnimation];
+    
+    
+}
+-(void)bindCMS:(CMSModel *)item
+{
+    _cmsmodel=item;
+    statusLabel.text=@"Download starting...";
+    titleLabel.text = _cmsmodel.categoryName;
+    contentLabel.text = _cmsmodel.title;
+    NSString *urlstr;
+    if (_cmsmodel.featuredMediaId) {
+        urlstr=[Proto getFileUrlByObjectId:_cmsmodel.featuredMediaId];
+    }
+    [imageView loadUrl:urlstr placeholderImage:@"art-img"];
+    [imageView scaleFillAspect];
+    imageView.clipsToBounds=YES;
+    if ([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"VIDEOS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Video"]];
+    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"PODCASTS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Podcast"]];
+    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"INTERVIEWS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Interview"]];
+    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"TECH GUIDES"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"TechGuide"]];
+    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"ANIMATIONS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"Animation"]];
+    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"TIP SHEETS"]) {
+        [thumbImageView setImage:[UIImage imageNamed:@"TipSheet"]];
+    }else{
+        [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
+    }
+    if([_cmsmodel.downstatus integerValue]==5){
+        [self downdone];
+    }else{
+       [self startAnimation];
+    }
 }
 
 -(void)startAnimation
@@ -126,7 +164,7 @@
         
         //设置当执行完成取消定时器
         dispatch_async(dispatch_get_main_queue(), ^(){
-            [weakself updateProgressView:10];
+            [weakself updateProgressView:20];
         });
         
         if(weakself.downloadedBytes >= 100){
@@ -158,6 +196,16 @@
     [str addAttribute:NSForegroundColorAttributeName value:Colors.textContent range:NSMakeRange(10,statusstr.length - 10)];
     statusLabel.attributedText = str;
     [_closedIndicator updateWithTotalBytes:100 downloadedBytes:self.downloadedBytes];
+}
+
+-(void)moreAction:(UIButton *)sender
+{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMoreAction:)]){
+        [self.delegate ArticleMoreAction:_cmsmodel.id];
+    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMoreActionModel:)]){
+        [self.delegate ArticleMoreActionModel:_cmsmodel];
+    }
 }
 
 @end

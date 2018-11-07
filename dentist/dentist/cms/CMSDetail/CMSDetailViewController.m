@@ -277,7 +277,15 @@
         }];
     }else{
         //添加
-        [Proto addBookmark:getLastAccount() postId:_articleInfo.id title:_articleInfo.title url:_articleInfo.featuredMediaId categoryId:_articleInfo.categoryId contentTypeId:_articleInfo.contentTypeId completed:^(BOOL result) {
+        CMSModel *newmodel=[[CMSModel alloc] init];
+        newmodel.id=_articleInfo.id;
+        newmodel.title=_articleInfo.title;
+        newmodel.featuredMediaId=_articleInfo.featuredMediaId;
+        newmodel.categoryId=_articleInfo.categoryId;
+        newmodel.categoryName=_articleInfo.categoryName;
+        newmodel.contentTypeId=_articleInfo.contentTypeId;
+        newmodel.contentTypeName=_articleInfo.contentTypeName;
+        [Proto addBookmark:getLastAccount() cmsmodel:newmodel completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {

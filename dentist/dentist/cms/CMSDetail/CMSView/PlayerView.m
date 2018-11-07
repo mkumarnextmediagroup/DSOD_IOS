@@ -11,7 +11,7 @@
 #import "XHStarRateView.h"
 #import "Proto.h"
 
-@interface PlayerView()<WKNavigationDelegate>
+@interface PlayerView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate>
 
 @end
 
@@ -23,10 +23,14 @@
 	UILabel *titleLabel;
 	UILabel *nameLabel;
 	UILabel *addressLabel;
+    UILabel *byLabel;
     UILabel *contentLabel;
-	WKWebView *contentWebView;
+    UIWebView *mywebView;
 	UIView *view;
     UILabel *contentLabel2;
+    
+    BOOL authorDSODentist;
+    BOOL allowZoom;
 }
 
 - (instancetype)init {
@@ -86,16 +90,16 @@
 	[self addSubview:view];
 	[[[[[view.layoutMaker leftParent:0] rightParent:0] below:lineLabel offset:0] heightEq:58] install];
     
-    UILabel *byLabel = view.addLabel;
+
+    byLabel = view.addLabel;
+    byLabel.font = [Fonts semiBold:18];
     byLabel.text = @"By";
     [[[[byLabel.layoutMaker sizeEq:30 h:58] leftParent:edge] topParent:0] install];
     
 	headerImg = [UIImageView new];
-	[view addSubview:headerImg];
-	[[[[headerImg.layoutMaker sizeEq:32 h:32] toRightOf:byLabel offset:0] centerYParent:0] install];
-
-	headerImg.layer.cornerRadius = 16;
-	headerImg.layer.masksToBounds = YES;
+    [view addSubview:headerImg];
+    [[[[headerImg.layoutMaker sizeEq:110 h:22] toRightOf:byLabel offset:0] centerYParent:0] install];
+    headerImg.layer.masksToBounds = YES;
 
 	nameLabel = [view addLabel];
 	nameLabel.font = [Fonts semiBold:12];
@@ -110,22 +114,26 @@
 
 	UILabel *lineLabel2 = [view lineLabel];
 	[[[[[lineLabel2.layoutMaker leftParent:edge] rightParent:0] topParent:57] heightEq:1] install];
-
-    contentLabel = [self addLabel];
-    contentLabel.font = [Fonts regular:15];
-    [contentLabel textColorMain];
-    contentLabel.numberOfLines = 0;
-    [[[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] heightEq:30] below:view offset:5] install];
-    [[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
     
-//    contentWebView = [self addWebview];
-//    contentWebView.navigationDelegate = self;
-//    [[[[contentWebView.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
+    
+    mywebView = [UIWebView new];
+    mywebView.delegate = self;
+    mywebView.scrollView.scrollEnabled = NO;
+    [self addSubview:mywebView];
+    [[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] below:view offset:5] install];
+
+//    contentLabel = [self addLabel];
+//    contentLabel.font = [Fonts regular:15];
+//    [contentLabel textColorMain];
+//    contentLabel.numberOfLines = 0;
+//    [[[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] heightEq:30] below:view offset:5] install];
+//    [[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
+
 
 	UIImageView *imgCon = [UIImageView new];
     imgCon.image = [UIImage imageNamed:@"content_bg"];
 	[self addSubview:imgCon];
-	[[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:contentLabel offset:25] install];
+	[[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:mywebView offset:25] install];
 
     contentLabel2 = [self addLabel];
     contentLabel2.font = [Fonts regular:15];
@@ -215,17 +223,33 @@
         urlstr=[Proto getFileUrlByObjectId:bindInfo.videos[0]];
     }
     [imageView loadUrl:urlstr placeholderImage:@"art-img"];
-	[headerImg loadUrl:@"http://app800.cn/i/p.png" placeholderImage:@"user_img"];
+	 [headerImg setImageName:@"author_dsodentist"];
     
-    //初始化播放器
-    if (!self.sbPlayer) {
-        self.sbPlayer = [[SBPlayer alloc] initWithUrl:[NSURL URLWithString:urlstr]];
-        self.sbPlayer.addView = self;
-        //set the movie background color
-        self.sbPlayer.backgroundColor = [UIColor blackColor];
-        [self addSubview:self.sbPlayer];
-        [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+    [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
+    
+    if(authorDSODentist){
+        byLabel.hidden = NO;
+        headerImg.hidden = NO;
+        nameLabel.hidden = YES;
+        addressLabel.hidden = YES;
+    }else{
+        byLabel.hidden = YES;
+        headerImg.hidden = YES;
+        nameLabel.hidden = NO;
+        addressLabel.hidden = NO;
+        nameLabel.text = [NSString stringWithFormat:@"By %@ %@",bindInfo.author.firstName,bindInfo.author.lastName];
+        addressLabel.text = bindInfo.author.authorDetails;
     }
+    
+//    //初始化播放器
+//    if (!self.sbPlayer) {
+//        self.sbPlayer = [[SBPlayer alloc] initWithUrl:[NSURL URLWithString:urlstr]];
+//        self.sbPlayer.addView = self;
+//        //set the movie background color
+//        self.sbPlayer.backgroundColor = [UIColor blackColor];
+//        [self addSubview:self.sbPlayer];
+//        [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+//    }
     
 	titleLabel.text = bindInfo.title;
 //    [_greeBtn setTitle:bindInfo.gskString forState:UIControlStateNormal];
@@ -242,6 +266,46 @@
     }
 }
 
+- (NSString *)htmlString:(NSString *)html
+{
+    //do some regular
+    //    return [NSString stringWithFormat:@"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'><style type='text/css'>img{width:%fpx}</style>%@", SCREENWIDTH - 20, html];
+    
+    NSString *htmlString = @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'><style>body{padding:0px;margin:0px;}.first-big p:first-letter{float: left;font-size:1.9em;padding-right:5px;text-transform:uppercase;color:#4a4a4a;}p{width:100%;color:#4a4a4a;font-size:1em;}</style>";
+    
+    htmlString = [NSString stringWithFormat:@"%@%@%@%@%@",htmlString,
+                  @"<style type='text/css'>",
+                  @"blockquote{color:#4a4a4a;font-size:1.5em;font-weight:bold;margin: 0px 10px 0px 30px;position:relative;line-height:110%;text-indent:0px}",
+                  @"blockquote:before{color:#4a4a4a;content:'“';font-size:2em;position:absolute;left:-30px;top:10px;line-height:.1em}",
+                  //@"blockquote:after{color:#4a4a4a;content:'”';font-size:5em;position:absolute;right:15px;bottom:0;line-height:.1em}",
+                  @"</style>"
+                  ];
+    
+    
+    //
+    //    @"blockquote{color:#4a4a4a;font-size:1.5em;font-weight:bold;margin: 0px 10px 0px 10px;position:relative;line-height:110%;text-indent:20px}",
+    //    @"blockquote:before{color:#4a4a4a;content:'“';font-size:2em;position:absolute;left:-30px;top:15px;line-height:.1em}",
+    //
+    
+    
+    html = [html stringByReplacingOccurrencesOfString :@"pre" withString:@"blockquote"];
+    
+    NSArray *array = [html componentsSeparatedByString:@"<p>"];
+    for (int i = 0; i < [array count]; i++) {
+        NSString *currentString = [array objectAtIndex:i];
+        if(i==1){
+            authorDSODentist = [currentString rangeOfString:@"By DSODentist"].location !=NSNotFound;
+        }if(i==2){
+            htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
+        }else if(i>2){
+            htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];
+        }
+    }
+    
+    return htmlString;
+    
+}
+
 - (void)resetLayout {
     CGSize size = [contentLabel sizeThatFits:CGSizeMake(290, 1000)];
     CGSize size2 = [contentLabel2 sizeThatFits:CGSizeMake(290, 1000)];
@@ -251,17 +315,34 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
+    allowZoom = NO;
     [webView evaluateJavaScript:@"document.body.scrollWidth" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        CGFloat ratio =  CGRectGetWidth(self->contentWebView.frame) /[result floatValue];
+        CGFloat ratio =  CGRectGetWidth(self->mywebView.frame) /[result floatValue];
         
+        [webView evaluateJavaScript:@"document.documentElement.style.webkitUserSelect='none';" completionHandler:nil];
+        [webView evaluateJavaScript:@"document.activeElement.blur();" completionHandler:nil];
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%'"completionHandler:nil];
         [webView evaluateJavaScript:@"document.body.scrollHeight"completionHandler:^(id _Nullable result,NSError * _Nullable error){
             NSLog(@"scrollHeight高度：%.2f",[result floatValue]);
             NSLog(@"scrollHeight计算高度：%.2f",[result floatValue]*ratio);
             CGFloat newHeight = [result floatValue]*ratio;
-            [[self->contentWebView.layoutUpdate heightEq:newHeight] install];
+            [[self->mywebView.layoutUpdate heightEq:newHeight] install];
             
         }];
     }];
+}
+     
+     
+ - (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    //禁止用户选择
+    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
+    
+    //禁止长按弹出选择框
+    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
+    
+    CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
+    [[mywebView.layoutUpdate heightEq:webViewHeight] install];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -85,6 +85,40 @@
     }];
 }
 
+-(void)queryCMSCachesList:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed
+{
+    NSInteger limit=20;
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        FMResultSet *resultSet;
+        if(![NSString isBlankString:categoryId] && ![NSString isBlankString:contentTypeId]){
+            resultSet = [db executeQuery:@"SELECT * FROM t_CMSCaches where categoryId = ? and contentTypeId = ? order by createdate desc limit ? offset ?",categoryId,contentTypeId,[NSNumber numberWithInteger:limit],[NSNumber numberWithInteger:skip]];
+        }else if (![NSString isBlankString:categoryId] && [NSString isBlankString:contentTypeId] ){
+            resultSet = [db executeQuery:@"SELECT * FROM t_CMSCaches  where categoryId = ? order by createdate desc limit ? offset ?",categoryId,[NSNumber numberWithInteger:limit],[NSNumber numberWithInteger:skip]];
+        }else if ([NSString isBlankString:categoryId] && ![NSString isBlankString:contentTypeId] ){
+            resultSet = [db executeQuery:@"SELECT * FROM t_CMSCaches  where contentTypeId = ? order by createdate desc limit ? offset ?",contentTypeId,[NSNumber numberWithInteger:limit],[NSNumber numberWithInteger:skip]];
+        }else{
+            resultSet = [db executeQuery:@"SELECT * FROM t_CMSCaches order by createdate desc limit ? offset ?",[NSNumber numberWithInteger:limit],[NSNumber numberWithInteger:skip]];
+        }
+        
+        NSMutableArray *tmpArr = [NSMutableArray array];
+        while ([resultSet next]) {
+            CMSModel *model = [[CMSModel alloc] init];
+            model.id=[resultSet objectForColumn:@"id"];
+            model.featuredMediaId=[resultSet objectForColumn:@"featuredMediaId"];
+            model.contentTypeId=[resultSet objectForColumn:@"contentTypeId"];
+            model.categoryId=[resultSet objectForColumn:@"categoryId"];
+            model.contentTypeName=[resultSet objectForColumn:@"contentTypeName"];
+            model.categoryName=[resultSet objectForColumn:@"categoryName"];
+            model.title=[resultSet objectForColumn:@"title"];
+            model.downstatus=[NSString stringWithFormat:@"%@",@([resultSet intForColumn:@"downstatus"])];
+            [tmpArr addObject:model];
+        }
+        if (completed) {
+            completed(tmpArr);
+        }
+    }];
+}
+
 // 插入数据
 - (void)insertCMSModel:(CMSModel *)cmsmodel completed:(void(^)(BOOL result))completed
 {

@@ -303,17 +303,18 @@ CMSModel *selectModel;
 
 
 
--(void)articleMoreAction:(NSInteger)articleid
-{
-    selectActicleId=articleid;
-    NSLog(@"ArticleMoreAction=%@",@(articleid));
-    NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
-    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
-    [denSheet show:self.view];
-}
+//-(void)articleMoreAction:(NSInteger)articleid
+//{
+//    selectActicleId=articleid;
+//    NSLog(@"ArticleMoreAction=%@",@(articleid));
+//    NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
+//    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
+//    [denSheet show:self.view];
+//}
 
 -(void)GSkArticleMoreActionModel:(CMSModel *)model
 {
+    selectModel=model;
     NSLog(@"ArticleMoreAction=%@",model.id);
     NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];

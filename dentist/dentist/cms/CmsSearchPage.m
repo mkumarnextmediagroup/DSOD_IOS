@@ -11,7 +11,7 @@
 #import "DenActionSheet.h"
 #import <Social/Social.h>
 #import "DetinstDownloadManager.h"
-
+#import "CmsArticleCategoryPage.h"
 @interface CmsSearchPage()<UISearchBarDelegate,MyActionSheetDelegate,ArticleItemViewDelegate>
 {
     NSInteger selectIndex;
@@ -40,6 +40,7 @@
 	[super viewDidLoad];
     
 	UINavigationItem *item = [self navigationItem];
+    item.rightBarButtonItem=nil;
     item.leftBarButtonItem=nil;//hidden left menu
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     _searchBar.placeholder = @"Search...";
@@ -196,7 +197,7 @@
         }];
     }else{
         //添加
-        [Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId completed:^(BOOL result) {
+        [Proto addBookmark:getLastAccount() cmsmodel:model completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
@@ -254,7 +255,12 @@
     [self.searchBar resignFirstResponder];
      _searchBar.showsCancelButton = NO;
 //    self.items=[Proto getArticleListByKeywords:searchKeywords type:nil];
-    self.items=[Proto querySearchResults:searchKeywords pageNumber:pagenumber];
+//    self.items=[Proto querySearchResults:searchKeywords pageNumber:pagenumber];
+    [Proto querySearchResults:searchKeywords skip:0 completed:^(NSArray<CMSModel *> *array) {
+        foreTask(^{
+            self.items=array;
+        });
+    }];
 //    NSLog(@"%@",self.items);
 }
 
@@ -293,9 +299,16 @@
     [_searchBar setShowsCancelButton:NO animated:YES];
 }
 
--(void)CategoryPickerSelectAction:(NSString *)result
+-(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName
 {
-    self.items=[Proto getArticleListByKeywords:searchKeywords type:result];
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    CmsArticleCategoryPage *newVC = [[CmsArticleCategoryPage alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+    
+    newVC.categoryId=categoryId;
+    newVC.categoryName=categoryName;
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
+
 
 @end

@@ -839,6 +839,35 @@
     return resultArray;
 }
 
++ (void)querySearchResults:(NSString *)serachValue skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed{
+    
+    if (skip<=0) {
+        skip=0;
+    }
+    NSInteger limit=10;//分页数默认20条
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [paradic setObject:serachValue forKey:@"searchValue"];
+    
+    [self postAsync3:@"content/findAllBySearch" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
+        NSMutableArray *resultArray = [NSMutableArray array];
+        if (r.OK) {
+            NSArray *arr = r.resultMap[@"data"];
+            for (NSDictionary *d in arr) {
+                CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
+                if (item) {
+                    [resultArray addObject:item];
+                }
+                
+            }
+        }
+        if (completed) {
+            completed(resultArray);
+        }
+    }];
+}
+
 //MARK:查询媒体列表（CMS_001_01\CMS_001_10）
 + (NSArray<CMSModel *> *)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *)authorId {
     NSInteger skip=0;
@@ -1217,7 +1246,10 @@
 }
 +(void)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId completed:(void(^)(BOOL result))completed
 {
-    if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title] && ![NSString isBlankString:url]){
+    if([NSString isBlankString:url]){
+        url=@"";
+    }
+    if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title]){
         [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId} modular:@"cms" callback:^(HttpResult *r) {
             if (completed) {
                 completed(r.OK);
@@ -1229,6 +1261,59 @@
         }
     }
 
+}
+
++(void)addBookmark:(NSString *)email cmsmodel:(CMSModel *)model completed:(void(^)(BOOL result))completed
+{
+    NSString *url;
+    if([NSString isBlankString:model.featuredMediaId]){
+        url=@"";
+    }else{
+        url=model.featuredMediaId;
+    }
+    NSString *postId=model.id;
+    NSString *title;
+    if([NSString isBlankString:model.title]){
+        title=@"";
+    }else{
+        title=model.title;
+    }
+    NSString *categoryId;
+    if([NSString isBlankString:model.categoryId]){
+        categoryId=@"";
+    }else{
+        categoryId=model.categoryId;
+    }
+    NSString *contentTypeId;
+    if([NSString isBlankString:model.contentTypeId]){
+        contentTypeId=@"";
+    }else{
+        contentTypeId=model.contentTypeId;
+    }
+    NSString *categoryName;
+    if([NSString isBlankString:model.categoryName]){
+        categoryName=@"";
+    }else{
+        categoryName=model.categoryName;
+    }
+    NSString *contentTypeName;
+    if([NSString isBlankString:model.contentTypeName]){
+        contentTypeName=@"";
+    }else{
+        contentTypeName=model.contentTypeName;
+    }
+    if(![NSString isBlankString:email] && ![NSString isBlankString:postId]){
+        [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"categoryName": categoryName,@"contentTypeName": contentTypeName} modular:@"cms" callback:^(HttpResult *r) {
+            if (completed) {
+                completed(r.OK);
+            }
+        }];
+    }else{
+        if (completed) {
+            completed(NO);
+        }
+    }
+    
 }
 
 //MARK:获取单个文件（ADMIN PORTAL Only）

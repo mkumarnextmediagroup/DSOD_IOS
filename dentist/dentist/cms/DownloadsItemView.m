@@ -163,17 +163,26 @@
     dispatch_source_set_event_handler(time, ^{
         
         //设置当执行完成取消定时器
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            [weakself updateProgressView:20];
-        });
-        
-        if(weakself.downloadedBytes >= 100){
+        if([weakself.cmsmodel.downstatus integerValue]==5){
             dispatch_async(dispatch_get_main_queue(), ^(){
                 [weakself downdone];
             });
             dispatch_cancel(time);
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                
+                [weakself updateProgressView:20];
+            });
             
+            if(weakself.downloadedBytes >= 100){
+                dispatch_async(dispatch_get_main_queue(), ^(){
+                    [weakself downdone];
+                });
+                dispatch_cancel(time);
+                
+            }
         }
+        
     });
     //启动定时器
     dispatch_resume(time);

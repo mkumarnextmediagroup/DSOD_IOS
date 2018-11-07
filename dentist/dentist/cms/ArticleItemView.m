@@ -231,10 +231,28 @@
     for (int i = 0; i < [array count]; i++) {
         NSString *currentString = [array objectAtIndex:i];
         if(i==1){
+            
+            //  <strong>(By By DSODentist)</strong></p>
             NSRange startRange = [currentString rangeOfString:@"(By "];
             NSRange endRange = [currentString rangeOfString:@")"];
-            NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length);
-            htmlString = [NSString stringWithFormat:@"%@<strong>%@</Strong>",htmlString,[currentString substringWithRange:range]];
+            if(startRange.location != NSNotFound
+               && endRange.location != NSNotFound){
+                NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length);
+                htmlString = [NSString stringWithFormat:@"%@<strong>%@</Strong>",htmlString,[currentString substringWithRange:range]];
+                continue;
+            }
+            
+            //  <strong><em>By Dr </em></strong><strong><em>Reem Al Khalil</em></strong></p>
+            startRange = [currentString rangeOfString:@"<em>By"];
+            endRange = [currentString rangeOfString:@"</em>"];
+            if(startRange.location != NSNotFound
+               && endRange.location != NSNotFound){
+                NSRange range = NSMakeRange(startRange.location + startRange.length - 2, endRange.location - startRange.location - startRange.length +2);
+                htmlString = [NSString stringWithFormat:@"%@<strong>%@</Strong>",htmlString,[currentString substringWithRange:range]];
+                continue;
+            }
+            
+            
         }else if(i==2){
             htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
         }else if(i>2){

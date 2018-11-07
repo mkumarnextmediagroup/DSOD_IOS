@@ -12,6 +12,7 @@
 #import "IIViewDeckController.h"
 #import "AppDelegate.h"
 #import "dentist-Swift.h"
+#import "SliderListView.h"
 
 @interface UniteDownloadingViewController (){
     UIImageView *coverImgView;
@@ -117,7 +118,18 @@
 }
 
 - (UIBarButtonItem *)menuButton {
-    return [self navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenuAnoSide:)];
+    return [self navBarImage:@"menu" target:self action:@selector(rightBtnClick)];
+}
+
+- (void)rightBtnClick
+{
+    SliderListView *slider = [SliderListView new];
+    [slider initSliderView];
+    [self.view addSubview:slider];
+    self.view.frame = CGRectMake(SCREENWIDTH, NAVHEIGHT, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+    [UIView animateWithDuration:.3 animations:^{
+        self.view.frame = CGRectMake(SCREENWIDTH-132, NAVHEIGHT, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+    }];
 }
 
 -(void)downloadBtnAction{

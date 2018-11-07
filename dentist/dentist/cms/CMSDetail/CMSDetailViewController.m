@@ -208,21 +208,21 @@
 
 - (void)buildViews {
     
-    if ([self.toWhichPage isEqualToString:@"mo"]) {
-        playView = [PlayerView new];
-        [playView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
-        [playView.gskBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [playView.greeBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [playView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [playView.markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:playView];
-        [playView bind:self.articleInfo];
-        [[[[playView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
-    
-     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
-
-    }else
-    {
+//    if ([self.toWhichPage isEqualToString:@"mo"]) {
+//        playView = [PlayerView new];
+//        [playView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
+//        [playView.gskBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//        [playView.greeBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//        [playView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//        [playView.markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.contentView addSubview:playView];
+//        [playView bind:self.articleInfo];
+//        [[[[playView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
+//
+//     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
+//
+//    }else
+//    {
         picDetailView = [PicDetailView new];
         [picDetailView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [picDetailView.markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -232,19 +232,19 @@
         [[[[picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
         
         [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(picDetailView) install];
-    }
+//    }
     
     myTable = [UITableView new];
     [self.contentView addSubview:myTable];
     myTable.dataSource = self;
     myTable.delegate = self;
     myTable.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    if ([self.toWhichPage isEqualToString:@"mo"]) {
-        [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:playView offset:0] sizeEq:SCREENWIDTH h:150] install];
-    }else
-    {
+//    if ([self.toWhichPage isEqualToString:@"mo"]) {
+//        [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:playView offset:0] sizeEq:SCREENWIDTH h:150] install];
+//    }else
+//    {
         [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:picDetailView offset:0] sizeEq:SCREENWIDTH h:150] install];
-    }
+//    }
     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
 
 }

@@ -48,6 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*publishDate;
 @property NSString <Optional>*isFeatured;
 @property NSInteger readNumber;
+@property NSDictionary <Optional>*featuredMedia;
+
 
 @end
 

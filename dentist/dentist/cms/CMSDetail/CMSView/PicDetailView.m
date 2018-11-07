@@ -25,6 +25,7 @@
     UILabel *typeLabel;
     UILabel *dateLabel;
     UIImageView *imageView;
+    SBPlayer *sbPlayer;
     UIImageView *headerImg;
     UILabel *titleLabel;
     UILabel *nameLabel;
@@ -269,14 +270,34 @@
 - (void)bind:(DetailModel *)bindInfo {
     typeLabel.text = [bindInfo.categoryName uppercaseString];
     dateLabel.text = [NSString timeWithTimeIntervalString:bindInfo.publishDate];
-    NSString *urlstr;
-    if (bindInfo.featuredMediaId) {
-        urlstr=[Proto getFileUrlByObjectId:bindInfo.featuredMediaId];
-    }
-    [imageView loadUrl:urlstr placeholderImage:@"art-img"];
-    [headerImg setImageName:@"author_dsodentist"];
-    titleLabel.text = bindInfo.title;
     
+    
+    
+    
+    NSString* type = bindInfo.featuredMedia[@"type"];
+    if([type isEqualToString:@"1"] ){
+        //pic
+        NSDictionary *codeDic = bindInfo.featuredMedia[@"code"];
+        NSString *urlstr = codeDic[@"thumbnailUrl"];
+        [imageView loadUrl:urlstr placeholderImage:@""];
+    }else if([type isEqualToString:@"2"] ){
+        //video
+        //初始化播放器
+        if (!sbPlayer) {
+            NSString *urlstr = bindInfo.featuredMedia[@"code"];
+            sbPlayer = [[SBPlayer alloc] initWithUrl:[NSURL URLWithString:urlstr]];
+            sbPlayer.addView = self;
+            //set the movie background color
+            sbPlayer.backgroundColor = [UIColor blackColor];
+            [self addSubview:sbPlayer];
+            [[[[[sbPlayer.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+        }
+    }
+    
+
+    
+    titleLabel.text = bindInfo.title;
+    [headerImg setImageName:@"author_dsodentist"];
     
     [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
     

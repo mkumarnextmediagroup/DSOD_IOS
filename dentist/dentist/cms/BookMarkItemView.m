@@ -81,10 +81,11 @@
     titleLabel.text = _bookmarkmodel.categoryName;
     contentLabel.text = _bookmarkmodel.title;//[item.title stringByAppendingString:@"\n\n\n\n "];
     NSString *urlstr;
-    if (_bookmarkmodel.url) {
-        urlstr=[Proto getFileUrlByObjectId:_bookmarkmodel.url];
+    if ([NSString isBlankString:_bookmarkmodel.coverthumbnailUrl]) {
+        urlstr=_bookmarkmodel.url;
+    }else{
+        urlstr=_bookmarkmodel.coverthumbnailUrl;
     }
-    
     [imageView loadUrl:urlstr placeholderImage:@"art-img"];
     [imageView scaleFillAspect];
     imageView.clipsToBounds=YES;

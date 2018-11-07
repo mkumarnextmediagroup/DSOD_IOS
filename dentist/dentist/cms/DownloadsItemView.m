@@ -114,7 +114,7 @@
     contentLabel.text = _cmsmodel.title;
     NSString *urlstr;
     if (_cmsmodel.featuredMediaId) {
-        urlstr=[Proto getFileUrlByObjectId:_cmsmodel.featuredMediaId];
+        urlstr=_cmsmodel.featuredMediaId;
     }
     [imageView loadUrl:urlstr placeholderImage:@"art-img"];
     [imageView scaleFillAspect];

@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSInteger  readNumber;
 @property NSArray   <CMSModelComment*><Optional> *comment;
 @property NSString  <Optional>*downstatus;
-
+@property NSDictionary <Optional>*featuredMedia;
 @end
 
 NS_ASSUME_NONNULL_END

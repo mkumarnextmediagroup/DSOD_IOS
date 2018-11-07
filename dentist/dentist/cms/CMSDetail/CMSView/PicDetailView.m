@@ -16,7 +16,7 @@
 
 @interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate>
 {
-    UIWebView *mywebView;
+    
 }
 @end
 
@@ -30,7 +30,7 @@
     UILabel *nameLabel;
     UILabel *addressLabel;
     UILabel *byLabel;
-    WKWebView *contentWebView;
+    UIWebView *mywebView;
     UIView *view;
     UIView *imageScrollPView;
     UIScrollView *imageScroll;
@@ -115,16 +115,6 @@
     UILabel *lineLabel2 = [view lineLabel];
     [[[[[lineLabel2.layoutMaker leftParent:edge] rightParent:0] topParent:57] heightEq:1] install];
     
-//    contentLabel = [self addLabel];
-//    contentLabel.font = [Fonts regular:15];
-//    [contentLabel textColorMain];
-//    contentLabel.numberOfLines = 0;
-//    [[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
-    
-//    contentWebView = [self addWebview];
-//    contentWebView.navigationDelegate = self;
-//    contentWebView.scrollView.delegate = self;
-//    [[[[contentWebView.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
     
     mywebView = [UIWebView new];
     mywebView.delegate = self;
@@ -360,7 +350,7 @@
     if(!allowZoom){
         return nil;
     }else{
-        return contentWebView.scrollView.subviews.firstObject;
+        return mywebView.scrollView.subviews.firstObject;
     }
 }
 
@@ -368,7 +358,7 @@
 {
     allowZoom = NO;
     [webView evaluateJavaScript:@"document.body.scrollWidth" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        CGFloat ratio =  CGRectGetWidth(self->contentWebView.frame) /[result floatValue];
+        CGFloat ratio =  CGRectGetWidth(self->mywebView.frame) /[result floatValue];
         
         [webView evaluateJavaScript:@"document.documentElement.style.webkitUserSelect='none';" completionHandler:nil];
         [webView evaluateJavaScript:@"document.activeElement.blur();" completionHandler:nil];
@@ -377,7 +367,7 @@
             NSLog(@"scrollHeight高度：%.2f",[result floatValue]);
             NSLog(@"scrollHeight计算高度：%.2f",[result floatValue]*ratio);
             CGFloat newHeight = [result floatValue]*ratio;
-            [[self->contentWebView.layoutUpdate heightEq:newHeight] install];
+            [[self->mywebView.layoutUpdate heightEq:newHeight] install];
             
         }];
     }];

@@ -133,6 +133,9 @@
     if(self.delegate && [self.delegate respondsToSelector:@selector(articleMoreAction:)]){
         [self.delegate articleMoreAction:_model.id];
     }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(GSkArticleMoreActionModel:)]){
+        [self.delegate GSkArticleMoreActionModel:_cmsmodel];
+    }
 }
 
 -(void)markAction:(UIButton *)sender

@@ -28,6 +28,7 @@
 #import "IdName.h"
 #import "ArticleGSkItemView.h"
 #import "DentistPickerView.h"
+#import "DetinstDownloadManager.h"
 
 @interface CmsArticleCategoryPage ()<ArticleItemViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 {
@@ -44,6 +45,7 @@
     NSInteger pagenumber;
     UILabel *titlecontent;
      BOOL isdownrefresh;
+    CMSModel *selectModel;
 }
 @property (nonatomic,strong) UIActivityIndicatorView *categoryiv;
 @end
@@ -206,13 +208,29 @@
 }
 
 
--(void)ArticleMoreAction:(NSInteger)articleid
+//-(void)ArticleMoreAction:(NSInteger)articleid
+//{
+//    selectActicleId=articleid;
+//    NSLog(@"ArticleMoreAction=%@",@(articleid));
+//    NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
+//    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
+//    [denSheet show];
+//}
+
+-(void)ArticleMoreActionModel:(CMSModel *)model
 {
-    selectActicleId=articleid;
-    NSLog(@"ArticleMoreAction=%@",@(articleid));
+    selectModel=model;
+    NSLog(@"ArticleMoreAction=%@",model.id);
     NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
     [denSheet show];
+    [[DentistDataBaseManager shareManager] CheckIsDowned:model completed:^(NSInteger isdown) {
+        foreTask(^{
+            if (isdown) {
+                [denSheet updateActionTitle:@[@"Update",@"Share"]];
+            }
+        });
+    }];
 }
 
 -(void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view
@@ -277,14 +295,28 @@
         {
             NSLog(@"download click");
             //添加
-            [Proto addDownload:selectActicleId];
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Download is Add" preferredStyle:UIAlertControllerStyleAlert];
-            
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                
-                NSLog(@"点击取消");
-            }]];
-            [self presentViewController:alertController animated:YES completion:nil];
+            if (selectModel) {
+                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:selectModel addCompletion:^(BOOL result) {
+                    
+                    foreTask(^{
+                        NSString *msg=@"";
+                        if (result) {
+                            msg=@"Download is Add";
+                        }else{
+                            msg=@"error";
+                        }
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                            
+                            NSLog(@"点击取消");
+                        }]];
+                        [self presentViewController:alertController animated:YES completion:nil];
+                    });
+                } completed:^(BOOL result) {
+                    
+                }];
+            }
         }
             break;
         case 1://---click the Share button

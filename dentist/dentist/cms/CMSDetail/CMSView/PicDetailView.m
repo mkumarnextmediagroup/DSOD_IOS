@@ -350,15 +350,22 @@
     
     html = [html stringByReplacingOccurrencesOfString :@"pre" withString:@"blockquote"];
     
+    BOOL isFirst = YES;
     NSArray *array = [html componentsSeparatedByString:@"<p>"];
     for (int i = 0; i < [array count]; i++) {
         NSString *currentString = [array objectAtIndex:i];
         if(i==1){
             authorDSODentist = [currentString rangeOfString:@"By DSODentist"].location !=NSNotFound;
-        }if(i==2){
-            htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
-        }else if(i>2){
-            htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];
+        }else if(i>=2){
+            if([currentString rangeOfString:@"<iframe"].location !=NSNotFound){
+                continue;
+            }
+            if(isFirst){
+                 htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
+                 isFirst = NO;
+            }else{
+                 htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];
+            }
         }
     }
     

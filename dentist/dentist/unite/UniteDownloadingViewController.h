@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UniteDownloadingViewController : UIViewController
 
 @property (nonatomic,strong) MagazineModel *magazineModel;
+@property (nonatomic,strong) NSArray *datas;//test property
 
 @end
 

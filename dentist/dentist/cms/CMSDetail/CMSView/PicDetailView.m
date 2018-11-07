@@ -12,6 +12,7 @@
 #import "YBImageBrowser.h"
 #import "DentistImageBrowserToolBar.h"
 #import "Proto.h"
+#import "UIButton+WebCache.h"
 
 @interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate>
 {
@@ -28,10 +29,15 @@
     UILabel *titleLabel;
     UILabel *nameLabel;
     UILabel *addressLabel;
+    UILabel *byLabel;
     WKWebView *contentWebView;
     UIView *view;
+    UIView *imageScrollPView;
     UIScrollView *imageScroll;
     BOOL allowZoom;
+    BOOL authorDSODentist;
+    
+    NSArray *imageArray;
 }
 
 - (instancetype)init {
@@ -85,27 +91,26 @@
     [self addSubview:view];
     [[[[[view.layoutMaker leftParent:0] rightParent:0] below:lineLabel offset:0] heightEq:58] install];
     
-    UILabel *byLabel = view.addLabel;
+    byLabel = view.addLabel;
+    byLabel.font = [Fonts semiBold:18];
     byLabel.text = @"By";
     [[[[byLabel.layoutMaker sizeEq:30 h:58] leftParent:edge] topParent:0] install];
     
     headerImg = [UIImageView new];
     [view addSubview:headerImg];
-    [[[[headerImg.layoutMaker sizeEq:32 h:32] toRightOf:byLabel offset:0] centerYParent:0] install];
-    
-    headerImg.layer.cornerRadius = 16;
+    [[[[headerImg.layoutMaker sizeEq:110 h:22] toRightOf:byLabel offset:0] centerYParent:0] install];
     headerImg.layer.masksToBounds = YES;
     
     nameLabel = [view addLabel];
     nameLabel.font = [Fonts semiBold:12];
     [nameLabel textColorMain];
-    [[[[[nameLabel.layoutMaker topParent:edge / 2 + 2] toRightOf:headerImg offset:8] rightParent:-edge] heightEq:16] install];
+    [[[[[nameLabel.layoutMaker topParent:edge / 2 + 2] leftParent:edge] rightParent:-edge] heightEq:16] install];
     
     addressLabel = [view addLabel];
     [addressLabel textAlignLeft];
     addressLabel.font = [Fonts regular:12];
     [addressLabel textColorAlternate];
-    [[[[[addressLabel.layoutMaker topParent:edge / 2 + 18] toRightOf:headerImg offset:8] rightParent:-edge] heightEq:16] install];
+    [[[[[addressLabel.layoutMaker topParent:edge / 2 + 18] leftParent:edge] rightParent:-edge] heightEq:16] install];
     
     UILabel *lineLabel2 = [view lineLabel];
     [[[[[lineLabel2.layoutMaker leftParent:edge] rightParent:0] topParent:57] heightEq:1] install];
@@ -127,91 +132,101 @@
     [self addSubview:mywebView];
     [[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] below:view offset:5] install];
     
-    UILabel *lineLabel3 = [self lineLabel];
-    [[[[[lineLabel3.layoutMaker leftParent:0] rightParent:0] below:mywebView offset:25] heightEq:1] install];
-    
     [self moreView];
     [self createStarView];
+
     
     return self;
 }
 
 - (void)moreView{
     
-    UIView *moreView = [UIView new];
-    [self addSubview:moreView];
-    [[[[[[moreView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:202] below:mywebView offset:26] install];
-    UILabel *conLabel = [moreView addLabel];
+    imageScrollPView = [UIView new];
+    [self addSubview:imageScrollPView];
+    [[[[[[imageScrollPView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:202] below:mywebView offset:26] install];
+    
+    UILabel *lineLabelTop = [imageScrollPView lineLabel];
+    [[[[[lineLabelTop.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
+
+    [self setImageScrollData:nil];
+}
+
+-(void)setImageScrollData:(NSArray*)data{
+    imageArray = data;
+    if(data==nil||data.count==0){
+        imageScrollPView.hidden = YES;
+        [[imageScrollPView.layoutUpdate heightEq:0]install];
+        return;
+    }
+    
+    UILabel *conLabel = [imageScrollPView addLabel];
+
     conLabel.font = [Fonts regular:12];
     [conLabel textColorAlternate];
     conLabel.text = @"Gallery";
     [[[[[conLabel.layoutMaker leftParent:18] widthEq:100] topParent:0] heightEq:50] install];
     
-    UILabel *picNumLab = [moreView addLabel];
+    UILabel *picNumLab = [imageScrollPView addLabel];
     picNumLab.font = [Fonts regular:12];
     [picNumLab textColorAlternate];
-    picNumLab.text = @"6 images";
+
+    picNumLab.text = [NSString stringWithFormat:@"%lu images",imageArray.count];
+
     [[[[picNumLab.layoutMaker rightParent:-18] topParent:0] heightEq:50] install];
     
-    imageScroll = [moreView addScrollView];
+    imageScroll = [imageScrollPView addScrollView];
     [[[[[imageScroll.layoutMaker leftParent:0] rightParent:0] below:conLabel offset:0] heightEq:140] install];
     
-    NSArray *imageArray = @[
-                            @"slide-1",
-                            @"slide-2",
-                            @"slide-3",
-                            @"slide-4",
-                            @"slide-5"];
     
     for (int i = 0; i < imageArray.count; i++) {
-        UIButton *imgBtn = [UIButton new];
+        UIImageView *imgBtn = [UIImageView new];
         imgBtn.tag = 10+i;
-        [imgBtn setImage:[UIImage imageNamed:imageArray[i]] forState:UIControlStateNormal];
-        [imgBtn addTarget:self action:@selector(imgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [imgBtn loadUrl:((NSDictionary*)imageArray[i])[@"thumbnailUrl"] placeholderImage:@""];
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgBtnClick:)];
+        [imgBtn addGestureRecognizer:singleTap];
+
         imgBtn.frame = CGRectMake(EDGE + (133 + 10) * i, 4, 133, 133);
-        imgBtn.imageView.contentMode=UIViewContentModeScaleAspectFill;
-        imgBtn.imageView.clipsToBounds=YES;
+        imgBtn.contentMode=UIViewContentModeScaleAspectFill;
+        imgBtn.clipsToBounds=YES;
+        imgBtn.userInteractionEnabled = YES;
         [imageScroll addSubview:imgBtn];
+        
     }
     
     imageScroll.contentSize = CGSizeMake(EDGE + (133 + 10) * imageArray.count, imageScroll.frame.size.height);
 
     
-    UILabel *lineLabel4 = [self lineLabel];
-    [[[[[lineLabel4.layoutMaker leftParent:0] rightParent:0] below:imageScroll offset:28] heightEq:1] install];
+    imageScrollPView.hidden = NO;
+    [[imageScrollPView.layoutUpdate heightEq:202]install];
+
 }
 
-- (void)imgBtnClick:(UIButton *)btn
+- (void)imgBtnClick:(UITapGestureRecognizer *)tap
 {
-    [self showImageBrowser:btn.tag-10];
+    [self showImageBrowser: ((UIImageView*) tap.view).tag-10];
 }
 
 -(void)showImageBrowser:(NSInteger)index
 {
     NSInteger tempindex;
+    NSMutableArray *browserDataArr = [NSMutableArray array];
     
-    NSArray *dataArray = @[
-                           @"https://www.dsodentist.com/assets/images/slide/slide-1.jpg",
-                           @"https://www.dsodentist.com/assets/images/slide/slide-2.jpg",
-                           @"https://www.dsodentist.com/assets/images/slide/slide-3.jpg",
-                           @"https://www.dsodentist.com/assets/images/slide/slide-4.jpg",
-                           @"https://www.dsodentist.com/assets/images/slide/slide-5.jpg"];
-    if (index>0 && index <dataArray.count) {
+    if (index>0 && index <imageArray.count) {
         tempindex=index;
     }
-    NSMutableArray *browserDataArr = [NSMutableArray array];
-    [dataArray enumerateObjectsUsingBlock:^(NSString *_Nonnull urlStr, NSUInteger idx, BOOL * _Nonnull stop) {
-        
+    
+    for (int i=0;i<imageArray.count; i++) {
         YBImageBrowseCellData *data = [YBImageBrowseCellData new];
-        data.url = [NSURL URLWithString:urlStr];
+        data.url = [NSURL URLWithString:((NSDictionary*)imageArray[i])[@"originalUrl"]];
         [browserDataArr addObject:data];
-    }];
+    }
     
     YBImageBrowser *browser = [YBImageBrowser new];
     browser.dataSourceArray = browserDataArr;
     browser.currentIndex = index;
     DentistImageBrowserToolBar *toolBar = [DentistImageBrowserToolBar new];
-    toolBar.detailArray=@[@"Welcome",@"Reduce Plaque and Gingivitis",@"Today's Peer to Peer community...",@"Understanding the DSO Practice Model",@"All the support I need..."];
+//    toolBar.detailArray=@[@"Welcome",@"Reduce Plaque and Gingivitis",@"Today's Peer to Peer community...",@"Understanding the DSO Practice Model",@"All the support I need..."];
     browser.toolBars = @[toolBar];
     browser.sheetView = nil;
     [browser show];
@@ -222,10 +237,15 @@
     UIView *starView = [UIView new];
     starView.backgroundColor = rgb255(248, 248, 248);
     [self addSubview:starView];
-    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:imageScroll offset:26] install];
+
+    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:imageScrollPView offset:26] install];
+    
+    UILabel *lineLabeltop = [starView lineLabel];
+    [[[[[lineLabeltop.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
     
     _bgBtn = starView.addButton;
-    [[[[[_bgBtn.layoutMaker leftParent:0] rightParent:0] sizeEq:SCREENWIDTH h:100] below:imageScroll offset:26] install];
+    [[[[[_bgBtn.layoutMaker leftParent:0] rightParent:0] sizeEq:SCREENWIDTH h:100] topParent:0] install];
+
     
     UILabel *finLabel = [starView addLabel];
     finLabel.font = [Fonts regular:12];
@@ -264,17 +284,35 @@
         urlstr=[Proto getFileUrlByObjectId:bindInfo.featuredMediaId];
     }
     [imageView loadUrl:urlstr placeholderImage:@"art-img"];
-    [headerImg loadUrl:@"http://app800.cn/i/p.png" placeholderImage:@"user_img"];
+    [headerImg setImageName:@"author_dsodentist"];
     titleLabel.text = bindInfo.title;
-    nameLabel.text = [NSString stringWithFormat:@"%@ %@",bindInfo.author.firstName,bindInfo.author.lastName];
-    addressLabel.text = bindInfo.author.authorDetails;
+    
     
     [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
+    
+    if(authorDSODentist){
+        byLabel.hidden = NO;
+        headerImg.hidden = NO;
+        nameLabel.hidden = YES;
+        addressLabel.hidden = YES;
+    }else{
+        byLabel.hidden = YES;
+        headerImg.hidden = YES;
+        nameLabel.hidden = NO;
+        addressLabel.hidden = NO;
+        nameLabel.text = [NSString stringWithFormat:@"By %@ %@",bindInfo.author.firstName,bindInfo.author.lastName];
+        addressLabel.text = bindInfo.author.authorDetails;
+    }
+    
     if (bindInfo.isBookmark) {
         [_markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{
         [_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
+    
+    //处理图片
+    [self setImageScrollData:bindInfo.photoUrls];
+
 }
 
 - (NSString *)htmlString:(NSString *)html
@@ -288,7 +326,9 @@
     NSArray *array = [html componentsSeparatedByString:@"<p>"];
     for (int i = 0; i < [array count]; i++) {
         NSString *currentString = [array objectAtIndex:i];
-        if(i==2){
+        if(i==1){
+            authorDSODentist = [currentString rangeOfString:@"By DSODentist"].location !=NSNotFound;
+        }if(i==2){
             htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
         }else if(i>2){
             htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];

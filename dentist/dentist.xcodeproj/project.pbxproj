@@ -200,6 +200,7 @@
 		4EBCE724212FD1CE00A0672D /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBCE723212FD1CE00A0672D /* Photos.framework */; };
 		4EBE5E83219036E000BFD01E /* UniteArticleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE5E82219036E000BFD01E /* UniteArticleTableViewCell.m */; };
 		4EBE5E862190385200BFD01E /* UniteArticles.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE5E852190385200BFD01E /* UniteArticles.m */; };
+		4EBE5E892192E7FA00BFD01E /* SliderListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE5E882192E7FA00BFD01E /* SliderListView.m */; };
 		4EE025452151EE5800BBD290 /* CMSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE025442151EE5800BBD290 /* CMSDetailViewController.m */; };
 		4EE025502151F59400BBD290 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0254F2151F59400BBD290 /* PlayerView.m */; };
 		4EE52D6C2154CFA10076DC3D /* desc@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE52D6A2154CFA00076DC3D /* desc@3x.png */; };
@@ -978,6 +979,8 @@
 		4EBE5E82219036E000BFD01E /* UniteArticleTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteArticleTableViewCell.m; sourceTree = "<group>"; };
 		4EBE5E842190385200BFD01E /* UniteArticles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniteArticles.h; sourceTree = "<group>"; };
 		4EBE5E852190385200BFD01E /* UniteArticles.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteArticles.m; sourceTree = "<group>"; };
+		4EBE5E872192E7FA00BFD01E /* SliderListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SliderListView.h; sourceTree = "<group>"; };
+		4EBE5E882192E7FA00BFD01E /* SliderListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SliderListView.m; sourceTree = "<group>"; };
 		4EE025432151EE5800BBD290 /* CMSDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMSDetailViewController.h; sourceTree = "<group>"; };
 		4EE025442151EE5800BBD290 /* CMSDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSDetailViewController.m; sourceTree = "<group>"; };
 		4EE0254E2151F59400BBD290 /* PlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
@@ -2951,6 +2954,8 @@
 				4E33ACD82190183E00E4CF7E /* SliderListViewController.m */,
 				A3729570219124D000B36409 /* ThumAndDetailViewController.h */,
 				A3729571219124D000B36409 /* ThumAndDetailViewController.m */,
+				4EBE5E872192E7FA00BFD01E /* SliderListView.h */,
+				4EBE5E882192E7FA00BFD01E /* SliderListView.m */,
 			);
 			path = unite;
 			sourceTree = "<group>";
@@ -3636,6 +3641,7 @@
 				A3DF39A02189A280006F84DC /* ExpandingTableViewController.swift in Sources */,
 				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,
 				4E33ACC5218AE95000E4CF7E /* UniteDetailViewController.m in Sources */,
+				4EBE5E892192E7FA00BFD01E /* SliderListView.m in Sources */,
 				A3A5B33D218D625700242E71 /* ThumTableViewController.swift in Sources */,
 				C5EEA9E893F712BA5CC4938D /* TextSize.m in Sources */,
 				3E49F915214569D000F32146 /* EditExperiencePage.m in Sources */,
@@ -4048,7 +4054,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
@@ -4100,7 +4106,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 6Q9M9K233P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",

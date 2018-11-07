@@ -12,6 +12,7 @@
 #import "IIViewDeckController.h"
 #import "AppDelegate.h"
 #import "dentist-Swift.h"
+#import "SliderListView.h"
 
 @interface UniteDownloadingViewController (){
     UIImageView *coverImgView;
@@ -21,6 +22,8 @@
     UIButton *downloadingBtn;
     UIButton *downloadBtn;
     UIButton *cancelBtn;
+    
+    BOOL isShow;
 }
 
 @end
@@ -117,7 +120,19 @@
 }
 
 - (UIBarButtonItem *)menuButton {
-    return [self navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenuAnoSide:)];
+    return [self navBarImage:@"menu" target:self action:@selector(rightBtnClick)];
+}
+
+- (void)rightBtnClick
+{
+    if (!isShow) {
+        [[SliderListView sharedInstance:self.view] showSliderView];
+        isShow = YES;
+    }else
+    {
+        [[SliderListView sharedInstance:self.view] hideSliderView];
+        isShow = NO;
+    }
 }
 
 -(void)downloadBtnAction{
@@ -151,12 +166,12 @@
     downloadingBtn.hidden = NO;
     cancelBtn.hidden = NO;
     
-    WeakSelf
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        ThumViewController *thumvc=[ThumViewController new];
-        thumvc.modelarr=weakSelf.datas;
-        [weakSelf.navigationController pushViewController:thumvc animated:YES];
-    });
+//    WeakSelf
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        ThumViewController *thumvc=[ThumViewController new];
+//        thumvc.modelarr=weakSelf.datas;
+//        [weakSelf.navigationController pushViewController:thumvc animated:YES];
+//    });
 
 }
 

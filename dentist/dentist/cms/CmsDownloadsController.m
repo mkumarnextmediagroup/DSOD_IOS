@@ -19,10 +19,11 @@
 {
     NSInteger selectIndex;
     NSMutableArray *ls;
-    NSString *categorytext;
-    NSString *typetext;
+    NSString *categoryId;
+    NSString *contentTypeId;
     CGFloat rowheight;
     CMSModel *selectModel;
+    UIView *nullFilterView;
 }
 @end
 @implementation CmsDownloadsController {
@@ -38,11 +39,12 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    categorytext=nil;
-    typetext=nil;
-    [[DentistDataBaseManager shareManager] queryCMSCachesList:categorytext contentTypeId:typetext skip:0 completed:^(NSArray * _Nonnull array) {
+    categoryId=nil;
+    contentTypeId=nil;
+    [[DentistDataBaseManager shareManager] queryCMSCachesList:categoryId contentTypeId:contentTypeId skip:0 completed:^(NSArray * _Nonnull array) {
         foreTask(^{
             self.items =array;
+            [self updateFilterView];
         });
         
     }];
@@ -108,6 +110,25 @@
     [[[[filterButton.layoutMaker topParent:4] rightParent:-15] sizeEq:24 h:24] install];
     [filterButton onClick:self action:@selector(clickFilter:)];
     return panel;
+}
+
+-(void)updateFilterView
+{
+    if (!nullFilterView) {
+        CGFloat _topBarH = 0;
+        if (self.navigationController != nil) {
+            _topBarH = NAVHEIGHT;
+        }
+        nullFilterView=[self makeHeaderView];
+        nullFilterView.frame=makeRect(0, _topBarH, SCREENWIDTH, 32);
+        [self.view addSubview:nullFilterView];
+        nullFilterView.hidden=YES;
+    }
+    if (self.items.count==0 && (self->categoryId || self->contentTypeId) ) {
+        nullFilterView.hidden=NO;
+    }else{
+        nullFilterView.hidden=YES;
+    }
 }
 
 - (Class)viewClassOfItem:(NSObject *)item {
@@ -184,6 +205,7 @@
                     NSMutableArray *temparr=[NSMutableArray arrayWithArray:self.items];
                     [temparr removeObject:self->selectModel];
                     self.items=[temparr copy];
+                    [self updateFilterView];
                 }
             });
             
@@ -198,11 +220,12 @@
     DentistFilterView *filterview=[[DentistFilterView alloc] init];
     [filterview show:^(NSString *category, NSString *type) {
     }select:^(NSString *category, NSString *type) {
-        self->categorytext=category;
-        self->typetext=type;
-        [[DentistDataBaseManager shareManager] queryCMSCachesList:self->categorytext contentTypeId:self->typetext skip:self.items.count completed:^(NSArray * _Nonnull array) {
+        self->categoryId=category;
+        self->contentTypeId=type;
+        [[DentistDataBaseManager shareManager] queryCMSCachesList:self->categoryId contentTypeId:self->contentTypeId skip:0 completed:^(NSArray * _Nonnull array) {
             foreTask(^{
                 self.items =array;
+                [self updateFilterView];
             });
         }];
     }];

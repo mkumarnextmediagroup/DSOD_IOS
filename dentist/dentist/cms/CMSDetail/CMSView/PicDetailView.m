@@ -13,6 +13,7 @@
 #import "DentistImageBrowserToolBar.h"
 #import "Proto.h"
 #import "UIButton+WebCache.h"
+#import "CMSDetailViewController.h"
 
 @interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate>
 {
@@ -369,6 +370,8 @@
         }
     }
     
+    //地址跳转测试
+//    htmlString = [NSString stringWithFormat:@"%@%@",htmlString,@"<p><a href=\"dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=5be29d5f0e88c608b8186e52\">Converting Invisalign brand online consumers to new patients</a></p>"];
     return htmlString;
     
 }
@@ -400,6 +403,68 @@
         }];
     }];
 }
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+  
+    return [self handleCustomAction:request.URL];
+}
+
+-(BOOL)handleCustomAction:(NSURL*)URL{
+    //dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=5be29d5f0e88c608b8186e52
+    
+    NSString *localScheme = @"dsodentistapp";
+    NSString *localSchemeAndHost = [NSString stringWithFormat:@"%@://%@/",localScheme,@"com.thenextmediagroup.dentist"];
+
+    NSString *scheme = [URL scheme];
+    NSString *urlStr = [URL absoluteString];
+    NSLog(@"%@",urlStr);
+    if([urlStr isEqualToString:@"about:blank"]){
+        return YES;
+    }
+
+    NSRange range = [urlStr rangeOfString:localSchemeAndHost];
+    if ([scheme isEqualToString:localScheme] && range.location != NSNotFound) {
+        NSString *actionAndParams = [urlStr substringFromIndex:range.length];
+        NSArray *array = [actionAndParams componentsSeparatedByString:@"?"];
+        NSString *action = array[0];
+        NSDictionary *paramDic = nil;
+        if(array.count>1){
+            paramDic = [self strToParamDic:array[1]];
+        }
+        
+        NSLog(@"aciton=%@,dic=%@",action,paramDic);
+        //处理ation
+        if([action isEqualToString:@"openCMSDetail"]){
+            [self openCMSDetail:paramDic];
+        }
+    }
+    return NO;
+}
+
+-(NSDictionary*)strToParamDic:(NSString*)str{
+    NSMutableDictionary *paramDic = [NSMutableDictionary new];
+    NSArray *paramArray = [str componentsSeparatedByString:@"&"];
+    for(int i=0;i<paramArray.count;i++){
+        NSString *itemStr = paramArray[i];
+        NSArray *arr = [itemStr componentsSeparatedByString:@"="];
+        if(arr.count>=2){
+            paramDic[arr[0]] = arr[1];
+        }
+    }
+    return [paramDic copy];
+}
+
+-(void)openCMSDetail:(NSDictionary*)paramDic{
+    
+    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+    
+    newVC.contentId = paramDic[@"articleId"];
+    newVC.toWhichPage = @"pic";
+
+    [self.vc.navigationController pushViewController:newVC animated:YES];
+}
+
+
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {

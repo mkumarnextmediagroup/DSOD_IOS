@@ -920,6 +920,7 @@
     {
         skip=(pageNumber-1)*limit;
     }
+//    email=getLastAccount();
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
     [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
@@ -1352,6 +1353,8 @@
     }
     
 }
+
+//
 
 //MARK:获取单个文件（ADMIN PORTAL Only）
 +(NSString *)getFileUrlByObjectId:(NSString *)objectid
@@ -1975,6 +1978,21 @@
         }
     }
     return resultArray;
+}
+
+//MARK:查询杂志详情接口
++ (void)queryMagazinesDetail:(NSString *)magazineId completed:(void(^)(MagazineModel *model))completed
+{
+    [self postAsync:@"magazine/magazineId" dic:@{@"id": magazineId} modular:@"cms" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSDictionary *dic = r.resultMap[@"data"];
+            MagazineModel *detail = [[MagazineModel alloc] initWithJson:jsonBuild(dic)];
+            if (completed) {
+                completed(detail);
+            }
+        }
+    }];
+    
 }
 
 @end

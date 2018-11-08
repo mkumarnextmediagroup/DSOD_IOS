@@ -16,6 +16,7 @@
 @class StateCity;
 @class Article;
 @class BookmarkModel;
+@class MagazineModel;
 
 @interface Proto : NSObject
 
@@ -261,5 +262,6 @@
 
 //MARK:get the unite detail 
 + (DetailModel *)queryForUniteDetailInfo:(NSString *)contentId;
-
+//MARK:查询杂志详情接口
++ (void)queryMagazinesDetail:(NSString *)magazineId completed:(void(^)(MagazineModel *model))completed;
 @end

@@ -35,7 +35,6 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 //    [self setupNavigation];
     //自动网格布局
     UICollectionViewFlowLayout * flowLayout = [[UICollectionViewFlowLayout alloc]init];
-    
     //设置单元格大小
     flowLayout.itemSize = CGSizeMake(self.view.frame.size.width, collectheight);
     //最小行间距(默认为10)
@@ -51,6 +50,8 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     _collectionView=[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
     _collectionView.showsHorizontalScrollIndicator = NO;
     _collectionView.backgroundColor=[UIColor whiteColor];
+    _collectionView.pagingEnabled = YES;
+     _collectionView.contentSize = CGSizeMake(3 * self.view.frame.size.width, 0);
     [self.view addSubview:_collectionView];
     
     //设置数据源代理
@@ -155,14 +156,14 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    NSLog(@"=====scrollViewDidEndDecelerating=%F",scrollView.contentOffset.x);
-    CGFloat xw=scrollView.contentOffset.x+SCREENWIDTH;
-    NSInteger row=floorf(xw/scrollView.contentSize.width)+1;
-    NSLog(@"=====scrollViewDidEndDecelerating=%f;row=%@",scrollView.contentOffset.x,@(row));
-    if (scrollView.contentOffset.x<=SCREENWIDTH/2) {
-        row=0;
-    }
-    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
+//    NSLog(@"=====scrollViewDidEndDecelerating=%F",scrollView.contentOffset.x);
+//    CGFloat xw=scrollView.contentOffset.x+SCREENWIDTH;
+//    NSInteger row=floorf(xw/scrollView.contentSize.width)+1;
+//    NSLog(@"=====scrollViewDidEndDecelerating=%f;row=%@",scrollView.contentOffset.x,@(row));
+//    if (scrollView.contentOffset.x<=SCREENWIDTH/2) {
+//        row=0;
+//    }
+//    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
 }
 
 @end

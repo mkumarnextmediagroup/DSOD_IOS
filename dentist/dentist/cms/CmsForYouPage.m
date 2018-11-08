@@ -390,7 +390,10 @@
         [Proto queryAllContentsByContentType:self->contenttype pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
-                self.items=array;
+                if (array && array.count>0) {
+                    self.items=array;
+                }
+                
             });
         }];
     }];
@@ -608,7 +611,10 @@
         [Proto queryAllContentsByContentType:self->contenttype pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
-                self.items=array;
+                if (array && array.count>0) {
+                    self.items=array;
+                }
+                
             });
         }];
     }

@@ -92,11 +92,11 @@
 -(void)queryDetailCmsCaches:(NSString *)articleid completed:(void(^)(DetailModel *model))completed
 {
     [_dbQueue inDatabase:^(FMDatabase *db) {
-        [db open];
+        
         NSString *jsontext = [db stringForQuery:@"SELECT jsontext FROM t_CMSCaches WHERE id = ?", articleid];
         DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
         detail.discussInfos = [self commentConvertDiscussInfo:detail.comment];
-        [db close];
+        
         if (completed) {
             completed(detail);
         }
@@ -126,7 +126,7 @@
 {
     NSInteger limit=20;
     [_dbQueue inDatabase:^(FMDatabase *db) {
-        [db open];
+        
         FMResultSet *resultSet;
         resultSet = [db executeQuery:@"SELECT * FROM t_CMSCaches order by createdate desc limit ? offset ?",[NSNumber numberWithInteger:limit],[NSNumber numberWithInteger:skip]];
         NSMutableArray *tmpArr = [NSMutableArray array];
@@ -142,7 +142,7 @@
             model.downstatus=[NSString stringWithFormat:@"%@",@([resultSet intForColumn:@"downstatus"])];
             [tmpArr addObject:model];
         }
-        [db close];
+        
         if (completed) {
             completed(tmpArr);
         }
@@ -153,7 +153,7 @@
 {
     NSInteger limit=20;
     [_dbQueue inDatabase:^(FMDatabase *db) {
-        [db open];
+        
         FMResultSet *resultSet;
         if(![NSString isBlankString:categoryId] && ![NSString isBlankString:contentTypeId]){
             resultSet = [db executeQuery:@"SELECT * FROM t_CMSCaches where categoryId = ? and contentTypeId = ? order by createdate desc limit ? offset ?",categoryId,contentTypeId,[NSNumber numberWithInteger:limit],[NSNumber numberWithInteger:skip]];
@@ -178,7 +178,7 @@
             model.downstatus=[NSString stringWithFormat:@"%@",@([resultSet intForColumn:@"downstatus"])];
             [tmpArr addObject:model];
         }
-        [db close];
+        
         if (completed) {
             completed(tmpArr);
         }
@@ -190,9 +190,9 @@
 {
     if (![NSString isBlankString:cmsmodel.id]) {
         [_dbQueue inDatabase:^(FMDatabase *db) {
-            [db open];
+            
             if ([self CheckIsHasDown:db articleid:cmsmodel.id]) {
-                [db close];
+                
                 if (completed) {
                     completed(YES);
                 }
@@ -207,7 +207,7 @@
                     urlstr = cmsmodel.featuredMedia[@"code"];
                 }
                 BOOL result = [db executeUpdate:@"INSERT INTO t_CMSCaches (id,title, featuredMediaId,contentTypeId,categoryId,contentTypeName,categoryName,downstatus) VALUES (?,?, ?, ?, ?, ?, ?,?)", cmsmodel.id,cmsmodel.title,urlstr,cmsmodel.contentTypeId,cmsmodel.categoryId,cmsmodel.contentTypeName,cmsmodel.categoryName,[NSNumber numberWithInteger:1]];
-                [db close];
+                
                 if (completed) {
                     completed(result);
                 }
@@ -230,9 +230,9 @@
 {
     if (![NSString isBlankString:articleid] && ![NSString isBlankString:jsontext]) {
         [_dbQueue inDatabase:^(FMDatabase *db) {
-            [db open];
+            
             BOOL result = [db executeUpdate:@"INSERT INTO t_CMSCaches (id, jsontext) VALUES (?, ?)", articleid,jsontext];
-            [db close];
+            
             if (completed) {
                 completed(result);
             }
@@ -253,14 +253,14 @@
 {
     if (![NSString isBlankString:articleid] && ![NSString isBlankString:jsontext]) {
         [_dbQueue inDatabase:^(FMDatabase *db) {
-            [db close];
+            
             BOOL result = [db executeUpdate:@"UPDATE t_CMSCaches set jsontext =?,downstatus=5 where id=? ", jsontext,articleid];
             if (result) {
                 [self postStateChangeNotificationWithDatabase:db articleid:articleid status:5];
             }else {
                 NSLog(@"更新cms失败");
             }
-            [db close];
+            
             if (completed) {
                 completed(result);
             }
@@ -288,9 +288,9 @@
 {
     if (model) {
         [_dbQueue inDatabase:^(FMDatabase *db) {
-            [db open];
+            
             NSInteger status = [db intForQuery:@"SELECT 1 FROM t_CMSCaches WHERE id = ?", model.id];
-            [db close];
+            
             if (completed) {
                 completed(status);
             }
@@ -326,9 +326,9 @@
 {
     if (![NSString isBlankString:articleid]) {
         [_dbQueue inDatabase:^(FMDatabase *db) {
-            [db close];
+            
             BOOL result = [db executeUpdate:@"delete from t_CMSCaches where id= ? ",articleid];
-            [db close];
+            
             if (completed) {
                 completed(result);
             }
@@ -349,19 +349,16 @@
 //MARK: 更新数据缓存记录
 -(void)updateContentCaches:(NSString *)key jsontext:(NSString *)jsontext completed:(void (^)(BOOL result))completed{
     [_dbQueue inDatabase:^(FMDatabase *db) {
-        [db open];
         NSInteger status = [db intForQuery:@"SELECT 1 FROM t_CMSContentCaches WHERE id = ?", key];
         if (status==1) {
             //存在该记录更新
             BOOL result = [db executeUpdate:@"UPDATE t_CMSContentCaches set jsontext =? where id=? ", jsontext,key];
-            [db close];
             if (completed) {
                 completed(result);
             }
         }else{
            //添加
             BOOL result = [db executeUpdate:@"INSERT INTO t_CMSContentCaches (id, jsontext) VALUES (?, ?)", key,jsontext];
-            [db close];
             if (completed) {
                 completed(result);
             }
@@ -374,7 +371,6 @@
 {
     FMDatabaseQueue *newqueue=[FMDatabaseQueue databaseQueueWithPath:[self getTableFilePath]];
     [newqueue inDatabase:^(FMDatabase *db) {
-        [db open];
         NSString *jsontext = [db stringForQuery:@"SELECT jsontext FROM t_CMSContentCaches WHERE id = ?", key];
         NSArray *arr = jsonParseObject(jsontext);
         NSMutableArray *resultArray = [NSMutableArray array];
@@ -384,7 +380,6 @@
                 [resultArray addObject:item];
             }
         }
-        [db close];
         if (completed) {
             completed(resultArray);
         }
@@ -395,10 +390,8 @@
 {
     FMDatabaseQueue *newqueue=[FMDatabaseQueue databaseQueueWithPath:[self getTableFilePath]];
     [newqueue inDatabase:^(FMDatabase *db) {
-        [db open];
         NSString *jsontext = [db stringForQuery:@"SELECT jsontext FROM t_CMSContentCaches WHERE id = ?", key];
         NSArray *arr = jsonParseObject(jsontext);
-        [db close];
         if (completed) {
             completed(arr);
         }
@@ -409,7 +402,6 @@
     
     FMDatabaseQueue *newqueue=[FMDatabaseQueue databaseQueueWithPath:[self getTableFilePath]];
     [newqueue inDatabase:^(FMDatabase *db) {
-        [db open];
         NSString *key=@"findAllContentType";
         NSString *jsontext = [db stringForQuery:@"SELECT jsontext FROM t_CMSContentCaches WHERE id = ?", key];
         NSArray *arr = jsonParseObject(jsontext);
@@ -418,7 +410,6 @@
             IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
             [resultArray addObject:item];
         }
-        [db close];
         if (completed) {
             completed(resultArray);
         }
@@ -429,7 +420,6 @@
     
     FMDatabaseQueue *newqueue=[FMDatabaseQueue databaseQueueWithPath:[self getTableFilePath]];
     [newqueue inDatabase:^(FMDatabase *db) {
-        [db open];
         NSString *key=@"findAllCategory";
         NSString *jsontext = [db stringForQuery:@"SELECT jsontext FROM t_CMSContentCaches WHERE id = ?", key];
         NSArray *arr = jsonParseObject(jsontext);
@@ -438,7 +428,6 @@
             IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
             [resultArray addObject:item];
         }
-        [db close];
         if (completed) {
             completed(resultArray);
         }

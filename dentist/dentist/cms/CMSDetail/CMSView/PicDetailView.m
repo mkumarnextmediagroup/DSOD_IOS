@@ -329,7 +329,7 @@
 
 - (NSString *)htmlString:(NSString *)html
 {
-    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",
+    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@",
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
                             @"body{padding:0px;margin:0px;background:#ffffff}",
@@ -337,11 +337,13 @@
                             @"p{width:100%;margin: 10px auto;color:#4a4a4a;font-size:1em;}",
                             @"blockquote{color:#4a4a4a;font-size:1.5em;font-weight:bold;margin: 20px 10px 10px 30px;position:relative;line-height:110%;text-indent:0px}",
                             @"blockquote:before{color:#4a4a4a;content:'“';font-size:2em;position:absolute;left:-30px;top:10px;line-height:.1em}",
-                            //@"blockquote:after{color:#4a4a4a;content:'”';font-size:5em;position:absolute;right:15px;bottom:0;line-height:.1em}",
+                            //@"blockquote:after{color:#4a4a4a;content:'”';font-size:5em;position:absolute;right:15px;bottom:0;line-height:.1em}"
+                            @"figure{ margin:0 auto; background:#fff; }",
+                            @"figure img{width:100%;height:''} img{width:100%;height:}",
                             @"</style>"
                             ];
 
-
+    
 
     
     html = [html stringByReplacingOccurrencesOfString :@"pre" withString:@"blockquote"];
@@ -369,6 +371,19 @@
     
     //地址跳转测试
 //    htmlString = [NSString stringWithFormat:@"%@%@",htmlString,@"<p><a href=\"dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=5be29d5f0e88c608b8186e52\">Converting Invisalign brand online consumers to new patients</a></p>"];
+   
+    htmlString = [NSString stringWithFormat:@"%@%@%@%@",
+                  htmlString,
+                  @"<script type=\"text/javascript\">",
+                  @"var figureArr = document.getElementsByTagName('figure');",
+                  @"for (let i = 0;i < figureArr.length;i++){figureArr[i].style.width = '100%'}"
+                  @"</script>"
+                  ];
+    
+//    var aArr = document.getElementsByTagName("a");
+//    aArr[0].href='http://qq.com';
+//    alert(aArr[0].innerText);
+//
     return htmlString;
     
 }

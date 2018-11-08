@@ -208,6 +208,9 @@
 }
 
 - (void)buildViews {
+    if(!self.articleInfo){
+        return;
+    }
     
 //    if ([self.toWhichPage isEqualToString:@"mo"]) {
 //        playView = [PlayerView new];

@@ -149,15 +149,22 @@
 -(void)bindCMS:(CMSModel *)item
 {
     _cmsmodel=item;
-//    [gskBtn setTitle:@"   Sponsored content brought to you by GSK" forState:UIControlStateNormal];
-//    [gskBtn setImage:[UIImage imageNamed:@"gskIcon"] forState:UIControlStateNormal];
+
+    
+    CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
+    [[gskBtn.layoutUpdate heightEq:sponstorimgh] install];
+    
     if ([[_cmsmodel.sponsorName lowercaseString] isEqualToString:@"aln"]) {
         [gskBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_align"] forState:UIControlStateNormal];
-    }else if ([[_cmsmodel.sponsorName lowercaseString] isEqualToString:@"nobel"]) {
+    }else if ([[_cmsmodel.sponsorName lowercaseString] isEqualToString:@"nbl"]) {
         [gskBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_nobel"] forState:UIControlStateNormal];
-    }else{
+    }else if([[_cmsmodel.sponsorName lowercaseString] isEqualToString:@"gsk"]){
         [gskBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_gsk"] forState:UIControlStateNormal];
+    }else{
+        [[gskBtn.layoutUpdate heightEq:0] install];
     }
+
+    
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
     dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];//item.publishDate;
     titleLabel.text = _cmsmodel.title;
@@ -198,6 +205,7 @@
     }
     
     [contentWebView loadHTMLString:[ArticleGSkItemView htmlString:_cmsmodel.content] baseURL:nil];
+
 }
 
 
@@ -210,6 +218,9 @@
                             @"p{width:100%;margin: 5px auto;color:#4a4a4a;font-size:1em;}",
                             @"</style>"
                             ];
+    
+  
+    html = [html stringByReplacingOccurrencesOfString :@"<p>&nbsp;</p>" withString:@""];
     
     BOOL isFirst = YES;
     NSArray *array = [html componentsSeparatedByString:@"<p>"];

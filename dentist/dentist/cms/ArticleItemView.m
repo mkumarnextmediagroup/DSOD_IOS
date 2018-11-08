@@ -10,12 +10,12 @@
 #import <CoreText/CoreText.h>
 #import "CMSModel.h"
 #import "Proto.h"
+#import "ArticleGSkItemView.h"
 
 @implementation ArticleItemView {
 	UILabel *typeLabel;
 	UILabel *dateLabel;
 	UILabel *titleLabel;
-	UILabel *contentLabel;
 	UIImageView *imageView;
     UIImageView *thumbImageView;
 	UIButton *markButton;
@@ -70,26 +70,19 @@
         [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
         [[[[markButton.layoutMaker toLeftOf:_moreButton offset:-edge+5] below:imageView offset:edge] sizeEq:20 h:20] install];
         
-        contentLabel = [self addLabel];
-        contentLabel.font = [Fonts regular:15];
-        [contentLabel textColorMain];
-        //    contentLabel.lineBreakMode=NSLineBreakByWordWrapping;
-        //    [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] bottomParent:-16] install];
-        [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:100] bottomParent:-16] install];
-        
         contentWebView = [WKWebView new];
         //        contentWebView.delegate = self;
         contentWebView.scrollView.scrollEnabled = NO;
         contentWebView.userInteractionEnabled = NO;
         [self addSubview:contentWebView];
-        [[[[[contentWebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:100] bottomParent:-8] install];
+        [[[[[contentWebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:105] bottomParent:-10] install];
         
         moreLabel = [self addLabel];
         moreLabel.font = [Fonts semiBold:15];
         moreLabel.textColor = rgbHex(0x879aa8);
         moreLabel.text = @"...more";
         moreLabel.backgroundColor = UIColor.whiteColor;
-        [[[[moreLabel.layoutMaker rightParent:-edge] heightEq:20]bottomParent:-13] install];
+        [[[[moreLabel.layoutMaker rightParent:-edge] heightEq:20]bottomParent:-10] install];
         
         titleLabel = [self addLabel];
         titleLabel.font = [Fonts semiBold:20];
@@ -97,7 +90,7 @@
         titleLabel.numberOfLines = 0;
         //    [[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] heightEq:24] install];
         //    [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] bottomParent:-103] install];
-        [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] above:contentWebView offset:-23] install];
+        [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] above:contentWebView offset:-15] install];
         
         
     }
@@ -109,8 +102,8 @@
     typeLabel.text = [item.type uppercaseString];
     dateLabel.text = item.publishDate;
     titleLabel.text = item.title;
-//    contentLabel.text = item.content;
-    [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
+
+    [imageView loadUrl:item.resImage placeholderImage:@""];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
     //@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"
@@ -135,21 +128,7 @@
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
     [self layoutIfNeeded];
-//    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
-    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:item.content];
-//    NSLog(@"contentlabel:%@",labelarry);
-    if (labelarry.count>4 && item.content) {
-        NSString *line4String = labelarry[3];
-        NSString *showText = [NSString stringWithFormat:@"%@%@%@%@...more", labelarry[0], labelarry[1], labelarry[2], [line4String substringToIndex:line4String.length-6]];
-        
-        //设置label的attributedText
-        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:showText attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
-        [attStr addAttributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textDisabled} range:NSMakeRange(showText.length-4, 4)];
-        contentLabel.attributedText = attStr;
-    }else{
-        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:item.content attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
-        contentLabel.attributedText = attStr;;
-    }
+
 }
 
 -(void)bindCMS:(CMSModel *)item
@@ -158,7 +137,7 @@
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
     dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];//item.publishDate;
     titleLabel.text = _cmsmodel.title;
-    //    contentLabel.text = item.content;
+    
     NSString* type = _cmsmodel.featuredMedia[@"type"];
     NSString *urlstr;
     if([type isEqualToString:@"1"] ){
@@ -197,77 +176,10 @@
     }else{
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
-//    [self layoutIfNeeded];
-//    NSString *contentstr=[NSString stringWithFormat:@"%@",_cmsmodel.content];
-//    contentstr=[NSString getWithoutHtmlString:contentstr];
-//    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:contentstr];
-//    //    NSLog(@"contentlabel:%@",labelarry);
-//    if (labelarry.count>4 && ![NSString isBlankString:contentstr]) {
-//        NSString *line4String = labelarry[3];
-//        if (line4String.length>=6) {
-//            line4String= [line4String substringToIndex:line4String.length-6];
-//        }
-//        NSString *showText = [NSString stringWithFormat:@"%@%@%@%@...more", labelarry[0], labelarry[1], labelarry[2], line4String];
-//
-//        //设置label的attributedText
-//        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:showText attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
-//        [attStr addAttributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textDisabled} range:NSMakeRange(showText.length-4, 4)];
-//        contentLabel.attributedText = attStr;
-//    }else{
-//        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:contentstr attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
-//        contentLabel.attributedText = attStr;;
-////        contentLabel.text=contentstr;
-//
-//    }
-    contentLabel.hidden = YES;
-    
-    [contentWebView loadHTMLString:[self htmlString:_cmsmodel.content] baseURL:nil];
+
+    [contentWebView loadHTMLString:[ArticleGSkItemView htmlString:_cmsmodel.content] baseURL:nil];
 }
 
-- (NSString *)htmlString:(NSString *)html{
-    NSString *htmlString = @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'><style>body{padding:0px;margin:0px;}.first-big p:first-letter{float: left;font-size:1.9em;padding-right:5px;text-transform:uppercase;color:#4a4a4a;}p{width:100%;color:#4a4a4a;font-size:1em;}</style>";
-    
-    BOOL isFirst = YES;
-    NSArray *array = [html componentsSeparatedByString:@"<p>"];
-    for (int i = 0; i < [array count]; i++) {
-        NSString *currentString = [array objectAtIndex:i];
-        if(i==1){
-            
-            //  <strong>(By By DSODentist)</strong></p >
-            NSRange startRange = [currentString rangeOfString:@"(By "];
-            NSRange endRange = [currentString rangeOfString:@")"];
-            if(startRange.location != NSNotFound
-               && endRange.location != NSNotFound){
-                NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length);
-                htmlString = [NSString stringWithFormat:@"%@<strong>%@</Strong>",htmlString,[currentString substringWithRange:range]];
-                continue;
-            }
-            
-            //  <strong><em>By Dr </em></strong><strong><em>Reem Al Khalil</em></strong></p >
-            startRange = [currentString rangeOfString:@"<em>By"];
-            endRange = [currentString rangeOfString:@"</em>"];
-            if(startRange.location != NSNotFound
-               && endRange.location != NSNotFound){
-                NSRange range = NSMakeRange(startRange.location + startRange.length - 2, endRange.location - startRange.location - startRange.length +2);
-                htmlString = [NSString stringWithFormat:@"%@<strong>%@</Strong>",htmlString,[currentString substringWithRange:range]];
-                continue;
-            }
-            
-            
-        }else if(i>=2){
-            if([currentString rangeOfString:@"<iframe"].location !=NSNotFound){
-                continue;
-            }
-            if(isFirst){
-                htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
-                isFirst = NO;
-            }else{
-                htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];
-            }
-        }
-    }
-    return htmlString;
-}
 
 - (NSArray *)getSeparatedLinesFromLabel:(UILabel *)label text:(NSString *)text
 {

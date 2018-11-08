@@ -293,7 +293,7 @@
 //    itemView.delegate=self;
 //    [itemView bind:art];
     CMSModel *model = (id) item;
-    if (![NSString isBlankString:model.sponsorId]) {
+    if (![NSString isBlankString:model.sponsorId] && ([[model.sponsorId lowercaseString] isEqualToString:@"nobel"] || [[model.sponsorId lowercaseString] isEqualToString:@"gsk"] || [[model.sponsorId lowercaseString] isEqualToString:@"aln"])) {
         ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
         itemView.delegate=self;
         [itemView bindCMS:model];
@@ -332,6 +332,40 @@
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
+-(void)getCachesData:(NSInteger)page
+{
+    [[DentistDataBaseManager shareManager] queryContentTypesCaches:^(NSArray<IdName *> * _Nonnull array) {
+        if (array && array.count>=0 && self->segItemsModel==0) {
+            self->segItemsModel=[NSMutableArray arrayWithArray:array];
+            IdName *latestmodel=[IdName new];
+            latestmodel.id=@"0";
+            latestmodel.name=@"LATEST";
+            [self->segItemsModel insertObject:latestmodel atIndex:0];
+            self->contenttype=nil;
+            foreTask(^() {
+                self->tabView.modelArr=self->segItemsModel;
+            });
+            
+            
+        }
+        
+    }];
+}
+
+-(void)getContentCachesData:(NSInteger)page{
+    if (page==1) {
+        NSString *cacheskey=[NSString stringWithFormat:@"%@_%@",@"findAllContents",(self->contenttype?self->contenttype:@"0")];
+        [[DentistDataBaseManager shareManager] queryAllContentsCaches:cacheskey completed:^(NSArray<CMSModel *> * _Nonnull array) {
+            if (array && array.count>=0) {
+                foreTask(^() {
+                    self.items=array;
+                });
+            }
+        }];
+    }
+}
+
+
 //MARK:刷新数据
 -(void)refreshData
 {
@@ -341,6 +375,7 @@
     segView.selectedSegmentIndex=0;
     self.table.tableHeaderView = [self makeHeaderView];
     [self showIndicator];
+    [self getCachesData:pagenumber];
     [Proto queryContentTypes:^(NSArray<IdName *> *array) {
         self->segItemsModel=[NSMutableArray arrayWithArray:array];
         IdName *latestmodel=[IdName new];
@@ -348,10 +383,13 @@
         latestmodel.name=@"LATEST";
         [self->segItemsModel insertObject:latestmodel atIndex:0];
         self->contenttype=nil;
+        foreTask(^() {
+            self->tabView.modelArr=self->segItemsModel;
+        });
+
         [Proto queryAllContentsByContentType:self->contenttype pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
-                self->tabView.modelArr=self->segItemsModel;
                 self.items=array;
             });
         }];
@@ -566,6 +604,7 @@
         }else{
             self->contenttype=model.id;
         }
+        [self getContentCachesData:self->pagenumber];
         [Proto queryAllContentsByContentType:self->contenttype pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];

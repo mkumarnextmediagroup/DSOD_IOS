@@ -18,6 +18,7 @@
 #import "DiscussInfo.h"
 #import "MagazineModel.h"
 #import "UniteArticles.h"
+#import "DentistDataBaseManager.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -874,7 +875,7 @@
 //MARK:查询媒体列表（CMS_001_01\CMS_001_10）
 + (NSArray<CMSModel *> *)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *)authorId {
     NSInteger skip=0;
-    NSInteger limit=10;//分页数默认20条
+    NSInteger limit=20;//分页数默认20条
     if(pageNumber>=1)
     {
         skip=(pageNumber-1)*limit;
@@ -914,7 +915,7 @@
 
 + (void)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *)authorId completed:(void(^)(NSArray<CMSModel *> *array))completed {
     NSInteger skip=0;
-    NSInteger limit=10;//分页数默认20条
+    NSInteger limit=20;//分页数默认20条
     if(pageNumber>=1)
     {
         skip=(pageNumber-1)*limit;
@@ -941,6 +942,10 @@
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];
+            NSString *cacheskey=[NSString stringWithFormat:@"%@_%@",@"findAllContents",(contentTypeId?contentTypeId:@"0")];
+            NSString *jsontext=jsonBuild(arr);
+            [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+            }];
             for (NSDictionary *d in arr) {
                 CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
                 if (item) {
@@ -1026,6 +1031,10 @@
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];
+            NSString *cacheskey=@"findAllCategory";
+            NSString *jsontext=jsonBuild(arr);
+            [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+            }];
             for (NSDictionary *d in arr) {
                 IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
                 [resultArray addObject:item];
@@ -1056,11 +1065,20 @@
     return resultArray;
 }
 
++(void)queryContentTypesCaches:(void(^)(NSArray<IdName *> *array))completed {
+    
+}
+
 + (void)queryContentTypes:(void(^)(NSArray<IdName *> *array))completed  {
+    
     [self postAsync3:@"category/findAllContentType" dic:nil modular:@"cms" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];
+            NSString *cacheskey=@"findAllContentType";
+            NSString *jsontext=jsonBuild(arr);
+            [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+            }];
             for (NSDictionary *d in arr) {
                 IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
                 [resultArray addObject:item];
@@ -1074,6 +1092,7 @@
             }
         }
     }];
+    
 }
 
 //MARK:添加评论（CMS_002_06）

@@ -137,7 +137,7 @@
 //MARK:查询Content Type（CMS_004_03）
 + (NSArray<IdName *> *_Nullable)queryContentTypes;
 + (void)queryContentTypes:(void(^)(NSArray<IdName *> *array))completed;
-
++(void)queryContentTypesCaches:(void(^)(NSArray<IdName *> *array))completed;
 //MARK:添加评论（CMS_002_06）
 /**
  @param email 邮箱 是否必须:Y

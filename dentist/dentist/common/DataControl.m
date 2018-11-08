@@ -13,8 +13,6 @@
 {
     //异步串行
     dispatch_async(dispatch_queue_create("com.savedatadictionary.event", DISPATCH_QUEUE_SERIAL), ^{
-        //        NSString *fileName = [NSString stringWithFormat:@"Library/Caches/%@",plistName];
-        //        NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:fileName];
         NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
         NSString *cachePath = [NSString stringWithFormat:@"Caches/%@",plistName];
         NSString *fileName = [path stringByAppendingPathComponent:cachePath];
@@ -25,8 +23,6 @@
 
 + (void)saveCacheNormal:(NSDictionary *)dataArr plistName:(NSString *)plistName
 {
-    //    NSString *fileName = [NSString stringWithFormat:@"Library/Caches/%@",plistName];
-    //    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:fileName];
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
     NSString *cachePath = [NSString stringWithFormat:@"Caches/%@",plistName];
     NSString *fileName = [path stringByAppendingPathComponent:cachePath];
@@ -36,7 +32,6 @@
 
 + (NSDictionary *)readPlistOfCache:(NSString *)plistName
 {
-    //    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];//[paths objectAtIndex:0];
     NSString *cachePath = [NSString stringWithFormat:@"Caches/%@",plistName];
     NSString *fileName = [path stringByAppendingPathComponent:cachePath];
@@ -57,8 +52,6 @@
 
 + (void)saveArrayCacheNormal:(NSArray *)dataArr plistName:(NSString *)plistName
 {
-    //    NSString *fileName = [NSString stringWithFormat:@"Library/Caches/%@",plistName];
-    //    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:fileName];
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];//[paths objectAtIndex:0];
     NSString *cachePath = [NSString stringWithFormat:@"Caches/%@",plistName];
     NSString *fileName = [path stringByAppendingPathComponent:cachePath];

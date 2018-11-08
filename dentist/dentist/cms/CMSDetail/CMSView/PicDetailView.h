@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)UIButton *bgBtn;
 @property (nonatomic,strong)UIButton *moreButton;
 @property (nonatomic,strong)UIButton *markButton;
+@property (nonatomic,weak) UIViewController *vc;
 
 -(void)bind:(DetailModel *)bindInfo ;
 - (void)resetLayout;

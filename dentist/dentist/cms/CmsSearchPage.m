@@ -63,6 +63,9 @@
 //MARK:刷新数据
 -(void)refreshData
 {
+    if (self.items.count==0) {
+        self.items=nil;
+    }
     [Proto querySearchResults:searchKeywords skip:0 completed:^(NSArray<CMSModel *> *array) {
         foreTask(^{
             self.items=array;
@@ -275,23 +278,16 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height+50)
     {
-        if (pagenumber>=1) {
-            //在最底部
-            [self showIndicator];
-            backTask(^() {
-                NSInteger newpage=self->pagenumber+1;
-                NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-                NSArray<CMSModel *> *array = [Proto querySearchResults:self->searchKeywords pageNumber:newpage];
+        [Proto querySearchResults:searchKeywords skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
+            foreTask(^{
                 if(array && array.count>0){
+                    NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
                     [newarray addObjectsFromArray:array];
-                    self->pagenumber=newpage;
-                }
-                foreTask(^() {
-                    [self hideIndicator];
                     self.items=[newarray copy];
-                });
+                }
+                
             });
-        }
+        }];
         
     }
 }

@@ -19,6 +19,7 @@
     UILabel *typeLabel;
     UILabel *dateLabel;
     UILabel *titleLabel;
+    UILabel *authorLabel;
     UIWebView *contentWebView;
     UILabel *moreLabel;
     UIImageView *imageView;
@@ -85,27 +86,35 @@
         [[[[markButton.layoutMaker toLeftOf:_moreButton offset:-edge+5] below:gskBtn offset:edge] sizeEq:20 h:20] install];
         
         
+        titleLabel = [self addLabel];
+//        titleLabel.backgroundColor = UIColor.blueColor;
+        titleLabel.font = [Fonts semiBold:20];
+        titleLabel.textColor = rgbHex(0x353f52);
+        titleLabel.numberOfLines = 0;
+        [[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:gskBtn offset:edge-5]  install];
+        
+        authorLabel = [self addLabel];
+//        authorLabel.backgroundColor = UIColor.redColor;
+//        self.backgroundColor = UIColor.greenColor;
+        authorLabel.font = [Fonts semiBold:18];
+        authorLabel.textColor = rgbHex(0x626262);
+        authorLabel.numberOfLines = 0;
+        [[[[authorLabel.layoutMaker leftParent:edge] rightParent:-edge] below:titleLabel offset:5]  install];
+        
+        
         contentWebView = [UIWebView new];
         //        contentWebView.delegate = self;
         contentWebView.scrollView.scrollEnabled = NO;
         contentWebView.userInteractionEnabled = NO;
         [self addSubview:contentWebView];
-        [[[[[contentWebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:105] bottomParent:-10] install];
+        [[[[[[contentWebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:80] below:authorLabel offset:5] bottomParent:-20] install];
         
         moreLabel = [self addLabel];
         moreLabel.font = [Fonts semiBold:15];
         moreLabel.textColor = rgbHex(0x879aa8);
         moreLabel.text = @"...more";
-        moreLabel.backgroundColor = UIColor.whiteColor;
-        [[[[moreLabel.layoutMaker rightParent:-edge] heightEq:20]bottomParent:-10] install];
-        
-        titleLabel = [self addLabel];
-        titleLabel.font = [Fonts semiBold:20];
-        [titleLabel textColorMain];
-        titleLabel.numberOfLines = 0;
-        //    [[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] heightEq:24] install];
-        //    [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] bottomParent:-103] install];
-        [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:gskBtn offset:edge-5] above:contentWebView offset:-15] install];
+        moreLabel.backgroundColor = UIColor.clearColor;
+        [[[[moreLabel.layoutMaker rightParent:-edge] heightEq:15]bottomParent:-5] install];
         
         
     }
@@ -167,6 +176,8 @@
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
     dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];//item.publishDate;
     titleLabel.text = _cmsmodel.title;
+    authorLabel.text = [NSString stringWithFormat:@"By %@ %@",item.author.firstName,item.author.lastName];
+
     
     NSString *urlstr;
     NSString* type = _cmsmodel.featuredMedia[@"type"];
@@ -209,12 +220,14 @@
 
 
 + (NSString *)htmlString:(NSString *)html{
-    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@%@",
+    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@",
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
                             @"body{padding:0px;margin:0px;background:#ffffff;font-family:SFUIText-Regular;}",
-                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:10px;text-transform:uppercase;color:#4a4a4a;}",
-                            @"p{width:100%;margin: 5px auto;color:#4a4a4a;font-size:1em;}",
+                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
+                            @"p{width:100%;margin: 0px auto;color:#4a4a4a;font-size:1em;}",
+                            @"em{font-style:normal}",
+                            @"strong{font-weight:normal} a {text-decoration:none;color:#4a4a4a}",
                             @"</style>"
                             ];
     
@@ -224,32 +237,7 @@
     NSArray *array = [html componentsSeparatedByString:@"<p>"];
     for (int i = 0; i < [array count]; i++) {
         NSString *currentString = [array objectAtIndex:i];
-        if(i==1){
-            //  <strong>(By By DSODentist)</strong></p>
-            //  <strong>(By DSOD Staff)</strong></p>
-            currentString = [currentString stringByReplacingOccurrencesOfString :@"By By" withString:@"By"];
-            currentString = [currentString stringByReplacingOccurrencesOfString :@"By by" withString:@"By"];
-            NSRange startRange = [currentString rangeOfString:@"("];
-            NSRange endRange = [currentString rangeOfString:@")"];
-            if(startRange.location != NSNotFound
-               && endRange.location != NSNotFound){
-                NSRange range = NSMakeRange(startRange.location + startRange.length,
-                                            endRange.location - startRange.location - startRange.length);
-                htmlString = [NSString stringWithFormat:@"%@<strong>%@</Strong>",htmlString,[currentString substringWithRange:range]];
-                continue;
-            }
-            
-            //  <strong><em>By Dr </em></strong><strong><em>Reem Al Khalil</em></strong></p>
-            startRange = [currentString rangeOfString:@"<em>"];
-            endRange = [currentString rangeOfString:@"</em>"];
-            if(startRange.location != NSNotFound
-               && endRange.location != NSNotFound){
-                NSRange range = NSMakeRange(startRange.location + startRange.length,
-                                            endRange.location - startRange.location - startRange.length );
-                htmlString = [NSString stringWithFormat:@"%@<strong>%@</Strong>",htmlString,[currentString substringWithRange:range]];
-                continue;
-            }
-        }else if(i>=2){
+        if(i>0){
             if([currentString rangeOfString:@"<iframe"].location !=NSNotFound){
                 continue;
             }

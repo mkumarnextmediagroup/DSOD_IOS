@@ -273,13 +273,13 @@
 }
 
 - (Class)viewClassOfItem:(NSObject *)item {
-    CMSModel *model = (id) item;
-    if (![NSString isBlankString:model.sponsorId]) {
-        return ArticleGSkItemView.class;
-    }else{
-        return ArticleItemView.class;
-    }
-	
+//    CMSModel *model = (id) item;
+//    if (![NSString isBlankString:model.sponsorId]) {
+//        return ArticleGSkItemView.class;
+//    }else{
+//        return ArticleItemView.class;
+//    }
+	return ArticleGSkItemView.class;
 }
 
 - (CGFloat)heightOfItem:(NSObject *)item {
@@ -292,16 +292,34 @@
 //    ArticleItemView *itemView = (ArticleItemView *) view;
 //    itemView.delegate=self;
 //    [itemView bind:art];
-    CMSModel *model = (id) item;
-    if (![NSString isBlankString:model.sponsorId] && ([model.sponsorId isEqualToString:@"260"] || [model.sponsorId isEqualToString:@"259"] || [model.sponsorId isEqualToString:@"197"])) {
-        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
-        itemView.delegate=self;
-        [itemView bindCMS:model];
-    }else{
-        ArticleItemView *itemView = (ArticleItemView *) view;
-        itemView.delegate=self;
-        [itemView bindCMS:model];
-    }
+//    CMSModel *model = (id) item;
+//    if (![NSString isBlankString:model.sponsorId] && ([[model.sponsorId lowercaseString] isEqualToString:@"nobel"] || [[model.sponsorId lowercaseString] isEqualToString:@"gsk"] || [[model.sponsorId lowercaseString] isEqualToString:@"aln"])) {
+//        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+//        itemView.delegate=self;
+//        [itemView bindCMS:model];
+//    }else{
+//        ArticleItemView *itemView = (ArticleItemView *) view;
+//        itemView.delegate=self;
+//        [itemView bindCMS:model];
+//    }
+    
+   
+
+//    if (![NSString isBlankString:model.sponsorId] && ([model.sponsorId isEqualToString:@"260"] || [model.sponsorId isEqualToString:@"259"] || [model.sponsorId isEqualToString:@"197"])) {
+//        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+//        itemView.delegate=self;
+//        [itemView bindCMS:model];
+//    }else{
+//        ArticleItemView *itemView = (ArticleItemView *) view;
+//        itemView.delegate=self;
+//        [itemView bindCMS:model];
+//    }
+
+     CMSModel *model = (id) item;
+    ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+    itemView.delegate=self;
+    [itemView bindCMS:model];
+
     
 }
 

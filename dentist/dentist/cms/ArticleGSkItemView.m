@@ -164,7 +164,6 @@
         [[gskBtn.layoutUpdate heightEq:0] install];
     }
 
-    
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
     dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];//item.publishDate;
     titleLabel.text = _cmsmodel.title;
@@ -213,13 +212,12 @@
     NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@%@",
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
-                            @"body{padding:0px;margin:0px;background:#ffffff}",
-                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:5px;text-transform:uppercase;color:#4a4a4a;}",
+                            @"body{padding:0px;margin:0px;background:#ffffff;font-family:SFUIText-Regular;}",
+                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:10px;text-transform:uppercase;color:#4a4a4a;}",
                             @"p{width:100%;margin: 5px auto;color:#4a4a4a;font-size:1em;}",
                             @"</style>"
                             ];
     
-  
     html = [html stringByReplacingOccurrencesOfString :@"<p>&nbsp;</p>" withString:@""];
     
     BOOL isFirst = YES;
@@ -228,21 +226,26 @@
         NSString *currentString = [array objectAtIndex:i];
         if(i==1){
             //  <strong>(By By DSODentist)</strong></p>
-            NSRange startRange = [currentString rangeOfString:@"(By "];
+            //  <strong>(By DSOD Staff)</strong></p>
+            currentString = [currentString stringByReplacingOccurrencesOfString :@"By By" withString:@"By"];
+            currentString = [currentString stringByReplacingOccurrencesOfString :@"By by" withString:@"By"];
+            NSRange startRange = [currentString rangeOfString:@"("];
             NSRange endRange = [currentString rangeOfString:@")"];
             if(startRange.location != NSNotFound
                && endRange.location != NSNotFound){
-                NSRange range = NSMakeRange(startRange.location + startRange.length, endRange.location - startRange.location - startRange.length);
+                NSRange range = NSMakeRange(startRange.location + startRange.length,
+                                            endRange.location - startRange.location - startRange.length);
                 htmlString = [NSString stringWithFormat:@"%@<strong>%@</Strong>",htmlString,[currentString substringWithRange:range]];
                 continue;
             }
             
             //  <strong><em>By Dr </em></strong><strong><em>Reem Al Khalil</em></strong></p>
-            startRange = [currentString rangeOfString:@"<em>By"];
+            startRange = [currentString rangeOfString:@"<em>"];
             endRange = [currentString rangeOfString:@"</em>"];
             if(startRange.location != NSNotFound
                && endRange.location != NSNotFound){
-                NSRange range = NSMakeRange(startRange.location + startRange.length - 2, endRange.location - startRange.location - startRange.length +2);
+                NSRange range = NSMakeRange(startRange.location + startRange.length,
+                                            endRange.location - startRange.location - startRange.length );
                 htmlString = [NSString stringWithFormat:@"%@<strong>%@</Strong>",htmlString,[currentString substringWithRange:range]];
                 continue;
             }

@@ -945,8 +945,10 @@
             NSArray *arr = r.resultMap[@"data"];
             NSString *cacheskey=[NSString stringWithFormat:@"%@_%@",@"findAllContents",(contentTypeId?contentTypeId:@"0")];
             NSString *jsontext=jsonBuild(arr);
-            [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
-            }];
+            if (arr && arr.count>0) {
+                [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+                }];
+            }
             for (NSDictionary *d in arr) {
                 CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
                 if (item) {
@@ -1034,8 +1036,11 @@
             NSArray *arr = r.resultMap[@"data"];
             NSString *cacheskey=@"findAllCategory";
             NSString *jsontext=jsonBuild(arr);
-            [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
-            }];
+            if (arr && arr.count>0) {
+                [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+                }];
+            }
+            
             for (NSDictionary *d in arr) {
                 IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
                 [resultArray addObject:item];
@@ -1066,10 +1071,6 @@
     return resultArray;
 }
 
-+(void)queryContentTypesCaches:(void(^)(NSArray<IdName *> *array))completed {
-    
-}
-
 + (void)queryContentTypes:(void(^)(NSArray<IdName *> *array))completed  {
     
     [self postAsync3:@"category/findAllContentType" dic:nil modular:@"cms" callback:^(HttpResult *r) {
@@ -1078,8 +1079,11 @@
             NSArray *arr = r.resultMap[@"data"];
             NSString *cacheskey=@"findAllContentType";
             NSString *jsontext=jsonBuild(arr);
-            [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
-            }];
+            if (arr && arr.count>0) {
+                [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+                }];
+            }
+            
             for (NSDictionary *d in arr) {
                 IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
                 [resultArray addObject:item];

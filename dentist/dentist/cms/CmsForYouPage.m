@@ -293,7 +293,7 @@
 //    itemView.delegate=self;
 //    [itemView bind:art];
     CMSModel *model = (id) item;
-    if (![NSString isBlankString:model.sponsorId] && ([[model.sponsorId lowercaseString] isEqualToString:@"nobel"] || [[model.sponsorId lowercaseString] isEqualToString:@"gsk"] || [[model.sponsorId lowercaseString] isEqualToString:@"aln"])) {
+    if (![NSString isBlankString:model.sponsorId] && ([model.sponsorId isEqualToString:@"260"] || [model.sponsorId isEqualToString:@"259"] || [model.sponsorId isEqualToString:@"197"])) {
         ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
         itemView.delegate=self;
         [itemView bindCMS:model];

@@ -145,6 +145,15 @@ CMSModel *selectModel;
     UIImageView *iv = [panel addImageView];
     [iv scaleFillAspect];
     iv.imageName = @"GSKPic";
+    if ([_sponsorId isEqualToString:@"260"]) {
+        iv.imageName = @"sponsor_align_banner";
+    }else if ([_sponsorId isEqualToString:@"259"]) {
+        iv.imageName = @"sponsor_nobel_banner";
+    }else if([_sponsorId isEqualToString:@"197"]){
+        iv.imageName = @"sponsor_gsk_banner";
+    }else{
+        iv.imageName = @"GSKPic";
+    }
     [[[[[[iv layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:249] install];
     
     UIButton *closeAd = [panel addButton];

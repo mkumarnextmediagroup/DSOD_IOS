@@ -78,8 +78,8 @@
 -(void)bindCMS:(BookmarkModel *)item
 {
     _bookmarkmodel=item;
-    titleLabel.text = _bookmarkmodel.categoryName;
-    contentLabel.text = _bookmarkmodel.title;//[item.title stringByAppendingString:@"\n\n\n\n "];
+    titleLabel.text = (![NSString isBlankString:_bookmarkmodel.categoryName]?_bookmarkmodel.categoryName:@"");
+    contentLabel.text = (![NSString isBlankString:_bookmarkmodel.title]?_bookmarkmodel.title:@"");//[item.title stringByAppendingString:@"\n\n\n\n "];
     NSString *urlstr;
     if ([NSString isBlankString:_bookmarkmodel.coverthumbnailUrl]) {
         urlstr=_bookmarkmodel.url;

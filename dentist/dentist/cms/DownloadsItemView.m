@@ -110,8 +110,8 @@
 {
     _cmsmodel=item;
     statusLabel.text=@"Download starting...";
-    titleLabel.text = _cmsmodel.categoryName;
-    contentLabel.text = _cmsmodel.title;
+    titleLabel.text = (![NSString isBlankString:_cmsmodel.categoryName]?_cmsmodel.categoryName:@"");
+    contentLabel.text = (![NSString isBlankString:_cmsmodel.title]?_cmsmodel.title:@"");
     NSString *urlstr;
     if (_cmsmodel.featuredMediaId) {
         urlstr=_cmsmodel.featuredMediaId;

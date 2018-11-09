@@ -12,6 +12,13 @@
 #import "DetailModel.h"
 #import "CMSModel.h"
 
+@interface DetinstDownloadManager ()
+
+@property (nonatomic, strong) NSMutableDictionary *dataTaskDic;  //
+@property (nonatomic, assign) NSInteger currentCount;            // 当前正在下载的个数
+@property (nonatomic, assign) NSInteger maxConcurrentCount;      // 最大同时下载数量
+
+@end
 @implementation DetinstDownloadManager
 + (instancetype)shareManager
 {
@@ -28,7 +35,9 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        
+        // 初始化
+        _currentCount = 0;
+        _maxConcurrentCount=5;
     }
     
     return self;

@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class CMSModel;
 @class DetailModel;
 @class IdName;
+@class MagazineModel;
 @interface DentistDataBaseManager : NSObject
 + (instancetype)shareManager;
 -(void)queryDetailCmsCaches:(NSString *)articleid completed:(void(^)(DetailModel *model))completed;
@@ -34,6 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)queryContentsCaches:(NSString *)key completed:(void (^)(NSArray *array))completed;
 -(void)queryContentTypesCaches:(void(^)(NSArray<IdName *> *array))completed;
 -(void)queryCategoryTypesCaches:(void(^)(NSArray<IdName *> *array))completed;
+- (void)insertUniteModel:(MagazineModel *)model completed:(void(^)(BOOL result))completed;
+// 插入数据
+- (void)insertUniteArticleModel:(CMSModel *)model uniteid:(NSString *)uniteid jsontext:(NSString *)jsontext completed:(void(^)(BOOL result))completed;
 @end
 
 NS_ASSUME_NONNULL_END

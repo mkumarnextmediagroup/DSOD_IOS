@@ -332,8 +332,8 @@
     NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@",
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
-                            @"body{padding:0px;margin:0px;background:#ffffff}",
-                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:5px;text-transform:uppercase;color:#4a4a4a;}",
+                            @"body{padding:0px;margin:0px;background:#ffffff;font-family:SFUIText-Regular;}",
+                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:10px;text-transform:uppercase;color:#4a4a4a;}",
                             @"p{width:100%;margin: 10px auto;color:#4a4a4a;font-size:1em;}",
                             @"blockquote{color:#4a4a4a;font-size:1.5em;font-weight:bold;margin: 20px 10px 10px 30px;position:relative;line-height:110%;text-indent:0px}",
                             @"blockquote:before{color:#4a4a4a;content:'“';font-size:2em;position:absolute;left:-30px;top:10px;line-height:.1em}",
@@ -344,11 +344,8 @@
                             ];
 
     
-
-    
     html = [html stringByReplacingOccurrencesOfString :@"pre" withString:@"blockquote"];
     html = [html stringByReplacingOccurrencesOfString :@"<p>&nbsp;</p>" withString:@""];
-    
     
     BOOL isFirst = YES;
     NSArray *array = [html componentsSeparatedByString:@"<p>"];
@@ -480,6 +477,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    
     //禁止用户选择
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
     

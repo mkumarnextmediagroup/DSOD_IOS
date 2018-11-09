@@ -99,7 +99,7 @@
         [self->_dbQueue inDatabase:^(FMDatabase *db) {
             
             NSString *jsontext = [db stringForQuery:@"SELECT jsontext FROM t_CMSCaches WHERE id = ?", articleid];
-            DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
+            detail = [[DetailModel alloc] initWithJson:jsontext];
             detail.discussInfos = [self commentConvertDiscussInfo:detail.comment];
         }];
         if (completed) {
@@ -133,7 +133,7 @@
     NSInteger limit=20;
     __block NSMutableArray *tmpArr = [NSMutableArray array];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [_dbQueue inDatabase:^(FMDatabase *db) {
+        [self->_dbQueue inDatabase:^(FMDatabase *db) {
             
             FMResultSet *resultSet;
             resultSet = [db executeQuery:@"SELECT * FROM t_CMSCaches order by createdate desc limit ? offset ?",[NSNumber numberWithInteger:limit],[NSNumber numberWithInteger:skip]];

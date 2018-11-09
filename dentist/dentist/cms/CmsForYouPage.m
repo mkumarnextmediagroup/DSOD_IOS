@@ -362,6 +362,7 @@
             self->contenttype=nil;
             foreTask(^() {
                 self->tabView.modelArr=self->segItemsModel;
+                [self getContentCachesData:self->pagenumber];
             });
             
             

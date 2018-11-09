@@ -37,7 +37,6 @@
     UIView *imageScrollPView;
     UIScrollView *imageScroll;
     BOOL allowZoom;
-    BOOL authorDSODentist;
     
     NSArray *imageArray;
 }
@@ -302,7 +301,7 @@
     
     [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
     
-    if(authorDSODentist){
+    if([bindInfo.author.firstName isEqualToString:@"DSODentist"]){
         byLabel.hidden = NO;
         headerImg.hidden = NO;
         nameLabel.hidden = YES;
@@ -329,17 +328,18 @@
 
 - (NSString *)htmlString:(NSString *)html
 {
-    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@",
+    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@",
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
                             @"body{padding:0px;margin:0px;background:#ffffff;font-family:SFUIText-Regular;}",
-                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:10px;text-transform:uppercase;color:#4a4a4a;}",
                             @"p{width:100%;margin: 10px auto;color:#4a4a4a;font-size:1em;}",
+                            @"em{font-style:normal}",
+                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
                             @"blockquote{color:#4a4a4a;font-size:1.5em;font-weight:bold;margin: 20px 10px 10px 30px;position:relative;line-height:110%;text-indent:0px}",
                             @"blockquote:before{color:#4a4a4a;content:'“';font-size:2em;position:absolute;left:-30px;top:10px;line-height:.1em}",
                             //@"blockquote:after{color:#4a4a4a;content:'”';font-size:5em;position:absolute;right:15px;bottom:0;line-height:.1em}"
                             @"figure{ margin:0 auto; background:#fff; }",
-                            @"figure img{width:100%;height:''} img{width:100%;height:}",
+                            @"figure img{width:100%;height:''} img{width:100%;height:auto}",
                             @"</style>"
                             ];
 
@@ -351,9 +351,7 @@
     NSArray *array = [html componentsSeparatedByString:@"<p>"];
     for (int i = 0; i < [array count]; i++) {
         NSString *currentString = [array objectAtIndex:i];
-        if(i==1){
-            authorDSODentist = [currentString rangeOfString:@"By DSODentist"].location !=NSNotFound;
-        }else if(i>=2){
+        if(i>0){
             if([currentString rangeOfString:@"<iframe"].location !=NSNotFound){
                 continue;
             }

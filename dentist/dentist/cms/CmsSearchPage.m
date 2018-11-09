@@ -5,7 +5,7 @@
 
 #import "CmsSearchPage.h"
 #import "Common.h"
-#import "ArticleItemView.h"
+#import "ArticleGSkItemView.h"
 #import "Proto.h"
 #import "CMSDetailViewController.h"
 #import "DenActionSheet.h"
@@ -74,7 +74,7 @@
 }
 
 - (Class)viewClassOfItem:(NSObject *)item {
-    return ArticleItemView.class;
+    return ArticleGSkItemView.class;
 }
 
 - (CGFloat)heightOfItem:(NSObject *)item {
@@ -84,11 +84,17 @@
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
     
+//    CMSModel *model = (id) item;
+//    ArticleItemView *itemView = (ArticleItemView *) view;
+//    itemView.delegate=self;
+////    itemView.moreButton.tag=1;//;
+////    [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [itemView bindCMS:model];
+    
+    
     CMSModel *model = (id) item;
-    ArticleItemView *itemView = (ArticleItemView *) view;
+    ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
     itemView.delegate=self;
-//    itemView.moreButton.tag=1;//;
-//    [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [itemView bindCMS:model];
 }
 
@@ -187,7 +193,7 @@
                 if (result) {
                     //
                     model.isBookmark=NO;
-                    ArticleItemView *itemView = (ArticleItemView *) view;
+                    ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
                     [itemView updateBookmarkStatus:NO];
                     msg=@"Bookmarks is Delete";
                 }else{
@@ -210,7 +216,7 @@
                 if (result) {
                     //
                     model.isBookmark=YES;
-                    ArticleItemView *itemView = (ArticleItemView *) view;
+                    ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
                     [itemView updateBookmarkStatus:YES];
                     msg=@"Bookmarks is Add";
                 }else{

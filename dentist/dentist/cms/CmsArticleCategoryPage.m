@@ -135,13 +135,13 @@
 }
 
 - (Class)viewClassOfItem:(NSObject *)item {
-    CMSModel *model = (id) item;
-    if (![NSString isBlankString:model.sponsorId]) {
-        return ArticleGSkItemView.class;
-    }else{
-        return ArticleItemView.class;
-    }
-    
+//    CMSModel *model = (id) item;
+//    if (![NSString isBlankString:model.sponsorId]) {
+//        return ArticleGSkItemView.class;
+//    }else{
+//        return ArticleItemView.class;
+//    }
+    return ArticleGSkItemView.class;
 }
 
 - (CGFloat)heightOfItem:(NSObject *)item {
@@ -154,17 +154,22 @@
     //    ArticleItemView *itemView = (ArticleItemView *) view;
     //    itemView.delegate=self;
     //    [itemView bind:art];
-    CMSModel *model = (id) item;
-    if (![NSString isBlankString:model.sponsorId]) {
-        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
-        itemView.delegate=self;
-        [itemView bindCMS:model];
-    }else{
-        ArticleItemView *itemView = (ArticleItemView *) view;
-        itemView.delegate=self;
-        [itemView bindCMS:model];
-    }
+//    CMSModel *model = (id) item;
+//    if (![NSString isBlankString:model.sponsorId]) {
+//        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+//        itemView.delegate=self;
+//        [itemView bindCMS:model];
+//    }else{
+//        ArticleItemView *itemView = (ArticleItemView *) view;
+//        itemView.delegate=self;
+//        [itemView bindCMS:model];
+//    }
     
+    
+    CMSModel *model = (id) item;
+    ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+    itemView.delegate=self;
+    [itemView bindCMS:model];
 }
 
 - (void)onClickItem:(NSObject *)item {

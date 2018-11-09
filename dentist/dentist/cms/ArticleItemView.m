@@ -19,7 +19,7 @@
 	UIImageView *imageView;
     UIImageView *thumbImageView;
 	UIButton *markButton;
-    WKWebView *contentWebView;
+    UIWebView *contentWebView;
     UILabel *moreLabel;
 }
 
@@ -70,19 +70,19 @@
         [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
         [[[[markButton.layoutMaker toLeftOf:_moreButton offset:-edge+5] below:imageView offset:edge] sizeEq:20 h:20] install];
         
-        contentWebView = [WKWebView new];
+        contentWebView = [UIWebView new];
         //        contentWebView.delegate = self;
         contentWebView.scrollView.scrollEnabled = NO;
         contentWebView.userInteractionEnabled = NO;
         [self addSubview:contentWebView];
-        [[[[[contentWebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:105] bottomParent:-10] install];
+        [[[[[contentWebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:105] bottomParent:-20] install];
         
         moreLabel = [self addLabel];
         moreLabel.font = [Fonts semiBold:15];
         moreLabel.textColor = rgbHex(0x879aa8);
         moreLabel.text = @"...more";
-        moreLabel.backgroundColor = UIColor.whiteColor;
-        [[[[moreLabel.layoutMaker rightParent:-edge] heightEq:20]bottomParent:-10] install];
+        moreLabel.backgroundColor = UIColor.clearColor;
+        [[[[moreLabel.layoutMaker rightParent:-edge] heightEq:15]bottomParent:-5] install];
         
         titleLabel = [self addLabel];
         titleLabel.font = [Fonts semiBold:20];

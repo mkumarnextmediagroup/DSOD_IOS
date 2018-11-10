@@ -88,7 +88,7 @@
         
         titleLabel = [self addLabel];
 //        titleLabel.backgroundColor = UIColor.blueColor;
-        titleLabel.font = [Fonts semiBold:20];
+        titleLabel.font = [Fonts semiBold:18];
         titleLabel.textColor = rgbHex(0x353f52);
         titleLabel.numberOfLines = 0;
         [[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:gskBtn offset:edge-5]  install];
@@ -96,7 +96,7 @@
         authorLabel = [self addLabel];
 //        authorLabel.backgroundColor = UIColor.redColor;
 //        self.backgroundColor = UIColor.greenColor;
-        authorLabel.font = [Fonts semiBold:18];
+        authorLabel.font = [Fonts semiBold:12];
         authorLabel.textColor = rgbHex(0x626262);
         authorLabel.numberOfLines = 0;
         [[[[authorLabel.layoutMaker leftParent:edge] rightParent:-edge] below:titleLabel offset:5]  install];
@@ -225,7 +225,7 @@
                             @"<style type=\"text/css\">",
                             @"body{padding:0px;margin:0px;background:#ffffff;font-family:SFUIText-Regular;}",
                             @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
-                            @"p{width:100%;margin: 0px auto;color:#4a4a4a;font-size:1em;}",
+                            @"p{width:100%;margin: 0px auto;color:#4a4a4a;font-size:0.9em;}",
                             @"em{font-style:normal}",
                             @"strong{font-weight:normal} a {text-decoration:none;color:#4a4a4a}",
                             @"</style>"

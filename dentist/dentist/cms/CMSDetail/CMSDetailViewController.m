@@ -42,6 +42,9 @@
 //    self.navigationController.navigationBarHidden = YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self createNav];
+    
+//    self.contentId = @"5be59a935a71b73dd03cce00";
+    
     [[DentistDataBaseManager shareManager] queryDetailCmsCaches:self.contentId completed:^(DetailModel * _Nonnull model) {
         if (model) {
             self.articleInfo=model;

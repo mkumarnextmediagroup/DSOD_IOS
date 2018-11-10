@@ -11,7 +11,7 @@
 #import "NSString+myextend.h"
 #import "DetailModel.h"
 #import "CMSModel.h"
-
+#import "MagazineModel.h"
 @interface DetinstDownloadManager ()
 
 @property (nonatomic, strong) NSMutableDictionary *dataTaskDic;  //
@@ -77,6 +77,11 @@
             addCompletion(NO);
         }
     }
+    
+}
+
+-(void)startDownLoadUniteArticles
+{
     
 }
 

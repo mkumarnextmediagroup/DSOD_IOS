@@ -92,3 +92,14 @@ NSInteger getLoginType() {
     return value;
 }
 
+NSString *getShareUrl(NSString *modulename,NSString*someid) {
+    NSString *url=@"https://www.dsodentist.com/";
+    NSString *shareurl;
+    if (modulename && someid) {
+        shareurl=[NSString stringWithFormat:@"%@?share=%@/%@",url,modulename,someid];
+    }else{
+        shareurl=url;
+    }
+    return shareurl;
+}
+

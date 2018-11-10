@@ -939,16 +939,26 @@
     if (authorId) {
         [paradic setObject:email forKey:@"authorId"];
     }
+    
     [self postAsync3:@"content/findAllContents" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];
-            NSString *cacheskey=[NSString stringWithFormat:@"%@_%@",@"findAllContents",(contentTypeId?contentTypeId:@"0")];
             NSString *jsontext=jsonBuild(arr);
-            if (arr && arr.count>0) {
-                [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
-                }];
+            if (skip==0) {
+                NSMutableDictionary *newparadic=[paradic mutableCopy];
+                [newparadic removeObjectForKey:@"skip"];
+                [newparadic removeObjectForKey:@"limit"];
+                NSString *keypara=jsonBuild(newparadic);
+                NSString *cacheskey=[NSString stringWithFormat:@"%@_%@",@"findAllContents",keypara];
+                
+                if (arr && arr.count>0) {
+                    [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+                    }];
+                }
             }
+            
+            
             for (NSDictionary *d in arr) {
                 CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
                 if (item) {
@@ -1030,30 +1040,50 @@
 }
 
 + (void)queryCategoryTypes:(void(^)(NSArray<IdName *> *array))completed {
-    [self postAsync3:@"category/findAllCategory" dic:nil modular:@"cms" callback:^(HttpResult *r) {
-        if (r.OK) {
-            NSMutableArray *resultArray = [NSMutableArray array];
-            NSArray *arr = r.resultMap[@"data"];
-            NSString *cacheskey=@"findAllCategory";
-            NSString *jsontext=jsonBuild(arr);
-            if (arr && arr.count>0) {
-                [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
-                }];
-            }
-            
-            for (NSDictionary *d in arr) {
-                IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
-                [resultArray addObject:item];
-            }
+    [[DentistDataBaseManager shareManager] queryCategoryTypesCaches:^(NSArray<IdName *> * _Nonnull array) {
+        if (array && array.count>0) {
             if (completed) {
-                completed(resultArray);
+                completed(array);
             }
+            [self postAsync3:@"category/findAllCategory" dic:nil modular:@"cms" callback:^(HttpResult *r) {
+                if (r.OK) {
+                    NSArray *arr = r.resultMap[@"data"];
+                    NSString *cacheskey=@"findAllCategory";
+                    NSString *jsontext=jsonBuild(arr);
+                    if (arr && arr.count>0) {
+                        [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+                        }];
+                    }
+                }
+            }];
         }else{
-            if (completed) {
-                completed(nil);
-            }
+            [self postAsync3:@"category/findAllCategory" dic:nil modular:@"cms" callback:^(HttpResult *r) {
+                if (r.OK) {
+                    NSMutableArray *resultArray = [NSMutableArray array];
+                    NSArray *arr = r.resultMap[@"data"];
+                    NSString *cacheskey=@"findAllCategory";
+                    NSString *jsontext=jsonBuild(arr);
+                    if (arr && arr.count>0) {
+                        [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+                        }];
+                    }
+                    
+                    for (NSDictionary *d in arr) {
+                        IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+                        [resultArray addObject:item];
+                    }
+                    if (completed) {
+                        completed(resultArray);
+                    }
+                }else{
+                    if (completed) {
+                        completed(nil);
+                    }
+                }
+            }];
         }
     }];
+    
 }
 
 //MARK:查询Content Type（CMS_004_03）
@@ -1073,30 +1103,51 @@
 
 + (void)queryContentTypes:(void(^)(NSArray<IdName *> *array))completed  {
     
-    [self postAsync3:@"category/findAllContentType" dic:nil modular:@"cms" callback:^(HttpResult *r) {
-        if (r.OK) {
-            NSMutableArray *resultArray = [NSMutableArray array];
-            NSArray *arr = r.resultMap[@"data"];
-            NSString *cacheskey=@"findAllContentType";
-            NSString *jsontext=jsonBuild(arr);
-            if (arr && arr.count>0) {
-                [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
-                }];
-            }
-            
-            for (NSDictionary *d in arr) {
-                IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
-                [resultArray addObject:item];
-            }
+    [[DentistDataBaseManager shareManager] queryContentTypesCaches:^(NSArray<IdName *> * _Nonnull array) {
+        if (array && array.count>0) {
             if (completed) {
-                completed(resultArray);
+                completed(array);
             }
+            [self postAsync3:@"category/findAllContentType" dic:nil modular:@"cms" callback:^(HttpResult *r) {
+                if (r.OK) {
+                    NSArray *arr = r.resultMap[@"data"];
+                    NSString *cacheskey=@"findAllContentType";
+                    NSString *jsontext=jsonBuild(arr);
+                    if (arr && arr.count>0) {
+                        [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+                        }];
+                    }
+                    
+                }
+            }];
         }else{
-            if (completed) {
-                completed(nil);
-            }
+            [self postAsync3:@"category/findAllContentType" dic:nil modular:@"cms" callback:^(HttpResult *r) {
+                if (r.OK) {
+                    NSMutableArray *resultArray = [NSMutableArray array];
+                    NSArray *arr = r.resultMap[@"data"];
+                    NSString *cacheskey=@"findAllContentType";
+                    NSString *jsontext=jsonBuild(arr);
+                    if (arr && arr.count>0) {
+                        [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+                        }];
+                    }
+                    
+                    for (NSDictionary *d in arr) {
+                        IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+                        [resultArray addObject:item];
+                    }
+                    if (completed) {
+                        completed(resultArray);
+                    }
+                }else{
+                    if (completed) {
+                        completed(nil);
+                    }
+                }
+            }];
         }
     }];
+    
     
 }
 

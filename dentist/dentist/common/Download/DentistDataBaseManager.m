@@ -441,7 +441,6 @@
             NSString *key=@"findAllContentType";
             NSString *jsontext = [db stringForQuery:@"SELECT jsontext FROM t_CMSContentCaches WHERE id = ?", key];
             NSArray *arr = jsonParseObject(jsontext);
-            NSMutableArray *resultArray = [NSMutableArray array];
             for (NSDictionary *d in arr) {
                 IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
                 [resultArray addObject:item];

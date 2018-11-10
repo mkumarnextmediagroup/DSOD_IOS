@@ -350,30 +350,14 @@
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
--(void)getCachesData:(NSInteger)page
-{
-    [[DentistDataBaseManager shareManager] queryContentTypesCaches:^(NSArray<IdName *> * _Nonnull array) {
-        if (array && array.count>=0 && self->segItemsModel==0) {
-            self->segItemsModel=[NSMutableArray arrayWithArray:array];
-            IdName *latestmodel=[IdName new];
-            latestmodel.id=@"0";
-            latestmodel.name=@"LATEST";
-            [self->segItemsModel insertObject:latestmodel atIndex:0];
-            self->contenttype=nil;
-            foreTask(^() {
-                self->tabView.modelArr=self->segItemsModel;
-                [self getContentCachesData:self->pagenumber];
-            });
-            
-            
-        }
-        
-    }];
-}
-
 -(void)getContentCachesData:(NSInteger)page{
     if (page==1) {
-        NSString *cacheskey=[NSString stringWithFormat:@"%@_%@",@"findAllContents",(self->contenttype?self->contenttype:@"0")];
+        NSMutableDictionary *newparadic=[NSMutableDictionary dictionary];
+        if (self->contenttype) {
+            [newparadic setObject:self->contenttype forKey:@"contentTypeId"];
+        }
+        NSString *keypara=jsonBuild(newparadic);
+        NSString *cacheskey=[NSString stringWithFormat:@"%@_%@",@"findAllContents",keypara];
         [[DentistDataBaseManager shareManager] queryAllContentsCaches:cacheskey completed:^(NSArray<CMSModel *> * _Nonnull array) {
             if (array && array.count>=0) {
                 foreTask(^() {
@@ -394,7 +378,7 @@
     segView.selectedSegmentIndex=0;
     self.table.tableHeaderView = [self makeHeaderView];
     [self showIndicator];
-    [self getCachesData:pagenumber];
+    [self getContentCachesData:pagenumber];
     [Proto queryContentTypes:^(NSArray<IdName *> *array) {
         self->segItemsModel=[NSMutableArray arrayWithArray:array];
         IdName *latestmodel=[IdName new];
@@ -593,8 +577,43 @@
         case 1://---click the Share button
         {
             NSLog(@"Share click");
-            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[@"Mastering the art of Dental Surgery",[NSURL URLWithString:@"http://app800.cn/i/d.png"]] applicationActivities:nil];
-            [self presentViewController:avc animated:YES completion:nil];
+            
+            if (selectModel) {
+                NSString *urlstr=@"";
+                NSString *title=[NSString stringWithFormat:@"%@",selectModel.title];
+                NSString* type = selectModel.featuredMedia[@"type"];
+                if([type isEqualToString:@"1"] ){
+                    //pic
+                    NSDictionary *codeDic = selectModel.featuredMedia[@"code"];
+                    urlstr = codeDic[@"thumbnailUrl"];
+                }else{
+                    urlstr = selectModel.featuredMedia[@"code"];
+                }
+                NSString *someid=selectModel.id;
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
+                    UIImage *image = [UIImage imageWithData:data];
+                    if (image) {
+                        NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+                        NSArray *activityItems = @[shareurl,title,image];
+                        
+                        UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                        [self presentViewController:avc animated:YES completion:nil];
+                    }
+                });
+                
+            }else{
+                NSString *msg=@"";
+                msg=@"error";
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
+            
         }
             break;
         default:

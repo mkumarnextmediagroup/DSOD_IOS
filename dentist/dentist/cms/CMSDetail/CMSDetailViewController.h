@@ -16,5 +16,5 @@
 @property DetailModel *articleInfo;
 @property NSString *contentId;
 @property NSString *toWhichPage;
-
+@property (nonatomic,copy) NSArray *detailsArray;
 @end

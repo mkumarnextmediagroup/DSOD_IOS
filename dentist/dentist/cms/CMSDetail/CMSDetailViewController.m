@@ -29,8 +29,6 @@
     PicDetailView *picDetailView;
     UITableView *myTable;
     UIButton *markButton;
-    
-    DetailModel *detailMod;
 }
 @end
 
@@ -134,7 +132,7 @@
     [moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     markButton = [footerVi addButton];
-    if (detailMod.isBookmark) {
+    if (_articleInfo.isBookmark) {
         [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
@@ -249,7 +247,11 @@
         myTable.delegate = self;
         myTable.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     }
-    
+    if (_articleInfo.isBookmark) {
+        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+    }else{
+        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    }
 //    if ([self.toWhichPage isEqualToString:@"mo"]) {
 //        [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:playView offset:0] sizeEq:SCREENWIDTH h:150] install];
 //    }else
@@ -516,8 +518,41 @@
         case 1://---click the Share button
         {
             NSLog(@"Share click");
-            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[@"Mastering the art of Dental Surgery",[NSURL URLWithString:@"http://app800.cn/i/d.png"]] applicationActivities:nil];
-            [self presentViewController:avc animated:YES completion:nil];
+            if (_articleInfo) {
+                NSString *urlstr=@"";
+                NSString *title=[NSString stringWithFormat:@"%@",_articleInfo.title];
+                NSString* type = _articleInfo.featuredMedia[@"type"];
+                if([type isEqualToString:@"1"] ){
+                    //pic
+                    NSDictionary *codeDic = _articleInfo.featuredMedia[@"code"];
+                    urlstr = codeDic[@"thumbnailUrl"];
+                }else{
+                    urlstr = _articleInfo.featuredMedia[@"code"];
+                }
+                NSString *someid=_articleInfo.id;
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
+                    UIImage *image = [UIImage imageWithData:data];
+                    if (image) {
+                        NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+                        NSArray *activityItems = @[shareurl,title,image];
+                        
+                        UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                        [self presentViewController:avc animated:YES completion:nil];
+                    }
+                });
+                
+            }else{
+                NSString *msg=@"";
+                msg=@"error";
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
         }
             break;
         default:

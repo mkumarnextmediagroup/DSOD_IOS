@@ -159,12 +159,7 @@
     
     newVC.contentId = article.postId;
     newVC.toWhichPage = @"pic";
-//    if ([[article.contentTypeName uppercaseString] isEqualToString:@"VIDEOS"]) {
-//        newVC.toWhichPage = @"mo";
-//    }else
-//    {
-//        newVC.toWhichPage = @"pic";
-//    }
+    newVC.cmsmodelsArray=self.items;
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 

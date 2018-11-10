@@ -49,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*isFeatured;
 @property NSInteger readNumber;
 @property NSDictionary <Optional>*featuredMedia;
+@property NSArray <Optional>*relativeTopicList;
+
 
 
 @end

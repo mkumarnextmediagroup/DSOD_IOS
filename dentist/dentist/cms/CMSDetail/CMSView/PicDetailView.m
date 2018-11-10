@@ -127,10 +127,16 @@
     [self addSubview:mywebView];
     [[[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:1] below:view offset:5] install];
     
-    relativeTopicTableView = [UITableView alloc];
+    relativeTopicTableView = [UITableView new];
     relativeTopicTableView.dataSource = self;
     relativeTopicTableView.delegate = self;
-//    [self addSubview:relativeTopicTableView];
+    relativeTopicTableView.estimatedRowHeight = 10;
+    relativeTopicTableView.rowHeight=UITableViewAutomaticDimension;
+    relativeTopicTableView.scrollEnabled = NO;
+    relativeTopicTableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    relativeTopicTableView.separatorStyle = UITableViewCellEditingStyleNone;
+    [self addSubview:relativeTopicTableView];
+    [[[[[relativeTopicTableView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:0] below:mywebView offset:5] install];
     
     
     
@@ -146,10 +152,10 @@
     
     imageScrollPView = [UIView new];
     [self addSubview:imageScrollPView];
-    [[[[[[imageScrollPView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:202] below:mywebView offset:26] install];
+    [[[[[[imageScrollPView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:202] below:relativeTopicTableView offset:0] install];
     
     UILabel *lineLabelTop = [imageScrollPView lineLabel];
-    [[[[[lineLabelTop.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
+    [[[[[lineLabelTop.layoutMaker leftParent:0] rightParent:0] topParent:26] heightEq:1] install];
 
     [self setImageScrollData:nil];
 }
@@ -279,12 +285,29 @@
     
 }
 
+- (void)showRelativeTopic:(NSArray*)data{
+    
+    NSInteger edge = 18;
+    if(IS_IPHONE_P_X){
+        edge=24;
+    }
+    
+    if(data && data.count>0){
+        int height = 50;
+        for(int i = 0;i< data.count;i++){
+            CGSize titleSize = [data[i][@"title"] boundingRectWithSize:CGSizeMake(SCREENWIDTH-edge*2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
+            height += titleSize.height + 10;
+        }
+        [[relativeTopicTableView.layoutUpdate heightEq:height]install];
+        
+        relativeTopicArray = data;
+        [relativeTopicTableView reloadData];
+    }
+}
+
 - (void)bind:(DetailModel *)bindInfo {
     typeLabel.text = [bindInfo.categoryName uppercaseString];
     dateLabel.text = [NSString timeWithTimeIntervalString:bindInfo.publishDate];
-    
-    
-    
     
     NSString* type = bindInfo.featuredMedia[@"type"];
     if([type isEqualToString:@"1"] ){
@@ -333,6 +356,9 @@
         [_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
     
+    
+    [self showRelativeTopic:bindInfo.relativeTopicList];
+    
     //处理图片
     [self setImageScrollData:bindInfo.photoUrls];
 
@@ -368,6 +394,8 @@
                 continue;
             }
             if(isFirst){
+                 //错误格式兼容<strong> </strong>厉害了中间还不是空格
+//                 htmlString = [htmlString stringByReplacingOccurrencesOfString :@"<strong> </strong>" withString:@""];
                  htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
                  isFirst = NO;
             }else{
@@ -506,28 +534,55 @@
 }
 
 #pragma mark  UITableViewDelegate,UITableViewDataSource
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return relativeTopicArray.count>0?1:0;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return relativeTopicArray.count;
 }
 
--(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44.0f;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return UITableViewAutomaticDimension;
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,SCREENWIDTH,50)];
+    titleLabel.textAlignment = NSTextAlignmentLeft;
+    titleLabel.textColor = UIColor.blackColor;
+    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+    NSDictionary *dic = @{NSFontAttributeName:[Fonts medium:25], NSParagraphStyleAttributeName:paraStyle, NSKernAttributeName:@1.2f};
+    NSAttributedString *attributeStr = [[NSAttributedString alloc] initWithString: @"Related Resource" attributes:dic];
+    titleLabel.attributedText = attributeStr;
+    
+    return titleLabel;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString * ID = @"cell";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:0 reuseIdentifier:ID];
-    }
+   
+    cell = [[UITableViewCell alloc] initWithStyle:0 reuseIdentifier:ID];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    UILabel *titleLabel = cell.contentView.addLabel;
+    titleLabel.font = [UIFont systemFontOfSize:14];
+    titleLabel.textColor = rgbHex(0x0000ee);
+    titleLabel.numberOfLines = 0;
+    titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    [[[[[titleLabel.layoutMaker leftParent:0]rightParent:0]topParent:5]  bottomParent:-5]  install];
+    
+    NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:relativeTopicArray[indexPath.row][@"title"] attributes:attribtDic];
+    titleLabel.attributedText = attribtStr;
+    
     return cell;
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *articleId = relativeTopicArray[indexPath.row][@"id"];
+    NSString *url =[NSString stringWithFormat:@"dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=%@",articleId];
+    [self handleCustomAction:[NSURL URLWithString:url]];
+}
 
 - (void)resetLayout {
 }

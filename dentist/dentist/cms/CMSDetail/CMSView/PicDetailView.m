@@ -74,11 +74,13 @@
     
     _moreButton = [self addButton];
     [_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
-    [[[[_moreButton.layoutMaker rightParent:-edge+5] below:imageView offset:edge] sizeEq:20 h:20] install];
+    [[[[_moreButton.layoutMaker rightParent:0] below:imageView offset:0] sizeEq:48 h:48] install];
+    [_moreButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
     
     _markButton = [self addButton];
     [_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-    [[[[_markButton.layoutMaker toLeftOf:_moreButton offset:-8] below:imageView offset:edge] sizeEq:20 h:20] install];
+    [[[[_markButton.layoutMaker toLeftOf:_moreButton offset:0] below:imageView offset:0] sizeEq:48 h:48] install];
+    [_markButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     
     titleLabel = [self addLabel];
     titleLabel.font = [Fonts semiBold:18];
@@ -128,7 +130,7 @@
     relativeTopicTableView = [UITableView alloc];
     relativeTopicTableView.dataSource = self;
     relativeTopicTableView.delegate = self;
-    [self addSubview:relativeTopicTableView];
+//    [self addSubview:relativeTopicTableView];
     
     
     
@@ -138,6 +140,7 @@
     
     return self;
 }
+
 
 - (void)moreView{
     
@@ -344,8 +347,8 @@
                             @"p{width:100%;margin: 10px auto;color:#4a4a4a;font-size:0.9em;}",
                             @"em{font-style:normal}",
                             @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
-                            @"blockquote{color:#4a4a4a;font-size:1.5em;font-weight:bold;margin: 20px 10px 10px 30px;position:relative;line-height:110%;text-indent:0px}",
-                            @"blockquote:before{color:#4a4a4a;font-family:PingFangTC-Regular;content:'“';font-size:2em;position:absolute;left:-30px;top:15px;line-height:.1em}",
+                            @"blockquote{color:#4a4a4a;font-size:1.2em;font-weight:bold;margin: 20px 10px 10px 25px;position:relative;line-height:110%;text-indent:0px}",
+                            @"blockquote:before{color:#4a4a4a;font-family:PingFangTC-Regular;content:'“';font-size:1.6em;position:absolute;left:-20px;top:15px;line-height:.1em}",
                             //@"blockquote:after{color:#4a4a4a;content:'”';font-size:5em;position:absolute;right:15px;bottom:0;line-height:.1em}"
                             @"figure{ margin:0 auto; background:#fff; }",
                             @"figure img{width:100%;height:''} img{width:100%;height:auto}",

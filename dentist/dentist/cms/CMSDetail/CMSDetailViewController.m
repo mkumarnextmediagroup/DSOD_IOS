@@ -133,8 +133,9 @@
 
     UIButton *moreButton = [footerVi addButton];
     [moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
-    [[[[moreButton.layoutMaker rightParent:-edge] below:lineLabel1 offset:edge] sizeEq:20 h:20] install];
+    [[[[moreButton.layoutMaker rightParent:0] below:lineLabel1 offset:0] sizeEq:48 h:48] install];
     [moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [moreButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
     
     markButton = [footerVi addButton];
     if (detailMod.isBookmark) {
@@ -142,8 +143,9 @@
     }else{
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
-    [[[[markButton.layoutMaker toLeftOf:moreButton offset:-15] below:lineLabel1 offset:edge] sizeEq:20 h:20] install];
+    [[[[markButton.layoutMaker toLeftOf:moreButton offset:0] below:lineLabel1 offset:0] sizeEq:48 h:48] install];
     [markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [markButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     
     UIButton *nextButton = [footerVi addButton];
     [nextButton setTitleColor:Colors.primary forState:UIControlStateNormal];

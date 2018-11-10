@@ -1,7 +1,7 @@
 //
 // Created by entaoyang on 2018/9/18.
 // Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
-//
+//合并到ArticleGSKItemView 此类不在维护
 
 #import "ArticleItemView.h"
 #import "Common.h"

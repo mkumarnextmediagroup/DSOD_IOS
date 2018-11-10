@@ -76,15 +76,18 @@
         [[[[[gskBtn.layoutMaker leftParent:0] rightParent:0] below:imageView offset:0] heightEq:sponstorimgh] install];
         
         _moreButton = [self addButton];
+//        markButton.backgroundColor = UIColor.blueColor;
         [_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
         [_moreButton addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
-        [[[[_moreButton.layoutMaker rightParent:-edge] below:gskBtn offset:edge] sizeEq:20 h:20] install];
+        [[[[_moreButton.layoutMaker rightParent:0] below:gskBtn offset:0] sizeEq:48 h:48] install];
+        [_moreButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
         
         markButton = [self addButton];
+//        markButton.backgroundColor = UIColor.redColor;
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
         [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
-        [[[[markButton.layoutMaker toLeftOf:_moreButton offset:-edge+5] below:gskBtn offset:edge] sizeEq:20 h:20] install];
-        
+        [[[[markButton.layoutMaker toLeftOf:_moreButton offset:0] below:gskBtn offset:0] sizeEq:48 h:48] install];
+        [markButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
         
         titleLabel = [self addLabel];
 //        titleLabel.backgroundColor = UIColor.blueColor;
@@ -96,7 +99,7 @@
         authorLabel = [self addLabel];
 //        authorLabel.backgroundColor = UIColor.redColor;
 //        self.backgroundColor = UIColor.greenColor;
-        authorLabel.font = [Fonts semiBold:12];
+        authorLabel.font = [Fonts semiBold:15];
         authorLabel.textColor = rgbHex(0x626262);
         authorLabel.numberOfLines = 0;
         [[[[authorLabel.layoutMaker leftParent:edge] rightParent:-edge] below:titleLabel offset:5]  install];
@@ -120,6 +123,7 @@
     }
     return self;
 }
+
 
 
 - (void)bind:(Article *)item {

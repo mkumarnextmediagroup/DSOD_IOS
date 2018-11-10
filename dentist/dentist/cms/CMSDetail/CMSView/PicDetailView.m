@@ -81,7 +81,7 @@
     [[[[_markButton.layoutMaker toLeftOf:_moreButton offset:-8] below:imageView offset:edge] sizeEq:20 h:20] install];
     
     titleLabel = [self addLabel];
-    titleLabel.font = [Fonts semiBold:20];
+    titleLabel.font = [Fonts semiBold:18];
     [titleLabel textColorMain];
     titleLabel.numberOfLines = 0;
     [[[[titleLabel.layoutMaker leftParent:edge]  toLeftOf:_markButton offset:-edge-10] below:imageView offset:edge-5] install];
@@ -129,6 +129,8 @@
     relativeTopicTableView.dataSource = self;
     relativeTopicTableView.delegate = self;
     [self addSubview:relativeTopicTableView];
+    
+    
     
     [self moreView];
     [self createStarView];
@@ -339,7 +341,7 @@
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
                             @"body{padding:0px;margin:0px;background:#ffffff;font-family:SFUIText-Regular;}",
-                            @"p{width:100%;margin: 10px auto;color:#4a4a4a;font-size:1em;}",
+                            @"p{width:100%;margin: 10px auto;color:#4a4a4a;font-size:0.9em;}",
                             @"em{font-style:normal}",
                             @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
                             @"blockquote{color:#4a4a4a;font-size:1.5em;font-weight:bold;margin: 20px 10px 10px 30px;position:relative;line-height:110%;text-indent:0px}",

@@ -107,7 +107,7 @@
         contentWebView.scrollView.scrollEnabled = NO;
         contentWebView.userInteractionEnabled = NO;
         [self addSubview:contentWebView];
-        [[[[[[contentWebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:80] below:authorLabel offset:5] bottomParent:-20] install];
+        [[[[[[contentWebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:72] below:authorLabel offset:5] bottomParent:-20] install];
         
         moreLabel = [self addLabel];
         moreLabel.font = [Fonts semiBold:15];

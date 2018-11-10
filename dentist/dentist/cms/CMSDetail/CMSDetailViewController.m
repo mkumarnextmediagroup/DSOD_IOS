@@ -22,6 +22,8 @@
 #import "DetailModel.h"
 #import "DentistDataBaseManager.h"
 #import "DetinstDownloadManager.h"
+#import "UIViewController+myextend.h"
+#import "BookmarkModel.h"
 
 #define edge 15
 @interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource,MyActionSheetDelegate> {
@@ -403,73 +405,135 @@
 
 }
 
+-(void)showTipView:(NSString *)msg
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+        NSLog(@"点击取消");
+    }]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 - (void)onClickUp:(UIButton *)btn {
 	NSLog(@"clickup");
-//    NSInteger index=(_articleInfo.id-1);
-//    NSArray *arr=[Proto getArticleList];
-//    if (index<=0) {
-//        index=0;
-//    }
-//    if (index>=arr.count) {
-//        index=(arr.count-1);
-//    }
-//    index--;
-//    if (index<0) {
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"is the fist Aritcle" preferredStyle:UIAlertControllerStyleAlert];
-//
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//            NSLog(@"点击取消");
-//        }]];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }else if (index>=arr.count) {
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"is the laste Aritcle" preferredStyle:UIAlertControllerStyleAlert];
-//
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//            NSLog(@"点击取消");
-//        }]];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }else{
-//        _articleInfo=[arr objectAtIndex:index];
-//
-//        [myTable reloadData];
-//    }
+    if (_cmsmodelsArray && _cmsmodelsArray.count>0) {
+        __block NSInteger upindex;
+        __block NSInteger modeltype;
+        [_cmsmodelsArray enumerateObjectsUsingBlock:^(NSObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+           
+            if ([obj isKindOfClass:[CMSModel class]]) {
+                CMSModel *newmodel=(CMSModel *)obj;
+                if ([self.articleInfo.id isEqualToString:newmodel.id]) {
+                    upindex=idx;
+                    modeltype=1;
+                    *stop = YES;
+                }
+            }else if ([obj isKindOfClass:[BookmarkModel class]]) {
+                BookmarkModel *newmodel=(BookmarkModel *)obj;
+                if ([self.articleInfo.id isEqualToString:newmodel.postId]) {
+                    upindex=idx;
+                    modeltype=2;
+                    *stop = YES;
+                }
+            }
+            
+        }];
+        if (upindex<=0) {
+            [self showTipView:@"is the first page"];
+        }
+        upindex--;
+        if (upindex<0) {
+            [self showTipView:@"is the first page"];
+        }
+        if (_cmsmodelsArray.count>upindex) {
+            NSString *modelid;
+            if (modeltype==1) {
+                CMSModel *model=[_cmsmodelsArray objectAtIndex:upindex];
+                modelid=model.id;
+            }else if (modeltype==2){
+                BookmarkModel *model=[_cmsmodelsArray objectAtIndex:upindex];
+                modelid=model.postId;
+            }
+            self.contentId=modelid;
+            [self showIndicator];
+            backTask(^() {
+                self.articleInfo = [Proto queryForDetailPage:self.contentId];
+                foreTask(^() {
+                    [self hideIndicator];
+                    [self buildViews];
+                    [[[[self->picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
+                    
+                    [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(self->picDetailView) install];
+                });
+            });
+            
+        }else{
+            [self showTipView:@"is the first page"];
+        }
+    }else{
+        //the latest page
+         [self showTipView:@"is the first page"];
+    }
+
     
 }
 
 - (void)onClickDown:(UIButton *)btn {
 	NSLog(@"onClickDown");
-//    NSInteger index=(_articleInfo.id-1);
-//    NSArray *arr=[Proto getArticleList];
-//    if (index<=0) {
-//        index=0;
-//    }
-//    if (index>=arr.count) {
-//        index=(arr.count-1);
-//    }
-//    index++;
-//    if (index<0) {
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"is the fist Aritcle" preferredStyle:UIAlertControllerStyleAlert];
-//        
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//            
-//            NSLog(@"点击取消");
-//        }]];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }else if (index>=arr.count) {
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"is the laste Aritcle" preferredStyle:UIAlertControllerStyleAlert];
-//        
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//            
-//            NSLog(@"点击取消");
-//        }]];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }else{
-//        _articleInfo=[arr objectAtIndex:index];
-//        
-//        [myTable reloadData];
-//    }
+    if (_cmsmodelsArray && _cmsmodelsArray.count>0) {
+        __block NSInteger upindex;
+        __block NSInteger modeltype;
+        [_cmsmodelsArray enumerateObjectsUsingBlock:^(NSObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if ([obj isKindOfClass:[CMSModel class]]) {
+                CMSModel *newmodel=(CMSModel *)obj;
+                if ([self.articleInfo.id isEqualToString:newmodel.id]) {
+                    upindex=idx;
+                    modeltype=1;
+                    *stop = YES;
+                }
+            }else if ([obj isKindOfClass:[BookmarkModel class]]) {
+                BookmarkModel *newmodel=(BookmarkModel *)obj;
+                if ([self.articleInfo.id isEqualToString:newmodel.postId]) {
+                    upindex=idx;
+                    modeltype=2;
+                    *stop = YES;
+                }
+            }
+            
+        }];
+        upindex++;
+        if (_cmsmodelsArray.count>upindex) {
+            NSString *modelid;
+            if (modeltype==1) {
+                CMSModel *model=[_cmsmodelsArray objectAtIndex:upindex];
+                modelid=model.id;
+            }else if (modeltype==2){
+                BookmarkModel *model=[_cmsmodelsArray objectAtIndex:upindex];
+                modelid=model.postId;
+            }
+            self.contentId=modelid;
+            [self showIndicator];
+            backTask(^() {
+                self.articleInfo = [Proto queryForDetailPage:self.contentId];
+                foreTask(^() {
+                    [self hideIndicator];
+                    [self buildViews];
+                    [[[[self->picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
+                    
+                    [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(self->picDetailView) install];
+                });
+            });
+            
+        }else{
+            [self showTipView:@"is the last page"];
+        }
+    }else{
+        //the latest page
+        [self showTipView:@"is the last page"];
+    }
     
 }
 

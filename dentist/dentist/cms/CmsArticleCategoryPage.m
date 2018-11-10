@@ -196,6 +196,7 @@
     {
         newVC.toWhichPage = @"pic";
     }
+    newVC.cmsmodelsArray=self.items;
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 

@@ -463,9 +463,6 @@
                 foreTask(^() {
                     [self hideIndicator];
                     [self buildViews];
-                    [[[[self->picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
-                    
-                    [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(self->picDetailView) install];
                 });
             });
             
@@ -521,9 +518,6 @@
                 foreTask(^() {
                     [self hideIndicator];
                     [self buildViews];
-                    [[[[self->picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
-                    
-                    [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(self->picDetailView) install];
                 });
             });
             

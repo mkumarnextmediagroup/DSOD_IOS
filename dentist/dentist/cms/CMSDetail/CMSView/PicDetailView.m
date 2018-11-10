@@ -15,7 +15,7 @@
 #import "UIButton+WebCache.h"
 #import "CMSDetailViewController.h"
 
-@interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate>
+@interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     
 }
@@ -33,11 +33,13 @@
     UILabel *addressLabel;
     UILabel *byLabel;
     UIWebView *mywebView;
+    UITableView *relativeTopicTableView;
     UIView *view;
     UIView *imageScrollPView;
     UIScrollView *imageScroll;
     BOOL allowZoom;
     
+    NSArray *relativeTopicArray;
     NSArray *imageArray;
 }
 
@@ -121,7 +123,12 @@
     mywebView.delegate = self;
     mywebView.scrollView.scrollEnabled = NO;
     [self addSubview:mywebView];
-    [[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] below:view offset:5] install];
+    [[[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:1] below:view offset:5] install];
+    
+    relativeTopicTableView = [UITableView alloc];
+    relativeTopicTableView.dataSource = self;
+    relativeTopicTableView.delegate = self;
+    [self addSubview:relativeTopicTableView];
     
     [self moreView];
     [self createStarView];
@@ -336,7 +343,7 @@
                             @"em{font-style:normal}",
                             @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
                             @"blockquote{color:#4a4a4a;font-size:1.5em;font-weight:bold;margin: 20px 10px 10px 30px;position:relative;line-height:110%;text-indent:0px}",
-                            @"blockquote:before{color:#4a4a4a;content:'“';font-size:2em;position:absolute;left:-30px;top:10px;line-height:.1em}",
+                            @"blockquote:before{color:#4a4a4a;font-family:PingFangTC-Regular;content:'“';font-size:2em;position:absolute;left:-30px;top:15px;line-height:.1em}",
                             //@"blockquote:after{color:#4a4a4a;content:'”';font-size:5em;position:absolute;right:15px;bottom:0;line-height:.1em}"
                             @"figure{ margin:0 auto; background:#fff; }",
                             @"figure img{width:100%;height:''} img{width:100%;height:auto}",
@@ -484,7 +491,38 @@
     
     CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
     [[mywebView.layoutUpdate heightEq:webViewHeight] install];
+//    CGFloat webViewHeight1 =[[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
+//
+//    CGSize actualSize = [webView sizeThatFits:CGSizeZero];
+//    CGFloat webViewHeight2 = actualSize.height;
+//
+//    NSLog(@"%f------%f-------%f",webViewHeight,webViewHeight1,webViewHeight2);
+    
 }
+
+#pragma mark  UITableViewDelegate,UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return relativeTopicArray.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44.0f;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewAutomaticDimension;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString * ID = @"cell";
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:0 reuseIdentifier:ID];
+    }
+    return cell;
+}
+
+
 
 - (void)resetLayout {
 }

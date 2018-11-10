@@ -64,13 +64,15 @@
     
     _moreButton = [contentView addButton];
     [_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
-    [[[[[_moreButton.layoutMaker rightParent:-edge+5] below:topView offset:edge] sizeEq:20 h:20] leftParent:SCREENWIDTH-40] install];
+    [[[[[_moreButton.layoutMaker rightParent:0] below:topView offset:0] sizeEq:48 h:48] leftParent:SCREENWIDTH-40] install];
      [_moreButton addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_moreButton setImageEdgeInsets:UIEdgeInsetsMake(5, 0, 0, 15)];
     
     markButton = [contentView addButton];
     [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-    [[[[markButton.layoutMaker toLeftOf:_moreButton offset:-8] below:topView offset:edge] sizeEq:20 h:20] install];
+    [[[[markButton.layoutMaker toLeftOf:_moreButton offset:0] below:topView offset:0] sizeEq:48 h:48] install];
     [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
+    [markButton setImageEdgeInsets:UIEdgeInsetsMake(5, 10, 0, 0)];
 
     titleLabel = [contentView addLabel];
     titleLabel.font = [Fonts regular:14];

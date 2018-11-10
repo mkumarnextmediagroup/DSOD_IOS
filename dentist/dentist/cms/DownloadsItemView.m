@@ -45,6 +45,7 @@
     [_markButton setImage:[UIImage imageNamed:@"dot3"] forState:UIControlStateNormal];
     [_markButton addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
     [[[[_markButton.layoutMaker rightParent:-edge] topParent:25] sizeEq:20 h:20] install];
+
     
     statusButton = [self addButton];
     [statusButton setImage:[UIImage imageNamed:@"select"] forState:UIControlStateNormal];

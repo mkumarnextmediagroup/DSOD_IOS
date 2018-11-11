@@ -334,6 +334,7 @@
     titleLabel.text = bindInfo.title;
     [headerImg setImageName:@"author_dsodentist"];
     
+    [[mywebView.layoutUpdate heightEq:1] install];
     [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
     
     if([bindInfo.author.firstName isEqualToString:@"DSODentist"]){
@@ -528,7 +529,7 @@
 //
 //    CGSize actualSize = [webView sizeThatFits:CGSizeZero];
 //    CGFloat webViewHeight2 = actualSize.height;
-//
+////
 //    NSLog(@"%f------%f-------%f",webViewHeight,webViewHeight1,webViewHeight2);
     
 }

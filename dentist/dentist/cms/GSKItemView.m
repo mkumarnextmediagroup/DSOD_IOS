@@ -79,7 +79,7 @@
     [titleLabel textColorMain];
     titleLabel.numberOfLines = 3;
     //    [[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] heightEq:24] install];
-    [[[[titleLabel.layoutMaker toRightOf:imageView offset:edge] toLeftOf:markButton offset:-edge] below:topView offset:edge+4] install];
+    [[[[titleLabel.layoutMaker toRightOf:imageView offset:edge] toLeftOf:markButton offset:15] below:topView offset:edge+4] install];
     
     return self;
 }

@@ -136,8 +136,7 @@
     relativeTopicTableView.separatorStyle = UITableViewCellSelectionStyleNone;
     relativeTopicTableView.separatorStyle = UITableViewCellEditingStyleNone;
     [self addSubview:relativeTopicTableView];
-    [[[[[relativeTopicTableView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:0] below:mywebView offset:5] install];
-    
+    [[[[[relativeTopicTableView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:0] below:mywebView offset:0] install];
     
     
     [self moreView];
@@ -370,7 +369,7 @@
     NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@",
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
-                            @"body{padding:0px;margin:0px;background:#ffffff;font-family:SFUIText-Regular;}",
+                            @"body{padding:0px;margin:0px;background:#fff;font-family:SFUIText-Regular;}",
                             @"p{width:100%;margin: 10px auto;color:#4a4a4a;font-size:0.9em;}",
                             @"em{font-style:normal}",
                             @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
@@ -535,7 +534,9 @@
 }
 
 #pragma mark  UITableViewDelegate,UITableViewDataSource
-
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 50;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return relativeTopicArray.count>0?1:0;

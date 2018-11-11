@@ -150,12 +150,14 @@
     [nextButton.titleLabel setFont:[Fonts semiBold:12]];
     [nextButton setTitle:@"Next" forState:UIControlStateNormal];
     [[[[nextButton.layoutMaker toLeftOf:markButton offset:-25] below:lineLabel1 offset:edge] sizeEq:80 h:20] install];
+    [nextButton addTarget:self action:@selector(onClickDown:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *preButton = [footerVi addButton];
     [preButton setTitleColor:Colors.primary forState:UIControlStateNormal];
     [preButton.titleLabel setFont:[Fonts semiBold:12]];
     [preButton setTitle:@"Previous" forState:UIControlStateNormal];
     [[[[preButton.layoutMaker leftParent:edge] below:lineLabel1 offset:edge] sizeEq:80 h:20] install];
+    [preButton addTarget:self action:@selector(onClickUp:) forControlEvents:UIControlEventTouchUpInside];
     
     return footerVi;
 }

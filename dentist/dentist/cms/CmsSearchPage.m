@@ -12,6 +12,7 @@
 #import <Social/Social.h>
 #import "DetinstDownloadManager.h"
 #import "CmsArticleCategoryPage.h"
+#import "UIViewController+myextend.h"
 @interface CmsSearchPage()<UISearchBarDelegate,MyActionSheetDelegate,ArticleItemViewDelegate>
 {
     NSInteger selectIndex;
@@ -66,8 +67,10 @@
     if (self.items.count==0) {
         self.items=nil;
     }
+    [self showIndicator];
     [Proto querySearchResults:searchKeywords skip:0 completed:^(NSArray<CMSModel *> *array) {
         foreTask(^{
+            [self hideIndicator];
             self.items=array;
         });
     }];
@@ -303,8 +306,10 @@
      _searchBar.showsCancelButton = NO;
 //    self.items=[Proto getArticleListByKeywords:searchKeywords type:nil];
 //    self.items=[Proto querySearchResults:searchKeywords pageNumber:pagenumber];
+    [self showIndicator];
     [Proto querySearchResults:searchKeywords skip:0 completed:^(NSArray<CMSModel *> *array) {
         foreTask(^{
+            [self hideIndicator];
             self.items=array;
         });
     }];
@@ -318,8 +323,10 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height+50)
     {
+        [self showIndicator];
         [Proto querySearchResults:searchKeywords skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
             foreTask(^{
+                [self hideIndicator];
                 if(array && array.count>0){
                     NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
                     [newarray addObjectsFromArray:array];

@@ -440,10 +440,12 @@
         }];
         if (upindex<=0) {
             [self showTipView:@"is the first page"];
+            return;
         }
         upindex--;
         if (upindex<0) {
             [self showTipView:@"is the first page"];
+            return;
         }
         if (_cmsmodelsArray.count>upindex) {
             NSString *modelid;

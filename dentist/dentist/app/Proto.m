@@ -761,32 +761,42 @@
 
 + (DetailModel *)queryForDetailPage:(NSString *)contentId
 {
-    HttpResult *r = [self post:@"content/findOneContents" dic:@{@"id": contentId} modular:@"cms"];
-    
-    if (r.OK) {
-        NSDictionary *dic = r.resultMap[@"data"];
-        DetailModel *detail = [[DetailModel alloc] initWithJson:jsonBuild(dic)];
-        detail.discussInfos = [self commentConvertDiscussInfo:detail.comment];
-        return detail;
+    if (contentId) {
+        HttpResult *r = [self post:@"content/findOneContents" dic:@{@"id": contentId} modular:@"cms"];
+        
+        if (r.OK) {
+            NSDictionary *dic = r.resultMap[@"data"];
+            DetailModel *detail = [[DetailModel alloc] initWithJson:jsonBuild(dic)];
+            detail.discussInfos = [self commentConvertDiscussInfo:detail.comment];
+            return detail;
+        }
     }
+    
     return nil;
 }
 
 + (void)queryForDetailPage:(NSString *)contentId completed:(void(^)(BOOL result,NSString* jsontext))completed
 {
-    [self postAsync:@"content/findOneContents" dic:@{@"id": contentId} modular:@"cms" callback:^(HttpResult *r) {
-        if (r.OK) {
-            NSDictionary *dic = r.resultMap[@"data"];
-            NSString *json=jsonBuild(dic);
-            if (completed) {
-                completed(YES,json);
+    if (contentId) {
+        [self postAsync:@"content/findOneContents" dic:@{@"id": contentId} modular:@"cms" callback:^(HttpResult *r) {
+            if (r.OK) {
+                NSDictionary *dic = r.resultMap[@"data"];
+                NSString *json=jsonBuild(dic);
+                if (completed) {
+                    completed(YES,json);
+                }
+            }else{
+                if (completed) {
+                    completed(NO,nil);
+                }
             }
-        }else{
-            if (completed) {
-                completed(NO,nil);
-            }
+        }];
+    }else{
+        if (completed) {
+            completed(NO,nil);
         }
-    }];
+    }
+    
 }
 
 //commentModel to DiscussInfo

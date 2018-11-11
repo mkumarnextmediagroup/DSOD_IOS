@@ -821,14 +821,12 @@
 
 
 //MARK: search API（CMS_001_11-A/CMS_001_12）
-+ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue pageNumber:(NSInteger)pageNumber{
++ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue skip:(NSInteger)skip{
     
-    NSInteger skip=0;
-    NSInteger limit=10;//分页数默认20条
-    if(pageNumber>=1)
-    {
-        skip=(pageNumber-1)*limit;
+    if (skip<=0) {
+        skip=0;
     }
+    NSInteger limit=10;//分页数默认20条
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
     [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
@@ -883,12 +881,10 @@
 }
 
 //MARK:查询媒体列表（CMS_001_01\CMS_001_10）
-+ (NSArray<CMSModel *> *)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *)authorId {
-    NSInteger skip=0;
++ (NSArray<CMSModel *> *)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId skip:(NSInteger)skip authorId:(NSString *)authorId {
     NSInteger limit=20;//分页数默认20条
-    if(pageNumber>=1)
-    {
-        skip=(pageNumber-1)*limit;
+    if (skip<=0) {
+        skip=0;
     }
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
@@ -923,12 +919,14 @@
     return resultArray;
 }
 
-+ (void)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *)authorId completed:(void(^)(NSArray<CMSModel *> *array))completed {
-    NSInteger skip=0;
++ (void)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId skip:(NSInteger)skip authorId:(NSString *)authorId completed:(void(^)(NSArray<CMSModel *> *array))completed {
     NSInteger limit=20;//分页数默认20条
-    if(pageNumber>=1)
-    {
-        skip=(pageNumber-1)*limit;
+//    if(pageNumber>=1)
+//    {
+//        skip=(pageNumber-1)*limit;
+//    }
+    if (skip<=0) {
+        skip=0;
     }
 //    email=getLastAccount();
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
@@ -987,36 +985,44 @@
 }
 
 //MARK:根据分类查询媒体列表（CMS_001_01\CMS_001_10）
-+ (NSArray<CMSModel *> *)queryAllContentsByCategoryType:(NSString *)categoryTypeId pageNumber:(NSInteger)pageNumber
++ (NSArray<CMSModel *> *)queryAllContentsByCategoryType:(NSString *)categoryTypeId skip:(NSInteger)skip
 {
-    return [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil pageNumber:pageNumber authorId:nil];
+    return [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil skip:skip authorId:nil];
 }
 
-+ (void)queryAllContentsByCategoryType:(NSString *)categoryTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed
++ (void)queryAllContentsByCategoryType:(NSString *)categoryTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed
 {
-    return [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil pageNumber:pageNumber authorId:nil completed:completed];
+    return [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil skip:skip authorId:nil completed:completed];
+}
++ (void)queryAllContentsByCategoryType2:(NSString *)categoryTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array,NSString *categoryType))completed
+{
+    [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil skip:skip authorId:nil completed:^(NSArray<CMSModel *> *array) {
+        if (completed) {
+            completed(array,categoryTypeId);
+        }
+    }];
 }
 
 //MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
-+ (NSArray<CMSModel *> *)queryAllContentsByContentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
++ (NSArray<CMSModel *> *)queryAllContentsByContentType:(NSString *)contentTypeId skip:(NSInteger)skip
 {
-    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil pageNumber:pageNumber authorId:nil];
+    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil skip:skip authorId:nil];
 }
 
-+ (void)queryAllContentsByContentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed
++ (void)queryAllContentsByContentType:(NSString *)contentTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed
 {
-    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil pageNumber:pageNumber authorId:nil completed:completed];
+    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil skip:skip authorId:nil completed:completed];
 }
 
 //MARK:根据赞助商跟内容分类查询媒体列表（CMS_001_01\CMS_001_10）
-+ (NSArray<CMSModel *> *)queryAllContentsBySponsorAndContentType:(NSString *)sponsorId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
++ (NSArray<CMSModel *> *)queryAllContentsBySponsorAndContentType:(NSString *)sponsorId contentTypeId:(NSString *)contentTypeId skip:(NSInteger)skip
 {
-    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:sponsorId pageNumber:pageNumber authorId:nil];
+    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:sponsorId skip:skip authorId:nil];
 }
 
-+ (void)queryAllContentsBySponsorAndContentType:(NSString *)sponsorId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed
++ (void)queryAllContentsBySponsorAndContentType:(NSString *)sponsorId contentTypeId:(NSString *)contentTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed
 {
-    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:sponsorId pageNumber:pageNumber authorId:nil completed:completed];
+    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:sponsorId skip:skip authorId:nil completed:completed];
 }
 
 //MARK:查询媒体详情（CMS_002_01/CMS_002_02）
@@ -1182,13 +1188,11 @@
 }
 
 //MARK:查询收藏列表
-+ (NSArray<BookmarkModel *> *)queryBookmarksByEmail:(NSString *)email categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber {
-    NSInteger skip=0;
-    NSInteger limit=10;//分页数默认20条
-    if(pageNumber>=1)
-    {
-        skip=(pageNumber-1)*limit;
++ (NSArray<BookmarkModel *> *)queryBookmarksByEmail:(NSString *)email categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId skip:(NSInteger)skip {
+    if (skip<=0) {
+        skip=0;
     }
+    NSInteger limit=10;//分页数默认20条
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
     [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
@@ -1214,7 +1218,7 @@
     return resultArray;
 }
 
-+ (void)queryBookmarksByEmail:(NSString *)email categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber skip:(NSInteger)skip completed:(void(^)(NSArray<BookmarkModel *> *array))completed {
++ (void)queryBookmarksByEmail:(NSString *)email categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<BookmarkModel *> *array))completed {
 //    NSInteger skip=0;
     NSInteger limit=10;//分页数默认20条
 //    if(pageNumber>=1)

@@ -42,7 +42,6 @@
     NSString *category;
     NSString *contenttype;
     DentistTabView *tabView;
-    NSInteger pagenumber;
     BOOL isdownrefresh;
     CMSModel *selectModel;
 }
@@ -352,7 +351,7 @@
 }
 
 -(void)getContentCachesData:(NSInteger)page{
-    if (page==1) {
+    if (page==0) {
         NSMutableDictionary *newparadic=[NSMutableDictionary dictionary];
         if (self->contenttype) {
             [newparadic setObject:self->contenttype forKey:@"contentTypeId"];
@@ -373,13 +372,12 @@
 //MARK:刷新数据
 -(void)refreshData
 {
-    pagenumber=1;
     category=@"LATEST";
     contenttype=nil;
     segView.selectedSegmentIndex=0;
     self.table.tableHeaderView = [self makeHeaderView];
     [self showIndicator];
-    [self getContentCachesData:pagenumber];
+    [self getContentCachesData:0];
     [Proto queryContentTypes:^(NSArray<IdName *> *array) {
         self->segItemsModel=[NSMutableArray arrayWithArray:array];
         IdName *latestmodel=[IdName new];
@@ -391,7 +389,7 @@
             self->tabView.modelArr=self->segItemsModel;
         });
 
-        [Proto queryAllContentsByContentType:self->contenttype pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+        [Proto queryAllContentsByContentType:self->contenttype skip:0 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
                 if (array && array.count>0) {
@@ -636,7 +634,6 @@
 #pragma mark -------DentistTabViewDelegate
 -(void)didDentistSelectItemAtIndex:(NSInteger)index
 {
-    pagenumber=1;
     if (segItemsModel.count>index) {
         IdName *model=segItemsModel[index];
         Log(model.id, model.name);
@@ -646,8 +643,8 @@
         }else{
             self->contenttype=model.id;
         }
-        [self getContentCachesData:self->pagenumber];
-        [Proto queryAllContentsByContentType:self->contenttype pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+        [self getContentCachesData:0];
+        [Proto queryAllContentsByContentType:self->contenttype skip:0 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
                 if (array && array.count>0) {
@@ -671,14 +668,13 @@
             isdownrefresh=YES;
             //在最底部
             [self showIndicator];
-            [Proto queryAllContentsByContentType:self->contenttype pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
+            [Proto queryAllContentsByContentType:self->contenttype skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
                 self->isdownrefresh=NO;
                 foreTask(^() {
                     [self hideIndicator];
                     if(array && array.count>0){
                         NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
                         [newarray addObjectsFromArray:array];
-                        self->pagenumber++;
                         self.items=[newarray copy];
                         
                     }

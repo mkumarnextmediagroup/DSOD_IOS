@@ -81,7 +81,7 @@
 + (void)queryForDetailPage:(NSString *_Nullable)contentId completed:(void(^)(BOOL result,NSString* jsontext))completed;
 
 //get search result
-+ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue pageNumber:(NSInteger)pageNumber;
++ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue skip:(NSInteger)skip;
 + (void)querySearchResults:(NSString *)serachValue skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed;
 
 //MARK:查询媒体列表（CMS_001_01\CMS_001_10）
@@ -91,39 +91,40 @@
  @param categoryId 分类ID  是否必须:N
  @param sponserId 赞助商ID  是否必须:N
  @param authorId 作者ID  是否必须:N
- @param pageNumber 分页数  是否必须:Y
+ @param skip 分页数  是否必须:Y
  @return 返回CMSModel的实体数组
  **/
-+ (NSArray<CMSModel *> *_Nullable)queryAllContents:(NSString *_Nullable)email contentTypeId:(NSString *_Nullable)contentTypeId categoryId:(NSString *_Nullable)categoryId sponserId:(NSString *_Nullable)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *_Nullable)authorId;
-+ (void)queryAllContents:(NSString *_Nullable)email contentTypeId:(NSString *_Nullable)contentTypeId categoryId:(NSString *_Nullable)categoryId sponserId:(NSString *_Nullable)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *_Nullable)authorId completed:(void(^)(NSArray<CMSModel *> *array))completed;
++ (NSArray<CMSModel *> *_Nullable)queryAllContents:(NSString *_Nullable)email contentTypeId:(NSString *_Nullable)contentTypeId categoryId:(NSString *_Nullable)categoryId sponserId:(NSString *_Nullable)sponserId skip:(NSInteger)skip authorId:(NSString *_Nullable)authorId;
++ (void)queryAllContents:(NSString *_Nullable)email contentTypeId:(NSString *_Nullable)contentTypeId categoryId:(NSString *_Nullable)categoryId sponserId:(NSString *_Nullable)sponserId skip:(NSInteger)skip authorId:(NSString *_Nullable)authorId completed:(void(^)(NSArray<CMSModel *> *array))completed;
 
 //MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
 /**
  @param categoryTypeId 文章分类ID 是否必须:N
- @param pageNumber 分页数 是否必须:Y
+ @param skip 分页数 是否必须:Y
  @return 返回CMSModel的实体数组
  **/
-+ (NSArray<CMSModel *> *_Nullable)queryAllContentsByCategoryType:(NSString *_Nullable)categoryTypeId pageNumber:(NSInteger)pageNumber;
-+ (void)queryAllContentsByCategoryType:(NSString *_Nullable)categoryTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed;
++ (NSArray<CMSModel *> *_Nullable)queryAllContentsByCategoryType:(NSString *_Nullable)categoryTypeId skip:(NSInteger)skip;
++ (void)queryAllContentsByCategoryType:(NSString *_Nullable)categoryTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed;
++ (void)queryAllContentsByCategoryType2:(NSString *_Nullable)categoryTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array,NSString *categoryType))completed;
 
 //MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
 /**
  @param contentTypeId 文章类型ID 是否必须:N
- @param pageNumber 分页数 是否必须:Y
+ @param skip 分页数 是否必须:Y
  @return 返回CMSModel的实体数组
  **/
-+ (NSArray<CMSModel *> *_Nullable)queryAllContentsByContentType:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
-+ (void)queryAllContentsByContentType:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed;
++ (NSArray<CMSModel *> *_Nullable)queryAllContentsByContentType:(NSString *_Nullable)contentTypeId skip:(NSInteger)skip;
++ (void)queryAllContentsByContentType:(NSString *_Nullable)contentTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed;
 
 //MARK:根据赞助商跟内容分类查询媒体列表（CMS_001_01\CMS_001_10）
 /**
   @param sponsorId 赞助商ID 是否必须:N
  @param contentTypeId 文章类型ID 是否必须:N
- @param pageNumber 分页数 是否必须:Y
+ @param skip 分页数 是否必须:Y
  @return 返回CMSModel的实体数组
  **/
-+ (NSArray<CMSModel *> *_Nullable)queryAllContentsBySponsorAndContentType:(NSString *_Nullable)sponsorId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
-+ (void)queryAllContentsBySponsorAndContentType:(NSString *_Nullable)sponsorId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed;
++ (NSArray<CMSModel *> *_Nullable)queryAllContentsBySponsorAndContentType:(NSString *_Nullable)sponsorId contentTypeId:(NSString *_Nullable)contentTypeId skip:(NSInteger)skip;
++ (void)queryAllContentsBySponsorAndContentType:(NSString *_Nullable)sponsorId contentTypeId:(NSString *_Nullable)contentTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed;
 
 //MARK:查询媒体详情（CMS_002_01/CMS_002_02）
 /**
@@ -160,11 +161,11 @@
  @param email 邮箱 是否必须:Y
  @param categoryId 类别ID 是否必须:N
  @param contentTypeId 内容分类ID 是否必须:N
- @param pageNumber 分页数 是否必须:Y
+ @param skip 分页数 是否必须:Y
  @return 返回CMSModelComment的实体数组
  **/
-+ (NSArray<BookmarkModel *> *)queryBookmarksByEmail:(NSString *_Nullable)email categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber;
-+ (void)queryBookmarksByEmail:(NSString *_Nullable)email categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId pageNumber:(NSInteger)pageNumber  skip:(NSInteger)skip completed:(void(^)(NSArray<BookmarkModel *> *array))completed;
++ (NSArray<BookmarkModel *> *)queryBookmarksByEmail:(NSString *_Nullable)email categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId skip:(NSInteger)skip;
++ (void)queryBookmarksByEmail:(NSString *_Nullable)email categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<BookmarkModel *> *array))completed;
 
 //MARK:删除收藏
 /**

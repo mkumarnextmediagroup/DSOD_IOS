@@ -16,10 +16,10 @@
 @interface CmsSearchPage()<UISearchBarDelegate,MyActionSheetDelegate,ArticleItemViewDelegate>
 {
     NSInteger selectIndex;
-    NSInteger pagenumber;
     BOOL issearch;
     NSString *searchKeywords;
     CMSModel *selectModel;
+    BOOL isdownrefresh;
 }
 /*** searchbar ***/
 @property (nonatomic,strong) UISearchBar *searchBar;
@@ -300,7 +300,6 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     issearch=YES;
-    pagenumber=1;
     searchKeywords=searchBar.text;
     [self.searchBar resignFirstResponder];
      _searchBar.showsCancelButton = NO;
@@ -323,18 +322,23 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height+50)
     {
-        [self showIndicator];
-        [Proto querySearchResults:searchKeywords skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
-            foreTask(^{
-                [self hideIndicator];
-                if(array && array.count>0){
-                    NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-                    [newarray addObjectsFromArray:array];
-                    self.items=[newarray copy];
-                }
-                
-            });
-        }];
+        if (!isdownrefresh) {
+            isdownrefresh=YES;
+            [self showIndicator];
+            [Proto querySearchResults:searchKeywords skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
+                foreTask(^{
+                    self->isdownrefresh=NO;
+                    [self hideIndicator];
+                    if(array && array.count>0){
+                        NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+                        [newarray addObjectsFromArray:array];
+                        self.items=[newarray copy];
+                    }
+                    
+                });
+            }];
+        }
+        
         
     }
 }

@@ -39,7 +39,6 @@ CMSModel *selectModel;
     NSString *type;
     DentistTabView *tabView;
     NSMutableArray<IdName *> *segItemsModel;
-    NSInteger pagenumber;
     NSString *contentTypeId;
     BOOL isdownrefresh;
 }
@@ -85,7 +84,6 @@ CMSModel *selectModel;
 //MARK:刷新数据
 -(void)refreshData
 {
-    pagenumber=1;
     category=@"LATEST";
     contentTypeId=nil;
     self.table.tableHeaderView = [self makeHeaderView];
@@ -96,7 +94,7 @@ CMSModel *selectModel;
         latestmodel.id=@"0";
         latestmodel.name=@"LATEST";
         [self->segItemsModel insertObject:latestmodel atIndex:0];
-        [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId  pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+        [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId skip:0 completed:^(NSArray<CMSModel *> *array) {
             
             foreTask(^() {
                 [self hideIndicator];
@@ -291,15 +289,13 @@ CMSModel *selectModel;
             isdownrefresh=YES;
             //在最底部
             [self showIndicator];
-            [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
+            [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
                 self->isdownrefresh=NO;
                 foreTask(^() {
                     [self hideIndicator];
                     if(array && array.count>0){
                         NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
                         [newarray addObjectsFromArray:array];
-                        self->pagenumber++;
-                        
                         self.items=[newarray copy];
                     }
                     
@@ -477,7 +473,6 @@ CMSModel *selectModel;
 #pragma mark -------DentistTabViewDelegate
 -(void)didDentistSelectItemAtIndex:(NSInteger)index
 {
-    pagenumber=1;
     if (segItemsModel.count>index) {
         IdName *model=segItemsModel[index];
         Log(model.id, model.name);
@@ -487,7 +482,7 @@ CMSModel *selectModel;
         }else{
             contentTypeId=model.id;
         }
-        [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+        [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId skip:0 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
                 self.items=array;

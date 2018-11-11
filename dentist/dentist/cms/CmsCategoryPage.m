@@ -19,7 +19,6 @@
     NSInteger selectIndex;
     NSString *type;
     NSArray *dataArray;
-    NSInteger pagenumber;
     BOOL isdownrefresh;
     CMSModel *selectModel;
 }
@@ -45,11 +44,16 @@
     [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by category" filterAction:^(NSString *result,NSString *resultname) {
         self->type=result;
         [self showIndicator];
-        [Proto queryAllContentsByCategoryType:self->type pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+        [Proto queryAllContentsByCategoryType2:self->type skip:0 completed:^(NSArray<CMSModel *> *array,NSString *categoryType) {
             foreTask(^() {
                 [self hideIndicator];
-                self.items=array;
+                if ([self->type isEqualToString:categoryType]) {
+                   self.items=array;
+                }
+                
             });
+            
+            
         }];
         
     }];
@@ -88,9 +92,8 @@
 -(void)refreshData
 {
     if (type) {
-        pagenumber=1;
         [self showIndicator];
-        [Proto queryAllContentsByCategoryType:self->type pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+        [Proto queryAllContentsByCategoryType:self->type skip:0 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
                 self.items=array;
@@ -237,9 +240,8 @@
     } rightAction:^(NSString *result,NSString *resultname) {
         
     } selectAction:^(NSString *result,NSString *resultname) {
-        self->pagenumber=1;
         [self showIndicator];
-        [Proto queryAllContentsByCategoryType:result pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+        [Proto queryAllContentsByCategoryType:result skip:0 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
                 self.items=array;
@@ -314,18 +316,17 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height-50)
     {
-        if (pagenumber>=1 && !isdownrefresh) {
+        if (!isdownrefresh) {
             isdownrefresh=YES;
             //在最底部
             [self showIndicator];
-            [Proto queryAllContentsByCategoryType:self->type pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
+            [Proto queryAllContentsByCategoryType:self->type skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
                 self->isdownrefresh=NO;
                 foreTask(^() {
                     [self hideIndicator];
                     if(array && array.count>0){
                         NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
                         [newarray addObjectsFromArray:array];
-                        self->pagenumber++;
                         self.items=[newarray copy];
                     }
                 });

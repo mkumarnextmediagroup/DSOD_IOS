@@ -83,18 +83,16 @@
         [_moreButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
         
         markButton = [self addButton];
-//        markButton.backgroundColor = UIColor.redColor;
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
         [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
         [[[[markButton.layoutMaker toLeftOf:_moreButton offset:0] below:gskBtn offset:0] sizeEq:48 h:48] install];
         [markButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
         
         titleLabel = [self addLabel];
-//        titleLabel.backgroundColor = UIColor.blueColor;
         titleLabel.font = [Fonts semiBold:18];
         titleLabel.textColor = rgbHex(0x353f52);
         titleLabel.numberOfLines = 0;
-        [[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:gskBtn offset:edge-5]  install];
+        [[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:15] below:gskBtn offset:edge-5]  install];
         
         authorLabel = [self addLabel];
 //        authorLabel.backgroundColor = UIColor.redColor;

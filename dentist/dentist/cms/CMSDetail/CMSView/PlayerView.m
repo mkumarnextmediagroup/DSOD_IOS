@@ -4,7 +4,7 @@
 //
 //  Created by 孙兴国 on 2018/9/19.
 //  Copyright © 2018年 thenextmediagroup.com. All rights reserved.
-//
+//  由PicDtailView代替，本类不在更新  wanglibo 2018.11.11
 
 #import "PlayerView.h"
 #import "Article.h"

@@ -44,8 +44,7 @@
     _markButton = [self addButton];
     [_markButton setImage:[UIImage imageNamed:@"dot3"] forState:UIControlStateNormal];
     [_markButton addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
-    [[[[_markButton.layoutMaker rightParent:-edge] topParent:25] sizeEq:20 h:20] install];
-
+    [[[[_markButton.layoutMaker rightParent:-edge+14] topParent:10] sizeEq:48 h:48] install];
     
     statusButton = [self addButton];
     [statusButton setImage:[UIImage imageNamed:@"select"] forState:UIControlStateNormal];
@@ -64,7 +63,8 @@
     titleLabel = [self addLabel];
     titleLabel.font = [Fonts regular:14];
     titleLabel.textColor=Colors.textMain;
-    [[[[[titleLabel.layoutMaker toRightOf:imageView offset:15] topOf:imageView offset:5] toLeftOf:_markButton offset:-10] heightEq:18] install];
+    [[[[[titleLabel.layoutMaker toRightOf:imageView offset:15] topOf:imageView offset:5] toLeftOf:_markButton offset:15] heightEq:18] install];
+    
     
     statusLabel = [self addLabel];
     statusLabel.font =[Fonts semiBold:12];

@@ -42,7 +42,6 @@
     NSArray *dataArray;
     NSString *contenttype;
     DentistTabView *tabView;
-    NSInteger pagenumber;
     UILabel *titlecontent;
      BOOL isdownrefresh;
     CMSModel *selectModel;
@@ -203,9 +202,8 @@
 //MARK:刷新数据
 -(void)refreshData
 {
-    pagenumber=1;
     [self showCmsIndicator];
-    [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+    [Proto queryAllContentsByCategoryType:self.categoryId skip:0 completed:^(NSArray<CMSModel *> *array) {
         foreTask(^() {
             [self hideCmsIndicator];
             self.items=array;
@@ -385,8 +383,7 @@
             [self showCmsIndicator];
             self->titlecontent.text=resultname;
         });
-        self->pagenumber=1;
-        [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+        [Proto queryAllContentsByCategoryType:self.categoryId skip:0 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideCmsIndicator];
                 self.items=array;
@@ -407,18 +404,17 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height-50)
     {
-        if (pagenumber>=1 && !isdownrefresh) {
+        if (!isdownrefresh) {
             isdownrefresh=YES;
             //在最底部
             [self showCmsIndicator];
-            [Proto queryAllContentsByCategoryType:self.categoryId pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
+            [Proto queryAllContentsByCategoryType:self.categoryId skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
                 self->isdownrefresh=NO;
                 foreTask(^() {
                     [self hideCmsIndicator];
                     if(array && array.count>0){
                         NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
                         [newarray addObjectsFromArray:array];
-                        self->pagenumber++;
                         self.items=[newarray copy];
                     }
                 });

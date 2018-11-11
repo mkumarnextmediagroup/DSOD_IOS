@@ -270,7 +270,7 @@
     [[[[[categoryLabel.layoutMaker leftParent:20] topParent:20] rightParent:-10] heightEq:20] install];
     UITextField *categoryTextField=_emtyView.addEditRounded;
     categoryTextField.delegate = self;
-    categoryTextField.hint = localStr(@"DSOs");
+    categoryTextField.hint = localStr(@"");
     categoryTextField.tag=1;
     [categoryTextField returnNext];
     categoryTextField.font = [Fonts regular:15];

@@ -124,7 +124,8 @@
     footerVi.backgroundColor = [UIColor whiteColor];
     
     UILabel *lineLabel = [footerVi lineLabel];
-    [[[[[lineLabel.layoutMaker leftParent:edge] rightParent:0] topParent:0] heightEq:1] install];
+    lineLabel.backgroundColor = rgbHex(0xdddddd);
+    [[[[[lineLabel.layoutMaker leftParent:edge] rightParent:0] topParent:0] heightEq:0.5] install];
     
     UILabel *lineLabel1 = [footerVi lineLabel];
     [[[[[lineLabel1.layoutMaker leftParent:0] rightParent:0] topParent:29] heightEq:1] install];
@@ -252,21 +253,23 @@
         [self.contentView addSubview:myTable];
         myTable.dataSource = self;
         myTable.delegate = self;
-        myTable.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        myTable.scrollEnabled = NO;
+        myTable.separatorInset = UIEdgeInsetsMake(0, edge, 0, 0);
+        myTable.separatorColor = rgbHex(0xdddddd);;
+         [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:picDetailView offset:0] sizeEq:SCREENWIDTH h:500] install];
     }
     if (_articleInfo.isBookmark) {
         [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
-//    if ([self.toWhichPage isEqualToString:@"mo"]) {
-//        [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:playView offset:0] sizeEq:SCREENWIDTH h:150] install];
-//    }else
-//    {
-        [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:picDetailView offset:0] sizeEq:SCREENWIDTH h:150] install];
-//    }
-    [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
 
+    
+    [[myTable.layoutUpdate heightEq:self.articleInfo.discussInfos.count * 110 + 150] install];
+    [myTable reloadData];
+
+    [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
+    
 }
 
 //click more button
@@ -392,12 +395,6 @@
     DiscussTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
     if (cell == nil) {
         cell = [[DiscussTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
-    }
-    
-    if (self.articleInfo.discussInfos.count > 0) {
-        [[myTable.layoutUpdate heightEq:self.articleInfo.discussInfos.count * 110 + 150] install];
-        myTable.scrollEnabled = NO;
-        [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
     }
     
     cell.disInfo = self.articleInfo.discussInfos[indexPath.row];

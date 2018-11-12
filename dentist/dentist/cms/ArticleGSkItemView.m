@@ -162,15 +162,13 @@
     _cmsmodel=item;
 
     
-    CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
-    [[gskBtn.layoutUpdate heightEq:sponstorimgh] install];
-    
-    if ([_cmsmodel.sponsorId isEqualToString:@"260"]) {
-        [gskBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_align"] forState:UIControlStateNormal];
-    }else if ([_cmsmodel.sponsorId isEqualToString:@"259"]) {
-        [gskBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_nobel"] forState:UIControlStateNormal];
-    }else if([_cmsmodel.sponsorId isEqualToString:@"197"]){
-        [gskBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_gsk"] forState:UIControlStateNormal];
+    NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",
+                                  @"259":@"sponsor_nobel",
+                                  @"197":@"sponsor_gsk"};
+    if (sponsorInfo[item.sponsorId]) {
+        [gskBtn setBackgroundImage:[UIImage imageNamed:sponsorInfo[item.sponsorId]] forState:UIControlStateNormal];
+        CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
+        [[gskBtn.layoutUpdate heightEq:sponstorimgh] install];
     }else{
         [[gskBtn.layoutUpdate heightEq:0] install];
     }

@@ -77,7 +77,7 @@
 	snav.navigationBar.barTintColor = UIColor.whiteColor;
 
     SliderListViewController * slider = [SliderListViewController new];
-    slider.preferredContentSize = makeSize(SCREENWIDTH - 187, SCREENHEIGHT);
+    slider.preferredContentSize = makeSize(SCREENWIDTH - 132, SCREENHEIGHT);
     
 	UIViewController *centerPage = [sc onMakePage:@"Browse Content"];
 	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:centerPage leftViewController:snav rightViewController:slider];

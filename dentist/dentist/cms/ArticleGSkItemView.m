@@ -19,7 +19,9 @@
     UILabel *typeLabel;
     UILabel *dateLabel;
     UILabel *titleLabel;
-    UILabel *contentLabel;
+    UILabel *authorLabel;
+    UIWebView *contentWebView;
+    UILabel *moreLabel;
     UIImageView *imageView;
     UIImageView *thumbImageView;
     UIButton *markButton;
@@ -36,6 +38,7 @@
             topheight=50;
             edge=24;
         }
+        CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
         UIView *topView = self.addView;
         topView.backgroundColor = rgb255(250, 251, 253);
         [[[[[topView.layoutMaker topParent:0] leftParent:0] rightParent:0] heightEq:topheight] install];
@@ -64,40 +67,61 @@
         //    [imageView scaleFillAspect];
         [[[[thumbImageView.layoutMaker leftParent:edge] bottomParent:-edge] sizeEq:28 h:28] install];
         
+        gskBtn = [self addButton];
+//        [gskBtn.titleLabel setFont:[Fonts regular:12]];
+//        gskBtn.titleLabel.textColor = [UIColor whiteColor];
+//        gskBtn.backgroundColor = rgb255(111, 201, 211);
+        [gskBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_gsk"] forState:UIControlStateNormal];
+        [gskBtn addTarget:self action:@selector(gskAction:) forControlEvents:UIControlEventTouchUpInside];
+        [[[[[gskBtn.layoutMaker leftParent:0] rightParent:0] below:imageView offset:0] heightEq:sponstorimgh] install];
+        
         _moreButton = [self addButton];
+//        markButton.backgroundColor = UIColor.blueColor;
         [_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
         [_moreButton addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
-        [[[[_moreButton.layoutMaker rightParent:-edge] below:imageView offset:edge] sizeEq:20 h:20] install];
+        [[[[_moreButton.layoutMaker rightParent:0] below:gskBtn offset:0] sizeEq:48 h:48] install];
+        [_moreButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
         
         markButton = [self addButton];
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
         [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
-        [[[[markButton.layoutMaker toLeftOf:_moreButton offset:-edge+5] below:imageView offset:edge] sizeEq:20 h:20] install];
-        
-        gskBtn = [self addButton];
-        [gskBtn.titleLabel setFont:[Fonts regular:12]];
-        gskBtn.titleLabel.textColor = [UIColor whiteColor];
-        gskBtn.backgroundColor = rgb255(111, 201, 211);
-        [gskBtn addTarget:self action:@selector(gskAction:) forControlEvents:UIControlEventTouchUpInside];
-        [[[[[gskBtn.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:62] install];
-        
-        contentLabel = [self addLabel];
-        contentLabel.font = [Fonts regular:15];
-        [contentLabel textColorMain];
-        //    contentLabel.lineBreakMode=NSLineBreakByWordWrapping;
-        //    [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] bottomParent:-16] install];
-        [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] above:gskBtn offset:-16] install];
+        [[[[markButton.layoutMaker toLeftOf:_moreButton offset:0] below:gskBtn offset:0] sizeEq:48 h:48] install];
+        [markButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
         
         titleLabel = [self addLabel];
-        titleLabel.font = [Fonts semiBold:20];
-        [titleLabel textColorMain];
+        titleLabel.font = [Fonts semiBold:18];
+        titleLabel.textColor = rgbHex(0x353f52);
         titleLabel.numberOfLines = 0;
-        //    [[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] heightEq:24] install];
-        //    [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] bottomParent:-103] install];
-        [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] above:contentLabel offset:-23] install];
+        [[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:15] below:gskBtn offset:edge-5]  install];
+        
+        authorLabel = [self addLabel];
+//        authorLabel.backgroundColor = UIColor.redColor;
+//        self.backgroundColor = UIColor.greenColor;
+        authorLabel.font = [Fonts semiBold:15];
+        authorLabel.textColor = rgbHex(0x626262);
+        authorLabel.numberOfLines = 0;
+        [[[[authorLabel.layoutMaker leftParent:edge] rightParent:-edge] below:titleLabel offset:5]  install];
+        
+        
+        contentWebView = [UIWebView new];
+        //        contentWebView.delegate = self;
+        contentWebView.scrollView.scrollEnabled = NO;
+        contentWebView.userInteractionEnabled = NO;
+        [self addSubview:contentWebView];
+        [[[[[[contentWebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:72] below:authorLabel offset:5] bottomParent:-20] install];
+        
+        moreLabel = [self addLabel];
+        moreLabel.font = [Fonts semiBold:15];
+        moreLabel.textColor = rgbHex(0x879aa8);
+        moreLabel.text = @"...more";
+        moreLabel.backgroundColor = UIColor.clearColor;
+        [[[[moreLabel.layoutMaker rightParent:-edge] heightEq:15]bottomParent:-5] install];
+        
+        
     }
     return self;
 }
+
 
 
 - (void)bind:(Article *)item {
@@ -105,8 +129,8 @@
     typeLabel.text = [item.type uppercaseString];
     dateLabel.text = item.publishDate;
     titleLabel.text = item.title;
-    //    contentLabel.text = item.content;
-    [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
+    
+    [imageView loadUrl:item.resImage placeholderImage:@""];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
     //@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"
@@ -131,39 +155,41 @@
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
     [self layoutIfNeeded];
-    //    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
-    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:item.content];
-    //    NSLog(@"contentlabel:%@",labelarry);
-    if (labelarry.count>4 && item.content) {
-        NSString *line4String = labelarry[3];
-        NSString *showText = [NSString stringWithFormat:@"%@%@%@%@...more", labelarry[0], labelarry[1], labelarry[2], [line4String substringToIndex:line4String.length-6]];
-        
-        //设置label的attributedText
-        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:showText attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
-        [attStr addAttributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textDisabled} range:NSMakeRange(showText.length-4, 4)];
-        contentLabel.attributedText = attStr;
-    }else{
-        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:item.content attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
-        contentLabel.attributedText = attStr;;
-    }
 }
 
 -(void)bindCMS:(CMSModel *)item
 {
     _cmsmodel=item;
-    [gskBtn setTitle:@"   Sponsored content brought to you by GSK" forState:UIControlStateNormal];
-    [gskBtn setImage:[UIImage imageNamed:@"gskIcon"] forState:UIControlStateNormal];
+
     
+    NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",
+                                  @"259":@"sponsor_nobel",
+                                  @"197":@"sponsor_gsk"};
+    if (sponsorInfo[item.sponsorId]) {
+        [gskBtn setBackgroundImage:[UIImage imageNamed:sponsorInfo[item.sponsorId]] forState:UIControlStateNormal];
+        CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
+        [[gskBtn.layoutUpdate heightEq:sponstorimgh] install];
+    }else{
+        [[gskBtn.layoutUpdate heightEq:0] install];
+    }
+
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
-    dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];//item.publishDate;
+    dateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:item.publishDate];//item.publishDate;
     titleLabel.text = _cmsmodel.title;
-    //    contentLabel.text = item.content;
+    authorLabel.text = [NSString stringWithFormat:@"By %@ %@",item.author.firstName,item.author.lastName];
+
+    
     NSString *urlstr;
-    if (_cmsmodel.featuredMediaId) {
-        urlstr=[Proto getFileUrlByObjectId:_cmsmodel.featuredMediaId];
+    NSString* type = _cmsmodel.featuredMedia[@"type"];
+    if([type isEqualToString:@"1"] ){
+        //pic
+        NSDictionary *codeDic = _cmsmodel.featuredMedia[@"code"];
+        urlstr = codeDic[@"thumbnailUrl"];
+    }else{
+        urlstr = _cmsmodel.featuredMedia[@"code"];
     }
     
-    [imageView loadUrl:urlstr placeholderImage:@"art-img"];
+    [imageView loadUrl:urlstr placeholderImage:@""];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
     //@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"
@@ -187,29 +213,43 @@
     }else{
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
-    [self layoutIfNeeded];
-    //    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
-    NSString *contentstr=[NSString stringWithFormat:@"%@",_cmsmodel.content];
-    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:contentstr];
-    //    NSLog(@"contentlabel:%@",labelarry);
-    if (labelarry.count>4 && ![NSString isBlankString:contentstr]) {
-        NSString *line4String = labelarry[3];
-        if (line4String.length>=6) {
-            line4String= [line4String substringToIndex:line4String.length-6];
+    
+    [contentWebView loadHTMLString:[ArticleGSkItemView htmlString:_cmsmodel.content] baseURL:nil];
+
+}
+
+
++ (NSString *)htmlString:(NSString *)html{
+    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@",
+                            @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
+                            @"<style type=\"text/css\">",
+                            @"body{padding:0px;margin:0px;background:#ffffff;font-family:SFUIText-Regular;}",
+                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
+                            @"p{width:100%;margin: 0px auto;color:#4a4a4a;font-size:0.9em;}",
+                            @"em{font-style:normal}",
+                            @"strong{font-weight:normal} a {text-decoration:none;color:#4a4a4a}",
+                            @"</style>"
+                            ];
+    
+    html = [html stringByReplacingOccurrencesOfString :@"<p>&nbsp;</p>" withString:@""];
+    
+    BOOL isFirst = YES;
+    NSArray *array = [html componentsSeparatedByString:@"<p>"];
+    for (int i = 0; i < [array count]; i++) {
+        NSString *currentString = [array objectAtIndex:i];
+        if(i>0){
+            if([currentString rangeOfString:@"<iframe"].location !=NSNotFound){
+                continue;
+            }
+            if(isFirst){
+                htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
+                isFirst = NO;
+            }else{
+                htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];
+            }
         }
-        NSString *showText = [NSString stringWithFormat:@"%@%@%@%@...more", labelarry[0], labelarry[1], labelarry[2], line4String];
-        
-        //设置label的attributedText
-        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:showText attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
-        [attStr addAttributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textDisabled} range:NSMakeRange(showText.length-4, 4)];
-        contentLabel.attributedText = attStr;
-    }else{
-        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:contentstr attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
-        contentLabel.attributedText = attStr;;
-        //        contentLabel.text=contentstr;
     }
+    return htmlString;
 }
 
 - (NSArray *)getSeparatedLinesFromLabel:(UILabel *)label text:(NSString *)text
@@ -255,7 +295,10 @@
 -(void)moreAction:(UIButton *)sender
 {
     if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMoreAction:)]){
-        [self.delegate ArticleMoreAction:_model.id];
+        [self.delegate ArticleMoreAction:_cmsmodel.id];
+    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMoreActionModel:)]){
+        [self.delegate ArticleMoreActionModel:_cmsmodel];
     }
 }
 

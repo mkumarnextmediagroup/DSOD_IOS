@@ -128,6 +128,28 @@
     
 }
 
+
+-(void)setSelectId:(NSString *)selectId
+{
+    _selectId=selectId;
+    if (self.arrayDic && self.arrayDic.count>0)  {
+        __block NSInteger index;
+        [self.arrayDic enumerateObjectsUsingBlock:^(IdName * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.id isEqualToString:selectId]) {
+                index=idx;
+                *stop = YES;
+            }
+        }];
+        if (self.arrayDic.count>index) {
+            [self.pickerView selectRow:index inComponent:0 animated:YES];
+        }
+        
+    }else{
+        NSInteger index=[self.array indexOfObject:selectId];
+        [self.pickerView selectRow:index inComponent:0 animated:YES];
+    }
+}
+
 //快速创建
 +(instancetype)pickerView;
 {
@@ -200,6 +222,23 @@
 
 -(void)rightaction
 {
+    if (!_result) {
+        if (self.arrayDic && self.arrayDic.count>0)  {
+            IdName *model=self.arrayDic[0];
+            _result=model.id;
+            _resultname=model.name;
+            
+        }else{
+            if (self.array.count>0) {
+                _result=self.array[0];
+                _resultname=self.array[0];
+            }
+            
+        }
+    }
+    if (self.rightBlock) {
+        self.rightBlock(_result,_resultname);
+    }
     [UIView animateWithDuration:0.5 animations:^{
         self.alpha = 0;
         CGPoint point = self.center;

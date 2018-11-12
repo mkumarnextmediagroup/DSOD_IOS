@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*categoryName;
 @property NSString <Optional>*contentTypeId;
 @property NSString <Optional>*contentTypeName;
+@property NSString <Optional>*coverUrl;
+@property NSString <Optional>*coverthumbnailUrl;
 @end
 
 NS_ASSUME_NONNULL_END

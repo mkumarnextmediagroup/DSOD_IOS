@@ -32,3 +32,17 @@ NSDictionary *jsonParse(NSString *s) {
 	}
 	return d;
 }
+
+id jsonParseObject(NSString *s) {
+    
+    if (s == nil) {
+        return nil;
+    }
+    NSData *data = s.dataUTF8;
+    NSError *err;
+    id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&err];
+    if (err) {
+        return nil;
+    }
+    return obj;
+}

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ArticleItemViewDelegate <NSObject>
 @optional
 - (void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(NSString *)categoryName;
-- (void)ArticleMoreAction:(NSInteger)articleid;
+- (void)ArticleMoreAction:(NSString *)articleid;
 - (void)ArticleMarkAction:(NSInteger)articleid;
 - (void)ArticleMoreActionModel:(CMSModel*)model;
 - (void)ArticleMarkActionModel:(CMSModel*)model;

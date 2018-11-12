@@ -31,4 +31,5 @@ extern NSInteger getIsActicleArchive(void);
 
 extern void putLoginType(NSInteger value);
 extern NSInteger getLoginType(void);
+extern NSString *getShareUrl(NSString *modulename,NSString*someid);
 

@@ -29,6 +29,7 @@ typedef void (^DentistPickerViewdidSelectActionBlock) (NSString *result,NSString
 @property (nonatomic,strong) NSString *leftTitle;
 /** righttitle */
 @property (nonatomic,strong) NSString *righTtitle;
+@property (nonatomic,strong) NSString *selectId;
 //快速创建
 +(instancetype)pickerView;
 //弹出

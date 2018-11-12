@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) bind:(Article*)item ;
 -(void) bindCMS:(CMSModel*)item;
 -(void) updateBookmarkStatus:(BOOL)ismark;
+
++ (NSString *)htmlString:(NSString *)html;
+    
 @end
 
 NS_ASSUME_NONNULL_END

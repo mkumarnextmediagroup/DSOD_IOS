@@ -64,20 +64,22 @@
     
     _moreButton = [contentView addButton];
     [_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
-    [[[[[_moreButton.layoutMaker rightParent:-edge+5] below:topView offset:edge] sizeEq:20 h:20] leftParent:SCREENWIDTH-40] install];
+    [[[[[_moreButton.layoutMaker rightParent:0] below:topView offset:0] sizeEq:48 h:48] leftParent:SCREENWIDTH-40] install];
      [_moreButton addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_moreButton setImageEdgeInsets:UIEdgeInsetsMake(5, 0, 0, 15)];
     
     markButton = [contentView addButton];
     [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-    [[[[markButton.layoutMaker toLeftOf:_moreButton offset:-8] below:topView offset:edge] sizeEq:20 h:20] install];
+    [[[[markButton.layoutMaker toLeftOf:_moreButton offset:0] below:topView offset:0] sizeEq:48 h:48] install];
     [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
+    [markButton setImageEdgeInsets:UIEdgeInsetsMake(5, 10, 0, 0)];
 
     titleLabel = [contentView addLabel];
     titleLabel.font = [Fonts regular:14];
     [titleLabel textColorMain];
     titleLabel.numberOfLines = 3;
     //    [[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] heightEq:24] install];
-    [[[[titleLabel.layoutMaker toRightOf:imageView offset:edge] toLeftOf:markButton offset:-edge] below:topView offset:edge+4] install];
+    [[[[titleLabel.layoutMaker toRightOf:imageView offset:edge] toLeftOf:markButton offset:15] below:topView offset:edge+4] install];
     
     return self;
 }
@@ -102,13 +104,19 @@
 {
     _cmsmodel=item;
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
-    dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];
+    dateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:item.publishDate];
     titleLabel.text = _cmsmodel.title;
     NSString *urlstr;
-    if (_cmsmodel.featuredMediaId) {
-        urlstr=[Proto getFileUrlByObjectId:_cmsmodel.featuredMediaId];
+    NSString* type = _cmsmodel.featuredMedia[@"type"];
+    if([type isEqualToString:@"1"] ){
+        //pic
+        NSDictionary *codeDic = _cmsmodel.featuredMedia[@"code"];
+        urlstr = codeDic[@"thumbnailUrl"];
+    }else{
+        urlstr = _cmsmodel.featuredMedia[@"code"];
     }
-    [imageView loadUrl:urlstr placeholderImage:@"art-img"];
+    
+    [imageView loadUrl:urlstr placeholderImage:@""];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
     
@@ -132,6 +140,9 @@
 {
     if(self.delegate && [self.delegate respondsToSelector:@selector(articleMoreAction:)]){
         [self.delegate articleMoreAction:_model.id];
+    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(GSkArticleMoreActionModel:)]){
+        [self.delegate GSkArticleMoreActionModel:_cmsmodel];
     }
 }
 

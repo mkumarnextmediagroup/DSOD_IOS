@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*categoryName;
 @property NSString <Optional>*sponsorName;
 @property NSString <Optional>*featuredMediaId;
+@property NSArray  <Optional>*photoUrls;
 @property NSArray  <Optional>*photos;
 @property NSArray  <Optional>*videos;
 @property NSArray  <Optional>*podcasts;
@@ -47,6 +48,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*publishDate;
 @property NSString <Optional>*isFeatured;
 @property NSInteger readNumber;
+@property NSDictionary <Optional>*featuredMedia;
+@property NSArray <Optional>*relativeTopicList;
+
+
 
 @end
 

@@ -100,6 +100,42 @@
     [self.iv stopAnimating];
 }
 
+- (void)showCenterIndicator {
+    [self showLoading];
+//    UIActivityIndicatorView *centeriv = nil;
+//    for (UIView *a in self.view.subviews) {
+//        if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 1000) {
+//            centeriv = (UIActivityIndicatorView *) a;
+//            break;
+//        }
+//    }
+//    if (centeriv == nil) {
+//        centeriv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//        CGAffineTransform transform = CGAffineTransformMakeScale(1.3f, 1.3f);
+//        centeriv.transform = transform;
+//        centeriv.tag = 1000;
+//        [self.view addSubview:centeriv];
+//        centeriv.backgroundColor = [UIColor clearColor];
+//        centeriv.hidesWhenStopped = YES;
+//        centeriv.center = self.view.center;
+//    }
+//    [self.view bringSubviewToFront:centeriv];
+//    centeriv.hidden = NO;
+//    [centeriv startAnimating];
+}
+
+- (void)hideCenterIndicator {
+    [self hideLoading];
+//    UIActivityIndicatorView *iv = nil;
+//    for (UIView *a in self.view.subviews) {
+//        if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 1000) {
+//            iv = (UIActivityIndicatorView *) a;
+//            [iv stopAnimating];
+//            return;
+//        }
+//    }
+}
+
 - (NSArray *)items {
 	return _items;
 }
@@ -241,10 +277,10 @@
     
 }
 
--(void)addEmptyFilterViewWithImageName:(NSString*)imageName title:(NSString*)title filterAction:(EmptyFilterViewActionBlock)filterActionBlock
+-(void)addEmptyFiledViewWithImageName:(NSString*)imageName title:(NSString*)title textFiledBlock:(EmptyFiledViewActionBlock)textFiledBlock
 {
     isHasEmtyView=YES;
-    self.filterBlock = filterActionBlock;
+    self.filedBlock  = textFiledBlock;
     CGFloat _topBarH = 0;
     CGFloat _bottomBarH = 0;
     if (self.navigationController != nil) {
@@ -270,7 +306,7 @@
     [[[[[categoryLabel.layoutMaker leftParent:20] topParent:20] rightParent:-10] heightEq:20] install];
     UITextField *categoryTextField=_emtyView.addEditRounded;
     categoryTextField.delegate = self;
-    categoryTextField.hint = localStr(@"DSOs");
+    categoryTextField.hint = localStr(@"");
     categoryTextField.tag=1;
     [categoryTextField returnNext];
     categoryTextField.font = [Fonts regular:15];
@@ -303,41 +339,15 @@
         [_emtyView addSubview:noLabel];
         [[[[[[noLabel layoutMaker] leftParent:0] rightParent:0] below:carImageView offset:40] heightEq:80] install];
     }
-    
-    
 }
 
 #pragma mark textfielddelegate
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if (textField.tag==1) {
-        DentistPickerView *picker = [[DentistPickerView alloc]init];
-        picker.arrayDic=self.categoryArray;
-        picker.leftTitle=localStr(@"Category");
-        picker.righTtitle=localStr(@"Cancel");
-        [picker show:^(NSString *result,NSString *resultname) {
-            
-        } rightAction:^(NSString *result,NSString *resultname) {
-            
-        } selectAction:^(NSString *result,NSString *resultname) {
-            textField.text=resultname;
-            if (self.filterBlock) {
-                self.filterBlock(result,resultname);
-            }
-        }];
-        [picker showIndicator];
-        [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
-            if (!self.categoryArray) {
-                self.categoryArray = array;
-            }
-            foreTask(^() {
-                [picker hideIndicator];
-                picker.arrayDic=self.categoryArray;
-            });
-        }];
-        
-        
-       
+        if (self.filedBlock) {
+            self.filedBlock(textField);
+        }
     }
     return NO;
 }

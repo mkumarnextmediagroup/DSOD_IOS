@@ -129,7 +129,7 @@
         self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
     } completion:^(BOOL finished) {
         if (self.selectBlock) {
-            self.selectBlock(self.categorytext,self.typetext);
+            self.selectBlock(self->_categorytext,self->_typetext);
         }
         [self removeFromSuperview];
     }];
@@ -161,6 +161,7 @@
 {
     self.closeBlock = closeActionBlock;
     self.selectBlock = selectActionBlock;
+    
     AppDelegate * appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     [appDelegate.window.rootViewController.view addSubview:self];
     [UIView animateWithDuration:0.5 animations:^{
@@ -169,17 +170,104 @@
     }];
 }
 
+-(void)setCategorytext:(NSString *)categorytext
+{
+    _categorytext=categorytext;
+    [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
+        self.categoryArray = array;
+        if (self.categoryArray && self.categoryArray.count>0) {
+            __block NSInteger index;
+            backTask(^{
+                [self.categoryArray enumerateObjectsUsingBlock:^(IdName * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj.id isEqualToString:categorytext]) {
+                        index=idx;
+                        *stop = YES;
+                    }
+                }];
+                if (self.categoryArray.count>index) {
+                    foreTask(^{
+                        IdName *categorymodel=[self.categoryArray objectAtIndex:index];
+                        for (UIView *view in self.subviews) {
+                            if ([view isKindOfClass:[UITextField class]]) {
+                                UITextField *textFiled=(UITextField *)view;
+                                if (view.tag==1) {
+                                    if (categorytext) {
+                                        textFiled.text=categorymodel.name;
+                                    }else{
+                                        textFiled.text=@"";
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }];
+    
+    
+    
+}
+
+-(void)setTypetext:(NSString *)typetext
+{
+    _typetext=typetext;
+    [Proto queryContentTypes:^(NSArray<IdName *> *array) {
+        self.contentArray = array;
+        if (self.contentArray && self.contentArray.count>0) {
+            __block NSInteger index;
+            backTask(^{
+                [self.contentArray enumerateObjectsUsingBlock:^(IdName * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj.id isEqualToString:typetext]) {
+                        index=idx;
+                        *stop = YES;
+                    }
+                }];
+                if (self.contentArray.count>index) {
+                    foreTask(^{
+                        IdName *typemodel=[self.contentArray objectAtIndex:index];
+                        for (UIView *view in self.subviews) {
+                            if ([view isKindOfClass:[UITextField class]]) {
+                                UITextField *textFiled=(UITextField *)view;
+                                if (view.tag==2) {
+                                    if (typetext) {
+                                        textFiled.text=typemodel.name;
+                                    }else{
+                                        textFiled.text=@"";
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }];
+   
+}
+
 #pragma mark 关闭刷选页面
 -(void)clickClose:(UIButton *)sender
 {
     _categorytext=nil;
     _typetext=nil;
+    for (UIView *view in self.subviews) {
+        if ([view isKindOfClass:[UITextField class]]) {
+            UITextField *textFiled=(UITextField *)view;
+            if (view.tag==1) {
+                textFiled.text=@"";
+            }else if (view.tag==2){
+                textFiled.text=@"";
+            }
+        }
+    }
     [UIView animateWithDuration:0.5 animations:^{
         //将view.frame 设置在屏幕下方
         self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
     } completion:^(BOOL finished) {
         if (self.closeBlock) {
-            self.closeBlock(self.categorytext,self.typetext);
+            self.closeBlock(self->_categorytext,self->_typetext);
         }
         [self removeFromSuperview];
     }];
@@ -192,7 +280,7 @@
         self.frame=CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, DSFilterHeight);
     } completion:^(BOOL finished) {
         if (self.selectBlock) {
-            self.selectBlock(self.categorytext,self.typetext);
+            self.selectBlock(self->_categorytext,self->_typetext);
         }
         [self removeFromSuperview];
     }];
@@ -211,14 +299,13 @@
             
         } selectAction:^(NSString *result,NSString *resultname) {
             textField.text=resultname;
-            self.categorytext=result;
+            self->_categorytext=result;
         }];
         [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
-            if (!self.categoryArray) {
-                self.categoryArray = array;
-            }
+            self.categoryArray = array;
             foreTask(^() {
                 picker.arrayDic=self.categoryArray;
+                picker.selectId=self->_categorytext;
             });
         }];
         
@@ -233,14 +320,13 @@
             
         } selectAction:^(NSString *result,NSString *resultname) {
             textField.text=resultname;
-            self.typetext=result;
+            self->_typetext=result;
         }];
         [Proto queryContentTypes:^(NSArray<IdName *> *array) {
-            if (!self.contentArray) {
-                self.contentArray = array;
-            }
+            self.contentArray = array;
             foreTask(^() {
                 picker.arrayDic=self.contentArray;
+                picker.selectId=self->_typetext;
             });
         }];
     }

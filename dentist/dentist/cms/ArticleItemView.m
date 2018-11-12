@@ -1,7 +1,7 @@
 //
 // Created by entaoyang on 2018/9/18.
 // Copyright (c) 2018 thenextmediagroup.com. All rights reserved.
-//
+//合并到ArticleGSKItemView 此类不在维护
 
 #import "ArticleItemView.h"
 #import "Common.h"
@@ -10,15 +10,17 @@
 #import <CoreText/CoreText.h>
 #import "CMSModel.h"
 #import "Proto.h"
+#import "ArticleGSkItemView.h"
 
 @implementation ArticleItemView {
 	UILabel *typeLabel;
 	UILabel *dateLabel;
 	UILabel *titleLabel;
-	UILabel *contentLabel;
 	UIImageView *imageView;
     UIImageView *thumbImageView;
 	UIButton *markButton;
+    UIWebView *contentWebView;
+    UILabel *moreLabel;
 }
 
 - (instancetype)init {
@@ -68,12 +70,19 @@
         [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
         [[[[markButton.layoutMaker toLeftOf:_moreButton offset:-edge+5] below:imageView offset:edge] sizeEq:20 h:20] install];
         
-        contentLabel = [self addLabel];
-        contentLabel.font = [Fonts regular:15];
-        [contentLabel textColorMain];
-        //    contentLabel.lineBreakMode=NSLineBreakByWordWrapping;
-        //    [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] bottomParent:-16] install];
-        [[[[[contentLabel.layoutMaker leftParent:edge] rightParent:-edge-5] heightEq:80] bottomParent:-16] install];
+        contentWebView = [UIWebView new];
+        //        contentWebView.delegate = self;
+        contentWebView.scrollView.scrollEnabled = NO;
+        contentWebView.userInteractionEnabled = NO;
+        [self addSubview:contentWebView];
+        [[[[[contentWebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:105] bottomParent:-20] install];
+        
+        moreLabel = [self addLabel];
+        moreLabel.font = [Fonts semiBold:15];
+        moreLabel.textColor = rgbHex(0x879aa8);
+        moreLabel.text = @"...more";
+        moreLabel.backgroundColor = UIColor.clearColor;
+        [[[[moreLabel.layoutMaker rightParent:-edge] heightEq:15]bottomParent:-5] install];
         
         titleLabel = [self addLabel];
         titleLabel.font = [Fonts semiBold:20];
@@ -81,7 +90,9 @@
         titleLabel.numberOfLines = 0;
         //    [[[[[titleLabel.layoutMaker leftParent:edge] rightParent:-64] below:imageView offset:10] heightEq:24] install];
         //    [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] bottomParent:-103] install];
-        [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] above:contentLabel offset:-23] install];
+        [[[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:-edge-10] below:imageView offset:edge-5] above:contentWebView offset:-15] install];
+        
+        
     }
     return self;
 }
@@ -91,8 +102,8 @@
     typeLabel.text = [item.type uppercaseString];
     dateLabel.text = item.publishDate;
     titleLabel.text = item.title;
-//    contentLabel.text = item.content;
-    [imageView loadUrl:item.resImage placeholderImage:@"art-img"];
+
+    [imageView loadUrl:item.resImage placeholderImage:@""];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
     //@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"
@@ -117,34 +128,29 @@
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
     [self layoutIfNeeded];
-//    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
-    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:item.content];
-//    NSLog(@"contentlabel:%@",labelarry);
-    if (labelarry.count>4 && item.content) {
-        NSString *line4String = labelarry[3];
-        NSString *showText = [NSString stringWithFormat:@"%@%@%@%@...more", labelarry[0], labelarry[1], labelarry[2], [line4String substringToIndex:line4String.length-6]];
-        
-        //设置label的attributedText
-        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:showText attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
-        [attStr addAttributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textDisabled} range:NSMakeRange(showText.length-4, 4)];
-        contentLabel.attributedText = attStr;
-    }else{
-        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:item.content attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
-        contentLabel.attributedText = attStr;;
-    }
+
 }
 
 -(void)bindCMS:(CMSModel *)item
 {
     _cmsmodel=item;
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
-    dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];//item.publishDate;
+    dateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:item.publishDate];//item.publishDate;
     titleLabel.text = _cmsmodel.title;
-    //    contentLabel.text = item.content;
+    
+    NSString* type = _cmsmodel.featuredMedia[@"type"];
     NSString *urlstr;
-    if (_cmsmodel.featuredMediaId) {
-        urlstr=[Proto getFileUrlByObjectId:_cmsmodel.featuredMediaId];
+    if([type isEqualToString:@"1"] ){
+        //pic
+        NSDictionary *codeDic = _cmsmodel.featuredMedia[@"code"];
+        urlstr = codeDic[@"thumbnailUrl"];
+    }else{
+        urlstr = _cmsmodel.featuredMedia[@"code"];
     }
+    
+//    if (_cmsmodel.featuredMediaId) {
+//        urlstr=[Proto getFileUrlByObjectId:_cmsmodel.featuredMediaId];
+//    }
     
     [imageView loadUrl:urlstr placeholderImage:@"art-img"];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
@@ -170,30 +176,10 @@
     }else{
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
-    [self layoutIfNeeded];
-    //    NSLog(@"contentLabelFRAME=%@",NSStringFromCGRect(contentLabel.frame));
-    NSString *contentstr=[NSString stringWithFormat:@"%@",_cmsmodel.content];
-    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    contentstr = [contentstr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    NSArray *labelarry=[self getSeparatedLinesFromLabel:contentLabel text:contentstr];
-    //    NSLog(@"contentlabel:%@",labelarry);
-    if (labelarry.count>4 && ![NSString isBlankString:contentstr]) {
-        NSString *line4String = labelarry[3];
-        if (line4String.length>=6) {
-            line4String= [line4String substringToIndex:line4String.length-6];
-        }
-        NSString *showText = [NSString stringWithFormat:@"%@%@%@%@...more", labelarry[0], labelarry[1], labelarry[2], line4String];
-        
-        //设置label的attributedText
-        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:showText attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
-        [attStr addAttributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textDisabled} range:NSMakeRange(showText.length-4, 4)];
-        contentLabel.attributedText = attStr;
-    }else{
-        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:contentstr attributes:@{NSFontAttributeName:[Fonts regular:15], NSForegroundColorAttributeName:Colors.textMain}];
-        contentLabel.attributedText = attStr;;
-//        contentLabel.text=contentstr;
-    }
+
+    [contentWebView loadHTMLString:[ArticleGSkItemView htmlString:_cmsmodel.content] baseURL:nil];
 }
+
 
 - (NSArray *)getSeparatedLinesFromLabel:(UILabel *)label text:(NSString *)text
 {
@@ -239,7 +225,10 @@
 -(void)moreAction:(UIButton *)sender
 {
     if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMoreAction:)]){
-        [self.delegate ArticleMoreAction:_model.id];
+        [self.delegate ArticleMoreAction:_cmsmodel.id];
+    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(ArticleMoreActionModel:)]){
+        [self.delegate ArticleMoreActionModel:_cmsmodel];
     }
 }
 

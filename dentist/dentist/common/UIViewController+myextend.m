@@ -111,36 +111,24 @@
 }
 
 
+- (void)showLoading{
+    [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    hud.bezelView.backgroundColor = argbHex(0xAA000000);
+    hud.mode = MBProgressHUDModeIndeterminate;
+}
+
+- (void)hideLoading{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
 - (void)showIndicator {
-	UIActivityIndicatorView *iv = nil;
-	for (UIView *a in self.view.subviews) {
-		if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 998) {
-			iv = (UIActivityIndicatorView *) a;
-			break;
-		}
-	}
-	if (iv == nil) {
-		iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		iv.tag = 998;
-		[self.view addSubview:iv];
-		iv.backgroundColor = [UIColor clearColor];
-		iv.hidesWhenStopped = YES;
-		iv.center = self.view.center;
-	}
-	[self.view bringSubviewToFront:iv];
-	iv.hidden = NO;
-	[iv startAnimating];
+    [self showLoading];
 }
 
 - (void)hideIndicator {
-	UIActivityIndicatorView *iv = nil;
-	for (UIView *a in self.view.subviews) {
-		if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 998) {
-			iv = (UIActivityIndicatorView *) a;
-			[iv stopAnimating];
-			return;
-		}
-	}
+    [self hideLoading];
 }
 
 - (void)selectIdName:(NSString *)title array:(NSArray<IdName *> *)array selectedId:(NSString *)selectedId result:(void (^)(IdName *))result {

@@ -101,37 +101,39 @@
 }
 
 - (void)showCenterIndicator {
-    UIActivityIndicatorView *centeriv = nil;
-    for (UIView *a in self.view.subviews) {
-        if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 1000) {
-            centeriv = (UIActivityIndicatorView *) a;
-            break;
-        }
-    }
-    if (centeriv == nil) {
-        centeriv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        CGAffineTransform transform = CGAffineTransformMakeScale(1.3f, 1.3f);
-        centeriv.transform = transform;
-        centeriv.tag = 1000;
-        [self.view addSubview:centeriv];
-        centeriv.backgroundColor = [UIColor clearColor];
-        centeriv.hidesWhenStopped = YES;
-        centeriv.center = self.view.center;
-    }
-    [self.view bringSubviewToFront:centeriv];
-    centeriv.hidden = NO;
-    [centeriv startAnimating];
+    [self showLoading];
+//    UIActivityIndicatorView *centeriv = nil;
+//    for (UIView *a in self.view.subviews) {
+//        if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 1000) {
+//            centeriv = (UIActivityIndicatorView *) a;
+//            break;
+//        }
+//    }
+//    if (centeriv == nil) {
+//        centeriv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//        CGAffineTransform transform = CGAffineTransformMakeScale(1.3f, 1.3f);
+//        centeriv.transform = transform;
+//        centeriv.tag = 1000;
+//        [self.view addSubview:centeriv];
+//        centeriv.backgroundColor = [UIColor clearColor];
+//        centeriv.hidesWhenStopped = YES;
+//        centeriv.center = self.view.center;
+//    }
+//    [self.view bringSubviewToFront:centeriv];
+//    centeriv.hidden = NO;
+//    [centeriv startAnimating];
 }
 
 - (void)hideCenterIndicator {
-    UIActivityIndicatorView *iv = nil;
-    for (UIView *a in self.view.subviews) {
-        if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 1000) {
-            iv = (UIActivityIndicatorView *) a;
-            [iv stopAnimating];
-            return;
-        }
-    }
+    [self hideLoading];
+//    UIActivityIndicatorView *iv = nil;
+//    for (UIView *a in self.view.subviews) {
+//        if ([a isKindOfClass:UIActivityIndicatorView.class] && a.tag == 1000) {
+//            iv = (UIActivityIndicatorView *) a;
+//            [iv stopAnimating];
+//            return;
+//        }
+//    }
 }
 
 - (NSArray *)items {

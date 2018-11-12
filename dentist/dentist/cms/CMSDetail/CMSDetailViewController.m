@@ -238,6 +238,8 @@
         picDetailView.vc = self;
         [picDetailView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [picDetailView.markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [picDetailView.sponsorImageBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [picDetailView.sponsorBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [picDetailView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:picDetailView];
     }
@@ -355,6 +357,7 @@
 {
     GSKViewController *gskVC = [GSKViewController new];
     gskVC.author = [NSString stringWithFormat:@"%@ %@",_articleInfo.author.firstName,_articleInfo.author.lastName];
+    gskVC.sponsorId=self.articleInfo.sponsorId;
     [self.navigationController pushViewController:gskVC animated:YES];
     
 }

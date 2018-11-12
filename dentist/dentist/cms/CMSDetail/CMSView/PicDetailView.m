@@ -37,6 +37,9 @@
     UIView *view;
     UIView *imageScrollPView;
     UIScrollView *imageScroll;
+    UIView *sponsorView;
+    UILabel *sponsorLabel;
+    
     BOOL allowZoom;
     
     NSArray *relativeTopicArray;
@@ -70,23 +73,29 @@
     
     imageView = self.addImageView;
     [imageView scaleFillAspect];
+    imageView.clipsToBounds = YES;
     [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+    
+    CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
+    _sponsorImageBtn = [self addButton];
+    [[[[[_sponsorImageBtn.layoutMaker leftParent:0] rightParent:0] below:imageView offset:0] heightEq:sponstorimgh] install];
+    [_sponsorImageBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_gsk"] forState:UIControlStateNormal];
     
     _moreButton = [self addButton];
     [_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
-    [[[[_moreButton.layoutMaker rightParent:0] below:imageView offset:0] sizeEq:48 h:48] install];
+    [[[[_moreButton.layoutMaker rightParent:0] below:_sponsorImageBtn offset:0] sizeEq:48 h:48] install];
     [_moreButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
     
     _markButton = [self addButton];
     [_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-    [[[[_markButton.layoutMaker toLeftOf:_moreButton offset:0] below:imageView offset:0] sizeEq:48 h:48] install];
+    [[[[_markButton.layoutMaker toLeftOf:_moreButton offset:0] below:_sponsorImageBtn offset:0] sizeEq:48 h:48] install];
     [_markButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     
     titleLabel = [self addLabel];
     titleLabel.font = [Fonts semiBold:18];
     [titleLabel textColorMain];
     titleLabel.numberOfLines = 0;
-    [[[[titleLabel.layoutMaker leftParent:edge]  toLeftOf:_markButton offset:15] below:imageView offset:edge-5] install];
+    [[[[titleLabel.layoutMaker leftParent:edge]  toLeftOf:_markButton offset:15] below:_sponsorImageBtn offset:edge-5] install];
     [titleLabel.layoutMaker.height.equalTo(@24).priority(200) install];
     
     UILabel *lineLabel = [self lineLabel];
@@ -139,7 +148,8 @@
     [[[[[relativeTopicTableView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:0] below:mywebView offset:0] install];
     
     
-    [self moreView];
+    [self createImageScrollView];
+    [self createSsponsorView];
     [self createStarView];
 
     
@@ -147,16 +157,42 @@
 }
 
 
-- (void)moreView{
+- (void)createImageScrollView{
     
     imageScrollPView = [UIView new];
     [self addSubview:imageScrollPView];
-    [[[[[[imageScrollPView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:202] below:relativeTopicTableView offset:0] install];
+    [[[[[imageScrollPView.layoutMaker leftParent:0] rightParent:0] heightEq:202] below:relativeTopicTableView offset:0] install];
     
     UILabel *lineLabelTop = [imageScrollPView lineLabel];
     [[[[[lineLabelTop.layoutMaker leftParent:0] rightParent:0] topParent:26] heightEq:1] install];
 
     [self setImageScrollData:nil];
+}
+
+- (void)createSsponsorView{
+    
+    sponsorView = [UIView new];
+    [self addSubview:sponsorView];
+    sponsorView.clipsToBounds = YES;
+    [[[[[sponsorView.layoutMaker leftParent:0] rightParent:0] below:imageScrollPView offset:26] heightEq:100] install];
+    
+    UILabel *lineLabelTop = [sponsorView lineLabel];
+    [[[[[lineLabelTop.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
+    
+    sponsorLabel = [sponsorView addLabel];
+    sponsorLabel.font = [Fonts regular:12];
+    [sponsorLabel textColorAlternate];
+    sponsorLabel.text = @"Want more content from GSK?";
+    [[[[[sponsorLabel.layoutMaker leftParent:18] rightParent:-18] topParent:0] heightEq:50] install];
+    [sponsorLabel textAlignCenter];
+    
+    self.sponsorBtn = [sponsorView addButton];
+    self.sponsorBtn.backgroundColor = rgb255(111, 201, 211);
+    [self.sponsorBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.sponsorBtn setTitle:@"Access GSK Science" forState:UIControlStateNormal];
+    self.sponsorBtn.titleLabel.font = [Fonts regular:14];
+    [[[[[self.sponsorBtn.layoutMaker leftParent:18] rightParent:-18] below:sponsorLabel offset:0] heightEq:36] install];
+    
 }
 
 -(void)setImageScrollData:(NSArray*)data{
@@ -246,7 +282,7 @@
     starView.backgroundColor = rgb255(248, 248, 248);
     [self addSubview:starView];
 
-    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:imageScrollPView offset:26] install];
+    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:sponsorView offset:26] install];
     
     UILabel *lineLabeltop = [starView lineLabel];
     [[[[[lineLabeltop.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
@@ -328,6 +364,29 @@
         }
     }
     
+    
+    CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
+    [[_sponsorImageBtn.layoutUpdate heightEq:sponstorimgh] install];
+    [sponsorView.layoutUpdate heightEq:100];
+    
+    
+    
+    NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",
+                                  @"259":@"sponsor_nobel",
+                                  @"197":@"sponsor_gsk"};
+    
+    if (sponsorInfo[bindInfo.sponsorId]) {
+        [_sponsorImageBtn setBackgroundImage:[UIImage imageNamed:sponsorInfo[bindInfo.sponsorId]] forState:UIControlStateNormal];
+        sponsorLabel.text = [NSString stringWithFormat:@"Want more content from %@?" , bindInfo.sponsorName];
+        [self.sponsorBtn setTitle:[NSString stringWithFormat:@"Access %@ Science" ,bindInfo.sponsorName] forState:UIControlStateNormal];
+        
+        CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
+        [[_sponsorImageBtn.layoutUpdate heightEq:sponstorimgh] install];
+        [[sponsorView.layoutUpdate heightEq:100] install];
+    }else{
+        [[_sponsorImageBtn.layoutUpdate heightEq:0] install];
+        [[sponsorView.layoutUpdate heightEq:0] install];
+    }
 
     
     titleLabel.text = bindInfo.title;

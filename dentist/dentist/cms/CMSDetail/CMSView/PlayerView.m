@@ -217,7 +217,7 @@
 
 -(void)bind:(DetailModel *)bindInfo {
     typeLabel.text = [bindInfo.categoryName uppercaseString];
-    dateLabel.text = [NSString timeWithTimeIntervalString:bindInfo.publishDate];
+    dateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:bindInfo.publishDate];
     NSString *urlstr;
     if (bindInfo.videos.count > 0) {
         urlstr=[Proto getFileUrlByObjectId:bindInfo.videos[0]];

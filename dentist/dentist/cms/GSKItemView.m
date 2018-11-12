@@ -104,7 +104,7 @@
 {
     _cmsmodel=item;
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
-    dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];
+    dateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:item.publishDate];
     titleLabel.text = _cmsmodel.title;
     NSString *urlstr;
     if (_cmsmodel.featuredMediaId) {

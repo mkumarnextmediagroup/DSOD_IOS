@@ -14,6 +14,7 @@
 #import "dentist-Swift.h"
 #import "SliderListView.h"
 #import "DetinstDownloadManager.h"
+#import "UniteDetailViewController.h"
 
 @interface UniteDownloadingViewController (){
     UIImageView *coverImgView;
@@ -202,9 +203,14 @@
             }];
             WeakSelf
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                ThumViewController *thumvc=[ThumViewController new];
-                thumvc.modelarr=weakSelf.datas;
-                [weakSelf.navigationController pushViewController:thumvc animated:YES];
+//                ThumViewController *thumvc=[ThumViewController new];
+//                thumvc.modelarr=weakSelf.datas;
+//                [weakSelf.navigationController pushViewController:thumvc animated:YES];
+                
+                UniteDetailViewController *detail=[UniteDetailViewController new];
+//                detail.modelarr=weakSelf.datas;
+                [weakSelf.navigationController pushViewController:detail animated:YES];
+                
             });
         }else{
             NSLog(@"===============下载失败===============");

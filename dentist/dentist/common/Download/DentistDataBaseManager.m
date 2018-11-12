@@ -638,7 +638,7 @@
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [self->_dbQueue inDatabase:^(FMDatabase *db) {
                 
-                result = [db executeUpdate:@"update t_UniteArticlesCaches set isbookmark = ?,bookmarktime=datetime(‘now’, ‘localtime’) where id = ? and uniteid = ? ",[NSNumber numberWithInteger:isbookmark],articleid,uniteid];
+                result = [db executeUpdate:@"update t_UniteArticlesCaches set isbookmark = ?,bookmarktime=datetime('now')  where id = ? and uniteid = ? ",[NSNumber numberWithInteger:isbookmark],articleid,uniteid];
                 if (result) {
                 }else {
                     NSLog(@"删除cms失败");

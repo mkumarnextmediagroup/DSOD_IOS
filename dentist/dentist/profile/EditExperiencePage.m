@@ -32,20 +32,13 @@
 	NSString *typeName;
 	NSString *roleId;
 	NSString *roleName;
-
-	NSString *dsoName;
 	NSString *dsoId;
 
 	NSString *pracName;
 
-
-	BOOL currentWorking;
-
 	FromToView *fromToView;
-	TitleSwitchView *switchView;
 	TitleMsgArrowView *typeView;
 	TitleMsgArrowView *roleView;
-	TitleMsgArrowView *dsoView;
 	TitleEditView *dentalEditView;
 
 }
@@ -75,11 +68,11 @@
 	roleName = self.exp.roleAtPratice;
 
 	dsoId = self.exp.dsoId;
-	dsoName = self.exp.dsoName;
+	_dsoName = self.exp.dsoName;
 
 	pracName = self.exp.pracName;
 
-	currentWorking = self.exp.workInThisRole;
+	_currentWorking = self.exp.workInThisRole;
 
 	fromMonth = self.exp.fromMonth;
 	fromYear = self.exp.fromYear;
@@ -94,10 +87,10 @@
 
 	[self.contentView removeAllChildren];
 	fromToView = nil;
-	switchView = nil;
+	_switchView = nil;
 	typeView = nil;
 	roleView = nil;
-	dsoView = nil;
+	_dsoView = nil;
 	dentalEditView = nil;
 
 
@@ -127,16 +120,16 @@
 
 	if (typeId && typeId.length > 0) {
 		if (typeName != nil && [typeName hasSuffix:AFFILIATED]) {
-			dsoView = [TitleMsgArrowView new];
+			_dsoView = [TitleMsgArrowView new];
 			//    dentalView.titleLabel.text = @"Name of Dental Support Organization (DSO)";
-			[dsoView.titleLabel setTextWithDifColor:@"Name of Dental Support Organization (DSO) *"];
+			[_dsoView.titleLabel setTextWithDifColor:@"Name of Dental Support Organization (DSO) *"];
 			if (self.isAdd) {
-				dsoView.msgLabel.text = @"Select";
+				_dsoView.msgLabel.text = @"Select";
 			} else {
-				dsoView.msgLabel.text = dsoName;
+				_dsoView.msgLabel.text = _dsoName;
 			}
-			[dsoView onClickView:self action:@selector(clickDental:)];
-			[self.contentView addSubview:dsoView];
+			[_dsoView onClickView:self action:@selector(clickDental:)];
+			[self.contentView addSubview:_dsoView];
 			[self addGrayLine:0 marginRight:0];
 		} else {
 			dentalEditView = [TitleEditView new];
@@ -149,19 +142,19 @@
 		}
 
 
-		switchView = [TitleSwitchView new];
-		switchView.titleLabel.text = @"I currently work in this role";
+		_switchView = [TitleSwitchView new];
+		_switchView.titleLabel.text = @"I currently work in this role";
 		if (self.isAdd) {
-			switchView.switchView.on = NO;
+			_switchView.switchView.on = NO;
 		} else {
-			switchView.switchView.on = currentWorking;
-			if (currentWorking) {
+			_switchView.switchView.on = _currentWorking;
+			if (_currentWorking) {
 				toYear = [[NSDate date] year];
 				toMonth = [[NSDate date] month];
 			}
 		}
-		[switchView.switchView addTarget:self action:@selector(onSwitchChanged:) forControlEvents:UIControlEventValueChanged];
-		[self.contentView addSubview:switchView];
+		[_switchView.switchView addTarget:self action:@selector(onSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+		[self.contentView addSubview:_switchView];
 		[self addGrayLine:0 marginRight:0];
 
 
@@ -232,7 +225,7 @@
 - (void)selectDSO:(NSArray *)ls {
 	[self selectIdName:@"NAME OF DSO" array:ls selectedId:nil result:^(IdName *item) {
         self->dsoId = item.id;
-        self->dsoName = item.name;
+        self->_dsoName = item.name;
 		[self bindData];
 	}];
 }
@@ -249,8 +242,8 @@
 }
 
 - (void)onSwitchChanged:(id)sender {
-	currentWorking = switchView.switchView.on;
-	if (currentWorking) {
+	_currentWorking = _switchView.switchView.on;
+	if (_currentWorking) {
 		fromToView.toDateLabel.text = @"Present";
 		fromToView.toDateLabel.userInteractionEnabled = NO;
 		self->toMonth = [[NSDate date] month];
@@ -268,8 +261,8 @@
 		fromToView.fromDateLabel.text = @"Select";
 	}
 
-	fromToView.toDateLabel.userInteractionEnabled = !currentWorking;
-	if (currentWorking) {
+	fromToView.toDateLabel.userInteractionEnabled = !_currentWorking;
+	if (_currentWorking) {
 		fromToView.toDateLabel.text = @"Present";
 	} else {
 		if (toMonth > 0 && toYear > 0) {
@@ -290,11 +283,11 @@
 		roleView.msgLabel.text = roleName;
 	}
 
-	if (dsoView != nil) {
-		if (dsoName == nil || dsoName.length == 0) {
-			dsoView.msgLabel.text = @"Select";
+	if (_dsoView != nil) {
+		if (_dsoName == nil || _dsoName.length == 0) {
+			_dsoView.msgLabel.text = @"Select";
 		} else {
-			dsoView.msgLabel.text = dsoName;
+			_dsoView.msgLabel.text = _dsoName;
 		}
 	}
 	if (dentalEditView && dentalEditView.edit.text.length == 0) {
@@ -371,17 +364,17 @@
 	self.exp.roleAtPratice = roleName;
 	self.exp.roleAtPraticeId = roleId;
 
-	self.exp.dsoName = dsoName;
+	self.exp.dsoName = _dsoName;
 	self.exp.dsoId = dsoId;
 
 	self.exp.pracName = pracName;
 
-	self.exp.workInThisRole = currentWorking;
+	self.exp.workInThisRole = _currentWorking;
 
-	if (currentWorking) {
+	if (_currentWorking) {
 		toYear = [[NSDate date] year] + 100;
 	}
-    if (!currentWorking && (toYear == [[NSDate date] year] + 100)){
+    if (!_currentWorking && (toYear == [[NSDate date] year] + 100)){
 		toYear = [[NSDate date] year];
 	}
 	self.exp.fromMonth = fromMonth;

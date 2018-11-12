@@ -342,7 +342,7 @@
 
 - (void)bind:(DetailModel *)bindInfo {
     typeLabel.text = [bindInfo.categoryName uppercaseString];
-    dateLabel.text = [NSString timeWithTimeIntervalString:bindInfo.publishDate];
+    dateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:bindInfo.publishDate];
     
     NSString* type = bindInfo.featuredMedia[@"type"];
     if([type isEqualToString:@"1"] ){

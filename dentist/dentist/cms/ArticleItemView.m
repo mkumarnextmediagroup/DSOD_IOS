@@ -135,7 +135,7 @@
 {
     _cmsmodel=item;
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
-    dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];//item.publishDate;
+    dateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:item.publishDate];//item.publishDate;
     titleLabel.text = _cmsmodel.title;
     
     NSString* type = _cmsmodel.featuredMedia[@"type"];

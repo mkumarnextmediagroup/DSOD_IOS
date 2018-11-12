@@ -222,6 +222,23 @@
 
 -(void)rightaction
 {
+    if (!_result) {
+        if (self.arrayDic && self.arrayDic.count>0)  {
+            IdName *model=self.arrayDic[0];
+            _result=model.id;
+            _resultname=model.name;
+            
+        }else{
+            if (self.array.count>0) {
+                _result=self.array[0];
+                _resultname=self.array[0];
+            }
+            
+        }
+    }
+    if (self.rightBlock) {
+        self.rightBlock(_result,_resultname);
+    }
     [UIView animateWithDuration:0.5 animations:^{
         self.alpha = 0;
         CGPoint point = self.center;

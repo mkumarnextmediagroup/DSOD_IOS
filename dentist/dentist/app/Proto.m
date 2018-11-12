@@ -1120,6 +1120,7 @@
 + (void)queryContentTypes:(void(^)(NSArray<IdName *> *array))completed  {
     
     [[DentistDataBaseManager shareManager] queryContentTypesCaches:^(NSArray<IdName *> * _Nonnull array) {
+        array=[self filterContentType:array];
         if (array && array.count>0) {
             if (completed) {
                 completed(array);
@@ -1152,6 +1153,7 @@
                         IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
                         [resultArray addObject:item];
                     }
+                    resultArray=[self filterContentType:resultArray];
                     if (completed) {
                         completed(resultArray);
                     }
@@ -1166,6 +1168,25 @@
     
     
 }
+
++(NSMutableArray<IdName *> *)filterContentType:(NSArray<IdName *> *)array
+{
+    NSMutableArray<IdName *> *temparr=[NSMutableArray array];
+    NSArray *filterArr=@[@"29",@"28",@"30",@"31",@"194"];
+    if (array && array.count>0) {
+        for (NSString *filterid in filterArr) {
+            [array enumerateObjectsUsingBlock:^(IdName * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([filterid isEqualToString:obj.id]) {
+                    [temparr addObject:obj];
+                    *stop=YES;
+                }
+            }];
+        }
+    }
+    
+    return temparr;
+}
+
 
 //MARK:添加评论（CMS_002_06）
 +(HttpResult *)addComment:(NSString *)email contentId:(NSString *)contentId commentText:(NSString *)commentText commentRating:(NSString *)commentRating

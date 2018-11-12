@@ -231,6 +231,8 @@
 
 -(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName
 {
+//    __block NSArray<IdName *> *temparray;
+//    NSInteger *selectrow=0;
     DentistPickerView *picker = [[DentistPickerView alloc]init];
     
     picker.leftTitle=localStr(@"Category");
@@ -250,6 +252,7 @@
     }];
     [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
         foreTask(^() {
+//            temparray=array;
             picker.arrayDic=array;
         });
     }];

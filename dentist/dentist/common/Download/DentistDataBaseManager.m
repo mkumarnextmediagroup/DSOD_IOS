@@ -545,7 +545,7 @@
     }
 }
 // 插入数据
-- (void)insertUniteArticleModel:(CMSModel *)model uniteid:(NSString *)uniteid jsontext:(NSString *)jsontext completed:(void(^)(BOOL result))completed
+- (void)insertUniteArticleModel:(DetailModel *)model uniteid:(NSString *)uniteid jsontext:(NSString *)jsontext completed:(void(^)(BOOL result))completed
 {
     if (![NSString isBlankString:model.id] && ![NSString isBlankString:uniteid]) {
         __block BOOL result;

@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DetinstDownloadManager : NSObject
 + (instancetype)shareManager;
 -(void)startDownLoadCMSModel:(CMSModel *)cmsmodel addCompletion:(void(^)(BOOL result))addCompletion completed:(void(^)(BOOL result))completed;
+-(void)startDownLoadUniteArticles:(MagazineModel *)model  addCompletion:(void(^)(BOOL result))addCompletion completed:(void(^)(BOOL result))completed;
 @end
 
 NS_ASSUME_NONNULL_END

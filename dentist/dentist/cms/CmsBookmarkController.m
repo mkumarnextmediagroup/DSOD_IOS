@@ -18,7 +18,6 @@
     CGFloat rowheight;
     NSMutableArray *resultArray;
     UIView *nullFilterView;
-    NSInteger pagenumber;
     BOOL isdownrefresh;
 }
 @end
@@ -56,9 +55,8 @@
 
 -(void)refreshData
 {
-    pagenumber=1;
     [self showIndicator];
-    [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber  skip:0 completed:^(NSArray<CMSModel *> *array) {
+    [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId skip:0 completed:^(NSArray<CMSModel *> *array) {
         foreTask(^() {
             self->resultArray=[NSMutableArray arrayWithArray:array];
             [self hideIndicator];
@@ -159,12 +157,7 @@
     
     newVC.contentId = article.postId;
     newVC.toWhichPage = @"pic";
-//    if ([[article.contentTypeName uppercaseString] isEqualToString:@"VIDEOS"]) {
-//        newVC.toWhichPage = @"mo";
-//    }else
-//    {
-//        newVC.toWhichPage = @"pic";
-//    }
+    newVC.cmsmodelsArray=self.items;
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
@@ -172,14 +165,15 @@
 -(void)clickFilter:(UIButton *)sender
 {
     DentistFilterView *filterview=[[DentistFilterView alloc] init];
+    filterview.categorytext=self->categoryId;
+    filterview.typetext=self->contentTypeId;
     [filterview show:^(NSString *category, NSString *type) {
         
     } select:^(NSString *category, NSString *type) {
-        self->pagenumber=1;
         self->categoryId =category;
         self->contentTypeId=type;
         [self showIndicator];
-        [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber skip:0 completed:^(NSArray<CMSModel *> *array) {
+        [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId skip:0 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 self->resultArray=[NSMutableArray arrayWithArray:array];
                 [self hideIndicator];
@@ -199,17 +193,16 @@
     if (bottomOffset <= height-50)
     {
         NSLog(@"==================================下啦刷选");
-        if (pagenumber>=1 && !isdownrefresh) {
+        if (!isdownrefresh) {
             isdownrefresh=YES;
             //在最底部
             [self showIndicator];
-            [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId pageNumber:self->pagenumber+1  skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
+            [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
                 self->isdownrefresh=NO;
                 foreTask(^() {
                     [self hideIndicator];
                     if(array && array.count>0){
                         [self->resultArray addObjectsFromArray:array];
-                        self->pagenumber++;
                         self.items=[self->resultArray copy];
                         [self updateFilterView];
                     }

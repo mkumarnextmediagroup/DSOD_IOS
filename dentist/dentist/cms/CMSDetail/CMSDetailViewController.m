@@ -20,6 +20,10 @@
 #import "DenActionSheet.h"
 #import <Social/Social.h>
 #import "DetailModel.h"
+#import "DentistDataBaseManager.h"
+#import "DetinstDownloadManager.h"
+#import "UIViewController+myextend.h"
+#import "BookmarkModel.h"
 
 #define edge 15
 @interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource,MyActionSheetDelegate> {
@@ -27,8 +31,6 @@
     PicDetailView *picDetailView;
     UITableView *myTable;
     UIButton *markButton;
-    
-    DetailModel *detailMod;
 }
 @end
 
@@ -40,14 +42,29 @@
 //    self.navigationController.navigationBarHidden = YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self createNav];
-    backTask(^() {
-        self.articleInfo = [Proto queryForDetailPage:self.contentId];//5bdc1e7eb0f3e0701cef0253
-        foreTask(^() {
-            
-            
-            [self buildViews];
+    
+    [self showIndicator];
+    [[DentistDataBaseManager shareManager] queryDetailCmsCaches:self.contentId completed:^(DetailModel * _Nonnull model) {
+        if (model) {
+            self.articleInfo=model;
+            foreTask(^() {
+                if(self.articleInfo){
+                    [self buildViews];
+                    [self hideLoading];
+                }
+                
+            });
+        }
+        
+        backTask(^() {
+            self.articleInfo = [Proto queryForDetailPage:self.contentId];//5bdc1e7eb0f3e0701cef0253
+            foreTask(^() {
+                [self buildViews];
+                [self hideLoading];
+            });
         });
-    });
+    }];
+    
 }
 
 
@@ -113,36 +130,41 @@
     footerVi.backgroundColor = [UIColor whiteColor];
     
     UILabel *lineLabel = [footerVi lineLabel];
-    [[[[[lineLabel.layoutMaker leftParent:edge] rightParent:0] topParent:0] heightEq:1] install];
+    lineLabel.backgroundColor = rgbHex(0xdddddd);
+    [[[[[lineLabel.layoutMaker leftParent:edge] rightParent:0] topParent:0] heightEq:0.5] install];
     
     UILabel *lineLabel1 = [footerVi lineLabel];
     [[[[[lineLabel1.layoutMaker leftParent:0] rightParent:0] topParent:29] heightEq:1] install];
 
     UIButton *moreButton = [footerVi addButton];
     [moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
-    [[[[moreButton.layoutMaker rightParent:-edge] below:lineLabel1 offset:edge] sizeEq:20 h:20] install];
+    [[[[moreButton.layoutMaker rightParent:0] below:lineLabel1 offset:0] sizeEq:48 h:48] install];
     [moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [moreButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
     
     markButton = [footerVi addButton];
-    if (detailMod.isBookmark) {
+    if (_articleInfo.isBookmark) {
         [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
-    [[[[markButton.layoutMaker toLeftOf:moreButton offset:-15] below:lineLabel1 offset:edge] sizeEq:20 h:20] install];
+    [[[[markButton.layoutMaker toLeftOf:moreButton offset:0] below:lineLabel1 offset:0] sizeEq:48 h:48] install];
     [markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [markButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     
     UIButton *nextButton = [footerVi addButton];
     [nextButton setTitleColor:Colors.primary forState:UIControlStateNormal];
     [nextButton.titleLabel setFont:[Fonts semiBold:12]];
     [nextButton setTitle:@"Next" forState:UIControlStateNormal];
     [[[[nextButton.layoutMaker toLeftOf:markButton offset:-25] below:lineLabel1 offset:edge] sizeEq:80 h:20] install];
+    [nextButton addTarget:self action:@selector(onClickDown:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *preButton = [footerVi addButton];
     [preButton setTitleColor:Colors.primary forState:UIControlStateNormal];
     [preButton.titleLabel setFont:[Fonts semiBold:12]];
     [preButton setTitle:@"Previous" forState:UIControlStateNormal];
     [[[[preButton.layoutMaker leftParent:edge] below:lineLabel1 offset:edge] sizeEq:80 h:20] install];
+    [preButton addTarget:self action:@selector(onClickUp:) forControlEvents:UIControlEventTouchUpInside];
     
     return footerVi;
 }
@@ -198,46 +220,64 @@
 }
 
 - (void)buildViews {
+    if(!self.articleInfo){
+        return;
+    }
     
-    if ([self.toWhichPage isEqualToString:@"mo"]) {
-        playView = [PlayerView new];
-        [playView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
-        [playView.gskBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [playView.greeBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        [playView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [playView.markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:playView];
-        [playView bind:self.articleInfo];
-        [[[[playView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
-    
-     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
-
-    }else
-    {
+//    if ([self.toWhichPage isEqualToString:@"mo"]) {
+//        playView = [PlayerView new];
+//        [playView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
+//        [playView.gskBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//        [playView.greeBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//        [playView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//        [playView.markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.contentView addSubview:playView];
+//        [playView bind:self.articleInfo];
+//        [[[[playView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
+//
+//     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
+//
+//    }else
+//    {
+    if(!picDetailView){
         picDetailView = [PicDetailView new];
+        picDetailView.vc = self;
         [picDetailView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [picDetailView.markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [picDetailView.sponsorImageBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [picDetailView.sponsorBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [picDetailView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:picDetailView];
+    }
+    
         [picDetailView bind:self.articleInfo];
         [[[[picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
         
         [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(picDetailView) install];
-    }
+//    }
     
-    myTable = [UITableView new];
-    [self.contentView addSubview:myTable];
-    myTable.dataSource = self;
-    myTable.delegate = self;
-    myTable.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    if ([self.toWhichPage isEqualToString:@"mo"]) {
-        [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:playView offset:0] sizeEq:SCREENWIDTH h:150] install];
-    }else
-    {
-        [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:picDetailView offset:0] sizeEq:SCREENWIDTH h:150] install];
+    if (!myTable) {
+        myTable = [UITableView new];
+        [self.contentView addSubview:myTable];
+        myTable.dataSource = self;
+        myTable.delegate = self;
+        myTable.scrollEnabled = NO;
+        myTable.separatorInset = UIEdgeInsetsMake(0, edge, 0, 0);
+        myTable.separatorColor = rgbHex(0xdddddd);;
+         [[[[[[myTable layoutMaker] leftParent:0] rightParent:0] below:picDetailView offset:0] sizeEq:SCREENWIDTH h:500] install];
     }
-    [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
+    if (_articleInfo.isBookmark) {
+        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+    }else{
+        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    }
 
+    
+    [[myTable.layoutUpdate heightEq:self.articleInfo.discussInfos.count * 110 + 150] install];
+    [myTable reloadData];
+
+    [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
+    
 }
 
 //click more button
@@ -277,7 +317,16 @@
         }];
     }else{
         //添加
-        [Proto addBookmark:getLastAccount() postId:_articleInfo.id title:_articleInfo.title url:_articleInfo.featuredMediaId categoryId:_articleInfo.categoryId contentTypeId:_articleInfo.contentTypeId completed:^(BOOL result) {
+        CMSModel *newmodel=[[CMSModel alloc] init];
+        newmodel.id=_articleInfo.id;
+        newmodel.title=_articleInfo.title;
+        newmodel.featuredMediaId=_articleInfo.featuredMediaId;
+        newmodel.categoryId=_articleInfo.categoryId;
+        newmodel.categoryName=_articleInfo.categoryName;
+        newmodel.contentTypeId=_articleInfo.contentTypeId;
+        newmodel.contentTypeName=_articleInfo.contentTypeName;
+        newmodel.featuredMedia=_articleInfo.featuredMedia;
+        [Proto addBookmark:getLastAccount() cmsmodel:newmodel completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
@@ -314,6 +363,7 @@
 {
     GSKViewController *gskVC = [GSKViewController new];
     gskVC.author = [NSString stringWithFormat:@"%@ %@",_articleInfo.author.firstName,_articleInfo.author.lastName];
+    gskVC.sponsorId=self.articleInfo.sponsorId;
     [self.navigationController pushViewController:gskVC animated:YES];
     
 }
@@ -356,84 +406,136 @@
         cell = [[DiscussTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
     
-    if (self.articleInfo.discussInfos.count > 0) {
-        [[myTable.layoutUpdate heightEq:self.articleInfo.discussInfos.count * 110 + 150] install];
-        myTable.scrollEnabled = NO;
-        [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
-    }
-    
     cell.disInfo = self.articleInfo.discussInfos[indexPath.row];
     return cell;
 
 }
 
+-(void)showTipView:(NSString *)msg
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+        NSLog(@"点击取消");
+    }]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 - (void)onClickUp:(UIButton *)btn {
 	NSLog(@"clickup");
-//    NSInteger index=(_articleInfo.id-1);
-//    NSArray *arr=[Proto getArticleList];
-//    if (index<=0) {
-//        index=0;
-//    }
-//    if (index>=arr.count) {
-//        index=(arr.count-1);
-//    }
-//    index--;
-//    if (index<0) {
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"is the fist Aritcle" preferredStyle:UIAlertControllerStyleAlert];
-//
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//            NSLog(@"点击取消");
-//        }]];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }else if (index>=arr.count) {
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"is the laste Aritcle" preferredStyle:UIAlertControllerStyleAlert];
-//
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//            NSLog(@"点击取消");
-//        }]];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }else{
-//        _articleInfo=[arr objectAtIndex:index];
-//
-//        [myTable reloadData];
-//    }
+    if (_cmsmodelsArray && _cmsmodelsArray.count>0) {
+        __block NSInteger upindex;
+        __block NSInteger modeltype;
+        [_cmsmodelsArray enumerateObjectsUsingBlock:^(NSObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+           
+            if ([obj isKindOfClass:[CMSModel class]]) {
+                CMSModel *newmodel=(CMSModel *)obj;
+                if ([self.articleInfo.id isEqualToString:newmodel.id]) {
+                    upindex=idx;
+                    modeltype=1;
+                    *stop = YES;
+                }
+            }else if ([obj isKindOfClass:[BookmarkModel class]]) {
+                BookmarkModel *newmodel=(BookmarkModel *)obj;
+                if ([self.articleInfo.id isEqualToString:newmodel.postId]) {
+                    upindex=idx;
+                    modeltype=2;
+                    *stop = YES;
+                }
+            }
+            
+        }];
+        if (upindex<=0) {
+            [self showTipView:@"is the first page"];
+            return;
+        }
+        upindex--;
+        if (upindex<0) {
+            [self showTipView:@"is the first page"];
+            return;
+        }
+        if (_cmsmodelsArray.count>upindex) {
+            NSString *modelid;
+            if (modeltype==1) {
+                CMSModel *model=[_cmsmodelsArray objectAtIndex:upindex];
+                modelid=model.id;
+            }else if (modeltype==2){
+                BookmarkModel *model=[_cmsmodelsArray objectAtIndex:upindex];
+                modelid=model.postId;
+            }
+            self.contentId=modelid;
+            [self showIndicator];
+            backTask(^() {
+                self.articleInfo = [Proto queryForDetailPage:self.contentId];
+                foreTask(^() {
+                    [self hideIndicator];
+                    [self buildViews];
+                });
+            });
+            
+        }else{
+            [self showTipView:@"is the first page"];
+        }
+    }else{
+        //the latest page
+         [self showTipView:@"is the first page"];
+    }
+
     
 }
 
 - (void)onClickDown:(UIButton *)btn {
 	NSLog(@"onClickDown");
-//    NSInteger index=(_articleInfo.id-1);
-//    NSArray *arr=[Proto getArticleList];
-//    if (index<=0) {
-//        index=0;
-//    }
-//    if (index>=arr.count) {
-//        index=(arr.count-1);
-//    }
-//    index++;
-//    if (index<0) {
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"is the fist Aritcle" preferredStyle:UIAlertControllerStyleAlert];
-//        
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//            
-//            NSLog(@"点击取消");
-//        }]];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }else if (index>=arr.count) {
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"is the laste Aritcle" preferredStyle:UIAlertControllerStyleAlert];
-//        
-//        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//            
-//            NSLog(@"点击取消");
-//        }]];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }else{
-//        _articleInfo=[arr objectAtIndex:index];
-//        
-//        [myTable reloadData];
-//    }
+    if (_cmsmodelsArray && _cmsmodelsArray.count>0) {
+        __block NSInteger upindex;
+        __block NSInteger modeltype;
+        [_cmsmodelsArray enumerateObjectsUsingBlock:^(NSObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if ([obj isKindOfClass:[CMSModel class]]) {
+                CMSModel *newmodel=(CMSModel *)obj;
+                if ([self.articleInfo.id isEqualToString:newmodel.id]) {
+                    upindex=idx;
+                    modeltype=1;
+                    *stop = YES;
+                }
+            }else if ([obj isKindOfClass:[BookmarkModel class]]) {
+                BookmarkModel *newmodel=(BookmarkModel *)obj;
+                if ([self.articleInfo.id isEqualToString:newmodel.postId]) {
+                    upindex=idx;
+                    modeltype=2;
+                    *stop = YES;
+                }
+            }
+            
+        }];
+        upindex++;
+        if (_cmsmodelsArray.count>upindex) {
+            NSString *modelid;
+            if (modeltype==1) {
+                CMSModel *model=[_cmsmodelsArray objectAtIndex:upindex];
+                modelid=model.id;
+            }else if (modeltype==2){
+                BookmarkModel *model=[_cmsmodelsArray objectAtIndex:upindex];
+                modelid=model.postId;
+            }
+            self.contentId=modelid;
+            [self showIndicator];
+            backTask(^() {
+                self.articleInfo = [Proto queryForDetailPage:self.contentId];
+                foreTask(^() {
+                    [self hideIndicator];
+                    [self buildViews];
+                });
+            });
+            
+        }else{
+            [self showTipView:@"is the last page"];
+        }
+    }else{
+        //the latest page
+        [self showTipView:@"is the last page"];
+    }
     
 }
 
@@ -450,21 +552,78 @@
         {
             NSLog(@"download click");
             //添加
-            [Proto addDownload:_articleInfo.id];
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Download is Add" preferredStyle:UIAlertControllerStyleAlert];
+            if (_articleInfo) {
+                CMSModel *newmodel=[[CMSModel alloc] init];
+                newmodel.id=_articleInfo.id;
+                newmodel.title=_articleInfo.title;
+                newmodel.featuredMediaId=_articleInfo.featuredMediaId;
+                newmodel.categoryId=_articleInfo.categoryId;
+                newmodel.categoryName=_articleInfo.categoryName;
+                newmodel.contentTypeId=_articleInfo.contentTypeId;
+                newmodel.contentTypeName=_articleInfo.contentTypeName;
+                newmodel.featuredMedia=_articleInfo.featuredMedia;
+                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:newmodel addCompletion:^(BOOL result) {
+                    
+                    foreTask(^{
+                        NSString *msg=@"";
+                        if (result) {
+                            msg=@"Download is Add";
+                        }else{
+                            msg=@"error";
+                        }
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                            
+                            NSLog(@"点击取消");
+                        }]];
+                        [self presentViewController:alertController animated:YES completion:nil];
+                    });
+                } completed:^(BOOL result) {
+                    
+                }];
+            }
             
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                
-                NSLog(@"点击取消");
-            }]];
-            [self presentViewController:alertController animated:YES completion:nil];
         }
             break;
         case 1://---click the Share button
         {
             NSLog(@"Share click");
-            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[@"Mastering the art of Dental Surgery",[NSURL URLWithString:@"http://app800.cn/i/d.png"]] applicationActivities:nil];
-            [self presentViewController:avc animated:YES completion:nil];
+            if (_articleInfo) {
+                NSString *urlstr=@"";
+                NSString *title=[NSString stringWithFormat:@"%@",_articleInfo.title];
+                NSString* type = _articleInfo.featuredMedia[@"type"];
+                if([type isEqualToString:@"1"] ){
+                    //pic
+                    NSDictionary *codeDic = _articleInfo.featuredMedia[@"code"];
+                    urlstr = codeDic[@"thumbnailUrl"];
+                }else{
+                    urlstr = _articleInfo.featuredMedia[@"code"];
+                }
+                NSString *someid=_articleInfo.id;
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
+                    UIImage *image = [UIImage imageWithData:data];
+                    if (image) {
+                        NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+                        NSArray *activityItems = @[shareurl,title,image];
+                        
+                        UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                        [self presentViewController:avc animated:YES completion:nil];
+                    }
+                });
+                
+            }else{
+                NSString *msg=@"";
+                msg=@"error";
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
         }
             break;
         default:

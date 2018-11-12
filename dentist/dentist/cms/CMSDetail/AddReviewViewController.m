@@ -15,6 +15,7 @@
 #define edge 16
 @interface AddReviewViewController ()<UITextViewDelegate>
 {
+    UIScrollView *scrollView;
     UIView *vi;
     UIView *bgVi;
     UILabel *remainLab;
@@ -35,25 +36,77 @@
     item.title = @"ADD A REVIEW";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
 
+    scrollView = [UIScrollView new];
+    scrollView.contentSize = CGSizeMake(SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
+    [self.view addSubview:scrollView];
+    [scrollView layoutFill];
+    [[scrollView.layoutUpdate topParent:NAVHEIGHT]install];
     
     [self buildSubViews];
-    
+
     [self buildAuthor];
-    
+
     [self bulidTextVi];
-    // Do any additional setup after loading the view.
+
+    
+    //增加监听，当键盘出现或改变时收出消息
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    //增加监听，当键退出时收出消息
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+
+- (void)keyboardWillShow:(NSNotification *)aNotification{
+    NSDictionary *userInfo = [aNotification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+
+    [UIView animateWithDuration:0.25f animations:^{
+        [self.view setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width,  keyboardRect.origin.y)];
+        [self->scrollView setContentOffset:CGPointMake(0,150) animated:YES];
+    }];
+    
+    
+}
+
+- (void)keyboardWillHide:(NSNotification *)aNotification{
+    
+    NSDictionary *userInfo = [aNotification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    
+    [UIView animateWithDuration:0.25f animations:^{
+        [self.view setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width,  keyboardRect.origin.y)];
+    }];
+}
+
+
+- (void)dealloc{
+   [ [NSNotificationCenter defaultCenter]removeObserver:self ];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 - (void)onBack:(UIButton *)btn {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+//height：150
 - (void)buildSubViews
 {
     vi = [UIView new];
     vi.backgroundColor = [Colors bgColorNor];
-    [self.view addSubview:vi];
-    [[[[vi.layoutMaker sizeEq:SCREENWIDTH h:150] leftParent:0] topParent:NAVHEIGHT] install];
+    [scrollView addSubview:vi];
+    [[[[vi.layoutMaker sizeEq:SCREENWIDTH h:150] leftParent:0] topParent:0] install];
     
     UILabel *rateLab = vi.addLabel;
     rateLab.font = [Fonts regular:12];
@@ -81,14 +134,15 @@
     star.rateStyle = HalfStar;
     star.tag = 1;
     [vi addSubview:star];
-//    [[[star.layoutMaker below:timeLab offset:10] leftParent:SCREENWIDTH/2-80] install];
+
 }
 
+//height：48
 - (void)buildAuthor
 {
     bgVi = [UIView new];
     bgVi.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:bgVi];
+    [scrollView addSubview:bgVi];
     [[[[bgVi.layoutMaker sizeEq:SCREENWIDTH h:48] below:vi offset:0] leftParent:0] install];
     
     UIImageView *headerImg = [UIImageView new];
@@ -116,8 +170,8 @@
 {
     UIView *textVi = [UIView new];
     textVi.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:textVi];
-    [[[[textVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-310-48] below:bgVi offset:0] leftParent:0] install];
+    [scrollView addSubview:textVi];
+    [[[[textVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-150-48] below:bgVi offset:0] leftParent:0] install];
 
     UILabel *reLabel = [textVi addLabel];
     reLabel.font = [Fonts semiBold:12];
@@ -125,32 +179,36 @@
     reLabel.textColor = Colors.textAlternate;
     [[[[reLabel.layoutMaker leftParent:edge] topParent:18] heightEq:20] install];
 
+    
     commentTextView = [textVi addTextView];
     commentTextView.font = [Fonts regular:15];
     commentTextView.editable = YES;
     commentTextView.delegate = self;
     commentTextView.returnKeyType = UIReturnKeyDone;
-    [[[[[commentTextView.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-330] leftParent:edge] rightParent:-edge] below:reLabel offset:edge] install];
+    [[[[[commentTextView.layoutMaker leftParent:edge] rightParent:-edge] below:reLabel offset:edge] bottomParent:-130 ]install];
     
     remainLab = [textVi addLabel];
     remainLab.font = [Fonts semiBold:12];
     remainLab.text = @"500 characters remaining";
     remainLab.textColor = Colors.textDisabled;
-    [[[[remainLab.layoutMaker rightParent:-edge] bottomParent:-edge] heightEq:20] install];
-
+    [[[[remainLab.layoutMaker rightParent:-edge] below:commentTextView offset:5] heightEq:20] install];
+    
     UILabel *lineLab = [textVi addLabel];
     lineLab.backgroundColor = Colors.cellLineColor;
-    [[[[lineLab.layoutMaker sizeEq:SCREENWIDTH h:1] bottomParent:-1] leftParent:0] install];
-
+    [[[[lineLab.layoutMaker sizeEq:SCREENWIDTH h:1] below:remainLab offset:10] leftParent:0] install];
     
-    
-    
-    UIButton *submit = [self.view addButton];
+    UIButton *submit = [UIButton new];
+    [textVi addSubview:submit];
     submit.backgroundColor =Colors.textDisabled;
     [submit addTarget:self action:@selector(submitBtnClick) forControlEvents:UIControlEventTouchUpInside];
     submit.titleLabel.font = [Fonts regular:15];
     [submit setTitle:@"Submit Review" forState:UIControlStateNormal];
-    [[[[[submit.layoutMaker leftParent:22] rightParent:-22] bottomParent:-28] heightEq:40] install];
+    [[[[[submit.layoutMaker leftParent:22] rightParent:-22] below:lineLab offset:30] heightEq:40] install];
+
+
+    
+    
+
 }
 
 - (void)submitBtnClick{
@@ -194,11 +252,9 @@
         [textView resignFirstResponder];
         return NO;
     }
-    if (range.location > 500)
-    {
+    if (textView.text.length - range.length + text.length > 500 && ![text isEqualToString:@""]){
         return  NO;
-     }else
-     {
+     }else{
         return YES;
      }
     

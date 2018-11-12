@@ -24,6 +24,8 @@
 #import "DentistTabView.h"
 #import "CMSModel.h"
 #import "IdName.h"
+#import "DetinstDownloadManager.h"
+CMSModel *selectModel;
 
 @interface GSKViewController ()<UIScrollViewDelegate,GSKItemViewViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 {
@@ -37,7 +39,6 @@
     NSString *type;
     DentistTabView *tabView;
     NSMutableArray<IdName *> *segItemsModel;
-    NSInteger pagenumber;
     NSString *contentTypeId;
     BOOL isdownrefresh;
 }
@@ -83,7 +84,6 @@
 //MARK:刷新数据
 -(void)refreshData
 {
-    pagenumber=1;
     category=@"LATEST";
     contentTypeId=nil;
     self.table.tableHeaderView = [self makeHeaderView];
@@ -94,7 +94,7 @@
         latestmodel.id=@"0";
         latestmodel.name=@"LATEST";
         [self->segItemsModel insertObject:latestmodel atIndex:0];
-        [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId  pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+        [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId skip:0 completed:^(NSArray<CMSModel *> *array) {
             
             foreTask(^() {
                 [self hideIndicator];
@@ -143,6 +143,15 @@
     UIImageView *iv = [panel addImageView];
     [iv scaleFillAspect];
     iv.imageName = @"GSKPic";
+    if ([_sponsorId isEqualToString:@"260"]) {
+        iv.imageName = @"sponsor_align_banner";
+    }else if ([_sponsorId isEqualToString:@"259"]) {
+        iv.imageName = @"sponsor_nobel_banner";
+    }else if([_sponsorId isEqualToString:@"197"]){
+        iv.imageName = @"sponsor_gsk_banner";
+    }else{
+        iv.imageName = @"GSKPic";
+    }
     [[[[[[iv layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:249] install];
     
     UIButton *closeAd = [panel addButton];
@@ -280,15 +289,13 @@
             isdownrefresh=YES;
             //在最底部
             [self showIndicator];
-            [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId pageNumber:self->pagenumber+1 completed:^(NSArray<CMSModel *> *array) {
+            [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
                 self->isdownrefresh=NO;
                 foreTask(^() {
                     [self hideIndicator];
                     if(array && array.count>0){
                         NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
                         [newarray addObjectsFromArray:array];
-                        self->pagenumber++;
-                        
                         self.items=[newarray copy];
                     }
                     
@@ -301,13 +308,29 @@
 
 
 
--(void)articleMoreAction:(NSInteger)articleid
+//-(void)articleMoreAction:(NSInteger)articleid
+//{
+//    selectActicleId=articleid;
+//    NSLog(@"ArticleMoreAction=%@",@(articleid));
+//    NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
+//    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
+//    [denSheet show:self.view];
+//}
+
+-(void)GSkArticleMoreActionModel:(CMSModel *)model
 {
-    selectActicleId=articleid;
-    NSLog(@"ArticleMoreAction=%@",@(articleid));
+    selectModel=model;
+    NSLog(@"ArticleMoreAction=%@",model.id);
     NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
-    [denSheet show:self.view];
+    [denSheet show];
+    [[DentistDataBaseManager shareManager] CheckIsDowned:model completed:^(NSInteger isdown) {
+        foreTask(^{
+            if (isdown) {
+                [denSheet updateActionTitle:@[@"Update",@"Share"]];
+            }
+        });
+    }];
 }
 
 -(void)articleMarkActionView:(NSObject *)item view:(UIView *)view
@@ -338,7 +361,7 @@
         }];
     }else{
         //添加
-        [Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId completed:^(BOOL result) {
+        [Proto addBookmark:getLastAccount() cmsmodel:model completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
@@ -373,21 +396,68 @@
         {
             NSLog(@"download click");
             //添加
-            [Proto addDownload:selectActicleId];
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Download is Add" preferredStyle:UIAlertControllerStyleAlert];
-            
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                
-                NSLog(@"点击取消");
-            }]];
-            [self presentViewController:alertController animated:YES completion:nil];
+            if (selectModel) {
+                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:selectModel addCompletion:^(BOOL result) {
+                    
+                    foreTask(^{
+                        NSString *msg=@"";
+                        if (result) {
+                            msg=@"Download is Add";
+                        }else{
+                            msg=@"error";
+                        }
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                            
+                            NSLog(@"点击取消");
+                        }]];
+                        [self presentViewController:alertController animated:YES completion:nil];
+                    });
+                } completed:^(BOOL result) {
+                    
+                }];
+            }
         }
             break;
         case 1://---click the Share button
         {
             NSLog(@"Share click");
-            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[@"Mastering the art of Dental Surgery",[NSURL URLWithString:@"http://app800.cn/i/d.png"]] applicationActivities:nil];
-            [self presentViewController:avc animated:YES completion:nil];
+            if (selectModel) {
+                NSString *urlstr=@"";
+                NSString *title=[NSString stringWithFormat:@"%@",selectModel.title];
+                NSString* type = selectModel.featuredMedia[@"type"];
+                if([type isEqualToString:@"1"] ){
+                    //pic
+                    NSDictionary *codeDic = selectModel.featuredMedia[@"code"];
+                    urlstr = codeDic[@"thumbnailUrl"];
+                }else{
+                    urlstr = selectModel.featuredMedia[@"code"];
+                }
+                NSString *someid=selectModel.id;
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
+                    UIImage *image = [UIImage imageWithData:data];
+                    if (image) {
+                        NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+                        NSArray *activityItems = @[shareurl,title,image];
+                        
+                        UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                        [self presentViewController:avc animated:YES completion:nil];
+                    }
+                });
+                
+            }else{
+                NSString *msg=@"";
+                msg=@"error";
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    NSLog(@"点击取消");
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
         }
             break;
         default:
@@ -403,7 +473,6 @@
 #pragma mark -------DentistTabViewDelegate
 -(void)didDentistSelectItemAtIndex:(NSInteger)index
 {
-    pagenumber=1;
     if (segItemsModel.count>index) {
         IdName *model=segItemsModel[index];
         Log(model.id, model.name);
@@ -413,7 +482,7 @@
         }else{
             contentTypeId=model.id;
         }
-        [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId pageNumber:self->pagenumber completed:^(NSArray<CMSModel *> *array) {
+        [Proto queryAllContentsBySponsorAndContentType:self.sponsorId contentTypeId:self->contentTypeId skip:0 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
                 self.items=array;

@@ -9,3 +9,5 @@
 extern NSDictionary *jsonParse(NSString *s);
 
 extern NSString *jsonBuild(id obj);
+
+extern id jsonParseObject(NSString *s);

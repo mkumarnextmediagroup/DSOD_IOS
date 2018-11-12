@@ -12,10 +12,12 @@
 #import "YBImageBrowser.h"
 #import "DentistImageBrowserToolBar.h"
 #import "Proto.h"
+#import "UIButton+WebCache.h"
+#import "CMSDetailViewController.h"
 
-@interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate>
+@interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
-    UIWebView *mywebView;
+    
 }
 @end
 
@@ -24,14 +26,24 @@
     UILabel *typeLabel;
     UILabel *dateLabel;
     UIImageView *imageView;
+    SBPlayer *sbPlayer;
     UIImageView *headerImg;
     UILabel *titleLabel;
     UILabel *nameLabel;
     UILabel *addressLabel;
-    WKWebView *contentWebView;
+    UILabel *byLabel;
+    UIWebView *mywebView;
+    UITableView *relativeTopicTableView;
     UIView *view;
+    UIView *imageScrollPView;
     UIScrollView *imageScroll;
+    UIView *sponsorView;
+    UILabel *sponsorLabel;
+    
     BOOL allowZoom;
+    
+    NSArray *relativeTopicArray;
+    NSArray *imageArray;
 }
 
 - (instancetype)init {
@@ -55,27 +67,35 @@
     [dateLabel textAlignRight];
     dateLabel.font = [Fonts regular:12];
     [dateLabel textColorAlternate];
-    [[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:24] widthEq:74] install];
+    [[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:24] widthEq:80] install];
     
     /****===the server back data is the movie or picture===****/
     
     imageView = self.addImageView;
     [imageView scaleFillAspect];
+    imageView.clipsToBounds = YES;
     [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+    
+    CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
+    _sponsorImageBtn = [self addButton];
+    [[[[[_sponsorImageBtn.layoutMaker leftParent:0] rightParent:0] below:imageView offset:0] heightEq:sponstorimgh] install];
+    [_sponsorImageBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_gsk"] forState:UIControlStateNormal];
     
     _moreButton = [self addButton];
     [_moreButton setImage:[UIImage imageNamed:@"dot3.png"] forState:UIControlStateNormal];
-    [[[[_moreButton.layoutMaker rightParent:-edge+5] below:imageView offset:edge] sizeEq:20 h:20] install];
+    [[[[_moreButton.layoutMaker rightParent:0] below:_sponsorImageBtn offset:0] sizeEq:48 h:48] install];
+    [_moreButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
     
     _markButton = [self addButton];
     [_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-    [[[[_markButton.layoutMaker toLeftOf:_moreButton offset:-8] below:imageView offset:edge] sizeEq:20 h:20] install];
+    [[[[_markButton.layoutMaker toLeftOf:_moreButton offset:0] below:_sponsorImageBtn offset:0] sizeEq:48 h:48] install];
+    [_markButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     
     titleLabel = [self addLabel];
-    titleLabel.font = [Fonts semiBold:20];
+    titleLabel.font = [Fonts semiBold:18];
     [titleLabel textColorMain];
     titleLabel.numberOfLines = 0;
-    [[[[titleLabel.layoutMaker leftParent:edge]  toLeftOf:_markButton offset:-edge-10] below:imageView offset:edge-5] install];
+    [[[[titleLabel.layoutMaker leftParent:edge]  toLeftOf:_markButton offset:15] below:_sponsorImageBtn offset:edge-5] install];
     [titleLabel.layoutMaker.height.equalTo(@24).priority(200) install];
     
     UILabel *lineLabel = [self lineLabel];
@@ -85,133 +105,172 @@
     [self addSubview:view];
     [[[[[view.layoutMaker leftParent:0] rightParent:0] below:lineLabel offset:0] heightEq:58] install];
     
-    UILabel *byLabel = view.addLabel;
+    byLabel = view.addLabel;
+    byLabel.font = [Fonts semiBold:18];
     byLabel.text = @"By";
     [[[[byLabel.layoutMaker sizeEq:30 h:58] leftParent:edge] topParent:0] install];
     
     headerImg = [UIImageView new];
     [view addSubview:headerImg];
-    [[[[headerImg.layoutMaker sizeEq:32 h:32] toRightOf:byLabel offset:0] centerYParent:0] install];
-    
-    headerImg.layer.cornerRadius = 16;
+    [[[[headerImg.layoutMaker sizeEq:110 h:22] toRightOf:byLabel offset:0] centerYParent:0] install];
     headerImg.layer.masksToBounds = YES;
     
     nameLabel = [view addLabel];
     nameLabel.font = [Fonts semiBold:12];
     [nameLabel textColorMain];
-    [[[[[nameLabel.layoutMaker topParent:edge / 2 + 2] toRightOf:headerImg offset:8] rightParent:-edge] heightEq:16] install];
+    [[[[[nameLabel.layoutMaker topParent:edge / 2 + 2] leftParent:edge] rightParent:-edge] heightEq:16] install];
     
     addressLabel = [view addLabel];
     [addressLabel textAlignLeft];
     addressLabel.font = [Fonts regular:12];
     [addressLabel textColorAlternate];
-    [[[[[addressLabel.layoutMaker topParent:edge / 2 + 18] toRightOf:headerImg offset:8] rightParent:-edge] heightEq:16] install];
+    [[[[[addressLabel.layoutMaker topParent:edge / 2 + 18] leftParent:edge] rightParent:-edge] heightEq:16] install];
     
     UILabel *lineLabel2 = [view lineLabel];
     [[[[[lineLabel2.layoutMaker leftParent:edge] rightParent:0] topParent:57] heightEq:1] install];
     
-//    contentLabel = [self addLabel];
-//    contentLabel.font = [Fonts regular:15];
-//    [contentLabel textColorMain];
-//    contentLabel.numberOfLines = 0;
-//    [[[[contentLabel.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
-    
-//    contentWebView = [self addWebview];
-//    contentWebView.navigationDelegate = self;
-//    contentWebView.scrollView.delegate = self;
-//    [[[[contentWebView.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
     
     mywebView = [UIWebView new];
     mywebView.delegate = self;
     mywebView.scrollView.scrollEnabled = NO;
     [self addSubview:mywebView];
-    [[[[mywebView.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:view offset:5] install];
+    [[[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:1] below:view offset:5] install];
     
-    UILabel *lineLabel3 = [self lineLabel];
-    [[[[[lineLabel3.layoutMaker leftParent:0] rightParent:0] below:mywebView offset:25] heightEq:1] install];
+    relativeTopicTableView = [UITableView new];
+    relativeTopicTableView.dataSource = self;
+    relativeTopicTableView.delegate = self;
+    relativeTopicTableView.estimatedRowHeight = 10;
+    relativeTopicTableView.rowHeight=UITableViewAutomaticDimension;
+    relativeTopicTableView.scrollEnabled = NO;
+    relativeTopicTableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    relativeTopicTableView.separatorStyle = UITableViewCellEditingStyleNone;
+    [self addSubview:relativeTopicTableView];
+    [[[[[relativeTopicTableView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:0] below:mywebView offset:0] install];
     
-    [self moreView];
+    
+    [self createImageScrollView];
+    [self createSsponsorView];
     [self createStarView];
+
     
     return self;
 }
 
-- (void)moreView{
+
+- (void)createImageScrollView{
     
-    UIView *moreView = [UIView new];
-    [self addSubview:moreView];
-    [[[[[[moreView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:202] below:mywebView offset:26] install];
-    UILabel *conLabel = [moreView addLabel];
+    imageScrollPView = [UIView new];
+    [self addSubview:imageScrollPView];
+    [[[[[imageScrollPView.layoutMaker leftParent:0] rightParent:0] heightEq:202] below:relativeTopicTableView offset:0] install];
+    
+    UILabel *lineLabelTop = [imageScrollPView lineLabel];
+    [[[[[lineLabelTop.layoutMaker leftParent:0] rightParent:0] topParent:26] heightEq:1] install];
+
+    [self setImageScrollData:nil];
+}
+
+- (void)createSsponsorView{
+    
+    sponsorView = [UIView new];
+    [self addSubview:sponsorView];
+    sponsorView.clipsToBounds = YES;
+    [[[[[sponsorView.layoutMaker leftParent:0] rightParent:0] below:imageScrollPView offset:26] heightEq:100] install];
+    
+    UILabel *lineLabelTop = [sponsorView lineLabel];
+    [[[[[lineLabelTop.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
+    
+    sponsorLabel = [sponsorView addLabel];
+    sponsorLabel.font = [Fonts regular:12];
+    [sponsorLabel textColorAlternate];
+    sponsorLabel.text = @"Want more content from GSK?";
+    [[[[[sponsorLabel.layoutMaker leftParent:18] rightParent:-18] topParent:0] heightEq:50] install];
+    [sponsorLabel textAlignCenter];
+    
+    self.sponsorBtn = [sponsorView addButton];
+    self.sponsorBtn.backgroundColor = rgb255(111, 201, 211);
+    [self.sponsorBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.sponsorBtn setTitle:@"Access GSK Science" forState:UIControlStateNormal];
+    self.sponsorBtn.titleLabel.font = [Fonts regular:14];
+    [[[[[self.sponsorBtn.layoutMaker leftParent:18] rightParent:-18] below:sponsorLabel offset:0] heightEq:36] install];
+    
+}
+
+-(void)setImageScrollData:(NSArray*)data{
+    imageArray = data;
+    if(data==nil||data.count==0){
+        imageScrollPView.hidden = YES;
+        [[imageScrollPView.layoutUpdate heightEq:0]install];
+        return;
+    }
+    
+    UILabel *conLabel = [imageScrollPView addLabel];
+
     conLabel.font = [Fonts regular:12];
     [conLabel textColorAlternate];
     conLabel.text = @"Gallery";
     [[[[[conLabel.layoutMaker leftParent:18] widthEq:100] topParent:0] heightEq:50] install];
     
-    UILabel *picNumLab = [moreView addLabel];
+    UILabel *picNumLab = [imageScrollPView addLabel];
     picNumLab.font = [Fonts regular:12];
     [picNumLab textColorAlternate];
-    picNumLab.text = @"6 images";
+
+    picNumLab.text = [NSString stringWithFormat:@"%lu images",imageArray.count];
+
     [[[[picNumLab.layoutMaker rightParent:-18] topParent:0] heightEq:50] install];
     
-    imageScroll = [moreView addScrollView];
+    imageScroll = [imageScrollPView addScrollView];
     [[[[[imageScroll.layoutMaker leftParent:0] rightParent:0] below:conLabel offset:0] heightEq:140] install];
     
-    NSArray *imageArray = @[
-                            @"slide-1",
-                            @"slide-2",
-                            @"slide-3",
-                            @"slide-4",
-                            @"slide-5"];
     
     for (int i = 0; i < imageArray.count; i++) {
-        UIButton *imgBtn = [UIButton new];
+        UIImageView *imgBtn = [UIImageView new];
         imgBtn.tag = 10+i;
-        [imgBtn setImage:[UIImage imageNamed:imageArray[i]] forState:UIControlStateNormal];
-        [imgBtn addTarget:self action:@selector(imgBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [imgBtn loadUrl:((NSDictionary*)imageArray[i])[@"thumbnailUrl"] placeholderImage:@""];
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgBtnClick:)];
+        [imgBtn addGestureRecognizer:singleTap];
+
         imgBtn.frame = CGRectMake(EDGE + (133 + 10) * i, 4, 133, 133);
-        imgBtn.imageView.contentMode=UIViewContentModeScaleAspectFill;
-        imgBtn.imageView.clipsToBounds=YES;
+        imgBtn.contentMode=UIViewContentModeScaleAspectFill;
+        imgBtn.clipsToBounds=YES;
+        imgBtn.userInteractionEnabled = YES;
         [imageScroll addSubview:imgBtn];
+        
     }
     
     imageScroll.contentSize = CGSizeMake(EDGE + (133 + 10) * imageArray.count, imageScroll.frame.size.height);
 
     
-    UILabel *lineLabel4 = [self lineLabel];
-    [[[[[lineLabel4.layoutMaker leftParent:0] rightParent:0] below:imageScroll offset:28] heightEq:1] install];
+    imageScrollPView.hidden = NO;
+    [[imageScrollPView.layoutUpdate heightEq:202]install];
+
 }
 
-- (void)imgBtnClick:(UIButton *)btn
+- (void)imgBtnClick:(UITapGestureRecognizer *)tap
 {
-    [self showImageBrowser:btn.tag-10];
+    [self showImageBrowser: ((UIImageView*) tap.view).tag-10];
 }
 
 -(void)showImageBrowser:(NSInteger)index
 {
     NSInteger tempindex;
+    NSMutableArray *browserDataArr = [NSMutableArray array];
     
-    NSArray *dataArray = @[
-                           @"https://www.dsodentist.com/assets/images/slide/slide-1.jpg",
-                           @"https://www.dsodentist.com/assets/images/slide/slide-2.jpg",
-                           @"https://www.dsodentist.com/assets/images/slide/slide-3.jpg",
-                           @"https://www.dsodentist.com/assets/images/slide/slide-4.jpg",
-                           @"https://www.dsodentist.com/assets/images/slide/slide-5.jpg"];
-    if (index>0 && index <dataArray.count) {
+    if (index>0 && index <imageArray.count) {
         tempindex=index;
     }
-    NSMutableArray *browserDataArr = [NSMutableArray array];
-    [dataArray enumerateObjectsUsingBlock:^(NSString *_Nonnull urlStr, NSUInteger idx, BOOL * _Nonnull stop) {
-        
+    
+    for (int i=0;i<imageArray.count; i++) {
         YBImageBrowseCellData *data = [YBImageBrowseCellData new];
-        data.url = [NSURL URLWithString:urlStr];
+        data.url = [NSURL URLWithString:((NSDictionary*)imageArray[i])[@"originalUrl"]];
         [browserDataArr addObject:data];
-    }];
+    }
     
     YBImageBrowser *browser = [YBImageBrowser new];
     browser.dataSourceArray = browserDataArr;
     browser.currentIndex = index;
     DentistImageBrowserToolBar *toolBar = [DentistImageBrowserToolBar new];
-    toolBar.detailArray=@[@"Welcome",@"Reduce Plaque and Gingivitis",@"Today's Peer to Peer community...",@"Understanding the DSO Practice Model",@"All the support I need..."];
+//    toolBar.detailArray=@[@"Welcome",@"Reduce Plaque and Gingivitis",@"Today's Peer to Peer community...",@"Understanding the DSO Practice Model",@"All the support I need..."];
     browser.toolBars = @[toolBar];
     browser.sheetView = nil;
     [browser show];
@@ -222,10 +281,15 @@
     UIView *starView = [UIView new];
     starView.backgroundColor = rgb255(248, 248, 248);
     [self addSubview:starView];
-    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:imageScroll offset:26] install];
+
+    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:sponsorView offset:26] install];
+    
+    UILabel *lineLabeltop = [starView lineLabel];
+    [[[[[lineLabeltop.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
     
     _bgBtn = starView.addButton;
-    [[[[[_bgBtn.layoutMaker leftParent:0] rightParent:0] sizeEq:SCREENWIDTH h:100] below:imageScroll offset:26] install];
+    [[[[[_bgBtn.layoutMaker leftParent:0] rightParent:0] sizeEq:SCREENWIDTH h:100] topParent:0] install];
+
     
     UILabel *finLabel = [starView addLabel];
     finLabel.font = [Fonts regular:12];
@@ -256,31 +320,165 @@
     
 }
 
+- (void)showRelativeTopic:(NSArray*)data{
+    
+    NSInteger edge = 18;
+    if(IS_IPHONE_P_X){
+        edge=24;
+    }
+    
+    if(data && data.count>0){
+        int height = 50;
+        for(int i = 0;i< data.count;i++){
+            CGSize titleSize = [data[i][@"title"] boundingRectWithSize:CGSizeMake(SCREENWIDTH-edge*2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
+            height += titleSize.height + 10;
+        }
+        [[relativeTopicTableView.layoutUpdate heightEq:height]install];
+        
+        relativeTopicArray = data;
+        [relativeTopicTableView reloadData];
+    }
+}
+
 - (void)bind:(DetailModel *)bindInfo {
     typeLabel.text = [bindInfo.categoryName uppercaseString];
-    dateLabel.text = [NSString timeWithTimeIntervalString:bindInfo.publishDate];
-    NSString *urlstr;
-    if (bindInfo.featuredMediaId) {
-        urlstr=[Proto getFileUrlByObjectId:bindInfo.featuredMediaId];
+    dateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:bindInfo.publishDate];
+    
+    NSString* type = bindInfo.featuredMedia[@"type"];
+    if([type isEqualToString:@"1"] ){
+        //pic
+        NSDictionary *codeDic = bindInfo.featuredMedia[@"code"];
+        NSString *urlstr = codeDic[@"thumbnailUrl"];
+        [imageView loadUrl:urlstr placeholderImage:@""];
+    }else if([type isEqualToString:@"2"] ){
+        //video
+        //初始化播放器
+        if (!sbPlayer) {
+            NSString *urlstr = bindInfo.featuredMedia[@"code"];
+            sbPlayer = [[SBPlayer alloc] initWithUrl:[NSURL URLWithString:urlstr]];
+            sbPlayer.addView = self;
+            //set the movie background color
+            sbPlayer.backgroundColor = [UIColor blackColor];
+            [self addSubview:sbPlayer];
+            [[[[[sbPlayer.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+        }
     }
-    [imageView loadUrl:urlstr placeholderImage:@"art-img"];
-    [headerImg loadUrl:@"http://app800.cn/i/p.png" placeholderImage:@"user_img"];
+    
+    
+    CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
+    [[_sponsorImageBtn.layoutUpdate heightEq:sponstorimgh] install];
+    [sponsorView.layoutUpdate heightEq:100];
+    
+    
+    
+    NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",
+                                  @"259":@"sponsor_nobel",
+                                  @"197":@"sponsor_gsk"};
+    
+    if (sponsorInfo[bindInfo.sponsorId]) {
+        [_sponsorImageBtn setBackgroundImage:[UIImage imageNamed:sponsorInfo[bindInfo.sponsorId]] forState:UIControlStateNormal];
+        sponsorLabel.text = [NSString stringWithFormat:@"Want more content from %@?" , bindInfo.sponsorName];
+        [self.sponsorBtn setTitle:[NSString stringWithFormat:@"Access %@ Science" ,bindInfo.sponsorName] forState:UIControlStateNormal];
+        
+        CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
+        [[_sponsorImageBtn.layoutUpdate heightEq:sponstorimgh] install];
+        [[sponsorView.layoutUpdate heightEq:100] install];
+    }else{
+        [[_sponsorImageBtn.layoutUpdate heightEq:0] install];
+        [[sponsorView.layoutUpdate heightEq:0] install];
+    }
+
+    
     titleLabel.text = bindInfo.title;
-    nameLabel.text = [NSString stringWithFormat:@"%@ %@",bindInfo.author.firstName,bindInfo.author.lastName];
-    addressLabel.text = bindInfo.author.authorDetails;
+    [headerImg setImageName:@"author_dsodentist"];
+    
+    [[mywebView.layoutUpdate heightEq:1] install];
     [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
+    
+    if([bindInfo.author.firstName isEqualToString:@"DSODentist"]){
+        byLabel.hidden = NO;
+        headerImg.hidden = NO;
+        nameLabel.hidden = YES;
+        addressLabel.hidden = YES;
+    }else{
+        byLabel.hidden = YES;
+        headerImg.hidden = YES;
+        nameLabel.hidden = NO;
+        addressLabel.hidden = NO;
+        nameLabel.text = [NSString stringWithFormat:@"By %@ %@",bindInfo.author.firstName,bindInfo.author.lastName];
+        addressLabel.text = bindInfo.author.authorDetails;
+    }
+    
     if (bindInfo.isBookmark) {
         [_markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{
         [_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
+    
+    
+    [self showRelativeTopic:bindInfo.relativeTopicList];
+    
+    //处理图片
+    [self setImageScrollData:bindInfo.photoUrls];
+
 }
 
 - (NSString *)htmlString:(NSString *)html
 {
-    //do some regular
-//    return [NSString stringWithFormat:@"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'><style type='text/css'>img{width:%fpx}</style>%@", SCREENWIDTH - 20, html];
-    return html;
+    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@",
+                            @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
+                            @"<style type=\"text/css\">",
+                            @"body{padding:0px;margin:0px;background:#fff;font-family:SFUIText-Regular;}",
+                            @"p{width:100%;margin: 10px auto;color:#4a4a4a;font-size:0.9em;}",
+                            @"em{font-style:normal}",
+                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
+                            @"blockquote{color:#4a4a4a;font-size:1.2em;font-weight:bold;margin: 20px 10px 10px 25px;position:relative;line-height:110%;text-indent:0px}",
+                            @"blockquote:before{color:#4a4a4a;font-family:PingFangTC-Regular;content:'“';font-size:1.6em;position:absolute;left:-20px;top:15px;line-height:.1em}",
+                            //@"blockquote:after{color:#4a4a4a;content:'”';font-size:5em;position:absolute;right:15px;bottom:0;line-height:.1em}"
+                            @"figure{ margin:0 auto; background:#fff; }",
+                            @"figure img{width:100%;height:''} img{width:100%;height:auto}",
+                            @"</style>"
+                            ];
+
+    
+    html = [html stringByReplacingOccurrencesOfString :@"pre" withString:@"blockquote"];
+    html = [html stringByReplacingOccurrencesOfString :@"<p>&nbsp;</p>" withString:@""];
+    
+    BOOL isFirst = YES;
+    NSArray *array = [html componentsSeparatedByString:@"<p>"];
+    for (int i = 0; i < [array count]; i++) {
+        NSString *currentString = [array objectAtIndex:i];
+        if(i>0){
+            if([currentString rangeOfString:@"<iframe"].location !=NSNotFound){
+                continue;
+            }
+            if(isFirst){
+                 //错误格式兼容<strong> </strong>厉害了中间还不是空格
+//                 htmlString = [htmlString stringByReplacingOccurrencesOfString :@"<strong> </strong>" withString:@""];
+                 htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
+                 isFirst = NO;
+            }else{
+                 htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];
+            }
+        }
+    }
+    
+    //地址跳转测试
+//    htmlString = [NSString stringWithFormat:@"%@%@",htmlString,@"<p><a href=\"dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=5be29d5f0e88c608b8186e52\">Converting Invisalign brand online consumers to new patients</a></p>"];
+   
+    htmlString = [NSString stringWithFormat:@"%@%@%@%@",
+                  htmlString,
+                  @"<script type=\"text/javascript\">",
+                  @"var figureArr = document.getElementsByTagName('figure');",
+                  @"for (let i = 0;i < figureArr.length;i++){figureArr[i].style.width = '100%'}"
+                  @"</script>"
+                  ];
+    
+//    var aArr = document.getElementsByTagName("a");
+//    aArr[0].href='http://qq.com';
+//    alert(aArr[0].innerText);
+//
+    return htmlString;
     
 }
 
@@ -289,7 +487,7 @@
     if(!allowZoom){
         return nil;
     }else{
-        return contentWebView.scrollView.subviews.firstObject;
+        return mywebView.scrollView.subviews.firstObject;
     }
 }
 
@@ -297,7 +495,7 @@
 {
     allowZoom = NO;
     [webView evaluateJavaScript:@"document.body.scrollWidth" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        CGFloat ratio =  CGRectGetWidth(self->contentWebView.frame) /[result floatValue];
+        CGFloat ratio =  CGRectGetWidth(self->mywebView.frame) /[result floatValue];
         
         [webView evaluateJavaScript:@"document.documentElement.style.webkitUserSelect='none';" completionHandler:nil];
         [webView evaluateJavaScript:@"document.activeElement.blur();" completionHandler:nil];
@@ -306,16 +504,145 @@
             NSLog(@"scrollHeight高度：%.2f",[result floatValue]);
             NSLog(@"scrollHeight计算高度：%.2f",[result floatValue]*ratio);
             CGFloat newHeight = [result floatValue]*ratio;
-            [[self->contentWebView.layoutUpdate heightEq:newHeight] install];
+            [[self->mywebView.layoutUpdate heightEq:newHeight] install];
             
         }];
     }];
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+  
+    return [self handleCustomAction:request.URL];
+}
+
+-(BOOL)handleCustomAction:(NSURL*)URL{
+    //dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=5be29d5f0e88c608b8186e52
+    
+    NSString *localScheme = @"dsodentistapp";
+    NSString *localSchemeAndHost = [NSString stringWithFormat:@"%@://%@/",localScheme,@"com.thenextmediagroup.dentist"];
+
+    NSString *scheme = [URL scheme];
+    NSString *urlStr = [URL absoluteString];
+    NSLog(@"%@",urlStr);
+    if([urlStr isEqualToString:@"about:blank"]){
+        return YES;
+    }
+
+    NSRange range = [urlStr rangeOfString:localSchemeAndHost];
+    if ([scheme isEqualToString:localScheme] && range.location != NSNotFound) {
+        NSString *actionAndParams = [urlStr substringFromIndex:range.length];
+        NSArray *array = [actionAndParams componentsSeparatedByString:@"?"];
+        NSString *action = array[0];
+        NSDictionary *paramDic = nil;
+        if(array.count>1){
+            paramDic = [self strToParamDic:array[1]];
+        }
+        
+        NSLog(@"aciton=%@,dic=%@",action,paramDic);
+        //处理ation
+        if([action isEqualToString:@"openCMSDetail"]){
+            [self openCMSDetail:paramDic];
+        }
+    }
+    return NO;
+}
+
+-(NSDictionary*)strToParamDic:(NSString*)str{
+    NSMutableDictionary *paramDic = [NSMutableDictionary new];
+    NSArray *paramArray = [str componentsSeparatedByString:@"&"];
+    for(int i=0;i<paramArray.count;i++){
+        NSString *itemStr = paramArray[i];
+        NSArray *arr = [itemStr componentsSeparatedByString:@"="];
+        if(arr.count>=2){
+            paramDic[arr[0]] = arr[1];
+        }
+    }
+    return [paramDic copy];
+}
+
+-(void)openCMSDetail:(NSDictionary*)paramDic{
+    
+    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+    
+    newVC.contentId = paramDic[@"articleId"];
+    newVC.toWhichPage = @"pic";
+
+    [self.vc.navigationController pushViewController:newVC animated:YES];
+}
+
+
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    
+    //禁止用户选择
+    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
+    
+    //禁止长按弹出选择框
+    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
+    
     CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
     [[mywebView.layoutUpdate heightEq:webViewHeight] install];
+//    CGFloat webViewHeight1 =[[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
+//
+//    CGSize actualSize = [webView sizeThatFits:CGSizeZero];
+//    CGFloat webViewHeight2 = actualSize.height;
+////
+//    NSLog(@"%f------%f-------%f",webViewHeight,webViewHeight1,webViewHeight2);
+    
+}
+
+#pragma mark  UITableViewDelegate,UITableViewDataSource
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 50;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return relativeTopicArray.count>0?1:0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return relativeTopicArray.count;
+}
+
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,SCREENWIDTH,50)];
+    titleLabel.textAlignment = NSTextAlignmentLeft;
+    titleLabel.textColor = UIColor.blackColor;
+    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+    NSDictionary *dic = @{NSFontAttributeName:[Fonts medium:25], NSParagraphStyleAttributeName:paraStyle, NSKernAttributeName:@1.2f};
+    NSAttributedString *attributeStr = [[NSAttributedString alloc] initWithString: @"Related Resource" attributes:dic];
+    titleLabel.attributedText = attributeStr;
+    
+    return titleLabel;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString * ID = @"cell";
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
+   
+    cell = [[UITableViewCell alloc] initWithStyle:0 reuseIdentifier:ID];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    UILabel *titleLabel = cell.contentView.addLabel;
+    titleLabel.font = [UIFont systemFontOfSize:14];
+    titleLabel.textColor = rgbHex(0x0000ee);
+    titleLabel.numberOfLines = 0;
+    titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    [[[[[titleLabel.layoutMaker leftParent:0]rightParent:0]topParent:5]  bottomParent:-5]  install];
+    
+    NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:relativeTopicArray[indexPath.row][@"title"] attributes:attribtDic];
+    titleLabel.attributedText = attribtStr;
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *articleId = relativeTopicArray[indexPath.row][@"id"];
+    NSString *url =[NSString stringWithFormat:@"dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=%@",articleId];
+    [self handleCustomAction:[NSURL URLWithString:url]];
 }
 
 - (void)resetLayout {

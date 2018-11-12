@@ -11,5 +11,7 @@
 
 @interface SliderListViewController : BaseController
 
+@property BOOL isSearch;
+
 @end
 

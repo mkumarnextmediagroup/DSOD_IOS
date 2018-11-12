@@ -10,11 +10,12 @@
 #import "ScrollPage.h"
 #import "Article.h"
 #import "DetailModel.h"
+#import "CMSModel.h"
 
 @interface CMSDetailViewController : ScrollPage
 
 @property DetailModel *articleInfo;
 @property NSString *contentId;
 @property NSString *toWhichPage;
-
+@property (nonatomic,copy) NSArray *cmsmodelsArray;
 @end

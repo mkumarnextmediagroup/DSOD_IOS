@@ -30,4 +30,5 @@ typedef void(^DismissBlock)(BOOL isCanceled,NSInteger row);
 - (void)dismissHandler:(DismissBlock)handler;
 - (void)show;
 - (void)hide;
+- (void)reloadData;
 @end

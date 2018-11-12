@@ -301,6 +301,10 @@ static const CGFloat kItemH = 44.0f;//item高度
     
 }
 
+- (void)reloadData{
+    [self.tableView reloadData];
+}
+
 #pragma mark - Life
 - (void)dealloc{
 //    NSLog(@"%s 销毁",__func__);

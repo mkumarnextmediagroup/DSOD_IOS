@@ -12,14 +12,18 @@
 #import "Article.h"
 #import <Social/Social.h>
 #import "CMSDetailViewController.h"
+#import "DentistDataBaseManager.h"
+#import "CMSModel.h"
 
-@interface CmsDownloadsController()<MyActionSheetDelegate>
+@interface CmsDownloadsController()<MyActionSheetDelegate,ArticleItemViewDelegate>
 {
     NSInteger selectIndex;
     NSMutableArray *ls;
-    NSString *categorytext;
-    NSString *typetext;
+    NSString *categoryId;
+    NSString *contentTypeId;
     CGFloat rowheight;
+    CMSModel *selectModel;
+    UIView *nullFilterView;
 }
 @end
 @implementation CmsDownloadsController {
@@ -35,16 +39,47 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    categorytext=nil;
-    typetext=nil;
-    self.items = [Proto getDownloadListByCategory:typetext type:categorytext];
+    categoryId=nil;
+    contentTypeId=nil;
+    [[DentistDataBaseManager shareManager] queryCMSCachesList:categoryId contentTypeId:contentTypeId skip:0 completed:^(NSArray * _Nonnull array) {
+        foreTask(^{
+            self.items =array;
+            [self updateFilterView];
+        });
+        
+    }];
 //    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(reloadData) userInfo:nil repeats:NO];
 }
 
+- (void)addNotification
+{
+    // 状态改变通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadStateChange:) name:@"DetinstDownloadStateChangeNotification" object:nil];
+}
+- (void)downLoadStateChange:(NSNotification *)notification
+{
+    CMSModel *downloadModel = notification.object;
+    NSMutableArray *tempArr=[NSMutableArray arrayWithArray:self.items];
+    [tempArr enumerateObjectsUsingBlock:^(NSObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        CMSModel *model=(CMSModel *)obj;
+        if ([downloadModel.id isEqualToString:model.id]) {
+            // 更新数据源
+            tempArr[idx] = downloadModel;
+            self.items=[tempArr copy];
+            // 主线程刷新cell
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.table reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            });
+            
+            *stop = YES;
+        }
+    }];
+}
+
+
 -(void)reloadData
 {
-    ls = [NSMutableArray arrayWithArray:[Proto listBookmark]];
-    self.items = ls;
+    //
 }
 
 - (void)viewDidLoad {
@@ -60,7 +95,8 @@
     self.table.rowHeight = rowheight;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyViewWithImageName:@"nonDownload" title:@"No downloaded content"];
-    
+    // 添加通知
+    [self addNotification];
     
 }
 
@@ -76,6 +112,25 @@
     return panel;
 }
 
+-(void)updateFilterView
+{
+    if (!nullFilterView) {
+        CGFloat _topBarH = 0;
+        if (self.navigationController != nil) {
+            _topBarH = NAVHEIGHT;
+        }
+        nullFilterView=[self makeHeaderView];
+        nullFilterView.frame=makeRect(0, _topBarH, SCREENWIDTH, 32);
+        [self.view addSubview:nullFilterView];
+        nullFilterView.hidden=YES;
+    }
+    if (self.items.count==0 && (self->categoryId || self->contentTypeId) ) {
+        nullFilterView.hidden=NO;
+    }else{
+        nullFilterView.hidden=YES;
+    }
+}
+
 - (Class)viewClassOfItem:(NSObject *)item {
     return DownloadsItemView.class;
 }
@@ -85,43 +140,48 @@
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
-    Article *art = (id) item;
-    NSInteger tag=[self.items indexOfObject:item];
+//    Article *art = (id) item;
+//    NSInteger tag=[self.items indexOfObject:item];
+//    DownloadsItemView *itemView = (DownloadsItemView *) view;
+//    itemView.markButton.tag=art.id;
+//    [itemView.markButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [itemView bind:art];
+    CMSModel *model = (id) item;
     DownloadsItemView *itemView = (DownloadsItemView *) view;
-    itemView.markButton.tag=art.id;
-    [itemView.markButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [itemView bind:art];
+    itemView.delegate=self;
+    [itemView bindCMS:model];
 }
 
-- (void)moreBtnClick:(UIButton *)btn
+//- (void)moreBtnClick:(UIButton *)btn
+//{
+//    selectIndex=btn.tag;
+//    NSArray *imgArr = [NSArray arrayWithObjects:@"deleteDown",@"shareIcon", nil];
+//    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Delete",@"Share", nil];
+//    [denSheet show];
+//}
+
+-(void)ArticleMoreActionModel:(CMSModel *)model
 {
-    selectIndex=btn.tag;
+    selectModel=model;
+    NSLog(@"ArticleMoreAction=%@",model.id);
     NSArray *imgArr = [NSArray arrayWithObjects:@"deleteDown",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Delete",@"Share", nil];
     [denSheet show];
 }
 
 - (void)onClickItem:(NSObject *)item {
-    
-//    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
-//    newVC.articleInfo = (Article *) item;
-//    if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
-//        newVC.toWhichPage = @"mo";
-//    }else
-//    {
-//        newVC.toWhichPage = @"pic";
-//    }
-//    [self.navigationController pushViewController:newVC animated:YES];
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
-    Article *article = (Article *) item;
-    if ([article.categoryName isEqualToString:@"VIDEOS"]) {
+    CMSModel *article = (CMSModel *) item;
+    newVC.contentId = article.id;
+    if ([[article.contentTypeName uppercaseString] isEqualToString:@"VIDEOS"]) {
         newVC.toWhichPage = @"mo";
     }else
     {
         newVC.toWhichPage = @"pic";
     }
+    newVC.cmsmodelsArray=self.items;
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
@@ -138,8 +198,20 @@
         [self presentViewController:avc animated:YES completion:nil];
         
     }else if(index==0){
-        [Proto deleteDownload:selectIndex];
-        self.items =[Proto getDownloadListByCategory:typetext type:categorytext];
+//        [Proto deleteDownload:selectIndex];
+        
+        [[DentistDataBaseManager shareManager] deleteCMS:selectModel.id completed:^(BOOL result) {
+            foreTask(^{
+                if (result) {
+                    NSMutableArray *temparr=[NSMutableArray arrayWithArray:self.items];
+                    [temparr removeObject:self->selectModel];
+                    self.items=[temparr copy];
+                    [self updateFilterView];
+                }
+            });
+            
+            
+        }];
     }
 }
 
@@ -147,12 +219,20 @@
 -(void)clickFilter:(UIButton *)sender
 {
     DentistFilterView *filterview=[[DentistFilterView alloc] init];
+    filterview.categorytext=self->categoryId;
+    filterview.typetext=self->contentTypeId;
     [filterview show:^(NSString *category, NSString *type) {
     }select:^(NSString *category, NSString *type) {
-        categorytext=category;
-        typetext=type;
-        self.items =[Proto getDownloadListByCategory:typetext type:categorytext];
+        self->categoryId=category;
+        self->contentTypeId=type;
+        [[DentistDataBaseManager shareManager] queryCMSCachesList:self->categoryId contentTypeId:self->contentTypeId skip:0 completed:^(NSArray * _Nonnull array) {
+            foreTask(^{
+                self.items =array;
+                [self updateFilterView];
+            });
+        }];
     }];
+    
 }
 
 @end

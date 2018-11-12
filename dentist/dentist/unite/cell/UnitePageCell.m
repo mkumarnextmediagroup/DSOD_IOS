@@ -22,8 +22,11 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         coverImgView = [UIImageView new];
+        [coverImgView setContentMode:UIViewContentModeScaleAspectFill];
+        coverImgView.clipsToBounds = YES;
         [self addSubview:coverImgView];
-        [[[[[coverImgView.layoutMaker topParent:edge] leftParent:edge] rightParent:-edge] heightEq:500]install];
+        [[[[[coverImgView.layoutMaker topParent:edge] leftParent:edge] rightParent:-edge] heightEq:SCREENWIDTH*5/4]install];
+        
         
         optionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [self optionBtnReadStyle];
@@ -51,9 +54,8 @@
 - (void)setMagazineModel:(MagazineModel *)magazineModel{
     _magazineModel = magazineModel;
     
-    magazineModel.cover = @"http://app800.cn/i/p.png";
     if(magazineModel.cover){
-        [coverImgView loadUrl:magazineModel.cover placeholderImage:@"school"];
+        [coverImgView loadUrl:magazineModel.cover placeholderImage:@"bg_1"];
     }
     coverImgView.contentMode=UIViewContentModeScaleAspectFill;
     coverImgView.clipsToBounds=YES;
@@ -107,6 +109,14 @@
 
 -(UnitePageDownloadStatus)getUnitePageDownloadStatus{
     //TODO state of judgment
+    //        5bd7ff462676fdc2e88b5496  5bd800192676fdc2e88b5498
+    //TODO False data
+    if([_magazineModel._id isEqualToString:@"5bd7ff462676fdc2e88b5496"]
+       || [_magazineModel._id isEqualToString:@"5bd800192676fdc2e88b5498"]){
+        return UPageDownloaded;
+    }
+    
+    
     return UPageNoDownload;
 }
 

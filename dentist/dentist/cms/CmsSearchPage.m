@@ -5,18 +5,21 @@
 
 #import "CmsSearchPage.h"
 #import "Common.h"
-#import "ArticleItemView.h"
+#import "ArticleGSkItemView.h"
 #import "Proto.h"
 #import "CMSDetailViewController.h"
 #import "DenActionSheet.h"
 #import <Social/Social.h>
-
+#import "DetinstDownloadManager.h"
+#import "CmsArticleCategoryPage.h"
+#import "UIViewController+myextend.h"
 @interface CmsSearchPage()<UISearchBarDelegate,MyActionSheetDelegate,ArticleItemViewDelegate>
 {
     NSInteger selectIndex;
-    NSInteger pagenumber;
     BOOL issearch;
     NSString *searchKeywords;
+    CMSModel *selectModel;
+    BOOL isdownrefresh;
 }
 /*** searchbar ***/
 @property (nonatomic,strong) UISearchBar *searchBar;
@@ -38,6 +41,7 @@
 	[super viewDidLoad];
     
 	UINavigationItem *item = [self navigationItem];
+    item.rightBarButtonItem=nil;
     item.leftBarButtonItem=nil;//hidden left menu
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     _searchBar.placeholder = @"Search...";
@@ -60,11 +64,22 @@
 //MARK:刷新数据
 -(void)refreshData
 {
-    self.items=nil;
+    if (self.items.count==0) {
+        self.items=nil;
+    }
+    if(self.items.count>0){
+      [self showCenterIndicator];
+    }
+    [Proto querySearchResults:searchKeywords skip:0 completed:^(NSArray<CMSModel *> *array) {
+        foreTask(^{
+            [self hideCenterIndicator];
+            self.items=array;
+        });
+    }];
 }
 
 - (Class)viewClassOfItem:(NSObject *)item {
-    return ArticleItemView.class;
+    return ArticleGSkItemView.class;
 }
 
 - (CGFloat)heightOfItem:(NSObject *)item {
@@ -74,21 +89,44 @@
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
     
+//    CMSModel *model = (id) item;
+//    ArticleItemView *itemView = (ArticleItemView *) view;
+//    itemView.delegate=self;
+////    itemView.moreButton.tag=1;//;
+////    [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [itemView bindCMS:model];
+    
+    
     CMSModel *model = (id) item;
-    ArticleItemView *itemView = (ArticleItemView *) view;
+    ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
     itemView.delegate=self;
-    itemView.moreButton.tag=1;//;
-    [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [itemView bindCMS:model];
 }
 
 //click more button
-- (void)moreBtnClick:(UIButton *)btn
+//- (void)moreBtnClick:(UIButton *)btn
+//{
+//    selectIndex=btn.tag;
+//    NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
+//    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
+//    [denSheet show];
+//}
+
+
+-(void)ArticleMoreActionModel:(CMSModel *)model
 {
-    selectIndex=btn.tag;
+    selectModel=model;
+    NSLog(@"ArticleMoreAction=%@",model.id);
     NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
     [denSheet show];
+    [[DentistDataBaseManager shareManager] CheckIsDowned:model completed:^(NSInteger isdown) {
+        foreTask(^{
+            if (isdown) {
+                [denSheet updateActionTitle:@[@"Update",@"Share"]];
+            }
+        });
+    }];
 }
 
 #pragma mark ---MyActionSheetDelegate
@@ -98,10 +136,61 @@
         case 0://---click the Download button
         {
             NSLog(@"download click");
-            if (![Proto checkIsDownloadByArticle:selectIndex]) {
-                //添加
-                [Proto addDownload:selectIndex];
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Download is Add" preferredStyle:UIAlertControllerStyleAlert];
+            if (selectModel) {
+                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:selectModel addCompletion:^(BOOL result) {
+                    
+                    foreTask(^{
+                        NSString *msg=@"";
+                        if (result) {
+                            msg=@"Download is Add";
+                        }else{
+                            msg=@"error";
+                        }
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                            
+                            NSLog(@"点击取消");
+                        }]];
+                        [self presentViewController:alertController animated:YES completion:nil];
+                    });
+                } completed:^(BOOL result) {
+                    
+                }];
+            }
+        }
+            break;
+        case 1://---click the Share button
+        {
+            NSLog(@"Share click");
+            if (selectModel) {
+                NSString *urlstr=@"";
+                NSString *title=[NSString stringWithFormat:@"%@",selectModel.title];
+                NSString* type = selectModel.featuredMedia[@"type"];
+                if([type isEqualToString:@"1"] ){
+                    //pic
+                    NSDictionary *codeDic = selectModel.featuredMedia[@"code"];
+                    urlstr = codeDic[@"thumbnailUrl"];
+                }else{
+                    urlstr = selectModel.featuredMedia[@"code"];
+                }
+                NSString *someid=selectModel.id;
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
+                    UIImage *image = [UIImage imageWithData:data];
+                    if (image) {
+                        NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+                        NSArray *activityItems = @[shareurl,title,image];
+                        
+                        UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                        [self presentViewController:avc animated:YES completion:nil];
+                    }
+                });
+                
+            }else{
+                NSString *msg=@"";
+                msg=@"error";
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
                 
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                     
@@ -109,13 +198,6 @@
                 }]];
                 [self presentViewController:alertController animated:YES completion:nil];
             }
-        }
-            break;
-        case 1://---click the Share button
-        {
-            NSLog(@"Share click");
-            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:@[@"Mastering the art of Dental Surgery",[NSURL URLWithString:@"http://app800.cn/i/d.png"]] applicationActivities:nil];
-            [self presentViewController:avc animated:YES completion:nil];
         }
             break;
         default:
@@ -135,6 +217,7 @@
     {
         newVC.toWhichPage = @"pic";
     }
+    newVC.cmsmodelsArray=self.items;
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
@@ -149,7 +232,7 @@
                 if (result) {
                     //
                     model.isBookmark=NO;
-                    ArticleItemView *itemView = (ArticleItemView *) view;
+                    ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
                     [itemView updateBookmarkStatus:NO];
                     msg=@"Bookmarks is Delete";
                 }else{
@@ -166,13 +249,13 @@
         }];
     }else{
         //添加
-        [Proto addBookmark:getLastAccount() postId:model.id title:model.title url:model.featuredMediaId categoryId:model.categoryId contentTypeId:model.contentTypeId completed:^(BOOL result) {
+        [Proto addBookmark:getLastAccount() cmsmodel:model completed:^(BOOL result) {
             foreTask(^() {
                 NSString *msg=@"";
                 if (result) {
                     //
                     model.isBookmark=YES;
-                    ArticleItemView *itemView = (ArticleItemView *) view;
+                    ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
                     [itemView updateBookmarkStatus:YES];
                     msg=@"Bookmarks is Add";
                 }else{
@@ -219,12 +302,18 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     issearch=YES;
-    pagenumber=1;
     searchKeywords=searchBar.text;
     [self.searchBar resignFirstResponder];
      _searchBar.showsCancelButton = NO;
 //    self.items=[Proto getArticleListByKeywords:searchKeywords type:nil];
-    self.items=[Proto querySearchResults:searchKeywords pageNumber:pagenumber];
+//    self.items=[Proto querySearchResults:searchKeywords pageNumber:pagenumber];
+    [self showCenterIndicator];
+    [Proto querySearchResults:searchKeywords skip:0 completed:^(NSArray<CMSModel *> *array) {
+        foreTask(^{
+            [self hideCenterIndicator];
+            self.items=array;
+        });
+    }];
 //    NSLog(@"%@",self.items);
 }
 
@@ -235,23 +324,23 @@
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
     if (bottomOffset <= height+50)
     {
-        if (pagenumber>=1) {
-            //在最底部
-            [self showIndicator];
-            backTask(^() {
-                NSInteger newpage=self->pagenumber+1;
-                NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
-                NSArray<CMSModel *> *array = [Proto querySearchResults:self->searchKeywords pageNumber:newpage];
-                if(array && array.count>0){
-                    [newarray addObjectsFromArray:array];
-                    self->pagenumber=newpage;
-                }
-                foreTask(^() {
-                    [self hideIndicator];
-                    self.items=[newarray copy];
+        if (!isdownrefresh) {
+            isdownrefresh=YES;
+            [self showCenterIndicator];
+            [Proto querySearchResults:searchKeywords skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
+                foreTask(^{
+                    self->isdownrefresh=NO;
+                    [self hideCenterIndicator];
+                    if(array && array.count>0){
+                        NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
+                        [newarray addObjectsFromArray:array];
+                        self.items=[newarray copy];
+                    }
+                    
                 });
-            });
+            }];
         }
+        
         
     }
 }
@@ -263,9 +352,16 @@
     [_searchBar setShowsCancelButton:NO animated:YES];
 }
 
--(void)CategoryPickerSelectAction:(NSString *)result
+-(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName
 {
-    self.items=[Proto getArticleListByKeywords:searchKeywords type:result];
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    CmsArticleCategoryPage *newVC = [[CmsArticleCategoryPage alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+    
+    newVC.categoryId=categoryId;
+    newVC.categoryName=categoryName;
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
+
 
 @end

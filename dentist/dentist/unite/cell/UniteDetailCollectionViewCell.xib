@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gTV-IL-0wX" customClass="UniteDetailCollectionViewCell" customModule="dentist" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qS8-xi-Ixd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b8o-ta-3s6">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="b8o-ta-3s6" firstAttribute="centerY" secondItem="qS8-xi-Ixd" secondAttribute="centerY" id="7Ka-xw-i01"/>
+                            <constraint firstAttribute="bottom" secondItem="b8o-ta-3s6" secondAttribute="bottom" id="Dh3-l7-neB"/>
+                            <constraint firstAttribute="trailing" secondItem="b8o-ta-3s6" secondAttribute="trailing" id="LM2-Ad-LOg"/>
+                            <constraint firstItem="b8o-ta-3s6" firstAttribute="leading" secondItem="qS8-xi-Ixd" secondAttribute="leading" id="YRr-hs-05G"/>
+                            <constraint firstItem="b8o-ta-3s6" firstAttribute="top" secondItem="qS8-xi-Ixd" secondAttribute="top" id="eft-Rd-Xrw"/>
+                            <constraint firstItem="b8o-ta-3s6" firstAttribute="centerX" secondItem="qS8-xi-Ixd" secondAttribute="centerX" id="ghi-M5-iWl"/>
+                        </constraints>
+                    </scrollView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="qS8-xi-Ixd" secondAttribute="trailing" id="MYv-SM-Ykh"/>
+                <constraint firstAttribute="bottom" secondItem="qS8-xi-Ixd" secondAttribute="bottom" id="UDD-ky-6UG"/>
+                <constraint firstItem="qS8-xi-Ixd" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Vfj-hy-GDK"/>
+                <constraint firstItem="qS8-xi-Ixd" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="WqU-J9-XUw"/>
+            </constraints>
+            <connections>
+                <outlet property="detailImageview" destination="b8o-ta-3s6" id="Xzc-Kh-ZWb"/>
+                <outlet property="detailScrollview" destination="qS8-xi-Ixd" id="Coe-Av-Gwq"/>
+            </connections>
+            <point key="canvasLocation" x="136.80000000000001" y="122.78860569715144"/>
+        </collectionViewCell>
+    </objects>
+</document>

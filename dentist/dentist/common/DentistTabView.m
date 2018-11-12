@@ -144,9 +144,9 @@ static NSString * identifier = @"TabCellID2";
     NSInteger index = [_indexArr[indexPath.row] integerValue];
     if(_modelArr){
         IdName *model=_modelArr[index];
-        cell.titleLabel.text=model.name;
+        cell.titleLabel.text=[model.name uppercaseString];
     }else{
-        cell.titleLabel.text=_titleArr[index];
+        cell.titleLabel.text=[_titleArr[index] uppercaseString];
     }
     
     if (selectIndex==indexPath.row) {

@@ -34,12 +34,13 @@
     markButton = [self addButton];
     [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
-    [[[[markButton.layoutMaker rightParent:-edge] topParent:20] sizeEq:20 h:20] install];
+    [[[[markButton.layoutMaker rightParent:5] topParent:5] sizeEq:48 h:48] install];
+    [markButton setImageEdgeInsets:UIEdgeInsetsMake( 10, 0, 0, 0)];
     
     titleLabel = [self addLabel];
     titleLabel.font = [Fonts semiBold:14];
     titleLabel.textColor=Colors.textMain;
-    [[[[[titleLabel.layoutMaker toRightOf:imageView offset:15] topOf:imageView offset:10] toLeftOf:markButton offset:-10] heightEq:18] install];
+    [[[[[titleLabel.layoutMaker toRightOf:imageView offset:15] topOf:imageView offset:10] toLeftOf:markButton offset:10] heightEq:18] install];
 
     contentLabel = [self topShowLabel];
     contentLabel.font = [Fonts semiBold:15];
@@ -78,13 +79,14 @@
 -(void)bindCMS:(BookmarkModel *)item
 {
     _bookmarkmodel=item;
-    titleLabel.text = _bookmarkmodel.categoryName;
-    contentLabel.text = _bookmarkmodel.title;//[item.title stringByAppendingString:@"\n\n\n\n "];
+    titleLabel.text = (![NSString isBlankString:_bookmarkmodel.categoryName]?_bookmarkmodel.categoryName:@"");
+    contentLabel.text = (![NSString isBlankString:_bookmarkmodel.title]?_bookmarkmodel.title:@"");//[item.title stringByAppendingString:@"\n\n\n\n "];
     NSString *urlstr;
-    if (_bookmarkmodel.url) {
-        urlstr=[Proto getFileUrlByObjectId:_bookmarkmodel.url];
+    if ([NSString isBlankString:_bookmarkmodel.coverthumbnailUrl]) {
+        urlstr=_bookmarkmodel.url;
+    }else{
+        urlstr=_bookmarkmodel.coverthumbnailUrl;
     }
-    
     [imageView loadUrl:urlstr placeholderImage:@"art-img"];
     [imageView scaleFillAspect];
     imageView.clipsToBounds=YES;

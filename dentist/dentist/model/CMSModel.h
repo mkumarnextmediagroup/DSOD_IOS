@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
 #import "CMSModelComment.h"
+#import "Author.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*categoryName;
 @property NSString <Optional>*sponsorName;
 @property NSString <Optional>*authorName;
+@property Author   <Optional>*author;
 @property NSString <Optional>*email;
 @property NSString <Optional>*featuredMediaId;
 @property NSInteger isComplete;
@@ -40,7 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString  <Optional>*publishDate;
 @property NSInteger  readNumber;
 @property NSArray   <CMSModelComment*><Optional> *comment;
-
+@property NSString  <Optional>*downstatus;
+@property NSDictionary <Optional>*featuredMedia;
 @end
 
 NS_ASSUME_NONNULL_END

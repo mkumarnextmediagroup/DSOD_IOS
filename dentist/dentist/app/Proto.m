@@ -17,6 +17,8 @@
 #import "BookmarkModel.h"
 #import "DiscussInfo.h"
 #import "MagazineModel.h"
+#import "UniteArticles.h"
+#import "DentistDataBaseManager.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -24,6 +26,28 @@
 #define CMSDOWNLOADLIST @"CMSDOWNLOADLIST"
 @implementation Proto {
 	NSString *SERVER;
+}
+
++ (NSArray *)uniteArticleDesc
+{
+    UniteArticles *a1 = [UniteArticles new];
+    a1.issueHeading = @"TRANFORM YOUR THINKING";
+    a1.issueSubHeading = @"Understanding the DSO practise model";
+    
+    UniteArticles *a2 = [UniteArticles new];
+    a2.issueHeading = @"GOING PRO";
+    a2.issueSubHeading = @"Making the leap from Student to Professional";
+    
+    UniteArticles *a3 = [UniteArticles new];
+    a3.issueHeading = @"A BALANCING ACT";
+    a3.issueSubHeading = @"Your professional career and Personal Life";
+    
+    UniteArticles *a4 = [UniteArticles new];
+    a4.issueHeading = @"PREDICTABLE PREPARATION";
+    a4.issueSubHeading = @"Understanding the DSO practise model";
+    
+    NSArray *arr = @[a1, a2, a3, a4];
+    return arr;
 }
 
 + (NSArray *)listArticle {
@@ -737,15 +761,42 @@
 
 + (DetailModel *)queryForDetailPage:(NSString *)contentId
 {
-    HttpResult *r = [self post:@"content/findOneContents" dic:@{@"id": contentId} modular:@"cms"];
-    
-    if (r.OK) {
-        NSDictionary *dic = r.resultMap[@"data"];
-        DetailModel *detail = [[DetailModel alloc] initWithJson:jsonBuild(dic)];
-        detail.discussInfos = [self commentConvertDiscussInfo:detail.comment];
-        return detail;
+    if (contentId) {
+        HttpResult *r = [self post:@"content/findOneContents" dic:@{@"id": contentId} modular:@"cms"];
+        
+        if (r.OK) {
+            NSDictionary *dic = r.resultMap[@"data"];
+            DetailModel *detail = [[DetailModel alloc] initWithJson:jsonBuild(dic)];
+            detail.discussInfos = [self commentConvertDiscussInfo:detail.comment];
+            return detail;
+        }
     }
+    
     return nil;
+}
+
++ (void)queryForDetailPage:(NSString *)contentId completed:(void(^)(BOOL result,NSString* jsontext))completed
+{
+    if (contentId) {
+        [self postAsync:@"content/findOneContents" dic:@{@"id": contentId} modular:@"cms" callback:^(HttpResult *r) {
+            if (r.OK) {
+                NSDictionary *dic = r.resultMap[@"data"];
+                NSString *json=jsonBuild(dic);
+                if (completed) {
+                    completed(YES,json);
+                }
+            }else{
+                if (completed) {
+                    completed(NO,nil);
+                }
+            }
+        }];
+    }else{
+        if (completed) {
+            completed(NO,nil);
+        }
+    }
+    
 }
 
 //commentModel to DiscussInfo
@@ -756,15 +807,11 @@
         for (int i = 0; i<comments.count; i++) {
             CommentModel *item = [[CommentModel alloc] initWithJson:jsonBuild(comments[i])];
             DiscussInfo *info = [[DiscussInfo alloc] init];
-            NSString *urlstr;
-            if (item.content_id) {
-                urlstr=[Proto getFileUrlByObjectId:item.content_id];
-            }
-            info.disImg = urlstr;
             info.name = item.email;
             info.content = item.comment_text;
             info.disDate = item.create_time;
             info.starCount = item.comment_rating;
+            info.disImg = [NSString stringWithFormat:@"%@%@photoDownloadByEmail?email=%@",[self baseDomain],[self configUrl:@"profile"],info.name];
 
             [discussInfos addObject:info ];
         }
@@ -773,21 +820,19 @@
 }
 
 
-//search API（CMS_001_11-A/CMS_001_12）
-+ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue pageNumber:(NSInteger)pageNumber{
+//MARK: search API（CMS_001_11-A/CMS_001_12）
++ (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue skip:(NSInteger)skip{
     
-    NSInteger skip=0;
-    NSInteger limit=10;//分页数默认20条
-    if(pageNumber>=1)
-    {
-        skip=(pageNumber-1)*limit;
+    if (skip<=0) {
+        skip=0;
     }
+    NSInteger limit=10;//分页数默认20条
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
     [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
     [paradic setObject:serachValue forKey:@"searchValue"];
     
-    HttpResult *r = [self post3:@"content/findAllBySearch" dic:paradic modular:@"cms"];
+    HttpResult *r = [self post3:@"content/findAllByValue" dic:paradic modular:@"cms"];
     
     NSMutableArray *resultArray = [NSMutableArray array];
     if (r.OK) {
@@ -803,13 +848,43 @@
     return resultArray;
 }
 
-//MARK:查询媒体列表（CMS_001_01\CMS_001_10）
-+ (NSArray<CMSModel *> *)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *)authorId {
-    NSInteger skip=0;
++ (void)querySearchResults:(NSString *)serachValue skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed{
+    
+    if (skip<=0) {
+        skip=0;
+    }
     NSInteger limit=10;//分页数默认20条
-    if(pageNumber>=1)
-    {
-        skip=(pageNumber-1)*limit;
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    if (![NSString isBlankString:serachValue]) {
+        [paradic setObject:serachValue forKey:@"searchValue"];
+    }
+    
+    
+    [self postAsync3:@"content/findAllByValue" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
+        NSMutableArray *resultArray = [NSMutableArray array];
+        if (r.OK) {
+            NSArray *arr = r.resultMap[@"data"];
+            for (NSDictionary *d in arr) {
+                CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
+                if (item) {
+                    [resultArray addObject:item];
+                }
+                
+            }
+        }
+        if (completed) {
+            completed(resultArray);
+        }
+    }];
+}
+
+//MARK:查询媒体列表（CMS_001_01\CMS_001_10）
++ (NSArray<CMSModel *> *)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId skip:(NSInteger)skip authorId:(NSString *)authorId {
+    NSInteger limit=20;//分页数默认20条
+    if (skip<=0) {
+        skip=0;
     }
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
@@ -844,13 +919,16 @@
     return resultArray;
 }
 
-+ (void)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId pageNumber:(NSInteger)pageNumber authorId:(NSString *)authorId completed:(void(^)(NSArray<CMSModel *> *array))completed {
-    NSInteger skip=0;
-    NSInteger limit=10;//分页数默认20条
-    if(pageNumber>=1)
-    {
-        skip=(pageNumber-1)*limit;
++ (void)queryAllContents:(NSString *)email contentTypeId:(NSString *)contentTypeId categoryId:(NSString *)categoryId sponserId:(NSString *)sponserId skip:(NSInteger)skip authorId:(NSString *)authorId completed:(void(^)(NSArray<CMSModel *> *array))completed {
+    NSInteger limit=20;//分页数默认20条
+//    if(pageNumber>=1)
+//    {
+//        skip=(pageNumber-1)*limit;
+//    }
+    if (skip<=0) {
+        skip=0;
     }
+//    email=getLastAccount();
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
     [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
@@ -869,10 +947,26 @@
     if (authorId) {
         [paradic setObject:email forKey:@"authorId"];
     }
+    
     [self postAsync3:@"content/findAllContents" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];
+            NSString *jsontext=jsonBuild(arr);
+            if (skip==0) {
+                NSMutableDictionary *newparadic=[paradic mutableCopy];
+                [newparadic removeObjectForKey:@"skip"];
+                [newparadic removeObjectForKey:@"limit"];
+                NSString *keypara=jsonBuild(newparadic);
+                NSString *cacheskey=[NSString stringWithFormat:@"%@_%@",@"findAllContents",keypara];
+                
+                if (arr && arr.count>0) {
+                    [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+                    }];
+                }
+            }
+            
+            
             for (NSDictionary *d in arr) {
                 CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
                 if (item) {
@@ -891,36 +985,44 @@
 }
 
 //MARK:根据分类查询媒体列表（CMS_001_01\CMS_001_10）
-+ (NSArray<CMSModel *> *)queryAllContentsByCategoryType:(NSString *)categoryTypeId pageNumber:(NSInteger)pageNumber
++ (NSArray<CMSModel *> *)queryAllContentsByCategoryType:(NSString *)categoryTypeId skip:(NSInteger)skip
 {
-    return [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil pageNumber:pageNumber authorId:nil];
+    return [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil skip:skip authorId:nil];
 }
 
-+ (void)queryAllContentsByCategoryType:(NSString *)categoryTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed
++ (void)queryAllContentsByCategoryType:(NSString *)categoryTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed
 {
-    return [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil pageNumber:pageNumber authorId:nil completed:completed];
+    return [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil skip:skip authorId:nil completed:completed];
+}
++ (void)queryAllContentsByCategoryType2:(NSString *)categoryTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array,NSString *categoryType))completed
+{
+    [self queryAllContents:nil contentTypeId:nil categoryId:categoryTypeId sponserId:nil skip:skip authorId:nil completed:^(NSArray<CMSModel *> *array) {
+        if (completed) {
+            completed(array,categoryTypeId);
+        }
+    }];
 }
 
 //MARK:根据内容分类查询媒体列表（CMS_001_01\CMS_001_10）
-+ (NSArray<CMSModel *> *)queryAllContentsByContentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
++ (NSArray<CMSModel *> *)queryAllContentsByContentType:(NSString *)contentTypeId skip:(NSInteger)skip
 {
-    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil pageNumber:pageNumber authorId:nil];
+    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil skip:skip authorId:nil];
 }
 
-+ (void)queryAllContentsByContentType:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed
++ (void)queryAllContentsByContentType:(NSString *)contentTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed
 {
-    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil pageNumber:pageNumber authorId:nil completed:completed];
+    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:nil skip:skip authorId:nil completed:completed];
 }
 
 //MARK:根据赞助商跟内容分类查询媒体列表（CMS_001_01\CMS_001_10）
-+ (NSArray<CMSModel *> *)queryAllContentsBySponsorAndContentType:(NSString *)sponsorId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber
++ (NSArray<CMSModel *> *)queryAllContentsBySponsorAndContentType:(NSString *)sponsorId contentTypeId:(NSString *)contentTypeId skip:(NSInteger)skip
 {
-    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:sponsorId pageNumber:pageNumber authorId:nil];
+    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:sponsorId skip:skip authorId:nil];
 }
 
-+ (void)queryAllContentsBySponsorAndContentType:(NSString *)sponsorId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber completed:(void(^)(NSArray<CMSModel *> *array))completed
++ (void)queryAllContentsBySponsorAndContentType:(NSString *)sponsorId contentTypeId:(NSString *)contentTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed
 {
-    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:sponsorId pageNumber:pageNumber authorId:nil completed:completed];
+    return [self queryAllContents:nil contentTypeId:contentTypeId categoryId:nil sponserId:sponsorId skip:skip authorId:nil completed:completed];
 }
 
 //MARK:查询媒体详情（CMS_002_01/CMS_002_02）
@@ -954,23 +1056,50 @@
 }
 
 + (void)queryCategoryTypes:(void(^)(NSArray<IdName *> *array))completed {
-    [self postAsync3:@"category/findAllCategory" dic:nil modular:@"cms" callback:^(HttpResult *r) {
-        if (r.OK) {
-            NSMutableArray *resultArray = [NSMutableArray array];
-            NSArray *arr = r.resultMap[@"data"];
-            for (NSDictionary *d in arr) {
-                IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
-                [resultArray addObject:item];
-            }
+    [[DentistDataBaseManager shareManager] queryCategoryTypesCaches:^(NSArray<IdName *> * _Nonnull array) {
+        if (array && array.count>0) {
             if (completed) {
-                completed(resultArray);
+                completed(array);
             }
+            [self postAsync3:@"category/findAllCategory" dic:nil modular:@"cms" callback:^(HttpResult *r) {
+                if (r.OK) {
+                    NSArray *arr = r.resultMap[@"data"];
+                    NSString *cacheskey=@"findAllCategory";
+                    NSString *jsontext=jsonBuild(arr);
+                    if (arr && arr.count>0) {
+                        [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+                        }];
+                    }
+                }
+            }];
         }else{
-            if (completed) {
-                completed(nil);
-            }
+            [self postAsync3:@"category/findAllCategory" dic:nil modular:@"cms" callback:^(HttpResult *r) {
+                if (r.OK) {
+                    NSMutableArray *resultArray = [NSMutableArray array];
+                    NSArray *arr = r.resultMap[@"data"];
+                    NSString *cacheskey=@"findAllCategory";
+                    NSString *jsontext=jsonBuild(arr);
+                    if (arr && arr.count>0) {
+                        [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+                        }];
+                    }
+                    
+                    for (NSDictionary *d in arr) {
+                        IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+                        [resultArray addObject:item];
+                    }
+                    if (completed) {
+                        completed(resultArray);
+                    }
+                }else{
+                    if (completed) {
+                        completed(nil);
+                    }
+                }
+            }];
         }
     }];
+    
 }
 
 //MARK:查询Content Type（CMS_004_03）
@@ -989,24 +1118,75 @@
 }
 
 + (void)queryContentTypes:(void(^)(NSArray<IdName *> *array))completed  {
-    [self postAsync3:@"category/findAllContentType" dic:nil modular:@"cms" callback:^(HttpResult *r) {
-        if (r.OK) {
-            NSMutableArray *resultArray = [NSMutableArray array];
-            NSArray *arr = r.resultMap[@"data"];
-            for (NSDictionary *d in arr) {
-                IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
-                [resultArray addObject:item];
-            }
+    
+    [[DentistDataBaseManager shareManager] queryContentTypesCaches:^(NSArray<IdName *> * _Nonnull array) {
+        array=[self filterContentType:array];
+        if (array && array.count>0) {
             if (completed) {
-                completed(resultArray);
+                completed(array);
             }
+            [self postAsync3:@"category/findAllContentType" dic:nil modular:@"cms" callback:^(HttpResult *r) {
+                if (r.OK) {
+                    NSArray *arr = r.resultMap[@"data"];
+                    NSString *cacheskey=@"findAllContentType";
+                    NSString *jsontext=jsonBuild(arr);
+                    if (arr && arr.count>0) {
+                        [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+                        }];
+                    }
+                    
+                }
+            }];
         }else{
-            if (completed) {
-                completed(nil);
-            }
+            [self postAsync3:@"category/findAllContentType" dic:nil modular:@"cms" callback:^(HttpResult *r) {
+                if (r.OK) {
+                    NSMutableArray *resultArray = [NSMutableArray array];
+                    NSArray *arr = r.resultMap[@"data"];
+                    NSString *cacheskey=@"findAllContentType";
+                    NSString *jsontext=jsonBuild(arr);
+                    if (arr && arr.count>0) {
+                        [[DentistDataBaseManager shareManager] updateContentCaches:cacheskey jsontext:jsontext completed:^(BOOL result) {
+                        }];
+                    }
+                    
+                    for (NSDictionary *d in arr) {
+                        IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+                        [resultArray addObject:item];
+                    }
+                    resultArray=[self filterContentType:resultArray];
+                    if (completed) {
+                        completed(resultArray);
+                    }
+                }else{
+                    if (completed) {
+                        completed(nil);
+                    }
+                }
+            }];
         }
     }];
+    
+    
 }
+
++(NSMutableArray<IdName *> *)filterContentType:(NSArray<IdName *> *)array
+{
+    NSMutableArray<IdName *> *temparr=[NSMutableArray array];
+    NSArray *filterArr=@[@"29",@"28",@"30",@"31",@"194"];
+    if (array && array.count>0) {
+        for (NSString *filterid in filterArr) {
+            [array enumerateObjectsUsingBlock:^(IdName * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([filterid isEqualToString:obj.id]) {
+                    [temparr addObject:obj];
+                    *stop=YES;
+                }
+            }];
+        }
+    }
+    
+    return temparr;
+}
+
 
 //MARK:添加评论（CMS_002_06）
 +(HttpResult *)addComment:(NSString *)email contentId:(NSString *)contentId commentText:(NSString *)commentText commentRating:(NSString *)commentRating
@@ -1029,13 +1209,11 @@
 }
 
 //MARK:查询收藏列表
-+ (NSArray<BookmarkModel *> *)queryBookmarksByEmail:(NSString *)email categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber {
-    NSInteger skip=0;
-    NSInteger limit=10;//分页数默认20条
-    if(pageNumber>=1)
-    {
-        skip=(pageNumber-1)*limit;
++ (NSArray<BookmarkModel *> *)queryBookmarksByEmail:(NSString *)email categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId skip:(NSInteger)skip {
+    if (skip<=0) {
+        skip=0;
     }
+    NSInteger limit=10;//分页数默认20条
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
     [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
@@ -1061,7 +1239,7 @@
     return resultArray;
 }
 
-+ (void)queryBookmarksByEmail:(NSString *)email categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId pageNumber:(NSInteger)pageNumber skip:(NSInteger)skip completed:(void(^)(NSArray<BookmarkModel *> *array))completed {
++ (void)queryBookmarksByEmail:(NSString *)email categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId skip:(NSInteger)skip completed:(void(^)(NSArray<BookmarkModel *> *array))completed {
 //    NSInteger skip=0;
     NSInteger limit=10;//分页数默认20条
 //    if(pageNumber>=1)
@@ -1181,7 +1359,10 @@
 }
 +(void)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId completed:(void(^)(BOOL result))completed
 {
-    if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title] && ![NSString isBlankString:url]){
+    if([NSString isBlankString:url]){
+        url=@"";
+    }
+    if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title]){
         [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId} modular:@"cms" callback:^(HttpResult *r) {
             if (completed) {
                 completed(r.OK);
@@ -1195,12 +1376,87 @@
 
 }
 
++(void)addBookmark:(NSString *)email cmsmodel:(CMSModel *)model completed:(void(^)(BOOL result))completed
+{
+    NSString *url;
+    NSString *postId=model.id;
+    NSString *title;
+    if([NSString isBlankString:model.title]){
+        title=@"";
+    }else{
+        title=model.title;
+    }
+    NSString *categoryId;
+    if([NSString isBlankString:model.categoryId]){
+        categoryId=@"";
+    }else{
+        categoryId=model.categoryId;
+    }
+    NSString *contentTypeId;
+    if([NSString isBlankString:model.contentTypeId]){
+        contentTypeId=@"";
+    }else{
+        contentTypeId=model.contentTypeId;
+    }
+    NSString *categoryName;
+    if([NSString isBlankString:model.categoryName]){
+        categoryName=@"";
+    }else{
+        categoryName=model.categoryName;
+    }
+    NSString *contentTypeName;
+    if([NSString isBlankString:model.contentTypeName]){
+        contentTypeName=@"";
+    }else{
+        contentTypeName=model.contentTypeName;
+    }
+    NSString* type = model.featuredMedia[@"type"];
+    
+    NSString *coverUrl;
+    NSString *coverthumbnailUrl;
+    if([type isEqualToString:@"1"] ){
+        //pic
+        NSDictionary *codeDic = model.featuredMedia[@"code"];
+        coverUrl = codeDic[@"originalUrl"];
+        coverthumbnailUrl = codeDic[@"thumbnailUrl"];
+    }else{
+        coverUrl = model.featuredMedia[@"code"];
+        coverthumbnailUrl = model.featuredMedia[@"code"];
+    }
+    if ([NSString isBlankString:coverUrl]) {
+        coverUrl=@"";
+    }
+    if ([NSString isBlankString:coverthumbnailUrl]) {
+        coverthumbnailUrl=@"";
+    }
+    url=coverthumbnailUrl;
+    if(![NSString isBlankString:email] && ![NSString isBlankString:postId]){
+        [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"coverUrl": coverUrl,@"coverthumbnailUrl": coverthumbnailUrl,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"categoryName": categoryName,@"contentTypeName": contentTypeName} modular:@"cms" callback:^(HttpResult *r) {
+            if (completed) {
+                completed(r.OK);
+            }
+        }];
+    }else{
+        if (completed) {
+            completed(NO);
+        }
+    }
+    
+}
+
+//
+
 //MARK:获取单个文件（ADMIN PORTAL Only）
 +(NSString *)getFileUrlByObjectId:(NSString *)objectid
 {
-    NSString *baseUrl = [self configUrl:@"cms"];
-    NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
-    return url;
+    if (![NSString isBlankString:objectid]) {
+        NSString *baseUrl = [self configUrl:@"cms"];
+        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=%@",objectid);
+        return url;
+    }else{
+        return nil;
+    }
+    
 }
 
 #pragma mark Unite API
@@ -1308,7 +1564,7 @@
     return r;
 }
 
-+ (void)post:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback{
++ (void)postAsync:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback{
     NSString *baseUrl = [self configUrl:modular];
     Http *h = [Http new];
     h.url = strBuild([self baseDomain],baseUrl, action);
@@ -1812,6 +2068,21 @@
         }
     }
     return resultArray;
+}
+
+//MARK:查询杂志详情接口
++ (void)queryMagazinesDetail:(NSString *)magazineId completed:(void(^)(MagazineModel *model))completed
+{
+    [self postAsync:@"magazine/magazineId" dic:@{@"id": magazineId} modular:@"cms" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSDictionary *dic = r.resultMap[@"data"];
+            MagazineModel *detail = [[MagazineModel alloc] initWithJson:jsonBuild(dic)];
+            if (completed) {
+                completed(detail);
+            }
+        }
+    }];
+    
 }
 
 @end

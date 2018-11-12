@@ -11,8 +11,9 @@
 #import "YHPopMenuView.h"
 #import "UniteDownloadingViewController.h"
 #import "dentist-Swift.h"
+#import "ThumAndDetailViewController.h"
 
-@interface UnitePage()<UITableViewDelegate,UITableViewDataSource>{
+@interface UnitePage()<UITableViewDelegate,UITableViewDataSource,ThumViewControllerDelegate>{
     UITableView *mTableView;
     UIActivityIndicatorView *iv;
     
@@ -21,6 +22,8 @@
     NSArray *datas;
     UIRefreshControl *refreshControl;
     BOOL isRefreshing;
+    
+    BOOL onlyDownloadedUinte;
     
 }
 @end
@@ -46,7 +49,7 @@
 
 -(void)setupNavigation{
     UINavigationItem *item = [self navigationItem];
-    item.title = @"Unite";
+    item.title = @"All ISSUES";
     
     
     iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -73,16 +76,16 @@
 
 - (void)enterTeamCard:(UIButton *)btn
 {
-    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    UniteDetailViewController *newVC = [[UniteDetailViewController alloc] init];
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+    ThumViewController *thumvc=[ThumViewController new];
+    thumvc.modelarr=self->datas;
+    [self.navigationController pushViewController:thumvc animated:YES];
     
-    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 - (void)enterUniteDownloading:(MagazineModel*) model{
     UniteDownloadingViewController *vc = [[UniteDownloadingViewController alloc]init];
     vc.magazineModel = model;
+    vc.datas = datas;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -121,6 +124,10 @@
         return;
     }
     
+    if(onlyDownloadedUinte){
+        return;
+    }
+    
     [self showTopIndicator];
     backTask(^{
         NSArray *arr = [Proto findAllMagazines:isMore?self->datas.count:0];
@@ -140,10 +147,28 @@
         }else{
             datas = newDatas;
         }
+        //TODO False data
+        ((MagazineModel*)datas[0]).cover = @"http://pic41.photophoto.cn/20161202/1155116460723923_b.jpg";
+        ((MagazineModel*)datas[1]).cover = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542037826&di=64e2e24bf769d5c2b71d7372a0515d7d&imgtype=jpg&er=1&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3Dec50dee888025aafc73f76889384c111%2Fa50f4bfbfbedab643e0cd5e8fd36afc379311e9f.jpg";
+       
+        
         [mTableView reloadData];
     }
 }
 
+-(void)gotoThumView
+{
+    ThumViewController *thumvc=[ThumViewController new];
+    thumvc.thumSelectMenu = ^(NSInteger row) {
+         NSLog(@"thumDidSelectMenu==========%@",@(row));
+    };
+    thumvc.modelarr=self->datas;
+//    thumvc.didSelectMenu =^(NSInteger index) {
+//
+//    }
+
+    [self.navigationController pushViewController:thumvc animated:YES];
+}
 
 -(void)startUniteDownload{
     
@@ -163,7 +188,7 @@
     CGFloat y = 0;
     
     popView = [[YHPopMenuView alloc] initWithFrame:CGRectMake(x, y, w, h)];
-    popView.iconNameArray = @[@"arrow",@"arrow",@"arrow",];
+    popView.iconNameArray = @[@"arrow",@"arrow",@"arrow"];
     popView.itemNameArray = @[@"All Issues",@"Downloaded",@"Go to Bookmarks"];
     popView.itemH     = itemH;
     popView.fontSize  = 16.0f;
@@ -175,13 +200,9 @@
     [popView dismissHandler:^(BOOL isCanceled, NSInteger row) {
         if (!isCanceled) {
             if(row == 0){
-                ThumViewController *thumvc=[ThumViewController new];
-                thumvc.modelarr=self->datas;
-                [self.navigationController pushViewController:thumvc animated:YES];
+                [self showAllIssues];
             }else if(row == 1){
-                MagazineModel *model = [[MagazineModel alloc]init];
-                model.publishDate = @"111";
-                [self enterUniteDownloading:model];
+                [self showDownloaded];
             }else if(row == 2){
                 ThumViewController *thumvc=[ThumViewController new];
                 thumvc.pageType = PageTypeBookmark;
@@ -193,13 +214,33 @@
     
 }
 
+-(void)showDownloaded{
+    //TODO False data
+    onlyDownloadedUinte = YES;
+    UINavigationItem *item = [self navigationItem];
+    item.title = @"DOWNLOADED";
+    if(datas.count>3){
+        datas = [NSArray arrayWithObjects:datas[1],datas[2],nil];
+        [mTableView reloadData];
+    }
+}
+
+-(void)showAllIssues{
+    onlyDownloadedUinte = NO;
+    UINavigationItem *item = [self navigationItem];
+    item.title = @"All ISSUES";
+    [self firstRefresh];
+}
+
+
+
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return datas.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 580;
+    return SCREENWIDTH * 6 /5 + 100;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -218,6 +259,7 @@
             case UPageNoDownload:
                 //start download
                 [self startUniteDownload];
+                
             case UPageDownloading:{
                 //to downloading page
                 [self enterUniteDownloading:model];
@@ -230,10 +272,20 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self gotoThumView];
+}
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     // 下拉到最底部时显示更多数据
     if(!isRefreshing && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height))){
         [self getDatas:YES];
     }
+}
+
+-(void)thumDidSelectMenu:(NSInteger)index
+{
+    NSLog(@"thumDidSelectMenu3333==========%@",@(index));
 }
 @end

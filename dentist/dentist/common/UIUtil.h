@@ -11,8 +11,10 @@
 
 extern NSString *localStr(NSString *name);
 
-extern UIColor *rgbHex(int rgbValue);
-    
+extern UIColor *rgbHex(int rgbValue);
+
+extern UIColor *argbHex(int argbValue);
+
 extern UIColor *rgb255(int r, int g, int b);
 
 extern UIColor *rgba255(int r, int g, int b, int a);

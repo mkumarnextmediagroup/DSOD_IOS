@@ -39,6 +39,10 @@ NS_ASSUME_NONNULL_BEGIN
 // 插入数据
 - (void)insertUniteArticleModel:(DetailModel *)model uniteid:(NSString *)uniteid jsontext:(NSString *)jsontext sort:(NSInteger)sort completed:(void(^)(BOOL result))completed;
 -(void)queryUniteArticlesCachesList:(NSString *)uniteid completed:(void(^)(NSArray<DetailModel *> *array))completed;
+//添加删除杂志文章方法，isbookmark==1收藏；0取消收藏
+-(void)updateUniteArticleBookmark:(NSString *)articleid uniteid:(NSString *)uniteid isbookmark:(NSInteger)isbookmark completed:(void(^)(BOOL result))completed;
+//获取收藏的杂志文章列表
+-(void)queryUniteArticlesBookmarkCachesList:(void(^)(NSArray<DetailModel *> *array))completed;
 @end
 
 NS_ASSUME_NONNULL_END

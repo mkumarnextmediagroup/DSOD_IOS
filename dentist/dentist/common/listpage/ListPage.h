@@ -6,6 +6,7 @@
 #import <UIKit/UIKit.h>
 
 typedef void (^EmptyFilterViewActionBlock) (NSString *result,NSString *resultname);
+typedef void (^EmptyFiledViewActionBlock) (UITextField *textFiled);
 @interface ListPage : UIViewController
 
 //table offset top
@@ -20,6 +21,7 @@ typedef void (^EmptyFilterViewActionBlock) (NSString *result,NSString *resultnam
 
 /** Filterblock **/
 @property (copy, nonatomic) EmptyFilterViewActionBlock filterBlock;
+@property (copy, nonatomic) EmptyFiledViewActionBlock filedBlock;
 /** 是否下拉刷新 **/
 @property  (nonatomic,assign) BOOL isRefresh;
 
@@ -39,9 +41,12 @@ typedef void (^EmptyFilterViewActionBlock) (NSString *result,NSString *resultnam
 - (void)onBindItem3:(NSObject *)item view:(UIView *)view cell:(UITableViewCell *)cell;
 
 -(void)addEmptyViewWithImageName:(NSString*)imageName title:(NSString*)title;
--(void)addEmptyFilterViewWithImageName:(NSString*)imageName title:(NSString*)title filterAction:(EmptyFilterViewActionBlock)filterActionBlock;
+
+-(void)addEmptyFiledViewWithImageName:(NSString*)imageName title:(NSString*)title textFiledBlock:(EmptyFiledViewActionBlock)textFiledBlock;
 
 -(void)refreshData;
 - (void)showIndicator;
 - (void)hideIndicator;
+- (void)showCenterIndicator;
+- (void)hideCenterIndicator;
 @end

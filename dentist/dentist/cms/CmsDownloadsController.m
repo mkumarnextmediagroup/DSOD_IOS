@@ -219,6 +219,8 @@
 -(void)clickFilter:(UIButton *)sender
 {
     DentistFilterView *filterview=[[DentistFilterView alloc] init];
+    filterview.categorytext=self->categoryId;
+    filterview.typetext=self->contentTypeId;
     [filterview show:^(NSString *category, NSString *type) {
     }select:^(NSString *category, NSString *type) {
         self->categoryId=category;
@@ -230,6 +232,7 @@
             });
         }];
     }];
+    
 }
 
 @end

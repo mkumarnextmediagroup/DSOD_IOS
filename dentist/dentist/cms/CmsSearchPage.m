@@ -67,10 +67,12 @@
     if (self.items.count==0) {
         self.items=nil;
     }
-    [self showIndicator];
+    if(self.items.count>0){
+      [self showCenterIndicator];
+    }
     [Proto querySearchResults:searchKeywords skip:0 completed:^(NSArray<CMSModel *> *array) {
         foreTask(^{
-            [self hideIndicator];
+            [self hideCenterIndicator];
             self.items=array;
         });
     }];
@@ -305,10 +307,10 @@
      _searchBar.showsCancelButton = NO;
 //    self.items=[Proto getArticleListByKeywords:searchKeywords type:nil];
 //    self.items=[Proto querySearchResults:searchKeywords pageNumber:pagenumber];
-    [self showIndicator];
+    [self showCenterIndicator];
     [Proto querySearchResults:searchKeywords skip:0 completed:^(NSArray<CMSModel *> *array) {
         foreTask(^{
-            [self hideIndicator];
+            [self hideCenterIndicator];
             self.items=array;
         });
     }];
@@ -324,11 +326,11 @@
     {
         if (!isdownrefresh) {
             isdownrefresh=YES;
-            [self showIndicator];
+            [self showCenterIndicator];
             [Proto querySearchResults:searchKeywords skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
                 foreTask(^{
                     self->isdownrefresh=NO;
-                    [self hideIndicator];
+                    [self hideCenterIndicator];
                     if(array && array.count>0){
                         NSMutableArray *newarray=[NSMutableArray arrayWithArray:self.items];
                         [newarray addObjectsFromArray:array];

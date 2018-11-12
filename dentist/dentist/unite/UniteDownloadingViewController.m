@@ -115,7 +115,6 @@
     [downloadingBtn addSubview:iv];
     [[[[iv.layoutMaker leftParent:13] topParent:1] bottomParent:1] install];
     [iv startAnimating];
-    
     [self downloadData];
 //    [self loadData];
 }
@@ -173,7 +172,6 @@
         thumvc.modelarr=weakSelf.datas;
         [weakSelf.navigationController pushViewController:thumvc animated:YES];
     });
-
 }
 
 -(void)downloadData
@@ -196,6 +194,12 @@
     } completed:^(BOOL result) {
         if(result){
             NSLog(@"===============下载成功===============");
+            //查询下载的文章数据
+            [[DentistDataBaseManager shareManager] queryUniteArticlesCachesList:self.magazineModel._id completed:^(NSArray<DetailModel *> * _Nonnull array) {
+                if (array) {
+                    
+                }
+            }];
             WeakSelf
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 ThumViewController *thumvc=[ThumViewController new];

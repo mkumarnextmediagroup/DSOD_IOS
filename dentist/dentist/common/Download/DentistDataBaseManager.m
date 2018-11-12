@@ -489,7 +489,7 @@
 //MARK:unite 杂志文章表
 -(void)creatUniteArticlesCachesTable:(FMDatabase *)db
 {
-    BOOL result = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_UniteArticlesCaches (id VARCHAR(100),uniteid VARCHAR(100),title text,contentTypeId VARCHAR(100),categoryId VARCHAR(100),contentTypeName VARCHAR(100),categoryName VARCHAR(100), jsontext text,isbookmark INTEGER default 0,downstatus INTEGER default 0, createdate timestamp not null default CURRENT_TIMESTAMP,PRIMARY KEY(id,uniteid))"];
+    BOOL result = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_UniteArticlesCaches (id VARCHAR(100),uniteid VARCHAR(100),title text,contentTypeId VARCHAR(100),categoryId VARCHAR(100),contentTypeName VARCHAR(100),categoryName VARCHAR(100), jsontext text,isbookmark INTEGER default 0,downstatus INTEGER default 0,sort INTEGER default 0, createdate timestamp not null default CURRENT_TIMESTAMP,PRIMARY KEY(id,uniteid))"];
     if (result) {
         NSLog(@"缓存t_UniteArticles数据表创建成功");
     }else {
@@ -545,7 +545,7 @@
     }
 }
 // 插入数据
-- (void)insertUniteArticleModel:(DetailModel *)model uniteid:(NSString *)uniteid jsontext:(NSString *)jsontext completed:(void(^)(BOOL result))completed
+- (void)insertUniteArticleModel:(DetailModel *)model uniteid:(NSString *)uniteid jsontext:(NSString *)jsontext sort:(NSInteger)sort completed:(void(^)(BOOL result))completed
 {
     if (![NSString isBlankString:model.id] && ![NSString isBlankString:uniteid]) {
         __block BOOL result;
@@ -553,7 +553,7 @@
             [self->_dbQueue inDatabase:^(FMDatabase *db) {
                 if ([self CheckIsHasUniteArticle:db articleid:model.id uniteid:uniteid]) {
                     //更新
-                    result = [db executeUpdate:@"UPDATE t_UniteArticlesCaches set title = ?,contentTypeId = ?,categoryId = ?,contentTypeName = ?,categoryName = ?,jsontext = ? where id = ? and uniteid = ? ",model.title,model.contentTypeId,model.categoryId,model.contentTypeName,model.categoryName,jsontext,model.id,uniteid];
+                    result = [db executeUpdate:@"UPDATE t_UniteArticlesCaches set title = ?,contentTypeId = ?,categoryId = ?,contentTypeName = ?,categoryName = ?,jsontext = ?,sort = ? where id = ? and uniteid = ? ",model.title,model.contentTypeId,model.categoryId,model.contentTypeName,model.categoryName,jsontext,[NSNumber numberWithInteger:sort],model.id,uniteid];
                     
                     if (result) {
                     }else {
@@ -562,7 +562,7 @@
                     
                 }else{
                     
-                    result = [db executeUpdate:@"INSERT INTO t_UniteArticlesCaches (id,uniteid,title,contentTypeId,categoryId ,contentTypeName ,categoryName, jsontext) VALUES (?,?, ?, ?, ?, ?, ?,?)", model.id,uniteid,model.title,model.contentTypeId,model.categoryId,model.contentTypeName,model.categoryName,jsontext];
+                    result = [db executeUpdate:@"INSERT INTO t_UniteArticlesCaches (id,uniteid,title,contentTypeId,categoryId ,contentTypeName ,categoryName, jsontext,sort) VALUES (?,?, ?, ?, ?, ?, ?,?,?)", model.id,uniteid,model.title,model.contentTypeId,model.categoryId,model.contentTypeName,model.categoryName,jsontext,[NSNumber numberWithInteger:sort]];
                     
                     if (result) {
                     }else {
@@ -601,6 +601,33 @@
     }else{
         return NO;
     }
+}
+
+-(void)queryUniteArticlesCachesList:(NSString *)uniteid completed:(void(^)(NSArray<DetailModel *> *array))completed
+{
+    __block NSMutableArray *tmpArr = [NSMutableArray array];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self->_dbQueue inDatabase:^(FMDatabase *db) {
+            
+            FMResultSet *resultSet;
+            resultSet = [db executeQuery:@"SELECT * FROM t_UniteArticlesCaches where uniteid = ? order by sort ",uniteid];
+            
+            while ([resultSet next]) {
+                NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
+                if (![NSString isBlankString:jsontext]) {
+                     DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
+                    if (detail) {
+                        [tmpArr addObject:detail];
+                    }
+                }
+            }
+        }];
+        if (completed) {
+            completed(tmpArr);
+        }
+    });
+    
+    
 }
 
 

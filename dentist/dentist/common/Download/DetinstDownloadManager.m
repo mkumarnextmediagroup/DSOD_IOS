@@ -107,7 +107,7 @@
                             NSLog(@"====================获取article文章详情成功====================");
                             DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
                             if (detail) {
-                                [[DentistDataBaseManager shareManager] insertUniteArticleModel:detail uniteid:model._id jsontext:jsontext completed:^(BOOL result) {
+                                [[DentistDataBaseManager shareManager] insertUniteArticleModel:detail uniteid:model._id jsontext:jsontext sort:i  completed:^(BOOL result) {
                                     if (result) {
                                         NSLog(@"====================添加article文章数据成功====================");
                                         downcount++;

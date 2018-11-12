@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "dentist-Swift.h"
 #import "SliderListView.h"
+#import "DetinstDownloadManager.h"
 
 @interface UniteDownloadingViewController (){
     UIImageView *coverImgView;
@@ -115,8 +116,8 @@
     [[[[iv.layoutMaker leftParent:13] topParent:1] bottomParent:1] install];
     [iv startAnimating];
     
-    
-    [self loadData];
+    [self downloadData];
+//    [self loadData];
 }
 
 - (UIBarButtonItem *)menuButton {
@@ -173,6 +174,38 @@
         [weakSelf.navigationController pushViewController:thumvc animated:YES];
     });
 
+}
+
+-(void)downloadData
+{
+    if(self.magazineModel.cover){
+        [coverImgView loadUrl:self.magazineModel.cover placeholderImage:@"bg_1"];
+    }
+    publishDateLabel.text = [NSString timeWithTimeIntervalString:self.magazineModel.publishDate];
+    volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",self.magazineModel.vol?self.magazineModel.vol:@"", self.magazineModel.issue?self.magazineModel.issue:@""];
+    
+    sizeLabel.text = @"52 MB";
+    
+    downloadBtn.hidden = YES;
+    downloadingBtn.hidden = NO;
+    cancelBtn.hidden = NO;
+    //添加几条模拟文章ID数据
+    _magazineModel.articles=@[@"5be5df7f5a71b7249c07e064",@"5be5df805a71b7249c07e06b",@"5be5df835a71b7249c07e078"];
+    [[DetinstDownloadManager shareManager] startDownLoadUniteArticles:_magazineModel addCompletion:^(BOOL result) {
+        
+    } completed:^(BOOL result) {
+        if(result){
+            NSLog(@"===============下载成功===============");
+            WeakSelf
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                ThumViewController *thumvc=[ThumViewController new];
+                thumvc.modelarr=weakSelf.datas;
+                [weakSelf.navigationController pushViewController:thumvc animated:YES];
+            });
+        }else{
+            NSLog(@"===============下载失败===============");
+        }
+    }];
 }
 
 

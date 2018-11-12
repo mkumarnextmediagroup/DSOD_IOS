@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)queryCategoryTypesCaches:(void(^)(NSArray<IdName *> *array))completed;
 - (void)insertUniteModel:(MagazineModel *)model completed:(void(^)(BOOL result))completed;
 // 插入数据
-- (void)insertUniteArticleModel:(CMSModel *)model uniteid:(NSString *)uniteid jsontext:(NSString *)jsontext completed:(void(^)(BOOL result))completed;
+- (void)insertUniteArticleModel:(DetailModel *)model uniteid:(NSString *)uniteid jsontext:(NSString *)jsontext completed:(void(^)(BOOL result))completed;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -128,6 +128,22 @@
     
 }
 
+-(void)setSelectRow:(NSInteger)selectRow
+{
+    _selectRow=selectRow;
+    if (self.arrayDic && self.arrayDic.count>0)  {
+        if (self.arrayDic.count>selectRow) {
+            [self.pickerView selectRow:_selectRow inComponent:0 animated:YES];
+        }
+        
+    }else{
+        if (self.array.count>selectRow) {
+            [self.pickerView selectRow:_selectRow inComponent:0 animated:YES];
+        }
+    }
+    
+}
+
 //快速创建
 +(instancetype)pickerView;
 {

@@ -23,7 +23,7 @@
 {
     [super viewWillAppear:animated];
     backTask(^() {
-        self->articleInfo = [Proto queryForUniteDetailInfo:@"5bd912074192a80309fe23c1"];//5bd912074192a80309fe23c1
+        self->articleInfo = [Proto queryForUniteDetailInfo:@"5be10e639a08062de04007f1"];//5bd912074192a80309fe23c1
         foreTask(^() {
             
             [self buildView];

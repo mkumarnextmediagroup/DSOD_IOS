@@ -174,7 +174,7 @@
     }
 
     typeLabel.text = [_cmsmodel.categoryName uppercaseString];
-    dateLabel.text = [NSString timeWithTimeIntervalString:item.publishDate];//item.publishDate;
+    dateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:item.publishDate];//item.publishDate;
     titleLabel.text = _cmsmodel.title;
     authorLabel.text = [NSString stringWithFormat:@"By %@ %@",item.author.firstName,item.author.lastName];
 

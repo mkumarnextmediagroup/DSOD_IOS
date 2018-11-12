@@ -69,7 +69,7 @@
     [[finLabel.layoutUpdate sizeEq:size.width h:20] install];
     _star.frame = CGRectMake(size.width + 85, edge+2, 90, 16);
     _star.currentScore = [disInfo.starCount floatValue];
-    reviewLabel.text = [NSString timeWithTimeIntervalString:disInfo.disDate];
+    reviewLabel.text = [NSDate USDateShortFormatWithStringTimestamp:disInfo.disDate];
     conLabel.text = disInfo.content;
 }
 

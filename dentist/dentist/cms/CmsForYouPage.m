@@ -27,6 +27,7 @@
 #import "CmsArticleCategoryPage.h"
 #import "GSKViewController.h"
 #import "DetinstDownloadManager.h"
+#import "DentistPickerView.h"
 
 @interface CmsForYouPage()<ArticleItemViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 @end
@@ -384,6 +385,20 @@
         latestmodel.id=@"0";
         latestmodel.name=@"LATEST";
         [self->segItemsModel insertObject:latestmodel atIndex:0];
+        //"31"
+        __block NSInteger sponsorindex;
+        [self->segItemsModel enumerateObjectsUsingBlock:^(IdName * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.id isEqualToString:@"31"]) {
+                sponsorindex=idx;
+                *stop=YES;
+            }
+        }];
+        if(self->segItemsModel.count>sponsorindex){
+            IdName *latestmodel=[IdName new];
+            latestmodel.id=@"-1";
+            latestmodel.name=@" SPONSORED";
+            [self->segItemsModel insertObject:latestmodel atIndex:sponsorindex];
+        }
         self->contenttype=nil;
         foreTask(^() {
             self->tabView.modelArr=self->segItemsModel;
@@ -637,22 +652,55 @@
     if (segItemsModel.count>index) {
         IdName *model=segItemsModel[index];
         Log(model.id, model.name);
-        [self showIndicator];
-        if ([model.id isEqualToString:@"0"]) {
-            self->contenttype=nil;
-        }else{
-            self->contenttype=model.id;
-        }
-        [self getContentCachesData:0];
-        [Proto queryAllContentsByContentType:self->contenttype skip:0 completed:^(NSArray<CMSModel *> *array) {
-            foreTask(^() {
-                [self hideIndicator];
-                if (array && array.count>0) {
-                    self.items=array;
+        if ([model.id isEqualToString:@"-1"]) {
+            //供应商选择器
+            IdName *align=[[IdName alloc] init];
+            align.id=@"260";
+            align.name=@"Align Technology";
+            IdName *gsk=[[IdName alloc] init];
+            gsk.id=@"197";
+            gsk.name=@"GlaxoSmithKline";
+            IdName *nobel=[[IdName alloc] init];
+            nobel.id=@"259";
+            nobel.name=@"Nobel Biocare";
+            DentistPickerView *picker = [[DentistPickerView alloc]init];
+            picker.arrayDic=@[align,gsk,nobel];
+            picker.leftTitle=localStr(@"");
+            picker.righTtitle=localStr(@"OK");
+            [picker show:^(NSString *result,NSString *resultname) {
+                
+            } rightAction:^(NSString *result,NSString *resultname) {
+                NSLog(@"供应商==%@;name=%@",result,resultname);
+                if (result) {
+                    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+                    GSKViewController *gskVC = [GSKViewController new];
+                    gskVC.sponsorId=result;
+                    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:gskVC];
+                    [viewController presentViewController:navVC animated:YES completion:NULL];
                 }
                 
-            });
-        }];
+            } selectAction:^(NSString *result,NSString *resultname) {
+                
+            }];
+        }else{
+            [self showIndicator];
+            if ([model.id isEqualToString:@"0"]) {
+                self->contenttype=nil;
+            }else{
+                self->contenttype=model.id;
+            }
+            [self getContentCachesData:0];
+            [Proto queryAllContentsByContentType:self->contenttype skip:0 completed:^(NSArray<CMSModel *> *array) {
+                foreTask(^() {
+                    [self hideIndicator];
+                    if (array && array.count>0) {
+                        self.items=array;
+                    }
+                    
+                });
+            }];
+        }
+        
     }
     
 }

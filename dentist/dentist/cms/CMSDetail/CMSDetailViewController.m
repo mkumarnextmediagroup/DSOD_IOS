@@ -43,11 +43,16 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self createNav];
     
+    [self showIndicator];
     [[DentistDataBaseManager shareManager] queryDetailCmsCaches:self.contentId completed:^(DetailModel * _Nonnull model) {
         if (model) {
             self.articleInfo=model;
             foreTask(^() {
-                [self buildViews];
+                if(self.articleInfo){
+                    [self buildViews];
+                    [self hideLoading];
+                }
+                
             });
         }
         
@@ -55,6 +60,7 @@
             self.articleInfo = [Proto queryForDetailPage:self.contentId];//5bdc1e7eb0f3e0701cef0253
             foreTask(^() {
                 [self buildViews];
+                [self hideLoading];
             });
         });
     }];

@@ -35,6 +35,11 @@
 
 - (void)closeKeyboardWhenClickSelfView;
 
+
+- (void)showLoading;
+    
+- (void)hideLoading;
+
 - (void)showIndicator;
 
 - (void)hideIndicator;

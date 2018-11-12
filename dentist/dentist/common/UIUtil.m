@@ -17,6 +17,14 @@ UIColor *rgbHex(int rgbValue){
    return [[UIColor alloc] initWithRed:fr green:fg blue:fb alpha:1.0];
 }
 
+UIColor *argbHex(int argbValue){
+    CGFloat fa = ((float)((argbValue & 0xFF000000) >> 24)) / 255.0f;
+    CGFloat fr = ((float)((argbValue & 0xFF0000) >> 16)) / 255.0f;
+    CGFloat fg = ((float)((argbValue & 0xFF00) >> 8)) / 255.0f;
+    CGFloat fb = ((float)(argbValue & 0xFF)) / 255.0f;
+    return [[UIColor alloc] initWithRed:fr green:fg blue:fb alpha:fa];
+}
+
 UIColor *rgb255(int r, int g, int b) {
 	CGFloat fr = r / 255.0f;
 	CGFloat fg = g / 255.0f;

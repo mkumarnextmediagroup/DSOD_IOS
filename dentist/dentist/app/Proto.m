@@ -832,7 +832,7 @@
     [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
     [paradic setObject:serachValue forKey:@"searchValue"];
     
-    HttpResult *r = [self post3:@"content/findAllBySearch" dic:paradic modular:@"cms"];
+    HttpResult *r = [self post3:@"content/findAllByValue" dic:paradic modular:@"cms"];
     
     NSMutableArray *resultArray = [NSMutableArray array];
     if (r.OK) {
@@ -862,7 +862,7 @@
     }
     
     
-    [self postAsync3:@"content/findAllBySearch" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
+    [self postAsync3:@"content/findAllByValue" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
         NSMutableArray *resultArray = [NSMutableArray array];
         if (r.OK) {
             NSArray *arr = r.resultMap[@"data"];

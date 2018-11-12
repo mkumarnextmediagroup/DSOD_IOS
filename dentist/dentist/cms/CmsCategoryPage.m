@@ -13,6 +13,7 @@
 #import "CMSModel.h"
 #import "DentistPickerView.h"
 #import "DetinstDownloadManager.h"
+#import "IdName.h"
 
 @interface CmsCategoryPage()<ArticleItemViewDelegate>
 {
@@ -41,20 +42,70 @@
     self.table.estimatedRowHeight = 400;
     self.isRefresh=YES;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by category" filterAction:^(NSString *result,NSString *resultname) {
-        self->type=result;
-        [self showIndicator];
-        [Proto queryAllContentsByCategoryType2:self->type skip:0 completed:^(NSArray<CMSModel *> *array,NSString *categoryType) {
-            foreTask(^() {
-                [self hideIndicator];
-                if ([self->type isEqualToString:categoryType]) {
-                   self.items=array;
+//    [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by category" selectId:self->type filterAction:^(NSString *result,NSString *resultname) {
+//        self->type=result;
+//        [self showIndicator];
+//        [Proto queryAllContentsByCategoryType2:self->type skip:0 completed:^(NSArray<CMSModel *> *array,NSString *categoryType) {
+//            foreTask(^() {
+//                [self hideIndicator];
+//                if ([self->type isEqualToString:categoryType]) {
+//                   self.items=array;
+//                }
+//
+//            });
+//
+//
+//        }];
+//
+//    }];
+    __block NSInteger index;
+    [self addEmptyFiledViewWithImageName:@"nonBookmarks" title:@"Search by category" textFiledBlock:^(UITextField *textFiled) {
+        DentistPickerView *picker = [[DentistPickerView alloc]init];
+        picker.leftTitle=localStr(@"Category");
+        picker.righTtitle=localStr(@"Cancel");
+        [picker show:^(NSString *result,NSString *resultname) {
+            
+        } rightAction:^(NSString *result,NSString *resultname) {
+            
+        } selectAction:^(NSString *result,NSString *resultname) {
+            self->type=result;
+            if (picker.arrayDic) {
+                [picker.arrayDic enumerateObjectsUsingBlock:^(IdName * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj.id isEqualToString:self->type]) {
+                        index=idx;
+                        *stop = YES;
+                    }
+                }];
+                if (picker.arrayDic.count>index) {
+                    foreTask(^{
+                        IdName *categorymodel=[picker.arrayDic objectAtIndex:index];
+                        textFiled.text=categorymodel.name;
+                    });
                 }
+            }
+            
+            
+            [self showIndicator];
+            [Proto queryAllContentsByCategoryType2:self->type skip:0 completed:^(NSArray<CMSModel *> *array,NSString *categoryType) {
+                foreTask(^() {
+                    [self hideIndicator];
+                    if ([self->type isEqualToString:categoryType]) {
+                        self.items=array;
+                    }
+                    
+                });
+                
+                
+            }];
+        }];
+        [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
+            foreTask(^() {
+                picker.arrayDic=array;
+                picker.selectId=self->type;
                 
             });
-            
-            
         }];
+        
         
     }];
     self.items = nil;
@@ -231,8 +282,6 @@
 
 -(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName
 {
-//    __block NSArray<IdName *> *temparray;
-//    NSInteger *selectrow=0;
     DentistPickerView *picker = [[DentistPickerView alloc]init];
     
     picker.leftTitle=localStr(@"Category");
@@ -242,6 +291,7 @@
     } rightAction:^(NSString *result,NSString *resultname) {
         
     } selectAction:^(NSString *result,NSString *resultname) {
+        self->type=result;
         [self showIndicator];
         [Proto queryAllContentsByCategoryType:result skip:0 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
@@ -252,8 +302,8 @@
     }];
     [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
         foreTask(^() {
-//            temparray=array;
             picker.arrayDic=array;
+            picker.selectId=self->type;
         });
     }];
 }

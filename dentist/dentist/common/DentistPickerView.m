@@ -128,20 +128,26 @@
     
 }
 
--(void)setSelectRow:(NSInteger)selectRow
+
+-(void)setSelectId:(NSString *)selectId
 {
-    _selectRow=selectRow;
+    _selectId=selectId;
     if (self.arrayDic && self.arrayDic.count>0)  {
-        if (self.arrayDic.count>selectRow) {
-            [self.pickerView selectRow:_selectRow inComponent:0 animated:YES];
+        __block NSInteger index;
+        [self.arrayDic enumerateObjectsUsingBlock:^(IdName * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.id isEqualToString:selectId]) {
+                index=idx;
+                *stop = YES;
+            }
+        }];
+        if (self.arrayDic.count>index) {
+            [self.pickerView selectRow:index inComponent:0 animated:YES];
         }
         
     }else{
-        if (self.array.count>selectRow) {
-            [self.pickerView selectRow:_selectRow inComponent:0 animated:YES];
-        }
+        NSInteger index=[self.array indexOfObject:selectId];
+        [self.pickerView selectRow:index inComponent:0 animated:YES];
     }
-    
 }
 
 //快速创建

@@ -393,6 +393,7 @@
     [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
         foreTask(^() {
             picker.arrayDic=array;
+            picker.selectId=self.categoryId;
         });
     }];
 }

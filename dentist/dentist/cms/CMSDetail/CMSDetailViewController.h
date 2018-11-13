@@ -19,4 +19,5 @@
 @property NSString *toWhichPage;
 @property (nonatomic,copy) NSArray *cmsmodelsArray;
 @property (nonatomic,assign) BOOL goBackCloseAll;
+@property (nonatomic,assign) BOOL hideChangePage;
 @end

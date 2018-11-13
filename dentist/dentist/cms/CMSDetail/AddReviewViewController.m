@@ -240,6 +240,9 @@
                     alertMaker.addActionCancelTitle(@"OK");
                 } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
                         if ([action.title isEqualToString:@"OK"] && r.OK) {
+                            if(self.addReviewSuccessCallbak){
+                                self.addReviewSuccessCallbak();
+                            }
                             [self.navigationController popViewControllerAnimated:YES];
                         }
                     }

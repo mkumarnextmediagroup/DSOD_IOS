@@ -36,14 +36,24 @@
 
 @implementation CMSDetailViewController
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-//    self.navigationController.navigationBarHidden = YES;
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    
     [self createNav];
     
-    [self showIndicator];
+    [self loadData];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+   [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+
+-(void)loadData{
+    
+    [self showLoading];
     [[DentistDataBaseManager shareManager] queryDetailCmsCaches:self.contentId completed:^(DetailModel * _Nonnull model) {
         if (model) {
             self.articleInfo=model;
@@ -64,7 +74,6 @@
             });
         });
     }];
-    
 }
 
 
@@ -166,11 +175,18 @@
     [[[[preButton.layoutMaker leftParent:edge] below:lineLabel1 offset:edge] sizeEq:80 h:20] install];
     [preButton addTarget:self action:@selector(onClickUp:) forControlEvents:UIControlEventTouchUpInside];
     
+    if(self.hideChangePage){
+        preButton.hidden = YES;
+        nextButton.hidden = YES;
+    }
+    
     return footerVi;
 }
 
 - (void)createNav
 {
+    
+    
     UIView *topVi = [UIView new];
     topVi.backgroundColor = Colors.bgNavBarColor;
     [self.view addSubview:topVi];
@@ -201,6 +217,12 @@
     
     UILabel *line = [topVi lineLabel];
     [[[[line.layoutMaker topParent:NAVHEIGHT - 1] leftParent:0] sizeEq:SCREENWIDTH h:1] install];
+    
+    
+    if(self.hideChangePage){
+        preBtn.hidden = YES;
+        nextBtn.hidden = YES;
+    }
 }
 
 - (void)onBack:(UIButton *)btn {
@@ -350,6 +372,10 @@
 {
     AddReviewViewController *reviewVC = [AddReviewViewController new];
     reviewVC.contentId = self.contentId;
+    WeakSelf
+    reviewVC.addReviewSuccessCallbak = ^(){
+        [weakSelf loadData];
+    };
     [self.navigationController pushViewController:reviewVC animated:YES];
 }
 

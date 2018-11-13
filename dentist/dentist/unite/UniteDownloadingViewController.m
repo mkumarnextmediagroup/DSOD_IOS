@@ -125,14 +125,7 @@
 
 - (void)rightBtnClick
 {
-    if (!isShow) {
-        [[SliderListView sharedInstance:self.view] showSliderView];
-        isShow = YES;
-    }else
-    {
-        [[SliderListView sharedInstance:self.view] hideSliderView];
-        isShow = NO;
-    }
+    [[SliderListView sharedInstance:self.view] showSliderView];
 }
 
 -(void)downloadBtnAction{
@@ -200,12 +193,12 @@
                     
                 }
             }];
-            WeakSelf
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                ThumViewController *thumvc=[ThumViewController new];
-                thumvc.modelarr=weakSelf.datas;
-                [weakSelf.navigationController pushViewController:thumvc animated:YES];
-            });
+//            WeakSelf
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                ThumViewController *thumvc=[ThumViewController new];
+//                thumvc.modelarr=weakSelf.datas;
+//                [weakSelf.navigationController pushViewController:thumvc animated:YES];
+//            });
         }else{
             NSLog(@"===============下载失败===============");
         }

@@ -11,6 +11,7 @@
 #import "UniteArticles.h"
 #import "UniteArticleTableViewCell.h"
 #import "Proto.h"
+#import "UIView+gesture.h"
 
 @interface SliderListView()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 {
@@ -18,6 +19,8 @@
     UISearchBar *mSearch;
     NSArray     *infoArr;
     NSArray     *searchArr;
+    UIView      *sliderView;
+    UIView      *backgroundVi;
 }
 @end
 
@@ -30,10 +33,11 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[SliderListView alloc] init];
+        instance.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.01];
         [instance initSliderView];
         [view addSubview:instance];
-        instance.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
-
+        instance.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+        
     });
     
     return instance;
@@ -42,20 +46,40 @@
 - (void)showSliderView
 {
     [UIView animateWithDuration:.3 animations:^{
-        self.frame = CGRectMake(132, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+        self->backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+        self->sliderView.frame = CGRectMake(132, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
     }];
 }
 
 - (void)hideSliderView
 {
     [UIView animateWithDuration:.3 animations:^{
-        self.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+        self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+    } completion:^(BOOL finished) {
+        self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
     }];
 }
 
 - (void)initSliderView
 {
-    self.backgroundColor = [UIColor whiteColor];
+    
+    backgroundVi = [self addView];
+    backgroundVi.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.01];
+    backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+    [backgroundVi setTapActionWithBlock:^{
+        [UIView animateWithDuration:.3 animations:^{
+            self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+        } completion:^(BOOL finished) {
+            self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
+        }];
+    }];
+    
+
+    sliderView = [backgroundVi addView];
+    sliderView.backgroundColor = [UIColor whiteColor];
+    sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+    
+    
     UIView *navVi = [self makeNavView];
     [[[[[navVi.layoutMaker leftParent:0] topParent:0] rightParent:0] heightEq:NAVHEIGHT] install];
     
@@ -81,7 +105,7 @@
     mSearch.delegate = self;
     mSearch.showsCancelButton = NO;
     mSearch.searchBarStyle = UISearchBarStyleMinimal;
-    [self addSubview:mSearch];
+    [sliderView addSubview:mSearch];
 }
 
 - (void)createTableview
@@ -91,7 +115,7 @@
     mTableView.dataSource = self;
     mTableView.delegate = self;
     mTableView.backgroundColor = [UIColor whiteColor];
-    [self addSubview:mTableView];
+    [sliderView addSubview:mTableView];
     
 }
 

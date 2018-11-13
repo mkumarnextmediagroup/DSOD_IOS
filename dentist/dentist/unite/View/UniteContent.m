@@ -36,18 +36,19 @@
     [[[[[imageView.layoutMaker topParent:0] leftParent:0] rightParent:0] heightEq:352] install];
     
     categoryLabel = [self addLabel];
-    categoryLabel.font = [Fonts semiBold:14];
-    categoryLabel.textColor = rgb255(13, 128, 188);
-    [[[[[categoryLabel.layoutMaker leftParent:edge] below:imageView offset:0] heightEq:24] rightParent:-90] install];
+    categoryLabel.font = [Fonts semiBold:13];
+    categoryLabel.textColor = rgb255(1, 122, 185);
+    [[[[[categoryLabel.layoutMaker leftParent:edge] below:imageView offset:18] heightEq:24] rightParent:-90] install];
     
     titleLabel = [self addLabel];
     titleLabel.font = [Fonts semiBold:16];
     [titleLabel textColorMain];
-    [[[[[titleLabel.layoutMaker leftParent:edge] below:categoryLabel offset:0] heightEq:24] rightParent:-90] install];
+    titleLabel.numberOfLines = 2;
+    [[[[[titleLabel.layoutMaker leftParent:edge] below:categoryLabel offset:14] heightEq:50] rightParent:-90] install];
     
     authorLabel = [self addLabel];
     authorLabel.font = [Fonts semiBold:13];
-    authorLabel.textColor = rgb255(163, 163, 163);
+    authorLabel.textColor = rgb255(155, 155, 155);
     [[[[[authorLabel.layoutMaker leftParent:edge] below:titleLabel offset:0] heightEq:24] rightParent:-90] install];
     
     webview = [UIWebView new];

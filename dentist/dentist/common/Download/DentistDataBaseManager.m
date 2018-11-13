@@ -685,7 +685,7 @@
         [self->_dbQueue inDatabase:^(FMDatabase *db) {
             
             FMResultSet *resultSet;
-            resultSet = [db executeQuery:@"SELECT * FROM t_UniteArticlesCaches where uniteid = ? and downstatus=1 order by sort ",uniteid];
+            resultSet = [db executeQuery:@"SELECT * FROM t_UniteArticlesCaches where uniteid = ? order by sort ",uniteid];
             
             while ([resultSet next]) {
                 NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
@@ -739,6 +739,35 @@
             
             FMResultSet *resultSet;
             resultSet = [db executeQuery:@"SELECT * FROM t_UniteArticlesCaches where isbookmark=1 order by bookmarktime "];
+            
+            while ([resultSet next]) {
+                NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
+                NSString *newuniteid=[resultSet objectForColumn:@"uniteid"];
+                if (![NSString isBlankString:jsontext]) {
+                    DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
+                    detail.uniteid=newuniteid;
+                    if (detail) {
+                        [tmpArr addObject:detail];
+                    }
+                }
+            }
+        }];
+        if (completed) {
+            completed(tmpArr);
+        }
+    });
+}
+
+//MARK:获取已收藏的杂志文章列表
+-(void)queryUniteArticlesCachesBykeyList:(NSString *)keywords completed:(void(^)(NSArray<DetailModel *> *array))completed
+{
+    __block NSMutableArray *tmpArr = [NSMutableArray array];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self->_dbQueue inDatabase:^(FMDatabase *db) {
+            
+            NSString *sqlstr=@"";//[NSString stringWithFormat:@"SELECT * FROM t_UniteArticlesCaches where title like '%''%' order by sort ",keywords];
+            FMResultSet *resultSet;
+            resultSet = [db executeQuery:sqlstr];
             
             while ([resultSet next]) {
                 NSString *jsontext=[resultSet objectForColumn:@"jsontext"];

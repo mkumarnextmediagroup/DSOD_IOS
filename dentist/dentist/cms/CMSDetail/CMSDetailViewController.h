@@ -18,4 +18,5 @@
 @property NSString *contentId;
 @property NSString *toWhichPage;
 @property (nonatomic,copy) NSArray *cmsmodelsArray;
+@property (nonatomic,assign) BOOL goBackCloseAll;
 @end

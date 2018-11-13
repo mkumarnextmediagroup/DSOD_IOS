@@ -55,7 +55,7 @@
 + (NSArray *_Nullable)shortStates;
 
 
-+ (NSDictionary *_Nullable)getProfileInfo;
++ (UserInfo *_Nullable)getProfileInfo;
 
 + (HttpResult *)saveProfileInfo:(NSDictionary *_Nullable)dic;
 

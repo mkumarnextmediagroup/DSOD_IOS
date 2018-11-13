@@ -449,6 +449,10 @@
 	[self showIndicator];
 	backTask(^() {
 		HttpResult *r = [Proto login:userName pwd:pwd];
+        
+        if(r.OK){
+            backTask(^{[Proto getProfileInfo];});
+        }
 		foreTask(^() {
 			[self hideIndicator];
 

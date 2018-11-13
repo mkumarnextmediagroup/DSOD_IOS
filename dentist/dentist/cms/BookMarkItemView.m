@@ -34,8 +34,8 @@
     markButton = [self addButton];
     [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     [markButton addTarget:self action:@selector(markAction:) forControlEvents:UIControlEventTouchUpInside];
-    [[[[markButton.layoutMaker rightParent:5] topParent:5] sizeEq:48 h:48] install];
-    [markButton setImageEdgeInsets:UIEdgeInsetsMake( 10, 0, 0, 0)];
+    [[[[markButton.layoutMaker rightParent:-5] topParent:5] sizeEq:48 h:48] install];
+    
     
     titleLabel = [self addLabel];
     titleLabel.font = [Fonts semiBold:14];

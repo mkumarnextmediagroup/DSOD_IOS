@@ -9,6 +9,7 @@
 #import "ThumAndDetailViewController.h"
 #import "common.h"
 #import "UniteThumCollectionViewCell.h"
+#import "CMSDetailViewController.h"
 
 static NSString * UniteThumidentifier = @"UniteThumCellID";
 @interface ThumAndDetailViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UniteThumCollectionViewCellDelegate>
@@ -125,6 +126,12 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
         [cell.backgroundImageView setImage:image2];
         cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 16130*cell.backgroundImageView.frame.size.width/750);
         cell.scrollView.contentSize =  CGSizeMake(0, image2.size.height);
+        
+        
+        CMSDetailViewController *vc = [CMSDetailViewController new];
+        vc.contentId = @"5be5df7f5a71b7249c07e064";
+        
+        [cell.scrollView addSubview:vc.view];
     }else{
         UIImage *image3=[UIImage imageNamed:@"unitedetail3"];
         [cell.backgroundImageView setImage:image3];

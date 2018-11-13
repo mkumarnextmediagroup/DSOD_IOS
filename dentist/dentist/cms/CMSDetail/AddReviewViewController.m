@@ -47,6 +47,7 @@
     [self buildAuthor];
 
     [self bulidTextVi];
+    
 
     
     //增加监听，当键盘出现或改变时收出消息
@@ -86,7 +87,6 @@
         [self.view setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width,  keyboardRect.origin.y)];
     }];
 }
-
 
 - (void)dealloc{
    [ [NSNotificationCenter defaultCenter]removeObserver:self ];
@@ -148,22 +148,36 @@
     UIImageView *headerImg = [UIImageView new];
     [bgVi addSubview:headerImg];
     [[[[headerImg.layoutMaker sizeEq:32 h:32] leftParent:edge] centerYParent:0] install];
-    [headerImg loadUrl:@"http://app800.cn/i/p.png" placeholderImage:@"user_img"];
     headerImg.layer.cornerRadius = 16;
     headerImg.layer.masksToBounds = YES;
     
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"Writing review as Matt Murdock"];
-    [str addAttribute:NSForegroundColorAttributeName value:Colors.textAlternate range:NSMakeRange(0,18)];
-    [str addAttribute:NSForegroundColorAttributeName value:Colors.textMain range:NSMakeRange(19,str.length - 19)];
+    
     
     UILabel *nameLabel = [bgVi addLabel];
     nameLabel.font = [Fonts semiBold:12];
-    nameLabel.attributedText = str;
     [[[[nameLabel.layoutMaker toRightOf:headerImg offset:edge] topParent:edge] heightEq:20] install];
  
     UILabel *lineLab = [bgVi addLabel];
     lineLab.backgroundColor = Colors.cellLineColor;
     [[[[lineLab.layoutMaker sizeEq:SCREENWIDTH h:1] topParent:47] leftParent:0] install];
+    
+    
+
+    backTask(^{
+        UserInfo *userInfo = [Proto lastUserInfo];
+        if(!userInfo.fullName){
+            userInfo = [Proto getProfileInfo];
+        }
+        
+        foreTask(^{
+            [headerImg loadUrl:userInfo.photo_url placeholderImage:@"user_img"];
+            
+            NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Writing review as %@" ,userInfo.fullName?userInfo.fullName:@""]];
+            [str addAttribute:NSForegroundColorAttributeName value:Colors.textAlternate range:NSMakeRange(0,18)];
+            [str addAttribute:NSForegroundColorAttributeName value:Colors.textMain range:NSMakeRange(19,str.length - 19)];
+            nameLabel.attributedText = str;
+        });
+    });
 }
 
 - (void)bulidTextVi
@@ -226,6 +240,9 @@
                     alertMaker.addActionCancelTitle(@"OK");
                 } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
                         if ([action.title isEqualToString:@"OK"] && r.OK) {
+                            if(self.addReviewSuccessCallbak){
+                                self.addReviewSuccessCallbak();
+                            }
                             [self.navigationController popViewControllerAnimated:YES];
                         }
                     }

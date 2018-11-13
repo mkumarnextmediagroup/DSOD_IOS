@@ -475,10 +475,10 @@
 }
 
 #pragma mark ----unite 下载
-//MARK:unite 杂志表
+//MARK:创建unite 杂志表
 -(void)creatUniteCachesTable:(FMDatabase *)db
 {
-    BOOL result = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_UniteCaches (id VARCHAR(100) PRIMARY KEY,serial text,vol text,publishDate VARCHAR(100),cover text,articles text,createDate VARCHAR(100),createUser text,issue text,jsontext text,downstatus INTEGER default 0,isarchive INTEGER default 0, createtime timestamp not null default CURRENT_TIMESTAMP)"];
+    BOOL result = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_UniteCaches (id VARCHAR(100) PRIMARY KEY,serial text,vol text,publishDate VARCHAR(100),cover text,articles text,createDate VARCHAR(100),createUser text,issue text,jsontext text,downstatus INTEGER default 0,isarchive INTEGER default 0, createtime timestamp not null default CURRENT_TIMESTAMP, downtime timestamp not null default CURRENT_TIMESTAMP)"];
     if (result) {
         NSLog(@"缓存t_UniteCaches数据表创建成功");
     }else {
@@ -486,10 +486,10 @@
     }
 }
 
-//MARK:unite 杂志文章表
+//MARK:创建uniterticles 杂志文章表
 -(void)creatUniteArticlesCachesTable:(FMDatabase *)db
 {
-    BOOL result = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_UniteArticlesCaches (id VARCHAR(100),uniteid VARCHAR(100),title text,contentTypeId VARCHAR(100),categoryId VARCHAR(100),contentTypeName VARCHAR(100),categoryName VARCHAR(100), jsontext text,isbookmark INTEGER default 0,downstatus INTEGER default 0,sort INTEGER default 0, createdate timestamp not null default CURRENT_TIMESTAMP,PRIMARY KEY(id,uniteid))"];
+    BOOL result = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_UniteArticlesCaches (id VARCHAR(100),uniteid VARCHAR(100),title text,contentTypeId VARCHAR(100),categoryId VARCHAR(100),contentTypeName VARCHAR(100),categoryName VARCHAR(100), jsontext text,isbookmark INTEGER default 0,downstatus INTEGER default 0,sort INTEGER default 0, createdate timestamp not null default CURRENT_TIMESTAMP, bookmarktime timestamp not null default CURRENT_TIMESTAMP,PRIMARY KEY(id,uniteid))"];
     if (result) {
         NSLog(@"缓存t_UniteArticles数据表创建成功");
     }else {
@@ -497,7 +497,7 @@
     }
 }
 
-// 插入数据
+//MARK:添加杂志记录
 - (void)insertUniteModel:(MagazineModel *)model completed:(void(^)(BOOL result))completed
 {
     if (![NSString isBlankString:model._id]) {
@@ -544,7 +544,81 @@
         }
     }
 }
-// 插入数据
+
+//MARK:更新杂志下载状态，downstatus==1收藏；0取消收藏
+-(void)updateUniteDownstatus:(NSString *)uniteid downstatus:(NSInteger)downstatus completed:(void(^)(BOOL result))completed
+{
+    if (![NSString isBlankString:uniteid]) {
+        __block BOOL result = YES;
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [self->_dbQueue inDatabase:^(FMDatabase *db) {
+                [db beginTransaction];
+                @try {
+                    [db executeUpdate:@"update t_UniteCaches set downstatus = ?,downtime=datetime('now')  where id = ? ",[NSNumber numberWithInteger:downstatus],uniteid];
+                    [db executeUpdate:@"update t_UniteArticlesCaches set downstatus = ?  where id = ? ",[NSNumber numberWithInteger:downstatus],uniteid];
+                } @catch (NSException *exception) {
+                    result = NO;
+                    // 事务回退
+                    [db rollback];
+                } @finally {
+                    if (result) {
+                        //事务提交
+                        [db commit];
+                    }
+                }
+                
+                if (result) {
+                    NSLog(@"更新unite下载状态成功");
+                }else {
+                    NSLog(@"更新unite下载状态失败");
+                }
+            }];
+            if (completed) {
+                completed(result);
+            }
+        });
+    }else{
+        if (completed) {
+            completed(NO);
+        }
+    }
+}
+
+//MARK:archive 删除下载的杂志文章 ，除了已收藏的杂志文章
+-(void)archiveUnite:(NSString *)uniteid completed:(void(^)(BOOL result))completed
+{
+    __block BOOL result=YES;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self->_dbQueue inDatabase:^(FMDatabase *db) {
+            [db beginTransaction];
+            @try {
+                [db executeUpdate:@"DELETE FROM t_UniteArticlesCaches where uniteid=? and isbookmark=0 ", uniteid];
+                [db executeUpdate:@"update t_UniteCaches set downstatus = 0  where id = ? ",uniteid];
+            } @catch (NSException *exception) {
+                result = NO;
+                // 事务回退
+                [db rollback];
+            } @finally {
+                if (result) {
+                    //事务提交
+                    [db commit];
+                }
+            }
+            
+            if (result) {
+                NSLog(@"更新unite下载状态成功");
+            }else {
+                NSLog(@"更新unite下载状态失败");
+            }
+        }];
+        if (completed) {
+            completed(result);
+        }
+    });
+}
+
+
+//MARK:添加杂志文章记录
 - (void)insertUniteArticleModel:(DetailModel *)model uniteid:(NSString *)uniteid jsontext:(NSString *)jsontext sort:(NSInteger)sort completed:(void(^)(BOOL result))completed
 {
     if (![NSString isBlankString:model.id] && ![NSString isBlankString:uniteid]) {
@@ -603,6 +677,7 @@
     }
 }
 
+//MARK:根据杂志ID查询杂志文章列表
 -(void)queryUniteArticlesCachesList:(NSString *)uniteid completed:(void(^)(NSArray<DetailModel *> *array))completed
 {
     __block NSMutableArray *tmpArr = [NSMutableArray array];
@@ -614,8 +689,10 @@
             
             while ([resultSet next]) {
                 NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
+                NSString *newuniteid=[resultSet objectForColumn:@"uniteid"];
                 if (![NSString isBlankString:jsontext]) {
                      DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
+                     detail.uniteid=newuniteid;
                     if (detail) {
                         [tmpArr addObject:detail];
                     }
@@ -626,8 +703,88 @@
             completed(tmpArr);
         }
     });
-    
-    
+}
+
+//MARK:添加删除杂志文章方法，isbookmark==1收藏；0取消收藏
+-(void)updateUniteArticleBookmark:(NSString *)articleid uniteid:(NSString *)uniteid isbookmark:(NSInteger)isbookmark completed:(void(^)(BOOL result))completed
+{
+    if (![NSString isBlankString:uniteid] && ![NSString isBlankString:articleid]) {
+        __block BOOL result;
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [self->_dbQueue inDatabase:^(FMDatabase *db) {
+                
+                result = [db executeUpdate:@"update t_UniteArticlesCaches set isbookmark = ?,bookmarktime=datetime('now')  where id = ? and uniteid = ? ",[NSNumber numberWithInteger:isbookmark],articleid,uniteid];
+                if (result) {
+                }else {
+                    NSLog(@"删除cms失败");
+                }
+            }];
+            if (completed) {
+                completed(result);
+            }
+        });
+    }else{
+        if (completed) {
+            completed(NO);
+        }
+    }
+}
+
+//MARK:获取已收藏的杂志文章列表
+-(void)queryUniteArticlesBookmarkCachesList:(void(^)(NSArray<DetailModel *> *array))completed
+{
+    __block NSMutableArray *tmpArr = [NSMutableArray array];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self->_dbQueue inDatabase:^(FMDatabase *db) {
+            
+            FMResultSet *resultSet;
+            resultSet = [db executeQuery:@"SELECT * FROM t_UniteArticlesCaches where isbookmark=1 order by bookmarktime "];
+            
+            while ([resultSet next]) {
+                NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
+                NSString *newuniteid=[resultSet objectForColumn:@"uniteid"];
+                if (![NSString isBlankString:jsontext]) {
+                    DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
+                    detail.uniteid=newuniteid;
+                    if (detail) {
+                        [tmpArr addObject:detail];
+                    }
+                }
+            }
+        }];
+        if (completed) {
+            completed(tmpArr);
+        }
+    });
+}
+
+//MARK:获取已收藏的杂志文章列表
+-(void)queryUniteArticlesCachesBykeyList:(NSString *)keywords completed:(void(^)(NSArray<DetailModel *> *array))completed
+{
+    __block NSMutableArray *tmpArr = [NSMutableArray array];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self->_dbQueue inDatabase:^(FMDatabase *db) {
+            
+            NSString *sqlstr=@"";//[NSString stringWithFormat:@"SELECT * FROM t_UniteArticlesCaches where title like '%''%' order by sort ",keywords];
+            FMResultSet *resultSet;
+            resultSet = [db executeQuery:sqlstr];
+            
+            while ([resultSet next]) {
+                NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
+                NSString *newuniteid=[resultSet objectForColumn:@"uniteid"];
+                if (![NSString isBlankString:jsontext]) {
+                    DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
+                    detail.uniteid=newuniteid;
+                    if (detail) {
+                        [tmpArr addObject:detail];
+                    }
+                }
+            }
+        }];
+        if (completed) {
+            completed(tmpArr);
+        }
+    });
 }
 
 

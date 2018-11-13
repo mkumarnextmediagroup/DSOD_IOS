@@ -35,10 +35,20 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)queryContentsCaches:(NSString *)key completed:(void (^)(NSArray *array))completed;
 -(void)queryContentTypesCaches:(void(^)(NSArray<IdName *> *array))completed;
 -(void)queryCategoryTypesCaches:(void(^)(NSArray<IdName *> *array))completed;
+//MARK:添加杂志记录
 - (void)insertUniteModel:(MagazineModel *)model completed:(void(^)(BOOL result))completed;
-// 插入数据
+//MARK:更新杂志下载状态，downstatus==1收藏；0取消收藏
+-(void)updateUniteDownstatus:(NSString *)uniteid downstatus:(NSInteger)downstatus completed:(void(^)(BOOL result))completed;
+//MARK:archive 删除下载的杂志文章 ，除了已收藏的杂志文章
+-(void)archiveUnite:(NSString *)uniteid completed:(void(^)(BOOL result))completed;
+//MARK:添加杂志文章记录
 - (void)insertUniteArticleModel:(DetailModel *)model uniteid:(NSString *)uniteid jsontext:(NSString *)jsontext sort:(NSInteger)sort completed:(void(^)(BOOL result))completed;
+//MARK:根据杂志ID查询杂志文章列表
 -(void)queryUniteArticlesCachesList:(NSString *)uniteid completed:(void(^)(NSArray<DetailModel *> *array))completed;
+//MARK:添加删除杂志文章方法，isbookmark==1收藏；0取消收藏
+-(void)updateUniteArticleBookmark:(NSString *)articleid uniteid:(NSString *)uniteid isbookmark:(NSInteger)isbookmark completed:(void(^)(BOOL result))completed;
+//MARK:获取已收藏的杂志文章列表
+-(void)queryUniteArticlesBookmarkCachesList:(void(^)(NSArray<DetailModel *> *array))completed;
 @end
 
 NS_ASSUME_NONNULL_END

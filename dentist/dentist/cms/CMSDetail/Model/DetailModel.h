@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSInteger readNumber;
 @property NSDictionary <Optional>*featuredMedia;
 @property NSArray <Optional>*relativeTopicList;
-
+@property NSString <Optional>*uniteid;
 
 
 @end

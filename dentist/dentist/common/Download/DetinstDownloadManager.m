@@ -127,10 +127,26 @@
                 dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^(){
                     //处理完成更新列表详细信息
                     if (arr.count==downcount) {
-                        //下载完成
-                        if(completed){
-                            completed(YES);
-                        }
+                        //下载完成更新下载状态
+                        [[DentistDataBaseManager shareManager] updateUniteDownstatus:model._id downstatus:1 completed:^(BOOL result) {
+                            if(result){
+                                //下载完成
+                                if(completed){
+                                    completed(YES);
+                                }
+                            }else{
+                                //如果失败把部分下载成功的文章c删除
+                                [[DentistDataBaseManager shareManager] archiveUnite:model._id completed:^(BOOL result) {
+                                    
+                                }];
+                                //下载失败
+                                if(completed){
+                                    completed(NO);
+                                }
+                            }
+                            
+                        }];
+                        
                     }else{
                         //下载失败
                         if(completed){
@@ -143,5 +159,6 @@
         }];
     }
 }
+
 
 @end

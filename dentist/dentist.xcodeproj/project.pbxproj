@@ -204,6 +204,7 @@
 		4EBE5E83219036E000BFD01E /* UniteArticleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE5E82219036E000BFD01E /* UniteArticleTableViewCell.m */; };
 		4EBE5E862190385200BFD01E /* UniteArticles.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE5E852190385200BFD01E /* UniteArticles.m */; };
 		4EBE5E892192E7FA00BFD01E /* SliderListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE5E882192E7FA00BFD01E /* SliderListView.m */; };
+		4EBE5ECE219A81F100BFD01E /* UIView+gesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE5ECD219A81F100BFD01E /* UIView+gesture.m */; };
 		4EE025452151EE5800BBD290 /* CMSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE025442151EE5800BBD290 /* CMSDetailViewController.m */; };
 		4EE025502151F59400BBD290 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0254F2151F59400BBD290 /* PlayerView.m */; };
 		4EE52D6C2154CFA10076DC3D /* desc@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE52D6A2154CFA00076DC3D /* desc@3x.png */; };
@@ -991,6 +992,8 @@
 		4EBE5E852190385200BFD01E /* UniteArticles.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteArticles.m; sourceTree = "<group>"; };
 		4EBE5E872192E7FA00BFD01E /* SliderListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SliderListView.h; sourceTree = "<group>"; };
 		4EBE5E882192E7FA00BFD01E /* SliderListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SliderListView.m; sourceTree = "<group>"; };
+		4EBE5ECC219A81F000BFD01E /* UIView+gesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+gesture.h"; sourceTree = "<group>"; };
+		4EBE5ECD219A81F100BFD01E /* UIView+gesture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+gesture.m"; sourceTree = "<group>"; };
 		4EE025432151EE5800BBD290 /* CMSDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMSDetailViewController.h; sourceTree = "<group>"; };
 		4EE025442151EE5800BBD290 /* CMSDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSDetailViewController.m; sourceTree = "<group>"; };
 		4EE0254E2151F59400BBD290 /* PlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
@@ -2857,6 +2860,8 @@
 				4E17B3EC217E225900F75390 /* TopLabel.m */,
 				182A11772199593C00C0E08D /* NSDate+customed.h */,
 				182A11782199593C00C0E08D /* NSDate+customed.m */,
+				4EBE5ECC219A81F000BFD01E /* UIView+gesture.h */,
+				4EBE5ECD219A81F100BFD01E /* UIView+gesture.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -3839,6 +3844,7 @@
 				C5EEADD593CFF58DCAB8626E /* LayoutParam.m in Sources */,
 				C5EEAC3B3E7352E6EE7B998F /* ProfileEditPage.m in Sources */,
 				A3A5B33B218D61F200242E71 /* ThumViewController.swift in Sources */,
+				4EBE5ECE219A81F100BFD01E /* UIView+gesture.m in Sources */,
 				C5EEA0D05177B02E9AA2A4F5 /* Padding.m in Sources */,
 				C5EEACA37317B44B87084801 /* UITextView+myextend.m in Sources */,
 				C5EEA21E5804CF3EABBFE3DB /* BaseItemView.m in Sources */,

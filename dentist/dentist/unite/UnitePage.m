@@ -12,6 +12,7 @@
 #import "UniteDownloadingViewController.h"
 #import "dentist-Swift.h"
 #import "ThumAndDetailViewController.h"
+#import "DentistDataBaseManager.h"
 
 @interface UnitePage()<UITableViewDelegate,UITableViewDataSource,ThumViewControllerDelegate>{
     UITableView *mTableView;
@@ -44,6 +45,36 @@
     [mTableView layoutFill];
     
     [self setupRefresh];
+    //测试
+//    [[DentistDataBaseManager shareManager] updateUniteArticleBookmark:@"5be5df7f5a71b7249c07e064" isbookmark:1 completed:^(BOOL result) {
+//        if (result) {
+//            [[DentistDataBaseManager shareManager] queryUniteArticlesBookmarkCachesList:^(NSArray<DetailModel *> * _Nonnull array) {
+//                if (array) {
+//                    
+//                }
+//            }];
+//        }
+//    }];
+//    
+//    [[DentistDataBaseManager shareManager] archiveUnite:@"5bd7fedf2676fdc2e88b5494" completed:^(BOOL result) {
+//        if (result) {
+//            [[DentistDataBaseManager shareManager] queryUniteArticlesCachesList:@"5bd7fedf2676fdc2e88b5494" completed:^(NSArray<DetailModel *> * _Nonnull array) {
+//                if (array) {
+//
+//                }
+//                [[DentistDataBaseManager shareManager] queryUniteArticlesCachesByKeywordList:@"5bd7fedf2676fdc2e88b5494" keywords:@"Interproximal Reduction (IPR)" completed:^(NSArray<DetailModel *> * _Nonnull array) {
+//                    if (array) {
+//
+//                    }
+//                }];
+//            }];
+//            [[DentistDataBaseManager shareManager] queryUniteArticlesBookmarkCachesList:^(NSArray<DetailModel *> * _Nonnull array) {
+//                if (array) {
+//                    
+//                }
+//            }];
+//        }
+//    }];
    
 }
 

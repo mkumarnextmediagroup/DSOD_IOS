@@ -634,14 +634,14 @@
 //		}
 //	}
 //}
-+ (NSDictionary *)getProfileInfo {
++ (UserInfo *)getProfileInfo {
 	HttpResult *r = [self post2:@"userProfile/findOneByEmail" dic:@{@"email": getLastAccount()} modular:@"profile"];
 	if (r.OK) {
 		NSDictionary *d = r.resultMap[@"data"];
 		if (d) {
 			[self saveUserInfoLocal:[self lastAccount] info:jsonBuild(d)];
+            return [Proto lastUserInfo];
 		}
-		return d;
 	}
 	return nil;
 }

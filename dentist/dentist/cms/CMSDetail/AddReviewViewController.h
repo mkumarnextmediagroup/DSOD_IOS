@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "ScrollPage.h"
 
+typedef void(^AddReviewSuccessCallbak)(void);
+
 @interface AddReviewViewController : ScrollPage
 
-@property NSString *contentId;
+@property (nonatomic,strong) NSString *contentId;
+@property (nonatomic,copy) AddReviewSuccessCallbak addReviewSuccessCallbak;
 
 @end

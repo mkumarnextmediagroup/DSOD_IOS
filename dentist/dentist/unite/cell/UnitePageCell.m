@@ -8,6 +8,7 @@
 
 #import "UnitePageCell.h"
 #import "Common.h"
+#import "DentistDataBaseManager.h"
 #define edge 15
 
 @implementation UnitePageCell{
@@ -62,7 +63,14 @@
     publishDateLabel.text = [NSString timeWithTimeIntervalString:magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",magazineModel.vol?magazineModel.vol:@"", magazineModel.issue?magazineModel.issue:@""];
     
-    
+    [self optionBtnDownloadStyle];
+//    [[DentistDataBaseManager shareManager] checkUniteStatus:magazineModel._id completed:^(BOOL result) {
+//        if (result) {
+//            [self optionBtnReadStyle];
+//        }else{
+//            [self optionBtnDownloadStyle];
+//        }
+//    }];
     switch ([self getUnitePageDownloadStatus]) {
         case UPageNoDownload:
             [self optionBtnDownloadStyle];

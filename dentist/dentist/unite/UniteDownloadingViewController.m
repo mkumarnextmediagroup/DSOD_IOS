@@ -192,7 +192,13 @@
                 if (array) {
                     
                 }
+                [[DentistDataBaseManager shareManager] queryUniteArticlesCachesByKeywordList:self.magazineModel._id keywords:@"Interproximal Reduction (IPR)" completed:^(NSArray<DetailModel *> * _Nonnull array) {
+                    if (array) {
+                        
+                    }
+                }];
             }];
+           
 //            WeakSelf
 //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //                ThumViewController *thumvc=[ThumViewController new];

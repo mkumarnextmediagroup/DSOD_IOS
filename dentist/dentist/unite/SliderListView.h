@@ -12,9 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SliderListView : UIView
 
-@property BOOL isSearch;
-
-+ (instancetype)sharedInstance:(UIView *)view;
++ (instancetype)sharedInstance:(UIView *)view isSearch:(BOOL)isSearch magazineId:(NSString *)magazineId;
 
 - (void)showSliderView;
 

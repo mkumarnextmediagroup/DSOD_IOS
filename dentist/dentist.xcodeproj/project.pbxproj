@@ -13,6 +13,8 @@
 		18106AB1218AF0CE00EEE2DC /* YHPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */; };
 		1812397521927F3E0075A6B0 /* author_dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1812397421927F3E0075A6B0 /* author_dsodentist.png */; };
 		182A11792199593C00C0E08D /* NSDate+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A11782199593C00C0E08D /* NSDate+customed.m */; };
+		182A1183219BF5D100C0E08D /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A1182219BF5D000C0E08D /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		182A1185219BF61F00C0E08D /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A1184219BF61F00C0E08D /* libxml2.tbd */; };
 		1866AFB121797DD300970CAB /* dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1866AFB021797DCE00970CAB /* dsodentist.png */; };
 		1866AFFE2179DF3900970CAB /* DentistTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866AFFD2179DF3900970CAB /* DentistTabView.m */; };
 		1866B0012179DFDA00970CAB /* TabCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */; };
@@ -690,6 +692,9 @@
 		1812397421927F3E0075A6B0 /* author_dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = author_dsodentist.png; sourceTree = "<group>"; };
 		182A11772199593C00C0E08D /* NSDate+customed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+customed.h"; sourceTree = "<group>"; };
 		182A11782199593C00C0E08D /* NSDate+customed.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+customed.m"; sourceTree = "<group>"; };
+		182A1181219BF5D000C0E08D /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		182A1182219BF5D000C0E08D /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		182A1184219BF61F00C0E08D /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		1866AFB021797DCE00970CAB /* dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dsodentist.png; sourceTree = "<group>"; };
 		1866AFFC2179DF3900970CAB /* DentistTabView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DentistTabView.h; sourceTree = "<group>"; };
 		1866AFFD2179DF3900970CAB /* DentistTabView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DentistTabView.m; sourceTree = "<group>"; };
@@ -1601,6 +1606,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				182A1185219BF61F00C0E08D /* libxml2.tbd in Frameworks */,
 				4EBCE724212FD1CE00A0672D /* Photos.framework in Frameworks */,
 				3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */,
 				74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */,
@@ -1619,6 +1625,15 @@
 			path = YHPopMenu;
 			sourceTree = "<group>";
 		};
+		182A1180219BF5B400C0E08D /* GDataXMLNode */ = {
+			isa = PBXGroup;
+			children = (
+				182A1181219BF5D000C0E08D /* GDataXMLNode.h */,
+				182A1182219BF5D000C0E08D /* GDataXMLNode.m */,
+			);
+			path = GDataXMLNode;
+			sourceTree = "<group>";
+		};
 		18ABEAB7219560AC00BF3E60 /* font */ = {
 			isa = PBXGroup;
 			children = (
@@ -1630,6 +1645,7 @@
 		18B83ACA2173557C00130DB6 /* library */ = {
 			isa = PBXGroup;
 			children = (
+				182A1180219BF5B400C0E08D /* GDataXMLNode */,
 				18106AAE218AF0AC00EEE2DC /* YHPopMenu */,
 				A3DF39832189A280006F84DC /* expanding-collection */,
 				A99177082176E5EF00788D2C /* ClassProperty */,
@@ -2566,6 +2582,7 @@
 		9E8CFB7155047C0648622D0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				182A1184219BF61F00C0E08D /* libxml2.tbd */,
 				4EBCE723212FD1CE00A0672D /* Photos.framework */,
 				3E137172212B0E6100B206CC /* LocalAuthentication.framework */,
 				D18A46C0F072296ED5347389 /* libPods-dentist.a */,
@@ -3747,6 +3764,7 @@
 				C5EEA2BA0180646BF8FF57BF /* Platform.m in Sources */,
 				18B83B162173557D00130DB6 /* YBImage.m in Sources */,
 				4E19573F2137D0F100420563 /* PermissionBasicProfileFields.m in Sources */,
+				182A1183219BF5D100C0E08D /* GDataXMLNode.m in Sources */,
 				A3729590219145F600B36409 /* UniteDetailCollectionViewCell.swift in Sources */,
 				A372959A219293F500B36409 /* DetinstDownloadManager.m in Sources */,
 				A3DF39A62189A280006F84DC /* TransitionDriver.swift in Sources */,
@@ -4026,9 +4044,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-lxml2";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -4079,8 +4099,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-lxml2";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

@@ -224,7 +224,6 @@
     thumvc.thumSelectMenu = ^(NSInteger row) {
          NSLog(@"thumDidSelectMenu==========%@",@(row));
     };
-    thumvc.modelarr=self->datas;
 //    thumvc.didSelectMenu =^(NSInteger index) {
 //
 //    }

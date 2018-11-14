@@ -64,6 +64,9 @@ extension ThumViewController{
         DentistDataBaseManager.share().queryUniteArticlesCachesList("5bebce042676fd80480176c9", completed: {(array:Array<DetailModel>) in
             
             self.modelarr=array
+            foreTask({
+                self.collectionView?.reloadData()
+            })
             
         })
     }
@@ -397,7 +400,11 @@ extension ThumViewController {
         cell.backAuthorLabel.text=String(format: "%@:%@", "author",newmodel.createUser)
         cell.pushDataLabel.text=NSString.time(withTimeIntervalString: newmodel.publishDate)
 //        cell.customTitle.text = info.title
-        cell.cellIsOpen(cellsIsOpen[index], animated: false)
+        
+//        if (modelarr!.count > index)  {
+//            cell.cellIsOpen(cellsIsOpen[index], animated: false)
+//        }
+        
         
         if(pageType == PageType.bookmark){
             cell.ArchiiveButton.isHidden = true;

@@ -64,24 +64,35 @@
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",magazineModel.vol?magazineModel.vol:@"", magazineModel.issue?magazineModel.issue:@""];
     
     [self optionBtnDownloadStyle];
-//    [[DentistDataBaseManager shareManager] checkUniteStatus:magazineModel._id completed:^(BOOL result) {
-//        if (result) {
-//            [self optionBtnReadStyle];
-//        }else{
+    
+    [[DentistDataBaseManager shareManager] checkUniteStatus:magazineModel._id completed:^(NSInteger result) {
+        NSLog(@"======下载状态=%@",@(result));
+        foreTask(^{
+            switch (result) {
+                case 0:
+                    [self optionBtnDownloadStyle];
+                    break;
+                case 1:
+                    [self optionBtnDownloadingStyle];
+                    break;
+                case 2:
+                    [self optionBtnReadStyle];
+                    break;
+            }
+        });
+        
+    }];
+//    switch ([self getUnitePageDownloadStatus]) {
+//        case UPageNoDownload:
 //            [self optionBtnDownloadStyle];
-//        }
-//    }];
-    switch ([self getUnitePageDownloadStatus]) {
-        case UPageNoDownload:
-            [self optionBtnDownloadStyle];
-            break;
-        case UPageDownloading:
-            [self optionBtnDownloadingStyle];
-            break;
-        case UPageDownloaded:
-            [self optionBtnReadStyle];
-            break;
-    }
+//            break;
+//        case UPageDownloading:
+//            [self optionBtnDownloadingStyle];
+//            break;
+//        case UPageDownloaded:
+//            [self optionBtnReadStyle];
+//            break;
+//    }
     
 }
 

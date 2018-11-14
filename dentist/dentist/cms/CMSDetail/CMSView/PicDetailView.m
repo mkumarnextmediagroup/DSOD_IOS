@@ -14,6 +14,7 @@
 #import "Proto.h"
 #import "UIButton+WebCache.h"
 #import "CMSDetailViewController.h"
+#import "GDataXMLNode.h"
 
 @interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
@@ -34,6 +35,7 @@
     UILabel *byLabel;
     UIWebView *mywebView;
     UITableView *relativeTopicTableView;
+    UITableView *referencesTableView;
     UIView *view;
     UIView *imageScrollPView;
     UIScrollView *imageScroll;
@@ -43,13 +45,17 @@
     BOOL allowZoom;
     
     NSArray *relativeTopicArray;
+    NSArray *referencesArray;
+    BOOL referencesMoreMode;
     NSArray *imageArray;
+    
+    NSInteger edge;
 }
 
 - (instancetype)init {
     self = [super init];
     
-    NSInteger edge = 18;
+    edge = 18;
     if(IS_IPHONE_P_X){
         edge=24;
     }
@@ -136,6 +142,9 @@
     [self addSubview:mywebView];
     [[[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:1] below:view offset:5] install];
     
+
+    
+    
     relativeTopicTableView = [UITableView new];
     relativeTopicTableView.dataSource = self;
     relativeTopicTableView.delegate = self;
@@ -146,6 +155,18 @@
     relativeTopicTableView.separatorStyle = UITableViewCellEditingStyleNone;
     [self addSubview:relativeTopicTableView];
     [[[[[relativeTopicTableView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:0] below:mywebView offset:0] install];
+    
+    
+    referencesTableView = [UITableView new];
+    referencesTableView.dataSource = self;
+    referencesTableView.delegate = self;
+    referencesTableView.estimatedRowHeight = 10;
+    referencesTableView.rowHeight=UITableViewAutomaticDimension;
+    referencesTableView.scrollEnabled = NO;
+    referencesTableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    referencesTableView.separatorStyle = UITableViewCellEditingStyleNone;
+    [self addSubview:referencesTableView];
+    [[[[[referencesTableView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:0] below:relativeTopicTableView offset:0] install];
     
     
     [self createImageScrollView];
@@ -161,7 +182,7 @@
     
     imageScrollPView = [UIView new];
     [self addSubview:imageScrollPView];
-    [[[[[imageScrollPView.layoutMaker leftParent:0] rightParent:0] heightEq:202] below:relativeTopicTableView offset:0] install];
+    [[[[[imageScrollPView.layoutMaker leftParent:0] rightParent:0] heightEq:202] below:referencesTableView offset:0] install];
     
     UILabel *lineLabelTop = [imageScrollPView lineLabel];
     [[[[[lineLabelTop.layoutMaker leftParent:0] rightParent:0] topParent:26] heightEq:1] install];
@@ -322,21 +343,35 @@
 
 - (void)showRelativeTopic:(NSArray*)data{
     
-    NSInteger edge = 18;
-    if(IS_IPHONE_P_X){
-        edge=24;
-    }
-    
-    if(data && data.count>0){
+   if(data && data.count>0){
         int height = 50;
         for(int i = 0;i< data.count;i++){
             CGSize titleSize = [data[i][@"title"] boundingRectWithSize:CGSizeMake(SCREENWIDTH-edge*2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
-            height += titleSize.height + 10;
+            height += titleSize.height + 10;//padding：10
         }
         [[relativeTopicTableView.layoutUpdate heightEq:height]install];
         
         relativeTopicArray = data;
         [relativeTopicTableView reloadData];
+    }
+}
+
+- (void)showReferences{
+    if(referencesArray && referencesArray.count>0){
+        int height = 50;//header
+        long showCount = referencesArray.count;
+        
+        if(referencesArray.count>5){
+            height += referencesArray.count>5?50:0;//footer
+            showCount = referencesMoreMode ? referencesArray.count : 5;
+        }
+        
+        for(int i = 0;i< showCount;i++){
+            CGSize titleSize = [referencesArray[i] boundingRectWithSize:CGSizeMake(SCREENWIDTH-edge*2 - 40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[Fonts regular:16]} context:nil].size; //numberlabel:40
+            height += titleSize.height + 10;//padding：10
+        }
+        [[referencesTableView.layoutUpdate heightEq:height]install];
+        [referencesTableView reloadData];
     }
 }
 
@@ -392,9 +427,6 @@
     titleLabel.text = bindInfo.title;
     [headerImg setImageName:@"author_dsodentist"];
     
-    [[mywebView.layoutUpdate heightEq:1] install];
-    [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
-    
     if([bindInfo.author.firstName isEqualToString:@"DSODentist"]){
         byLabel.hidden = NO;
         headerImg.hidden = NO;
@@ -415,6 +447,10 @@
         [_markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
     
+    [[mywebView.layoutUpdate heightEq:1] install];
+    [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
+    
+    [self showReferences];
     
     [self showRelativeTopic:bindInfo.relativeTopicList];
     
@@ -443,6 +479,7 @@
     
     html = [html stringByReplacingOccurrencesOfString :@"pre" withString:@"blockquote"];
     html = [html stringByReplacingOccurrencesOfString :@"<p>&nbsp;</p>" withString:@""];
+    html = [self htmlRemoveReferences:html];
     
     BOOL isFirst = YES;
     NSArray *array = [html componentsSeparatedByString:@"<p>"];
@@ -474,12 +511,52 @@
                   @"</script>"
                   ];
     
-//    var aArr = document.getElementsByTagName("a");
-//    aArr[0].href='http://qq.com';
-//    alert(aArr[0].innerText);
-//
     return htmlString;
+}
+
+-(NSString*)htmlRemoveReferences:(NSString*)htmlString{
+    NSMutableArray *mutableArray = [NSMutableArray new];
     
+    htmlString = [NSString stringWithFormat:@"<XML>%@</XML>" , htmlString];
+    
+    GDataXMLDocument *xmlDoc = [[GDataXMLDocument alloc] initWithXMLString:htmlString options:0 error:nil];
+    GDataXMLElement *xmlEle = [xmlDoc rootElement];
+    NSArray *array = [xmlEle children];
+
+    for (int i = 0; i < [array count]; i++) {
+        GDataXMLElement *ele = [array objectAtIndex:i];
+//        NSLog(@"%d---%@",i,[ele stringValue]);
+        
+        if([[ele stringValue] rangeOfString:@"References"].location != NSNotFound){
+            int referencesContentIndex = i+1;
+            if(referencesContentIndex<[array count]){
+                GDataXMLElement *eleOl = [array objectAtIndex:referencesContentIndex];
+                if([[eleOl name]isEqualToString:@"ol"]){
+                    for(int j=0;j<[eleOl childCount];j++){
+                        GDataXMLElement *eleLi = (GDataXMLElement*)[eleOl childAtIndex:j];
+                        if([[eleLi name]isEqualToString:@"li"]){
+//                            NSLog(@"(%d)---%@",j,[eleLi stringValue]);
+                            [mutableArray addObject:[eleLi stringValue]];
+                        }
+                    }
+                    
+//                    [xmlEle removeChild:ele];
+//                    [xmlEle removeChild:eleOl];
+                    break;
+                }
+            }
+        }
+    }
+    
+   
+    referencesArray = [mutableArray copy];
+    
+    htmlString = [xmlEle XMLString];
+    htmlString = [htmlString substringWithRange:NSMakeRange(5, htmlString.length-11)];
+//    NSLog(@"xmlstring = %@",htmlString);
+    
+    
+    return htmlString;
 }
 
 
@@ -593,29 +670,71 @@
 }
 
 #pragma mark  UITableViewDelegate,UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if([tableView isEqual:referencesTableView]){
+        return referencesArray.count>0?1:0;
+    }else{
+        return relativeTopicArray.count>0?1:0;
+    }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if([tableView isEqual:referencesTableView]){
+        return referencesArray.count;
+    }else{
+        return relativeTopicArray.count;
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 50;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return relativeTopicArray.count>0?1:0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return relativeTopicArray.count;
-}
-
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    NSString *title = @"";
+    if([tableView isEqual:referencesTableView]){
+        title = @"References";
+    }else{
+        title = @"Related Resource";
+    }
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,SCREENWIDTH,50)];
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.textColor = UIColor.blackColor;
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
     NSDictionary *dic = @{NSFontAttributeName:[Fonts medium:25], NSParagraphStyleAttributeName:paraStyle, NSKernAttributeName:@1.2f};
-    NSAttributedString *attributeStr = [[NSAttributedString alloc] initWithString: @"Related Resource" attributes:dic];
+    NSAttributedString *attributeStr = [[NSAttributedString alloc] initWithString:title attributes:dic];
     titleLabel.attributedText = attributeStr;
     
     return titleLabel;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if([tableView isEqual:referencesTableView] && referencesArray.count>5){
+        return 50;
+    }else{
+        return 0;
+    }
+}
+
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    if([tableView isEqual:referencesTableView] && referencesArray.count>5){
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0,SCREENWIDTH - 2 * edge,50)];
+        view.backgroundColor = argbHex(0xccffffff);
+        
+        UIButton *button = view.addButton;
+        [[[[[button.layoutMaker topParent:referencesMoreMode?0:25]leftParent:0]rightParent:0]bottomParent:0]install];
+        button.backgroundColor = UIColor.whiteColor;
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
+        button.titleEdgeInsets = UIEdgeInsetsMake(10, 0, 0, 0);
+        [button setTitleColor:Colors.primary forState:UIControlStateNormal];
+        [button title:referencesMoreMode ? @"See less" : @"See more"];
+        [button addTarget:self action:@selector(toggleReferencesMoreMode) forControlEvents:UIControlEventTouchUpInside];
+        
+        return view;
+    }else{
+        return nil;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -625,6 +744,39 @@
     cell = [[UITableViewCell alloc] initWithStyle:0 reuseIdentifier:ID];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    if([tableView isEqual:referencesTableView]){
+        return [self configReferencesCell:cell IndexPath:indexPath];
+    }else{
+        return [self configRelativeTopicCell:cell IndexPath:indexPath];
+    }
+}
+
+-(void)toggleReferencesMoreMode{
+    referencesMoreMode = !referencesMoreMode;
+    [self showReferences];
+}
+
+-(UITableViewCell *)configReferencesCell:(UITableViewCell*)cell IndexPath:(NSIndexPath *)indexPath{
+    UILabel *numberLabel = cell.contentView.addLabel;
+    numberLabel.font = [Fonts regular:16];
+    numberLabel.textColor = UIColor.blackColor;
+    numberLabel.numberOfLines = 0;
+    numberLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    numberLabel.text = [NSString stringWithFormat:@"%ld.",indexPath.row+1];
+    [[[[numberLabel.layoutMaker leftParent:18] topParent:5]  widthEq:22]  install];
+    
+    UILabel *titleLabel = cell.contentView.addLabel;
+    titleLabel.font = [Fonts regular:16];
+    titleLabel.textColor = UIColor.blackColor;
+    titleLabel.numberOfLines = 0;
+    titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    titleLabel.text = referencesArray[indexPath.row];
+    [[[[[titleLabel.layoutMaker toRightOf:numberLabel offset:0]rightParent:0]topParent:5]  bottomParent:-5]  install];
+    
+    return cell;
+}
+
+-(UITableViewCell *)configRelativeTopicCell:(UITableViewCell*)cell IndexPath:(NSIndexPath *)indexPath{
     UILabel *titleLabel = cell.contentView.addLabel;
     titleLabel.font = [UIFont systemFontOfSize:14];
     titleLabel.textColor = rgbHex(0x0000ee);
@@ -640,20 +792,11 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *articleId = relativeTopicArray[indexPath.row][@"id"];
-    NSString *url =[NSString stringWithFormat:@"dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=%@",articleId];
-    [self handleCustomAction:[NSURL URLWithString:url]];
+    if([tableView isEqual:relativeTopicTableView]){
+        NSString *articleId = relativeTopicArray[indexPath.row][@"id"];
+        NSString *url =[NSString stringWithFormat:@"dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=%@",articleId];
+        [self handleCustomAction:[NSURL URLWithString:url]];
+    }
 }
-
-- (void)resetLayout {
-}
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

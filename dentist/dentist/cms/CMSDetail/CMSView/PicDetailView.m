@@ -540,8 +540,8 @@
                         }
                     }
                     
-//                    [xmlEle removeChild:ele];
-//                    [xmlEle removeChild:eleOl];
+                    [xmlEle removeChild:ele];
+                    [xmlEle removeChild:eleOl];
                     break;
                 }
             }

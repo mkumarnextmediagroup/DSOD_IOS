@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+extern NSString * const DentistDownloadStateChangeNotification;
+
+extern NSString * const DentistUniteDownloadStateChangeNotification;
 
 NS_ASSUME_NONNULL_BEGIN
+
 @class CMSModel;
 @class DetailModel;
 @class IdName;
@@ -52,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 //MARK:根据keyword搜索文章
 -(void)queryUniteArticlesCachesByKeywordList:(NSString *)uniteid keywords:(NSString *)keywords completed:(void(^)(NSArray<DetailModel *> *array))completed;
 //MARK:检查该杂志是否已经下载
--(void)checkUniteStatus:(NSString *)uniteid  completed:(void(^)(BOOL result))completed;
+-(void)checkUniteStatus:(NSString *)uniteid  completed:(void(^)(NSInteger result))completed;
 @end
 
 NS_ASSUME_NONNULL_END

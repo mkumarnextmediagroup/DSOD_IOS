@@ -67,11 +67,15 @@
         }
         
         backTask(^() {
-            self.articleInfo = [Proto queryForDetailPage:self.contentId];//5bdc1e7eb0f3e0701cef0253
-            foreTask(^() {
-                [self buildViews];
-                [self hideLoading];
-            });
+            DetailModel *newmodel = [Proto queryForDetailPage:self.contentId];//5bdc1e7eb0f3e0701cef0253
+            if (newmodel) {
+                self.articleInfo=newmodel;
+                foreTask(^() {
+                    [self buildViews];
+                    [self hideLoading];
+                });
+            }
+            
         });
     }];
 }

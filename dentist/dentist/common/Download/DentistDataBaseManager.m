@@ -21,6 +21,8 @@
 #import "IdName.h"
 #import "MagazineModel.h"
 
+NSString * const DentistDownloadStateChangeNotification    = @"DentistDownloadStateChangeNotification";
+NSString * const DentistUniteDownloadStateChangeNotification = @"DentistUniteDownloadStateChangeNotification";
 @interface DentistDataBaseManager ()
 
 @property (nonatomic, strong) FMDatabaseQueue *dbQueue;
@@ -51,8 +53,9 @@
 
 -(NSString *)getTableFilePath
 {
-    // 数据库文件路径
-    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CMSCaches.sqlite"];
+    // 数据库文件路径NSCachesDirectory/NSDocumentDirectory
+    //先保存在Document下面方便导出来，后台改成Caches里面
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CMSCaches.sqlite"];
     return path;
 }
 
@@ -341,7 +344,7 @@
     }
     model.downstatus=[NSString stringWithFormat:@"%@",@(status)];
     // 状态变更通知
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DetinstDownloadStateChangeNotification" object:model];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DentistDownloadStateChangeNotification object:model];
 }
 
 // 更新数据
@@ -526,7 +529,7 @@
                 NSString *issue=[NSString stringWithFormat:@"%@",model.issue];
                 if ([self CheckIsHasUnite:db uniteid:model._id]) {
                     //更新
-                    result = [db executeUpdate:@"UPDATE t_UniteCaches set serial = ?,vol = ?,publishDate = ?,cover = ?,articles = ?,createDate = ?,createUser = ?,issue = ? where id = ? ", serial,vol,publishDate,cover,articles,createDate,createUser,issue,_id];
+                    result = [db executeUpdate:@"UPDATE t_UniteCaches set serial = ?,vol = ?,publishDate = ?,cover = ?,articles = ?,createDate = ?,createUser = ?,issue = ?,downstatus = ? where id = ? ", serial,vol,publishDate,cover,articles,createDate,createUser,issue,[NSNumber numberWithInt:1],_id];
                     
                     if (result) {
                     }else {
@@ -535,7 +538,7 @@
                     
                 }else{
                     
-                    result = [db executeUpdate:@"INSERT INTO t_UniteCaches (id ,serial,vol,publishDate,cover,articles,createDate,createUser,issue) VALUES (?,?, ?, ?, ?, ?, ?,?, ?)", _id,serial,vol,publishDate,cover,articles,createDate,createUser,issue];
+                    result = [db executeUpdate:@"INSERT INTO t_UniteCaches (id ,serial,vol,publishDate,cover,articles,createDate,createUser,issue,downstatus) VALUES (?,?, ?, ?, ?, ?, ?,?, ?,?)", _id,serial,vol,publishDate,cover,articles,createDate,createUser,issue,[NSNumber numberWithInt:1]];
                     
                     if (result) {
                     }else {
@@ -545,6 +548,11 @@
                 
                 
             }];
+            if(result){
+                model.downstatus=[NSString stringWithFormat:@"%@",@(1)];
+                // 状态变更通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:DentistUniteDownloadStateChangeNotification object:model];
+            }
             if (completed) {
                 completed(result);
             }
@@ -556,27 +564,14 @@
     }
 }
 
-//MARK:更新杂志下载状态，downstatus==1收藏；0取消收藏
+//MARK:更新杂志下载状态，downstatus==0未下载；1，正在下载；2下载成功
 -(void)updateUniteDownstatus:(NSString *)uniteid downstatus:(NSInteger)downstatus completed:(void(^)(BOOL result))completed
 {
     if (![NSString isBlankString:uniteid]) {
         __block BOOL result = YES;
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [self->_dbQueue inDatabase:^(FMDatabase *db) {
-                [db beginTransaction];
-                @try {
-                    [db executeUpdate:@"update t_UniteCaches set downstatus = ?,downtime=datetime('now')  where id = ? ",[NSNumber numberWithInteger:downstatus],uniteid];
-                    [db executeUpdate:@"update t_UniteArticlesCaches set downstatus = ?  where id = ? ",[NSNumber numberWithInteger:downstatus],uniteid];
-                } @catch (NSException *exception) {
-                    result = NO;
-                    // 事务回退
-                    [db rollback];
-                } @finally {
-                    if (result) {
-                        //事务提交
-                        [db commit];
-                    }
-                }
+                result=[db executeUpdate:@"update t_UniteCaches set downstatus = ?,downtime=datetime('now')  where id = ? ",[NSNumber numberWithInteger:downstatus],uniteid];
                 
                 if (result) {
                     NSLog(@"更新unite下载状态成功");
@@ -649,11 +644,11 @@
                 NSString *issue=[NSString stringWithFormat:@"%@",model.issue];
                 if ([self CheckIsHasUnite:db uniteid:model._id]) {
                     //更新
-                    [db executeUpdate:@"UPDATE t_UniteCaches set serial = ?,vol = ?,publishDate = ?,cover = ?,articles = ?,createDate = ?,createUser = ?,issue = ? where id = ? ", serial,vol,publishDate,cover,articles,createDate,createUser,issue,_id];
+                    [db executeUpdate:@"UPDATE t_UniteCaches set serial = ?,vol = ?,publishDate = ?,cover = ?,articles = ?,createDate = ?,createUser = ?,issue = ?,downstatus = ? where id = ? ", serial,vol,publishDate,cover,articles,createDate,createUser,issue,[NSNumber numberWithInt:2],_id];
                     
                 }else{
                     
-                    [db executeUpdate:@"INSERT INTO t_UniteCaches (id ,serial,vol,publishDate,cover,articles,createDate,createUser,issue) VALUES (?,?, ?, ?, ?, ?, ?,?, ?)", _id,serial,vol,publishDate,cover,articles,createDate,createUser,issue];
+                    [db executeUpdate:@"INSERT INTO t_UniteCaches (id ,serial,vol,publishDate,cover,articles,createDate,createUser,issue,downstatus) VALUES (?,?, ?, ?, ?, ?, ?,?, ?)", _id,serial,vol,publishDate,cover,articles,createDate,createUser,issue,[NSNumber numberWithInt:2]];
                 }
                 
                 //插入杂志文章还有杂志文章关系
@@ -694,6 +689,11 @@
                 NSLog(@"更新unite下载状态失败");
             }
         }];
+        if (result) {
+            model.downstatus=[NSString stringWithFormat:@"%@",@(2)];
+            // 状态变更通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:DentistUniteDownloadStateChangeNotification object:model];
+        }
         if (completed) {
             completed(result);
         }
@@ -738,14 +738,29 @@
         [self->_dbQueue inDatabase:^(FMDatabase *db) {
             
             FMResultSet *resultSet;
-            resultSet = [db executeQuery:@"SELECT a.uniteid,a.articleid,b.title,b.contentTypeId,b.categoryId,b.contentTypeName,b.categoryName , b.jsontext,b.isbookmark FROM t_UniteArticlesRelationCaches as a left join t_UniteArticlesCaches as b on a.articleid = b.id  where a.uniteid = ? order by a.sort ",uniteid];
+            resultSet = [db executeQuery:@"SELECT a.uniteid,a.articleid,b.title,b.contentTypeId,b.categoryId,b.contentTypeName,b.categoryName , b.jsontext,b.isbookmark,c.serial,c.vol,c.publishDate,c.cover,c.createUser,c.issue  FROM t_UniteArticlesRelationCaches as a left join t_UniteArticlesCaches as b on a.articleid = b.id left join t_UniteCaches as c on a.uniteid = c.id where a.uniteid = ? order by a.sort ",uniteid];
             
             while ([resultSet next]) {
                 NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
                 NSString *newuniteid=[resultSet objectForColumn:@"uniteid"];
+                NSString *serial=[resultSet objectForColumn:@"serial"];
+                NSString *vol=[resultSet objectForColumn:@"vol"];
+                NSString *publishDate=[resultSet objectForColumn:@"publishDate"];
+                NSString *cover=[resultSet objectForColumn:@"cover"];
+                NSString *createUser=[resultSet objectForColumn:@"createUser"];
+                NSString *issue=[resultSet objectForColumn:@"issue"];
+                
                 if (![NSString isBlankString:jsontext]) {
                      DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
                      detail.uniteid=newuniteid;
+                    MagazineModel *magazinemodel=[[MagazineModel alloc] init];
+                    magazinemodel.serial=serial;
+                    magazinemodel.vol=vol;
+                    magazinemodel.publishDate=publishDate;
+                    magazinemodel.cover=cover;
+                    magazinemodel.createUser=createUser;
+                    magazinemodel.issue=issue;
+                    detail.magazineModel=magazinemodel;
                     if (detail) {
                         [tmpArr addObject:detail];
                     }
@@ -840,14 +855,14 @@
 }
 
 //MARK:检查该杂志是否已经下载
--(void)checkUniteStatus:(NSString *)uniteid  completed:(void(^)(BOOL result))completed
+-(void)checkUniteStatus:(NSString *)uniteid  completed:(void(^)(NSInteger result))completed
 {
     if (![NSString isBlankString:uniteid]) {
-        __block BOOL result;
+        __block NSInteger result;
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [self->_dbQueue inDatabase:^(FMDatabase *db) {
                 
-                result = [self CheckIsHasUnite:db uniteid:uniteid];
+                result =[db intForQuery:@"SELECT downstatus FROM t_UniteCaches WHERE id = ?", uniteid];;
                 if (result) {
                 }else {
                 }

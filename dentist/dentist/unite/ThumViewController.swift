@@ -24,7 +24,7 @@ class ThumViewController: ExpandingViewController,ThumAndDetailViewControllerDel
     @objc weak var delegate:ThumViewControllerDelegate?
     typealias didSelectMenu = (_ index:NSInteger) ->Void
     @objc var thumSelectMenu:didSelectMenu?
-    @objc var modelarr : Array<MagazineModel>?
+    @objc var modelarr : Array<DetailModel>?
     @objc var pageType = PageType.normal
     var isfull:Bool?
     
@@ -61,6 +61,11 @@ extension ThumViewController{
         createDetailCollection()
         showNavTitle(detailView?.isHidden)
         configDefaultMode()
+        DentistDataBaseManager.share().queryUniteArticlesCachesList("5bebce042676fd80480176c9", completed: {(array:Array<DetailModel>) in
+            
+            self.modelarr=array
+            
+        })
     }
     
     func configDefaultMode(){
@@ -208,7 +213,15 @@ extension ThumViewController{
                 if (self.thumSelectMenu != nil) {
                     self.thumSelectMenu!(row)
                 }
-                if row==1 {
+                if row==0{
+                    if(self.modelarr!.count>self.currentIndex) {
+                        let detailmodel:DetailModel=self.modelarr![self.currentIndex]
+                        DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 1, completed: { (result:Bool) in
+                            
+                        })
+                    }
+                }
+                else if row==1 {
                     let appdelegate = UIApplication.shared.delegate as! AppDelegate
                     appdelegate.onOpenMenuAnoSide(nil)
                 }else if row==3 {
@@ -241,7 +254,7 @@ extension ThumViewController{
     }
     // MARK: 详情页
     @objc func goToBookmarks(){
-        var thumvc :ThumViewController = ThumViewController()
+        let thumvc :ThumViewController = ThumViewController()
         thumvc.pageType = PageType.bookmark;
         thumvc.modelarr = modelarr;
         self.navigationController?.pushViewController(thumvc, animated: true)
@@ -255,9 +268,9 @@ extension ThumViewController{
 //        let stausBarHeight = UIApplication.shared.statusBarFrame.size.height
 //
 //        let itemheight = self.view.frame.size.height-(navBarHeight+stausBarHeight)
-//
+
         detailcollectionView=ThumAndDetailViewController()
-//        detailcollectionView?.view.frame=CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: itemheight)
+//        detailcollectionView?.view.frame=CGRect(x: 0, y: navBarHeight+stausBarHeight, width: self.view.frame.size.width, height: itemheight)
 //        self.addChild(detailcollectionView!)
         detailcollectionView!.delegate=self;
         detailView=detailcollectionView!.view!
@@ -371,7 +384,8 @@ extension ThumViewController {
         
         let index = indexPath.row % modelarr!.count
 //        let info = items[index]
-        let newmodel:MagazineModel! = modelarr?[index]
+        let newdetail:DetailModel! = modelarr?[index]
+        let newmodel:MagazineModel! = newdetail.magazineModel
 //        cell.backgroundImageView?.image = UIImage(named: info.imageName)
         cell.backgroundImageView.loadUrl(newmodel.cover, placeholderImage: "bg_1")
         cell.backgroundImageView.contentMode = .scaleAspectFill
@@ -438,5 +452,9 @@ extension ThumViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ThumCollectionViewCell.self), for: indexPath)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        print("index=",self.currentIndex)
     }
 }

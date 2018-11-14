@@ -37,21 +37,28 @@
 
 - (void)buildViews
 {
-    headLabel = self.addLabel;
+    headLabel = self.contentView.addLabel;
     headLabel.font = [Fonts regular:13];
     [[[[[headLabel.layoutMaker leftParent:edge] rightParent:edge] heightEq:20] topParent:8] install];
     
-    subHeadLabel = self.addLabel;
+    subHeadLabel = self.contentView.addLabel;
     [subHeadLabel textColorMain];
     subHeadLabel.numberOfLines = 2;
     subHeadLabel.font = [Fonts regular:13];
     [[[[subHeadLabel.layoutMaker leftParent:edge] sizeEq:SCREENWIDTH - 132 - edge *2 h:45] below:headLabel offset:2] install];
 }
 
-- (void)bindInfo:(UniteArticles *)article
+- (void)bindInfo:(DetailModel *)article
 {
-    headLabel.text = article.issueHeading;
-    subHeadLabel.text = article.issueSubHeading;
+    headLabel.text = article.title;
+    subHeadLabel.text = article.subTitle;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    CGSize size = [subHeadLabel sizeThatFits:CGSizeMake(SCREENWIDTH - 132 - edge *2, 1000)];
+    [[subHeadLabel.layoutUpdate heightEq:size.height] install];
 }
 
 @end

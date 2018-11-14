@@ -12,8 +12,10 @@
 #import "UniteArticleTableViewCell.h"
 #import "Proto.h"
 #import "UIView+gesture.h"
+#import "DentistDataBaseManager.h"
+#import "DetailModel.h"
 
-@interface SliderListView()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+@interface SliderListView()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UIGestureRecognizerDelegate>
 {
     UITableView *mTableView;
     UISearchBar *mSearch;
@@ -22,18 +24,24 @@
     UIView      *sliderView;
     UIView      *backgroundVi;
 }
+
+@property BOOL isSearch;
+@property NSString *magazineId;
+
 @end
 
 @implementation SliderListView
 
-+ (instancetype)sharedInstance:(UIView *)view
++ (instancetype)sharedInstance:(UIView *)view isSearch:(BOOL)isSearch magazineId:(NSString *)magazineId
 {
-    static SliderListView *instance;
     
+    static SliderListView *instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[SliderListView alloc] init];
         instance.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.01];
+        instance.isSearch = isSearch;
+        instance.magazineId = magazineId;
         [instance initSliderView];
         [view addSubview:instance];
         instance.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
@@ -54,6 +62,16 @@
 - (void)hideSliderView
 {
     [UIView animateWithDuration:.3 animations:^{
+        [self->mSearch resignFirstResponder];
+        self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+    } completion:^(BOOL finished) {
+        self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
+    }];
+}
+
+- (void)sigleTappedPickerView:(UIGestureRecognizer *)sender
+{
+    [UIView animateWithDuration:.3 animations:^{
         self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
     } completion:^(BOOL finished) {
         self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
@@ -62,23 +80,20 @@
 
 - (void)initSliderView
 {
-    
     backgroundVi = [self addView];
     backgroundVi.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.01];
     backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
-    [backgroundVi setTapActionWithBlock:^{
-        [UIView animateWithDuration:.3 animations:^{
-            self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
-        } completion:^(BOOL finished) {
-            self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
-        }];
-    }];
-    
 
     sliderView = [backgroundVi addView];
     sliderView.backgroundColor = [UIColor whiteColor];
     sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
     
+    UIView *guestView = [backgroundVi addView];
+    guestView.frame = CGRectMake(0, 0, 132, SCREENHEIGHT-NAVHEIGHT);
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTappedPickerView:)];
+    [singleTap setNumberOfTapsRequired:1];
+    [guestView addGestureRecognizer:singleTap];
+    singleTap.delegate = self;
     
     UIView *navVi = [self makeNavView];
     [[[[[navVi.layoutMaker leftParent:0] topParent:0] rightParent:0] heightEq:NAVHEIGHT] install];
@@ -114,6 +129,8 @@
     mTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     mTableView.dataSource = self;
     mTableView.delegate = self;
+    mTableView.rowHeight = UITableViewAutomaticDimension;
+    mTableView.estimatedRowHeight = 100;
     mTableView.backgroundColor = [UIColor whiteColor];
     [sliderView addSubview:mTableView];
     
@@ -161,7 +178,7 @@
     {
         UIButton *headBtn = headerVi.addButton;
         [headBtn setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
-        [headBtn setTitle:@"2 RESULTS FOUND" forState:UIControlStateNormal];
+        [headBtn setTitle:[NSString stringWithFormat:@"%lu RESULTS FOUND",(unsigned long)searchArr.count] forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         headBtn.titleLabel.font = [Fonts regular:13];
         [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] topParent:0] install];
@@ -175,17 +192,16 @@
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    UniteArticles *article = [UniteArticles new];
-    article.issueHeading = @"TRANFORM YOUR THINKING";
-    article.issueSubHeading = @"Understanding the DSO practice Model";
+    [[DentistDataBaseManager shareManager] queryUniteArticlesCachesByKeywordList:self.magazineId keywords:@"Interproximal Reduction (IPR)" completed:^(NSArray<DetailModel *> * _Nonnull array) {
+        if (array) {
+            self->searchArr = array;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self->mTableView reloadData];
+            });
+        }
+    }];
     
-    UniteArticles *article1 = [UniteArticles new];
-    article1.issueHeading = @"GOING PRO";
-    article1.issueSubHeading = @"Making the leap from Student to Professional";
-    
-    searchArr = [NSArray arrayWithObjects:article,article1, nil];
-    
-    [mTableView reloadData];
 }
 
 #pragma mark UITableViewDataSource
@@ -214,7 +230,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80;
+
+    return UITableViewAutomaticDimension;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -223,6 +240,7 @@
     if (cell == nil) {
         cell = [[UniteArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
+    [cell layoutIfNeeded];
     if (_isSearch) {
         [cell bindInfo:searchArr[indexPath.row]];
     }else
@@ -230,6 +248,11 @@
         [cell bindInfo:infoArr[indexPath.row]];
     }
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"select this row");
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView

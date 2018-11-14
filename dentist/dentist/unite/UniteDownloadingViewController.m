@@ -125,7 +125,7 @@
 
 - (void)rightBtnClick
 {
-    [[SliderListView sharedInstance:self.view] showSliderView];
+    [[SliderListView sharedInstance:self.view isSearch:YES magazineId:self.magazineModel._id] showSliderView];
 }
 
 -(void)downloadBtnAction{
@@ -192,11 +192,7 @@
                 if (array) {
                     
                 }
-                [[DentistDataBaseManager shareManager] queryUniteArticlesCachesByKeywordList:self.magazineModel._id keywords:@"Interproximal Reduction (IPR)" completed:^(NSArray<DetailModel *> * _Nonnull array) {
-                    if (array) {
-                        
-                    }
-                }];
+                
             }];
            
 //            WeakSelf

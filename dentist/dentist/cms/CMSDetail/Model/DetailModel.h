@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*id;
 @property NSString <Optional>*email;
 @property NSString <Optional>*title;
+@property NSString <Optional>*subTitle;
 @property NSString <Optional>*content;
 @property NSString <Optional>*authorId;
 @property NSString <Optional>*contentTypeId;

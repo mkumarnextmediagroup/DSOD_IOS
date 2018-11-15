@@ -80,6 +80,7 @@
 		43277E8A217F4E9E008B3240 /* TestPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E89217F4E9E008B3240 /* TestPageTests.m */; };
 		43277E8C217F4F6A008B3240 /* DSOWebViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E8B217F4F6A008B3240 /* DSOWebViewControllerTests.m */; };
 		43277E8E217F523B008B3240 /* RegControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E8D217F523B008B3240 /* RegControllerTests.m */; };
+		43488F4E2199BAEB00FDC15E /* ColorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43488F4D2199BAEB00FDC15E /* ColorTests.m */; };
 		437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */; };
 		4388150B218D4EF20066BCB6 /* SearchPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4388150A218D4EF20066BCB6 /* SearchPageTests.m */; };
 		43952B452190704900EB3443 /* EditPracticeAddressViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43952B442190704900EB3443 /* EditPracticeAddressViewControllerTests.m */; };
@@ -800,6 +801,7 @@
 		43277E89217F4E9E008B3240 /* TestPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestPageTests.m; sourceTree = "<group>"; };
 		43277E8B217F4F6A008B3240 /* DSOWebViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOWebViewControllerTests.m; sourceTree = "<group>"; };
 		43277E8D217F523B008B3240 /* RegControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegControllerTests.m; sourceTree = "<group>"; };
+		43488F4D2199BAEB00FDC15E /* ColorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorTests.m; sourceTree = "<group>"; };
 		437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewControllerTests.m; sourceTree = "<group>"; };
 		4388150A218D4EF20066BCB6 /* SearchPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPageTests.m; sourceTree = "<group>"; };
 		43952B442190704900EB3443 /* EditPracticeAddressViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditPracticeAddressViewControllerTests.m; sourceTree = "<group>"; };
@@ -1798,6 +1800,14 @@
 			path = profile;
 			sourceTree = "<group>";
 		};
+		43488F4C2199B9B500FDC15E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				43488F4D2199BAEB00FDC15E /* ColorTests.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		437AB90A2181F1B80026A71B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -1822,6 +1832,7 @@
 		43B72528217650A1000F6797 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				43488F4C2199B9B500FDC15E /* Common */,
 				437AB90A2181F1B80026A71B /* Profile */,
 				43F92B78217D949A00798462 /* Login */,
 				43B72529217650AB000F6797 /* Example */,
@@ -3648,6 +3659,7 @@
 				43952B452190704900EB3443 /* EditPracticeAddressViewControllerTests.m in Sources */,
 				43277E8C217F4F6A008B3240 /* DSOWebViewControllerTests.m in Sources */,
 				437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */,
+				43488F4E2199BAEB00FDC15E /* ColorTests.m in Sources */,
 				43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */,
 				43B7252D217650FF000F6797 /* ExampleTests.m in Sources */,
 				439D55EB2189DBFA003BB940 /* ProfileEditPageTests.m in Sources */,

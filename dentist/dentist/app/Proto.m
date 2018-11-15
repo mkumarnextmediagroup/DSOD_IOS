@@ -807,7 +807,7 @@
         for (int i = 0; i<comments.count; i++) {
             CommentModel *item = [[CommentModel alloc] initWithJson:jsonBuild(comments[i])];
             DiscussInfo *info = [[DiscussInfo alloc] init];
-            info.name = item.email;
+            info.name = item.fullName;
             info.content = item.comment_text;
             info.disDate = item.create_time;
             info.starCount = item.comment_rating;
@@ -1189,9 +1189,10 @@
 
 
 //MARK:添加评论（CMS_002_06）
-+(HttpResult *)addComment:(NSString *)email contentId:(NSString *)contentId commentText:(NSString *)commentText commentRating:(NSString *)commentRating
++(HttpResult *)addComment:(NSString *)email contentId:(NSString *)contentId commentText:(NSString *)commentText commentRating:(NSString *)commentRating fullName:(NSString*)fullName
 {
-    HttpResult *r = [self post3:@"comment/addComment" dic:@{@"email": email,@"contentId": contentId,@"commentText": commentText,@"commentRating": commentRating} modular:@"cms"];
+    
+    HttpResult *r = [self post3:@"comment/addComment" dic:@{@"email": email,@"contentId": contentId,@"commentText": commentText,@"commentRating": commentRating,@"fullName":fullName} modular:@"cms"];
     return r;
 }
 

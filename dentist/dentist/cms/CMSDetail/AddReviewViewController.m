@@ -21,6 +21,8 @@
     UILabel *remainLab;
     UITextView *commentTextView;
     XHStarRateView *star;
+    
+    NSString *fullName;
 }
 @end
 
@@ -170,6 +172,8 @@
         }
         
         foreTask(^{
+            fullName = userInfo.fullName;
+            
             [headerImg loadUrl:userInfo.photo_url placeholderImage:@"user_img"];
             
             NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Writing review as %@" ,userInfo.fullName?userInfo.fullName:@""]];
@@ -232,7 +236,7 @@
     
     [self showIndicator];
     backTask(^() {
-        HttpResult *r = [Proto addComment:getLastAccount() contentId:self.contentId commentText:commentText commentRating:commentRating];
+        HttpResult *r = [Proto addComment:getLastAccount() contentId:self.contentId commentText:commentText commentRating:commentRating fullName:fullName];
         foreTask(^() {
             [self hideIndicator];
             

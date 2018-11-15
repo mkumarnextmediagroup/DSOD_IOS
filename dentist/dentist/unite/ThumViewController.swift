@@ -404,7 +404,7 @@ extension ThumViewController {
 //        if (modelarr!.count > index)  {
 //            cell.cellIsOpen(cellsIsOpen[index], animated: false)
 //        }
-        
+        //
         
         if(pageType == PageType.bookmark){
             cell.ArchiiveButton.isHidden = true;

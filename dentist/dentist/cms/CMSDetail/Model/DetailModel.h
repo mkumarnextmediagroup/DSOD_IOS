@@ -52,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSInteger readNumber;
 @property NSDictionary <Optional>*featuredMedia;
 @property NSArray <Optional>*relativeTopicList;
+@property NSArray <Optional>*references;
 @property NSString <Optional>*uniteid;
 @property MagazineModel <Optional> *magazineModel;
 

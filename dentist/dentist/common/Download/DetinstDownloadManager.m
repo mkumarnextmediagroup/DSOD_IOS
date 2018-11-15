@@ -111,8 +111,10 @@
                     [Proto queryForDetailPage:detailid completed:^(BOOL result, NSString *jsontext) {
                         if (result) {
                             NSLog(@"====================获取article文章详情成功====================");
-                            [jsonarray addObject:jsontext];
-                             dispatch_group_leave(dispatchGroup);
+                            if (jsontext) {
+                                [jsonarray addObject:jsontext];
+                            }
+                            dispatch_group_leave(dispatchGroup);
                             
                         }else{
                             dispatch_group_leave(dispatchGroup);

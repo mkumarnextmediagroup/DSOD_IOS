@@ -23,6 +23,7 @@ class ThumViewController: ExpandingViewController,ThumAndDetailViewControllerDel
     
     @objc weak var delegate:ThumViewControllerDelegate?
     typealias didSelectMenu = (_ index:NSInteger) ->Void
+    @objc var uniteid:String? = nil
     @objc var thumSelectMenu:didSelectMenu?
     @objc var modelarr : Array<DetailModel>?
     @objc var pageType = PageType.normal
@@ -61,7 +62,8 @@ extension ThumViewController{
         createDetailCollection()
         showNavTitle(detailView?.isHidden)
         configDefaultMode()
-        DentistDataBaseManager.share().queryUniteArticlesCachesList("5bebce042676fd80480176c9", completed: {(array:Array<DetailModel>) in
+        
+        DentistDataBaseManager.share().queryUniteArticlesCachesList(self.uniteid, completed: {(array:Array<DetailModel>) in
             
             self.modelarr=array
             foreTask({
@@ -111,6 +113,15 @@ extension ThumViewController{
         }
         
     }
+    
+    @objc func openMenuSliderView() -> Void {
+        self.openSliderView(search: false)
+    }
+    
+    @objc func openSliderView(search:Bool) -> Void {
+        SliderListView.sharedInstance(self.view, isSearch: search, magazineId: self.uniteid).showSliderView()
+    }
+    
     @objc func openMenu(){
         if self.isfull==true {
             self.openMenu1()
@@ -131,6 +142,7 @@ extension ThumViewController{
         let r = CGFloat(0.0)
         let x = CGFloat(self.view.frame.size.width-w-r)
         let y = CGFloat(0.0)
+    if popView == nil {
         popView=YHPopMenuView(frame: CGRect(x: x, y: y, width: w, height: h))
         popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
         popView?.itemNameArray = ["Bookmark", "Search", "Share", "Thumbanails", "Go to Bookmarks"]
@@ -138,8 +150,16 @@ extension ThumViewController{
         popView?.fontSize = 16.0
         popView?.fontColor = UIColor.black
         popView?.canTouchTabbar = true
+    }
         popView?.show()
-        
+    if(self.modelarr!.count>self.currentIndex) {
+        let detailmodel:DetailModel=self.modelarr![self.currentIndex]
+        if detailmodel.isBookmark == true {
+            popView!.updateIcon("bookmark-light", at: self.currentIndex)
+        }
+    }
+    
+    
         //    WeakSelf
         popView!.dismissHandler({ isCanceled, row in
             if !isCanceled {
@@ -156,7 +176,7 @@ extension ThumViewController{
 //                    let appdelegate = UIApplication.shared.delegate as! AppDelegate
 //                    appdelegate.onOpenMenuAnoSide(nil)
                     //[[SliderListView sharedInstance:self.view isSearch:YES magazineId:self.magazineModel._id] showSliderView];
-                    SliderListView.sharedInstance(self.view, isSearch: true, magazineId: "5bebce042676fd80480176c9").showSliderView()
+                    self.openSliderView(search: true)
                     
                 }else if row==3 {
                     if self.isfull==true {
@@ -198,15 +218,25 @@ extension ThumViewController{
         let r = CGFloat(0.0)
         let x = CGFloat(self.view.frame.size.width-w-r)
         let y = CGFloat(0.0)
-        popView=YHPopMenuView(frame: CGRect(x: x, y: y, width: w, height: h))
-        popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
-        popView?.itemNameArray = ["Bookmark", "Search", "Share", "Fullscreen", "Go to Bookmarks"]
-        popView?.itemH = itemH
-        popView?.fontSize = 16.0
-        popView?.fontColor = UIColor.black
-        popView?.canTouchTabbar = true
+        if popView == nil {
+            popView=YHPopMenuView(frame: CGRect(x: x, y: y, width: w, height: h))
+            popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
+            popView?.itemNameArray = ["Bookmark", "Search", "Share", "Fullscreen", "Go to Bookmarks"]
+            popView?.itemH = itemH
+            popView?.fontSize = 16.0
+            popView?.fontColor = UIColor.black
+            popView?.canTouchTabbar = true
+        }
+       
         popView?.show()
-        
+        if(self.modelarr!.count>self.currentIndex) {
+            let detailmodel:DetailModel=self.modelarr![self.currentIndex]
+            if detailmodel.isBookmark == true {
+                popView!.updateIcon("bookmark-light", at: self.currentIndex)
+            }else{
+                print("====")
+            }
+        }
         //    WeakSelf
         popView!.dismissHandler({ isCanceled, row in
             if !isCanceled {
@@ -223,12 +253,16 @@ extension ThumViewController{
                     if(self.modelarr!.count>self.currentIndex) {
                         let detailmodel:DetailModel=self.modelarr![self.currentIndex]
                         DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 1, completed: { (result:Bool) in
+                            if result == true {
+                                detailmodel.isBookmark=true;
+                                self.collectionView?.reloadData()
+                            }
                             
                         })
                     }
                 }
                 else if row==1 {
-                    SliderListView.sharedInstance(self.view, isSearch: true, magazineId: "5bebce042676fd80480176c9").showSliderView()
+                    self.openSliderView(search: true)
                 }else if row==3 {
                     if self.isfull==true {
                         self.pushToViewController3(0){
@@ -323,7 +357,7 @@ extension ThumViewController {
     
     fileprivate func configureNavBar() {
         let appdelegate = UIApplication.shared.delegate as! AppDelegate
-        let menuBtnItem1=UIBarButtonItem(image: UIImage(named:"Content-Options"), style: .plain, target: appdelegate, action: #selector(appdelegate.onOpenMenuAnoSide(_:)))
+        let menuBtnItem1=UIBarButtonItem(image: UIImage(named:"Content-Options"), style: .plain, target: self, action: #selector(openMenuSliderView))
         let fixedSpaceBarButtonItem=UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         let menuBtnItem2=UIBarButtonItem(image: UIImage(named:"More-Options"), style: .plain, target: self, action: #selector(openMenu))
         

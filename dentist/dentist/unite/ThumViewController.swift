@@ -153,8 +153,11 @@ extension ThumViewController{
                     self.thumSelectMenu!(row)
                 }
                 if row==1 {
-                    let appdelegate = UIApplication.shared.delegate as! AppDelegate
-                    appdelegate.onOpenMenuAnoSide(nil)
+//                    let appdelegate = UIApplication.shared.delegate as! AppDelegate
+//                    appdelegate.onOpenMenuAnoSide(nil)
+                    //[[SliderListView sharedInstance:self.view isSearch:YES magazineId:self.magazineModel._id] showSliderView];
+                    SliderListView.sharedInstance(self.view, isSearch: true, magazineId: "5bebce042676fd80480176c9").showSliderView()
+                    
                 }else if row==3 {
                     if self.isfull==true {
                         self.isfull=false
@@ -225,8 +228,7 @@ extension ThumViewController{
                     }
                 }
                 else if row==1 {
-                    let appdelegate = UIApplication.shared.delegate as! AppDelegate
-                    appdelegate.onOpenMenuAnoSide(nil)
+                    SliderListView.sharedInstance(self.view, isSearch: true, magazineId: "5bebce042676fd80480176c9").showSliderView()
                 }else if row==3 {
                     if self.isfull==true {
                         self.pushToViewController3(0){

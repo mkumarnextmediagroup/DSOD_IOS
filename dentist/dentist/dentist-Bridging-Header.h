@@ -22,3 +22,4 @@
 #import "DentistDataBaseManager.h"
 #import "DetinstDownloadManager.h"
 #import "DetailModel.h"
+#import "SliderListView.h"

@@ -61,6 +61,7 @@
 
 - (void)hideSliderView
 {
+    [self->mSearch resignFirstResponder];
     [UIView animateWithDuration:.3 animations:^{
         [self->mSearch resignFirstResponder];
         self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
@@ -71,6 +72,7 @@
 
 - (void)sigleTappedPickerView:(UIGestureRecognizer *)sender
 {
+    [self->mSearch resignFirstResponder];
     [UIView animateWithDuration:.3 animations:^{
         self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
     } completion:^(BOOL finished) {
@@ -197,6 +199,7 @@
             self->searchArr = array;
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self->mSearch resignFirstResponder];
                 [self->mTableView reloadData];
             });
         }

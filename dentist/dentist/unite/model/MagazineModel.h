@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*createDate;
 @property NSArray <Optional>*articles;
 @property NSString <Optional>*createUser;
+@property NSString  <Optional>*downstatus;
 
 @end
 

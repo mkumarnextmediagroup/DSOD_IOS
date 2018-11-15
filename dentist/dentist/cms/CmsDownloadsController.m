@@ -54,7 +54,7 @@
 - (void)addNotification
 {
     // 状态改变通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadStateChange:) name:@"DetinstDownloadStateChangeNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadStateChange:) name:DentistDownloadStateChangeNotification object:nil];
 }
 - (void)downLoadStateChange:(NSNotification *)notification
 {

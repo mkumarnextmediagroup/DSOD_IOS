@@ -12,6 +12,8 @@
 #import "UniteDownloadingViewController.h"
 #import "dentist-Swift.h"
 #import "ThumAndDetailViewController.h"
+#import "DentistDataBaseManager.h"
+#import "MagazineModel.h"
 
 @interface UnitePage()<UITableViewDelegate,UITableViewDataSource,ThumViewControllerDelegate>{
     UITableView *mTableView;
@@ -29,7 +31,36 @@
 @end
 
 @implementation UnitePage
-    
+
+- (void)addNotification
+{
+    // 状态改变通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadStateChange:) name:DentistUniteDownloadStateChangeNotification object:nil];
+}
+
+- (void)downLoadStateChange:(NSNotification *)notification
+{
+    MagazineModel *downloadModel = notification.object;
+    NSMutableArray *tempArr=[NSMutableArray arrayWithArray:self->datas];
+    [tempArr enumerateObjectsUsingBlock:^(NSObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass: [MagazineModel class]]) {
+            MagazineModel *model=(MagazineModel *)obj;
+            if ([downloadModel._id isEqualToString:model._id]) {
+                // 更新数据源
+                tempArr[idx] = downloadModel;
+                self->datas=[tempArr copy];
+                // 主线程刷新cell
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self->mTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                });
+                
+                *stop = YES;
+            }
+        }
+        
+    }];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,6 +75,37 @@
     [mTableView layoutFill];
     
     [self setupRefresh];
+    [self addNotification];
+    //测试
+//    [[DentistDataBaseManager shareManager] updateUniteArticleBookmark:@"5be5df7f5a71b7249c07e064" isbookmark:1 completed:^(BOOL result) {
+//        if (result) {
+//            [[DentistDataBaseManager shareManager] queryUniteArticlesBookmarkCachesList:^(NSArray<DetailModel *> * _Nonnull array) {
+//                if (array) {
+//                    
+//                }
+//            }];
+//        }
+//    }];
+//    
+//    [[DentistDataBaseManager shareManager] archiveUnite:@"5bd7fedf2676fdc2e88b5494" completed:^(BOOL result) {
+//        if (result) {
+//            [[DentistDataBaseManager shareManager] queryUniteArticlesCachesList:@"5bd7fedf2676fdc2e88b5494" completed:^(NSArray<DetailModel *> * _Nonnull array) {
+//                if (array) {
+//
+//                }
+//                [[DentistDataBaseManager shareManager] queryUniteArticlesCachesByKeywordList:@"5bd7fedf2676fdc2e88b5494" keywords:@"Interproximal Reduction (IPR)" completed:^(NSArray<DetailModel *> * _Nonnull array) {
+//                    if (array) {
+//
+//                    }
+//                }];
+//            }];
+//            [[DentistDataBaseManager shareManager] queryUniteArticlesBookmarkCachesList:^(NSArray<DetailModel *> * _Nonnull array) {
+//                if (array) {
+//                    
+//                }
+//            }];
+//        }
+//    }];
    
 }
 
@@ -162,7 +224,6 @@
     thumvc.thumSelectMenu = ^(NSInteger row) {
          NSLog(@"thumDidSelectMenu==========%@",@(row));
     };
-    thumvc.modelarr=self->datas;
 //    thumvc.didSelectMenu =^(NSInteger index) {
 //
 //    }

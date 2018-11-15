@@ -55,7 +55,7 @@
 + (NSArray *_Nullable)shortStates;
 
 
-+ (NSDictionary *_Nullable)getProfileInfo;
++ (UserInfo *_Nullable)getProfileInfo;
 
 + (HttpResult *)saveProfileInfo:(NSDictionary *_Nullable)dic;
 
@@ -147,7 +147,7 @@
  @param commentRating 评论评分 是否必须:Y
  @return HttpResult
  **/
-+(HttpResult*)addComment:(NSString *_Nullable)email contentId:(NSString * _Nullable)contentId commentText:(NSString *_Nullable)commentText commentRating:(NSString *_Nullable)commentRating;
++(HttpResult*)addComment:(NSString *_Nullable)email contentId:(NSString * _Nullable)contentId commentText:(NSString *_Nullable)commentText commentRating:(NSString *_Nullable)commentRating fullName:(NSString*_Nullable)fullName;
 
 //MARK:查询整个文章的评论（CMS_003_04）
 /**

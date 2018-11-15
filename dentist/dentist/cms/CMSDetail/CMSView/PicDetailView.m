@@ -356,7 +356,8 @@
     }
 }
 
-- (void)showReferences{
+- (void)showReferences:(NSArray*)data{
+    referencesArray = data;
     if(referencesArray && referencesArray.count>0){
         int height = 50;//header
         long showCount = referencesArray.count;
@@ -450,7 +451,7 @@
     [[mywebView.layoutUpdate heightEq:1] install];
     [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
     
-    [self showReferences];
+    [self showReferences:bindInfo.references];
     
     [self showRelativeTopic:bindInfo.relativeTopicList];
     
@@ -479,7 +480,7 @@
     
     html = [html stringByReplacingOccurrencesOfString :@"pre" withString:@"blockquote"];
     html = [html stringByReplacingOccurrencesOfString :@"<p>&nbsp;</p>" withString:@""];
-    html = [self htmlRemoveReferences:html];
+//    html = [self htmlRemoveReferences:html];
     
     BOOL isFirst = YES;
     NSArray *array = [html componentsSeparatedByString:@"<p>"];
@@ -753,7 +754,7 @@
 
 -(void)toggleReferencesMoreMode{
     referencesMoreMode = !referencesMoreMode;
-    [self showReferences];
+    [self showReferences:referencesArray];
 }
 
 -(UITableViewCell *)configReferencesCell:(UITableViewCell*)cell IndexPath:(NSIndexPath *)indexPath{

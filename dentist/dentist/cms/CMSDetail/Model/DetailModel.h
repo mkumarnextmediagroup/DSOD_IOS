@@ -10,6 +10,7 @@
 #import "JSONModel.h"
 #import "CommentModel.h"
 #import "Author.h"
+#import "MagazineModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*id;
 @property NSString <Optional>*email;
 @property NSString <Optional>*title;
+@property NSString <Optional>*subTitle;
 @property NSString <Optional>*content;
 @property NSString <Optional>*authorId;
 @property NSString <Optional>*contentTypeId;
@@ -50,7 +52,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSInteger readNumber;
 @property NSDictionary <Optional>*featuredMedia;
 @property NSArray <Optional>*relativeTopicList;
-
+@property NSArray <Optional>*references;
+@property NSString <Optional>*uniteid;
+@property MagazineModel <Optional> *magazineModel;
 
 
 @end

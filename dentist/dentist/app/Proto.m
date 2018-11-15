@@ -634,14 +634,14 @@
 //		}
 //	}
 //}
-+ (NSDictionary *)getProfileInfo {
++ (UserInfo *)getProfileInfo {
 	HttpResult *r = [self post2:@"userProfile/findOneByEmail" dic:@{@"email": getLastAccount()} modular:@"profile"];
 	if (r.OK) {
 		NSDictionary *d = r.resultMap[@"data"];
 		if (d) {
 			[self saveUserInfoLocal:[self lastAccount] info:jsonBuild(d)];
+            return [Proto lastUserInfo];
 		}
-		return d;
 	}
 	return nil;
 }
@@ -807,7 +807,7 @@
         for (int i = 0; i<comments.count; i++) {
             CommentModel *item = [[CommentModel alloc] initWithJson:jsonBuild(comments[i])];
             DiscussInfo *info = [[DiscussInfo alloc] init];
-            info.name = item.email;
+            info.name = item.fullName;
             info.content = item.comment_text;
             info.disDate = item.create_time;
             info.starCount = item.comment_rating;
@@ -1189,9 +1189,10 @@
 
 
 //MARK:添加评论（CMS_002_06）
-+(HttpResult *)addComment:(NSString *)email contentId:(NSString *)contentId commentText:(NSString *)commentText commentRating:(NSString *)commentRating
++(HttpResult *)addComment:(NSString *)email contentId:(NSString *)contentId commentText:(NSString *)commentText commentRating:(NSString *)commentRating fullName:(NSString*)fullName
 {
-    HttpResult *r = [self post3:@"comment/addComment" dic:@{@"email": email,@"contentId": contentId,@"commentText": commentText,@"commentRating": commentRating} modular:@"cms"];
+    
+    HttpResult *r = [self post3:@"comment/addComment" dic:@{@"email": email,@"contentId": contentId,@"commentText": commentText,@"commentRating": commentRating,@"fullName":fullName} modular:@"cms"];
     return r;
 }
 

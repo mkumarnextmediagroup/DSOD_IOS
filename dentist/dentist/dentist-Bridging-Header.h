@@ -18,3 +18,8 @@
 #import "IIEnvironment.h"
 #import "IIViewDeckController.h"
 #import "UIViewController+IIViewDeckAdditions.h"
+#import "MagazineModel.h"
+#import "DentistDataBaseManager.h"
+#import "DetinstDownloadManager.h"
+#import "DetailModel.h"
+#import "SliderListView.h"

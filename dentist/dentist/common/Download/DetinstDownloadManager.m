@@ -50,6 +50,7 @@
 -(void)startDownLoadCMSModel:(CMSModel *)cmsmodel addCompletion:(void(^)(BOOL result))addCompletion completed:(void(^)(BOOL result))completed
 {
     if (![NSString isBlankString:cmsmodel.id]) {
+        self->_maxConcurrentCount++;
         [[DentistDataBaseManager shareManager] insertCMSModel:cmsmodel completed:^(BOOL result) {
             //添加数据成功
             if (addCompletion) {
@@ -59,17 +60,20 @@
                 [Proto queryForDetailPage:cmsmodel.id completed:^(BOOL result, NSString *jsontext) {
                     if (result) {
                         [[DentistDataBaseManager shareManager] updateCMS:cmsmodel.id jsontext:jsontext completed:^(BOOL result) {
+                            self->_maxConcurrentCount--;
                             if (completed) {
                                 completed(result);
                             }
                         }];
                     }else{
+                        self->_maxConcurrentCount--;
                         if (completed) {
                             completed(NO);
                         }
                     }
                 }];
             }else{
+                self->_maxConcurrentCount--;
                 if (completed) {
                     completed(NO);
                 }
@@ -87,6 +91,7 @@
 -(void)startDownLoadUniteArticles:(MagazineModel *)model  addCompletion:(void(^)(BOOL result))addCompletion completed:(void(^)(BOOL result))completed
 {
     if (model && model._id) {
+        self->_maxConcurrentCount++;
         [[DentistDataBaseManager shareManager] insertUniteModel:model completed:^(BOOL result) {
             //添加数据成功
             if (result) {
@@ -97,7 +102,8 @@
             }
             if (result) {
                 NSArray *arr=model.articles;
-                __block NSInteger downcount=0;
+//                __block NSInteger downcount=0;
+                __block NSMutableArray *jsonarray=[NSMutableArray array];
                 dispatch_group_t dispatchGroup = dispatch_group_create();
                 for (int i=0; i<arr.count; i++) {
                     NSString *detailid=arr[i];
@@ -105,18 +111,8 @@
                     [Proto queryForDetailPage:detailid completed:^(BOOL result, NSString *jsontext) {
                         if (result) {
                             NSLog(@"====================获取article文章详情成功====================");
-                            DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
-                            if (detail) {
-                                [[DentistDataBaseManager shareManager] insertUniteArticleModel:detail uniteid:model._id jsontext:jsontext sort:i  completed:^(BOOL result) {
-                                    if (result) {
-                                        NSLog(@"====================添加article文章数据成功====================");
-                                        downcount++;
-                                    }
-                                    dispatch_group_leave(dispatchGroup);
-                                }];
-                            }else{
-                                dispatch_group_leave(dispatchGroup);
-                            }
+                            [jsonarray addObject:jsontext];
+                             dispatch_group_leave(dispatchGroup);
                             
                         }else{
                             dispatch_group_leave(dispatchGroup);
@@ -124,14 +120,19 @@
                         
                     }];
                 }
-                dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^(){
+                dispatch_group_notify(dispatchGroup, dispatch_get_global_queue(0, 0), ^(){
                     //处理完成更新列表详细信息
-                    if (arr.count==downcount) {
-                        //下载完成
-                        if(completed){
-                            completed(YES);
-                        }
+                    if (arr.count==jsonarray.count) {
+                        //下载完成更新下载状态
+                        [[DentistDataBaseManager shareManager] insertUniteArticleArray:model jsonarray:jsonarray completed:^(BOOL result) {
+                            self->_maxConcurrentCount--;
+                            if(completed){
+                                completed(YES);
+                            }
+                        }];
+                        
                     }else{
+                        self->_maxConcurrentCount--;
                         //下载失败
                         if(completed){
                             completed(NO);
@@ -143,5 +144,6 @@
         }];
     }
 }
+
 
 @end

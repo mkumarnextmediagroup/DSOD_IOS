@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *comment_text;
 @property NSString *content_id;
 @property NSString *create_time;
+@property NSString *fullName;
 
     
 @end

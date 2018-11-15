@@ -114,6 +114,69 @@ extension ThumViewController{
         
     }
     
+    
+    @objc func shareUniteActicle() -> Void{
+//        NSString *urlstr=@"";
+//        NSString *title=[NSString stringWithFormat:@"%@",_articleInfo.title];
+//        NSString* type = _articleInfo.featuredMedia[@"type"];
+//        if([type isEqualToString:@"1"] ){
+//            //pic
+//            NSDictionary *codeDic = _articleInfo.featuredMedia[@"code"];
+//            urlstr = codeDic[@"thumbnailUrl"];
+//        }else{
+//            urlstr = _articleInfo.featuredMedia[@"code"];
+//        }
+//        NSString *someid=_articleInfo.id;
+//        if (![NSString isBlankString:urlstr]) {
+//            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//                NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
+//                UIImage *image = [UIImage imageWithData:data];
+//                if (image) {
+//                    NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+//                    NSArray *activityItems = @[shareurl,title,image];
+//                    
+//                    UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+//                    [self presentViewController:avc animated:YES completion:nil];
+//                }
+//                });
+//        }else{
+//            NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+//            NSArray *activityItems = @[shareurl,title];
+//            
+//            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+//            [self presentViewController:avc animated:YES completion:nil];
+//        }
+        if(self.modelarr!.count>self.currentIndex) {
+            let detailmodel:DetailModel=self.modelarr![self.currentIndex]
+            var urlstr:String?
+            let title=detailmodel.title
+            let type=detailmodel.featuredMedia["type"] as? String
+            if type=="1" {
+                let codeDic = detailmodel.featuredMedia["code"] as? NSDictionary
+                urlstr = codeDic?["thumbnailUrl"] as? String
+            }
+            let someid = detailmodel.id as? String
+            if !NSString.isBlankString(urlstr) {
+                DispatchQueue.global().async {
+                    let dataurl = NSURL(string: urlstr!)
+                    let data=NSData(contentsOf: dataurl as! URL)
+                    let image:UIImage = UIImage(data: data as! Data)!
+                    if image != nil {
+                        let shareurl = NSURL(string: getShareUrl("content", someid)) as! NSURL
+//                        var activityItems = [shareurl,title,image]
+                        let actvc=UIActivityViewController(activityItems: [shareurl,title,image], applicationActivities: nil)
+                        self.present(actvc, animated: true, completion: {
+                            
+                        })
+                        
+                    }
+                }
+            }
+        }
+        
+        
+    }
+    
     @objc func openMenuSliderView() -> Void {
         self.openSliderView(search: false)
     }
@@ -178,6 +241,8 @@ extension ThumViewController{
                     //[[SliderListView sharedInstance:self.view isSearch:YES magazineId:self.magazineModel._id] showSliderView];
                     self.openSliderView(search: true)
                     
+                }else if row==2 {
+                    self.shareUniteActicle()
                 }else if row==3 {
                     if self.isfull==true {
                         self.isfull=false
@@ -263,6 +328,8 @@ extension ThumViewController{
                 }
                 else if row==1 {
                     self.openSliderView(search: true)
+                }else if row==2 {
+                    self.shareUniteActicle()
                 }else if row==3 {
                     if self.isfull==true {
                         self.pushToViewController3(0){
@@ -297,7 +364,6 @@ extension ThumViewController{
         thumvc.pageType = PageType.bookmark;
         thumvc.modelarr = modelarr;
         self.navigationController?.pushViewController(thumvc, animated: true)
-//        [self.navigationController pushViewController:thumvc animated:YES];
         
     }
     

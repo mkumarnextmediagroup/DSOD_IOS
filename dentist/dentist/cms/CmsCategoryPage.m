@@ -224,17 +224,25 @@
                     urlstr = selectModel.featuredMedia[@"code"];
                 }
                 NSString *someid=selectModel.id;
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
-                    UIImage *image = [UIImage imageWithData:data];
-                    if (image) {
-                        NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
-                        NSArray *activityItems = @[shareurl,title,image];
-                        
-                        UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
-                        [self presentViewController:avc animated:YES completion:nil];
-                    }
-                });
+                if (![NSString isBlankString:urlstr]) {
+                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                        NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
+                        UIImage *image = [UIImage imageWithData:data];
+                        if (image) {
+                            NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+                            NSArray *activityItems = @[shareurl,title,image];
+                            
+                            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                            [self presentViewController:avc animated:YES completion:nil];
+                        }
+                    });
+                }else{
+                    NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+                    NSArray *activityItems = @[shareurl,title];
+                    
+                    UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                    [self presentViewController:avc animated:YES completion:nil];
+                }
                 
             }else{
                 NSString *msg=@"";

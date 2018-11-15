@@ -229,6 +229,16 @@ static const CGFloat kItemH = 44.0f;//item高度
     return _iconNameArray;
 }
 
+-(void)updateIcon:(NSString *)iconname atIndex:(NSInteger)atindex
+{
+    if (_iconNameArray && _iconNameArray.count>atindex) {
+        NSMutableArray *temparray=[NSMutableArray arrayWithArray:_iconNameArray];
+        [temparray replaceObjectAtIndex:atindex withObject:iconname];
+        _iconNameArray=[temparray copy];
+        [self.tableView reloadData];
+    }
+}
+
 - (NSDictionary *)config{
     if (!_config) {
         _itemBgColor = _itemBgColor?_itemBgColor:UIColor.whiteColor;

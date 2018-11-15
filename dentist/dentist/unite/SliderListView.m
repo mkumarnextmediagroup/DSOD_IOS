@@ -112,7 +112,17 @@
         [[[[[mTableView.layoutMaker leftParent:0] rightParent:0] below:navVi offset:0] heightEq:SCREENHEIGHT - NAVHEIGHT] install];
     }
     
-    infoArr = [Proto uniteArticleDesc];
+//    infoArr = [Proto uniteArticleDesc];
+    [[DentistDataBaseManager shareManager] queryUniteArticlesCachesList:self.magazineId completed:^(NSArray<DetailModel *> * _Nonnull array) {
+        if (array) {
+            self->infoArr = array;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self->mSearch resignFirstResponder];
+                [self->mTableView reloadData];
+            });
+        }
+    }];
 }
 
 - (void)createSearchBar

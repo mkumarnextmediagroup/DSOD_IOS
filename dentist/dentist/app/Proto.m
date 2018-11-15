@@ -1291,6 +1291,7 @@
     if (bookmarkid) {
         [paradic setObject:bookmarkid forKey:@"id"];
     }
+    [paradic setObject:@(1) forKey:@"status"];
     HttpResult *r = [self post2:@"bookmark/deleteOneById" dic:paradic modular:@"cms"];
     if (r.OK) {
         result=YES;
@@ -1304,6 +1305,7 @@
     if (bookmarkid) {
         [paradic setObject:bookmarkid forKey:@"id"];
     }
+    [paradic setObject:@(1) forKey:@"status"];
     [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
         if (completed) {
             completed(r.OK);
@@ -1322,6 +1324,7 @@
     if (contentId) {
         [paradic setObject:contentId forKey:@"contentId"];
     }
+    [paradic setObject:@(1) forKey:@"status"];
     HttpResult *r = [self post2:@"bookmark/deleteOneByEmailAndContentId" dic:paradic modular:@"cms"];
     if (r.OK) {
         result=YES;
@@ -1338,6 +1341,7 @@
     if (contentId) {
         [paradic setObject:contentId forKey:@"contentId"];
     }
+    [paradic setObject:@(1) forKey:@"status"];
     [self postAsync2:@"bookmark/deleteOneByEmailAndContentId" dic:paradic modular:@"cms"callback:^(HttpResult *r) {
         if (completed) {
             completed(r.OK);
@@ -1350,7 +1354,7 @@
 {
     BOOL result=NO;
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title] && ![NSString isBlankString:url]){
-        HttpResult *r = [self post3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId} modular:@"cms"];
+        HttpResult *r = [self post3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"status": [NSNumber numberWithInt:1]} modular:@"cms"];
         if (r.OK) {
             result=YES;
         }
@@ -1364,7 +1368,7 @@
         url=@"";
     }
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title]){
-        [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId} modular:@"cms" callback:^(HttpResult *r) {
+        [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"status": [NSNumber numberWithInt:1]} modular:@"cms" callback:^(HttpResult *r) {
             if (completed) {
                 completed(r.OK);
             }

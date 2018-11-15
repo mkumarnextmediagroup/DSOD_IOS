@@ -218,17 +218,22 @@
     }
 }
 
--(void)gotoThumView
+-(void)gotoThumView:(NSInteger)row
 {
-    ThumViewController *thumvc=[ThumViewController new];
-    thumvc.thumSelectMenu = ^(NSInteger row) {
-         NSLog(@"thumDidSelectMenu==========%@",@(row));
-    };
-//    thumvc.didSelectMenu =^(NSInteger index) {
-//
-//    }
-
-    [self.navigationController pushViewController:thumvc animated:YES];
+    if (self->datas.count>=1) {
+        MagazineModel *model=(MagazineModel *)self->datas[0];
+        ThumViewController *thumvc=[ThumViewController new];
+        thumvc.uniteid=model._id;
+        thumvc.thumSelectMenu = ^(NSInteger row) {
+            NSLog(@"thumDidSelectMenu==========%@",@(row));
+        };
+        //    thumvc.didSelectMenu =^(NSInteger index) {
+        //
+        //    }
+        
+        [self.navigationController pushViewController:thumvc animated:YES];
+    }
+    
 }
 
 -(void)startUniteDownload{
@@ -335,7 +340,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self gotoThumView];
+    [self gotoThumView:indexPath.row];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{

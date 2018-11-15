@@ -734,43 +734,50 @@ NSString * const DentistUniteDownloadStateChangeNotification = @"DentistUniteDow
 -(void)queryUniteArticlesCachesList:(NSString *)uniteid completed:(void(^)(NSArray<DetailModel *> *array))completed
 {
     __block NSMutableArray *tmpArr = [NSMutableArray array];
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [self->_dbQueue inDatabase:^(FMDatabase *db) {
-            
-            FMResultSet *resultSet;
-            resultSet = [db executeQuery:@"SELECT a.uniteid,a.articleid,b.title,b.contentTypeId,b.categoryId,b.contentTypeName,b.categoryName , b.jsontext,b.isbookmark,c.serial,c.vol,c.publishDate,c.cover,c.createUser,c.issue  FROM t_UniteArticlesRelationCaches as a left join t_UniteArticlesCaches as b on a.articleid = b.id left join t_UniteCaches as c on a.uniteid = c.id where a.uniteid = ? order by a.sort ",uniteid];
-            
-            while ([resultSet next]) {
-                NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
-                NSString *newuniteid=[resultSet objectForColumn:@"uniteid"];
-                NSString *serial=[resultSet objectForColumn:@"serial"];
-                NSString *vol=[resultSet objectForColumn:@"vol"];
-                NSString *publishDate=[resultSet objectForColumn:@"publishDate"];
-                NSString *cover=[resultSet objectForColumn:@"cover"];
-                NSString *createUser=[resultSet objectForColumn:@"createUser"];
-                NSString *issue=[resultSet objectForColumn:@"issue"];
+    if (uniteid) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [self->_dbQueue inDatabase:^(FMDatabase *db) {
                 
-                if (![NSString isBlankString:jsontext]) {
-                     DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
-                     detail.uniteid=newuniteid;
-                    MagazineModel *magazinemodel=[[MagazineModel alloc] init];
-                    magazinemodel.serial=serial;
-                    magazinemodel.vol=vol;
-                    magazinemodel.publishDate=publishDate;
-                    magazinemodel.cover=cover;
-                    magazinemodel.createUser=createUser;
-                    magazinemodel.issue=issue;
-                    detail.magazineModel=magazinemodel;
-                    if (detail) {
-                        [tmpArr addObject:detail];
+                FMResultSet *resultSet;
+                resultSet = [db executeQuery:@"SELECT a.uniteid,a.articleid,b.title,b.contentTypeId,b.categoryId,b.contentTypeName,b.categoryName , b.jsontext,b.isbookmark,c.serial,c.vol,c.publishDate,c.cover,c.createUser,c.issue  FROM t_UniteArticlesRelationCaches as a left join t_UniteArticlesCaches as b on a.articleid = b.id left join t_UniteCaches as c on a.uniteid = c.id where a.uniteid = ? order by a.sort ",uniteid];
+                
+                while ([resultSet next]) {
+                    NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
+                    NSString *newuniteid=[resultSet objectForColumn:@"uniteid"];
+                    NSString *serial=[resultSet objectForColumn:@"serial"];
+                    NSString *vol=[resultSet objectForColumn:@"vol"];
+                    NSString *publishDate=[resultSet objectForColumn:@"publishDate"];
+                    NSString *cover=[resultSet objectForColumn:@"cover"];
+                    NSString *createUser=[resultSet objectForColumn:@"createUser"];
+                    NSString *issue=[resultSet objectForColumn:@"issue"];
+                    
+                    if (![NSString isBlankString:jsontext]) {
+                        DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
+                        detail.uniteid=newuniteid;
+                        MagazineModel *magazinemodel=[[MagazineModel alloc] init];
+                        magazinemodel.serial=serial;
+                        magazinemodel.vol=vol;
+                        magazinemodel.publishDate=publishDate;
+                        magazinemodel.cover=cover;
+                        magazinemodel.createUser=createUser;
+                        magazinemodel.issue=issue;
+                        detail.magazineModel=magazinemodel;
+                        if (detail) {
+                            [tmpArr addObject:detail];
+                        }
                     }
                 }
+            }];
+            if (completed) {
+                completed(tmpArr);
             }
-        }];
+        });
+    }else{
         if (completed) {
             completed(tmpArr);
         }
-    });
+    }
+    
 }
 
 //MARK:添加删除杂志文章方法，isbookmark==1收藏；0取消收藏
@@ -822,36 +829,44 @@ NSString * const DentistUniteDownloadStateChangeNotification = @"DentistUniteDow
             completed(tmpArr);
         }
     });
+   
 }
 
 //MARK:根据keyword搜索文章
 -(void)queryUniteArticlesCachesByKeywordList:(NSString *)uniteid keywords:(NSString *)keywords completed:(void(^)(NSArray<DetailModel *> *array))completed
 {
     __block NSMutableArray *tmpArr = [NSMutableArray array];
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [self->_dbQueue inDatabase:^(FMDatabase *db) {
-           NSString *newkeywords=[NSString stringWithFormat:@"%@%@%@",@"%",keywords,@"%"];
-            //where title like '%@'
-            NSString *sqlstr=[NSString stringWithFormat:@"SELECT a.uniteid,a.articleid,b.title,b.contentTypeId,b.categoryId,b.contentTypeName,b.categoryName , b.jsontext,b.isbookmark FROM t_UniteArticlesRelationCaches as a left join t_UniteArticlesCaches as b on a.articleid = b.id  where a.uniteid = '%@' and b.title like '%@' order by a.sort ",uniteid,newkeywords];
-            FMResultSet *resultSet;
-            resultSet = [db executeQuery:sqlstr];
-            
-            while ([resultSet next]) {
-                NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
-                NSString *newuniteid=[resultSet objectForColumn:@"uniteid"];
-                if (![NSString isBlankString:jsontext]) {
-                    DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
-                    detail.uniteid=newuniteid;
-                    if (detail) {
-                        [tmpArr addObject:detail];
+    if (uniteid) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [self->_dbQueue inDatabase:^(FMDatabase *db) {
+                NSString *newkeywords=[NSString stringWithFormat:@"%@%@%@",@"%",keywords,@"%"];
+                //where title like '%@'
+                NSString *sqlstr=[NSString stringWithFormat:@"SELECT a.uniteid,a.articleid,b.title,b.contentTypeId,b.categoryId,b.contentTypeName,b.categoryName , b.jsontext,b.isbookmark FROM t_UniteArticlesRelationCaches as a left join t_UniteArticlesCaches as b on a.articleid = b.id  where a.uniteid = '%@' and b.title like '%@' order by a.sort ",uniteid,newkeywords];
+                FMResultSet *resultSet;
+                resultSet = [db executeQuery:sqlstr];
+                
+                while ([resultSet next]) {
+                    NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
+                    NSString *newuniteid=[resultSet objectForColumn:@"uniteid"];
+                    if (![NSString isBlankString:jsontext]) {
+                        DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
+                        detail.uniteid=newuniteid;
+                        if (detail) {
+                            [tmpArr addObject:detail];
+                        }
                     }
                 }
+            }];
+            if (completed) {
+                completed(tmpArr);
             }
-        }];
+        });
+    }else{
         if (completed) {
             completed(tmpArr);
         }
-    });
+    }
+    
 }
 
 //MARK:检查该杂志是否已经下载

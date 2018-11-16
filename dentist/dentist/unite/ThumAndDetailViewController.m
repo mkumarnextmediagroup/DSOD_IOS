@@ -10,6 +10,7 @@
 #import "common.h"
 #import "UniteThumCollectionViewCell.h"
 #import "CMSDetailViewController.h"
+#import "DetailModel.h"
 
 static NSString * UniteThumidentifier = @"UniteThumCellID";
 @interface ThumAndDetailViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UniteThumCollectionViewCellDelegate>
@@ -62,6 +63,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     //注册cell
     [_collectionView registerClass:[UniteThumCollectionViewCell class] forCellWithReuseIdentifier:UniteThumidentifier];
     [[[[[_collectionView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -90,6 +92,19 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     
 }
 
+-(void)setModelarr:(NSArray<DetailModel *> *)modelarr
+{
+    _modelarr=modelarr;
+    [self.collectionView reloadData];
+//    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
+}
+
+-(void)setCurrentIndex:(NSInteger)currentIndex
+{
+    _currentIndex=currentIndex;
+    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
+}
+
 - (void)onBack:(UIButton *)btn {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -107,7 +122,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 }
 //每个分组里有多少个item
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 3;
+    return _modelarr.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -171,6 +186,11 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 //        row=0;
 //    }
 //    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
+    NSInteger row=floorf(scrollView.contentOffset.x/scrollView.frame.size.width);
+    _currentIndex=row;
+    if (self.didEndDecelerating) {
+        self.didEndDecelerating(_currentIndex);
+    }
 }
 
 @end

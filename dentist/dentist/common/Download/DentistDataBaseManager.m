@@ -751,9 +751,12 @@ NSString * const DentistUniteDownloadStateChangeNotification = @"DentistUniteDow
                     NSString *createUser=[resultSet objectForColumn:@"createUser"];
                     NSString *issue=[resultSet objectForColumn:@"issue"];
                     
+                    NSInteger isbookmark=[resultSet intForColumn:@"isbookmark"];
+                    
                     if (![NSString isBlankString:jsontext]) {
                         DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
                         detail.uniteid=newuniteid;
+                        detail.isBookmark=(isbookmark==1)?YES:NO;
                         MagazineModel *magazinemodel=[[MagazineModel alloc] init];
                         magazinemodel.serial=serial;
                         magazinemodel.vol=vol;
@@ -817,8 +820,11 @@ NSString * const DentistUniteDownloadStateChangeNotification = @"DentistUniteDow
             
             while ([resultSet next]) {
                 NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
+                NSInteger isbookmark=[resultSet intForColumn:@"isbookmark"];
+                
                 if (![NSString isBlankString:jsontext]) {
                     DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
+                    detail.isBookmark=(isbookmark==1)?YES:NO;
                     if (detail) {
                         [tmpArr addObject:detail];
                     }

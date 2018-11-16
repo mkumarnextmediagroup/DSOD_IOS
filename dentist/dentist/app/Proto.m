@@ -1227,6 +1227,7 @@
     if (categoryId) {
         [paradic setObject:categoryId forKey:@"categoryId"];
     }
+    [paradic setObject:@(1) forKey:@"status"];
     HttpResult *r = [self post3:@"bookmark/findAllByEmail" dic:paradic modular:@"cms"];
     
     NSMutableArray *resultArray = [NSMutableArray array];
@@ -1262,6 +1263,7 @@
     if (categoryId) {
         [paradic setObject:categoryId forKey:@"categoryId"];
     }
+    [paradic setObject:@(1) forKey:@"status"];
     [self postAsync3:@"bookmark/findAllByEmail" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
         
         if (r.OK) {

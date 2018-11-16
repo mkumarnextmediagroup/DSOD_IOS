@@ -13,7 +13,10 @@
 #import "DetailModel.h"
 
 static NSString * UniteThumidentifier = @"UniteThumCellID";
-@interface ThumAndDetailViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UniteThumCollectionViewCellDelegate>
+@interface ThumAndDetailViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UniteThumCollectionViewCellDelegate>{
+    
+    BOOL hiddenStatusBar;
+}
 @property (nonatomic, strong) UICollectionView * collectionView;
 @end
 
@@ -122,39 +125,42 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 }
 //每个分组里有多少个item
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return _modelarr.count;
+    return self.modelarr.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     //根据identifier从缓冲池里去出cell
     UniteThumCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:UniteThumidentifier forIndexPath:indexPath];
-    cell.backgroundColor=[UIColor clearColor];
     cell.delegate=self;
-    if (indexPath.row==0) {
-        UIImage *image1=[UIImage imageNamed:@"unitedetail1"];
-        [cell.backgroundImageView setImage:image1];
-        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 1000*cell.backgroundImageView.frame.size.width/747);
-        cell.scrollView.contentSize =  CGSizeMake(0, image1.size.height);
-    }else if (indexPath.row==1){
-        UIImage *image2=[UIImage imageNamed:@"unitedetail2"];
-        [cell.backgroundImageView setImage:image2];
-        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 16130*cell.backgroundImageView.frame.size.width/750);
-        cell.scrollView.contentSize =  CGSizeMake(0, image2.size.height);
-        
-        
-        CMSDetailViewController *vc = [CMSDetailViewController new];
-        vc.contentId = @"5be5df7f5a71b7249c07e064";
-        
-        [cell.scrollView addSubview:vc.view];
-    }else{
-        UIImage *image3=[UIImage imageNamed:@"unitedetail3"];
-        [cell.backgroundImageView setImage:image3];
-        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 7970*cell.backgroundImageView.frame.size.width/750);
-        cell.scrollView.contentSize =  CGSizeMake(0, image3.size.height);
-        
-    }
-    cell.backgroundImageView.contentMode=UIViewContentModeScaleToFill;
+    [cell bind:self.modelarr[indexPath.row]];
+    
+//    cell.backgroundColor=[UIColor clearColor];
+//    cell.delegate=self;
+//    if (indexPath.row==0) {
+//        UIImage *image1=[UIImage imageNamed:@"unitedetail1"];
+//        [cell.backgroundImageView setImage:image1];
+//        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 1000*cell.backgroundImageView.frame.size.width/747);
+//        cell.scrollView.contentSize =  CGSizeMake(0, image1.size.height);
+//    }else if (indexPath.row==1){
+//        UIImage *image2=[UIImage imageNamed:@"unitedetail2"];
+//        [cell.backgroundImageView setImage:image2];
+//        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 16130*cell.backgroundImageView.frame.size.width/750);
+//        cell.scrollView.contentSize =  CGSizeMake(0, image2.size.height);
+//
+//
+//        CMSDetailViewController *vc = [CMSDetailViewController new];
+//        vc.contentId = @"5be5df7f5a71b7249c07e064";
+//
+//        [cell.scrollView addSubview:vc.view];
+//    }else{
+//        UIImage *image3=[UIImage imageNamed:@"unitedetail3"];
+//        [cell.backgroundImageView setImage:image3];
+//        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 7970*cell.backgroundImageView.frame.size.width/750);
+//        cell.scrollView.contentSize =  CGSizeMake(0, image3.size.height);
+//
+//    }
+//    cell.backgroundImageView.contentMode=UIViewContentModeScaleToFill;
     
     return cell;
 }
@@ -174,6 +180,20 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
             [self.delegate ThumAndDetailViewControllerDidScroll:offsety];
         }
     }
+}
+
+
+- (void)toggleNavBar:(BOOL)show{
+    int ty = show ? 0 : -NAVHEIGHT;
+    hiddenStatusBar = show;
+//    self.navVC.navigationBar.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, 0.f,ty);
+    [self.navVC setNavigationBarHidden:show animated:YES];
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+}
+
+- (BOOL)prefersStatusBarHidden{
+    return hiddenStatusBar;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView

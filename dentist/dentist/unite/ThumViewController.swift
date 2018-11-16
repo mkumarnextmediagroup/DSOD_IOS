@@ -470,7 +470,7 @@ extension ThumViewController {
     }
     
     fileprivate func configureNavBar() {
-        let appdelegate = UIApplication.shared.delegate as! AppDelegate
+//        let appdelegate = UIApplication.shared.delegate as! AppDelegate
         let menuBtnItem1=UIBarButtonItem(image: UIImage(named:"Content-Options"), style: .plain, target: self, action: #selector(openMenuSliderView))
         let fixedSpaceBarButtonItem=UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         let menuBtnItem2=UIBarButtonItem(image: UIImage(named:"More-Options"), style: .plain, target: self, action: #selector(openMenu))
@@ -601,9 +601,11 @@ extension ThumViewController {
     func uniteArchiveAction(indexpath: IndexPath) {
         if (self.modelarr?.count)! > indexpath.row {
             DentistDataBaseManager.share().archiveUnite(self.uniteid, completed: {(result:Bool) in
-                if result {
-                    self.navigationController?.popToRootViewController(animated: true)
-                }
+                foreTask({
+                    if result {
+                        self.onBack()
+                    }
+                })
 //                self.modelarr=array
 //                foreTask({
 //                    self.detailcollectionView!.modelarr=array

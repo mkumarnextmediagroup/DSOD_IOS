@@ -67,6 +67,7 @@ extension ThumViewController{
             
             self.modelarr=array
             foreTask({
+                self.detailcollectionView!.modelarr=array
                 self.collectionView?.reloadData()
             })
             
@@ -116,36 +117,6 @@ extension ThumViewController{
     
     
     @objc func shareUniteActicle() -> Void{
-//        NSString *urlstr=@"";
-//        NSString *title=[NSString stringWithFormat:@"%@",_articleInfo.title];
-//        NSString* type = _articleInfo.featuredMedia[@"type"];
-//        if([type isEqualToString:@"1"] ){
-//            //pic
-//            NSDictionary *codeDic = _articleInfo.featuredMedia[@"code"];
-//            urlstr = codeDic[@"thumbnailUrl"];
-//        }else{
-//            urlstr = _articleInfo.featuredMedia[@"code"];
-//        }
-//        NSString *someid=_articleInfo.id;
-//        if (![NSString isBlankString:urlstr]) {
-//            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//                NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
-//                UIImage *image = [UIImage imageWithData:data];
-//                if (image) {
-//                    NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
-//                    NSArray *activityItems = @[shareurl,title,image];
-//                    
-//                    UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
-//                    [self presentViewController:avc animated:YES completion:nil];
-//                }
-//                });
-//        }else{
-//            NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
-//            NSArray *activityItems = @[shareurl,title];
-//            
-//            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
-//            [self presentViewController:avc animated:YES completion:nil];
-//        }
         if(self.modelarr!.count>self.currentIndex) {
             let detailmodel:DetailModel=self.modelarr![self.currentIndex]
             var urlstr:String?
@@ -214,15 +185,15 @@ extension ThumViewController{
         popView?.fontColor = UIColor.black
         popView?.canTouchTabbar = true
     }
-        popView?.show()
     if(self.modelarr!.count>self.currentIndex) {
         let detailmodel:DetailModel=self.modelarr![self.currentIndex]
         if detailmodel.isBookmark == true {
-            popView!.updateIcon("bookmark-light", at: self.currentIndex)
+            popView!.updateIcon("bookmark-light", at: 0)
+        }else{
+            popView!.updateIcon("bookmark", at: 0)
         }
     }
-    
-    
+        popView?.show()
         //    WeakSelf
         popView!.dismissHandler({ isCanceled, row in
             if !isCanceled {
@@ -235,7 +206,37 @@ extension ThumViewController{
                 if (self.thumSelectMenu != nil) {
                     self.thumSelectMenu!(row)
                 }
-                if row==1 {
+                if row==0{
+                    if(self.modelarr!.count>self.currentIndex) {
+                        let detailmodel:DetailModel=self.modelarr![self.currentIndex]
+                        if(detailmodel.isBookmark==true) {
+                            DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
+                                if result == true {
+                                    detailmodel.isBookmark=false;
+                                    foreTask({
+                                        self.collectionView?.reloadData()
+                                        self.popView!.updateIcon("bookmark", at: 0)
+                                    })
+                                }
+                                
+                            })
+                        }else{
+                            DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 1, completed: { (result:Bool) in
+                                if result == true {
+                                    detailmodel.isBookmark=true;
+                                    foreTask({
+                                        self.collectionView?.reloadData()
+                                        self.popView!.updateIcon("bookmark-light", at: 0)
+                                    })
+                                    
+                                }
+                                
+                            })
+                        }
+                        
+                    }
+                }
+                else if row==1 {
 //                    let appdelegate = UIApplication.shared.delegate as! AppDelegate
 //                    appdelegate.onOpenMenuAnoSide(nil)
                     //[[SliderListView sharedInstance:self.view isSearch:YES magazineId:self.magazineModel._id] showSliderView];
@@ -283,27 +284,28 @@ extension ThumViewController{
         let r = CGFloat(0.0)
         let x = CGFloat(self.view.frame.size.width-w-r)
         let y = CGFloat(0.0)
-        if popView == nil {
-            popView=YHPopMenuView(frame: CGRect(x: x, y: y, width: w, height: h))
-            popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
-            popView?.itemNameArray = ["Bookmark", "Search", "Share", "Fullscreen", "Go to Bookmarks"]
-            popView?.itemH = itemH
-            popView?.fontSize = 16.0
-            popView?.fontColor = UIColor.black
-            popView?.canTouchTabbar = true
+        if popView2 == nil {
+            popView2=YHPopMenuView(frame: CGRect(x: x, y: y, width: w, height: h))
+            popView2?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
+            popView2?.itemNameArray = ["Bookmark", "Search", "Share", "Fullscreen", "Go to Bookmarks"]
+            popView2?.itemH = itemH
+            popView2?.fontSize = 16.0
+            popView2?.fontColor = UIColor.black
+            popView2?.canTouchTabbar = true
         }
-       
-        popView?.show()
         if(self.modelarr!.count>self.currentIndex) {
             let detailmodel:DetailModel=self.modelarr![self.currentIndex]
             if detailmodel.isBookmark == true {
-                popView!.updateIcon("bookmark-light", at: self.currentIndex)
+                popView2!.updateIcon("bookmark-light", at: 0)
             }else{
-                print("====")
+                popView2!.updateIcon("bookmark", at: 0)
             }
         }
+       
+        popView2?.show()
+        
         //    WeakSelf
-        popView!.dismissHandler({ isCanceled, row in
+        popView2!.dismissHandler({ isCanceled, row in
             if !isCanceled {
                 
                 if let delegateOK = self.delegate{
@@ -317,13 +319,31 @@ extension ThumViewController{
                 if row==0{
                     if(self.modelarr!.count>self.currentIndex) {
                         let detailmodel:DetailModel=self.modelarr![self.currentIndex]
-                        DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 1, completed: { (result:Bool) in
-                            if result == true {
-                                detailmodel.isBookmark=true;
-                                self.collectionView?.reloadData()
-                            }
-                            
-                        })
+                        if(detailmodel.isBookmark==true) {
+                            DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
+                                if result == true {
+                                    detailmodel.isBookmark=false;
+                                    foreTask({
+                                        self.collectionView?.reloadData()
+                                        self.popView2!.updateIcon("bookmark", at: 0)
+                                    })
+                                }
+                                
+                            })
+                        }else{
+                            DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 1, completed: { (result:Bool) in
+                                if result == true {
+                                    detailmodel.isBookmark=true;
+                                    foreTask({
+                                        self.collectionView?.reloadData()
+                                        self.popView2!.updateIcon("bookmark-light", at: 0)
+                                    })
+                                    
+                                }
+                                
+                            })
+                        }
+                        
                     }
                 }
                 else if row==1 {
@@ -360,11 +380,17 @@ extension ThumViewController{
     }
     // MARK: 详情页
     @objc func goToBookmarks(){
-        let thumvc :ThumViewController = ThumViewController()
-        thumvc.pageType = PageType.bookmark;
-        thumvc.modelarr = modelarr;
-        self.navigationController?.pushViewController(thumvc, animated: true)
-        
+//        let thumvc :ThumViewController = ThumViewController()
+//        thumvc.pageType = PageType.bookmark;
+//        self.navigationController?.pushViewController(thumvc, animated: true)
+        self.pageType = PageType.bookmark;
+        DentistDataBaseManager.share().queryUniteArticlesBookmarkCachesList { (array:Array<DetailModel>) in
+            self.modelarr=array
+            foreTask({
+                self.detailcollectionView!.modelarr=array
+                self.collectionView?.reloadData()
+            })
+        }
     }
     
     fileprivate func createDetailCollection(){
@@ -381,6 +407,10 @@ extension ThumViewController{
         detailView=detailcollectionView!.view!
         detailcollectionView!.scrollToDown={(offsety:CGFloat) in
             print("offsety1111======%f",offsety)
+            if self.modelarr!.count>self.detailcollectionView!.currentIndex {
+                self.collectionView!.scrollToItem(at: IndexPath(item: self.detailcollectionView!.currentIndex, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
+            }
+            
             if self.detailView!.isHidden==false {
                 self.pushToViewController3(offsety){
                     self.collectionView?.isHidden=false
@@ -389,6 +419,12 @@ extension ThumViewController{
                     self.showNavTitle(self.detailView?.isHidden)
                     self.isfull=false
                 }
+            }
+            
+        }
+        detailcollectionView!.didEndDecelerating={(index:NSInteger) in
+            if self.modelarr!.count>index {
+                self.collectionView!.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
             }
             
         }
@@ -470,6 +506,7 @@ extension ThumViewController {
             self.view.addSubview(self.detailView!)
             self.showNavTitle(self.detailView?.isHidden)
             self.isfull=true
+            self.detailcollectionView!.currentIndex = self.currentIndex
         }
     }
     
@@ -536,6 +573,8 @@ extension ThumViewController {
             self.view.addSubview(self.detailView!)
             self.showNavTitle(self.detailView?.isHidden)
             self.isfull=true
+            
+             self.detailcollectionView!.currentIndex = self.currentIndex
         }
 //        if cell.isOpened == false {
 //            cell.cellIsOpen(true)
@@ -565,5 +604,7 @@ extension ThumViewController {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         print("index=",self.currentIndex)
+        self.collectionView!.scrollToItem(at: IndexPath(item: self.currentIndex, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
     }
+    
 }

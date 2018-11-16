@@ -1434,9 +1434,10 @@
     if ([NSString isBlankString:coverthumbnailUrl]) {
         coverthumbnailUrl=@"";
     }
+    
     url=coverthumbnailUrl;
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId]){
-        [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"coverUrl": coverUrl,@"coverthumbnailUrl": coverthumbnailUrl,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"categoryName": categoryName,@"contentTypeName": contentTypeName} modular:@"cms" callback:^(HttpResult *r) {
+        [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"coverUrl": coverUrl,@"coverthumbnailUrl": coverthumbnailUrl,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"categoryName": categoryName,@"contentTypeName": contentTypeName,@"status": [NSNumber numberWithInt:1]} modular:@"cms" callback:^(HttpResult *r) {
             if (completed) {
                 completed(r.OK);
             }

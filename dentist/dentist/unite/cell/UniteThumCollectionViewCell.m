@@ -8,8 +8,19 @@
 
 #import "UniteThumCollectionViewCell.h"
 #import "Common.h"
-@interface UniteThumCollectionViewCell()<UIScrollViewDelegate
->
+@interface UniteThumCollectionViewCell()<UIScrollViewDelegate>{
+    
+    UIView *contentView;
+    UIView *lastView;
+    
+    UIImageView *imageView;
+    
+    DetailModel *detailModel;
+    
+    
+    CGFloat lastContentOffset;
+}
+
 @end
 @implementation UniteThumCollectionViewCell
 -(instancetype)initWithFrame:(CGRect)frame
@@ -21,20 +32,73 @@
         _scrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         _scrollView.delegate=self;
         [self addSubview:_scrollView];
-        _scrollView.contentSize=CGSizeMake(0, 10000);
-        _backgroundImageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _scrollView.frame.size.width, 1000*_scrollView.frame.size.width/747)];
-        [_scrollView addSubview:_backgroundImageView];
         [_scrollView setContentOffset:CGPointMake(0, 0)];
-        [_backgroundImageView setImage:[UIImage imageNamed:@"unitedetail1"]];
+        _scrollView.contentInset = UIEdgeInsetsMake(NAVHEIGHT, 0.0f, 0.0f, 0.0f);
+        
+        contentView = _scrollView.addView;
+        [contentView layoutFill];
+        [[contentView.layoutUpdate widthEq:frame.size.width] install];
+        
+        
+        [self buildView];
+        [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(lastView) install];
     }
     return self;
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+-(void)buildView{
+    imageView = contentView.addImageView;
+    [imageView scaleFillAspect];
+    imageView.clipsToBounds = YES;
+    [[[[[imageView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:SCREENWIDTH] install];
+    
+    
+    imageView.image = [UIImage imageNamed:@"unitedetail3"];
+    
+    
+    
+    lastView = imageView;
+}
+
+
+-(void)bind:(DetailModel*)model{
+    detailModel = model;
+    
+    
+    [[imageView.layoutUpdate heightEq:7970* SCREENWIDTH/750]install];
+    
+}
+
+
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if(self.delegate && [self.delegate respondsToSelector:@selector(UniteThumCollectionViewCellScroview:)]){
         [self.delegate UniteThumCollectionViewCellScroview:scrollView.contentOffset.y];
+        
+      
+        
+        
+        BOOL show = YES;
+        CGFloat newY= scrollView.contentOffset.y;
+        NSLog(@"newY:===%f", newY);
+        if (newY < 0) {
+            show = NO;
+        }else{
+            if (newY != lastContentOffset ) {
+                if (newY > lastContentOffset) { // scroll下滑...
+                    show = YES;
+                    
+                }else{  // scroll上滑...
+                    show = NO;
+                    
+                }
+                lastContentOffset = newY;   // 记录上一次的偏移量
+            }
+        }
+        
+       [self.delegate toggleNavBar:show];// 刷新状态栏的隐藏状态
     }
 }
+
 
 @end

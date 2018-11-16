@@ -36,6 +36,8 @@
 {
     // 状态改变通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadStateChange:) name:DentistUniteDownloadStateChangeNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(archiveChange:) name:DentistUniteArchiveChangeNotification object:nil];
 }
 
 - (void)downLoadStateChange:(NSNotification *)notification
@@ -48,6 +50,28 @@
             if ([downloadModel._id isEqualToString:model._id]) {
                 // 更新数据源
                 tempArr[idx] = downloadModel;
+                self->datas=[tempArr copy];
+                // 主线程刷新cell
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self->mTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                });
+                
+                *stop = YES;
+            }
+        }
+        
+    }];
+}
+
+-(void)archiveChange:(NSNotification *)notification{
+    NSString *uniteid=notification.object;
+    NSMutableArray *tempArr=[NSMutableArray arrayWithArray:self->datas];
+    [tempArr enumerateObjectsUsingBlock:^(NSObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass: [MagazineModel class]]) {
+            MagazineModel *model=(MagazineModel *)obj;
+            if ([uniteid isEqualToString:model._id]) {
+                // 更新数据源
+                model.downstatus=@"0";
                 self->datas=[tempArr copy];
                 // 主线程刷新cell
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -136,10 +160,10 @@
     
 }
 
-- (void)enterTeamCard:(UIButton *)btn
+- (void)enterTeamCard:(NSString *)modelid
 {
     ThumViewController *thumvc=[ThumViewController new];
-    thumvc.modelarr=self->datas;
+    thumvc.uniteid=modelid;
     [self.navigationController pushViewController:thumvc animated:YES];
     
 }
@@ -272,7 +296,6 @@
             }else if(row == 2){
                 ThumViewController *thumvc=[ThumViewController new];
                 thumvc.pageType = PageTypeBookmark;
-                thumvc.modelarr=self->datas;
                 [self.navigationController pushViewController:thumvc animated:YES];
             }
         }
@@ -316,17 +339,36 @@
         cell = [[UnitePageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
     cell.magazineModel = datas[indexPath.row];
-    cell.optonBtnOnClickListener = ^(UnitePageDownloadStatus status,MagazineModel *model){
+//    cell.optonBtnOnClickListener = ^(UnitePageDownloadStatus status,MagazineModel *model){
+//        switch (status) {
+//            case UPageDownloaded:
+//                //to detail page
+//                [self enterTeamCard:nil];
+//                break;
+//            case UPageNoDownload:
+//                //start download
+//                [self startUniteDownload];
+//                
+//            case UPageDownloading:{
+//                //to downloading page
+//                [self enterUniteDownloading:model];
+//                break;
+//            }
+//            default:
+//                break;
+//        }
+//    };
+    cell.optonBtnOnClickDownload = ^(NSInteger status, MagazineModel *model) {
         switch (status) {
-            case UPageDownloaded:
+            case 2:
                 //to detail page
-                [self enterTeamCard:nil];
+                [self enterTeamCard:model._id];
                 break;
-            case UPageNoDownload:
+            case 0:
                 //start download
                 [self startUniteDownload];
                 
-            case UPageDownloading:{
+            case 1:{
                 //to downloading page
                 [self enterUniteDownloading:model];
                 break;
@@ -340,7 +382,20 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self gotoThumView:indexPath.row];
+    if (self->datas.count>indexPath.row) {
+        MagazineModel *magazineModel=self->datas[indexPath.row];
+        [[DentistDataBaseManager shareManager] checkUniteStatus:magazineModel._id completed:^(NSInteger result) {
+            NSLog(@"======下载状态=%@",@(result));
+            foreTask(^{
+                if (result==2) {
+                    [self gotoThumView:indexPath.row];
+                }
+            });
+            
+        }];
+    }
+    
+    
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{

@@ -11,6 +11,7 @@
 #import "UniteThumCollectionViewCell.h"
 #import "CMSDetailViewController.h"
 #import "DetailModel.h"
+#import "dentist-Swift.h"
 
 static NSString * UniteThumidentifier = @"UniteThumCellID";
 @interface ThumAndDetailViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UniteThumCollectionViewCellDelegate>
@@ -102,6 +103,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 -(void)setCurrentIndex:(NSInteger)currentIndex
 {
     _currentIndex=currentIndex;
+    [self.collectionView reloadData];
     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
 }
 
@@ -152,10 +154,8 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
         [cell.backgroundImageView setImage:image3];
         cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 7970*cell.backgroundImageView.frame.size.width/750);
         cell.scrollView.contentSize =  CGSizeMake(0, image3.size.height);
-        
     }
     cell.backgroundImageView.contentMode=UIViewContentModeScaleToFill;
-    
     return cell;
 }
 

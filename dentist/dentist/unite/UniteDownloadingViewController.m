@@ -197,6 +197,7 @@
             WeakSelf
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 ThumViewController *thumvc=[ThumViewController new];
+                thumvc.uniteid=self->_magazineModel._id;
                 [weakSelf.navigationController pushViewController:thumvc animated:YES];
             });
         }else{

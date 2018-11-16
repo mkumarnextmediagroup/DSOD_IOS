@@ -23,6 +23,8 @@
 
 NSString * const DentistDownloadStateChangeNotification    = @"DentistDownloadStateChangeNotification";
 NSString * const DentistUniteDownloadStateChangeNotification = @"DentistUniteDownloadStateChangeNotification";
+NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveChangeNotification";
+
 @interface DentistDataBaseManager ()
 
 @property (nonatomic, strong) FMDatabaseQueue *dbQueue;
@@ -618,6 +620,10 @@ NSString * const DentistUniteDownloadStateChangeNotification = @"DentistUniteDow
                 NSLog(@"更新unite下载状态失败");
             }
         }];
+        if(result){
+            // 状态变更通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:DentistUniteArchiveChangeNotification object:uniteid];
+        }
         if (completed) {
             completed(result);
         }

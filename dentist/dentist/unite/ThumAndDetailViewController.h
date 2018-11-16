@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DetailModel.h"
 
 @class DetailModel;
 @protocol ThumAndDetailViewControllerDelegate <NSObject>
@@ -23,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) void(^scrollToDown)(CGFloat y);
 @property (nonatomic,copy) void(^didEndDecelerating)(NSInteger index);
 @property (nonatomic,weak) id<ThumAndDetailViewControllerDelegate> delegate;
+@property (nonatomic,weak) UINavigationController *navVC;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -415,6 +415,7 @@ extension ThumViewController{
 //        detailcollectionView?.view.frame=CGRect(x: 0, y: navBarHeight+stausBarHeight, width: self.view.frame.size.width, height: itemheight)
 //        self.addChild(detailcollectionView!)
         detailcollectionView!.delegate=self;
+        detailcollectionView!.navVC = self.navigationController;
         detailView=detailcollectionView!.view!
         detailcollectionView!.scrollToDown={(offsety:CGFloat) in
             print("offsety1111======%f",offsety)

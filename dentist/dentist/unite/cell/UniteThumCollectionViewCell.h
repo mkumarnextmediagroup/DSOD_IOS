@@ -7,21 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DetailModel.h"
 
 @protocol UniteThumCollectionViewCellDelegate <NSObject>
 
 @optional
 - (void)UniteThumCollectionViewCellScroview:(CGFloat)offsety;
+
+- (void)toggleNavBar:(BOOL)show;
 @end
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UniteThumCollectionViewCell : UICollectionViewCell
-@property (nonatomic,strong) UILabel *dateLabel;
-@property (nonatomic,strong) UILabel *titleLabel;
-@property (nonatomic,strong) UILabel *volLabel;
-@property (nonatomic,strong) UIImageView *backgroundImageView;
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,weak) id<UniteThumCollectionViewCellDelegate> delegate;
+
+-(void)bind:(DetailModel*)model;
+
 @end
 
 NS_ASSUME_NONNULL_END

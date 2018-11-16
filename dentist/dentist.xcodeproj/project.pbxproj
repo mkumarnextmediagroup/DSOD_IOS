@@ -237,6 +237,7 @@
 		A3729591219145F600B36409 /* UniteDetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A372958F219145F600B36409 /* UniteDetailCollectionViewCell.xib */; };
 		A3729597219284F500B36409 /* DentistDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3729596219284F500B36409 /* DentistDataBaseManager.m */; };
 		A372959A219293F500B36409 /* DetinstDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3729599219293F500B36409 /* DetinstDownloadManager.m */; };
+		A3739944219EBAE8004A5A94 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3739943219EBAE8004A5A94 /* Toast.swift */; };
 		A393E0B321955D06001881C2 /* sponsor_nobel_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B021955D05001881C2 /* sponsor_nobel_banner.png */; };
 		A393E0B421955D06001881C2 /* sponsor_gsk_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B121955D05001881C2 /* sponsor_gsk_banner.png */; };
 		A393E0B521955D06001881C2 /* sponsor_align_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B221955D06001881C2 /* sponsor_align_banner.png */; };
@@ -1037,6 +1038,7 @@
 		A3729596219284F500B36409 /* DentistDataBaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DentistDataBaseManager.m; sourceTree = "<group>"; };
 		A3729598219293F500B36409 /* DetinstDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetinstDownloadManager.h; sourceTree = "<group>"; };
 		A3729599219293F500B36409 /* DetinstDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetinstDownloadManager.m; sourceTree = "<group>"; };
+		A3739943219EBAE8004A5A94 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		A393E0B021955D05001881C2 /* sponsor_nobel_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_nobel_banner.png; sourceTree = "<group>"; };
 		A393E0B121955D05001881C2 /* sponsor_gsk_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_gsk_banner.png; sourceTree = "<group>"; };
 		A393E0B221955D06001881C2 /* sponsor_align_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_align_banner.png; sourceTree = "<group>"; };
@@ -1647,6 +1649,7 @@
 		18B83ACA2173557C00130DB6 /* library */ = {
 			isa = PBXGroup;
 			children = (
+				A3739942219EBAE8004A5A94 /* Toast */,
 				182A1180219BF5B400C0E08D /* GDataXMLNode */,
 				18106AAE218AF0AC00EEE2DC /* YHPopMenu */,
 				A3DF39832189A280006F84DC /* expanding-collection */,
@@ -2611,6 +2614,14 @@
 				A3729599219293F500B36409 /* DetinstDownloadManager.m */,
 			);
 			path = Download;
+			sourceTree = "<group>";
+		};
+		A3739942219EBAE8004A5A94 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				A3739943219EBAE8004A5A94 /* Toast.swift */,
+			);
+			path = Toast;
 			sourceTree = "<group>";
 		};
 		A3DF39832189A280006F84DC /* expanding-collection */ = {
@@ -3868,6 +3879,7 @@
 				189BCB84218C260E0003CA91 /* UniteDownloadingViewController.m in Sources */,
 				18DA49A121897C3A00DA2292 /* MagazineModel.m in Sources */,
 				C5EEA2375FBE0E853D04F130 /* ScrollPage.m in Sources */,
+				A3739944219EBAE8004A5A94 /* Toast.swift in Sources */,
 				C5EEAB1A147F6CA1BA5970E8 /* LinearPage.m in Sources */,
 				4E2FCD7C218DB0AA00D255A2 /* Author.m in Sources */,
 				C5EEAFAA5CA7261E636A22E7 /* GroupItem.m in Sources */,

@@ -140,9 +140,21 @@
 }
 
 -(void)optionBtnAction:(UIButton *)sender{
-    if(self.optonBtnOnClickListener){
-        self.optonBtnOnClickListener([self getUnitePageDownloadStatus], self.magazineModel);
+//    if(self.optonBtnOnClickListener){
+//        self.optonBtnOnClickListener([self getUnitePageDownloadStatus], self.magazineModel);
+//    }
+    if (_magazineModel) {
+        [[DentistDataBaseManager shareManager] checkUniteStatus:self->_magazineModel._id completed:^(NSInteger result) {
+            NSLog(@"======下载状态=%@",@(result));
+            foreTask(^{
+                if (self.optonBtnOnClickDownload) {
+                    self.optonBtnOnClickDownload(result, self->_magazineModel);
+                }
+            });
+            
+        }];
     }
+    
 }
 
 - (void)awakeFromNib {

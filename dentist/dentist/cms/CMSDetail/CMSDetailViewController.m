@@ -24,6 +24,7 @@
 #import "DetinstDownloadManager.h"
 #import "UIViewController+myextend.h"
 #import "BookmarkModel.h"
+#import "dentist-Swift.h"
 
 #define edge 15
 @interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource,MyActionSheetDelegate> {

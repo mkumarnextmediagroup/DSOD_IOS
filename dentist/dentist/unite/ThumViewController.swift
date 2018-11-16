@@ -19,7 +19,7 @@ import UIKit
 }
 
 @objc (ThumViewController)
-class ThumViewController: ExpandingViewController,ThumAndDetailViewControllerDelegate {
+class ThumViewController: ExpandingViewController,ThumAndDetailViewControllerDelegate,ThumCollectionViewCellDelegate {
     
     @objc weak var delegate:ThumViewControllerDelegate?
     typealias didSelectMenu = (_ index:NSInteger) ->Void
@@ -63,15 +63,26 @@ extension ThumViewController{
         showNavTitle(detailView?.isHidden)
         configDefaultMode()
         
-        DentistDataBaseManager.share().queryUniteArticlesCachesList(self.uniteid, completed: {(array:Array<DetailModel>) in
-            
-            self.modelarr=array
-            foreTask({
-                self.detailcollectionView!.modelarr=array
-                self.collectionView?.reloadData()
+        if(pageType == PageType.bookmark){
+            DentistDataBaseManager.share().queryUniteArticlesBookmarkCachesList { (array:Array<DetailModel>) in
+                self.modelarr=array
+                foreTask({
+                    self.detailcollectionView!.modelarr=array
+                    self.collectionView?.reloadData()
+                })
+            }
+        }else{
+            DentistDataBaseManager.share().queryUniteArticlesCachesList(self.uniteid, completed: {(array:Array<DetailModel>) in
+                
+                self.modelarr=array
+                foreTask({
+                    self.detailcollectionView!.modelarr=array
+                    self.collectionView?.reloadData()
+                })
+                
             })
-            
-        })
+        }
+        
     }
     
     func configDefaultMode(){
@@ -506,7 +517,8 @@ extension ThumViewController {
             self.view.addSubview(self.detailView!)
             self.showNavTitle(self.detailView?.isHidden)
             self.isfull=true
-            self.detailcollectionView!.currentIndex = self.currentIndex
+//            self.detailcollectionView!.currentIndex = self.currentIndex
+            
         }
     }
     
@@ -523,7 +535,8 @@ extension ThumViewController {
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         super.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
         guard let cell = cell as? ThumCollectionViewCell else { return }
-        
+        cell.selectIndexpath=indexPath
+        cell.delegate=self
         let index = indexPath.row % modelarr!.count
 //        let info = items[index]
         let newdetail:DetailModel! = modelarr?[index]
@@ -574,7 +587,7 @@ extension ThumViewController {
             self.showNavTitle(self.detailView?.isHidden)
             self.isfull=true
             
-             self.detailcollectionView!.currentIndex = self.currentIndex
+//             self.detailcollectionView!.currentIndex = self.currentIndex
         }
 //        if cell.isOpened == false {
 //            cell.cellIsOpen(true)
@@ -582,6 +595,23 @@ extension ThumViewController {
 //            pushToViewController(getViewController())
 //
 //        }
+    }
+    
+    func uniteArchiveAction(indexpath: IndexPath) {
+        if (self.modelarr?.count)! > indexpath.row {
+            DentistDataBaseManager.share().archiveUnite(self.uniteid, completed: {(result:Bool) in
+                if result {
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
+//                self.modelarr=array
+//                foreTask({
+//                    self.detailcollectionView!.modelarr=array
+//                    self.collectionView?.reloadData()
+//                })
+//
+            })
+            
+        }
     }
 }
 
@@ -604,7 +634,7 @@ extension ThumViewController {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         print("index=",self.currentIndex)
-        self.collectionView!.scrollToItem(at: IndexPath(item: self.currentIndex, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
+         self.detailcollectionView!.currentIndex = self.currentIndex
     }
     
 }

@@ -10,6 +10,7 @@
 extern NSString * const DentistDownloadStateChangeNotification;
 
 extern NSString * const DentistUniteDownloadStateChangeNotification;
+extern NSString * const DentistUniteArchiveChangeNotification;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 //MARK:更新杂志下载状态，downstatus==1收藏；0取消收藏
 -(void)updateUniteDownstatus:(NSString * _Nullable)uniteid downstatus:(NSInteger)downstatus completed:(void(^)(BOOL result))completed;
 //MARK:archive 删除下载的杂志文章 ，除了已收藏的杂志文章
--(void)archiveUnite:(NSString *)uniteid completed:(void(^)(BOOL result))completed;
+-(void)archiveUnite:(NSString *_Nullable)uniteid completed:(void(^)(BOOL result))completed;
 //MARK:根据杂志ID查询杂志文章列表
 -(void)queryUniteArticlesCachesList:(NSString * _Nullable)uniteid completed:(void(^)(NSArray<DetailModel *> *array))completed;
 //MARK:添加删除杂志文章方法，isbookmark==1收藏；0取消收藏
@@ -54,9 +55,9 @@ NS_ASSUME_NONNULL_BEGIN
 //MARK:获取已收藏的杂志文章列表
 -(void)queryUniteArticlesBookmarkCachesList:(void(^)(NSArray<DetailModel *> *array))completed;
 //MARK:根据keyword搜索文章
--(void)queryUniteArticlesCachesByKeywordList:(NSString *)uniteid keywords:(NSString *)keywords completed:(void(^)(NSArray<DetailModel *> *array))completed;
+-(void)queryUniteArticlesCachesByKeywordList:(NSString *_Nullable)uniteid keywords:(NSString *)keywords completed:(void(^)(NSArray<DetailModel *> *array))completed;
 //MARK:检查该杂志是否已经下载
--(void)checkUniteStatus:(NSString *)uniteid  completed:(void(^)(NSInteger result))completed;
+-(void)checkUniteStatus:(NSString *_Nullable)uniteid  completed:(void(^)(NSInteger result))completed;
 @end
 
 NS_ASSUME_NONNULL_END

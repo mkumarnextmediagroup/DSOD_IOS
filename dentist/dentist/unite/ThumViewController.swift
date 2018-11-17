@@ -78,6 +78,11 @@ extension ThumViewController{
                 foreTask({
                     self.detailcollectionView!.modelarr=array
                     self.collectionView?.reloadData()
+                    if self.modelarr!.count >= 1 {
+                        let model:DetailModel=self.modelarr![0];
+                        self.navigationItem.title=model.id
+                    }
+                    
                 })
                 
             })
@@ -435,7 +440,9 @@ extension ThumViewController{
             
         }
         detailcollectionView!.didEndDecelerating={(index:NSInteger) in
-            if self.modelarr!.count>index {
+            if self.modelarr!.count>=index+1 {
+                let model:DetailModel=self.modelarr![index];
+                self.navigationItem.title=model.id
                 self.collectionView!.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
             }
             

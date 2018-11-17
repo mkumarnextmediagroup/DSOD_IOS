@@ -52,6 +52,9 @@
         mywebView.delegate = self;
         mywebView.scrollView.delegate=self;
         mywebView.scrollView.scrollEnabled = YES;
+        mywebView.scrollView.showsVerticalScrollIndicator=NO;
+        mywebView.scrollView.showsHorizontalScrollIndicator=YES;
+        mywebView.backgroundColor=[UIColor clearColor];
         if (@available(iOS 11.0, *)) {
             //设置不自动偏移
             mywebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -61,6 +64,7 @@
         [mywebView.scrollView setContentOffset:CGPointMake(0, 0)];
         mywebView.scrollView.contentInset = UIEdgeInsetsMake(NAVHEIGHT, 0.0f, 0.0f, 0.0f);
         [self addSubview:mywebView];
+//        mywebView.frame=CGRectMake(0, 0, frame.size.width, frame.size.height);
         [[[[[mywebView.layoutMaker leftParent:10] rightParent:10] topParent:0] bottomParent:0] install];
     }
     return self;

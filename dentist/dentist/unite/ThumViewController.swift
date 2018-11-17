@@ -441,6 +441,7 @@ extension ThumViewController{
             
         }
         self.view.addSubview(detailView!)
+//        detailView!.layoutMaker.leftParent(0).rightParent(0).topParent(0).bottomParent(0).install()
     }
 }
 
@@ -587,7 +588,6 @@ extension ThumViewController {
             self.view.addSubview(self.detailView!)
             self.showNavTitle(self.detailView?.isHidden)
             self.isfull=true
-            
 //             self.detailcollectionView!.currentIndex = self.currentIndex
         }
 //        if cell.isOpened == false {

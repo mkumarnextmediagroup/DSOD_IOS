@@ -34,7 +34,12 @@
         [self addSubview:_scrollView];
         [_scrollView setContentOffset:CGPointMake(0, 0)];
         _scrollView.contentInset = UIEdgeInsetsMake(NAVHEIGHT, 0.0f, 0.0f, 0.0f);
-        
+        if (@available(iOS 11.0, *)) {
+            //设置不自动偏移
+            _scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            // Fallback on earlier versions
+        }
         contentView = _scrollView.addView;
         [contentView layoutFill];
         [[contentView.layoutUpdate widthEq:frame.size.width] install];

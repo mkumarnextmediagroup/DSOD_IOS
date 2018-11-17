@@ -112,11 +112,11 @@
 
 
 - (void)showLoading{
-//    [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
-//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-//    hud.bezelView.backgroundColor = argbHex(0xAA000000);
-//    hud.mode = MBProgressHUDModeIndeterminate;
+    [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:@[[MBProgressHUD class]]].color = [UIColor whiteColor];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    hud.bezelView.backgroundColor = argbHex(0xAA000000);
+    hud.mode = MBProgressHUDModeIndeterminate;
     
 }
 

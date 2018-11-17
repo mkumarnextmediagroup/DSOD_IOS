@@ -121,10 +121,13 @@
                         }
                         
                     }];
+                    
                 }
+                
                 dispatch_group_notify(dispatchGroup, dispatch_get_global_queue(0, 0), ^(){
                     //处理完成更新列表详细信息
                     if (arr.count==jsonarray.count) {
+                        
                         //下载完成更新下载状态
                         [[DentistDataBaseManager shareManager] insertUniteArticleArray:model jsonarray:jsonarray completed:^(BOOL result) {
                             self->_maxConcurrentCount--;

@@ -173,7 +173,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 
 -(void)UniteThumCollectionViewCellScroview:(CGFloat)offsety
 {
-    if (offsety<-80) {
+    if (offsety<-120) {
         //两种方式调用
         if (self.scrollToDown) {
             self.scrollToDown(offsety);

@@ -12,11 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SliderListView : UIView
 
+/*
+ * isSearch:YES is search page, NO is list Page
+ * magazineId
+ */
+
 + (instancetype)sharedInstance:(UIView *)view isSearch:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId;
 
 - (void)showSliderView;
-
-- (void)hideSliderView;
 
 @end
 

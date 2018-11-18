@@ -23,6 +23,7 @@
     NSArray     *searchArr;
     UIView      *sliderView;
     UIView      *backgroundVi;
+    BOOL        isShow;
 }
 
 @property BOOL isSearch;
@@ -53,25 +54,28 @@
 
 - (void)showSliderView
 {
-    [UIView animateWithDuration:.3 animations:^{
-        self->backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
-        self->sliderView.frame = CGRectMake(132, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
-    }];
-}
-
-- (void)hideSliderView
-{
-    [self->mSearch resignFirstResponder];
-    [UIView animateWithDuration:.3 animations:^{
+    if (!isShow) {
+        [UIView animateWithDuration:.3 animations:^{
+            self->backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+            self->sliderView.frame = CGRectMake(132, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+        }];
+        isShow = YES;
+    }else
+    {
         [self->mSearch resignFirstResponder];
-        self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
-    } completion:^(BOOL finished) {
-        self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
-    }];
+        [UIView animateWithDuration:.3 animations:^{
+            [self->mSearch resignFirstResponder];
+            self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+        } completion:^(BOOL finished) {
+            self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
+        }];
+        isShow = NO;
+    }
 }
 
 - (void)sigleTappedPickerView:(UIGestureRecognizer *)sender
 {
+    isShow = NO;
     [self->mSearch resignFirstResponder];
     [UIView animateWithDuration:.3 animations:^{
         self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);

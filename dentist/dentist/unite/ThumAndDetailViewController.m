@@ -115,7 +115,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 }
 
 -(void)openMenu:(UIButton *)btn{
-    
+    NSLog(@"%@",btn);
 }
 
 #pragma mark - deleDate

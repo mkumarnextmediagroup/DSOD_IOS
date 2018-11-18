@@ -20,6 +20,7 @@
 #import "EditExperiencePage.h"
 #import "IdName.h"
 #import "NSDate+myextend.h"
+#import "UploadResumeItemView.h"
 
 #import <AssetsLibrary/ALAsset.h>
 
@@ -32,7 +33,7 @@
 	EditUserView *userView;
 	TitleEditView *nameView;
 	TitleMsgArrowView *specView;
-	IconTitleMsgCell *resumeView;
+	UploadResumeItemView *resumeView;
 
 	NSMutableArray<IconTitleMsgDetailCell * > *expViews;
 	NSMutableArray<IconTitleMsgDetailCell * > *residencyViews;
@@ -102,10 +103,9 @@
 
 	[self addGroupTitle:@"Upload resume or import data"];
 
-	resumeView = [IconTitleMsgCell new];
-	resumeView.imageView.imageName = @"cloud";
-	resumeView.titleLabel.text = @"Upload Resume";
-	resumeView.msgLabel.text = @"Your professional information will be imported automatically.";
+	resumeView = [UploadResumeItemView new];
+    resumeView.vc = self;
+    [resumeView showNoResumeMode];
 	[self.contentView addSubview:resumeView];
 
 	[self addGrayLine:0 marginRight:0];
@@ -258,6 +258,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [[UINavigationBar appearance] setTintColor:UIColor.whiteColor];
 	[super viewWillAppear:animated];
 
 	[self bindData];

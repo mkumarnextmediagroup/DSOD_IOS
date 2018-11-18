@@ -478,7 +478,8 @@
                             ];
 
     
-    html = [html stringByReplacingOccurrencesOfString :@"pre" withString:@"blockquote"];
+    html = [html stringByReplacingOccurrencesOfString :@"<pre>" withString:@"<blockquote>"];
+    html = [html stringByReplacingOccurrencesOfString :@"</pre>" withString:@"</blockquote>"];
     html = [html stringByReplacingOccurrencesOfString :@"<p>&nbsp;</p>" withString:@""];
 //    html = [self htmlRemoveReferences:html];
     

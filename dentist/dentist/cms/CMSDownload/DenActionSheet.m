@@ -14,8 +14,8 @@
 #define labelTextColor [UIColor blackColor] // 文本的字体颜色
 #define labelHeight 50 // 每个按钮的高度
 
-#define titleFont [UIFont boldSystemFontOfSize:18] // 标题字体大小
-#define titleTextColor [UIColor redColor] // 标题颜色
+#define titleFont [Fonts regular:12] // 标题字体大小
+#define titleTextColor rgbHex(0x9b9b9b) // 标题颜色
 
 #define LastButtonDistans 10    // 与最后一个按钮的距离
 
@@ -106,7 +106,7 @@
         myLabel.textColor = labelTextColor;
         
         UILabel *line = [_parentView addLabel];
-        [[[[line.layoutMaker sizeEq:SCREENWIDTH h:1] topParent:i * labelHeight] leftParent:0] install];
+        [[[[line.layoutMaker sizeEq:SCREENWIDTH h:1] topParent:i * labelHeight] leftParent:self.linePaddingLeft] install];
         line.backgroundColor = Colors.cellLineColor;
         
         UIImageView *iconImg = [_parentView addImageView];

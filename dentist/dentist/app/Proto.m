@@ -19,6 +19,7 @@
 #import "MagazineModel.h"
 #import "UniteArticles.h"
 #import "DentistDataBaseManager.h"
+#import "HttpProgress.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -745,6 +746,7 @@
 
 + (NSString *)uploadHeaderImage:(NSString *)localFilePath {
     
+    NSLog(@"1-----------%@",localFilePath);
 	HttpResult *r = [self upload:@"photoUpload" localFilePath:localFilePath modular:@"profile"];
 	if (r.OK) {
 		//{"photoName":"5d7a4a76219e4c78b2b4656cf4bc80f2_test.png"}
@@ -755,6 +757,18 @@
 		return v;
 	}
 	return nil;
+}
+
++ (NSString *)uploadResume:(NSString *)localFilePath progress:(id<HttpProgress>)httpProgressSend{
+    HttpResult *r = [self upload:@"resumeUpload" localFilePath:localFilePath modular:@"profile" progress:httpProgressSend];
+    if (r.OK) {
+        id v = r.resultMap[@"resumeName"];
+        if (v == nil || v == NSNull.null) {
+            return nil;
+        }
+        return v;
+    }
+    return nil;
 }
 
 #pragma mark CMS Modular
@@ -1628,19 +1642,25 @@
 }
 
 + (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath modular:(NSString *)modular {
-	NSString *baseUrl = [self configUrl:modular];
-	Http *h = [Http new];
-	h.timeout = 20;
-	h.url = strBuild([self baseDomain],baseUrl, action);
+	return [Proto upload:action localFilePath:localFilePath modular:modular progress:nil];
+}
+
+
++ (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath modular:(NSString *)modular progress:(id<HttpProgress>)httpProgressSend{
+    NSString *baseUrl = [self configUrl:modular];
+    Http *h = [Http new];
+    h.progressSend = httpProgressSend;
+    h.timeout = 20;
+    h.url = strBuild([self baseDomain],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
-	NSString *token = [self lastToken];
-	if (token != nil) {
-		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
-	}
-	[h arg:@"client_id" value:@"fooClientIdPassword"];
-	[h file:@"file" value:localFilePath];
-	HttpResult *r = [h multipart];
-	return r;
+    NSString *token = [self lastToken];
+    if (token != nil) {
+        [h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+    }
+    [h arg:@"client_id" value:@"fooClientIdPassword"];
+    [h file:@"file" value:localFilePath];
+    HttpResult *r = [h multipart];
+    return r;
 }
 
 + (NSString *)configUrl:(NSString *)modular

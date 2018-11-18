@@ -15,6 +15,7 @@
 		182A11792199593C00C0E08D /* NSDate+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A11782199593C00C0E08D /* NSDate+customed.m */; };
 		182A1183219BF5D100C0E08D /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A1182219BF5D000C0E08D /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		182A1185219BF61F00C0E08D /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A1184219BF61F00C0E08D /* libxml2.tbd */; };
+		184AEF3821A131DC004BDFB7 /* UploadResumeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184AEF3721A131DC004BDFB7 /* UploadResumeItemView.m */; };
 		1866AFB121797DD300970CAB /* dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1866AFB021797DCE00970CAB /* dsodentist.png */; };
 		1866AFFE2179DF3900970CAB /* DentistTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866AFFD2179DF3900970CAB /* DentistTabView.m */; };
 		1866B0012179DFDA00970CAB /* TabCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */; };
@@ -697,6 +698,8 @@
 		182A1181219BF5D000C0E08D /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		182A1182219BF5D000C0E08D /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		182A1184219BF61F00C0E08D /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		184AEF3621A131DC004BDFB7 /* UploadResumeItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadResumeItemView.h; sourceTree = "<group>"; };
+		184AEF3721A131DC004BDFB7 /* UploadResumeItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadResumeItemView.m; sourceTree = "<group>"; };
 		1866AFB021797DCE00970CAB /* dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dsodentist.png; sourceTree = "<group>"; };
 		1866AFFC2179DF3900970CAB /* DentistTabView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DentistTabView.h; sourceTree = "<group>"; };
 		1866AFFD2179DF3900970CAB /* DentistTabView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DentistTabView.m; sourceTree = "<group>"; };
@@ -2060,6 +2063,8 @@
 			children = (
 				4E846F90213FFEB300DC2B51 /* EditWriteTableViewCell.h */,
 				4E846F91213FFEB300DC2B51 /* EditWriteTableViewCell.m */,
+				184AEF3621A131DC004BDFB7 /* UploadResumeItemView.h */,
+				184AEF3721A131DC004BDFB7 /* UploadResumeItemView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3862,6 +3867,7 @@
 				E11E1D7080357B77273743E7 /* ToastItem.m in Sources */,
 				E11E149516AB3BDA0856F691 /* Toast.m in Sources */,
 				C5EEAFE8EAD63945F8FEFE29 /* UserInfo.m in Sources */,
+				184AEF3821A131DC004BDFB7 /* UploadResumeItemView.m in Sources */,
 				C5EEAADD1628D0BD23430FFF /* Residency.m in Sources */,
 				C5EEA88EF87352A514933076 /* Education.m in Sources */,
 				4E85DA9121451D3B007C40C3 /* UploadData.m in Sources */,

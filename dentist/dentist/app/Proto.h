@@ -75,6 +75,8 @@
 
 + (NSString *_Nullable)uploadHeaderImage:(NSString *_Nullable)localFilePath;
 
++ (NSString *_Nullable)uploadResume:(NSString *)localFilePath progress:(id<HttpProgress>)httpProgressSend;
+
 + (NSMutableArray <IdName *> *_Nullable)querySpecialty;
 
 + (DetailModel *)queryForDetailPage:(NSString *)contentId;

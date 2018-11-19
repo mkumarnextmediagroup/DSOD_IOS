@@ -10,6 +10,7 @@ target 'dentist' do
     pod 'JSONModel', '1.7.0'
     pod 'MBProgressHUD', '~> 1.1.0'
     pod 'YYImage'
+    pod 'Toast', '~> 4.0.0'
 
     target 'dentistTests' do
         inherit! :search_paths

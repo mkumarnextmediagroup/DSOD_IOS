@@ -46,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)insertUniteArticleArray:(MagazineModel *)model jsonarray:(NSArray *)jsonarray completed:(void(^)(BOOL result))completed;
 //MARK:更新杂志下载状态，downstatus==1收藏；0取消收藏
 -(void)updateUniteDownstatus:(NSString * _Nullable)uniteid downstatus:(NSInteger)downstatus completed:(void(^)(BOOL result))completed;
+//MARK:获取已下载的杂志列表
+-(void)queryUniteDownloadedList:(void(^)(NSArray<MagazineModel *> *array))completed;
 //MARK:archive 删除下载的杂志文章 ，除了已收藏的杂志文章
 -(void)archiveUnite:(NSString *_Nullable)uniteid completed:(void(^)(BOOL result))completed;
 //MARK:根据杂志ID查询杂志文章列表

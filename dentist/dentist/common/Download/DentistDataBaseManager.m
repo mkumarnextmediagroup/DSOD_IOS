@@ -736,6 +736,43 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
     }
 }
 
+//MARK:获取已下载的杂志列表
+-(void)queryUniteDownloadedList:(void(^)(NSArray<MagazineModel *> *array))completed
+{
+    __block NSMutableArray *resultArray = [NSMutableArray array];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self->_dbQueue inDatabase:^(FMDatabase *db) {
+            FMResultSet *resultSet;
+            resultSet  = [db executeQuery:@"SELECT * FROM t_UniteCaches WHERE downstatus =2 order by downtime desc "];
+            while ([resultSet next]) {
+                NSString *_id=[resultSet objectForColumn:@"id"];
+                NSString *serial=[resultSet objectForColumn:@"serial"];
+                NSString *vol=[resultSet objectForColumn:@"vol"];
+                NSString *publishDate=[resultSet objectForColumn:@"publishDate"];
+                NSString *cover=[resultSet objectForColumn:@"cover"];
+                NSString *createUser=[resultSet objectForColumn:@"createUser"];
+                NSString *issue=[resultSet objectForColumn:@"issue"];
+                MagazineModel *item = [[MagazineModel alloc] init];
+                item._id=_id;
+                item.serial=serial;
+                item.vol=vol;
+                item.publishDate=publishDate;
+                item.cover=cover;
+                item.createUser=createUser;
+                item.issue=issue;
+                if (item) {
+                    [resultArray addObject:item];
+                }
+            }
+            
+        }];
+        if (completed) {
+            completed(resultArray);
+        }
+    });
+    
+}
+
 //MARK:根据杂志ID查询杂志文章列表
 -(void)queryUniteArticlesCachesList:(NSString *)uniteid completed:(void(^)(NSArray<DetailModel *> *array))completed
 {

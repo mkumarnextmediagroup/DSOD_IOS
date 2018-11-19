@@ -23,11 +23,13 @@
     NSArray     *searchArr;
     UIView      *sliderView;
     UIView      *backgroundVi;
+    
     BOOL        isShow;
 }
 
 @property BOOL isSearch;
 @property NSString *magazineId;
+@property UIView *fatherView;
 
 @end
 
@@ -35,8 +37,9 @@
 
 + (instancetype)sharedInstance:(UIView *)view isSearch:(BOOL)isSearch magazineId:(NSString *)magazineId
 {
-    
+
     static SliderListView *instance;
+    instance.fatherView = view;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[SliderListView alloc] init];
@@ -57,6 +60,8 @@
     if (!isShow) {
         self.hidden = NO;
         [UIView animateWithDuration:.3 animations:^{
+//            [self sendSubviewToBack:self.fatherView];
+            [self.fatherView sendSubviewToBack:self];
             self->backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
             self->sliderView.frame = CGRectMake(132, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
         }];
@@ -211,7 +216,7 @@
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    [[DentistDataBaseManager shareManager] queryUniteArticlesCachesByKeywordList:self.magazineId keywords:@"Interproximal Reduction (IPR)" completed:^(NSArray<DetailModel *> * _Nonnull array) {
+    [[DentistDataBaseManager shareManager] queryUniteArticlesCachesByKeywordList:self.magazineId keywords:searchBar.text completed:^(NSArray<DetailModel *> * _Nonnull array) {
         if (array) {
             self->searchArr = array;
             

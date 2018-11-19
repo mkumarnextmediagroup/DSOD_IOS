@@ -55,6 +55,7 @@
 - (void)showSliderView
 {
     if (!isShow) {
+        self.hidden = NO;
         [UIView animateWithDuration:.3 animations:^{
             self->backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
             self->sliderView.frame = CGRectMake(132, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
@@ -68,7 +69,7 @@
             self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
             self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
         } completion:^(BOOL finished) {
-            
+            self.hidden = YES;
         }];
         isShow = NO;
     }
@@ -82,7 +83,7 @@
         self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
         self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
     } completion:^(BOOL finished) {
-        
+        self.hidden = YES;
     }];
 }
 

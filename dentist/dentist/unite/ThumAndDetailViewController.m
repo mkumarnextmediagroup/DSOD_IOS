@@ -34,8 +34,6 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
         _bottomBarH = TABLEBAR_HEIGHT;
     }
     
-    
-    
     CGFloat collectheight=self.view.frame.size.height;
     
 //    [self setupNavigation];

@@ -551,15 +551,16 @@ extension ThumViewController {
         let newdetail:DetailModel! = modelarr?[index]
         let newmodel:MagazineModel! = newdetail.magazineModel
 //        cell.backgroundImageView?.image = UIImage(named: info.imageName)
-        cell.backgroundImageView.loadUrl(newmodel.cover, placeholderImage: "bg_1")
-        cell.backgroundImageView.contentMode = .scaleAspectFill
-        cell.backgroundImageView.clipsToBounds = true
+//        cell.backgroundImageView.loadUrl(newmodel.cover, placeholderImage: "bg_1")
+//        cell.backgroundImageView.contentMode = .scaleAspectFill
+//        cell.backgroundImageView.clipsToBounds = true
         cell.serialLabel.text=newmodel.serial
         cell.volIssueLabel.text=String(format: "%@ %@", newmodel.vol,newmodel.issue)
         cell.titleLabel.text="Practive Success in a New Wold" //newmodel.cover
-        cell.backTitleLabel.text="Practive Success in a New Wold" //newmodel.cover
-        cell.backAuthorLabel.text=String(format: "%@:%@", "author",newmodel.createUser)
-        cell.pushDataLabel.text=NSString.time(withTimeIntervalString: newmodel.publishDate)
+//        cell.backTitleLabel.text="Practive Success in a New Wold" //newmodel.cover
+//        cell.backAuthorLabel.text=String(format: "%@:%@", "author",newmodel.createUser)
+//        cell.pushDataLabel.text=NSString.time(withTimeIntervalString: newmodel.publishDate)
+        cell.htmlString(newdetail.content)
 //        cell.customTitle.text = info.title
         
 //        if (modelarr!.count > index)  {

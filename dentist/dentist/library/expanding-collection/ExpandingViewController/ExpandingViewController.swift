@@ -83,11 +83,11 @@ public extension ExpandingViewController {
 //        viewController.transitionDriver = transitionDriver
 //        let tabBarHeight = insets == true ? navigationController.navigationBar.frame.size.height : 0
 //        let stausBarHeight = insets == true ? UIApplication.shared.statusBarFrame.size.height : 0
-//        let backImage = getBackImage(viewController, headerHeight: viewController.headerHeight)
+        let backImage = getBackImage(self, headerHeight: self.view.frame.height)
         
         transitionDriver?.pushTransitionAnimationIndex2(currentIndex,
                                                        collecitionView: collectionView,
-                                                       backImage: nil,
+                                                       backImage: backImage,
                                                        headerHeight:0,
                                                        insets: 0) {_ in
                                                         completion()

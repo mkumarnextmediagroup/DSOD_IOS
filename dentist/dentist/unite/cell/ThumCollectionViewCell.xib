@@ -21,7 +21,7 @@
                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dB-mY-40i" userLabel="Back Container View">
                         <rect key="frame" x="0.0" y="0.0" width="256" height="335"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QgS-0X-9Dg">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QgS-0X-9Dg">
                                 <rect key="frame" x="10" y="278" width="236" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="PGb-Bb-foz"/>
@@ -30,7 +30,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdA-g1-DZ8">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdA-g1-DZ8">
                                 <rect key="frame" x="10" y="242" width="120" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ATO-4k-JPr"/>
@@ -40,7 +40,7 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5jd-Ij-UgF">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5jd-Ij-UgF">
                                 <rect key="frame" x="146" y="242" width="100" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Dmg-Qg-qQB"/>
@@ -72,18 +72,26 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xuP-hU-68M" userLabel="Background Image View">
                                 <rect key="frame" x="0.0" y="0.0" width="256" height="335"/>
                             </imageView>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FKn-ca-pgO">
+                                <rect key="frame" x="5" y="10" width="246" height="325"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="xuP-hU-68M" secondAttribute="bottom" id="8kG-ff-48N"/>
+                            <constraint firstItem="FKn-ca-pgO" firstAttribute="leading" secondItem="Ldk-4g-U35" secondAttribute="leading" constant="5" id="8kR-kk-BUd"/>
                             <constraint firstAttribute="trailing" secondItem="xuP-hU-68M" secondAttribute="trailing" id="9Aa-lF-5bz"/>
                             <constraint firstAttribute="bottom" secondItem="xuP-hU-68M" secondAttribute="bottom" id="9f3-OR-kN1"/>
                             <constraint firstItem="xuP-hU-68M" firstAttribute="top" secondItem="Ldk-4g-U35" secondAttribute="top" id="A8R-fg-r6Q"/>
                             <constraint firstItem="xuP-hU-68M" firstAttribute="leading" secondItem="Ldk-4g-U35" secondAttribute="leading" id="DGI-kP-oNo"/>
+                            <constraint firstItem="FKn-ca-pgO" firstAttribute="top" secondItem="Ldk-4g-U35" secondAttribute="top" constant="10" id="MSH-IK-7QO"/>
                             <constraint firstAttribute="height" constant="335" id="O3w-SC-xU8"/>
                             <constraint firstAttribute="width" constant="256" id="VgM-g6-kWt"/>
                             <constraint firstAttribute="trailing" secondItem="xuP-hU-68M" secondAttribute="trailing" id="W9p-Zp-O2x"/>
                             <constraint firstItem="xuP-hU-68M" firstAttribute="top" secondItem="Ldk-4g-U35" secondAttribute="top" id="b52-JX-pcE"/>
+                            <constraint firstAttribute="bottom" secondItem="FKn-ca-pgO" secondAttribute="bottom" id="bip-Gw-R8Q"/>
+                            <constraint firstAttribute="trailing" secondItem="FKn-ca-pgO" secondAttribute="trailing" constant="5" id="rcp-Mx-ZT0"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="August/september 2018" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ItZ-7a-rXf">
@@ -170,6 +178,7 @@
                 <outlet property="backgroundImageView" destination="xuP-hU-68M" id="61G-g9-amT"/>
                 <outlet property="frontConstraintY" destination="1BI-AL-bvZ" id="9v9-4A-wz4"/>
                 <outlet property="frontContainerView" destination="Ldk-4g-U35" id="vnC-RW-j58"/>
+                <outlet property="frontWebView" destination="FKn-ca-pgO" id="3Lh-JM-hB1"/>
                 <outlet property="pushDataLabel" destination="5jd-Ij-UgF" id="NUc-nu-jSU"/>
                 <outlet property="removeBookmarkButton" destination="dRW-Aj-Ju5" id="ec1-u4-6Dw"/>
                 <outlet property="serialLabel" destination="ItZ-7a-rXf" id="LwR-27-6pv"/>

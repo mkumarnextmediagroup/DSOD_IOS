@@ -66,8 +66,9 @@
         [UIView animateWithDuration:.3 animations:^{
             [self->mSearch resignFirstResponder];
             self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
-        } completion:^(BOOL finished) {
             self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
+        } completion:^(BOOL finished) {
+            
         }];
         isShow = NO;
     }
@@ -79,15 +80,16 @@
     [self->mSearch resignFirstResponder];
     [UIView animateWithDuration:.3 animations:^{
         self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
-    } completion:^(BOOL finished) {
         self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
+    } completion:^(BOOL finished) {
+        
     }];
 }
 
 - (void)initSliderView
 {
     backgroundVi = [self addView];
-    backgroundVi.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.01];
+    backgroundVi.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1];
     backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
 
     sliderView = [backgroundVi addView];

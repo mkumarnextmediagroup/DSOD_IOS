@@ -150,7 +150,7 @@
     if(self.magazineModel.cover){
         [coverImgView loadUrl:self.magazineModel.cover placeholderImage:@"bg_1"];
     }
-    publishDateLabel.text = [NSString timeWithTimeIntervalString:self.magazineModel.publishDate];
+    publishDateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:self.magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",self.magazineModel.vol?self.magazineModel.vol:@"", self.magazineModel.issue?self.magazineModel.issue:@""];
 
     sizeLabel.text = @"52 MB";

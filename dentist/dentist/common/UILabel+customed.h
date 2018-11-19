@@ -41,4 +41,6 @@
 - (void)itemTitleStyle;
 
 - (void)itemPrimaryStyle;
+
+- (void)onClick:(id)target action:(SEL)action;
 @end

@@ -119,4 +119,17 @@
 	self.font = [Fonts regular:15];
 	[self textColorBlack];
 }
+
+- (void)onClick:(id)target action:(SEL)action {
+    self.userInteractionEnabled = YES;
+    TapGesture *t = [[TapGesture alloc] initWithTarget:self action:@selector(_onClickLabel:)];
+    t.target = target;
+    t.action = action;
+    [self addGestureRecognizer:t];
+}
+
+- (void)_onClickLabel:(UITapGestureRecognizer *)recognizer {
+    TapGesture *t = (TapGesture *) recognizer;
+    objcSendMsg(t.target, t.action, t.view);
+}
 @end

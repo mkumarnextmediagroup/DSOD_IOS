@@ -759,16 +759,31 @@
 	return nil;
 }
 
-+ (NSString *)uploadResume:(NSString *)localFilePath progress:(id<HttpProgress>)httpProgressSend{
++ (HttpResult *)uploadResume:(NSString *)localFilePath progress:(id<HttpProgress>)httpProgressSend{
     HttpResult *r = [self upload:@"resumeUpload" localFilePath:localFilePath modular:@"profile" progress:httpProgressSend];
-    if (r.OK) {
-        id v = r.resultMap[@"resumeName"];
-        if (v == nil || v == NSNull.null) {
-            return nil;
-        }
-        return v;
-    }
+    return r;
+}
+
++(NSString *)downloadResumeByEmail:(NSString *)email
+{
+    
+    NSString *baseUrl = [self configUrl:@"profile"];
+    NSString *url=strBuild([self baseDomain],baseUrl, @"resumeDownload?Username=%@",email);
+
     return nil;
+   
+}
+
++(NSString *)getResumeUrlByObjectId:(NSString *)objectid
+{
+    if (![NSString isBlankString:objectid]) {
+        NSString *baseUrl = [self configUrl:@"cms"];
+        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=%@",objectid);
+        return url;
+    }else{
+        return nil;
+    }
+    
 }
 
 #pragma mark CMS Modular

@@ -60,7 +60,7 @@
     }
     coverImgView.contentMode=UIViewContentModeScaleAspectFill;
     coverImgView.clipsToBounds=YES;
-    publishDateLabel.text = [NSString timeWithTimeIntervalString:magazineModel.publishDate];
+    publishDateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",magazineModel.vol?magazineModel.vol:@"", magazineModel.issue?magazineModel.issue:@""];
     
     [self optionBtnDownloadStyle];

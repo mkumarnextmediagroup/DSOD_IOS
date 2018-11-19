@@ -309,8 +309,14 @@
     UINavigationItem *item = [self navigationItem];
     item.title = @"DOWNLOADED";
     if(datas.count>3){
-        datas = [NSArray arrayWithObjects:datas[1],datas[2],nil];
-        [mTableView reloadData];
+//        datas = [NSArray arrayWithObjects:datas[1],datas[2],nil];
+        [[DentistDataBaseManager shareManager] queryUniteDownloadedList:^(NSArray<MagazineModel *> * _Nonnull array) {
+            foreTask(^{
+                self->datas=[NSArray arrayWithArray:array];
+                [self->mTableView reloadData];
+            });
+        }];
+        
     }
 }
 

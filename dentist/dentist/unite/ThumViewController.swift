@@ -433,7 +433,7 @@ extension ThumViewController{
 //        self.addChild(detailcollectionView!)
         detailcollectionView!.delegate=self;
         detailcollectionView!.navVC = self.navigationController;
-        detailcollectionView!.magazineModel = self.magazineModel!
+        detailcollectionView!.magazineModel = self.magazineModel
         detailView=detailcollectionView!.view!
         detailcollectionView!.scrollToDown={(offsety:CGFloat) in
             print("offsety1111======%f",offsety)

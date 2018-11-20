@@ -11,6 +11,7 @@ import UIKit
 //  1. 定协议
 @objc protocol ThumCollectionViewCellDelegate {
     @objc optional func uniteArchiveAction(indexpath:IndexPath) -> ()
+    @objc optional func removeBookmarkAction(indexpath:IndexPath) -> ()
 }
 
 class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
@@ -82,6 +83,9 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
         delegate?.uniteArchiveAction?(indexpath:selectIndexpath)
     }
     
+    @IBAction func removeBookmarkAction(_ sender: Any) {
+        delegate?.removeBookmarkAction?(indexpath:selectIndexpath)
+    }
     @objc func htmlString(_ html:String){
         let newhtml=NSString.webHtmlString(html)
         frontWebView!.loadHTMLString(newhtml!, baseURL: nil)

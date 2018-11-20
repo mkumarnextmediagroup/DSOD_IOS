@@ -195,7 +195,7 @@ extension ThumViewController{
     if popView == nil {
         popView=YHPopMenuView(frame: CGRect(x: x, y: y, width: w, height: h))
         popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
-        popView?.itemNameArray = ["Bookmark", "Search", "Share", "Thumbanails", "Go to Bookmarks"]
+        popView?.itemNameArray = ["Bookmark", "Search", "Share", "Thumbnails", "Go to Bookmarks"]
         popView?.itemH = itemH
         popView?.fontSize = 16.0
         popView?.fontColor = UIColor.black
@@ -226,6 +226,9 @@ extension ThumViewController{
                     if(self.modelarr!.count>self.currentIndex) {
                         let detailmodel:DetailModel=self.modelarr![self.currentIndex]
                         if(detailmodel.isBookmark==true) {
+                            
+                            let toastview=DsoToast.toastView(forMessage: "Removing to bookmarks…", ishowActivity: true)
+                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
                             DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
                                 if result == true {
                                     detailmodel.isBookmark=false;
@@ -237,6 +240,8 @@ extension ThumViewController{
                                 
                             })
                         }else{
+                            let toastview=DsoToast.toastView(forMessage: "Saving to bookmarks…", ishowActivity: true)
+                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
                             DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 1, completed: { (result:Bool) in
                                 if result == true {
                                     detailmodel.isBookmark=true;
@@ -336,6 +341,8 @@ extension ThumViewController{
                     if(self.modelarr!.count>self.currentIndex) {
                         let detailmodel:DetailModel=self.modelarr![self.currentIndex]
                         if(detailmodel.isBookmark==true) {
+                            let toastview=DsoToast.toastView(forMessage: "Removing to bookmarks…", ishowActivity: true)
+                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
                             DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
                                 if result == true {
                                     detailmodel.isBookmark=false;
@@ -347,6 +354,8 @@ extension ThumViewController{
                                 
                             })
                         }else{
+                            let toastview=DsoToast.toastView(forMessage: "Saving to bookmarks…", ishowActivity: true)
+                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
                             DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 1, completed: { (result:Bool) in
                                 if result == true {
                                     detailmodel.isBookmark=true;
@@ -571,7 +580,7 @@ extension ThumViewController {
         if(pageType == PageType.bookmark){
             cell.ArchiiveButton.isHidden = true;
             cell.removeBookmarkButton.isHidden = false;
-            cell.removeBookmarkButton.addTarget(self, action: #selector(ThumViewController.removeBookmarkButtonOnclick(_:)), for: .touchUpInside)
+//            cell.removeBookmarkButton.addTarget(self, action: #selector(ThumViewController.removeBookmarkButtonOnclick(_:)), for: .touchUpInside)
         }else{
             cell.ArchiiveButton.isHidden = false;
             cell.removeBookmarkButton.isHidden = true;
@@ -581,8 +590,8 @@ extension ThumViewController {
     }
     
    @objc func removeBookmarkButtonOnclick(_ sender: UIButton){
-        self.modelarr!.remove(at: currentIndex);
-        collectionView?.deleteItems(at:[IndexPath(row: currentIndex , section: 0)])
+//        self.modelarr!.remove(at: currentIndex);
+//        collectionView?.deleteItems(at:[IndexPath(row: currentIndex , section: 0)])
 
     }
     
@@ -605,22 +614,53 @@ extension ThumViewController {
 //
 //        }
     }
-    
+    //MARK:archive
     func uniteArchiveAction(indexpath: IndexPath) {
-        if (self.modelarr?.count)! > indexpath.row {
-            DentistDataBaseManager.share().archiveUnite(self.uniteid, completed: {(result:Bool) in
-                foreTask({
-                    if result {
-                        self.onBack()
-                    }
+        if (self.modelarr?.count)! >= indexpath.row+1 {
+            let alert = UIAlertController(title:"Archive this issue?",message:"This will remove the content from your device.You will still be able to download this issue at a later date.",preferredStyle:UIAlertController.Style.alert)
+            
+            let cancelaction  = UIAlertAction(title:"Cancel",style:UIAlertAction.Style.cancel,handler:{(alerts:UIAlertAction) -> Void in
+                print("No,I'm not a student")})
+            let archiveaction = UIAlertAction(title:"Archive" ,style:UIAlertAction.Style.default,handler:{(alerts:UIAlertAction) -> Void in
+                DentistDataBaseManager.share().archiveUnite(self.uniteid, completed: {(result:Bool) in
+                    foreTask({
+                        if result {
+                            self.onBack()
+                        }
+                    })
                 })
-//                self.modelarr=array
-//                foreTask({
-//                    self.detailcollectionView!.modelarr=array
-//                    self.collectionView?.reloadData()
-//                })
-//
             })
+            alert.addAction(cancelaction)
+            alert.addAction(archiveaction)
+            
+            self.present(alert,animated: true,completion: nil)
+            
+        }
+    }
+    
+    func removeBookmarkAction(indexpath: IndexPath) {
+        if (self.modelarr?.count)! >= indexpath.row+1 {
+            let alert = UIAlertController(title:"Remove bookmark?",message:"This will remove this Bookmark Article from your Bookmarklist.You will still be able to bookmark this Article at a later date.",preferredStyle:UIAlertController.Style.alert)
+            
+            let cancelaction  = UIAlertAction(title:"Cancel",style:UIAlertAction.Style.cancel,handler:{(alerts:UIAlertAction) -> Void in
+                print("No,I'm not a student")})
+            let archiveaction = UIAlertAction(title:"Remove" ,style:UIAlertAction.Style.default,handler:{(alerts:UIAlertAction) -> Void in
+                let detailmodel:DetailModel=self.modelarr![indexpath.row]
+                DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
+                    if result == true {
+                        foreTask({
+                            self.modelarr!.remove(at: indexpath.row);
+                            self.collectionView?.deleteItems(at:[IndexPath(row: indexpath.row , section: 0)])
+                            self.collectionView?.reloadData()
+                        })
+                    }
+                    
+                })
+            })
+            alert.addAction(cancelaction)
+            alert.addAction(archiveaction)
+            
+            self.present(alert,animated: true,completion: nil)
             
         }
     }

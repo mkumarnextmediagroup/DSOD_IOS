@@ -316,7 +316,7 @@
 {
     if(_articleInfo.isBookmark){
         //删除
-        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Removing to bookmarks…" ishowActivity:YES];
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Remove from bookmarks……" ishowActivity:YES];
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:_articleInfo.id completed:^(BOOL result) {
             foreTask(^() {

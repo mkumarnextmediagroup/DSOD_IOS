@@ -39,11 +39,14 @@
 {
     headLabel = self.contentView.addLabel;
     headLabel.font = [Fonts regular:13];
-    [[[[[headLabel.layoutMaker leftParent:edge] rightParent:edge] heightEq:20] topParent:8] install];
+    headLabel.numberOfLines = 2;
+    headLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
+    [[[[[headLabel.layoutMaker leftParent:edge] rightParent:-edge] heightEq:40] topParent:8] install];
     
     subHeadLabel = self.contentView.addLabel;
     [subHeadLabel textColorMain];
     subHeadLabel.numberOfLines = 2;
+    subHeadLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
     subHeadLabel.font = [Fonts regular:13];
     [[[[subHeadLabel.layoutMaker leftParent:edge] sizeEq:SCREENWIDTH - 132 - edge *2 h:45] below:headLabel offset:2] install];
 }
@@ -59,6 +62,9 @@
     [super layoutSubviews];
     CGSize size = [subHeadLabel sizeThatFits:CGSizeMake(SCREENWIDTH - 132 - edge *2, 1000)];
     [[subHeadLabel.layoutUpdate heightEq:size.height] install];
+    
+    CGSize size2 = [headLabel sizeThatFits:CGSizeMake(SCREENWIDTH - 132 - edge *2, 1000)];
+    [[headLabel.layoutUpdate heightEq:size2.height] install];
 }
 
 @end

@@ -230,7 +230,7 @@ extension ThumViewController{
                         let detailmodel:DetailModel=self.modelarr![self.currentIndex]
                         if(detailmodel.isBookmark==true) {
                             
-                            let toastview=DsoToast.toastView(forMessage: "Removing to bookmarks…", ishowActivity: true)
+                            let toastview=DsoToast.toastView(forMessage: "Remove from bookmarks……", ishowActivity: true)
                             self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
                             DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
                                 if result == true {
@@ -344,7 +344,7 @@ extension ThumViewController{
                     if(self.modelarr!.count>self.currentIndex) {
                         let detailmodel:DetailModel=self.modelarr![self.currentIndex]
                         if(detailmodel.isBookmark==true) {
-                            let toastview=DsoToast.toastView(forMessage: "Removing to bookmarks…", ishowActivity: true)
+                            let toastview=DsoToast.toastView(forMessage: "Remove from bookmarks……", ishowActivity: true)
                             self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
                             DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
                                 if result == true {

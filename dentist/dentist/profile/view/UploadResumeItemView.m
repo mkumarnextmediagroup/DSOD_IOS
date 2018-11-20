@@ -30,9 +30,6 @@
     
     
     NSString *filePath;
-    NSString *resumeFileId;
-    
-    
     NSURL *fileURL;
 }
 
@@ -51,6 +48,7 @@
 
     return self;
 }
+
 
 - (void)showNoResumeMode{
     [self removeAllChildren];
@@ -83,6 +81,41 @@
     
     [titleLabel onClick:self action:@selector(uploadResume)];
     [msgLabel onClick:self action:@selector(uploadResume)];
+    
+}
+
+- (void)showLastResumeMode{
+    [self removeAllChildren];
+    
+    UIImageView *imageView = self.addImageView;
+    [imageView alignCenter];
+    imageView.imageName = @"cloud";
+    [[[[[imageView layoutMaker] sizeEq:48 h:48] leftParent:self.padding.left] centerYParent:0] install];
+    [imageView onClick:self action:@selector(uploadResume)];
+    
+    
+    
+    UIButton *viewBtn = self.addButton;
+    viewBtn.titleLabel.font = [Fonts regular:16];
+    [viewBtn setTitleColor:rgbHex(0x0e78b9) forState:UIControlStateNormal];
+    [viewBtn setTitle:@"View"  forState:UIControlStateNormal];
+    [[[[viewBtn.layoutMaker rightParent:-self.padding.right] centerYParent:0] sizeEq:55 h:48 ]install];
+    [viewBtn addTarget:self action:@selector(viewResume) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    UILabel *titleLabel = self.addLabel;
+    [titleLabel textColorMain];
+    titleLabel.font = [Fonts semiBold:14];
+    titleLabel.text = @"Upload Resume";
+    [[[[[[titleLabel layoutMaker] topParent:16] toRightOf:imageView offset:14] toLeftOf:viewBtn offset:-10] heightEq:20] install];
+    
+    UILabel *msgLabel = self.addLabel;
+    msgLabel.textColor = rgbHex(0x0e78b9);
+    msgLabel.font = [Fonts regular:12];
+    msgLabel.numberOfLines = 2;
+    msgLabel.text = [NSString stringWithFormat:@"Last upload time : %@",[NSDate USDateShortFormatWithStringTimestamp:[_lastResumeUrl substringFromIndex:_lastResumeUrl.length-13]]];
+    [[[[[[msgLabel layoutMaker] bottomParent:-16] toRightOf:imageView offset:14] toLeftOf:viewBtn offset:-10] heightGe:24] install];
+    
     
 }
 
@@ -134,7 +167,7 @@
     
 }
 
-- (void)showViewResumeMode{
+- (void)showPreviewResumeMode{
     [self removeAllChildren];
     
     UIImageView *imageView = self.addImageView;
@@ -194,6 +227,15 @@
     
 }
 
+- (void)setLastResumeUrl:(NSString *)lastResumeUrl{
+    _lastResumeUrl = lastResumeUrl;
+    if(lastResumeUrl){
+        [self showLastResumeMode];
+    }else{
+        [self showNoResumeMode];
+    }
+}
+
 -(void)uploadResume{
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:@"Upload Resume" cancelButton:nil imageArr:nil otherTitle:@"Browse",@"OneDrive", nil];
     denSheet.linePaddingLeft = 18;
@@ -202,19 +244,16 @@
 
 -(void)delResumeAction{
     fileURL = nil;
-    resumeFileId = nil;
     filePath = nil;
+    self.uploadedResumeName = nil;
     
     [self showNoResumeMode];
 }
 
--(void)previewSesume{
+-(void)viewResume{
     
-//    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"testing.doc"];
-//    NSLog(@"path-------%@",path);
-//    self->fileURL =  [NSURL fileURLWithPath:path];
-    
-    
+}
+-(void)previewResume{
     PreviewResumeViewController *vc = [PreviewResumeViewController new];
     vc.fileURL = self->fileURL;
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc] ;
@@ -248,6 +287,7 @@
     }
     return nil;
 }
+
 
 
 #pragma mark ---MyActionSheetDelegate
@@ -312,8 +352,8 @@
                 id name = result.resultMap[@"resumeName"];
                 if (result.OK && name != nil && name != NSNull.null) {
                     NSLog(@"--------%@",name);
-                    self->resumeFileId = [[(NSString*)name componentsSeparatedByString:@"_"] firstObject];
-                    [self showViewResumeMode];
+                    self.uploadedResumeName = name;
+                    [self showPreviewResumeMode];
                 }else{
                     [self.vc alertMsg:result.msg onOK:^{
                         [self showNoResumeMode];
@@ -338,21 +378,6 @@
     
     NSLog(@"onHttpProgress--%d",total);
     
-}
-
-
-#pragma mark - QLPreviewControllerDataSource
--(id<QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index {
-//    return self->fileURL;
-    NSString *path1 = @"file:///Users/apple/Library/Developer/CoreSimulator/Devices/A2EF1B64-C431-4BAB-9F9C-DA9670D613DC/data/Containers/Data/Application/E8333CEB-E890-43B9-BA84-33D1971A0556/Documents/testing.doc";
-    
-    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"testing.doc"];
-    NSLog(@"path-------%@",path);
-    return  [NSURL fileURLWithPath:path];
-}
-
-- (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)previewController{
-    return 1;
 }
 
 @end

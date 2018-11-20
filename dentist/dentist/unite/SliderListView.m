@@ -25,6 +25,7 @@
     NSArray     *searchArr;
     UIView      *sliderView;
     UIView      *backgroundVi;
+    NSMutableArray *resultArray;
     BOOL        isShow;
 }
 
@@ -121,17 +122,36 @@ static dispatch_once_t onceToken;
         [[[[[mTableView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:SCREENHEIGHT - NAVHEIGHT] install];
     }
     
-//    infoArr = [Proto uniteArticleDesc];
     [[DentistDataBaseManager shareManager] queryUniteArticlesCachesList:self.magazineId completed:^(NSArray<DetailModel *> * _Nonnull array) {
         if (array) {
             self->infoArr = array;
-            
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self->mSearch resignFirstResponder];
-                [self->mTableView reloadData];
-            });
+            [self sortGroupByArr];
         }
+    }];
+}
+
+
+- (void)sortGroupByArr
+{
+    // 获取array中所有index值
+    NSArray *indexArray = [infoArr valueForKey:@"categoryId"];
+    // 将array装换成NSSet类型
+    NSSet *indexSet = [NSSet setWithArray:indexArray];
+    // 新建array，用来存放分组后的array
+    resultArray = [NSMutableArray array];
+    // NSSet去重并遍历
+    [[indexSet allObjects] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        // 根据NSPredicate获取array
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"categoryId == %@",obj];
+        NSArray *indexArray = [self->infoArr filteredArrayUsingPredicate:predicate];
+        
+        // 将查询结果加入到resultArray中
+        [self->resultArray addObject:indexArray];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self->mSearch resignFirstResponder];
+            [self->mTableView reloadData];
+        });
+
     }];
 }
 
@@ -153,6 +173,7 @@ static dispatch_once_t onceToken;
     mTableView.delegate = self;
     mTableView.estimatedRowHeight = 600;
     mTableView.rowHeight = UITableViewAutomaticDimension;
+    mTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     mTableView.backgroundColor = [UIColor whiteColor];
     [sliderView addSubview:mTableView];
     
@@ -174,11 +195,16 @@ static dispatch_once_t onceToken;
         [[[[[line1.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:issueLabel offset:0] install];
         
         UIButton *headBtn = headerVi.addButton;
+        [headBtn setTitleColor:Colors.textMain forState:UIControlStateNormal];
 //        [headBtn setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
         [headBtn setTitle:@"IN THIS ISSUE" forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         headBtn.titleLabel.font = [Fonts regular:13];
         [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] below:line1 offset:0] install];
+        
+        UILabel *line2 = headerVi.addLabel;
+        line2.backgroundColor = [Colors cellLineColor];
+        [[[[[line2.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:headBtn offset:0] install];
         
     }else if(searchArr.count > 0)
     {
@@ -252,7 +278,7 @@ static dispatch_once_t onceToken;
     if (_isSearch) {
         return searchArr.count;
     }
-    return infoArr.count;
+    return resultArray.count;
 }
 
 //- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -271,7 +297,7 @@ static dispatch_once_t onceToken;
         [cell bindInfo:searchArr[indexPath.row]];
     }else
     {
-        [cell bindInfo:infoArr[indexPath.row]];
+        [cell bindInfo:resultArray[indexPath.row]];
     }
     return cell;
 }

@@ -195,7 +195,7 @@ extension ThumViewController{
     if popView == nil {
         popView=YHPopMenuView(frame: CGRect(x: x, y: y, width: w, height: h))
         popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
-        popView?.itemNameArray = ["Bookmark", "Search", "Share", "Thumbanails", "Go to Bookmarks"]
+        popView?.itemNameArray = ["Bookmark", "Search", "Share", "Thumbnails", "Go to Bookmarks"]
         popView?.itemH = itemH
         popView?.fontSize = 16.0
         popView?.fontColor = UIColor.black

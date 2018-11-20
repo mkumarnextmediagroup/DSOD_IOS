@@ -91,6 +91,7 @@
 -(void)startDownLoadUniteArticles:(MagazineModel *)model  addCompletion:(void(^)(BOOL result))addCompletion completed:(void(^)(BOOL result))completed
 {
     if (model && model._id) {
+        const char *downenConstChar=[[NSString stringWithFormat:@"unitedownevent_%@",model._id] UTF8String];
         self->_maxConcurrentCount++;
         [[DentistDataBaseManager shareManager] insertUniteModel:model completed:^(BOOL result) {
             //添加数据成功
@@ -108,23 +109,27 @@
                 for (int i=0; i<arr.count; i++) {
                     NSString *detailid=arr[i];
                     dispatch_group_enter(dispatchGroup);
-                    [Proto queryForDetailPage:detailid completed:^(BOOL result, NSString *jsontext) {
-                        if (result) {
-                            NSLog(@"====================获取article文章详情成功====================");
-                            if (jsontext) {
-                                [jsonarray addObject:jsontext];
+                    dispatch_group_async(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_CONCURRENT), ^{
+                        //请求
+                        [Proto queryForDetailPage:detailid completed:^(BOOL result, NSString *jsontext) {
+                            if (result) {
+                                NSLog(@"====================获取article文章详情成功====================");
+                                if (jsontext) {
+                                    [jsonarray addObject:jsontext];
+                                }
+                                dispatch_group_leave(dispatchGroup);
+                                
+                            }else{
+                                dispatch_group_leave(dispatchGroup);
                             }
-                            dispatch_group_leave(dispatchGroup);
                             
-                        }else{
-                            dispatch_group_leave(dispatchGroup);
-                        }
-                        
-                    }];
+                        }];
+                    });
+                    
                     
                 }
                 
-                dispatch_group_notify(dispatchGroup, dispatch_get_global_queue(0, 0), ^(){
+                dispatch_group_notify(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_CONCURRENT), ^(){
                     //处理完成更新列表详细信息
                     if (arr.count==jsonarray.count) {
                         

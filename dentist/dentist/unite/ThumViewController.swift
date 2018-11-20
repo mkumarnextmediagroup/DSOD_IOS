@@ -121,7 +121,7 @@ extension ThumViewController{
     func relaodMenuData(_ isfull:Bool?) -> Void {
         if isfull==true {
             popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
-            popView?.itemNameArray = ["Bookmark", "Search", "Share", "Thumbanails", "Go to Bookmarks"]
+            popView?.itemNameArray = ["Bookmark", "Search", "Share", "Thumbnails", "Go to Bookmarks"]
             popView?.reloadData()
         }else{
             popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]

@@ -14,7 +14,7 @@
 @optional
 - (void)UniteThumCollectionViewCellScroview:(CGFloat)offsety;
 
-- (void)toggleNavBar:(BOOL)show;
+- (void)hideNavBar:(BOOL)hide;
 @end
 NS_ASSUME_NONNULL_BEGIN
 

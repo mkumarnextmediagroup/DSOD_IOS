@@ -83,12 +83,14 @@ public extension ExpandingViewController {
 //        viewController.transitionDriver = transitionDriver
 //        let tabBarHeight = insets == true ? navigationController.navigationBar.frame.size.height : 0
 //        let stausBarHeight = insets == true ? UIApplication.shared.statusBarFrame.size.height : 0
-        let backImage = getBackImage(self, headerHeight: self.view.frame.height)
+        let cell : BasePageCollectionCell = collectionView.cellForItem(at: IndexPath(row: currentIndex, section: 0)) as! BasePageCollectionCell
+//        let backImage = getBackImagecell(cell, headerHeight: cell.frame.height)
+        let backImage = cell.asImage()
         
         transitionDriver?.pushTransitionAnimationIndex2(currentIndex,
                                                        collecitionView: collectionView,
                                                        backImage: backImage,
-                                                       headerHeight:0,
+                                                       headerHeight:itemSize.height,
                                                        insets: 0) {_ in
                                                         completion()
                                                         
@@ -139,6 +141,12 @@ extension ExpandingViewController {
         let imageSize = CGSize(width: viewController.view.bounds.width, height: viewController.view.bounds.height - headerHeight)
         let imageFrame = CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize)
         return viewController.view.takeSnapshot(imageFrame)
+    }
+    
+    fileprivate func getBackImagecell(_ cellview: UIView, headerHeight: CGFloat) -> UIImage? {
+        let imageSize = CGSize(width: cellview.bounds.width, height: cellview.bounds.height - headerHeight)
+        let imageFrame = CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize)
+        return cellview.takeSnapshot(imageFrame)
     }
 }
 

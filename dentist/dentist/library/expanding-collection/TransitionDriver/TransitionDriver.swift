@@ -103,11 +103,11 @@ extension TransitionDriver {
         cell.isHidden = true
         
         configurateCell(copyView, backImage: backImage)
-        backImageView = addImageToView(copyView.backContainerView, image: backImage)
+        backImageView = addImageToView(copyView.frontContainerView, image: backImage)
         
         openBackViewConfigureConstraints(copyView, height: headerHeight, insets: insets)
         openFrontViewConfigureConstraints(copyView, height: headerHeight, insets: insets)
-        
+
         // corner animation
         copyView.backContainerView.animationCornerRadius(0, duration: duration)
         copyView.frontContainerView.animationCornerRadius(0, duration: duration)
@@ -125,6 +125,7 @@ extension TransitionDriver {
             guard case let headerView as UIView = NSKeyedUnarchiver.unarchiveObject(with: data) else {
                 fatalError("must copy")
             }
+            self.backImageView?.alpha = 0
             completion(headerView)
         })
     }
@@ -179,8 +180,8 @@ extension TransitionDriver {
             
             self.view.layoutIfNeeded()
             self.backImageView?.alpha = 0
-            copyCell.shadowView?.alpha = 1
-            copyCell.backContainerView?.alpha=1
+            copyCell.shadowView?.alpha = 0
+            copyCell.backContainerView?.alpha=0
             copyCell.frontContainerView.subviewsForEach { if $0.tag == Constants.HideKey { $0.alpha = 1 } }
         }, completion: { _ in
             self.currentCell?.isHidden = false

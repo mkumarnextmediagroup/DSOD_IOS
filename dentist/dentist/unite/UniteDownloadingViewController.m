@@ -125,9 +125,9 @@
 
 - (void)rightBtnClick
 {
-//    [[SliderListView sharedInstance:YES magazineId:self.magazineModel._id] showSliderView];
-    SliderListView *sliderView = [[SliderListView alloc] initSliderView:YES magazineId:self.magazineModel._id];
-    [sliderView showSliderView];
+    [[SliderListView initSliderView:YES magazineId:self.magazineModel._id] showSliderView];
+//    SliderListView *sliderView = [[SliderListView alloc] initSliderView:YES magazineId:self.magazineModel._id];
+//    [sliderView showSliderView];
 }
 
 -(void)downloadBtnAction{
@@ -196,12 +196,12 @@
                 
             }];
            
-            WeakSelf
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                ThumViewController *thumvc=[ThumViewController new];
-                thumvc.uniteid=self->_magazineModel._id;
-                [weakSelf.navigationController pushViewController:thumvc animated:YES];
-            });
+//            WeakSelf
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                ThumViewController *thumvc=[ThumViewController new];
+//                thumvc.uniteid=self->_magazineModel._id;
+//                [weakSelf.navigationController pushViewController:thumvc animated:YES];
+//            });
         }else{
             NSLog(@"===============下载失败===============");
         }

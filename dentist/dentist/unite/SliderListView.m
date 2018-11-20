@@ -25,7 +25,6 @@
     NSArray     *searchArr;
     UIView      *sliderView;
     UIView      *backgroundVi;
-    SliderListView *instance;
     BOOL        isShow;
 }
 
@@ -36,10 +35,12 @@
 
 @implementation SliderListView
 
-- (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString *)magazineId
++ (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId
 {
-
-    if (!instance) {
+    static SliderListView *instance;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         instance = [[SliderListView alloc] init];
         instance.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.01];
         instance.isSearch = isSearch;
@@ -48,21 +49,18 @@
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         [window.rootViewController.view addSubview:instance];
         instance.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT);
-
-    }
+    });
     
     return instance;
 }
 
 - (void)showSliderView
 {
-    if (!isShow) {
-        self.hidden = NO;
+    if (sliderView.frame.origin.x == SCREENWIDTH) {
         [UIView animateWithDuration:.3 animations:^{
             self->backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
             self->sliderView.frame = CGRectMake(132, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
         }];
-        isShow = YES;
     }else
     {
         [self->mSearch resignFirstResponder];
@@ -71,22 +69,18 @@
             self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
             self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
         } completion:^(BOOL finished) {
-            self.hidden = YES;
             [self removeFromSuperview];
         }];
-        isShow = NO;
     }
 }
 
 - (void)sigleTappedPickerView:(UIGestureRecognizer *)sender
 {
-    isShow = NO;
     [self->mSearch resignFirstResponder];
     [UIView animateWithDuration:.3 animations:^{
         self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
         self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
     } completion:^(BOOL finished) {
-        self.hidden = YES;
         [self removeFromSuperview];
     }];
 }

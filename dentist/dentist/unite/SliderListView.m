@@ -150,8 +150,8 @@ static dispatch_once_t onceToken;
     mTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     mTableView.dataSource = self;
     mTableView.delegate = self;
+    mTableView.estimatedRowHeight = 600;
     mTableView.rowHeight = UITableViewAutomaticDimension;
-    mTableView.estimatedRowHeight = 100;
     mTableView.backgroundColor = [UIColor whiteColor];
     [sliderView addSubview:mTableView];
     
@@ -254,10 +254,10 @@ static dispatch_once_t onceToken;
     return infoArr.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    return UITableViewAutomaticDimension;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//    return UITableViewAutomaticDimension;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *cellIden = @"cell";

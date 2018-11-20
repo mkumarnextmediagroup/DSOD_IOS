@@ -19,7 +19,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     
     BOOL hiddenStatusBar;
     
-    NSArray *data;
+    NSArray *datas;
 }
 
 @property (nonatomic, strong) UICollectionView * collectionView;
@@ -74,9 +74,6 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     [[[[[_collectionView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
     
     // Do any additional setup after loading the view.
-    if(_currentIndex==0){
-        [self hideNavBar:YES];
-    }
 }
 
 
@@ -109,9 +106,11 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 {
     _modelarr=modelarr;
     
+
     NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithObjects:self.magazineModel, nil];
     [mutableArray addObjectsFromArray:_modelarr];
-    data = [mutableArray copy];
+    datas = [mutableArray copy];
+
     
     [self.collectionView reloadData];
 //    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
@@ -119,14 +118,23 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 
 -(void)setCurrentIndex:(NSInteger)currentIndex
 {
-    _currentIndex=currentIndex + 1;//跳过封面
+ 
+    if(self.magazineModel){
+        _currentIndex = currentIndex + 1 < datas.count ? currentIndex + 1 : _currentIndex;//跳过封面
+    }else {
+        _currentIndex=currentIndex;//没有封面
+    }
+    
     [self.collectionView reloadData];
     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
 }
 
 -(NSInteger)currentIndex{
-    
-    return _currentIndex-1;
+    if(self.magazineModel){
+        return _currentIndex-1 >=0 ? _currentIndex-1 : 0;//跳过封面
+    }else {
+        return _currentIndex;//没有封面
+    }
 }
 
 - (void)onBack:(UIButton *)btn {
@@ -147,7 +155,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 }
 //每个分组里有多少个item
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return data.count;
+    return datas.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -155,7 +163,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     //根据identifier从缓冲池里去出cell
     UniteThumCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:UniteThumidentifier forIndexPath:indexPath];
     cell.delegate=self;
-    [cell bind:data[indexPath.row]];
+    [cell bind:datas[indexPath.row]];
     
     return cell;
 }

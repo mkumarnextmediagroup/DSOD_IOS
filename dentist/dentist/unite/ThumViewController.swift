@@ -57,13 +57,13 @@ extension ThumViewController{
         registerCell()
         fillCellIsOpenArray()
         addGesture(to: collectionView!)
-        configureNavBar()
         collectionView?.isHidden = true
         createDetailCollection()
         showNavTitle(detailView?.isHidden)
         configDefaultMode()
-        
+        configureNavBar()
         if(pageType == PageType.bookmark){
+            self.navigationItem.rightBarButtonItems=nil
             DentistDataBaseManager.share().queryUniteArticlesBookmarkCachesList { (array:Array<DetailModel>) in
                 self.modelarr=array
                 foreTask({
@@ -412,6 +412,7 @@ extension ThumViewController{
         DentistDataBaseManager.share().queryUniteArticlesBookmarkCachesList { (array:Array<DetailModel>) in
             self.modelarr=array
             foreTask({
+                self.navigationItem.rightBarButtonItems=nil
                 self.detailcollectionView!.modelarr=array
                 self.collectionView?.reloadData()
             })
@@ -488,11 +489,14 @@ extension ThumViewController {
     
     fileprivate func configureNavBar() {
 //        let appdelegate = UIApplication.shared.delegate as! AppDelegate
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"back_arrow"), style: .plain, target: self, action: #selector(self.onBack))
+        rightNavBar()
+    }
+    
+    func rightNavBar(){
         let menuBtnItem1=UIBarButtonItem(image: UIImage(named:"Content-Options"), style: .plain, target: self, action: #selector(openMenuSliderView))
         let fixedSpaceBarButtonItem=UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         let menuBtnItem2=UIBarButtonItem(image: UIImage(named:"More-Options"), style: .plain, target: self, action: #selector(openMenu))
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"back_arrow"), style: .plain, target: self, action: #selector(self.onBack))
         navigationItem.rightBarButtonItems=[menuBtnItem2, fixedSpaceBarButtonItem, menuBtnItem1]
     }
     @objc func onBack(){

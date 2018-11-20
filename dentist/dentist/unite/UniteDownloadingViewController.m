@@ -142,7 +142,7 @@
 //    downloadBtn.hidden = NO;
 //    downloadingBtn.hidden = YES;
 //    cancelBtn.hidden = YES;
-    
+    [[DetinstDownloadManager shareManager] cancelDownloadUnite:self.magazineModel];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

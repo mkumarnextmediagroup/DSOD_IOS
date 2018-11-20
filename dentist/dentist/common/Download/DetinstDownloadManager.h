@@ -13,9 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 @class CMSModel;
 @class MagazineModel;
 @interface DetinstDownloadManager : NSObject
+@property (nonatomic,strong) NSMutableArray *cancelUniteArray;
 + (instancetype)shareManager;
 -(void)startDownLoadCMSModel:(CMSModel *)cmsmodel addCompletion:(void(^)(BOOL result))addCompletion completed:(void(^)(BOOL result))completed;
 -(void)startDownLoadUniteArticles:(MagazineModel *)model  addCompletion:(void(^)(BOOL result))addCompletion completed:(void(^)(BOOL result))completed;
+
+-(void)cancelDownloadUnite:(MagazineModel *)model;
 @end
 
 NS_ASSUME_NONNULL_END

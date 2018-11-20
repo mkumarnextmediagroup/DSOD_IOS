@@ -42,6 +42,7 @@
         // 初始化
         _currentCount = 0;
         _maxConcurrentCount=5;
+        _cancelUniteArray=[NSMutableArray array];
     }
     
     return self;
@@ -110,48 +111,83 @@
                     NSString *detailid=arr[i];
                     dispatch_group_enter(dispatchGroup);
                     dispatch_group_async(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_SERIAL), ^{
-                        //请求
-                        [Proto queryForDetailPage:detailid completed:^(BOOL result, NSString *jsontext) {
-                            if (result) {
-                                NSLog(@"====================获取article文章详情成功====================");
-                                if (jsontext) {
-                                    [jsonarray addObject:jsontext];
-                                }
-                                dispatch_group_leave(dispatchGroup);
-                                
-                            }else{
-                                dispatch_group_leave(dispatchGroup);
+                        BOOL iscancel = NO;
+                        if (self.cancelUniteArray && self.cancelUniteArray.count>0) {
+                            if ([self.cancelUniteArray containsObject:model._id]) {
+                                iscancel=YES;
+                               
                             }
-                            
-                        }];
+                        }
+                        if (iscancel) {
+                             dispatch_group_leave(dispatchGroup);
+                        }else{
+                            //请求
+                            [Proto queryForDetailPage:detailid completed:^(BOOL result, NSString *jsontext) {
+                                if (result) {
+                                    NSLog(@"====================获取article文章详情成功====================");
+                                    if (jsontext) {
+                                        [jsonarray addObject:jsontext];
+                                    }
+                                    dispatch_group_leave(dispatchGroup);
+                                    
+                                }else{
+                                    dispatch_group_leave(dispatchGroup);
+                                }
+                                
+                            }];
+                        }
+                        
                     });
                     
                     
                 }
                 
                 dispatch_group_notify(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_SERIAL), ^(){
-                    //处理完成更新列表详细信息
-                    if (arr.count==jsonarray.count) {
-                        
-                        //下载完成更新下载状态
-                        [[DentistDataBaseManager shareManager] insertUniteArticleArray:model jsonarray:jsonarray completed:^(BOOL result) {
-                            self->_maxConcurrentCount--;
-                            if(completed){
-                                completed(YES);
-                            }
-                        }];
-                        
-                    }else{
-                        self->_maxConcurrentCount--;
-                        //下载失败
+                    BOOL iscancel = NO;
+                    if (self.cancelUniteArray && self.cancelUniteArray.count>0) {
+                        if ([self.cancelUniteArray containsObject:model._id]) {
+                            iscancel=YES;
+                            
+                        }
+                    }
+                    if (iscancel) {
+                        [self.cancelUniteArray removeObject:model._id];
                         if(completed){
                             completed(NO);
                         }
+                    }else{
+                        //处理完成更新列表详细信息
+                        if (arr.count==jsonarray.count) {
+                            
+                            //下载完成更新下载状态
+                            [[DentistDataBaseManager shareManager] insertUniteArticleArray:model jsonarray:jsonarray completed:^(BOOL result) {
+                                self->_maxConcurrentCount--;
+                                if(completed){
+                                    completed(YES);
+                                }
+                            }];
+                            
+                        }else{
+                            self->_maxConcurrentCount--;
+                            //下载失败
+                            if(completed){
+                                completed(NO);
+                            }
+                        }
                     }
+                    
                 });
                 
             }
         }];
+    }
+}
+
+-(void)cancelDownloadUnite:(MagazineModel *)model
+{
+    if (![_cancelUniteArray containsObject:model._id]) {
+        [_cancelUniteArray addObject:model._id];
+        
     }
 }
 

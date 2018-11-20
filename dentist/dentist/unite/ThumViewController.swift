@@ -169,7 +169,7 @@ extension ThumViewController{
     }
     
     @objc func openSliderView(search:Bool) -> Void {
-        SliderListView.sharedInstance(self.view, isSearch: search, magazineId: self.uniteid).showSliderView()
+//        SliderListView.sharedInstance(search, magazineId: self.uniteid).showSliderView()
     }
     
     @objc func openMenu(){

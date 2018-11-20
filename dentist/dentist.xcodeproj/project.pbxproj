@@ -141,6 +141,7 @@
 		4E23E08A2152A97B00EDCE08 /* DiscussTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23E0892152A97B00EDCE08 /* DiscussTableViewCell.m */; };
 		4E23E08D215325AE00EDCE08 /* DiscussInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23E08C215325AE00EDCE08 /* DiscussInfo.m */; };
 		4E23E6CD214B99DA00D61C90 /* DenCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E23E6CC214B99DA00D61C90 /* DenCamera.m */; };
+		4E2A4FAB21A3E70C0049E1F2 /* UITableView+JRTableViewPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A4FA921A3E70C0049E1F2 /* UITableView+JRTableViewPlaceHolder.m */; };
 		4E2EF4FC215D0D4B00676A4E /* DenActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2EF4F9215D0D4900676A4E /* DenActionSheet.m */; };
 		4E2EF503215E1BF000676A4E /* downLoadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2EF501215E1BF000676A4E /* downLoadIcon@2x.png */; };
 		4E2EF504215E1BF000676A4E /* downLoadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E2EF502215E1BF000676A4E /* downLoadIcon@3x.png */; };
@@ -903,6 +904,8 @@
 		4E23E08C215325AE00EDCE08 /* DiscussInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscussInfo.m; sourceTree = "<group>"; };
 		4E23E6CB214B99DA00D61C90 /* DenCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenCamera.h; sourceTree = "<group>"; };
 		4E23E6CC214B99DA00D61C90 /* DenCamera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DenCamera.m; sourceTree = "<group>"; };
+		4E2A4FA921A3E70C0049E1F2 /* UITableView+JRTableViewPlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+JRTableViewPlaceHolder.m"; sourceTree = "<group>"; };
+		4E2A4FAA21A3E70C0049E1F2 /* UITableView+JRTableViewPlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+JRTableViewPlaceHolder.h"; sourceTree = "<group>"; };
 		4E2EF4F9215D0D4900676A4E /* DenActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DenActionSheet.m; sourceTree = "<group>"; };
 		4E2EF4FA215D0D4900676A4E /* DenActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DenActionSheet.h; sourceTree = "<group>"; };
 		4E2EF501215E1BF000676A4E /* downLoadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downLoadIcon@2x.png"; sourceTree = "<group>"; };
@@ -2914,6 +2917,8 @@
 				182A11782199593C00C0E08D /* NSDate+customed.m */,
 				4EBE5ECC219A81F000BFD01E /* UIView+gesture.h */,
 				4EBE5ECD219A81F100BFD01E /* UIView+gesture.m */,
+				4E2A4FAA21A3E70C0049E1F2 /* UITableView+JRTableViewPlaceHolder.h */,
+				4E2A4FA921A3E70C0049E1F2 /* UITableView+JRTableViewPlaceHolder.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -3742,6 +3747,7 @@
 				4E846F73213E781100DC2B51 /* CommSelectTableViewCell.m in Sources */,
 				4E528AD3216DF9E5008C151B /* SBControlView.m in Sources */,
 				18B83B1B2173557D00130DB6 /* YBVideoBrowseCellData.m in Sources */,
+				4E2A4FAB21A3E70C0049E1F2 /* UITableView+JRTableViewPlaceHolder.m in Sources */,
 				4E1957482137D0F100420563 /* LinkedInServiceManager.m in Sources */,
 				C5EEAB1B08FE088DAFBA7763 /* Fonts.m in Sources */,
 				C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */,

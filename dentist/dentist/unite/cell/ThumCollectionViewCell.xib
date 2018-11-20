@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -69,9 +69,6 @@
                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldk-4g-U35" userLabel="Front Container View">
                         <rect key="frame" x="0.0" y="0.0" width="256" height="335"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xuP-hU-68M" userLabel="Background Image View">
-                                <rect key="frame" x="0.0" y="0.0" width="256" height="335"/>
-                            </imageView>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FKn-ca-pgO">
                                 <rect key="frame" x="5" y="10" width="246" height="325"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -79,17 +76,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="xuP-hU-68M" secondAttribute="bottom" id="8kG-ff-48N"/>
                             <constraint firstItem="FKn-ca-pgO" firstAttribute="leading" secondItem="Ldk-4g-U35" secondAttribute="leading" constant="5" id="8kR-kk-BUd"/>
-                            <constraint firstAttribute="trailing" secondItem="xuP-hU-68M" secondAttribute="trailing" id="9Aa-lF-5bz"/>
-                            <constraint firstAttribute="bottom" secondItem="xuP-hU-68M" secondAttribute="bottom" id="9f3-OR-kN1"/>
-                            <constraint firstItem="xuP-hU-68M" firstAttribute="top" secondItem="Ldk-4g-U35" secondAttribute="top" id="A8R-fg-r6Q"/>
-                            <constraint firstItem="xuP-hU-68M" firstAttribute="leading" secondItem="Ldk-4g-U35" secondAttribute="leading" id="DGI-kP-oNo"/>
                             <constraint firstItem="FKn-ca-pgO" firstAttribute="top" secondItem="Ldk-4g-U35" secondAttribute="top" constant="10" id="MSH-IK-7QO"/>
                             <constraint firstAttribute="height" constant="335" id="O3w-SC-xU8"/>
                             <constraint firstAttribute="width" constant="256" id="VgM-g6-kWt"/>
-                            <constraint firstAttribute="trailing" secondItem="xuP-hU-68M" secondAttribute="trailing" id="W9p-Zp-O2x"/>
-                            <constraint firstItem="xuP-hU-68M" firstAttribute="top" secondItem="Ldk-4g-U35" secondAttribute="top" id="b52-JX-pcE"/>
                             <constraint firstAttribute="bottom" secondItem="FKn-ca-pgO" secondAttribute="bottom" id="bip-Gw-R8Q"/>
                             <constraint firstAttribute="trailing" secondItem="FKn-ca-pgO" secondAttribute="trailing" constant="5" id="rcp-Mx-ZT0"/>
                         </constraints>
@@ -178,7 +168,6 @@
                 <outlet property="backConstraintY" destination="GBn-5e-U7W" id="JoA-K2-PCn"/>
                 <outlet property="backContainerView" destination="3dB-mY-40i" id="prb-w3-f2e"/>
                 <outlet property="backTitleLabel" destination="QgS-0X-9Dg" id="3s9-VO-b33"/>
-                <outlet property="backgroundImageView" destination="xuP-hU-68M" id="61G-g9-amT"/>
                 <outlet property="frontConstraintY" destination="1BI-AL-bvZ" id="9v9-4A-wz4"/>
                 <outlet property="frontContainerView" destination="Ldk-4g-U35" id="vnC-RW-j58"/>
                 <outlet property="frontWebView" destination="FKn-ca-pgO" id="3Lh-JM-hB1"/>

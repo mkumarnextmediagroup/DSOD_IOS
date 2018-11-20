@@ -182,7 +182,7 @@
     downloadingBtn.hidden = NO;
     cancelBtn.hidden = NO;
     //添加几条模拟文章ID数据
-    _magazineModel.articles=@[@"5bed09ec367a358ae0e74c39",@"5bed09ed367a358ae0e74c40",@"5bed09ee367a358ae0e74c47"];
+//    _magazineModel.articles=@[@"5bf423ca3a066d36800e92d2",@"5bf423ec3a066d36800e93ae",@"5bf4256e3a066d36800e9565"];
     [[DetinstDownloadManager shareManager] startDownLoadUniteArticles:_magazineModel addCompletion:^(BOOL result) {
         
     } completed:^(BOOL result) {

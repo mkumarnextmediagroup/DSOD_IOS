@@ -110,7 +110,7 @@
                 for (int i=0; i<arr.count; i++) {
                     NSString *detailid=arr[i];
                     dispatch_group_enter(dispatchGroup);
-                    dispatch_group_async(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_SERIAL), ^{
+                    dispatch_group_async(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_CONCURRENT), ^{
                         BOOL iscancel = NO;
                         if (self.cancelUniteArray && self.cancelUniteArray.count>0) {
                             if ([self.cancelUniteArray containsObject:model._id]) {
@@ -142,7 +142,7 @@
                     
                 }
                 
-                dispatch_group_notify(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_SERIAL), ^(){
+                dispatch_group_notify(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_CONCURRENT), ^(){
                     BOOL iscancel = NO;
                     if (self.cancelUniteArray && self.cancelUniteArray.count>0) {
                         if ([self.cancelUniteArray containsObject:model._id]) {

@@ -35,14 +35,14 @@
 
 @implementation SliderListView
 
+static SliderListView *instance;
+static dispatch_once_t onceToken;
+
 + (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId
 {
-    static SliderListView *instance;
-    
-    static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[SliderListView alloc] init];
-        instance.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.01];
+        instance.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0];
         instance.isSearch = isSearch;
         instance.magazineId = magazineId;
         [instance initSliderView];
@@ -52,6 +52,11 @@
     });
     
     return instance;
+}
+
++(void)attemptDealloc{
+    instance = nil;
+    onceToken = 0;
 }
 
 - (void)showSliderView
@@ -70,6 +75,7 @@
             self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
         } completion:^(BOOL finished) {
             [self removeFromSuperview];
+            [SliderListView attemptDealloc];
         }];
     }
 }
@@ -82,13 +88,14 @@
         self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
+        [SliderListView attemptDealloc];
     }];
 }
 
 - (void)initSliderView
 {
     backgroundVi = [self addView];
-    backgroundVi.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1];
+    backgroundVi.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0];
     backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
 
     sliderView = [backgroundVi addView];
@@ -165,21 +172,12 @@
         line1.backgroundColor = [Colors cellLineColor];
         [[[[[line1.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:issueLabel offset:0] install];
         
-        UILabel *editLabel = headerVi.addLabel;
-        editLabel.text = @"From the editor";
-        editLabel.font = [Fonts regular:14];
-        [[[[[editLabel.layoutMaker leftParent:30] rightParent:30] heightEq:42] below:line1 offset:0] install];
-        
-        UILabel *line2 = headerVi.addLabel;
-        line2.backgroundColor = [Colors cellLineColor];
-        [[[[[line2.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:editLabel offset:0] install];
-        
         UIButton *headBtn = headerVi.addButton;
         [headBtn setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
         [headBtn setTitle:@"in this Issue" forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         headBtn.titleLabel.font = [Fonts regular:13];
-        [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] below:line2 offset:0] install];
+        [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] below:line1 offset:0] install];
         
     }else if(searchArr.count > 0)
     {
@@ -239,7 +237,7 @@
         return 42;
     }else
     {
-        return 125;
+        return 84;
     }
     return 0;
 }

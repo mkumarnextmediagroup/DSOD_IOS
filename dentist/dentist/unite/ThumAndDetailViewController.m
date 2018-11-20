@@ -18,11 +18,17 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 @interface ThumAndDetailViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UniteThumCollectionViewCellDelegate>{
     
     BOOL hiddenStatusBar;
+    
+    NSArray *data;
 }
+
 @property (nonatomic, strong) UICollectionView * collectionView;
 @end
 
 @implementation ThumAndDetailViewController
+
+@synthesize currentIndex = _currentIndex ;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -68,7 +74,11 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     [[[[[_collectionView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
     
     // Do any additional setup after loading the view.
+    if(_currentIndex==0){
+        [self hideNavBar:YES];
+    }
 }
+
 
 -(void)setupNavigation{
     UINavigationItem *item = [self navigationItem];
@@ -98,18 +108,29 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 -(void)setModelarr:(NSArray<DetailModel *> *)modelarr
 {
     _modelarr=modelarr;
+    
+    NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithObjects:self.magazineModel, nil];
+    [mutableArray addObjectsFromArray:_modelarr];
+    data = [mutableArray copy];
+    
     [self.collectionView reloadData];
 //    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
 }
 
 -(void)setCurrentIndex:(NSInteger)currentIndex
 {
-    _currentIndex=currentIndex;
+    _currentIndex=currentIndex + 1;//跳过封面
     [self.collectionView reloadData];
     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
 }
 
+-(NSInteger)currentIndex{
+    
+    return _currentIndex-1;
+}
+
 - (void)onBack:(UIButton *)btn {
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -126,7 +147,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 }
 //每个分组里有多少个item
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.modelarr.count;
+    return data.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -134,34 +155,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     //根据identifier从缓冲池里去出cell
     UniteThumCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:UniteThumidentifier forIndexPath:indexPath];
     cell.delegate=self;
-    [cell bind:self.modelarr[indexPath.row]];
-    
-//    cell.backgroundColor=[UIColor clearColor];
-//    cell.delegate=self;
-//    if (indexPath.row==0) {
-//        UIImage *image1=[UIImage imageNamed:@"unitedetail1"];
-//        [cell.backgroundImageView setImage:image1];
-//        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 1000*cell.backgroundImageView.frame.size.width/747);
-//        cell.scrollView.contentSize =  CGSizeMake(0, image1.size.height);
-//    }else if (indexPath.row==1){
-//        UIImage *image2=[UIImage imageNamed:@"unitedetail2"];
-//        [cell.backgroundImageView setImage:image2];
-//        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 16130*cell.backgroundImageView.frame.size.width/750);
-//        cell.scrollView.contentSize =  CGSizeMake(0, image2.size.height);
-//
-//
-//        CMSDetailViewController *vc = [CMSDetailViewController new];
-//        vc.contentId = @"5be5df7f5a71b7249c07e064";
-//
-//        [cell.scrollView addSubview:vc.view];
-//    }else{
-//        UIImage *image3=[UIImage imageNamed:@"unitedetail3"];
-//        [cell.backgroundImageView setImage:image3];
-//        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 7970*cell.backgroundImageView.frame.size.width/750);
-//        cell.scrollView.contentSize =  CGSizeMake(0, image3.size.height);
-//
-//    }
-//    cell.backgroundImageView.contentMode=UIViewContentModeScaleToFill;
+    [cell bind:data[indexPath.row]];
     
     return cell;
 }
@@ -184,11 +178,9 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 }
 
 
-- (void)toggleNavBar:(BOOL)show{
-    int ty = show ? 0 : -NAVHEIGHT;
-    hiddenStatusBar = show;
-//    self.navVC.navigationBar.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, 0.f,ty);
-    [self.navVC setNavigationBarHidden:show animated:YES];
+- (void)hideNavBar:(BOOL)hide{
+    hiddenStatusBar = hide;
+    [self.navVC setNavigationBarHidden:hide animated:YES];
     [self setNeedsStatusBarAppearanceUpdate];
     
 }
@@ -211,6 +203,10 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     _currentIndex=row;
     if (self.didEndDecelerating) {
         self.didEndDecelerating(_currentIndex);
+    }
+    
+    if(_currentIndex==0){
+        [self hideNavBar:YES];
     }
 }
 

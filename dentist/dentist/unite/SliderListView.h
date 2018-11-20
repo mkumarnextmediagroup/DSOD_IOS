@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  * magazineId
  */
 
-+ (instancetype)sharedInstance:(UIView *)view isSearch:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId;
+- (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString *)magazineId;
 
 - (void)showSliderView;
 

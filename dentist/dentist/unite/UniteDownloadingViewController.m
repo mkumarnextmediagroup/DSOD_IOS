@@ -125,7 +125,9 @@
 
 - (void)rightBtnClick
 {
-    [[SliderListView sharedInstance:self.view isSearch:YES magazineId:self.magazineModel._id] showSliderView];
+//    [[SliderListView sharedInstance:YES magazineId:self.magazineModel._id] showSliderView];
+    SliderListView *sliderView = [[SliderListView alloc] initSliderView:YES magazineId:self.magazineModel._id];
+    [sliderView showSliderView];
 }
 
 -(void)downloadBtnAction{

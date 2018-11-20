@@ -14,6 +14,8 @@
 #import "UIView+gesture.h"
 #import "DentistDataBaseManager.h"
 #import "DetailModel.h"
+#import "AppDelegate.h"
+#import "UITableView+JRTableViewPlaceHolder.h"
 
 @interface SliderListView()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UIGestureRecognizerDelegate>
 {
@@ -23,34 +25,31 @@
     NSArray     *searchArr;
     UIView      *sliderView;
     UIView      *backgroundVi;
-    
+    SliderListView *instance;
     BOOL        isShow;
 }
 
 @property BOOL isSearch;
 @property NSString *magazineId;
-@property UIView *fatherView;
 
 @end
 
 @implementation SliderListView
 
-+ (instancetype)sharedInstance:(UIView *)view isSearch:(BOOL)isSearch magazineId:(NSString *)magazineId
+- (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString *)magazineId
 {
 
-    static SliderListView *instance;
-    instance.fatherView = view;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    if (!instance) {
         instance = [[SliderListView alloc] init];
         instance.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.01];
         instance.isSearch = isSearch;
         instance.magazineId = magazineId;
         [instance initSliderView];
-        [view addSubview:instance];
-        instance.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
-        
-    });
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        [window.rootViewController.view addSubview:instance];
+        instance.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT);
+
+    }
     
     return instance;
 }
@@ -60,8 +59,6 @@
     if (!isShow) {
         self.hidden = NO;
         [UIView animateWithDuration:.3 animations:^{
-//            [self sendSubviewToBack:self.fatherView];
-            [self.fatherView sendSubviewToBack:self];
             self->backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
             self->sliderView.frame = CGRectMake(132, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
         }];
@@ -75,6 +72,7 @@
             self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
         } completion:^(BOOL finished) {
             self.hidden = YES;
+            [self removeFromSuperview];
         }];
         isShow = NO;
     }
@@ -89,6 +87,7 @@
         self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
     } completion:^(BOOL finished) {
         self.hidden = YES;
+        [self removeFromSuperview];
     }];
 }
 
@@ -109,19 +108,16 @@
     [guestView addGestureRecognizer:singleTap];
     singleTap.delegate = self;
     
-    UIView *navVi = [self makeNavView];
-    [[[[[navVi.layoutMaker leftParent:0] topParent:0] rightParent:0] heightEq:NAVHEIGHT] install];
-    
     if (_isSearch) {//show the search page
         [self createSearchBar];
-        [[[[mSearch.layoutMaker leftParent:8] below:navVi offset:8] sizeEq:SCREENWIDTH - 132 - 8 h:40] install];
+        [[[[mSearch.layoutMaker leftParent:8] topParent:0] sizeEq:SCREENWIDTH - 132 - 8 h:40] install];
         
         [self createTableview];
         [[[[[mTableView.layoutMaker leftParent:0] rightParent:0] below:mSearch offset:10] sizeEq:SCREENWIDTH - 132 h:SCREENHEIGHT - NAVHEIGHT-30] install];
     }else
     {
         [self createTableview];
-        [[[[[mTableView.layoutMaker leftParent:0] rightParent:0] below:navVi offset:0] heightEq:SCREENHEIGHT - NAVHEIGHT] install];
+        [[[[[mTableView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:SCREENHEIGHT - NAVHEIGHT] install];
     }
     
 //    infoArr = [Proto uniteArticleDesc];
@@ -158,13 +154,6 @@
     mTableView.backgroundColor = [UIColor whiteColor];
     [sliderView addSubview:mTableView];
     
-}
-
-- (UIView *)makeNavView
-{
-    UIView *vi = [self addView];
-    vi.backgroundColor = Colors.bgNavBarColor;
-    return vi;
 }
 
 - (UIView *)headerView{
@@ -212,6 +201,23 @@
     return headerVi;
 }
 
+- (void)createEmptyNotice
+{
+    [mTableView jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
+        UIView *headerVi = [UIView new];
+        headerVi.backgroundColor = [UIColor whiteColor];
+        UIButton *headBtn = headerVi.addButton;
+        [headBtn setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
+        [headBtn setTitle:[NSString stringWithFormat:@"%lu RESULTS FOUND",(unsigned long)self->searchArr.count] forState:UIControlStateNormal];
+        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        headBtn.titleLabel.font = [Fonts regular:13];
+        [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] topParent:0] install];
+        return headerVi;
+    } normalBlock:^(UITableView * _Nonnull sender) {
+        [self->mTableView setScrollEnabled:YES];
+    }];
+}
+
 #pragma mark UISearchBarDelegate
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -219,7 +225,9 @@
     [[DentistDataBaseManager shareManager] queryUniteArticlesCachesByKeywordList:self.magazineId keywords:searchBar.text completed:^(NSArray<DetailModel *> * _Nonnull array) {
         if (array) {
             self->searchArr = array;
-            
+            if (self->searchArr.count == 0) {
+                [self createEmptyNotice];
+            }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self->mSearch resignFirstResponder];
                 [self->mTableView reloadData];

@@ -127,14 +127,7 @@
 }
 
 -(UnitePageDownloadStatus)getUnitePageDownloadStatus{
-    //TODO state of judgment
-    //        5bd7ff462676fdc2e88b5496  5bd800192676fdc2e88b5498
-    //TODO False data
-    if([_magazineModel._id isEqualToString:@"5bd7ff462676fdc2e88b5496"]
-       || [_magazineModel._id isEqualToString:@"5bd800192676fdc2e88b5498"]){
-        return UPageDownloaded;
-    }
-    
+  
     
     return UPageNoDownload;
 }

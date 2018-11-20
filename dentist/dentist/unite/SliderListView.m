@@ -126,6 +126,7 @@ static dispatch_once_t onceToken;
         if (array) {
             self->infoArr = array;
             
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self->mSearch resignFirstResponder];
                 [self->mTableView reloadData];
@@ -173,8 +174,8 @@ static dispatch_once_t onceToken;
         [[[[[line1.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:issueLabel offset:0] install];
         
         UIButton *headBtn = headerVi.addButton;
-        [headBtn setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
-        [headBtn setTitle:@"in this Issue" forState:UIControlStateNormal];
+//        [headBtn setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
+        [headBtn setTitle:@"IN THIS ISSUE" forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         headBtn.titleLabel.font = [Fonts regular:13];
         [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] below:line1 offset:0] install];

@@ -12,6 +12,7 @@
 #import "CMSDetailViewController.h"
 #import "DetailModel.h"
 #import "dentist-Swift.h"
+#import "DsoToast.h"
 
 static NSString * UniteThumidentifier = @"UniteThumCellID";
 @interface ThumAndDetailViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UniteThumCollectionViewCellDelegate>{

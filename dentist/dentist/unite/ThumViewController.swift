@@ -580,7 +580,7 @@ extension ThumViewController {
         if(pageType == PageType.bookmark){
             cell.ArchiiveButton.isHidden = true;
             cell.removeBookmarkButton.isHidden = false;
-            cell.removeBookmarkButton.addTarget(self, action: #selector(ThumViewController.removeBookmarkButtonOnclick(_:)), for: .touchUpInside)
+//            cell.removeBookmarkButton.addTarget(self, action: #selector(ThumViewController.removeBookmarkButtonOnclick(_:)), for: .touchUpInside)
         }else{
             cell.ArchiiveButton.isHidden = false;
             cell.removeBookmarkButton.isHidden = true;
@@ -590,8 +590,8 @@ extension ThumViewController {
     }
     
    @objc func removeBookmarkButtonOnclick(_ sender: UIButton){
-        self.modelarr!.remove(at: currentIndex);
-        collectionView?.deleteItems(at:[IndexPath(row: currentIndex , section: 0)])
+//        self.modelarr!.remove(at: currentIndex);
+//        collectionView?.deleteItems(at:[IndexPath(row: currentIndex , section: 0)])
 
     }
     
@@ -628,6 +628,33 @@ extension ThumViewController {
                             self.onBack()
                         }
                     })
+                })
+            })
+            alert.addAction(cancelaction)
+            alert.addAction(archiveaction)
+            
+            self.present(alert,animated: true,completion: nil)
+            
+        }
+    }
+    
+    func removeBookmarkAction(indexpath: IndexPath) {
+        if (self.modelarr?.count)! >= indexpath.row+1 {
+            let alert = UIAlertController(title:"Remove bookmark?",message:"This will remove this Bookmark Article from your Bookmarklist.You will still be able to bookmark this Article at a later date.",preferredStyle:UIAlertController.Style.alert)
+            
+            let cancelaction  = UIAlertAction(title:"Cancel",style:UIAlertAction.Style.cancel,handler:{(alerts:UIAlertAction) -> Void in
+                print("No,I'm not a student")})
+            let archiveaction = UIAlertAction(title:"Remove" ,style:UIAlertAction.Style.default,handler:{(alerts:UIAlertAction) -> Void in
+                let detailmodel:DetailModel=self.modelarr![indexpath.row]
+                DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
+                    if result == true {
+                        foreTask({
+                            self.modelarr!.remove(at: indexpath.row);
+                            self.collectionView?.deleteItems(at:[IndexPath(row: indexpath.row , section: 0)])
+                            self.collectionView?.reloadData()
+                        })
+                    }
+                    
                 })
             })
             alert.addAction(cancelaction)

@@ -169,8 +169,9 @@ extension ThumViewController{
     }
     
     @objc func openSliderView(search:Bool) -> Void {
-//        SliderListView.sharedInstance(search, magazineId: self.uniteid).showSliderView()
-        SliderListView.init(sliderView: search, magazineId: self.uniteid).showSliderView()
+        SliderListView.initSliderView(search, magazineId: self.uniteid!).showSliderView()
+//        SliderListView.init(sliderView: search, magazineId: self.uniteid).showSliderView()
+//        SliderListView.init(frame: CGRect.zero, isSearch: search, magazineId: self.uniteid!).showSliderView()
     }
     
     @objc func openMenu(){

@@ -16,8 +16,6 @@
 - (void)ThumAndDetailViewControllerDidScroll:(CGFloat)offsety;
 @end
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface ThumAndDetailViewController : UIViewController
 @property (nonatomic,strong) NSArray<DetailModel*> *modelarr;
 @property (nonatomic,strong) MagazineModel *magazineModel;
@@ -27,5 +25,3 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,weak) id<ThumAndDetailViewControllerDelegate> delegate;
 @property (nonatomic,weak) UINavigationController *navVC;
 @end
-
-NS_ASSUME_NONNULL_END

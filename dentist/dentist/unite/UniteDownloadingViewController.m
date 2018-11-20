@@ -142,7 +142,7 @@
 //    downloadBtn.hidden = NO;
 //    downloadingBtn.hidden = YES;
 //    cancelBtn.hidden = YES;
-    
+    [[DetinstDownloadManager shareManager] cancelDownloadUnite:self.magazineModel];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -188,20 +188,13 @@
     } completed:^(BOOL result) {
         if(result){
             NSLog(@"===============下载成功===============");
-            //查询下载的文章数据
-            [[DentistDataBaseManager shareManager] queryUniteArticlesCachesList:self.magazineModel._id completed:^(NSArray<DetailModel *> * _Nonnull array) {
-                if (array) {
-                    
-                }
-                
-            }];
-           
-//            WeakSelf
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                ThumViewController *thumvc=[ThumViewController new];
-//                thumvc.uniteid=self->_magazineModel._id;
-//                [weakSelf.navigationController pushViewController:thumvc animated:YES];
-//            });
+            WeakSelf
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                ThumViewController *thumvc=[ThumViewController new];
+                thumvc.uniteid=self->_magazineModel._id;
+                thumvc.magazineModel = self->_magazineModel;
+                [weakSelf.navigationController pushViewController:thumvc animated:YES];
+            });
         }else{
             NSLog(@"===============下载失败===============");
         }

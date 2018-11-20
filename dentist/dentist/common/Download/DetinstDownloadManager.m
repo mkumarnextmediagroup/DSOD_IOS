@@ -109,7 +109,7 @@
                 for (int i=0; i<arr.count; i++) {
                     NSString *detailid=arr[i];
                     dispatch_group_enter(dispatchGroup);
-                    dispatch_group_async(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_CONCURRENT), ^{
+                    dispatch_group_async(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_SERIAL), ^{
                         //请求
                         [Proto queryForDetailPage:detailid completed:^(BOOL result, NSString *jsontext) {
                             if (result) {
@@ -129,7 +129,7 @@
                     
                 }
                 
-                dispatch_group_notify(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_CONCURRENT), ^(){
+                dispatch_group_notify(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_SERIAL), ^(){
                     //处理完成更新列表详细信息
                     if (arr.count==jsonarray.count) {
                         

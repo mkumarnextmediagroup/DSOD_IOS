@@ -616,22 +616,24 @@
                 newmodel.contentTypeId=_articleInfo.contentTypeId;
                 newmodel.contentTypeName=_articleInfo.contentTypeName;
                 newmodel.featuredMedia=_articleInfo.featuredMedia;
+                UIView *dsontoastview=[DsoToast toastViewForMessage:@"Download is Add…" ishowActivity:YES];
+                [self.navigationController.view showToast:dsontoastview duration:1.0 position:CSToastPositionBottom completion:nil];
                 [[DetinstDownloadManager shareManager] startDownLoadCMSModel:newmodel addCompletion:^(BOOL result) {
                     
                     foreTask(^{
-                        NSString *msg=@"";
-                        if (result) {
-                            msg=@"Download is Add";
-                        }else{
-                            msg=@"error";
-                        }
-                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
-                        
-                        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                            
-                            NSLog(@"点击取消");
-                        }]];
-                        [self presentViewController:alertController animated:YES completion:nil];
+//                        NSString *msg=@"";
+//                        if (result) {
+//                            msg=@"Download is Add";
+//                        }else{
+//                            msg=@"error";
+//                        }
+//                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+//
+//                        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//                            NSLog(@"点击取消");
+//                        }]];
+//                        [self presentViewController:alertController animated:YES completion:nil];
                     });
                 } completed:^(BOOL result) {
                     

@@ -29,6 +29,7 @@
 #import "ArticleGSkItemView.h"
 #import "DentistPickerView.h"
 #import "DetinstDownloadManager.h"
+#import "DsoToast.h"
 
 @interface CmsArticleCategoryPage ()<ArticleItemViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 {
@@ -242,48 +243,33 @@
     CMSModel *model = (id) item;
     if(model.isBookmark){
         //删除
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Removing to bookmarks…" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(BOOL result) {
             foreTask(^() {
-                NSString *msg=@"";
+                [self.navigationController.view hideToast];
                 if (result) {
                     //
                     model.isBookmark=NO;
                     ArticleItemView *itemView = (ArticleItemView *) view;
                     [itemView updateBookmarkStatus:NO];
-                    msg=@"Bookmarks is Delete";
-                }else{
-                    msg=@"error";
                 }
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
                 
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    NSLog(@"点击取消");
-                }]];
-                [self presentViewController:alertController animated:YES completion:nil];
             });
         }];
     }else{
         //添加
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Saving to bookmarks…" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto addBookmark:getLastAccount() cmsmodel:model completed:^(BOOL result) {
             foreTask(^() {
-                NSString *msg=@"";
+                [self.navigationController.view hideToast];
                 if (result) {
                     //
                     model.isBookmark=YES;
                     ArticleItemView *itemView = (ArticleItemView *) view;
                     [itemView updateBookmarkStatus:YES];
-                    msg=@"Bookmarks is Add";
-                }else{
-                    msg=@"error";
                 }
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
-                
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    NSLog(@"点击取消");
-                }]];
-                [self presentViewController:alertController animated:YES completion:nil];
             });
         }];
     }

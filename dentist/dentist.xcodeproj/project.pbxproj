@@ -677,6 +677,7 @@
 		E11E1FAC1F6BE50220F80693 /* menu-community@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E1653B84665417CD88F75 /* menu-community@3x.png */; };
 		E11E1FBF82D8A2F932D671B1 /* Img-User-Dentist@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E1383470C0048AB1AAE20 /* Img-User-Dentist@3x.png */; };
 		E11E1FF351CEC85509F9850C /* user_img@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E19D9D06DA06D3206C4D4 /* user_img@3x.png */; };
+		F929473221A3AE1400383143 /* DsoToast.m in Sources */ = {isa = PBXBuildFile; fileRef = F929473021A3AE1300383143 /* DsoToast.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1606,6 +1607,8 @@
 		E11E1FE9BFF6E51E030E88D9 /* edit_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_pressed@2x.png"; sourceTree = "<group>"; };
 		E11E1FEF8DB01C99C8AA5F4D /* menu-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-calendar.png"; sourceTree = "<group>"; };
 		F748AC4766AE72334079C673 /* Pods-dentistTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentistTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-dentistTests/Pods-dentistTests.release.xcconfig"; sourceTree = "<group>"; };
+		F929473021A3AE1300383143 /* DsoToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DsoToast.m; sourceTree = "<group>"; };
+		F929473121A3AE1300383143 /* DsoToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DsoToast.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2635,6 +2638,8 @@
 		A3739942219EBAE8004A5A94 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
+				F929473121A3AE1300383143 /* DsoToast.h */,
+				F929473021A3AE1300383143 /* DsoToast.m */,
 				A3739943219EBAE8004A5A94 /* Toast.swift */,
 			);
 			path = Toast;
@@ -3789,6 +3794,7 @@
 				C5EEAE3B78A71516A252C86F /* StackLayoutItem.m in Sources */,
 				C5EEA5EB7EC226DCBF96A2BA /* UIImageView+customed.m in Sources */,
 				18B83B1C2173557D00130DB6 /* YBVideoBrowseTopBar.m in Sources */,
+				F929473221A3AE1400383143 /* DsoToast.m in Sources */,
 				4E1957452137D0F100420563 /* LinkedInAppSettings.m in Sources */,
 				4E528B2A2170C8BA008C151B /* GSKViewController.m in Sources */,
 				4EBCE6C8212D0DF000A0672D /* MagazineTableViewCell.m in Sources */,

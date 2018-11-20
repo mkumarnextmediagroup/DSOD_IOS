@@ -226,6 +226,9 @@ extension ThumViewController{
                     if(self.modelarr!.count>self.currentIndex) {
                         let detailmodel:DetailModel=self.modelarr![self.currentIndex]
                         if(detailmodel.isBookmark==true) {
+                            
+                            let toastview=DsoToast.toastView(forMessage: "Removing to bookmarks…", ishowActivity: true)
+                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
                             DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
                                 if result == true {
                                     detailmodel.isBookmark=false;
@@ -237,6 +240,8 @@ extension ThumViewController{
                                 
                             })
                         }else{
+                            let toastview=DsoToast.toastView(forMessage: "Saving to bookmarks…", ishowActivity: true)
+                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
                             DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 1, completed: { (result:Bool) in
                                 if result == true {
                                     detailmodel.isBookmark=true;
@@ -336,6 +341,8 @@ extension ThumViewController{
                     if(self.modelarr!.count>self.currentIndex) {
                         let detailmodel:DetailModel=self.modelarr![self.currentIndex]
                         if(detailmodel.isBookmark==true) {
+                            let toastview=DsoToast.toastView(forMessage: "Removing to bookmarks…", ishowActivity: true)
+                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
                             DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
                                 if result == true {
                                     detailmodel.isBookmark=false;
@@ -347,6 +354,8 @@ extension ThumViewController{
                                 
                             })
                         }else{
+                            let toastview=DsoToast.toastView(forMessage: "Saving to bookmarks…", ishowActivity: true)
+                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
                             DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 1, completed: { (result:Bool) in
                                 if result == true {
                                     detailmodel.isBookmark=true;

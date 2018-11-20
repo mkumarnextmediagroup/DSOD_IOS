@@ -25,6 +25,7 @@
 #import "UIViewController+myextend.h"
 #import "BookmarkModel.h"
 #import "dentist-Swift.h"
+#import "DsoToast.h"
 
 #define edge 15
 @interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource,MyActionSheetDelegate> {
@@ -315,8 +316,11 @@
 {
     if(_articleInfo.isBookmark){
         //删除
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Removing to bookmarks…" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:_articleInfo.id completed:^(BOOL result) {
             foreTask(^() {
+                [self.navigationController.view hideToast];
                 NSString *msg=@"";
                 if (result) {
                     //
@@ -328,13 +332,13 @@
                 }else{
                     msg=@"error";
                 }
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
-                
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    NSLog(@"点击取消");
-                }]];
-                [self presentViewController:alertController animated:YES completion:nil];
+//                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+//
+//                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//                    NSLog(@"点击取消");
+//                }]];
+//                [self presentViewController:alertController animated:YES completion:nil];
             });
         }];
     }else{
@@ -348,8 +352,11 @@
         newmodel.contentTypeId=_articleInfo.contentTypeId;
         newmodel.contentTypeName=_articleInfo.contentTypeName;
         newmodel.featuredMedia=_articleInfo.featuredMedia;
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Saving to bookmarks…" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto addBookmark:getLastAccount() cmsmodel:newmodel completed:^(BOOL result) {
             foreTask(^() {
+                [self.navigationController.view hideToast];
                 NSString *msg=@"";
                 if (result) {
                     //
@@ -361,13 +368,13 @@
                 }else{
                     msg=@"error";
                 }
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
-                
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    NSLog(@"点击取消");
-                }]];
-                [self presentViewController:alertController animated:YES completion:nil];
+//                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+//
+//                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//                    NSLog(@"点击取消");
+//                }]];
+//                [self presentViewController:alertController animated:YES completion:nil];
             });
         }];
     }

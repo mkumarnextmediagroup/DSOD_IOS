@@ -275,6 +275,7 @@
 	}
 	nameView.edit.text = _userInfo.fullName;
 	specView.msgLabel.text = _userInfo.speciality.name;
+    [resumeView setLastResumeUrl:_userInfo.resume_url];
 	if (_userInfo.experienceArray != nil) {
 		for (int i = 0; i < _userInfo.experienceArray.count; ++i) {
 			Experience *r = _userInfo.experienceArray[i];
@@ -694,7 +695,7 @@
 			@"sex": @"",
 			@"status": @"1",
 			@"document_library": @{
-					@"document_name": @"",
+					@"document_name": resumeView.uploadedResumeName,
 			},
 			@"create_time": @"2018-09-12T06:16:53.603Z",
 			@"educations": NSNull.null,
@@ -786,6 +787,8 @@
 			}
 		}
 	}
+    
+    
 
 	[self showIndicator];
 	backTask(^() {

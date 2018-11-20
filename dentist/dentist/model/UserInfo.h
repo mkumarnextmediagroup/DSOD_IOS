@@ -30,6 +30,7 @@
 
 
 @property(nullable) NSString *photo_url;
+@property(nullable) NSString *resume_url;
 @property(readonly) NSString *portraitUrlFull;
 
 @property(nullable) IdName *speciality;

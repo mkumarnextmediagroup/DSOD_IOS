@@ -105,7 +105,6 @@
 
 	resumeView = [UploadResumeItemView new];
     resumeView.vc = self;
-    [resumeView showNoResumeMode];
 	[self.contentView addSubview:resumeView];
 
 	[self addGrayLine:0 marginRight:0];
@@ -275,7 +274,7 @@
 	}
 	nameView.edit.text = _userInfo.fullName;
 	specView.msgLabel.text = _userInfo.speciality.name;
-    [resumeView setLastResumeUrl:_userInfo.resume_url];
+    [resumeView showWithLastResumeUrl:_userInfo.resume_url fileName:_userInfo.resume_name];
 	if (_userInfo.experienceArray != nil) {
 		for (int i = 0; i < _userInfo.experienceArray.count; ++i) {
 			Experience *r = _userInfo.experienceArray[i];

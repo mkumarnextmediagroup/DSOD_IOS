@@ -764,13 +764,21 @@
     return r;
 }
 
-+(NSString *)downloadResumeByEmail:(NSString *)email
-{
++(NSURL*)downloadResume:(NSString *)resumeUrl fileName:(NSString*)fileName{
+    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,  NSUserDomainMask,YES) firstObject];
+    NSString *filePath = strBuild(documentPath,@"/",fileName);
+    NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    NSString *baseUrl = [self configUrl:@"profile"];
-    NSString *url=strBuild([self baseDomain],baseUrl, @"resumeDownload?Username=%@",email);
-
-    return nil;
+    if (![fileManager fileExistsAtPath:filePath]){
+        NSString *baseUrl = [self configUrl:@"profile"];
+        NSString *fileUrl=strBuild([self baseDomain],baseUrl, @"resumeDownload?",resumeUrl);
+        NSURL *url = [NSURL URLWithString:fileUrl];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        [data writeToFile:filePath atomically:YES];
+    }
+    
+    NSString *encodeFilePath = [strBuild(@"file://",filePath) stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    return [NSURL URLWithString:encodeFilePath];
    
 }
 

@@ -18,10 +18,13 @@ typedef NS_ENUM(NSInteger, UnitePageDownloadStatus) {
 
 typedef void(^OptonBtnOnClickListener)(UnitePageDownloadStatus,MagazineModel*);
 
+typedef void(^OptonBtnOnClickDownload)(NSInteger status,MagazineModel*);
+
 @interface UnitePageCell : UITableViewCell
 
 @property (strong, nonatomic)MagazineModel *magazineModel;
 @property (strong, nonatomic)OptonBtnOnClickListener optonBtnOnClickListener;
+@property (strong, nonatomic)OptonBtnOnClickDownload optonBtnOnClickDownload;
 
 
 @end

@@ -118,6 +118,62 @@
     string=[regularExpretion stringByReplacingMatchesInString:string options:NSMatchingReportProgress range:NSMakeRange(0, string.length) withTemplate:@""];
     return string;
 }
+
++ (NSString *)webHtmlString:(NSString *)html
+{
+    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@",
+                            @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
+                            @"<style type=\"text/css\">",
+                            @"body{padding:0px;margin:0px;background:#fff;font-family:SFUIText-Regular;}",
+                            @"p{width:100%;margin: 10px auto;color:#4a4a4a;font-size:0.9em;}",
+                            @"em{font-style:normal}",
+                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
+                            @"blockquote{color:#4a4a4a;font-size:1.2em;font-weight:bold;margin: 20px 10px 10px 25px;position:relative;line-height:110%;text-indent:0px}",
+                            @"blockquote:before{color:#4a4a4a;font-family:PingFangTC-Regular;content:'“';font-size:1.6em;position:absolute;left:-20px;top:15px;line-height:.1em}",
+                            //@"blockquote:after{color:#4a4a4a;content:'”';font-size:5em;position:absolute;right:15px;bottom:0;line-height:.1em}"
+                            @"figure{ margin:0 auto; background:#fff; }",
+                            @"figure img{width:100%;height:''} img{width:100%;height:auto}",
+                            @"</style>"
+                            ];
+    
+    
+    html = [html stringByReplacingOccurrencesOfString :@"pre" withString:@"blockquote"];
+    html = [html stringByReplacingOccurrencesOfString :@"<p>&nbsp;</p>" withString:@""];
+    //    html = [self htmlRemoveReferences:html];
+    
+    BOOL isFirst = YES;
+    NSArray *array = [html componentsSeparatedByString:@"<p>"];
+    for (int i = 0; i < [array count]; i++) {
+        NSString *currentString = [array objectAtIndex:i];
+        if(i>0){
+            if([currentString rangeOfString:@"<iframe"].location !=NSNotFound){
+                continue;
+            }
+            if(isFirst){
+                //错误格式兼容<strong> </strong>厉害了中间还不是空格
+                //                 htmlString = [htmlString stringByReplacingOccurrencesOfString :@"<strong> </strong>" withString:@""];
+                htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
+                isFirst = NO;
+            }else{
+                htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];
+            }
+        }
+    }
+    
+    //地址跳转测试
+    //    htmlString = [NSString stringWithFormat:@"%@%@",htmlString,@"<p><a href=\"dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=5be29d5f0e88c608b8186e52\">Converting Invisalign brand online consumers to new patients</a></p>"];
+    
+    htmlString = [NSString stringWithFormat:@"%@%@%@%@",
+                  htmlString,
+                  @"<script type=\"text/javascript\">",
+                  @"var figureArr = document.getElementsByTagName('figure');",
+                  @"for (let i = 0;i < figureArr.length;i++){figureArr[i].style.width = '100%'}"
+                  @"</script>"
+                  ];
+    
+    return htmlString;
+}
+
 @end
 
 

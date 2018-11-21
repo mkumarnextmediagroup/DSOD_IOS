@@ -25,6 +25,7 @@
 
 @property (nonatomic, strong) NSMutableArray *titleNameArr;
 @property (nonatomic, strong) NSArray        *imageArr;
+@property (nonatomic, assign) int linePaddingLeft;
 
 - (void)show;
 - (void)show:(UIView *)superview;

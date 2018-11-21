@@ -9,6 +9,7 @@
 #import "UnitePageCell.h"
 #import "Common.h"
 #import "DentistDataBaseManager.h"
+#import "Proto.h"
 #define edge 15
 
 @implementation UnitePageCell{
@@ -56,11 +57,11 @@
     _magazineModel = magazineModel;
     
     if(magazineModel.cover){
-        [coverImgView loadUrl:magazineModel.cover placeholderImage:@"bg_1"];
+        [coverImgView loadUrl:[Proto getFileUrlByObjectId:magazineModel.cover] placeholderImage:@"bg_1"];
     }
     coverImgView.contentMode=UIViewContentModeScaleAspectFill;
     coverImgView.clipsToBounds=YES;
-    publishDateLabel.text = [NSString timeWithTimeIntervalString:magazineModel.publishDate];
+    publishDateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",magazineModel.vol?magazineModel.vol:@"", magazineModel.issue?magazineModel.issue:@""];
     
     [self optionBtnDownloadStyle];
@@ -127,22 +128,27 @@
 }
 
 -(UnitePageDownloadStatus)getUnitePageDownloadStatus{
-    //TODO state of judgment
-    //        5bd7ff462676fdc2e88b5496  5bd800192676fdc2e88b5498
-    //TODO False data
-    if([_magazineModel._id isEqualToString:@"5bd7ff462676fdc2e88b5496"]
-       || [_magazineModel._id isEqualToString:@"5bd800192676fdc2e88b5498"]){
-        return UPageDownloaded;
-    }
-    
+  
     
     return UPageNoDownload;
 }
 
 -(void)optionBtnAction:(UIButton *)sender{
-    if(self.optonBtnOnClickListener){
-        self.optonBtnOnClickListener([self getUnitePageDownloadStatus], self.magazineModel);
+//    if(self.optonBtnOnClickListener){
+//        self.optonBtnOnClickListener([self getUnitePageDownloadStatus], self.magazineModel);
+//    }
+    if (_magazineModel) {
+        [[DentistDataBaseManager shareManager] checkUniteStatus:self->_magazineModel._id completed:^(NSInteger result) {
+            NSLog(@"======下载状态=%@",@(result));
+            foreTask(^{
+                if (self.optonBtnOnClickDownload) {
+                    self.optonBtnOnClickDownload(result, self->_magazineModel);
+                }
+            });
+            
+        }];
     }
+    
 }
 
 - (void)awakeFromNib {

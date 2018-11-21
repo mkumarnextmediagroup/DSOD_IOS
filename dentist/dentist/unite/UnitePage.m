@@ -36,6 +36,8 @@
 {
     // 状态改变通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadStateChange:) name:DentistUniteDownloadStateChangeNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(archiveChange:) name:DentistUniteArchiveChangeNotification object:nil];
 }
 
 - (void)downLoadStateChange:(NSNotification *)notification
@@ -48,6 +50,28 @@
             if ([downloadModel._id isEqualToString:model._id]) {
                 // 更新数据源
                 tempArr[idx] = downloadModel;
+                self->datas=[tempArr copy];
+                // 主线程刷新cell
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self->mTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                });
+                
+                *stop = YES;
+            }
+        }
+        
+    }];
+}
+
+-(void)archiveChange:(NSNotification *)notification{
+    NSString *uniteid=notification.object;
+    NSMutableArray *tempArr=[NSMutableArray arrayWithArray:self->datas];
+    [tempArr enumerateObjectsUsingBlock:^(NSObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass: [MagazineModel class]]) {
+            MagazineModel *model=(MagazineModel *)obj;
+            if ([uniteid isEqualToString:model._id]) {
+                // 更新数据源
+                model.downstatus=@"0";
                 self->datas=[tempArr copy];
                 // 主线程刷新cell
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -136,10 +160,11 @@
     
 }
 
-- (void)enterTeamCard:(UIButton *)btn
+- (void)enterTeamCard:(MagazineModel *)model
 {
     ThumViewController *thumvc=[ThumViewController new];
-    thumvc.modelarr=self->datas;
+    thumvc.magazineModel = model;
+    thumvc.uniteid=model._id;
     [self.navigationController pushViewController:thumvc animated:YES];
     
 }
@@ -210,25 +235,32 @@
             datas = newDatas;
         }
         //TODO False data
+        if(datas.count>0){
         ((MagazineModel*)datas[0]).cover = @"http://pic41.photophoto.cn/20161202/1155116460723923_b.jpg";
-        ((MagazineModel*)datas[1]).cover = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542037826&di=64e2e24bf769d5c2b71d7372a0515d7d&imgtype=jpg&er=1&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3Dec50dee888025aafc73f76889384c111%2Fa50f4bfbfbedab643e0cd5e8fd36afc379311e9f.jpg";
-       
+//        ((MagazineModel*)datas[1]).cover = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542037826&di=64e2e24bf769d5c2b71d7372a0515d7d&imgtype=jpg&er=1&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3Dec50dee888025aafc73f76889384c111%2Fa50f4bfbfbedab643e0cd5e8fd36afc379311e9f.jpg";
+        }
         
         [mTableView reloadData];
     }
 }
 
--(void)gotoThumView
+-(void)gotoThumView:(NSInteger)row
 {
-    ThumViewController *thumvc=[ThumViewController new];
-    thumvc.thumSelectMenu = ^(NSInteger row) {
-         NSLog(@"thumDidSelectMenu==========%@",@(row));
-    };
-//    thumvc.didSelectMenu =^(NSInteger index) {
-//
-//    }
-
-    [self.navigationController pushViewController:thumvc animated:YES];
+    if (self->datas.count>=1) {
+        MagazineModel *model=(MagazineModel *)self->datas[0];
+        ThumViewController *thumvc=[ThumViewController new];
+        thumvc.magazineModel = model;
+        thumvc.uniteid=model._id;
+        thumvc.thumSelectMenu = ^(NSInteger row) {
+            NSLog(@"thumDidSelectMenu==========%@",@(row));
+        };
+        //    thumvc.didSelectMenu =^(NSInteger index) {
+        //
+        //    }
+        
+        [self.navigationController pushViewController:thumvc animated:YES];
+    }
+    
 }
 
 -(void)startUniteDownload{
@@ -267,7 +299,6 @@
             }else if(row == 2){
                 ThumViewController *thumvc=[ThumViewController new];
                 thumvc.pageType = PageTypeBookmark;
-                thumvc.modelarr=self->datas;
                 [self.navigationController pushViewController:thumvc animated:YES];
             }
         }
@@ -276,14 +307,16 @@
 }
 
 -(void)showDownloaded{
-    //TODO False data
     onlyDownloadedUinte = YES;
     UINavigationItem *item = [self navigationItem];
     item.title = @"DOWNLOADED";
-    if(datas.count>3){
-        datas = [NSArray arrayWithObjects:datas[1],datas[2],nil];
-        [mTableView reloadData];
-    }
+    [[DentistDataBaseManager shareManager] queryUniteDownloadedList:^(NSArray<MagazineModel *> * _Nonnull array) {
+        foreTask(^{
+            self->datas=[NSArray arrayWithArray:array];
+            [self->mTableView reloadData];
+        });
+    }];
+     
 }
 
 -(void)showAllIssues{
@@ -311,17 +344,36 @@
         cell = [[UnitePageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
     cell.magazineModel = datas[indexPath.row];
-    cell.optonBtnOnClickListener = ^(UnitePageDownloadStatus status,MagazineModel *model){
+//    cell.optonBtnOnClickListener = ^(UnitePageDownloadStatus status,MagazineModel *model){
+//        switch (status) {
+//            case UPageDownloaded:
+//                //to detail page
+//                [self enterTeamCard:nil];
+//                break;
+//            case UPageNoDownload:
+//                //start download
+//                [self startUniteDownload];
+//                
+//            case UPageDownloading:{
+//                //to downloading page
+//                [self enterUniteDownloading:model];
+//                break;
+//            }
+//            default:
+//                break;
+//        }
+//    };
+    cell.optonBtnOnClickDownload = ^(NSInteger status, MagazineModel *model) {
         switch (status) {
-            case UPageDownloaded:
+            case 2:
                 //to detail page
-                [self enterTeamCard:nil];
+                [self enterTeamCard:model];
                 break;
-            case UPageNoDownload:
+            case 0:
                 //start download
                 [self startUniteDownload];
                 
-            case UPageDownloading:{
+            case 1:{
                 //to downloading page
                 [self enterUniteDownloading:model];
                 break;
@@ -335,7 +387,20 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self gotoThumView];
+    if (self->datas.count>indexPath.row) {
+        MagazineModel *magazineModel=self->datas[indexPath.row];
+        [[DentistDataBaseManager shareManager] checkUniteStatus:magazineModel._id completed:^(NSInteger result) {
+            NSLog(@"======下载状态=%@",@(result));
+            foreTask(^{
+                if (result==2) {
+                    [self gotoThumView:indexPath.row];
+                }
+            });
+            
+        }];
+    }
+    
+    
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{

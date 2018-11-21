@@ -24,6 +24,8 @@
 #import "DetinstDownloadManager.h"
 #import "UIViewController+myextend.h"
 #import "BookmarkModel.h"
+#import "dentist-Swift.h"
+#import "DsoToast.h"
 
 #define edge 15
 @interface CMSDetailViewController ()<UITableViewDelegate,UITableViewDataSource,MyActionSheetDelegate> {
@@ -31,6 +33,8 @@
     PicDetailView *picDetailView;
     UITableView *myTable;
     UIButton *markButton;
+    
+    UILabel *titleLabel;
 }
 @end
 
@@ -196,12 +200,12 @@
     [self.view addSubview:topVi];
     [[[[[topVi.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:NAVHEIGHT] install];
     
-    UILabel *content = [topVi addLabel];
-    content.font = [Fonts semiBold:15];
-    content.textColor = [UIColor whiteColor];
-    content.text = @"SPONSORED CONTENT";
-    content.textAlignment = NSTextAlignmentCenter;
-    [[[[content.layoutMaker leftParent:(SCREENWIDTH - 200)/2] topParent:23+NAVHEIGHT_OFFSET] sizeEq:200 h:40] install];
+    titleLabel = [topVi addLabel];
+    titleLabel.font = [Fonts semiBold:15];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.text = @"";
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [[[[titleLabel.layoutMaker leftParent:(SCREENWIDTH - 200)/2] topParent:23+NAVHEIGHT_OFFSET] sizeEq:200 h:40] install];
     
     UIButton *dismissBtn = [topVi addButton];
     [dismissBtn setImage:[UIImage imageNamed:@"back_arrow"] forState:UIControlStateNormal];
@@ -244,6 +248,12 @@
     if(!self.articleInfo){
         return;
     }
+    
+    NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",
+                                  @"259":@"sponsor_nobel",
+                                  @"197":@"sponsor_gsk"};
+    titleLabel.text = sponsorInfo[self.articleInfo.sponsorId] ? @"SPONSORED CONTENT" : @"";
+    
     
 //    if ([self.toWhichPage isEqualToString:@"mo"]) {
 //        playView = [PlayerView new];
@@ -314,8 +324,11 @@
 {
     if(_articleInfo.isBookmark){
         //删除
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Remove from bookmarks……" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:_articleInfo.id completed:^(BOOL result) {
             foreTask(^() {
+                [self.navigationController.view hideToast];
                 NSString *msg=@"";
                 if (result) {
                     //
@@ -327,13 +340,13 @@
                 }else{
                     msg=@"error";
                 }
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
-                
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    NSLog(@"点击取消");
-                }]];
-                [self presentViewController:alertController animated:YES completion:nil];
+//                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+//
+//                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//                    NSLog(@"点击取消");
+//                }]];
+//                [self presentViewController:alertController animated:YES completion:nil];
             });
         }];
     }else{
@@ -347,8 +360,11 @@
         newmodel.contentTypeId=_articleInfo.contentTypeId;
         newmodel.contentTypeName=_articleInfo.contentTypeName;
         newmodel.featuredMedia=_articleInfo.featuredMedia;
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Saving to bookmarks…" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto addBookmark:getLastAccount() cmsmodel:newmodel completed:^(BOOL result) {
             foreTask(^() {
+                [self.navigationController.view hideToast];
                 NSString *msg=@"";
                 if (result) {
                     //
@@ -360,13 +376,13 @@
                 }else{
                     msg=@"error";
                 }
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
-                
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    NSLog(@"点击取消");
-                }]];
-                [self presentViewController:alertController animated:YES completion:nil];
+//                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+//
+//                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//                    NSLog(@"点击取消");
+//                }]];
+//                [self presentViewController:alertController animated:YES completion:nil];
             });
         }];
     }
@@ -608,22 +624,24 @@
                 newmodel.contentTypeId=_articleInfo.contentTypeId;
                 newmodel.contentTypeName=_articleInfo.contentTypeName;
                 newmodel.featuredMedia=_articleInfo.featuredMedia;
+                UIView *dsontoastview=[DsoToast toastViewForMessage:@"Download is Add…" ishowActivity:YES];
+                [self.navigationController.view showToast:dsontoastview duration:1.0 position:CSToastPositionBottom completion:nil];
                 [[DetinstDownloadManager shareManager] startDownLoadCMSModel:newmodel addCompletion:^(BOOL result) {
                     
                     foreTask(^{
-                        NSString *msg=@"";
-                        if (result) {
-                            msg=@"Download is Add";
-                        }else{
-                            msg=@"error";
-                        }
-                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
-                        
-                        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                            
-                            NSLog(@"点击取消");
-                        }]];
-                        [self presentViewController:alertController animated:YES completion:nil];
+//                        NSString *msg=@"";
+//                        if (result) {
+//                            msg=@"Download is Add";
+//                        }else{
+//                            msg=@"error";
+//                        }
+//                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+//
+//                        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//                            NSLog(@"点击取消");
+//                        }]];
+//                        [self presentViewController:alertController animated:YES completion:nil];
                     });
                 } completed:^(BOOL result) {
                     
@@ -647,17 +665,25 @@
                     urlstr = _articleInfo.featuredMedia[@"code"];
                 }
                 NSString *someid=_articleInfo.id;
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
-                    UIImage *image = [UIImage imageWithData:data];
-                    if (image) {
-                        NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
-                        NSArray *activityItems = @[shareurl,title,image];
-                        
-                        UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
-                        [self presentViewController:avc animated:YES completion:nil];
-                    }
-                });
+                if (![NSString isBlankString:urlstr]) {
+                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                        NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
+                        UIImage *image = [UIImage imageWithData:data];
+                        if (image) {
+                            NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+                            NSArray *activityItems = @[shareurl,title,image];
+                            
+                            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                            [self presentViewController:avc animated:YES completion:nil];
+                        }
+                    });
+                }else{
+                    NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+                    NSArray *activityItems = @[shareurl,title];
+                    
+                    UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                    [self presentViewController:avc animated:YES completion:nil];
+                }
                 
             }else{
                 NSString *msg=@"";

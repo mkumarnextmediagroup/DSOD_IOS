@@ -19,6 +19,7 @@
 #import "MagazineModel.h"
 #import "UniteArticles.h"
 #import "DentistDataBaseManager.h"
+#import "HttpProgress.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -745,6 +746,7 @@
 
 + (NSString *)uploadHeaderImage:(NSString *)localFilePath {
     
+    NSLog(@"1-----------%@",localFilePath);
 	HttpResult *r = [self upload:@"photoUpload" localFilePath:localFilePath modular:@"profile"];
 	if (r.OK) {
 		//{"photoName":"5d7a4a76219e4c78b2b4656cf4bc80f2_test.png"}
@@ -755,6 +757,41 @@
 		return v;
 	}
 	return nil;
+}
+
++ (HttpResult *)uploadResume:(NSString *)localFilePath progress:(id<HttpProgress>)httpProgressSend{
+    HttpResult *r = [self upload:@"resumeUpload" localFilePath:localFilePath modular:@"profile" progress:httpProgressSend];
+    return r;
+}
+
++(NSURL*)downloadResume:(NSString *)resumeUrl fileName:(NSString*)fileName{
+    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,  NSUserDomainMask,YES) firstObject];
+    NSString *filePath = strBuild(documentPath,@"/",fileName);
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath:filePath]){
+        NSString *baseUrl = [self configUrl:@"profile"];
+        NSString *fileUrl=strBuild([self baseDomain],baseUrl, @"resumeDownload?",resumeUrl);
+        NSURL *url = [NSURL URLWithString:fileUrl];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        [data writeToFile:filePath atomically:YES];
+    }
+    
+    NSString *encodeFilePath = [strBuild(@"file://",filePath) stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    return [NSURL URLWithString:encodeFilePath];
+   
+}
+
++(NSString *)getResumeUrlByObjectId:(NSString *)objectid
+{
+    if (![NSString isBlankString:objectid]) {
+        NSString *baseUrl = [self configUrl:@"cms"];
+        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=%@",objectid);
+        return url;
+    }else{
+        return nil;
+    }
+    
 }
 
 #pragma mark CMS Modular
@@ -1227,6 +1264,7 @@
     if (categoryId) {
         [paradic setObject:categoryId forKey:@"categoryId"];
     }
+    [paradic setObject:@(1) forKey:@"status"];
     HttpResult *r = [self post3:@"bookmark/findAllByEmail" dic:paradic modular:@"cms"];
     
     NSMutableArray *resultArray = [NSMutableArray array];
@@ -1262,6 +1300,7 @@
     if (categoryId) {
         [paradic setObject:categoryId forKey:@"categoryId"];
     }
+    [paradic setObject:@(1) forKey:@"status"];
     [self postAsync3:@"bookmark/findAllByEmail" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
         
         if (r.OK) {
@@ -1291,6 +1330,7 @@
     if (bookmarkid) {
         [paradic setObject:bookmarkid forKey:@"id"];
     }
+    [paradic setObject:@(1) forKey:@"status"];
     HttpResult *r = [self post2:@"bookmark/deleteOneById" dic:paradic modular:@"cms"];
     if (r.OK) {
         result=YES;
@@ -1304,6 +1344,7 @@
     if (bookmarkid) {
         [paradic setObject:bookmarkid forKey:@"id"];
     }
+    [paradic setObject:@(1) forKey:@"status"];
     [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
         if (completed) {
             completed(r.OK);
@@ -1322,6 +1363,7 @@
     if (contentId) {
         [paradic setObject:contentId forKey:@"contentId"];
     }
+    [paradic setObject:@(1) forKey:@"status"];
     HttpResult *r = [self post2:@"bookmark/deleteOneByEmailAndContentId" dic:paradic modular:@"cms"];
     if (r.OK) {
         result=YES;
@@ -1338,6 +1380,7 @@
     if (contentId) {
         [paradic setObject:contentId forKey:@"contentId"];
     }
+    [paradic setObject:@(1) forKey:@"status"];
     [self postAsync2:@"bookmark/deleteOneByEmailAndContentId" dic:paradic modular:@"cms"callback:^(HttpResult *r) {
         if (completed) {
             completed(r.OK);
@@ -1350,7 +1393,7 @@
 {
     BOOL result=NO;
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title] && ![NSString isBlankString:url]){
-        HttpResult *r = [self post3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId} modular:@"cms"];
+        HttpResult *r = [self post3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"status": [NSNumber numberWithInt:1]} modular:@"cms"];
         if (r.OK) {
             result=YES;
         }
@@ -1364,7 +1407,7 @@
         url=@"";
     }
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title]){
-        [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId} modular:@"cms" callback:^(HttpResult *r) {
+        [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"status": [NSNumber numberWithInt:1]} modular:@"cms" callback:^(HttpResult *r) {
             if (completed) {
                 completed(r.OK);
             }
@@ -1430,9 +1473,10 @@
     if ([NSString isBlankString:coverthumbnailUrl]) {
         coverthumbnailUrl=@"";
     }
+    
     url=coverthumbnailUrl;
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId]){
-        [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"coverUrl": coverUrl,@"coverthumbnailUrl": coverthumbnailUrl,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"categoryName": categoryName,@"contentTypeName": contentTypeName} modular:@"cms" callback:^(HttpResult *r) {
+        [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"coverUrl": coverUrl,@"coverthumbnailUrl": coverthumbnailUrl,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"categoryName": categoryName,@"contentTypeName": contentTypeName,@"status": [NSNumber numberWithInt:1]} modular:@"cms" callback:^(HttpResult *r) {
             if (completed) {
                 completed(r.OK);
             }
@@ -1621,19 +1665,25 @@
 }
 
 + (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath modular:(NSString *)modular {
-	NSString *baseUrl = [self configUrl:modular];
-	Http *h = [Http new];
-	h.timeout = 20;
-	h.url = strBuild([self baseDomain],baseUrl, action);
+	return [Proto upload:action localFilePath:localFilePath modular:modular progress:nil];
+}
+
+
++ (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath modular:(NSString *)modular progress:(id<HttpProgress>)httpProgressSend{
+    NSString *baseUrl = [self configUrl:modular];
+    Http *h = [Http new];
+    h.progressSend = httpProgressSend;
+    h.timeout = 20;
+    h.url = strBuild([self baseDomain],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
-	NSString *token = [self lastToken];
-	if (token != nil) {
-		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
-	}
-	[h arg:@"client_id" value:@"fooClientIdPassword"];
-	[h file:@"file" value:localFilePath];
-	HttpResult *r = [h multipart];
-	return r;
+    NSString *token = [self lastToken];
+    if (token != nil) {
+        [h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+    }
+    [h arg:@"client_id" value:@"fooClientIdPassword"];
+    [h file:@"file" value:localFilePath];
+    HttpResult *r = [h multipart];
+    return r;
 }
 
 + (NSString *)configUrl:(NSString *)modular

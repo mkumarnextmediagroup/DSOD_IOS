@@ -12,6 +12,7 @@
 #define edge 30
 @implementation UniteArticleTableViewCell
 {
+    UILabel *categoryLab;
     UILabel *headLabel;
     UILabel *subHeadLabel;
 }
@@ -30,35 +31,93 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self buildViews];
     }
     return self;
 }
 
-- (void)buildViews
+- (void)createCategory
+{
+    categoryLab = self.contentView.addLabel;
+    categoryLab.font = [Fonts regular:13];
+    categoryLab.numberOfLines = 2;
+    categoryLab.textColor = Colors.textAlternate;
+    [[[[[categoryLab.layoutMaker leftParent:edge] rightParent:-edge] heightEq:44] topParent:8] install];
+
+}
+
+- (void)buildViews:(NSArray *)infoArr
+{
+    for (int i = 0; i < infoArr.count; i++) {
+        DetailModel *article = infoArr[i];
+        categoryLab.text = article.categoryName;
+        
+        headLabel = self.contentView.addLabel;
+        headLabel.font = [Fonts regular:13];
+        headLabel.numberOfLines = 0;
+        headLabel.text = article.title;
+        headLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
+        [[[[headLabel.layoutMaker leftParent:edge] rightParent:-edge] topParent:52+i*40] install];
+        
+        subHeadLabel = self.contentView.addLabel;
+        [subHeadLabel textColorMain];
+        subHeadLabel.numberOfLines = 0;
+        subHeadLabel.text = article.subTitle;
+        subHeadLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
+        subHeadLabel.font = [Fonts regular:13];
+        [[[[subHeadLabel.layoutMaker leftParent:edge]  rightParent:-edge] topParent:92+i*40] install];
+
+        if (i == infoArr.count-1) {
+            UILabel *line = self.contentView.addLabel;
+            line.backgroundColor = [Colors cellLineColor];
+            [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:15] install];
+        }
+        
+    }
+}
+
+- (void)createSearchSubView
 {
     headLabel = self.contentView.addLabel;
     headLabel.font = [Fonts regular:13];
-    [[[[[headLabel.layoutMaker leftParent:edge] rightParent:edge] heightEq:20] topParent:8] install];
+    headLabel.numberOfLines = 0;
+    headLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
+    [[[[headLabel.layoutMaker leftParent:edge] rightParent:-edge] topParent:8] install];
     
     subHeadLabel = self.contentView.addLabel;
     [subHeadLabel textColorMain];
-    subHeadLabel.numberOfLines = 2;
+    subHeadLabel.numberOfLines = 0;
+    subHeadLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
     subHeadLabel.font = [Fonts regular:13];
-    [[[[subHeadLabel.layoutMaker leftParent:edge] sizeEq:SCREENWIDTH - 132 - edge *2 h:45] below:headLabel offset:2] install];
+    [[[[subHeadLabel.layoutMaker leftParent:edge]  rightParent:-edge] below:headLabel offset:0] install];
+    
+    UILabel *line = self.contentView.addLabel;
+    line.backgroundColor = [Colors cellLineColor];
+    [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:8] install];
 }
 
-- (void)bindInfo:(DetailModel *)article
+- (void)bindInfo:(NSArray *)infoArr
 {
-    headLabel.text = article.title;
-    subHeadLabel.text = article.subTitle;
+    [self createCategory];
+
+    [self buildViews:infoArr];
 }
 
-- (void)layoutSubviews
+- (void)bindSearchInfo:(DetailModel *)infoModel
 {
-    [super layoutSubviews];
-    CGSize size = [subHeadLabel sizeThatFits:CGSizeMake(SCREENWIDTH - 132 - edge *2, 1000)];
-    [[subHeadLabel.layoutUpdate heightEq:size.height] install];
+    [self createSearchSubView];
+    headLabel.text = infoModel.title;
+    subHeadLabel.text = infoModel.subTitle;
+
 }
+
+//- (void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//    CGSize size = [subHeadLabel sizeThatFits:CGSizeMake(SCREENWIDTH - 132 - edge *2, 1000)];
+//    [[subHeadLabel.layoutUpdate heightEq:size.height] install];
+//
+//    CGSize size2 = [headLabel sizeThatFits:CGSizeMake(SCREENWIDTH - 132 - edge *2, 1000)];
+//    [[headLabel.layoutUpdate heightEq:size2.height] install];
+//}
 
 @end

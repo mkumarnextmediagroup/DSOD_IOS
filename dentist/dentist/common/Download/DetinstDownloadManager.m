@@ -42,6 +42,7 @@
         // 初始化
         _currentCount = 0;
         _maxConcurrentCount=5;
+        _cancelUniteArray=[NSMutableArray array];
     }
     
     return self;
@@ -91,6 +92,7 @@
 -(void)startDownLoadUniteArticles:(MagazineModel *)model  addCompletion:(void(^)(BOOL result))addCompletion completed:(void(^)(BOOL result))completed
 {
     if (model && model._id) {
+        const char *downenConstChar=[[NSString stringWithFormat:@"unitedownevent_%@",model._id] UTF8String];
         self->_maxConcurrentCount++;
         [[DentistDataBaseManager shareManager] insertUniteModel:model completed:^(BOOL result) {
             //添加数据成功
@@ -108,40 +110,84 @@
                 for (int i=0; i<arr.count; i++) {
                     NSString *detailid=arr[i];
                     dispatch_group_enter(dispatchGroup);
-                    [Proto queryForDetailPage:detailid completed:^(BOOL result, NSString *jsontext) {
-                        if (result) {
-                            NSLog(@"====================获取article文章详情成功====================");
-                            [jsonarray addObject:jsontext];
+                    dispatch_group_async(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_CONCURRENT), ^{
+                        BOOL iscancel = NO;
+                        if (self.cancelUniteArray && self.cancelUniteArray.count>0) {
+                            if ([self.cancelUniteArray containsObject:model._id]) {
+                                iscancel=YES;
+                               
+                            }
+                        }
+                        if (iscancel) {
                              dispatch_group_leave(dispatchGroup);
-                            
                         }else{
-                            dispatch_group_leave(dispatchGroup);
+                            //请求
+                            [Proto queryForDetailPage:detailid completed:^(BOOL result, NSString *jsontext) {
+                                if (result) {
+                                    NSLog(@"====================获取article文章详情成功====================");
+                                    if (jsontext) {
+                                        [jsonarray addObject:jsontext];
+                                    }
+                                    dispatch_group_leave(dispatchGroup);
+                                    
+                                }else{
+                                    dispatch_group_leave(dispatchGroup);
+                                }
+                                
+                            }];
                         }
                         
-                    }];
+                    });
+                    
+                    
                 }
-                dispatch_group_notify(dispatchGroup, dispatch_get_global_queue(0, 0), ^(){
-                    //处理完成更新列表详细信息
-                    if (arr.count==jsonarray.count) {
-                        //下载完成更新下载状态
-                        [[DentistDataBaseManager shareManager] insertUniteArticleArray:model jsonarray:jsonarray completed:^(BOOL result) {
-                            self->_maxConcurrentCount--;
-                            if(completed){
-                                completed(YES);
-                            }
-                        }];
-                        
-                    }else{
-                        self->_maxConcurrentCount--;
-                        //下载失败
+                
+                dispatch_group_notify(dispatchGroup, dispatch_queue_create(downenConstChar, DISPATCH_QUEUE_CONCURRENT), ^(){
+                    BOOL iscancel = NO;
+                    if (self.cancelUniteArray && self.cancelUniteArray.count>0) {
+                        if ([self.cancelUniteArray containsObject:model._id]) {
+                            iscancel=YES;
+                            
+                        }
+                    }
+                    if (iscancel) {
+                        [self.cancelUniteArray removeObject:model._id];
                         if(completed){
                             completed(NO);
                         }
+                    }else{
+                        //处理完成更新列表详细信息
+                        if (arr.count==jsonarray.count) {
+                            
+                            //下载完成更新下载状态
+                            [[DentistDataBaseManager shareManager] insertUniteArticleArray:model jsonarray:jsonarray completed:^(BOOL result) {
+                                self->_maxConcurrentCount--;
+                                if(completed){
+                                    completed(YES);
+                                }
+                            }];
+                            
+                        }else{
+                            self->_maxConcurrentCount--;
+                            //下载失败
+                            if(completed){
+                                completed(NO);
+                            }
+                        }
                     }
+                    
                 });
                 
             }
         }];
+    }
+}
+
+-(void)cancelDownloadUnite:(MagazineModel *)model
+{
+    if (![_cancelUniteArray containsObject:model._id]) {
+        [_cancelUniteArray addObject:model._id];
+        
     }
 }
 

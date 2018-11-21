@@ -7,7 +7,7 @@
 #import "Common.h"
 #import "IdName.h"
 #import "SearchPage.h"
-
+#import "dentist-Swift.h"
 
 @implementation UIViewController (myextend)
 
@@ -117,6 +117,7 @@
     hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
     hud.bezelView.backgroundColor = argbHex(0xAA000000);
     hud.mode = MBProgressHUDModeIndeterminate;
+    
 }
 
 - (void)hideLoading{

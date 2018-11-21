@@ -10,13 +10,25 @@
 #import "common.h"
 #import "UniteThumCollectionViewCell.h"
 #import "CMSDetailViewController.h"
+#import "DetailModel.h"
+#import "dentist-Swift.h"
+#import "DsoToast.h"
 
 static NSString * UniteThumidentifier = @"UniteThumCellID";
-@interface ThumAndDetailViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UniteThumCollectionViewCellDelegate>
+@interface ThumAndDetailViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UniteThumCollectionViewCellDelegate>{
+    
+    BOOL hiddenStatusBar;
+    
+    NSArray *datas;
+}
+
 @property (nonatomic, strong) UICollectionView * collectionView;
 @end
 
 @implementation ThumAndDetailViewController
+
+@synthesize currentIndex = _currentIndex ;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,8 +40,6 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     if (self.tabBarController != nil) {
         _bottomBarH = TABLEBAR_HEIGHT;
     }
-    
-    
     
     CGFloat collectheight=self.view.frame.size.height;
     
@@ -52,7 +62,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     _collectionView.showsHorizontalScrollIndicator = NO;
     _collectionView.backgroundColor=[UIColor whiteColor];
     _collectionView.pagingEnabled = YES;
-     _collectionView.contentSize = CGSizeMake(3 * self.view.frame.size.width, 0);
+    
     [self.view addSubview:_collectionView];
     
     //设置数据源代理
@@ -62,8 +72,10 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     //注册cell
     [_collectionView registerClass:[UniteThumCollectionViewCell class] forCellWithReuseIdentifier:UniteThumidentifier];
     [[[[[_collectionView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
+    
     // Do any additional setup after loading the view.
 }
+
 
 -(void)setupNavigation{
     UINavigationItem *item = [self navigationItem];
@@ -90,12 +102,42 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     
 }
 
+-(void)setModelarr:(NSArray<DetailModel *> *)modelarr
+{
+    _modelarr=modelarr;
+    if (!_isbookmark) {
+        NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithObjects:self.magazineModel, nil];
+        [mutableArray addObjectsFromArray:_modelarr];
+        datas = [mutableArray copy];
+    }else{
+        NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:_modelarr];
+        datas = [mutableArray copy];
+    }
+    
+
+    _collectionView.contentSize = CGSizeMake(datas.count * self.view.frame.size.width, 0);
+    [self.collectionView reloadData];
+//    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
+}
+
+-(void)setCurrentIndex:(NSInteger)currentIndex{
+    _currentIndex=currentIndex;
+
+    [self.collectionView reloadData];
+    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
+}
+
+-(NSInteger)currentIndex{
+    return _currentIndex;
+}
+
 - (void)onBack:(UIButton *)btn {
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)openMenu:(UIButton *)btn{
-    
+    NSLog(@"%@",btn);
 }
 
 #pragma mark - deleDate
@@ -107,39 +149,15 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 }
 //每个分组里有多少个item
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 3;
+    return datas.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     //根据identifier从缓冲池里去出cell
     UniteThumCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:UniteThumidentifier forIndexPath:indexPath];
-    cell.backgroundColor=[UIColor clearColor];
     cell.delegate=self;
-    if (indexPath.row==0) {
-        UIImage *image1=[UIImage imageNamed:@"unitedetail1"];
-        [cell.backgroundImageView setImage:image1];
-        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 1000*cell.backgroundImageView.frame.size.width/747);
-        cell.scrollView.contentSize =  CGSizeMake(0, image1.size.height);
-    }else if (indexPath.row==1){
-        UIImage *image2=[UIImage imageNamed:@"unitedetail2"];
-        [cell.backgroundImageView setImage:image2];
-        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 16130*cell.backgroundImageView.frame.size.width/750);
-        cell.scrollView.contentSize =  CGSizeMake(0, image2.size.height);
-        
-        
-        CMSDetailViewController *vc = [CMSDetailViewController new];
-        vc.contentId = @"5be5df7f5a71b7249c07e064";
-        
-        [cell.scrollView addSubview:vc.view];
-    }else{
-        UIImage *image3=[UIImage imageNamed:@"unitedetail3"];
-        [cell.backgroundImageView setImage:image3];
-        cell.backgroundImageView.frame=CGRectMake(0, NAVHEIGHT, cell.backgroundImageView.frame.size.width, 7970*cell.backgroundImageView.frame.size.width/750);
-        cell.scrollView.contentSize =  CGSizeMake(0, image3.size.height);
-        
-    }
-    cell.backgroundImageView.contentMode=UIViewContentModeScaleToFill;
+    [cell bind:datas[indexPath.row]];
     
     return cell;
 }
@@ -150,7 +168,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 
 -(void)UniteThumCollectionViewCellScroview:(CGFloat)offsety
 {
-    if (offsety<-80) {
+    if (offsety<-120) {
         //两种方式调用
         if (self.scrollToDown) {
             self.scrollToDown(offsety);
@@ -159,6 +177,18 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
             [self.delegate ThumAndDetailViewControllerDidScroll:offsety];
         }
     }
+}
+
+
+- (void)hideNavBar:(BOOL)hide{
+    hiddenStatusBar = hide;
+    [self.navVC setNavigationBarHidden:hide animated:YES];
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+}
+
+- (BOOL)prefersStatusBarHidden{
+    return hiddenStatusBar;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -171,6 +201,15 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 //        row=0;
 //    }
 //    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
+    NSInteger row=floorf(scrollView.contentOffset.x/scrollView.frame.size.width);
+    _currentIndex=row;
+    if (self.didEndDecelerating) {
+        self.didEndDecelerating(_currentIndex);
+    }
+    
+    if(_currentIndex==0){
+        [self hideNavBar:YES];
+    }
 }
 
 @end

@@ -34,9 +34,17 @@
     
     NSString *lastResumeUrl;//server return last resume url
     NSString *lastResumeFileName;//server return last resume file name
+    
 }
 
 
+- (NSString*)uploadedResumeName{
+    if(_uploadedResumeName){
+        return _uploadedResumeName;
+    }else{
+        return @"";
+    }
+}
 
 - (instancetype)init {
     self = [super init];
@@ -55,6 +63,8 @@
 
 
 - (void)showNoResumeMode{
+    NSLog(@"%@",NSHomeDirectory());
+    
     [self removeAllChildren];
     
     UIImageView *imageView = self.addImageView;
@@ -233,7 +243,9 @@
 -(void)showWithLastResumeUrl:(NSString*)resumeUrl fileName:(NSString*)resumeName{
     lastResumeUrl = resumeUrl;
     lastResumeFileName = resumeName;
-    if(lastResumeUrl && lastResumeFileName){
+    if(self->fileURL && self->filePath && self.uploadedResumeName){
+        [self showPreviewResumeMode];
+    }else if(lastResumeUrl && lastResumeFileName){
         [self showLastResumeMode];
     }else{
         [self showNoResumeMode];
@@ -351,7 +363,7 @@
                     self.uploadedResumeName = name;
                     [self showPreviewResumeMode];
                 }else{
-                    [self.vc alertMsg:result.msg onOK:^{
+                    [self.vc alertMsg:result.msg?result.msg:@"Upload resume fail" onOK:^{
                         [self showNoResumeMode];
                     }];
                 }

@@ -202,6 +202,7 @@
 
 -(void)firstRefresh{
      [self getDatas:NO];
+    [self->mTableView setContentOffset:CGPointMake(0, 0)];
      [refreshControl endRefreshing];
 }
 
@@ -313,6 +314,7 @@
     [[DentistDataBaseManager shareManager] queryUniteDownloadedList:^(NSArray<MagazineModel *> * _Nonnull array) {
         foreTask(^{
             self->datas=[NSArray arrayWithArray:array];
+            [self->mTableView setContentOffset:CGPointMake(0, 0)];
             [self->mTableView reloadData];
         });
     }];

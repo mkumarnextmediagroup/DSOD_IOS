@@ -19,7 +19,7 @@ import UIKit
 }
 
 @objc (ThumViewController)
-class ThumViewController: ExpandingViewController,ThumAndDetailViewControllerDelegate,ThumCollectionViewCellDelegate {
+class ThumViewController: ExpandingViewController,ThumAndDetailViewControllerDelegate,ThumCollectionViewCellDelegate,SliderListViewDelegate {
     
     @objc weak var delegate:ThumViewControllerDelegate?
     typealias didSelectMenu = (_ index:NSInteger) ->Void
@@ -28,6 +28,7 @@ class ThumViewController: ExpandingViewController,ThumAndDetailViewControllerDel
     @objc var thumSelectMenu:didSelectMenu?
     @objc var modelarr : Array<DetailModel>?
     @objc var pageType = PageType.normal
+    @objc var sliderView : SliderListView?
     var isfull:Bool?
     
     var detailcollectionView: ThumAndDetailViewController?
@@ -47,9 +48,9 @@ extension ThumViewController{
         view.backgroundColor=Colors.bgColorUnite
         
 //        let navBarHeight = self.navigationController!.navigationBar.frame.size.height
-//        
+//
 //        let stausBarHeight = UIApplication.shared.statusBarFrame.size.height
-//        
+//
 //        let itemheight = self.view.frame.size.height-(navBarHeight+stausBarHeight)
         
         itemSize = CGSize(width: 256, height: self.view.frame.size.height)
@@ -96,7 +97,7 @@ extension ThumViewController{
             self.isfull = true
         }else{
             self.isfull=false
-            self.pushToViewController3(0){
+            self.pushToViewController4(detailcollectionView!){
                 self.collectionView?.isHidden=false
                 self.detailView?.isHidden=true
                 self.detailView?.removeFromSuperview()
@@ -172,7 +173,9 @@ extension ThumViewController{
     @objc func openSliderView(search:Bool) -> Void {
         popView?.hide()
         popView2?.hide()
-        SliderListView.initSliderView(search, magazineId: self.uniteid!).showSliderView()
+        sliderView = SliderListView.initSliderView(search, magazineId: self.uniteid!)
+        sliderView?.delegate=self
+        sliderView?.showSliderView()
 //        SliderListView.init(sliderView: search, magazineId: self.uniteid).showSliderView()
 //        SliderListView.init(frame: CGRect.zero, isSearch: search, magazineId: self.uniteid!).showSliderView()
     }
@@ -274,7 +277,7 @@ extension ThumViewController{
                 }else if row==3 {
                     if self.isfull==true {
                         self.isfull=false
-                        self.pushToViewController3(0){
+                        self.pushToViewController4(self.detailcollectionView!){
                             self.collectionView?.isHidden=false
                             self.detailView?.isHidden=true
                             self.detailView?.removeFromSuperview()
@@ -383,7 +386,7 @@ extension ThumViewController{
                     self.shareUniteActicle()
                 }else if row==3 {
                     if self.isfull==true {
-                        self.pushToViewController3(0){
+                        self.pushToViewController4(self.detailcollectionView!){
                             self.collectionView?.isHidden=false
                             self.detailView?.isHidden=true
                             self.detailView?.removeFromSuperview()
@@ -450,7 +453,7 @@ extension ThumViewController{
             }
             
             if self.detailView!.isHidden==false {
-                self.pushToViewController3(offsety){
+                self.pushToViewController4(self.detailcollectionView!){
                     self.collectionView?.isHidden=false
                     self.detailView?.isHidden=true
                     self.detailView?.removeFromSuperview()
@@ -560,6 +563,10 @@ extension ThumViewController {
     
     @objc func thumAndDetailViewControllerDidScroll(_ offsety: CGFloat) {
         print("offsety2222======%f",offsety)
+    }
+    
+    @objc func gotoDetailPage(_ articleID: String) {
+        
     }
 }
 

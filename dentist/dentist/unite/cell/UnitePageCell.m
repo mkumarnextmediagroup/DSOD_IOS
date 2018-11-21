@@ -9,6 +9,7 @@
 #import "UnitePageCell.h"
 #import "Common.h"
 #import "DentistDataBaseManager.h"
+#import "Proto.h"
 #define edge 15
 
 @implementation UnitePageCell{
@@ -56,7 +57,7 @@
     _magazineModel = magazineModel;
     
     if(magazineModel.cover){
-        [coverImgView loadUrl:magazineModel.cover placeholderImage:@"bg_1"];
+        [coverImgView loadUrl:[Proto getFileUrlByObjectId:magazineModel.cover] placeholderImage:@"bg_1"];
     }
     coverImgView.contentMode=UIViewContentModeScaleAspectFill;
     coverImgView.clipsToBounds=YES;

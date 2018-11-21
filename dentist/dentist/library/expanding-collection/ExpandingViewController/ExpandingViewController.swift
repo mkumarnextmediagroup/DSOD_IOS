@@ -81,8 +81,10 @@ public extension ExpandingViewController {
             return
         }
 //        viewController.transitionDriver = transitionDriver
-//        let tabBarHeight = insets == true ? navigationController.navigationBar.frame.size.height : 0
-//        let stausBarHeight = insets == true ? UIApplication.shared.statusBarFrame.size.height : 0
+        let insets = automaticallyAdjustsScrollViewInsets
+        let tabBarHeight = insets == true ? navigationController.navigationBar.frame.size.height : 0
+        let stausBarHeight = insets == true ? UIApplication.shared.statusBarFrame.size.height : 0
+        
         let cell : BasePageCollectionCell = collectionView.cellForItem(at: IndexPath(row: currentIndex, section: 0)) as! BasePageCollectionCell
 //        let backImage = getBackImagecell(cell, headerHeight: cell.frame.height)
         
@@ -93,11 +95,13 @@ public extension ExpandingViewController {
             }
         }
         
+        let headerheight:CGFloat = (backImage == nil) ? backImage!.size.height : 0
+        
         transitionDriver?.pushTransitionAnimationIndex2(currentIndex,
                                                        collecitionView: collectionView,
                                                        backImage: backImage,
-                                                       headerHeight:itemSize.height,
-                                                       insets: 0) {_ in
+                                                       headerHeight:headerheight,
+                                                       insets: tabBarHeight + stausBarHeight) {_ in
                                                         completion()
                                                         
         }

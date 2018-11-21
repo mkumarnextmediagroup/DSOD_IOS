@@ -53,7 +53,7 @@
         
         imageView = self.addImageView;
         //    [imageView scaleFillAspect];
-        [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:187] install];
+        [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:SCREENWIDTH*2/3] install];
         
         thumbImageView = [UIImageView new];
         [imageView addSubview:thumbImageView];

@@ -58,9 +58,9 @@
     self = [super init];
     
     edge = 18;
-    if(IS_IPHONE_P_X){
-        edge=24;
-    }
+//    if(IS_IPHONE_P_X){
+//        edge=24;
+//    }
     allowZoom = YES;
     self.topView = [UIView new];
     self.topView.backgroundColor = rgb255(250, 251, 253);
@@ -82,7 +82,7 @@
     imageView = self.addImageView;
     [imageView scaleFillAspect];
     imageView.clipsToBounds = YES;
-    [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+    [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:SCREENWIDTH*2/3] install];
     
     CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
     _sponsorImageBtn = [self addButton];
@@ -100,7 +100,7 @@
     [_markButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     
     titleLabel = [self addLabel];
-    titleLabel.font = [Fonts semiBold:18];
+    titleLabel.font = [Fonts semiBold:20];
     [titleLabel textColorMain];
     titleLabel.numberOfLines = 0;
     [[[[titleLabel.layoutMaker leftParent:edge]  toLeftOf:_markButton offset:15] below:_sponsorImageBtn offset:10] install];
@@ -114,7 +114,7 @@
     [[[[[view.layoutMaker leftParent:0] rightParent:0] below:lineLabel offset:0] heightEq:58] install];
     
     byLabel = view.addLabel;
-    byLabel.font = [Fonts semiBold:18];
+    byLabel.font = [Fonts semiBold:20];
     byLabel.text = @"By";
     [[[[byLabel.layoutMaker sizeEq:30 h:58] leftParent:edge] topParent:0] install];
     
@@ -143,7 +143,7 @@
     mywebView.scrollView.scrollEnabled = NO;
     mywebView.backgroundColor = UIColor.redColor;
     [self addSubview:mywebView];
-    [[[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:1] below:view offset:0] install];
+    [[[[[mywebView.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:view offset:0] install];
 
     
     relativeTopicTableView = [UITableView new];
@@ -236,7 +236,7 @@
     picNumLab.font = [Fonts regular:12];
     [picNumLab textColorAlternate];
 
-    picNumLab.text = [NSString stringWithFormat:@"%lu images",imageArray.count];
+    picNumLab.text = [NSString stringWithFormat:@"%d images",imageArray.count];
 
     [[[[picNumLab.layoutMaker rightParent:-18] topParent:0] heightEq:50] install];
     
@@ -344,7 +344,7 @@
 - (void)showRelativeTopic:(NSArray*)data{
     
    if(data && data.count>0){
-        int height = 50;
+        int height = 40;
         for(int i = 0;i< data.count;i++){
             CGSize titleSize = [data[i][@"title"] boundingRectWithSize:CGSizeMake(SCREENWIDTH-edge*2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
             height += titleSize.height + 10;//padding：10
@@ -359,7 +359,7 @@
 - (void)showReferences:(NSArray*)data{
     referencesArray = data;
     if(referencesArray && referencesArray.count>0){
-        int height = 50;//header
+        int height = 40;//header
         long showCount = referencesArray.count;
         
         if(referencesArray.count>5){
@@ -440,7 +440,7 @@
             vedioWebView = [UIWebView new];
             vedioWebView.scrollView.scrollEnabled = NO;
             [self addSubview:vedioWebView];
-            [[[[[vedioWebView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+            [[[[[vedioWebView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:SCREENWIDTH*2/3] install];
         }
         [vedioWebView loadHTMLString:[self getVideoHtml] baseURL:nil];
     }
@@ -467,14 +467,16 @@
 }
 
 - (NSString *)htmlString:(NSString *)html{
-    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@",
+    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@%@%@",
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
-                            @"body{padding:0px;margin:0px;background:#ff0;font-family:SFUIText-Regular;}",
-                            @"p{width:100%;margin: 10px auto;color:#4a4a4a;font-size:0.9em;}",
+                            @"body{padding:0px;margin:0px;background:#fff;font-family:SFUIText-Regular;font-size:0.9em;color:#4a4a4a}",
+                            @"p{margin: 10px auto;padding-left:18px;padding-right:18px}",
+                            @"h2{font-size:1.1em;padding-left:18px;padding-right:18px}",
+                            @"ol{background:#fff;margin-left:18px;margin-right:18px;padding-left:18px;}",
                             @"em{font-style:normal}",
-                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
-                            @"blockquote{color:#4a4a4a;font-size:1.2em;font-weight:bold;margin: 20px 10px 10px 25px;position:relative;line-height:110%;text-indent:0px}",
+                            @".first-big p:first-letter{float: left;font-size:2.8em;margin-top:-6px;margin-bottom:-18px;margin-right:5px;text-transform:uppercase;color:#879aa8;}",
+                            @"blockquote{color:#4a4a4a;font-size:1.1em;font-weight:bold;margin: 20px 50px 10px 50px;position:relative;line-height:110%;text-indent:0px；background:#f00}",
                             @"blockquote:before{color:#4a4a4a;font-family:PingFangTC-Regular;content:'“';font-size:1.6em;position:absolute;left:-20px;top:15px;line-height:.1em}",
                             //@"blockquote:after{color:#4a4a4a;content:'”';font-size:5em;position:absolute;right:15px;bottom:0;line-height:.1em}"
                             @"figure{ margin:0 auto; background:#fff; }",
@@ -501,7 +503,7 @@
             if(isFirst){
                  //错误格式兼容<strong> </strong>厉害了中间还不是空格
 //                 htmlString = [htmlString stringByReplacingOccurrencesOfString :@"<strong> </strong>" withString:@""];
-                htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p style='margin-top:0'>%@</div>",htmlString,currentString];
+                htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p style='margin-top:10'>%@</div>",htmlString,currentString];
                  isFirst = NO;
             }else{
                  htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];
@@ -698,7 +700,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 50;
+    return 40;
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -709,11 +711,11 @@
         title = @"Related Resources";
     }
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,SCREENWIDTH,50)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,SCREENWIDTH,40)];
     titleLabel.textAlignment = NSTextAlignmentLeft;
-    titleLabel.textColor = UIColor.blackColor;
+    titleLabel.textColor = rgbHex(0x4a4a4a);
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-    NSDictionary *dic = @{NSFontAttributeName:[Fonts medium:25], NSParagraphStyleAttributeName:paraStyle, NSKernAttributeName:@1.2f};
+    NSDictionary *dic = @{NSFontAttributeName:[Fonts medium:16], NSParagraphStyleAttributeName:paraStyle, NSKernAttributeName:@1.2f};
     NSAttributedString *attributeStr = [[NSAttributedString alloc] initWithString:title attributes:dic];
     titleLabel.attributedText = attributeStr;
     
@@ -777,8 +779,8 @@
     [[[[numberLabel.layoutMaker leftParent:18] topParent:5]  widthEq:22]  install];
     
     UILabel *titleLabel = cell.contentView.addLabel;
-    titleLabel.font = [Fonts regular:16];
-    titleLabel.textColor = UIColor.blackColor;
+    titleLabel.font = [Fonts regular:14];
+    titleLabel.textColor = rgbHex(0x4a4a4a);
     titleLabel.numberOfLines = 0;
     titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     titleLabel.text = referencesArray[indexPath.row];

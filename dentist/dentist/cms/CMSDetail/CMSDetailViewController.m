@@ -33,6 +33,8 @@
     PicDetailView *picDetailView;
     UITableView *myTable;
     UIButton *markButton;
+    
+    UILabel *titleLabel;
 }
 @end
 
@@ -198,12 +200,12 @@
     [self.view addSubview:topVi];
     [[[[[topVi.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:NAVHEIGHT] install];
     
-    UILabel *content = [topVi addLabel];
-    content.font = [Fonts semiBold:15];
-    content.textColor = [UIColor whiteColor];
-    content.text = @"SPONSORED CONTENT";
-    content.textAlignment = NSTextAlignmentCenter;
-    [[[[content.layoutMaker leftParent:(SCREENWIDTH - 200)/2] topParent:23+NAVHEIGHT_OFFSET] sizeEq:200 h:40] install];
+    titleLabel = [topVi addLabel];
+    titleLabel.font = [Fonts semiBold:15];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.text = @"";
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [[[[titleLabel.layoutMaker leftParent:(SCREENWIDTH - 200)/2] topParent:23+NAVHEIGHT_OFFSET] sizeEq:200 h:40] install];
     
     UIButton *dismissBtn = [topVi addButton];
     [dismissBtn setImage:[UIImage imageNamed:@"back_arrow"] forState:UIControlStateNormal];
@@ -246,6 +248,12 @@
     if(!self.articleInfo){
         return;
     }
+    
+    NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",
+                                  @"259":@"sponsor_nobel",
+                                  @"197":@"sponsor_gsk"};
+    titleLabel.text = sponsorInfo[self.articleInfo.sponsorId] ? @"SPONSORED CONTENT" : @"";
+    
     
 //    if ([self.toWhichPage isEqualToString:@"mo"]) {
 //        playView = [PlayerView new];

@@ -17,8 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)bindSearchInfo:(DetailModel *)infoModel;
 
-@property (nonatomic, assign)BOOL isSearch;
-
 @end
 
 NS_ASSUME_NONNULL_END

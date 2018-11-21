@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId;
 
 - (void)showSliderView;
++(void)hideSliderView;
 
 @end
 

@@ -60,6 +60,18 @@ static dispatch_once_t onceToken;
     onceToken = 0;
 }
 
++(void)hideSliderView
+{
+    if (instance) {
+        [instance->mSearch resignFirstResponder];
+        instance->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+        instance->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
+        [instance removeFromSuperview];
+    }
+    
+    [self attemptDealloc];
+}
+
 - (void)showSliderView
 {
     if (sliderView.frame.origin.x == SCREENWIDTH) {

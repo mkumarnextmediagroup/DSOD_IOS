@@ -170,12 +170,15 @@ extension ThumViewController{
     }
     
     @objc func openSliderView(search:Bool) -> Void {
+        popView?.hide()
+        popView2?.hide()
         SliderListView.initSliderView(search, magazineId: self.uniteid!).showSliderView()
 //        SliderListView.init(sliderView: search, magazineId: self.uniteid).showSliderView()
 //        SliderListView.init(frame: CGRect.zero, isSearch: search, magazineId: self.uniteid!).showSliderView()
     }
     
     @objc func openMenu(){
+        SliderListView.hideSliderView()
         if self.isfull==true {
             self.openMenu1()
         }else{
@@ -416,6 +419,7 @@ extension ThumViewController{
             self.modelarr=array
             foreTask({
                 self.navigationItem.rightBarButtonItems=nil
+                self.detailcollectionView!.isbookmark=true
                 self.detailcollectionView!.modelarr=array
                 self.collectionView?.reloadData()
             })
@@ -433,6 +437,9 @@ extension ThumViewController{
 //        detailcollectionView?.view.frame=CGRect(x: 0, y: navBarHeight+stausBarHeight, width: self.view.frame.size.width, height: itemheight)
 //        self.addChild(detailcollectionView!)
         detailcollectionView!.delegate=self;
+        if(pageType == PageType.bookmark){
+            detailcollectionView!.isbookmark=true
+        }
         detailcollectionView!.navVC = self.navigationController;
         detailcollectionView!.magazineModel = self.magazineModel
         detailView=detailcollectionView!.view!
@@ -504,6 +511,9 @@ extension ThumViewController {
         navigationItem.rightBarButtonItems=[menuBtnItem2, fixedSpaceBarButtonItem, menuBtnItem1]
     }
     @objc func onBack(){
+        popView?.hide()
+        popView2?.hide()
+        SliderListView.hideSliderView()
         self.navigationController?.popToRootViewController(animated: true)
     }
     

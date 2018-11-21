@@ -62,7 +62,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     _collectionView.showsHorizontalScrollIndicator = NO;
     _collectionView.backgroundColor=[UIColor whiteColor];
     _collectionView.pagingEnabled = YES;
-     _collectionView.contentSize = CGSizeMake(3 * self.view.frame.size.width, 0);
+    
     [self.view addSubview:_collectionView];
     
     //设置数据源代理
@@ -105,13 +105,17 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 -(void)setModelarr:(NSArray<DetailModel *> *)modelarr
 {
     _modelarr=modelarr;
+    if (!_isbookmark) {
+        NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithObjects:self.magazineModel, nil];
+        [mutableArray addObjectsFromArray:_modelarr];
+        datas = [mutableArray copy];
+    }else{
+        NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:_modelarr];
+        datas = [mutableArray copy];
+    }
     
 
-    NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithObjects:self.magazineModel, nil];
-    [mutableArray addObjectsFromArray:_modelarr];
-    datas = [mutableArray copy];
-
-    
+    _collectionView.contentSize = CGSizeMake(datas.count * self.view.frame.size.width, 0);
     [self.collectionView reloadData];
 //    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
 }

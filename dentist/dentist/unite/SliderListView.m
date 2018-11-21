@@ -201,8 +201,8 @@ static dispatch_once_t onceToken;
 
 - (UIView *)headerView{
     
-    UIView *headerVi = [UIView new];
-    headerVi.backgroundColor = [UIColor whiteColor];
+    UIView *headerVi = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self->mTableView.frame.size.width, 80)];
+    headerVi.backgroundColor = [UIColor redColor];
     
     if (!_isSearch) {
         UILabel *issueLabel = headerVi.addLabel;
@@ -308,12 +308,13 @@ static dispatch_once_t onceToken;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (_isSearch) {
-        return 42;
-    }else
-    {
-        return 84;
-    }
+    return 30;
+//    if (_isSearch) {
+//        return 42;
+//    }else
+//    {
+//        return 84;
+//    }
    
 }
 
@@ -324,7 +325,12 @@ static dispatch_once_t onceToken;
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return [self headerView];
+//    return [self headerView];
+    UILabel *sectionview=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self->mTableView.frame.size.width, self->mTableView.frame.size.height)];
+    
+    sectionview.backgroundColor=[UIColor yellowColor];
+    sectionview.text=[NSString stringWithFormat:@"secion-%@",@(section)];
+    return sectionview;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

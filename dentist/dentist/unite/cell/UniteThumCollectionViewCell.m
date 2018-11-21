@@ -127,7 +127,7 @@
     detailModel = model;
     
     swipeView.hidden = YES;
-    [[mywebView.layoutUpdate heightEq:0] install];
+    [[mywebView.layoutUpdate heightEq:1] install];
     
     if([detailModel isKindOfClass:[MagazineModel class]]){
         [self showCover:(MagazineModel*)detailModel];

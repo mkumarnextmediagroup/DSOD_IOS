@@ -1496,7 +1496,7 @@
 {
     if (![NSString isBlankString:objectid]) {
         NSString *baseUrl = [self configUrl:@"cms"];
-        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=%@",objectid);
+        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
         return url;
     }else{
         return nil;

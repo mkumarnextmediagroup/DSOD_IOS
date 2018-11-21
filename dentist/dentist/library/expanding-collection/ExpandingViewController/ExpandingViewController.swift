@@ -85,7 +85,13 @@ public extension ExpandingViewController {
 //        let stausBarHeight = insets == true ? UIApplication.shared.statusBarFrame.size.height : 0
         let cell : BasePageCollectionCell = collectionView.cellForItem(at: IndexPath(row: currentIndex, section: 0)) as! BasePageCollectionCell
 //        let backImage = getBackImagecell(cell, headerHeight: cell.frame.height)
-        let backImage = cell.asImage()
+        
+        var backImage:UIImage?
+        for index in 0 ..< cell.frontContainerView.subviews.count {
+            if cell.frontContainerView.subviews[index] is UIWebView {
+                backImage=cell.frontContainerView.subviews[index].asImage()
+            }
+        }
         
         transitionDriver?.pushTransitionAnimationIndex2(currentIndex,
                                                        collecitionView: collectionView,

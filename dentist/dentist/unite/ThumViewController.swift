@@ -46,13 +46,13 @@ extension ThumViewController{
         
         view.backgroundColor=Colors.bgColorUnite
         
-        let navBarHeight = self.navigationController!.navigationBar.frame.size.height
+//        let navBarHeight = self.navigationController!.navigationBar.frame.size.height
+//        
+//        let stausBarHeight = UIApplication.shared.statusBarFrame.size.height
+//        
+//        let itemheight = self.view.frame.size.height-(navBarHeight+stausBarHeight)
         
-        let stausBarHeight = UIApplication.shared.statusBarFrame.size.height
-        
-        let itemheight = self.view.frame.size.height-(navBarHeight+stausBarHeight)
-        
-        itemSize = CGSize(width: 256, height: itemheight)
+        itemSize = CGSize(width: 256, height: self.view.frame.size.height)
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         registerCell()

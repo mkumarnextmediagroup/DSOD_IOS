@@ -60,7 +60,7 @@
         
         imageView = self.addImageView;
         //    [imageView scaleFillAspect];
-        [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:187] install];
+        [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:SCREENWIDTH*2/3] install];
         
         thumbImageView = [UIImageView new];
         [imageView addSubview:thumbImageView];
@@ -89,10 +89,10 @@
         [markButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
         
         titleLabel = [self addLabel];
-        titleLabel.font = [Fonts semiBold:18];
+        titleLabel.font = [Fonts semiBold:20];
         titleLabel.textColor = rgbHex(0x353f52);
         titleLabel.numberOfLines = 0;
-        [[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:15] below:gskBtn offset:edge-5]  install];
+        [[[[titleLabel.layoutMaker leftParent:edge] toLeftOf:markButton offset:15] below:gskBtn offset:10]  install];
         
         authorLabel = [self addLabel];
 //        authorLabel.backgroundColor = UIColor.redColor;
@@ -108,7 +108,7 @@
         contentWebView.scrollView.scrollEnabled = NO;
         contentWebView.userInteractionEnabled = NO;
         [self addSubview:contentWebView];
-        [[[[[[contentWebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:72] below:authorLabel offset:5] bottomParent:-20] install];
+        [[[[[[contentWebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:55] below:authorLabel offset:5] bottomParent:-20] install];
         
         moreLabel = [self addLabel];
         moreLabel.font = [Fonts semiBold:15];
@@ -223,8 +223,8 @@
     NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@",
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
-                            @"body{padding:0px;margin:0px;background:#ffffff;font-family:SFUIText-Regular;}",
-                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
+                            @"body{padding:0px;margin:0px;background:#fff;font-family:SFUIText-Regular;}",
+                            @".first-big p:first-letter{float: left;font-size:2.8em;margin-top:-6px;margin-bottom:-18px;margin-right:5px;text-transform:uppercase;color:#879aa8;}",
                             @"p{width:100%;margin: 0px auto;color:#4a4a4a;font-size:0.9em;}",
                             @"em{font-style:normal}",
                             @"strong{font-weight:normal} a {text-decoration:none;color:#4a4a4a}",

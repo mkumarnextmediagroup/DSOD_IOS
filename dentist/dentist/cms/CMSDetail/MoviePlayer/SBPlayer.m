@@ -291,7 +291,7 @@ static NSInteger count = 0;
                 }
                 
                 PlayerView *playerVi = (PlayerView *)self.addView;
-                [[[[[self.layoutMaker leftParent:0] rightParent:0] below:playerVi.topView offset:0] heightEq:250] install];
+                [[[[[self.layoutMaker leftParent:0] rightParent:0] below:playerVi.topView offset:0] heightEq:SCREENWIDTH*2/3] install];
                 
                 [self layoutIfNeeded];
             } completion:nil];

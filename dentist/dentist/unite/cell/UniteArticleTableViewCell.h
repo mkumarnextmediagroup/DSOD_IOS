@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)bindInfo:(DetailModel *)infoModel;
 
+@property (nonatomic, assign)BOOL isLastInfo;
+
 @end
 
 NS_ASSUME_NONNULL_END

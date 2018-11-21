@@ -31,12 +31,6 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        if (_isSearch) {
-            [self createSearchSubView];
-        }else
-        {
-            [self createCategory];
-        }
     }
     return self;
 }
@@ -95,15 +89,22 @@
     subHeadLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
     subHeadLabel.font = [Fonts regular:13];
     [[[[subHeadLabel.layoutMaker leftParent:edge]  rightParent:-edge] below:headLabel offset:0] install];
+    
+    UILabel *line = self.contentView.addLabel;
+    line.backgroundColor = [Colors cellLineColor];
+    [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:8] install];
 }
 
 - (void)bindInfo:(NSArray *)infoArr
 {
+    [self createCategory];
+
     [self buildViews:infoArr];
 }
 
 - (void)bindSearchInfo:(DetailModel *)infoModel
 {
+    [self createSearchSubView];
     headLabel.text = infoModel.title;
     subHeadLabel.text = infoModel.subTitle;
 

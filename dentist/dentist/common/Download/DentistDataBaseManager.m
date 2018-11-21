@@ -834,6 +834,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
             tmpArr=[NSMutableArray arrayWithArray:array];
             DetailModel *firstdetail=array[0];
             DetailModel *newdetail=[DetailModel new];
+            newdetail.id=@"-1";
             newdetail.uniteArticleType=@"1";
             newdetail.magazineModel=firstdetail.magazineModel;
             [tmpArr insertObject:newdetail atIndex:0];

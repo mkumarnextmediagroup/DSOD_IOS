@@ -326,7 +326,7 @@ static dispatch_once_t onceToken;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
 //    return [self headerView];
-    UILabel *sectionview=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self->mTableView.frame.size.width, self->mTableView.frame.size.height)];
+    UILabel *sectionview=[UILabel new];
     
     sectionview.backgroundColor=[UIColor yellowColor];
     sectionview.text=[NSString stringWithFormat:@"secion-%@",@(section)];

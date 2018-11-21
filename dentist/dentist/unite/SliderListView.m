@@ -26,6 +26,7 @@
     UIView      *sliderView;
     UIView      *backgroundVi;
     NSMutableArray *resultArray;
+    UIView *guestView;
     BOOL        isShow;
 }
 
@@ -100,8 +101,10 @@ static dispatch_once_t onceToken;
         self->sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
         self->backgroundVi.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH, SCREENHEIGHT);
     } completion:^(BOOL finished) {
-        [self removeFromSuperview];
-        [SliderListView attemptDealloc];
+        if (finished) {
+            [self removeFromSuperview];
+            [SliderListView attemptDealloc];
+        }
     }];
 }
 
@@ -115,8 +118,9 @@ static dispatch_once_t onceToken;
     sliderView.backgroundColor = [UIColor whiteColor];
     sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
     
-    UIView *guestView = [backgroundVi addView];
+    guestView = [backgroundVi addView];
     guestView.frame = CGRectMake(0, 0, 132, SCREENHEIGHT-NAVHEIGHT);
+//    guestView.backgroundColor = [UIColor grayColor];
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTappedPickerView:)];
     [singleTap setNumberOfTapsRequired:1];
     [guestView addGestureRecognizer:singleTap];
@@ -141,7 +145,6 @@ static dispatch_once_t onceToken;
         }
     }];
 }
-
 
 - (void)sortGroupByArr
 {
@@ -211,6 +214,7 @@ static dispatch_once_t onceToken;
 //        [headBtn setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
         [headBtn setTitle:@"IN THIS ISSUE" forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [headBtn addTarget:self action:@selector(showFullList) forControlEvents:UIControlEventTouchUpInside];
         headBtn.titleLabel.font = [Fonts regular:13];
         [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] below:line1 offset:0] install];
         
@@ -230,6 +234,17 @@ static dispatch_once_t onceToken;
     
     
     return headerVi;
+}
+
+- (void)showFullList
+{
+    //show the full list of articles
+    [UIView animateWithDuration:.3 animations:^{
+        self.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+        self->backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
+        self->sliderView.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
+        self->guestView.frame = CGRectMake(0, 0, SCREENWIDTH, NAVHEIGHT);
+    }];
 }
 
 - (void)createEmptyNotice

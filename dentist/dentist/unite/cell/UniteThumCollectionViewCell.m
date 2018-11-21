@@ -126,16 +126,18 @@
 -(void)bind:(id)model{
     if ([model isKindOfClass:[DetailModel class]]) {
         detailModel = (DetailModel *)model;
-        
-        swipeView.hidden = YES;
-        [[mywebView.layoutUpdate heightEq:0] install];
-        
+    
+       swipeView.hidden = YES;
+       [[mywebView.layoutUpdate heightEq:1] install];
+    
         if([detailModel.uniteArticleType isEqualToString:@"1"]){
             [self showCover:detailModel.magazineModel];
             
         }else if([detailModel isKindOfClass:[DetailModel class]]){
             [self showActicle:(DetailModel *)model];
         }
+        
+        
     }
     
 }

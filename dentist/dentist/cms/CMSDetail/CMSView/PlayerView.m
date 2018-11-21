@@ -60,7 +60,7 @@
     
     imageView = self.addImageView;
     [imageView scaleFillAspect];
-    [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+    [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:SCREENWIDTH*2/3] install];
 
 	_greeBtn = [self addButton];
 	[_greeBtn.titleLabel setFont:[Fonts regular:12]];
@@ -248,7 +248,7 @@
         //set the movie background color
         self.sbPlayer.backgroundColor = [UIColor blackColor];
         [self addSubview:self.sbPlayer];
-        [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+        [[[[[self.sbPlayer.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:SCREENWIDTH*2/3] install];
     }
     
 	titleLabel.text = bindInfo.title;

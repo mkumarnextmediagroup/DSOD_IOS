@@ -122,6 +122,13 @@ public extension ExpandingViewController {
         transitionDriver?.popTransitionAnimationContantOffset2(0)
         completion()
     }
+    
+    func pushToViewController4(_ viewController: UIViewController, completion: @escaping () -> Void) {
+         let backImage = getBackImage(viewController)
+        
+        transitionDriver?.popTransitionAnimationContantOffset(0, backImage: backImage)
+        completion()
+    }
 }
 
 // MARK: create
@@ -149,6 +156,12 @@ extension ExpandingViewController {
 
     fileprivate func getBackImage(_ viewController: UIViewController, headerHeight: CGFloat) -> UIImage? {
         let imageSize = CGSize(width: viewController.view.bounds.width, height: viewController.view.bounds.height - headerHeight)
+        let imageFrame = CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize)
+        return viewController.view.takeSnapshot(imageFrame)
+    }
+    
+    fileprivate func getBackImage(_ viewController: UIViewController) -> UIImage? {
+        let imageSize = CGSize(width: viewController.view.bounds.width, height: viewController.view.bounds.height)
         let imageFrame = CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize)
         return viewController.view.takeSnapshot(imageFrame)
     }

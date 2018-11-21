@@ -294,11 +294,6 @@ static dispatch_once_t onceToken;
     return resultArray.count;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    return UITableViewAutomaticDimension;
-//}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *cellIden = @"cell";
     UniteArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
@@ -318,6 +313,13 @@ static dispatch_once_t onceToken;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"select this row");
+    DetailModel *model = nil;
+    if (self.isSearch) {
+        model = searchArr[indexPath.row];
+    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(gotoDetailPage:)]){
+        [self.delegate gotoDetailPage:model.id];
+    }
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView

@@ -583,7 +583,7 @@ extension ThumViewController {
 //        cell.backgroundImageView.clipsToBounds = true
         cell.serialLabel.text=newmodel.serial
         cell.volIssueLabel.text=String(format: "%@ %@", newmodel.vol,newmodel.issue)
-        cell.titleLabel.text="Practive Success in a New Wold" //newmodel.cover
+        cell.titleLabel.text=newdetail.title
 //        cell.backTitleLabel.text="Practive Success in a New Wold" //newmodel.cover
 //        cell.backAuthorLabel.text=String(format: "%@:%@", "author",newmodel.createUser)
 //        cell.pushDataLabel.text=NSString.time(withTimeIntervalString: newmodel.publishDate)

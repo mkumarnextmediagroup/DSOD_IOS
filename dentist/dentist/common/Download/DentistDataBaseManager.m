@@ -826,6 +826,24 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
     
 }
 
+//MARK:根据杂志ID查询杂志文章列表
+-(void)queryUniteArticlesCachesList2:(NSString *)uniteid completed:(void(^)(NSArray<DetailModel *> *array))completed{
+    __block NSMutableArray *tmpArr = [NSMutableArray array];
+    [self queryUniteArticlesCachesList:uniteid completed:^(NSArray<DetailModel *> * _Nonnull array) {
+        if (array && array.count>0) {
+            tmpArr=[NSMutableArray arrayWithArray:array];
+            DetailModel *firstdetail=array[0];
+            DetailModel *newdetail=[DetailModel new];
+            newdetail.uniteArticleType=@"1";
+            newdetail.magazineModel=firstdetail.magazineModel;
+            [tmpArr insertObject:newdetail atIndex:0];
+        }
+        if (completed) {
+            completed(tmpArr);
+        }
+    }];
+}
+
 //MARK:添加删除杂志文章方法，isbookmark==1收藏；0取消收藏
 -(void)updateUniteArticleBookmark:(NSString *)articleid isbookmark:(NSInteger)isbookmark completed:(void(^)(BOOL result))completed
 {

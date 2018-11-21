@@ -33,6 +33,7 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
     @IBOutlet weak var ArchiiveButton: UIButton!
     
     @IBOutlet weak var removeBookmarkButton: UIButton!
+    @IBOutlet weak var frontImageVIew: UIImageView!
     
     var selectIndexpath:IndexPath!
     //  2. 声明变量
@@ -44,6 +45,8 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        frontImageVIew.scaleFillAspect()
+        frontImageVIew.clipsToBounds=true
         ArchiiveButton.layer.borderColor=UIColor.darkGray.cgColor
         ArchiiveButton.layer.borderWidth=1.0
         removeBookmarkButton.layer.borderColor=UIColor.darkGray.cgColor

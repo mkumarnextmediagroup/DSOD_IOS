@@ -105,17 +105,17 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 -(void)setModelarr:(NSArray<DetailModel *> *)modelarr
 {
     _modelarr=modelarr;
-    if (!_isbookmark) {
-        NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithObjects:self.magazineModel, nil];
-        [mutableArray addObjectsFromArray:_modelarr];
-        datas = [mutableArray copy];
-    }else{
-        NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:_modelarr];
-        datas = [mutableArray copy];
-    }
+//    if (!_isbookmark) {
+//        NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithObjects:self.magazineModel, nil];
+//        [mutableArray addObjectsFromArray:_modelarr];
+//        datas = [mutableArray copy];
+//    }else{
+//        NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:_modelarr];
+//        datas = [mutableArray copy];
+//    }
     
 
-    _collectionView.contentSize = CGSizeMake(datas.count * self.view.frame.size.width, 0);
+    _collectionView.contentSize = CGSizeMake(_modelarr.count * self.view.frame.size.width, 0);
     [self.collectionView reloadData];
 //    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
 }
@@ -149,7 +149,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 }
 //每个分组里有多少个item
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return datas.count;
+    return _modelarr.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -157,7 +157,10 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     //根据identifier从缓冲池里去出cell
     UniteThumCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:UniteThumidentifier forIndexPath:indexPath];
     cell.delegate=self;
-    [cell bind:datas[indexPath.row]];
+    if (_modelarr.count>indexPath.row) {
+        [cell bind:_modelarr[indexPath.row]];
+    }
+    
     
     return cell;
 }

@@ -22,7 +22,7 @@
     
     UIView *swipeView;
     
-    id detailModel;
+    DetailModel *detailModel;
     
     CGFloat lastContentOffset;
     
@@ -124,17 +124,20 @@
 
 
 -(void)bind:(id)model{
-    detailModel = model;
-    
-    swipeView.hidden = YES;
-    [[mywebView.layoutUpdate heightEq:0] install];
-    
-    if([detailModel isKindOfClass:[MagazineModel class]]){
-        [self showCover:(MagazineModel*)detailModel];
+    if ([model isKindOfClass:[DetailModel class]]) {
+        detailModel = (DetailModel *)model;
         
-    }else if([detailModel isKindOfClass:[DetailModel class]]){
-        [self showActicle:(DetailModel *)model];
+        swipeView.hidden = YES;
+        [[mywebView.layoutUpdate heightEq:0] install];
+        
+        if([detailModel.uniteArticleType isEqualToString:@"1"]){
+            [self showCover:detailModel.magazineModel];
+            
+        }else if([detailModel isKindOfClass:[DetailModel class]]){
+            [self showActicle:(DetailModel *)model];
+        }
     }
+    
 }
     
 -(void)showCover:(MagazineModel*)model{

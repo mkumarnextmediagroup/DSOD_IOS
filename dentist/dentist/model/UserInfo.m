@@ -24,7 +24,10 @@
 	_isLinkedin = [dic boolValue:@"is_linkedin"];
 	_photo_url = [dic strValue:@"photo_url"];
     _resume_url = [dic strValue:@"resume_url"];
-    _resume_name = [(NSDictionary*)dic[@"document_library"] strValue:@"document_name"];
+    id documentLibrary = dic[@"document_library"] ;
+    if (documentLibrary && documentLibrary != NSNull.null && [documentLibrary isKindOfClass:[NSDictionary class]]) {
+        _resume_name = [documentLibrary strValue:@"document_name"];
+    }
 	_speciality = [IdName new];
 	_speciality.id = nil;
 	_speciality.name = nil;

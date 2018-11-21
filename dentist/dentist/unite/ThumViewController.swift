@@ -419,6 +419,7 @@ extension ThumViewController{
             self.modelarr=array
             foreTask({
                 self.navigationItem.rightBarButtonItems=nil
+                self.detailcollectionView!.isbookmark=true
                 self.detailcollectionView!.modelarr=array
                 self.collectionView?.reloadData()
             })
@@ -436,6 +437,9 @@ extension ThumViewController{
 //        detailcollectionView?.view.frame=CGRect(x: 0, y: navBarHeight+stausBarHeight, width: self.view.frame.size.width, height: itemheight)
 //        self.addChild(detailcollectionView!)
         detailcollectionView!.delegate=self;
+        if(pageType == PageType.bookmark){
+            detailcollectionView!.isbookmark=true
+        }
         detailcollectionView!.navVC = self.navigationController;
         detailcollectionView!.magazineModel = self.magazineModel
         detailView=detailcollectionView!.view!

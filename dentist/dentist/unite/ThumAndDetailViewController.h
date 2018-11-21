@@ -19,6 +19,7 @@
 @interface ThumAndDetailViewController : UIViewController
 @property (nonatomic,strong) NSArray<DetailModel*> *modelarr;
 @property (nonatomic,strong) MagazineModel *magazineModel;
+@property (nonatomic,assign) BOOL isbookmark;
 @property (nonatomic,assign) NSInteger currentIndex;
 @property (nonatomic,copy) void(^scrollToDown)(CGFloat y);
 @property (nonatomic,copy) void(^didEndDecelerating)(NSInteger index);

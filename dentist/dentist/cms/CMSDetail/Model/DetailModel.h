@@ -54,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray <Optional>*relativeTopicList;
 @property NSArray <Optional>*references;
 @property NSString <Optional>*uniteid;
+@property NSString <Optional>*uniteArticleType;//0,正常文章;1，封面
 @property MagazineModel <Optional> *magazineModel;
 
 

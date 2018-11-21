@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -69,6 +69,9 @@
                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldk-4g-U35" userLabel="Front Container View">
                         <rect key="frame" x="0.0" y="0.0" width="256" height="335"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XXH-k3-VKg">
+                                <rect key="frame" x="0.0" y="0.0" width="256" height="335"/>
+                            </imageView>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FKn-ca-pgO">
                                 <rect key="frame" x="5" y="10" width="246" height="325"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -77,11 +80,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="FKn-ca-pgO" firstAttribute="leading" secondItem="Ldk-4g-U35" secondAttribute="leading" constant="5" id="8kR-kk-BUd"/>
+                            <constraint firstItem="XXH-k3-VKg" firstAttribute="leading" secondItem="Ldk-4g-U35" secondAttribute="leading" id="Jur-ES-wvn"/>
                             <constraint firstItem="FKn-ca-pgO" firstAttribute="top" secondItem="Ldk-4g-U35" secondAttribute="top" constant="10" id="MSH-IK-7QO"/>
                             <constraint firstAttribute="height" constant="335" id="O3w-SC-xU8"/>
                             <constraint firstAttribute="width" constant="256" id="VgM-g6-kWt"/>
+                            <constraint firstItem="XXH-k3-VKg" firstAttribute="top" secondItem="Ldk-4g-U35" secondAttribute="top" id="bUL-fh-Nwy"/>
                             <constraint firstAttribute="bottom" secondItem="FKn-ca-pgO" secondAttribute="bottom" id="bip-Gw-R8Q"/>
+                            <constraint firstAttribute="trailing" secondItem="XXH-k3-VKg" secondAttribute="trailing" id="ctP-d1-Fj3"/>
                             <constraint firstAttribute="trailing" secondItem="FKn-ca-pgO" secondAttribute="trailing" constant="5" id="rcp-Mx-ZT0"/>
+                            <constraint firstAttribute="bottom" secondItem="XXH-k3-VKg" secondAttribute="bottom" id="yJv-IA-I1z"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="August/september 2018" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ItZ-7a-rXf">
@@ -170,6 +177,7 @@
                 <outlet property="backTitleLabel" destination="QgS-0X-9Dg" id="3s9-VO-b33"/>
                 <outlet property="frontConstraintY" destination="1BI-AL-bvZ" id="9v9-4A-wz4"/>
                 <outlet property="frontContainerView" destination="Ldk-4g-U35" id="vnC-RW-j58"/>
+                <outlet property="frontImageVIew" destination="XXH-k3-VKg" id="FOO-vh-Ueu"/>
                 <outlet property="frontWebView" destination="FKn-ca-pgO" id="3Lh-JM-hB1"/>
                 <outlet property="pushDataLabel" destination="5jd-Ij-UgF" id="NUc-nu-jSU"/>
                 <outlet property="removeBookmarkButton" destination="dRW-Aj-Ju5" id="ec1-u4-6Dw"/>

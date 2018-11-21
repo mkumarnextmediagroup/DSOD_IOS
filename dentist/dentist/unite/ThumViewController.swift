@@ -74,7 +74,7 @@ extension ThumViewController{
                 })
             }
         }else{
-            DentistDataBaseManager.share().queryUniteArticlesCachesList(self.uniteid, completed: {(array:Array<DetailModel>) in
+            DentistDataBaseManager.share().queryUniteArticlesCachesList2(self.uniteid, completed: {(array:Array<DetailModel>) in
                 
                 self.modelarr=array
                 foreTask({
@@ -167,7 +167,13 @@ extension ThumViewController{
     }
     
     @objc func openMenuSliderView() -> Void {
-        self.openSliderView(search: false)
+        if(self.modelarr!.count>self.currentIndex) {
+            let detailmodel:DetailModel=self.modelarr![self.currentIndex]
+            if detailmodel.uniteArticleType != "1" {
+                self.openSliderView(search: false)
+            }
+        }
+        
     }
     
     @objc func openSliderView(search:Bool) -> Void {
@@ -182,11 +188,17 @@ extension ThumViewController{
     
     @objc func openMenu(){
         SliderListView.hideSliderView()
-        if self.isfull==true {
-            self.openMenu1()
-        }else{
-            self.openMenu2()
+        if(self.modelarr!.count>self.currentIndex) {
+            let detailmodel:DetailModel=self.modelarr![self.currentIndex]
+            if detailmodel.uniteArticleType != "1" {
+                if self.isfull==true {
+                    self.openMenu1()
+                }else{
+                    self.openMenu2()
+                }
+            }
         }
+        
         
     }
     
@@ -232,37 +244,41 @@ extension ThumViewController{
                     self.thumSelectMenu!(row)
                 }
                 if row==0{
+                    
                     if(self.modelarr!.count>self.currentIndex) {
                         let detailmodel:DetailModel=self.modelarr![self.currentIndex]
-                        if(detailmodel.isBookmark==true) {
-                            
-//                            let toastview=DsoToast.toastView(forMessage: "Remove from bookmarks……", ishowActivity: true)
-//                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
-//                            DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
-//                                if result == true {
-//                                    detailmodel.isBookmark=false;
-//                                    foreTask({
-//                                        self.collectionView?.reloadData()
-//                                        self.popView!.updateIcon("bookmark", at: 0)
-//                                    })
-//                                }
-//
-//                            })
-                        }else{
-                            let toastview=DsoToast.toastView(forMessage: "Saving to bookmarks…", ishowActivity: true)
-                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
-                            DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 1, completed: { (result:Bool) in
-                                if result == true {
-                                    detailmodel.isBookmark=true;
-                                    foreTask({
-                                        self.collectionView?.reloadData()
-                                        self.popView!.updateIcon("bookmark-light", at: 0)
-                                    })
-                                    
-                                }
+                        if detailmodel.uniteArticleType != "1" {
+                            if(detailmodel.isBookmark==true) {
                                 
-                            })
+                                //                            let toastview=DsoToast.toastView(forMessage: "Remove from bookmarks……", ishowActivity: true)
+                                //                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
+                                //                            DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
+                                //                                if result == true {
+                                //                                    detailmodel.isBookmark=false;
+                                //                                    foreTask({
+                                //                                        self.collectionView?.reloadData()
+                                //                                        self.popView!.updateIcon("bookmark", at: 0)
+                                //                                    })
+                                //                                }
+                                //
+                                //                            })
+                            }else{
+                                let toastview=DsoToast.toastView(forMessage: "Saving to bookmarks…", ishowActivity: true)
+                                self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
+                                DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 1, completed: { (result:Bool) in
+                                    if result == true {
+                                        detailmodel.isBookmark=true;
+                                        foreTask({
+                                            self.collectionView?.reloadData()
+                                            self.popView!.updateIcon("bookmark-light", at: 0)
+                                        })
+                                        
+                                    }
+                                    
+                                })
+                            }
                         }
+                        
                         
                     }
                 }
@@ -349,34 +365,37 @@ extension ThumViewController{
                 if row==0{
                     if(self.modelarr!.count>self.currentIndex) {
                         let detailmodel:DetailModel=self.modelarr![self.currentIndex]
-                        if(detailmodel.isBookmark==true) {
-//                            let toastview=DsoToast.toastView(forMessage: "Remove from bookmarks……", ishowActivity: true)
-//                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
-//                            DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
-//                                if result == true {
-//                                    detailmodel.isBookmark=false;
-//                                    foreTask({
-//                                        self.collectionView?.reloadData()
-//                                        self.popView2!.updateIcon("bookmark", at: 0)
-//                                    })
-//                                }
-//                                
-//                            })
-                        }else{
-                            let toastview=DsoToast.toastView(forMessage: "Saving to bookmarks…", ishowActivity: true)
-                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
-                            DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 1, completed: { (result:Bool) in
-                                if result == true {
-                                    detailmodel.isBookmark=true;
-                                    foreTask({
-                                        self.collectionView?.reloadData()
-                                        self.popView2!.updateIcon("bookmark-light", at: 0)
-                                    })
+                        if detailmodel.uniteArticleType != "1" {
+                            if(detailmodel.isBookmark==true) {
+                                //                            let toastview=DsoToast.toastView(forMessage: "Remove from bookmarks……", ishowActivity: true)
+                                //                            self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
+                                //                            DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 0, completed: { (result:Bool) in
+                                //                                if result == true {
+                                //                                    detailmodel.isBookmark=false;
+                                //                                    foreTask({
+                                //                                        self.collectionView?.reloadData()
+                                //                                        self.popView2!.updateIcon("bookmark", at: 0)
+                                //                                    })
+                                //                                }
+                                //
+                                //                            })
+                            }else{
+                                let toastview=DsoToast.toastView(forMessage: "Saving to bookmarks…", ishowActivity: true)
+                                self.navigationController?.view.showToast(toastview!, duration: 1.0, position: .bottom)
+                                DentistDataBaseManager.share().updateUniteArticleBookmark(detailmodel.id, isbookmark: 1, completed: { (result:Bool) in
+                                    if result == true {
+                                        detailmodel.isBookmark=true;
+                                        foreTask({
+                                            self.collectionView?.reloadData()
+                                            self.popView2!.updateIcon("bookmark-light", at: 0)
+                                        })
+                                        
+                                    }
                                     
-                                }
-                                
-                            })
+                                })
+                            }
                         }
+                       
                         
                     }
                 }
@@ -594,7 +613,16 @@ extension ThumViewController {
 //        cell.backTitleLabel.text="Practive Success in a New Wold" //newmodel.cover
 //        cell.backAuthorLabel.text=String(format: "%@:%@", "author",newmodel.createUser)
 //        cell.pushDataLabel.text=NSString.time(withTimeIntervalString: newmodel.publishDate)
-        cell.htmlString(newdetail.content)
+        if newdetail.uniteArticleType == "1" {
+            cell.frontImageVIew.isHidden=false
+            cell.frontWebView.isHidden=true
+            cell.frontImageVIew.sd_setImage(with: URL(string: newmodel.cover), completed: nil)
+        }else{
+            cell.frontImageVIew.isHidden=true
+            cell.frontWebView.isHidden=false
+            cell.htmlString(newdetail.content)
+        }
+        
 //        cell.customTitle.text = info.title
         
 //        if (modelarr!.count > index)  {

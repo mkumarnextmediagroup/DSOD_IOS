@@ -29,6 +29,7 @@
     
     int edge;
     int imageViewHeight;
+    int imageViewCoverHeight;
 }
 
 @end
@@ -43,6 +44,7 @@
         }
         
         imageViewHeight = SCREENWIDTH * 2 /3;
+        imageViewCoverHeight = SCREENHEIGHT * 3 / 4;
         
         [self layoutIfNeeded];
         
@@ -64,7 +66,6 @@
 
         [self buildView];
         [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(lastView) install];
-        
         
 
     }
@@ -141,7 +142,7 @@
 
     NSString* cover = model.cover;
     [imageView loadUrl:cover placeholderImage:@""];
-    [[imageView.layoutUpdate heightEq: 500 ]install];
+    [[imageView.layoutUpdate heightEq:imageViewCoverHeight ]install];
 
     swipeView.hidden = NO;
 }

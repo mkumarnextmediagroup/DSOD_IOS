@@ -15,6 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)bindInfo:(NSArray *)infoArr;
 
+- (void)bindSearchInfo:(DetailModel *)infoModel;
+
+@property (nonatomic, assign)BOOL isSearch;
+
 @end
 
 NS_ASSUME_NONNULL_END

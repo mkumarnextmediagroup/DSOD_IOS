@@ -253,6 +253,7 @@ static dispatch_once_t onceToken;
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    //@"Interproximal Reduction (IPR)"
     [[DentistDataBaseManager shareManager] queryUniteArticlesCachesByKeywordList:self.magazineId keywords:searchBar.text completed:^(NSArray<DetailModel *> * _Nonnull array) {
         if (array) {
             self->searchArr = array;
@@ -305,8 +306,9 @@ static dispatch_once_t onceToken;
         cell = [[UniteArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
     [cell layoutIfNeeded];
+    cell.isSearch = _isSearch;
     if (_isSearch) {
-        [cell bindInfo:searchArr[indexPath.row]];
+        [cell bindSearchInfo:searchArr[indexPath.row]];
     }else
     {
         [cell bindInfo:resultArray[indexPath.row]];

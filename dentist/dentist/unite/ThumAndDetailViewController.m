@@ -120,25 +120,15 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 //    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
 }
 
--(void)setCurrentIndex:(NSInteger)currentIndex
-{
- 
-    if(self.magazineModel){
-        _currentIndex = currentIndex + 1 < datas.count ? currentIndex + 1 : _currentIndex;//跳过封面
-    }else {
-        _currentIndex=currentIndex;//没有封面
-    }
-    
+-(void)setCurrentIndex:(NSInteger)currentIndex{
+    _currentIndex=currentIndex;
+
     [self.collectionView reloadData];
     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
 }
 
 -(NSInteger)currentIndex{
-    if(self.magazineModel){
-        return _currentIndex-1 >=0 ? _currentIndex-1 : 0;//跳过封面
-    }else {
-        return _currentIndex;//没有封面
-    }
+    return _currentIndex;
 }
 
 - (void)onBack:(UIButton *)btn {

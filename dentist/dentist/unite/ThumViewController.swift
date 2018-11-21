@@ -585,7 +585,15 @@ extension ThumViewController {
     }
     
     @objc func gotoDetailPage(_ articleID: String) {
-        
+        for (index,value) in self.modelarr!.enumerated() {
+            if value.id == articleID {
+                if isfull == true {
+                    self.detailcollectionView!.currentIndex=index
+                }else{
+                    self.collectionView!.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
+                }
+            }
+        }
     }
 }
 

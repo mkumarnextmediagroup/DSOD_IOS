@@ -31,6 +31,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        [self buildViews];
     }
     return self;
 }
@@ -45,34 +46,27 @@
 
 }
 
-- (void)buildViews:(NSArray *)infoArr
+- (void)buildViews
 {
-    for (int i = 0; i < infoArr.count; i++) {
-        DetailModel *article = infoArr[i];
-        categoryLab.text = article.categoryName;
-        
-        headLabel = self.contentView.addLabel;
-        headLabel.font = [Fonts regular:13];
-        headLabel.numberOfLines = 0;
-        headLabel.text = article.title;
-        headLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
-        [[[[headLabel.layoutMaker leftParent:edge] rightParent:-edge] topParent:52+i*40] install];
-        
-        subHeadLabel = self.contentView.addLabel;
-        [subHeadLabel textColorMain];
-        subHeadLabel.numberOfLines = 0;
-        subHeadLabel.text = article.subTitle;
-        subHeadLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
-        subHeadLabel.font = [Fonts regular:13];
-        [[[[subHeadLabel.layoutMaker leftParent:edge]  rightParent:-edge] topParent:92+i*40] install];
+    headLabel = self.contentView.addLabel;
+    headLabel.font = [Fonts regular:13];
+    headLabel.numberOfLines = 0;
+    headLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
+    [[[[headLabel.layoutMaker leftParent:edge] rightParent:-edge] topParent:8] install];
+    
+    subHeadLabel = self.contentView.addLabel;
+    [subHeadLabel textColorMain];
+    subHeadLabel.numberOfLines = 0;
+    subHeadLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
+    subHeadLabel.font = [Fonts regular:13];
+    [[[[subHeadLabel.layoutMaker leftParent:edge]  rightParent:-edge] below:headLabel offset:2] install];
 
-        if (i == infoArr.count-1) {
-            UILabel *line = self.contentView.addLabel;
-            line.backgroundColor = [Colors cellLineColor];
-            [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:15] install];
-        }
-        
-    }
+//    if (i == infoArr.count-1) {
+//        UILabel *line = self.contentView.addLabel;
+//        line.backgroundColor = [Colors cellLineColor];
+//        [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:15] install];
+//    }
+    
 }
 
 - (void)createSearchSubView
@@ -95,29 +89,10 @@
     [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:8] install];
 }
 
-- (void)bindInfo:(NSArray *)infoArr
+- (void)bindInfo:(DetailModel *)infoModel
 {
-    [self createCategory];
-
-    [self buildViews:infoArr];
-}
-
-- (void)bindSearchInfo:(DetailModel *)infoModel
-{
-    [self createSearchSubView];
     headLabel.text = infoModel.title;
     subHeadLabel.text = infoModel.subTitle;
-
 }
-
-//- (void)layoutSubviews
-//{
-//    [super layoutSubviews];
-//    CGSize size = [subHeadLabel sizeThatFits:CGSizeMake(SCREENWIDTH - 132 - edge *2, 1000)];
-//    [[subHeadLabel.layoutUpdate heightEq:size.height] install];
-//
-//    CGSize size2 = [headLabel sizeThatFits:CGSizeMake(SCREENWIDTH - 132 - edge *2, 1000)];
-//    [[headLabel.layoutUpdate heightEq:size2.height] install];
-//}
 
 @end

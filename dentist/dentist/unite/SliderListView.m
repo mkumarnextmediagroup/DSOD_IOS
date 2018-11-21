@@ -26,7 +26,8 @@
     UIView      *sliderView;
     UIView      *backgroundVi;
     NSMutableArray *resultArray;
-    UIView *guestView;
+    UILabel     *categoryLab;
+    UIView      *guestView;
     BOOL        isShow;
 }
 
@@ -142,6 +143,9 @@ static dispatch_once_t onceToken;
         if (array) {
             self->infoArr = array;
             [self sortGroupByArr];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self->mTableView reloadData];
+            });
         }
     }];
 }
@@ -187,6 +191,7 @@ static dispatch_once_t onceToken;
     mTableView.dataSource = self;
     mTableView.delegate = self;
     mTableView.estimatedRowHeight = 60;
+    mTableView.tableHeaderView = [self headerView];
 //    mTableView.rowHeight = UITableViewAutomaticDimension;
     mTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     mTableView.backgroundColor = [UIColor whiteColor];
@@ -284,6 +289,21 @@ static dispatch_once_t onceToken;
     
 }
 
+- (UIView *)subHeaderView
+{
+    UIView *headerVi = [UIView new];
+    headerVi.backgroundColor = [UIColor whiteColor];
+    
+    categoryLab = headerVi.addLabel;
+    categoryLab.font = [Fonts regular:13];
+    categoryLab.numberOfLines = 2;
+    categoryLab.text = @"asdfljskdfjksdfk";
+    categoryLab.textColor = Colors.textAlternate;
+    [[[[[categoryLab.layoutMaker leftParent:30] rightParent:-30] heightEq:44] topParent:8] install];
+
+    return headerVi;
+}
+
 #pragma mark UITableViewDataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -294,7 +314,12 @@ static dispatch_once_t onceToken;
     {
         return 84;
     }
-    return 0;
+   
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 1;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -302,11 +327,22 @@ static dispatch_once_t onceToken;
     return [self headerView];
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (!_isSearch) {
+        return resultArray.count;
+    }
+    return 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (_isSearch) {
         return searchArr.count;
+    }else
+    {
+        NSArray *infoArr = resultArray[section];
+        return infoArr.count;
     }
-    return resultArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -317,11 +353,13 @@ static dispatch_once_t onceToken;
     }
     [cell layoutIfNeeded];
     if (_isSearch) {
-        [cell bindSearchInfo:searchArr[indexPath.row]];
+        [cell bindInfo:searchArr[indexPath.row]];
     }else
     {
-        [cell bindInfo:resultArray[indexPath.row]];
+        [cell bindInfo:resultArray[indexPath.section][indexPath.row]];
     }
+    DetailModel *model = resultArray[indexPath.section][0];
+    categoryLab.text = model.categoryName;
     return cell;
 }
 

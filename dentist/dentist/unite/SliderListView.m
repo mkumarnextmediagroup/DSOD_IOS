@@ -306,7 +306,6 @@ static dispatch_once_t onceToken;
         cell = [[UniteArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
     [cell layoutIfNeeded];
-    cell.isSearch = _isSearch;
     if (_isSearch) {
         [cell bindSearchInfo:searchArr[indexPath.row]];
     }else

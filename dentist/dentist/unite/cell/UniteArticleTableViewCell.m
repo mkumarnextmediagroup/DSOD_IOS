@@ -57,7 +57,7 @@
         headLabel.numberOfLines = 0;
         headLabel.text = article.title;
         headLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
-        [[[[[headLabel.layoutMaker leftParent:edge] rightParent:-edge] heightEq:40] topParent:52+i*80] install];
+        [[[[headLabel.layoutMaker leftParent:edge] rightParent:-edge] topParent:52+i*40] install];
         
         subHeadLabel = self.contentView.addLabel;
         [subHeadLabel textColorMain];
@@ -65,12 +65,12 @@
         subHeadLabel.text = article.subTitle;
         subHeadLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
         subHeadLabel.font = [Fonts regular:13];
-        [[[[subHeadLabel.layoutMaker leftParent:edge] sizeEq:SCREENWIDTH - 132 - edge *2 h:45] topParent:92+i*80] install];
+        [[[[subHeadLabel.layoutMaker leftParent:edge]  rightParent:-edge] topParent:92+i*40] install];
 
         if (i == infoArr.count-1) {
             UILabel *line = self.contentView.addLabel;
             line.backgroundColor = [Colors cellLineColor];
-            [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:0] install];
+            [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:15] install];
         }
         
     }

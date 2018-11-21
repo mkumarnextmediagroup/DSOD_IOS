@@ -187,7 +187,7 @@
     if(self.delegate && [self.delegate respondsToSelector:@selector(hideNavBar:)]){
         BOOL hide = NO;
         CGFloat newY= scrollView.contentOffset.y;
-        NSLog(@"newY:===%f", newY);
+//        NSLog(@"newY:===%f", newY);
         if (newY < -2) {
             hide = NO;
         }else if (newY != lastContentOffset ) {

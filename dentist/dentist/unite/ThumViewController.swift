@@ -170,12 +170,15 @@ extension ThumViewController{
     }
     
     @objc func openSliderView(search:Bool) -> Void {
+        popView?.hide()
+        popView2?.hide()
         SliderListView.initSliderView(search, magazineId: self.uniteid!).showSliderView()
 //        SliderListView.init(sliderView: search, magazineId: self.uniteid).showSliderView()
 //        SliderListView.init(frame: CGRect.zero, isSearch: search, magazineId: self.uniteid!).showSliderView()
     }
     
     @objc func openMenu(){
+        SliderListView.hideSliderView()
         if self.isfull==true {
             self.openMenu1()
         }else{
@@ -504,6 +507,9 @@ extension ThumViewController {
         navigationItem.rightBarButtonItems=[menuBtnItem2, fixedSpaceBarButtonItem, menuBtnItem1]
     }
     @objc func onBack(){
+        popView?.hide()
+        popView2?.hide()
+        SliderListView.hideSliderView()
         self.navigationController?.popToRootViewController(animated: true)
     }
     

@@ -20,6 +20,7 @@
 @interface SliderListView()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UIGestureRecognizerDelegate>
 {
     UITableView *mTableView;
+    UITableView *searchTableView;
     UISearchBar *mSearch;
     NSArray     *infoArr;
     NSArray     *searchArr;
@@ -129,7 +130,11 @@ static dispatch_once_t onceToken;
     
     if (_isSearch) {//show the search page
         [self createSearchBar];
-        [[[[mSearch.layoutMaker leftParent:8] topParent:0] sizeEq:SCREENWIDTH - 132 - 8 h:40] install];
+        [[[[mSearch.layoutMaker leftParent:8] topParent:10] sizeEq:SCREENWIDTH - 132 - 8 h:40] install];
+        
+        UILabel *line = sliderView.addLabel;
+        line.backgroundColor = [Colors cellLineColor];
+        [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:mSearch offset:9] install];
         
         [self createTableview];
         [[[[[mTableView.layoutMaker leftParent:0] rightParent:0] below:mSearch offset:10] sizeEq:SCREENWIDTH - 132 h:SCREENHEIGHT - NAVHEIGHT-30] install];
@@ -190,9 +195,9 @@ static dispatch_once_t onceToken;
     mTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     mTableView.dataSource = self;
     mTableView.delegate = self;
-    mTableView.estimatedRowHeight = 60;
+    mTableView.estimatedRowHeight = 40;
     mTableView.tableHeaderView = [self headerView];
-//    mTableView.rowHeight = UITableViewAutomaticDimension;
+    mTableView.rowHeight = UITableViewAutomaticDimension;
     mTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     mTableView.backgroundColor = [UIColor whiteColor];
     [sliderView addSubview:mTableView];
@@ -201,12 +206,14 @@ static dispatch_once_t onceToken;
 
 - (UIView *)headerView{
     
-    UIView *headerVi = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self->mTableView.frame.size.width, 80)];
-    headerVi.backgroundColor = [UIColor redColor];
+    UIView *headerVi = [[UIView alloc] init];
+    headerVi.backgroundColor = [UIColor whiteColor];
     
     if (!_isSearch) {
+        
+        headerVi.frame = CGRectMake(0, 0, self->mTableView.frame.size.width, 86);
         UILabel *issueLabel = headerVi.addLabel;
-        issueLabel.text = @"Vol1 No1";
+        issueLabel.text = self.issueNumber;
         issueLabel.font = [Fonts regular:14];
         [[[[[issueLabel.layoutMaker leftParent:30] rightParent:30] heightEq:42] topParent:0] install];
         
@@ -229,6 +236,7 @@ static dispatch_once_t onceToken;
         
     }else if(searchArr.count > 0)
     {
+        headerVi.frame = CGRectMake(0, 0, self->mTableView.frame.size.width, 42);
         UIButton *headBtn = headerVi.addButton;
         [headBtn setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
         [headBtn setTitle:[NSString stringWithFormat:@"%lu RESULTS FOUND",(unsigned long)searchArr.count] forState:UIControlStateNormal];
@@ -297,7 +305,6 @@ static dispatch_once_t onceToken;
     categoryLab = headerVi.addLabel;
     categoryLab.font = [Fonts regular:13];
     categoryLab.numberOfLines = 2;
-    categoryLab.text = @"asdfljskdfjksdfk";
     categoryLab.textColor = Colors.textAlternate;
     [[[[[categoryLab.layoutMaker leftParent:30] rightParent:-30] heightEq:44] topParent:8] install];
 
@@ -308,29 +315,40 @@ static dispatch_once_t onceToken;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
-//    if (_isSearch) {
-//        return 42;
-//    }else
-//    {
-//        return 84;
-//    }
-   
+    if (!_isSearch) {
+        return 44;
+    }else
+    {
+        return 42;
+    }
+    return .1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 1;
+    return .1;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-//    return [self headerView];
-    UILabel *sectionview=[UILabel new];
-    
-    sectionview.backgroundColor=[UIColor yellowColor];
-    sectionview.text=[NSString stringWithFormat:@"secion-%@",@(section)];
-    return sectionview;
+    if (!_isSearch) {
+        UIView *headerVi = [UIView new];
+        headerVi.backgroundColor = [UIColor whiteColor];
+        
+        categoryLab = headerVi.addLabel;
+        categoryLab.font = [Fonts regular:13];
+        categoryLab.numberOfLines = 2;
+        DetailModel *model = resultArray[section][0];
+        categoryLab.text = model.categoryName;
+        categoryLab.textColor = Colors.textAlternate;
+        [[[[[categoryLab.layoutMaker leftParent:30] rightParent:-30] heightEq:44] topParent:8] install];
+        
+        return headerVi;
+    }else
+    {
+        return [self headerView];
+    }
+    return nil;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -357,15 +375,19 @@ static dispatch_once_t onceToken;
     if (cell == nil) {
         cell = [[UniteArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
-    [cell layoutIfNeeded];
     if (_isSearch) {
+        cell.isLastInfo = YES;
         [cell bindInfo:searchArr[indexPath.row]];
     }else
     {
+        if (indexPath.row+1 == [resultArray[indexPath.section] count]) {
+            cell.isLastInfo = YES;
+        }else
+        {
+            cell.isLastInfo = NO;
+        }
         [cell bindInfo:resultArray[indexPath.section][indexPath.row]];
     }
-    DetailModel *model = resultArray[indexPath.section][0];
-    categoryLab.text = model.categoryName;
     return cell;
 }
 
@@ -375,7 +397,11 @@ static dispatch_once_t onceToken;
     DetailModel *model = nil;
     if (self.isSearch) {
         model = searchArr[indexPath.row];
+    }else
+    {
+        model = resultArray[indexPath.section][indexPath.row];
     }
+    NSLog(@"%@",model.id);
     if(self.delegate && [self.delegate respondsToSelector:@selector(gotoDetailPage:)]){
         [self.delegate gotoDetailPage:model.id];
     }

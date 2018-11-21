@@ -16,7 +16,7 @@
 
 
 
-@interface UploadResumeItemView ()<MyActionSheetDelegate,UIDocumentPickerDelegate,HttpProgress,QLPreviewControllerDataSource,QLPreviewControllerDelegate>
+@interface UploadResumeItemView ()<MyActionSheetDelegate,UIDocumentPickerDelegate,HttpProgress>
 {
     
 }
@@ -29,8 +29,11 @@
     UILabel *sizeLabel;
     
     
-    NSString *filePath;
-    NSURL *fileURL;
+    NSString *filePath;//new upload filepath
+    NSURL *fileURL;//new upload fileURL or new download fileUrl
+    
+    NSString *lastResumeUrl;//server return last resume url
+    NSString *lastResumeFileName;//server return last resume file name
 }
 
 
@@ -45,7 +48,8 @@
     p.bottom = 16;
     self.layoutParam.height = 78;
  
-
+    [self showNoResumeMode];
+    
     return self;
 }
 
@@ -113,7 +117,7 @@
     msgLabel.textColor = rgbHex(0x0e78b9);
     msgLabel.font = [Fonts regular:12];
     msgLabel.numberOfLines = 2;
-    msgLabel.text = [NSString stringWithFormat:@"Last upload time : %@",[NSDate USDateShortFormatWithStringTimestamp:[_lastResumeUrl substringFromIndex:_lastResumeUrl.length-13]]];
+    msgLabel.text = [NSString stringWithFormat:@"Last upload time : %@",[NSDate USDateShortFormatWithStringTimestamp:[lastResumeUrl substringFromIndex:lastResumeUrl.length-13]]];
     [[[[[[msgLabel layoutMaker] bottomParent:-16] toRightOf:imageView offset:14] toLeftOf:viewBtn offset:-10] heightGe:24] install];
     
     
@@ -196,7 +200,7 @@
     [previewBtn setTitleColor:rgbHex(0x0e78b9) forState:UIControlStateNormal];
     [previewBtn setTitle:@"Preview"  forState:UIControlStateNormal];
     [[[[previewBtn.layoutMaker toLeftOf:delIcon offset:10] centerYParent:0] sizeEq:55 h:48 ]install];
-    [previewBtn addTarget:self action:@selector(previewSesume) forControlEvents:UIControlEventTouchUpInside];
+    [previewBtn addTarget:self action:@selector(previewResume) forControlEvents:UIControlEventTouchUpInside];
     
     
     nameLabel = bgView.addLabel;
@@ -214,8 +218,6 @@
     nameLabel.text = [self fileName:filePath];
     sizeLabel.text = [self fileSize:filePath];
     
-    NSLog(@"filesize = %@",sizeLabel.text);
-    
     }
 
 - (void)addShadowToView:(UIView *)theView withColor:(UIColor *)theColor {
@@ -227,9 +229,11 @@
     
 }
 
-- (void)setLastResumeUrl:(NSString *)lastResumeUrl{
-    _lastResumeUrl = lastResumeUrl;
-    if(lastResumeUrl){
+
+-(void)showWithLastResumeUrl:(NSString*)resumeUrl fileName:(NSString*)resumeName{
+    lastResumeUrl = resumeUrl;
+    lastResumeFileName = resumeName;
+    if(lastResumeUrl && lastResumeFileName){
         [self showLastResumeMode];
     }else{
         [self showNoResumeMode];
@@ -237,7 +241,7 @@
 }
 
 -(void)uploadResume{
-    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:@"Upload Resume" cancelButton:nil imageArr:nil otherTitle:@"Browse",@"OneDrive", nil];
+    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:@"Upload Resume" cancelButton:nil imageArr:nil otherTitle:@"Browse", nil];
     denSheet.linePaddingLeft = 18;
     [denSheet show:self.vc.view];
 }
@@ -247,11 +251,24 @@
     filePath = nil;
     self.uploadedResumeName = nil;
     
-    [self showNoResumeMode];
+    [self showWithLastResumeUrl:lastResumeUrl fileName:lastResumeFileName];
 }
 
 -(void)viewResume{
+    [self.vc showLoading];
     
+    backTask(^{
+        NSURL *fileURL = [Proto downloadResume:self->lastResumeUrl fileName:self->lastResumeFileName];
+        foreTask(^{
+            [self.vc hideLoading];
+            if(fileURL){
+                self->fileURL = fileURL;
+                [self previewResume];
+            }else{
+                NSLog(@"download resume file");
+            }
+        });
+    });
 }
 -(void)previewResume{
     PreviewResumeViewController *vc = [PreviewResumeViewController new];
@@ -261,11 +278,6 @@
     [self.vc presentViewController:nvc animated:YES completion:nil ];
 }
 
-
-- (void)resetLayout {
-
-    
-}
 
 -(NSString*)fileName:(NSString*)filePath{
     return [[filePath componentsSeparatedByString:@"/"] lastObject];
@@ -328,21 +340,6 @@
     if(url){
         filePath = [self decoderUrlEncodeStr:url.path];
         fileURL = url;
-        NSLog(@"filePath--------%@",url);
-        
-//        backTask(^{
-//            NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:[self fileName:self->filePath]];
-//
-//            NSError *error = nil;
-//            BOOL written = [[NSData dataWithContentsOfFile:path] writeToFile:path options:NSDataWritingAtomic error:&error];
-//
-//            if (written) {
-//                self->fileURL = [NSURL fileURLWithPath:path];
-//                NSLog(@"success!");
-//            }else{
-//                NSLog(@"write failed: %@", [error localizedDescription]);
-//            }
-//        });
         
         [self showUploadResumeMode];
         backTask(^{
@@ -351,7 +348,6 @@
             foreTask(^{
                 id name = result.resultMap[@"resumeName"];
                 if (result.OK && name != nil && name != NSNull.null) {
-                    NSLog(@"--------%@",name);
                     self.uploadedResumeName = name;
                     [self showPreviewResumeMode];
                 }else{
@@ -375,9 +371,7 @@
 #pragma mark ---HttpProgress
 - (void)onHttpProgress:(int)current total:(int)total percent:(int)percent{
     progressView.progress = (float)percent / 100;
-    
-    NSLog(@"onHttpProgress--%d",total);
-    
+    NSLog(@"%d-----%d",current,total);
 }
 
 @end

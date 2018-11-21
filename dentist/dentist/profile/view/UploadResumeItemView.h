@@ -14,11 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,assign) UIViewController *vc;
 @property (nonatomic,strong,nullable) NSString *uploadedResumeName;
-@property (nonatomic,strong,nullable) NSString *lastResumeUrl;
 
-
-
--(void)showNoResumeMode;
+-(void)showWithLastResumeUrl:(NSString*)resumeUrl fileName:(NSString*)resumeName;
 
 @end
 

@@ -80,5 +80,13 @@
 
 - (void)keyboardDecimal;
 
+- (void)applyStyleTheme;
+
+- (void)applyLineTheme;
+
+- (void)applyRoundTheme;
+
+- (void)_onClickPasswordRightButton:(UIButton *)sender;
+
 
 @end

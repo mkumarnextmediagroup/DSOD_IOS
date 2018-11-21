@@ -27,7 +27,7 @@
     UILabel *typeLabel;
     UILabel *dateLabel;
     UIImageView *imageView;
-    SBPlayer *sbPlayer;
+    UIWebView *vedioWebView;
     UIImageView *headerImg;
     UILabel *titleLabel;
     UILabel *nameLabel;
@@ -48,6 +48,8 @@
     NSArray *referencesArray;
     BOOL referencesMoreMode;
     NSArray *imageArray;
+    
+    NSString *videoHtmlString;
     
     NSInteger edge;
 }
@@ -101,7 +103,7 @@
     titleLabel.font = [Fonts semiBold:18];
     [titleLabel textColorMain];
     titleLabel.numberOfLines = 0;
-    [[[[titleLabel.layoutMaker leftParent:edge]  toLeftOf:_markButton offset:15] below:_sponsorImageBtn offset:edge-5] install];
+    [[[[titleLabel.layoutMaker leftParent:edge]  toLeftOf:_markButton offset:15] below:_sponsorImageBtn offset:10] install];
     [titleLabel.layoutMaker.height.equalTo(@24).priority(200) install];
     
     UILabel *lineLabel = [self lineLabel];
@@ -139,11 +141,10 @@
     mywebView = [UIWebView new];
     mywebView.delegate = self;
     mywebView.scrollView.scrollEnabled = NO;
+    mywebView.backgroundColor = UIColor.redColor;
     [self addSubview:mywebView];
-    [[[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:1] below:view offset:5] install];
-    
+    [[[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:1] below:view offset:0] install];
 
-    
     
     relativeTopicTableView = [UITableView new];
     relativeTopicTableView.dataSource = self;
@@ -293,7 +294,6 @@
     DentistImageBrowserToolBar *toolBar = [DentistImageBrowserToolBar new];
 //    toolBar.detailArray=@[@"Welcome",@"Reduce Plaque and Gingivitis",@"Today's Peer to Peer community...",@"Understanding the DSO Practice Model",@"All the support I need..."];
     browser.toolBars = @[toolBar];
-    browser.sheetView = nil;
     [browser show];
 }
 
@@ -387,26 +387,9 @@
         NSString *urlstr = codeDic[@"thumbnailUrl"];
         [imageView loadUrl:urlstr placeholderImage:@""];
     }else if([type isEqualToString:@"2"] ){
-        //video
-        //初始化播放器
-        if (!sbPlayer) {
-            NSString *urlstr = bindInfo.featuredMedia[@"code"];
-            sbPlayer = [[SBPlayer alloc] initWithUrl:[NSURL URLWithString:urlstr]];
-            sbPlayer.addView = self;
-            //set the movie background color
-            sbPlayer.backgroundColor = [UIColor blackColor];
-            [self addSubview:sbPlayer];
-            [[[[[sbPlayer.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
-        }
+        //这个判断不知道干啥的 因为服务器就没返回过2
     }
-    
-    
-    CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
-    [[_sponsorImageBtn.layoutUpdate heightEq:sponstorimgh] install];
-    [sponsorView.layoutUpdate heightEq:100];
-    
-    
-    
+
     NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",
                                   @"259":@"sponsor_nobel",
                                   @"197":@"sponsor_gsk"};
@@ -451,21 +434,43 @@
     [[mywebView.layoutUpdate heightEq:1] install];
     [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
     
+    
+    if(videoHtmlString){
+        if (!vedioWebView) {
+            vedioWebView = [UIWebView new];
+            vedioWebView.scrollView.scrollEnabled = NO;
+            [self addSubview:vedioWebView];
+            [[[[[vedioWebView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+        }
+        [vedioWebView loadHTMLString:[self getVideoHtml] baseURL:nil];
+    }
+    
+    
     [self showReferences:bindInfo.references];
     
     [self showRelativeTopic:bindInfo.relativeTopicList];
     
-    //处理图片
     [self setImageScrollData:bindInfo.photoUrls];
 
 }
 
-- (NSString *)htmlString:(NSString *)html
-{
+-(NSString*)getVideoHtml{
+    NSString *htmlString = [videoHtmlString stringByReplacingOccurrencesOfString:@"src=\"//" withString:@"src=\"http://"];
+    htmlString = [NSString stringWithFormat:@"%@%@%@%@%@",
+                  @"<style type=\"text/css\">",
+                  @"body{padding:0px;margin:0px;background:#fff;font-family}",
+                  @"iframe{border: 0 none;}",
+                  @"</style>",
+                  htmlString
+                  ];
+    return htmlString;
+}
+
+- (NSString *)htmlString:(NSString *)html{
     NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@",
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
-                            @"body{padding:0px;margin:0px;background:#fff;font-family:SFUIText-Regular;}",
+                            @"body{padding:0px;margin:0px;background:#ff0;font-family:SFUIText-Regular;}",
                             @"p{width:100%;margin: 10px auto;color:#4a4a4a;font-size:0.9em;}",
                             @"em{font-style:normal}",
                             @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
@@ -484,17 +489,19 @@
 //    html = [self htmlRemoveReferences:html];
     
     BOOL isFirst = YES;
+    videoHtmlString = nil;
     NSArray *array = [html componentsSeparatedByString:@"<p>"];
     for (int i = 0; i < [array count]; i++) {
         NSString *currentString = [array objectAtIndex:i];
+        if([currentString rangeOfString:@"<iframe"].location !=NSNotFound){
+            videoHtmlString = currentString;
+            continue;
+        }
         if(i>0){
-            if([currentString rangeOfString:@"<iframe"].location !=NSNotFound){
-                continue;
-            }
             if(isFirst){
                  //错误格式兼容<strong> </strong>厉害了中间还不是空格
 //                 htmlString = [htmlString stringByReplacingOccurrencesOfString :@"<strong> </strong>" withString:@""];
-                 htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
+                htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p style='margin-top:0'>%@</div>",htmlString,currentString];
                  isFirst = NO;
             }else{
                  htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];
@@ -515,6 +522,8 @@
     
     return htmlString;
 }
+
+
 
 -(NSString*)htmlRemoveReferences:(NSString*)htmlString{
     NSMutableArray *mutableArray = [NSMutableArray new];
@@ -697,7 +706,7 @@
     if([tableView isEqual:referencesTableView]){
         title = @"References";
     }else{
-        title = @"Related Resource";
+        title = @"Related Resources";
     }
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,SCREENWIDTH,50)];

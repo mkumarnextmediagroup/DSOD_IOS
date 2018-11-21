@@ -10,6 +10,7 @@
 #import "DentistFilterView.h"
 #import "CMSDetailViewController.h"
 #import "BookmarkModel.h"
+#import "DsoToast.h"
 
 @interface CmsBookmarkController()<BookMarkItemViewDelegate>
 {
@@ -118,20 +119,15 @@
 -(void)BookMarkActionModel:(BookmarkModel *)model
 {
     //移除bookmark
-    
+    UIView *dsontoastview=[DsoToast toastViewForMessage:@"Remove from bookmarks……" ishowActivity:YES];
+    [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
     [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.postId completed:^(BOOL result) {
         foreTask(^{
+            [self.navigationController.view hideToast];
             if (result) {
                 [self->resultArray removeObject:model];
                 self.items=[self->resultArray copy];
                 [self.table reloadData];
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Bookmarks is Delete" preferredStyle:UIAlertControllerStyleAlert];
-                
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    NSLog(@"点击取消");
-                }]];
-                [self presentViewController:alertController animated:YES completion:nil];
             }
         });
     }];

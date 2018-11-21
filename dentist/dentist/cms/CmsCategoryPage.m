@@ -14,6 +14,7 @@
 #import "DentistPickerView.h"
 #import "DetinstDownloadManager.h"
 #import "IdName.h"
+#import "DsoToast.h"
 
 @interface CmsCategoryPage()<ArticleItemViewDelegate>
 {
@@ -186,23 +187,10 @@
         {
             NSLog(@"download click");
             if (selectModel) {
+                UIView *dsontoastview=[DsoToast toastViewForMessage:@"Download is Add…" ishowActivity:YES];
+                [self.navigationController.view showToast:dsontoastview duration:1.0 position:CSToastPositionBottom completion:nil];
                 [[DetinstDownloadManager shareManager] startDownLoadCMSModel:selectModel addCompletion:^(BOOL result) {
                     
-                    foreTask(^{
-                        NSString *msg=@"";
-                        if (result) {
-                            msg=@"Download is Add";
-                        }else{
-                            msg=@"error";
-                        }
-                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
-                        
-                        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                            
-                            NSLog(@"点击取消");
-                        }]];
-                        [self presentViewController:alertController animated:YES completion:nil];
-                    });
                 } completed:^(BOOL result) {
                     
                 }];
@@ -224,17 +212,25 @@
                     urlstr = selectModel.featuredMedia[@"code"];
                 }
                 NSString *someid=selectModel.id;
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
-                    UIImage *image = [UIImage imageWithData:data];
-                    if (image) {
-                        NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
-                        NSArray *activityItems = @[shareurl,title,image];
-                        
-                        UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
-                        [self presentViewController:avc animated:YES completion:nil];
-                    }
-                });
+                if (![NSString isBlankString:urlstr]) {
+                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                        NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
+                        UIImage *image = [UIImage imageWithData:data];
+                        if (image) {
+                            NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+                            NSArray *activityItems = @[shareurl,title,image];
+                            
+                            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                            [self presentViewController:avc animated:YES completion:nil];
+                        }
+                    });
+                }else{
+                    NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+                    NSArray *activityItems = @[shareurl,title];
+                    
+                    UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                    [self presentViewController:avc animated:YES completion:nil];
+                }
                 
             }else{
                 NSString *msg=@"";
@@ -313,48 +309,32 @@
     CMSModel *model = (id) item;
     if(model.isBookmark){
         //删除
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Remove from bookmarks……" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(BOOL result) {
             foreTask(^() {
-                NSString *msg=@"";
+                [self.navigationController.view hideToast];
                 if (result) {
                     //
                     model.isBookmark=NO;
                     ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
                     [itemView updateBookmarkStatus:NO];
-                    msg=@"Bookmarks is Delete";
-                }else{
-                    msg=@"error";
                 }
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
-                
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    NSLog(@"点击取消");
-                }]];
-                [self presentViewController:alertController animated:YES completion:nil];
             });
         }];
     }else{
         //添加
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Saving to bookmarks…" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto addBookmark:getLastAccount() cmsmodel:model completed:^(BOOL result) {
             foreTask(^() {
-                NSString *msg=@"";
+                [self.navigationController.view hideToast];
                 if (result) {
                     //
                     model.isBookmark=YES;
                     ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
                     [itemView updateBookmarkStatus:YES];
-                    msg=@"Bookmarks is Add";
-                }else{
-                    msg=@"error";
                 }
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
-                
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    NSLog(@"点击取消");
-                }]];
-                [self presentViewController:alertController animated:YES completion:nil];
             });
         }];
     }

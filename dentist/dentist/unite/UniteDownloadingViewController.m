@@ -125,7 +125,9 @@
 
 - (void)rightBtnClick
 {
-    [[SliderListView sharedInstance:self.view isSearch:YES magazineId:self.magazineModel._id] showSliderView];
+    [[SliderListView initSliderView:YES magazineId:self.magazineModel._id] showSliderView];
+//    SliderListView *sliderView = [[SliderListView alloc] initSliderView:YES magazineId:self.magazineModel._id];
+//    [sliderView showSliderView];
 }
 
 -(void)downloadBtnAction{
@@ -140,7 +142,7 @@
 //    downloadBtn.hidden = NO;
 //    downloadingBtn.hidden = YES;
 //    cancelBtn.hidden = YES;
-    
+    [[DetinstDownloadManager shareManager] cancelDownloadUnite:self.magazineModel];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -150,7 +152,7 @@
     if(self.magazineModel.cover){
         [coverImgView loadUrl:self.magazineModel.cover placeholderImage:@"bg_1"];
     }
-    publishDateLabel.text = [NSString timeWithTimeIntervalString:self.magazineModel.publishDate];
+    publishDateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:self.magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",self.magazineModel.vol?self.magazineModel.vol:@"", self.magazineModel.issue?self.magazineModel.issue:@""];
 
     sizeLabel.text = @"52 MB";
@@ -171,7 +173,7 @@
     if(self.magazineModel.cover){
         [coverImgView loadUrl:self.magazineModel.cover placeholderImage:@"bg_1"];
     }
-    publishDateLabel.text = [NSString timeWithTimeIntervalString:self.magazineModel.publishDate];
+    publishDateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:self.magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",self.magazineModel.vol?self.magazineModel.vol:@"", self.magazineModel.issue?self.magazineModel.issue:@""];
     
     sizeLabel.text = @"52 MB";
@@ -180,23 +182,17 @@
     downloadingBtn.hidden = NO;
     cancelBtn.hidden = NO;
     //添加几条模拟文章ID数据
-    _magazineModel.articles=@[@"5be5df7f5a71b7249c07e064",@"5be5df805a71b7249c07e06b",@"5be5df835a71b7249c07e078"];
+//    _magazineModel.articles=@[@"5bf423ca3a066d36800e92d2",@"5bf423ec3a066d36800e93ae",@"5bf4256e3a066d36800e9565"];
     [[DetinstDownloadManager shareManager] startDownLoadUniteArticles:_magazineModel addCompletion:^(BOOL result) {
         
     } completed:^(BOOL result) {
         if(result){
             NSLog(@"===============下载成功===============");
-            //查询下载的文章数据
-            [[DentistDataBaseManager shareManager] queryUniteArticlesCachesList:self.magazineModel._id completed:^(NSArray<DetailModel *> * _Nonnull array) {
-                if (array) {
-                    
-                }
-                
-            }];
-           
             WeakSelf
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 ThumViewController *thumvc=[ThumViewController new];
+                thumvc.uniteid=self->_magazineModel._id;
+                thumvc.magazineModel = self->_magazineModel;
                 [weakSelf.navigationController pushViewController:thumvc animated:YES];
             });
         }else{

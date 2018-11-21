@@ -23,3 +23,6 @@
 #import "DetinstDownloadManager.h"
 #import "DetailModel.h"
 #import "SliderListView.h"
+#import "UserConfig.h"
+#import "DsoToast.h"
+#import "UIView+Toast.h"

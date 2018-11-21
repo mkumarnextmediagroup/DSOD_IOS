@@ -10,13 +10,25 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol SliderListViewDelegate <NSObject>
+
+@optional
+- (void)gotoDetailPage:(NSString *)articleID;
+@end
+
+
 @interface SliderListView : UIView
 
-+ (instancetype)sharedInstance:(UIView *)view isSearch:(BOOL)isSearch magazineId:(NSString *)magazineId;
+/*
+ * isSearch:YES is search page, NO is list Page
+ * magazineId
+ */
 
+@property (nonatomic,weak) id<SliderListViewDelegate> delegate;
+
++ (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId;
++(void)hideSliderView;
 - (void)showSliderView;
-
-- (void)hideSliderView;
 
 @end
 

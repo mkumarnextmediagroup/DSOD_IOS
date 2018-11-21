@@ -27,6 +27,7 @@ typedef void(^DismissBlock)(BOOL isCanceled,NSInteger row);
 
 @property (nonatomic,assign) BOOL isShowing;//是否正在显示
 
+-(void)updateIcon:(NSString *)iconname atIndex:(NSInteger)atindex;
 - (void)dismissHandler:(DismissBlock)handler;
 - (void)show;
 - (void)hide;

@@ -20,6 +20,7 @@
 #import "EditExperiencePage.h"
 #import "IdName.h"
 #import "NSDate+myextend.h"
+#import "UploadResumeItemView.h"
 
 #import <AssetsLibrary/ALAsset.h>
 
@@ -32,7 +33,7 @@
 	EditUserView *userView;
 	TitleEditView *nameView;
 	TitleMsgArrowView *specView;
-	IconTitleMsgCell *resumeView;
+	UploadResumeItemView *resumeView;
 
 	NSMutableArray<IconTitleMsgDetailCell * > *expViews;
 	NSMutableArray<IconTitleMsgDetailCell * > *residencyViews;
@@ -102,10 +103,8 @@
 
 	[self addGroupTitle:@"Upload resume or import data"];
 
-	resumeView = [IconTitleMsgCell new];
-	resumeView.imageView.imageName = @"cloud";
-	resumeView.titleLabel.text = @"Upload Resume";
-	resumeView.msgLabel.text = @"Your professional information will be imported automatically.";
+	resumeView = [UploadResumeItemView new];
+    resumeView.vc = self;
 	[self.contentView addSubview:resumeView];
 
 	[self addGrayLine:0 marginRight:0];
@@ -258,6 +257,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [[UINavigationBar appearance] setTintColor:UIColor.whiteColor];
 	[super viewWillAppear:animated];
 
 	[self bindData];
@@ -274,6 +274,7 @@
 	}
 	nameView.edit.text = _userInfo.fullName;
 	specView.msgLabel.text = _userInfo.speciality.name;
+    [resumeView showWithLastResumeUrl:_userInfo.resume_url fileName:_userInfo.resume_name];
 	if (_userInfo.experienceArray != nil) {
 		for (int i = 0; i < _userInfo.experienceArray.count; ++i) {
 			Experience *r = _userInfo.experienceArray[i];
@@ -693,7 +694,7 @@
 			@"sex": @"",
 			@"status": @"1",
 			@"document_library": @{
-					@"document_name": @"",
+					@"document_name": resumeView.uploadedResumeName,
 			},
 			@"create_time": @"2018-09-12T06:16:53.603Z",
 			@"educations": NSNull.null,
@@ -785,6 +786,8 @@
 			}
 		}
 	}
+    
+    
 
 	[self showIndicator];
 	backTask(^() {

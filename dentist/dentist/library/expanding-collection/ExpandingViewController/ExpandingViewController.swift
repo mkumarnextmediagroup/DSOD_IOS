@@ -81,15 +81,27 @@ public extension ExpandingViewController {
             return
         }
 //        viewController.transitionDriver = transitionDriver
-//        let tabBarHeight = insets == true ? navigationController.navigationBar.frame.size.height : 0
-//        let stausBarHeight = insets == true ? UIApplication.shared.statusBarFrame.size.height : 0
-//        let backImage = getBackImage(viewController, headerHeight: viewController.headerHeight)
+        let insets = automaticallyAdjustsScrollViewInsets
+        let tabBarHeight = insets == true ? navigationController.navigationBar.frame.size.height : 0
+        let stausBarHeight = insets == true ? UIApplication.shared.statusBarFrame.size.height : 0
+        
+        let cell : BasePageCollectionCell = collectionView.cellForItem(at: IndexPath(row: currentIndex, section: 0)) as! BasePageCollectionCell
+//        let backImage = getBackImagecell(cell, headerHeight: cell.frame.height)
+        
+        var backImage:UIImage?
+        for index in 0 ..< cell.frontContainerView.subviews.count {
+            if cell.frontContainerView.subviews[index] is UIWebView {
+                backImage=cell.frontContainerView.subviews[index].asImage()
+            }
+        }
+        
+        let headerheight:CGFloat = (backImage == nil) ? backImage!.size.height : 0
         
         transitionDriver?.pushTransitionAnimationIndex2(currentIndex,
                                                        collecitionView: collectionView,
-                                                       backImage: nil,
-                                                       headerHeight:0,
-                                                       insets: 0) {_ in
+                                                       backImage: backImage,
+                                                       headerHeight:headerheight,
+                                                       insets: tabBarHeight + stausBarHeight) {_ in
                                                         completion()
                                                         
         }
@@ -108,6 +120,13 @@ public extension ExpandingViewController {
         offset += tabBarHeight+stausBarHeight
         
         transitionDriver?.popTransitionAnimationContantOffset2(0)
+        completion()
+    }
+    
+    func pushToViewController4(_ viewController: UIViewController, completion: @escaping () -> Void) {
+         let backImage = getBackImage(viewController)
+        
+        transitionDriver?.popTransitionAnimationContantOffset(0, backImage: backImage)
         completion()
     }
 }
@@ -139,6 +158,18 @@ extension ExpandingViewController {
         let imageSize = CGSize(width: viewController.view.bounds.width, height: viewController.view.bounds.height - headerHeight)
         let imageFrame = CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize)
         return viewController.view.takeSnapshot(imageFrame)
+    }
+    
+    fileprivate func getBackImage(_ viewController: UIViewController) -> UIImage? {
+        let imageSize = CGSize(width: viewController.view.bounds.width, height: viewController.view.bounds.height)
+        let imageFrame = CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize)
+        return viewController.view.takeSnapshot(imageFrame)
+    }
+    
+    fileprivate func getBackImagecell(_ cellview: UIView, headerHeight: CGFloat) -> UIImage? {
+        let imageSize = CGSize(width: cellview.bounds.width, height: cellview.bounds.height - headerHeight)
+        let imageFrame = CGRect(origin: CGPoint(x: 0, y: 0), size: imageSize)
+        return cellview.takeSnapshot(imageFrame)
     }
 }
 

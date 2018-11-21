@@ -10,6 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol SliderListViewDelegate <NSObject>
+
+@optional
+- (void)gotoDetailPage:(NSString *)articleID;
+@end
+
+
 @interface SliderListView : UIView
 
 /*
@@ -17,10 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
  * magazineId
  */
 
-+ (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId;
+@property (nonatomic,weak) id<SliderListViewDelegate> delegate;
 
-- (void)showSliderView;
++ (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId;
 +(void)hideSliderView;
+- (void)showSliderView;
 
 @end
 

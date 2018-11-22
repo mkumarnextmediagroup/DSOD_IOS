@@ -161,7 +161,15 @@
         //pic
         NSDictionary *codeDic = model.featuredMedia[@"code"];
         NSString *urlstr = codeDic[@"thumbnailUrl"];
-        [imageView loadUrl:urlstr placeholderImage:@""];
+        [imageView loadUrl:urlstr placeholderImage:@"" completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (image) {
+                self->imageViewHeight = SCREENWIDTH * 2 /3;
+                [[self->imageView.layoutUpdate heightEq:self->imageViewHeight ]install];
+            }else{
+                self->imageViewHeight=0;
+                [[self->imageView.layoutUpdate heightEq:self->imageViewHeight ]install];
+            }
+        }];
     }
     
     

@@ -104,7 +104,7 @@ extension ThumViewController{
         }else{
             emptyView?.isHidden=false
             if(pageType == PageType.bookmark){
-                emptyView?.addEmpty(withImageName: "nonBookmarks", title: "No Bookmark content")
+                emptyView?.addEmpty(withImageName: "nonBookmarks", title: "No bookmarks added yet.")
             }else{
                 emptyView?.addEmpty(withImageName: "nonBookmarks", title: "No content")
             }
@@ -649,16 +649,23 @@ extension ThumViewController {
 //        cell.backgroundImageView.clipsToBounds = true
         cell.serialLabel.text=newmodel.serial
         cell.volIssueLabel.text=String(format: "%@ %@", newmodel.vol,newmodel.issue)
-        cell.titleLabel.text=newdetail.title
+        
 //        cell.backTitleLabel.text="Practive Success in a New Wold" //newmodel.cover
 //        cell.backAuthorLabel.text=String(format: "%@:%@", "author",newmodel.createUser)
 //        cell.pushDataLabel.text=NSString.time(withTimeIntervalString: newmodel.publishDate)
         if newdetail.uniteArticleType == "1" {
+            cell.titleLabel.text="Issue Cover"
             cell.frontImageVIew.isHidden=false
             cell.frontWebView.isHidden=true
             
             cell.frontImageVIew.sd_setImage(with: URL(string: Proto.getFileUrl(byObjectId: newmodel.cover)), completed: nil)
-        }else{
+        }else if newdetail.uniteArticleType == "2" {
+            cell.frontImageVIew.isHidden=true
+            cell.frontWebView.isHidden=false
+            cell.titleLabel.text="Introduction"
+        }
+        else{
+            cell.titleLabel.text=newdetail.title
             cell.frontImageVIew.isHidden=true
             cell.frontWebView.isHidden=false
             cell.htmlString(newdetail.content)

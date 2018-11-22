@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*categoryId;
 @property NSString <Optional>*sponsorId;
 @property NSString <Optional>*authorPhotoUrl;
+@property NSString <Optional>*excerpt;
 @property Author   <Optional>*author;
 @property NSString <Optional>*contentTypeName;
 @property NSString <Optional>*categoryName;

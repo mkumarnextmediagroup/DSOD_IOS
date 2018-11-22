@@ -135,7 +135,7 @@
 
 -(void)setupNavigation{
     UINavigationItem *item = [self navigationItem];
-    item.title = @"All ISSUES";
+    item.title = @"ALL ISSUES";
     
     
     iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];

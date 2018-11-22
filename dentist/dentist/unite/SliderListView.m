@@ -407,10 +407,10 @@ static dispatch_once_t onceToken;
         model = resultArray[indexPath.section][indexPath.row];
     }
     NSLog(@"%@",model.id);
-//    if(self.delegate && [self.delegate respondsToSelector:@selector(gotoDetailPage:)]){
-//        [self.delegate gotoDetailPage:model.id];
-//        [self sigleTappedPickerView:nil];
-//    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(gotoDetailPage:)]){
+        [self.delegate gotoDetailPage:model.id];
+        [self sigleTappedPickerView:nil];
+    }
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView

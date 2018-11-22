@@ -9,7 +9,7 @@
 #import "UniteArticleTableViewCell.h"
 #import "Common.h"
 
-#define edge 30
+#define edge 16
 @implementation UniteArticleTableViewCell
 {
     UILabel *categoryLab;
@@ -36,20 +36,10 @@
     return self;
 }
 
-- (void)createCategory
-{
-    categoryLab = self.contentView.addLabel;
-    categoryLab.font = [Fonts regular:13];
-    categoryLab.numberOfLines = 2;
-    categoryLab.textColor = Colors.textAlternate;
-    [[[[[categoryLab.layoutMaker leftParent:edge] rightParent:-edge] heightEq:44] topParent:8] install];
-
-}
-
 - (void)buildViews
 {
     headLabel = self.contentView.addLabel;
-    headLabel.font = [Fonts regular:13];
+    headLabel.font = [Fonts regular:14];
     headLabel.numberOfLines = 0;
     headLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
     [[[[headLabel.layoutMaker leftParent:edge] rightParent:-edge] topParent:8] install];
@@ -62,7 +52,7 @@
     [subHeadLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(edge);
         make.right.equalTo(self.contentView).offset(edge);
-        make.top.equalTo(self->headLabel.mas_bottom).offset(2);
+        make.top.equalTo(self->headLabel.mas_bottom).offset(10);
         make.bottom.equalTo(self.contentView).offset(-8).priorityLow();
     }];
 }
@@ -72,7 +62,7 @@
     if (_isLastInfo) {
         UILabel *line = self.contentView.addLabel;
         line.backgroundColor = [Colors cellLineColor];
-        [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:8] install];
+        [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:7] install];
     }
     
     headLabel.text = infoModel.title;

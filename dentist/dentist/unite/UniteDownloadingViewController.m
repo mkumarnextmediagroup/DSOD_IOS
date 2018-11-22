@@ -38,7 +38,7 @@
     UINavigationItem *item = self.navigationItem;
     item.title = @"";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
-    item.rightBarButtonItem = [self menuButton];
+//    item.rightBarButtonItem = [self menuButton];
     
     UIView *contentView = [UIView new];
     contentView.backgroundColor = UIColor.whiteColor;
@@ -119,9 +119,9 @@
 //    [self loadData];
 }
 
-- (UIBarButtonItem *)menuButton {
+//- (UIBarButtonItem *)menuButton {
 //    return [self navBarImage:@"menu" target:self action:@selector(rightBtnClick)];
-}
+//}
 
 - (void)rightBtnClick
 {

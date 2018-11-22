@@ -471,6 +471,7 @@ extension ThumViewController{
         DentistDataBaseManager.share().queryUniteArticlesBookmarkCachesList { (array:Array<DetailModel>) in
             self.modelarr=array
             foreTask({
+                self.navigationItem.title="BOOKMARKS"
                 self.navigationItem.rightBarButtonItems=nil
                 self.detailcollectionView!.isbookmark=true
                 self.detailcollectionView!.modelarr=array

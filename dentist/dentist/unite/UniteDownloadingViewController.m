@@ -120,7 +120,7 @@
 }
 
 - (UIBarButtonItem *)menuButton {
-    return [self navBarImage:@"menu" target:self action:@selector(rightBtnClick)];
+//    return [self navBarImage:@"menu" target:self action:@selector(rightBtnClick)];
 }
 
 - (void)rightBtnClick

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1801683921A6EE4F00AEBF06 /* Swipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 1801683821A6EE4F00AEBF06 /* Swipe.png */; };
 		18106AAB218ACC0D00EEE2DC /* FilterIssues@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AA8218ACC0C00EEE2DC /* FilterIssues@2x.png */; };
 		18106AAC218ACC0D00EEE2DC /* FilterIssues@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AA9218ACC0C00EEE2DC /* FilterIssues@3x.png */; };
 		18106AAD218ACC0D00EEE2DC /* FilterIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AAA218ACC0C00EEE2DC /* FilterIssues.png */; };
@@ -700,6 +701,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1801683821A6EE4F00AEBF06 /* Swipe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Swipe.png; sourceTree = "<group>"; };
 		18106AA8218ACC0C00EEE2DC /* FilterIssues@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterIssues@2x.png"; sourceTree = "<group>"; };
 		18106AA9218ACC0C00EEE2DC /* FilterIssues@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterIssues@3x.png"; sourceTree = "<group>"; };
 		18106AAA218ACC0C00EEE2DC /* FilterIssues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FilterIssues.png; sourceTree = "<group>"; };
@@ -2222,6 +2224,7 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1801683821A6EE4F00AEBF06 /* Swipe.png */,
 				A314772D21A6A3C80046942C /* bookmark-active.png */,
 				A314772B21A6A2D50046942C /* thumbnails.png */,
 				A314772921A6A1EC0046942C /* fullscreen.png */,
@@ -3335,6 +3338,7 @@
 				A3E752F6217E35010087713D /* TechGuide@3x.png in Resources */,
 				4E846F7B213E84E900DC2B51 /* write@3x.png in Resources */,
 				E11E12D10529E6D2850338EF /* back_arrow@3x.png in Resources */,
+				1801683921A6EE4F00AEBF06 /* Swipe.png in Resources */,
 				E11E18B9A4153312FC2763EE /* brain_light.png in Resources */,
 				E11E147527F5A0FE7C753405 /* brain_light@2x.png in Resources */,
 				E11E13506B8CB6458D362EC8 /* brain_light@3x.png in Resources */,

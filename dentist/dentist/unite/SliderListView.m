@@ -16,6 +16,7 @@
 #import "DetailModel.h"
 #import "AppDelegate.h"
 #import "UITableView+JRTableViewPlaceHolder.h"
+#import "FullListTableViewCell.h"
 
 @interface SliderListView()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UIGestureRecognizerDelegate>
 {
@@ -31,6 +32,7 @@
     UIView      *guestView;
     UILabel     *issueLabel;
     BOOL        isShow;
+    BOOL        showFullList;
 }
 
 @property BOOL isSearch;
@@ -113,6 +115,8 @@ static dispatch_once_t onceToken;
 
 - (void)initSliderView
 {
+    showFullList = NO;
+    
     backgroundVi = [self addView];
     backgroundVi.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0];
     backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
@@ -253,12 +257,16 @@ static dispatch_once_t onceToken;
 
 - (void)showFullList
 {
+    showFullList = YES;
     //show the full list of articles
     [UIView animateWithDuration:.3 animations:^{
         self.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
         self->backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
         self->sliderView.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
         self->guestView.frame = CGRectMake(0, 0, SCREENWIDTH, NAVHEIGHT);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self->mTableView reloadData];
+        });
     }];
 }
 
@@ -372,19 +380,37 @@ static dispatch_once_t onceToken;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *cellIden = @"cell";
-    UniteArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
-    if (cell == nil) {
-        cell = [[UniteArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
-    }
-    [tableView layoutIfNeeded];
-    if (_isSearch) {
-        cell.isLastInfo = YES;
-        [cell bindInfo:searchArr[indexPath.row]];
+    if (!showFullList) {
+        NSString *cellIden = @"cell";
+        UniteArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
+        if (cell == nil) {
+            cell = [[UniteArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
+        }
+        [tableView layoutIfNeeded];
+        if (_isSearch) {
+            cell.isLastInfo = YES;
+            [cell bindInfo:searchArr[indexPath.row]];
+        }else
+        {
+            issueLabel.text = self.issueNumber;
+            if (indexPath.row+1 == [resultArray[indexPath.section] count]) {
+                cell.isLastInfo = YES;
+            }else
+            {
+                cell.isLastInfo = NO;
+            }
+            [cell bindInfo:resultArray[indexPath.section][indexPath.row]];
+        }
+        return cell;
+
     }else
     {
-        issueLabel.text = self.issueNumber;
-
+        NSString *cellIden = @"cellIden";
+        FullListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
+        if (cell == nil) {
+            cell = [[FullListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
+        }
+        
         if (indexPath.row+1 == [resultArray[indexPath.section] count]) {
             cell.isLastInfo = YES;
         }else
@@ -392,8 +418,9 @@ static dispatch_once_t onceToken;
             cell.isLastInfo = NO;
         }
         [cell bindInfo:resultArray[indexPath.section][indexPath.row]];
+        return cell;
     }
-    return cell;
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -406,11 +433,11 @@ static dispatch_once_t onceToken;
     {
         model = resultArray[indexPath.section][indexPath.row];
     }
-    NSLog(@"%@",model.id);
-    if(self.delegate && [self.delegate respondsToSelector:@selector(gotoDetailPage:)]){
-        [self.delegate gotoDetailPage:model.id];
-        [self sigleTappedPickerView:nil];
-    }
+//    NSLog(@"%@",model.id);
+//    if(self.delegate && [self.delegate respondsToSelector:@selector(gotoDetailPage:)]){
+//        [self.delegate gotoDetailPage:model.id];
+//        [self sigleTappedPickerView:nil];
+//    }
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView

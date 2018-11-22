@@ -435,17 +435,8 @@
     [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
     
     
-    if(videoHtmlString){
-        if (!vedioWebView) {
-            vedioWebView = [UIWebView new];
-            vedioWebView.scrollView.scrollEnabled = NO;
-            [self addSubview:vedioWebView];
-            [[[[[vedioWebView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:SCREENWIDTH*2/3] install];
-        }
-        [vedioWebView loadHTMLString:[self getVideoHtml] baseURL:nil];
-    }
-    
-    
+    [self showVideo];
+   
     [self showReferences:bindInfo.references];
     
     [self showRelativeTopic:bindInfo.relativeTopicList];
@@ -454,28 +445,42 @@
 
 }
 
--(NSString*)getVideoHtml{
-    NSString *htmlString = [videoHtmlString stringByReplacingOccurrencesOfString:@"src=\"//" withString:@"src=\"http://"];
-    htmlString = [NSString stringWithFormat:@"%@%@%@%@%@",
+-(void)showVideo{
+    if(videoHtmlString){
+        NSRange iframeStart = [videoHtmlString rangeOfString:@"<iframe"];
+        NSRange iframeEnd = [videoHtmlString rangeOfString:@"</iframe>"];
+        
+         if(iframeStart.location != NSNotFound && iframeEnd.location != NSNotFound){
+            if (!vedioWebView) {
+                vedioWebView = [UIWebView new];
+                vedioWebView.scrollView.scrollEnabled = NO;
+                [self addSubview:vedioWebView];
+                [[[[[vedioWebView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:SCREENWIDTH*2/3] install];
+            }
+            
+            NSString *htmlString = videoHtmlString;
+            htmlString = [htmlString substringWithRange:NSMakeRange(iframeStart.location,iframeEnd.location+iframeEnd.length - iframeStart.location)];
+            htmlString = [htmlString stringByReplacingOccurrencesOfString:@"src=\"//" withString:@"src=\"http://"];
+            htmlString = [NSString stringWithFormat:@"%@%@%@%@%@",
                   @"<style type=\"text/css\">",
                   @"body{padding:0px;margin:0px;background:#fff;font-family}",
                   @"iframe{border: 0 none;}",
                   @"</style>",
                   htmlString
                   ];
-    return htmlString;
+            [vedioWebView loadHTMLString:htmlString baseURL:nil];
+         }
+    }
 }
 
 - (NSString *)htmlString:(NSString *)html{
-    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@%@%@%@%@",
+    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@%@%@",
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
                             @"body{padding:0px;margin:0px;background:#fff;font-family:SFUIText-Regular;font-size:0.9em;color:#4a4a4a}",
                             @"p{margin: 10px auto;padding-left:18px;padding-right:18px}",
-                            @"h1{font-size:1.1em;padding-left:18px;padding-right:18px}",
-                            @"h2{font-size:1.1em;padding-left:18px;padding-right:18px}",
-                            @"ol{background:#fff;margin-left:18px;margin-right:18px;padding-left:18px;}",
-                            @"ul{background:#fff;margin-left:18px;margin-right:18px;padding-left:18px;}",
+                            @"h1,h2,h3,h4,h5,h6{font-size:1.1em;padding-left:18px;padding-right:18px}",
+                            @"ol,ul{background:#fff;margin-left:18px;margin-right:18px;padding-left:18px;}",
                             @"em{font-style:normal}",
                             @".first-big p:first-letter{float: left;font-size:2.8em;margin-top:-6px;margin-bottom:-18px;margin-right:5px;text-transform:uppercase;color:#879aa8;}",
                             @"blockquote{color:#4a4a4a;font-size:1.1em;font-weight:bold;margin: 20px 50px 10px 50px;position:relative;line-height:110%;text-indent:0px；background:#f00}",

@@ -1,19 +1,20 @@
 //
-//  UniteArticleTableViewCell.m
+//  FullListTableViewCell.m
 //  dentist
 //
-//  Created by Jacksun on 2018/11/5.
-//  Copyright © 2018 thenextmediagroup.com. All rights reserved.
+//  Created by 孙兴国 on 2018/11/22.
+//  Copyright © 2018年 thenextmediagroup.com. All rights reserved.
 //
 
-#import "UniteArticleTableViewCell.h"
+#import "FullListTableViewCell.h"
 #import "Common.h"
 
 #define edge 16
-@implementation UniteArticleTableViewCell
+@implementation FullListTableViewCell
 {
     UILabel *headLabel;
     UILabel *subHeadLabel;
+    UILabel *expertLabel;
 }
 
 - (void)awakeFromNib {
@@ -40,33 +41,43 @@
     headLabel = self.contentView.addLabel;
     headLabel.font = [Fonts regular:14];
     headLabel.numberOfLines = 0;
-    headLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
     [[[[headLabel.layoutMaker leftParent:edge] rightParent:-edge] topParent:8] install];
+    [headLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(edge);
+        make.right.equalTo(self.contentView).offset(-edge);
+        make.top.equalTo(self.contentView).offset(8);
+    }];
+    
     
     subHeadLabel = self.contentView.addLabel;
     [subHeadLabel textColorMain];
     subHeadLabel.numberOfLines = 0;
-    subHeadLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
     subHeadLabel.font = [Fonts regular:13];
-    [subHeadLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [[[[subHeadLabel.layoutMaker leftParent:edge] rightParent:-edge] below:headLabel offset:0] install];
+
+    expertLabel = self.contentView.addLabel;
+    expertLabel.font = [Fonts regular:13];
+    expertLabel.numberOfLines = 0;
+    [expertLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(edge);
         make.right.equalTo(self.contentView).offset(-edge);
-        make.top.equalTo(self->headLabel.mas_bottom).offset(10);
-        make.bottom.equalTo(self.contentView).offset(-8).priorityLow();
+        make.top.equalTo(self->subHeadLabel.mas_bottom).offset(10);
+        make.bottom.equalTo(self.contentView).offset(0).priorityHigh();
     }];
 }
 
 - (void)bindInfo:(DetailModel *)infoModel
 {
-        
     if (_isLastInfo) {
         UILabel *line = self.contentView.addLabel;
         line.backgroundColor = [Colors cellLineColor];
-        [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:7] install];
+        [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:expertLabel offset:1] install];
     }
     
     headLabel.text = infoModel.title;
     subHeadLabel.text = infoModel.subTitle;
+    expertLabel.text = infoModel.excerpt;
+
 }
 
 @end

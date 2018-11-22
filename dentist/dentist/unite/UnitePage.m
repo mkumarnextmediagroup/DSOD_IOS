@@ -202,8 +202,8 @@
 
 -(void)firstRefresh{
      [self getDatas:NO];
-    [self->mTableView setContentOffset:CGPointMake(0, 0)];
      [refreshControl endRefreshing];
+    
 }
 
 
@@ -237,6 +237,9 @@
         }
         
         [mTableView reloadData];
+        if (datas.count>0) {
+            [self->mTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
     }
 }
 
@@ -309,8 +312,11 @@
     [[DentistDataBaseManager shareManager] queryUniteDownloadedList:^(NSArray<MagazineModel *> * _Nonnull array) {
         foreTask(^{
             self->datas=[NSArray arrayWithArray:array];
-            [self->mTableView setContentOffset:CGPointMake(0, 0)];
             [self->mTableView reloadData];
+//             [self->mTableView setContentOffset:CGPointMake(0, 0) animated:NO];
+            if (self->datas.count>0) {
+                [self->mTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            }
         });
     }];
      

@@ -73,21 +73,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="256" height="335"/>
                             </imageView>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FKn-ca-pgO">
-                                <rect key="frame" x="5" y="10" width="246" height="325"/>
+                                <rect key="frame" x="0.0" y="0.0" width="256" height="335"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="FKn-ca-pgO" firstAttribute="leading" secondItem="Ldk-4g-U35" secondAttribute="leading" constant="5" id="8kR-kk-BUd"/>
+                            <constraint firstItem="FKn-ca-pgO" firstAttribute="leading" secondItem="Ldk-4g-U35" secondAttribute="leading" id="8kR-kk-BUd"/>
                             <constraint firstItem="XXH-k3-VKg" firstAttribute="leading" secondItem="Ldk-4g-U35" secondAttribute="leading" id="Jur-ES-wvn"/>
-                            <constraint firstItem="FKn-ca-pgO" firstAttribute="top" secondItem="Ldk-4g-U35" secondAttribute="top" constant="10" id="MSH-IK-7QO"/>
+                            <constraint firstItem="FKn-ca-pgO" firstAttribute="top" secondItem="Ldk-4g-U35" secondAttribute="top" id="MSH-IK-7QO"/>
                             <constraint firstAttribute="height" constant="335" id="O3w-SC-xU8"/>
                             <constraint firstAttribute="width" constant="256" id="VgM-g6-kWt"/>
                             <constraint firstItem="XXH-k3-VKg" firstAttribute="top" secondItem="Ldk-4g-U35" secondAttribute="top" id="bUL-fh-Nwy"/>
                             <constraint firstAttribute="bottom" secondItem="FKn-ca-pgO" secondAttribute="bottom" id="bip-Gw-R8Q"/>
                             <constraint firstAttribute="trailing" secondItem="XXH-k3-VKg" secondAttribute="trailing" id="ctP-d1-Fj3"/>
-                            <constraint firstAttribute="trailing" secondItem="FKn-ca-pgO" secondAttribute="trailing" constant="5" id="rcp-Mx-ZT0"/>
+                            <constraint firstAttribute="trailing" secondItem="FKn-ca-pgO" secondAttribute="trailing" id="rcp-Mx-ZT0"/>
                             <constraint firstAttribute="bottom" secondItem="XXH-k3-VKg" secondAttribute="bottom" id="yJv-IA-I1z"/>
                         </constraints>
                     </view>

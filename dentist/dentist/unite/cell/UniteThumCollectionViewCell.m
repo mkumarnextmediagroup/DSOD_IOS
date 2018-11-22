@@ -19,22 +19,22 @@
     
     
     UIImageView *imageView;
+    UIView *swipeView;
     UIView *titleView;
     UILabel *titleLabel;
-    UILabel *subTitleLabel;
     UILabel *authorLabel;
+    UILabel *subTitleLabel;
     UIWebView *mywebView;
     
-    UIView *swipeView;
     
-    DetailModel *detailModel;
-    
-    CGFloat lastContentOffset;
     
     
     int edge;
     int imageViewHeight;
     int imageViewCoverHeight;
+    
+    DetailModel *detailModel;
+    CGFloat lastContentOffset;
     
     NSTimer *calcWebViewHeightTimer;
     int calcWebViewHeightTimes;
@@ -77,9 +77,7 @@
 
         [self buildView];
         
-//        lastView = self.addView;
-//        lastView.backgroundColor = UIColor.redColor;
-//        [[[[[lastView.layoutMaker leftParent:0]rightParent:0]below:mywebView offset:0 ]heightEq:50]install];
+        
         [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(lastView) install];
         
 
@@ -104,6 +102,11 @@
     mywebView.scrollView.scrollEnabled = NO;
     mywebView.userInteractionEnabled = NO;
     mywebView.backgroundColor=[UIColor clearColor];
+//    mywebView.scrollView.contentInset = UIEdgeInsetsMake(NAVHEIGHT, 0.0f, 0.0f, 0.0f);
+    if (@available(iOS 11.0, *)) {
+        //设置不自动偏移
+        mywebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     [self addSubview:mywebView];
     [[[[[mywebView.layoutMaker leftParent:0] rightParent:0] below:titleView offset:0] heightEq:1] install];
     
@@ -138,27 +141,14 @@
 
 -(void)buildSwipeView{
     swipeView  = self.addView;
-    [[[[swipeView.layoutMaker below:imageView offset:20] centerXParent:0] heightEq:50] install];
+    [[[[[swipeView.layoutMaker below:imageView offset:0] heightEq:80] leftParent:0]rightParent:0]  install];
     swipeView.hidden = YES;
     
-    UILabel *leftLabel = swipeView.addLabel;
-    leftLabel.textColor = UIColor.whiteColor;
-    leftLabel.font = [Fonts semiBold:30];
-    leftLabel.text = @"<";
+    UIImageView *swipeImageView = swipeView.addImageView;
+    swipeImageView.image = [UIImage imageNamed:@"Swipe"];
+    [[[swipeImageView.layoutMaker sizeEq:250 h:25]centerParent]install];
     
-    UILabel *swipeLabel = swipeView.addLabel;
-    swipeLabel.textColor = UIColor.whiteColor;
-    swipeLabel.font = [Fonts semiBold:20];
-    swipeLabel.text = @"Swipe between articles";
     
-    UILabel *rightLabel = swipeView.addLabel;
-    rightLabel.textColor = UIColor.whiteColor;
-    rightLabel.font = [Fonts semiBold:30];
-    rightLabel.text = @">";
-    
-    [[swipeLabel.layoutMaker centerParent] install];
-    [[[leftLabel.layoutMaker toLeftOf:swipeLabel offset:-10 ] centerYParent:0] install];
-    [[[rightLabel.layoutMaker toRightOf:swipeLabel offset:10] centerYParent:0] install];
 }
 
 
@@ -209,6 +199,8 @@
     [[imageView.layoutUpdate heightEq:0 ]install];
     
     calcWebViewHeightTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calcWebViewHeight:) userInfo:nil repeats:YES];
+    
+    NSLog(@"html-%@",model.content);
 }
 
 
@@ -222,11 +214,9 @@
         NSString *urlstr = codeDic[@"thumbnailUrl"];
         [imageView loadUrl:urlstr placeholderImage:@"" completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             if (image) {
-                self->imageViewHeight = SCREENWIDTH * 2 /3;
                 [[self->imageView.layoutUpdate heightEq:self->imageViewHeight ]install];
             }else{
-                self->imageViewHeight=0;
-                [[self->imageView.layoutUpdate heightEq:self->imageViewHeight ]install];
+                [[self->imageView.layoutUpdate heightEq:0 ]install];
             }
         }];
     }
@@ -239,8 +229,6 @@
     
     [[mywebView.layoutUpdate heightEq:1] install];
     [mywebView loadHTMLString:[NSString webHtmlString:model.content] baseURL:nil];
-    
-    [[imageView.layoutUpdate heightEq:imageViewHeight ]install];
     
     
     calcWebViewHeightTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calcWebViewHeight:) userInfo:nil repeats:YES];

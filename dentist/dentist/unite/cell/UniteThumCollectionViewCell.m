@@ -10,6 +10,7 @@
 #import "Common.h"
 #import "NSString+myextend.h"
 #import "MagazineModel.h"
+#import "Proto.h"
 
 @interface UniteThumCollectionViewCell()<UIScrollViewDelegate,UIWebViewDelegate>{
     
@@ -146,7 +147,7 @@
     self.backgroundColor = UIColor.blackColor;
 
     NSString* cover = model.cover;
-    [imageView loadUrl:cover placeholderImage:@""];
+    [imageView loadUrl:[Proto getFileUrlByObjectId:cover] placeholderImage:@""];
     [[imageView.layoutUpdate heightEq:imageViewCoverHeight ]install];
 
     swipeView.hidden = NO;

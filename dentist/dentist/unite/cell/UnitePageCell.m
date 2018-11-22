@@ -57,7 +57,7 @@
     _magazineModel = magazineModel;
     
     if(magazineModel.cover){
-        [coverImgView loadUrl:[Proto getFileUrlByObjectId:magazineModel.cover] placeholderImage:@"bg_1"];
+        [coverImgView loadUrl:[Proto getFileUrlByObjectId:magazineModel.cover] placeholderImage:nil];
     }
     coverImgView.contentMode=UIViewContentModeScaleAspectFill;
     coverImgView.clipsToBounds=YES;

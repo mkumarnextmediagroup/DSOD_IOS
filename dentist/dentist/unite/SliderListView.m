@@ -29,6 +29,7 @@
     NSMutableArray *resultArray;
     UILabel     *categoryLab;
     UIView      *guestView;
+    UILabel     *issueLabel;
     BOOL        isShow;
 }
 
@@ -214,8 +215,7 @@ static dispatch_once_t onceToken;
     if (!_isSearch) {
         
         headerVi.frame = CGRectMake(0, 0, self->mTableView.frame.size.width, 86);
-        UILabel *issueLabel = headerVi.addLabel;
-        issueLabel.text = self.issueNumber;
+        issueLabel = headerVi.addLabel;
         issueLabel.font = [Fonts regular:14];
         [[[[[issueLabel.layoutMaker leftParent:30] rightParent:30] heightEq:42] topParent:0] install];
         
@@ -382,6 +382,8 @@ static dispatch_once_t onceToken;
         [cell bindInfo:searchArr[indexPath.row]];
     }else
     {
+        issueLabel.text = self.issueNumber;
+
         if (indexPath.row+1 == [resultArray[indexPath.section] count]) {
             cell.isLastInfo = YES;
         }else

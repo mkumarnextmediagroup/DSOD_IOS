@@ -238,13 +238,13 @@ static dispatch_once_t onceToken;
         
     }else if(searchArr.count > 0)
     {
-        headerVi.frame = CGRectMake(0, 0, self->mTableView.frame.size.width, 42);
+        headerVi.frame = CGRectMake(0, 0, self->mTableView.frame.size.width, 26);
         UIButton *headBtn = headerVi.addButton;
         [headBtn setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
         [headBtn setTitle:[NSString stringWithFormat:@"%lu RESULTS FOUND",(unsigned long)searchArr.count] forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         headBtn.titleLabel.font = [Fonts regular:13];
-        [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] topParent:0] install];
+        [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:26] topParent:10] install];
     }
     
     
@@ -321,7 +321,7 @@ static dispatch_once_t onceToken;
         return 44;
     }else
     {
-        return 42;
+        return 35;
     }
     return .1;
 }
@@ -407,10 +407,10 @@ static dispatch_once_t onceToken;
         model = resultArray[indexPath.section][indexPath.row];
     }
     NSLog(@"%@",model.id);
-    if(self.delegate && [self.delegate respondsToSelector:@selector(gotoDetailPage:)]){
-        [self.delegate gotoDetailPage:model.id];
-        [self sigleTappedPickerView:nil];
-    }
+//    if(self.delegate && [self.delegate respondsToSelector:@selector(gotoDetailPage:)]){
+//        [self.delegate gotoDetailPage:model.id];
+//        [self sigleTappedPickerView:nil];
+//    }
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView

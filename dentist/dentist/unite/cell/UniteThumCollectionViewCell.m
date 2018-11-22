@@ -73,14 +73,12 @@
         contentView = _scrollView.addView;
         [contentView layoutFill];
         [[contentView.layoutUpdate widthEq:frame.size.width] install];
-
+        
 
         [self buildView];
         
         
         [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(lastView) install];
-        
-
     }
     return self;
 }
@@ -102,12 +100,7 @@
     mywebView.scrollView.scrollEnabled = NO;
     mywebView.userInteractionEnabled = NO;
     mywebView.backgroundColor=[UIColor clearColor];
-//    mywebView.scrollView.contentInset = UIEdgeInsetsMake(NAVHEIGHT, 0.0f, 0.0f, 0.0f);
-    if (@available(iOS 11.0, *)) {
-        //设置不自动偏移
-        mywebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
-    [self addSubview:mywebView];
+    [contentView addSubview:mywebView];
     [[[[[mywebView.layoutMaker leftParent:0] rightParent:0] below:titleView offset:0] heightEq:1] install];
     
     lastView = mywebView;
@@ -116,14 +109,14 @@
 
 -(void)buildTitleView{
     
-    titleView = self.addView;
-    [[[[titleView.layoutMaker below:imageView offset:10] leftParent:edge]rightParent:-edge] install];
+    titleView = contentView.addView;
+    [[[[titleView.layoutMaker below:imageView offset:0] leftParent:edge]rightParent:-edge] install];
     
     titleLabel = [titleView addLabel];
     titleLabel.font = [Fonts semiBold:16];
     titleLabel.textColor = rgbHex(0x0e78b9);
     titleLabel.numberOfLines = 0;
-    [[[[titleLabel.layoutMaker leftParent:0] rightParent:0] topParent:0] install];
+    [[[[titleLabel.layoutMaker leftParent:0] rightParent:0] topParent:10] install];
 
     subTitleLabel = [titleView addLabel];
     subTitleLabel.font = [Fonts semiBold:20];
@@ -140,7 +133,7 @@
 }
 
 -(void)buildSwipeView{
-    swipeView  = self.addView;
+    swipeView  = contentView.addView;
     [[[[[swipeView.layoutMaker below:imageView offset:0] heightEq:80] leftParent:0]rightParent:0]  install];
     swipeView.hidden = YES;
     
@@ -164,11 +157,10 @@
     if ([model isKindOfClass:[DetailModel class]]) {
         detailModel = (DetailModel *)model;
     
-        titleView.hidden = YES;
         swipeView.hidden = YES;
+        [[titleView.layoutUpdate heightEq:0]install];
         [[mywebView.layoutUpdate heightEq:0] install];
         
-    
         if([detailModel.uniteArticleType isEqualToString:@"1"]){
             [self showCover:detailModel.magazineModel];
         }else if([detailModel.uniteArticleType isEqualToString:@"2"]){
@@ -220,8 +212,11 @@
             }
         }];
     }
+
+
+    [titleView layoutRemoveAllConstraints];
+    [[[[titleView.layoutMaker below:imageView offset:0] leftParent:edge]rightParent:-edge] install];
     
-    titleView.hidden = NO;
     titleLabel.text = model.title;
     subTitleLabel.text = model.subTitle;
     authorLabel.text = [NSString stringWithFormat:@"By %@ %@",model.author.firstName,model.author.lastName];

@@ -35,6 +35,7 @@ class ThumViewController: ExpandingViewController,ThumAndDetailViewControllerDel
     var detailView: UIView?
     var popView:YHPopMenuView?
     var popView2:YHPopMenuView?
+    var emptyView:UIView?
 //    var detailimageview:UIImageView?
     typealias ItemInfo = (imageName: String, title: String)
     fileprivate var cellsIsOpen = [Bool]()
@@ -64,6 +65,9 @@ extension ThumViewController{
         showNavTitle(detailView?.isHidden)
         configDefaultMode()
         configureNavBar()
+        emptyView=UIView(frame: self.view.bounds)
+        self.view.addSubview(emptyView!)
+        emptyView?.isHidden=true
         if(pageType == PageType.bookmark){
             self.navigationItem.rightBarButtonItems=nil
             DentistDataBaseManager.share().queryUniteArticlesBookmarkCachesList { (array:Array<DetailModel>) in
@@ -71,6 +75,7 @@ extension ThumViewController{
                 foreTask({
                     self.detailcollectionView!.modelarr=array
                     self.collectionView?.reloadData()
+                    self.setEmptyView(type: self.pageType)
                 })
             }
         }else{
@@ -80,6 +85,7 @@ extension ThumViewController{
                 foreTask({
                     self.detailcollectionView!.modelarr=array
                     self.collectionView?.reloadData()
+                    self.setEmptyView(type: self.pageType)
                     if self.modelarr!.count >= 1 {
                         let model:DetailModel=self.modelarr![0];
                         self.navigationItem.title=model.id
@@ -90,6 +96,20 @@ extension ThumViewController{
             })
         }
         
+    }
+    
+    func setEmptyView(type:PageType) -> Void {
+        if self.modelarr!.count>=1 {
+            emptyView?.isHidden=true
+        }else{
+            emptyView?.isHidden=false
+            if(pageType == PageType.bookmark){
+                emptyView?.addEmpty(withImageName: "nonBookmarks", title: "No Bookmark content")
+            }else{
+                emptyView?.addEmpty(withImageName: "nonBookmarks", title: "No content")
+            }
+            
+        }
     }
     
     func configDefaultMode(){
@@ -188,6 +208,10 @@ extension ThumViewController{
         popView2?.hide()
         sliderView = SliderListView.initSliderView(search, magazineId: self.uniteid!)
         sliderView?.delegate=self
+        if(self.modelarr!.count>self.currentIndex) {
+            let detailmodel:DetailModel=self.modelarr![self.currentIndex]
+            sliderView?.issueNumber=detailmodel.magazineModel.issue
+        }
         sliderView?.showSliderView()
 //        SliderListView.init(sliderView: search, magazineId: self.uniteid).showSliderView()
 //        SliderListView.init(frame: CGRect.zero, isSearch: search, magazineId: self.uniteid!).showSliderView()
@@ -451,6 +475,7 @@ extension ThumViewController{
                 self.detailcollectionView!.isbookmark=true
                 self.detailcollectionView!.modelarr=array
                 self.collectionView?.reloadData()
+                self.setEmptyView(type: self.pageType)
             })
         }
     }
@@ -720,6 +745,7 @@ extension ThumViewController {
                             self.modelarr!.remove(at: indexpath.row);
                             self.collectionView?.deleteItems(at:[IndexPath(row: indexpath.row , section: 0)])
                             self.collectionView?.reloadData()
+                            self.setEmptyView(type: self.pageType)
                         })
                     }
                     

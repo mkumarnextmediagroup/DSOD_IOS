@@ -31,7 +31,7 @@
 
 + (NSString *)timeWithTimeIntervalString:(NSString *)timeString;
 +(NSString *)getWithoutHtmlString:(NSString *)string;
-+(NSString *)webHtmlString:(NSString *)html;
++(NSString *)webHtmlString:(NSString *_Nullable)html;
 @end
 
 //遇到nil就回终止

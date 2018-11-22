@@ -150,7 +150,7 @@
 -(void)loadData{
 
     if(self.magazineModel.cover){
-        [coverImgView loadUrl:self.magazineModel.cover placeholderImage:@"bg_1"];
+        [coverImgView loadUrl:[Proto getFileUrlByObjectId:self.magazineModel.cover] placeholderImage:@"bg_1"];
     }
     publishDateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:self.magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",self.magazineModel.vol?self.magazineModel.vol:@"", self.magazineModel.issue?self.magazineModel.issue:@""];

@@ -19,7 +19,6 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     
     BOOL hiddenStatusBar;
     
-    NSArray *datas;
 }
 
 @property (nonatomic, strong) UICollectionView * collectionView;
@@ -105,19 +104,8 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 -(void)setModelarr:(NSArray<DetailModel *> *)modelarr
 {
     _modelarr=modelarr;
-//    if (!_isbookmark) {
-//        NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithObjects:self.magazineModel, nil];
-//        [mutableArray addObjectsFromArray:_modelarr];
-//        datas = [mutableArray copy];
-//    }else{
-//        NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:_modelarr];
-//        datas = [mutableArray copy];
-//    }
-    
-
     _collectionView.contentSize = CGSizeMake(_modelarr.count * self.view.frame.size.width, 0);
     [self.collectionView reloadData];
-//    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
 }
 
 -(void)setCurrentIndex:(NSInteger)currentIndex{
@@ -210,9 +198,9 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
         self.didEndDecelerating(_currentIndex);
     }
     
-    if(_currentIndex==0){
-        [self hideNavBar:YES];
-    }
+//    if(_currentIndex==0){
+//        [self hideNavBar:YES];
+//    }
 }
 
 @end

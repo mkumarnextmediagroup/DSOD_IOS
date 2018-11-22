@@ -121,14 +121,17 @@
 
 + (NSString *)webHtmlString:(NSString *)html
 {
-    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@",
+    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@%@%@%@",
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
-                            @"body{padding:0px;margin:0px;background:#fff;font-family:SFUIText-Regular;}",
-                            @"p{width:100%;margin: 10px auto;color:#4a4a4a;font-size:0.9em;}",
+                            @"body{padding:0px;margin:0px;background:#fff;font-family:SFUIText-Regular;font-size:0.9em;color:#4a4a4a}",
+                            @"p{margin: 10px auto;padding-left:18px;padding-right:18px}",
+                            @"h2{font-size:1.1em;padding-left:18px;padding-right:18px}",
+                            @"ol{background:#fff;margin-left:18px;margin-right:18px;padding-left:18px;}",
+                            @"ul{background:#fff;margin-left:18px;margin-right:18px;padding-left:18px;}",
                             @"em{font-style:normal}",
-                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
-                            @"blockquote{color:#4a4a4a;font-size:1.2em;font-weight:bold;margin: 20px 10px 10px 25px;position:relative;line-height:110%;text-indent:0px}",
+                            @".first-big p:first-letter{float: left;font-size:2.8em;margin-top:-6px;margin-bottom:-18px;margin-right:5px;text-transform:uppercase;color:#879aa8;}",
+                            @"blockquote{color:#4a4a4a;font-size:1.1em;font-weight:bold;margin: 20px 50px 10px 50px;position:relative;line-height:110%;text-indent:0px；background:#f00}",
                             @"blockquote:before{color:#4a4a4a;font-family:PingFangTC-Regular;content:'“';font-size:1.6em;position:absolute;left:-20px;top:15px;line-height:.1em}",
                             //@"blockquote:after{color:#4a4a4a;content:'”';font-size:5em;position:absolute;right:15px;bottom:0;line-height:.1em}"
                             @"figure{ margin:0 auto; background:#fff; }",
@@ -137,7 +140,8 @@
                             ];
     
     
-    html = [html stringByReplacingOccurrencesOfString :@"pre" withString:@"blockquote"];
+    html = [html stringByReplacingOccurrencesOfString :@"<pre>" withString:@"<blockquote>"];
+    html = [html stringByReplacingOccurrencesOfString :@"</pre>" withString:@"</blockquote>"];
     html = [html stringByReplacingOccurrencesOfString :@"<p>&nbsp;</p>" withString:@""];
     //    html = [self htmlRemoveReferences:html];
     
@@ -145,14 +149,14 @@
     NSArray *array = [html componentsSeparatedByString:@"<p>"];
     for (int i = 0; i < [array count]; i++) {
         NSString *currentString = [array objectAtIndex:i];
+        if([currentString rangeOfString:@"<iframe"].location !=NSNotFound){
+            continue;
+        }
         if(i>0){
-            if([currentString rangeOfString:@"<iframe"].location !=NSNotFound){
-                continue;
-            }
             if(isFirst){
                 //错误格式兼容<strong> </strong>厉害了中间还不是空格
                 //                 htmlString = [htmlString stringByReplacingOccurrencesOfString :@"<strong> </strong>" withString:@""];
-                htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
+                htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p style='margin-top:10'>%@</div>",htmlString,currentString];
                 isFirst = NO;
             }else{
                 htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];

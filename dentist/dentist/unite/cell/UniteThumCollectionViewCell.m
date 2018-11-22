@@ -19,6 +19,10 @@
     
     
     UIImageView *imageView;
+    UIView *titleView;
+    UILabel *titleLabel;
+    UILabel *subTitleLabel;
+    UILabel *authorLabel;
     UIWebView *mywebView;
     
     UIView *swipeView;
@@ -31,7 +35,12 @@
     int edge;
     int imageViewHeight;
     int imageViewCoverHeight;
+    
+    NSTimer *calcWebViewHeightTimer;
+    int calcWebViewHeightTimes;
+    
 }
+
 
 @end
 @implementation UniteThumCollectionViewCell
@@ -40,9 +49,9 @@
     self=[super initWithFrame:frame];
     if (self) {
         edge = 18;
-        if(IS_IPHONE_P_X){
-            edge=24;
-        }
+//        if(IS_IPHONE_P_X){
+//            edge=24;
+//        }
         
         imageViewHeight = SCREENWIDTH * 2 /3;
         imageViewCoverHeight = SCREENHEIGHT * 3 / 4;
@@ -66,6 +75,10 @@
 
 
         [self buildView];
+        
+//        lastView = self.addView;
+//        lastView.backgroundColor = UIColor.redColor;
+//        [[[[[lastView.layoutMaker leftParent:0]rightParent:0]below:mywebView offset:0 ]heightEq:50]install];
         [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(lastView) install];
         
 
@@ -82,6 +95,8 @@
     
     [self buildSwipeView];
     
+    [self buildTitleView];
+    
     
     mywebView = [UIWebView new];
     mywebView.delegate = self;
@@ -89,13 +104,35 @@
     mywebView.userInteractionEnabled = NO;
     mywebView.backgroundColor=[UIColor clearColor];
     [self addSubview:mywebView];
-    [[[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] below:imageView offset:10] heightEq:1] install];
-    
-    
-    
-    
+    [[[[[mywebView.layoutMaker leftParent:0] rightParent:0] below:titleView offset:0] heightEq:1] install];
     
     lastView = mywebView;
+    
+}
+
+-(void)buildTitleView{
+    
+    titleView = self.addView;
+    [[[[titleView.layoutMaker below:imageView offset:10] leftParent:edge]rightParent:-edge] install];
+    
+    titleLabel = [titleView addLabel];
+    titleLabel.font = [Fonts semiBold:16];
+    titleLabel.textColor = rgbHex(0x0e78b9);
+    titleLabel.numberOfLines = 0;
+    [[[[titleLabel.layoutMaker leftParent:0] rightParent:0] topParent:0] install];
+
+    subTitleLabel = [titleView addLabel];
+    subTitleLabel.font = [Fonts semiBold:20];
+    subTitleLabel.textColor = UIColor.blackColor;
+    subTitleLabel.numberOfLines = 0;
+    [[[[subTitleLabel.layoutMaker leftParent:0] rightParent:0] below:titleLabel offset:0] install];
+    
+    authorLabel = [titleView addLabel];
+    authorLabel.font = [Fonts semiBold:14];
+    authorLabel.textColor = rgbHex(0x9b9b9b);
+    authorLabel.numberOfLines = 0;
+    [[[[[authorLabel.layoutMaker leftParent:0] rightParent:0] below:subTitleLabel offset:0] bottomParent:0] install];
+    
 }
 
 -(void)buildSwipeView{
@@ -125,24 +162,33 @@
 
 
 -(void)bind:(id)model{
+   
+    if(calcWebViewHeightTimer){
+        [calcWebViewHeightTimer invalidate];
+        calcWebViewHeightTimer = nil;
+        calcWebViewHeightTimes = 0;
+    }
+    
+    
     if ([model isKindOfClass:[DetailModel class]]) {
         detailModel = (DetailModel *)model;
     
-       swipeView.hidden = YES;
-       [[mywebView.layoutUpdate heightEq:1] install];
+        titleView.hidden = YES;
+        swipeView.hidden = YES;
+        [[mywebView.layoutUpdate heightEq:0] install];
+        
     
         if([detailModel.uniteArticleType isEqualToString:@"1"]){
             [self showCover:detailModel.magazineModel];
-            
-        }else if([detailModel isKindOfClass:[DetailModel class]]){
-            [self showActicle:(DetailModel *)model];
+        }else if([detailModel.uniteArticleType isEqualToString:@"2"]){
+            [self showIntroduction:detailModel];
+        }else{
+            [self showActicle:detailModel];
         }
-        
-        
     }
-    
 }
-    
+
+   
 -(void)showCover:(MagazineModel*)model{
     self.backgroundColor = UIColor.blackColor;
 
@@ -152,6 +198,18 @@
 
     swipeView.hidden = NO;
 }
+
+-(void)showIntroduction:(DetailModel*)model{
+    self.backgroundColor = UIColor.whiteColor;
+    
+    [[mywebView.layoutUpdate heightEq:1] install];
+    [mywebView loadHTMLString:[NSString webHtmlString:model.content] baseURL:nil];
+    
+    [[imageView.layoutUpdate heightEq:0 ]install];
+    
+    calcWebViewHeightTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calcWebViewHeight:) userInfo:nil repeats:YES];
+}
+
 
 -(void)showActicle:(DetailModel*)model{
     self.backgroundColor = UIColor.whiteColor;
@@ -172,10 +230,40 @@
         }];
     }
     
+    titleView.hidden = NO;
+    titleLabel.text = model.title;
+    subTitleLabel.text = model.subTitle;
+    authorLabel.text = [NSString stringWithFormat:@"By %@ %@",model.author.firstName,model.author.lastName];
     
+    
+    [[mywebView.layoutUpdate heightEq:1] install];
     [mywebView loadHTMLString:[NSString webHtmlString:model.content] baseURL:nil];
     
     [[imageView.layoutUpdate heightEq:imageViewHeight ]install];
+    
+    
+    calcWebViewHeightTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calcWebViewHeight:) userInfo:nil repeats:YES];
+     NSLog(@"html-%@",model.content);
+}
+
+
+- (void)calcWebViewHeight:(NSTimer*)timer {
+    //获取到webview的高度
+    CGFloat webViewHeight1 = [[mywebView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
+    CGFloat webViewHeight2 = [[mywebView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
+    CGFloat webViewHeight3 = [[mywebView stringByEvaluatingJavaScriptFromString:@"document.body.clientHeight"] floatValue];
+    
+//    NSLog(@"webViewHeight1 == %f",webViewHeight1);
+//    NSLog(@"webViewHeight2 == %f",webViewHeight2);
+//    NSLog(@"webViewHeight3 == %f",webViewHeight3);
+    
+    [[mywebView.layoutUpdate heightEq:webViewHeight1]install];
+    if(calcWebViewHeightTimes<100){
+        calcWebViewHeightTimes++;
+    }else{
+        [calcWebViewHeightTimer invalidate];
+        calcWebViewHeightTimer = nil;
+    }
 }
 
 
@@ -189,7 +277,16 @@
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
     
     CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
-    [[mywebView.layoutUpdate heightEq:webViewHeight] install];
+    
+//    [[webView.layoutUpdate heightEq:webViewHeight]install];
+    
+    NSLog(@"---------webViewHeight----%f",webViewHeight );
+    NSLog(@"---------webViewDidFinishLoad-%@-%f",self,webViewHeight );
+    
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    NSLog(@"---------didFailLoadWithError--%@---%@",self,error);
     
 }
 

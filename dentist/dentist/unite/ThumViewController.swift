@@ -142,11 +142,11 @@ extension ThumViewController{
     
     func relaodMenuData(_ isfull:Bool?) -> Void {
         if isfull==true {
-            popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
+            popView?.iconNameArray = ["book9", "search-light", "share", "thumbnails", "arrow"]
             popView?.itemNameArray = ["Bookmark", "Search", "Share", "Thumbnails", "Go to Bookmarks"]
             popView?.reloadData()
         }else{
-            popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
+            popView?.iconNameArray = ["book9", "search-light", "share", "fullscreen", "arrow"]
             popView?.itemNameArray = ["Bookmark", "Search", "Share", "Fullscreen", "Go to Bookmarks"]
             popView?.reloadData()
         }
@@ -246,7 +246,7 @@ extension ThumViewController{
         let y = CGFloat(0.0)
     if popView == nil {
         popView=YHPopMenuView(frame: CGRect(x: x, y: y, width: w, height: h))
-        popView?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
+        popView?.iconNameArray = ["book9", "search-light", "share", "thumbnails", "arrow"]
         popView?.itemNameArray = ["Bookmark", "Search", "Share", "Thumbnails", "Go to Bookmarks"]
         popView?.itemH = itemH
         popView?.fontSize = 16.0
@@ -256,9 +256,9 @@ extension ThumViewController{
     if(self.modelarr!.count>self.currentIndex) {
         let detailmodel:DetailModel=self.modelarr![self.currentIndex]
         if detailmodel.isBookmark == true {
-            popView!.updateIcon("bookmark-light", at: 0)
+            popView!.updateIcon("bookmark-active", at: 0)
         }else{
-            popView!.updateIcon("bookmark", at: 0)
+            popView!.updateIcon("book9", at: 0)
         }
     }
         popView?.show()
@@ -301,7 +301,7 @@ extension ThumViewController{
                                         detailmodel.isBookmark=true;
                                         foreTask({
                                             self.collectionView?.reloadData()
-                                            self.popView!.updateIcon("bookmark-light", at: 0)
+                                            self.popView!.updateIcon("bookmark-active", at: 0)
                                         })
                                         
                                     }
@@ -363,7 +363,7 @@ extension ThumViewController{
         let y = CGFloat(0.0)
         if popView2 == nil {
             popView2=YHPopMenuView(frame: CGRect(x: x, y: y, width: w, height: h))
-            popView2?.iconNameArray = ["bookmark", "search", "arrow", "arrow", "arrow"]
+            popView2?.iconNameArray = ["book9", "search-light", "share", "fullscreen", "arrow"]
             popView2?.itemNameArray = ["Bookmark", "Search", "Share", "Fullscreen", "Go to Bookmarks"]
             popView2?.itemH = itemH
             popView2?.fontSize = 16.0
@@ -373,9 +373,9 @@ extension ThumViewController{
         if(self.modelarr!.count>self.currentIndex) {
             let detailmodel:DetailModel=self.modelarr![self.currentIndex]
             if detailmodel.isBookmark == true {
-                popView2!.updateIcon("bookmark-light", at: 0)
+                popView2!.updateIcon("bookmark-active", at: 0)
             }else{
-                popView2!.updateIcon("bookmark", at: 0)
+                popView2!.updateIcon("book9", at: 0)
             }
         }
        
@@ -418,7 +418,7 @@ extension ThumViewController{
                                         detailmodel.isBookmark=true;
                                         foreTask({
                                             self.collectionView?.reloadData()
-                                            self.popView2!.updateIcon("bookmark-light", at: 0)
+                                            self.popView2!.updateIcon("bookmark-active", at: 0)
                                         })
                                         
                                     }
@@ -471,6 +471,7 @@ extension ThumViewController{
         DentistDataBaseManager.share().queryUniteArticlesBookmarkCachesList { (array:Array<DetailModel>) in
             self.modelarr=array
             foreTask({
+                self.navigationItem.title="BOOKMARKS"
                 self.navigationItem.rightBarButtonItems=nil
                 self.detailcollectionView!.isbookmark=true
                 self.detailcollectionView!.modelarr=array
@@ -515,7 +516,7 @@ extension ThumViewController{
             
         }
         detailcollectionView!.didEndDecelerating={(index:NSInteger) in
-            if self.modelarr!.count>=index+1 {
+            if index>=0,self.modelarr!.count>=index+1 {
                 let model:DetailModel=self.modelarr![index];
                 self.navigationItem.title=model.id
                 self.collectionView!.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)

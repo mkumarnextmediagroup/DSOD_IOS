@@ -39,6 +39,8 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
     //  2. 声明变量
     var delegate:ThumCollectionViewCellDelegate?
     
+    var detailModel:DetailModel?
+    
     @IBOutlet weak var frontWebView: UIWebView!
     var mywebView:UIWebView?
     var backwebView:UIWebView?
@@ -93,6 +95,10 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
         let newhtml=NSString.webHtmlString(html)
         frontWebView!.loadHTMLString(newhtml!, baseURL: nil)
 //        backwebView!.loadHTMLString(newhtml!, baseURL: nil)
+    }
+    
+    @objc func setModelData(_ model:DetailModel){
+        detailModel=model
     }
     
     // 使用了 外部的一个变量来重写了这个 方法

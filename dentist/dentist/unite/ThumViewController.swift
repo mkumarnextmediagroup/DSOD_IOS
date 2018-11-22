@@ -144,21 +144,28 @@ extension ThumViewController{
                 let codeDic = detailmodel.featuredMedia["code"] as? NSDictionary
                 urlstr = codeDic?["thumbnailUrl"] as? String
             }
-            let someid = detailmodel.id as? String
+            let someid = detailmodel.id
             if !NSString.isBlankString(urlstr) {
                 DispatchQueue.global().async {
-                    let dataurl = NSURL(string: urlstr!)
-                    let data=NSData(contentsOf: dataurl as! URL)
-                    let image:UIImage = UIImage(data: data as! Data)!
+                    let dataurl = URL(string: urlstr!)
+                    let data:NSData?=NSData(contentsOf: dataurl!)
+                    let image:UIImage? = UIImage(data: data as! Data)
                     if image != nil {
-                        let shareurl = NSURL(string: getShareUrl("content", someid)) as! NSURL
-//                        var activityItems = [shareurl,title,image]
+                        let shareurl = URL(string: getShareUrl("content", someid))
+                        //                        var activityItems = [shareurl,title,image]
                         let actvc=UIActivityViewController(activityItems: [shareurl,title,image], applicationActivities: nil)
                         self.present(actvc, animated: true, completion: {
                             
                         })
                         
+                    }else{
+                        let shareurl = URL(string: getShareUrl("content", someid))
+                        let actvc=UIActivityViewController(activityItems: [shareurl,title], applicationActivities: nil)
+                        self.present(actvc, animated: true, completion: {
+                            
+                        })
                     }
+                    
                 }
             }
         }

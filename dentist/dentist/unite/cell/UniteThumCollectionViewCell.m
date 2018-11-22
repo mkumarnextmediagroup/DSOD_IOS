@@ -60,6 +60,7 @@
         
         _scrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         _scrollView.delegate=self;
+        _scrollView.alwaysBounceVertical = YES;
         [self addSubview:_scrollView];
         [_scrollView setContentOffset:CGPointMake(0, 0)];
         _scrollView.contentInset = UIEdgeInsetsMake(NAVHEIGHT, 0.0f, 0.0f, 0.0f);

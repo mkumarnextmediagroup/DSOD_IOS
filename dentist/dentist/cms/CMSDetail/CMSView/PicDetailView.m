@@ -467,11 +467,12 @@
 }
 
 - (NSString *)htmlString:(NSString *)html{
-    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@%@%@%@",
+    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@%@%@%@%@",
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
                             @"body{padding:0px;margin:0px;background:#fff;font-family:SFUIText-Regular;font-size:0.9em;color:#4a4a4a}",
                             @"p{margin: 10px auto;padding-left:18px;padding-right:18px}",
+                            @"h1{font-size:1.1em;padding-left:18px;padding-right:18px}",
                             @"h2{font-size:1.1em;padding-left:18px;padding-right:18px}",
                             @"ol{background:#fff;margin-left:18px;margin-right:18px;padding-left:18px;}",
                             @"ul{background:#fff;margin-left:18px;margin-right:18px;padding-left:18px;}",

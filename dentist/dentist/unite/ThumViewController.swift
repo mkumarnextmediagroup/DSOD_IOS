@@ -656,7 +656,8 @@ extension ThumViewController {
         if newdetail.uniteArticleType == "1" {
             cell.frontImageVIew.isHidden=false
             cell.frontWebView.isHidden=true
-            cell.frontImageVIew.sd_setImage(with: URL(string: newmodel.cover), completed: nil)
+            
+            cell.frontImageVIew.sd_setImage(with: URL(string: Proto.getFileUrl(byObjectId: newmodel.cover)), completed: nil)
         }else{
             cell.frontImageVIew.isHidden=true
             cell.frontWebView.isHidden=false

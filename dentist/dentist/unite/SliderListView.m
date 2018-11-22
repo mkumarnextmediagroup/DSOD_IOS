@@ -377,6 +377,7 @@ static dispatch_once_t onceToken;
     if (cell == nil) {
         cell = [[UniteArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
+    [tableView layoutIfNeeded];
     if (_isSearch) {
         cell.isLastInfo = YES;
         [cell bindInfo:searchArr[indexPath.row]];

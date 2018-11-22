@@ -13,9 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UploadResumeItemView : BaseItemView
 
 @property (nonatomic,assign) UIViewController *vc;
-@property (nonatomic,strong) NSString *uploadedResumeName;
 
--(void)showWithLastResumeUrl:(NSString*)resumeUrl fileName:(NSString*)resumeName;
+@property (nonatomic,strong) NSDictionary *resumeDataDic;
+
+-(NSString*)getUploadedResumeName;
+
+-(void)showWithLastResumeUrl:(NSString*)resumeUrl fileName:(NSString*)resumeName resumeDic:(NSDictionary* _Nullable)dic;
 
 @end
 

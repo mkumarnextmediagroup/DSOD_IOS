@@ -64,8 +64,10 @@
 			r.toYear = endDate.year;
 			r.toMonth = endDate.month;
 			NSDictionary *ddd = d[@"residency_school"];
-			r.schoolName = ddd[@"name"];
-			r.schoolId = ddd[@"id"];
+            if (ddd && ddd != NSNull.null) {
+                r.schoolName = ddd[@"name"];
+                r.schoolId = ddd[@"id"];
+            }
 			[self.residencyArray addObject:r];
 		}
 	}
@@ -79,8 +81,12 @@
 
 			edu.schoolInUS = [@"1" isEqualToString:d[@"types"]];
 			if (edu.schoolInUS) {
-				edu.schoolId = d[@"dental_school"][@"id"];
-				edu.schoolName = d[@"dental_school"][@"name"];
+                
+                NSDictionary *dd = d[@"dental_school"];
+                if (dd && dd != NSNull.null) {
+                    edu.schoolId = dd[@"id"];
+                    edu.schoolName = dd[@"name"];
+                }
 
 			} else {
 				edu.schoolId = nil;
@@ -108,10 +114,20 @@
 			Experience *e = [Experience new];
 			[self.experienceArray addObject:e];
 			e.pracName = [d strValue:@"practice_name"];
-			e.praticeTypeId = d[@"practice_Type"][@"id"];
-			e.praticeType = d[@"practice_Type"][@"name"];
-			e.roleAtPraticeId = d[@"practice_Role"][@"id"];
-			e.roleAtPratice = d[@"practice_Role"][@"name"];
+            
+            NSDictionary *practice_TypeDic =d[@"practice_Type"];
+            if(practice_TypeDic && practice_TypeDic != NSNull.null){
+                e.praticeTypeId = practice_TypeDic[@"id"];
+                e.praticeType = practice_TypeDic[@"name"];
+            }
+			
+            
+            
+            NSDictionary *practice_RoleDic =d[@"practice_Role"];
+            if(practice_RoleDic && practice_RoleDic != NSNull.null){
+                e.roleAtPraticeId = practice_RoleDic[@"id"];
+                e.roleAtPratice = practice_RoleDic[@"name"];
+            }
 
 			NSDictionary *dsoDic = d[@"practice_DSO"];
 			if (dsoDic && dsoDic != NSNull.null) {

@@ -88,7 +88,7 @@ extension ThumViewController{
                     self.setEmptyView(type: self.pageType)
                     if self.modelarr!.count >= 1 {
                         let model:DetailModel=self.modelarr![0];
-                        self.navigationItem.title=model.id
+//                        self.navigationItem.title=model.id
                     }
                     
                 })
@@ -518,7 +518,7 @@ extension ThumViewController{
         detailcollectionView!.didEndDecelerating={(index:NSInteger) in
             if index>=0,self.modelarr!.count>=index+1 {
                 let model:DetailModel=self.modelarr![index];
-                self.navigationItem.title=model.id
+//                self.navigationItem.title=model.id
                 self.collectionView!.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
             }
             
@@ -641,43 +641,29 @@ extension ThumViewController {
         cell.selectIndexpath=indexPath
         cell.delegate=self
         let index = indexPath.row % modelarr!.count
-//        let info = items[index]
         let newdetail:DetailModel! = modelarr?[index]
         let newmodel:MagazineModel! = newdetail.magazineModel
-//        cell.backgroundImageView?.image = UIImage(named: info.imageName)
-//        cell.backgroundImageView.loadUrl(newmodel.cover, placeholderImage: "bg_1")
-//        cell.backgroundImageView.contentMode = .scaleAspectFill
-//        cell.backgroundImageView.clipsToBounds = true
         cell.serialLabel.text=newmodel.serial
         cell.volIssueLabel.text=String(format: "%@ %@", newmodel.vol,newmodel.issue)
-        
-//        cell.backTitleLabel.text="Practive Success in a New Wold" //newmodel.cover
-//        cell.backAuthorLabel.text=String(format: "%@:%@", "author",newmodel.createUser)
-//        cell.pushDataLabel.text=NSString.time(withTimeIntervalString: newmodel.publishDate)
-        if newdetail.uniteArticleType == "1" {
-            cell.titleLabel.text="Issue Cover"
-            cell.frontImageVIew.isHidden=false
-            cell.frontWebView.isHidden=true
-            
-            cell.frontImageVIew.sd_setImage(with: URL(string: Proto.getFileUrl(byObjectId: newmodel.cover)), completed: nil)
-        }else if newdetail.uniteArticleType == "2" {
-            cell.frontImageVIew.isHidden=true
-            cell.frontWebView.isHidden=false
-            cell.titleLabel.text="Introduction"
-        }
-        else{
-            cell.titleLabel.text=newdetail.title
-            cell.frontImageVIew.isHidden=true
-            cell.frontWebView.isHidden=false
-            cell.htmlString(newdetail.content)
-        }
-        
-//        cell.customTitle.text = info.title
-        
-//        if (modelarr!.count > index)  {
-//            cell.cellIsOpen(cellsIsOpen[index], animated: false)
+        cell.setModelData2(newdetail)
+//        if newdetail.uniteArticleType == "1" {
+//            cell.titleLabel.text="Issue Cover"
+//            cell.frontImageVIew.isHidden=false
+//            cell.frontWebView.isHidden=true
+//            
+//            cell.frontImageVIew.sd_setImage(with: URL(string: Proto.getFileUrl(byObjectId: newmodel.cover)), completed: nil)
+//        }else if newdetail.uniteArticleType == "2" {
+//            cell.frontImageVIew.isHidden=true
+//            cell.frontWebView.isHidden=false
+//            cell.titleLabel.text="Introduction"
 //        }
-        //
+//        else{
+//            cell.titleLabel.text=newdetail.title
+//            cell.frontImageVIew.isHidden=true
+//            cell.frontWebView.isHidden=false
+//            cell.htmlString(newdetail.content)
+//        }
+//        
         
         if(pageType == PageType.bookmark){
             cell.ArchiiveButton.isHidden = true;

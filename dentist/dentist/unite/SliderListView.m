@@ -196,7 +196,9 @@ static dispatch_once_t onceToken;
     mTableView.dataSource = self;
     mTableView.delegate = self;
     mTableView.estimatedRowHeight = 40;
-    mTableView.tableHeaderView = [self headerView];
+    if (!_isSearch) {
+        mTableView.tableHeaderView = [self headerView];
+    }
     mTableView.rowHeight = UITableViewAutomaticDimension;
     mTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     mTableView.backgroundColor = [UIColor whiteColor];
@@ -404,6 +406,7 @@ static dispatch_once_t onceToken;
     NSLog(@"%@",model.id);
     if(self.delegate && [self.delegate respondsToSelector:@selector(gotoDetailPage:)]){
         [self.delegate gotoDetailPage:model.id];
+        [self sigleTappedPickerView:nil];
     }
 }
 

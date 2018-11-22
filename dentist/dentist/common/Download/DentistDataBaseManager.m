@@ -833,6 +833,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
         if (array && array.count>0) {
             tmpArr=[NSMutableArray arrayWithArray:array];
             DetailModel *firstdetail=array[0];
+            firstdetail.uniteArticleType=@"2";
             DetailModel *newdetail=[DetailModel new];
             newdetail.id=@"-1";
             newdetail.uniteArticleType=@"1";

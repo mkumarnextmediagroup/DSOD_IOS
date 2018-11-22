@@ -59,7 +59,13 @@
     subHeadLabel.numberOfLines = 0;
     subHeadLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
     subHeadLabel.font = [Fonts regular:13];
-    [[[[subHeadLabel.layoutMaker leftParent:edge]  rightParent:-edge] below:headLabel offset:2] install];
+//    [[[[subHeadLabel.layoutMaker leftParent:edge]  rightParent:-edge] below:headLabel offset:2] bottomOf:self.contentView offset:0];
+    [subHeadLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(edge);
+        make.right.equalTo(self.contentView).offset(edge);
+        make.top.equalTo(self->headLabel.mas_bottom).offset(2);
+        make.bottom.equalTo(self.contentView).priorityLow();
+    }];
 }
 
 - (void)bindInfo:(DetailModel *)infoModel

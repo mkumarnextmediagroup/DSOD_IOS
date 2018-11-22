@@ -228,6 +228,10 @@
 		57B0990A21256E840010597B /* linked_in.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B0990421256E840010597B /* linked_in.png */; };
 		57B0990B21256E840010597B /* bg_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B0990521256E840010597B /* bg_2.png */; };
 		74888DD7A002409EC2480DF8 /* libPods-dentist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D18A46C0F072296ED5347389 /* libPods-dentist.a */; };
+		A314772821A6A18B0046942C /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = A314772721A6A18B0046942C /* share.png */; };
+		A314772A21A6A1EC0046942C /* fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = A314772921A6A1EC0046942C /* fullscreen.png */; };
+		A314772C21A6A2D50046942C /* thumbnails.png in Resources */ = {isa = PBXBuildFile; fileRef = A314772B21A6A2D50046942C /* thumbnails.png */; };
+		A314772E21A6A3C80046942C /* bookmark-active.png in Resources */ = {isa = PBXBuildFile; fileRef = A314772D21A6A3C80046942C /* bookmark-active.png */; };
 		A36BAFCE2190A3BE0026BD18 /* sponsor_nobel.png in Resources */ = {isa = PBXBuildFile; fileRef = A36BAFCB2190A3BD0026BD18 /* sponsor_nobel.png */; };
 		A36BAFCF2190A3BE0026BD18 /* sponsor_gsk.png in Resources */ = {isa = PBXBuildFile; fileRef = A36BAFCC2190A3BD0026BD18 /* sponsor_gsk.png */; };
 		A36BAFD02190A3BE0026BD18 /* sponsor_align.png in Resources */ = {isa = PBXBuildFile; fileRef = A36BAFCD2190A3BD0026BD18 /* sponsor_align.png */; };
@@ -1038,6 +1042,10 @@
 		57B0990421256E840010597B /* linked_in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linked_in.png; sourceTree = "<group>"; };
 		57B0990521256E840010597B /* bg_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_2.png; sourceTree = "<group>"; };
 		68B426216C681447B0595866 /* Pods-dentist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dentist/Pods-dentist.debug.xcconfig"; sourceTree = "<group>"; };
+		A314772721A6A18B0046942C /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share.png; sourceTree = "<group>"; };
+		A314772921A6A1EC0046942C /* fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen.png; sourceTree = "<group>"; };
+		A314772B21A6A2D50046942C /* thumbnails.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnails.png; sourceTree = "<group>"; };
+		A314772D21A6A3C80046942C /* bookmark-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookmark-active.png"; sourceTree = "<group>"; };
 		A36BAFCB2190A3BD0026BD18 /* sponsor_nobel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_nobel.png; sourceTree = "<group>"; };
 		A36BAFCC2190A3BD0026BD18 /* sponsor_gsk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_gsk.png; sourceTree = "<group>"; };
 		A36BAFCD2190A3BD0026BD18 /* sponsor_align.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_align.png; sourceTree = "<group>"; };
@@ -2214,6 +2222,10 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A314772D21A6A3C80046942C /* bookmark-active.png */,
+				A314772B21A6A2D50046942C /* thumbnails.png */,
+				A314772921A6A1EC0046942C /* fullscreen.png */,
+				A314772721A6A18B0046942C /* share.png */,
 				187111C721A31B6D00A2B3E4 /* Delete_Icon.png */,
 				A393E0B221955D06001881C2 /* sponsor_align_banner.png */,
 				A393E0B121955D05001881C2 /* sponsor_gsk_banner.png */,
@@ -3404,6 +3416,7 @@
 				E11E1CA8734B5222C9D2AA54 /* c_light@3x.png in Resources */,
 				E11E171119FF6A0E476AE897 /* c.png in Resources */,
 				E11E107FA1682BF99483D798 /* c@2x.png in Resources */,
+				A314772E21A6A3C80046942C /* bookmark-active.png in Resources */,
 				A3E752E6217E35010087713D /* Article@2x.png in Resources */,
 				A3E752F1217E35010087713D /* Video.png in Resources */,
 				E11E15EF39F7686C2D89E98B /* c@3x.png in Resources */,
@@ -3434,6 +3447,7 @@
 				E11E14F080DF557CCBEC5318 /* setting_light.png in Resources */,
 				A3E752EC217E35010087713D /* TechGuide.png in Resources */,
 				E11E1A8D0FB760EFF8D24DBD /* setting_light@2x.png in Resources */,
+				A314772821A6A18B0046942C /* share.png in Resources */,
 				4E2EF503215E1BF000676A4E /* downLoadIcon@2x.png in Resources */,
 				E11E11E0BE3CABDABF84C0B6 /* setting_light@3x.png in Resources */,
 				A3E752F3217E35010087713D /* Article.png in Resources */,
@@ -3490,6 +3504,7 @@
 				E11E1CD01A5568FEDC54E1AE /* search_pressed@3x.png in Resources */,
 				4EE52D6D2154CFA10076DC3D /* desc@2x.png in Resources */,
 				18CFB0FE216F3B69002CC9D0 /* foryou.png in Resources */,
+				A314772A21A6A1EC0046942C /* fullscreen.png in Resources */,
 				18DE4D0E216DFF5000A6C61D /* nonBookmarks.png in Resources */,
 				E11E1AF3DACBE2E95CBC7543 /* uncheck2.png in Resources */,
 				E11E1F1E35CCC1384A645007 /* uncheck2@2x.png in Resources */,
@@ -3500,6 +3515,7 @@
 				4E23E07C2152963D00EDCE08 /* gskIcon@3x.png in Resources */,
 				E11E1FF351CEC85509F9850C /* user_img@3x.png in Resources */,
 				E11E11952BEDC54A2AEDAC3E /* Img-User-Dentist.png in Resources */,
+				A314772C21A6A2D50046942C /* thumbnails.png in Resources */,
 				E11E160A99297597D5439E34 /* Img-User-Dentist@2x.png in Resources */,
 				E11E1FBF82D8A2F932D671B1 /* Img-User-Dentist@3x.png in Resources */,
 				E11E169A696FC1DF78ED2724 /* menu-bookmark_light.png in Resources */,

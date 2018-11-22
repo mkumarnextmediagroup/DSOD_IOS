@@ -217,7 +217,7 @@ static dispatch_once_t onceToken;
         headerVi.frame = CGRectMake(0, 0, self->mTableView.frame.size.width, 86);
         issueLabel = headerVi.addLabel;
         issueLabel.font = [Fonts regular:14];
-        [[[[[issueLabel.layoutMaker leftParent:30] rightParent:30] heightEq:42] topParent:0] install];
+        [[[[[issueLabel.layoutMaker leftParent:16] rightParent:16] heightEq:42] topParent:0] install];
         
         UILabel *line1 = headerVi.addLabel;
         line1.backgroundColor = [Colors cellLineColor];
@@ -229,8 +229,8 @@ static dispatch_once_t onceToken;
         [headBtn setTitle:@"IN THIS ISSUE" forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [headBtn addTarget:self action:@selector(showFullList) forControlEvents:UIControlEventTouchUpInside];
-        headBtn.titleLabel.font = [Fonts regular:13];
-        [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] below:line1 offset:0] install];
+        headBtn.titleLabel.font = [Fonts regular:14];
+        [[[[[headBtn.layoutMaker leftParent:16] rightParent:16] heightEq:42] below:line1 offset:0] install];
         
         UILabel *line2 = headerVi.addLabel;
         line2.backgroundColor = [Colors cellLineColor];
@@ -243,7 +243,7 @@ static dispatch_once_t onceToken;
         [headBtn setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
         [headBtn setTitle:[NSString stringWithFormat:@"%lu RESULTS FOUND",(unsigned long)searchArr.count] forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        headBtn.titleLabel.font = [Fonts regular:13];
+        headBtn.titleLabel.font = [Fonts regular:14];
         [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:26] topParent:10] install];
     }
     
@@ -272,7 +272,7 @@ static dispatch_once_t onceToken;
         [headBtn setTitle:[NSString stringWithFormat:@"%lu RESULTS FOUND",(unsigned long)self->searchArr.count] forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         headBtn.titleLabel.font = [Fonts regular:13];
-        [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] topParent:0] install];
+        [[[[[headBtn.layoutMaker leftParent:16] rightParent:16] heightEq:42] topParent:0] install];
         return headerVi;
     } normalBlock:^(UITableView * _Nonnull sender) {
         [self->mTableView setScrollEnabled:YES];
@@ -305,10 +305,10 @@ static dispatch_once_t onceToken;
     headerVi.backgroundColor = [UIColor whiteColor];
     
     categoryLab = headerVi.addLabel;
-    categoryLab.font = [Fonts regular:13];
+    categoryLab.font = [Fonts regular:14];
     categoryLab.numberOfLines = 2;
     categoryLab.textColor = Colors.textAlternate;
-    [[[[[categoryLab.layoutMaker leftParent:30] rightParent:-30] heightEq:44] topParent:8] install];
+    [[[[[categoryLab.layoutMaker leftParent:16] rightParent:-16] heightEq:44] topParent:8] install];
 
     return headerVi;
 }
@@ -318,7 +318,7 @@ static dispatch_once_t onceToken;
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (!_isSearch) {
-        return 44;
+        return 35;
     }else
     {
         return 35;
@@ -338,12 +338,12 @@ static dispatch_once_t onceToken;
         headerVi.backgroundColor = [UIColor whiteColor];
         
         categoryLab = headerVi.addLabel;
-        categoryLab.font = [Fonts regular:13];
+        categoryLab.font = [Fonts regular:14];
         categoryLab.numberOfLines = 2;
         DetailModel *model = resultArray[section][0];
         categoryLab.text = model.categoryName;
         categoryLab.textColor = Colors.textAlternate;
-        [[[[[categoryLab.layoutMaker leftParent:30] rightParent:-30] heightEq:44] topParent:8] install];
+        [[[[[categoryLab.layoutMaker leftParent:16] rightParent:-16] heightEq:35] topParent:8] install];
         
         return headerVi;
     }else

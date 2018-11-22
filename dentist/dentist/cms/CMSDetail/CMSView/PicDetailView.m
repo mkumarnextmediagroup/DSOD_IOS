@@ -435,17 +435,8 @@
     [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
     
     
-    if(videoHtmlString){
-        if (!vedioWebView) {
-            vedioWebView = [UIWebView new];
-            vedioWebView.scrollView.scrollEnabled = NO;
-            [self addSubview:vedioWebView];
-            [[[[[vedioWebView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:SCREENWIDTH*2/3] install];
-        }
-        [vedioWebView loadHTMLString:[self getVideoHtml] baseURL:nil];
-    }
-    
-    
+    [self showVideo];
+   
     [self showReferences:bindInfo.references];
     
     [self showRelativeTopic:bindInfo.relativeTopicList];
@@ -454,16 +445,32 @@
 
 }
 
--(NSString*)getVideoHtml{
-    NSString *htmlString = [videoHtmlString stringByReplacingOccurrencesOfString:@"src=\"//" withString:@"src=\"http://"];
-    htmlString = [NSString stringWithFormat:@"%@%@%@%@%@",
+-(void)showVideo{
+    if(videoHtmlString){
+        NSRange iframeStart = [videoHtmlString rangeOfString:@"<iframe"];
+        NSRange iframeEnd = [videoHtmlString rangeOfString:@"</iframe>"];
+        
+         if(iframeStart.location != NSNotFound && iframeEnd.location != NSNotFound){
+            if (!vedioWebView) {
+                vedioWebView = [UIWebView new];
+                vedioWebView.scrollView.scrollEnabled = NO;
+                [self addSubview:vedioWebView];
+                [[[[[vedioWebView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:SCREENWIDTH*2/3] install];
+            }
+            
+            NSString *htmlString = videoHtmlString;
+            htmlString = [htmlString substringWithRange:NSMakeRange(iframeStart.location,iframeEnd.location+iframeEnd.length - iframeStart.location)];
+            htmlString = [htmlString stringByReplacingOccurrencesOfString:@"src=\"//" withString:@"src=\"http://"];
+            htmlString = [NSString stringWithFormat:@"%@%@%@%@%@",
                   @"<style type=\"text/css\">",
                   @"body{padding:0px;margin:0px;background:#fff;font-family}",
                   @"iframe{border: 0 none;}",
                   @"</style>",
                   htmlString
                   ];
-    return htmlString;
+            [vedioWebView loadHTMLString:htmlString baseURL:nil];
+         }
+    }
 }
 
 - (NSString *)htmlString:(NSString *)html{

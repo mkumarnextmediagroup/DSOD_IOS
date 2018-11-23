@@ -32,6 +32,26 @@
 
 @implementation UnitePage
 
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (onlyDownloadedUinte) {
+        UINavigationItem *item = [self navigationItem];
+        item.title = @"DOWNLOADED";
+        [[DentistDataBaseManager shareManager] queryUniteDownloadedList:^(NSArray<MagazineModel *> * _Nonnull array) {
+            foreTask(^{
+                self->datas=[NSArray arrayWithArray:array];
+                [self->mTableView reloadData];
+                //             [self->mTableView setContentOffset:CGPointMake(0, 0) animated:NO];
+                if (self->datas.count>0) {
+                    [self->mTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                }
+            });
+        }];
+    }
+}
+
 - (void)addNotification
 {
     // 状态改变通知

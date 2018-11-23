@@ -68,9 +68,7 @@
 
 - (void)buildViews {
     
-    if(resumeView){
-        resumeDataDic = resumeView.resumeDataDic;
-    }
+
     
 	NSArray *allSubView = self.contentView.subviews;
 	if (allSubView != nil) {
@@ -267,6 +265,13 @@
 	[super viewWillAppear:animated];
 
 	[self bindData];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if(resumeView){
+        resumeDataDic = resumeView.resumeDataDic;
+    }
 }
 
 

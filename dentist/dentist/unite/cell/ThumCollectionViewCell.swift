@@ -26,6 +26,7 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
     
     @IBOutlet weak var backTitleLabel: UILabel!
     
+    @IBOutlet weak var subTitleLabel: UILabel!
     @IBOutlet weak var backAuthorLabel: UILabel!
     
     @IBOutlet weak var pushDataLabel: UILabel!
@@ -62,7 +63,8 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
         imageViewHeight =  (256 * 2 / 3)
         frontImageVIew.isHidden=true
         frontWebView.isHidden=true
-        
+        titleLabel.numberOfLines=0
+        subTitleLabel.numberOfLines=0
         frontImageVIew.scaleFillAspect()
         frontImageVIew.clipsToBounds=true
         ArchiiveButton.layer.borderColor=UIColor.darkGray.cgColor
@@ -167,7 +169,7 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
                 
             }
             websubTitleLabel?.text=websubtext! as String
-            
+            subTitleLabel?.text = websubtext! as String
             websubTitleLabel?.frame=CGRect(x: 0, y: webtitleLabel!.frame.maxY+3, width: titleView!.frame.size.width, height: websubtitleheight)
             
             let firstName = (detailModel?.author.firstName == nil) ? "" : (detailModel?.author.firstName)!

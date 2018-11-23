@@ -221,7 +221,7 @@ extension ThumViewController{
         SliderListView.hideSliderView()
         if(self.modelarr!.count>self.currentIndex) {
             let detailmodel:DetailModel=self.modelarr![self.currentIndex]
-            if detailmodel.uniteArticleType != "1" {
+            if detailmodel.uniteArticleType != "1" ,detailmodel.uniteArticleType != "2"  {
                 if self.isfull==true {
                     self.openMenu1()
                 }else{

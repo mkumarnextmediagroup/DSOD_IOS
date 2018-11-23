@@ -110,8 +110,7 @@
 
 	[self addGroupTitle:@"Upload resume or import data"];
 
-	resumeView = [UploadResumeItemView new];
-    resumeView.vc = self;
+	resumeView = [[UploadResumeItemView alloc]initWithViewController:self];
 	[self.contentView addSubview:resumeView];
 
 	[self addGrayLine:0 marginRight:0];

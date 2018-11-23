@@ -20,6 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)showWithLastResumeUrl:(NSString*)resumeUrl fileName:(NSString*)resumeName resumeDic:(NSDictionary* _Nullable)dic;
 
+
+-(void)showNoResumeMode;
+
+-(void)showLastResumeMode;
+    
 @end
 
 NS_ASSUME_NONNULL_END

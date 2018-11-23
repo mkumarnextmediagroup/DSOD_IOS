@@ -62,7 +62,7 @@
     if (_isLastInfo) {
         UILabel *line = self.contentView.addLabel;
         line.backgroundColor = [Colors cellLineColor];
-        [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:7] install];
+        [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:5] install];
     }
     
     headLabel.text = infoModel.title;

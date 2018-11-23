@@ -600,7 +600,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
         [self->_dbQueue inDatabase:^(FMDatabase *db) {
             [db beginTransaction];
             @try {
-                [db executeUpdate:@"DELETE FROM t_UniteArticlesCaches where id in (select articleid from t_UniteArticlesRelationCaches where uniteid = ?) and isbookmark=0 ", uniteid];
+                [db executeUpdate:@"DELETE FROM t_UniteArticlesCaches where id in (select articleid from t_UniteArticlesRelationCaches where uniteid = ? and articleid in (select articleid from t_UniteArticlesRelationCaches  group by articleid having count(articleid)== 1) ) and isbookmark=0 ", uniteid];
                 [db executeUpdate:@"DELETE FROM t_UniteArticlesRelationCaches where uniteid = ? ",uniteid];
                 [db executeUpdate:@"DELETE FROM t_UniteCaches where id=?", uniteid];
             } @catch (NSException *exception) {

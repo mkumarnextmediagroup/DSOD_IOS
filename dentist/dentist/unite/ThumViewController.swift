@@ -645,7 +645,7 @@ extension ThumViewController {
         let newmodel:MagazineModel! = newdetail.magazineModel
         cell.serialLabel.text=newmodel.serial
         cell.volIssueLabel.text=String(format: "%@ %@", newmodel.vol,newmodel.issue)
-        cell.setModelData2(newdetail)
+        cell.setModelData(newdetail)
 //        if newdetail.uniteArticleType == "1" {
 //            cell.titleLabel.text="Issue Cover"
 //            cell.frontImageVIew.isHidden=false

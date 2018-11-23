@@ -83,7 +83,7 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
 //        self.frontContainerView.addSubview(mywebView!)
         
         
-        self.setUI2()
+        self.setUI()
 
 //        mywebView!.layoutMaker.topParent(10)?.leftParent(5)?.rightParent(5)?.bottomParent(10)?.install()
         
@@ -140,6 +140,49 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
             }else {
                 titleLabel.text=detailModel?.title
             }
+            var titleviewheight:CGFloat=0.0
+            var webtitleheight:CGFloat=0.0
+            var webtext:NSString?
+            if NSString.isBlankString(detailModel?.title) {
+                webtext=""
+                webtitleheight=0
+            }else {
+                webtext=detailModel!.title as NSString
+                let webtitlesize = webtext?.boundingRect(with: CGSize(width: titleView!.frame.size.width, height: 0), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : Fonts.semiBold(10)], context: nil)
+                webtitleheight=webtitlesize!.size.height+1
+            }
+            webtitleLabel?.text=webtext! as String
+
+            webtitleLabel?.frame=CGRect(x: 0, y: 0, width: titleView!.frame.size.width, height: webtitleheight)
+            var websubtitleheight:CGFloat=0.0
+            var websubtext:NSString?
+            if  NSString.isBlankString(detailModel?.subTitle) {
+                websubtext=""
+                websubtitleheight=0
+            }else {
+                websubtext=detailModel!.subTitle as NSString
+                let websubtitlesize = websubtext?.boundingRect(with: CGSize(width: titleView!.frame.size.width, height: 0), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : Fonts.semiBold(12)], context: nil)
+                websubtitleheight=websubtitlesize!.size.height+1
+                
+                
+            }
+            websubTitleLabel?.text=websubtext! as String
+            
+            websubTitleLabel?.frame=CGRect(x: 0, y: webtitleLabel!.frame.maxY+3, width: titleView!.frame.size.width, height: websubtitleheight)
+            
+            let firstName = (detailModel?.author.firstName == nil) ? "" : (detailModel?.author.firstName)!
+            let lastName = (detailModel?.author.lastName == nil) ? "" : (detailModel?.author.lastName)!
+            authorLabel?.text=String(format: "By %@ %@", firstName,lastName)
+            var authorheight:CGFloat=0.0
+            var authortext:NSString?
+            authortext=String(format: "By %@ %@", firstName,lastName) as NSString
+            let authorsize = authortext?.boundingRect(with: CGSize(width: titleView!.frame.size.width, height: 0), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : Fonts.semiBold(8)], context: nil)
+            authorheight=authorsize!.size.height+1
+            titleviewheight = webtitleheight + websubtitleheight + authorheight + 10
+            authorLabel?.frame = CGRect(x: 0, y: websubTitleLabel!.frame.maxY+3, width: titleView!.frame.size.width, height: authorheight)
+            
+            titleView?.frame = CGRect(x: edge, y: topImageView.frame.maxY+10, width: topImageView.frame.size.width-edge*2, height: titleviewheight)
+            
             let type:NSString = (detailModel?.featuredMedia["type"] == nil ) ? "" : detailModel?.featuredMedia["type"] as! NSString
             if type.isEqual(to: "1") {
                 let codeDic:NSDictionary? = detailModel?.featuredMedia["code"] as? NSDictionary
@@ -152,19 +195,17 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
                         self.imageViewHeight =  ( 256 * 2 / 3)
                     }
                     self.topImageView.frame=CGRect(x: 0, y: 0, width: self.frontContainerView.frame.size.width, height: self.imageViewHeight)
-                    self.titleView!.frame=CGRect(x: self.edge, y: self.topImageView.frame.maxY+10, width: self.topImageView.frame.size.width-self.edge*2, height: 40)
+                    self.titleView!.frame=CGRect(x: self.edge, y: self.topImageView.frame.maxY+10, width: self.topImageView.frame.size.width-self.edge*2, height: titleviewheight)
                     self.mywebView!.frame=CGRect(x: 0, y: self.titleView!.frame.maxY, width: self.frontContainerView.frame.size.width, height: self.frontContainerView.frame.height-self.topImageView!.frame.size.height-self.titleView!.frame.size.height-10)
 //                    self.topImageView.layoutMaker.heightEq(self.imageViewHeight)?.install()
                 } )
                 
             }
+            self.topImageView.frame=CGRect(x: 0, y: 0, width: self.frontContainerView.frame.size.width, height: self.imageViewHeight)
+            self.titleView!.frame=CGRect(x: self.edge, y: self.topImageView.frame.maxY+10, width: self.topImageView.frame.size.width-self.edge*2, height: titleviewheight)
+            self.mywebView!.frame=CGRect(x: 0, y: self.titleView!.frame.maxY, width: self.frontContainerView.frame.size.width, height: self.frontContainerView.frame.height-self.topImageView!.frame.size.height-self.titleView!.frame.size.height-10)
 
-            webtitleLabel?.text=detailModel?.title
-            websubTitleLabel?.text=detailModel?.subTitle
-            let firstName = (detailModel?.author.firstName == nil) ? "" : (detailModel?.author.firstName)!
-            let lastName = (detailModel?.author.lastName == nil) ? "" : (detailModel?.author.lastName)!
-            authorLabel?.text=String(format: "By %@ %@", firstName,lastName)
-            
+
 //            mywebView.layoutMaker.heightEq(1)?.install()
             let newhtml=NSString.webHtmlString(detailModel?.content)
             mywebView!.loadHTMLString(newhtml!, baseURL: nil)

@@ -754,12 +754,12 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
                 NSString *issue=[resultSet objectForColumn:@"issue"];
                 MagazineModel *item = [[MagazineModel alloc] init];
                 item._id=_id;
-                item.serial=serial;
-                item.vol=vol;
-                item.publishDate=publishDate;
-                item.cover=cover;
-                item.createUser=createUser;
-                item.issue=issue;
+                item.serial=![NSString isBlankString:serial]?serial:@"";
+                item.vol=![NSString isBlankString:vol]?vol:@"";
+                item.publishDate=![NSString isBlankString:publishDate]?publishDate:@"";
+                item.cover=![NSString isBlankString:cover]?cover:@"";
+                item.createUser=![NSString isBlankString:createUser]?createUser:@"";
+                item.issue=![NSString isBlankString:issue]?issue:@"";
                 if (item) {
                     [resultArray addObject:item];
                 }
@@ -801,12 +801,12 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
                         detail.uniteid=newuniteid;
                         detail.isBookmark=(isbookmark==1)?YES:NO;
                         MagazineModel *magazinemodel=[[MagazineModel alloc] init];
-                        magazinemodel.serial=serial;
-                        magazinemodel.vol=vol;
-                        magazinemodel.publishDate=publishDate;
-                        magazinemodel.cover=cover;
-                        magazinemodel.createUser=createUser;
-                        magazinemodel.issue=issue;
+                        magazinemodel.serial=![NSString isBlankString:serial]?serial:@"";
+                        magazinemodel.vol=![NSString isBlankString:vol]?vol:@"";
+                        magazinemodel.publishDate=![NSString isBlankString:publishDate]?publishDate:@"";
+                        magazinemodel.cover=![NSString isBlankString:cover]?cover:@"";
+                        magazinemodel.createUser=![NSString isBlankString:createUser]?createUser:@"";
+                        magazinemodel.issue=![NSString isBlankString:issue]?issue:@"";
                         detail.magazineModel=magazinemodel;
                         if (detail) {
                             [tmpArr addObject:detail];
@@ -895,16 +895,16 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
                 
                 if (![NSString isBlankString:jsontext]) {
                     DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
-                    detail.isBookmark=(isbookmark==1)?YES:NO;
                     detail.uniteid=newuniteid;
                     detail.isBookmark=(isbookmark==1)?YES:NO;
                     MagazineModel *magazinemodel=[[MagazineModel alloc] init];
-                    magazinemodel.serial=serial;
-                    magazinemodel.vol=vol;
-                    magazinemodel.publishDate=publishDate;
-                    magazinemodel.cover=cover;
-                    magazinemodel.createUser=createUser;
-                    magazinemodel.issue=issue;
+                    
+                    magazinemodel.serial=![NSString isBlankString:serial]?serial:@"";
+                    magazinemodel.vol=![NSString isBlankString:vol]?vol:@"";
+                    magazinemodel.publishDate=![NSString isBlankString:publishDate]?publishDate:@"";
+                    magazinemodel.cover=![NSString isBlankString:cover]?cover:@"";
+                    magazinemodel.createUser=![NSString isBlankString:createUser]?createUser:@"";
+                    magazinemodel.issue=![NSString isBlankString:issue]?issue:@"";
                     detail.magazineModel=magazinemodel;
                     if (detail) {
                         [tmpArr addObject:detail];

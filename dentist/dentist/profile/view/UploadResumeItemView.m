@@ -17,9 +17,9 @@
 
 
 @interface UploadResumeItemView ()<MyActionSheetDelegate,UIDocumentPickerDelegate,HttpProgress>
-{
-    
-}
+
+@property (nonatomic,assign) UIViewController *vc;
+
 @end
 
 @implementation UploadResumeItemView{
@@ -38,18 +38,7 @@
     
 }
 
-- (NSString*)getUploadedResumeName{
-    return uploadedResumeName?uploadedResumeName:@"";
-}
-
-- (NSDictionary*)resumeDataDic{
-    return @{@"filePath":filePath?filePath:@"",
-             @"fileURL":fileURL?fileURL:@"",
-             @"uploadedResumeName":uploadedResumeName?uploadedResumeName:@""};
-}
-
-
-- (instancetype)init {
+-(instancetype)initWithViewController:(UIViewController*)vc{
     self = [super init];
     
     Padding *p = self.padding;
@@ -58,10 +47,20 @@
     p.top = 16;
     p.bottom = 16;
     self.layoutParam.height = 78;
- 
-    [self showNoResumeMode];
     
+    self.vc = vc;
+    [self showNoResumeMode];
     return self;
+}
+
+- (NSString*)getUploadedResumeName{
+    return uploadedResumeName?uploadedResumeName:@"";
+}
+
+- (NSDictionary*)resumeDataDic{
+    return @{@"filePath":filePath?filePath:@"",
+             @"fileURL":fileURL?fileURL:@"",
+             @"uploadedResumeName":uploadedResumeName?uploadedResumeName:@""};
 }
 
 
@@ -247,7 +246,9 @@
     lastResumeUrl = resumeUrl;
     lastResumeFileName = resumeName;
     
-    if(dic && dic[@"filePath"] && dic[@"fileURL"] && dic[@"uploadedResumeName"]){
+    if(dic && ![NSString isBlankString:dic[@"filePath"]]
+       && ![NSString isBlankString:dic[@"fileURL"]]
+       && ![NSString isBlankString:dic[@"uploadedResumeName"]]){
         self->filePath = dic[@"filePath"];
         self->fileURL = dic[@"fileURL"];
         self->uploadedResumeName = dic[@"uploadedResumeName"];

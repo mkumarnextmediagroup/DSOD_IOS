@@ -178,7 +178,7 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
             authortext=String(format: "By %@ %@", firstName,lastName) as NSString
             let authorsize = authortext?.boundingRect(with: CGSize(width: titleView!.frame.size.width, height: 0), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : Fonts.semiBold(8)], context: nil)
             authorheight=authorsize!.size.height+1
-            titleviewheight = webtitleheight + websubtitleheight + authorheight + 10
+            titleviewheight = webtitleheight + websubtitleheight + authorheight + 6
             authorLabel?.frame = CGRect(x: 0, y: websubTitleLabel!.frame.maxY+3, width: titleView!.frame.size.width, height: authorheight)
             
             titleView?.frame = CGRect(x: edge, y: topImageView.frame.maxY+10, width: topImageView.frame.size.width-edge*2, height: titleviewheight)

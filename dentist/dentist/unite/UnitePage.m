@@ -245,8 +245,8 @@
 
 -(void)gotoThumView:(NSInteger)row
 {
-    if (self->datas.count>=1) {
-        MagazineModel *model=(MagazineModel *)self->datas[0];
+    if (self->datas.count>row) {
+        MagazineModel *model=(MagazineModel *)self->datas[row];
         ThumViewController *thumvc=[ThumViewController new];
         thumvc.magazineModel = model;
         thumvc.uniteid=model._id;

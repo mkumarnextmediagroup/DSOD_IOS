@@ -18,7 +18,6 @@
 
 -(void)showWithLastResumeUrl:(NSString*)resumeUrl fileName:(NSString*)resumeName{
     lastResumeUrl = resumeUrl;
-    resumeUrl = nil;
     
     NSString *text = @"Have not uploaded a resume yet...";
     BOOL viewBtnEnble = NO;

@@ -260,14 +260,15 @@ static dispatch_once_t onceToken;
     showFullList = YES;
     //show the full list of articles
     [UIView animateWithDuration:.3 animations:^{
-        self.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+//        self.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
         self->backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
-        self->sliderView.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
+        self->sliderView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
         self->guestView.frame = CGRectMake(0, 0, SCREENWIDTH, NAVHEIGHT);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self->mTableView reloadData];
         });
     }];
+    
 }
 
 - (void)createEmptyNotice

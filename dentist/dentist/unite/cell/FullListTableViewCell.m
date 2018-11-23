@@ -62,7 +62,7 @@
         make.left.equalTo(self.contentView).offset(edge);
         make.right.equalTo(self.contentView).offset(-edge);
         make.top.equalTo(self->subHeadLabel.mas_bottom).offset(10);
-        make.bottom.equalTo(self.contentView).offset(0).priorityHigh();
+        make.bottom.equalTo(self.contentView).offset(-8).priorityHigh();
     }];
 }
 
@@ -71,7 +71,7 @@
     if (_isLastInfo) {
         UILabel *line = self.contentView.addLabel;
         line.backgroundColor = [Colors cellLineColor];
-        [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:expertLabel offset:1] install];
+        [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:expertLabel offset:5] install];
     }
     
     headLabel.text = infoModel.title;

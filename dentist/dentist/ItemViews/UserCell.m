@@ -47,6 +47,8 @@
 	[[[[[[_specNameLabel layoutMaker] toRightOf:_imageView offset:15] topParent:64] rightParent:-30] heightEq:16] install];
 
 	[[[[_linkedinView.layoutMaker topParent:p.top] rightParent:-p.right] sizeEq:16 h:16] install];
+    
+    self.backgroundColor = rgbHex(0xfafbfd);
 
 	return self;
 }

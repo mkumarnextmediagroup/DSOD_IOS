@@ -14,6 +14,7 @@
 #import "GroupLabelView.h"
 #import "ProfileEditPage.h"
 #import "IdName.h"
+#import "ViewResumeItemView.h"
 
 
 @interface ProfileViewController ()
@@ -95,6 +96,17 @@
 
 	userCell.linkedinView.hidden = !_userInfo.isLinkedin;
 	[self.contentView addSubview:userCell];
+    
+    
+    [self addGroupTitle:@"Resume"];
+    ViewResumeItemView *viewResumeItemView = [[ViewResumeItemView alloc]initWithViewController:self];
+    [self.contentView addSubview:viewResumeItemView];
+    [self addGrayLine:0 marginRight:0];
+    [viewResumeItemView showWithLastResumeUrl:_userInfo.resume_url fileName:_userInfo.resume_name]; 
+    
+    
+    
+    
 
 	if (!_userInfo.isStudent) {
 

@@ -171,7 +171,7 @@
 -(void)downloadData
 {
     if(self.magazineModel.cover){
-        [coverImgView loadUrl:self.magazineModel.cover placeholderImage:nil];
+        [coverImgView loadUrl:[Proto getFileUrlByObjectId:self.magazineModel.cover] placeholderImage:nil];
     }
     publishDateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:self.magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",self.magazineModel.vol?self.magazineModel.vol:@"", self.magazineModel.issue?self.magazineModel.issue:@""];

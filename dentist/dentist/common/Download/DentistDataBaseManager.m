@@ -531,7 +531,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
                 NSString *issue=[NSString stringWithFormat:@"%@",model.issue];
                 if ([self CheckIsHasUnite:db uniteid:model._id]) {
                     //更新
-                    result = [db executeUpdate:@"UPDATE t_UniteCaches set serial = ?,vol = ?,publishDate = ?,cover = ?,articles = ?,createDate = ?,createUser = ?,issue = ?,downstatus = ? where id = ? ", serial,vol,publishDate,cover,articles,createDate,createUser,issue,[NSNumber numberWithInt:1],_id];
+                    result = [db executeUpdate:@"UPDATE t_UniteCaches set serial = ?,vol = ?,publishDate = ?,cover = ?,articles = ?,createDate = ?,createUser = ?,issue = ?,downstatus = ?,isarchive = 0,downstatus=0  where id = ? ", serial,vol,publishDate,cover,articles,createDate,createUser,issue,[NSNumber numberWithInt:1],_id];
                     
                     if (result) {
                     }else {
@@ -601,8 +601,8 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
             [db beginTransaction];
             @try {
                 [db executeUpdate:@"DELETE FROM t_UniteArticlesCaches where id in (select articleid from t_UniteArticlesRelationCaches where uniteid = ? and articleid in (select articleid from t_UniteArticlesRelationCaches  group by articleid having count(articleid)== 1) ) and isbookmark=0 ", uniteid];
-                [db executeUpdate:@"DELETE FROM t_UniteArticlesRelationCaches where uniteid = ? ",uniteid];
-                [db executeUpdate:@"DELETE FROM t_UniteCaches where id=?", uniteid];
+                [db executeUpdate:@"DELETE FROM t_UniteArticlesRelationCaches where uniteid = ? and articleid in (select a.articleid from t_UniteArticlesRelationCaches as a left join t_UniteArticlesCaches as b  where a.uniteid=? and b.isbookmark=0) ",uniteid,uniteid];
+                [db executeUpdate:@"update t_UniteCaches set isarchive=1,downstatus=0 where id=? ", uniteid];
             } @catch (NSException *exception) {
                 result = NO;
                 // 事务回退
@@ -743,7 +743,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [self->_dbQueue inDatabase:^(FMDatabase *db) {
             FMResultSet *resultSet;
-            resultSet  = [db executeQuery:@"SELECT * FROM t_UniteCaches WHERE downstatus =2 order by downtime desc "];
+            resultSet  = [db executeQuery:@"SELECT * FROM t_UniteCaches WHERE downstatus =2 and isarchive = 0 order by downtime desc "];
             while ([resultSet next]) {
                 NSString *_id=[resultSet objectForColumn:@"id"];
                 NSString *serial=[resultSet objectForColumn:@"serial"];
@@ -964,7 +964,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [self->_dbQueue inDatabase:^(FMDatabase *db) {
                 
-                result =[db intForQuery:@"SELECT downstatus FROM t_UniteCaches WHERE id = ?", uniteid];;
+                result =[db intForQuery:@"SELECT downstatus FROM t_UniteCaches WHERE id = ? and isarchive = 0 ", uniteid];;
                 if (result) {
                 }else {
                 }

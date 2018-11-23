@@ -66,7 +66,7 @@
 
 
 - (void)showNoResumeMode{
-    NSLog(@"%@",NSHomeDirectory());
+//    NSLog(@"%@",NSHomeDirectory());
     
     [self removeAllChildren];
     

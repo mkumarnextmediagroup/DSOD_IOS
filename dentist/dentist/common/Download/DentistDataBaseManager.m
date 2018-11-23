@@ -879,15 +879,33 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
         [self->_dbQueue inDatabase:^(FMDatabase *db) {
             
             FMResultSet *resultSet;
-            resultSet = [db executeQuery:@"SELECT * FROM t_UniteArticlesCaches where isbookmark=1 order by bookmarktime "];
+            resultSet = [db executeQuery:@"SELECT a.uniteid,a.articleid,b.title,b.contentTypeId,b.categoryId,b.contentTypeName,b.categoryName , b.jsontext,b.isbookmark,c.serial,c.vol,c.publishDate,c.cover,c.createUser,c.issue  FROM  t_UniteArticlesCaches as b left join t_UniteArticlesRelationCaches as a  on a.articleid = b.id left join t_UniteCaches as c on a.uniteid = c.id where  b.isbookmark=1 group by a.articleid  order by b.bookmarktime  "];
             
             while ([resultSet next]) {
                 NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
+                NSString *newuniteid=[resultSet objectForColumn:@"uniteid"];
+                NSString *serial=[resultSet objectForColumn:@"serial"];
+                NSString *vol=[resultSet objectForColumn:@"vol"];
+                NSString *publishDate=[resultSet objectForColumn:@"publishDate"];
+                NSString *cover=[resultSet objectForColumn:@"cover"];
+                NSString *createUser=[resultSet objectForColumn:@"createUser"];
+                NSString *issue=[resultSet objectForColumn:@"issue"];
+                
                 NSInteger isbookmark=[resultSet intForColumn:@"isbookmark"];
                 
                 if (![NSString isBlankString:jsontext]) {
                     DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
                     detail.isBookmark=(isbookmark==1)?YES:NO;
+                    detail.uniteid=newuniteid;
+                    detail.isBookmark=(isbookmark==1)?YES:NO;
+                    MagazineModel *magazinemodel=[[MagazineModel alloc] init];
+                    magazinemodel.serial=serial;
+                    magazinemodel.vol=vol;
+                    magazinemodel.publishDate=publishDate;
+                    magazinemodel.cover=cover;
+                    magazinemodel.createUser=createUser;
+                    magazinemodel.issue=issue;
+                    detail.magazineModel=magazinemodel;
                     if (detail) {
                         [tmpArr addObject:detail];
                     }

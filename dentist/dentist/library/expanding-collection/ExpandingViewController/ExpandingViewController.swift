@@ -125,7 +125,7 @@ public extension ExpandingViewController {
     }
     
     func pushToViewController4(_ viewController: UIViewController, completion: @escaping () -> Void) {
-         let backImage = getBackImage(viewController)
+         let backImage = viewController.view.asImage()
         
         transitionDriver?.popTransitionAnimationContantOffset(0, backImage: backImage)
         completion()

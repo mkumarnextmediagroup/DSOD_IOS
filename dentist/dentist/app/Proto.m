@@ -848,7 +848,7 @@
             info.content = item.comment_text;
             info.disDate = item.create_time;
             info.starCount = item.comment_rating;
-            info.disImg = [NSString stringWithFormat:@"%@%@photoDownloadByEmail?email=%@",[self baseDomain],[self configUrl:@"profile"],info.name];
+            info.disImg = [NSString stringWithFormat:@"%@%@photoDownloadByEmail?email=%@",[self baseDomain],[self configUrl:@"profile"],item.email];
 
             [discussInfos addObject:info ];
         }

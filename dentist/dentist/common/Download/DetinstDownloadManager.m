@@ -131,6 +131,7 @@
                                     dispatch_group_leave(dispatchGroup);
                                     
                                 }else{
+                                    NSLog(@"====================获取article文章详情失败====================");
                                     dispatch_group_leave(dispatchGroup);
                                 }
                                 

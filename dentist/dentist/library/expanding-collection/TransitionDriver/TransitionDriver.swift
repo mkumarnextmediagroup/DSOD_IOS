@@ -139,6 +139,7 @@ extension TransitionDriver {
         }
 
         backImageView?.image = backImage
+//        self.backImageView?.alpha = 1
         // configuration start position
         configureCellBeforeClose(copyCell, offset: offset)
 

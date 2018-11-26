@@ -53,8 +53,9 @@ extension ThumViewController{
 //        let stausBarHeight = UIApplication.shared.statusBarFrame.size.height
 //
 //        let itemheight = self.view.frame.size.height-(navBarHeight+stausBarHeight)
+//        let itemwidth=((256.0/375.0)*UIScreen.main.bounds.size.width)
         
-        itemSize = CGSize(width: 256, height: self.view.frame.size.height)
+        itemSize = CGSize(width: 256.0, height: self.view.frame.size.height)
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         registerCell()

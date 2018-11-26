@@ -174,7 +174,7 @@
         foreTask(^{
             fullName = userInfo.fullName;
             
-            [headerImg loadUrl:userInfo.photo_url placeholderImage:@"user_img"];
+            [headerImg loadUrl:[Proto getPhotoDownloadByEmailUrl:userInfo.photo_url] placeholderImage:@"user_img"];
             
             NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Writing review as %@" ,userInfo.fullName?userInfo.fullName:@""]];
             [str addAttribute:NSForegroundColorAttributeName value:Colors.textAlternate range:NSMakeRange(0,18)];

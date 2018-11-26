@@ -201,6 +201,8 @@
 
 //MARK:获取单个文件（ADMIN PORTAL Only）
 +(NSString *)getFileUrlByObjectId:(NSString *_Nullable)objectid;
++(NSString *)getPhotoDownloadByEmail:(NSString *_Nullable)email createtime:(NSString *_Nullable)create_time;
++(NSString *)getPhotoDownloadByEmailUrl:(NSString *_Nullable)emailurl;
 
 //MARK:模拟
 +(BOOL)archiveActicleArr;

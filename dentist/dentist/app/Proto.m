@@ -848,7 +848,7 @@
             info.content = item.comment_text;
             info.disDate = item.create_time;
             info.starCount = item.comment_rating;
-            info.disImg = [NSString stringWithFormat:@"%@%@photoDownloadByEmail?email=%@",[self baseDomain],[self configUrl:@"profile"],item.email];
+            info.disImg = [self getPhotoDownloadByEmail:item.email createtime:item.create_time]; //[NSString stringWithFormat:@"%@%@photoDownloadByEmail?email=%@&createTime=%@",[self baseDomain],[self configUrl:@"profile"],item.email,item.create_time];
 
             [discussInfos addObject:info ];
         }
@@ -1502,6 +1502,17 @@
         return nil;
     }
     
+}
+
++(NSString *)getPhotoDownloadByEmail:(NSString *)email createtime:(NSString *)create_time
+{
+    
+    return [NSString stringWithFormat:@"%@%@photoDownloadByEmail?email=%@&createTime=%@&i=%ld",[self baseDomain],[self configUrl:@"profile"],email,create_time,(long)[[NSDate date] timeIntervalSince1970]];
+}
+
++(NSString *)getPhotoDownloadByEmailUrl:(NSString *)emailurl
+{
+    return [NSString stringWithFormat:@"%@%@photoDownloadByEmail?%@&i=%ld",[self baseDomain],[self configUrl:@"profile"],emailurl,(long)[[NSDate date] timeIntervalSince1970]];
 }
 
 #pragma mark Unite API

@@ -396,7 +396,7 @@
 		count = count + 1;
 	}
 
-	if (_userInfo.experienceArray != nil && _userInfo.experienceArray.count > 0  && _userInfo.isStudent) {
+	if (_userInfo.experienceArray != nil && _userInfo.experienceArray.count > 0  && !_userInfo.isStudent) {
 		if (_userInfo.experienceArray.count == 1) {
 			Experience *r = _userInfo.experienceArray[0];
 			if (r.praticeTypeId != nil && r.praticeTypeId.length > 0) {

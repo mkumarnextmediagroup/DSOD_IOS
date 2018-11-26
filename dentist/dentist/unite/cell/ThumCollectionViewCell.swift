@@ -60,7 +60,10 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        imageViewHeight =  (256 * 2 / 3)
+//        let containerheight=((301.0/667.0)*UIScreen.main.bounds.size.height)
+//        frontContainerView.layoutUpdate.heightEq(containerheight)!.install()
+//        backContainerView.layoutUpdate.heightEq(containerheight)!.install()
+        imageViewHeight =  (self.frame.size.width * 2 / 3)
         frontImageVIew.isHidden=true
         frontWebView.isHidden=true
         frontImageVIew.scaleFillAspect()
@@ -198,7 +201,7 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
                     if image == nil {
                         self.imageViewHeight=0;
                     }else {
-                        self.imageViewHeight =  ( 256 * 2 / 3)
+                        self.imageViewHeight =  ( self.frame.size.width * 2 / 3)
                     }
                     self.topImageView.frame=CGRect(x: 0, y: 0, width: self.frontContainerView.frame.size.width, height: self.imageViewHeight)
                     self.titleView!.frame=CGRect(x: self.edge, y: self.topImageView.frame.maxY+10, width: self.topImageView.frame.size.width-self.edge*2, height: titleviewheight)
@@ -227,7 +230,7 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
     
     func setUI() -> Void {
 //         [[[[[imageView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:imageViewHeight] install];
-    
+        self.layoutIfNeeded()
         topImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frontContainerView.frame.size.width, height: imageViewHeight))
         self.frontContainerView.addSubview(topImageView!)
 //       topImageView.layoutMaker.leftParent(0)?.rightParent(0)?.topParent(0)?.heightEq(imageViewHeight!).install();
@@ -318,7 +321,7 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
                         if image == nil {
                             self.imageViewHeight=0;
                         }else {
-                            self.imageViewHeight =  ( 256 * 2 / 3)
+                            self.imageViewHeight =  ( self.frame.size.width * 2 / 3)
                         }
                         self.topImageView.layoutUpdate.heightEq(self.imageViewHeight)?.install()
 //                    self.topImageView.layoutMaker.leftParent(0)?.rightParent(0)?.topParent(0)?.heightEq(self.imageViewHeight).install();

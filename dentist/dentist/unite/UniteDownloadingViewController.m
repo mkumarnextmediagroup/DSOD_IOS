@@ -186,6 +186,8 @@
     [[DetinstDownloadManager shareManager] startDownLoadUniteArticles:_magazineModel addCompletion:^(BOOL result) {
         
     } completed:^(BOOL result) {
+        
+        
         if(result){
             NSLog(@"===============下载成功===============");
             WeakSelf
@@ -197,6 +199,13 @@
             });
         }else{
             NSLog(@"===============下载失败===============");
+            foreTask(^{
+                UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                [window makeToast:@"Download failed"
+                         duration:1.0
+                         position:CSToastPositionBottom];
+                [self.navigationController popViewControllerAnimated:YES];
+            });
         }
     }];
 }

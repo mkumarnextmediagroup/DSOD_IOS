@@ -106,7 +106,7 @@ extension TransitionDriver {
         backImageView = addImageToView(copyView.backContainerView, image: backImage)
 //
         openBackViewConfigureConstraints(copyView, height: headerHeight, insets: insets)
-        openFrontViewConfigureConstraints(copyView, height: headerHeight, insets: insets)
+//        openFrontViewConfigureConstraints(copyView, height: headerHeight, insets: insets)
 //
 //        // corner animation
         copyView.backContainerView.animationCornerRadius(0, duration: duration)
@@ -141,14 +141,15 @@ extension TransitionDriver {
         backImageView?.image = backImage
 //        self.backImageView?.alpha = 1
         // configuration start position
+//        backImageView = addImageToView(copyCell.backContainerView, image: backImage)
         configureCellBeforeClose(copyCell, offset: offset)
 
         closeBackViewConfigurationConstraints(copyCell)
-        closeFrontViewConfigurationConstraints(copyCell)
+//        closeFrontViewConfigurationConstraints(copyCell)
 
         // corner animation
         copyCell.backContainerView.animationCornerRadius(copyCell.backContainerView.layer.cornerRadius, duration: duration)
-        copyCell.frontContainerView.animationCornerRadius(copyCell.frontContainerView.layer.cornerRadius, duration: duration)
+//        copyCell.frontContainerView.animationCornerRadius(copyCell.frontContainerView.layer.cornerRadius, duration: duration)
 
         UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(), animations: {
             self.rightCell?.center.x -= self.step
@@ -158,7 +159,7 @@ extension TransitionDriver {
             self.backImageView?.alpha = 0
             copyCell.shadowView?.alpha = 1
 
-            copyCell.frontContainerView.subviewsForEach { if $0.tag == Constants.HideKey { $0.alpha = 1 } }
+//            copyCell.frontContainerView.subviewsForEach { if $0.tag == Constants.HideKey { $0.alpha = 1 } }
         }, completion: { _ in
             self.currentCell?.isHidden = false
             self.removeCurrentCell()

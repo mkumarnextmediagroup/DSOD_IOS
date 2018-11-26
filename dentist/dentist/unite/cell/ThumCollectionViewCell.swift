@@ -121,7 +121,7 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
         let vol = (newmodel?.vol == nil) ? "" : (newmodel?.vol)!
         let issue = (newmodel?.issue == nil) ? "" : (newmodel?.issue)!
         volIssueLabel.text=String(format: "%@ %@", vol,issue)
-        if detailModel?.uniteArticleType == "1" {
+        if detailModel?.uniteArticleType == "1"  {
             titleLabel.text="Issue Cover"
             subTitleLabel.text = ""
             topImageView!.isHidden=false
@@ -130,7 +130,20 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
             topImageView.sd_setImage(with: URL(string: Proto.getFileUrl(byObjectId: newmodel?.cover)), completed: nil)
             topImageView.frame=CGRect(x: 0, y: 0, width: self.frontContainerView.frame.size.width, height: self.frontContainerView.frame.size.height)
 //            topImageView.layoutMaker.leftParent(0)?.rightParent(0)?.topParent(0)?.bottomParent(0).install();
-        }else {
+        }else  if detailModel?.uniteArticleType == "2"  {
+            titleLabel.text="Introduction"
+            subTitleLabel.text = ""
+            topImageView!.isHidden=true
+            titleView!.isHidden=true
+            mywebView!.isHidden=false;
+            self.mywebView!.frame=CGRect(x: 0, y: 0, width: self.frontContainerView.frame.size.width, height: self.frontContainerView.frame.height)
+            
+            
+            //            mywebView.layoutMaker.heightEq(1)?.install()
+            let newhtml=NSString.webHtmlString(detailModel?.content)
+            mywebView!.loadHTMLString(newhtml!, baseURL: nil)
+            //            topImageView.layoutMaker.leftParent(0)?.rightParent(0)?.topParent(0)?.bottomParent(0).install();
+        } else {
             topImageView.frame=CGRect(x: 0, y: 0, width: self.frontContainerView.frame.size.width, height: imageViewHeight)
             titleView?.frame=CGRect(x: edge, y: topImageView.frame.maxY+10, width: topImageView.frame.size.width-edge*2, height: 40)
             mywebView.frame=CGRect(x: 0, y: titleView!.frame.maxY, width: self.frontContainerView.frame.size.width, height: self.frontContainerView.frame.height-topImageView!.frame.size.height-titleView!.frame.size.height-10)

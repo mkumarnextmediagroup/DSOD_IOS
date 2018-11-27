@@ -166,13 +166,21 @@
         }else if([detailModel.uniteArticleType isEqualToString:@"2"]){
             [self showIntroduction:detailModel];
         }else if([detailModel.uniteArticleType isEqualToString:@"3"]){
-            [self showCover:detailModel.magazineModel];
+            [self showAD:detailModel.magazineModel];
         }else{
             [self showActicle:detailModel];
         }
     }
 }
 
+-(void)showAD:(MagazineModel*)model{
+    self.backgroundColor = UIColor.whiteColor;
+    
+    NSString* cover = model.cover;
+    [imageView loadUrl:[Proto getFileUrlByObjectId:cover] placeholderImage:@""];
+    [[imageView.layoutUpdate heightEq:imageViewCoverHeight ]install];
+    
+}
    
 -(void)showCover:(MagazineModel*)model{
     self.backgroundColor = UIColor.blackColor;
@@ -194,7 +202,7 @@
     
     calcWebViewHeightTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calcWebViewHeight:) userInfo:nil repeats:YES];
     
-    NSLog(@"html-%@",model.content);
+//    NSLog(@"html-%@",model.content);
 }
 
 
@@ -229,7 +237,7 @@
     
     
     calcWebViewHeightTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calcWebViewHeight:) userInfo:nil repeats:YES];
-     NSLog(@"html-%@",model.content);
+//     NSLog(@"html-%@",model.content);
 }
 
 
@@ -304,4 +312,10 @@
     
 }
 
+- (void)dealloc{
+    if(calcWebViewHeightTimer && [calcWebViewHeightTimer isValid]){
+        [calcWebViewHeightTimer invalidate];
+        calcWebViewHeightTimer = nil;
+    }
+}
 @end

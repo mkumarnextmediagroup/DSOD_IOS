@@ -192,22 +192,21 @@
     [imageView loadUrl:urlstr placeholderImage:@""];
     imageView.contentMode=UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds=YES;
-    //@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"
-    if ([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"VIDEOS"]) {
-        [thumbImageView setImage:[UIImage imageNamed:@"Video"]];
-    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"PODCASTS"]) {
-        [thumbImageView setImage:[UIImage imageNamed:@"Podcast"]];
-    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"INTERVIEWS"]) {
-        [thumbImageView setImage:[UIImage imageNamed:@"Interview"]];
-    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"TECH GUIDES"]) {
-        [thumbImageView setImage:[UIImage imageNamed:@"TechGuide"]];
-    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"ANIMATIONS"]) {
-        [thumbImageView setImage:[UIImage imageNamed:@"Animation"]];
-    }else if([[_cmsmodel.contentTypeName uppercaseString] isEqualToString:@"TIP SHEETS"]) {
-        [thumbImageView setImage:[UIImage imageNamed:@"TipSheet"]];
+    
+    NSDictionary *thumbImagInfo = @{@"VIDEOS":@"Video",
+                                  @"PODCASTS":@"Podcast",
+                                  @"INTERVIEWS":@"Interview",
+                                  @"TECH GUIDES":@"TechGuide",
+                                  @"ANIMATIONS":@"Animation",
+                                  @"TIP SHEETS":@"TipSheet",
+                                  @"ARTICLES":@"Article"
+                                  };
+    if (thumbImagInfo[[item.contentTypeName uppercaseString]]) {
+        [thumbImageView setImage:[UIImage imageNamed:thumbImagInfo[[item.contentTypeName uppercaseString]]]];
     }else{
         [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
     }
+    
     if (_cmsmodel.isBookmark) {
         [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
     }else{

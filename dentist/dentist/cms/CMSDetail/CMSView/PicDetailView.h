@@ -25,7 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,weak) UIViewController *vc;
 
 -(void)bind:(DetailModel *)bindInfo ;
-- (void)resetLayout;
+
+- (void)timerInvalidate;
 
 @end
 

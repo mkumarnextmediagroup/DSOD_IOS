@@ -270,4 +270,12 @@
 + (DetailModel *)queryForUniteDetailInfo:(NSString *)contentId;
 //MARK:查询杂志详情接口
 + (void)queryMagazinesDetail:(NSString *)magazineId completed:(void(^)(MagazineModel *model))completed;
+
+
+//获得广告插件里面服务商id
++ (void)getAdbutlerSponsor:(void(^)(NSDictionary*))completed;
+
+//获得重定向后的地址
++ (NSString*)getRedirectUrl:(NSString*)url;
+
 @end

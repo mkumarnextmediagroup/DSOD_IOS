@@ -791,7 +791,6 @@
     }else{
         return nil;
     }
-    
 }
 
 #pragma mark CMS Modular
@@ -1506,6 +1505,7 @@
     
 }
 
+
 +(NSString *)getPhotoDownloadByEmail:(NSString *)email createtime:(NSString *)create_time
 {
     
@@ -1515,6 +1515,70 @@
 +(NSString *)getPhotoDownloadByEmailUrl:(NSString *)emailurl
 {
     return [NSString stringWithFormat:@"%@%@photoDownloadByEmail?%@&i=%ld",[self baseDomain],[self configUrl:@"profile"],emailurl,(long)[[NSDate date] timeIntervalSince1970]];
+}
+
+//获得广告插件里面服务商id
++ (void)getAdbutlerSponsor:(void(^)(NSDictionary*))completed{
+    NSString *urlString = @"https://api.adbutler.com/v1/campaigns";
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    
+    NSMutableURLRequest *mutableRequest = [urlRequest mutableCopy];
+    [mutableRequest addValue:@"Basic a4baad2cdd27120f6228c106f23c5a39" forHTTPHeaderField:@"Authorization"];
+    urlRequest = [mutableRequest copy];
+    
+    
+    NSLog(@"getAdbutlerSponsor start");
+    
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask * dataTask =  [session dataTaskWithRequest:urlRequest completionHandler:^(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error) {
+        
+        //拿到响应头信息
+//        NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
+//        NSLog(@"%@\n%@",[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding],res.allHeaderFields);
+        
+        NSDictionary *dictFromData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments
+                                                                                              error:&error];
+        NSLog(@"getAdbutlerSponsor end -%@",dictFromData);
+        
+        NSMutableDictionary *resultDic = [NSMutableDictionary new];
+        if(dictFromData && [dictFromData isKindOfClass:[NSDictionary class]]){
+            NSArray *array = dictFromData[@"data"];
+            for(NSDictionary *dic in array){
+                resultDic[[NSString stringWithFormat:@"%@",dic[@"id"]]] = dic[@"name"];
+            }
+            completed(resultDic);
+            NSLog(@"getAdbutlerSponsor callback -%@",resultDic);
+        }
+    }];
+
+    [dataTask resume];
+    
+}
+
+//获得重定向后的地址
++ (NSString*)getRedirectUrl:(NSString*)urlString{
+  
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    NSLog(@"getRedirectUrl start");
+    
+    
+    __block NSString* return_url = nil;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
+    NSURLSessionDataTask * dataTask =  [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error) {
+        
+        return_url = response.URL.absoluteString;
+        NSLog(@"getRedirectUrl end - %@",return_url);
+       
+        dispatch_semaphore_signal(semaphore);
+    }];
+    
+    [dataTask resume];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    NSLog(@"getRedirectUrl return - %@",return_url);
+    return return_url;
 }
 
 #pragma mark Unite API

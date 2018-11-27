@@ -165,6 +165,8 @@
             [self showCover:detailModel.magazineModel];
         }else if([detailModel.uniteArticleType isEqualToString:@"2"]){
             [self showIntroduction:detailModel];
+        }else if([detailModel.uniteArticleType isEqualToString:@"3"]){
+            [self showCover:detailModel.magazineModel];
         }else{
             [self showActicle:detailModel];
         }

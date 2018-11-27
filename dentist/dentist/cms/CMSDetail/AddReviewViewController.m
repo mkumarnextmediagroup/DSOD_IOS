@@ -172,7 +172,7 @@
         }
         
         foreTask(^{
-            fullName = userInfo.fullName;
+            self->fullName = userInfo.fullName;
             
             [headerImg loadUrl:[Proto getPhotoDownloadByEmailUrl:userInfo.photo_url] placeholderImage:@"user_img"];
             

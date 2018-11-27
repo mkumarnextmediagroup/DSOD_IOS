@@ -142,7 +142,14 @@ class ThumCollectionViewCell: BasePageCollectionCell,UIWebViewDelegate {
             //            mywebView.layoutMaker.heightEq(1)?.install()
             let newhtml=NSString.webHtmlString(detailModel?.content)
             mywebView!.loadHTMLString(newhtml!, baseURL: nil)
-            //            topImageView.layoutMaker.leftParent(0)?.rightParent(0)?.topParent(0)?.bottomParent(0).install();
+        }else  if detailModel?.uniteArticleType == "3"  {
+            titleLabel.text="Ad"
+            subTitleLabel.text = ""
+            topImageView!.isHidden=false
+            titleView!.isHidden=true
+            mywebView!.isHidden=true;
+            topImageView.sd_setImage(with: URL(string: Proto.getFileUrl(byObjectId: newmodel?.cover)), completed: nil)
+            topImageView.frame=CGRect(x: 0, y: 0, width: self.frontContainerView.frame.size.width, height: self.frontContainerView.frame.size.height)
         } else {
             topImageView.frame=CGRect(x: 0, y: 0, width: self.frontContainerView.frame.size.width, height: imageViewHeight)
             titleView?.frame=CGRect(x: edge, y: topImageView.frame.maxY+10, width: topImageView.frame.size.width-edge*2, height: 40)

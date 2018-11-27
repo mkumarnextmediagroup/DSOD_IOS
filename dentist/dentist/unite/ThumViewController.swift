@@ -195,12 +195,7 @@ extension ThumViewController{
     }
     
     @objc func openMenuSliderView() -> Void {
-        if(self.modelarr!.count>self.currentIndex) {
-            let detailmodel:DetailModel=self.modelarr![self.currentIndex]
-            if detailmodel.uniteArticleType != "1" {
-                self.openSliderView(search: false)
-            }
-        }
+        self.openSliderView(search: false)
         
     }
     
@@ -220,15 +215,10 @@ extension ThumViewController{
     
     @objc func openMenu(){
         SliderListView.hideSliderView()
-        if(self.modelarr!.count>self.currentIndex) {
-            let detailmodel:DetailModel=self.modelarr![self.currentIndex]
-            if detailmodel.uniteArticleType != "1" ,detailmodel.uniteArticleType != "2"  {
-                if self.isfull==true {
-                    self.openMenu1()
-                }else{
-                    self.openMenu2()
-                }
-            }
+        if self.isfull==true {
+            self.openMenu1()
+        }else{
+            self.openMenu2()
         }
         
         
@@ -261,6 +251,13 @@ extension ThumViewController{
         }else{
             popView!.updateIcon("book9", at: 0)
         }
+        if (detailmodel.uniteArticleType == "1" || detailmodel.uniteArticleType == "2" || detailmodel.uniteArticleType == "3")  {
+            popView!.nonEnableArray=[(0),(2)]
+        }else{
+            popView!.nonEnableArray=[]
+        }
+    }else{
+        popView!.nonEnableArray=[]
     }
         popView?.show()
         //    WeakSelf
@@ -378,6 +375,13 @@ extension ThumViewController{
             }else{
                 popView2!.updateIcon("book9", at: 0)
             }
+            if (detailmodel.uniteArticleType == "1" || detailmodel.uniteArticleType == "2" || detailmodel.uniteArticleType == "3")  {
+                popView2!.nonEnableArray=[(0),(2)]
+            }else{
+                popView2!.nonEnableArray=[]
+            }
+        }else{
+            popView2!.nonEnableArray=[]
         }
        
         popView2?.show()

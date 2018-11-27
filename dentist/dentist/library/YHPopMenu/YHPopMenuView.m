@@ -286,6 +286,12 @@ static const CGFloat kItemH = 44.0f;//item高度
     return _grayconfig;
 }
 
+-(void)setNonEnableArray:(NSArray *)NonEnableArray
+{
+    _NonEnableArray=NonEnableArray;
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - Public
 - (void)dismissHandler:(DismissBlock)handler{

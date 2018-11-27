@@ -23,6 +23,28 @@
 	return [self scaledTo:w h:h];
 }
 
++ (UIImage*)getGrayImage:(UIImage*)sourceImage
+{
+    int width = sourceImage.size.width;
+    int height = sourceImage.size.height;
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    CGContextRef context = CGBitmapContextCreate (nil,width,height,8,0,colorSpace,kCGImageAlphaNone);
+    CGColorSpaceRelease(colorSpace);
+    
+    if (context == NULL) {
+        return nil;
+    }
+    
+    CGContextDrawImage(context,CGRectMake(0, 0, width, height), sourceImage.CGImage);
+    CGImageRef grayImageRef = CGBitmapContextCreateImage(context);
+    UIImage *grayImage = [UIImage imageWithCGImage:grayImageRef];
+    CGContextRelease(context);
+    CGImageRelease(grayImageRef);
+    
+    return grayImage;
+}
+
 //+ (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)size
 //{
 //    if (image.size.width*size.height <= image.size.height*size.width) {

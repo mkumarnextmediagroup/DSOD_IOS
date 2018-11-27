@@ -839,6 +839,22 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
             newdetail.uniteArticleType=@"1";
             newdetail.magazineModel=firstdetail.magazineModel;
             [tmpArr insertObject:newdetail atIndex:0];
+            DetailModel *newdetail2=[DetailModel new];
+            newdetail2.id=@"-2";
+            newdetail2.uniteArticleType=@"3";
+            MagazineModel *newmagazinemodel=[MagazineModel new];
+            newmagazinemodel.cover=@"5bfce1f8d6fe17478531c652";
+            newmagazinemodel._id=firstdetail.magazineModel._id;
+            newmagazinemodel.serial=firstdetail.magazineModel.serial;
+            newmagazinemodel.vol=firstdetail.magazineModel.vol;
+            newmagazinemodel.issue=firstdetail.magazineModel.issue;
+            newmagazinemodel.publishDate=firstdetail.magazineModel.publishDate;
+            newmagazinemodel.createDate=firstdetail.magazineModel.createDate;
+            newmagazinemodel.articles=firstdetail.magazineModel.articles;
+            newmagazinemodel.createDate=firstdetail.magazineModel.createDate;
+            newmagazinemodel.createUser=firstdetail.magazineModel.createUser;
+            newdetail2.magazineModel=newmagazinemodel;
+            [tmpArr insertObject:newdetail2 atIndex:2];
         }
         if (completed) {
             completed(tmpArr);

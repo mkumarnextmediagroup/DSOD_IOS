@@ -15,8 +15,10 @@
 #import "UIButton+WebCache.h"
 #import "CMSDetailViewController.h"
 #import "GDataXMLNode.h"
+#import "GSKViewController.h"
 
-@interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate,
+UITableViewDelegate,UITableViewDataSource>
 {
     
 }
@@ -27,12 +29,14 @@
     UILabel *typeLabel;
     UILabel *dateLabel;
     UIImageView *imageView;
+    UIImageView *thumbImageView;
     UIWebView *vedioWebView;
     UIImageView *headerImg;
     UILabel *titleLabel;
     UILabel *nameLabel;
     UILabel *addressLabel;
     UILabel *byLabel;
+    UIImageView *dsodImg;
     UIWebView *mywebView;
     UITableView *relativeTopicTableView;
     UITableView *referencesTableView;
@@ -84,6 +88,11 @@
     imageView.clipsToBounds = YES;
     [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:SCREENWIDTH*2/3] install];
     
+    
+    thumbImageView = imageView.addImageView;
+    [[[[thumbImageView.layoutMaker leftParent:edge] bottomParent:-edge] sizeEq:28 h:28] install];
+    
+    
     CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
     _sponsorImageBtn = [self addButton];
     [[[[[_sponsorImageBtn.layoutMaker leftParent:0] rightParent:0] below:imageView offset:0] heightEq:sponstorimgh] install];
@@ -118,21 +127,32 @@
     byLabel.text = @"By";
     [[[[byLabel.layoutMaker sizeEq:30 h:58] leftParent:edge] topParent:0] install];
     
+    dsodImg = [UIImageView new];
+    [view addSubview:dsodImg];
+    [[[[dsodImg.layoutMaker sizeEq:110 h:22] toRightOf:byLabel offset:0] centerYParent:0] install];
+    dsodImg.layer.masksToBounds = YES;
+    dsodImg.image = [UIImage imageNamed:@""];
+    [dsodImg setImageName:@"author_dsodentist"];
+    
+    
     headerImg = [UIImageView new];
     [view addSubview:headerImg];
-    [[[[headerImg.layoutMaker sizeEq:110 h:22] toRightOf:byLabel offset:0] centerYParent:0] install];
+    [[[[headerImg.layoutMaker sizeEq:32 h:32] leftParent:edge] centerYParent:0] install];
+    headerImg.layer.cornerRadius = 16;
     headerImg.layer.masksToBounds = YES;
+    
+    
     
     nameLabel = [view addLabel];
     nameLabel.font = [Fonts semiBold:12];
     [nameLabel textColorMain];
-    [[[[[nameLabel.layoutMaker topParent:edge / 2 + 2] leftParent:edge] rightParent:-edge] heightEq:16] install];
+    [[[[[nameLabel.layoutMaker topParent:edge / 2 + 2] toRightOf:headerImg offset:8] rightParent:-edge] heightEq:16] install];
     
     addressLabel = [view addLabel];
     [addressLabel textAlignLeft];
     addressLabel.font = [Fonts regular:12];
     [addressLabel textColorAlternate];
-    [[[[[addressLabel.layoutMaker topParent:edge / 2 + 18] leftParent:edge] rightParent:-edge] heightEq:16] install];
+    [[[[[addressLabel.layoutMaker topParent:edge / 2 + 18] toRightOf:headerImg offset:8] rightParent:-edge] heightEq:16] install];
     
     UILabel *lineLabel2 = [view lineLabel];
     [[[[[lineLabel2.layoutMaker leftParent:edge] rightParent:0] topParent:57] heightEq:1] install];
@@ -236,7 +256,7 @@
     picNumLab.font = [Fonts regular:12];
     [picNumLab textColorAlternate];
 
-    picNumLab.text = [NSString stringWithFormat:@"%d images",imageArray.count];
+    picNumLab.text = [NSString stringWithFormat:@"%lu images",imageArray.count];
 
     [[[[picNumLab.layoutMaker rightParent:-18] topParent:0] heightEq:50] install];
     
@@ -389,6 +409,21 @@
     }else if([type isEqualToString:@"2"] ){
         //这个判断不知道干啥的 因为服务器就没返回过2
     }
+    NSDictionary *thumbImagInfo = @{@"VIDEOS":@"Video",
+                                    @"PODCASTS":@"Podcast",
+                                    @"INTERVIEWS":@"Interview",
+                                    @"TECH GUIDES":@"TechGuide",
+                                    @"ANIMATIONS":@"Animation",
+                                    @"TIP SHEETS":@"TipSheet",
+                                    @"ARTICLES":@"Article"
+                                    };
+    if (thumbImagInfo[[bindInfo.contentTypeName uppercaseString]]) {
+        [thumbImageView setImage:[UIImage imageNamed:thumbImagInfo[[bindInfo.contentTypeName uppercaseString]]]];
+    }else{
+        [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
+    }
+    
+    
 
     NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",
                                   @"259":@"sponsor_nobel",
@@ -409,20 +444,24 @@
 
     
     titleLabel.text = bindInfo.title;
-    [headerImg setImageName:@"author_dsodentist"];
+    
     
     if([bindInfo.author.firstName isEqualToString:@"DSODentist"]){
         byLabel.hidden = NO;
-        headerImg.hidden = NO;
+        dsodImg.hidden = NO;
+        headerImg.hidden = YES;
         nameLabel.hidden = YES;
         addressLabel.hidden = YES;
     }else{
         byLabel.hidden = YES;
-        headerImg.hidden = YES;
+        dsodImg.hidden = YES;
+        headerImg.hidden = NO;
         nameLabel.hidden = NO;
         addressLabel.hidden = NO;
         nameLabel.text = [NSString stringWithFormat:@"By %@ %@",bindInfo.author.firstName,bindInfo.author.lastName];
         addressLabel.text = bindInfo.author.authorDetails;
+        
+        [headerImg loadUrl:bindInfo.authorPhotoUrl placeholderImage:@"user_img"];
     }
     
     if (bindInfo.isBookmark) {
@@ -609,22 +648,76 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
   
-    return [self handleCustomAction:request.URL];
+    if([request.URL.absoluteString isEqualToString:@"about:blank"]){
+        return YES;
+    }else if([self needRedirect:request.URL]){
+        return NO;
+    }else{
+        return [self handleCustomAction:request.URL];
+    }
+}
+
+-(BOOL)needRedirect:(NSURL*)URL{
+    NSDictionary *urlDic = [self urlToParamDic:URL.absoluteString];
+    if([URL.absoluteString hasPrefix:@"https://adbutler-fermion.com/redirect.spark"] && urlDic[@"CID"]){
+//        https://adbutler-fermion.com/redirect.spark?MID=174518&plid=853721&setID=332775&channelID=0&CID=266276&banID=519639830&PID=0&textadID=0&tc=1&mt=1543209928258293&sw=375&sh=667&spr=2&hc=abff94d8f50b86b21f108dea2890ea04c14fda5b&location=
+        //处理服务商跳转
+        [self.vc showLoading];
+        WeakSelf
+        [Proto getAdbutlerSponsor:^(NSDictionary* dic){
+            foreTask(^{
+                [weakSelf.vc hideLoading];
+                if(dic && dic[urlDic[@"CID"]]){
+                    NSString *name = [dic[urlDic[@"CID"]] uppercaseString];
+                    NSDictionary *sponsorInfo = @{@"ALIGN":@"260",
+                                                  @"NOBEL":@"259",
+                                                  @"GSK":@"197"};
+                    if(sponsorInfo[name]){
+                        NSString *return_url =  [@"dsodentistapp://com.thenextmediagroup.dentist/openSponsor?sponsorId=" stringByAppendingString:sponsorInfo[name]];
+                        [weakSelf handleCustomAction:[NSURL URLWithString:return_url]];
+                    }
+                    
+                }
+            });
+        }];
+        return YES;
+    }else if([URL.absoluteString hasPrefix:@"https://adbutler-fermion.com/redirect.spark"]){
+        //处理服务商跳转 此方案暂时不用
+        [self.vc showLoading];
+        WeakSelf
+        backTask(^{
+            NSString *urlString = [Proto getRedirectUrl:URL.absoluteString];
+            
+            foreTask(^{
+                [weakSelf.vc hideLoading];
+                if(urlString){
+                    NSString *sponsor_old = @"https://mobile.dsodentist.com/posts/sponsor/";
+                    NSString *sponsor_new = @"dsodentistapp://com.thenextmediagroup.dentist/openSponsor?sponsorId=";
+                    
+                    NSString *return_url = [urlString stringByReplacingOccurrencesOfString:sponsor_old withString:sponsor_new];
+                    [weakSelf handleCustomAction:[NSURL URLWithString:return_url]];
+                }
+            });
+        });
+        return YES;
+    }else{
+        return NO;
+    }
 }
 
 -(BOOL)handleCustomAction:(NSURL*)URL{
     //dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=5be29d5f0e88c608b8186e52
+    //dsodentistapp://com.thenextmediagroup.dentist/openSponsor?sponsorId=260
     
     NSString *localScheme = @"dsodentistapp";
     NSString *localSchemeAndHost = [NSString stringWithFormat:@"%@://%@/",localScheme,@"com.thenextmediagroup.dentist"];
 
     NSString *scheme = [URL scheme];
     NSString *urlStr = [URL absoluteString];
-    NSLog(@"%@",urlStr);
-    if([urlStr isEqualToString:@"about:blank"]){
-        return YES;
-    }
+    NSLog(@"handleCustomAction url=%@",urlStr);
+    
 
+    
     NSRange range = [urlStr rangeOfString:localSchemeAndHost];
     if ([scheme isEqualToString:localScheme] && range.location != NSNotFound) {
         NSString *actionAndParams = [urlStr substringFromIndex:range.length];
@@ -632,19 +725,24 @@
         NSString *action = array[0];
         NSDictionary *paramDic = nil;
         if(array.count>1){
-            paramDic = [self strToParamDic:array[1]];
+            paramDic = [self urlToParamDic:array[1]];
         }
         
-        NSLog(@"aciton=%@,dic=%@",action,paramDic);
+        NSLog(@"handleCustomAction aciton=%@,dic=%@",action,paramDic);
         //处理ation
         if([action isEqualToString:@"openCMSDetail"]){
             [self openCMSDetail:paramDic];
+        }else if([action isEqualToString:@"openSponsor"]){
+            [self openSponsor:paramDic];
         }
     }
     return NO;
 }
 
--(NSDictionary*)strToParamDic:(NSString*)str{
+-(NSDictionary*)urlToParamDic:(NSString*)str{
+    NSArray *array = [str componentsSeparatedByString:@"?"];
+    str = [array lastObject];
+    
     NSMutableDictionary *paramDic = [NSMutableDictionary new];
     NSArray *paramArray = [str componentsSeparatedByString:@"&"];
     for(int i=0;i<paramArray.count;i++){
@@ -657,6 +755,7 @@
     return [paramDic copy];
 }
 
+//dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=5be29d5f0e88c608b8186e52
 -(void)openCMSDetail:(NSDictionary*)paramDic{
     
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
@@ -665,6 +764,22 @@
     newVC.hideChangePage = YES;
 
     [self.vc.navigationController pushViewController:newVC animated:YES];
+}
+
+
+
+//dsodentistapp://com.thenextmediagroup.dentist/openSponsor?sponsorId=260
+-(void)openSponsor:(NSDictionary*)paramDic{
+    NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",
+                                  @"259":@"sponsor_nobel",
+                                  @"197":@"sponsor_gsk"};
+    
+    if(sponsorInfo[paramDic[@"sponsorId"]]){
+        GSKViewController *gskVC = [GSKViewController new];
+        gskVC.sponsorId= paramDic[@"sponsorId"];
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:gskVC];
+        [self.vc presentViewController:navVC animated:YES completion:NULL];
+    }
 }
 
 

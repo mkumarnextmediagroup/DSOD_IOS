@@ -710,6 +710,12 @@
     }
 }
 
+- (void)dealloc
+{
+    if(picDetailView){
+        [picDetailView timerInvalidate];
+    }
+}
 /*
 #pragma mark - Navigation
 

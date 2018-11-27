@@ -20,6 +20,7 @@
 #import "UniteArticles.h"
 #import "DentistDataBaseManager.h"
 #import "HttpProgress.h"
+#import "BookmarkManager.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -1337,14 +1338,17 @@
     return result;
 }
 
-+(void)deleteBookmark:(NSString *)bookmarkid completed:(void(^)(HttpResult *result))completed
++(void)deleteBookmark:(BookmarkModel *)model completed:(void(^)(HttpResult *result))completed
 {
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
-    if (bookmarkid) {
-        [paradic setObject:bookmarkid forKey:@"id"];
+    if (model._id) {
+        [paradic setObject:model._id forKey:@"id"];
     }
     [paradic setObject:@(1) forKey:@"status"];
     [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
+        if (r.OK){
+            [[BookmarkManager shareManager] adddeleteBookmark:model.email postid:model.postId];
+        }
         if (completed) {
             completed(r);
         }
@@ -1381,6 +1385,9 @@
     }
     [paradic setObject:@(1) forKey:@"status"];
     [self postAsync2:@"bookmark/deleteOneByEmailAndContentId" dic:paradic modular:@"cms"callback:^(HttpResult *r) {
+        if (r.OK){
+            [[BookmarkManager shareManager] adddeleteBookmark:email postid:contentId];
+        }
         if (completed) {
             completed(r);
         }
@@ -1407,6 +1414,9 @@
     }
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title]){
         [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"status": [NSNumber numberWithInt:1]} modular:@"cms" callback:^(HttpResult *r) {
+            if (r.OK){
+                [[BookmarkManager shareManager] removedeleteBookmark:email postid:postId];
+            }
             if (completed) {
                 completed(r);
             }
@@ -1477,6 +1487,9 @@
     url=coverthumbnailUrl;
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId]){
         [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"coverUrl": coverUrl,@"coverthumbnailUrl": coverthumbnailUrl,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"categoryName": categoryName,@"contentTypeName": contentTypeName,@"status": [NSNumber numberWithInt:1]} modular:@"cms" callback:^(HttpResult *r) {
+            if (r.OK){
+                [[BookmarkManager shareManager] removedeleteBookmark:email postid:postId];
+            }
             if (completed) {
                 completed(r);
             }

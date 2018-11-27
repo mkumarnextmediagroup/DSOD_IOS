@@ -177,7 +177,7 @@
  @return yes/no
  **/
 +(BOOL)deleteBookmark:(NSString *_Nullable)bookmarkid;
-+(void)deleteBookmark:(NSString *)bookmarkid completed:(void(^)(HttpResult *result))completed;
++(void)deleteBookmark:(BookmarkModel *)model completed:(void(^)(HttpResult *result))completed;
 //MARK:删除收藏
 /**
  @param email 账号 是否必须:Y

@@ -263,6 +263,7 @@
 		A393E0B321955D06001881C2 /* sponsor_nobel_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B021955D05001881C2 /* sponsor_nobel_banner.png */; };
 		A393E0B421955D06001881C2 /* sponsor_gsk_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B121955D05001881C2 /* sponsor_gsk_banner.png */; };
 		A393E0B521955D06001881C2 /* sponsor_align_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B221955D06001881C2 /* sponsor_align_banner@2x.png */; };
+		A39B9AC721AD8AE5001CED72 /* BookmarkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A39B9AC621AD8AE5001CED72 /* BookmarkManager.m */; };
 		A39EE50D21884E3F00F74745 /* ArticleGSkItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A39EE50C21884E3F00F74745 /* ArticleGSkItemView.m */; };
 		A39EE5102188578200F74745 /* CmsArticleCategoryPage.m in Sources */ = {isa = PBXBuildFile; fileRef = A39EE50F2188578200F74745 /* CmsArticleCategoryPage.m */; };
 		A3A5B338218D61C500242E71 /* ThumCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3A5B336218D61C400242E71 /* ThumCollectionViewCell.xib */; };
@@ -1098,6 +1099,8 @@
 		A393E0B021955D05001881C2 /* sponsor_nobel_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_nobel_banner.png; sourceTree = "<group>"; };
 		A393E0B121955D05001881C2 /* sponsor_gsk_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_gsk_banner.png; sourceTree = "<group>"; };
 		A393E0B221955D06001881C2 /* sponsor_align_banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sponsor_align_banner@2x.png"; sourceTree = "<group>"; };
+		A39B9AC521AD8AE5001CED72 /* BookmarkManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkManager.h; sourceTree = "<group>"; };
+		A39B9AC621AD8AE5001CED72 /* BookmarkManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookmarkManager.m; sourceTree = "<group>"; };
 		A39EE50A21884D5300F74745 /* ArticleItemViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleItemViewDelegate.h; sourceTree = "<group>"; };
 		A39EE50B21884E3F00F74745 /* ArticleGSkItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleGSkItemView.h; sourceTree = "<group>"; };
 		A39EE50C21884E3F00F74745 /* ArticleGSkItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleGSkItemView.m; sourceTree = "<group>"; };
@@ -3002,6 +3005,8 @@
 				4EBE5ECD219A81F100BFD01E /* UIView+gesture.m */,
 				4E2A4FAA21A3E70C0049E1F2 /* UITableView+JRTableViewPlaceHolder.h */,
 				4E2A4FA921A3E70C0049E1F2 /* UITableView+JRTableViewPlaceHolder.m */,
+				A39B9AC521AD8AE5001CED72 /* BookmarkManager.h */,
+				A39B9AC621AD8AE5001CED72 /* BookmarkManager.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -3963,6 +3968,7 @@
 				E11E147FF4FE738E0561AF6A /* Proto.m in Sources */,
 				E11E193B11128F898EABFD63 /* main.m in Sources */,
 				4E2EF4FC215D0D4B00676A4E /* DenActionSheet.m in Sources */,
+				A39B9AC721AD8AE5001CED72 /* BookmarkManager.m in Sources */,
 				E11E153102080FFB4339C7D2 /* CmsBookmarkController.m in Sources */,
 				E11E106CD8257C6C65B6148B /* CmsDownloadsController.m in Sources */,
 				4E30ACED217187910016722B /* GSKItemView.m in Sources */,

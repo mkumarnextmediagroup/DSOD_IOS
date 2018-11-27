@@ -14,6 +14,7 @@
 #import <CoreText/CoreText.h>
 #import "CMSModel.h"
 #import "Proto.h"
+#import "BookmarkManager.h"
 
 @implementation ArticleGSkItemView {
     UILabel *typeLabel;
@@ -207,11 +208,16 @@
         [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
     }
     
-    if (_cmsmodel.isBookmark) {
-        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
-    }else{
+    if ([[BookmarkManager shareManager] checkIsDeleteBookmark:getLastAccount() postid:item.id]) {
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+    }else{
+        if (_cmsmodel.isBookmark) {
+            [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+        }else{
+            [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+        }
     }
+    
     
     [contentWebView loadHTMLString:[ArticleGSkItemView htmlString:_cmsmodel.content] baseURL:nil];
 

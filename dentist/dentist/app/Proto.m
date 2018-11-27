@@ -1338,7 +1338,7 @@
     return result;
 }
 
-+(void)deleteBookmark:(NSString *)bookmarkid completed:(void(^)(BOOL result))completed
++(void)deleteBookmark:(NSString *)bookmarkid completed:(void(^)(HttpResult *result))completed
 {
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     if (bookmarkid) {
@@ -1347,7 +1347,7 @@
     [paradic setObject:@(1) forKey:@"status"];
     [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
         if (completed) {
-            completed(r.OK);
+            completed(r);
         }
     }];
 }
@@ -1371,7 +1371,7 @@
     return result;
 }
 
-+(void)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId completed:(void(^)(BOOL result))completed
++(void)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId completed:(void(^)(HttpResult *result))completed
 {
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     if (email) {
@@ -1383,7 +1383,7 @@
     [paradic setObject:@(1) forKey:@"status"];
     [self postAsync2:@"bookmark/deleteOneByEmailAndContentId" dic:paradic modular:@"cms"callback:^(HttpResult *r) {
         if (completed) {
-            completed(r.OK);
+            completed(r);
         }
     }];
 }
@@ -1401,7 +1401,7 @@
     
     return result;
 }
-+(void)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId completed:(void(^)(BOOL result))completed
++(void)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId completed:(void(^)(HttpResult *result))completed
 {
     if([NSString isBlankString:url]){
         url=@"";
@@ -1409,18 +1409,19 @@
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title]){
         [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"status": [NSNumber numberWithInt:1]} modular:@"cms" callback:^(HttpResult *r) {
             if (completed) {
-                completed(r.OK);
+                completed(r);
             }
         }];
     }else{
+        HttpResult *r = [HttpResult new];
         if (completed) {
-            completed(NO);
+            completed(r);
         }
     }
 
 }
 
-+(void)addBookmark:(NSString *)email cmsmodel:(CMSModel *)model completed:(void(^)(BOOL result))completed
++(void)addBookmark:(NSString *)email cmsmodel:(CMSModel *)model completed:(void(^)(HttpResult * result))completed
 {
     NSString *url;
     NSString *postId=model.id;
@@ -1478,12 +1479,13 @@
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId]){
         [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"coverUrl": coverUrl,@"coverthumbnailUrl": coverthumbnailUrl,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"categoryName": categoryName,@"contentTypeName": contentTypeName,@"status": [NSNumber numberWithInt:1]} modular:@"cms" callback:^(HttpResult *r) {
             if (completed) {
-                completed(r.OK);
+                completed(r);
             }
         }];
     }else{
+        HttpResult *r = [HttpResult new];
         if (completed) {
-            completed(NO);
+            completed(r);
         }
     }
     

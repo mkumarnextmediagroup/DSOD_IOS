@@ -177,7 +177,7 @@
  @return yes/no
  **/
 +(BOOL)deleteBookmark:(NSString *_Nullable)bookmarkid;
-+(void)deleteBookmark:(NSString *)bookmarkid completed:(void(^)(BOOL result))completed;
++(void)deleteBookmark:(NSString *)bookmarkid completed:(void(^)(HttpResult *result))completed;
 //MARK:删除收藏
 /**
  @param email 账号 是否必须:Y
@@ -185,7 +185,7 @@
  @return yes/no
  **/
 +(BOOL)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId;
-+(void)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId completed:(void(^)(BOOL result))completed;
++(void)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId completed:(void(^)(HttpResult *result))completed;
 
 //MARK:添加收藏
 /**
@@ -196,8 +196,8 @@
  @return yes/no
  **/
 +(BOOL)addBookmark:(NSString *_Nullable)email postId:(NSString *_Nullable)postId title:(NSString *_Nullable)title url:(NSString *_Nullable)url categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId;
-+(void)addBookmark:(NSString *)email postId:(NSString *_Nullable)postId title:(NSString *_Nullable)title url:(NSString *_Nullable)url categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId completed:(void(^)(BOOL result))completed;
-+(void)addBookmark:(NSString *)email cmsmodel:(CMSModel *)model completed:(void(^)(BOOL result))completed;
++(void)addBookmark:(NSString *)email postId:(NSString *_Nullable)postId title:(NSString *_Nullable)title url:(NSString *_Nullable)url categoryId:(NSString *_Nullable)categoryId contentTypeId:(NSString *_Nullable)contentTypeId completed:(void(^)(HttpResult * result))completed;
++(void)addBookmark:(NSString *)email cmsmodel:(CMSModel *)model completed:(void(^)(HttpResult *result))completed;
 
 //MARK:获取单个文件（ADMIN PORTAL Only）
 +(NSString *)getFileUrlByObjectId:(NSString *_Nullable)objectid;

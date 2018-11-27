@@ -8,6 +8,7 @@
 
 #import "YHPopMenuView.h"
 #import "common.h"
+#import "UIImage+customed.h"
 
 #define KEYWINDOW [UIApplication sharedApplication].keyWindow
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
@@ -96,6 +97,9 @@ static const CGFloat kIconRightSpace = 15;    //icon又边距离
     
     UIColor *fontColor = _dictConfig[@"fontColor"];
     self.lbName.textColor = fontColor;
+    CGFloat alpha=[_dictConfig[@"alpha"] floatValue];
+    self.lbName.alpha=alpha;
+    self.imgvIcon.alpha=alpha;
     
     [self updateUI];
 }
@@ -136,6 +140,7 @@ static const CGFloat kIconRightSpace = 15;    //icon又边距离
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) UIView *viewBG;
 @property (nonatomic,strong) NSDictionary *config;
+@property (nonatomic,strong) NSDictionary *grayconfig;
 @property (nonatomic,assign) CGFloat menuViewX;
 @property (nonatomic,assign) CGFloat menuViewY;
 @property (nonatomic,assign) CGFloat menuViewW;
@@ -250,13 +255,35 @@ static const CGFloat kItemH = 44.0f;//item高度
                     @"itemBgColor":_itemBgColor,
                     @"itemNameLeftSpace":@(_itemNameRightSpace),
                     @"iconRightSpace":@(_iconRightSpace),
-                    @"itemH":@(_itemH)
+                    @"itemH":@(_itemH),
+                    @"alpha":@(1.0)
                     };
         
         _itemH = _itemH? _itemH :kItemH;
         self.tableView.rowHeight = _itemH;
     }
     return _config;
+}
+
+- (NSDictionary *)grayconfig{
+    if (!_grayconfig) {
+        _itemBgColor = _itemBgColor?_itemBgColor:UIColor.whiteColor;
+        _fontColor = _fontColor?_fontColor:[UIColor blackColor];
+        _grayconfig = @{
+                    @"iconW":@(_iconW),
+                    @"fontSize":@(_fontSize),
+                    @"fontColor":_fontColor,
+                    @"itemBgColor":_itemBgColor,
+                    @"itemNameLeftSpace":@(_itemNameRightSpace),
+                    @"iconRightSpace":@(_iconRightSpace),
+                    @"itemH":@(_itemH),
+                    @"alpha":@(0.4)
+                    };
+        
+        _itemH = _itemH? _itemH :kItemH;
+        self.tableView.rowHeight = _itemH;
+    }
+    return _grayconfig;
 }
 
 
@@ -347,8 +374,12 @@ static const CGFloat kItemH = 44.0f;//item高度
     }else{
         cell.viewBotLine.hidden = NO;
     }
+    if (_NonEnableArray && [_NonEnableArray containsObject:@(indexPath.row)]) {
+        cell.dictConfig = self.grayconfig;
+    }else{
+        cell.dictConfig = self.config;
+    }
     
-    cell.dictConfig = self.config;
     return cell;
 
 }
@@ -362,10 +393,15 @@ static const CGFloat kItemH = 44.0f;//item高度
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (_dBlock) {
-        _dBlock(NO,indexPath.row);
+    if (_NonEnableArray && [_NonEnableArray containsObject:@(indexPath.row)]) {
+        
+    }else{
+        if (_dBlock) {
+            _dBlock(NO,indexPath.row);
+        }
+        [self hide];
     }
-    [self hide];
+    
 }
 
 

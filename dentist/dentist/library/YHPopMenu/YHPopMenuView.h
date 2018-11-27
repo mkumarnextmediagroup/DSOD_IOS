@@ -22,6 +22,7 @@ typedef void(^DismissBlock)(BOOL isCanceled,NSInteger row);
 @property (nonatomic,assign) CGFloat itemH;             //item高度
 @property (nonatomic,copy) NSArray *iconNameArray;      //图标名字Array
 @property (nonatomic,copy) NSArray *itemNameArray;      //item名字Array
+@property (nonatomic,copy) NSArray *NonEnableArray;      //item名字Array
 
 @property (nonatomic,assign) BOOL canTouchTabbar;//可以点击Tabbar;(默认是遮挡Tabbar)
 

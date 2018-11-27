@@ -254,10 +254,10 @@ extension ThumViewController{
         if (detailmodel.uniteArticleType == "1" || detailmodel.uniteArticleType == "2" || detailmodel.uniteArticleType == "3")  {
             popView!.nonEnableArray=[(0),(2)]
         }else{
-            popView!.nonEnableArray=nil
+            popView!.nonEnableArray=[]
         }
     }else{
-        popView!.nonEnableArray=nil
+        popView!.nonEnableArray=[]
     }
         popView?.show()
         //    WeakSelf
@@ -376,12 +376,12 @@ extension ThumViewController{
                 popView2!.updateIcon("book9", at: 0)
             }
             if (detailmodel.uniteArticleType == "1" || detailmodel.uniteArticleType == "2" || detailmodel.uniteArticleType == "3")  {
-                popView!.nonEnableArray=[(0),(2)]
+                popView2!.nonEnableArray=[(0),(2)]
             }else{
-                popView!.nonEnableArray=nil
+                popView2!.nonEnableArray=[]
             }
         }else{
-            popView!.nonEnableArray=nil
+            popView2!.nonEnableArray=[]
         }
        
         popView2?.show()

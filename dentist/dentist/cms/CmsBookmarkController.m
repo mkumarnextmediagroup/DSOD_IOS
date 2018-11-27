@@ -121,13 +121,23 @@
     //移除bookmark
     UIView *dsontoastview=[DsoToast toastViewForMessage:@"Remove from bookmarks……" ishowActivity:YES];
     [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-    [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.postId completed:^(BOOL result) {
+    [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.postId completed:^(HttpResult *result) {
         foreTask(^{
             [self.navigationController.view hideToast];
-            if (result) {
+            if (result.OK) {
                 [self->resultArray removeObject:model];
                 self.items=[self->resultArray copy];
                 [self.table reloadData];
+            }else{
+                NSString *message=result.msg;
+                if([NSString isBlankString:message]){
+                    message=@"Failed";
+                }
+                UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                [window makeToast:message
+                         duration:1.0
+                         position:CSToastPositionBottom];
+                [self.navigationController popViewControllerAnimated:YES];
             }
         });
     }];

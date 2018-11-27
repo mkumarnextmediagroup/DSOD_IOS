@@ -411,6 +411,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
             
             for (NSDictionary *d in arr) {
                 CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
+                item.isBookmark=NO;
                 if (item) {
                     [resultArray addObject:item];
                 }

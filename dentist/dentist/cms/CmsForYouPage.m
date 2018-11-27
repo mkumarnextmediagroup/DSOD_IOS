@@ -70,6 +70,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.table reloadData];
 //    self.items = [Proto getArticleListByCategory:category type:type];
 }
 

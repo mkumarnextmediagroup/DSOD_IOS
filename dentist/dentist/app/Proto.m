@@ -1518,7 +1518,6 @@
 //获得广告插件里面服务商id
 + (void)getAdbutlerSponsor:(void(^)(NSDictionary*))completed{
     NSString *urlString = @"https://api.adbutler.com/v1/campaigns";
-    urlString = @"https://adbutler-fermion.com/redirect.spark?MID=174518&plid=853721&setID=332775&channelID=0&CID=266276&banID=519639830&PID=0&textadID=0&tc=1&mt=1543209928258293&sw=375&sh=667&spr=2&hc=abff94d8f50b86b21f108dea2890ea04c14fda5b&location=";
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     
@@ -1527,21 +1526,29 @@
     urlRequest = [mutableRequest copy];
     
     
-    NSLog(@"马上进行同步连接请求url的数据");
+    NSLog(@"getAdbutlerSponsor start");
     
     
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask * dataTask =  [session dataTaskWithRequest:urlRequest completionHandler:^(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error) {
         
         //拿到响应头信息
-        NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
-        
-        //4.解析拿到的响应数据
-        NSLog(@"%@\n%@",[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding],res.allHeaderFields);
+//        NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
+//        NSLog(@"%@\n%@",[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding],res.allHeaderFields);
         
         NSDictionary *dictFromData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments
-                                                                                                     error:&error];
+                                                                                              error:&error];
+        NSLog(@"getAdbutlerSponsor end -%@",dictFromData);
         
+        NSMutableDictionary *resultDic = [NSMutableDictionary new];
+        if(dictFromData && [dictFromData isKindOfClass:[NSDictionary class]]){
+            NSArray *array = dictFromData[@"data"];
+            for(NSDictionary *dic in array){
+                resultDic[[NSString stringWithFormat:@"%@",dic[@"id"]]] = dic[@"name"];
+            }
+            completed(resultDic);
+            NSLog(@"getAdbutlerSponsor callback -%@",resultDic);
+        }
     }];
 
     [dataTask resume];

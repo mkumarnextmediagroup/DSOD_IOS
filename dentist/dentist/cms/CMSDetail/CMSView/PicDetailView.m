@@ -658,9 +658,31 @@ UITableViewDelegate,UITableViewDataSource>
 }
 
 -(BOOL)needRedirect:(NSURL*)URL{
-    
-    if([URL.absoluteString hasPrefix:@"https://adbutler-fermion.com/redirect.spark"]){
+    NSDictionary *urlDic = [self urlToParamDic:URL.absoluteString];
+    if([URL.absoluteString hasPrefix:@"https://adbutler-fermion.com/redirect.spark"] && urlDic[@"CID"]){
+//        https://adbutler-fermion.com/redirect.spark?MID=174518&plid=853721&setID=332775&channelID=0&CID=266276&banID=519639830&PID=0&textadID=0&tc=1&mt=1543209928258293&sw=375&sh=667&spr=2&hc=abff94d8f50b86b21f108dea2890ea04c14fda5b&location=
         //处理服务商跳转
+        [self.vc showLoading];
+        WeakSelf
+        [Proto getAdbutlerSponsor:^(NSDictionary* dic){
+            foreTask(^{
+                [weakSelf.vc hideLoading];
+                if(dic && dic[urlDic[@"CID"]]){
+                    NSString *name = [dic[urlDic[@"CID"]] uppercaseString];
+                    NSDictionary *sponsorInfo = @{@"ALIGN":@"260",
+                                                  @"NOBEL":@"259",
+                                                  @"GSK":@"197"};
+                    if(sponsorInfo[name]){
+                        NSString *return_url =  [@"dsodentistapp://com.thenextmediagroup.dentist/openSponsor?sponsorId=" stringByAppendingString:sponsorInfo[name]];
+                        [weakSelf handleCustomAction:[NSURL URLWithString:return_url]];
+                    }
+                    
+                }
+            });
+        }];
+        return YES;
+    }else if([URL.absoluteString hasPrefix:@"https://adbutler-fermion.com/redirect.spark"]){
+        //处理服务商跳转 此方案暂时不用
         [self.vc showLoading];
         WeakSelf
         backTask(^{
@@ -703,7 +725,7 @@ UITableViewDelegate,UITableViewDataSource>
         NSString *action = array[0];
         NSDictionary *paramDic = nil;
         if(array.count>1){
-            paramDic = [self strToParamDic:array[1]];
+            paramDic = [self urlToParamDic:array[1]];
         }
         
         NSLog(@"handleCustomAction aciton=%@,dic=%@",action,paramDic);
@@ -717,7 +739,10 @@ UITableViewDelegate,UITableViewDataSource>
     return NO;
 }
 
--(NSDictionary*)strToParamDic:(NSString*)str{
+-(NSDictionary*)urlToParamDic:(NSString*)str{
+    NSArray *array = [str componentsSeparatedByString:@"?"];
+    str = [array lastObject];
+    
     NSMutableDictionary *paramDic = [NSMutableDictionary new];
     NSArray *paramArray = [str componentsSeparatedByString:@"&"];
     for(int i=0;i<paramArray.count;i++){
@@ -742,7 +767,7 @@ UITableViewDelegate,UITableViewDataSource>
 }
 
 
-//dsodentistapp://com.thenextmediagroup.dentist/openSponsor?DIC=260
+
 //dsodentistapp://com.thenextmediagroup.dentist/openSponsor?sponsorId=260
 -(void)openSponsor:(NSDictionary*)paramDic{
     NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",

@@ -56,6 +56,9 @@ UITableViewDelegate,UITableViewDataSource>
     NSString *videoHtmlString;
     
     NSInteger edge;
+    
+    NSTimer *calcWebViewHeightTimer;
+    int calcWebViewHeightTimes;
 }
 
 - (instancetype)init {
@@ -481,6 +484,13 @@ UITableViewDelegate,UITableViewDataSource>
     [self showRelativeTopic:bindInfo.relativeTopicList];
     
     [self setImageScrollData:bindInfo.photoUrls];
+    
+    
+    if(calcWebViewHeightTimer){
+        [calcWebViewHeightTimer invalidate];
+        calcWebViewHeightTimer = nil;
+    }
+    calcWebViewHeightTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calcWebViewHeight:) userInfo:nil repeats:YES];
 
 }
 
@@ -804,6 +814,27 @@ UITableViewDelegate,UITableViewDataSource>
     
 }
 
+- (void)calcWebViewHeight:(NSTimer*)timer {
+    //获取到webview的高度
+    CGFloat webViewHeight1 = [[mywebView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
+//    CGFloat webViewHeight2 = [[mywebView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
+//    CGFloat webViewHeight3 = [[mywebView stringByEvaluatingJavaScriptFromString:@"document.body.clientHeight"] floatValue];
+//
+//    NSLog(@"webViewHeight1 == %f",webViewHeight1);
+//    NSLog(@"webViewHeight2 == %f",webViewHeight2);
+//    NSLog(@"webViewHeight3 == %f",webViewHeight3);
+    
+    [[mywebView.layoutUpdate heightEq:webViewHeight1]install];
+    if(calcWebViewHeightTimes<100){
+        calcWebViewHeightTimes++;
+    }else{
+        [calcWebViewHeightTimer invalidate];
+        calcWebViewHeightTimer = nil;
+    }
+    
+//    NSLog(@"-----------------%d",calcWebViewHeightTimes);
+}
+
 #pragma mark  UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if([tableView isEqual:referencesTableView]){
@@ -934,4 +965,10 @@ UITableViewDelegate,UITableViewDataSource>
     }
 }
 
+- (void)timerInvalidate{
+    if(calcWebViewHeightTimer && [calcWebViewHeightTimer isValid]){
+        [calcWebViewHeightTimer invalidate];
+        calcWebViewHeightTimer = nil;
+    }
+}
 @end

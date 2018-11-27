@@ -194,7 +194,7 @@
     
     calcWebViewHeightTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calcWebViewHeight:) userInfo:nil repeats:YES];
     
-    NSLog(@"html-%@",model.content);
+//    NSLog(@"html-%@",model.content);
 }
 
 
@@ -229,7 +229,7 @@
     
     
     calcWebViewHeightTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calcWebViewHeight:) userInfo:nil repeats:YES];
-     NSLog(@"html-%@",model.content);
+//     NSLog(@"html-%@",model.content);
 }
 
 
@@ -304,4 +304,10 @@
     
 }
 
+- (void)dealloc{
+    if(calcWebViewHeightTimer && [calcWebViewHeightTimer isValid]){
+        [calcWebViewHeightTimer invalidate];
+        calcWebViewHeightTimer = nil;
+    }
+}
 @end

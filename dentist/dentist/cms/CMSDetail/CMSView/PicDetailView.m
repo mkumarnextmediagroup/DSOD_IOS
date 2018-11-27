@@ -198,6 +198,11 @@ UITableViewDelegate,UITableViewDataSource>
     [self createStarView];
 
     
+//    relativeTopicTableView.backgroundColor = UIColor.blueColor;
+//    referencesTableView.backgroundColor = UIColor.greenColor;
+//    imageScrollPView.backgroundColor = UIColor.greenColor;
+//    sponsorView.backgroundColor = UIColor.orangeColor;
+    
     return self;
 }
 
@@ -219,16 +224,16 @@ UITableViewDelegate,UITableViewDataSource>
     sponsorView = [UIView new];
     [self addSubview:sponsorView];
     sponsorView.clipsToBounds = YES;
-    [[[[[sponsorView.layoutMaker leftParent:0] rightParent:0] below:imageScrollPView offset:26] heightEq:100] install];
+    [[[[sponsorView.layoutMaker leftParent:0] rightParent:0] below:imageScrollPView offset:0] install];
     
     UILabel *lineLabelTop = [sponsorView lineLabel];
-    [[[[[lineLabelTop.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
+    [[[[[lineLabelTop.layoutMaker leftParent:0] rightParent:0] topParent:25] heightEq:1] install];
     
     sponsorLabel = [sponsorView addLabel];
     sponsorLabel.font = [Fonts regular:12];
     [sponsorLabel textColorAlternate];
     sponsorLabel.text = @"Want more content from GSK?";
-    [[[[[sponsorLabel.layoutMaker leftParent:18] rightParent:-18] topParent:0] heightEq:50] install];
+    [[[[[sponsorLabel.layoutMaker leftParent:18] rightParent:-18] below:lineLabelTop offset:0] heightEq:50] install];
     [sponsorLabel textAlignCenter];
     
     self.sponsorBtn = [sponsorView addButton];
@@ -326,7 +331,7 @@ UITableViewDelegate,UITableViewDataSource>
     starView.backgroundColor = rgb255(248, 248, 248);
     [self addSubview:starView];
 
-    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:sponsorView offset:26] install];
+    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:sponsorView offset:15] install];
     
     UILabel *lineLabeltop = [starView lineLabel];
     [[[[[lineLabeltop.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
@@ -439,7 +444,7 @@ UITableViewDelegate,UITableViewDataSource>
         
         CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
         [[_sponsorImageBtn.layoutUpdate heightEq:sponstorimgh] install];
-        [[sponsorView.layoutUpdate heightEq:100] install];
+        [[sponsorView.layoutUpdate heightEq:125] install];
     }else{
         [[_sponsorImageBtn.layoutUpdate heightEq:0] install];
         [[sponsorView.layoutUpdate heightEq:0] install];

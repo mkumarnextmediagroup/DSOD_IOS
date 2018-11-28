@@ -10,9 +10,12 @@
 #import "Common.h"
 #import "DSOProfileTableViewCell.h"
 #import "DSODetailPage.h"
+#import "Proto.h"
+#import "JobModel.h"
 
 @interface DSOProfilePage ()<UITableViewDelegate,UITableViewDataSource>
 {
+    NSArray *infoArr;
     UITableView *myTable;
 }
 @end
@@ -31,9 +34,23 @@
     [self.view addSubview:myTable];
     myTable.dataSource = self;
     myTable.delegate = self;
+    myTable.tableFooterView = [[UIView alloc]init];
     
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
     
+    [self showCenterIndicator];
+    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+        foreTask(^{
+            [self hideCenterIndicator];
+            NSLog(@"%@",array);
+            self->infoArr = array;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self->myTable reloadData];
+            });
+
+        });
+    }];
+
     // Do any additional setup after loading the view.
 }
 
@@ -44,7 +61,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return infoArr.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -60,6 +77,7 @@
         cell = [[DSOProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [cell bindInfo:infoArr[indexPath.row]];
     return cell;
     
 }

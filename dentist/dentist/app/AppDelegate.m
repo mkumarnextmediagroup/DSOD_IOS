@@ -43,8 +43,6 @@
 	} else {
 		self.window.rootViewController = [WelcomController new];
 	}
-    //模拟数据
-    [Proto archiveActicleArr];
 
 	[self.window makeKeyAndVisible];
 	return YES;

@@ -221,8 +221,19 @@
 + (NSString*)getRedirectUrl:(NSString*)url;
 
 #pragma mark Careers API
-//MARK:1.1.    查询所有职位列表
+//MARK:2.2.    查询所有职位列表
 + (void)queryAllJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
-//MARK:1.1.    查询所有职位列表
+//MARK:2.2.    查询所有职位列表
 + (void)queryAllJobsNormal:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
+
+//MARK:2.7.   查询已申请职位列表
++ (void)queryAllApplicationJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
+//MARK:2.7.    查询所有职位列表
++ (void)queryAllApplicationJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
+//MARK:2.6.    添加职位申请接口
++(void)addJobApplication:(NSString *_Nullable)jobId completed:(void(^)(HttpResult *result))completed;
+//MARK:2.8.  添加职位关注接口
++(void)addJobBookmark:(NSString *_Nullable)jobId completed:(void(^)(HttpResult *result))completed;
+//MARK:2.9.  删除职位关注接口
++(void)deleteJobBookmark:(NSString *_Nullable)jobId completed:(void(^)(HttpResult *result))completed;
 @end

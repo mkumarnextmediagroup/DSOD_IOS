@@ -224,7 +224,7 @@
 //MARK:2.2.    查询所有职位列表
 + (void)queryAllJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
 //MARK:2.2.    查询所有职位列表
-+ (void)queryAllJobsNormal:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
++ (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
 
 //MARK:2.7.   查询已申请职位列表
 + (void)queryAllApplicationJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
@@ -236,4 +236,8 @@
 +(void)addJobBookmark:(NSString *_Nullable)jobId completed:(void(^)(HttpResult *result))completed;
 //MARK:2.9.  删除职位关注接口
 +(void)deleteJobBookmark:(NSString *_Nullable)jobId completed:(void(^)(HttpResult *result))completed;
+//MARK:2.10.   查询已关注职位列表
++ (void)queryJobBookmarks:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
+//MARK:2.10.   查询已关注职位列表
++ (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed ;
 @end

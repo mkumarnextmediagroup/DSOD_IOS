@@ -111,27 +111,27 @@
 	if ([@"Careers" isEqualToString:title]) {
         CareerExplorePage *explorePage = [CareerExplorePage new];
         UINavigationController *ncExplore = NavPage(explorePage);
-        [ncExplore tabItem:@"Explore" imageName:@"foryou"];
+        [ncExplore tabItem:@"Explore" imageName:@"explore"];
         explorePage.navigationItem.leftBarButtonItem = [self menuButton];
         
         CareerFindJobViewController *findJob = [CareerFindJobViewController new];
         UINavigationController *ncFindJob = NavPage(findJob);
-        [ncFindJob tabItem:@"Find Job" imageName:@"search"];
+        [ncFindJob tabItem:@"Find Job" imageName:@"findJob"];
         findJob.navigationItem.leftBarButtonItem = [self menuButton];
         
         CareerMyJobViewController *myJob = [CareerMyJobViewController new];
         UINavigationController *ncMyJob = NavPage(myJob);
-        [ncMyJob tabItem:@"My Jobs" imageName:@"category"];
+        [ncMyJob tabItem:@"My Jobs" imageName:@"myJobs"];
         myJob.navigationItem.leftBarButtonItem = [self menuButton];
         
         CareerAlertsViewController *alert = [CareerAlertsViewController new];
         UINavigationController *ncAlert = NavPage(alert);
-        [ncAlert tabItem:@"Alerts" imageName:@"bookmark"];
+        [ncAlert tabItem:@"Alerts" imageName:@"alert"];
         alert.navigationItem.leftBarButtonItem = [self menuButton];
         
         CareerMoreViewController *more = [CareerMoreViewController new];
         UINavigationController *ncMore = NavPage(more);
-        [ncMore tabItem:@"More" imageName:@"download"];
+        [ncMore tabItem:@"More" imageName:@"more"];
         more.navigationItem.leftBarButtonItem = [self menuButton];
         
         return TabPage(@[ncExplore, ncFindJob, ncMyJob, ncAlert, ncMore]);
@@ -235,7 +235,7 @@
     }else
     {
         [self openCenterPage:c hasNav:YES];
-    }	
+    }
 }
 
 - (void)selectButton:(UIButton *)b {

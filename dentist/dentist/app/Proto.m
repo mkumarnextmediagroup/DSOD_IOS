@@ -1889,7 +1889,7 @@
 }
 
 //MARK:2.2.    查询所有职位列表
-+ (void)queryAllJobsNormal:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed {
++ (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed {
     return [self queryAllJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
 }
 
@@ -1997,6 +1997,70 @@
             completed(r);
         }
     }];
+}
+
+//MARK:2.10.   查询已关注职位列表
++ (void)queryJobBookmarks:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed {
+    NSInteger limit=20;//分页数默认20条
+    if (skip<=0) {
+        skip=0;
+    }
+    NSString *email=getLastAccount();
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    if (email) {
+        [paradic setObject:email forKey:@"email"];
+    }
+    if (sort) {
+        [paradic setObject:sort forKey:@"sort"];
+    }
+    if (categroy) {
+        [paradic setObject:categroy forKey:@"categroy"];
+    }
+    if (salary) {
+        [paradic setObject:salary forKey:@"salary"];
+    }
+    if (experience) {
+        [paradic setObject:experience forKey:@"experience"];
+    }
+    if (location) {
+        [paradic setObject:location forKey:@"location"];
+    }
+    if (distance) {
+        [paradic setObject:distance forKey:@"distance"];
+    }
+    if (jobTitle) {
+        [paradic setObject:jobTitle forKey:@"jobTitle"];
+    }
+    if (company) {
+        [paradic setObject:company forKey:@"company"];
+    }
+    
+    [self postAsync3:@"bookmark/findAllByUserId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"data"];
+            for (NSDictionary *d in arr) {
+                JobModel *item = [[JobModel alloc] initWithJson:jsonBuild(d)];
+                if (item) {
+                    [resultArray addObject:item];
+                }
+            }
+            if (completed) {
+                completed(resultArray);
+            }
+        }else{
+            if (completed) {
+                completed(nil);
+            }
+        }
+    }];
+}
+
+//MARK:2.10.   查询已关注职位列表
++ (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed {
+    return [self queryJobBookmarks:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
 }
 
 @end

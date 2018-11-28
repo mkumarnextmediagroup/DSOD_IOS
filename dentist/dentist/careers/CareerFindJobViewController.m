@@ -21,7 +21,7 @@
     UINavigationItem *item = [self navigationItem];
     item.title = @"Find Job";
     
-    [Proto queryAllJobsNormal:0 completed:^(NSArray<JobModel *> *array) {
+    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array) {
         NSLog(@"jobarr=%@",array);
     }];
 

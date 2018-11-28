@@ -1833,7 +1833,7 @@
 
 #pragma mark --------------------------------------------Careers API
 //MARK:2.2.    查询所有职位列表
-+ (void)queryAllJobs:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed {
++ (void)queryAllJobs:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
     NSInteger limit=20;//分页数默认20条
     if (skip<=0) {
         skip=0;
@@ -1871,6 +1871,7 @@
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];
+            NSInteger totalFound=[r.resultMap[@"totalFound"] integerValue];
             for (NSDictionary *d in arr) {
                 JobModel *item = [[JobModel alloc] initWithJson:jsonBuild(d)];
                 if (item) {
@@ -1878,23 +1879,23 @@
                 }
             }
             if (completed) {
-                completed(resultArray);
+                completed(resultArray,totalFound);
             }
         }else{
             if (completed) {
-                completed(nil);
+                completed(nil,0);
             }
         }
     }];
 }
 
 //MARK:2.2.    查询所有职位列表
-+ (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed {
++ (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
     return [self queryAllJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
 }
 
 //MARK:2.7.   查询已申请职位列表
-+ (void)queryAllApplicationJobs:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed {
++ (void)queryAllApplicationJobs:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
     NSInteger limit=20;//分页数默认20条
     if (skip<=0) {
         skip=0;
@@ -1935,6 +1936,7 @@
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];
+            NSInteger totalFound=[r.resultMap[@"totalFound"] integerValue];
             for (NSDictionary *d in arr) {
                 JobModel *item = [[JobModel alloc] initWithJson:jsonBuild(d)];
                 if (item) {
@@ -1942,19 +1944,19 @@
                 }
             }
             if (completed) {
-                completed(resultArray);
+                completed(resultArray,totalFound);
             }
         }else{
             if (completed) {
-                completed(nil);
+                completed(nil,0);
             }
         }
     }];
 }
 
 //MARK:2.7.    查询所有职位列表
-+ (void)queryAllApplicationJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed {
-    return [self queryAllJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
++ (void)queryAllApplicationJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    return [self queryAllApplicationJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
 }
 
 //MARK:2.6.   添加职位申请接口

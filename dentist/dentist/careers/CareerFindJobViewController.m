@@ -21,8 +21,8 @@
     UINavigationItem *item = [self navigationItem];
     item.title = @"Find Job";
     
-    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array) {
-        NSLog(@"jobarr=%@",array);
+    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array,NSInteger totalCount) {
+        NSLog(@"totalCount=%@;jobarr=%@",@(totalCount),array);
     }];
 
     // Do any additional setup after loading the view.

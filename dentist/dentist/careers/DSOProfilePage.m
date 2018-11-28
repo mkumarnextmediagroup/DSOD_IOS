@@ -24,7 +24,8 @@
     UINavigationItem *item = self.navigationItem;
     item.title = @"DSO PROFILES";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
-
+    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
+    
     myTable = [UITableView new];
     [self.view addSubview:myTable];
     myTable.dataSource = self;
@@ -33,6 +34,11 @@
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
     
     // Do any additional setup after loading the view.
+}
+
+- (void)searchClick
+{
+    NSLog(@"search btn click");
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

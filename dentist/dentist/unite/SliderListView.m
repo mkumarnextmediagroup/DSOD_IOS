@@ -16,18 +16,23 @@
 #import "DetailModel.h"
 #import "AppDelegate.h"
 #import "UITableView+JRTableViewPlaceHolder.h"
+#import "FullListTableViewCell.h"
 
 @interface SliderListView()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UIGestureRecognizerDelegate>
 {
     UITableView *mTableView;
+    UITableView *searchTableView;
     UISearchBar *mSearch;
     NSArray     *infoArr;
     NSArray     *searchArr;
     UIView      *sliderView;
     UIView      *backgroundVi;
     NSMutableArray *resultArray;
-    UIView *guestView;
+    UILabel     *categoryLab;
+    UIView      *guestView;
+    UILabel     *issueLabel;
     BOOL        isShow;
+    BOOL        showFullList;
 }
 
 @property BOOL isSearch;
@@ -110,6 +115,8 @@ static dispatch_once_t onceToken;
 
 - (void)initSliderView
 {
+    showFullList = NO;
+    
     backgroundVi = [self addView];
     backgroundVi.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0];
     backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
@@ -128,7 +135,11 @@ static dispatch_once_t onceToken;
     
     if (_isSearch) {//show the search page
         [self createSearchBar];
-        [[[[mSearch.layoutMaker leftParent:8] topParent:0] sizeEq:SCREENWIDTH - 132 - 8 h:40] install];
+        [[[[mSearch.layoutMaker leftParent:8] topParent:10] sizeEq:SCREENWIDTH - 132 - 8 h:40] install];
+        
+        UILabel *line = sliderView.addLabel;
+        line.backgroundColor = [Colors cellLineColor];
+        [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:mSearch offset:9] install];
         
         [self createTableview];
         [[[[[mTableView.layoutMaker leftParent:0] rightParent:0] below:mSearch offset:10] sizeEq:SCREENWIDTH - 132 h:SCREENHEIGHT - NAVHEIGHT-30] install];
@@ -142,6 +153,9 @@ static dispatch_once_t onceToken;
         if (array) {
             self->infoArr = array;
             [self sortGroupByArr];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self->mTableView reloadData];
+            });
         }
     }];
 }
@@ -186,8 +200,11 @@ static dispatch_once_t onceToken;
     mTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     mTableView.dataSource = self;
     mTableView.delegate = self;
-    mTableView.estimatedRowHeight = 60;
-//    mTableView.rowHeight = UITableViewAutomaticDimension;
+    mTableView.estimatedRowHeight = 40;
+    if (!_isSearch) {
+        mTableView.tableHeaderView = [self headerView];
+    }
+    mTableView.rowHeight = UITableViewAutomaticDimension;
     mTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     mTableView.backgroundColor = [UIColor whiteColor];
     [sliderView addSubview:mTableView];
@@ -196,14 +213,15 @@ static dispatch_once_t onceToken;
 
 - (UIView *)headerView{
     
-    UIView *headerVi = [UIView new];
+    UIView *headerVi = [[UIView alloc] init];
     headerVi.backgroundColor = [UIColor whiteColor];
     
     if (!_isSearch) {
-        UILabel *issueLabel = headerVi.addLabel;
-        issueLabel.text = @"Vol1 No1";
+        
+        headerVi.frame = CGRectMake(0, 0, self->mTableView.frame.size.width, 86);
+        issueLabel = headerVi.addLabel;
         issueLabel.font = [Fonts regular:14];
-        [[[[[issueLabel.layoutMaker leftParent:30] rightParent:30] heightEq:42] topParent:0] install];
+        [[[[[issueLabel.layoutMaker leftParent:16] rightParent:16] heightEq:42] topParent:0] install];
         
         UILabel *line1 = headerVi.addLabel;
         line1.backgroundColor = [Colors cellLineColor];
@@ -215,8 +233,8 @@ static dispatch_once_t onceToken;
         [headBtn setTitle:@"IN THIS ISSUE" forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [headBtn addTarget:self action:@selector(showFullList) forControlEvents:UIControlEventTouchUpInside];
-        headBtn.titleLabel.font = [Fonts regular:13];
-        [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] below:line1 offset:0] install];
+        headBtn.titleLabel.font = [Fonts regular:14];
+        [[[[[headBtn.layoutMaker leftParent:16] rightParent:16] heightEq:42] below:line1 offset:0] install];
         
         UILabel *line2 = headerVi.addLabel;
         line2.backgroundColor = [Colors cellLineColor];
@@ -224,12 +242,13 @@ static dispatch_once_t onceToken;
         
     }else if(searchArr.count > 0)
     {
+        headerVi.frame = CGRectMake(0, 0, self->mTableView.frame.size.width, 26);
         UIButton *headBtn = headerVi.addButton;
         [headBtn setTitleColor:Colors.textAlternate forState:UIControlStateNormal];
         [headBtn setTitle:[NSString stringWithFormat:@"%lu RESULTS FOUND",(unsigned long)searchArr.count] forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        headBtn.titleLabel.font = [Fonts regular:13];
-        [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] topParent:0] install];
+        headBtn.titleLabel.font = [Fonts regular:14];
+        [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:26] topParent:10] install];
     }
     
     
@@ -238,13 +257,18 @@ static dispatch_once_t onceToken;
 
 - (void)showFullList
 {
+    showFullList = YES;
     //show the full list of articles
     [UIView animateWithDuration:.3 animations:^{
-        self.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+//        self.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
         self->backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
-        self->sliderView.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
+        self->sliderView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
         self->guestView.frame = CGRectMake(0, 0, SCREENWIDTH, NAVHEIGHT);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self->mTableView reloadData];
+        });
     }];
+    
 }
 
 - (void)createEmptyNotice
@@ -257,7 +281,7 @@ static dispatch_once_t onceToken;
         [headBtn setTitle:[NSString stringWithFormat:@"%lu RESULTS FOUND",(unsigned long)self->searchArr.count] forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         headBtn.titleLabel.font = [Fonts regular:13];
-        [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:42] topParent:0] install];
+        [[[[[headBtn.layoutMaker leftParent:16] rightParent:16] heightEq:42] topParent:0] install];
         return headerVi;
     } normalBlock:^(UITableView * _Nonnull sender) {
         [self->mTableView setScrollEnabled:YES];
@@ -284,45 +308,120 @@ static dispatch_once_t onceToken;
     
 }
 
+- (UIView *)subHeaderView
+{
+    UIView *headerVi = [UIView new];
+    headerVi.backgroundColor = [UIColor whiteColor];
+    
+    categoryLab = headerVi.addLabel;
+    categoryLab.font = [Fonts regular:14];
+    categoryLab.numberOfLines = 2;
+    categoryLab.textColor = Colors.textAlternate;
+    [[[[[categoryLab.layoutMaker leftParent:16] rightParent:-16] heightEq:44] topParent:8] install];
+
+    return headerVi;
+}
+
 #pragma mark UITableViewDataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (_isSearch) {
-        return 42;
+    if (!_isSearch) {
+        return 35;
     }else
     {
-        return 84;
+        return 35;
     }
-    return 0;
+    return .1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return .1;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return [self headerView];
+    if (!_isSearch) {
+        UIView *headerVi = [UIView new];
+        headerVi.backgroundColor = [UIColor whiteColor];
+        
+        categoryLab = headerVi.addLabel;
+        categoryLab.font = [Fonts regular:14];
+        categoryLab.numberOfLines = 2;
+        DetailModel *model = resultArray[section][0];
+        categoryLab.text = model.categoryName;
+        categoryLab.textColor = Colors.textAlternate;
+        [[[[[categoryLab.layoutMaker leftParent:16] rightParent:-16] heightEq:35] topParent:8] install];
+        
+        return headerVi;
+    }else
+    {
+        return [self headerView];
+    }
+    return nil;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (!_isSearch) {
+        return resultArray.count;
+    }
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (_isSearch) {
         return searchArr.count;
+    }else
+    {
+        NSArray *infoArr = resultArray[section];
+        return infoArr.count;
     }
-    return resultArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *cellIden = @"cell";
-    UniteArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
-    if (cell == nil) {
-        cell = [[UniteArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
-    }
-    [cell layoutIfNeeded];
-    if (_isSearch) {
-        [cell bindSearchInfo:searchArr[indexPath.row]];
+    if (!showFullList) {
+        NSString *cellIden = @"cell";
+        UniteArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
+        if (cell == nil) {
+            cell = [[UniteArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
+        }
+        [tableView layoutIfNeeded];
+        if (_isSearch) {
+            cell.isLastInfo = YES;
+            [cell bindInfo:searchArr[indexPath.row]];
+        }else
+        {
+            issueLabel.text = self.issueNumber;
+            if (indexPath.row+1 == [resultArray[indexPath.section] count]) {
+                cell.isLastInfo = YES;
+            }else
+            {
+                cell.isLastInfo = NO;
+            }
+            [cell bindInfo:resultArray[indexPath.section][indexPath.row]];
+        }
+        return cell;
+
     }else
     {
-        [cell bindInfo:resultArray[indexPath.row]];
+        NSString *cellIden = @"cellIden";
+        FullListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
+        if (cell == nil) {
+            cell = [[FullListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
+        }
+        
+        if (indexPath.row+1 == [resultArray[indexPath.section] count]) {
+            cell.isLastInfo = YES;
+        }else
+        {
+            cell.isLastInfo = NO;
+        }
+        [cell bindInfo:resultArray[indexPath.section][indexPath.row]];
+        return cell;
     }
-    return cell;
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -331,9 +430,14 @@ static dispatch_once_t onceToken;
     DetailModel *model = nil;
     if (self.isSearch) {
         model = searchArr[indexPath.row];
+    }else
+    {
+        model = resultArray[indexPath.section][indexPath.row];
     }
+    NSLog(@"%@",model.id);
     if(self.delegate && [self.delegate respondsToSelector:@selector(gotoDetailPage:)]){
         [self.delegate gotoDetailPage:model.id];
+        [self sigleTappedPickerView:nil];
     }
 }
 

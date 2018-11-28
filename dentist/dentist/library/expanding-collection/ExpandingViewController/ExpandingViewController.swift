@@ -89,18 +89,19 @@ public extension ExpandingViewController {
 //        let backImage = getBackImagecell(cell, headerHeight: cell.frame.height)
         
         var backImage:UIImage?
-        for index in 0 ..< cell.frontContainerView.subviews.count {
-            if cell.frontContainerView.subviews[index] is UIWebView {
-                backImage=cell.frontContainerView.subviews[index].asImage()
-            }
-        }
+         backImage=cell.frontContainerView.asImage()
+//        for index in 0 ..< cell.frontContainerView.subviews.count {
+//            if cell.frontContainerView.subviews[index] is UIWebView {
+//                backImage=cell.frontContainerView.subviews[index].asImage()
+//            }
+//        }
         
         let headerheight:CGFloat = (backImage == nil) ? backImage!.size.height : 0
         
         transitionDriver?.pushTransitionAnimationIndex2(currentIndex,
                                                        collecitionView: collectionView,
                                                        backImage: backImage,
-                                                       headerHeight:headerheight,
+                                                       headerHeight:0,
                                                        insets: tabBarHeight + stausBarHeight) {_ in
                                                         completion()
                                                         
@@ -124,7 +125,7 @@ public extension ExpandingViewController {
     }
     
     func pushToViewController4(_ viewController: UIViewController, completion: @escaping () -> Void) {
-         let backImage = getBackImage(viewController)
+         let backImage = viewController.view.asImage()
         
         transitionDriver?.popTransitionAnimationContantOffset(0, backImage: backImage)
         completion()

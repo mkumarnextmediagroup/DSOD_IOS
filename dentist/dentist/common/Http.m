@@ -66,7 +66,7 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	fileNameMap = [NSMutableDictionary new];
 	rawData = nil;
 	session = [NSURLSession sharedSession];
-	self.timeout = 15;
+	self.timeout = 15 * 2;
 	CRLF = @"\r\n";
 	BOUNDARY = [NSUUID UUID].UUIDString;
 	BOUNDARY_START = [[@"--" add:BOUNDARY] add:CRLF];

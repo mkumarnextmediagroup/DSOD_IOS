@@ -15,8 +15,10 @@
 #import "UIButton+WebCache.h"
 #import "CMSDetailViewController.h"
 #import "GDataXMLNode.h"
+#import "GSKViewController.h"
 
-@interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate,
+UITableViewDelegate,UITableViewDataSource>
 {
     
 }
@@ -27,12 +29,14 @@
     UILabel *typeLabel;
     UILabel *dateLabel;
     UIImageView *imageView;
+    UIImageView *thumbImageView;
     UIWebView *vedioWebView;
     UIImageView *headerImg;
     UILabel *titleLabel;
     UILabel *nameLabel;
     UILabel *addressLabel;
     UILabel *byLabel;
+    UIImageView *dsodImg;
     UIWebView *mywebView;
     UITableView *relativeTopicTableView;
     UITableView *referencesTableView;
@@ -52,15 +56,18 @@
     NSString *videoHtmlString;
     
     NSInteger edge;
+    
+    NSTimer *calcWebViewHeightTimer;
+    int calcWebViewHeightTimes;
 }
 
 - (instancetype)init {
     self = [super init];
     
     edge = 18;
-    if(IS_IPHONE_P_X){
-        edge=24;
-    }
+//    if(IS_IPHONE_P_X){
+//        edge=24;
+//    }
     allowZoom = YES;
     self.topView = [UIView new];
     self.topView.backgroundColor = rgb255(250, 251, 253);
@@ -82,7 +89,12 @@
     imageView = self.addImageView;
     [imageView scaleFillAspect];
     imageView.clipsToBounds = YES;
-    [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
+    [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:SCREENWIDTH*2/3] install];
+    
+    
+    thumbImageView = imageView.addImageView;
+    [[[[thumbImageView.layoutMaker leftParent:edge] bottomParent:-edge] sizeEq:28 h:28] install];
+    
     
     CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
     _sponsorImageBtn = [self addButton];
@@ -100,7 +112,7 @@
     [_markButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     
     titleLabel = [self addLabel];
-    titleLabel.font = [Fonts semiBold:18];
+    titleLabel.font = [Fonts semiBold:20];
     [titleLabel textColorMain];
     titleLabel.numberOfLines = 0;
     [[[[titleLabel.layoutMaker leftParent:edge]  toLeftOf:_markButton offset:15] below:_sponsorImageBtn offset:10] install];
@@ -114,25 +126,36 @@
     [[[[[view.layoutMaker leftParent:0] rightParent:0] below:lineLabel offset:0] heightEq:58] install];
     
     byLabel = view.addLabel;
-    byLabel.font = [Fonts semiBold:18];
+    byLabel.font = [Fonts semiBold:20];
     byLabel.text = @"By";
     [[[[byLabel.layoutMaker sizeEq:30 h:58] leftParent:edge] topParent:0] install];
     
+    dsodImg = [UIImageView new];
+    [view addSubview:dsodImg];
+    [[[[dsodImg.layoutMaker sizeEq:110 h:22] toRightOf:byLabel offset:0] centerYParent:0] install];
+    dsodImg.layer.masksToBounds = YES;
+    dsodImg.image = [UIImage imageNamed:@""];
+    [dsodImg setImageName:@"author_dsodentist"];
+    
+    
     headerImg = [UIImageView new];
     [view addSubview:headerImg];
-    [[[[headerImg.layoutMaker sizeEq:110 h:22] toRightOf:byLabel offset:0] centerYParent:0] install];
+    [[[[headerImg.layoutMaker sizeEq:32 h:32] leftParent:edge] centerYParent:0] install];
+    headerImg.layer.cornerRadius = 16;
     headerImg.layer.masksToBounds = YES;
+    
+    
     
     nameLabel = [view addLabel];
     nameLabel.font = [Fonts semiBold:12];
     [nameLabel textColorMain];
-    [[[[[nameLabel.layoutMaker topParent:edge / 2 + 2] leftParent:edge] rightParent:-edge] heightEq:16] install];
+    [[[[[nameLabel.layoutMaker topParent:edge / 2 + 2] toRightOf:headerImg offset:8] rightParent:-edge] heightEq:16] install];
     
     addressLabel = [view addLabel];
     [addressLabel textAlignLeft];
     addressLabel.font = [Fonts regular:12];
     [addressLabel textColorAlternate];
-    [[[[[addressLabel.layoutMaker topParent:edge / 2 + 18] leftParent:edge] rightParent:-edge] heightEq:16] install];
+    [[[[[addressLabel.layoutMaker topParent:edge / 2 + 18] toRightOf:headerImg offset:8] rightParent:-edge] heightEq:16] install];
     
     UILabel *lineLabel2 = [view lineLabel];
     [[[[[lineLabel2.layoutMaker leftParent:edge] rightParent:0] topParent:57] heightEq:1] install];
@@ -143,7 +166,7 @@
     mywebView.scrollView.scrollEnabled = NO;
     mywebView.backgroundColor = UIColor.redColor;
     [self addSubview:mywebView];
-    [[[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] heightEq:1] below:view offset:0] install];
+    [[[[[mywebView.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:view offset:0] install];
 
     
     relativeTopicTableView = [UITableView new];
@@ -175,6 +198,11 @@
     [self createStarView];
 
     
+//    relativeTopicTableView.backgroundColor = UIColor.blueColor;
+//    referencesTableView.backgroundColor = UIColor.greenColor;
+//    imageScrollPView.backgroundColor = UIColor.greenColor;
+//    sponsorView.backgroundColor = UIColor.orangeColor;
+    
     return self;
 }
 
@@ -196,16 +224,16 @@
     sponsorView = [UIView new];
     [self addSubview:sponsorView];
     sponsorView.clipsToBounds = YES;
-    [[[[[sponsorView.layoutMaker leftParent:0] rightParent:0] below:imageScrollPView offset:26] heightEq:100] install];
+    [[[[sponsorView.layoutMaker leftParent:0] rightParent:0] below:imageScrollPView offset:0] install];
     
     UILabel *lineLabelTop = [sponsorView lineLabel];
-    [[[[[lineLabelTop.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
+    [[[[[lineLabelTop.layoutMaker leftParent:0] rightParent:0] topParent:25] heightEq:1] install];
     
     sponsorLabel = [sponsorView addLabel];
     sponsorLabel.font = [Fonts regular:12];
     [sponsorLabel textColorAlternate];
     sponsorLabel.text = @"Want more content from GSK?";
-    [[[[[sponsorLabel.layoutMaker leftParent:18] rightParent:-18] topParent:0] heightEq:50] install];
+    [[[[[sponsorLabel.layoutMaker leftParent:18] rightParent:-18] below:lineLabelTop offset:0] heightEq:50] install];
     [sponsorLabel textAlignCenter];
     
     self.sponsorBtn = [sponsorView addButton];
@@ -303,7 +331,7 @@
     starView.backgroundColor = rgb255(248, 248, 248);
     [self addSubview:starView];
 
-    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:sponsorView offset:26] install];
+    [[[[[[starView.layoutMaker leftParent:0] leftParent:0] rightParent:0] heightEq:100] below:sponsorView offset:15] install];
     
     UILabel *lineLabeltop = [starView lineLabel];
     [[[[[lineLabeltop.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
@@ -344,7 +372,7 @@
 - (void)showRelativeTopic:(NSArray*)data{
     
    if(data && data.count>0){
-        int height = 50;
+        int height = 40;
         for(int i = 0;i< data.count;i++){
             CGSize titleSize = [data[i][@"title"] boundingRectWithSize:CGSizeMake(SCREENWIDTH-edge*2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
             height += titleSize.height + 10;//padding：10
@@ -359,7 +387,7 @@
 - (void)showReferences:(NSArray*)data{
     referencesArray = data;
     if(referencesArray && referencesArray.count>0){
-        int height = 50;//header
+        int height = 40;//header
         long showCount = referencesArray.count;
         
         if(referencesArray.count>5){
@@ -389,6 +417,21 @@
     }else if([type isEqualToString:@"2"] ){
         //这个判断不知道干啥的 因为服务器就没返回过2
     }
+    NSDictionary *thumbImagInfo = @{@"VIDEOS":@"Video",
+                                    @"PODCASTS":@"Podcast",
+                                    @"INTERVIEWS":@"Interview",
+                                    @"TECH GUIDES":@"TechGuide",
+                                    @"ANIMATIONS":@"Animation",
+                                    @"TIP SHEETS":@"TipSheet",
+                                    @"ARTICLES":@"Article"
+                                    };
+    if (thumbImagInfo[[bindInfo.contentTypeName uppercaseString]]) {
+        [thumbImageView setImage:[UIImage imageNamed:thumbImagInfo[[bindInfo.contentTypeName uppercaseString]]]];
+    }else{
+        [thumbImageView setImage:[UIImage imageNamed:@"Article"]];
+    }
+    
+    
 
     NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",
                                   @"259":@"sponsor_nobel",
@@ -401,7 +444,7 @@
         
         CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
         [[_sponsorImageBtn.layoutUpdate heightEq:sponstorimgh] install];
-        [[sponsorView.layoutUpdate heightEq:100] install];
+        [[sponsorView.layoutUpdate heightEq:125] install];
     }else{
         [[_sponsorImageBtn.layoutUpdate heightEq:0] install];
         [[sponsorView.layoutUpdate heightEq:0] install];
@@ -409,20 +452,24 @@
 
     
     titleLabel.text = bindInfo.title;
-    [headerImg setImageName:@"author_dsodentist"];
+    
     
     if([bindInfo.author.firstName isEqualToString:@"DSODentist"]){
         byLabel.hidden = NO;
-        headerImg.hidden = NO;
+        dsodImg.hidden = NO;
+        headerImg.hidden = YES;
         nameLabel.hidden = YES;
         addressLabel.hidden = YES;
     }else{
         byLabel.hidden = YES;
-        headerImg.hidden = YES;
+        dsodImg.hidden = YES;
+        headerImg.hidden = NO;
         nameLabel.hidden = NO;
         addressLabel.hidden = NO;
         nameLabel.text = [NSString stringWithFormat:@"By %@ %@",bindInfo.author.firstName,bindInfo.author.lastName];
         addressLabel.text = bindInfo.author.authorDetails;
+        
+        [headerImg loadUrl:bindInfo.authorPhotoUrl placeholderImage:@"user_img"];
     }
     
     if (bindInfo.isBookmark) {
@@ -435,46 +482,62 @@
     [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
     
     
-    if(videoHtmlString){
-        if (!vedioWebView) {
-            vedioWebView = [UIWebView new];
-            vedioWebView.scrollView.scrollEnabled = NO;
-            [self addSubview:vedioWebView];
-            [[[[[vedioWebView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:250] install];
-        }
-        [vedioWebView loadHTMLString:[self getVideoHtml] baseURL:nil];
-    }
-    
-    
+    [self showVideo];
+   
     [self showReferences:bindInfo.references];
     
     [self showRelativeTopic:bindInfo.relativeTopicList];
     
     [self setImageScrollData:bindInfo.photoUrls];
+    
+    
+    if(calcWebViewHeightTimer){
+        [calcWebViewHeightTimer invalidate];
+        calcWebViewHeightTimer = nil;
+    }
+    calcWebViewHeightTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calcWebViewHeight:) userInfo:nil repeats:YES];
 
 }
 
--(NSString*)getVideoHtml{
-    NSString *htmlString = [videoHtmlString stringByReplacingOccurrencesOfString:@"src=\"//" withString:@"src=\"http://"];
-    htmlString = [NSString stringWithFormat:@"%@%@%@%@%@",
+-(void)showVideo{
+    if(videoHtmlString){
+        NSRange iframeStart = [videoHtmlString rangeOfString:@"<iframe"];
+        NSRange iframeEnd = [videoHtmlString rangeOfString:@"</iframe>"];
+        
+         if(iframeStart.location != NSNotFound && iframeEnd.location != NSNotFound){
+            if (!vedioWebView) {
+                vedioWebView = [UIWebView new];
+                vedioWebView.scrollView.scrollEnabled = NO;
+                [self addSubview:vedioWebView];
+                [[[[[vedioWebView.layoutMaker leftParent:0] rightParent:0] below:self.topView offset:0] heightEq:SCREENWIDTH*2/3] install];
+            }
+            
+            NSString *htmlString = videoHtmlString;
+            htmlString = [htmlString substringWithRange:NSMakeRange(iframeStart.location,iframeEnd.location+iframeEnd.length - iframeStart.location)];
+            htmlString = [htmlString stringByReplacingOccurrencesOfString:@"src=\"//" withString:@"src=\"http://"];
+            htmlString = [NSString stringWithFormat:@"%@%@%@%@%@",
                   @"<style type=\"text/css\">",
                   @"body{padding:0px;margin:0px;background:#fff;font-family}",
                   @"iframe{border: 0 none;}",
                   @"</style>",
                   htmlString
                   ];
-    return htmlString;
+            [vedioWebView loadHTMLString:htmlString baseURL:nil];
+         }
+    }
 }
 
 - (NSString *)htmlString:(NSString *)html{
-    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@",
+    NSString *htmlString = [NSString stringWithFormat:@"%@%@%@%@%@ %@%@%@%@%@ %@%@%@",
                             @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'>",
                             @"<style type=\"text/css\">",
-                            @"body{padding:0px;margin:0px;background:#ff0;font-family:SFUIText-Regular;}",
-                            @"p{width:100%;margin: 10px auto;color:#4a4a4a;font-size:0.9em;}",
+                            @"body{padding:0px;margin:0px;background:#fff;font-family:SFUIText-Regular;font-size:0.9em;color:#4a4a4a}",
+                            @"p{margin: 10px auto;padding-left:18px;padding-right:18px}",
+                            @"h1,h2,h3,h4,h5,h6{font-size:1.1em;padding-left:18px;padding-right:18px}",
+                            @"ol,ul{background:#fff;margin-left:18px;margin-right:18px;padding-left:18px;}",
                             @"em{font-style:normal}",
-                            @".first-big p:first-letter{float: left;font-size:1.9em;padding-right:8px;text-transform:uppercase;color:#4a4a4a;}",
-                            @"blockquote{color:#4a4a4a;font-size:1.2em;font-weight:bold;margin: 20px 10px 10px 25px;position:relative;line-height:110%;text-indent:0px}",
+                            @".first-big p:first-letter{float: left;font-size:2.8em;margin-top:-6px;margin-bottom:-18px;margin-right:5px;text-transform:uppercase;color:#879aa8;}",
+                            @"blockquote{color:#4a4a4a;font-size:1.1em;font-weight:bold;margin: 20px 50px 10px 50px;position:relative;line-height:110%;text-indent:0px；background:#f00}",
                             @"blockquote:before{color:#4a4a4a;font-family:PingFangTC-Regular;content:'“';font-size:1.6em;position:absolute;left:-20px;top:15px;line-height:.1em}",
                             //@"blockquote:after{color:#4a4a4a;content:'”';font-size:5em;position:absolute;right:15px;bottom:0;line-height:.1em}"
                             @"figure{ margin:0 auto; background:#fff; }",
@@ -501,7 +564,7 @@
             if(isFirst){
                  //错误格式兼容<strong> </strong>厉害了中间还不是空格
 //                 htmlString = [htmlString stringByReplacingOccurrencesOfString :@"<strong> </strong>" withString:@""];
-                htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p style='margin-top:0'>%@</div>",htmlString,currentString];
+                htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p style='margin-top:10'>%@</div>",htmlString,currentString];
                  isFirst = NO;
             }else{
                  htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];
@@ -600,22 +663,76 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
   
-    return [self handleCustomAction:request.URL];
+    if([request.URL.absoluteString isEqualToString:@"about:blank"]){
+        return YES;
+    }else if([self needRedirect:request.URL]){
+        return NO;
+    }else{
+        return [self handleCustomAction:request.URL];
+    }
+}
+
+-(BOOL)needRedirect:(NSURL*)URL{
+    NSDictionary *urlDic = [self urlToParamDic:URL.absoluteString];
+    if([URL.absoluteString hasPrefix:@"https://adbutler-fermion.com/redirect.spark"] && urlDic[@"CID"]){
+//        https://adbutler-fermion.com/redirect.spark?MID=174518&plid=853721&setID=332775&channelID=0&CID=266276&banID=519639830&PID=0&textadID=0&tc=1&mt=1543209928258293&sw=375&sh=667&spr=2&hc=abff94d8f50b86b21f108dea2890ea04c14fda5b&location=
+        //处理服务商跳转
+        [self.vc showLoading];
+        WeakSelf
+        [Proto getAdbutlerSponsor:^(NSDictionary* dic){
+            foreTask(^{
+                [weakSelf.vc hideLoading];
+                if(dic && dic[urlDic[@"CID"]]){
+                    NSString *name = [dic[urlDic[@"CID"]] uppercaseString];
+                    NSDictionary *sponsorInfo = @{@"ALIGN":@"260",
+                                                  @"NOBEL":@"259",
+                                                  @"GSK":@"197"};
+                    if(sponsorInfo[name]){
+                        NSString *return_url =  [@"dsodentistapp://com.thenextmediagroup.dentist/openSponsor?sponsorId=" stringByAppendingString:sponsorInfo[name]];
+                        [weakSelf handleCustomAction:[NSURL URLWithString:return_url]];
+                    }
+                    
+                }
+            });
+        }];
+        return YES;
+    }else if([URL.absoluteString hasPrefix:@"https://adbutler-fermion.com/redirect.spark"]){
+        //处理服务商跳转 此方案暂时不用
+        [self.vc showLoading];
+        WeakSelf
+        backTask(^{
+            NSString *urlString = [Proto getRedirectUrl:URL.absoluteString];
+            
+            foreTask(^{
+                [weakSelf.vc hideLoading];
+                if(urlString){
+                    NSString *sponsor_old = @"https://mobile.dsodentist.com/posts/sponsor/";
+                    NSString *sponsor_new = @"dsodentistapp://com.thenextmediagroup.dentist/openSponsor?sponsorId=";
+                    
+                    NSString *return_url = [urlString stringByReplacingOccurrencesOfString:sponsor_old withString:sponsor_new];
+                    [weakSelf handleCustomAction:[NSURL URLWithString:return_url]];
+                }
+            });
+        });
+        return YES;
+    }else{
+        return NO;
+    }
 }
 
 -(BOOL)handleCustomAction:(NSURL*)URL{
     //dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=5be29d5f0e88c608b8186e52
+    //dsodentistapp://com.thenextmediagroup.dentist/openSponsor?sponsorId=260
     
     NSString *localScheme = @"dsodentistapp";
     NSString *localSchemeAndHost = [NSString stringWithFormat:@"%@://%@/",localScheme,@"com.thenextmediagroup.dentist"];
 
     NSString *scheme = [URL scheme];
     NSString *urlStr = [URL absoluteString];
-    NSLog(@"%@",urlStr);
-    if([urlStr isEqualToString:@"about:blank"]){
-        return YES;
-    }
+    NSLog(@"handleCustomAction url=%@",urlStr);
+    
 
+    
     NSRange range = [urlStr rangeOfString:localSchemeAndHost];
     if ([scheme isEqualToString:localScheme] && range.location != NSNotFound) {
         NSString *actionAndParams = [urlStr substringFromIndex:range.length];
@@ -623,19 +740,24 @@
         NSString *action = array[0];
         NSDictionary *paramDic = nil;
         if(array.count>1){
-            paramDic = [self strToParamDic:array[1]];
+            paramDic = [self urlToParamDic:array[1]];
         }
         
-        NSLog(@"aciton=%@,dic=%@",action,paramDic);
+        NSLog(@"handleCustomAction aciton=%@,dic=%@",action,paramDic);
         //处理ation
         if([action isEqualToString:@"openCMSDetail"]){
             [self openCMSDetail:paramDic];
+        }else if([action isEqualToString:@"openSponsor"]){
+            [self openSponsor:paramDic];
         }
     }
     return NO;
 }
 
--(NSDictionary*)strToParamDic:(NSString*)str{
+-(NSDictionary*)urlToParamDic:(NSString*)str{
+    NSArray *array = [str componentsSeparatedByString:@"?"];
+    str = [array lastObject];
+    
     NSMutableDictionary *paramDic = [NSMutableDictionary new];
     NSArray *paramArray = [str componentsSeparatedByString:@"&"];
     for(int i=0;i<paramArray.count;i++){
@@ -648,6 +770,7 @@
     return [paramDic copy];
 }
 
+//dsodentistapp://com.thenextmediagroup.dentist/openCMSDetail?articleId=5be29d5f0e88c608b8186e52
 -(void)openCMSDetail:(NSDictionary*)paramDic{
     
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
@@ -656,6 +779,22 @@
     newVC.hideChangePage = YES;
 
     [self.vc.navigationController pushViewController:newVC animated:YES];
+}
+
+
+
+//dsodentistapp://com.thenextmediagroup.dentist/openSponsor?sponsorId=260
+-(void)openSponsor:(NSDictionary*)paramDic{
+    NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",
+                                  @"259":@"sponsor_nobel",
+                                  @"197":@"sponsor_gsk"};
+    
+    if(sponsorInfo[paramDic[@"sponsorId"]]){
+        GSKViewController *gskVC = [GSKViewController new];
+        gskVC.sponsorId= paramDic[@"sponsorId"];
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:gskVC];
+        [self.vc presentViewController:navVC animated:YES completion:NULL];
+    }
 }
 
 
@@ -680,6 +819,27 @@
     
 }
 
+- (void)calcWebViewHeight:(NSTimer*)timer {
+    //获取到webview的高度
+    CGFloat webViewHeight1 = [[mywebView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
+//    CGFloat webViewHeight2 = [[mywebView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
+//    CGFloat webViewHeight3 = [[mywebView stringByEvaluatingJavaScriptFromString:@"document.body.clientHeight"] floatValue];
+//
+//    NSLog(@"webViewHeight1 == %f",webViewHeight1);
+//    NSLog(@"webViewHeight2 == %f",webViewHeight2);
+//    NSLog(@"webViewHeight3 == %f",webViewHeight3);
+    
+    [[mywebView.layoutUpdate heightEq:webViewHeight1]install];
+    if(calcWebViewHeightTimes<100){
+        calcWebViewHeightTimes++;
+    }else{
+        [calcWebViewHeightTimer invalidate];
+        calcWebViewHeightTimer = nil;
+    }
+    
+//    NSLog(@"-----------------%d",calcWebViewHeightTimes);
+}
+
 #pragma mark  UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if([tableView isEqual:referencesTableView]){
@@ -698,7 +858,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 50;
+    return 40;
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -709,11 +869,11 @@
         title = @"Related Resources";
     }
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,SCREENWIDTH,50)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,SCREENWIDTH,40)];
     titleLabel.textAlignment = NSTextAlignmentLeft;
-    titleLabel.textColor = UIColor.blackColor;
+    titleLabel.textColor = rgbHex(0x4a4a4a);
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-    NSDictionary *dic = @{NSFontAttributeName:[Fonts medium:25], NSParagraphStyleAttributeName:paraStyle, NSKernAttributeName:@1.2f};
+    NSDictionary *dic = @{NSFontAttributeName:[Fonts medium:16], NSParagraphStyleAttributeName:paraStyle, NSKernAttributeName:@1.2f};
     NSAttributedString *attributeStr = [[NSAttributedString alloc] initWithString:title attributes:dic];
     titleLabel.attributedText = attributeStr;
     
@@ -777,8 +937,8 @@
     [[[[numberLabel.layoutMaker leftParent:18] topParent:5]  widthEq:22]  install];
     
     UILabel *titleLabel = cell.contentView.addLabel;
-    titleLabel.font = [Fonts regular:16];
-    titleLabel.textColor = UIColor.blackColor;
+    titleLabel.font = [Fonts regular:14];
+    titleLabel.textColor = rgbHex(0x4a4a4a);
     titleLabel.numberOfLines = 0;
     titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     titleLabel.text = referencesArray[indexPath.row];
@@ -810,4 +970,10 @@
     }
 }
 
+- (void)timerInvalidate{
+    if(calcWebViewHeightTimer && [calcWebViewHeightTimer isValid]){
+        [calcWebViewHeightTimer invalidate];
+        calcWebViewHeightTimer = nil;
+    }
+}
 @end

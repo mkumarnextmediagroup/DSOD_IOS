@@ -4,7 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <SDWebImage/UIImageView+WebCache.h>
 @interface UIImageView (customed)
 
 @property NSString *imageName;
@@ -36,5 +36,6 @@
 - (void)alignBottomLeft;
 
 
-- (void)loadUrl:(NSString *)url placeholderImage:(NSString *)localImage;
+- (void)loadUrl:(NSString * _Nullable)url placeholderImage:(NSString * _Nullable)localImage;
+-(void)loadUrl:(NSString * _Nullable)url placeholderImage:(NSString * _Nullable)localImage completed:(nullable SDExternalCompletionBlock)completedBlock;
 @end

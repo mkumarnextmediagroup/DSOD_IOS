@@ -38,7 +38,7 @@
     UINavigationItem *item = self.navigationItem;
     item.title = @"";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
-    item.rightBarButtonItem = [self menuButton];
+//    item.rightBarButtonItem = [self menuButton];
     
     UIView *contentView = [UIView new];
     contentView.backgroundColor = UIColor.whiteColor;
@@ -119,9 +119,9 @@
 //    [self loadData];
 }
 
-- (UIBarButtonItem *)menuButton {
-    return [self navBarImage:@"menu" target:self action:@selector(rightBtnClick)];
-}
+//- (UIBarButtonItem *)menuButton {
+//    return [self navBarImage:@"menu" target:self action:@selector(rightBtnClick)];
+//}
 
 - (void)rightBtnClick
 {
@@ -150,7 +150,7 @@
 -(void)loadData{
 
     if(self.magazineModel.cover){
-        [coverImgView loadUrl:self.magazineModel.cover placeholderImage:@"bg_1"];
+        [coverImgView loadUrl:[Proto getFileUrlByObjectId:self.magazineModel.cover] placeholderImage:@"bg_1"];
     }
     publishDateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:self.magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",self.magazineModel.vol?self.magazineModel.vol:@"", self.magazineModel.issue?self.magazineModel.issue:@""];
@@ -171,7 +171,7 @@
 -(void)downloadData
 {
     if(self.magazineModel.cover){
-        [coverImgView loadUrl:self.magazineModel.cover placeholderImage:@"bg_1"];
+        [coverImgView loadUrl:[Proto getFileUrlByObjectId:self.magazineModel.cover] placeholderImage:nil];
     }
     publishDateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:self.magazineModel.publishDate];
     volIssueLabel.text = [NSString stringWithFormat:@"%@ %@",self.magazineModel.vol?self.magazineModel.vol:@"", self.magazineModel.issue?self.magazineModel.issue:@""];
@@ -186,6 +186,8 @@
     [[DetinstDownloadManager shareManager] startDownLoadUniteArticles:_magazineModel addCompletion:^(BOOL result) {
         
     } completed:^(BOOL result) {
+        
+        
         if(result){
             NSLog(@"===============下载成功===============");
             WeakSelf
@@ -197,6 +199,13 @@
             });
         }else{
             NSLog(@"===============下载失败===============");
+            foreTask(^{
+                UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                [window makeToast:@"Download failed"
+                         duration:1.0
+                         position:CSToastPositionBottom];
+                [self.navigationController popViewControllerAnimated:YES];
+            });
         }
     }];
 }

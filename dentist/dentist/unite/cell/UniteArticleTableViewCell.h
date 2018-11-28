@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UniteArticleTableViewCell : UITableViewCell
 
-- (void)bindInfo:(NSArray *)infoArr;
+- (void)bindInfo:(DetailModel *)infoModel;
 
-- (void)bindSearchInfo:(DetailModel *)infoModel;
+@property (nonatomic, assign)BOOL isLastInfo;
 
 @end
 

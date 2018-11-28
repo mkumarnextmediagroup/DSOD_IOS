@@ -411,6 +411,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
             
             for (NSDictionary *d in arr) {
                 CMSModel *item = [[CMSModel alloc] initWithJson:jsonBuild(d)];
+                item.isBookmark=NO;
                 if (item) {
                     [resultArray addObject:item];
                 }
@@ -531,7 +532,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
                 NSString *issue=[NSString stringWithFormat:@"%@",model.issue];
                 if ([self CheckIsHasUnite:db uniteid:model._id]) {
                     //更新
-                    result = [db executeUpdate:@"UPDATE t_UniteCaches set serial = ?,vol = ?,publishDate = ?,cover = ?,articles = ?,createDate = ?,createUser = ?,issue = ?,downstatus = ? where id = ? ", serial,vol,publishDate,cover,articles,createDate,createUser,issue,[NSNumber numberWithInt:1],_id];
+                    result = [db executeUpdate:@"UPDATE t_UniteCaches set serial = ?,vol = ?,publishDate = ?,cover = ?,articles = ?,createDate = ?,createUser = ?,issue = ?,downstatus = ?,isarchive = 0,downstatus=0  where id = ? ", serial,vol,publishDate,cover,articles,createDate,createUser,issue,[NSNumber numberWithInt:1],_id];
                     
                     if (result) {
                     }else {
@@ -600,9 +601,9 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
         [self->_dbQueue inDatabase:^(FMDatabase *db) {
             [db beginTransaction];
             @try {
-                [db executeUpdate:@"DELETE FROM t_UniteArticlesCaches where id in (select articleid from t_UniteArticlesRelationCaches where uniteid = ?) and isbookmark=0 ", uniteid];
-                [db executeUpdate:@"DELETE FROM t_UniteArticlesRelationCaches where uniteid = ? ",uniteid];
-                [db executeUpdate:@"DELETE FROM t_UniteCaches where id=?", uniteid];
+                [db executeUpdate:@"DELETE FROM t_UniteArticlesCaches where id in (select articleid from t_UniteArticlesRelationCaches where uniteid = ? and articleid in (select articleid from t_UniteArticlesRelationCaches  group by articleid having count(articleid)== 1) ) and isbookmark=0 ", uniteid];
+                [db executeUpdate:@"DELETE FROM t_UniteArticlesRelationCaches where uniteid = ? and articleid in (select a.articleid from t_UniteArticlesRelationCaches as a left join t_UniteArticlesCaches as b  where a.uniteid=? and b.isbookmark=0) ",uniteid,uniteid];
+                [db executeUpdate:@"update t_UniteCaches set isarchive=1,downstatus=0 where id=? ", uniteid];
             } @catch (NSException *exception) {
                 result = NO;
                 // 事务回退
@@ -743,7 +744,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [self->_dbQueue inDatabase:^(FMDatabase *db) {
             FMResultSet *resultSet;
-            resultSet  = [db executeQuery:@"SELECT * FROM t_UniteCaches WHERE downstatus =2 order by downtime desc "];
+            resultSet  = [db executeQuery:@"SELECT * FROM t_UniteCaches WHERE downstatus =2 and isarchive = 0 order by downtime desc "];
             while ([resultSet next]) {
                 NSString *_id=[resultSet objectForColumn:@"id"];
                 NSString *serial=[resultSet objectForColumn:@"serial"];
@@ -754,12 +755,12 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
                 NSString *issue=[resultSet objectForColumn:@"issue"];
                 MagazineModel *item = [[MagazineModel alloc] init];
                 item._id=_id;
-                item.serial=serial;
-                item.vol=vol;
-                item.publishDate=publishDate;
-                item.cover=cover;
-                item.createUser=createUser;
-                item.issue=issue;
+                item.serial=![NSString isBlankString:serial]?serial:@"";
+                item.vol=![NSString isBlankString:vol]?vol:@"";
+                item.publishDate=![NSString isBlankString:publishDate]?publishDate:@"";
+                item.cover=![NSString isBlankString:cover]?cover:@"";
+                item.createUser=![NSString isBlankString:createUser]?createUser:@"";
+                item.issue=![NSString isBlankString:issue]?issue:@"";
                 if (item) {
                     [resultArray addObject:item];
                 }
@@ -801,12 +802,12 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
                         detail.uniteid=newuniteid;
                         detail.isBookmark=(isbookmark==1)?YES:NO;
                         MagazineModel *magazinemodel=[[MagazineModel alloc] init];
-                        magazinemodel.serial=serial;
-                        magazinemodel.vol=vol;
-                        magazinemodel.publishDate=publishDate;
-                        magazinemodel.cover=cover;
-                        magazinemodel.createUser=createUser;
-                        magazinemodel.issue=issue;
+                        magazinemodel.serial=![NSString isBlankString:serial]?serial:@"";
+                        magazinemodel.vol=![NSString isBlankString:vol]?vol:@"";
+                        magazinemodel.publishDate=![NSString isBlankString:publishDate]?publishDate:@"";
+                        magazinemodel.cover=![NSString isBlankString:cover]?cover:@"";
+                        magazinemodel.createUser=![NSString isBlankString:createUser]?createUser:@"";
+                        magazinemodel.issue=![NSString isBlankString:issue]?issue:@"";
                         detail.magazineModel=magazinemodel;
                         if (detail) {
                             [tmpArr addObject:detail];
@@ -824,6 +825,42 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
         }
     }
     
+}
+
+//MARK:根据杂志ID查询杂志文章列表
+-(void)queryUniteArticlesCachesList2:(NSString *)uniteid completed:(void(^)(NSArray<DetailModel *> *array))completed{
+    __block NSMutableArray *tmpArr = [NSMutableArray array];
+    [self queryUniteArticlesCachesList:uniteid completed:^(NSArray<DetailModel *> * _Nonnull array) {
+        if (array && array.count>0) {
+            tmpArr=[NSMutableArray arrayWithArray:array];
+            DetailModel *firstdetail=array[0];
+            firstdetail.uniteArticleType=@"2";
+            DetailModel *newdetail=[DetailModel new];
+            newdetail.id=@"-1";
+            newdetail.uniteArticleType=@"1";
+            newdetail.magazineModel=firstdetail.magazineModel;
+            [tmpArr insertObject:newdetail atIndex:0];
+            DetailModel *newdetail2=[DetailModel new];
+            newdetail2.id=@"-2";
+            newdetail2.uniteArticleType=@"3";
+            MagazineModel *newmagazinemodel=[MagazineModel new];
+            newmagazinemodel.cover=@"5bfce1f8d6fe17478531c652";
+            newmagazinemodel._id=firstdetail.magazineModel._id;
+            newmagazinemodel.serial=firstdetail.magazineModel.serial;
+            newmagazinemodel.vol=firstdetail.magazineModel.vol;
+            newmagazinemodel.issue=firstdetail.magazineModel.issue;
+            newmagazinemodel.publishDate=firstdetail.magazineModel.publishDate;
+            newmagazinemodel.createDate=firstdetail.magazineModel.createDate;
+            newmagazinemodel.articles=firstdetail.magazineModel.articles;
+            newmagazinemodel.createDate=firstdetail.magazineModel.createDate;
+            newmagazinemodel.createUser=firstdetail.magazineModel.createUser;
+            newdetail2.magazineModel=newmagazinemodel;
+            [tmpArr insertObject:newdetail2 atIndex:2];
+        }
+        if (completed) {
+            completed(tmpArr);
+        }
+    }];
 }
 
 //MARK:添加删除杂志文章方法，isbookmark==1收藏；0取消收藏
@@ -859,15 +896,33 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
         [self->_dbQueue inDatabase:^(FMDatabase *db) {
             
             FMResultSet *resultSet;
-            resultSet = [db executeQuery:@"SELECT * FROM t_UniteArticlesCaches where isbookmark=1 order by bookmarktime "];
+            resultSet = [db executeQuery:@"SELECT a.uniteid,a.articleid,b.title,b.contentTypeId,b.categoryId,b.contentTypeName,b.categoryName , b.jsontext,b.isbookmark,c.serial,c.vol,c.publishDate,c.cover,c.createUser,c.issue  FROM  t_UniteArticlesCaches as b left join t_UniteArticlesRelationCaches as a  on a.articleid = b.id left join t_UniteCaches as c on a.uniteid = c.id where  b.isbookmark=1 group by a.articleid  order by b.bookmarktime  "];
             
             while ([resultSet next]) {
                 NSString *jsontext=[resultSet objectForColumn:@"jsontext"];
+                NSString *newuniteid=[resultSet objectForColumn:@"uniteid"];
+                NSString *serial=[resultSet objectForColumn:@"serial"];
+                NSString *vol=[resultSet objectForColumn:@"vol"];
+                NSString *publishDate=[resultSet objectForColumn:@"publishDate"];
+                NSString *cover=[resultSet objectForColumn:@"cover"];
+                NSString *createUser=[resultSet objectForColumn:@"createUser"];
+                NSString *issue=[resultSet objectForColumn:@"issue"];
+                
                 NSInteger isbookmark=[resultSet intForColumn:@"isbookmark"];
                 
                 if (![NSString isBlankString:jsontext]) {
                     DetailModel *detail = [[DetailModel alloc] initWithJson:jsontext];
+                    detail.uniteid=newuniteid;
                     detail.isBookmark=(isbookmark==1)?YES:NO;
+                    MagazineModel *magazinemodel=[[MagazineModel alloc] init];
+                    
+                    magazinemodel.serial=![NSString isBlankString:serial]?serial:@"";
+                    magazinemodel.vol=![NSString isBlankString:vol]?vol:@"";
+                    magazinemodel.publishDate=![NSString isBlankString:publishDate]?publishDate:@"";
+                    magazinemodel.cover=![NSString isBlankString:cover]?cover:@"";
+                    magazinemodel.createUser=![NSString isBlankString:createUser]?createUser:@"";
+                    magazinemodel.issue=![NSString isBlankString:issue]?issue:@"";
+                    detail.magazineModel=magazinemodel;
                     if (detail) {
                         [tmpArr addObject:detail];
                     }
@@ -926,7 +981,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [self->_dbQueue inDatabase:^(FMDatabase *db) {
                 
-                result =[db intForQuery:@"SELECT downstatus FROM t_UniteCaches WHERE id = ?", uniteid];;
+                result =[db intForQuery:@"SELECT downstatus FROM t_UniteCaches WHERE id = ? and isarchive = 0 ", uniteid];;
                 if (result) {
                 }else {
                 }

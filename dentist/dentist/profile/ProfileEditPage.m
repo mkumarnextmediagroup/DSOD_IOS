@@ -42,6 +42,8 @@
 	TitleMsgArrowView *practiceAddressView;
 
 	NSString *uploadPortraitResult;
+    
+    NSDictionary *resumeDataDic;//保存上传的简历信息
 }
 
 - (void)viewDidLoad {
@@ -65,6 +67,9 @@
 }
 
 - (void)buildViews {
+    
+
+    
 	NSArray *allSubView = self.contentView.subviews;
 	if (allSubView != nil) {
 		for (UIView *v in allSubView) {
@@ -103,8 +108,7 @@
 
 	[self addGroupTitle:@"Upload resume or import data"];
 
-	resumeView = [UploadResumeItemView new];
-    resumeView.vc = self;
+	resumeView = [[UploadResumeItemView alloc]initWithViewController:self];
 	[self.contentView addSubview:resumeView];
 
 	[self addGrayLine:0 marginRight:0];
@@ -263,6 +267,13 @@
 	[self bindData];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if(resumeView){
+        resumeDataDic = resumeView.resumeDataDic;
+    }
+}
+
 
 - (void)bindData {
     
@@ -274,7 +285,7 @@
 	}
 	nameView.edit.text = _userInfo.fullName;
 	specView.msgLabel.text = _userInfo.speciality.name;
-    [resumeView showWithLastResumeUrl:_userInfo.resume_url fileName:_userInfo.resume_name];
+    [resumeView showWithLastResumeUrl:_userInfo.resume_url fileName:_userInfo.resume_name resumeDic:resumeDataDic];
 	if (_userInfo.experienceArray != nil) {
 		for (int i = 0; i < _userInfo.experienceArray.count; ++i) {
 			Experience *r = _userInfo.experienceArray[i];
@@ -385,7 +396,7 @@
 		count = count + 1;
 	}
 
-	if (_userInfo.experienceArray != nil && _userInfo.experienceArray.count > 0  && _userInfo.isStudent) {
+	if (_userInfo.experienceArray != nil && _userInfo.experienceArray.count > 0  && !_userInfo.isStudent) {
 		if (_userInfo.experienceArray.count == 1) {
 			Experience *r = _userInfo.experienceArray[0];
 			if (r.praticeTypeId != nil && r.praticeTypeId.length > 0) {
@@ -694,7 +705,7 @@
 			@"sex": @"",
 			@"status": @"1",
 			@"document_library": @{
-					@"document_name": resumeView.uploadedResumeName,
+					@"document_name": [resumeView getUploadedResumeName],
 			},
 			@"create_time": @"2018-09-12T06:16:53.603Z",
 			@"educations": NSNull.null,

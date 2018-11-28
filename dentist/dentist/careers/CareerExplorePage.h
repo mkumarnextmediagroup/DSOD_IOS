@@ -6,5 +6,5 @@
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
 
-@interface CareerPage : BaseController
+@interface CareerExplorePage : BaseController
 @end

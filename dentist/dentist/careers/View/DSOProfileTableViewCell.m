@@ -71,6 +71,12 @@
     return self;
 }
 
-
+- (void)bindInfo:(JobModel *)modelInfo
+{
+    headerImg.image = [UIImage imageNamed:@"user_img"];
+    finLabel.text = modelInfo.company.companyName;
+    reviewLabel.text = @"1234 reviews";
+    conLabel.text = modelInfo.company.address;
+}
 
 @end

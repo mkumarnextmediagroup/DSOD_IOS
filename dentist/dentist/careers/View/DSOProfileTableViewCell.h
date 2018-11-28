@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JobModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DSOProfileTableViewCell : UITableViewCell
+
+- (void)bindInfo:(JobModel *)modelInfo;
 
 @end
 

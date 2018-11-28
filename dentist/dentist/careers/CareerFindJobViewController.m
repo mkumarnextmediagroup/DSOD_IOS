@@ -7,6 +7,7 @@
 //
 
 #import "CareerFindJobViewController.h"
+#import "Proto.h"
 
 @interface CareerFindJobViewController ()
 
@@ -19,6 +20,10 @@
     
     UINavigationItem *item = [self navigationItem];
     item.title = @"Find Job";
+    
+    [Proto queryAllJobsNormal:0 completed:^(NSArray<JobModel *> *array) {
+        NSLog(@"jobarr=%@",array);
+    }];
 
     // Do any additional setup after loading the view.
 }

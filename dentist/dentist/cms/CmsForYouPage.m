@@ -33,15 +33,12 @@
 @interface CmsForYouPage()<ArticleItemViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 @end
 @implementation CmsForYouPage {
-	NSMutableArray<NSString *> *segItems;
     NSMutableArray<IdName *> *segItemsModel;
-	UISegmentedControl *segView;
     UIView *panel;
     BannerScrollView *iv;
     BOOL isdeletead;
     NSString *selectActicleId;
     NSArray *dataArray;
-    NSString *category;
     NSString *contenttype;
     DentistTabView *tabView;
     BOOL isdownrefresh;
@@ -75,7 +72,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    category=@"LATEST";
+    _category=@"LATEST";
 	UINavigationItem *item = [self navigationItem];
     //219*43
     //
@@ -179,7 +176,7 @@
 - (UIView *)makeSegPanel {
     CGFloat segw;
     segw=SCREENWIDTH*2/7.0;
-    UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:segItems];
+    UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:_segItems];
     UIImage *img = colorImage(makeSize(1, 1), rgba255(221, 221, 221, 100));
     [seg setDividerImage:img forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 
@@ -190,7 +187,7 @@
 
     [seg setBackgroundImage:[UIImage imageNamed:@"seg-bg"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [seg setBackgroundImage:[UIImage imageNamed:@"seg-sel"] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    for (NSUInteger i = 0; i < segItems.count; ++i) {
+    for (NSUInteger i = 0; i < _segItems.count; ++i) {
         [seg setWidth:segw forSegmentAtIndex:i];
     }
     seg.selectedSegmentIndex = 0;
@@ -198,10 +195,10 @@
     UIScrollView *sv = [UIScrollView new];
     [sv addSubview:seg];
 
-    sv.contentSize = makeSize(segw * segItems.count, 50);
+    sv.contentSize = makeSize(segw * _segItems.count, 50);
     sv.showsHorizontalScrollIndicator = NO;
     sv.showsVerticalScrollIndicator = NO;
-    segView = seg;
+    _segView = seg;
     [seg addTarget:self action:@selector(onSegValueChanged:) forControlEvents:UIControlEventValueChanged];
     
 	return sv;
@@ -209,12 +206,12 @@
 
 - (void)onSegValueChanged:(id)sender {
     contenttype=nil;
-	NSInteger n = segView.selectedSegmentIndex;
+	NSInteger n = _segView.selectedSegmentIndex;
     
-	category = segItems[n];
+	_category = _segItems[n];
     
     
-	Log(@(n ), category);
+	Log(@(n ), _category);
 //    self.items=[Proto getArticleListByCategory:category type:contenttype];
 //    if (n!=0) {
 //        CGFloat segw;
@@ -232,7 +229,7 @@
     
     
     
-    UIScrollView *segscrollView=(UIScrollView *)segView.superview;
+    UIScrollView *segscrollView=(UIScrollView *)_segView.superview;
     [segscrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     //
     CGFloat segw;
@@ -374,9 +371,9 @@
 //MARK:刷新数据
 -(void)refreshData
 {
-    category=@"LATEST";
+    _category=@"LATEST";
     contenttype=nil;
-    segView.selectedSegmentIndex=0;
+    _segView.selectedSegmentIndex=0;
     self.table.tableHeaderView = [self makeHeaderView];
     [self showIndicator];
     [self getContentCachesData:0];

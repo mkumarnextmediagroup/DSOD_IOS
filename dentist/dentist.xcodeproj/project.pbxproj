@@ -85,6 +85,7 @@
 		43277E8A217F4E9E008B3240 /* TestPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E89217F4E9E008B3240 /* TestPageTests.m */; };
 		43277E8C217F4F6A008B3240 /* DSOWebViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E8B217F4F6A008B3240 /* DSOWebViewControllerTests.m */; };
 		43277E8E217F523B008B3240 /* RegControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E8D217F523B008B3240 /* RegControllerTests.m */; };
+		4341949321A598BE0029AECE /* CmsForYouPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4341949221A598BE0029AECE /* CmsForYouPageTests.m */; };
 		4344660121A5614A00811E94 /* UIButtonExtTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4344660021A5614A00811E94 /* UIButtonExtTests.m */; };
 		4344660321A5644C00811E94 /* UIScreenExtTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4344660221A5644C00811E94 /* UIScreenExtTests.m */; };
 		4344660521A5674400811E94 /* UIViewExtTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4344660421A5674400811E94 /* UIViewExtTests.m */; };
@@ -823,6 +824,7 @@
 		43277E89217F4E9E008B3240 /* TestPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestPageTests.m; sourceTree = "<group>"; };
 		43277E8B217F4F6A008B3240 /* DSOWebViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOWebViewControllerTests.m; sourceTree = "<group>"; };
 		43277E8D217F523B008B3240 /* RegControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegControllerTests.m; sourceTree = "<group>"; };
+		4341949221A598BE0029AECE /* CmsForYouPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsForYouPageTests.m; sourceTree = "<group>"; };
 		4344660021A5614A00811E94 /* UIButtonExtTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIButtonExtTests.m; sourceTree = "<group>"; };
 		4344660221A5644C00811E94 /* UIScreenExtTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIScreenExtTests.m; sourceTree = "<group>"; };
 		4344660421A5674400811E94 /* UIViewExtTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIViewExtTests.m; sourceTree = "<group>"; };
@@ -1848,6 +1850,22 @@
 			path = profile;
 			sourceTree = "<group>";
 		};
+		4341949021A597320029AECE /* CMS */ = {
+			isa = PBXGroup;
+			children = (
+				4341949121A598A90029AECE /* ForYou */,
+			);
+			path = CMS;
+			sourceTree = "<group>";
+		};
+		4341949121A598A90029AECE /* ForYou */ = {
+			isa = PBXGroup;
+			children = (
+				4341949221A598BE0029AECE /* CmsForYouPageTests.m */,
+			);
+			path = ForYou;
+			sourceTree = "<group>";
+		};
 		43488F4C2199B9B500FDC15E /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1885,6 +1903,7 @@
 		43B72528217650A1000F6797 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				4341949021A597320029AECE /* CMS */,
 				43488F4C2199B9B500FDC15E /* Common */,
 				437AB90A2181F1B80026A71B /* Profile */,
 				43F92B78217D949A00798462 /* Login */,
@@ -3734,6 +3753,7 @@
 				437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */,
 				4344660121A5614A00811E94 /* UIButtonExtTests.m in Sources */,
 				43488F4E2199BAEB00FDC15E /* ColorTests.m in Sources */,
+				4341949321A598BE0029AECE /* CmsForYouPageTests.m in Sources */,
 				43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */,
 				43B7252D217650FF000F6797 /* ExampleTests.m in Sources */,
 				439D55EB2189DBFA003BB940 /* ProfileEditPageTests.m in Sources */,

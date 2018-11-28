@@ -2847,12 +2847,12 @@
 		A3BA6DD221AEA36100D83156 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				A3BA6DD321AEA36100D83156 /* CompanyModel.m */,
 				A3BA6DD421AEA36100D83156 /* JobModel.h */,
-				A3BA6DD521AEA36100D83156 /* JobPosition.m */,
-				A3BA6DD621AEA36100D83156 /* CompanyModel.h */,
 				A3BA6DD721AEA36100D83156 /* JobModel.m */,
+				A3BA6DD621AEA36100D83156 /* CompanyModel.h */,
+				A3BA6DD321AEA36100D83156 /* CompanyModel.m */,
 				A3BA6DD821AEA36100D83156 /* JobPosition.h */,
+				A3BA6DD521AEA36100D83156 /* JobPosition.m */,
 			);
 			path = model;
 			sourceTree = "<group>";

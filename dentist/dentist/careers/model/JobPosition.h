@@ -10,7 +10,7 @@
 #import "JSONModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JobPosition : NSObject
+@interface JobPosition : JSONModel
 @property NSString <Optional>*type;
 @property NSArray <Optional>*coordinates;
 @end

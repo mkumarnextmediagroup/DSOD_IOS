@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CompanyModel : NSObject
+@interface CompanyModel : JSONModel
 @property NSString <Optional>*id;
 @property NSString <Optional>*companyName;
 @property NSString <Optional>*companyLogo;

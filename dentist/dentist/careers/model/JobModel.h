@@ -12,7 +12,7 @@
 #import "JobPosition.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JobModel : NSObject
+@interface JobModel : JSONModel
 @property NSString <Optional>*id;
 @property NSString <Optional>*jobTitle;
 @property NSString <Optional>*categroy;

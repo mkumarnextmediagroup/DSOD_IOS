@@ -21,5 +21,5 @@
 
 - (void)textColorWhite;
 
-
+- (void)verticalImageAndTitle:(CGFloat)spacing;
 @end

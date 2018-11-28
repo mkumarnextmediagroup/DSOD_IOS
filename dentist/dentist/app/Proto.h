@@ -17,6 +17,7 @@
 @class Article;
 @class BookmarkModel;
 @class MagazineModel;
+@class JobModel;
 
 @interface Proto : NSObject
 
@@ -204,65 +205,6 @@
 +(NSString *)getPhotoDownloadByEmail:(NSString *_Nullable)email createtime:(NSString *_Nullable)create_time;
 +(NSString *)getPhotoDownloadByEmailUrl:(NSString *_Nullable)emailurl;
 
-//MARK:模拟
-+(BOOL)archiveActicleArr;
-
-+ (NSString*_Nullable)getFilePath:(NSString *_Nullable)aFileName;
-//MARK:保存文章列表
-+ (BOOL)saveArticleArr:(NSArray *_Nullable)articleArr;
-
-//MARK:获取Article列表
-+(NSArray *_Nullable)getArticleList;
-//MARK:根据author获取Article列表
-+(NSArray *)getArticleListByAuthor:(NSString *)author category:(NSString *)category  type:(NSString *)type;
-//MARK:根据category获取Article列表
-+(NSArray *_Nullable)getArticleListByCategory:(NSString *_Nullable)category;
-
-//MARK:根据type获取Article列表
-+(NSArray *_Nullable)getArticleListByType:(NSString *_Nullable)type;
-
-//MARK:根据categoryh跟type获取Article列表
-+(NSArray *_Nullable)getArticleListByCategory:(NSString *_Nullable)category type:(NSString *_Nullable)type;
-
-//MARK:根据keywords获取Article列表
-+(NSArray *_Nullable)getArticleListByKeywords:(NSString *_Nullable)keywords;
-
-
-//MARK:根据keywords and type获取Article列表
-+(NSArray *_Nullable)getArticleListByKeywords:(NSString *_Nullable)keywords type:(NSString *_Nullable)type;
-
-//MARK:获取bookmark列表
-+(NSArray *_Nullable)getBookmarksList;
-//MARK:根据Bookmarks跟type获取Article列表
-+(NSArray *_Nullable)getBookmarksListByCategory:(NSString *_Nullable)category type:(NSString *_Nullable)type;
-
-//MARK:获取download列表
-+(NSArray *_Nullable)getDownloadList;
-
-//MARK:根据DownloadList跟type获取Article列表
-+(NSArray *_Nullable)getDownloadListByCategory:(NSString *_Nullable)category type:(NSString *_Nullable)type;
-
-//MARK:检测是否bookmark
-+(BOOL)checkIsBookmarkByArticle:(NSInteger)articleid;
-
-//MARK:检测是否添加到下载
-+(BOOL)checkIsDownloadByArticle:(NSInteger)articleid;
-
-//MARK:根据id获取文章实体
-+(Article *_Nullable)getArticleById:(NSInteger)articleid;
-
-//MARK:添加bookmark
-+(BOOL)addBookmarks:(NSInteger)articleid;
-
-//MARK:删除bookmark
-+(BOOL)deleteBookmarks:(NSInteger)articleid;
-
-//MARK:添加download
-+(BOOL)addDownload:(NSInteger)articleid;
-
-//MARK:删除download
-+(BOOL)deleteDownload:(NSInteger)articleid;
-
 //MARK:查询杂志列表集合
 +(NSArray*)findAllMagazines:(NSInteger)skip;
 
@@ -278,4 +220,24 @@
 //获得重定向后的地址
 + (NSString*)getRedirectUrl:(NSString*)url;
 
+#pragma mark Careers API
+//MARK:2.2.    查询所有职位列表
++ (void)queryAllJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
+//MARK:2.2.    查询所有职位列表
++ (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
+
+//MARK:2.7.   查询已申请职位列表
++ (void)queryAllApplicationJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
+//MARK:2.7.    查询所有职位列表
++ (void)queryAllApplicationJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
+//MARK:2.6.    添加职位申请接口
++(void)addJobApplication:(NSString *_Nullable)jobId completed:(void(^)(HttpResult *result))completed;
+//MARK:2.8.  添加职位关注接口
++(void)addJobBookmark:(NSString *_Nullable)jobId completed:(void(^)(HttpResult *result))completed;
+//MARK:2.9.  删除职位关注接口
++(void)deleteJobBookmark:(NSString *_Nullable)jobId completed:(void(^)(HttpResult *result))completed;
+//MARK:2.10.   查询已关注职位列表
++ (void)queryJobBookmarks:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed;
+//MARK:2.10.   查询已关注职位列表
++ (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed ;
 @end

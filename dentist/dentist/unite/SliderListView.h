@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
  * isSearch:YES is search page, NO is list Page
  * magazineId
  */
-
+@property (nonatomic,copy) NSString *issueNumber;
 @property (nonatomic,weak) id<SliderListViewDelegate> delegate;
 
 + (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId;

@@ -383,4 +383,58 @@ static char argObjectAttr = 0;
 	return v;
 }
 
+-(void)addEmptyViewWithImageName:(NSString*)imageName title:(NSString*)title
+{
+    UIImage* image = [UIImage imageNamed:imageName];
+    NSString* text = title;
+    CGFloat imageh=80;
+    CGFloat spaceh=30;
+    if (imageName) {
+        if (![self viewWithTag:1001]) {
+            CGFloat imagew=(image.size.width/image.size.height)*imageh;
+            UIImageView *carImageView =[UIImageView new];
+            carImageView.tag=1001;
+            [carImageView setImage:image];
+            [self addSubview:carImageView];
+            [[[[[carImageView layoutMaker] centerXOf:self offset:0] centerYOf:self offset:-imageh] sizeEq:imagew h:imageh] install];
+        }else{
+            UIImageView *carImageView=(UIImageView *)[self viewWithTag:1001];
+            [carImageView setImage:image];
+        }
+        
+    }else{
+        if ([self viewWithTag:1001]) {
+            UIView *subview  = [self viewWithTag:1001];
+            [subview removeFromSuperview];
+        }
+    }
+    
+    if (title) {
+        if (![self viewWithTag:1002]) {
+            UILabel *noLabel = [UILabel new];
+            noLabel.textAlignment = NSTextAlignmentCenter;
+            [noLabel textColorMain];
+            noLabel.font = [Fonts regular:15];
+            noLabel.textColor=Colors.textMain;
+            noLabel.text = text;
+            noLabel.backgroundColor = [UIColor clearColor];
+            noLabel.numberOfLines=0;
+            noLabel.tag=1002;
+            [self addSubview:noLabel];
+            [[[[[[noLabel layoutMaker] leftParent:0] rightParent:0] centerYOf:self offset:spaceh*2] heightEq:80] install];
+        }else{
+            UILabel *noLabel=(UILabel *)[self viewWithTag:1002];
+            noLabel.text = text;
+        }
+        
+    }else{
+        if ([self viewWithTag:1002]) {
+            UIView *subview  = [self viewWithTag:1002];
+            [subview removeFromSuperview];
+        }
+    }
+    
+    
+}
+
 @end

@@ -104,32 +104,31 @@ extension TransitionDriver {
         
         configurateCell(copyView, backImage: backImage)
         backImageView = addImageToView(copyView.backContainerView, image: backImage)
-        var frontImageView: UIImageView? = addImageToView(copyView.frontContainerView, image: backImage)
 //
         openBackViewConfigureConstraints(copyView, height: headerHeight, insets: insets)
-        openFrontViewConfigureConstraints(copyView, height: headerHeight, insets: insets)
+//        openFrontViewConfigureConstraints(copyView, height: headerHeight, insets: insets)
 //
 //        // corner animation
         copyView.backContainerView.animationCornerRadius(0, duration: duration)
-        copyView.frontContainerView.animationCornerRadius(0, duration: duration)
+//        copyView.frontContainerView.animationCornerRadius(0, duration: duration)
         copyView.center = view.center
         
         // constraints animation
         UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(), animations: {
             self.view.layoutIfNeeded()
             self.backImageView?.alpha = 1
-            frontImageView?.alpha = 1
+//            frontImageView?.alpha = 1
 //            self.backImageView?.transform=CGAffineTransform.init(scaleX: 1.5, y: 1.5)
             self.copyCell?.shadowView?.alpha = 0
             copyView.backContainerView?.alpha=0
-            copyView.frontContainerView.subviewsForEach { if $0.tag == Constants.HideKey { $0.alpha = 0 } }
+            copyView.frontContainerView?.alpha=0
+//            copyView.frontContainerView.subviewsForEach { if $0.tag == Constants.HideKey { $0.alpha = 0 } }
         }, completion: { _ in
             let data = NSKeyedArchiver.archivedData(withRootObject: copyView.frontContainerView)
             guard case let headerView as UIView = NSKeyedUnarchiver.unarchiveObject(with: data) else {
                 fatalError("must copy")
             }
             self.backImageView?.alpha = 0
-            frontImageView?.alpha = 0
             completion(headerView)
         })
     }
@@ -140,15 +139,17 @@ extension TransitionDriver {
         }
 
         backImageView?.image = backImage
+//        self.backImageView?.alpha = 1
         // configuration start position
+//        backImageView = addImageToView(copyCell.backContainerView, image: backImage)
         configureCellBeforeClose(copyCell, offset: offset)
 
         closeBackViewConfigurationConstraints(copyCell)
-        closeFrontViewConfigurationConstraints(copyCell)
+//        closeFrontViewConfigurationConstraints(copyCell)
 
         // corner animation
         copyCell.backContainerView.animationCornerRadius(copyCell.backContainerView.layer.cornerRadius, duration: duration)
-        copyCell.frontContainerView.animationCornerRadius(copyCell.frontContainerView.layer.cornerRadius, duration: duration)
+//        copyCell.frontContainerView.animationCornerRadius(copyCell.frontContainerView.layer.cornerRadius, duration: duration)
 
         UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(), animations: {
             self.rightCell?.center.x -= self.step
@@ -158,7 +159,7 @@ extension TransitionDriver {
             self.backImageView?.alpha = 0
             copyCell.shadowView?.alpha = 1
 
-            copyCell.frontContainerView.subviewsForEach { if $0.tag == Constants.HideKey { $0.alpha = 1 } }
+//            copyCell.frontContainerView.subviewsForEach { if $0.tag == Constants.HideKey { $0.alpha = 1 } }
         }, completion: { _ in
             self.currentCell?.isHidden = false
             self.removeCurrentCell()

@@ -20,6 +20,9 @@
 #import "UniteArticles.h"
 #import "DentistDataBaseManager.h"
 #import "HttpProgress.h"
+#import "BookmarkManager.h"
+#import "JobModel.h"
+#import "JobBookmarkModel.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -791,7 +794,6 @@
     }else{
         return nil;
     }
-    
 }
 
 #pragma mark CMS Modular
@@ -848,7 +850,7 @@
             info.content = item.comment_text;
             info.disDate = item.create_time;
             info.starCount = item.comment_rating;
-            info.disImg = [NSString stringWithFormat:@"%@%@photoDownloadByEmail?email=%@",[self baseDomain],[self configUrl:@"profile"],info.name];
+            info.disImg = [self getPhotoDownloadByEmail:item.email createtime:item.create_time]; //[NSString stringWithFormat:@"%@%@photoDownloadByEmail?email=%@&createTime=%@",[self baseDomain],[self configUrl:@"profile"],item.email,item.create_time];
 
             [discussInfos addObject:info ];
         }
@@ -1338,16 +1340,19 @@
     return result;
 }
 
-+(void)deleteBookmark:(NSString *)bookmarkid completed:(void(^)(BOOL result))completed
++(void)deleteBookmark:(BookmarkModel *)model completed:(void(^)(HttpResult *result))completed
 {
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
-    if (bookmarkid) {
-        [paradic setObject:bookmarkid forKey:@"id"];
+    if (model._id) {
+        [paradic setObject:model._id forKey:@"id"];
     }
     [paradic setObject:@(1) forKey:@"status"];
     [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"cms" callback:^(HttpResult *r) {
+        if (r.OK){
+            [[BookmarkManager shareManager] adddeleteBookmark:model.email postid:model.postId];
+        }
         if (completed) {
-            completed(r.OK);
+            completed(r);
         }
     }];
 }
@@ -1371,7 +1376,7 @@
     return result;
 }
 
-+(void)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId completed:(void(^)(BOOL result))completed
++(void)deleteBookmarkByEmailAndContentId:(NSString *)email contentId:(NSString *)contentId completed:(void(^)(HttpResult *result))completed
 {
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     if (email) {
@@ -1382,8 +1387,11 @@
     }
     [paradic setObject:@(1) forKey:@"status"];
     [self postAsync2:@"bookmark/deleteOneByEmailAndContentId" dic:paradic modular:@"cms"callback:^(HttpResult *r) {
+        if (r.OK){
+            [[BookmarkManager shareManager] adddeleteBookmark:email postid:contentId];
+        }
         if (completed) {
-            completed(r.OK);
+            completed(r);
         }
     }];
 }
@@ -1401,26 +1409,30 @@
     
     return result;
 }
-+(void)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId completed:(void(^)(BOOL result))completed
++(void)addBookmark:(NSString *)email postId:(NSString *)postId title:(NSString *)title url:(NSString *)url categoryId:(NSString *)categoryId contentTypeId:(NSString *)contentTypeId completed:(void(^)(HttpResult *result))completed
 {
     if([NSString isBlankString:url]){
         url=@"";
     }
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId] && ![NSString isBlankString:title]){
         [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"status": [NSNumber numberWithInt:1]} modular:@"cms" callback:^(HttpResult *r) {
+            if (r.OK){
+                [[BookmarkManager shareManager] removedeleteBookmark:email postid:postId];
+            }
             if (completed) {
-                completed(r.OK);
+                completed(r);
             }
         }];
     }else{
+        HttpResult *r = [HttpResult new];
         if (completed) {
-            completed(NO);
+            completed(r);
         }
     }
 
 }
 
-+(void)addBookmark:(NSString *)email cmsmodel:(CMSModel *)model completed:(void(^)(BOOL result))completed
++(void)addBookmark:(NSString *)email cmsmodel:(CMSModel *)model completed:(void(^)(HttpResult * result))completed
 {
     NSString *url;
     NSString *postId=model.id;
@@ -1477,13 +1489,17 @@
     url=coverthumbnailUrl;
     if(![NSString isBlankString:email] && ![NSString isBlankString:postId]){
         [self postAsync3:@"bookmark/save" dic:@{@"email": email,@"postId": postId,@"title": title,@"url": url,@"coverUrl": coverUrl,@"coverthumbnailUrl": coverthumbnailUrl,@"categoryId": categoryId,@"contentTypeId": contentTypeId,@"categoryName": categoryName,@"contentTypeName": contentTypeName,@"status": [NSNumber numberWithInt:1]} modular:@"cms" callback:^(HttpResult *r) {
+            if (r.OK){
+                [[BookmarkManager shareManager] removedeleteBookmark:email postid:postId];
+            }
             if (completed) {
-                completed(r.OK);
+                completed(r);
             }
         }];
     }else{
+        HttpResult *r = [HttpResult new];
         if (completed) {
-            completed(NO);
+            completed(r);
         }
     }
     
@@ -1496,13 +1512,90 @@
 {
     if (![NSString isBlankString:objectid]) {
         NSString *baseUrl = [self configUrl:@"cms"];
-        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=%@",objectid);
+        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
         return url;
     }else{
         return nil;
     }
     
 }
+
+
++(NSString *)getPhotoDownloadByEmail:(NSString *)email createtime:(NSString *)create_time
+{
+    
+    return [NSString stringWithFormat:@"%@%@photoDownloadByEmail?email=%@&createTime=%@&i=%ld",[self baseDomain],[self configUrl:@"profile"],email,create_time,(long)[[NSDate date] timeIntervalSince1970]];
+}
+
++(NSString *)getPhotoDownloadByEmailUrl:(NSString *)emailurl
+{
+    return [NSString stringWithFormat:@"%@%@photoDownloadByEmail?%@&i=%ld",[self baseDomain],[self configUrl:@"profile"],emailurl,(long)[[NSDate date] timeIntervalSince1970]];
+}
+
+//获得广告插件里面服务商id
++ (void)getAdbutlerSponsor:(void(^)(NSDictionary*))completed{
+    NSString *urlString = @"https://api.adbutler.com/v1/campaigns";
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    
+    NSMutableURLRequest *mutableRequest = [urlRequest mutableCopy];
+    [mutableRequest addValue:@"Basic a4baad2cdd27120f6228c106f23c5a39" forHTTPHeaderField:@"Authorization"];
+    urlRequest = [mutableRequest copy];
+    
+    
+    NSLog(@"getAdbutlerSponsor start");
+    
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask * dataTask =  [session dataTaskWithRequest:urlRequest completionHandler:^(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error) {
+        
+        //拿到响应头信息
+//        NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
+//        NSLog(@"%@\n%@",[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding],res.allHeaderFields);
+        
+        NSDictionary *dictFromData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments
+                                                                                              error:&error];
+        NSLog(@"getAdbutlerSponsor end -%@",dictFromData);
+        
+        NSMutableDictionary *resultDic = [NSMutableDictionary new];
+        if(dictFromData && [dictFromData isKindOfClass:[NSDictionary class]]){
+            NSArray *array = dictFromData[@"data"];
+            for(NSDictionary *dic in array){
+                resultDic[[NSString stringWithFormat:@"%@",dic[@"id"]]] = dic[@"name"];
+            }
+            completed(resultDic);
+            NSLog(@"getAdbutlerSponsor callback -%@",resultDic);
+        }
+    }];
+
+    [dataTask resume];
+    
+}
+
+//获得重定向后的地址
++ (NSString*)getRedirectUrl:(NSString*)urlString{
+  
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    NSLog(@"getRedirectUrl start");
+    
+    
+    __block NSString* return_url = nil;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
+    NSURLSessionDataTask * dataTask =  [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error) {
+        
+        return_url = response.URL.absoluteString;
+        NSLog(@"getRedirectUrl end - %@",return_url);
+       
+        dispatch_semaphore_signal(semaphore);
+    }];
+    
+    [dataTask resume];
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    NSLog(@"getRedirectUrl return - %@",return_url);
+    return return_url;
+}
+
 
 #pragma mark Unite API
 + (DetailModel *)queryForUniteDetailInfo:(NSString *)contentId
@@ -1696,409 +1789,11 @@
     {
         baseUrl = @"content-service/v1/";
     }
+    else if ([modular isEqualToString:@"hr"])
+    {
+        baseUrl = @"hr-service/v1/";
+    }
     return baseUrl;
-}
-
-//MARK:模拟
-
-+(BOOL)isBlankString:(NSString *)string {
-    if (string == nil || string == NULL) {
-        return YES;
-    }
-    if ([string isKindOfClass:[NSNull class]]) {
-        return YES;
-    }
-    string=[NSString stringWithFormat:@"%@",string];
-    if ([string isEqualToString:@"(null)"]) {
-        return YES;
-    }
-    if ([string isEqualToString:@"<null>"]) {
-        return YES;
-    }
-    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
-        return YES;
-    }
-    return NO;
-}
-
-+(BOOL)archiveActicleArr
-{
-    if(getIsActicleArchive()==0){
-        NSArray *ls=[self listArticle];
-       return [self saveArticleArr:ls];
-    }else{
-        return YES;
-    }
-    
-}
-
-+ (NSString*)getFilePath:(NSString *)aFileName {
-    if (aFileName) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        return [documentsDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.archive", aFileName]];
-    }
-    return nil;
-}
-//MARK:保存文章列表
-+ (BOOL)saveArticleArr:(NSArray *)articleArr {
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    return [NSKeyedArchiver archiveRootObject:articleArr toFile:fileNameWithPath];
-}
-
-//MARK:获取Article列表
-+(NSArray *)getArticleList
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    return arr;
-}
-
-//MARK:根据author获取Article列表
-+(NSArray *)getArticleListByAuthor:(NSString *)author category:(NSString *)category  type:(NSString *)type
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    NSMutableArray *newDataArr = [NSMutableArray array];
-    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if ([[model.authName lowercaseString] isEqualToString:[author lowercaseString]] ) {
-            if(![self isBlankString:category] && ![self isBlankString:type]){
-                if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
-                    [newDataArr addObject:model];
-                }
-            }else if (![self isBlankString:category] && [self isBlankString:type]){
-                if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]]) {
-                    [newDataArr addObject:model];
-                }
-            }else if ([self isBlankString:category] && ![self isBlankString:type] ){
-                if ([[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
-                    [newDataArr addObject:model];
-                }
-            }else{
-                [newDataArr addObject:model];
-            }
-        }
-    }];
-    return newDataArr;
-}
-
-//MARK:根据category获取Article列表
-+(NSArray *)getArticleListByCategory:(NSString *)category
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    NSMutableArray *newDataArr = [NSMutableArray array];
-    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]] ) {
-            [newDataArr addObject:model];
-        }
-    }];
-    return newDataArr;
-}
-
-//MARK:根据type获取Article列表
-+(NSArray *)getArticleListByType:(NSString *)type
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    NSMutableArray *newDataArr = [NSMutableArray array];
-    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if ([[model.type lowercaseString] isEqualToString:[type lowercaseString]] ) {
-            [newDataArr addObject:model];
-        }
-    }];
-    return newDataArr;
-}
-
-//MARK:根据categoryh跟type获取Article列表
-+(NSArray *)getArticleListByCategory:(NSString *)category type:(NSString *)type
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    NSMutableArray *newDataArr = [NSMutableArray array];
-    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if(![self isBlankString:category] && ![self isBlankString:type]){
-            if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
-                [newDataArr addObject:model];
-            }
-        }else if (![self isBlankString:category] && [self isBlankString:type]){
-            if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]]) {
-                [newDataArr addObject:model];
-            }
-        }else if ([self isBlankString:category] && ![self isBlankString:type] ){
-            if ([[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
-                [newDataArr addObject:model];
-            }
-        }else{
-            [newDataArr addObject:model];
-        }
-        
-    }];
-    
-    return newDataArr;
-}
-
-//MARK:根据keywords获取Article列表
-+(NSArray *)getArticleListByKeywords:(NSString *)keywords
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    NSMutableArray *newDataArr = [NSMutableArray array];
-    if (![self isBlankString:keywords]) {
-        [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if([[model.title lowercaseString] containsString:[keywords lowercaseString]] || [[model.content lowercaseString] containsString:[keywords lowercaseString]] || [[model.type lowercaseString] containsString:[keywords lowercaseString]] || [[model.categoryName lowercaseString] containsString:[keywords lowercaseString]] || [[model.authName lowercaseString] containsString:[keywords lowercaseString]]){
-                [newDataArr addObject:model];//authName
-            }
-        }];
-    }
-   
-    return newDataArr;
-}
-
-//MARK:根据keywords and type获取Article列表
-+(NSArray *)getArticleListByKeywords:(NSString *)keywords type:(NSString *)type
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    NSMutableArray *newDataArr = [NSMutableArray array];
-    if (![self isBlankString:keywords]) {
-        [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if([[model.title lowercaseString] containsString:[keywords lowercaseString]] || [[model.content lowercaseString] containsString:[keywords lowercaseString]] || [[model.type lowercaseString] containsString:[keywords lowercaseString]] || [[model.categoryName lowercaseString] containsString:[keywords lowercaseString]] || [[model.authName lowercaseString] containsString:[keywords lowercaseString]]){
-                if (![self isBlankString:type] ){
-                    if ([[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
-                        [newDataArr addObject:model];
-                    }
-                }else{
-                    [newDataArr addObject:model];
-                }
-                
-            }
-        }];
-    }
-    
-    return newDataArr;
-}
-
-//MARK:获取bookmark列表
-+(NSArray *)getBookmarksList
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    NSMutableArray *bookmarkDataArr = [NSMutableArray array];
-    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if (model.isBookmark) {
-            [bookmarkDataArr addObject:model];
-        }
-    }];
-    return bookmarkDataArr;
-}
-
-//MARK:根据Bookmarks跟type获取Article列表
-+(NSArray *)getBookmarksListByCategory:(NSString *)category type:(NSString *)type
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    NSMutableArray *newDataArr = [NSMutableArray array];
-    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if (model.isBookmark) {
-            if(![self isBlankString:category] && ![self isBlankString:type]){
-                if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
-                    [newDataArr addObject:model];
-                }
-            }else if (![self isBlankString:category] && [self isBlankString:type] ){
-                if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]]) {
-                    [newDataArr addObject:model];
-                }
-            }else if ([self isBlankString:category] && ![self isBlankString:type] ){
-                if ([[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
-                    [newDataArr addObject:model];
-                }
-            }else{
-                [newDataArr addObject:model];
-            }
-        }
-        
-    }];
-    
-    return newDataArr;
-}
-
-//MARK:获取download列表
-+(NSArray *)getDownloadList
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    NSMutableArray *downloadDataArr = [NSMutableArray array];
-    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if (model.isDownload) {
-            [downloadDataArr addObject:model];
-        }
-    }];
-    return downloadDataArr;
-}
-
-//MARK:根据DownloadList跟type获取Article列表
-+(NSArray *)getDownloadListByCategory:(NSString *)category type:(NSString *)type
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    NSMutableArray *newDataArr = [NSMutableArray array];
-    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        if (model.isDownload) {
-            if(![self isBlankString:category] && ![self isBlankString:type]){
-                if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]] && [[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
-                    [newDataArr addObject:model];
-                }
-            }else if (![self isBlankString:category] && [self isBlankString:type] ){
-                if ([[model.categoryName lowercaseString] isEqualToString:[category lowercaseString]]) {
-                    [newDataArr addObject:model];
-                }
-            }else if ([self isBlankString:category] && ![self isBlankString:type] ){
-                if ([[model.type lowercaseString] isEqualToString:[type lowercaseString]]) {
-                    [newDataArr addObject:model];
-                }
-            }else{
-                [newDataArr addObject:model];
-            }
-        }
-        
-    }];
-    
-    return newDataArr;
-}
-
-//MARK:检测是否bookmark
-+(BOOL)checkIsBookmarkByArticle:(NSInteger)articleid
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    NSIndexSet *indexSet = [arr indexesOfObjectsWithOptions:NSEnumerationReverse passingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
-        Article *model = obj;
-        if (model.id==articleid && model.isBookmark)
-        {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-    
-    if (indexSet.count) {
-        //存在该记录 更新
-        return YES;
-    }else{
-        //不存在该记录 添加
-        return NO;
-    }
-}
-
-//MARK:检测是否添加到下载
-+(BOOL)checkIsDownloadByArticle:(NSInteger)articleid
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    NSIndexSet *indexSet = [arr indexesOfObjectsWithOptions:NSEnumerationReverse passingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
-        Article *model = obj;
-        if (model.id==articleid && model.isDownload)
-        {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-    
-    if (indexSet.count) {
-        //存在该记录 更新
-        return YES;
-    }else{
-        //不存在该记录 添加
-        return NO;
-    }
-}
-
-//MARK:根据id获取文章实体
-+(Article *)getArticleById:(NSInteger)articleid
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    Article *articlemodel;
-    NSIndexSet *indexSet = [arr indexesOfObjectsWithOptions:NSEnumerationReverse passingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop){
-        Article *model = obj;
-        if (model.id==articleid)
-        {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-    
-    if (indexSet.count) {
-        //存在该记录
-        articlemodel=[arr objectAtIndex:indexSet.firstIndex];
-    }
-    return articlemodel;
-}
-
-//MARK:添加bookmark
-+(BOOL)addBookmarks:(NSInteger)articleid
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (model.id==articleid) {
-            model.isBookmark=YES;
-        }
-    }];
-    return [self saveArticleArr:arr];
-}
-
-//MARK:删除bookmark
-+(BOOL)deleteBookmarks:(NSInteger)articleid
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (model.id==articleid) {
-            model.isBookmark=NO;
-        }
-    }];
-    return [self saveArticleArr:arr];
-}
-
-//MARK:添加download
-+(BOOL)addDownload:(NSInteger)articleid
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (model.id==articleid) {
-            model.isDownload=YES;
-        }
-    }];
-    return [self saveArticleArr:arr];
-    
-}
-
-//MARK:删除download
-+(BOOL)deleteDownload:(NSInteger)articleid
-{
-    NSString *fileNameWithPath = [self getFilePath:CMSARTICLELIST];
-    NSArray *arr=[NSKeyedUnarchiver unarchiveObjectWithFile:fileNameWithPath];
-    [arr enumerateObjectsUsingBlock:^(Article* model, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (model.id==articleid) {
-            model.isDownload=NO;
-        }
-    }];
-    return [self saveArticleArr:arr];
 }
 
 //MARK:查询杂志列表集合
@@ -2134,6 +1829,241 @@
         }
     }];
     
+}
+
+
+#pragma mark --------------------------------------------Careers API
+//MARK:2.2.    查询所有职位列表
++ (void)queryAllJobs:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    NSInteger limit=20;//分页数默认20条
+    if (skip<=0) {
+        skip=0;
+    }
+    //    email=getLastAccount();
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    if (sort) {
+        [paradic setObject:sort forKey:@"sort"];
+    }
+    if (categroy) {
+        [paradic setObject:categroy forKey:@"categroy"];
+    }
+    if (salary) {
+        [paradic setObject:salary forKey:@"salary"];
+    }
+    if (experience) {
+        [paradic setObject:experience forKey:@"experience"];
+    }
+    if (location) {
+        [paradic setObject:location forKey:@"location"];
+    }
+    if (distance) {
+        [paradic setObject:distance forKey:@"distance"];
+    }
+    if (jobTitle) {
+        [paradic setObject:jobTitle forKey:@"jobTitle"];
+    }
+    if (company) {
+        [paradic setObject:company forKey:@"company"];
+    }
+    
+    [self postAsync3:@"job/findAll" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"data"];
+            NSInteger totalFound=[r.resultMap[@"totalFound"] integerValue];
+            for (NSDictionary *d in arr) {
+                JobModel *item = [[JobModel alloc] initWithJson:jsonBuild(d)];
+                if (item) {
+                    [resultArray addObject:item];
+                }
+            }
+            if (completed) {
+                completed(resultArray,totalFound);
+            }
+        }else{
+            if (completed) {
+                completed(nil,0);
+            }
+        }
+    }];
+}
+
+//MARK:2.2.    查询所有职位列表
++ (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    return [self queryAllJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
+}
+
+//MARK:2.7.   查询已申请职位列表
++ (void)queryAllApplicationJobs:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    NSInteger limit=20;//分页数默认20条
+    if (skip<=0) {
+        skip=0;
+    }
+    NSString *email=getLastAccount();
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    if (email) {
+        [paradic setObject:email forKey:@"email"];
+    }
+    if (sort) {
+        [paradic setObject:sort forKey:@"sort"];
+    }
+    if (categroy) {
+        [paradic setObject:categroy forKey:@"categroy"];
+    }
+    if (salary) {
+        [paradic setObject:salary forKey:@"salary"];
+    }
+    if (experience) {
+        [paradic setObject:experience forKey:@"experience"];
+    }
+    if (location) {
+        [paradic setObject:location forKey:@"location"];
+    }
+    if (distance) {
+        [paradic setObject:distance forKey:@"distance"];
+    }
+    if (jobTitle) {
+        [paradic setObject:jobTitle forKey:@"jobTitle"];
+    }
+    if (company) {
+        [paradic setObject:company forKey:@"company"];
+    }
+    
+    [self postAsync3:@"application/findAll" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"data"];
+            NSInteger totalFound=[r.resultMap[@"totalFound"] integerValue];
+            for (NSDictionary *d in arr) {
+                JobModel *item = [[JobModel alloc] initWithJson:jsonBuild(d)];
+                if (item) {
+                    [resultArray addObject:item];
+                }
+            }
+            if (completed) {
+                completed(resultArray,totalFound);
+            }
+        }else{
+            if (completed) {
+                completed(nil,0);
+            }
+        }
+    }];
+}
+
+//MARK:2.7.    查询所有职位列表
++ (void)queryAllApplicationJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    return [self queryAllApplicationJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
+}
+
+//MARK:2.6.   添加职位申请接口
++(void)addJobApplication:(NSString *)jobId completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (jobId) {
+        [paradic setObject:jobId forKey:@"jobId"];
+    }
+    [self postAsync3:@"application/save" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r);
+        }
+    }];
+}
+
+//MARK:2.8.  添加职位关注接口
++(void)addJobBookmark:(NSString *)jobId completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (jobId) {
+        [paradic setObject:jobId forKey:@"jobId"];
+    }
+    [self postAsync3:@"bookmark/save" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r);
+        }
+    }];
+}
+
+//MARK:2.9.  删除职位关注接口
++(void)deleteJobBookmark:(NSString *)jobId completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (jobId) {
+        [paradic setObject:jobId forKey:@"id"];
+    }
+    [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r);
+        }
+    }];
+}
+
+//MARK:2.10.   查询已关注职位列表
++ (void)queryJobBookmarks:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array))completed {
+    NSInteger limit=20;//分页数默认20条
+    if (skip<=0) {
+        skip=0;
+    }
+    NSString *email=getLastAccount();
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    if (email) {
+        [paradic setObject:email forKey:@"email"];
+    }
+    if (sort) {
+        [paradic setObject:sort forKey:@"sort"];
+    }
+    if (categroy) {
+        [paradic setObject:categroy forKey:@"categroy"];
+    }
+    if (salary) {
+        [paradic setObject:salary forKey:@"salary"];
+    }
+    if (experience) {
+        [paradic setObject:experience forKey:@"experience"];
+    }
+    if (location) {
+        [paradic setObject:location forKey:@"location"];
+    }
+    if (distance) {
+        [paradic setObject:distance forKey:@"distance"];
+    }
+    if (jobTitle) {
+        [paradic setObject:jobTitle forKey:@"jobTitle"];
+    }
+    if (company) {
+        [paradic setObject:company forKey:@"company"];
+    }
+    
+    [self postAsync3:@"bookmark/findAllByUserId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"bookmarkList"];
+            for (NSDictionary *d in arr) {
+                JobBookmarkModel *item = [[JobBookmarkModel alloc] initWithJson:jsonBuild(d)];
+                if (item) {
+                    [resultArray addObject:item];
+                }
+            }
+            if (completed) {
+                completed(resultArray);
+            }
+        }else{
+            if (completed) {
+                completed(nil);
+            }
+        }
+    }];
+}
+
+//MARK:2.10.   查询已关注职位列表
++ (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array))completed {
+    return [self queryJobBookmarks:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
 }
 
 @end

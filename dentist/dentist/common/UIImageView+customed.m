@@ -7,6 +7,7 @@
 #import "UIImageView+customed.h"
 #import "TapGesture.h"
 #import "Platform.h"
+#import "NSString+myextend.h"
 
 
 @implementation UIImageView (customed)
@@ -83,11 +84,27 @@
 }
 
 - (void)loadUrl:(NSString *)url placeholderImage:(NSString *)localImage {
-	if (url != nil && ![url isKindOfClass:NSNull.class]) {
-		[self sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:localImage]];
+	if (url != nil && ![url isKindOfClass:NSNull.class] && [url isKindOfClass:[NSString class]]) {
+        [self sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:localImage]];
 	} else {
 		self.imageName = localImage;
 	}
+}
+
+-(void)loadUrl:(NSString *)url placeholderImage:(NSString *)localImage completed:(nullable SDExternalCompletionBlock)completedBlock
+{
+    if (url != nil && ![url isKindOfClass:NSNull.class] && [url isKindOfClass:[NSString class]]) {
+        [self sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:localImage] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (completedBlock) {
+                completedBlock(image,error,cacheType,imageURL);
+            }
+        }];
+    } else {
+        self.imageName = localImage;
+        if (completedBlock) {
+            completedBlock(nil,nil,SDImageCacheTypeNone,nil);
+        }
+    }
 }
 
 

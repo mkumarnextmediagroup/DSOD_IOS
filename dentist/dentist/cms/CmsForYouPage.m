@@ -67,6 +67,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.table reloadData];
 //    self.items = [Proto getArticleListByCategory:category type:type];
 }
 
@@ -482,10 +483,10 @@
         //删除
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"Remove from bookmarks……" ishowActivity:YES];
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-        [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(BOOL result) {
+        [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(HttpResult *result) {
             foreTask(^() {
                 [self.navigationController.view hideToast];
-                if (result) {
+                if (result.OK) {
                     //
                     model.isBookmark=NO;
                     if (![NSString isBlankString:model.sponsorId]) {
@@ -495,6 +496,16 @@
                         ArticleItemView *itemView = (ArticleItemView *) view;
                         [itemView updateBookmarkStatus:NO];
                     }
+                }else{
+                    NSString *message=result.msg;
+                    if([NSString isBlankString:message]){
+                        message=@"Failed";
+                    }
+                    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                    [window makeToast:message
+                             duration:1.0
+                             position:CSToastPositionBottom];
+                    [self.navigationController popViewControllerAnimated:YES];
                 }
             });
         }];
@@ -502,10 +513,10 @@
         //添加
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"Saving to bookmarks…" ishowActivity:YES];
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-        [Proto addBookmark:getLastAccount() cmsmodel:model completed:^(BOOL result) {
+        [Proto addBookmark:getLastAccount() cmsmodel:model completed:^(HttpResult *result) {
             foreTask(^() {
                 [self.navigationController.view hideToast];
-                if (result) {
+                if (result.OK) {
                     //
                     model.isBookmark=YES;
                     if (![NSString isBlankString:model.sponsorId]) {
@@ -515,6 +526,28 @@
                         ArticleItemView *itemView = (ArticleItemView *) view;
                         [itemView updateBookmarkStatus:YES];
                     }
+                }else{
+                    if(result.code==2033){
+                        model.isBookmark=YES;
+                        if (![NSString isBlankString:model.sponsorId]) {
+                            ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+                            [itemView updateBookmarkStatus:YES];
+                        }else{
+                            ArticleItemView *itemView = (ArticleItemView *) view;
+                            [itemView updateBookmarkStatus:YES];
+                        }
+                    }else{
+                        NSString *message=result.msg;
+                        if([NSString isBlankString:message]){
+                            message=@"Failed";
+                        }
+                        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                        [window makeToast:message
+                                 duration:1.0
+                                 position:CSToastPositionBottom];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                    
                 }
 
             });

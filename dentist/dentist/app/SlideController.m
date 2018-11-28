@@ -16,7 +16,11 @@
 #import "Proto.h"
 #import "SlideItem.h"
 #import "EducationPage.h"
-#import "CareerPage.h"
+#import "CareerExplorePage.h"
+#import "CareerFindJobViewController.h"
+#import "CareerMyJobViewController.h"
+#import "CareerAlertsViewController.h"
+#import "CareerMoreViewController.h"
 #import "EventsPage.h"
 #import "UnitePage.h"
 #import "CmsBookmarkController.h"
@@ -105,7 +109,33 @@
 		return [EducationPage new];
 	}
 	if ([@"Careers" isEqualToString:title]) {
-		return [CareerPage new];
+        CareerExplorePage *explorePage = [CareerExplorePage new];
+        UINavigationController *ncExplore = NavPage(explorePage);
+        [ncExplore tabItem:@"Explore" imageName:@"explore"];
+        explorePage.navigationItem.leftBarButtonItem = [self menuButton];
+        
+        CareerFindJobViewController *findJob = [CareerFindJobViewController new];
+        UINavigationController *ncFindJob = NavPage(findJob);
+        [ncFindJob tabItem:@"Find Job" imageName:@"findJob"];
+        findJob.navigationItem.leftBarButtonItem = [self menuButton];
+        
+        CareerMyJobViewController *myJob = [CareerMyJobViewController new];
+        UINavigationController *ncMyJob = NavPage(myJob);
+        [ncMyJob tabItem:@"My Jobs" imageName:@"myJobs"];
+        myJob.navigationItem.leftBarButtonItem = [self menuButton];
+        
+        CareerAlertsViewController *alert = [CareerAlertsViewController new];
+        UINavigationController *ncAlert = NavPage(alert);
+        [ncAlert tabItem:@"Alerts" imageName:@"alert"];
+        alert.navigationItem.leftBarButtonItem = [self menuButton];
+        
+        CareerMoreViewController *more = [CareerMoreViewController new];
+        UINavigationController *ncMore = NavPage(more);
+        [ncMore tabItem:@"More" imageName:@"more"];
+        more.navigationItem.leftBarButtonItem = [self menuButton];
+        
+        return TabPage(@[ncExplore, ncFindJob, ncMyJob, ncAlert, ncMore]);
+
 	}
 	if ([@"Events" isEqualToString:title]) {
 		return [EventsPage new];
@@ -200,10 +230,12 @@
 	UIViewController *c = [self onMakePage:title];
     if ([@"Browse Content" isEqualToString:title]){
         [self openCenterPage:c hasNav:NO];
-    }else{
+    }else if ([@"Careers" isEqualToString:title]){
+        [self openCenterPage:c hasNav:NO];
+    }else
+    {
         [self openCenterPage:c hasNav:YES];
     }
-	
 }
 
 - (void)selectButton:(UIButton *)b {

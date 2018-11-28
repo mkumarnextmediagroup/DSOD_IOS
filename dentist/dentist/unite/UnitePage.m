@@ -32,6 +32,26 @@
 
 @implementation UnitePage
 
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (onlyDownloadedUinte) {
+        UINavigationItem *item = [self navigationItem];
+        item.title = @"DOWNLOADED";
+        [[DentistDataBaseManager shareManager] queryUniteDownloadedList:^(NSArray<MagazineModel *> * _Nonnull array) {
+            foreTask(^{
+                self->datas=[NSArray arrayWithArray:array];
+                [self->mTableView reloadData];
+                //             [self->mTableView setContentOffset:CGPointMake(0, 0) animated:NO];
+                if (self->datas.count>0) {
+                    [self->mTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                }
+            });
+        }];
+    }
+}
+
 - (void)addNotification
 {
     // 状态改变通知
@@ -135,7 +155,7 @@
 
 -(void)setupNavigation{
     UINavigationItem *item = [self navigationItem];
-    item.title = @"All ISSUES";
+    item.title = @"ALL ISSUES";
     
     
     iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -203,6 +223,7 @@
 -(void)firstRefresh{
      [self getDatas:NO];
      [refreshControl endRefreshing];
+    
 }
 
 
@@ -234,20 +255,18 @@
         }else{
             datas = newDatas;
         }
-        //TODO False data
-        if(datas.count>0){
-        ((MagazineModel*)datas[0]).cover = @"http://pic41.photophoto.cn/20161202/1155116460723923_b.jpg";
-//        ((MagazineModel*)datas[1]).cover = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542037826&di=64e2e24bf769d5c2b71d7372a0515d7d&imgtype=jpg&er=1&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dshijue1%252C0%252C0%252C294%252C40%2Fsign%3Dec50dee888025aafc73f76889384c111%2Fa50f4bfbfbedab643e0cd5e8fd36afc379311e9f.jpg";
-        }
         
         [mTableView reloadData];
+        if (datas.count>0) {
+            [self->mTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
     }
 }
 
 -(void)gotoThumView:(NSInteger)row
 {
-    if (self->datas.count>=1) {
-        MagazineModel *model=(MagazineModel *)self->datas[0];
+    if (self->datas.count>row) {
+        MagazineModel *model=(MagazineModel *)self->datas[row];
         ThumViewController *thumvc=[ThumViewController new];
         thumvc.magazineModel = model;
         thumvc.uniteid=model._id;
@@ -314,6 +333,10 @@
         foreTask(^{
             self->datas=[NSArray arrayWithArray:array];
             [self->mTableView reloadData];
+//             [self->mTableView setContentOffset:CGPointMake(0, 0) animated:NO];
+            if (self->datas.count>0) {
+                [self->mTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            }
         });
     }];
      

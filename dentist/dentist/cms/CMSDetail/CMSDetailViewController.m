@@ -326,27 +326,26 @@
         //删除
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"Remove from bookmarks……" ishowActivity:YES];
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-        [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:_articleInfo.id completed:^(BOOL result) {
+        [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:_articleInfo.id completed:^(HttpResult *result) {
             foreTask(^() {
                 [self.navigationController.view hideToast];
-                NSString *msg=@"";
-                if (result) {
+                if (result.OK) {
                     //
                     self.articleInfo.isBookmark=NO;
                     [self->playView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
                     [self->picDetailView.markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
                     [self->markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-                    msg=@"Bookmarks is Delete";
                 }else{
-                    msg=@"error";
+                    NSString *message=result.msg;
+                    if([NSString isBlankString:message]){
+                        message=@"Failed";
+                    }
+                    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                    [window makeToast:message
+                             duration:1.0
+                             position:CSToastPositionBottom];
+                    [self.navigationController popViewControllerAnimated:YES];
                 }
-//                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
-//
-//                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//                    NSLog(@"点击取消");
-//                }]];
-//                [self presentViewController:alertController animated:YES completion:nil];
             });
         }];
     }else{
@@ -362,27 +361,35 @@
         newmodel.featuredMedia=_articleInfo.featuredMedia;
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"Saving to bookmarks…" ishowActivity:YES];
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-        [Proto addBookmark:getLastAccount() cmsmodel:newmodel completed:^(BOOL result) {
+        [Proto addBookmark:getLastAccount() cmsmodel:newmodel completed:^(HttpResult *result) {
             foreTask(^() {
                 [self.navigationController.view hideToast];
-                NSString *msg=@"";
-                if (result) {
+                
+                if (result.OK) {
                     //
                     self.articleInfo.isBookmark=YES;
                     [self->playView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
                     [self->picDetailView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
                     [self->markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
-                    msg=@"Bookmarks is Add";
                 }else{
-                    msg=@"error";
+                    if(result.code==2033){
+                        self.articleInfo.isBookmark=YES;
+                        [self->playView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+                        [self->picDetailView.markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+                        [self->markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
+                    }else{
+                        NSString *message=result.msg;
+                        if([NSString isBlankString:message]){
+                            message=@"Failed";
+                        }
+                        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                        [window makeToast:message
+                                 duration:1.0
+                                 position:CSToastPositionBottom];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                    
                 }
-//                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
-//
-//                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//                    NSLog(@"点击取消");
-//                }]];
-//                [self presentViewController:alertController animated:YES completion:nil];
             });
         }];
     }
@@ -703,6 +710,12 @@
     }
 }
 
+- (void)dealloc
+{
+    if(picDetailView){
+        [picDetailView timerInvalidate];
+    }
+}
 /*
 #pragma mark - Navigation
 

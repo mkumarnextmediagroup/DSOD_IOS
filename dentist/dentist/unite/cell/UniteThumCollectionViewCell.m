@@ -10,6 +10,7 @@
 #import "Common.h"
 #import "NSString+myextend.h"
 #import "MagazineModel.h"
+#import "Proto.h"
 
 @interface UniteThumCollectionViewCell()<UIScrollViewDelegate,UIWebViewDelegate>{
     
@@ -18,19 +19,28 @@
     
     
     UIImageView *imageView;
+    UIView *swipeView;
+    UIView *titleView;
+    UILabel *titleLabel;
+    UILabel *authorLabel;
+    UILabel *subTitleLabel;
     UIWebView *mywebView;
     
-    UIView *swipeView;
     
-    id detailModel;
-    
-    CGFloat lastContentOffset;
     
     
     int edge;
     int imageViewHeight;
     int imageViewCoverHeight;
+    
+    DetailModel *detailModel;
+    CGFloat lastContentOffset;
+    
+    NSTimer *calcWebViewHeightTimer;
+    int calcWebViewHeightTimes;
+    
 }
+
 
 @end
 @implementation UniteThumCollectionViewCell
@@ -39,9 +49,9 @@
     self=[super initWithFrame:frame];
     if (self) {
         edge = 18;
-        if(IS_IPHONE_P_X){
-            edge=24;
-        }
+//        if(IS_IPHONE_P_X){
+//            edge=24;
+//        }
         
         imageViewHeight = SCREENWIDTH * 2 /3;
         imageViewCoverHeight = SCREENHEIGHT * 3 / 4;
@@ -50,6 +60,7 @@
         
         _scrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         _scrollView.delegate=self;
+        _scrollView.alwaysBounceVertical = YES;
         [self addSubview:_scrollView];
         [_scrollView setContentOffset:CGPointMake(0, 0)];
         _scrollView.contentInset = UIEdgeInsetsMake(NAVHEIGHT, 0.0f, 0.0f, 0.0f);
@@ -62,12 +73,12 @@
         contentView = _scrollView.addView;
         [contentView layoutFill];
         [[contentView.layoutUpdate widthEq:frame.size.width] install];
-
-
-        [self buildView];
-        [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(lastView) install];
         
 
+        [self buildView];
+        
+        
+        [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(lastView) install];
     }
     return self;
 }
@@ -81,71 +92,119 @@
     
     [self buildSwipeView];
     
+    [self buildTitleView];
+    
     
     mywebView = [UIWebView new];
     mywebView.delegate = self;
     mywebView.scrollView.scrollEnabled = NO;
     mywebView.userInteractionEnabled = NO;
     mywebView.backgroundColor=[UIColor clearColor];
-    [self addSubview:mywebView];
-    [[[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] below:imageView offset:10] heightEq:1] install];
-    
-    
-    
-    
+    [contentView addSubview:mywebView];
+    [[[[[mywebView.layoutMaker leftParent:0] rightParent:0] below:titleView offset:0] heightEq:1] install];
     
     lastView = mywebView;
+    
+}
+
+-(void)buildTitleView{
+    
+    titleView = contentView.addView;
+    [[[[titleView.layoutMaker below:imageView offset:0] leftParent:edge]rightParent:-edge] install];
+    
+    titleLabel = [titleView addLabel];
+    titleLabel.font = [Fonts semiBold:16];
+    titleLabel.textColor = rgbHex(0x0e78b9);
+    titleLabel.numberOfLines = 0;
+    [[[[titleLabel.layoutMaker leftParent:0] rightParent:0] topParent:10] install];
+
+    subTitleLabel = [titleView addLabel];
+    subTitleLabel.font = [Fonts semiBold:20];
+    subTitleLabel.textColor = UIColor.blackColor;
+    subTitleLabel.numberOfLines = 0;
+    [[[[subTitleLabel.layoutMaker leftParent:0] rightParent:0] below:titleLabel offset:0] install];
+    
+    authorLabel = [titleView addLabel];
+    authorLabel.font = [Fonts semiBold:14];
+    authorLabel.textColor = rgbHex(0x9b9b9b);
+    authorLabel.numberOfLines = 0;
+    [[[[[authorLabel.layoutMaker leftParent:0] rightParent:0] below:subTitleLabel offset:0] bottomParent:0] install];
+    
 }
 
 -(void)buildSwipeView{
-    swipeView  = self.addView;
-    [[[[swipeView.layoutMaker below:imageView offset:20] centerXParent:0] heightEq:50] install];
+    swipeView  = contentView.addView;
+    [[[[[swipeView.layoutMaker below:imageView offset:0] heightEq:80] leftParent:0]rightParent:0]  install];
     swipeView.hidden = YES;
     
-    UILabel *leftLabel = swipeView.addLabel;
-    leftLabel.textColor = UIColor.whiteColor;
-    leftLabel.font = [Fonts semiBold:30];
-    leftLabel.text = @"<";
+    UIImageView *swipeImageView = swipeView.addImageView;
+    swipeImageView.image = [UIImage imageNamed:@"Swipe"];
+    [[[swipeImageView.layoutMaker sizeEq:250 h:25]centerParent]install];
     
-    UILabel *swipeLabel = swipeView.addLabel;
-    swipeLabel.textColor = UIColor.whiteColor;
-    swipeLabel.font = [Fonts semiBold:20];
-    swipeLabel.text = @"Swipe between articles";
     
-    UILabel *rightLabel = swipeView.addLabel;
-    rightLabel.textColor = UIColor.whiteColor;
-    rightLabel.font = [Fonts semiBold:30];
-    rightLabel.text = @">";
-    
-    [[swipeLabel.layoutMaker centerParent] install];
-    [[[leftLabel.layoutMaker toLeftOf:swipeLabel offset:-10 ] centerYParent:0] install];
-    [[[rightLabel.layoutMaker toRightOf:swipeLabel offset:10] centerYParent:0] install];
 }
 
 
 -(void)bind:(id)model{
-    detailModel = model;
+   
+    if(calcWebViewHeightTimer){
+        [calcWebViewHeightTimer invalidate];
+        calcWebViewHeightTimer = nil;
+        calcWebViewHeightTimes = 0;
+    }
     
-    swipeView.hidden = YES;
-    [[mywebView.layoutUpdate heightEq:0] install];
     
-    if([detailModel isKindOfClass:[MagazineModel class]]){
-        [self showCover:(MagazineModel*)detailModel];
+    if ([model isKindOfClass:[DetailModel class]]) {
+        detailModel = (DetailModel *)model;
+    
+        swipeView.hidden = YES;
+        [[titleView.layoutUpdate heightEq:0]install];
+        [[mywebView.layoutUpdate heightEq:0] install];
         
-    }else if([detailModel isKindOfClass:[DetailModel class]]){
-        [self showActicle:(DetailModel *)model];
+        if([detailModel.uniteArticleType isEqualToString:@"1"]){
+            [self showCover:detailModel.magazineModel];
+        }else if([detailModel.uniteArticleType isEqualToString:@"2"]){
+            [self showIntroduction:detailModel];
+        }else if([detailModel.uniteArticleType isEqualToString:@"3"]){
+            [self showAD:detailModel.magazineModel];
+        }else{
+            [self showActicle:detailModel];
+        }
     }
 }
+
+-(void)showAD:(MagazineModel*)model{
+    self.backgroundColor = UIColor.whiteColor;
     
+    NSString* cover = model.cover;
+    [imageView loadUrl:[Proto getFileUrlByObjectId:cover] placeholderImage:@""];
+    [[imageView.layoutUpdate heightEq:imageViewCoverHeight ]install];
+    
+}
+   
 -(void)showCover:(MagazineModel*)model{
     self.backgroundColor = UIColor.blackColor;
 
     NSString* cover = model.cover;
-    [imageView loadUrl:cover placeholderImage:@""];
+    [imageView loadUrl:[Proto getFileUrlByObjectId:cover] placeholderImage:@""];
     [[imageView.layoutUpdate heightEq:imageViewCoverHeight ]install];
 
     swipeView.hidden = NO;
 }
+
+-(void)showIntroduction:(DetailModel*)model{
+    self.backgroundColor = UIColor.whiteColor;
+    
+    [[mywebView.layoutUpdate heightEq:1] install];
+    [mywebView loadHTMLString:[NSString webHtmlString:model.content] baseURL:nil];
+    
+    [[imageView.layoutUpdate heightEq:0 ]install];
+    
+    calcWebViewHeightTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calcWebViewHeight:) userInfo:nil repeats:YES];
+    
+//    NSLog(@"html-%@",model.content);
+}
+
 
 -(void)showActicle:(DetailModel*)model{
     self.backgroundColor = UIColor.whiteColor;
@@ -155,13 +214,50 @@
         //pic
         NSDictionary *codeDic = model.featuredMedia[@"code"];
         NSString *urlstr = codeDic[@"thumbnailUrl"];
-        [imageView loadUrl:urlstr placeholderImage:@""];
+        [imageView loadUrl:urlstr placeholderImage:@"" completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (image) {
+                [[self->imageView.layoutUpdate heightEq:self->imageViewHeight ]install];
+            }else{
+                [[self->imageView.layoutUpdate heightEq:0 ]install];
+            }
+        }];
     }
+
+
+    [titleView layoutRemoveAllConstraints];
+    [[[[titleView.layoutMaker below:imageView offset:0] leftParent:edge]rightParent:-edge] install];
+    
+    titleLabel.text = model.title;
+    subTitleLabel.text = model.subTitle;
+    authorLabel.text = [NSString stringWithFormat:@"By %@ %@",model.author.firstName,model.author.lastName];
     
     
+    [[mywebView.layoutUpdate heightEq:1] install];
     [mywebView loadHTMLString:[NSString webHtmlString:model.content] baseURL:nil];
     
-    [[imageView.layoutUpdate heightEq:imageViewHeight ]install];
+    
+    calcWebViewHeightTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(calcWebViewHeight:) userInfo:nil repeats:YES];
+//     NSLog(@"html-%@",model.content);
+}
+
+
+- (void)calcWebViewHeight:(NSTimer*)timer {
+    //获取到webview的高度
+    CGFloat webViewHeight1 = [[mywebView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
+    CGFloat webViewHeight2 = [[mywebView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
+    CGFloat webViewHeight3 = [[mywebView stringByEvaluatingJavaScriptFromString:@"document.body.clientHeight"] floatValue];
+    
+//    NSLog(@"webViewHeight1 == %f",webViewHeight1);
+//    NSLog(@"webViewHeight2 == %f",webViewHeight2);
+//    NSLog(@"webViewHeight3 == %f",webViewHeight3);
+    
+    [[mywebView.layoutUpdate heightEq:webViewHeight1]install];
+    if(calcWebViewHeightTimes<100){
+        calcWebViewHeightTimes++;
+    }else{
+        [calcWebViewHeightTimer invalidate];
+        calcWebViewHeightTimer = nil;
+    }
 }
 
 
@@ -175,7 +271,16 @@
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
     
     CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
-    [[mywebView.layoutUpdate heightEq:webViewHeight] install];
+    
+//    [[webView.layoutUpdate heightEq:webViewHeight]install];
+    
+    NSLog(@"---------webViewHeight----%f",webViewHeight );
+    NSLog(@"---------webViewDidFinishLoad-%@-%f",self,webViewHeight );
+    
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    NSLog(@"---------didFailLoadWithError--%@---%@",self,error);
     
 }
 
@@ -207,4 +312,10 @@
     
 }
 
+- (void)dealloc{
+    if(calcWebViewHeightTimer && [calcWebViewHeightTimer isValid]){
+        [calcWebViewHeightTimer invalidate];
+        calcWebViewHeightTimer = nil;
+    }
+}
 @end

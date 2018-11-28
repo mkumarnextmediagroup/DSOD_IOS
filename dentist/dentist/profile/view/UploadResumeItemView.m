@@ -17,9 +17,9 @@
 
 
 @interface UploadResumeItemView ()<MyActionSheetDelegate,UIDocumentPickerDelegate,HttpProgress>
-{
-    
-}
+
+@property (nonatomic,assign) UIViewController *vc;
+
 @end
 
 @implementation UploadResumeItemView{
@@ -31,22 +31,14 @@
     
     NSString *filePath;//new upload filepath
     NSURL *fileURL;//new upload fileURL or new download fileUrl
+    NSString *uploadedResumeName;//new upload server return resumeNmae
     
     NSString *lastResumeUrl;//server return last resume url
     NSString *lastResumeFileName;//server return last resume file name
     
 }
 
-
-- (NSString*)uploadedResumeName{
-    if(_uploadedResumeName){
-        return _uploadedResumeName;
-    }else{
-        return @"";
-    }
-}
-
-- (instancetype)init {
+-(instancetype)initWithViewController:(UIViewController*)vc{
     self = [super init];
     
     Padding *p = self.padding;
@@ -55,15 +47,25 @@
     p.top = 16;
     p.bottom = 16;
     self.layoutParam.height = 78;
- 
-    [self showNoResumeMode];
     
+    self.vc = vc;
+    [self showNoResumeMode];
     return self;
+}
+
+- (NSString*)getUploadedResumeName{
+    return uploadedResumeName?uploadedResumeName:@"";
+}
+
+- (NSDictionary*)resumeDataDic{
+    return @{@"filePath":filePath?filePath:@"",
+             @"fileURL":fileURL?fileURL:@"",
+             @"uploadedResumeName":uploadedResumeName?uploadedResumeName:@""};
 }
 
 
 - (void)showNoResumeMode{
-    NSLog(@"%@",NSHomeDirectory());
+//    NSLog(@"%@",NSHomeDirectory());
     
     [self removeAllChildren];
     
@@ -240,10 +242,17 @@
 }
 
 
--(void)showWithLastResumeUrl:(NSString*)resumeUrl fileName:(NSString*)resumeName{
+-(void)showWithLastResumeUrl:(NSString*)resumeUrl fileName:(NSString*)resumeName resumeDic:(NSDictionary*)dic{
     lastResumeUrl = resumeUrl;
     lastResumeFileName = resumeName;
-    if(self->fileURL && self->filePath && self.uploadedResumeName){
+    
+    if(dic && ![NSString isBlankString:dic[@"filePath"]]
+       && ![NSString isBlankString:dic[@"fileURL"]]
+       && ![NSString isBlankString:dic[@"uploadedResumeName"]]){
+        self->filePath = dic[@"filePath"];
+        self->fileURL = dic[@"fileURL"];
+        self->uploadedResumeName = dic[@"uploadedResumeName"];
+        
         [self showPreviewResumeMode];
     }else if(lastResumeUrl && lastResumeFileName){
         [self showLastResumeMode];
@@ -261,9 +270,9 @@
 -(void)delResumeAction{
     fileURL = nil;
     filePath = nil;
-    self.uploadedResumeName = nil;
+    uploadedResumeName = nil;
     
-    [self showWithLastResumeUrl:lastResumeUrl fileName:lastResumeFileName];
+    [self showWithLastResumeUrl:lastResumeUrl fileName:lastResumeFileName resumeDic:nil];
 }
 
 -(void)viewResume{
@@ -351,7 +360,23 @@
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
     if(url){
         filePath = [self decoderUrlEncodeStr:url.path];
-        fileURL = url;
+//        fileURL = url;
+        
+        backTask(^{
+            NSString *fileName = strBuild(@"resume.", [[[self fileName:self->filePath] componentsSeparatedByString:@"."] lastObject]);
+            NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:fileName];
+
+            NSError *error = nil;
+            BOOL written = [[NSData dataWithContentsOfURL:url] writeToFile:path options:NSDataWritingAtomic error:&error];
+
+            if (written) {
+                NSString *encodeFilePath = [strBuild(@"file://",path) stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+                self->fileURL = [NSURL URLWithString:encodeFilePath];
+                NSLog(@"success! --- %@",self->fileURL);
+            }else{
+                NSLog(@"write failed: %@", [error localizedDescription]);
+            }
+        });
         
         [self showUploadResumeMode];
         backTask(^{
@@ -360,7 +385,7 @@
             foreTask(^{
                 id name = result.resultMap[@"resumeName"];
                 if (result.OK && name != nil && name != NSNull.null) {
-                    self.uploadedResumeName = name;
+                    self->uploadedResumeName = name;
                     [self showPreviewResumeMode];
                 }else{
                     [self.vc alertMsg:result.msg?result.msg:@"Upload resume fail" onOK:^{

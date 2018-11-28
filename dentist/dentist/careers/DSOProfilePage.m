@@ -9,6 +9,7 @@
 #import "DSOProfilePage.h"
 #import "Common.h"
 #import "DSOProfileTableViewCell.h"
+#import "DSODetailPage.h"
 
 @interface DSOProfilePage ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -61,6 +62,12 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
     
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DSODetailPage *detail = [DSODetailPage new];
+    [self.navigationController pushPage:detail];
 }
 
 - (void)onBack:(UIButton *)btn {

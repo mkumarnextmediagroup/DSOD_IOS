@@ -242,6 +242,7 @@
 		4E94AE3D21AE7E35009CAB7F /* career-profiles@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E94AE3521AE7E35009CAB7F /* career-profiles@3x.png */; };
 		4E94AE4421AE98E3009CAB7F /* searchWhite@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E94AE4221AE98E2009CAB7F /* searchWhite@3x.png */; };
 		4E94AE4521AE98E3009CAB7F /* searchWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E94AE4321AE98E2009CAB7F /* searchWhite@2x.png */; };
+		4E94AE4B21AEA25A009CAB7F /* DSODetailPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94AE4A21AEA25A009CAB7F /* DSODetailPage.m */; };
 		4EBBC579212FEF3F00396BF5 /* error_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC577212FEF3E00396BF5 /* error_red@2x.png */; };
 		4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBBC578212FEF3E00396BF5 /* error_red@3x.png */; };
 		4EBBC5832134EC2800396BF5 /* DenAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBBC5822134EC2800396BF5 /* DenAlertController.m */; };
@@ -1097,6 +1098,8 @@
 		4E94AE3521AE7E35009CAB7F /* career-profiles@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "career-profiles@3x.png"; sourceTree = "<group>"; };
 		4E94AE4221AE98E2009CAB7F /* searchWhite@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchWhite@3x.png"; sourceTree = "<group>"; };
 		4E94AE4321AE98E2009CAB7F /* searchWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchWhite@2x.png"; sourceTree = "<group>"; };
+		4E94AE4921AEA25A009CAB7F /* DSODetailPage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSODetailPage.h; sourceTree = "<group>"; };
+		4E94AE4A21AEA25A009CAB7F /* DSODetailPage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSODetailPage.m; sourceTree = "<group>"; };
 		4EBBC577212FEF3E00396BF5 /* error_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@2x.png"; sourceTree = "<group>"; };
 		4EBBC578212FEF3E00396BF5 /* error_red@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error_red@3x.png"; sourceTree = "<group>"; };
 		4EBBC5812134EC2800396BF5 /* DenAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DenAlertController.h; sourceTree = "<group>"; };
@@ -2985,6 +2988,8 @@
 				C5EEA976C989B35F77283F17 /* CareerExplorePage.m */,
 				4E94ADCD21AD3B32009CAB7F /* DSOProfilePage.h */,
 				4E94ADCE21AD3B32009CAB7F /* DSOProfilePage.m */,
+				4E94AE4921AEA25A009CAB7F /* DSODetailPage.h */,
+				4E94AE4A21AEA25A009CAB7F /* DSODetailPage.m */,
 				4E94ADC121ACE8CF009CAB7F /* CareerFindJobViewController.h */,
 				4E94ADC221ACE8CF009CAB7F /* CareerFindJobViewController.m */,
 				4E94ADC421ACE8EC009CAB7F /* CareerMyJobViewController.h */,
@@ -4203,6 +4208,7 @@
 				C5EEA998A2E6E6E97A8E5259 /* FromToView.m in Sources */,
 				C5EEAC226A4350FB406AFD22 /* DatePickerPage.m in Sources */,
 				C5EEAB40C81644F1288B9E7A /* PickerPage.m in Sources */,
+				4E94AE4B21AEA25A009CAB7F /* DSODetailPage.m in Sources */,
 				4EF2A36A21A6FB66007E6483 /* FullListTableViewCell.m in Sources */,
 				A3DF39A12189A280006F84DC /* ScreenShotHelper.swift in Sources */,
 				4E17B3ED217E225900F75390 /* TopLabel.m in Sources */,

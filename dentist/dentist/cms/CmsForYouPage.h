@@ -5,6 +5,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ListPage.h"
+#import "CMSModel.h"
+#import "HttpResult.h"
 
 @interface CmsForYouPage : ListPage<UIScrollViewDelegate>
 
@@ -16,5 +18,10 @@
 - (UIView *)makeSegPanel;
 - (void)onSegValueChanged:(id)sender;
 - (void)onClickItem:(NSObject *)item;
--(void)showImageBrowser:(NSInteger)index;
+- (void)showImageBrowser:(NSInteger)index;
+- (void)ArticleMoreActionModel:(CMSModel *)model;
+- (void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view;
+- (void) handleDeleteBookmark:(HttpResult *)result model:(CMSModel *)model view:(UIView *)view;
+- (void) handleAddBookmark:(HttpResult *)result model:(CMSModel *)model view:(UIView *)view;
+- (void)ArticleGSKActionModel:(CMSModel *)model;
 @end

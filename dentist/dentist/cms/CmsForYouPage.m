@@ -485,28 +485,7 @@
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(HttpResult *result) {
             foreTask(^() {
-                [self.navigationController.view hideToast];
-                if (result.OK) {
-                    //
-                    model.isBookmark=NO;
-                    if (![NSString isBlankString:model.sponsorId]) {
-                        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
-                        [itemView updateBookmarkStatus:NO];
-                    }else{
-                        ArticleItemView *itemView = (ArticleItemView *) view;
-                        [itemView updateBookmarkStatus:NO];
-                    }
-                }else{
-                    NSString *message=result.msg;
-                    if([NSString isBlankString:message]){
-                        message=@"Failed";
-                    }
-                    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-                    [window makeToast:message
-                             duration:1.0
-                             position:CSToastPositionBottom];
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
+                [self handleDeleteBookmark:result model:model view:view];
             });
         }];
     }else{
@@ -515,46 +494,71 @@
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto addBookmark:getLastAccount() cmsmodel:model completed:^(HttpResult *result) {
             foreTask(^() {
-                [self.navigationController.view hideToast];
-                if (result.OK) {
-                    //
-                    model.isBookmark=YES;
-                    if (![NSString isBlankString:model.sponsorId]) {
-                        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
-                        [itemView updateBookmarkStatus:YES];
-                    }else{
-                        ArticleItemView *itemView = (ArticleItemView *) view;
-                        [itemView updateBookmarkStatus:YES];
-                    }
-                }else{
-                    if(result.code==2033){
-                        model.isBookmark=YES;
-                        if (![NSString isBlankString:model.sponsorId]) {
-                            ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
-                            [itemView updateBookmarkStatus:YES];
-                        }else{
-                            ArticleItemView *itemView = (ArticleItemView *) view;
-                            [itemView updateBookmarkStatus:YES];
-                        }
-                    }else{
-                        NSString *message=result.msg;
-                        if([NSString isBlankString:message]){
-                            message=@"Failed";
-                        }
-                        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-                        [window makeToast:message
-                                 duration:1.0
-                                 position:CSToastPositionBottom];
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
-                    
-                }
-
+                [self handleAddBookmark:result model:model view:view];
             });
         }];
     }
-    
-    
+}
+
+- (void) handleDeleteBookmark:(HttpResult *)result model:(CMSModel *)model view:(UIView *)view {
+    [self.navigationController.view hideToast];
+    if (result.OK) {
+        //
+        model.isBookmark=NO;
+        if (![NSString isBlankString:model.sponsorId]) {
+            ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+            [itemView updateBookmarkStatus:NO];
+        }else{
+            ArticleItemView *itemView = (ArticleItemView *) view;
+            [itemView updateBookmarkStatus:NO];
+        }
+    }else{
+        NSString *message=result.msg;
+        if([NSString isBlankString:message]){
+            message=@"Failed";
+        }
+        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+        [window makeToast:message
+                 duration:1.0
+                 position:CSToastPositionBottom];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void) handleAddBookmark:(HttpResult *)result model:(CMSModel *)model view:(UIView *)view {
+    [self.navigationController.view hideToast];
+    if (result.OK) {
+        //
+        model.isBookmark=YES;
+        if (![NSString isBlankString:model.sponsorId]) {
+            ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+            [itemView updateBookmarkStatus:YES];
+        }else{
+            ArticleItemView *itemView = (ArticleItemView *) view;
+            [itemView updateBookmarkStatus:YES];
+        }
+    }else{
+        if(result.code==2033){
+            model.isBookmark=YES;
+            if (![NSString isBlankString:model.sponsorId]) {
+                ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+                [itemView updateBookmarkStatus:YES];
+            }else{
+                ArticleItemView *itemView = (ArticleItemView *) view;
+                [itemView updateBookmarkStatus:YES];
+            }
+        }else{
+            NSString *message=result.msg;
+            if([NSString isBlankString:message]){
+                message=@"Failed";
+            }
+            UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+            [window makeToast:message
+                     duration:1.0
+                     position:CSToastPositionBottom];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
 
 -(void)ArticleGSKActionModel:(CMSModel *)model

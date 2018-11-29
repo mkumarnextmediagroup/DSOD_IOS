@@ -10,7 +10,7 @@
 #import "Proto.h"
 #import "FindJobsTableViewCell.h"
 #import "DSODetailPage.h"
-
+#import "UIViewController+myextend.h"
 
 @interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -38,8 +38,10 @@
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
+    [self showIndicator];
     [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
+            [self hideIndicator];
             NSLog(@"%@",array);
             self->infoArr = array;
             dispatch_async(dispatch_get_main_queue(), ^{

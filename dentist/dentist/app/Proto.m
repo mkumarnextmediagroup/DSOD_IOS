@@ -1833,6 +1833,27 @@
 
 
 #pragma mark --------------------------------------------Careers API
+//2.1. 查看职位明细接口
++ (void)findJobById:(NSString*)jobId completed:(void(^)(JobModel *jobModel))completed {
+    
+    NSDictionary *paradic = @{@"id":jobId};
+    [self postAsync2:@"job/findOneById" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+        JobModel *model = nil;
+        if (r.OK && r.resultMap[@"data"]) {
+            NSDictionary *dic =  r.resultMap[@"data"];
+            model = [[JobModel alloc] initWithJson:jsonBuild(dic)];
+            
+        }
+        if(completed){
+            foreTask(^{
+                completed(model);
+            });
+        }
+    }];
+}
+
+
+
 //MARK:2.2.    查询所有职位列表
 + (void)queryAllJobs:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
     NSInteger limit=20;//分页数默认20条

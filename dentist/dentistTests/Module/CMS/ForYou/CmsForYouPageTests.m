@@ -48,11 +48,6 @@ describe(@"Unit Test For CmsForYouPage", ^{
             [[page.category should] equal:page.segItems[n]];
         });
 
-        it(@"onClickItem", ^{
-            [page onClickItem:NULL];
-            [[theValue(page.view) shouldNot] beNil];
-        });
-
         it(@"showImageBrowser", ^{
             [page showImageBrowser:1];
             [[theValue(page.view) shouldNot] beNil];
@@ -177,6 +172,99 @@ describe(@"Unit Test For CmsForYouPage", ^{
             CMSModel *model = [CMSModel new];
             model.isBookmark = 1;
             [page ArticleGSKActionModel:model];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"clickTest", ^{
+            [page clickTest:NULL];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"clickCloseAd", ^{
+            [page clickCloseAd:NULL];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"onClickItem", ^{
+            [page onClickItem:NULL];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"onClickItem", ^{
+            CMSModel *model = [CMSModel new];
+            model.contentTypeName = @"videos";
+            [page onClickItem:model];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"getContentCachesData", ^{
+            page.contenttype = @"contenttype";
+            [page getContentCachesData:0];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"myActionSheet with index 0", ^{
+            page.selectModel = [CMSModel new];
+            [page myActionSheet:NULL parentView:[UIView new] subLabel:[UILabel new] index:0];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"myActionSheet with index 1", ^{
+            [page myActionSheet:NULL parentView:[UIView new] subLabel:[UILabel new] index:1];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"myActionSheet with index 2", ^{
+            [page myActionSheet:NULL parentView:[UIView new] subLabel:[UILabel new] index:2];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"myActionSheet with index 1 with selectModel", ^{
+            page.selectModel = [CMSModel new];
+            [page myActionSheet:NULL parentView:[UIView new] subLabel:[UILabel new] index:1];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"myActionSheet with index 1 with selectModel, type = 1", ^{
+            CMSModel *model = [CMSModel new];
+            model.featuredMedia = @{@"type": @"1",
+                                    @"code": @{@"thumbnailUrl": @"https://image.freepik.com/free-icon/test-quiz_318-86103.jpg"},
+                                    };
+            page.selectModel = model;
+            [page myActionSheet:NULL parentView:[UIView new] subLabel:[UILabel new] index:1];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"didDentistSelectItemAtIndex", ^{
+            page.segItemsModel = [[NSMutableArray alloc] init];
+            [page.segItemsModel addObject:[IdName new]];
+            [page.segItemsModel addObject:[IdName new]];
+            [page didDentistSelectItemAtIndex:0];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"didDentistSelectItemAtIndex with IdName", ^{
+            page.segItemsModel = [[NSMutableArray alloc] init];
+            IdName *idName = [IdName new];
+            idName.id = @"-1";
+            [page.segItemsModel addObject:idName];
+            [page.segItemsModel addObject:[IdName new]];
+            [page didDentistSelectItemAtIndex:0];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"handlePicker", ^{
+            [page handlePicker:@"result" resultName:@"resultname"];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"handlePicker", ^{
+            [page scrollViewDidScroll:[UIScrollView new]];
+            [[theValue(page.view) shouldNot] beNil];
+        });
+
+        it(@"loadmore", ^{
+            [page loadMore];
             [[theValue(page.view) shouldNot] beNil];
         });
     });

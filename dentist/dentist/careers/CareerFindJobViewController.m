@@ -9,6 +9,7 @@
 #import "CareerFindJobViewController.h"
 #import "Proto.h"
 
+
 @interface CareerFindJobViewController ()
 
 @end
@@ -24,6 +25,26 @@
     [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array,NSInteger totalCount) {
         NSLog(@"totalCount=%@;jobarr=%@",@(totalCount),array);
     }];
+    
+    [Proto queryAllApplicationJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+        NSLog(@"totalCount=%@;jobarr=%@",@(totalCount),array);
+    }];
+    
+//    [Proto addJobApplication:@"5bfd0b22d6fe1747859ac1eb" completed:^(HttpResult *result) {
+//        NSLog(@"result=%@",@(result.code));
+//    }];
+    
+    [Proto queryJobBookmarks:0 completed:^(NSArray<JobBookmarkModel *> *array) {
+        NSLog(@"jobarr=%@",array);
+    }];
+    
+//    [Proto addJobBookmark:@"5bfcff05d6fe1747859ac1e1" completed:^(HttpResult *result) {
+//        NSLog(@"result=%@",@(result.code));
+//    }];
+//
+//    [Proto deleteJobBookmark:@"5bfe877bd6fe175342855843" completed:^(HttpResult *result) {
+//        NSLog(@"result=%@",@(result.code));
+//    }];
 
     // Do any additional setup after loading the view.
 }

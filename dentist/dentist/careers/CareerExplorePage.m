@@ -7,6 +7,7 @@
 #import "Common.h"
 #import "DSOProfilePage.h"
 #import "UIButton+styled.h"
+#import "FilterView.h"
 
 #define kMaxBtnCount 4
 #define leftToX 20
@@ -75,6 +76,12 @@
         DSOProfilePage *dso = [DSOProfilePage new];
         UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:dso];
         [viewController presentViewController:navVC animated:YES completion:NULL];
+
+    }else if (btn.tag == 12)//review button click
+    {
+        FilterView *view = [[FilterView alloc] init];
+        [view initWithSubView];
+        [self.view addSubview:view];
 
     }
 }

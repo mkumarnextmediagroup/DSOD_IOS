@@ -7,4 +7,14 @@
 #import "ListPage.h"
 
 @interface CmsForYouPage : ListPage<UIScrollViewDelegate>
+
+@property NSMutableArray<NSString *> *segItems;
+@property UISegmentedControl *segView;
+@property NSString *category;
+
+- (UIView *)makeHeaderView2;
+- (UIView *)makeSegPanel;
+- (void)onSegValueChanged:(id)sender;
+- (void)onClickItem:(NSObject *)item;
+-(void)showImageBrowser:(NSInteger)index;
 @end

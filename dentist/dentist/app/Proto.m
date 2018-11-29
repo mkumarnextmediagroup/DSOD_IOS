@@ -22,6 +22,7 @@
 #import "HttpProgress.h"
 #import "BookmarkManager.h"
 #import "JobModel.h"
+#import "JobBookmarkModel.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -1966,7 +1967,7 @@
     if (jobId) {
         [paradic setObject:jobId forKey:@"jobId"];
     }
-    [self postAsync2:@"application/save" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+    [self postAsync3:@"application/save" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
         if (completed) {
             completed(r);
         }
@@ -1980,7 +1981,7 @@
     if (jobId) {
         [paradic setObject:jobId forKey:@"jobId"];
     }
-    [self postAsync2:@"bookmark/save" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+    [self postAsync3:@"bookmark/save" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
         if (completed) {
             completed(r);
         }
@@ -1992,7 +1993,7 @@
 {
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     if (jobId) {
-        [paradic setObject:jobId forKey:@"jobId"];
+        [paradic setObject:jobId forKey:@"id"];
     }
     [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
         if (completed) {
@@ -2002,7 +2003,7 @@
 }
 
 //MARK:2.10.   查询已关注职位列表
-+ (void)queryJobBookmarks:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed {
++ (void)queryJobBookmarks:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array))completed {
     NSInteger limit=20;//分页数默认20条
     if (skip<=0) {
         skip=0;
@@ -2042,9 +2043,9 @@
     [self postAsync3:@"bookmark/findAllByUserId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
-            NSArray *arr = r.resultMap[@"data"];
+            NSArray *arr = r.resultMap[@"bookmarkList"];
             for (NSDictionary *d in arr) {
-                JobModel *item = [[JobModel alloc] initWithJson:jsonBuild(d)];
+                JobBookmarkModel *item = [[JobBookmarkModel alloc] initWithJson:jsonBuild(d)];
                 if (item) {
                     [resultArray addObject:item];
                 }
@@ -2061,7 +2062,7 @@
 }
 
 //MARK:2.10.   查询已关注职位列表
-+ (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array))completed {
++ (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array))completed {
     return [self queryJobBookmarks:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
 }
 

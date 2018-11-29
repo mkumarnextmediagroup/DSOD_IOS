@@ -276,19 +276,6 @@
 		4EE025502151F59400BBD290 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0254F2151F59400BBD290 /* PlayerView.m */; };
 		4EE52D6C2154CFA10076DC3D /* desc@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE52D6A2154CFA00076DC3D /* desc@3x.png */; };
 		4EE52D6D2154CFA10076DC3D /* desc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE52D6B2154CFA10076DC3D /* desc@2x.png */; };
-		4EF1093C21AFC73C0013C34C /* FilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF1093B21AFC73C0013C34C /* FilterView.m */; };
-		4EF1096521AFE5270013C34C /* company_career@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1095921AFE5230013C34C /* company_career@3x.png */; };
-		4EF1096621AFE5270013C34C /* experence_career@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1095A21AFE5240013C34C /* experence_career@2x.png */; };
-		4EF1096721AFE5270013C34C /* job_career@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1095B21AFE5240013C34C /* job_career@2x.png */; };
-		4EF1096821AFE5270013C34C /* location_career@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1095C21AFE5240013C34C /* location_career@2x.png */; };
-		4EF1096921AFE5270013C34C /* company_career@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1095D21AFE5250013C34C /* company_career@2x.png */; };
-		4EF1096A21AFE5270013C34C /* location_career@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1095E21AFE5250013C34C /* location_career@3x.png */; };
-		4EF1096B21AFE5270013C34C /* skills_career@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1095F21AFE5250013C34C /* skills_career@2x.png */; };
-		4EF1096C21AFE5270013C34C /* experence_career@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1096021AFE5250013C34C /* experence_career@3x.png */; };
-		4EF1096D21AFE5270013C34C /* skills_career@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1096121AFE5260013C34C /* skills_career@3x.png */; };
-		4EF1096E21AFE5270013C34C /* job_career@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1096221AFE5260013C34C /* job_career@3x.png */; };
-		4EF1096F21AFE5270013C34C /* salary_career@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1096321AFE5260013C34C /* salary_career@3x.png */; };
-		4EF1097021AFE5270013C34C /* salary_career@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EF1096421AFE5270013C34C /* salary_career@2x.png */; };
 		4EF2A36A21A6FB66007E6483 /* FullListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF2A36921A6FB66007E6483 /* FullListTableViewCell.m */; };
 		574B3A2B212338E100C37095 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 574B3A2A212338E100C37095 /* Assets.xcassets */; };
 		57B0990721256E840010597B /* bg_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B0990121256E830010597B /* bg_1.png */; };
@@ -1190,20 +1177,6 @@
 		4EE0254F2151F59400BBD290 /* PlayerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
 		4EE52D6A2154CFA00076DC3D /* desc@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "desc@3x.png"; sourceTree = "<group>"; };
 		4EE52D6B2154CFA10076DC3D /* desc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "desc@2x.png"; sourceTree = "<group>"; };
-		4EF1093A21AFC73C0013C34C /* FilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterView.h; sourceTree = "<group>"; };
-		4EF1093B21AFC73C0013C34C /* FilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterView.m; sourceTree = "<group>"; };
-		4EF1095921AFE5230013C34C /* company_career@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "company_career@3x.png"; sourceTree = "<group>"; };
-		4EF1095A21AFE5240013C34C /* experence_career@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "experence_career@2x.png"; sourceTree = "<group>"; };
-		4EF1095B21AFE5240013C34C /* job_career@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "job_career@2x.png"; sourceTree = "<group>"; };
-		4EF1095C21AFE5240013C34C /* location_career@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location_career@2x.png"; sourceTree = "<group>"; };
-		4EF1095D21AFE5250013C34C /* company_career@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "company_career@2x.png"; sourceTree = "<group>"; };
-		4EF1095E21AFE5250013C34C /* location_career@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location_career@3x.png"; sourceTree = "<group>"; };
-		4EF1095F21AFE5250013C34C /* skills_career@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skills_career@2x.png"; sourceTree = "<group>"; };
-		4EF1096021AFE5250013C34C /* experence_career@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "experence_career@3x.png"; sourceTree = "<group>"; };
-		4EF1096121AFE5260013C34C /* skills_career@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skills_career@3x.png"; sourceTree = "<group>"; };
-		4EF1096221AFE5260013C34C /* job_career@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "job_career@3x.png"; sourceTree = "<group>"; };
-		4EF1096321AFE5260013C34C /* salary_career@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "salary_career@3x.png"; sourceTree = "<group>"; };
-		4EF1096421AFE5270013C34C /* salary_career@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "salary_career@2x.png"; sourceTree = "<group>"; };
 		4EF2A36821A6FB66007E6483 /* FullListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FullListTableViewCell.h; sourceTree = "<group>"; };
 		4EF2A36921A6FB66007E6483 /* FullListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FullListTableViewCell.m; sourceTree = "<group>"; };
 		574B3A1E212338DF00C37095 /* dentist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dentist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2414,6 +2387,7 @@
 				E11E1071C5BB25C5DF71E7E4 /* Podfile */,
 				6E480191105E9BD9865E05CE /* Pods */,
 				9E8CFB7155047C0648622D0F /* Frameworks */,
+				A3BA6DFD21B01EE400D83156 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2976,6 +2950,13 @@
 				A3BA6DDD21AEC05800D83156 /* JobBookmarkModel.m */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		A3BA6DFD21B01EE400D83156 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		A3DF39832189A280006F84DC /* expanding-collection */ = {
@@ -3654,7 +3635,6 @@
 				4EBCE6D0212D2CF000A0672D /* photo@2x.png in Resources */,
 				4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */,
 				C5EEAB39CFA076691E67BA42 /* info.png in Resources */,
-				4EF1096D21AFE5270013C34C /* skills_career@3x.png in Resources */,
 				18CFB0FF216F3B69002CC9D0 /* foryou@3x.png in Resources */,
 				A3E752ED217E35010087713D /* Interview.png in Resources */,
 				C5EEAC84691A5246841E615B /* info@2x.png in Resources */,
@@ -3690,7 +3670,6 @@
 				A3BA6DFA21AFD13B00D83156 /* icons8-marker@3x.png in Resources */,
 				18B83B1D2173557D00130DB6 /* YBImageBrowser.bundle in Resources */,
 				4E94ADEB21AE3D76009CAB7F /* myJobs.png in Resources */,
-				4EF1096F21AFE5270013C34C /* salary_career@3x.png in Resources */,
 				E11E1210E61FE38B793AD059 /* edit@3x.png in Resources */,
 				4E846F8F213FCB8D00DC2B51 /* edit_photo@2x.png in Resources */,
 				A3E752F4217E35010087713D /* Animation@2x.png in Resources */,
@@ -3705,7 +3684,6 @@
 				E11E1BDA1ADFF08B4FBD31A1 /* menu.png in Resources */,
 				4E94AE2A21AE74C2009CAB7F /* findJob@3x.png in Resources */,
 				4E23E073215294B800EDCE08 /* arrow_up@2x.png in Resources */,
-				4EF1096521AFE5270013C34C /* company_career@3x.png in Resources */,
 				18CFB0FC216F3B69002CC9D0 /* foryou-light@3x.png in Resources */,
 				E11E1A694CB1915FC4DB878E /* user_light.png in Resources */,
 				E11E1F7242611C8E1537D3A2 /* user_light@2x.png in Resources */,
@@ -3746,7 +3724,6 @@
 				A3BA6DEB21AFCD7000D83156 /* Shape full@2x.png in Resources */,
 				E11E14D5F59C2078E21162F6 /* add.png in Resources */,
 				A372958B21913AA300B36409 /* unitedetail1.png in Resources */,
-				4EF1096E21AFE5270013C34C /* job_career@3x.png in Resources */,
 				E11E116296D4A3563215AB6B /* add@2x.png in Resources */,
 				E11E1EF8A8F037F9A8B172EC /* add@3x.png in Resources */,
 				A935BE76217737EB007F3619 /* slide-1.png in Resources */,
@@ -3772,7 +3749,6 @@
 				A3E752E6217E35010087713D /* Article@2x.png in Resources */,
 				A3E752F1217E35010087713D /* Video.png in Resources */,
 				E11E15EF39F7686C2D89E98B /* c@3x.png in Resources */,
-				4EF1096821AFE5270013C34C /* location_career@2x.png in Resources */,
 				E11E17F4407FAF144D6FF697 /* download.png in Resources */,
 				E11E17660111A7577F8FEE1B /* download@2x.png in Resources */,
 				E11E1F7EA0D81ABAA1082A58 /* download@3x.png in Resources */,
@@ -3789,10 +3765,8 @@
 				E11E1750403A8ABA37271662 /* help@2x.png in Resources */,
 				E11E1C5057A006835221E347 /* help@3x.png in Resources */,
 				18106AAC218ACC0D00EEE2DC /* FilterIssues@3x.png in Resources */,
-				4EF1097021AFE5270013C34C /* salary_career@2x.png in Resources */,
 				E11E11F479857699537757C1 /* notice_light.png in Resources */,
 				E11E1BE37EB4B443A57E766D /* notice_light@2x.png in Resources */,
-				4EF1096621AFE5270013C34C /* experence_career@2x.png in Resources */,
 				E11E12E3ED565398DB96FCF8 /* notice_light@3x.png in Resources */,
 				E11E1B5578CD5D04E0AE85E2 /* notice.png in Resources */,
 				E11E15A2F98BC263DC099B2D /* notice@2x.png in Resources */,
@@ -3827,7 +3801,6 @@
 				E11E19D61340336630B294FF /* cloud.png in Resources */,
 				E11E172A3D4C9BE1018357FF /* cloud@2x.png in Resources */,
 				E11E1AC27B223385A86CB945 /* cloud@3x.png in Resources */,
-				4EF1096A21AFE5270013C34C /* location_career@3x.png in Resources */,
 				E11E1CCB31F80179E4A44737 /* dental-blue.png in Resources */,
 				E11E1095E5C6D1F1401D76FD /* dental-blue@2x.png in Resources */,
 				E11E140FFF32FC1B796AFA14 /* dental-blue@3x.png in Resources */,
@@ -3869,7 +3842,6 @@
 				A3BA6DE821AFCD7000D83156 /* Shape@2x.png in Resources */,
 				E11E157CACFE620953D8E184 /* search_normal@3x.png in Resources */,
 				4E94AE1421AE74A4009CAB7F /* alert.png in Resources */,
-				4EF1096C21AFE5270013C34C /* experence_career@3x.png in Resources */,
 				E11E1637C3C5D620B60A8727 /* search_pressed.png in Resources */,
 				E11E19B5AAAAC717A7E7A8B1 /* search_pressed@2x.png in Resources */,
 				E11E1CD01A5568FEDC54E1AE /* search_pressed@3x.png in Resources */,
@@ -3917,7 +3889,6 @@
 				E11E172AE9F655B60CC6EE08 /* menu-community_light@2x.png in Resources */,
 				E11E121785CB66F4EFF806A5 /* menu-community_light@3x.png in Resources */,
 				4E94ADE821AE3D75009CAB7F /* myJobs@3x.png in Resources */,
-				4EF1096721AFE5270013C34C /* job_career@2x.png in Resources */,
 				E11E1BDADB4731DBE48C37AA /* menu-community.png in Resources */,
 				E11E1746CA3485E6E76877E7 /* menu-community@2x.png in Resources */,
 				E11E1FAC1F6BE50220F80693 /* menu-community@3x.png in Resources */,
@@ -3952,7 +3923,6 @@
 				E11E14AFA8FAF941E70C9DCC /* menu-edu.png in Resources */,
 				A3BA6DF421AFD10100D83156 /* icons8-banknotes.png in Resources */,
 				E11E1B5B78D3713C6A0487ED /* menu-edu@2x.png in Resources */,
-				4EF1096B21AFE5270013C34C /* skills_career@2x.png in Resources */,
 				E11E1C15E381E28192827ACC /* menu-edu@3x.png in Resources */,
 				E11E1F25CFC847BECA17C44D /* menu-legislation_light.png in Resources */,
 				E11E160B1DAD993D47769A13 /* menu-legislation_light@2x.png in Resources */,
@@ -4013,7 +3983,6 @@
 				C5EEA777151649C977CD6952 /* ask.png in Resources */,
 				C5EEAE621D9B7BA2ACBC3368 /* ask@2x.png in Resources */,
 				C5EEA15BFBFE1FB1FFA51FD0 /* ask@3x.png in Resources */,
-				4EF1096921AFE5270013C34C /* company_career@2x.png in Resources */,
 				4E17B3E721722E0C00F75390 /* GSKPic@3x.png in Resources */,
 				C5EEA987C55330394284EA24 /* box-light.png in Resources */,
 				4E94ADE921AE3D75009CAB7F /* myJobs-light.png in Resources */,
@@ -4237,7 +4206,6 @@
 				4EBCE6BB212AACE600A0672D /* NoticeViewController.m in Sources */,
 				18B83B092173557D00130DB6 /* YBImageBrowserSheetView.m in Sources */,
 				4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */,
-				4EF1093C21AFC73C0013C34C /* FilterView.m in Sources */,
 				C5EEA70CAD83A3FEE9B6BD2C /* UILabel+customed.m in Sources */,
 				4E1957462137D0F100420563 /* LinkedInHelper.m in Sources */,
 				C5EEA2B81C84D4F3EDB29C44 /* NSMutableAttributedString+customed.m in Sources */,

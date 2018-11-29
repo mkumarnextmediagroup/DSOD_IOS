@@ -32,6 +32,8 @@
     [self.view addSubview:myTable];
     myTable.dataSource = self;
     myTable.delegate = self;
+    myTable.rowHeight = UITableViewAutomaticDimension;
+    myTable.estimatedRowHeight = 100;
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     
@@ -84,16 +86,21 @@
 {
     return infoArr.count;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 80;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FindJobsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class]) forIndexPath:indexPath];
+    if (indexPath.row<=1) {
+        cell.isDetail=YES;
+    }else{
+        cell.isDetail=NO;
+    }
+    if (indexPath.row<=4) {
+        cell.isNew=YES;
+    }else{
+        cell.isNew=NO;
+    }
     if (self->infoArr && self->infoArr.count>indexPath.row) {
+        
         cell.info=self->infoArr[indexPath.row];
     }
     return cell;

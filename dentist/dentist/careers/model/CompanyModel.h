@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*createdDate;
 @property NSString <Optional>*modifiedDate;
 @property NSString <Optional>*employees;
+@property NSString <Optional>*stage;
 @end
 
 NS_ASSUME_NONNULL_END

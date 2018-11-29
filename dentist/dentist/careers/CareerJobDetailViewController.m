@@ -150,11 +150,15 @@
     [addressBtn setTitleColor:Colors.textMain forState:UIControlStateNormal];
     [addressBtn onClick:self action:@selector(showLocation)];
     addressBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 100);
+    [addressBtn setBackgroundImage:[UIImage imageNamed:@"career_location_bg"] forState:UIControlStateNormal];
+    [addressBtn setBackgroundImage:[UIImage imageNamed:@"career_location_bg"] forState:UIControlStateHighlighted];
     addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     addressBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     addressBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     addressBtn.titleLabel.numberOfLines = 3;
-    [[[[[addressBtn.layoutMaker below:salaryLabel offset:10]leftParent:edge]rightParent:-edge] heightEq:50]install];
+    [[[[[addressBtn.layoutMaker below:salaryLabel offset:10]leftParent:edge]rightParent:-edge] heightEq:42]install];
+    
+    
     
     UIView *lastView = headerView.addView;
     [[[[[lastView.layoutMaker below:addressBtn offset:0]leftParent:0]rightParent:0]heightEq:10]install];
@@ -167,7 +171,7 @@
     companyLabel.text = jobModel.company.companyName;
     salaryLabel.text = [NSString stringWithFormat:@"Est. Salary:%@",jobModel.salaryRange] ;
     [addressBtn setTitle:jobModel.company.address forState:UIControlStateNormal];
-    addressBtn.backgroundColor = Colors.textDisabled;
+    
     
 
     

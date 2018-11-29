@@ -192,7 +192,7 @@ static char argObjectAttr = 0;
 
 - (UIImageView *)addImageView {
 	UIImageView *imageView = [UIImageView new];
-	[imageView alignCenter];
+    [imageView alignCenter];
 	[self addSubview:imageView];
 	return imageView;
 }

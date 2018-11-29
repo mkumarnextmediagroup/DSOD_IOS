@@ -8,10 +8,15 @@
 
 #import "CareerFindJobViewController.h"
 #import "Proto.h"
+#import "FindJobsTableViewCell.h"
+#import "DSODetailPage.h"
+#import "UIViewController+myextend.h"
 
-
-@interface CareerFindJobViewController ()
-
+@interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    NSArray *infoArr;
+    UITableView *myTable;
+}
 @end
 
 @implementation CareerFindJobViewController
@@ -19,24 +24,48 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UINavigationItem *item = [self navigationItem];
-    item.title = @"Find Job";
+    UINavigationItem *item = self.navigationItem;
+    item.title = @"JOBS";
+    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
     
-    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array,NSInteger totalCount) {
-        NSLog(@"totalCount=%@;jobarr=%@",@(totalCount),array);
+    myTable = [UITableView new];
+    [self.view addSubview:myTable];
+    myTable.dataSource = self;
+    myTable.delegate = self;
+    myTable.rowHeight = UITableViewAutomaticDimension;
+    myTable.estimatedRowHeight = 100;
+    [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
+    
+    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
+    [self showIndicator];
+    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+        foreTask(^{
+            [self hideIndicator];
+            NSLog(@"%@",array);
+            self->infoArr = array;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self->myTable reloadData];
+            });
+            
+        });
     }];
     
-    [Proto queryAllApplicationJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-        NSLog(@"totalCount=%@;jobarr=%@",@(totalCount),array);
-    }];
+//    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array,NSInteger totalCount) {
+//        NSLog(@"totalCount=%@;jobarr=%@",@(totalCount),array);
+//    }];
+//
+//    [Proto queryAllApplicationJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+//        NSLog(@"totalCount=%@;jobarr=%@",@(totalCount),array);
+//    }];
     
 //    [Proto addJobApplication:@"5bfd0b22d6fe1747859ac1eb" completed:^(HttpResult *result) {
 //        NSLog(@"result=%@",@(result.code));
 //    }];
     
-    [Proto queryJobBookmarks:0 completed:^(NSArray<JobBookmarkModel *> *array) {
-        NSLog(@"jobarr=%@",array);
-    }];
+//    [Proto queryJobBookmarks:0 completed:^(NSArray<JobBookmarkModel *> *array) {
+//        NSLog(@"jobarr=%@",array);
+//    }];
     
 //    [Proto addJobBookmark:@"5bfcff05d6fe1747859ac1e1" completed:^(HttpResult *result) {
 //        NSLog(@"result=%@",@(result.code));
@@ -49,14 +78,42 @@
     // Do any additional setup after loading the view.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)searchClick
+{
+    NSLog(@"search btn click");
 }
-*/
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return infoArr.count;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    FindJobsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class]) forIndexPath:indexPath];
+    if (indexPath.row<=1) {
+        cell.isDetail=YES;
+    }else{
+        cell.isDetail=NO;
+    }
+    if (indexPath.row<=4) {
+        cell.isNew=YES;
+    }else{
+        cell.isNew=NO;
+    }
+    if (self->infoArr && self->infoArr.count>indexPath.row) {
+        
+        cell.info=self->infoArr[indexPath.row];
+    }
+    return cell;
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DSODetailPage *detail = [DSODetailPage new];
+    [self.navigationController pushPage:detail];
+}
+
 
 @end

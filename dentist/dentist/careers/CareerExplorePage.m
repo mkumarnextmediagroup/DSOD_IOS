@@ -7,11 +7,14 @@
 #import "Common.h"
 #import "DSOProfilePage.h"
 #import "UIButton+styled.h"
+//#import "FilterView.h"
 
 #define kMaxBtnCount 4
 #define leftToX 20
+#define IMAGE_HEIGHT SCREENWIDTH*253/375
 #define FUNBTN_WIDTH ([[UIScreen mainScreen] bounds].size.width - 24*2)/2
-#define FUNBTN_HEIGHT FUNBTN_WIDTH*9/16
+#define FUNBTN_HEIGHT IPHONE_X?((SCREENHEIGHT-IMAGE_HEIGHT-NAVHEIGHT-50-leftToX*3)/2):((SCREENHEIGHT-IMAGE_HEIGHT-NAVHEIGHT-50-leftToX*3)/2)//FUNBTN_WIDTH*9/16
+
 @implementation CareerExplorePage {
     NSArray *titleArr;
     NSArray *imageArr;
@@ -31,8 +34,9 @@
 
 - (void)createFunBtn
 {
-    UIImageView *img = self.view.addImageView;
-    [[[[img.layoutMaker sizeEq:SCREENWIDTH h:SCREENWIDTH] topParent:-20] leftParent:0] install];
+    UIImageView *img = [UIImageView new];
+    [self.view addSubview:img];
+    [[[[img.layoutMaker sizeEq:SCREENWIDTH h:IMAGE_HEIGHT] topParent:NAVHEIGHT] leftParent:0] install];
     img.image = [UIImage imageNamed:@"sponsor_align_banner"];
     
     for (int i=0; i<kMaxBtnCount; i++) {
@@ -72,6 +76,12 @@
         DSOProfilePage *dso = [DSOProfilePage new];
         UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:dso];
         [viewController presentViewController:navVC animated:YES completion:NULL];
+
+    }else if (btn.tag == 12)//review button click
+    {
+//        FilterView *view = [[FilterView alloc] init];
+//        [view initWithSubView];
+//        [self.view addSubview:view];
 
     }
 }

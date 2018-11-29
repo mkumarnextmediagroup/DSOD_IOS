@@ -30,6 +30,7 @@
 		186393A621B02EC100512CBB /* icon_arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 186393A321B02EC100512CBB /* icon_arrow_down.png */; };
 		186393A921B02ED600512CBB /* arrow_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186393A721B02ED600512CBB /* arrow_down@3x.png */; };
 		186393AA21B02ED600512CBB /* arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 186393A821B02ED600512CBB /* arrow_down@2x.png */; };
+		186393AC21B038A600512CBB /* career_location_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 186393AB21B038A600512CBB /* career_location_bg.png */; };
 		1866AFB121797DD300970CAB /* dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1866AFB021797DCE00970CAB /* dsodentist.png */; };
 		1866AFFE2179DF3900970CAB /* DentistTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866AFFD2179DF3900970CAB /* DentistTabView.m */; };
 		1866B0012179DFDA00970CAB /* TabCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */; };
@@ -815,6 +816,7 @@
 		186393A321B02EC100512CBB /* icon_arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_arrow_down.png; sourceTree = "<group>"; };
 		186393A721B02ED600512CBB /* arrow_down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down@3x.png"; sourceTree = "<group>"; };
 		186393A821B02ED600512CBB /* arrow_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down@2x.png"; sourceTree = "<group>"; };
+		186393AB21B038A600512CBB /* career_location_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = career_location_bg.png; sourceTree = "<group>"; };
 		1866AFB021797DCE00970CAB /* dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dsodentist.png; sourceTree = "<group>"; };
 		1866AFFC2179DF3900970CAB /* DentistTabView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DentistTabView.h; sourceTree = "<group>"; };
 		1866AFFD2179DF3900970CAB /* DentistTabView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DentistTabView.m; sourceTree = "<group>"; };
@@ -2323,10 +2325,10 @@
 			children = (
 				4E94ADD121AD3DC9009CAB7F /* DSOProfileTableViewCell.h */,
 				4E94ADD221AD3DC9009CAB7F /* DSOProfileTableViewCell.m */,
-				18D4BA1721AEDC95004CFB4B /* CompanyReviewHeaderTableViewCell.h */,
-				18D4BA1821AEDC95004CFB4B /* CompanyReviewHeaderTableViewCell.m */,
 				A3BA6DDF21AFB04E00D83156 /* FindJobsTableViewCell.h */,
 				A3BA6DE021AFB04E00D83156 /* FindJobsTableViewCell.m */,
+				18D4BA1721AEDC95004CFB4B /* CompanyReviewHeaderTableViewCell.h */,
+				18D4BA1821AEDC95004CFB4B /* CompanyReviewHeaderTableViewCell.m */,
 				18D4BA1421AEDC69004CFB4B /* CompanyReviewTableViewCell.h */,
 				18D4BA1521AEDC69004CFB4B /* CompanyReviewTableViewCell.m */,
 				18D4BA1D21B02255004CFB4B /* CompanyOfJobDetailTableViewCell.h */,
@@ -2455,6 +2457,7 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				186393AB21B038A600512CBB /* career_location_bg.png */,
 				A3BA6DF621AFD13B00D83156 /* icons8-marker.png */,
 				A3BA6DF821AFD13B00D83156 /* icons8-marker@2x.png */,
 				A3BA6DF721AFD13B00D83156 /* icons8-marker@3x.png */,
@@ -3952,6 +3955,7 @@
 				4E17B3E621722E0C00F75390 /* GSKPic@2x.png in Resources */,
 				E11E1BBF5B8A0BA9CAFB3D48 /* menu-dso@3x.png in Resources */,
 				E11E1C36FB05913E3E3D8427 /* menu-edu_light.png in Resources */,
+				186393AC21B038A600512CBB /* career_location_bg.png in Resources */,
 				E11E17DA1750DC3EFFFBC584 /* menu-edu_light@2x.png in Resources */,
 				4E5BA7FF217721D400386598 /* contentPic_bg@3x.png in Resources */,
 				4E5BA802217835CE00386598 /* back_fullScreen@2x.png in Resources */,

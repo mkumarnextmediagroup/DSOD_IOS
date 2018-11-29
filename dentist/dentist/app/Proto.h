@@ -222,6 +222,8 @@
 + (NSString*)getRedirectUrl:(NSString*)url;
 
 #pragma mark Careers API
+//2.1. 查看职位明细接口
++ (void)findJobById:(NSString*)jobId completed:(void(^)(JobModel *_Nullable jobModel))completed ;
 //MARK:2.2.    查询所有职位列表
 + (void)queryAllJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 //MARK:2.2.    查询所有职位列表

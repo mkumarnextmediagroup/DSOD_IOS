@@ -212,5 +212,23 @@
     return _c;
 }
 
++ (UIColor *)lineColorNor {
+    //F1F1
+    static UIColor *_c = nil;
+    if (_c == nil) {
+        _c = rgb255(241, 241, 241);
+    }
+    return _c;
+}
+
++ (UIColor *)textColor9c {
+    //9c9c9c
+    static UIColor *_c = nil;
+    if (_c == nil) {
+        _c = rgb255(156, 156, 156);
+    }
+    return _c;
+}
+
 @end
 

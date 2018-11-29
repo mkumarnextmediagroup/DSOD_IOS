@@ -9,7 +9,7 @@
 #import "DSOProfilePage.h"
 #import "Common.h"
 #import "DSOProfileTableViewCell.h"
-#import "DSODetailPage.h"
+#import "CareerJobDetailViewController.h"
 #import "Proto.h"
 #import "JobModel.h"
 
@@ -84,7 +84,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DSODetailPage *detail = [DSODetailPage new];
+    CareerJobDetailViewController *detail = [CareerJobDetailViewController new];
     [self.navigationController pushPage:detail];
 }
 

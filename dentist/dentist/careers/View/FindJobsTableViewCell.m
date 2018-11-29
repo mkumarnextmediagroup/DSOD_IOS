@@ -12,7 +12,7 @@
 
 @implementation FindJobsTableViewCell{
     UIView *largeView;
-    UIView *normalView;
+    UIView *bgView;
     UILabel *titleLabel;
     UILabel *statusLabel;
     UILabel *timeLabel;
@@ -24,6 +24,8 @@
     UILabel *lineLabel;
     UIImageView *newimageView;
     UIImageView *bankImageView;
+    UIImageView *locationimageView;
+    UILabel *locationLabel;
 }
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -33,47 +35,55 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        imageView = self.addImageView;
-        [[[[imageView.layoutMaker leftParent:edge] centerYParent:0] sizeEq:55 h:55] install];
-        contentLabel=self.addLabel;
-        contentLabel.font = [Fonts semiBold:11];
-        contentLabel.textColor = Colors.textAlternate;
-        [[[[[contentLabel.layoutMaker toRightOf:imageView offset:10] heightEq:15.0] rightParent:-46] centerYParent:0] install];
         
-        timeLabel = self.addLabel;
-        timeLabel.textAlignment=NSTextAlignmentRight;
-        timeLabel.font = [Fonts regular:12];
-        timeLabel.textColor = Colors.textDisabled;
-        [[[[timeLabel.layoutMaker rightParent:-edge] above:contentLabel offset:-5] sizeEq:28 h:15.0] install];
+        bgView=self.contentView.addView;
+
+        imageView = bgView.addImageView;
+
+        newimageView=bgView.addImageView;
+        newimageView.image=[UIImage imageNamed:@"Group Copy"];
+        [newimageView scaleFillAspect];
+        newimageView.clipsToBounds=YES;
+
+        contentLabel=bgView.addLabel;
         
-        statusLabel = self.addLabel;
-        statusLabel.font = [Fonts semiBold:8];
-        statusLabel.textColor = Colors.textAlternate;
-        [[[[statusLabel.layoutMaker toLeftOf:timeLabel offset:3] above:contentLabel offset:-5] sizeEq:80 h:15.0] install];
         
-        titleLabel = self.addLabel;
-        titleLabel.font = [Fonts semiBold:13];
-        [titleLabel textColorMain];
-        [[[[[titleLabel.layoutMaker toRightOf:imageView offset:10] toLeftOf:statusLabel offset:3] above:contentLabel offset:-5] heightEq:15.0] install];
+        timeLabel = bgView.addLabel;
         
-        bankImageView=self.addImageView;
+        
+        statusLabel = bgView.addLabel;
+        
+        
+        titleLabel = bgView.addLabel;
+        
+        
+        bankImageView=bgView.addImageView;
         bankImageView.image=[UIImage imageNamed:@"icons8-banknotes"];
         [bankImageView scaleFillAspect];
         bankImageView.clipsToBounds=YES;
-        [[[[bankImageView.layoutMaker toRightOf:imageView offset:10] below:contentLabel offset:7] sizeEq:11 h:11] install];
         
-        salaryLabel = self.addLabel;
-        salaryLabel.font = [Fonts regular:12];
-        salaryLabel.textColor = Colors.textDisabled;
-        [[[[salaryLabel.layoutMaker toRightOf:bankImageView offset:7] below:contentLabel offset:5] heightEq:15.0] install];
+        salaryLabel = bgView.addLabel;
         
-        followButton =self.addButton;
+        
+        followButton =bgView.addButton;
         [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
-        [[[[followButton.layoutMaker rightParent:-edge] centerYOf:salaryLabel offset:0] sizeEq:20 h:20] install];
         
-        lineLabel=self.lineLabel;
-        lineLabel.backgroundColor=Colors.lineColorNor;
-        [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
+        lineLabel=bgView.lineLabel;
+        
+        desLabel=bgView.addLabel;
+        
+        
+        locationimageView=self.addImageView;
+        locationimageView.image=[UIImage imageNamed:@"icons8-marker"];
+        [locationimageView scaleFillAspect];
+        locationimageView.clipsToBounds=YES;
+        
+        
+        locationLabel=self.addLabel;
+        desLabel.hidden=YES;
+        locationimageView.hidden=YES;
+        locationLabel.hidden=YES;
+        newimageView.hidden=YES;
     }
     return self;
 }
@@ -92,13 +102,112 @@
         statusLabel.text=@"POSITION CLOSE";
         NSInteger startsalary=ceilf(_info.salaryStartingValue/1000.0);
         NSInteger endsalary=ceilf(_info.salaryEndValue/1000.0);
-        salaryLabel.text=[NSString stringWithFormat:@"$%@k-$%@k",@(startsalary),@(endsalary)];;
+        salaryLabel.text=[NSString stringWithFormat:@"$%@k-$%@k",@(startsalary),@(endsalary)];
+        desLabel.text=_info.jobDescription;
+        locationLabel.text=_info.location;
+    }
+}
+
+-(void)setIsNew:(BOOL)isNew
+{
+    _isNew=isNew;
+    if (_isNew) {
+        newimageView.hidden=NO;
+    }else{
+        newimageView.hidden=YES;
     }
 }
 
 -(void)setIsDetail:(BOOL)isDetail
 {
     _isDetail=isDetail;
+    if (_isDetail) {
+        desLabel.hidden=NO;
+        locationimageView.hidden=NO;
+        locationLabel.hidden=NO;
+        lineLabel.hidden=YES;
+        bgView.layer.borderColor=Colors.strokes.CGColor;
+        bgView.layer.borderWidth=1.0;
+        
+        contentLabel.font = [Fonts semiBold:11];
+        contentLabel.textColor = Colors.textAlternate;
+        timeLabel.textAlignment=NSTextAlignmentRight;
+        timeLabel.font = [Fonts regular:12];
+        timeLabel.textColor = Colors.textDisabled;
+        statusLabel.font = [Fonts semiBold:8];
+        statusLabel.textColor = Colors.textAlternate;
+        titleLabel.font = [Fonts semiBold:16];
+        [titleLabel textColorMain];
+        titleLabel.numberOfLines=0;
+        salaryLabel.font = [Fonts regular:14];
+        salaryLabel.textColor = Colors.textColor9c;
+        salaryLabel.textAlignment=NSTextAlignmentRight;
+        
+        locationLabel.font = [Fonts regular:14];
+        locationLabel.textColor = Colors.textColor9c;
+        
+        desLabel.font = [Fonts semiBold:11];
+        desLabel.textColor = Colors.textAlternate;
+        desLabel.numberOfLines=0;
+        
+        
+        
+        [[[[[bgView.layoutMaker leftParent:10] rightParent:-10] topParent:5] bottomParent:-5] install];
+        [[[[newimageView.layoutMaker leftParent:0] topParent:0] sizeEq:58 h:58] install];
+        [[[[imageView.layoutMaker leftParent:edge] topParent:edge] sizeEq:55 h:55] install];
+        
+        [[[[timeLabel.layoutMaker topParent:edge] rightParent:-edge] sizeEq:28 h:15.0] install];
+        [[[[statusLabel.layoutMaker toLeftOf:timeLabel offset:3] topParent:edge] sizeEq:80 h:15.0] install];
+        [[[[titleLabel.layoutMaker toRightOf:imageView offset:10] toLeftOf:statusLabel offset:3] topParent:edge] install];
+        [[[[[[contentLabel.layoutMaker toRightOf:imageView offset:10] heightEq:15.0] rightParent:-46] below:titleLabel offset:0] bottomOf:imageView offset:0] install];
+        [[[[followButton.layoutMaker rightParent:-edge] bottomOf:imageView offset:0] sizeEq:20 h:20] install];
+        [[[[desLabel.layoutMaker leftParent:edge] rightParent:-46] below:contentLabel offset:5] install];
+        
+        [[[[[locationimageView.layoutMaker leftParent:edge] below:desLabel offset:7] bottomParent:-10] sizeEq:16 h:16] install];
+        [[[[[locationLabel.layoutMaker toRightOf:locationimageView offset:7] below:desLabel offset:7] sizeEq:100 h:16.0] bottomParent:-10] install];
+        [[[[[salaryLabel.layoutMaker rightParent:-edge] below:desLabel offset:7] sizeEq:100 h:16.0] bottomParent:-10] install];
+        
+        [[[[[bankImageView.layoutMaker toLeftOf:salaryLabel offset:-5] below:desLabel offset:7]  bottomParent:-10] sizeEq:16 h:16] install];
+        
+        
+        
+    }else{
+        desLabel.hidden=YES;
+        locationimageView.hidden=YES;
+        locationLabel.hidden=YES;
+        lineLabel.hidden=NO;
+        bgView.layer.borderColor=[UIColor clearColor].CGColor;
+        bgView.layer.borderWidth=0.0;
+        contentLabel.font = [Fonts semiBold:11];
+        contentLabel.textColor = Colors.textAlternate;
+        timeLabel.textAlignment=NSTextAlignmentRight;
+        timeLabel.font = [Fonts regular:12];
+        timeLabel.textColor = Colors.textDisabled;
+        statusLabel.font = [Fonts semiBold:8];
+        statusLabel.textColor = Colors.textAlternate;
+        titleLabel.font = [Fonts semiBold:13];
+        [titleLabel textColorMain];
+        titleLabel.numberOfLines=0;
+        salaryLabel.font = [Fonts regular:12];
+        salaryLabel.textColor = Colors.textDisabled;
+        
+        [[[[[bgView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
+        [[[[newimageView.layoutMaker leftParent:0] topParent:0] sizeEq:58 h:58] install];
+        [[[imageView.layoutMaker leftParent:edge] sizeEq:55 h:55] install];
+        
+        [[[[timeLabel.layoutMaker topParent:edge] rightParent:-edge] sizeEq:28 h:15.0] install];
+        [[[[statusLabel.layoutMaker toLeftOf:timeLabel offset:3] topParent:edge] sizeEq:80 h:15.0] install];
+        [[[[titleLabel.layoutMaker toRightOf:imageView offset:10] toLeftOf:statusLabel offset:3] topParent:edge] install];
+        
+        [[[[[contentLabel.layoutMaker toRightOf:imageView offset:10] heightEq:15.0] rightParent:-46] below:titleLabel offset:5] install];
+        
+        [[[[bankImageView.layoutMaker toRightOf:imageView offset:10] below:contentLabel offset:7] sizeEq:11 h:11] install];
+        [[[[[salaryLabel.layoutMaker toRightOf:bankImageView offset:7] below:contentLabel offset:5] heightEq:15.0] bottomParent:-edge] install];
+        [[[[followButton.layoutMaker rightParent:-edge] centerYOf:salaryLabel offset:0] sizeEq:20 h:20] install];
+         [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
+        [[imageView.layoutUpdate centerYParent:0] install];
+        
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

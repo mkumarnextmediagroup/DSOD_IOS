@@ -221,5 +221,14 @@
     return _c;
 }
 
++ (UIColor *)textColor9c {
+    //9c9c9c
+    static UIColor *_c = nil;
+    if (_c == nil) {
+        _c = rgb255(156, 156, 156);
+    }
+    return _c;
+}
+
 @end
 

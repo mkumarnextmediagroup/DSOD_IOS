@@ -35,4 +35,5 @@
 @property(class, nonatomic, readonly) UIColor *bgColorNor;
 @property(class, nonatomic, readonly) UIColor *bgColorUnite;
 @property(class, nonatomic, readonly) UIColor *lineColorNor;
+@property(class, nonatomic, readonly) UIColor *textColor9c;
 @end

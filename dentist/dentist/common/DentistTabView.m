@@ -11,12 +11,13 @@
 #import "TabCollectionViewCell.h"
 #import "IdName.h"
 
-#define itemWidth ceilf(SCREENWIDTH*2/7.0)
+//#define itemWidth ceilf(SCREENWIDTH*2/7.0)
 
 static NSString * identifier = @"TabCellID2";
 @interface DentistTabView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     NSInteger selectIndex;
+    CGFloat itemWidth;
 }
 @property (nonatomic, strong) UICollectionView * collectionView;
 @property (nonatomic,strong) NSMutableArray *indexArr;
@@ -38,13 +39,15 @@ static NSString * identifier = @"TabCellID2";
 {
     self =[super init];
     if (self) {
+        _isScrollEnable=YES;
+        itemWidth=ceilf(SCREENWIDTH*2/7.0);
         _groupCount=100;
         _indexArr=[[NSMutableArray alloc] init];
         //自动网格布局
         UICollectionViewFlowLayout * flowLayout = [[UICollectionViewFlowLayout alloc]init];
 
         //设置单元格大小
-        flowLayout.itemSize = CGSizeMake(itemWidth, 51);
+//        flowLayout.itemSize = CGSizeMake(itemWidth, 51);
 //        flowLayout.estimatedItemSize=CGSizeMake(itemWidth, 51);
 //        flowLayout.itemSize=UICollectionViewFlowLayoutAutomaticSize;
         //最小行间距(默认为10)
@@ -60,8 +63,9 @@ static NSString * identifier = @"TabCellID2";
         _collectionView=[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.backgroundColor=[UIColor whiteColor];
+        _collectionView.scrollEnabled=YES;
         [self addSubview:_collectionView];
-        [[[[[_collectionView.layoutMaker leftParent:0] topParent:0] rightParent:0] heightEq:51.0] install];
+        [[[[[_collectionView.layoutMaker leftParent:0] topParent:0] rightParent:0] bottomParent:0] install];
         //设置数据源代理
         _collectionView.dataSource = self;
         _collectionView.delegate=self;
@@ -72,6 +76,19 @@ static NSString * identifier = @"TabCellID2";
         
     }
     return self;
+}
+
+-(void)setIsScrollEnable:(BOOL)isScrollEnable{
+    _isScrollEnable=isScrollEnable;
+    _collectionView.scrollEnabled=_isScrollEnable;
+}
+
+-(void)setItemCount:(NSInteger)itemCount
+{
+    _itemCount=itemCount;
+    if (_itemCount>0) {
+        itemWidth=(SCREENWIDTH/_itemCount);
+    }
 }
 
 -(void)setTitleArr:(NSMutableArray *)titleArr
@@ -125,6 +142,12 @@ static NSString * identifier = @"TabCellID2";
     }
 }
 
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(itemWidth, self.frame.size.height);
+}
+
+
 #pragma mark - deleDate
 //有多少的分组
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -165,7 +188,9 @@ static NSString * identifier = @"TabCellID2";
         NSInteger index = [_indexArr[selectIndex] integerValue];
         NSLog(@"index=%@",@(selectIndex));
         //     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:selectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
-        [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
+        if (_isScrollEnable) {
+            [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
+        }
         [_collectionView reloadData];
         if (self.delegate && [self.delegate respondsToSelector:@selector(didDentistSelectItemAtIndex:)]) {
             [self.delegate didDentistSelectItemAtIndex:index];

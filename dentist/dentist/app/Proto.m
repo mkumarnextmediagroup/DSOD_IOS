@@ -23,6 +23,7 @@
 #import "BookmarkManager.h"
 #import "JobModel.h"
 #import "JobBookmarkModel.h"
+#import "JobApplyModel.h";
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -1917,7 +1918,7 @@
 }
 
 //MARK:2.7.   查询已申请职位列表
-+ (void)queryAllApplicationJobs:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
++ (void)queryAllApplicationJobs:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobApplyModel *> *array,NSInteger totalCount))completed {
     NSInteger limit=20;//分页数默认20条
     if (skip<=0) {
         skip=0;
@@ -1960,7 +1961,7 @@
             NSArray *arr = r.resultMap[@"data"];
             NSInteger totalFound=[r.resultMap[@"totalFound"] integerValue];
             for (NSDictionary *d in arr) {
-                JobModel *item = [[JobModel alloc] initWithJson:jsonBuild(d)];
+                JobApplyModel *item = [[JobApplyModel alloc] initWithJson:jsonBuild(d)];
                 if (item) {
                     [resultArray addObject:item];
                 }
@@ -1977,7 +1978,7 @@
 }
 
 //MARK:2.7.    查询所有职位列表
-+ (void)queryAllApplicationJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
++ (void)queryAllApplicationJobs:(NSInteger)skip completed:(void(^)(NSArray<JobApplyModel *> *array,NSInteger totalCount))completed {
     return [self queryAllApplicationJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
 }
 
@@ -2024,7 +2025,7 @@
 }
 
 //MARK:2.10.   查询已关注职位列表
-+ (void)queryJobBookmarks:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array))completed {
++ (void)queryJobBookmarks:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array,NSInteger totalCount))completed {
     NSInteger limit=20;//分页数默认20条
     if (skip<=0) {
         skip=0;
@@ -2065,6 +2066,7 @@
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"bookmarkList"];
+            NSInteger totalFound=[r.resultMap[@"totalFound"] integerValue];
             for (NSDictionary *d in arr) {
                 JobBookmarkModel *item = [[JobBookmarkModel alloc] initWithJson:jsonBuild(d)];
                 if (item) {
@@ -2072,18 +2074,18 @@
                 }
             }
             if (completed) {
-                completed(resultArray);
+                completed(resultArray,totalFound);
             }
         }else{
             if (completed) {
-                completed(nil);
+                completed(nil,0);
             }
         }
     }];
 }
 
 //MARK:2.10.   查询已关注职位列表
-+ (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array))completed {
++ (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array,NSInteger totalCount))completed {
     return [self queryJobBookmarks:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
 }
 

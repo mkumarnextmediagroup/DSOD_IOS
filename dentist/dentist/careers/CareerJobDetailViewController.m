@@ -11,11 +11,13 @@
 #import "UIView+Toast.h"
 #import "CompanyOfJobDetailTableViewCell.h"
 #import "DescriptionOfJobDetailTableViewCell.h"
+#import "CompanyReviewHeaderTableViewCell.h"
 #import "CompanyModel.h"
 #import "Proto.h"
 #import "JobModel.h"
+#import "DentistTabView.h"
 
-@interface CareerJobDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface CareerJobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
 
 @end
 
@@ -25,15 +27,19 @@
     UIView *naviBarView;
     UITableView *tableView;
     
+    UIView *sectionHeaderView;
+    
     int edge;
     int currTabIndex;//0:description 1:company 2:reviews
     
     JobModel *jobModel;
+    CompanyCommentModel *companyCommentModel;
+    NSArray *commentArray;
 }
 
 
 
-+(void)present:(UIViewController*)vc jobId:(NSString*)jobId{
++(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId{
     CareerJobDetailViewController *jobDetailVc = [CareerJobDetailViewController new];
     jobDetailVc.jobId = jobId;
     jobDetailVc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
@@ -131,18 +137,18 @@
     UILabel *jobLabel = headerView.addLabel;
     jobLabel.font = [Fonts semiBold:16];
     jobLabel.textColor = Colors.textMain;
-    [[[[jobLabel.layoutMaker toRightOf:logoImageView offset:10]rightParent:edge] below:mediaView offset:10]install] ;
+    [[[[jobLabel.layoutMaker toRightOf:logoImageView offset:10]rightParent:-edge] below:mediaView offset:10]install] ;
     
     UILabel *companyLabel = headerView.addLabel;
     companyLabel.font = [Fonts semiBold:14];
     companyLabel.textColor = Colors.textDisabled;
-    [[[[companyLabel.layoutMaker toRightOf:logoImageView offset:10]rightParent:edge] below:jobLabel offset:5]install] ;
+    [[[[companyLabel.layoutMaker toRightOf:logoImageView offset:10]rightParent:-edge] below:jobLabel offset:5]install] ;
     
     
     UILabel *salaryLabel = headerView.addLabel;
     salaryLabel.font = [Fonts semiBold:12];
     salaryLabel.textColor = Colors.textMain;
-    [[[[salaryLabel.layoutMaker toRightOf:logoImageView offset:10]rightParent:edge] below:companyLabel offset:5]install] ;
+    [[[[salaryLabel.layoutMaker toRightOf:logoImageView offset:10]rightParent:-edge] below:companyLabel offset:5]install] ;
     
     
     UIButton *addressBtn = headerView.addButton;
@@ -167,7 +173,7 @@
     //还没处理完 图片
     [mediaView loadUrl:jobModel.company.companyLogo placeholderImage:nil];
     [logoImageView loadUrl:jobModel.company.companyLogo placeholderImage:nil];
-    jobLabel.text = [NSString stringWithFormat:@"%@-%@",jobModel.jobTitle,jobModel.location];
+    jobLabel.text = [NSString stringWithFormat:@"%@ - %@",jobModel.jobTitle,jobModel.location];
     companyLabel.text = jobModel.company.companyName;
     salaryLabel.text = [NSString stringWithFormat:@"Est. Salary:%@",jobModel.salaryRange] ;
     [addressBtn setTitle:jobModel.company.address forState:UIControlStateNormal];
@@ -182,6 +188,7 @@
     return headerView;
 }
 
+
 -(UIView*)buildFooter{
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 100)];
     footerView.backgroundColor = UIColor.whiteColor;
@@ -189,6 +196,7 @@
     return footerView;
     
 }
+
 
 -(void)closePage{
     self.view.backgroundColor = UIColor.clearColor;
@@ -212,56 +220,34 @@
     
 }
 
--(void)chageTab:(UIButton*)tab{
-    currTabIndex = (int)tab.tag;
+
+#pragma mark DentistTabViewDelegate
+- (void)didDentistSelectItemAtIndex:(NSInteger)index{
+    currTabIndex = (int)index;
     [tableView reloadData];
 }
 
+
 #pragma mark UITableViewDelegate,UITableViewDataSource
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 50;
+}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    UIView *sectionHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 60)];
-    sectionHeaderView.backgroundColor = rgbHex(0xe6e6e6);
-    
-    UIButton *tab1 = sectionHeaderView.addButton;
-    tab1.tag = 1;
-    tab1.titleLabel.font = [Fonts regular:14];
-    [tab1 setTitle:@"COMPANY" forState:UIControlStateNormal];
-    [tab1 setTitleColor:rgbHex(0x1b1b1b) forState:UIControlStateNormal];
-    [tab1 onClick:self action:@selector(chageTab:)];
-    [[[[[tab1.layoutMaker widthEq:SCREENWIDTH / 3 ]topParent:2]bottomParent:0] centerXParent:0]install];
-    [tab1 setBackgroundImage:[UIImage imageNamed:@"seg-bg"] forState:UIControlStateNormal];
-    [tab1 setBackgroundImage:[UIImage imageNamed:@"seg-sel"] forState:UIControlStateSelected];
-    tab1.selected = currTabIndex == 1;
-    
-    
-    
-    UIButton *tab0 = sectionHeaderView.addButton;
-    tab0.tag = 0;
-    tab0.titleLabel.font = [Fonts regular:14];
-    [tab0 setTitle:@"DESCRIPTION" forState:UIControlStateNormal];
-    [tab0 setTitleColor:rgbHex(0x1b1b1b) forState:UIControlStateNormal];
-    [tab0 onClick:self action:@selector(chageTab:)];
-    [[[[[tab0.layoutMaker toLeftOf:tab1 offset:0] leftParent:0] topParent:2]bottomParent:0] install];
-    [tab0 setBackgroundImage:[UIImage imageNamed:@"seg-bg"] forState:UIControlStateNormal];
-    [tab0 setBackgroundImage:[UIImage imageNamed:@"seg-sel"] forState:UIControlStateSelected];
-    tab0.selected = currTabIndex == 0;
-    
-    
-    UIButton *tab2 = sectionHeaderView.addButton;
-    tab2.tag = 2;
-    tab2.titleLabel.font = [Fonts regular:14];
-    [tab2 setTitle:@"REVIEWS" forState:UIControlStateNormal];
-    [tab2 setTitleColor:rgbHex(0x1b1b1b) forState:UIControlStateNormal];
-    [tab2 onClick:self action:@selector(chageTab:)];
-    [[[[[tab2.layoutMaker toRightOf:tab1 offset:0] rightParent:0]topParent:2]bottomParent:0] install];
-    [tab2 setBackgroundImage:[UIImage imageNamed:@"seg-bg"] forState:UIControlStateNormal];
-    [tab2 setBackgroundImage:[UIImage imageNamed:@"seg-sel"] forState:UIControlStateSelected];
-    tab2.selected = currTabIndex == 2;
-    
-    
+    if(!sectionHeaderView){
+        sectionHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
+        
+        
+        DentistTabView *tabView = [DentistTabView new];
+        tabView.isScrollEnable=NO;
+        tabView.itemCount=3;
+        tabView.delegate=self;
+        [sectionHeaderView addSubview:tabView];
+        [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0]bottomParent:0]  install];
+        tabView.titleArr=[NSMutableArray arrayWithArray:@[@"DESCRIPTION",@"COMPANY",@"REVIEWS"]];
+        
+    }
     return sectionHeaderView;
 }
 
@@ -284,13 +270,10 @@
     switch (currTabIndex) {
         case 0:
             return [self descriptionOfJobDetailCell:tableView data:self->jobModel];
-            break;
         case 1:
             return [self companyOfJobDetailTableViewCell:tableView data:self->jobModel.company];
         case 2:
-            cell.textLabel.text = @"ccccccc";
-            break;
-            
+            return [self companyReviewHeaderCell:tableView data:self->companyCommentModel];
         default:
             break;
     }
@@ -305,6 +288,7 @@
         cell = [[DescriptionOfJobDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DescriptionOfJobDetailTableViewCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.tableView = tableView;
     [cell setData:model];
     return cell;
 }
@@ -314,6 +298,16 @@
     CompanyOfJobDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompanyOfJobDetailTableViewCell"];
     if (cell == nil) {
         cell = [[CompanyOfJobDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompanyOfJobDetailTableViewCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    [cell setData:model];
+    return cell;
+}
+
+-(UITableViewCell*)companyReviewHeaderCell:tableView data:(CompanyCommentModel*)model{
+    CompanyReviewHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompanyReviewHeaderTableViewCell"];
+    if (cell == nil) {
+        cell = [[CompanyReviewHeaderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompanyReviewHeaderTableViewCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     [cell setData:model];

@@ -10,6 +10,7 @@
 #import "DetailModel.h"
 #import "DiscussInfo.h"
 #import "BookmarkModel.h"
+#import "CompanyCommentModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -244,4 +245,10 @@
 + (void)queryJobBookmarks:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array,NSInteger totalCount))completed;
 //MARK:2.10.   查询已关注职位列表
 + (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array,NSInteger totalCount))completed ;
+
+
+//2.17.    查询单个公司评论列表接口
++ (void)findCommentByCompanyId:(NSString*)companyId sort:(NSInteger)sort star:(NSInteger)star
+                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(CompanyCommentModel * _Nullable companyCommentModel))completed ;
+
 @end

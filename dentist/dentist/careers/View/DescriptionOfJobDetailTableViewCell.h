@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DescriptionOfJobDetailTableViewCell : UITableViewCell
 
+@property (nonatomic,assign) UITableView *tableView;
+
 -(void)setData:(JobModel*)model;
 
 @end

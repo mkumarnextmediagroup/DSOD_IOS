@@ -16,9 +16,10 @@
 
 @interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate>
 {
-    NSArray *infoArr;
+    NSMutableArray *infoArr;
     UITableView *myTable;
     UILabel *jobCountTitle;
+    BOOL isdownrefresh;
 }
 @end
 
@@ -43,17 +44,8 @@
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class])];
     
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
-    [self showIndicator];
-    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-        foreTask(^{
-            [self hideIndicator];
-            [self setJobCountTitle:totalCount];
-            NSLog(@"%@",array);
-            self->infoArr = array;
-            [self->myTable reloadData];
-            
-        });
-    }];
+    [self setupRefresh];
+   
     
 //    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array,NSInteger totalCount) {
 //        NSLog(@"totalCount=%@;jobarr=%@",@(totalCount),array);
@@ -80,6 +72,39 @@
 //    }];
 
     // Do any additional setup after loading the view.
+}
+
+-(void)refreshData
+{
+    [self showIndicator];
+    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+        foreTask(^{
+            [self hideIndicator];
+            [self setJobCountTitle:totalCount];
+            NSLog(@"%@",array);
+            self->infoArr = [NSMutableArray arrayWithArray:array];
+            [self->myTable reloadData];
+            
+        });
+    }];
+}
+
+//MARK: 下拉刷新
+- (void)setupRefresh {
+    NSLog(@"setupRefresh -- 下拉刷新");
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshClick:) forControlEvents:UIControlEventValueChanged];
+    [self->myTable addSubview:refreshControl];
+    [refreshControl beginRefreshing];
+    [self refreshClick:refreshControl];
+}
+
+
+//MARK: 下拉刷新触发,在此获取数据
+- (void)refreshClick:(UIRefreshControl *)refreshControl {
+    NSLog(@"refreshClick: -- 刷新触发");
+    [self refreshData];
+    [refreshControl endRefreshing];
 }
 
 - (void)searchClick
@@ -169,6 +194,37 @@
 //    DSODetailPage *detail = [DSODetailPage new];
 //    [self.navigationController pushPage:detail];
 }
+
+
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    CGFloat height = scrollView.frame.size.height;
+//    CGFloat contentOffsetY = scrollView.contentOffset.y;
+//    CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
+//    if (bottomOffset <= height-50)
+//    {
+//        NSLog(@"==================================下啦刷选");
+//        if (!isdownrefresh) {
+//            isdownrefresh=YES;
+//            [self showIndicator];
+//            [Proto queryAllJobs:self->infoArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+//                self->isdownrefresh=NO;
+//                foreTask(^{
+//                    [self hideIndicator];
+//                    [self setJobCountTitle:totalCount];
+//                    NSLog(@"%@",array);
+//                    if(array && array.count>0){
+//                        [self->infoArr addObjectsFromArray:array];
+//                    }
+//                    [self->myTable reloadData];
+//                    
+//                });
+//            }];
+//           
+//        }
+//        
+//    }
+//}
 
 -(void)FollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {

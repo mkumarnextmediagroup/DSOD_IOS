@@ -49,17 +49,7 @@
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:@"myjobcell"];
     
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
-    [self showIndicator];
-    [Proto queryAllApplicationJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-        foreTask(^{
-            [self hideIndicator];
-            [self setJobCountTitle:totalCount];
-            NSLog(@"%@",array);
-            self->infoArr = array;
-            [self->myTable reloadData];
-            
-        });
-    }];
+    [self setupRefresh];
     
     //    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array,NSInteger totalCount) {
     //        NSLog(@"totalCount=%@;jobarr=%@",@(totalCount),array);
@@ -86,6 +76,56 @@
     //    }];
     
     // Do any additional setup after loading the view.
+}
+
+-(void)refreshData
+{
+    if(selectIndex==0){
+        [self->myTable reloadData];
+        [self showIndicator];
+        [Proto queryAllApplicationJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+            foreTask(^{
+                [self hideIndicator];
+                [self setJobCountTitle:totalCount];
+                NSLog(@"%@",array);
+                self->applyArr = [NSMutableArray arrayWithArray:array];
+                [self->myTable reloadData];
+                
+            });
+        }];
+    }else{
+        [self->myTable reloadData];
+        [self showIndicator];
+        [Proto queryJobBookmarks:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+            foreTask(^{
+                [self hideIndicator];
+                [self setJobCountTitle:totalCount];
+                NSLog(@"%@",array);
+                self->followArr = [NSMutableArray arrayWithArray:array];
+                [self->myTable reloadData];
+                
+            });
+        }];
+    }
+}
+
+
+//MARK: 下拉刷新
+- (void)setupRefresh {
+    NSLog(@"setupRefresh -- 下拉刷新");
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshClick:) forControlEvents:UIControlEventValueChanged];
+    [self->myTable addSubview:refreshControl];
+//    [refreshControl beginRefreshing];
+//    [self refreshClick:refreshControl];
+}
+
+
+//MARK: 下拉刷新触发,在此获取数据
+- (void)refreshClick:(UIRefreshControl *)refreshControl {
+    NSLog(@"refreshClick: -- 刷新触发");
+    [self refreshData];
+    [refreshControl endRefreshing];
 }
 
 - (void)searchClick
@@ -183,34 +223,9 @@
 {
     NSLog(@"selectindex=%@",@(index));
     selectIndex=index;
-    if(selectIndex==0){
-        [self->myTable reloadData];
-        [self showIndicator];
-        [Proto queryAllApplicationJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-            foreTask(^{
-                [self hideIndicator];
-                [self setJobCountTitle:totalCount];
-                NSLog(@"%@",array);
-                self->applyArr = [NSMutableArray arrayWithArray:array];
-                [self->myTable reloadData];
-                
-            });
-        }];
-    }else{
-        [self->myTable reloadData];
-        [self showIndicator];
-        [Proto queryJobBookmarks:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-            foreTask(^{
-                [self hideIndicator];
-                [self setJobCountTitle:totalCount];
-                NSLog(@"%@",array);
-                self->followArr = [NSMutableArray arrayWithArray:array];
-                [self->myTable reloadData];
-                
-            });
-        }];
-    }
+    [self refreshData];
 }
+
 
 -(void)FollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {

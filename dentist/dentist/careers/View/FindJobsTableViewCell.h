@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "JobModel.h"
-
+#import "JobsTableCellDelegate.h"
 @interface FindJobsTableViewCell : UITableViewCell
 @property (nonatomic,copy) JobModel *info;
 @property (nonatomic,assign) BOOL isNew;
-@property (nonatomic,assign) BOOL isDetail;
+@property (nonatomic,assign) BOOL follow;
+@property (nonatomic,copy) NSIndexPath *indexPath;
+@property (nonatomic,copy) NSString *followid;
+@property (nonatomic,weak) id<JobsTableCellDelegate>delegate;
+-(void)updateFollowStatus:(BOOL)isfllow;
 @end
 

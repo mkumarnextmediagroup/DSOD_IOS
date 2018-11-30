@@ -8,6 +8,7 @@
 
 #import "FindJobsSponsorTableViewCell.h"
 #import "Common.h"
+#import "LargeUIButton.h"
 #define edge 15
 
 @implementation FindJobsSponsorTableViewCell{
@@ -61,8 +62,15 @@
         salaryLabel = bgView.addLabel;
         
         
-        followButton =bgView.addButton;
-        [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+        followButton = [LargeUIButton new]; //bgView.addButton;
+        [bgView addSubview:followButton];
+        if (_follow) {
+            [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
+        }else{
+            [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+        }
+        
+        [followButton addTarget:self action:@selector(followAction:) forControlEvents:UIControlEventTouchUpInside];
         
         lineLabel=bgView.lineLabel;
         
@@ -116,6 +124,15 @@
         [salaryLabel sizeToFit];
         [[salaryLabel.layoutUpdate sizeEq:salaryLabel.frame.size.width h:16] install];
         [[bankImageView.layoutUpdate toLeftOf:salaryLabel offset:-5] install];
+        if (_follow) {
+            [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
+        }else{
+            if ([_info.isAttention boolValue]) {
+                [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
+            }else{
+                [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+            }
+        }
         
     }
 }
@@ -179,6 +196,37 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+-(void)followAction:(UIButton *)sender
+{
+    if(_follow){
+        if(self.delegate && [self.delegate respondsToSelector:@selector(UnFollowJobAction:view:)]){
+            [self.delegate UnFollowJobAction:_indexPath view:self];
+        }
+    }else{
+        if ([_info.isAttention boolValue]) {
+            if(self.delegate && [self.delegate respondsToSelector:@selector(UnFollowJobAction:view:)]){
+                [self.delegate UnFollowJobAction:_indexPath view:self];
+            }
+        }else{
+            if(self.delegate && [self.delegate respondsToSelector:@selector(FollowJobAction:view:)]){
+                [self.delegate FollowJobAction:_indexPath view:self];
+            }
+        }
+    }
+    
+}
+
+-(void)updateFollowStatus:(BOOL)isfllow
+{
+    if (isfllow) {
+        _info.isAttention=@"1";
+        [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
+    }else{
+        _info.isAttention=@"0";
+        [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+    }
 }
 
 @end

@@ -11,7 +11,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CareerMoreViewController : UIViewController
-
+{
+    UIImageView *iCanImageView;
+    UIImageView *menu_carImageView;
+    UIImageView *menu_movieImageView;
+    UIImageView *menu_setImageView;
+    UIImageView *menu_photoImageView;
+    BOOL isRonating;
+    int count;
+}
 @end
 
 NS_ASSUME_NONNULL_END

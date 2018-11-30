@@ -9,6 +9,7 @@
 #import "CareerFindJobViewController.h"
 #import "Proto.h"
 #import "FindJobsTableViewCell.h"
+#import "FindJobsSponsorTableViewCell.h"
 #import "DSODetailPage.h"
 #import "UIViewController+myextend.h"
 
@@ -36,6 +37,7 @@
     myTable.estimatedRowHeight = 100;
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
+    [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class])];
     
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
     [self showIndicator];
@@ -90,22 +92,45 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FindJobsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class]) forIndexPath:indexPath];
     if (indexPath.row<=1) {
-        cell.isDetail=YES;
-    }else{
-        cell.isDetail=NO;
-    }
-    if (indexPath.row<=4) {
-        cell.isNew=YES;
-    }else{
-        cell.isNew=NO;
-    }
-    if (self->infoArr && self->infoArr.count>indexPath.row) {
+        FindJobsSponsorTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class]) forIndexPath:indexPath];
         
-        cell.info=self->infoArr[indexPath.row];
+        //    FindJobsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
+        //    if (cell == nil) {
+        //        cell = [[FindJobsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
+        //    }
+        
+        if (self->infoArr && self->infoArr.count>indexPath.row) {
+            if (indexPath.row<=4) {
+                cell.isNew=YES;
+            }else{
+                cell.isNew=NO;
+            }
+            cell.info=self->infoArr[indexPath.row];
+        }
+        return cell;
+    }else{
+        FindJobsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class]) forIndexPath:indexPath];
+        
+        //    FindJobsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
+        //    if (cell == nil) {
+        //        cell = [[FindJobsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
+        //    }
+        
+        if (self->infoArr && self->infoArr.count>indexPath.row) {
+            
+            
+            if (indexPath.row<=4) {
+                cell.isNew=YES;
+            }else{
+                cell.isNew=NO;
+            }
+            cell.info=self->infoArr[indexPath.row];
+        }
+        return cell;
     }
-    return cell;
+    
+    
     
 }
 

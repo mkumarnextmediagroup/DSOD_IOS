@@ -8,6 +8,7 @@
 
 #import "FindJobsTableViewCell.h"
 #import "Common.h"
+#import "LargeUIButton.h"
 #define edge 15
 
 @implementation FindJobsTableViewCell{
@@ -65,12 +66,20 @@
         salaryLabel = bgView.addLabel;
         
         
-        followButton =bgView.addButton;
-        [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+        followButton = [LargeUIButton new]; //bgView.addButton;
+        [bgView addSubview:followButton];
+        if (_follow) {
+            [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
+        }else{
+            [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+        }
+        [followButton addTarget:self action:@selector(followAction:) forControlEvents:UIControlEventTouchUpInside];
         
         lineLabel=bgView.lineLabel;
         
         desLabel=bgView.addLabel;
+        
+        
         
         
         locationimageView=bgView.addImageView;
@@ -107,6 +116,15 @@
         salaryLabel.text=[NSString stringWithFormat:@"$%@k-$%@k",@(startsalary),@(endsalary)];
         desLabel.text=_info.jobDescription;
         locationLabel.text=_info.location;
+        if (_follow) {
+            [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
+        }else{
+            if ([_info.isAttention boolValue]) {
+                [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
+            }else{
+                [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+            }
+        }
     }
 }
 
@@ -120,16 +138,16 @@
     }
 }
 
--(void)setIsDetail:(BOOL)isDetail
-{
-    _isDetail=isDetail;
-    if (_isDetail) {
-        [self setDetailFrame];
-        
-    }else{
-        [self setNormalFrame];
-    }
-}
+//-(void)setIsDetail:(BOOL)isDetail
+//{
+//    _isDetail=isDetail;
+//    if (_isDetail) {
+//        [self setDetailFrame];
+//
+//    }else{
+//        [self setNormalFrame];
+//    }
+//}
 
 -(void)setDetailFrame{
     desLabel.hidden=NO;
@@ -222,6 +240,37 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+-(void)followAction:(UIButton *)sender
+{
+    if(_follow){
+        if(self.delegate && [self.delegate respondsToSelector:@selector(UnFollowJobAction:view:)]){
+            [self.delegate UnFollowJobAction:_indexPath view:self];
+        }
+    }else{
+        if ([_info.isAttention boolValue]) {
+            if(self.delegate && [self.delegate respondsToSelector:@selector(UnFollowJobAction:view:)]){
+                [self.delegate UnFollowJobAction:_indexPath view:self];
+            }
+        }else{
+            if(self.delegate && [self.delegate respondsToSelector:@selector(FollowJobAction:view:)]){
+                [self.delegate FollowJobAction:_indexPath view:self];
+            }
+        }
+    }
+}
+
+-(void)updateFollowStatus:(BOOL)isfllow
+{
+    
+    if (isfllow) {
+        _info.isAttention=@"1";
+        [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
+    }else{
+        _info.isAttention=@"0";
+        [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+    }
 }
 
 @end

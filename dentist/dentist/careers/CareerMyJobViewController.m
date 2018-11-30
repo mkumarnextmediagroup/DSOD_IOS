@@ -15,16 +15,17 @@
 #import "DentistTabView.h"
 #import "JobApplyModel.h"
 #import "JobBookmarkModel.h"
+#import "DsoToast.h"
 
-@interface CareerMyJobViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
+@interface CareerMyJobViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,JobsTableCellDelegate>
 {
     NSArray *infoArr;
     UITableView *myTable;
     UILabel *jobCountTitle;
     DentistTabView *tabView;
     NSInteger selectIndex;
-    NSArray *applyArr;
-    NSArray *followArr;
+    NSMutableArray *applyArr;
+    NSMutableArray *followArr;
 }
 @end
 
@@ -149,14 +150,19 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FindJobsSponsorTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"myjobcell" forIndexPath:indexPath];
+    cell.delegate=self;
+    cell.indexPath=indexPath;
     if (selectIndex==0) {
         if (self->applyArr && self->applyArr.count>indexPath.row) {
             JobApplyModel *applymodel=(JobApplyModel *)self->applyArr[indexPath.row];
             cell.info=applymodel.jobPO;
+            
         }
     }else{
         if (self->followArr && self->followArr.count>indexPath.row) {
             JobBookmarkModel *bookmarkmodel=(JobBookmarkModel *)self->followArr[indexPath.row];
+            cell.follow=YES;
+            cell.followid=bookmarkmodel.id;
             cell.info=bookmarkmodel.jobPO;
         }
     }
@@ -168,8 +174,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DSODetailPage *detail = [DSODetailPage new];
-    [self.navigationController pushPage:detail];
+//    DSODetailPage *detail = [DSODetailPage new];
+//    [self.navigationController pushPage:detail];
 }
 
 #pragma mark -------DentistTabViewDelegate
@@ -185,7 +191,7 @@
                 [self hideIndicator];
                 [self setJobCountTitle:totalCount];
                 NSLog(@"%@",array);
-                self->applyArr = array;
+                self->applyArr = [NSMutableArray arrayWithArray:array];
                 [self->myTable reloadData];
                 
             });
@@ -198,11 +204,60 @@
                 [self hideIndicator];
                 [self setJobCountTitle:totalCount];
                 NSLog(@"%@",array);
-                self->followArr = array;
+                self->followArr = [NSMutableArray arrayWithArray:array];
                 [self->myTable reloadData];
                 
             });
         }];
+    }
+}
+
+-(void)FollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
+{
+    NSLog(@"FollowJobAction");
+    NSString *jobid;
+    if (selectIndex==0) {
+        if (self->applyArr && self->applyArr.count>indexPath.row) {
+            JobApplyModel *applymodel=(JobApplyModel *)self->applyArr[indexPath.row];
+            jobid=applymodel.jobId;
+        }
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+        [Proto addJobBookmark:jobid completed:^(HttpResult *result) {
+            NSLog(@"result=%@",@(result.code));
+            foreTask(^() {
+                [self.navigationController.view hideToast];
+                if ([view isKindOfClass:[FindJobsSponsorTableViewCell class]]) {
+                    FindJobsSponsorTableViewCell *cell =(FindJobsSponsorTableViewCell *)view;
+                    [cell updateFollowStatus:result];
+                }else if([view isKindOfClass:[FindJobsTableViewCell class]]){
+                    FindJobsTableViewCell *cell =(FindJobsTableViewCell *)view;
+                    [cell updateFollowStatus:result];
+                }
+            });
+        }];
+    }
+}
+
+-(void)UnFollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
+{
+    NSLog(@"UnFollowJobAction");
+    NSString *followid;
+    if (selectIndex==1) {
+        if (self->followArr && self->followArr.count>indexPath.row) {
+            JobBookmarkModel *followmodel=(JobBookmarkModel *)self->followArr[indexPath.row];
+            followid=followmodel.id;
+            UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
+            [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+            [Proto deleteJobBookmark:followid completed:^(HttpResult *result) {
+                NSLog(@"result=%@",@(result.code));
+                foreTask(^() {
+                    [self.navigationController.view hideToast];
+                    [self->followArr removeObjectAtIndex:indexPath.row];
+                    [self->myTable reloadData];
+                });
+            }];
+        }
     }
 }
 

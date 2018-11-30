@@ -12,8 +12,9 @@
 #import "FindJobsSponsorTableViewCell.h"
 #import "DSODetailPage.h"
 #import "UIViewController+myextend.h"
+#import "DsoToast.h"
 
-@interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate>
 {
     NSArray *infoArr;
     UITableView *myTable;
@@ -131,12 +132,8 @@
 {
     if (indexPath.row<=1) {
         FindJobsSponsorTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class]) forIndexPath:indexPath];
-        
-        //    FindJobsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
-        //    if (cell == nil) {
-        //        cell = [[FindJobsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
-        //    }
-        
+        cell.delegate=self;
+        cell.indexPath=indexPath;
         if (self->infoArr && self->infoArr.count>indexPath.row) {
             if (indexPath.row<=4) {
                 cell.isNew=YES;
@@ -148,12 +145,8 @@
         return cell;
     }else{
         FindJobsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class]) forIndexPath:indexPath];
-        
-        //    FindJobsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
-        //    if (cell == nil) {
-        //        cell = [[FindJobsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
-        //    }
-        
+        cell.delegate=self;
+        cell.indexPath=indexPath;
         if (self->infoArr && self->infoArr.count>indexPath.row) {
             
             
@@ -173,8 +166,39 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DSODetailPage *detail = [DSODetailPage new];
-    [self.navigationController pushPage:detail];
+//    DSODetailPage *detail = [DSODetailPage new];
+//    [self.navigationController pushPage:detail];
+}
+
+-(void)FollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
+{
+    NSLog(@"FollowJobAction");
+    if (self->infoArr && self->infoArr.count>indexPath.row) {
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+        JobModel *model=self->infoArr[indexPath.row];
+        NSString *jobid=model.id;
+        [Proto addJobBookmark:jobid completed:^(HttpResult *result) {
+            NSLog(@"result=%@",@(result.code));
+            foreTask(^() {
+                [self.navigationController.view hideToast];
+                if ([view isKindOfClass:[FindJobsSponsorTableViewCell class]]) {
+                    FindJobsSponsorTableViewCell *cell =(FindJobsSponsorTableViewCell *)view;
+                    [cell updateFollowStatus:result];
+                }else if([view isKindOfClass:[FindJobsTableViewCell class]]){
+                    FindJobsTableViewCell *cell =(FindJobsTableViewCell *)view;
+                    [cell updateFollowStatus:result];
+                }
+            });
+        }];
+    }
+    
+    
+}
+
+-(void)UnFollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
+{
+    NSLog(@"UnFollowJobAction");
 }
 
 

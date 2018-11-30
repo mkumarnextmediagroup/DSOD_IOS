@@ -24,6 +24,8 @@
 #import "JobModel.h"
 #import "JobBookmarkModel.h"
 #import "JobApplyModel.h";
+#import "CompanyCommentModel.h"
+
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -2087,6 +2089,35 @@
 //MARK:2.10.   查询已关注职位列表
 + (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array,NSInteger totalCount))completed {
     return [self queryJobBookmarks:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
+}
+
+
+
+//2.17.    查询单个公司评论列表接口
++ (void)findCommentByCompanyId:(NSString*)companyId sort:(NSInteger)sort star:(NSInteger)star
+                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(CompanyCommentModel *companyCommentModel))completed {
+    
+    
+    NSDictionary *paradic = @{@"companyId" : companyId,
+                              @"limit" : [NSNumber numberWithInteger:limit],
+                              @"skip" : [NSNumber numberWithInteger:skip],
+                              @"sort" : [NSNumber numberWithInteger:sort],
+                              @"star" : [NSNumber numberWithInteger:star]};
+    
+    [self postAsync3:@"comment/findCommentByCompanyId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+        CompanyCommentModel *model = nil;
+        if (r.OK && r.resultMap[@"commentPO"]) {
+            NSDictionary *commentPO =  r.resultMap[@"commentPO"];
+            if(commentPO){
+                model = [[CompanyCommentModel alloc] initWithJson:jsonBuild(commentPO)];
+            }
+        }
+        if(completed){
+            foreTask(^{
+                completed(model);
+            });
+        }
+    }];
 }
 
 @end

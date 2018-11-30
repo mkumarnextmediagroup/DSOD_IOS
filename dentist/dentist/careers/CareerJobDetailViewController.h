@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *jobId;
 
 
-+(void)present:(UIViewController*)vc jobId:(NSString*)jobId;
++(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId;
 
 @end
 

@@ -13,6 +13,8 @@
 @property(readonly) NSString *textTrimed;
 @property(readonly) NSString *textReplace;
 
+-(void)setRightViewWithTextField:(UITextField *)textField imageName:(NSString *)imageName;
+
 - (void)styleRounded;
 
 - (void)styleRoundedGray;

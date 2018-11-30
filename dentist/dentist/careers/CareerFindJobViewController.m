@@ -17,6 +17,7 @@
 {
     NSArray *infoArr;
     UITableView *myTable;
+    UILabel *jobCountTitle;
 }
 @end
 
@@ -36,6 +37,7 @@
     myTable.rowHeight = UITableViewAutomaticDimension;
     myTable.estimatedRowHeight = 100;
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    myTable.tableHeaderView=[self makeHeaderView];
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class])];
     
@@ -44,11 +46,10 @@
     [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideIndicator];
+            [self setJobCountTitle:totalCount];
             NSLog(@"%@",array);
             self->infoArr = array;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self->myTable reloadData];
-            });
+            [self->myTable reloadData];
             
         });
     }];
@@ -83,6 +84,42 @@
 - (void)searchClick
 {
     NSLog(@"search btn click");
+}
+
+-(void)clickFilter:(UIButton *)sender
+{
+    NSLog(@"Filter btn click");
+}
+
+-(void)setJobCountTitle:(NSInteger)jobcount
+{
+    if (jobcount>0) {
+        NSString *jobcountstr=[NSString stringWithFormat:@"%@Jobs",@(jobcount)];
+        NSString *jobstr=[NSString stringWithFormat:@"%@ | 5 New",jobcountstr];
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:jobstr];
+        [str addAttribute:NSForegroundColorAttributeName value:Colors.textMain range:NSMakeRange(0,jobcountstr.length+2)];
+        [str addAttribute:NSForegroundColorAttributeName value:Colors.textDisabled range:NSMakeRange(jobcountstr.length+2,jobstr.length - (jobcountstr.length+2))];
+        jobCountTitle.attributedText = str;
+    }else{
+        jobCountTitle.text=@"";
+    }
+    
+}
+
+- (UIView *)makeHeaderView {
+    UIView *panel = [UIView new];
+    panel.frame = makeRect(0, 0, SCREENWIDTH, 32);
+    panel.backgroundColor=[UIColor clearColor];
+    
+    jobCountTitle=panel.addLabel;
+    jobCountTitle.font=[Fonts semiBold:13];
+    [[[[[jobCountTitle.layoutMaker leftParent:20] topParent:0] bottomParent:0] rightParent:40] install];
+    
+    UIButton *filterButton = [panel addButton];
+    [filterButton setImage:[UIImage imageNamed:@"desc"] forState:UIControlStateNormal];
+    [[[[filterButton.layoutMaker topParent:4] rightParent:-15] sizeEq:24 h:24] install];
+    [filterButton onClick:self action:@selector(clickFilter:)];
+    return panel;
 }
 
 

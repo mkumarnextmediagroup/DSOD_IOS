@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DentistTabView : UIView
 @property (nonatomic,weak) id<DentistTabViewDelegate>delegate;
+@property (nonatomic,assign) BOOL isScrollEnable;
+@property (nonatomic,assign) NSInteger itemCount;
 @property (nonatomic,strong) NSMutableArray *titleArr;
 @property (nonatomic,strong) NSMutableArray<IdName *> *modelArr;
 @end

@@ -7,7 +7,7 @@
 #import "Common.h"
 #import "DSOProfilePage.h"
 #import "UIButton+styled.h"
-//#import "FilterView.h"
+#import "FilterView.h"
 
 #define kMaxBtnCount 4
 #define leftToX 20
@@ -37,7 +37,15 @@
     UIImageView *img = [UIImageView new];
     [self.view addSubview:img];
     [[[[img.layoutMaker sizeEq:SCREENWIDTH h:IMAGE_HEIGHT] topParent:NAVHEIGHT] leftParent:0] install];
-    img.image = [UIImage imageNamed:@"sponsor_align_banner"];
+    img.image = [UIImage imageNamed:@"career-image"];
+    
+    UILabel *content = self.view.addLabel;
+    content.font = [Fonts heavy:26];
+    content.numberOfLines = 2;
+    content.textColor = [UIColor whiteColor];
+    content.text = @" Employment Opportunities";
+    [[[[content.layoutMaker sizeEq:200 h:70] topParent:IMAGE_HEIGHT-20] leftParent:(SCREENWIDTH-200)/2] install];
+    
     
     for (int i=0; i<kMaxBtnCount; i++) {
         UIButton *funBtn = self.view.addButton;
@@ -79,9 +87,9 @@
 
     }else if (btn.tag == 12)//review button click
     {
-//        FilterView *view = [[FilterView alloc] init];
-//        [view initWithSubView];
-//        [self.view addSubview:view];
+        FilterView *view = [[FilterView alloc] init];
+        [view initWithSubView];
+        [self.view addSubview:view];
 
     }
 }

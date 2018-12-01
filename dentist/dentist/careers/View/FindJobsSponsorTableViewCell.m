@@ -1,17 +1,17 @@
 //
-//  FindJobsTableViewCell.m
+//  FindJobsSponsorTableViewCell.m
 //  dentist
 //
-//  Created by feng zhenrong on 2018/11/29.
+//  Created by feng zhenrong on 2018/11/30.
 //  Copyright © 2018年 thenextmediagroup.com. All rights reserved.
 //
 
-#import "FindJobsTableViewCell.h"
+#import "FindJobsSponsorTableViewCell.h"
 #import "Common.h"
 #import "LargeUIButton.h"
 #define edge 15
 
-@implementation FindJobsTableViewCell{
+@implementation FindJobsSponsorTableViewCell{
     UIView *largeView;
     UIView *bgView;
     UILabel *titleLabel;
@@ -28,24 +28,20 @@
     UIImageView *locationimageView;
     UILabel *locationLabel;
 }
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
         bgView=self.contentView.addView;
-
+        
         imageView = bgView.addImageView;
-
+        
         newimageView=bgView.addImageView;
         newimageView.image=[UIImage imageNamed:@"Group Copy"];
         [newimageView scaleFillAspect];
         newimageView.clipsToBounds=YES;
-
+        
         contentLabel=bgView.addLabel;
         
         
@@ -73,13 +69,12 @@
         }else{
             [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
         }
+        
         [followButton addTarget:self action:@selector(followAction:) forControlEvents:UIControlEventTouchUpInside];
         
         lineLabel=bgView.lineLabel;
         
         desLabel=bgView.addLabel;
-        
-        
         
         
         locationimageView=bgView.addImageView;
@@ -94,9 +89,19 @@
         locationLabel.hidden=YES;
         newimageView.hidden=YES;
         
-        [self setNormalFrame];
+        [self setDetailFrame];
     }
     return self;
+}
+
+-(void)setIsNew:(BOOL)isNew
+{
+    _isNew=isNew;
+    if (_isNew) {
+        newimageView.hidden=NO;
+    }else{
+        newimageView.hidden=YES;
+    }
 }
 
 -(void)setInfo:(JobModel *)info
@@ -116,6 +121,9 @@
         salaryLabel.text=[NSString stringWithFormat:@"$%@k-$%@k",@(startsalary),@(endsalary)];
         desLabel.text=_info.jobDescription;
         locationLabel.text=_info.location;
+        [salaryLabel sizeToFit];
+        [[salaryLabel.layoutUpdate sizeEq:salaryLabel.frame.size.width h:16] install];
+        [[bankImageView.layoutUpdate toLeftOf:salaryLabel offset:-5] install];
         if (_follow) {
             [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
         }else{
@@ -125,29 +133,9 @@
                 [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
             }
         }
+        
     }
 }
-
--(void)setIsNew:(BOOL)isNew
-{
-    _isNew=isNew;
-    if (_isNew) {
-        newimageView.hidden=NO;
-    }else{
-        newimageView.hidden=YES;
-    }
-}
-
-//-(void)setIsDetail:(BOOL)isDetail
-//{
-//    _isDetail=isDetail;
-//    if (_isDetail) {
-//        [self setDetailFrame];
-//
-//    }else{
-//        [self setNormalFrame];
-//    }
-//}
 
 -(void)setDetailFrame{
     desLabel.hidden=NO;
@@ -191,49 +179,17 @@
     [[[[followButton.layoutMaker rightParent:-edge] bottomOf:imageView offset:0] sizeEq:20 h:20] install];
     [[[[desLabel.layoutMaker leftParent:edge] rightParent:-46] below:contentLabel offset:5] install];
     
-    [[[[[locationimageView.layoutMaker leftParent:edge] below:desLabel offset:7] bottomParent:-10] sizeEq:16 h:16] install];
+    [[[[locationimageView.layoutMaker leftParent:edge] below:desLabel offset:8]  sizeEq:12 h:12] install];
     [[[[[locationLabel.layoutMaker toRightOf:locationimageView offset:7] below:desLabel offset:7] sizeEq:100 h:16.0] bottomParent:-10] install];
     [[[[[salaryLabel.layoutMaker rightParent:-edge] below:desLabel offset:7] sizeEq:100 h:16.0] bottomParent:-10] install];
     
-    [[[[[bankImageView.layoutMaker toLeftOf:salaryLabel offset:-5] below:desLabel offset:7]  bottomParent:-10] sizeEq:16 h:16] install];
-
+    [[[[bankImageView.layoutMaker toLeftOf:salaryLabel offset:-5] below:desLabel offset:8]   sizeEq:12 h:12] install];
+    
 }
 
--(void)setNormalFrame{
-    desLabel.hidden=YES;
-    locationimageView.hidden=YES;
-    locationLabel.hidden=YES;
-    lineLabel.hidden=NO;
-    bgView.layer.borderColor=[UIColor clearColor].CGColor;
-    bgView.layer.borderWidth=0.0;
-    contentLabel.font = [Fonts semiBold:11];
-    contentLabel.textColor = Colors.textAlternate;
-    timeLabel.textAlignment=NSTextAlignmentRight;
-    timeLabel.font = [Fonts regular:12];
-    timeLabel.textColor = Colors.textDisabled;
-    statusLabel.font = [Fonts semiBold:8];
-    statusLabel.textColor = Colors.textAlternate;
-    titleLabel.font = [Fonts semiBold:13];
-    [titleLabel textColorMain];
-    titleLabel.numberOfLines=0;
-    salaryLabel.font = [Fonts regular:12];
-    salaryLabel.textColor = Colors.textDisabled;
-    
-    [[[[[bgView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
-    [[[[newimageView.layoutMaker leftParent:0] topParent:0] sizeEq:58 h:58] install];
-    [[[imageView.layoutMaker leftParent:edge] sizeEq:55 h:55] install];
-    
-    [[[[timeLabel.layoutMaker topParent:edge] rightParent:-edge] sizeEq:28 h:15.0] install];
-    [[[[statusLabel.layoutMaker toLeftOf:timeLabel offset:3] topParent:edge] sizeEq:80 h:15.0] install];
-    [[[[titleLabel.layoutMaker toRightOf:imageView offset:10] toLeftOf:statusLabel offset:3] topParent:edge] install];
-    
-    [[[[[contentLabel.layoutMaker toRightOf:imageView offset:10] heightEq:15.0] rightParent:-46] below:titleLabel offset:5] install];
-    
-    [[[[bankImageView.layoutMaker toRightOf:imageView offset:10] below:contentLabel offset:7] sizeEq:11 h:11] install];
-    [[[[[salaryLabel.layoutMaker toRightOf:bankImageView offset:7] below:contentLabel offset:5] heightEq:15.0] bottomParent:-edge] install];
-    [[[[followButton.layoutMaker rightParent:-edge] centerYOf:salaryLabel offset:0] sizeEq:20 h:20] install];
-    [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
-    [[imageView.layoutUpdate centerYParent:0] install];
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -259,11 +215,11 @@
             }
         }
     }
+    
 }
 
 -(void)updateFollowStatus:(BOOL)isfllow
 {
-    
     if (isfllow) {
         _info.isAttention=@"1";
         [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];

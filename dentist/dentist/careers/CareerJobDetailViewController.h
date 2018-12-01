@@ -7,15 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CareerJobDetailViewController : UIViewController
+@interface CareerJobDetailViewController : BaseController
 
 @property (nonatomic,strong) NSString *jobId;
 
 
-+(void)present:(UIViewController*)vc jobId:(NSString*)jobId;
++(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId;
 
 @end
 

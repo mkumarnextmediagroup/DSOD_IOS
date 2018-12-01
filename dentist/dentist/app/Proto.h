@@ -10,6 +10,8 @@
 #import "DetailModel.h"
 #import "DiscussInfo.h"
 #import "BookmarkModel.h"
+#import "CompanyCommentModel.h"
+#import "CompanyModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -19,6 +21,7 @@
 @class MagazineModel;
 @class JobModel;
 @class JobBookmarkModel;
+@class JobApplyModel;
 
 @interface Proto : NSObject
 
@@ -230,9 +233,9 @@
 + (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 
 //MARK:2.7.   查询已申请职位列表
-+ (void)queryAllApplicationJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
++ (void)queryAllApplicationJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobApplyModel *> *array,NSInteger totalCount))completed;
 //MARK:2.7.    查询所有职位列表
-+ (void)queryAllApplicationJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
++ (void)queryAllApplicationJobs:(NSInteger)skip completed:(void(^)(NSArray<JobApplyModel *> *array,NSInteger totalCount))completed;
 //MARK:2.6.    添加职位申请接口
 +(void)addJobApplication:(NSString *_Nullable)jobId completed:(void(^)(HttpResult *result))completed;
 //MARK:2.8.  添加职位关注接口
@@ -240,7 +243,17 @@
 //MARK:2.9.  删除职位关注接口
 +(void)deleteJobBookmark:(NSString *_Nullable)jobId completed:(void(^)(HttpResult *result))completed;
 //MARK:2.10.   查询已关注职位列表
-+ (void)queryJobBookmarks:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array))completed;
++ (void)queryJobBookmarks:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array,NSInteger totalCount))completed;
 //MARK:2.10.   查询已关注职位列表
-+ (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array))completed ;
++ (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array,NSInteger totalCount))completed ;
+
+
+//2.14.    查询公司详情接口
++ (void)findCompanyById:(NSString*)companyId completed:(void(^)(CompanyModel  * _Nullable companyModel))completed ;
+    
+    
+//2.17.    查询单个公司评论列表接口
++ (void)findCommentByCompanyId:(NSString*)companyId sort:(NSInteger)sort star:(NSInteger)star
+                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(CompanyCommentModel * _Nullable companyCommentModel))completed ;
+
 @end

@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
-
+NS_ASSUME_NONNULL_BEGIN
 @interface DSODetailPage : BaseController
 
+@property (nonatomic,strong) NSString *companyId;
+
+
++(void)openBy:(UIViewController*)vc companyId:(NSString*)companyId;
+
+NS_ASSUME_NONNULL_END
 @end

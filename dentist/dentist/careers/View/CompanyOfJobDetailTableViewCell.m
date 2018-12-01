@@ -126,16 +126,6 @@
     contactPersonValueLabel.text = model.contactPerson;
     detailValueLabel.text = model.companyDesc;
     
-    
-    //    websiteValueLabel.text = @"http://www.baidu.com/sadfadfds#dsfdsf#afdsfsd=fdghfdh&ghdfghdfh9egsgdfgdsgdsgdfsgdfg";
-    //    yearOfFoundationValueLabel.text = @"2013";
-    //    numOfEmployeesValueLabel.text = @"30 - 50";
-    //    stageValueLabel.text = @"Revenue Growth";
-    //    contactPersonValueLabel.text = @"jones";
-    //    detailValueLabel.text = @"Associate Dentist - LaQuinta and its affiliated companies announced the appointment of Tony Verna as vice president, Provider Services. In his  new role, Verna will be responsible for overseeing provider services an";
-    
-    
-    
 }
 
 

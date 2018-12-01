@@ -304,6 +304,16 @@ static char maxLengthAttr = 0;
 	self.text = s;
 }
 
+-(void)setRightViewWithTextField:(UITextField *)textField imageName:(NSString *)imageName{
+    
+    UIImageView *rightView = [[UIImageView alloc]init];
+    rightView.image = [UIImage imageNamed:imageName];
+    rightView.contentMode = UIViewContentModeCenter;
+    rightView.frame = CGRectMake(0, 0, 28, 28);
+    textField.rightView = rightView;
+    textField.rightViewMode = UITextFieldViewModeAlways;
+    
+}
 
 - (void)returnDone {
 	self.returnKeyType = UIReturnKeyDone;

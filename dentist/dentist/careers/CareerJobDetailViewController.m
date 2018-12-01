@@ -155,7 +155,7 @@
     addressBtn.titleLabel.font = [Fonts regular:12];
     [addressBtn setTitleColor:Colors.textMain forState:UIControlStateNormal];
     [addressBtn onClick:self action:@selector(showLocation)];
-    addressBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 100);
+    addressBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 50);
     [addressBtn setBackgroundImage:[UIImage imageNamed:@"career_location_bg"] forState:UIControlStateNormal];
     [addressBtn setBackgroundImage:[UIImage imageNamed:@"career_location_bg"] forState:UIControlStateHighlighted];
     addressBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -186,15 +186,6 @@
     
     
     return headerView;
-}
-
-
--(UIView*)buildFooter{
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 100)];
-    footerView.backgroundColor = UIColor.whiteColor;
-    
-    return footerView;
-    
 }
 
 

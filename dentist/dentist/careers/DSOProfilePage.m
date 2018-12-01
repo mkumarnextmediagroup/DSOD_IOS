@@ -9,13 +9,13 @@
 #import "DSOProfilePage.h"
 #import "Common.h"
 #import "DSOProfileTableViewCell.h"
-#import "CareerJobDetailViewController.h"
+#import "DSODetailPage.h"
 #import "Proto.h"
 #import "JobModel.h"
 
 @interface DSOProfilePage ()<UITableViewDelegate,UITableViewDataSource>
 {
-    NSArray *infoArr;
+    NSArray<JobModel *> *infoArr;
     UITableView *myTable;
 }
 @end
@@ -82,10 +82,10 @@
     
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CareerJobDetailViewController *detail = [CareerJobDetailViewController new];
-    [self.navigationController pushPage:detail];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+//    [DSODetailPage openBy:self companyId:infoArr[indexPath.row].company.id];
+    [DSODetailPage openBy:self companyId:@"5bea77e49a08064eec5c328a"];
 }
 
 - (void)onBack:(UIButton *)btn {

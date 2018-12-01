@@ -25,6 +25,7 @@
 #import "JobBookmarkModel.h"
 #import "JobApplyModel.h";
 #import "CompanyCommentModel.h"
+#import "CompanyModel.h"
 
 
 //测试模拟数据
@@ -2092,6 +2093,24 @@
 }
 
 
+//2.14.    查询公司详情接口
++ (void)findCompanyById:(NSString*)companyId completed:(void(^)(CompanyModel *companyModel))completed {
+    
+    NSDictionary *paradic = @{@"companyId":companyId};
+    [self postAsync2:@"company/findOneById" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+        CompanyModel *model = nil;
+        if (r.OK && r.resultMap[@"companyPO"]) {
+            NSDictionary *dic =  r.resultMap[@"companyPO"];
+            model = [[CompanyModel alloc] initWithJson:jsonBuild(dic)];
+            
+        }
+        if(completed){
+            foreTask(^{
+                completed(model);
+            });
+        }
+    }];
+}
 
 //2.17.    查询单个公司评论列表接口
 + (void)findCommentByCompanyId:(NSString*)companyId sort:(NSInteger)sort star:(NSInteger)star

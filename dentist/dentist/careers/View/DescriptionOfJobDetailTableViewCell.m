@@ -47,10 +47,15 @@
 
 
 -(void)setData:(JobModel*)model{
-    
-     [mywebView loadHTMLString:[self htmlString:model.jobDescription] baseURL:nil];
+    if(model.jobDescription){
+        [self showContent:model.jobDescription];
+    }
 }
 
+
+-(void)showContent:(NSString*)html{
+    [mywebView loadHTMLString:[self htmlString:html] baseURL:nil];
+}
 
 
 
@@ -63,9 +68,10 @@
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
     
     CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
-    [[mywebView.layoutUpdate heightEq:webViewHeight] install];
+    
     
     [self.tableView beginUpdates];
+    [[mywebView.layoutUpdate heightEq:webViewHeight] install];
     [self.tableView endUpdates];
     
 }

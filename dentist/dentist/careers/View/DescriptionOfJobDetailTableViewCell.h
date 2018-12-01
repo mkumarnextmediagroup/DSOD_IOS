@@ -15,7 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,assign) UITableView *tableView;
 
+
 -(void)setData:(JobModel*)model;
+
+//sub class use
+-(void)showContent:(NSString*)html;
 
 @end
 

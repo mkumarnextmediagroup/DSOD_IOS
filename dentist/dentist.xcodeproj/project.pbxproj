@@ -118,6 +118,7 @@
 		43B7252D217650FF000F6797 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252C217650FF000F6797 /* ExampleTests.m */; };
 		43B72530217651A8000F6797 /* KiwiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252F217651A8000F6797 /* KiwiTests.m */; };
 		43D98CAD219DAE04004C3FBD /* FontsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D98CAC219DAE04004C3FBD /* FontsTests.m */; };
+		43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E409AB21B24E650016E102 /* CMSBookmarkControllerTests.m */; };
 		43F92B7A217D94B400798462 /* LoginControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F92B79217D94B400798462 /* LoginControllerTests.m */; };
 		4E0C115521806147007DC63D /* CMSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C115421806147007DC63D /* CMSModel.m */; };
 		4E0C11592181C75B007DC63D /* DetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C11582181C75B007DC63D /* DetailModel.m */; };
@@ -955,6 +956,7 @@
 		43B7252C217650FF000F6797 /* ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleTests.m; sourceTree = "<group>"; };
 		43B7252F217651A8000F6797 /* KiwiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KiwiTests.m; sourceTree = "<group>"; };
 		43D98CAC219DAE04004C3FBD /* FontsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FontsTests.m; sourceTree = "<group>"; };
+		43E409AB21B24E650016E102 /* CMSBookmarkControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSBookmarkControllerTests.m; sourceTree = "<group>"; };
 		43F92B79217D94B400798462 /* LoginControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginControllerTests.m; sourceTree = "<group>"; };
 		4E0C115321806147007DC63D /* CMSModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMSModel.h; sourceTree = "<group>"; };
 		4E0C115421806147007DC63D /* CMSModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSModel.m; sourceTree = "<group>"; };
@@ -2055,6 +2057,7 @@
 		4341949021A597320029AECE /* CMS */ = {
 			isa = PBXGroup;
 			children = (
+				43E409AA21B24E3E0016E102 /* BookmarkController */,
 				4341949121A598A90029AECE /* ForYou */,
 			);
 			path = CMS;
@@ -2129,6 +2132,14 @@
 				43B7252221764CF4000F6797 /* Info.plist */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		43E409AA21B24E3E0016E102 /* BookmarkController */ = {
+			isa = PBXGroup;
+			children = (
+				43E409AB21B24E650016E102 /* CMSBookmarkControllerTests.m */,
+			);
+			path = BookmarkController;
 			sourceTree = "<group>";
 		};
 		43F92B78217D949A00798462 /* Login */ = {
@@ -4158,6 +4169,7 @@
 				4344660121A5614A00811E94 /* UIButtonExtTests.m in Sources */,
 				43488F4E2199BAEB00FDC15E /* ColorTests.m in Sources */,
 				4341949321A598BE0029AECE /* CmsForYouPageTests.m in Sources */,
+				43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */,
 				43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */,
 				43B7252D217650FF000F6797 /* ExampleTests.m in Sources */,
 				439D55EB2189DBFA003BB940 /* ProfileEditPageTests.m in Sources */,

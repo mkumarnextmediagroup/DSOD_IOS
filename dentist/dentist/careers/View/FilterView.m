@@ -8,6 +8,7 @@
 
 #import "FilterView.h"
 #import "Common.h"
+#import "UITextField+styled.h"
 
 #define edge 20
 #define Xleft 15
@@ -29,6 +30,7 @@
     [[[mScroll.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT] topParent:0] install];
     
     self.backgroundColor = [UIColor whiteColor];
+    [self createCloseBtn];
     [self createSkill];
     [self createSalary];
     [self createExperence];
@@ -37,6 +39,15 @@
     [self createCompany];
     [self createFunBtn];
     self.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT);
+}
+
+- (void)createCloseBtn
+{
+    UIButton *closeBtn = mScroll.addButton;
+//    closeBtn.backgroundColor = [UIColor blueColor];
+    [closeBtn setImage:[UIImage imageNamed:@"close_select"] forState:UIControlStateNormal];
+    [[[[closeBtn.layoutMaker sizeEq:50 h:50] topParent:10] leftParent:SCREENWIDTH-60] install];
+
 }
 
 - (void)createSkill
@@ -70,6 +81,7 @@
     salaryField = mScroll.addEditLined;
     salaryField.layer.borderColor= rgb255(216, 216, 216).CGColor;
     salaryField.layer.borderWidth= 1.0f;
+    [salaryField setRightViewWithTextField:salaryField imageName:@"down_list"];
     salaryField.layer.masksToBounds = YES;
     salaryField.layer.cornerRadius = 4;
     [[[[salaryField.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:30] leftParent:edge] below:salaryBtn offset:AliX] install];
@@ -88,6 +100,7 @@
     experField = mScroll.addEditLined;
     experField.layer.borderColor= rgb255(216, 216, 216).CGColor;
     experField.layer.borderWidth= 1.0f;
+    [experField setRightViewWithTextField:experField imageName:@"down_list"];
     experField.layer.masksToBounds = YES;
     experField.layer.cornerRadius = 4;
     [[[[experField.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:30] leftParent:edge] below:experBtn offset:AliX] install];

@@ -41,7 +41,7 @@ static dispatch_once_t onceToken;
 {
     //初始化背景图
     btn1 = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-60, self.frame.size.height, 40, 40)];
-    
+//    btn1.semanticContentAttribute
     [btn1 setImage:[UIImage imageNamed:@"more-me"] forState:UIControlStateNormal];
     [btn1 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -62,8 +62,6 @@ static dispatch_once_t onceToken;
     [self addSubview:btn1];
     [self addSubview:btn4];
     
-    [self showFuntionBtn];
-
 }
 
 - (void)showFuntionBtn

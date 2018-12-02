@@ -180,6 +180,10 @@
 		4E33ACC5218AE95000E4CF7E /* UniteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACC4218AE94F00E4CF7E /* UniteDetailViewController.m */; };
 		4E33ACD6218B002500E4CF7E /* UniteContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACD5218B002500E4CF7E /* UniteContent.m */; };
 		4E33ACD92190183E00E4CF7E /* SliderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACD82190183E00E4CF7E /* SliderListViewController.m */; };
+		4E474D3521B2DE750002F5A1 /* CustomTabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D3421B2DE750002F5A1 /* CustomTabbar.m */; };
+		4E474D3821B2DF270002F5A1 /* CustomTabBarItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D3621B2DF270002F5A1 /* CustomTabBarItemButton.m */; };
+		4E474D3B21B3E65F0002F5A1 /* MyTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D3A21B3E65F0002F5A1 /* MyTabBarViewController.m */; };
+		4E474D3E21B40AC10002F5A1 /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D3D21B40AC10002F5A1 /* MoreView.m */; };
 		4E51695421B13704005B8533 /* more-notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51694C21B13703005B8533 /* more-notification@2x.png */; };
 		4E51695521B13704005B8533 /* more-profiles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51694D21B13703005B8533 /* more-profiles@2x.png */; };
 		4E51695621B13704005B8533 /* more-notification@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51694E21B13703005B8533 /* more-notification@3x.png */; };
@@ -1082,6 +1086,14 @@
 		4E33ACD5218B002500E4CF7E /* UniteContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteContent.m; sourceTree = "<group>"; };
 		4E33ACD72190183E00E4CF7E /* SliderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SliderListViewController.h; sourceTree = "<group>"; };
 		4E33ACD82190183E00E4CF7E /* SliderListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SliderListViewController.m; sourceTree = "<group>"; };
+		4E474D3321B2DE750002F5A1 /* CustomTabbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTabbar.h; sourceTree = "<group>"; };
+		4E474D3421B2DE750002F5A1 /* CustomTabbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomTabbar.m; sourceTree = "<group>"; };
+		4E474D3621B2DF270002F5A1 /* CustomTabBarItemButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarItemButton.m; sourceTree = "<group>"; };
+		4E474D3721B2DF270002F5A1 /* CustomTabBarItemButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarItemButton.h; sourceTree = "<group>"; };
+		4E474D3921B3E65F0002F5A1 /* MyTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTabBarViewController.h; sourceTree = "<group>"; };
+		4E474D3A21B3E65F0002F5A1 /* MyTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTabBarViewController.m; sourceTree = "<group>"; };
+		4E474D3C21B40AC10002F5A1 /* MoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreView.h; sourceTree = "<group>"; };
+		4E474D3D21B40AC10002F5A1 /* MoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreView.m; sourceTree = "<group>"; };
 		4E51694C21B13703005B8533 /* more-notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more-notification@2x.png"; sourceTree = "<group>"; };
 		4E51694D21B13703005B8533 /* more-profiles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more-profiles@2x.png"; sourceTree = "<group>"; };
 		4E51694E21B13703005B8533 /* more-notification@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more-notification@3x.png"; sourceTree = "<group>"; };
@@ -2401,6 +2413,8 @@
 				A3BA6E0421B11B9F00D83156 /* FindJobsSponsorTableViewCell.h */,
 				A3BA6E0521B11B9F00D83156 /* FindJobsSponsorTableViewCell.m */,
 				A3BA6E0A21B142B700D83156 /* JobsTableCellDelegate.h */,
+				4E474D3C21B40AC10002F5A1 /* MoreView.h */,
+				4E474D3D21B40AC10002F5A1 /* MoreView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3540,6 +3554,12 @@
 				C5EEAEAE914013D381D67DEC /* SlideController.h */,
 				C5EEA47FDB48D58F3209697B /* SlideItem.m */,
 				C5EEA285ACEA31047B9E0172 /* SlideItem.h */,
+				4E474D3321B2DE750002F5A1 /* CustomTabbar.h */,
+				4E474D3421B2DE750002F5A1 /* CustomTabbar.m */,
+				4E474D3721B2DF270002F5A1 /* CustomTabBarItemButton.h */,
+				4E474D3621B2DF270002F5A1 /* CustomTabBarItemButton.m */,
+				4E474D3921B3E65F0002F5A1 /* MyTabBarViewController.h */,
+				4E474D3A21B3E65F0002F5A1 /* MyTabBarViewController.m */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -4315,6 +4335,7 @@
 				4E846F73213E781100DC2B51 /* CommSelectTableViewCell.m in Sources */,
 				4E528AD3216DF9E5008C151B /* SBControlView.m in Sources */,
 				18D4BA1921AEDC95004CFB4B /* CompanyReviewHeaderTableViewCell.m in Sources */,
+				4E474D3521B2DE750002F5A1 /* CustomTabbar.m in Sources */,
 				18B83B1B2173557D00130DB6 /* YBVideoBrowseCellData.m in Sources */,
 				4E2A4FAB21A3E70C0049E1F2 /* UITableView+JRTableViewPlaceHolder.m in Sources */,
 				4E1957482137D0F100420563 /* LinkedInServiceManager.m in Sources */,
@@ -4394,6 +4415,7 @@
 				4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
 				4E1957402137D0F100420563 /* PermissionContactInfoFields.m in Sources */,
+				4E474D3E21B40AC10002F5A1 /* MoreView.m in Sources */,
 				A3A5B339218D61C500242E71 /* ThumCollectionViewCell.swift in Sources */,
 				4EBCE6DB212D6D8600A0672D /* ResetPwdViewController.m in Sources */,
 				C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */,
@@ -4484,6 +4506,7 @@
 				4E23E08A2152A97B00EDCE08 /* DiscussTableViewCell.m in Sources */,
 				C5EEA2942B009067B0D2EC11 /* TestPage.m in Sources */,
 				C5EEA5F5DA5885242D00A070 /* ListPage.m in Sources */,
+				4E474D3821B2DF270002F5A1 /* CustomTabBarItemButton.m in Sources */,
 				4E528AD1216DF9E5008C151B /* SBPlayer.m in Sources */,
 				189BCB84218C260E0003CA91 /* UniteDownloadingViewController.m in Sources */,
 				18DA49A121897C3A00DA2292 /* MagazineModel.m in Sources */,
@@ -4513,6 +4536,7 @@
 				C5EEA1C6749DC002B0822BA4 /* UserCell.m in Sources */,
 				4E528AD2216DF9E5008C151B /* SBPauseOrPlayView.m in Sources */,
 				C5EEAE849A9D7BECFA31FC89 /* Pair.m in Sources */,
+				4E474D3B21B3E65F0002F5A1 /* MyTabBarViewController.m in Sources */,
 				1836D42F21A7CCEC00500CEB /* ViewResumeItemView.m in Sources */,
 				C5EEA80345D17C8493BB8709 /* SearchPage.m in Sources */,
 				C5EEAAF068D2FF7E482A0CC2 /* LabelCheckView.m in Sources */,

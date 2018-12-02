@@ -130,11 +130,14 @@
         alert.navigationItem.leftBarButtonItem = [self menuButton];
         
         CareerMoreViewController *more = [CareerMoreViewController new];
+        more.view.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7f];
         UINavigationController *ncMore = NavPage(more);
+        ncMore.view.backgroundColor = [UIColor clearColor];
         [ncMore tabItem:@"More" imageName:@"more"];
         more.navigationItem.leftBarButtonItem = [self menuButton];
         
-        return TabPage(@[ncExplore, ncFindJob, ncMyJob, ncAlert, ncMore]);
+//        return TabPage(@[ncExplore, ncFindJob, ncMyJob, ncAlert, ncMore]);
+        return myTab([EventsPage new]);
 
 	}
 	if ([@"Events" isEqualToString:title]) {

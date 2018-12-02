@@ -30,6 +30,12 @@
     //d1d0d0
     [self createFunBtn];
     
+//    UIBlurEffect *blurEffect =[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+//    UIVisualEffectView *effectView =[[UIVisualEffectView alloc]initWithEffect:blurEffect];
+//    effectView.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);
+//    [self.view addSubview:effectView];
+
+    
 }
 
 - (void)createFunBtn

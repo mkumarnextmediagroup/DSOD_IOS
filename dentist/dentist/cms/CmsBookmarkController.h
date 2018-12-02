@@ -25,4 +25,5 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)handleSelectFilterWithCategory:(NSString *) category andType:(NSString *)type;
 - (void)handleQueryBookmarks:(NSArray<CMSModel *> *)array;
+- (void)handleLoadmore:(NSArray<CMSModel *> *) array;
 @end

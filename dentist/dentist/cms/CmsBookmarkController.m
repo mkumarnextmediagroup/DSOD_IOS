@@ -211,20 +211,22 @@
             //在最底部
             [self showIndicator];
             [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->_categoryId contentTypeId:self->_contentTypeId skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
-                self->isdownrefresh=NO;
-                foreTask(^() {
-                    [self hideIndicator];
-                    if(array && array.count>0){
-                        [self->resultArray addObjectsFromArray:array];
-                        self.items=[self->resultArray copy];
-                        [self updateFilterView];
-                    }
-                    
-                });
+                [self handleLoadmore:array];
             }];
         }
-        
     }
+}
+
+- (void)handleLoadmore:(NSArray<CMSModel *> *) array {
+    self->isdownrefresh=NO;
+    foreTask(^() {
+        [self hideIndicator];
+        if(array && array.count>0){
+            [self->resultArray addObjectsFromArray:array];
+            self.items=[self->resultArray copy];
+            [self updateFilterView];
+        }
+    });
 }
 
 @end

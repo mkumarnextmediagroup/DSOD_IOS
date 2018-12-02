@@ -1,17 +1,14 @@
 //
-//  CareerMoreViewController.m
+//  MoreView.m
 //  dentist
 //
-//  Created by Jacksun on 2018/11/27.
-//  Copyright © 2018 thenextmediagroup.com. All rights reserved.
+//  Created by 孙兴国 on 2018/12/2.
+//  Copyright © 2018年 thenextmediagroup.com. All rights reserved.
 //
-//@"more-me"
-//@"more-notification"
-//@"more-reviews"
-//@"more-profiles"
-#import "CareerMoreViewController.h"
 
-@interface CareerMoreViewController ()
+#import "MoreView.h"
+
+@implementation MoreView
 {
     UIButton *btn1;
     UIButton *btn2;
@@ -23,25 +20,28 @@
     
     BOOL isTouch;
 }
-@end
+static MoreView *instance;
+static dispatch_once_t onceToken;
 
-@implementation CareerMoreViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
++ (instancetype)initSliderView
+{
+    dispatch_once(&onceToken, ^{
+        instance = [[MoreView alloc] init];
+        instance.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:.8];
+        [instance initSubView];
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        [window.rootViewController.view addSubview:instance];
+        instance.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT);
+    });
     
-    self.view.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:.9];
-    
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTappedPickerView:)];
-    [singleTap setNumberOfTapsRequired:1];
-    [self.view addGestureRecognizer:singleTap];
-//    singleTap.delegate = self;
+    return instance;
+}
 
-    UINavigationItem *item = [self navigationItem];
-    item.title = @"More";
-
+- (void)initSubView
+{
     //初始化背景图
-    btn1 = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height, 40, 40)];
+    btn1 = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-60, self.frame.size.height, 40, 40)];
+    
     [btn1 setImage:[UIImage imageNamed:@"more-me"] forState:UIControlStateNormal];
     [btn1 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -57,20 +57,13 @@
     [btn4 setImage:[UIImage imageNamed:@"more-profiles"] forState:UIControlStateNormal];
     [btn4 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:btn2];
-    [self.view addSubview:btn3];
-    [self.view addSubview:btn1];
-    [self.view addSubview:btn4];
+    [self addSubview:btn2];
+    [self addSubview:btn3];
+    [self addSubview:btn1];
+    [self addSubview:btn4];
     
     [self showFuntionBtn];
-    // Do any additional setup after loading the view.
-}
 
-- (void)sigleTappedPickerView:(UIGestureRecognizer *)sender
-{
-    isTouch = YES;
-    [self showFuntionBtn];
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)showFuntionBtn
@@ -129,13 +122,12 @@
 {
     
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
 }
 */
 

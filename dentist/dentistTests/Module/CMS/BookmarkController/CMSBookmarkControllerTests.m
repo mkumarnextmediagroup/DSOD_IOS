@@ -72,6 +72,15 @@ describe(@"Unit Test For CmsBookmarkController", ^{
             [[theValue(controller.view) shouldNot] beNil];
         });
 
+        it(@"handleDeleteBookmarkWithResult with Failure", ^{
+            HttpResult *result = [HttpResult new];
+            NSURL *url = [[NSURL alloc] initWithString:@"http://www.example.com"];
+            result.response = [[NSHTTPURLResponse alloc] initWithURL:url statusCode:200 HTTPVersion:NULL headerFields:NULL];
+            BookmarkModel *model = [BookmarkModel new];
+            [controller handleDeleteBookmarkWithResult:result and:model];
+            [[theValue(controller.view) shouldNot] beNil];
+        });
+
         it(@"onClickItem", ^{
             [controller onClickItem:NULL];
             [[theValue(controller.view) shouldNot] beNil];
@@ -98,6 +107,13 @@ describe(@"Unit Test For CmsBookmarkController", ^{
             [resultArray addObject:[BookmarkModel new]];
             [controller handleQueryBookmarks:resultArray];
             [[theValue(controller.items.count) should] equal:theValue(resultArray.count)];
+        });
+
+        it(@"handleLoadmore", ^{
+            NSMutableArray *resultArray = [NSMutableArray array];
+            [resultArray addObject:[BookmarkModel new]];
+            [controller handleLoadmore:resultArray];
+            [[theValue(controller.view) shouldNot] beNil];
         });
     });
 });

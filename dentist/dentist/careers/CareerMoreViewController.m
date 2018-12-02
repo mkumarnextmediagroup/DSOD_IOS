@@ -41,22 +41,38 @@
     item.title = @"More";
 
     //初始化背景图
-    btn1 = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, self.view.frame.size.height, 40, 40)];
+    btn1 = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-160, self.view.frame.size.height, 140, 40)];
     [btn1 setImage:[UIImage imageNamed:@"more-me"] forState:UIControlStateNormal];
     [btn1 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [btn1 setTitle:@"Me  " forState:UIControlStateNormal];
+    btn1.titleLabel.font = [UIFont systemFontOfSize:12];
+    btn1.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
+    btn1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+
     btn2 = [[UIButton alloc] initWithFrame:btn1.frame];
     [btn2 setImage:[UIImage imageNamed:@"more-notification"] forState:UIControlStateNormal];
     [btn2 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [btn2 setTitle:@"Notifications  " forState:UIControlStateNormal];
+    btn2.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
+    btn2.titleLabel.font = [UIFont systemFontOfSize:12];
+    btn2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+
     btn3 = [[UIButton alloc] initWithFrame:btn1.frame];
     [btn3 setImage:[UIImage imageNamed:@"more-reviews"] forState:UIControlStateNormal];
     [btn3 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [btn3 setTitle:@"Reviews  " forState:UIControlStateNormal];
+    btn3.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
+    btn3.titleLabel.font = [UIFont systemFontOfSize:12];
+    btn3.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+
     btn4 = [[UIButton alloc] initWithFrame:btn1.frame];
     [btn4 setImage:[UIImage imageNamed:@"more-profiles"] forState:UIControlStateNormal];
     [btn4 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [btn4 setTitle:@"DSO Profiles  " forState:UIControlStateNormal];
+    btn4.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
+    btn4.titleLabel.font = [UIFont systemFontOfSize:12];
+    btn4.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+
     [self.view addSubview:btn2];
     [self.view addSubview:btn3];
     [self.view addSubview:btn1];

@@ -10,4 +10,8 @@
 
 @interface MoreView : UIView
 
++ (instancetype)initSliderView;
+
+- (void)showFuntionBtn;
+
 @end

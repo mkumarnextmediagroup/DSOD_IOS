@@ -11,12 +11,10 @@
 #import "CMSDetailViewController.h"
 #import "BookmarkModel.h"
 #import "DsoToast.h"
+#import "CMSModel.h"
 
 @interface CmsBookmarkController()<BookMarkItemViewDelegate>
 {
-    NSString *categoryId;
-    NSString *contentTypeId;
-    CGFloat rowheight;
     NSMutableArray *resultArray;
     UIView *nullFilterView;
     BOOL isdownrefresh;
@@ -46,9 +44,9 @@
     UINavigationItem *item = [self navigationItem];
     item.title = @"BOOKMARKS";
     [self.view layoutIfNeeded];
-    rowheight=(self.table.frame.size.height-32)/4;
+    _rowheight=(self.table.frame.size.height-32)/4;
     self.table.tableHeaderView = [self makeHeaderView];
-    self.table.rowHeight = rowheight;
+    self.table.rowHeight = _rowheight;
     self.isRefresh=YES;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyViewWithImageName:@"nonBookmarks" title:@"No bookmarks added yet"];
@@ -57,7 +55,7 @@
 -(void)refreshData
 {
     [self showIndicator];
-    [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId skip:0 completed:^(NSArray<CMSModel *> *array) {
+    [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->_categoryId contentTypeId:self->_contentTypeId skip:0 completed:^(NSArray<CMSModel *> *array) {
         foreTask(^() {
             self->resultArray=[NSMutableArray arrayWithArray:array];
             [self hideIndicator];
@@ -78,7 +76,7 @@
         [self.view addSubview:nullFilterView];
         nullFilterView.hidden=YES;
     }
-    if (self.items.count==0 && (self->categoryId || self->contentTypeId) ) {
+    if (self.items.count==0 && (self->_categoryId || self->_contentTypeId) ) {
         nullFilterView.hidden=NO;
     }else{
         nullFilterView.hidden=YES;
@@ -102,7 +100,7 @@
 }
 - (CGFloat)heightOfItem:(NSObject *)item {
     
-    return rowheight;
+    return _rowheight;
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
@@ -123,26 +121,28 @@
     [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
     [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.postId completed:^(HttpResult *result) {
         foreTask(^{
-            [self.navigationController.view hideToast];
-            if (result.OK) {
-                [self->resultArray removeObject:model];
-                self.items=[self->resultArray copy];
-                [self.table reloadData];
-            }else{
-                NSString *message=result.msg;
-                if([NSString isBlankString:message]){
-                    message=@"Failed";
-                }
-                UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-                [window makeToast:message
-                         duration:1.0
-                         position:CSToastPositionBottom];
-                [self.navigationController popViewControllerAnimated:YES];
-            }
+            [self handleDeleteBookmarkWithResult:result and:model];
         });
     }];
-   
-    
+}
+
+- (void)handleDeleteBookmarkWithResult:(HttpResult *)result and:(BookmarkModel *)model  {
+    [self.navigationController.view hideToast];
+    if (result.OK) {
+        [self->resultArray removeObject:model];
+        self.items=[self->resultArray copy];
+        [self.table reloadData];
+    }else{
+        NSString *message=result.msg;
+        if([NSString isBlankString:message]){
+            message=@"Failed";
+        }
+        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+        [window makeToast:message
+                 duration:1.0
+                 position:CSToastPositionBottom];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)onClickItem:(NSObject *)item {
@@ -171,23 +171,30 @@
 -(void)clickFilter:(UIButton *)sender
 {
     DentistFilterView *filterview=[[DentistFilterView alloc] init];
-    filterview.categorytext=self->categoryId;
-    filterview.typetext=self->contentTypeId;
+    filterview.categorytext=self->_categoryId;
+    filterview.typetext=self->_contentTypeId;
     [filterview show:^(NSString *category, NSString *type) {
-        
     } select:^(NSString *category, NSString *type) {
-        self->categoryId =category;
-        self->contentTypeId=type;
-        [self showIndicator];
-        [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId skip:0 completed:^(NSArray<CMSModel *> *array) {
-            foreTask(^() {
-                self->resultArray=[NSMutableArray arrayWithArray:array];
-                [self hideIndicator];
-                self.items=[self->resultArray copy];
-                [self updateFilterView];
-            });
-        }];
+        [self handleSelectFilterWithCategory:category andType:type];
     }];
+}
+
+- (void)handleSelectFilterWithCategory:(NSString *) category andType:(NSString *)type {
+    self->_categoryId =category;
+    self->_contentTypeId=type;
+    [self showIndicator];
+    [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->_categoryId contentTypeId:self->_contentTypeId skip:0 completed:^(NSArray<CMSModel *> *array) {
+        foreTask(^() {
+            [self handleQueryBookmarks:array];
+        });
+    }];
+}
+
+- (void)handleQueryBookmarks:(NSArray<CMSModel *> *)array {
+    self->resultArray=[NSMutableArray arrayWithArray:array];
+    [self hideIndicator];
+    self.items=[self->resultArray copy];
+    [self updateFilterView];
 }
 
 
@@ -203,21 +210,23 @@
             isdownrefresh=YES;
             //在最底部
             [self showIndicator];
-            [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->categoryId contentTypeId:self->contentTypeId skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
-                self->isdownrefresh=NO;
-                foreTask(^() {
-                    [self hideIndicator];
-                    if(array && array.count>0){
-                        [self->resultArray addObjectsFromArray:array];
-                        self.items=[self->resultArray copy];
-                        [self updateFilterView];
-                    }
-                    
-                });
+            [Proto queryBookmarksByEmail:getLastAccount() categoryId:self->_categoryId contentTypeId:self->_contentTypeId skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
+                [self handleLoadmore:array];
             }];
         }
-        
     }
+}
+
+- (void)handleLoadmore:(NSArray<CMSModel *> *) array {
+    self->isdownrefresh=NO;
+    foreTask(^() {
+        [self hideIndicator];
+        if(array && array.count>0){
+            [self->resultArray addObjectsFromArray:array];
+            self.items=[self->resultArray copy];
+            [self updateFilterView];
+        }
+    });
 }
 
 @end

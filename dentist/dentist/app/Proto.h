@@ -12,6 +12,7 @@
 #import "BookmarkModel.h"
 #import "CompanyCommentModel.h"
 #import "CompanyModel.h"
+#import "CompanyJobsModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -247,6 +248,8 @@
 //MARK:2.10.   查询已关注职位列表
 + (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array,NSInteger totalCount))completed ;
 
+//MARK:2.16.    查询公司职位接口
++ (void)getAllJobsByCompanyId:(NSString*)companyId completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 
 //2.14.    查询公司详情接口
 + (void)findCompanyById:(NSString*)companyId completed:(void(^)(CompanyModel  * _Nullable companyModel))completed ;

@@ -26,6 +26,7 @@
     NSInteger selectIndex;
     NSMutableArray *applyArr;
     NSMutableArray *followArr;
+    BOOL isdownrefresh;
 }
 @end
 
@@ -48,7 +49,7 @@
     myTable.tableHeaderView=[self makeHeaderView];
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:@"myjobcell"];
     
-    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
+    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
     [self setupRefresh];
     
     //    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array,NSInteger totalCount) {
@@ -216,6 +217,50 @@
 {
 //    DSODetailPage *detail = [DSODetailPage new];
 //    [self.navigationController pushPage:detail];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat consizeheight=scrollView.contentSize.height;
+    CGFloat bottomOffset = (consizeheight - contentOffsetY);
+    if (bottomOffset <= height-50 && contentOffsetY>0)
+    {
+        NSLog(@"==================================下啦刷选;bottomOffset=%@;height-50=%@",@(bottomOffset),@(height-50));
+        if (!isdownrefresh) {
+            isdownrefresh=YES;
+            if(selectIndex==0){
+                [self showIndicator];
+                [Proto queryAllApplicationJobs:self->applyArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                    foreTask(^{
+                        [self hideIndicator];
+                        [self setJobCountTitle:totalCount];
+                        if(array && array.count>0){
+                            [self->applyArr addObjectsFromArray:array];
+                        }
+                        [self->myTable reloadData];
+                        
+                    });
+                }];
+            }else{
+                [self showIndicator];
+                [Proto queryJobBookmarks:self->followArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                    foreTask(^{
+                        [self hideIndicator];
+                        [self setJobCountTitle:totalCount];
+                        if(array && array.count>0){
+                            [self->followArr addObjectsFromArray:array];
+                        }
+                        [self->myTable reloadData];
+                        
+                    });
+                }];
+            }
+            
+        }
+        
+    }
 }
 
 #pragma mark -------DentistTabViewDelegate

@@ -71,12 +71,12 @@
     return self;
 }
 
-- (void)bindInfo:(JobModel *)modelInfo
+- (void)bindInfo:(CompanyModel *)modelInfo
 {
     headerImg.image = [UIImage imageNamed:@"user_img"];
-    finLabel.text = modelInfo.company.companyName;
-    reviewLabel.text = @"1234 reviews";
-    conLabel.text = modelInfo.company.address;
+    finLabel.text = modelInfo.companyName;
+    reviewLabel.text = [NSString stringWithFormat:@"%ld reviews",(long)modelInfo.reviews];
+    conLabel.text = modelInfo.companyDesc;
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "DSODetailPage.h"
 #import "UIViewController+myextend.h"
 #import "DsoToast.h"
+#import "CareerSearchViewController.h"
 
 @interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate>
 {
@@ -110,6 +111,13 @@
 - (void)searchClick
 {
     NSLog(@"search btn click");
+//    CareerSearchViewController *searchVC=[CareerSearchViewController new];
+//    [self.navigationController pushViewController:searchVC animated:YES];
+    
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    CareerSearchViewController *searchVC=[CareerSearchViewController new];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchVC];
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 -(void)clickFilter:(UIButton *)sender

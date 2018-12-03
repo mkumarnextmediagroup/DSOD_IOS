@@ -15,7 +15,8 @@
 #import "DentistTabView.h"
 #import "UIView+Toast.h"
 #import "DescriptionOfDSODetailTableViewCell.h"
-
+#import "CompanyOfJobDetailTableViewCell.h"
+#import "CompanyJobsModel.h"
 
 @interface DSODetailPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
 
@@ -35,6 +36,7 @@
 
     CompanyModel *companyModel;
     NSArray<JobModel*> *jobArray;
+    CompanyJobsModel *companyJobsModel;
 }
 
 
@@ -164,6 +166,16 @@
 #pragma mark DentistTabViewDelegate
 - (void)didDentistSelectItemAtIndex:(NSInteger)index{
     currTabIndex = (int)index;
+    if (currTabIndex==1 && !companyJobsModel) {
+        [self showLoading];
+        [Proto getAllJobsByCompanyId:self.companyId completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+            foreTask(^{
+                [self hideLoading];
+                self->jobArray = array;
+                [self->tableView reloadData];
+            });
+        }];
+    }
     [tableView reloadData];
 }
 
@@ -211,7 +223,7 @@
         case 0:
             return [self descriptionOfDSODetailTableViewCell:tableView data:self->companyModel];
         case 1:
-//            return [self companyOfJobDetailTableViewCell:tableView data:self->jobModel.company];
+            return [self companyOfJobDetailTableViewCell:tableView data:self->companyModel];
         case 2:
 //            return [self companyReviewHeaderCell:tableView data:self->companyCommentModel];
         default:
@@ -232,17 +244,19 @@
     [cell setData:model];
     return cell;
 }
-//
-//
-//-(UITableViewCell*)companyOfJobDetailTableViewCell:tableView data:(CompanyModel*)model{
-//    CompanyOfJobDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompanyOfJobDetailTableViewCell"];
-//    if (cell == nil) {
-//        cell = [[CompanyOfJobDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompanyOfJobDetailTableViewCell"];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    }
-//    [cell setData:model];
-//    return cell;
-//}
+
+
+-(UITableViewCell*)companyOfJobDetailTableViewCell:tableView data:(CompanyModel*)model{
+    CompanyOfJobDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompanyOfJobDetailTableViewCell"];
+    if (cell == nil) {
+        cell = [[CompanyOfJobDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompanyOfJobDetailTableViewCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    [cell setData:model];
+    cell.infoArr=[NSMutableArray arrayWithArray:self->jobArray];
+    cell.totalCount=self->jobArray.count;
+    return cell;
+}
 //
 //-(UITableViewCell*)companyReviewHeaderCell:tableView data:(CompanyCommentModel*)model{
 //    CompanyReviewHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompanyReviewHeaderTableViewCell"];

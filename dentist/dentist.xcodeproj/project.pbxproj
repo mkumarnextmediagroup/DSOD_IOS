@@ -390,6 +390,7 @@
 		A3BA6E0621B11B9F00D83156 /* FindJobsSponsorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6E0521B11B9F00D83156 /* FindJobsSponsorTableViewCell.m */; };
 		A3BA6E0921B13D4E00D83156 /* JobApplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6E0821B13D4E00D83156 /* JobApplyModel.m */; };
 		A3BA6E0D21B1511F00D83156 /* LargeUIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6E0C21B1511F00D83156 /* LargeUIButton.m */; };
+		A3BA6E1021B506D600D83156 /* CompanyJobsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6E0F21B506D600D83156 /* CompanyJobsModel.m */; };
 		A3DF39822189A192006F84DC /* expanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39812189A192006F84DC /* expanding.swift */; };
 		A3DF399C2189A280006F84DC /* BasePageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */; };
 		A3DF399D2189A280006F84DC /* PageCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39892189A280006F84DC /* PageCollectionLayout.swift */; };
@@ -1374,6 +1375,8 @@
 		A3BA6E0A21B142B700D83156 /* JobsTableCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsTableCellDelegate.h; sourceTree = "<group>"; };
 		A3BA6E0B21B1511F00D83156 /* LargeUIButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LargeUIButton.h; sourceTree = "<group>"; };
 		A3BA6E0C21B1511F00D83156 /* LargeUIButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LargeUIButton.m; sourceTree = "<group>"; };
+		A3BA6E0E21B506D600D83156 /* CompanyJobsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyJobsModel.h; sourceTree = "<group>"; };
+		A3BA6E0F21B506D600D83156 /* CompanyJobsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyJobsModel.m; sourceTree = "<group>"; };
 		A3DF39802189A192006F84DC /* dentist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dentist-Bridging-Header.h"; sourceTree = "<group>"; };
 		A3DF39812189A192006F84DC /* expanding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = expanding.swift; sourceTree = "<group>"; };
 		A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageCollectionCell.swift; sourceTree = "<group>"; };
@@ -3147,6 +3150,8 @@
 				18A0DB9121B129610065B2BD /* CompanyCommentModel.m */,
 				18A0DB9321B12C1B0065B2BD /* CompanyCommentReviewsModel.h */,
 				18A0DB9421B12C1B0065B2BD /* CompanyCommentReviewsModel.m */,
+				A3BA6E0E21B506D600D83156 /* CompanyJobsModel.h */,
+				A3BA6E0F21B506D600D83156 /* CompanyJobsModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4591,6 +4596,7 @@
 				C5EEA21E5804CF3EABBFE3DB /* BaseItemView.m in Sources */,
 				C5EEAE528F7B6AC57B92F5F8 /* IconTitleMsgCell.m in Sources */,
 				C5EEA93A818CA571610A938C /* GroupLabelView.m in Sources */,
+				A3BA6E1021B506D600D83156 /* CompanyJobsModel.m in Sources */,
 				4E94ADC921ACE906009CAB7F /* CareerAlertsViewController.m in Sources */,
 				C5EEA3BF2E6ADEBCD49244FB /* LineTableCell.m in Sources */,
 				C5EEA99D93B0E72671A097C2 /* TitleMsgArrowView.m in Sources */,

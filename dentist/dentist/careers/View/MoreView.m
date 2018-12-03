@@ -23,6 +23,11 @@
 static MoreView *instance;
 static dispatch_once_t onceToken;
 
++(void)attemptDealloc{
+    instance = nil;
+    onceToken = 0;
+}
+
 + (instancetype)initSliderView
 {
     dispatch_once(&onceToken, ^{
@@ -94,7 +99,8 @@ static dispatch_once_t onceToken;
         [UIView animateWithDuration:.3 animations:^{
             self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-50);
         } completion:^(BOOL finished) {
-//            [self removeFromSuperview];
+            [self removeFromSuperview];
+            [MoreView attemptDealloc];
         }];
     }
     

@@ -90,17 +90,6 @@
 - (void)myTabbar:(CustomTabBar *)tabbar btnClicked:(NSInteger)index
 {
     if (4 == index) {
-        /*
-         *当点击中间的按钮，modal出LiveViewController的视图，并且不覆盖原先视图
-         */
-//        //iOS 8.0之后的方法
-//        CareerMoreViewController *liveVC = [[CareerMoreViewController alloc] init];
-//        //设置modal出的视图view的透明度
-//        liveVC.view.alpha = .9;
-////        liveVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//        //此模式必须设置，否则会覆盖原先视图，看不到原先视图的view
-//        liveVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-//        [self presentViewController:liveVC animated:YES completion:nil];
         
         [[MoreView initSliderView] showFuntionBtn];
         

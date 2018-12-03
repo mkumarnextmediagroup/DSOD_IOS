@@ -8,27 +8,31 @@
 
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
+#import "JobPosition.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyModel : JSONModel
-@property NSString <Optional>*id;
+@property NSString <Optional>*companyId;
 @property NSString <Optional>*companyName;
 @property NSString <Optional>*companyLogo;
+@property NSString <Optional>*companyLogoUrl;
 @property NSString <Optional>*webSiteUrl;
 @property NSString <Optional>*companyCEOName;
 @property NSString <Optional>*companyCEOPhoto;
+@property NSString <Optional>*companyCEOPhotoUrl;
 @property NSString <Optional>*companyDesc;
 @property NSString <Optional>*address;
 @property NSString <Optional>*companyLocation;
-@property NSString <Optional>*position;
-@property NSString <Optional>*companyPicture;
+@property NSArray  <Optional>*position;
 @property NSString <Optional>*foundingTime;
+@property JobPosition <Optional>*media;
 @property NSInteger rating;
+@property NSInteger reviews;
 @property NSString <Optional>*contactPerson;
-@property NSString <Optional>*createdDate;
-@property NSString <Optional>*modifiedDate;
-@property NSString <Optional>*employees;
+@property NSInteger createdDate;
+@property NSInteger modifiedDate;
+@property NSInteger employees;
 @property NSString <Optional>*stage;
 @end
 

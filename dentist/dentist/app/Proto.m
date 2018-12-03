@@ -1920,6 +1920,10 @@
 + (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
     return [self queryAllJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
 }
+//MARK:2.2.  根据职位标题查询所有职位列表
++ (void)queryAllJobs:(NSInteger)skip jobTitle:(NSString *)jobTitle completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    return [self queryAllJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:jobTitle company:nil skip:skip completed:completed];
+}
 
 //MARK:2.7.   查询已申请职位列表
 + (void)queryAllApplicationJobs:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobApplyModel *> *array,NSInteger totalCount))completed {

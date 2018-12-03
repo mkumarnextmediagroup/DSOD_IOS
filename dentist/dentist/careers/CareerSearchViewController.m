@@ -1,0 +1,166 @@
+//
+//  CareerSearchViewController.m
+//  dentist
+//
+//  Created by feng zhenrong on 2018/12/3.
+//  Copyright © 2018年 thenextmediagroup.com. All rights reserved.
+//
+
+#import "CareerSearchViewController.h"
+#import "Proto.h"
+#import "FindJobsTableViewCell.h"
+#import "FindJobsSponsorTableViewCell.h"
+#import "DSODetailPage.h"
+#import "UIViewController+myextend.h"
+#import "DsoToast.h"
+@interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating>
+{
+    NSMutableArray *infoArr;
+    UITableView *myTable;
+    UILabel *jobCountTitle;
+    BOOL isdownrefresh;
+    UISearchController *searchController;
+    NSString *searchKeywords;
+}
+/*** searchbar ***/
+@property (nonatomic,strong) UISearchBar *searchBar;
+@end
+
+@implementation CareerSearchViewController
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    UINavigationItem *item = [self navigationItem];
+    item.rightBarButtonItem=nil;
+    item.leftBarButtonItem=nil;//hidden left menu
+//    searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
+//    searchController.searchResultsUpdater=self;
+//    searchController.searchBar.autocapitalizationType=UITextAutocapitalizationTypeNone;
+//    searchController.delegate = self;
+//    searchController.dimsBackgroundDuringPresentation = NO; // The default is true.
+//    searchController.searchBar.delegate = self;
+//
+//    if (@available(iOS 11.0, *)) {
+//        // For iOS 11 and later, place the search bar in the navigation bar.
+//        item.searchController=searchController;
+//
+//        // Make the search bar always visible.
+//        item.hidesSearchBarWhenScrolling = NO;
+//    } else {
+//        // For iOS 10 and earlier, place the search controller's search bar in the table view's header.
+//        item.titleView=searchController.searchBar;
+//    }
+    
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+    _searchBar.placeholder = @"Search...";
+    _searchBar.delegate = self;
+    _searchBar.showsCancelButton=YES;
+    [_searchBar becomeFirstResponder];
+    for (id obj in [_searchBar subviews]) {
+        if ([obj isKindOfClass:[UIView class]]) {
+            for (id obj2 in [obj subviews]) {
+                if ([obj2 isKindOfClass:[UIButton class]]) {
+                    UIButton *btn = (UIButton *)obj2;
+                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
+                }
+            }
+        }
+    }
+    item.titleView=_searchBar;
+    if (@available(iOS 11.0, *)) {
+        [[_searchBar.heightAnchor constraintEqualToConstant:44.0] setActive:YES];
+    }
+    myTable = [UITableView new];
+    [self.view addSubview:myTable];
+    myTable.dataSource = self;
+    myTable.delegate = self;
+    myTable.rowHeight = UITableViewAutomaticDimension;
+    myTable.estimatedRowHeight = 100;
+    [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
+    [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class])];
+    
+    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
+   
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return infoArr.count;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row<=1) {
+        FindJobsSponsorTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class]) forIndexPath:indexPath];
+        cell.delegate=self;
+        cell.indexPath=indexPath;
+        if (self->infoArr && self->infoArr.count>indexPath.row) {
+            if (indexPath.row<=4) {
+                cell.isNew=YES;
+            }else{
+                cell.isNew=NO;
+            }
+            cell.info=self->infoArr[indexPath.row];
+        }
+        return cell;
+    }else{
+        FindJobsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class]) forIndexPath:indexPath];
+        cell.delegate=self;
+        cell.indexPath=indexPath;
+        if (self->infoArr && self->infoArr.count>indexPath.row) {
+            
+            
+            if (indexPath.row<=4) {
+                cell.isNew=YES;
+            }else{
+                cell.isNew=NO;
+            }
+            cell.info=self->infoArr[indexPath.row];
+        }
+        return cell;
+    }
+    
+    
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //    DSODetailPage *detail = [DSODetailPage new];
+    //    [self.navigationController pushPage:detail];
+}
+
+#pragma mark ---UISearchBarDelegate
+//MARK:dismiss button clicked，do this method
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    self.searchBar.text=@"";
+    [self.searchBar resignFirstResponder];
+    _searchBar.showsCancelButton = NO;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+//MARK:keyboard search button clicked，do this method
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    searchKeywords=searchBar.text;
+    [self.searchBar resignFirstResponder];
+    _searchBar.showsCancelButton = NO;
+
+    [self showIndicator];
+    [Proto queryAllJobs:0 jobTitle:searchKeywords completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+        foreTask(^{
+            [self hideIndicator];
+            self->infoArr = [NSMutableArray arrayWithArray:array];
+            [self->myTable reloadData];
+        });
+    }];
+}
+
+
+@end

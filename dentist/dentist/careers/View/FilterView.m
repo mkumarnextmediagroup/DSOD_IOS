@@ -14,7 +14,7 @@
 #define Xleft 15
 #define AliX  8
 
-@interface FilterView()<UITextFieldDelegate>
+@interface FilterView()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 
 @end
 
@@ -27,6 +27,8 @@
     UITextField *locationField;
     UITextField *jobField;
     UITextField *comField;
+    UITextField *selectField;
+    UIPickerView *myPicker;
 }
 
 - (void)initWithSubView
@@ -149,7 +151,7 @@
     locationField.delegate = self;
     [[[[locationField.layoutMaker sizeEq:(SCREENWIDTH-edge*2)/3*2-10 h:30] leftParent:edge] below:locationBtn offset:AliX] install];
     
-    UITextField *selectField = mScroll.addEditLined;
+    selectField = mScroll.addEditLined;
     selectField.layer.borderColor= rgb255(216, 216, 216).CGColor;
     selectField.layer.borderWidth= 1.0f;
     [selectField setRightViewWithTextField:selectField imageName:@"down_list"];
@@ -229,11 +231,55 @@
     //NSLog(@"%f",CGRectGetMaxY(updateBtn.frame)+200);
 }
 
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField == salaryField || textField == experField || textField == selectField) {
+        
+        [self createPickView];
+        [UIView animateWithDuration:.3 animations:^{
+            self->myPicker.frame = CGRectMake(0, SCREENHEIGHT - 216 - 65, SCREENWIDTH, 216);
+        }];
+        
+        return NO;
+    }
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self endEditing:YES];
     return YES;
 }
+
+- (void)createPickView
+{
+    if (!myPicker) {
+        myPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, 216)];
+        myPicker.backgroundColor = [UIColor grayColor];
+        myPicker.delegate = self;
+        myPicker.dataSource = self;
+        [self addSubview:myPicker];
+    }
+}
+
+#pragma mark UIPickViewDelegate
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return 5;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return @"张三";
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

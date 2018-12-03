@@ -12,8 +12,8 @@
 
 
 -(void)setData:(CompanyModel*)model{
-    if(model.description){
-        [self showContent:model.description];
+    if(model.companyDesc){
+        [self showContent:model.companyDesc];
     }
 }
 

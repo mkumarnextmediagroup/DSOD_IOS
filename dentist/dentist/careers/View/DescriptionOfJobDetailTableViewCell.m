@@ -43,6 +43,8 @@
     [[[[[[mywebView.layoutMaker leftParent:0]rightParent:0] topParent:edge]bottomParent:-edge]heightEq:1] install];
     
     
+    
+    
 }
 
 
@@ -71,6 +73,7 @@
     
     
     [self.tableView beginUpdates];
+//    [mywebView.layoutUpdate.height.mas_equalTo(webViewHeight).with.priority(1000) install];
     [[mywebView.layoutUpdate heightEq:webViewHeight] install];
     [self.tableView endUpdates];
     

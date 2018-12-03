@@ -128,6 +128,37 @@
     }
 }
 
+-(void)setInfoDic:(NSDictionary *)infoDic
+{
+    _infoDic=infoDic;
+    if (_infoDic) {
+        [self layoutIfNeeded];
+        NSString *logourl=[_infoDic objectForKey:@"logoUrl"];
+        NSString *companyName=[_infoDic objectForKey:@"companyName"];
+        NSString *jobTitle=[_infoDic objectForKey:@"jobTitle"];
+        NSString *salary=[_infoDic objectForKey:@"salary"];
+        BOOL isAttention=[[_infoDic objectForKey:@"isAttention"] boolValue];
+        [imageView loadUrl:logourl placeholderImage:@"user_img"];
+//        imageView.image = [UIImage imageNamed:@"user_img"];
+        [imageView scaleFillAspect];
+        imageView.clipsToBounds=YES;
+        contentLabel.text = [NSString stringWithFormat:@"%@",companyName];
+        timeLabel.text = @"6d";
+        titleLabel.text = [NSString stringWithFormat:@"%@",jobTitle];
+        statusLabel.text=@"";
+        salaryLabel.text=[NSString stringWithFormat:@"%@",salary];
+        if (_follow) {
+            [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
+        }else{
+            if (isAttention) {
+                [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
+            }else{
+                [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+            }
+        }
+    }
+}
+
 -(void)setIsNew:(BOOL)isNew
 {
     _isNew=isNew;

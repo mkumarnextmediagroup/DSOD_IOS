@@ -83,8 +83,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-//    [DSODetailPage openBy:self companyId:infoArr[indexPath.row].company.id];
-    [DSODetailPage openBy:self companyId:@"5bea77e49a08064eec5c328a"];
+    [DSODetailPage openBy:self companyId:infoArr[indexPath.row].companyId];
+//    [DSODetailPage openBy:self companyId:@"5bea77e49a08064eec5c328a"];
 }
 
 - (void)onBack:(UIButton *)btn {

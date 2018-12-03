@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
-#import "JobPosition.h"
+#import "CompanyMediaModel.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,14 +27,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*companyLocation;
 @property NSArray  <Optional>*position;
 @property NSString <Optional>*foundingTime;
-@property JobPosition <Optional>*media;
+@property CompanyMediaModel <Optional>*media;
 @property NSInteger rating;
 @property NSInteger reviews;
 @property NSString <Optional>*contactPerson;
-@property NSInteger createdDate;
-@property NSInteger modifiedDate;
-@property NSInteger employees;
+//@property NSInteger createdDate;
+//@property NSInteger modifiedDate;
+//@property NSInteger employees;
 @property NSString <Optional>*stage;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -200,7 +200,8 @@
     
     websiteValueLabel.text = model.webSiteUrl;
     yearOfFoundationValueLabel.text =  model.foundingTime;
-    numOfEmployeesValueLabel.text = [NSString stringWithFormat:@"%d",model.employees];
+    //model.employees 服务返回的值为null 不是int类型
+//    numOfEmployeesValueLabel.text = [NSString stringWithFormat:@"%d",model.employees];
     stageValueLabel.text = model.stage;
     contactPersonValueLabel.text = model.contactPerson;
     detailValueLabel.text = model.companyDesc;

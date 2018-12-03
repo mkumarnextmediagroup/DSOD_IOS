@@ -48,6 +48,7 @@
 		18A0DBAD21B23A140065B2BD /* career_location_bg_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0DBAA21B23A140065B2BD /* career_location_bg_small.png */; };
 		18A0DBAE21B23A140065B2BD /* career_location_bg_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0DBAB21B23A140065B2BD /* career_location_bg_small@2x.png */; };
 		18A0DBB121B51DF40065B2BD /* CompanyMediaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0DBB021B51DF40065B2BD /* CompanyMediaModel.m */; };
+		18A0DBB721B565520065B2BD /* JobsOfDSODetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0DBB621B565520065B2BD /* JobsOfDSODetailTableViewCell.m */; };
 		18ABEAB9219560D100BF3E60 /* SF-UI-Text-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18ABEAB8219560D100BF3E60 /* SF-UI-Text-Regular.ttf */; };
 		18B83B082173557D00130DB6 /* YBImageBrowserProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83ACE2173557C00130DB6 /* YBImageBrowserProgressView.m */; };
 		18B83B092173557D00130DB6 /* YBImageBrowserSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83AD02173557C00130DB6 /* YBImageBrowserSheetView.m */; };
@@ -889,6 +890,8 @@
 		18A0DBAB21B23A140065B2BD /* career_location_bg_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "career_location_bg_small@2x.png"; sourceTree = "<group>"; };
 		18A0DBAF21B51DF40065B2BD /* CompanyMediaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyMediaModel.h; sourceTree = "<group>"; };
 		18A0DBB021B51DF40065B2BD /* CompanyMediaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyMediaModel.m; sourceTree = "<group>"; };
+		18A0DBB521B565520065B2BD /* JobsOfDSODetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOfDSODetailTableViewCell.h; sourceTree = "<group>"; };
+		18A0DBB621B565520065B2BD /* JobsOfDSODetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOfDSODetailTableViewCell.m; sourceTree = "<group>"; };
 		18ABEAB8219560D100BF3E60 /* SF-UI-Text-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Regular.ttf"; sourceTree = "<group>"; };
 		18B83ACD2173557C00130DB6 /* YBImageBrowserProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBImageBrowserProgressView.h; sourceTree = "<group>"; };
 		18B83ACE2173557C00130DB6 /* YBImageBrowserProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBImageBrowserProgressView.m; sourceTree = "<group>"; };
@@ -2466,6 +2469,8 @@
 				18D4BA2121B0244A004CFB4B /* DescriptionOfJobDetailTableViewCell.m */,
 				18A0DBA621B235770065B2BD /* DescriptionOfDSODetailTableViewCell.h */,
 				18A0DBA721B235770065B2BD /* DescriptionOfDSODetailTableViewCell.m */,
+				18A0DBB521B565520065B2BD /* JobsOfDSODetailTableViewCell.h */,
+				18A0DBB621B565520065B2BD /* JobsOfDSODetailTableViewCell.m */,
 				A3BA6E0421B11B9F00D83156 /* FindJobsSponsorTableViewCell.h */,
 				A3BA6E0521B11B9F00D83156 /* FindJobsSponsorTableViewCell.m */,
 				A3BA6E0A21B142B700D83156 /* JobsTableCellDelegate.h */,
@@ -4665,6 +4670,7 @@
 				18DA49A821897EE200DA2292 /* UnitePageCell.m in Sources */,
 				C5EEA4F5057D8AD20840551B /* NSDictionary+myextend.m in Sources */,
 				A3DF399C2189A280006F84DC /* BasePageCollectionCell.swift in Sources */,
+				18A0DBB721B565520065B2BD /* JobsOfDSODetailTableViewCell.m in Sources */,
 				C5EEA56D3F74A578D3BA98FA /* LinearView.m in Sources */,
 				C5EEA0319D5E3E079662491B /* LinearVerView.m in Sources */,
 				C5EEA6E8B19DE7760629756E /* ContentPage.m in Sources */,

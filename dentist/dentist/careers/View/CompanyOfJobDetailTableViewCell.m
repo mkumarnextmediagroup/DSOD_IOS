@@ -200,7 +200,7 @@
     
     websiteValueLabel.text = model.webSiteUrl;
     yearOfFoundationValueLabel.text =  model.foundingTime;
-    numOfEmployeesValueLabel.text = model.employees;
+    numOfEmployeesValueLabel.text = [NSString stringWithFormat:@"%d",model.employees];
     stageValueLabel.text = model.stage;
     contactPersonValueLabel.text = model.contactPerson;
     detailValueLabel.text = model.companyDesc;

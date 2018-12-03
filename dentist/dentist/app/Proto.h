@@ -251,6 +251,9 @@
 //MARK:2.16.    查询公司职位接口
 + (void)getAllJobsByCompanyId:(NSString*)companyId completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 
+//MARK:2.13.    查询所有公司列表
++ (void)queryCompanyList:(NSInteger)skip completed:(void(^)(NSArray<CompanyModel *> *array,NSInteger totalCount))completed;
+
 //2.14.    查询公司详情接口
 + (void)findCompanyById:(NSString*)companyId completed:(void(^)(CompanyModel  * _Nullable companyModel))completed ;
     

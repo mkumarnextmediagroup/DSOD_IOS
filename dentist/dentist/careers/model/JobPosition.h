@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobPosition : JSONModel
 @property NSString <Optional>*type;
 @property NSArray <Optional>*coordinates;
+@property NSString <Optional>*code;
+@property NSString <Optional>*companyPictureUrl;
 @end
 
 NS_ASSUME_NONNULL_END

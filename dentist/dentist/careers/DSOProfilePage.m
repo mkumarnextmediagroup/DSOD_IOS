@@ -11,11 +11,11 @@
 #import "DSOProfileTableViewCell.h"
 #import "DSODetailPage.h"
 #import "Proto.h"
-#import "JobModel.h"
+#import "CompanyModel.h"
 
 @interface DSOProfilePage ()<UITableViewDelegate,UITableViewDataSource>
 {
-    NSArray<JobModel *> *infoArr;
+    NSArray<CompanyModel *> *infoArr;
     UITableView *myTable;
 }
 @end
@@ -39,7 +39,7 @@
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
     
     [self showCenterIndicator];
-    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+    [Proto queryCompanyList:0 completed:^(NSArray<CompanyModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideCenterIndicator];
             NSLog(@"%@",array);
@@ -47,10 +47,9 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self->myTable reloadData];
             });
-
+            
         });
     }];
-
     // Do any additional setup after loading the view.
 }
 

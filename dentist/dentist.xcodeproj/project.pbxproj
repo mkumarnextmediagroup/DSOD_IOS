@@ -197,6 +197,7 @@
 		4E474D3821B2DF270002F5A1 /* CustomTabBarItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D3621B2DF270002F5A1 /* CustomTabBarItemButton.m */; };
 		4E474D3B21B3E65F0002F5A1 /* MyTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D3A21B3E65F0002F5A1 /* MyTabBarViewController.m */; };
 		4E474D3E21B40AC10002F5A1 /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D3D21B40AC10002F5A1 /* MoreView.m */; };
+		4E474D4121B56EBC0002F5A1 /* CDZPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D4021B56EBB0002F5A1 /* CDZPicker.m */; };
 		4E51695421B13704005B8533 /* more-notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51694C21B13703005B8533 /* more-notification@2x.png */; };
 		4E51695521B13704005B8533 /* more-profiles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51694D21B13703005B8533 /* more-profiles@2x.png */; };
 		4E51695621B13704005B8533 /* more-notification@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51694E21B13703005B8533 /* more-notification@3x.png */; };
@@ -1128,6 +1129,8 @@
 		4E474D3A21B3E65F0002F5A1 /* MyTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTabBarViewController.m; sourceTree = "<group>"; };
 		4E474D3C21B40AC10002F5A1 /* MoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreView.h; sourceTree = "<group>"; };
 		4E474D3D21B40AC10002F5A1 /* MoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreView.m; sourceTree = "<group>"; };
+		4E474D3F21B56EBB0002F5A1 /* CDZPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDZPicker.h; sourceTree = "<group>"; };
+		4E474D4021B56EBB0002F5A1 /* CDZPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDZPicker.m; sourceTree = "<group>"; };
 		4E51694C21B13703005B8533 /* more-notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more-notification@2x.png"; sourceTree = "<group>"; };
 		4E51694D21B13703005B8533 /* more-profiles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more-profiles@2x.png"; sourceTree = "<group>"; };
 		4E51694E21B13703005B8533 /* more-notification@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more-notification@3x.png"; sourceTree = "<group>"; };
@@ -2453,6 +2456,8 @@
 		4E94ADD021AD3DAD009CAB7F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4E474D3F21B56EBB0002F5A1 /* CDZPicker.h */,
+				4E474D4021B56EBB0002F5A1 /* CDZPicker.m */,
 				4EF1097421B0D3260013C34C /* FilterView.h */,
 				4EF1097521B0D3260013C34C /* FilterView.m */,
 				4E94ADD121AD3DC9009CAB7F /* DSOProfileTableViewCell.h */,
@@ -4633,6 +4638,7 @@
 				18D4BA0D21AE6970004CFB4B /* CareerJobDetailViewController.m in Sources */,
 				A3DF399E2189A280006F84DC /* PageCollectionView.swift in Sources */,
 				C5EEAE6124816A6F31F4FA05 /* GroupListPage.m in Sources */,
+				4E474D4121B56EBC0002F5A1 /* CDZPicker.m in Sources */,
 				C5EEAA627C4FFCCCA4202E92 /* MyStyle.m in Sources */,
 				C5EEAC52F1B1B7FA36FDBEA2 /* TitleSwitchView.m in Sources */,
 				1866AFFE2179DF3900970CAB /* DentistTabView.m in Sources */,

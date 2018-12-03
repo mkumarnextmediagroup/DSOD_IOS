@@ -16,6 +16,8 @@
 #import "Proto.h"
 #import "JobModel.h"
 #import "DentistTabView.h"
+#import "BannerScrollView.h"
+#import "CompanyMediaModel.h"
 
 @interface CareerJobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
 
@@ -26,6 +28,9 @@
     UIView *contentView;
     UIView *naviBarView;
     UITableView *tableView;
+    
+    BannerScrollView *bannerView;
+    UIImageView *singleImageView;
     
     UIView *sectionHeaderView;
     
@@ -124,20 +129,26 @@
 -(UIView*)buildHeader{
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 0)];
     
-    UIImageView *mediaView = headerView.addImageView;
-    [mediaView scaleFillAspect];
-    mediaView.clipsToBounds = YES;
-    [[[[[mediaView.layoutMaker leftParent:0]rightParent:0]topParent:0]sizeEq:SCREENWIDTH h:SCREENWIDTH/2]install];
+    bannerView = [BannerScrollView new];
+    [headerView addSubview:bannerView];
+    [[[[[bannerView.layoutMaker leftParent:0]rightParent:0]topParent:0]sizeEq:SCREENWIDTH h:SCREENWIDTH/2]install];
+    
+    
+    singleImageView= headerView.addImageView;
+    [singleImageView scaleFillAspect];
+    singleImageView.clipsToBounds = YES;
+    [[[[[singleImageView.layoutMaker leftParent:0]rightParent:0]topParent:0]sizeEq:SCREENWIDTH h:SCREENWIDTH/2]install];
+    
     
     UIImageView *logoImageView = headerView.addImageView;
     [logoImageView scaleFillAspect];
     logoImageView.clipsToBounds = YES;
-    [[[[logoImageView.layoutMaker leftParent:edge]below:mediaView offset:10] sizeEq:60 h:60]install];
+    [[[[logoImageView.layoutMaker leftParent:edge]below:bannerView offset:10] sizeEq:60 h:60]install];
     
     UILabel *jobLabel = headerView.addLabel;
     jobLabel.font = [Fonts semiBold:16];
     jobLabel.textColor = Colors.textMain;
-    [[[[jobLabel.layoutMaker toRightOf:logoImageView offset:10]rightParent:-edge] below:mediaView offset:10]install] ;
+    [[[[jobLabel.layoutMaker toRightOf:logoImageView offset:10]rightParent:-edge] below:bannerView offset:10]install] ;
     
     UILabel *companyLabel = headerView.addLabel;
     companyLabel.font = [Fonts semiBold:14];
@@ -170,9 +181,22 @@
     [[[[[lastView.layoutMaker below:addressBtn offset:0]leftParent:0]rightParent:0]heightEq:10]install];
 
     
-    //还没处理完 图片
-    [mediaView loadUrl:jobModel.company.companyLogo placeholderImage:nil];
-    [logoImageView loadUrl:jobModel.company.companyLogo placeholderImage:nil];
+    if(jobModel.company.media){
+        NSArray *urls = jobModel.company.media.companyPictureUrl;
+        if(jobModel.company.media.type == 1 && urls && urls.count > 0 ){
+            if(urls.count>1){
+                [bannerView addWithImageUrls:urls autoTimerInterval:3 clickBlock:^(NSInteger index) {
+                    
+                }];
+            }else{
+                [singleImageView loadUrl:urls[0] placeholderImage:nil];
+            }
+        }
+    }
+    
+    
+    [logoImageView loadUrl:jobModel.company.companyLogoUrl placeholderImage:nil];
+    
     jobLabel.text = [NSString stringWithFormat:@"%@ - %@",jobModel.jobTitle,jobModel.location];
     companyLabel.text = jobModel.company.companyName;
     salaryLabel.text = [NSString stringWithFormat:@"Est. Salary:%@",jobModel.salaryRange] ;

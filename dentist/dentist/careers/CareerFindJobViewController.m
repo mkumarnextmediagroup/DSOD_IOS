@@ -14,7 +14,7 @@
 #import "UIViewController+myextend.h"
 #import "DsoToast.h"
 
-@interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate>
+@interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate>
 {
     NSMutableArray *infoArr;
     UITableView *myTable;
@@ -43,7 +43,7 @@
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class])];
     
-    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
+    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
     [self setupRefresh];
    
     
@@ -196,35 +196,36 @@
 }
 
 
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    CGFloat height = scrollView.frame.size.height;
-//    CGFloat contentOffsetY = scrollView.contentOffset.y;
-//    CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
-//    if (bottomOffset <= height-50)
-//    {
-//        NSLog(@"==================================下啦刷选");
-//        if (!isdownrefresh) {
-//            isdownrefresh=YES;
-//            [self showIndicator];
-//            [Proto queryAllJobs:self->infoArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-//                self->isdownrefresh=NO;
-//                foreTask(^{
-//                    [self hideIndicator];
-//                    [self setJobCountTitle:totalCount];
-//                    NSLog(@"%@",array);
-//                    if(array && array.count>0){
-//                        [self->infoArr addObjectsFromArray:array];
-//                    }
-//                    [self->myTable reloadData];
-//                    
-//                });
-//            }];
-//           
-//        }
-//        
-//    }
-//}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat consizeheight=scrollView.contentSize.height;
+    CGFloat bottomOffset = (consizeheight - contentOffsetY);
+    if (bottomOffset <= height-50 && contentOffsetY>0)
+    {
+        NSLog(@"==================================下啦刷选;bottomOffset=%@;height-50=%@",@(bottomOffset),@(height-50));
+        if (!isdownrefresh) {
+            isdownrefresh=YES;
+            [self showIndicator];
+            [Proto queryAllJobs:self->infoArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                self->isdownrefresh=NO;
+                foreTask(^{
+                    [self hideIndicator];
+                    [self setJobCountTitle:totalCount];
+                    NSLog(@"%@",array);
+                    if(array && array.count>0){
+                        [self->infoArr addObjectsFromArray:array];
+                    }
+                    [self->myTable reloadData];
+
+                });
+            }];
+
+        }
+
+    }
+}
 
 -(void)FollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {

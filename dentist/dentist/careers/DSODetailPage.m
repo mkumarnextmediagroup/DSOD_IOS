@@ -15,7 +15,7 @@
 #import "DentistTabView.h"
 #import "UIView+Toast.h"
 #import "DescriptionOfDSODetailTableViewCell.h"
-#import "CompanyOfJobDetailTableViewCell.h"
+#import "JobsOfDSODetailTableViewCell.h"
 #import "CompanyJobsModel.h"
 #import "BannerScrollView.h"
 
@@ -40,7 +40,7 @@
 
     CompanyModel *companyModel;
     NSArray<JobModel*> *jobArray;
-    CompanyJobsModel *companyJobsModel;
+    
 }
 
 
@@ -190,7 +190,7 @@
 #pragma mark DentistTabViewDelegate
 - (void)didDentistSelectItemAtIndex:(NSInteger)index{
     currTabIndex = (int)index;
-    if (currTabIndex==1 && !companyJobsModel) {
+    if (currTabIndex==1) {
         [self showLoading];
         [Proto getAllJobsByCompanyId:self.companyId completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
             foreTask(^{
@@ -247,7 +247,7 @@
         case 0:
             return [self descriptionOfDSODetailTableViewCell:tableView data:self->companyModel];
         case 1:
-            return [self companyOfJobDetailTableViewCell:tableView data:self->companyModel];
+            return [self jobsOfDSODetailTableViewCell:tableView data:self->jobArray];
         case 2:
 //            return [self companyReviewHeaderCell:tableView data:self->companyCommentModel];
         default:
@@ -270,15 +270,15 @@
 }
 
 
--(UITableViewCell*)companyOfJobDetailTableViewCell:tableView data:(CompanyModel*)model{
-    CompanyOfJobDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompanyOfJobDetailTableViewCell"];
+-(UITableViewCell*)jobsOfDSODetailTableViewCell:tableView data: (NSArray<JobModel*> *)jobArray;{
+    JobsOfDSODetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JobsOfDSODetailTableViewCell"];
     if (cell == nil) {
-        cell = [[CompanyOfJobDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompanyOfJobDetailTableViewCell"];
+        cell = [[JobsOfDSODetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"JobsOfDSODetailTableViewCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    [cell setData:model];
-    cell.infoArr=[NSMutableArray arrayWithArray:self->jobArray];
-    cell.totalCount=self->jobArray.count;
+
+    cell.infoArr=[NSMutableArray arrayWithArray:jobArray];
+    cell.totalCount=jobArray.count;
     return cell;
 }
 //

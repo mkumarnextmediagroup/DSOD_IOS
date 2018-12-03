@@ -8,14 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "CompanyModel.h"
-#import "CompanyJobsModel.h"
-#import "JobModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyOfJobDetailTableViewCell : UITableViewCell
-@property (nonatomic,strong) CompanyJobsModel *companyJobsModel;
-@property (nonatomic,strong) NSMutableArray *infoArr;
-@property (nonatomic,assign) NSInteger totalCount;
+
 -(void)setData:(CompanyModel*)model;
 
 

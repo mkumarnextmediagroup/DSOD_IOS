@@ -31,9 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSInteger rating;
 @property NSInteger reviews;
 @property NSString <Optional>*contactPerson;
-//@property NSInteger createdDate;
-//@property NSInteger modifiedDate;
-//@property NSInteger employees;
+@property NSString <Optional>* createdDate;
+@property NSString <Optional>* modifiedDate;
+@property NSInteger employees;
 @property NSString <Optional>*stage;
 
 @end

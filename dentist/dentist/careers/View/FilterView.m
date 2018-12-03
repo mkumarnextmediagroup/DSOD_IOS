@@ -9,12 +9,13 @@
 #import "FilterView.h"
 #import "Common.h"
 #import "UITextField+styled.h"
+#import "CDZPicker.h"
 
 #define edge 20
 #define Xleft 15
 #define AliX  8
 
-@interface FilterView()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+@interface FilterView()<UITextFieldDelegate>
 
 @end
 
@@ -31,25 +32,57 @@
     UIPickerView *myPicker;
 }
 
-- (void)initWithSubView
+static FilterView *instance;
+static dispatch_once_t onceToken;
+
++(void)attemptDealloc{
+    instance = nil;
+    onceToken = 0;
+}
+
++ (instancetype)initSliderView
 {
-    mScroll = self.addScrollView;
-    [[[mScroll.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT] topParent:0] install];
+    dispatch_once(&onceToken, ^{
+        instance = [[FilterView alloc] init];
+        instance.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
+        instance.backgroundColor = [UIColor whiteColor];
+        [instance createCloseBtn];
+        [instance createSkill];
+        [instance createSalary];
+        [instance createExperence];
+        [instance createLocation];
+        [instance createJobTitle];
+        [instance createCompany];
+        [instance createFunBtn];
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        [window.rootViewController.view addSubview:instance];
+    });
     
-    self.backgroundColor = [UIColor whiteColor];
-    [self createCloseBtn];
-    [self createSkill];
-    [self createSalary];
-    [self createExperence];
-    [self createLocation];
-    [self createJobTitle];
-    [self createCompany];
-    [self createFunBtn];
-    self.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT);
+    return instance;
+}
+
+- (void)showFilter
+{
+//    if (self.frame.origin.y == SCREENHEIGHT) {
+        [UIView animateWithDuration:.3 animations:^{
+            self.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
+        }];
+//    }else
+//    {
+//        [UIView animateWithDuration:.3 animations:^{
+//            self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
+//        } completion:^(BOOL finished) {
+//            [self removeFromSuperview];
+//            [FilterView attemptDealloc];
+//        }];
+//    }
 }
 
 - (void)createCloseBtn
 {
+    mScroll = self.addScrollView;
+    [[[mScroll.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT] topParent:0] install];
+    
     UIButton *closeBtn = mScroll.addButton;
 //    closeBtn.backgroundColor = [UIColor blueColor];
     [closeBtn setImage:[UIImage imageNamed:@"close_select"] forState:UIControlStateNormal];
@@ -60,6 +93,7 @@
 - (void)closeSelf
 {
     [self removeFromSuperview];
+    [FilterView attemptDealloc];
 }
 
 - (void)createSkill
@@ -255,29 +289,14 @@
 
 - (void)createPickView
 {
-    if (!myPicker) {
-        myPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, 216)];
-        myPicker.backgroundColor = [UIColor grayColor];
-        myPicker.delegate = self;
-        myPicker.dataSource = self;
-        [self addSubview:myPicker];
-    }
-}
-
-#pragma mark UIPickViewDelegate
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return 5;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    return @"张三";
+    CDZPickerBuilder *builder = [CDZPickerBuilder new];
+    builder.showMask = YES;
+    builder.cancelTextColor = UIColor.redColor;
+    [CDZPicker showSinglePickerInView:self withBuilder:builder strings:@[@"objective-c",@"java",@"python",@"php"] confirm:^(NSArray<NSString *> * _Nonnull strings, NSArray<NSNumber *> * _Nonnull indexs) {
+        NSLog(@"strings:%@ indexs:%@",strings,indexs);
+    }cancel:^{
+        //your code
+    }];
 }
 
 /*

@@ -94,10 +94,7 @@
 
     }else if (btn.tag == 12)//review button click
     {
-        FilterView *view = [[FilterView alloc] init];
-        [view initWithSubView];
-        [self.view addSubview:view];
-
+        [[FilterView initSliderView] showFilter];
     }
 }
 

@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FilterView : UIView
 
-- (void)initWithSubView;
-
++ (instancetype)initSliderView;
+- (void)showFilter;
 @end
 
 NS_ASSUME_NONNULL_END

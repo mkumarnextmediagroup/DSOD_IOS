@@ -8,6 +8,8 @@
 
 #import "MoreView.h"
 
+#define offBottom IPHONE_X?85:50
+
 @implementation MoreView
 {
     UIButton *btn1;
@@ -32,7 +34,8 @@ static dispatch_once_t onceToken;
 {
     dispatch_once(&onceToken, ^{
         instance = [[MoreView alloc] init];
-        instance.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-65);
+        CGFloat bottom = offBottom;
+        instance.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
         instance.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:.8];
         [instance initSubView];
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -90,14 +93,15 @@ static dispatch_once_t onceToken;
 
 - (void)showFuntionBtn
 {
+    CGFloat bottom = offBottom;
     if (self.frame.origin.y == SCREENHEIGHT) {
         [UIView animateWithDuration:.3 animations:^{
-            self.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-50);
+            self.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
         }];
     }else
     {
         [UIView animateWithDuration:.3 animations:^{
-            self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-50);
+            self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
         } completion:^(BOOL finished) {
             [self removeFromSuperview];
             [MoreView attemptDealloc];

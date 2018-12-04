@@ -30,6 +30,10 @@
     UITextField *comField;
     UITextField *selectField;
     UIPickerView *myPicker;
+    
+    NSArray *experArr;
+    NSArray *salaryArr;
+    NSArray *locationArr;
 }
 
 static FilterView *instance;
@@ -63,19 +67,23 @@ static dispatch_once_t onceToken;
 
 - (void)showFilter
 {
-//    if (self.frame.origin.y == SCREENHEIGHT) {
+    experArr = [NSArray arrayWithObjects:@"1-5 years",@"6-10 years",@"11-15 years",@"15-20 years",@"20+ years", nil];
+    salaryArr = [NSArray arrayWithObjects:@"$100K - $200K",@"$200K - $400K",@"$400 - $500K",@"$500K plus", nil];
+    locationArr = [NSArray arrayWithObjects:@"5 miles",@"10 miles",@"25 miles",@"50 miles",@"100 miles", nil];
+    
+    if (self.frame.origin.y == SCREENHEIGHT) {
         [UIView animateWithDuration:.3 animations:^{
             self.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
         }];
-//    }else
-//    {
-//        [UIView animateWithDuration:.3 animations:^{
-//            self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
-//        } completion:^(BOOL finished) {
-//            [self removeFromSuperview];
-//            [FilterView attemptDealloc];
-//        }];
-//    }
+    }else
+    {
+        [UIView animateWithDuration:.3 animations:^{
+            self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT);
+        } completion:^(BOOL finished) {
+            [self removeFromSuperview];
+            [FilterView attemptDealloc];
+        }];
+    }
 }
 
 - (void)createCloseBtn
@@ -106,12 +114,7 @@ static dispatch_once_t onceToken;
     skillBtn.titleLabel.font = [Fonts regular:15];
     [[[[skillBtn.layoutMaker sizeEq:180 h:25] topParent:50] leftParent:edge] install];
     
-    skillField = mScroll.addEditLined;
-    skillField.layer.borderColor= rgb255(216, 216, 216).CGColor;
-    skillField.layer.borderWidth= 1.0f;
-    skillField.layer.masksToBounds = YES;
-    skillField.layer.cornerRadius = 4;
-    skillField.returnKeyType = UIReturnKeyDone;
+    skillField = mScroll.addEditFilter;
     skillField.delegate = self;
     [[[[skillField.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:30] leftParent:edge] below:skillBtn offset:AliX] install];
 }
@@ -126,13 +129,8 @@ static dispatch_once_t onceToken;
     salaryBtn.titleLabel.font = [Fonts regular:15];
     [[[[salaryBtn.layoutMaker sizeEq:180 h:25] leftParent:edge] below:skillField offset:Xleft] install];
     
-    salaryField = mScroll.addEditLined;
-    salaryField.layer.borderColor= rgb255(216, 216, 216).CGColor;
-    salaryField.layer.borderWidth= 1.0f;
+    salaryField = mScroll.addEditFilter;
     [salaryField setRightViewWithTextField:salaryField imageName:@"down_list"];
-    salaryField.layer.masksToBounds = YES;
-    salaryField.layer.cornerRadius = 4;
-    salaryField.returnKeyType = UIReturnKeyDone;
     salaryField.delegate = self;
     [[[[salaryField.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:30] leftParent:edge] below:salaryBtn offset:AliX] install];
 }
@@ -147,13 +145,8 @@ static dispatch_once_t onceToken;
     experBtn.titleLabel.font = [Fonts regular:15];
     [[[[experBtn.layoutMaker sizeEq:180 h:25] leftParent:edge] below:salaryField offset:Xleft] install];
     
-    experField = mScroll.addEditLined;
-    experField.layer.borderColor= rgb255(216, 216, 216).CGColor;
-    experField.layer.borderWidth= 1.0f;
-    [experField setRightViewWithTextField:experField imageName:@"down_list"];
-    experField.layer.masksToBounds = YES;
-    experField.layer.cornerRadius = 4;
-    experField.returnKeyType = UIReturnKeyDone;
+    experField = mScroll.addEditFilter;
+    [experField setRightViewWithTextField:salaryField imageName:@"down_list"];
     experField.delegate = self;
     [[[[experField.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:30] leftParent:edge] below:experBtn offset:AliX] install];
 }
@@ -176,23 +169,13 @@ static dispatch_once_t onceToken;
     [[[[currLocaBtn.layoutMaker sizeEq:100 h:25] below:experField offset:Xleft] leftParent:SCREENWIDTH-100-edge] install];
 
     
-    locationField = mScroll.addEditLined;
-    locationField.layer.borderColor= rgb255(216, 216, 216).CGColor;
-    locationField.layer.borderWidth= 1.0f;
-    locationField.layer.masksToBounds = YES;
-    locationField.layer.cornerRadius = 4;
-    locationField.returnKeyType = UIReturnKeyDone;
+    locationField = mScroll.addEditFilter;
     locationField.delegate = self;
     [[[[locationField.layoutMaker sizeEq:(SCREENWIDTH-edge*2)/3*2-10 h:30] leftParent:edge] below:locationBtn offset:AliX] install];
     
-    selectField = mScroll.addEditLined;
-    selectField.layer.borderColor= rgb255(216, 216, 216).CGColor;
-    selectField.layer.borderWidth= 1.0f;
-    [selectField setRightViewWithTextField:selectField imageName:@"down_list"];
-    selectField.layer.masksToBounds = YES;
-    selectField.layer.cornerRadius = 4;
-    selectField.returnKeyType = UIReturnKeyDone;
+    selectField = mScroll.addEditFilter;
     selectField.delegate = self;
+    [selectField setRightViewWithTextField:salaryField imageName:@"down_list"];
     [[[[selectField.layoutMaker sizeEq:(SCREENWIDTH-edge*2)/3*1 h:30] toRightOf:locationField offset:10] below:locationBtn offset:AliX] install];
 }
 
@@ -206,12 +189,7 @@ static dispatch_once_t onceToken;
     jobBtn.titleLabel.font = [Fonts regular:15];
     [[[[jobBtn.layoutMaker sizeEq:180 h:25] leftParent:edge] below:locationField offset:Xleft] install];
     
-    jobField = mScroll.addEditLined;
-    jobField.layer.borderColor= rgb255(216, 216, 216).CGColor;
-    jobField.layer.borderWidth= 1.0f;
-    jobField.layer.masksToBounds = YES;
-    jobField.layer.cornerRadius = 4;
-    jobField.returnKeyType = UIReturnKeyDone;
+    jobField = mScroll.addEditFilter;
     jobField.delegate = self;
     [[[[jobField.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:30] leftParent:edge] below:jobBtn offset:AliX] install];
     
@@ -230,13 +208,8 @@ static dispatch_once_t onceToken;
     comBtn.titleLabel.font = [Fonts regular:15];
     [[[[comBtn.layoutMaker sizeEq:180 h:25] leftParent:edge] below:jobField offset:Xleft] install];
     
-    comField = mScroll.addEditLined;
-    comField.layer.borderColor= rgb255(216, 216, 216).CGColor;
-    comField.layer.borderWidth= 1.0f;
-    comField.layer.masksToBounds = YES;
-    comField.returnKeyType = UIReturnKeyDone;
+    comField = mScroll.addEditFilter;
     comField.delegate = self;
-    comField.layer.cornerRadius = 4;
     [[[[comField.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:30] leftParent:edge] below:comBtn offset:AliX] install];
     
     NSMutableParagraphStyle *style = [comField.defaultTextAttributes[NSParagraphStyleAttributeName] mutableCopy];
@@ -271,7 +244,7 @@ static dispatch_once_t onceToken;
 {
     if (textField == salaryField || textField == experField || textField == selectField) {
         
-        [self createPickView];
+        [self createPickView:textField];
         [UIView animateWithDuration:.3 animations:^{
             self->myPicker.frame = CGRectMake(0, SCREENHEIGHT - 216 - 65, SCREENWIDTH, 216);
         }];
@@ -287,16 +260,36 @@ static dispatch_once_t onceToken;
     return YES;
 }
 
-- (void)createPickView
+- (void)createPickView:(UITextField *)textFiled
 {
     CDZPickerBuilder *builder = [CDZPickerBuilder new];
     builder.showMask = YES;
     builder.cancelTextColor = UIColor.redColor;
-    [CDZPicker showSinglePickerInView:self withBuilder:builder strings:@[@"objective-c",@"java",@"python",@"php"] confirm:^(NSArray<NSString *> * _Nonnull strings, NSArray<NSNumber *> * _Nonnull indexs) {
-        NSLog(@"strings:%@ indexs:%@",strings,indexs);
-    }cancel:^{
-        //your code
-    }];
+    if (textFiled == salaryField) {
+        [CDZPicker showSinglePickerInView:self withBuilder:builder strings:salaryArr confirm:^(NSArray<NSString *> * _Nonnull strings, NSArray<NSNumber *> * _Nonnull indexs) {
+            textFiled.text = strings[0];
+            NSLog(@"strings:%@ indexs:%@",strings,indexs);
+        }cancel:^{
+            //your code
+        }];
+    }else if (textFiled == experField)
+    {
+        [CDZPicker showSinglePickerInView:self withBuilder:builder strings:experArr confirm:^(NSArray<NSString *> * _Nonnull strings, NSArray<NSNumber *> * _Nonnull indexs) {
+            textFiled.text = strings[0];
+            NSLog(@"strings:%@ indexs:%@",strings,indexs);
+        }cancel:^{
+            //your code
+        }];
+    }else
+    {
+        [CDZPicker showSinglePickerInView:self withBuilder:builder strings:locationArr confirm:^(NSArray<NSString *> * _Nonnull strings, NSArray<NSNumber *> * _Nonnull indexs) {
+            textFiled.text = strings[0];
+            NSLog(@"strings:%@ indexs:%@",strings,indexs);
+        }cancel:^{
+            //your code
+        }];
+    }
+    
 }
 
 /*

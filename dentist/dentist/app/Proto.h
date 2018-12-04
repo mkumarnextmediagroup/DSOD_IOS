@@ -264,4 +264,7 @@
 + (void)findCommentByCompanyId:(NSString*)companyId sort:(NSInteger)sort star:(NSInteger)star
                           skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(CompanyCommentModel * _Nullable companyCommentModel))completed ;
 
+//获取career首页图片接口
++ (void)findExtensionCompleted:(void(^)(NSString *picUrl))completed;
+
 @end

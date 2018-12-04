@@ -2228,4 +2228,17 @@
     }];
 }
 
+//获取career首页图片接口
++ (void)findExtensionCompleted:(void(^)(NSString *picUrl))completed
+{
+    [self postAsync3:@"extension/findExtension" dic:nil modular:@"hr" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSDictionary *dataDic =  r.resultMap[@"data"];
+            NSArray *objectId = [dataDic objectForKey:@"fileUrl"];
+            NSString *url = objectId[0];
+            completed(url);
+        }
+    }];
+}
+
 @end

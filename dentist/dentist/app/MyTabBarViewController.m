@@ -100,4 +100,11 @@
     }
 }
 
+-(void)tabbarSelected:(NSInteger)index
+{
+    if (myTabbar) {
+        [myTabbar setTabbarSelected:index];
+    }
+}
+
 @end

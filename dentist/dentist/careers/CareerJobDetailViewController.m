@@ -45,11 +45,14 @@
 
 
 +(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId{
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CareerJobDetailViewController *jobDetailVc = [CareerJobDetailViewController new];
-    jobDetailVc.jobId = jobId;
+    jobDetailVc.jobId =jobId;
     jobDetailVc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    vc.modalPresentationStyle = UIModalPresentationCurrentContext;
-    [vc presentViewController:jobDetailVc animated:YES completion:^{
+    jobDetailVc.view.backgroundColor = UIColor.clearColor;
+    viewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    
+    [viewController presentViewController:jobDetailVc animated:YES completion:^{
         jobDetailVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }];
 }

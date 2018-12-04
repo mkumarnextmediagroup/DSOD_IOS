@@ -9,6 +9,7 @@
 #import "FindJobsTableViewCell.h"
 #import "Common.h"
 #import "LargeUIButton.h"
+#import "DentistDataBaseManager.h"
 #define edge 15
 
 @implementation FindJobsTableViewCell{
@@ -109,7 +110,15 @@
         [imageView scaleFillAspect];
         imageView.clipsToBounds=YES;
         contentLabel.text = [NSString stringWithFormat:@"Supported by %@",_info.company.companyName];
-        timeLabel.text = @"6d";
+        NSInteger diffday=[NSDate getDifferenceByTimestamp:_info.modifiedDate];
+        if (diffday==0) {
+            timeLabel.text = @"today";
+        }else if (diffday>=1){
+            timeLabel.text = [NSString stringWithFormat:@"%@d",@(diffday)];
+        }else{
+            timeLabel.text = @"-d";
+        }
+        
         titleLabel.text = [NSString stringWithFormat:@"%@-%@",_info.jobTitle,_info.location];
         statusLabel.text=@"POSITION CLOSE";
         NSInteger startsalary=ceilf(_info.salaryStartingValue/1000.0);
@@ -126,6 +135,18 @@
                 [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
             }
         }
+        [[DentistDataBaseManager shareManager] checkJobsStatus:_info.id publishDate:_info.publishDate modifiedDate:_info.modifiedDate completed:^(NSInteger result) {
+            foreTask(^{
+                if (result==1) {
+                    self->newimageView.hidden=NO;
+                }else if (result==2){
+                    self->newimageView.hidden=NO;
+                }else{
+                    self->newimageView.hidden=YES;
+                }
+            });
+           
+        }];
     }
 }
 
@@ -157,6 +178,7 @@
                 [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
             }
         }
+        
     }
 }
 

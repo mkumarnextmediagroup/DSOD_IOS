@@ -18,6 +18,7 @@
 #import "DentistTabView.h"
 #import "BannerScrollView.h"
 #import "CompanyMediaModel.h"
+#import "DentistDataBaseManager.h"
 
 @interface CareerJobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
 
@@ -45,9 +46,27 @@
 
 
 +(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId{
+    [[DentistDataBaseManager shareManager] updateCareersJobs:jobId completed:^(BOOL result) {
+    }];
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CareerJobDetailViewController *jobDetailVc = [CareerJobDetailViewController new];
     jobDetailVc.jobId =jobId;
+    jobDetailVc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    jobDetailVc.view.backgroundColor = UIColor.clearColor;
+    viewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    
+    [viewController presentViewController:jobDetailVc animated:YES completion:^{
+        jobDetailVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    }];
+}
++(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId closeBack:(CareerJobDetailCloseCallback)closeBack
+{
+    [[DentistDataBaseManager shareManager] updateCareersJobs:jobId completed:^(BOOL result) {
+    }];
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    CareerJobDetailViewController *jobDetailVc = [CareerJobDetailViewController new];
+    jobDetailVc.jobId =jobId;
+    jobDetailVc.closeBack = closeBack;
     jobDetailVc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     jobDetailVc.view.backgroundColor = UIColor.clearColor;
     viewController.modalPresentationStyle = UIModalPresentationCurrentContext;
@@ -217,6 +236,9 @@
 
 
 -(void)closePage{
+    if (self.closeBack) {
+        self.closeBack();
+    }
     self.view.backgroundColor = UIColor.clearColor;
     [self dismissViewControllerAnimated:YES completion:nil];
 }

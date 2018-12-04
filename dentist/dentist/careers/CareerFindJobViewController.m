@@ -27,6 +27,14 @@
 
 @implementation CareerFindJobViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (myTable) {
+        [myTable reloadData];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -202,7 +210,14 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     JobModel *jobModel = infoArr[indexPath.row];
-    [CareerJobDetailViewController presentBy:self.navigationController jobId:jobModel.id];
+    [CareerJobDetailViewController presentBy:self.navigationController jobId:jobModel.id closeBack:^{
+        foreTask(^{
+            if (self->myTable) {
+                [self->myTable reloadData];
+            }
+        });
+        
+    }];
 }
 
 

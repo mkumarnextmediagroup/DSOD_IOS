@@ -8,6 +8,7 @@
 #import "DSOProfilePage.h"
 #import "UIButton+styled.h"
 #import "FilterView.h"
+#import "Proto.h"
 
 #define kMaxBtnCount 4
 #define leftToX 20
@@ -18,6 +19,7 @@
 @implementation CareerExplorePage {
     NSArray *titleArr;
     NSArray *imageArr;
+    UIImageView *img;
 }
 
 - (void)viewDidLoad {
@@ -30,6 +32,11 @@
     //d1d0d0
     [self createFunBtn];
     
+    [Proto findExtensionCompleted:^(NSString *picUrl) {
+        NSLog(@"%@",picUrl);
+        [self->img sd_setImageWithURL:[NSURL URLWithString:picUrl] placeholderImage:[UIImage imageNamed:@"career-image"]];
+    }];
+    
 //    UIBlurEffect *blurEffect =[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
 //    UIVisualEffectView *effectView =[[UIVisualEffectView alloc]initWithEffect:blurEffect];
 //    effectView.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);
@@ -40,7 +47,7 @@
 
 - (void)createFunBtn
 {
-    UIImageView *img = [UIImageView new];
+    img = [UIImageView new];
     [self.view addSubview:img];
     [[[[img.layoutMaker sizeEq:SCREENWIDTH h:IMAGE_HEIGHT] topParent:NAVHEIGHT] leftParent:0] install];
     img.image = [UIImage imageNamed:@"career-image"];

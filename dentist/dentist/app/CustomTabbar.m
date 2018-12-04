@@ -88,6 +88,7 @@
                 CustomTabBarItemButton *btn=(CustomTabBarItemButton *)subview;
                 if (index == i) {
                     btn.selected = YES;
+                    _previousBtn = btn;
                     if ([_delegate respondsToSelector:@selector(myTabbar:btnClicked:)]) {
                         [_delegate myTabbar:self btnClicked:(btn.tag-100)];
                     }

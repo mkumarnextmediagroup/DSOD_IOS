@@ -14,6 +14,7 @@
 #import "UIViewController+myextend.h"
 #import "DsoToast.h"
 #import "CareerSearchViewController.h"
+#import "CareerJobDetailViewController.h"
 
 @interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate>
 {
@@ -199,8 +200,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    DSODetailPage *detail = [DSODetailPage new];
-//    [self.navigationController pushPage:detail];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    JobModel *jobModel = infoArr[indexPath.row];
+    [CareerJobDetailViewController presentBy:self.navigationController jobId:jobModel.id];
 }
 
 

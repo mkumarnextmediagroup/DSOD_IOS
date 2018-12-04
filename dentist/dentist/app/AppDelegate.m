@@ -15,6 +15,7 @@
 #import "Proto.h"
 #import "Common.h"
 #import "SliderListViewController.h"
+#import "MyTabBarViewController.h"
 
 @interface AppDelegate ()
 
@@ -80,6 +81,18 @@
 	UIViewController *centerPage = [sc onMakePage:@"Browse Content"];
 	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:centerPage leftViewController:snav rightViewController:slider];
 	return deck;
+}
+
+- (UIViewController *)careersPage {
+    if ([self.window.rootViewController isKindOfClass:[IIViewDeckController class]]) {
+        IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;
+        if ([tc.centerViewController isKindOfClass:[MyTabBarViewController class]] ) {
+            return tc.centerViewController;
+        }else{
+            return nil;
+        }
+    }
+    return nil;
 }
 
 - (void)closeMenu:(id)sender {

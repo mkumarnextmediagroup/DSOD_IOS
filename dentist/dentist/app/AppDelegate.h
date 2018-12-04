@@ -13,10 +13,10 @@
 @property(strong, nonatomic) UIWindow *window;
 @property(strong, nonatomic) UIViewController *presentingController;
 @property(assign, nonatomic) BOOL supportRatate;
+@property(strong, nonatomic) UIViewController *careersPage;
 
 @property(class) AppDelegate *instance;
 - (void)onOpenMenuAnoSide:(id)sender;
-
 -(void) switchToMainPage;
 -(void) switchToWelcomePage;
 

@@ -200,11 +200,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     JobModel *jobModel = infoArr[indexPath.row];
     [CareerJobDetailViewController presentBy:self.navigationController jobId:jobModel.id];
-
-
-    
 }
 
 

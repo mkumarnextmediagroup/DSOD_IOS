@@ -22,6 +22,7 @@
  参数2: 内部按钮个数
  */
 - (instancetype)initWithFrame:(CGRect)frame itemCount:(NSInteger)itemCount;
+-(void)setTabbarSelected:(NSInteger)index;
 
 @property (nonatomic, weak) id<CustomTabBarDelegate> delegate;
 

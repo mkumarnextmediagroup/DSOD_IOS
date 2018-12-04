@@ -8,6 +8,8 @@
 #import "DSOProfilePage.h"
 #import "UIButton+styled.h"
 #import "FilterView.h"
+#import "MyTabBarViewController.h"
+#import "AppDelegate.h"
 
 #define kMaxBtnCount 4
 #define leftToX 20
@@ -95,6 +97,10 @@
     }else if (btn.tag == 12)//review button click
     {
         [[FilterView initSliderView] showFilter];
+    }else if (btn.tag == 10){
+        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        MyTabBarViewController *tabvc=(MyTabBarViewController *)appdelegate.careersPage;
+        [tabvc tabbarSelected:1];
     }
 }
 

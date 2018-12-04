@@ -109,13 +109,14 @@
     _info=info;
     if (_info) {
         [self layoutIfNeeded];
-        imageView.image = [UIImage imageNamed:@"user_img"];
+        NSString *logourl=_info.company.companyLogoUrl;
+        [imageView loadUrl:logourl placeholderImage:@"user_img"];
         [imageView scaleFillAspect];
         imageView.clipsToBounds=YES;
         contentLabel.text = [NSString stringWithFormat:@"Supported by %@",_info.company.companyName];
         timeLabel.text = @"6d";
         titleLabel.text = [NSString stringWithFormat:@"%@-%@",_info.jobTitle,_info.location];
-        statusLabel.text=@"POSITION CLOSE";
+        statusLabel.text=@"";
         NSInteger startsalary=ceilf(_info.salaryStartingValue/1000.0);
         NSInteger endsalary=ceilf(_info.salaryEndValue/1000.0);
         salaryLabel.text=[NSString stringWithFormat:@"$%@k-$%@k",@(startsalary),@(endsalary)];
@@ -154,7 +155,7 @@
     statusLabel.textColor = Colors.textAlternate;
     titleLabel.font = [Fonts semiBold:16];
     [titleLabel textColorMain];
-    titleLabel.numberOfLines=0;
+    titleLabel.numberOfLines=2;
     salaryLabel.font = [Fonts regular:14];
     salaryLabel.textColor = Colors.textColor9c;
     salaryLabel.textAlignment=NSTextAlignmentRight;
@@ -164,7 +165,7 @@
     
     desLabel.font = [Fonts semiBold:11];
     desLabel.textColor = Colors.textAlternate;
-    desLabel.numberOfLines=0;
+    desLabel.numberOfLines=3;
     
     
     
@@ -172,9 +173,9 @@
     [[[[newimageView.layoutMaker leftParent:0] topParent:0] sizeEq:58 h:58] install];
     [[[[imageView.layoutMaker leftParent:edge] topParent:edge] sizeEq:55 h:55] install];
     
-    [[[[timeLabel.layoutMaker topParent:edge] rightParent:-edge] sizeEq:28 h:15.0] install];
+    [[[[timeLabel.layoutMaker topParent:edge] rightParent:-edge] sizeEq:80 h:15.0] install];
     [[[[statusLabel.layoutMaker toLeftOf:timeLabel offset:3] topParent:edge] sizeEq:80 h:15.0] install];
-    [[[[titleLabel.layoutMaker toRightOf:imageView offset:10] toLeftOf:statusLabel offset:3] topParent:edge] install];
+    [[[[titleLabel.layoutMaker toRightOf:imageView offset:10] toLeftOf:timeLabel offset:3] topParent:edge] install];
     [[[[[[contentLabel.layoutMaker toRightOf:imageView offset:10] heightEq:15.0] rightParent:-46] below:titleLabel offset:0] bottomOf:imageView offset:0] install];
     [[[[followButton.layoutMaker rightParent:-edge] bottomOf:imageView offset:0] sizeEq:20 h:20] install];
     [[[[desLabel.layoutMaker leftParent:edge] rightParent:-46] below:contentLabel offset:5] install];

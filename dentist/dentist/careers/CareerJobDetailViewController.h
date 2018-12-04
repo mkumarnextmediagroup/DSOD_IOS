@@ -11,13 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^CareerJobDetailCloseCallback) (void);
 @interface CareerJobDetailViewController : BaseController
 
 @property (nonatomic,strong) NSString *jobId;
+@property (copy, nonatomic) CareerJobDetailCloseCallback closeBack;
 
 
 +(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId;
-
++(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId closeBack:(CareerJobDetailCloseCallback)closeBack;
 @end
 
 NS_ASSUME_NONNULL_END

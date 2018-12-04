@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSString*)USDateShortFormatWithTimestamp:(long long)timestamp;
 
 +(NSString*)USDateLongFormatWithTimestamp:(long long)timestamp;
++(NSString*)USDateTimeLongFormatWithStringTimestamp:(NSString*)timestamp;
++(BOOL)compareDatetimeIn30:(NSString *)timestamp;
++(NSInteger)getDifferenceByTimestamp:(NSString *)timestamp;
 
 +(NSString*)USDateFormat:(NSString*)dateFormat  timestamp:(long long)timestamp;
     

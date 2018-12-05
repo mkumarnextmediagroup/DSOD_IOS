@@ -10,12 +10,13 @@
 #import "Common.h"
 #import "UITextField+styled.h"
 #import "CDZPicker.h"
+#import <CoreLocation/CoreLocation.h>
 
 #define edge 20
 #define Xleft 15
 #define AliX  8
 
-@interface FilterView()<UITextFieldDelegate>
+@interface FilterView()<UITextFieldDelegate,CLLocationManagerDelegate>
 
 @end
 
@@ -30,6 +31,7 @@
     UITextField *comField;
     UITextField *selectField;
     UIPickerView *myPicker;
+    CLLocationManager *locationmanager;//locaiton
     
     NSArray *experArr;
     NSArray *salaryArr;
@@ -83,6 +85,22 @@ static dispatch_once_t onceToken;
             [self removeFromSuperview];
             [FilterView attemptDealloc];
         }];
+    }
+}
+
+- (void)getCurrentLocation
+{
+    //判断定位功能是否打开
+    if ([CLLocationManager locationServicesEnabled]) {
+        locationmanager = [[CLLocationManager alloc]init];
+        locationmanager.delegate = self;
+        [locationmanager requestAlwaysAuthorization];
+        [locationmanager requestWhenInUseAuthorization];
+        
+        //设置寻址精度
+        locationmanager.desiredAccuracy = kCLLocationAccuracyBest;
+        locationmanager.distanceFilter = 5.0;
+        [locationmanager startUpdatingLocation];
     }
 }
 
@@ -146,7 +164,7 @@ static dispatch_once_t onceToken;
     [[[[experBtn.layoutMaker sizeEq:180 h:25] leftParent:edge] below:salaryField offset:Xleft] install];
     
     experField = mScroll.addEditFilter;
-    [experField setRightViewWithTextField:salaryField imageName:@"down_list"];
+    [experField setRightViewWithTextField:experField imageName:@"down_list"];
     experField.delegate = self;
     [[[[experField.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:30] leftParent:edge] below:experBtn offset:AliX] install];
 }
@@ -166,6 +184,7 @@ static dispatch_once_t onceToken;
     currLocaBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [currLocaBtn setTitleColor:[Colors primary] forState:UIControlStateNormal];
     currLocaBtn.titleLabel.font = [Fonts regular:12];
+    [currLocaBtn addTarget:self action:@selector(getCurrentLocation) forControlEvents:UIControlEventTouchUpInside];
     [[[[currLocaBtn.layoutMaker sizeEq:100 h:25] below:experField offset:Xleft] leftParent:SCREENWIDTH-100-edge] install];
 
     
@@ -175,7 +194,7 @@ static dispatch_once_t onceToken;
     
     selectField = mScroll.addEditFilter;
     selectField.delegate = self;
-    [selectField setRightViewWithTextField:salaryField imageName:@"down_list"];
+    [selectField setRightViewWithTextField:selectField imageName:@"down_list"];
     [[[[selectField.layoutMaker sizeEq:(SCREENWIDTH-edge*2)/3*1 h:30] toRightOf:locationField offset:10] below:locationBtn offset:AliX] install];
 }
 
@@ -223,6 +242,7 @@ static dispatch_once_t onceToken;
     [clearBtn setTitle:@"Clear All" forState:UIControlStateNormal];
     [clearBtn setTitleColor:[Colors primary] forState:UIControlStateNormal];
     clearBtn.titleLabel.font = [Fonts regular:15];
+    [clearBtn addTarget:self action:@selector(clearBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [[[[clearBtn.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:30] leftParent:edge] below:comField offset:25] install];
 
     UIButton *updateBtn = mScroll.addButton;
@@ -231,11 +251,22 @@ static dispatch_once_t onceToken;
     updateBtn.titleLabel.font = [Fonts bold:15];
     [updateBtn setBackgroundColor:[Colors primary]];
     [[[[updateBtn.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:44] leftParent:edge] below:clearBtn offset:25] install];
-
+    [updateBtn addTarget:self action:@selector(updateBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
     [mScroll layoutIfNeeded];
     [self layoutIfNeeded];
     mScroll.contentSize = CGSizeMake(SCREENWIDTH, CGRectGetMaxY(updateBtn.frame)+160);
     //NSLog(@"%f",CGRectGetMaxY(updateBtn.frame)+200);
+}
+
+- (void)clearBtnClick
+{
+    NSLog(@"clear button click");
+}
+
+- (void)updateBtnClick
+{
+    NSLog(@"update button click");
 }
 
 #pragma mark UITextFieldDelegate
@@ -290,6 +321,49 @@ static dispatch_once_t onceToken;
         }];
     }
     
+}
+
+#pragma mark CLLoactionDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    [locationmanager stopUpdatingHeading];
+    //旧址
+    CLLocation *currentLocation = [locations lastObject];
+    CLGeocoder *geoCoder = [[CLGeocoder alloc]init];
+    //打印当前的经度与纬度
+    NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
+    
+    //反地理编码
+    [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (placemarks.count > 0) {
+            CLPlacemark *placeMark = placemarks[0];
+            NSString *currentCity = placeMark.locality;
+            if (!currentCity) {
+                currentCity = @"无法定位当前城市";
+            }
+            
+            /*看需求定义一个全局变量来接收赋值*/
+            NSLog(@"----%@",placeMark.country);//当前国家
+            NSLog(@"%@",currentCity);//当前的城市
+            self->locationField.text = currentCity;
+            
+        }
+    }];
+    
+}
+
+//定位失败后调用此代理方法
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    //设置提示提醒用户打开定位服务
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"允许定位提示" message:@"请在设置中打开定位" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:nil];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:okAction];
+    [alert addAction:cancelAction];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 
 /*

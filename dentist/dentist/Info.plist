@@ -58,6 +58,8 @@
 	<string>Dentist need to use your camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Dentist need to use your photos</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>获取当前位置，便于展示附近的信息</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

@@ -36,6 +36,8 @@
     NSArray *experArr;
     NSArray *salaryArr;
     NSArray *locationArr;
+    
+    NSMutableDictionary *infoDic;
 }
 
 static FilterView *instance;
@@ -69,6 +71,7 @@ static dispatch_once_t onceToken;
 
 - (void)showFilter
 {
+    infoDic = [[NSMutableDictionary alloc] initWithCapacity:10];
     experArr = [NSArray arrayWithObjects:@"1-5 years",@"6-10 years",@"11-15 years",@"15-20 years",@"20+ years", nil];
     salaryArr = [NSArray arrayWithObjects:@"$100K - $200K",@"$200K - $400K",@"$400 - $500K",@"$500K plus", nil];
     locationArr = [NSArray arrayWithObjects:@"5 miles",@"10 miles",@"25 miles",@"50 miles",@"100 miles", nil];
@@ -266,7 +269,40 @@ static dispatch_once_t onceToken;
 
 - (void)updateBtnClick
 {
+    [self addTheInfoToSearch];
+    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(searchCondition:)]){
+        [self.delegate searchCondition:infoDic];
+    }
     NSLog(@"update button click");
+}
+
+- (void)addTheInfoToSearch
+{
+    if (skillField.text.length != 0) {
+        NSDictionary *info = [[NSDictionary alloc] initWithObjectsAndKeys:skillField.text,@"skill", nil];
+        [infoDic addEntriesFromDictionary:info];
+    }
+    if (salaryField.text.length != 0){
+        NSDictionary *info = [[NSDictionary alloc] initWithObjectsAndKeys:salaryField.text,@"salary", nil];
+        [infoDic addEntriesFromDictionary:info];
+    }
+    if (experField.text.length != 0){
+        NSDictionary *info = [[NSDictionary alloc] initWithObjectsAndKeys:experField.text,@"experence", nil];
+        [infoDic addEntriesFromDictionary:info];
+    }
+    if (jobField.text.length != 0){
+        NSDictionary *info = [[NSDictionary alloc] initWithObjectsAndKeys:jobField.text,@"jobTitle", nil];
+        [infoDic addEntriesFromDictionary:info];
+    }
+    if (comField.text.length != 0){
+        NSDictionary *info = [[NSDictionary alloc] initWithObjectsAndKeys:comField.text,@"company", nil];
+        [infoDic addEntriesFromDictionary:info];
+    }
+    if (selectField.text.length != 0){
+        NSDictionary *info = [[NSDictionary alloc] initWithObjectsAndKeys:selectField.text,@"miles", nil];
+        [infoDic addEntriesFromDictionary:info];
+    }
 }
 
 #pragma mark UITextFieldDelegate
@@ -332,7 +368,10 @@ static dispatch_once_t onceToken;
     CLGeocoder *geoCoder = [[CLGeocoder alloc]init];
     //打印当前的经度与纬度
     NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
-    
+    NSString *latitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
+    NSString *longitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:latitude,@"latitude",longitude,@"longitude", nil];
+    [infoDic addEntriesFromDictionary:dic];
     //反地理编码
     [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         if (placemarks.count > 0) {

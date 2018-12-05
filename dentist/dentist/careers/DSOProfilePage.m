@@ -12,6 +12,7 @@
 #import "DSODetailPage.h"
 #import "Proto.h"
 #import "CompanyModel.h"
+#import "CareerSearchViewController.h"
 
 @interface DSOProfilePage ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -56,6 +57,13 @@
 - (void)searchClick
 {
     NSLog(@"search btn click");
+//    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+//    CareerSearchViewController *searchVC=[CareerSearchViewController new];
+//    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchVC];
+//    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    [viewController presentViewController:navVC animated:YES completion:NULL];
+        CareerSearchViewController *searchVC=[CareerSearchViewController new];
+        [self.navigationController pushViewController:searchVC animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

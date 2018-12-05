@@ -126,6 +126,7 @@
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CareerSearchViewController *searchVC=[CareerSearchViewController new];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchVC];
+    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 

@@ -11,9 +11,7 @@
 
 
 @interface LinearPage : ContentPage
-
-
 @property(readonly) LinearView *linearView;
 
-
+- (void)clickHello:(id)sender;
 @end

@@ -7,4 +7,6 @@
 #import "ListPage.h"
 
 @interface CmsSearchPage : ListPage
+
+-(void)refreshData;
 @end

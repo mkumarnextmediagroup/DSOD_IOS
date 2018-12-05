@@ -16,6 +16,7 @@
 #import "JobApplyModel.h"
 #import "JobBookmarkModel.h"
 #import "DsoToast.h"
+#import "CareerSearchViewController.h"
 
 @interface CareerMyJobViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,JobsTableCellDelegate>
 {
@@ -132,6 +133,11 @@
 - (void)searchClick
 {
     NSLog(@"search btn click");
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    CareerSearchViewController *searchVC=[CareerSearchViewController new];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchVC];
+    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 -(void)clickFilter:(UIButton *)sender

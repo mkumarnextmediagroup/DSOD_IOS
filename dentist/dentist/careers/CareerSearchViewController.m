@@ -38,7 +38,8 @@
     [super viewDidLoad];
     UINavigationItem *item = [self navigationItem];
     item.rightBarButtonItem=nil;
-    item.leftBarButtonItem=nil;//hidden left menu
+    item.leftBarButtonItem = [self navBarImage:@"menu" target:self action:@selector(onBack:)]; //[self navBarBack:self action:@selector(onBack:)];
+//    item.leftBarButtonItem=nil;//hidden left menu
 //    searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
 //    searchController.searchResultsUpdater=self;
 //    searchController.searchBar.autocapitalizationType=UITextAutocapitalizationTypeNone;
@@ -60,7 +61,7 @@
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     _searchBar.placeholder = @"Search...";
     _searchBar.delegate = self;
-    _searchBar.showsCancelButton=YES;
+    _searchBar.showsCancelButton=NO;
     [_searchBar becomeFirstResponder];
     for (id obj in [_searchBar subviews]) {
         if ([obj isKindOfClass:[UIView class]]) {
@@ -88,6 +89,23 @@
     
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
    
+}
+
+- (void)onBack:(UIButton *)btn {
+    
+    [self.searchBar resignFirstResponder];
+    _searchBar.showsCancelButton = NO;
+    NSArray *viewcontrollers=self.navigationController.viewControllers;
+    if (viewcontrollers.count>1) {
+        if ([viewcontrollers objectAtIndex:viewcontrollers.count-1]==self) {
+            //push方式
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+    else{
+        //present方式
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL isFormerEmployee;
 @property BOOL isRecommend;
 @property BOOL isApprove;
-@property NSString <Optional>*reviewDate;
+@property long long reviewDate;
 
 
 @end

@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*location;
 @property JobPosition <Optional>*position;
 @property NSString <Optional>*isApplication;
+@property NSString <Optional>*address;
 
 @end
 

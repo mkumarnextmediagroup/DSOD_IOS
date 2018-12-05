@@ -19,6 +19,7 @@
 #import "CompanyJobsModel.h"
 #import "BannerScrollView.h"
 #import "FindJobsTableViewCell.h"
+#import "CareerSearchViewController.h"
 
 @interface DSODetailPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
 
@@ -181,7 +182,8 @@
 
 
 - (void)searchClick{
-    [self.view makeToast:@"searchClick"];
+    CareerSearchViewController *searchVC=[CareerSearchViewController new];
+    [self.navigationController pushViewController:searchVC animated:YES];
 }
 
 -(void)showLocation{

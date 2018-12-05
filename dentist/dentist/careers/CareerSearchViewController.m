@@ -13,6 +13,9 @@
 #import "DSODetailPage.h"
 #import "UIViewController+myextend.h"
 #import "DsoToast.h"
+#import "CareerJobDetailViewController.h"
+#import "AppDelegate.h"
+
 @interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating>
 {
     NSMutableArray *infoArr;
@@ -150,8 +153,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    DSODetailPage *detail = [DSODetailPage new];
-    //    [self.navigationController pushPage:detail];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    JobModel *jobModel = infoArr[indexPath.row];
+    [CareerJobDetailViewController presentBy:self jobId:jobModel.id closeBack:^{
+        foreTask(^{
+            if (self->myTable) {
+                [self->myTable reloadData];
+            }
+        });
+        
+    }];
 }
 
 #pragma mark ---UISearchBarDelegate

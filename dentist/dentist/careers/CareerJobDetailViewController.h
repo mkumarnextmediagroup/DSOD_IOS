@@ -18,8 +18,8 @@ typedef void (^CareerJobDetailCloseCallback) (void);
 @property (copy, nonatomic) CareerJobDetailCloseCallback closeBack;
 
 
-+(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId;
-+(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId closeBack:(CareerJobDetailCloseCallback)closeBack;
++(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*)jobId;
++(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*)jobId closeBack:(CareerJobDetailCloseCallback)closeBack;
 @end
 
 NS_ASSUME_NONNULL_END

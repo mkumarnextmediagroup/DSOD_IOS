@@ -49,31 +49,25 @@
 
 
 +(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId{
-    [[DentistDataBaseManager shareManager] updateCareersJobs:jobId completed:^(BOOL result) {
-    }];
-    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    CareerJobDetailViewController *jobDetailVc = [CareerJobDetailViewController new];
-    jobDetailVc.jobId =jobId;
-    jobDetailVc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    jobDetailVc.view.backgroundColor = UIColor.clearColor;
-    viewController.modalPresentationStyle = UIModalPresentationCurrentContext;
-    
-    [viewController presentViewController:jobDetailVc animated:YES completion:^{
-        jobDetailVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    }];
+    [self presentBy:vc jobId:jobId closeBack:nil];
 }
 +(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId closeBack:(CareerJobDetailCloseCallback)closeBack
 {
     [[DentistDataBaseManager shareManager] updateCareersJobs:jobId completed:^(BOOL result) {
     }];
-    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    UIViewController *viewController;
+    if (vc) {
+        viewController=vc;
+    }else{
+        viewController= [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    }
+    
     CareerJobDetailViewController *jobDetailVc = [CareerJobDetailViewController new];
     jobDetailVc.jobId =jobId;
     jobDetailVc.closeBack = closeBack;
     jobDetailVc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     jobDetailVc.view.backgroundColor = UIColor.clearColor;
     viewController.modalPresentationStyle = UIModalPresentationCurrentContext;
-    
     [viewController presentViewController:jobDetailVc animated:YES completion:^{
         jobDetailVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }];

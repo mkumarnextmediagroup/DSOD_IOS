@@ -19,9 +19,7 @@
 {
     NSInteger selectIndex;
     NSMutableArray *ls;
-    NSString *categoryId;
     NSString *contentTypeId;
-    CGFloat rowheight;
     CMSModel *selectModel;
     UIView *nullFilterView;
 }
@@ -39,9 +37,9 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    categoryId=nil;
+    _categoryId=nil;
     contentTypeId=nil;
-    [[DentistDataBaseManager shareManager] queryCMSCachesList:categoryId contentTypeId:contentTypeId skip:0 completed:^(NSArray * _Nonnull array) {
+    [[DentistDataBaseManager shareManager] queryCMSCachesList:_categoryId contentTypeId:contentTypeId skip:0 completed:^(NSArray * _Nonnull array) {
         foreTask(^{
             self.items =array;
             [self updateFilterView];
@@ -70,17 +68,13 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.table reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             });
-            
             *stop = YES;
         }
     }];
 }
 
 
--(void)reloadData
-{
-    //
-}
+-(void)reloadData {}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -90,9 +84,9 @@
     item.rightBarButtonItem = [self navBarText:@"" target:self action:nil];
     
     [self.view layoutIfNeeded];
-    rowheight=(self.table.frame.size.height-32)/4;
+    _rowheight=(self.table.frame.size.height-32)/4;
     self.table.tableHeaderView = [self makeHeaderView];
-    self.table.rowHeight = rowheight;
+    self.table.rowHeight = _rowheight;
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyViewWithImageName:@"nonDownload" title:@"No downloaded content"];
     // 添加通知
@@ -112,8 +106,7 @@
     return panel;
 }
 
--(void)updateFilterView
-{
+-(void)updateFilterView {
     if (!nullFilterView) {
         CGFloat _topBarH = 0;
         if (self.navigationController != nil) {
@@ -124,9 +117,9 @@
         [self.view addSubview:nullFilterView];
         nullFilterView.hidden=YES;
     }
-    if (self.items.count==0 && (self->categoryId || self->contentTypeId) ) {
+    if (self.items.count==0 && (self->_categoryId || self->contentTypeId)) {
         nullFilterView.hidden=NO;
-    }else{
+    } else{
         nullFilterView.hidden=YES;
     }
 }
@@ -136,7 +129,7 @@
 }
 
 - (CGFloat)heightOfItem:(NSObject *)item {
-    return rowheight;
+    return _rowheight;
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
@@ -199,40 +192,39 @@
         
     }else if(index==0){
 //        [Proto deleteDownload:selectIndex];
-        
         [[DentistDataBaseManager shareManager] deleteCMS:selectModel.id completed:^(BOOL result) {
             foreTask(^{
-                if (result) {
-                    NSMutableArray *temparr=[NSMutableArray arrayWithArray:self.items];
-                    [temparr removeObject:self->selectModel];
-                    self.items=[temparr copy];
-                    [self updateFilterView];
-                }
+                [self handleDeleteCMS:result];
             });
-            
-            
         }];
     }
 }
 
+- (void)handleDeleteCMS: (BOOL) result {
+    if (result) {
+        NSMutableArray *temparr=[NSMutableArray arrayWithArray:self.items];
+        [temparr removeObject:self->selectModel];
+        self.items=[temparr copy];
+        [self updateFilterView];
+    }
+}
+
 #pragma mark 打开刷选页面
--(void)clickFilter:(UIButton *)sender
-{
+-(void)clickFilter:(UIButton *)sender {
     DentistFilterView *filterview=[[DentistFilterView alloc] init];
-    filterview.categorytext=self->categoryId;
+    filterview.categorytext=self->_categoryId;
     filterview.typetext=self->contentTypeId;
     [filterview show:^(NSString *category, NSString *type) {
     }select:^(NSString *category, NSString *type) {
-        self->categoryId=category;
+        self->_categoryId=category;
         self->contentTypeId=type;
-        [[DentistDataBaseManager shareManager] queryCMSCachesList:self->categoryId contentTypeId:self->contentTypeId skip:0 completed:^(NSArray * _Nonnull array) {
+        [[DentistDataBaseManager shareManager] queryCMSCachesList:self->_categoryId contentTypeId:self->contentTypeId skip:0 completed:^(NSArray * _Nonnull array) {
             foreTask(^{
                 self.items =array;
                 [self updateFilterView];
             });
         }];
     }];
-    
 }
 
 @end

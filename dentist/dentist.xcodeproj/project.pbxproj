@@ -114,13 +114,16 @@
 		43277E8A217F4E9E008B3240 /* TestPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E89217F4E9E008B3240 /* TestPageTests.m */; };
 		43277E8C217F4F6A008B3240 /* DSOWebViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E8B217F4F6A008B3240 /* DSOWebViewControllerTests.m */; };
 		43277E8E217F523B008B3240 /* RegControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E8D217F523B008B3240 /* RegControllerTests.m */; };
+		4335E27921B6B5EF00A10F7E /* CmsSearchPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4335E27821B6B5EF00A10F7E /* CmsSearchPageTests.m */; };
 		4341949321A598BE0029AECE /* CmsForYouPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4341949221A598BE0029AECE /* CmsForYouPageTests.m */; };
 		4344660121A5614A00811E94 /* UIButtonExtTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4344660021A5614A00811E94 /* UIButtonExtTests.m */; };
 		4344660321A5644C00811E94 /* UIScreenExtTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4344660221A5644C00811E94 /* UIScreenExtTests.m */; };
 		4344660521A5674400811E94 /* UIViewExtTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4344660421A5674400811E94 /* UIViewExtTests.m */; };
 		43488F4E2199BAEB00FDC15E /* ColorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43488F4D2199BAEB00FDC15E /* ColorTests.m */; };
+		43595F9221B503E80028BA97 /* LinearPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43595F9121B503E80028BA97 /* LinearPageTests.m */; };
 		437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */; };
 		4388150B218D4EF20066BCB6 /* SearchPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4388150A218D4EF20066BCB6 /* SearchPageTests.m */; };
+		438BA12821B4065D005246C5 /* CmsDownloadsControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */; };
 		43941292219F0378008C3092 /* UITextFieldExtTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43941291219F0378008C3092 /* UITextFieldExtTests.m */; };
 		43952B452190704900EB3443 /* EditPracticeAddressViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43952B442190704900EB3443 /* EditPracticeAddressViewControllerTests.m */; };
 		439D55EB2189DBFA003BB940 /* ProfileEditPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 439D55EA2189DBFA003BB940 /* ProfileEditPageTests.m */; };
@@ -992,13 +995,16 @@
 		43277E89217F4E9E008B3240 /* TestPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestPageTests.m; sourceTree = "<group>"; };
 		43277E8B217F4F6A008B3240 /* DSOWebViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOWebViewControllerTests.m; sourceTree = "<group>"; };
 		43277E8D217F523B008B3240 /* RegControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegControllerTests.m; sourceTree = "<group>"; };
+		4335E27821B6B5EF00A10F7E /* CmsSearchPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsSearchPageTests.m; sourceTree = "<group>"; };
 		4341949221A598BE0029AECE /* CmsForYouPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsForYouPageTests.m; sourceTree = "<group>"; };
 		4344660021A5614A00811E94 /* UIButtonExtTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIButtonExtTests.m; sourceTree = "<group>"; };
 		4344660221A5644C00811E94 /* UIScreenExtTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIScreenExtTests.m; sourceTree = "<group>"; };
 		4344660421A5674400811E94 /* UIViewExtTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIViewExtTests.m; sourceTree = "<group>"; };
 		43488F4D2199BAEB00FDC15E /* ColorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorTests.m; sourceTree = "<group>"; };
+		43595F9121B503E80028BA97 /* LinearPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearPageTests.m; sourceTree = "<group>"; };
 		437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewControllerTests.m; sourceTree = "<group>"; };
 		4388150A218D4EF20066BCB6 /* SearchPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPageTests.m; sourceTree = "<group>"; };
+		438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsDownloadsControllerTests.m; sourceTree = "<group>"; };
 		43941291219F0378008C3092 /* UITextFieldExtTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UITextFieldExtTests.m; sourceTree = "<group>"; };
 		43952B442190704900EB3443 /* EditPracticeAddressViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditPracticeAddressViewControllerTests.m; sourceTree = "<group>"; };
 		439D55EA2189DBFA003BB940 /* ProfileEditPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileEditPageTests.m; sourceTree = "<group>"; };
@@ -2149,9 +2155,20 @@
 			path = profile;
 			sourceTree = "<group>";
 		};
+		4335E27721B6B5D700A10F7E /* SearchPage */ = {
+			isa = PBXGroup;
+			children = (
+				4335E27821B6B5EF00A10F7E /* CmsSearchPageTests.m */,
+			);
+			path = SearchPage;
+			sourceTree = "<group>";
+		};
 		4341949021A597320029AECE /* CMS */ = {
 			isa = PBXGroup;
 			children = (
+				4335E27721B6B5D700A10F7E /* SearchPage */,
+				43595F9021B503DC0028BA97 /* LinearPage */,
+				438BA12621B40645005246C5 /* DownloadsController */,
 				43E409AA21B24E3E0016E102 /* BookmarkController */,
 				4341949121A598A90029AECE /* ForYou */,
 			);
@@ -2179,6 +2196,14 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		43595F9021B503DC0028BA97 /* LinearPage */ = {
+			isa = PBXGroup;
+			children = (
+				43595F9121B503E80028BA97 /* LinearPageTests.m */,
+			);
+			path = LinearPage;
+			sourceTree = "<group>";
+		};
 		437AB90A2181F1B80026A71B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -2189,6 +2214,14 @@
 				43A196CE2190A12B006E90CC /* EditExperiencePageTests.m */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		438BA12621B40645005246C5 /* DownloadsController */ = {
+			isa = PBXGroup;
+			children = (
+				438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */,
+			);
+			path = DownloadsController;
 			sourceTree = "<group>";
 		};
 		43B7251F21764CF4000F6797 /* dentistTests */ = {
@@ -4339,6 +4372,8 @@
 				4344660121A5614A00811E94 /* UIButtonExtTests.m in Sources */,
 				43488F4E2199BAEB00FDC15E /* ColorTests.m in Sources */,
 				4341949321A598BE0029AECE /* CmsForYouPageTests.m in Sources */,
+				43595F9221B503E80028BA97 /* LinearPageTests.m in Sources */,
+				4335E27921B6B5EF00A10F7E /* CmsSearchPageTests.m in Sources */,
 				43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */,
 				43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */,
 				43B7252D217650FF000F6797 /* ExampleTests.m in Sources */,
@@ -4351,6 +4386,7 @@
 				43A196CF2190A12B006E90CC /* EditExperiencePageTests.m in Sources */,
 				43277E88217F4D91008B3240 /* StudentControllerTests.m in Sources */,
 				43277E8A217F4E9E008B3240 /* TestPageTests.m in Sources */,
+				438BA12821B4065D005246C5 /* CmsDownloadsControllerTests.m in Sources */,
 				43B72530217651A8000F6797 /* KiwiTests.m in Sources */,
 				4344660321A5644C00811E94 /* UIScreenExtTests.m in Sources */,
 			);

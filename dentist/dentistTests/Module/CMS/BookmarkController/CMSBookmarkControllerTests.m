@@ -44,7 +44,7 @@ describe(@"Unit Test For CmsBookmarkController", ^{
             [[cls should] equal:BookMarkItemView.class];
         });
 
-        it(@"viewClassOfItem", ^{
+        it(@"heightOfItem", ^{
             CGFloat height = [controller heightOfItem:NULL];
             [[theValue(height) should] equal:theValue(controller.rowheight)];
         });

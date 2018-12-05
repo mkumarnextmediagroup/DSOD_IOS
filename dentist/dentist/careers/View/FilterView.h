@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol FilterViewDelegate <NSObject>
+
+@optional
+- (void)searchCondition:(NSDictionary *)condition;
+@end
+
 @interface FilterView : UIView
+
+@property (nonatomic,weak) id<FilterViewDelegate> delegate;
 
 + (instancetype)initSliderView;
 - (void)showFilter;

@@ -103,7 +103,7 @@
 
     }else if (btn.tag == 12)//review button click
     {
-        [[FilterView initSliderView] showFilter];
+        [[FilterView initFilterView] showFilter];
     }else if (btn.tag == 10){
         AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         MyTabBarViewController *tabvc=(MyTabBarViewController *)appdelegate.careersPage;

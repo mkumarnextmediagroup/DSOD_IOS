@@ -48,7 +48,7 @@ static dispatch_once_t onceToken;
     onceToken = 0;
 }
 
-+ (instancetype)initSliderView
++ (instancetype)initFilterView
 {
     dispatch_once(&onceToken, ^{
         instance = [[FilterView alloc] init];

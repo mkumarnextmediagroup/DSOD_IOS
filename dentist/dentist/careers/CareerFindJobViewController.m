@@ -134,7 +134,7 @@
 -(void)clickFilter:(UIButton *)sender
 {
     NSLog(@"Filter btn click");
-    [[FilterView initSliderView] showFilter];
+    [[FilterView initFilterView] showFilter];
 }
 
 -(void)setJobCountTitle:(NSInteger)jobcount

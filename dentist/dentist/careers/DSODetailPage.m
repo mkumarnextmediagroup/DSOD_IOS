@@ -18,6 +18,7 @@
 #import "JobsOfDSODetailTableViewCell.h"
 #import "CompanyJobsModel.h"
 #import "BannerScrollView.h"
+#import "FindJobsTableViewCell.h"
 
 @interface DSODetailPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
 
@@ -40,6 +41,7 @@
 
     CompanyModel *companyModel;
     NSArray<JobModel*> *jobArray;
+    BOOL isdownrefresh;
     
 }
 
@@ -98,6 +100,7 @@
     [contentView addSubview:tableView];
     [[[[[tableView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
     [tableView setTableHeaderView:[self buildHeader]];
+    [tableView registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     
 }
 
@@ -199,6 +202,13 @@
                 [self->tableView reloadData];
             });
         }];
+//        [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+//            foreTask(^{
+//                [self hideLoading];
+//                self->jobArray = array;
+//                [self->tableView reloadData];
+//            });
+//        }];
     }
     [tableView reloadData];
 }
@@ -233,7 +243,7 @@
         case 0:
             return 1 ;
         case 1:
-            return 1;
+            return self->jobArray.count;
         case 2:
             return 60;
     }
@@ -247,7 +257,7 @@
         case 0:
             return [self descriptionOfDSODetailTableViewCell:tableView data:self->companyModel];
         case 1:
-            return [self jobsOfDSODetailTableViewCell:tableView data:self->jobArray];
+            return [self jobsOfDSODetailTableViewCell:tableView data:self->jobArray cellForRowAtIndexPath:indexPath];
         case 2:
 //            return [self companyReviewHeaderCell:tableView data:self->companyCommentModel];
         default:
@@ -270,7 +280,7 @@
 }
 
 
--(UITableViewCell*)jobsOfDSODetailTableViewCell:tableView data: (NSArray<JobModel*> *)jobArray;{
+-(UITableViewCell*)jobsOfDSODetailTableViewCell:tableView data: (NSArray<JobModel*> *)jobArray{
     JobsOfDSODetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JobsOfDSODetailTableViewCell"];
     if (cell == nil) {
         cell = [[JobsOfDSODetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"JobsOfDSODetailTableViewCell"];
@@ -281,6 +291,18 @@
     cell.totalCount=jobArray.count;
     return cell;
 }
+
+-(UITableViewCell*)jobsOfDSODetailTableViewCell:tableView data: (NSArray<JobModel*> *)jobArray cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    FindJobsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class]) forIndexPath:indexPath];
+//    cell.delegate=self;
+    cell.indexPath=indexPath;
+    if (jobArray && jobArray.count>indexPath.row) {
+        
+        cell.info=jobArray[indexPath.row];
+    }
+    return cell;
+}
+
 //
 //-(UITableViewCell*)companyReviewHeaderCell:tableView data:(CompanyCommentModel*)model{
 //    CompanyReviewHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompanyReviewHeaderTableViewCell"];
@@ -291,5 +313,42 @@
 //    [cell setData:model];
 //    return cell;
 //}
+
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+//    if (currTabIndex==1) {
+//        CGFloat height = scrollView.frame.size.height;
+//        CGFloat contentOffsetY = scrollView.contentOffset.y;
+//        CGFloat consizeheight=scrollView.contentSize.height;
+//        CGFloat bottomOffset = (consizeheight - contentOffsetY);
+//        if (bottomOffset <= height-50 && contentOffsetY>0)
+//        {
+//
+//            if (!isdownrefresh) {
+//                NSLog(@"==================================下啦刷选;bottomOffset=%@;height-50=%@",@(bottomOffset),@(height-50));
+//                isdownrefresh=YES;
+//                [self showIndicator];
+//                [Proto queryAllJobs:self->jobArray.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+//                    self->isdownrefresh=NO;
+//                    foreTask(^{
+//                        [self hideIndicator];
+//                        NSMutableArray *temparr=[NSMutableArray arrayWithArray:self->jobArray];
+//                        NSLog(@"%@",array);
+//                        if(array && array.count>0){
+//                            [temparr addObjectsFromArray:array];
+//                        }
+//                        self->jobArray=[temparr copy];
+//                        [self->tableView reloadData];
+//
+//                    });
+//                }];
+//
+//            }
+//
+//        }
+//    }
+    
+}
 
 @end

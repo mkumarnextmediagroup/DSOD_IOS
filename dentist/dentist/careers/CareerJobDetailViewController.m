@@ -19,6 +19,7 @@
 #import "BannerScrollView.h"
 #import "CompanyMediaModel.h"
 #import "DentistDataBaseManager.h"
+#import "DsoToast.h"
 
 @interface CareerJobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
 
@@ -137,6 +138,7 @@
     [tableView setTableHeaderView:[self buildHeader]];
     
     UIButton *applyNowBtn = contentView.addButton;
+    applyNowBtn.tag=99;
     applyNowBtn.layer.borderWidth = 1;
     applyNowBtn.layer.borderColor = rgbHex(0xb3bfc7).CGColor;
     applyNowBtn.backgroundColor = Colors.textDisabled;
@@ -145,6 +147,23 @@
     [applyNowBtn setTitle:@"Apply Now" forState:UIControlStateNormal];
     [[[[[applyNowBtn.layoutMaker bottomParent:-edge]leftParent:edge]rightParent:-edge]heightEq:40]install];
     [applyNowBtn onClick:self action:@selector(applyNow)];
+    
+    BOOL isApplication = [self->jobModel.isApplication boolValue];
+    [self setApplyButtonEnable:!isApplication];
+}
+
+-(void)setApplyButtonEnable:(BOOL)enable
+{
+    UIButton *btn=(UIButton *)[contentView viewWithTag:99];
+    if (enable) {
+        btn.userInteractionEnabled=YES;//交互关闭
+        btn.alpha=1.0;//透明度
+        [btn setTitle:@"Apply Now" forState:UIControlStateNormal];
+    }else{
+        btn.userInteractionEnabled=NO;//交互关闭
+        btn.alpha=0.4;//透明度
+        [btn setTitle:@"Have Applied" forState:UIControlStateNormal];
+    }
 }
 
 
@@ -256,7 +275,29 @@
 }
 
 -(void)applyNow{
-    [self.view makeToast:@"applyNow"];
+//    [self.view makeToast:@"applyNow"];
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    UIView *dsontoastview=[DsoToast toastViewForMessage:@"Applying to Job…" ishowActivity:YES];
+    [window showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+    [Proto addJobApplication:_jobId completed:^(HttpResult *result) {
+        NSLog(@"result=%@",@(result.code));
+        foreTask(^() {
+            [window hideToast];
+            if (result.OK) {
+                //
+                [self setApplyButtonEnable:NO];
+            }else{
+                NSString *message=result.msg;
+                if([NSString isBlankString:message]){
+                    message=@"Failed";
+                }
+                
+                [window makeToast:message
+                         duration:1.0
+                         position:CSToastPositionBottom];
+            }
+        });
+    }];
     
 }
 

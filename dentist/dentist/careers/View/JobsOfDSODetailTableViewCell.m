@@ -43,6 +43,7 @@
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:0] install];
+//    [[[[[myTable.layoutMaker topParent:0] leftParent:0] rightParent:0] bottomParent:0] install];
 }
 
 -(void)setTotalCount:(NSInteger)totalCount{

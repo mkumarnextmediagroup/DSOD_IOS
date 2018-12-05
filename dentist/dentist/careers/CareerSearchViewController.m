@@ -181,4 +181,34 @@
 }
 
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat consizeheight=scrollView.contentSize.height;
+    CGFloat bottomOffset = (consizeheight - contentOffsetY);
+    if (bottomOffset <= height-50 && contentOffsetY>0)
+    {
+        NSLog(@"==================================下啦刷选;bottomOffset=%@;height-50=%@",@(bottomOffset),@(height-50));
+        if (!isdownrefresh) {
+            isdownrefresh=YES;
+            [self showIndicator];
+            [Proto queryAllJobs:self->infoArr.count jobTitle:searchKeywords completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                self->isdownrefresh=NO;
+                foreTask(^{
+                    [self hideIndicator];
+                    NSLog(@"%@",array);
+                    if(array && array.count>0){
+                        [self->infoArr addObjectsFromArray:array];
+                    }
+                    [self->myTable reloadData];
+                    
+                });
+            }];
+            
+        }
+        
+    }
+}
+
 @end

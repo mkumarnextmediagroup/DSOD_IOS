@@ -15,6 +15,7 @@
 #import "DsoToast.h"
 #import "CareerSearchViewController.h"
 #import "CareerJobDetailViewController.h"
+#import "FilterView.h"
 
 @interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate>
 {
@@ -133,6 +134,7 @@
 -(void)clickFilter:(UIButton *)sender
 {
     NSLog(@"Filter btn click");
+    [[FilterView initSliderView] showFilter];
 }
 
 -(void)setJobCountTitle:(NSInteger)jobcount

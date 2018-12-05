@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,weak) id<FilterViewDelegate> delegate;
 
-+ (instancetype)initSliderView;
++ (instancetype)initFilterView;
 - (void)showFilter;
 @end
 

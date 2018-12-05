@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1801683921A6EE4F00AEBF06 /* Swipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 1801683821A6EE4F00AEBF06 /* Swipe.png */; };
+		180DE1A821B7DF7B00AD07B5 /* icon_check_mark_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180DE1A521B7DF7A00AD07B5 /* icon_check_mark_small@2x.png */; };
+		180DE1A921B7DF7B00AD07B5 /* icon_check_mark_small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180DE1A621B7DF7B00AD07B5 /* icon_check_mark_small@3x.png */; };
+		180DE1AA21B7DF7B00AD07B5 /* icon_check_mark_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 180DE1A721B7DF7B00AD07B5 /* icon_check_mark_small.png */; };
 		18106AAB218ACC0D00EEE2DC /* FilterIssues@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AA8218ACC0C00EEE2DC /* FilterIssues@2x.png */; };
 		18106AAC218ACC0D00EEE2DC /* FilterIssues@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AA9218ACC0C00EEE2DC /* FilterIssues@3x.png */; };
 		18106AAD218ACC0D00EEE2DC /* FilterIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AAA218ACC0C00EEE2DC /* FilterIssues.png */; };
@@ -837,6 +840,9 @@
 
 /* Begin PBXFileReference section */
 		1801683821A6EE4F00AEBF06 /* Swipe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Swipe.png; sourceTree = "<group>"; };
+		180DE1A521B7DF7A00AD07B5 /* icon_check_mark_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_check_mark_small@2x.png"; sourceTree = "<group>"; };
+		180DE1A621B7DF7B00AD07B5 /* icon_check_mark_small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_check_mark_small@3x.png"; sourceTree = "<group>"; };
+		180DE1A721B7DF7B00AD07B5 /* icon_check_mark_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_check_mark_small.png; sourceTree = "<group>"; };
 		18106AA8218ACC0C00EEE2DC /* FilterIssues@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterIssues@2x.png"; sourceTree = "<group>"; };
 		18106AA9218ACC0C00EEE2DC /* FilterIssues@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterIssues@3x.png"; sourceTree = "<group>"; };
 		18106AAA218ACC0C00EEE2DC /* FilterIssues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FilterIssues.png; sourceTree = "<group>"; };
@@ -2606,6 +2612,9 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				180DE1A721B7DF7B00AD07B5 /* icon_check_mark_small.png */,
+				180DE1A521B7DF7A00AD07B5 /* icon_check_mark_small@2x.png */,
+				180DE1A621B7DF7B00AD07B5 /* icon_check_mark_small@3x.png */,
 				18A0DBAA21B23A140065B2BD /* career_location_bg_small.png */,
 				18A0DBAB21B23A140065B2BD /* career_location_bg_small@2x.png */,
 				18A0DBA921B23A130065B2BD /* career_location_bg_small@3x.png */,
@@ -4081,6 +4090,7 @@
 				E11E12C211BB877600A8E23C /* edit_photo@3x.png in Resources */,
 				E11E1427731756A4C6B97992 /* edit_pressed.png in Resources */,
 				E11E134DF5879C823C33092E /* edit_pressed@2x.png in Resources */,
+				180DE1AA21B7DF7B00AD07B5 /* icon_check_mark_small.png in Resources */,
 				E11E11339AAE29D1E28306F8 /* edit_pressed@3x.png in Resources */,
 				A3E752EA217E35010087713D /* Article@3x.png in Resources */,
 				A393E0B521955D06001881C2 /* sponsor_align_banner@2x.png in Resources */,
@@ -4227,8 +4237,10 @@
 				4E23E07B2152963D00EDCE08 /* gskIcon@2x.png in Resources */,
 				E11E1E7047136DAF6ADCDA1C /* menu-settings_light@3x.png in Resources */,
 				A3BA6DF321AFD10100D83156 /* icons8-banknotes@3x.png in Resources */,
+				180DE1A821B7DF7B00AD07B5 /* icon_check_mark_small@2x.png in Resources */,
 				E11E1C714B53B0983680060B /* menu-settings.png in Resources */,
 				E11E176626F9358FCA214A5D /* menu-settings@2x.png in Resources */,
+				180DE1A921B7DF7B00AD07B5 /* icon_check_mark_small@3x.png in Resources */,
 				A3E752EF217E35010087713D /* TipSheet.png in Resources */,
 				E11E12F60184E37357C15109 /* menu-settings@3x.png in Resources */,
 				E11E14E8BBFF8B374746F288 /* menu-unite_light.png in Resources */,

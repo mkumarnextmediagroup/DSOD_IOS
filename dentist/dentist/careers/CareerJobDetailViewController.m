@@ -12,12 +12,14 @@
 #import "CompanyOfJobDetailTableViewCell.h"
 #import "DescriptionOfJobDetailTableViewCell.h"
 #import "CompanyReviewHeaderTableViewCell.h"
+#import "CompanyReviewTableViewCell.h"
 #import "CompanyModel.h"
 #import "Proto.h"
 #import "JobModel.h"
 #import "DentistTabView.h"
 #import "BannerScrollView.h"
 #import "CompanyMediaModel.h"
+#import "CompanyCommentReviewsModel.h"
 #import "DentistDataBaseManager.h"
 #import "DsoToast.h"
 
@@ -41,7 +43,7 @@
     
     JobModel *jobModel;
     CompanyCommentModel *companyCommentModel;
-    NSArray *commentArray;
+    NSArray<CompanyCommentReviewsModel*> *commentArray;
 }
 
 
@@ -241,7 +243,7 @@
     jobLabel.text = [NSString stringWithFormat:@"%@ - %@",jobModel.jobTitle,jobModel.location];
     companyLabel.text = jobModel.company.companyName;
     salaryLabel.text = [NSString stringWithFormat:@"Est. Salary:%@",jobModel.salaryRange] ;
-    [addressBtn setTitle:jobModel.company.address forState:UIControlStateNormal];
+    [addressBtn setTitle:jobModel.address forState:UIControlStateNormal];
     
     
 
@@ -298,7 +300,6 @@
             }
         });
     }];
-    
 }
 
 
@@ -306,6 +307,16 @@
 - (void)didDentistSelectItemAtIndex:(NSInteger)index{
     currTabIndex = (int)index;
     [tableView reloadData];
+    
+    if(commentArray && currTabIndex == 2){
+        [self showLoading];
+        [Proto findCommentByCompanyId:jobModel.companyId sort:0 star:0 skip:0 limit:2 completed:^(CompanyCommentModel * _Nullable companyCommentModel) {
+            [self hideLoading];
+            self->companyCommentModel = companyCommentModel;
+            self->commentArray = companyCommentModel.reviews;
+            [self->tableView reloadData];
+        }];
+    }
 }
 
 
@@ -340,7 +351,7 @@
         case 1:
             return 1;
         case 2:
-            return 60;
+            return companyCommentModel && commentArray ?commentArray.count+1:0;
     }
     return 0;
 }
@@ -354,7 +365,11 @@
         case 1:
             return [self companyOfJobDetailTableViewCell:tableView data:self->jobModel.company];
         case 2:
-            return [self companyReviewHeaderCell:tableView data:self->companyCommentModel];
+            if(indexPath.row == 0){
+                return [self companyReviewHeaderCell:tableView data:self->companyCommentModel];
+            }else{
+                return [self companyReviewTableViewCell:tableView data:self->commentArray[indexPath.row-1]];
+            }
         default:
             break;
     }
@@ -394,4 +409,16 @@
     [cell setData:model];
     return cell;
 }
+
+-(UITableViewCell*)companyReviewTableViewCell:tableView data:(CompanyCommentReviewsModel*)model{
+    CompanyReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompanyReviewTableViewCell"];
+    if (cell == nil) {
+        cell = [[CompanyReviewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompanyReviewTableViewCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    [cell setData:model];
+    return cell;
+}
+
+
 @end

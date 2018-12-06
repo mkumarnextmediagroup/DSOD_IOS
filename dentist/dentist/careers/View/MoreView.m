@@ -155,7 +155,19 @@ static dispatch_once_t onceToken;
         [UIView commitAnimations];
         
         isTouch = NO;
-    }}
+    }
+    
+}
+- (void)hideFuntionBtn
+{
+    CGFloat bottom = offBottom;
+    [UIView animateWithDuration:.3 animations:^{
+        self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+        [MoreView attemptDealloc];
+    }];
+}
 
 #pragma -mark -functions
 - (void)btnClick:(id)sender

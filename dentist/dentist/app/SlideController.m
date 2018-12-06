@@ -28,7 +28,11 @@
 #import "CmsForYouPage.h"
 #import "CmsSearchPage.h"
 #import "CmsCategoryPage.h"
+#import "MoreView.h"
 
+@interface SlideController()<UITabBarControllerDelegate,UITabBarDelegate>
+
+@end
 
 @implementation SlideController {
 	NSArray *items;
@@ -135,9 +139,10 @@
         ncMore.view.backgroundColor = [UIColor clearColor];
         [ncMore tabItem:@"More" imageName:@"more"];
         more.navigationItem.leftBarButtonItem = [self menuButton];
-        
-//        return TabPage(@[ncExplore, ncFindJob, ncMyJob, ncAlert, ncMore]);
-        return myTab([EventsPage new]);
+        UITabBarController *careertabbarcontroller=TabPage(@[ncExplore, ncFindJob, ncMyJob, ncAlert, ncMore]);
+        careertabbarcontroller.delegate=self;
+        return careertabbarcontroller;
+//        return myTab([EventsPage new]);
 
 	}
 	if ([@"Events" isEqualToString:title]) {
@@ -291,6 +296,28 @@
 	UIView *view = self.view.addView;
 	view.backgroundColor = Colors.strokes;
 	return view;
+}
+
+//判断是否跳转
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    NSLog(@"tabBarController.tabBar.selectedItem.tag=%@",@(tabBarController.tabBar.selectedItem.tag));
+    UINavigationController *nav = (UINavigationController *)viewController;
+    UIViewController *VC =nav.topViewController;
+    if ([VC isKindOfClass:[CareerMoreViewController class]]) {
+        
+        NSLog(@"CareerMoreViewController");
+        [[MoreView initSliderView] showFuntionBtn];
+        return NO;
+    }else{
+        [[MoreView initSliderView] hideFuntionBtn];
+        return YES;
+    }
+//    if (tabBarController.tabBar.selectedItem.tag==4) {
+//        return NO;
+//    }else{
+//        return YES;
+//    }
+    
 }
 
 @end

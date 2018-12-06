@@ -13,5 +13,6 @@
 + (instancetype)initSliderView;
 
 - (void)showFuntionBtn;
+- (void)hideFuntionBtn;
 
 @end

@@ -84,13 +84,18 @@
 }
 
 - (UIViewController *)careersPage {
+//    if ([self.window.rootViewController isKindOfClass:[IIViewDeckController class]]) {
+//        IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;
+//        if ([tc.centerViewController isKindOfClass:[MyTabBarViewController class]] ) {
+//            return tc.centerViewController;
+//        }else{
+//            return nil;
+//        }
+//    }
+//    return nil;
     if ([self.window.rootViewController isKindOfClass:[IIViewDeckController class]]) {
         IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;
-        if ([tc.centerViewController isKindOfClass:[MyTabBarViewController class]] ) {
-            return tc.centerViewController;
-        }else{
-            return nil;
-        }
+        return tc.centerViewController;
     }
     return nil;
 }

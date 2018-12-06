@@ -64,7 +64,7 @@
     [super viewDidLoad];
     
     contentView  = self.view.addView;
-    [[[[[contentView.layoutMaker leftParent:0]rightParent:0] topParent:44]bottomParent:0] install];
+    [[[[[contentView.layoutMaker leftParent:0]rightParent:0] topParent:NAVHEIGHT]bottomParent:0] install];
     contentView.backgroundColor = UIColor.whiteColor;
     
     [self addNavBar];
@@ -96,18 +96,17 @@
     tableView.estimatedRowHeight = 10;
     tableView.rowHeight=UITableViewAutomaticDimension;
     tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    tableView.separatorStyle = UITableViewCellEditingStyleNone;
-    tableView.contentInset = UIEdgeInsetsMake(0, 0, 80, 0);
     [contentView addSubview:tableView];
     [[[[[tableView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
-    [tableView setTableHeaderView:[self buildHeader]];
+    tableView.tableHeaderView =[self buildHeader];
+    [[[tableView.tableHeaderView.layoutUpdate topParent:0]leftParent:0] install];
     [tableView registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     
 }
 
 
 -(UIView*)buildHeader{
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 0)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, CGFLOAT_MIN)];
     
     bannerView = [BannerScrollView new];
     [headerView addSubview:bannerView];

@@ -39,7 +39,6 @@
         imageView = bgView.addImageView;
         
         newimageView=bgView.addImageView;
-        newimageView.image=[UIImage imageNamed:@"Group Copy"];
         [newimageView scaleFillAspect];
         newimageView.clipsToBounds=YES;
         
@@ -152,18 +151,25 @@
                 [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
             }
         }
-        [[DentistDataBaseManager shareManager] checkJobsStatus:_info.id publishDate:_info.publishDate modifiedDate:_info.modifiedDate completed:^(NSInteger result) {
-            foreTask(^{
-                if (result==1) {
-                    self->newimageView.hidden=NO;
-                }else if (result==2){
-                    self->newimageView.hidden=NO;
-                }else{
-                    self->newimageView.hidden=YES;
-                }
-            });
-            
-        }];
+        if(_info.status==3){
+            self->newimageView.hidden=NO;
+            self->newimageView.image=[UIImage imageNamed:@"Closed"];
+        }else{
+            [[DentistDataBaseManager shareManager] checkJobsStatus:_info.id publishDate:_info.publishDate modifiedDate:_info.modifiedDate completed:^(NSInteger result) {
+                foreTask(^{
+                    if (result==1) {
+                        self->newimageView.hidden=NO;
+                        self->newimageView.image=[UIImage imageNamed:@"New"];
+                    }else if (result==2){
+                        self->newimageView.hidden=NO;
+                        self->newimageView.image=[UIImage imageNamed:@"Updated"];
+                    }else{
+                        self->newimageView.hidden=YES;
+                    }
+                });
+                
+            }];
+        }
         
     }
 }

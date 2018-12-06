@@ -66,9 +66,9 @@
         if (timestamp.length>=13) {
             timestamp=[timestamp substringToIndex:10];
         }
-        NSDate *endDate= [NSDate dateWithTimeIntervalSince1970:[timestamp longLongValue]];
+        NSDate *startDate= [NSDate dateWithTimeIntervalSince1970:[timestamp longLongValue]];
         //创建两个日期
-        NSDate *startDate = [NSDate date];
+        NSDate *endDate = [NSDate date];
         //利用NSCalendar比较日期的差异
         NSCalendar *calendar = [NSCalendar currentCalendar];
         /**
@@ -83,10 +83,10 @@
         NSCalendarUnit unit = NSCalendarUnitDay;//只比较天数差异
         //比较的结果是NSDateComponents类对象
         NSDateComponents *delta = [calendar components:unit fromDate:startDate toDate:endDate options:0];
-        //打印
-        NSLog(@"%@",delta);
-        //获取其中的"天"
-        NSLog(@"%ld",delta.day);
+//        //打印
+//        NSLog(@"%@",delta);
+//        //获取其中的"天"
+//        NSLog(@"%ld",delta.day);
         return delta.day;
     }else{
         return -1;

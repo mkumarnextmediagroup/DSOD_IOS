@@ -20,8 +20,10 @@
 #import "BannerScrollView.h"
 #import "FindJobsTableViewCell.h"
 #import "CareerSearchViewController.h"
+#import "CareerJobDetailViewController.h"
+#import "FilterView.h"
 
-@interface DSODetailPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
+@interface DSODetailPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,FilterViewDelegate>
 
 @end
 
@@ -43,7 +45,9 @@
     CompanyModel *companyModel;
     NSArray<JobModel*> *jobArray;
     BOOL isdownrefresh;
-    
+    UILabel *jobCountTitle;
+    UIView *filterView;
+    NSDictionary *filterDic;
 }
 
 
@@ -196,9 +200,10 @@
     currTabIndex = (int)index;
     if (currTabIndex==1) {
         [self showLoading];
-        [Proto getAllJobsByCompanyId:self.companyId completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+        [Proto getAllJobsByCompanyId:self.companyId skip:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
             foreTask(^{
                 [self hideLoading];
+                [self setJobCountTitle:totalCount];
                 self->jobArray = array;
                 [self->tableView reloadData];
             });
@@ -214,30 +219,77 @@
     [tableView reloadData];
 }
 
+-(void)setJobCountTitle:(NSInteger)jobcount
+{
+    if (jobcount>0) {
+        NSString *jobcountstr=[NSString stringWithFormat:@"%@Jobs",@(jobcount)];
+//        NSString *jobstr=[NSString stringWithFormat:@"%@ | 5 New",jobcountstr];
+//        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:jobstr];
+//        [str addAttribute:NSForegroundColorAttributeName value:Colors.textMain range:NSMakeRange(0,jobcountstr.length+2)];
+//        [str addAttribute:NSForegroundColorAttributeName value:Colors.textDisabled range:NSMakeRange(jobcountstr.length+2,jobstr.length - (jobcountstr.length+2))];
+        jobCountTitle.text = jobcountstr;
+    }else{
+        jobCountTitle.text=@"";
+    }
+    
+}
+
+-(void)clickFilter:(UIButton *)sender
+{
+    FilterView *filterview=[FilterView initFilterView];
+    filterview.delegate=self;
+    [filterview showFilter];
+}
 
 #pragma mark UITableViewDelegate,UITableViewDataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 50;
+    if (currTabIndex==1) {
+        return 82;
+    }else{
+       return 50;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if(!sectionHeaderView){
-        sectionHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
-        
-        
+        sectionHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 82)];
+
+
         DentistTabView *tabView = [DentistTabView new];
         tabView.isScrollEnable=NO;
         tabView.itemCount=3;
         tabView.delegate=self;
         [sectionHeaderView addSubview:tabView];
-        [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0]bottomParent:0]  install];
+        [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:50] install];
         tabView.titleArr=[NSMutableArray arrayWithArray:@[@"DESCRIPTION",@"JOBS",@"REVIEWS"]];
         
+        filterView = sectionHeaderView.addView;
+        [[[[[filterView.layoutMaker leftParent:0] rightParent:0] below:tabView offset:0] heightEq:32]  install];
+        filterView.backgroundColor=[UIColor whiteColor];
+        
+        jobCountTitle=filterView.addLabel;
+        jobCountTitle.textColor =Colors.textMain;
+        jobCountTitle.font=[Fonts semiBold:13];
+        [[[[[jobCountTitle.layoutMaker leftParent:20] topParent:0] bottomParent:0] rightParent:40] install];
+        
+        UIButton *filterButton = [filterView addButton];
+        [filterButton setImage:[UIImage imageNamed:@"desc"] forState:UIControlStateNormal];
+        [[[[filterButton.layoutMaker topParent:4] rightParent:-15] sizeEq:24 h:24] install];
+        [filterButton onClick:self action:@selector(clickFilter:)];
+        UILabel *lineLabel=filterView.lineLabel;
+        [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
+    }
+    if (currTabIndex==1) {
+        filterView.hidden=NO;
+        sectionHeaderView.frame=CGRectMake(0, 0, SCREENWIDTH, 82);
+    }else{
+        filterView.hidden=YES;
+        sectionHeaderView.frame=CGRectMake(0, 0, SCREENWIDTH, 50);
     }
     return sectionHeaderView;
+    
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     switch (currTabIndex) {
@@ -318,22 +370,27 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-//    if (currTabIndex==1) {
-//        CGFloat height = scrollView.frame.size.height;
-//        CGFloat contentOffsetY = scrollView.contentOffset.y;
-//        CGFloat consizeheight=scrollView.contentSize.height;
-//        CGFloat bottomOffset = (consizeheight - contentOffsetY);
-//        if (bottomOffset <= height-50 && contentOffsetY>0)
-//        {
-//
+    if (currTabIndex==1 && self->jobArray.count>0) {
+        CGFloat height = scrollView.frame.size.height;
+        CGFloat contentOffsetY = scrollView.contentOffset.y;
+        CGFloat consizeheight=scrollView.contentSize.height;
+        CGFloat bottomOffset = (consizeheight - contentOffsetY);
+
+        CGFloat offsetY = scrollView.contentOffset.y;
+        
+        // 当最后一个cell完全显示在眼前时，contentOffset的y值
+        CGFloat judgeOffsetY = scrollView.contentSize.height + scrollView.contentInset.bottom - height;
+//        if (offsetY > judgeOffsetY+50 && judgeOffsetY>0) {
 //            if (!isdownrefresh) {
-//                NSLog(@"==================================下啦刷选;bottomOffset=%@;height-50=%@",@(bottomOffset),@(height-50));
+//                NSLog(@"==================================下啦刷选;offsetY=%@;judgeOffsetY=%@",@(offsetY),@(judgeOffsetY));
+////                NSLog(@"==================================下啦刷选;bottomOffset=%@;height-50=%@",@(bottomOffset),@(height-50));
 //                isdownrefresh=YES;
+//                [self->tableView setContentOffset:CGPointMake(0, offsetY-50) animated:NO];
 //                [self showIndicator];
-//                [Proto queryAllJobs:self->jobArray.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-//                    self->isdownrefresh=NO;
+//                [Proto getAllJobsByCompanyId:self.companyId skip:self->jobArray.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
 //                    foreTask(^{
 //                        [self hideIndicator];
+//                         [self setJobCountTitle:totalCount];
 //                        NSMutableArray *temparr=[NSMutableArray arrayWithArray:self->jobArray];
 //                        NSLog(@"%@",array);
 //                        if(array && array.count>0){
@@ -341,15 +398,46 @@
 //                        }
 //                        self->jobArray=[temparr copy];
 //                        [self->tableView reloadData];
-//
+//                        
+//                        self->isdownrefresh=NO;
+//                        
 //                    });
 //                }];
-//
+//                
 //            }
+//        }
+//        if (bottomOffset <= height-50 && contentOffsetY>0)
+//        {
+//
+//
 //
 //        }
-//    }
+    }
     
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (currTabIndex==1 && self->jobArray.count>indexPath.row) {
+        JobModel *jobModel = jobArray[indexPath.row];
+        [CareerJobDetailViewController presentBy:self jobId:jobModel.id closeBack:^{
+            foreTask(^{
+                if (self->tableView) {
+                    [self->tableView reloadData];
+                }
+            });
+            
+        }];
+    }
+}
+
+#pragma mark ----------------FilterViewDelegate
+-(void)searchCondition:(NSDictionary *)condition
+{
+    NSLog(@"condition=%@",condition);
+    filterDic=condition;
+//    [self refreshData];
 }
 
 @end

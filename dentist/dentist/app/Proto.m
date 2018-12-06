@@ -1860,7 +1860,7 @@
 
 
 //MARK:2.2.    查询所有职位列表
-+ (void)queryAllJobs:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
++ (void)queryAllJobs:(NSString *)sort categroy:(NSString *)categroy salaryStartingValue:(NSString *)salaryStartingValue salaryEndValue:(NSString *)salaryEndValue experienceStartingValue:(NSString *)experienceStartingValue experienceEndValue:(NSString *)experienceEndValue location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
     NSInteger limit=20;//分页数默认20条
     if (skip<=0) {
         skip=0;
@@ -1875,11 +1875,17 @@
     if (categroy) {
         [paradic setObject:categroy forKey:@"categroy"];
     }
-    if (salary) {
-        [paradic setObject:salary forKey:@"salary"];
+    if (salaryStartingValue) {
+        [paradic setObject:salaryStartingValue forKey:@"salaryStartingValue"];
     }
-    if (experience) {
-        [paradic setObject:experience forKey:@"experience"];
+    if (salaryEndValue) {
+        [paradic setObject:salaryEndValue forKey:@"salaryEndValue"];
+    }
+    if (experienceStartingValue) {
+        [paradic setObject:experienceStartingValue forKey:@"experienceStartingValue"];
+    }
+    if (experienceEndValue) {
+        [paradic setObject:experienceEndValue forKey:@"experienceEndValue"];
     }
     if (location) {
         [paradic setObject:location forKey:@"location"];
@@ -1919,11 +1925,71 @@
 
 //MARK:2.2.    查询所有职位列表
 + (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
-    return [self queryAllJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
+    return [self queryAllJobs:nil categroy:nil salaryStartingValue:nil salaryEndValue:nil experienceStartingValue:nil experienceEndValue:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
 }
+
+//MARK:2.2.    查询所有职位列表
++ (void)queryAllJobs:(NSInteger)skip filterDic:(NSDictionary *)filterDic completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    NSString *categroy;
+    NSString *salaryStartingValue;
+    NSString *salaryEndValue;
+    NSString *experienceStartingValue;
+    NSString *experienceEndValue;
+    NSDictionary *location;
+    NSString *jobTitle;
+    NSString *company;
+    NSString *distance;
+    if (filterDic) {
+        if ([filterDic objectForKey:@"jobTitle"]) {
+            jobTitle=[filterDic objectForKey:@"jobTitle"];
+        }
+        if ([filterDic objectForKey:@"company"]) {
+            company=[filterDic objectForKey:@"company"];
+        }
+        if ([filterDic objectForKey:@"skill"]) {
+            categroy=[filterDic objectForKey:@"skill"];
+        }
+        if ([filterDic objectForKey:@"miles"]) {
+            NSString *tempstr=[filterDic objectForKey:@"miles"];
+            [tempstr stringByReplacingOccurrencesOfString:@" miles" withString:@""];
+            distance=tempstr;
+        }
+        if ([filterDic objectForKey:@"salary"]) {
+            NSString *tempstr=[filterDic objectForKey:@"salary"];
+            [tempstr stringByReplacingOccurrencesOfString:@"k" withString:@""];
+            [tempstr stringByReplacingOccurrencesOfString:@"$" withString:@""];
+            [tempstr stringByReplacingOccurrencesOfString:@"plus" withString:@""];
+            [tempstr stringByReplacingOccurrencesOfString:@" " withString:@""];
+            if ([tempstr containsString:@"-"]) {
+                NSArray *array =[tempstr componentsSeparatedByString:@"-"];
+                CGFloat start=[array[0] floatValue]*1000;
+                CGFloat end=[array[1] floatValue]*1000;
+                salaryStartingValue=[NSString stringWithFormat:@"%@",@(start)];
+                salaryEndValue=[NSString stringWithFormat:@"%@",@(end)];
+            }else{
+                CGFloat start=[tempstr floatValue]*1000;
+                salaryStartingValue=[NSString stringWithFormat:@"%@",@(start)];
+            }
+        }
+        if ([filterDic objectForKey:@"experence"]) {
+            NSString *tempstr=[filterDic objectForKey:@"experence"];
+            [tempstr stringByReplacingOccurrencesOfString:@"years" withString:@""];
+            [tempstr stringByReplacingOccurrencesOfString:@" " withString:@""];
+            if ([tempstr containsString:@"-"]) {
+                NSArray *array =[tempstr componentsSeparatedByString:@"-"];
+                experienceStartingValue=array[0];
+                experienceEndValue=array[1];
+            }else{
+                experienceStartingValue=tempstr;
+            }
+        }
+    }
+    return [self queryAllJobs:nil categroy:categroy salaryStartingValue:salaryStartingValue salaryEndValue:salaryEndValue experienceStartingValue:experienceStartingValue experienceEndValue:experienceEndValue location:nil distance:nil jobTitle:jobTitle company:company skip:skip completed:completed];
+}
+
 //MARK:2.2.  根据职位标题查询所有职位列表
 + (void)queryAllJobs:(NSInteger)skip jobTitle:(NSString *)jobTitle completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
-    return [self queryAllJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:jobTitle company:nil skip:skip completed:completed];
+    return [self queryAllJobs:nil categroy:nil salaryStartingValue:nil salaryEndValue:nil experienceStartingValue:nil experienceEndValue:nil location:nil distance:nil jobTitle:jobTitle company:nil skip:skip completed:completed];
 }
 
 //MARK:2.7.   查询已申请职位列表
@@ -2099,8 +2165,14 @@
 }
 
 //MARK:2.16.    查询公司职位接口
-+ (void)getAllJobsByCompanyId:(NSString *)companyId categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
++ (void)getAllJobsByCompanyId:(NSString *)companyId categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    NSInteger limit=20;//分页数默认20条
+    if (skip<=0) {
+        skip=0;
+    }
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
     if (companyId) {
         [paradic setObject:companyId forKey:@"companyId"];
     }
@@ -2144,9 +2216,9 @@
     }];
 }
 
-+ (void)getAllJobsByCompanyId:(NSString*)companyId completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
++ (void)getAllJobsByCompanyId:(NSString*)companyId skip:(NSInteger)skip  completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
     
-    return [self getAllJobsByCompanyId:companyId categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil completed:completed];
+    return [self getAllJobsByCompanyId:companyId categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil skip:skip completed:completed];
 }
 
 //MARK:2.13.    查询所有公司列表

@@ -73,10 +73,11 @@
 
 - (void)bindInfo:(CompanyModel *)modelInfo
 {
-    headerImg.image = [UIImage imageNamed:@"user_img"];
+    _star.currentScore = modelInfo.rating;
+    [headerImg sd_setImageWithURL:[NSURL URLWithString:modelInfo.companyLogoUrl] placeholderImage:[UIImage imageNamed:@"user_img"]];
     finLabel.text = modelInfo.companyName;
     reviewLabel.text = [NSString stringWithFormat:@"%ld reviews",(long)modelInfo.reviews];
-    conLabel.text = modelInfo.companyDesc;
+    conLabel.text = modelInfo.address;
 }
 
 @end

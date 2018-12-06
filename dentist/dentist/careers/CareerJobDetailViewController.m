@@ -236,7 +236,10 @@
     
     jobLabel.text = [NSString stringWithFormat:@"%@ - %@",jobModel.jobTitle,jobModel.location];
     companyLabel.text = jobModel.company.companyName;
-    salaryLabel.text = [NSString stringWithFormat:@"Est. Salary:%@",jobModel.salaryRange] ;
+    
+    NSInteger startsalary=ceilf(jobModel.salaryStartingValue/1000.0);
+    NSInteger endsalary=ceilf(jobModel.salaryEndValue/1000.0);
+    salaryLabel.text=[NSString stringWithFormat:@"Est. Salary: $%@k-$%@k",@(startsalary),@(endsalary)];
     [addressBtn setTitle:jobModel.address forState:UIControlStateNormal];
     
     

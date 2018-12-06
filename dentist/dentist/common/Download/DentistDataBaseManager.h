@@ -61,6 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)queryUniteArticlesCachesByKeywordList:(NSString *_Nullable)uniteid keywords:(NSString *)keywords completed:(void(^)(NSArray<DetailModel *> *array))completed;
 //MARK:检查该杂志是否已经下载
 -(void)checkUniteStatus:(NSString *_Nullable)uniteid  completed:(void(^)(NSInteger result))completed;
+-(void)updateCareersJobs:(NSString *)jobid completed:(void(^)(BOOL result))completed;
+-(void)checkJobsStatus:(NSString *)jobid publishDate:(NSString *)publishDate modifiedDate:(NSString *)modifiedDate completed:(void(^)(NSInteger result))completed;
 @end
 
 NS_ASSUME_NONNULL_END

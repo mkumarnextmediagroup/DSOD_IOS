@@ -12,10 +12,16 @@
 #import "CompanyOfJobDetailTableViewCell.h"
 #import "DescriptionOfJobDetailTableViewCell.h"
 #import "CompanyReviewHeaderTableViewCell.h"
+#import "CompanyReviewTableViewCell.h"
 #import "CompanyModel.h"
 #import "Proto.h"
 #import "JobModel.h"
 #import "DentistTabView.h"
+#import "BannerScrollView.h"
+#import "CompanyMediaModel.h"
+#import "CompanyCommentReviewsModel.h"
+#import "DentistDataBaseManager.h"
+#import "DsoToast.h"
 
 @interface CareerJobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
 
@@ -27,6 +33,9 @@
     UIView *naviBarView;
     UITableView *tableView;
     
+    BannerScrollView *bannerView;
+    UIImageView *singleImageView;
+    
     UIView *sectionHeaderView;
     
     int edge;
@@ -34,17 +43,32 @@
     
     JobModel *jobModel;
     CompanyCommentModel *companyCommentModel;
-    NSArray *commentArray;
+    NSArray<CompanyCommentReviewsModel*> *commentArray;
 }
 
 
 
 +(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId{
+    [self presentBy:vc jobId:jobId closeBack:nil];
+}
++(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId closeBack:(CareerJobDetailCloseCallback)closeBack
+{
+    [[DentistDataBaseManager shareManager] updateCareersJobs:jobId completed:^(BOOL result) {
+    }];
+    UIViewController *viewController;
+    if (vc) {
+        viewController=vc;
+    }else{
+        viewController= [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    }
+    
     CareerJobDetailViewController *jobDetailVc = [CareerJobDetailViewController new];
-    jobDetailVc.jobId = jobId;
+    jobDetailVc.jobId =jobId;
+    jobDetailVc.closeBack = closeBack;
     jobDetailVc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    vc.modalPresentationStyle = UIModalPresentationCurrentContext;
-    [vc presentViewController:jobDetailVc animated:YES completion:^{
+    jobDetailVc.view.backgroundColor = UIColor.clearColor;
+    viewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    [viewController presentViewController:jobDetailVc animated:YES completion:^{
         jobDetailVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }];
 }
@@ -103,13 +127,14 @@
     tableView.estimatedRowHeight = 10;
     tableView.rowHeight=UITableViewAutomaticDimension;
     tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    tableView.separatorStyle = UITableViewCellEditingStyleNone;
     tableView.contentInset = UIEdgeInsetsMake(0, 0, 80, 0);
     [contentView addSubview:tableView];
     [[[[[tableView.layoutMaker leftParent:0] rightParent:0] below:naviBarView offset:0] bottomParent:0] install];
-    [tableView setTableHeaderView:[self buildHeader]];
+    tableView.tableHeaderView =[self buildHeader];
+    [[[tableView.tableHeaderView.layoutUpdate topParent:0]leftParent:0] install];
     
     UIButton *applyNowBtn = contentView.addButton;
+    applyNowBtn.tag=99;
     applyNowBtn.layer.borderWidth = 1;
     applyNowBtn.layer.borderColor = rgbHex(0xb3bfc7).CGColor;
     applyNowBtn.backgroundColor = Colors.textDisabled;
@@ -118,26 +143,49 @@
     [applyNowBtn setTitle:@"Apply Now" forState:UIControlStateNormal];
     [[[[[applyNowBtn.layoutMaker bottomParent:-edge]leftParent:edge]rightParent:-edge]heightEq:40]install];
     [applyNowBtn onClick:self action:@selector(applyNow)];
+    
+    BOOL isApplication = [self->jobModel.isApplication boolValue];
+    [self setApplyButtonEnable:!isApplication];
+}
+
+-(void)setApplyButtonEnable:(BOOL)enable
+{
+    UIButton *btn=(UIButton *)[contentView viewWithTag:99];
+    if (enable) {
+        btn.userInteractionEnabled=YES;//交互关闭
+        btn.alpha=1.0;//透明度
+        [btn setTitle:@"Apply Now" forState:UIControlStateNormal];
+    }else{
+        btn.userInteractionEnabled=NO;//交互关闭
+        btn.alpha=0.4;//透明度
+        [btn setTitle:@"Have Applied" forState:UIControlStateNormal];
+    }
 }
 
 
 -(UIView*)buildHeader{
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 0)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, CGFLOAT_MIN)];
     
-    UIImageView *mediaView = headerView.addImageView;
-    [mediaView scaleFillAspect];
-    mediaView.clipsToBounds = YES;
-    [[[[[mediaView.layoutMaker leftParent:0]rightParent:0]topParent:0]sizeEq:SCREENWIDTH h:SCREENWIDTH/2]install];
+    bannerView = [BannerScrollView new];
+    [headerView addSubview:bannerView];
+    [[[[[bannerView.layoutMaker leftParent:0]rightParent:0]topParent:0]sizeEq:SCREENWIDTH h:SCREENWIDTH/2]install];
+    
+    
+    singleImageView= headerView.addImageView;
+    [singleImageView scaleFillAspect];
+    singleImageView.clipsToBounds = YES;
+    [[[[[singleImageView.layoutMaker leftParent:0]rightParent:0]topParent:0]sizeEq:SCREENWIDTH h:SCREENWIDTH/2]install];
+    
     
     UIImageView *logoImageView = headerView.addImageView;
     [logoImageView scaleFillAspect];
     logoImageView.clipsToBounds = YES;
-    [[[[logoImageView.layoutMaker leftParent:edge]below:mediaView offset:10] sizeEq:60 h:60]install];
+    [[[[logoImageView.layoutMaker leftParent:edge]below:bannerView offset:10] sizeEq:60 h:60]install];
     
     UILabel *jobLabel = headerView.addLabel;
     jobLabel.font = [Fonts semiBold:16];
     jobLabel.textColor = Colors.textMain;
-    [[[[jobLabel.layoutMaker toRightOf:logoImageView offset:10]rightParent:-edge] below:mediaView offset:10]install] ;
+    [[[[jobLabel.layoutMaker toRightOf:logoImageView offset:10]rightParent:-edge] below:bannerView offset:10]install] ;
     
     UILabel *companyLabel = headerView.addLabel;
     companyLabel.font = [Fonts semiBold:14];
@@ -170,13 +218,29 @@
     [[[[[lastView.layoutMaker below:addressBtn offset:0]leftParent:0]rightParent:0]heightEq:10]install];
 
     
-    //还没处理完 图片
-    [mediaView loadUrl:jobModel.company.companyLogo placeholderImage:nil];
-    [logoImageView loadUrl:jobModel.company.companyLogo placeholderImage:nil];
+    if(jobModel.company.media){
+        NSArray *urls = jobModel.company.media.companyPictureUrl;
+        if(jobModel.company.media.type == 1 && urls && urls.count > 0 ){
+            if(urls.count>1){
+                [bannerView addWithImageUrls:urls autoTimerInterval:3 clickBlock:^(NSInteger index) {
+                    
+                }];
+            }else{
+                [singleImageView loadUrl:urls[0] placeholderImage:nil];
+            }
+        }
+    }
+    
+    
+    [logoImageView loadUrl:jobModel.company.companyLogoUrl placeholderImage:nil];
+    
     jobLabel.text = [NSString stringWithFormat:@"%@ - %@",jobModel.jobTitle,jobModel.location];
     companyLabel.text = jobModel.company.companyName;
-    salaryLabel.text = [NSString stringWithFormat:@"Est. Salary:%@",jobModel.salaryRange] ;
-    [addressBtn setTitle:jobModel.company.address forState:UIControlStateNormal];
+    
+    NSInteger startsalary=ceilf(jobModel.salaryStartingValue/1000.0);
+    NSInteger endsalary=ceilf(jobModel.salaryEndValue/1000.0);
+    salaryLabel.text=[NSString stringWithFormat:@"Est. Salary: $%@k-$%@k",@(startsalary),@(endsalary)];
+    [addressBtn setTitle:jobModel.address forState:UIControlStateNormal];
     
     
 
@@ -190,6 +254,9 @@
 
 
 -(void)closePage{
+    if (self.closeBack) {
+        self.closeBack();
+    }
     self.view.backgroundColor = UIColor.clearColor;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -207,8 +274,29 @@
 }
 
 -(void)applyNow{
-    [self.view makeToast:@"applyNow"];
-    
+//    [self.view makeToast:@"applyNow"];
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    UIView *dsontoastview=[DsoToast toastViewForMessage:@"Applying to Job…" ishowActivity:YES];
+    [window showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+    [Proto addJobApplication:_jobId completed:^(HttpResult *result) {
+        NSLog(@"result=%@",@(result.code));
+        foreTask(^() {
+            [window hideToast];
+            if (result.OK) {
+                //
+                [self setApplyButtonEnable:NO];
+            }else{
+                NSString *message=result.msg;
+                if([NSString isBlankString:message]){
+                    message=@"Failed";
+                }
+                
+                [window makeToast:message
+                         duration:1.0
+                         position:CSToastPositionBottom];
+            }
+        });
+    }];
 }
 
 
@@ -216,6 +304,16 @@
 - (void)didDentistSelectItemAtIndex:(NSInteger)index{
     currTabIndex = (int)index;
     [tableView reloadData];
+    
+    if(commentArray && currTabIndex == 2){
+        [self showLoading];
+        [Proto findCommentByCompanyId:jobModel.companyId sort:0 star:0 skip:0 limit:2 completed:^(CompanyCommentModel * _Nullable companyCommentModel) {
+            [self hideLoading];
+            self->companyCommentModel = companyCommentModel;
+            self->commentArray = companyCommentModel.reviews;
+            [self->tableView reloadData];
+        }];
+    }
 }
 
 
@@ -250,7 +348,7 @@
         case 1:
             return 1;
         case 2:
-            return 60;
+            return companyCommentModel && commentArray ?commentArray.count+1:0;
     }
     return 0;
 }
@@ -264,7 +362,11 @@
         case 1:
             return [self companyOfJobDetailTableViewCell:tableView data:self->jobModel.company];
         case 2:
-            return [self companyReviewHeaderCell:tableView data:self->companyCommentModel];
+            if(indexPath.row == 0){
+                return [self companyReviewHeaderCell:tableView data:self->companyCommentModel];
+            }else{
+                return [self companyReviewTableViewCell:tableView data:self->commentArray[indexPath.row-1]];
+            }
         default:
             break;
     }
@@ -304,4 +406,16 @@
     [cell setData:model];
     return cell;
 }
+
+-(UITableViewCell*)companyReviewTableViewCell:tableView data:(CompanyCommentReviewsModel*)model{
+    CompanyReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompanyReviewTableViewCell"];
+    if (cell == nil) {
+        cell = [[CompanyReviewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompanyReviewTableViewCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    [cell setData:model];
+    return cell;
+}
+
+
 @end

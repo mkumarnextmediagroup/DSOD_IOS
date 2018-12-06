@@ -13,8 +13,11 @@
 #import "DSODetailPage.h"
 #import "UIViewController+myextend.h"
 #import "DsoToast.h"
+#import "CareerSearchViewController.h"
+#import "CareerJobDetailViewController.h"
+#import "FilterView.h"
 
-@interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate>
+@interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate>
 {
     NSMutableArray *infoArr;
     UITableView *myTable;
@@ -24,6 +27,14 @@
 @end
 
 @implementation CareerFindJobViewController
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (myTable) {
+        [myTable reloadData];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,7 +54,7 @@
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class])];
     
-    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
+    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
     [self setupRefresh];
    
     
@@ -110,11 +121,20 @@
 - (void)searchClick
 {
     NSLog(@"search btn click");
+//    CareerSearchViewController *searchVC=[CareerSearchViewController new];
+//    [self.navigationController pushViewController:searchVC animated:YES];
+    
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    CareerSearchViewController *searchVC=[CareerSearchViewController new];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchVC];
+    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
 -(void)clickFilter:(UIButton *)sender
 {
     NSLog(@"Filter btn click");
+    [[FilterView initFilterView] showFilter];
 }
 
 -(void)setJobCountTitle:(NSInteger)jobcount
@@ -191,40 +211,49 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    DSODetailPage *detail = [DSODetailPage new];
-//    [self.navigationController pushPage:detail];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    JobModel *jobModel = infoArr[indexPath.row];
+    [CareerJobDetailViewController presentBy:nil jobId:jobModel.id closeBack:^{
+        foreTask(^{
+            if (self->myTable) {
+                [self->myTable reloadData];
+            }
+        });
+        
+    }];
 }
 
 
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    CGFloat height = scrollView.frame.size.height;
-//    CGFloat contentOffsetY = scrollView.contentOffset.y;
-//    CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
-//    if (bottomOffset <= height-50)
-//    {
-//        NSLog(@"==================================下啦刷选");
-//        if (!isdownrefresh) {
-//            isdownrefresh=YES;
-//            [self showIndicator];
-//            [Proto queryAllJobs:self->infoArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-//                self->isdownrefresh=NO;
-//                foreTask(^{
-//                    [self hideIndicator];
-//                    [self setJobCountTitle:totalCount];
-//                    NSLog(@"%@",array);
-//                    if(array && array.count>0){
-//                        [self->infoArr addObjectsFromArray:array];
-//                    }
-//                    [self->myTable reloadData];
-//                    
-//                });
-//            }];
-//           
-//        }
-//        
-//    }
-//}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat consizeheight=scrollView.contentSize.height;
+    CGFloat bottomOffset = (consizeheight - contentOffsetY);
+    if (bottomOffset <= height-50 && contentOffsetY>0)
+    {
+        NSLog(@"==================================下啦刷选;bottomOffset=%@;height-50=%@",@(bottomOffset),@(height-50));
+        if (!isdownrefresh) {
+            isdownrefresh=YES;
+            [self showIndicator];
+            [Proto queryAllJobs:self->infoArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                self->isdownrefresh=NO;
+                foreTask(^{
+                    [self hideIndicator];
+                    [self setJobCountTitle:totalCount];
+                    NSLog(@"%@",array);
+                    if(array && array.count>0){
+                        [self->infoArr addObjectsFromArray:array];
+                    }
+                    [self->myTable reloadData];
+
+                });
+            }];
+
+        }
+
+    }
+}
 
 -(void)FollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {

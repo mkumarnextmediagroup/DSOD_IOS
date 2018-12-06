@@ -20,6 +20,7 @@
 #import "Proto.h"
 #import "IdName.h"
 #import "MagazineModel.h"
+#import "NSDate+customed.h"
 
 NSString * const DentistDownloadStateChangeNotification    = @"DentistDownloadStateChangeNotification";
 NSString * const DentistUniteDownloadStateChangeNotification = @"DentistUniteDownloadStateChangeNotification";
@@ -76,6 +77,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
         [self creatUniteCachesTable:db];
         [self creatUniteArticlesCachesTable:db];
         [self createUniteArticlesRelationTable:db];
+        [self createCareersJobsLookCachesTable:db];
     }];
 }
 
@@ -995,6 +997,129 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
             completed(NO);
         }
     }
+}
+
+//MARK:创建job查看表
+-(void)createCareersJobsLookCachesTable:(FMDatabase *)db {
+    BOOL result = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_CareersJobsLookCaches (id VARCHAR(100) PRIMARY KEY, looktime timestamp not null default CURRENT_TIMESTAMP)"];
+    if (result) {
+        NSLog(@"缓存t_CareersJobsLookCaches数据表创建成功");
+    }else {
+        NSLog(@"缓存t_CareersJobsLookCaches数据表创建失败");
+    }
+}
+
+//MARK:添加更新job查看表
+-(void)updateCareersJobs:(NSString *)jobid completed:(void(^)(BOOL result))completed
+{
+    if (![NSString isBlankString:jobid]) {
+        __block BOOL result = YES;
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [self->_dbQueue inDatabase:^(FMDatabase *db) {
+                NSInteger status = [db intForQuery:@"SELECT 1 FROM t_CareersJobsLookCaches WHERE id = ?", jobid];
+                if (status==1) {
+                    //存在该记录更新
+                    result = [db executeUpdate:@"UPDATE t_CareersJobsLookCaches set ,looktime=datetime('now')  where id=? ",jobid];
+                }else{
+                    //添加
+                    result = [db executeUpdate:@"INSERT INTO t_CareersJobsLookCaches (id) VALUES (?)", jobid];
+                    
+                }
+                
+                if (result) {
+                    NSLog(@"更新t_CareersJobsLookCaches成功");
+                }else {
+                    NSLog(@"更新t_CareersJobsLookCaches失败");
+                }
+            }];
+            if (completed) {
+                completed(result);
+            }
+        });
+    }else{
+        if (completed) {
+            completed(NO);
+        }
+    }
+}
+
+-(void)checkJobsStatus:(NSString *)jobid publishDate:(NSString *)publishDate modifiedDate:(NSString *)modifiedDate completed:(void(^)(NSInteger result))completed
+{
+    [self checkJobsPublishDateStatus:jobid publishDate:publishDate completed:^(BOOL result) {
+        if (result) {
+            if (completed) {
+                completed(1);
+            }
+        }else{
+            [self checkJobsModifiedDateStatus:jobid modifiedDate:modifiedDate completed:^(BOOL result) {
+                if (result) {
+                    if (completed) {
+                        completed(2);
+                    }
+                }else{
+                    if (completed) {
+                        completed(0);
+                    }
+                }
+            }];
+        }
+        
+    }];
+    
+}
+
+-(void)checkJobsPublishDateStatus:(NSString *)jobid publishDate:(NSString *)publishDate completed:(void(^)(BOOL result))completed{
+    
+    if ([NSDate compareDatetimeIn30:publishDate]) {
+        //30天内，并且没有查看过职位详情的为新工作
+        __block BOOL status=NO;
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [self->_dbQueue inDatabase:^(FMDatabase *db) {
+                
+                BOOL ret =[db intForQuery:@"SELECT 1 FROM t_CareersJobsLookCaches WHERE id = ?", jobid];;
+                if (ret==1) {
+                    status=NO;
+                }else {
+                    status=YES;
+                }
+            }];
+            if (completed) {
+                completed(status);
+            }
+        });
+    }else{
+        if (completed) {
+            completed(NO);
+        }
+    }
+}
+
+-(void)checkJobsModifiedDateStatus:(NSString *)jobid modifiedDate:(NSString *)modifiedDate completed:(void(^)(BOOL result))completed{
+    if ([NSDate compareDatetimeIn30:modifiedDate]) {
+        //30天内，该工作职位是否更新了
+        __block BOOL status=NO;
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [self->_dbQueue inDatabase:^(FMDatabase *db) {
+                
+                BOOL ret  =[db intForQuery:@"SELECT 1 FROM t_CareersJobsLookCaches WHERE id = ? and strftime('%s','now') -strftime('%s',looktime)<=30*24*60*60 ", jobid];
+                if (ret==1) {
+                    //已查看
+                    status=NO;
+                }else {
+                    status=YES;
+                }
+            }];
+            if (completed) {
+                completed(status);
+            }
+        });
+    }else{
+        if (completed) {
+            completed(NO);
+        }
+    }
+    
+    
 }
 
 

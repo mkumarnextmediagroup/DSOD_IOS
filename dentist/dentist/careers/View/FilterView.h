@@ -10,10 +10,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol FilterViewDelegate <NSObject>
+
+@optional
+- (void)searchCondition:(NSDictionary *)condition;
+@end
+
 @interface FilterView : UIView
 
-- (void)initWithSubView;
+@property (nonatomic,weak) id<FilterViewDelegate> delegate;
 
++ (instancetype)initFilterView;
+- (void)showFilter;
 @end
 
 NS_ASSUME_NONNULL_END

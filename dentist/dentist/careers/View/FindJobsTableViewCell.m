@@ -203,56 +203,6 @@
 //    }
 //}
 
--(void)setDetailFrame{
-    desLabel.hidden=NO;
-    locationimageView.hidden=NO;
-    locationLabel.hidden=NO;
-    lineLabel.hidden=YES;
-    bgView.layer.borderColor=Colors.strokes.CGColor;
-    bgView.layer.borderWidth=1.0;
-    
-    contentLabel.font = [Fonts semiBold:11];
-    contentLabel.textColor = Colors.textAlternate;
-    timeLabel.textAlignment=NSTextAlignmentRight;
-    timeLabel.font = [Fonts regular:12];
-    timeLabel.textColor = Colors.textDisabled;
-    statusLabel.font = [Fonts semiBold:8];
-    statusLabel.textColor = Colors.textAlternate;
-    titleLabel.font = [Fonts semiBold:16];
-    [titleLabel textColorMain];
-    titleLabel.numberOfLines=2;
-    salaryLabel.font = [Fonts regular:14];
-    salaryLabel.textColor = Colors.textColor9c;
-    salaryLabel.textAlignment=NSTextAlignmentRight;
-    
-    locationLabel.font = [Fonts regular:14];
-    locationLabel.textColor = Colors.textColor9c;
-    
-    desLabel.font = [Fonts semiBold:11];
-    desLabel.textColor = Colors.textAlternate;
-    desLabel.numberOfLines=3;
-    
-    
-    
-    [[[[[bgView.layoutMaker leftParent:10] rightParent:-10] topParent:5] bottomParent:-5] install];
-    [[[[newimageView.layoutMaker leftParent:0] topParent:0] sizeEq:58 h:58] install];
-    [[[[imageView.layoutMaker leftParent:edge] topParent:edge] sizeEq:55 h:55] install];
-    
-    [[[[timeLabel.layoutMaker topParent:edge] rightParent:-edge] sizeEq:80 h:15.0] install];
-    [[[[statusLabel.layoutMaker toLeftOf:timeLabel offset:3] topParent:edge] sizeEq:80 h:15.0] install];
-    [[[[titleLabel.layoutMaker toRightOf:imageView offset:10] toLeftOf:timeLabel offset:3] topParent:edge] install];
-    [[[[[[contentLabel.layoutMaker toRightOf:imageView offset:10] heightEq:15.0] rightParent:-46] below:titleLabel offset:0] bottomOf:imageView offset:0] install];
-    [[[[followButton.layoutMaker rightParent:-edge] bottomOf:imageView offset:0] sizeEq:20 h:20] install];
-    [[[[desLabel.layoutMaker leftParent:edge] rightParent:-46] below:contentLabel offset:5] install];
-    
-    [[[[[locationimageView.layoutMaker leftParent:edge] below:desLabel offset:7] bottomParent:-10] sizeEq:16 h:16] install];
-    [[[[[locationLabel.layoutMaker toRightOf:locationimageView offset:7] below:desLabel offset:7] sizeEq:100 h:16.0] bottomParent:-10] install];
-    [[[[[salaryLabel.layoutMaker rightParent:-edge] below:desLabel offset:7] sizeEq:100 h:16.0] bottomParent:-10] install];
-    
-    [[[[[bankImageView.layoutMaker toLeftOf:salaryLabel offset:-5] below:desLabel offset:7]  bottomParent:-10] sizeEq:16 h:16] install];
-
-}
-
 -(void)setNormalFrame{
     desLabel.hidden=YES;
     locationimageView.hidden=YES;
@@ -272,6 +222,7 @@
     titleLabel.numberOfLines=2;
     salaryLabel.font = [Fonts regular:12];
     salaryLabel.textColor = Colors.textDisabled;
+    salaryLabel.textAlignment=NSTextAlignmentRight;
     
     [[[[[bgView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
     [[[[newimageView.layoutMaker leftParent:0] topParent:0] sizeEq:58 h:58] install];

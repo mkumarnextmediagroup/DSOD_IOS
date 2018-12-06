@@ -36,7 +36,7 @@
     NSDate *date= [NSDate dateWithTimeIntervalSince1970:[timestamp longLongValue]];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-DD HH:MM:SS"];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     [formatter setLocale:usLocale];
     NSString *dateString  = [formatter stringFromDate: date];
     return dateString;

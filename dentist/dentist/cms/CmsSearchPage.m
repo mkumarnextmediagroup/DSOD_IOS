@@ -20,7 +20,6 @@
     NSInteger selectIndex;
     BOOL issearch;
     NSString *searchKeywords;
-    CMSModel *selectModel;
     BOOL isdownrefresh;
 }
 /*** searchbar ***/
@@ -117,7 +116,7 @@
 
 -(void)ArticleMoreActionModel:(CMSModel *)model
 {
-    selectModel=model;
+    _selectModel=model;
     NSLog(@"ArticleMoreAction=%@",model.id);
     NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
@@ -138,13 +137,11 @@
         case 0://---click the Download button
         {
             NSLog(@"download click");
-            if (selectModel) {
+            if (_selectModel) {
                 UIView *dsontoastview=[DsoToast toastViewForMessage:@"Download is Add…" ishowActivity:YES];
                 [self.navigationController.view showToast:dsontoastview duration:1.0 position:CSToastPositionBottom completion:nil];
-                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:selectModel addCompletion:^(BOOL result) {
-                    
+                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:_selectModel addCompletion:^(BOOL result) {
                 } completed:^(BOOL result) {
-                    
                 }];
             }
         }
@@ -152,18 +149,18 @@
         case 1://---click the Share button
         {
             NSLog(@"Share click");
-            if (selectModel) {
+            if (_selectModel) {
                 NSString *urlstr=@"";
-                NSString *title=[NSString stringWithFormat:@"%@",selectModel.title];
-                NSString* type = selectModel.featuredMedia[@"type"];
+                NSString *title=[NSString stringWithFormat:@"%@",_selectModel.title];
+                NSString* type = _selectModel.featuredMedia[@"type"];
                 if([type isEqualToString:@"1"] ){
                     //pic
-                    NSDictionary *codeDic = selectModel.featuredMedia[@"code"];
+                    NSDictionary *codeDic = _selectModel.featuredMedia[@"code"];
                     urlstr = codeDic[@"thumbnailUrl"];
                 }else{
-                    urlstr = selectModel.featuredMedia[@"code"];
+                    urlstr = _selectModel.featuredMedia[@"code"];
                 }
-                NSString *someid=selectModel.id;
+                NSString *someid=_selectModel.id;
                 if (![NSString isBlankString:urlstr]) {
                     dispatch_async(dispatch_get_global_queue(0, 0), ^{
                         NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
@@ -218,6 +215,25 @@
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 
+- (void) handleDeleteBookmark:(HttpResult *)result view:(UIView *)view model:(CMSModel *)model {
+    [self.navigationController.view hideToast];
+    if (result.OK) {
+        model.isBookmark=NO;
+        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+        [itemView updateBookmarkStatus:NO];
+    }else{
+        NSString *message=result.msg;
+        if([NSString isBlankString:message]){
+            message=@"Failed";
+        }
+        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+        [window makeToast:message
+                 duration:1.0
+                 position:CSToastPositionBottom];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 -(void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view
 {
     CMSModel *model = (id) item;
@@ -227,23 +243,7 @@
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(HttpResult *result) {
             foreTask(^() {
-                [self.navigationController.view hideToast];
-                if (result.OK) {
-                    //
-                    model.isBookmark=NO;
-                    ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
-                    [itemView updateBookmarkStatus:NO];
-                }else{
-                    NSString *message=result.msg;
-                    if([NSString isBlankString:message]){
-                        message=@"Failed";
-                    }
-                    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-                    [window makeToast:message
-                             duration:1.0
-                             position:CSToastPositionBottom];
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
+                [self handleDeleteBookmark:result view:view model:model];
             });
         }];
     }else{
@@ -252,35 +252,36 @@
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto addBookmark:getLastAccount() cmsmodel:model completed:^(HttpResult *result) {
             foreTask(^() {
-                [self.navigationController.view hideToast];
-                if (result.OK) {
-                    //
-                    model.isBookmark=YES;
-                    ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
-                    [itemView updateBookmarkStatus:YES];
-                }else{
-                    if(result.code==2033){
-                        model.isBookmark=YES;
-                        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
-                        [itemView updateBookmarkStatus:YES];
-                    }else{
-                        NSString *message=result.msg;
-                        if([NSString isBlankString:message]){
-                            message=@"Failed";
-                        }
-                        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-                        [window makeToast:message
-                                 duration:1.0
-                                 position:CSToastPositionBottom];
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
-                    
-                }
+                [self handleAddBookmark:result view:view model:model];
             });
         }];
     }
-    
-    
+}
+
+- (void) handleAddBookmark:(HttpResult *)result view:(UIView *)view model:(CMSModel *)model {
+    [self.navigationController.view hideToast];
+    if (result.OK) {
+        //
+        model.isBookmark=YES;
+        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+        [itemView updateBookmarkStatus:YES];
+    }else{
+        if(result.code==2033){
+            model.isBookmark=YES;
+            ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+            [itemView updateBookmarkStatus:YES];
+        }else{
+            NSString *message=result.msg;
+            if([NSString isBlankString:message]){
+                message=@"Failed";
+            }
+            UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+            [window makeToast:message
+                     duration:1.0
+                     position:CSToastPositionBottom];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
 
 #pragma mark ---UISearchBarDelegate

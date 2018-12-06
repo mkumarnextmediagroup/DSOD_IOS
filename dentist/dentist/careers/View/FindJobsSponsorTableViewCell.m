@@ -130,9 +130,19 @@
         salaryLabel.text=[NSString stringWithFormat:@"$%@k-$%@k",@(startsalary),@(endsalary)];
         desLabel.text=[NSString getWithoutHtmlString:_info.jobDescription];
         locationLabel.text=_info.location;
-        [salaryLabel sizeToFit];
-        [[salaryLabel.layoutUpdate sizeEq:salaryLabel.frame.size.width h:16] install];
+//        [salaryLabel sizeToFit];
+        NSDictionary *attr=@{NSFontAttributeName:[Fonts regular:14]};
+        CGSize strSize=CGSizeMake(MAXFLOAT, 16);
+       CGSize salarySize=[salaryLabel.text boundingRectWithSize:strSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attr context:nil].size;
+        [[[salaryLabel.layoutUpdate sizeEq:salarySize.width+2 h:16]  rightParent:-edge] install];
         [[bankImageView.layoutUpdate toLeftOf:salaryLabel offset:-5] install];
+        CGFloat locationimagew=12;
+        CGFloat locationimageh=16;
+        if (locationimageView.image) {
+            locationimageh=locationimageView.image.size.height/locationimageView.image.size.width*locationimagew;
+        }
+        [[locationimageView.layoutUpdate  sizeEq:locationimagew h:locationimageh] install];
+        [locationimageView.layoutUpdate centerYOf:locationLabel offset:0];
         if (_follow) {
             [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
         }else{

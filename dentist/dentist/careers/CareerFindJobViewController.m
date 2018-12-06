@@ -17,12 +17,13 @@
 #import "CareerJobDetailViewController.h"
 #import "FilterView.h"
 
-@interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate>
+@interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,FilterViewDelegate>
 {
     NSMutableArray *infoArr;
     UITableView *myTable;
     UILabel *jobCountTitle;
     BOOL isdownrefresh;
+    NSDictionary *filterDic;
 }
 @end
 
@@ -88,7 +89,7 @@
 -(void)refreshData
 {
     [self showIndicator];
-    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+    [Proto queryAllJobs:0 filterDic:filterDic completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideIndicator];
             [self setJobCountTitle:totalCount];
@@ -134,7 +135,9 @@
 -(void)clickFilter:(UIButton *)sender
 {
     NSLog(@"Filter btn click");
-    [[FilterView initFilterView] showFilter];
+    FilterView *filterview=[FilterView initFilterView];
+    filterview.delegate=self;
+    [filterview showFilter];
 }
 
 -(void)setJobCountTitle:(NSInteger)jobcount
@@ -230,7 +233,7 @@
         if (!isdownrefresh) {
             isdownrefresh=YES;
             [self showIndicator];
-            [Proto queryAllJobs:self->infoArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+            [Proto queryAllJobs:self->infoArr.count filterDic:filterDic completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                 self->isdownrefresh=NO;
                 foreTask(^{
                     [self hideIndicator];
@@ -278,6 +281,14 @@
 -(void)UnFollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {
     NSLog(@"UnFollowJobAction");
+}
+
+#pragma mark ----------------FilterViewDelegate
+-(void)searchCondition:(NSDictionary *)condition
+{
+    NSLog(@"condition=%@",condition);
+    filterDic=condition;
+    [self refreshData];
 }
 
 

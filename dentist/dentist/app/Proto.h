@@ -229,9 +229,10 @@
 //2.1. 查看职位明细接口
 + (void)findJobById:(NSString*)jobId completed:(void(^)(JobModel *_Nullable jobModel))completed ;
 //MARK:2.2.    查询所有职位列表
-+ (void)queryAllJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
++ (void)queryAllJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salaryStartingValue:(NSString *_Nullable)salaryStartingValue salaryEndValue:(NSString *_Nullable)salaryEndValue experienceStartingValue:(NSString *_Nullable)experienceStartingValue experienceEndValue:(NSString *_Nullable)experienceEndValue location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 //MARK:2.2.    查询所有职位列表
 + (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
++ (void)queryAllJobs:(NSInteger)skip filterDic:(NSDictionary *_Nullable)filterDic completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 //MARK:2.2.  根据职位标题查询所有职位列表
 + (void)queryAllJobs:(NSInteger)skip jobTitle:(NSString *)jobTitle completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 
@@ -251,7 +252,7 @@
 + (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array,NSInteger totalCount))completed ;
 
 //MARK:2.16.    查询公司职位接口
-+ (void)getAllJobsByCompanyId:(NSString*)companyId completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
++ (void)getAllJobsByCompanyId:(NSString*)companyId skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 
 //MARK:2.13.    查询所有公司列表
 + (void)queryCompanyList:(NSInteger)skip completed:(void(^)(NSArray<CompanyModel *> *array,NSInteger totalCount))completed;

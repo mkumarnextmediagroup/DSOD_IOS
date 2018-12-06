@@ -91,6 +91,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [DSODetailPage openBy:self companyId:infoArr[indexPath.row].companyId];
 //    [DSODetailPage openBy:self companyId:@"5bea77e49a08064eec5c328a"];
 }

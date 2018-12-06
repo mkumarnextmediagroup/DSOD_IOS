@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol FilterViewDelegate <NSObject>
 
 @optional
-- (void)searchCondition:(NSDictionary *)condition;
+- (void)searchCondition:(NSDictionary *_Nullable)condition;
 @end
 
 @interface FilterView : UIView

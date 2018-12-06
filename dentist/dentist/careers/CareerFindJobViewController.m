@@ -175,36 +175,30 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row<=1) {
-        FindJobsSponsorTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class]) forIndexPath:indexPath];
-        cell.delegate=self;
-        cell.indexPath=indexPath;
-        if (self->infoArr && self->infoArr.count>indexPath.row) {
-            if (indexPath.row<=4) {
-                cell.isNew=YES;
-            }else{
-                cell.isNew=NO;
-            }
-            cell.info=self->infoArr[indexPath.row];
+    if (self->infoArr && self->infoArr.count>indexPath.row) {
+        JobModel *model=self->infoArr[indexPath.row];
+        if (model.companyType>1) {
+            FindJobsSponsorTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class]) forIndexPath:indexPath];
+            cell.delegate=self;
+            cell.indexPath=indexPath;
+            cell.info=model;
+            return cell;
+        }else{
+            FindJobsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class]) forIndexPath:indexPath];
+            cell.delegate=self;
+            cell.indexPath=indexPath;
+            cell.info=model;
+            return cell;
         }
-        return cell;
     }else{
         FindJobsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class]) forIndexPath:indexPath];
         cell.delegate=self;
         cell.indexPath=indexPath;
         if (self->infoArr && self->infoArr.count>indexPath.row) {
-            
-            
-            if (indexPath.row<=4) {
-                cell.isNew=YES;
-            }else{
-                cell.isNew=NO;
-            }
             cell.info=self->infoArr[indexPath.row];
         }
         return cell;
     }
-    
     
     
 }

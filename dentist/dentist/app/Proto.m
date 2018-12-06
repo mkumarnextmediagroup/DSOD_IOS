@@ -1901,6 +1901,7 @@
             NSInteger totalFound=[r.resultMap[@"totalFound"] integerValue];
             for (NSDictionary *d in arr) {
                 JobModel *item = [[JobModel alloc] initWithJson:jsonBuild(d)];
+                
                 if (item) {
                     [resultArray addObject:item];
                 }
@@ -2234,9 +2235,14 @@
     [self postAsync3:@"extension/findExtension" dic:nil modular:@"hr" callback:^(HttpResult *r) {
         if (r.OK) {
             NSDictionary *dataDic =  r.resultMap[@"data"];
-            NSArray *objectId = [dataDic objectForKey:@"fileUrl"];
-            NSString *url = objectId[0];
-            completed(url);
+            if (dataDic && ![dataDic isKindOfClass:[NSNull class]]){
+                NSArray *objectId = [dataDic objectForKey:@"fileUrl"];
+                NSString *url = objectId[0];
+                completed(url);
+            }else{
+                completed(@"");
+            }
+            
         }
     }];
 }

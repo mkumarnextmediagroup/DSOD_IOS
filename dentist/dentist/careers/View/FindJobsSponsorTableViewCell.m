@@ -128,7 +128,7 @@
         NSInteger startsalary=ceilf(_info.salaryStartingValue/1000.0);
         NSInteger endsalary=ceilf(_info.salaryEndValue/1000.0);
         salaryLabel.text=[NSString stringWithFormat:@"$%@k-$%@k",@(startsalary),@(endsalary)];
-        desLabel.text=_info.jobDescription;
+        desLabel.text=[NSString getWithoutHtmlString:_info.jobDescription];
         locationLabel.text=_info.location;
         [salaryLabel sizeToFit];
         [[salaryLabel.layoutUpdate sizeEq:salaryLabel.frame.size.width h:16] install];

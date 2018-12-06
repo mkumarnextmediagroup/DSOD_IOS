@@ -4,7 +4,7 @@
 //
 
 #import "UIUtil.h"
-
+#import "MyTabBarViewController.h"
 
 NSString *localStr(NSString *name) {
 	return NSLocalizedString(name, nil);
@@ -77,6 +77,12 @@ UITabBarController *TabPage(NSArray<__kindof UIViewController *> *cs) {
 	[tabC setViewControllers:cs];
 	return tabC;
 }
+
+MyTabBarViewController *myTab(UIViewController *c) {
+    MyTabBarViewController *mytabbar = [MyTabBarViewController new];
+    return mytabbar;
+}
+
 
 UITabBarController *TabNavPage(NSArray<__kindof UIViewController *> *cs) {
 	UITabBarController *tabC = [UITabBarController new];

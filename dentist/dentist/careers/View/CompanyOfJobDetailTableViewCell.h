@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyOfJobDetailTableViewCell : UITableViewCell
 
-
 -(void)setData:(CompanyModel*)model;
 
 

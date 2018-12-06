@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1801683921A6EE4F00AEBF06 /* Swipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 1801683821A6EE4F00AEBF06 /* Swipe.png */; };
+		180DE1A821B7DF7B00AD07B5 /* icon_check_mark_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180DE1A521B7DF7A00AD07B5 /* icon_check_mark_small@2x.png */; };
+		180DE1A921B7DF7B00AD07B5 /* icon_check_mark_small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180DE1A621B7DF7B00AD07B5 /* icon_check_mark_small@3x.png */; };
+		180DE1AA21B7DF7B00AD07B5 /* icon_check_mark_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 180DE1A721B7DF7B00AD07B5 /* icon_check_mark_small.png */; };
 		18106AAB218ACC0D00EEE2DC /* FilterIssues@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AA8218ACC0C00EEE2DC /* FilterIssues@2x.png */; };
 		18106AAC218ACC0D00EEE2DC /* FilterIssues@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AA9218ACC0C00EEE2DC /* FilterIssues@3x.png */; };
 		18106AAD218ACC0D00EEE2DC /* FilterIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AAA218ACC0C00EEE2DC /* FilterIssues.png */; };
@@ -47,6 +50,8 @@
 		18A0DBAC21B23A140065B2BD /* career_location_bg_small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0DBA921B23A130065B2BD /* career_location_bg_small@3x.png */; };
 		18A0DBAD21B23A140065B2BD /* career_location_bg_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0DBAA21B23A140065B2BD /* career_location_bg_small.png */; };
 		18A0DBAE21B23A140065B2BD /* career_location_bg_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0DBAB21B23A140065B2BD /* career_location_bg_small@2x.png */; };
+		18A0DBB121B51DF40065B2BD /* CompanyMediaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0DBB021B51DF40065B2BD /* CompanyMediaModel.m */; };
+		18A0DBB721B565520065B2BD /* JobsOfDSODetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0DBB621B565520065B2BD /* JobsOfDSODetailTableViewCell.m */; };
 		18ABEAB9219560D100BF3E60 /* SF-UI-Text-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18ABEAB8219560D100BF3E60 /* SF-UI-Text-Regular.ttf */; };
 		18B83B082173557D00130DB6 /* YBImageBrowserProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83ACE2173557C00130DB6 /* YBImageBrowserProgressView.m */; };
 		18B83B092173557D00130DB6 /* YBImageBrowserSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83AD02173557C00130DB6 /* YBImageBrowserSheetView.m */; };
@@ -194,6 +199,12 @@
 		4E33ACC5218AE95000E4CF7E /* UniteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACC4218AE94F00E4CF7E /* UniteDetailViewController.m */; };
 		4E33ACD6218B002500E4CF7E /* UniteContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACD5218B002500E4CF7E /* UniteContent.m */; };
 		4E33ACD92190183E00E4CF7E /* SliderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACD82190183E00E4CF7E /* SliderListViewController.m */; };
+		4E474D3521B2DE750002F5A1 /* CustomTabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D3421B2DE750002F5A1 /* CustomTabbar.m */; };
+		4E474D3821B2DF270002F5A1 /* CustomTabBarItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D3621B2DF270002F5A1 /* CustomTabBarItemButton.m */; };
+		4E474D3B21B3E65F0002F5A1 /* MyTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D3A21B3E65F0002F5A1 /* MyTabBarViewController.m */; };
+		4E474D3E21B40AC10002F5A1 /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D3D21B40AC10002F5A1 /* MoreView.m */; };
+		4E474D4121B56EBC0002F5A1 /* CDZPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D4021B56EBB0002F5A1 /* CDZPicker.m */; };
+		4E4A161221B7C35B003F198B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E4A161121B7C35A003F198B /* CoreLocation.framework */; };
 		4E51695421B13704005B8533 /* more-notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51694C21B13703005B8533 /* more-notification@2x.png */; };
 		4E51695521B13704005B8533 /* more-profiles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51694D21B13703005B8533 /* more-profiles@2x.png */; };
 		4E51695621B13704005B8533 /* more-notification@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E51694E21B13703005B8533 /* more-notification@3x.png */; };
@@ -389,6 +400,8 @@
 		A3BA6E0621B11B9F00D83156 /* FindJobsSponsorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6E0521B11B9F00D83156 /* FindJobsSponsorTableViewCell.m */; };
 		A3BA6E0921B13D4E00D83156 /* JobApplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6E0821B13D4E00D83156 /* JobApplyModel.m */; };
 		A3BA6E0D21B1511F00D83156 /* LargeUIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6E0C21B1511F00D83156 /* LargeUIButton.m */; };
+		A3BA6E1021B506D600D83156 /* CompanyJobsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6E0F21B506D600D83156 /* CompanyJobsModel.m */; };
+		A3BA6E1321B53BEE00D83156 /* CareerSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6E1221B53BEE00D83156 /* CareerSearchViewController.m */; };
 		A3DF39822189A192006F84DC /* expanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39812189A192006F84DC /* expanding.swift */; };
 		A3DF399C2189A280006F84DC /* BasePageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */; };
 		A3DF399D2189A280006F84DC /* PageCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39892189A280006F84DC /* PageCollectionLayout.swift */; };
@@ -830,6 +843,9 @@
 
 /* Begin PBXFileReference section */
 		1801683821A6EE4F00AEBF06 /* Swipe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Swipe.png; sourceTree = "<group>"; };
+		180DE1A521B7DF7A00AD07B5 /* icon_check_mark_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_check_mark_small@2x.png"; sourceTree = "<group>"; };
+		180DE1A621B7DF7B00AD07B5 /* icon_check_mark_small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_check_mark_small@3x.png"; sourceTree = "<group>"; };
+		180DE1A721B7DF7B00AD07B5 /* icon_check_mark_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_check_mark_small.png; sourceTree = "<group>"; };
 		18106AA8218ACC0C00EEE2DC /* FilterIssues@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterIssues@2x.png"; sourceTree = "<group>"; };
 		18106AA9218ACC0C00EEE2DC /* FilterIssues@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FilterIssues@3x.png"; sourceTree = "<group>"; };
 		18106AAA218ACC0C00EEE2DC /* FilterIssues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FilterIssues.png; sourceTree = "<group>"; };
@@ -883,6 +899,10 @@
 		18A0DBA921B23A130065B2BD /* career_location_bg_small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "career_location_bg_small@3x.png"; sourceTree = "<group>"; };
 		18A0DBAA21B23A140065B2BD /* career_location_bg_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = career_location_bg_small.png; sourceTree = "<group>"; };
 		18A0DBAB21B23A140065B2BD /* career_location_bg_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "career_location_bg_small@2x.png"; sourceTree = "<group>"; };
+		18A0DBAF21B51DF40065B2BD /* CompanyMediaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyMediaModel.h; sourceTree = "<group>"; };
+		18A0DBB021B51DF40065B2BD /* CompanyMediaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyMediaModel.m; sourceTree = "<group>"; };
+		18A0DBB521B565520065B2BD /* JobsOfDSODetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsOfDSODetailTableViewCell.h; sourceTree = "<group>"; };
+		18A0DBB621B565520065B2BD /* JobsOfDSODetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOfDSODetailTableViewCell.m; sourceTree = "<group>"; };
 		18ABEAB8219560D100BF3E60 /* SF-UI-Text-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Regular.ttf"; sourceTree = "<group>"; };
 		18B83ACD2173557C00130DB6 /* YBImageBrowserProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBImageBrowserProgressView.h; sourceTree = "<group>"; };
 		18B83ACE2173557C00130DB6 /* YBImageBrowserProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBImageBrowserProgressView.m; sourceTree = "<group>"; };
@@ -1114,6 +1134,17 @@
 		4E33ACD5218B002500E4CF7E /* UniteContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteContent.m; sourceTree = "<group>"; };
 		4E33ACD72190183E00E4CF7E /* SliderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SliderListViewController.h; sourceTree = "<group>"; };
 		4E33ACD82190183E00E4CF7E /* SliderListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SliderListViewController.m; sourceTree = "<group>"; };
+		4E474D3321B2DE750002F5A1 /* CustomTabbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTabbar.h; sourceTree = "<group>"; };
+		4E474D3421B2DE750002F5A1 /* CustomTabbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomTabbar.m; sourceTree = "<group>"; };
+		4E474D3621B2DF270002F5A1 /* CustomTabBarItemButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarItemButton.m; sourceTree = "<group>"; };
+		4E474D3721B2DF270002F5A1 /* CustomTabBarItemButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarItemButton.h; sourceTree = "<group>"; };
+		4E474D3921B3E65F0002F5A1 /* MyTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTabBarViewController.h; sourceTree = "<group>"; };
+		4E474D3A21B3E65F0002F5A1 /* MyTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTabBarViewController.m; sourceTree = "<group>"; };
+		4E474D3C21B40AC10002F5A1 /* MoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreView.h; sourceTree = "<group>"; };
+		4E474D3D21B40AC10002F5A1 /* MoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreView.m; sourceTree = "<group>"; };
+		4E474D3F21B56EBB0002F5A1 /* CDZPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDZPicker.h; sourceTree = "<group>"; };
+		4E474D4021B56EBB0002F5A1 /* CDZPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDZPicker.m; sourceTree = "<group>"; };
+		4E4A161121B7C35A003F198B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4E51694C21B13703005B8533 /* more-notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more-notification@2x.png"; sourceTree = "<group>"; };
 		4E51694D21B13703005B8533 /* more-profiles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more-profiles@2x.png"; sourceTree = "<group>"; };
 		4E51694E21B13703005B8533 /* more-notification@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more-notification@3x.png"; sourceTree = "<group>"; };
@@ -1368,6 +1399,10 @@
 		A3BA6E0A21B142B700D83156 /* JobsTableCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsTableCellDelegate.h; sourceTree = "<group>"; };
 		A3BA6E0B21B1511F00D83156 /* LargeUIButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LargeUIButton.h; sourceTree = "<group>"; };
 		A3BA6E0C21B1511F00D83156 /* LargeUIButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LargeUIButton.m; sourceTree = "<group>"; };
+		A3BA6E0E21B506D600D83156 /* CompanyJobsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyJobsModel.h; sourceTree = "<group>"; };
+		A3BA6E0F21B506D600D83156 /* CompanyJobsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyJobsModel.m; sourceTree = "<group>"; };
+		A3BA6E1121B53BEE00D83156 /* CareerSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CareerSearchViewController.h; sourceTree = "<group>"; };
+		A3BA6E1221B53BEE00D83156 /* CareerSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerSearchViewController.m; sourceTree = "<group>"; };
 		A3DF39802189A192006F84DC /* dentist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dentist-Bridging-Header.h"; sourceTree = "<group>"; };
 		A3DF39812189A192006F84DC /* expanding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = expanding.swift; sourceTree = "<group>"; };
 		A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageCollectionCell.swift; sourceTree = "<group>"; };
@@ -1929,6 +1964,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E4A161221B7C35B003F198B /* CoreLocation.framework in Frameworks */,
 				182A1185219BF61F00C0E08D /* libxml2.tbd in Frameworks */,
 				4EBCE724212FD1CE00A0672D /* Photos.framework in Frameworks */,
 				3E137173212B0E6200B206CC /* LocalAuthentication.framework in Frameworks */,
@@ -2462,6 +2498,8 @@
 		4E94ADD021AD3DAD009CAB7F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4E474D3F21B56EBB0002F5A1 /* CDZPicker.h */,
+				4E474D4021B56EBB0002F5A1 /* CDZPicker.m */,
 				4EF1097421B0D3260013C34C /* FilterView.h */,
 				4EF1097521B0D3260013C34C /* FilterView.m */,
 				4E94ADD121AD3DC9009CAB7F /* DSOProfileTableViewCell.h */,
@@ -2478,9 +2516,13 @@
 				18D4BA2121B0244A004CFB4B /* DescriptionOfJobDetailTableViewCell.m */,
 				18A0DBA621B235770065B2BD /* DescriptionOfDSODetailTableViewCell.h */,
 				18A0DBA721B235770065B2BD /* DescriptionOfDSODetailTableViewCell.m */,
+				18A0DBB521B565520065B2BD /* JobsOfDSODetailTableViewCell.h */,
+				18A0DBB621B565520065B2BD /* JobsOfDSODetailTableViewCell.m */,
 				A3BA6E0421B11B9F00D83156 /* FindJobsSponsorTableViewCell.h */,
 				A3BA6E0521B11B9F00D83156 /* FindJobsSponsorTableViewCell.m */,
 				A3BA6E0A21B142B700D83156 /* JobsTableCellDelegate.h */,
+				4E474D3C21B40AC10002F5A1 /* MoreView.h */,
+				4E474D3D21B40AC10002F5A1 /* MoreView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2603,6 +2645,9 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				180DE1A721B7DF7B00AD07B5 /* icon_check_mark_small.png */,
+				180DE1A521B7DF7A00AD07B5 /* icon_check_mark_small@2x.png */,
+				180DE1A621B7DF7B00AD07B5 /* icon_check_mark_small@3x.png */,
 				18A0DBAA21B23A140065B2BD /* career_location_bg_small.png */,
 				18A0DBAB21B23A140065B2BD /* career_location_bg_small@2x.png */,
 				18A0DBA921B23A130065B2BD /* career_location_bg_small@3x.png */,
@@ -3119,6 +3164,7 @@
 		9E8CFB7155047C0648622D0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E4A161121B7C35A003F198B /* CoreLocation.framework */,
 				182A1184219BF61F00C0E08D /* libxml2.tbd */,
 				4EBCE723212FD1CE00A0672D /* Photos.framework */,
 				3E137172212B0E6100B206CC /* LocalAuthentication.framework */,
@@ -3166,6 +3212,10 @@
 				18A0DB9121B129610065B2BD /* CompanyCommentModel.m */,
 				18A0DB9321B12C1B0065B2BD /* CompanyCommentReviewsModel.h */,
 				18A0DB9421B12C1B0065B2BD /* CompanyCommentReviewsModel.m */,
+				A3BA6E0E21B506D600D83156 /* CompanyJobsModel.h */,
+				A3BA6E0F21B506D600D83156 /* CompanyJobsModel.m */,
+				18A0DBAF21B51DF40065B2BD /* CompanyMediaModel.h */,
+				18A0DBB021B51DF40065B2BD /* CompanyMediaModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3340,6 +3390,8 @@
 				4E94ADCB21ACE91B009CAB7F /* CareerMoreViewController.m */,
 				18D4BA0B21AE6970004CFB4B /* CareerJobDetailViewController.h */,
 				18D4BA0C21AE6970004CFB4B /* CareerJobDetailViewController.m */,
+				A3BA6E1121B53BEE00D83156 /* CareerSearchViewController.h */,
+				A3BA6E1221B53BEE00D83156 /* CareerSearchViewController.m */,
 			);
 			path = careers;
 			sourceTree = "<group>";
@@ -3630,6 +3682,12 @@
 				C5EEAEAE914013D381D67DEC /* SlideController.h */,
 				C5EEA47FDB48D58F3209697B /* SlideItem.m */,
 				C5EEA285ACEA31047B9E0172 /* SlideItem.h */,
+				4E474D3321B2DE750002F5A1 /* CustomTabbar.h */,
+				4E474D3421B2DE750002F5A1 /* CustomTabbar.m */,
+				4E474D3721B2DF270002F5A1 /* CustomTabBarItemButton.h */,
+				4E474D3621B2DF270002F5A1 /* CustomTabBarItemButton.m */,
+				4E474D3921B3E65F0002F5A1 /* MyTabBarViewController.h */,
+				4E474D3A21B3E65F0002F5A1 /* MyTabBarViewController.m */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -4065,6 +4123,7 @@
 				E11E12C211BB877600A8E23C /* edit_photo@3x.png in Resources */,
 				E11E1427731756A4C6B97992 /* edit_pressed.png in Resources */,
 				E11E134DF5879C823C33092E /* edit_pressed@2x.png in Resources */,
+				180DE1AA21B7DF7B00AD07B5 /* icon_check_mark_small.png in Resources */,
 				E11E11339AAE29D1E28306F8 /* edit_pressed@3x.png in Resources */,
 				A3E752EA217E35010087713D /* Article@3x.png in Resources */,
 				A393E0B521955D06001881C2 /* sponsor_align_banner@2x.png in Resources */,
@@ -4211,8 +4270,10 @@
 				4E23E07B2152963D00EDCE08 /* gskIcon@2x.png in Resources */,
 				E11E1E7047136DAF6ADCDA1C /* menu-settings_light@3x.png in Resources */,
 				A3BA6DF321AFD10100D83156 /* icons8-banknotes@3x.png in Resources */,
+				180DE1A821B7DF7B00AD07B5 /* icon_check_mark_small@2x.png in Resources */,
 				E11E1C714B53B0983680060B /* menu-settings.png in Resources */,
 				E11E176626F9358FCA214A5D /* menu-settings@2x.png in Resources */,
+				180DE1A921B7DF7B00AD07B5 /* icon_check_mark_small@3x.png in Resources */,
 				A3E752EF217E35010087713D /* TipSheet.png in Resources */,
 				E11E12F60184E37357C15109 /* menu-settings@3x.png in Resources */,
 				E11E14E8BBFF8B374746F288 /* menu-unite_light.png in Resources */,
@@ -4416,6 +4477,7 @@
 				4E528AD3216DF9E5008C151B /* SBControlView.m in Sources */,
 				18A0DB9221B129610065B2BD /* CompanyCommentModel.m in Sources */,
 				18D4BA1921AEDC95004CFB4B /* CompanyReviewHeaderTableViewCell.m in Sources */,
+				4E474D3521B2DE750002F5A1 /* CustomTabbar.m in Sources */,
 				18B83B1B2173557D00130DB6 /* YBVideoBrowseCellData.m in Sources */,
 				4E2A4FAB21A3E70C0049E1F2 /* UITableView+JRTableViewPlaceHolder.m in Sources */,
 				4E1957482137D0F100420563 /* LinkedInServiceManager.m in Sources */,
@@ -4497,6 +4559,7 @@
 				4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
 				4E1957402137D0F100420563 /* PermissionContactInfoFields.m in Sources */,
+				4E474D3E21B40AC10002F5A1 /* MoreView.m in Sources */,
 				A3A5B339218D61C500242E71 /* ThumCollectionViewCell.swift in Sources */,
 				4EBCE6DB212D6D8600A0672D /* ResetPwdViewController.m in Sources */,
 				C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */,
@@ -4550,6 +4613,7 @@
 				4E5BA7F32176E1EB00386598 /* ViewAllViewController.m in Sources */,
 				A39EE5102188578200F74745 /* CmsArticleCategoryPage.m in Sources */,
 				E11E147FF4FE738E0561AF6A /* Proto.m in Sources */,
+				18A0DBB121B51DF40065B2BD /* CompanyMediaModel.m in Sources */,
 				E11E193B11128F898EABFD63 /* main.m in Sources */,
 				4E2EF4FC215D0D4B00676A4E /* DenActionSheet.m in Sources */,
 				A39B9AC721AD8AE5001CED72 /* BookmarkManager.m in Sources */,
@@ -4587,6 +4651,7 @@
 				4E23E08A2152A97B00EDCE08 /* DiscussTableViewCell.m in Sources */,
 				C5EEA2942B009067B0D2EC11 /* TestPage.m in Sources */,
 				C5EEA5F5DA5885242D00A070 /* ListPage.m in Sources */,
+				4E474D3821B2DF270002F5A1 /* CustomTabBarItemButton.m in Sources */,
 				4E528AD1216DF9E5008C151B /* SBPlayer.m in Sources */,
 				189BCB84218C260E0003CA91 /* UniteDownloadingViewController.m in Sources */,
 				18DA49A121897C3A00DA2292 /* MagazineModel.m in Sources */,
@@ -4604,6 +4669,7 @@
 				C5EEA21E5804CF3EABBFE3DB /* BaseItemView.m in Sources */,
 				C5EEAE528F7B6AC57B92F5F8 /* IconTitleMsgCell.m in Sources */,
 				C5EEA93A818CA571610A938C /* GroupLabelView.m in Sources */,
+				A3BA6E1021B506D600D83156 /* CompanyJobsModel.m in Sources */,
 				4E94ADC921ACE906009CAB7F /* CareerAlertsViewController.m in Sources */,
 				C5EEA3BF2E6ADEBCD49244FB /* LineTableCell.m in Sources */,
 				C5EEA99D93B0E72671A097C2 /* TitleMsgArrowView.m in Sources */,
@@ -4617,18 +4683,21 @@
 				C5EEA1C6749DC002B0822BA4 /* UserCell.m in Sources */,
 				4E528AD2216DF9E5008C151B /* SBPauseOrPlayView.m in Sources */,
 				C5EEAE849A9D7BECFA31FC89 /* Pair.m in Sources */,
+				4E474D3B21B3E65F0002F5A1 /* MyTabBarViewController.m in Sources */,
 				1836D42F21A7CCEC00500CEB /* ViewResumeItemView.m in Sources */,
 				C5EEA80345D17C8493BB8709 /* SearchPage.m in Sources */,
 				C5EEAAF068D2FF7E482A0CC2 /* LabelCheckView.m in Sources */,
 				18D4BA0D21AE6970004CFB4B /* CareerJobDetailViewController.m in Sources */,
 				A3DF399E2189A280006F84DC /* PageCollectionView.swift in Sources */,
 				C5EEAE6124816A6F31F4FA05 /* GroupListPage.m in Sources */,
+				4E474D4121B56EBC0002F5A1 /* CDZPicker.m in Sources */,
 				C5EEAA627C4FFCCCA4202E92 /* MyStyle.m in Sources */,
 				C5EEAC52F1B1B7FA36FDBEA2 /* TitleSwitchView.m in Sources */,
 				1866AFFE2179DF3900970CAB /* DentistTabView.m in Sources */,
 				A3729575219128A100B36409 /* UniteThumCollectionViewCell.m in Sources */,
 				C5EEA998A2E6E6E97A8E5259 /* FromToView.m in Sources */,
 				C5EEAC226A4350FB406AFD22 /* DatePickerPage.m in Sources */,
+				A3BA6E1321B53BEE00D83156 /* CareerSearchViewController.m in Sources */,
 				C5EEAB40C81644F1288B9E7A /* PickerPage.m in Sources */,
 				4E94AE4B21AEA25A009CAB7F /* DSODetailPage.m in Sources */,
 				4EF2A36A21A6FB66007E6483 /* FullListTableViewCell.m in Sources */,
@@ -4659,6 +4728,7 @@
 				18DA49A821897EE200DA2292 /* UnitePageCell.m in Sources */,
 				C5EEA4F5057D8AD20840551B /* NSDictionary+myextend.m in Sources */,
 				A3DF399C2189A280006F84DC /* BasePageCollectionCell.swift in Sources */,
+				18A0DBB721B565520065B2BD /* JobsOfDSODetailTableViewCell.m in Sources */,
 				C5EEA56D3F74A578D3BA98FA /* LinearView.m in Sources */,
 				C5EEA0319D5E3E079662491B /* LinearVerView.m in Sources */,
 				C5EEA6E8B19DE7760629756E /* ContentPage.m in Sources */,

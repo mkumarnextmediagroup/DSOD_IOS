@@ -11,11 +11,12 @@
 #import "DSOProfileTableViewCell.h"
 #import "DSODetailPage.h"
 #import "Proto.h"
-#import "JobModel.h"
+#import "CompanyModel.h"
+#import "CareerSearchViewController.h"
 
 @interface DSOProfilePage ()<UITableViewDelegate,UITableViewDataSource>
 {
-    NSArray<JobModel *> *infoArr;
+    NSArray<CompanyModel *> *infoArr;
     UITableView *myTable;
 }
 @end
@@ -39,7 +40,7 @@
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
     
     [self showCenterIndicator];
-    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+    [Proto queryCompanyList:0 completed:^(NSArray<CompanyModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideCenterIndicator];
             NSLog(@"%@",array);
@@ -47,16 +48,22 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self->myTable reloadData];
             });
-
+            
         });
     }];
-
     // Do any additional setup after loading the view.
 }
 
 - (void)searchClick
 {
     NSLog(@"search btn click");
+//    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+//    CareerSearchViewController *searchVC=[CareerSearchViewController new];
+//    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchVC];
+//    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    [viewController presentViewController:navVC animated:YES completion:NULL];
+        CareerSearchViewController *searchVC=[CareerSearchViewController new];
+        [self.navigationController pushViewController:searchVC animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -84,8 +91,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-//    [DSODetailPage openBy:self companyId:infoArr[indexPath.row].company.id];
-    [DSODetailPage openBy:self companyId:@"5bea77e49a08064eec5c328a"];
+    [DSODetailPage openBy:self companyId:infoArr[indexPath.row].companyId];
+//    [DSODetailPage openBy:self companyId:@"5bea77e49a08064eec5c328a"];
 }
 
 - (void)onBack:(UIButton *)btn {

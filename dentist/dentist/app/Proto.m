@@ -1837,6 +1837,7 @@
 
 
 #pragma mark --------------------------------------------Careers API
+
 //2.1. 查看职位明细接口
 + (void)findJobById:(NSString*)jobId completed:(void(^)(JobModel *jobModel))completed {
     
@@ -1918,6 +1919,10 @@
 //MARK:2.2.    查询所有职位列表
 + (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
     return [self queryAllJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
+}
+//MARK:2.2.  根据职位标题查询所有职位列表
++ (void)queryAllJobs:(NSInteger)skip jobTitle:(NSString *)jobTitle completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    return [self queryAllJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:jobTitle company:nil skip:skip completed:completed];
 }
 
 //MARK:2.7.   查询已申请职位列表
@@ -2092,6 +2097,90 @@
     return [self queryJobBookmarks:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
 }
 
+//MARK:2.16.    查询公司职位接口
++ (void)getAllJobsByCompanyId:(NSString *)companyId categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (companyId) {
+        [paradic setObject:companyId forKey:@"companyId"];
+    }
+    if (categroy) {
+        [paradic setObject:categroy forKey:@"categroy"];
+    }
+    if (salary) {
+        [paradic setObject:salary forKey:@"salary"];
+    }
+    if (experience) {
+        [paradic setObject:experience forKey:@"experience"];
+    }
+    if (location) {
+        [paradic setObject:location forKey:@"location"];
+    }
+    if (distance) {
+        [paradic setObject:distance forKey:@"distance"];
+    }
+    if (jobTitle) {
+        [paradic setObject:jobTitle forKey:@"jobTitle"];
+    }
+    [self postAsync3:@"company/getAllJobsByCompanyId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"data"];
+            NSInteger totalFound=[r.resultMap[@"totalFound"] integerValue];
+            for (NSDictionary *d in arr) {
+                JobModel *item = [[JobModel alloc] initWithJson:jsonBuild(d)];
+                if (item) {
+                    [resultArray addObject:item];
+                }
+            }
+            if (completed) {
+                completed(resultArray,totalFound);
+            }
+        }else{
+            if (completed) {
+                completed(nil,0);
+            }
+        }
+    }];
+}
+
++ (void)getAllJobsByCompanyId:(NSString*)companyId completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    
+    return [self getAllJobsByCompanyId:companyId categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil completed:completed];
+}
+
+//MARK:2.13.    查询所有公司列表
++ (void)queryCompanyList:(NSInteger)skip completed:(void(^)(NSArray<CompanyModel *> *array,NSInteger totalCount))completed
+{
+    NSInteger limit=20;//分页数默认20条
+    if (skip<=0) {
+        skip=0;
+    }
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+
+    [self postAsync3:@"company/findAllCompanys" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSInteger totalFound=[r.resultMap[@"totalFound"] integerValue];
+            NSArray *arr = r.resultMap[@"companyPOs"];
+            for (NSDictionary *d in arr) {
+                CompanyModel *item = [[CompanyModel alloc] initWithJson:jsonBuild(d)];
+                if (item) {
+                    [resultArray addObject:item];
+                }
+            }
+            if (completed) {
+                completed(resultArray,totalFound);
+            }
+        }else{
+            if (completed) {
+                completed(nil,0);
+            }
+        }
+    }];
+}
+
 
 //2.14.    查询公司详情接口
 + (void)findCompanyById:(NSString*)companyId completed:(void(^)(CompanyModel *companyModel))completed {
@@ -2135,6 +2224,19 @@
             foreTask(^{
                 completed(model);
             });
+        }
+    }];
+}
+
+//获取career首页图片接口
++ (void)findExtensionCompleted:(void(^)(NSString *picUrl))completed
+{
+    [self postAsync3:@"extension/findExtension" dic:nil modular:@"hr" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSDictionary *dataDic =  r.resultMap[@"data"];
+            NSArray *objectId = [dataDic objectForKey:@"fileUrl"];
+            NSString *url = objectId[0];
+            completed(url);
         }
     }];
 }

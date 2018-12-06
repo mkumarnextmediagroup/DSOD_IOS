@@ -1,17 +1,16 @@
 //
-//  CareerMoreViewController.m
+//  MoreView.m
 //  dentist
 //
-//  Created by Jacksun on 2018/11/27.
-//  Copyright © 2018 thenextmediagroup.com. All rights reserved.
+//  Created by 孙兴国 on 2018/12/2.
+//  Copyright © 2018年 thenextmediagroup.com. All rights reserved.
 //
-//@"more-me"
-//@"more-notification"
-//@"more-reviews"
-//@"more-profiles"
-#import "CareerMoreViewController.h"
 
-@interface CareerMoreViewController ()
+#import "MoreView.h"
+
+#define offBottom IPHONE_X?85:50
+
+@implementation MoreView
 {
     UIButton *btn1;
     UIButton *btn2;
@@ -23,25 +22,33 @@
     
     BOOL isTouch;
 }
-@end
+static MoreView *instance;
+static dispatch_once_t onceToken;
 
-@implementation CareerMoreViewController
++(void)attemptDealloc{
+    instance = nil;
+    onceToken = 0;
+}
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
++ (instancetype)initSliderView
+{
+    dispatch_once(&onceToken, ^{
+        instance = [[MoreView alloc] init];
+        CGFloat bottom = offBottom;
+        instance.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
+        instance.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:.8];
+        [instance initSubView];
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        [window.rootViewController.view addSubview:instance];
+    });
     
-    self.view.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:.9];
-    
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTappedPickerView:)];
-    [singleTap setNumberOfTapsRequired:1];
-    [self.view addGestureRecognizer:singleTap];
-//    singleTap.delegate = self;
+    return instance;
+}
 
-    UINavigationItem *item = [self navigationItem];
-    item.title = @"More";
-
+- (void)initSubView
+{
     //初始化背景图
-    btn1 = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-160, self.view.frame.size.height, 140, 40)];
+    btn1 = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-160, self.frame.size.height, 140, 40)];
     [btn1 setImage:[UIImage imageNamed:@"more-me"] forState:UIControlStateNormal];
     [btn1 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [btn1 setTitle:@"Me" forState:UIControlStateNormal];
@@ -49,7 +56,7 @@
     btn1.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
     btn1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     btn1.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
-
+    
     btn2 = [[UIButton alloc] initWithFrame:btn1.frame];
     [btn2 setImage:[UIImage imageNamed:@"more-notification"] forState:UIControlStateNormal];
     [btn2 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -58,7 +65,7 @@
     btn2.titleLabel.font = [UIFont systemFontOfSize:12];
     btn2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     btn2.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
-
+    
     btn3 = [[UIButton alloc] initWithFrame:btn1.frame];
     [btn3 setImage:[UIImage imageNamed:@"more-reviews"] forState:UIControlStateNormal];
     [btn3 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -67,7 +74,7 @@
     btn3.titleLabel.font = [UIFont systemFontOfSize:12];
     btn3.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     btn3.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
-
+    
     btn4 = [[UIButton alloc] initWithFrame:btn1.frame];
     [btn4 setImage:[UIImage imageNamed:@"more-profiles"] forState:UIControlStateNormal];
     [btn4 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -77,42 +84,48 @@
     btn4.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     btn4.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
     
-    [self.view addSubview:btn2];
-    [self.view addSubview:btn3];
-    [self.view addSubview:btn1];
-    [self.view addSubview:btn4];
+    [self addSubview:btn2];
+    [self addSubview:btn3];
+    [self addSubview:btn1];
+    [self addSubview:btn4];
     
-    [self showFuntionBtn];
-    // Do any additional setup after loading the view.
-}
-
-- (void)sigleTappedPickerView:(UIGestureRecognizer *)sender
-{
-    isTouch = YES;
-    [self showFuntionBtn];
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)showFuntionBtn
 {
+    CGFloat bottom = offBottom;
+    if (self.frame.origin.y == SCREENHEIGHT) {
+        [UIView animateWithDuration:.3 animations:^{
+            self.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
+        }];
+    }else
+    {
+        [UIView animateWithDuration:.3 animations:^{
+            self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
+        } completion:^(BOOL finished) {
+            [self removeFromSuperview];
+            [MoreView attemptDealloc];
+        }];
+    }
+    
     if (!isTouch) {
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.1f];
         
         CGRect frame1 = btn1.frame;
-        frame1.origin.y -= 110;
+        frame1.origin.y -= 50;
         [btn1 setFrame:frame1];
         
         CGRect frame2 = btn2.frame;
-        frame2.origin.y -= 180;
+        frame2.origin.y -= 120;
         [btn2 setFrame:frame2];
         
         CGRect frame3 = btn3.frame;
-        frame3.origin.y -= 250;
+        frame3.origin.y -= 190;
         [btn3 setFrame:frame3];
         
         CGRect frame4 = btn4.frame;
-        frame4.origin.y -= 320;
+        frame4.origin.y -= 260;
         [btn4 setFrame:frame4];
         
         [UIView commitAnimations];
@@ -124,19 +137,19 @@
         [UIView setAnimationDuration:0.1f];
         
         CGRect frame1 = btn1.frame;
-        frame1.origin.y += 110;
+        frame1.origin.y += 50;
         [btn1 setFrame:frame1];
         
         CGRect frame2 = btn2.frame;
-        frame2.origin.y += 180;
+        frame2.origin.y += 120;
         [btn2 setFrame:frame2];
         
         CGRect frame3 = btn3.frame;
-        frame3.origin.y += 250;
+        frame3.origin.y += 190;
         [btn3 setFrame:frame3];
         
         CGRect frame4 = btn4.frame;
-        frame4.origin.y += 320;
+        frame4.origin.y += 260;
         [btn4 setFrame:frame4];
         
         [UIView commitAnimations];
@@ -149,13 +162,12 @@
 {
     
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
 }
 */
 

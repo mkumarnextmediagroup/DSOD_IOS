@@ -8,16 +8,20 @@
 #import "DSOProfilePage.h"
 #import "UIButton+styled.h"
 #import "FilterView.h"
+#import "MyTabBarViewController.h"
+#import "AppDelegate.h"
+#import "Proto.h"
 
 #define kMaxBtnCount 4
 #define leftToX 20
 #define IMAGE_HEIGHT SCREENWIDTH*253/375
 #define FUNBTN_WIDTH ([[UIScreen mainScreen] bounds].size.width - 24*2)/2
-#define FUNBTN_HEIGHT IPHONE_X?((SCREENHEIGHT-IMAGE_HEIGHT-NAVHEIGHT-50-leftToX*3)/2):((SCREENHEIGHT-IMAGE_HEIGHT-NAVHEIGHT-50-leftToX*3)/2)//FUNBTN_WIDTH*9/16
+#define FUNBTN_HEIGHT IPHONE_X?((SCREENHEIGHT-IMAGE_HEIGHT-NAVHEIGHT-65-leftToX*3)/2):((SCREENHEIGHT-IMAGE_HEIGHT-NAVHEIGHT-50-leftToX*3)/2)//FUNBTN_WIDTH*9/16
 
 @implementation CareerExplorePage {
     NSArray *titleArr;
     NSArray *imageArr;
+    UIImageView *img;
 }
 
 - (void)viewDidLoad {
@@ -30,11 +34,22 @@
     //d1d0d0
     [self createFunBtn];
     
+    [Proto findExtensionCompleted:^(NSString *picUrl) {
+        NSLog(@"%@",picUrl);
+        [self->img sd_setImageWithURL:[NSURL URLWithString:picUrl] placeholderImage:[UIImage imageNamed:@"career-image"]];
+    }];
+    
+//    UIBlurEffect *blurEffect =[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+//    UIVisualEffectView *effectView =[[UIVisualEffectView alloc]initWithEffect:blurEffect];
+//    effectView.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);
+//    [self.view addSubview:effectView];
+
+    
 }
 
 - (void)createFunBtn
 {
-    UIImageView *img = [UIImageView new];
+    img = [UIImageView new];
     [self.view addSubview:img];
     [[[[img.layoutMaker sizeEq:SCREENWIDTH h:IMAGE_HEIGHT] topParent:NAVHEIGHT] leftParent:0] install];
     img.image = [UIImage imageNamed:@"career-image"];
@@ -69,7 +84,8 @@
             [[[[funBtn.layoutMaker sizeEq:FUNBTN_WIDTH h:FUNBTN_HEIGHT] leftParent:leftToX + (FUNBTN_WIDTH + 15) * i] below:img offset:leftToX] install];
         }else
         {
-            [[[[funBtn.layoutMaker sizeEq:FUNBTN_WIDTH h:FUNBTN_HEIGHT] leftParent:leftToX + (FUNBTN_WIDTH + 15) * (i%2)] below:img offset:leftToX + FUNBTN_HEIGHT + 15] install];
+            float offset = FUNBTN_HEIGHT;
+            [[[[funBtn.layoutMaker sizeEq:FUNBTN_WIDTH h:FUNBTN_HEIGHT] leftParent:leftToX + (FUNBTN_WIDTH + 15) * (i%2)] below:img offset:offset+leftToX+15] install];
         }
         [funBtn verticalImageAndTitle:10];
     }
@@ -87,10 +103,11 @@
 
     }else if (btn.tag == 12)//review button click
     {
-        FilterView *view = [[FilterView alloc] init];
-        [view initWithSubView];
-        [self.view addSubview:view];
-
+//        [[FilterView initFilterView] showFilter];
+    }else if (btn.tag == 10){
+        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        MyTabBarViewController *tabvc=(MyTabBarViewController *)appdelegate.careersPage;
+        [tabvc tabbarSelected:1];
     }
 }
 

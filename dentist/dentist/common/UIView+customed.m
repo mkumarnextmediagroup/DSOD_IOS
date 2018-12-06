@@ -235,6 +235,20 @@ static char argObjectAttr = 0;
 	return edit;
 }
 
+- (UITextField *)addEditFilter
+{
+    UITextField *comField = [UITextField new];
+    comField.layer.borderColor= rgb255(216, 216, 216).CGColor;
+    comField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 30)];
+    comField.leftViewMode = UITextFieldViewModeAlways;
+    comField.layer.borderWidth= 1.0f;
+    comField.layer.masksToBounds = YES;
+    comField.returnKeyType = UIReturnKeyDone;
+    comField.layer.cornerRadius = 4;
+    [self addSubview:comField];
+    return comField;
+}
+
 
 - (UIButton *)addButton {
 	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];

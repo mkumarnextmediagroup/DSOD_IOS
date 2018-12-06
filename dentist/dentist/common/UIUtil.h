@@ -7,7 +7,7 @@
 #define __UIUTIL__
 
 #import <UIKit/UIKit.h>
-
+#import "MyTabBarViewController.h"
 
 extern NSString *localStr(NSString *name);
 
@@ -32,4 +32,5 @@ extern CGRect makeRectF(CGFloat x, CGFloat y, CGFloat w, CGFloat h);
 extern  UINavigationController *NavPage(UIViewController* c );
 extern  UITabBarController *TabPage(NSArray<__kindof UIViewController *> *cs );
 extern  UITabBarController *TabNavPage(NSArray<__kindof UIViewController *> *cs);
+extern  MyTabBarViewController *myTab(UIViewController* c );
 #endif

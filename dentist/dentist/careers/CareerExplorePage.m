@@ -106,8 +106,10 @@
 //        [[FilterView initFilterView] showFilter];
     }else if (btn.tag == 10){
         AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        MyTabBarViewController *tabvc=(MyTabBarViewController *)appdelegate.careersPage;
-        [tabvc tabbarSelected:1];
+        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+        [tabvc setSelectedIndex:1];
+//        MyTabBarViewController *tabvc=(MyTabBarViewController *)appdelegate.careersPage;
+//        [tabvc tabbarSelected:1];
     }
 }
 

@@ -38,20 +38,20 @@
     
     UINavigationItem *item = self.navigationItem;
     item.title = @"MY JOBS";
-//    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
-//    
-//    myTable = [UITableView new];
-//    [self.view addSubview:myTable];
-//    myTable.dataSource = self;
-//    myTable.delegate = self;
-//    myTable.rowHeight = UITableViewAutomaticDimension;
-//    myTable.estimatedRowHeight = 100;
-//    [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-//    myTable.tableHeaderView=[self makeHeaderView];
-//    [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:@"myjobcell"];
-//    
-//    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
-//    [self setupRefresh];
+    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
+
+    myTable = [UITableView new];
+    [self.view addSubview:myTable];
+    myTable.dataSource = self;
+    myTable.delegate = self;
+    myTable.rowHeight = UITableViewAutomaticDimension;
+    myTable.estimatedRowHeight = 100;
+    [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    myTable.tableHeaderView=[self makeHeaderView];
+    [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:@"myjobcell"];
+    
+    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
+    [self setupRefresh];
 
     
     // Do any additional setup after loading the view.

@@ -273,6 +273,8 @@ static dispatch_once_t onceToken;
     
     if(self.delegate && [self.delegate respondsToSelector:@selector(searchCondition:)]){
         [self.delegate searchCondition:infoDic];
+        //after update dismiss the filter
+        [self showFilter];
     }
     NSLog(@"update button click");
 }

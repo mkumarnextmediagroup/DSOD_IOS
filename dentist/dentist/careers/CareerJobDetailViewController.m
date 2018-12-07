@@ -146,6 +146,12 @@
     [[[[[applyNowBtn.layoutMaker bottomParent:-edge]leftParent:edge]rightParent:-edge]heightEq:40]install];
     [applyNowBtn onClick:self action:@selector(applyNow)];
     
+    applyNowBtn.layer.shadowOffset =  CGSizeMake(0, 0);
+    applyNowBtn.layer.shadowOpacity = 1;
+    applyNowBtn.layer.shadowRadius = 30;
+    applyNowBtn.layer.shadowColor =  rgbHex(0xb6b6b6).CGColor;
+    
+    
     BOOL isApplication = [self->jobModel.isApplication boolValue];
     [self setApplyButtonEnable:!isApplication];
 }

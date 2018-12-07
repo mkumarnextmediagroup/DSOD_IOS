@@ -125,7 +125,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellIden = @"cell";
+    NSString *cellIden = @"viewAllViewcell";
     DiscussTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
     if (cell == nil) {
         cell = [[DiscussTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];

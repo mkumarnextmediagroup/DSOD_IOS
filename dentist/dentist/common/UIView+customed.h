@@ -46,6 +46,8 @@
 
 - (UITextField *)addEditFilter;
 
+- (UITextField *)addFieldCustom;
+
 - (UITextField *)addEditRoundedGray;
 
 - (UITextField *)addEditLined;

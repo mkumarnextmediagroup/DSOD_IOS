@@ -50,7 +50,12 @@
 
 - (UIBarButtonItem *)navBarText:(NSString *)text target:(nullable id)target action:(SEL)action {
 	UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:text style:UIBarButtonItemStylePlain target:target action:action];
-	[bi setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [Fonts semiBold:15]} forState:UIControlStateNormal];
+    if ([text isEqualToString:@"Search"]) {
+        [bi setTitleTextAttributes:@{NSForegroundColorAttributeName: rgb255(211, 220, 227), NSFontAttributeName: [Fonts semiBold:15]} forState:UIControlStateNormal];
+    }else
+    {
+        [bi setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [Fonts semiBold:15]} forState:UIControlStateNormal];
+    }
 	return bi;
 }
 

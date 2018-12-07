@@ -45,6 +45,22 @@ static dispatch_once_t onceToken;
     return instance;
 }
 
+-(instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        UITapGestureRecognizer *tapMore =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapMoreBack:)];
+        [self addGestureRecognizer:tapMore];
+    }
+    return self;
+}
+
+-(void)tapMoreBack:(UITapGestureRecognizer *)tap
+{
+    [self hideFuntionBtn];
+}
+
 - (void)initSubView
 {
     //初始化背景图
@@ -172,7 +188,7 @@ static dispatch_once_t onceToken;
 #pragma -mark -functions
 - (void)btnClick:(id)sender
 {
-    
+    NSLog(@"morebuttonclick");
 }
 
 /*

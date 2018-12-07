@@ -15,8 +15,11 @@
 #import "DsoToast.h"
 #import "CareerJobDetailViewController.h"
 #import "AppDelegate.h"
+#import "UITableView+JRTableViewPlaceHolder.h"
+#import "CDZPicker.h"
 
-@interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating>
+#define edge 12
+@interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITextFieldDelegate>
 {
     NSMutableArray *infoArr;
     UITableView *myTable;
@@ -24,6 +27,10 @@
     BOOL isdownrefresh;
     UISearchController *searchController;
     NSString *searchKeywords;
+    NSArray *locationArr;
+    
+    UITextField *locationField;
+    UITextField *milesField;
 }
 /*** searchbar ***/
 @property (nonatomic,strong) UISearchBar *searchBar;
@@ -40,26 +47,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UINavigationItem *item = [self navigationItem];
-    item.rightBarButtonItem=nil;
-    item.leftBarButtonItem = [self navBarImage:@"menu" target:self action:@selector(onBack:)]; //[self navBarBack:self action:@selector(onBack:)];
-//    item.leftBarButtonItem=nil;//hidden left menu
-//    searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
-//    searchController.searchResultsUpdater=self;
-//    searchController.searchBar.autocapitalizationType=UITextAutocapitalizationTypeNone;
-//    searchController.delegate = self;
-//    searchController.dimsBackgroundDuringPresentation = NO; // The default is true.
-//    searchController.searchBar.delegate = self;
-//
-//    if (@available(iOS 11.0, *)) {
-//        // For iOS 11 and later, place the search bar in the navigation bar.
-//        item.searchController=searchController;
-//
-//        // Make the search bar always visible.
-//        item.hidesSearchBarWhenScrolling = NO;
-//    } else {
-//        // For iOS 10 and earlier, place the search controller's search bar in the table view's header.
-//        item.titleView=searchController.searchBar;
-//    }
+    self.view.backgroundColor = rgb255(246, 245, 245);
+    item.rightBarButtonItem= [self navBarText:@"Search" target:self action:@selector(searchBtnClick)];
+    item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
+    locationArr = [NSArray arrayWithObjects:@"5 miles",@"10 miles",@"25 miles",@"50 miles",@"100 miles", nil];
     
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     _searchBar.placeholder = @"Search...";
@@ -89,9 +80,15 @@
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class])];
+    myTable.backgroundColor = rgb255(246, 245, 245);
+    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT+50] install];
+    [self createEmptyNotice];
+    [self createLocation];
+}
+
+- (void)searchBtnClick
+{
     
-    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
-   
 }
 
 - (void)onBack:(UIButton *)btn {
@@ -219,6 +216,87 @@
             
         }
         
+    }
+}
+
+- (void)createEmptyNotice
+{
+    [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
+        UIView *headerVi = [UIView new];
+        headerVi.backgroundColor = [UIColor clearColor];
+        UIButton *headBtn = headerVi.addButton;
+        [headBtn setImage:[UIImage imageNamed:@"career_searchIcon"] forState:UIControlStateNormal];
+        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        headBtn.titleLabel.font = [Fonts regular:13];
+        [[[headBtn.layoutMaker centerXParent:0] topParent:135] install];
+        return headerVi;
+    } normalBlock:^(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:YES];
+    }];
+}
+
+- (void)createLocation
+{
+    UIView *locationVi = self.view.addView;
+    locationVi.layer.masksToBounds = YES;
+    locationVi.layer.cornerRadius = 4;
+    locationVi.backgroundColor = [UIColor whiteColor];
+    [[[[locationVi.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:35] leftParent:edge] topParent:NAVHEIGHT + 8] install];
+    
+    locationField = locationVi.addEditRaw;
+    locationField.textColor = [UIColor grayColor];
+    locationField.delegate = self;
+    locationField.font = [UIFont systemFontOfSize:14];
+    locationField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location_filled"]];
+    locationField.leftViewMode = UITextFieldViewModeAlways;
+    [[[[locationField.layoutMaker leftParent:edge] sizeEq:200 h:35] topParent:0] install];
+    
+    UILabel *lineLab = locationVi.addLabel;
+    lineLab.backgroundColor = rgb255(246, 245, 245);
+    [[[[lineLab.layoutMaker toRightOf:locationField offset:2] topParent:0] sizeEq:1 h:35] install];
+    
+    milesField = locationVi.addEditRaw;
+    milesField.textColor = [UIColor grayColor];
+    milesField.font = [UIFont systemFontOfSize:14];
+    milesField.delegate = self;
+    milesField.text = [NSString stringWithFormat:@"within %@",locationArr[2]];
+    milesField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 35)];
+    milesField.leftViewMode = UITextFieldViewModeAlways;
+    [milesField setRightViewWithTextField:milesField imageName:@"down_list"];
+    [[[[[milesField.layoutMaker toRightOf:lineLab offset:2] heightEq:35] topParent:0] rightParent:0] install];
+}
+
+- (void)createPickView:(UITextField *)textFiled
+{
+    CDZPickerBuilder *builder = [CDZPickerBuilder new];
+    builder.showMask = YES;
+    builder.defaultIndex = 2;
+    builder.cancelTextColor = UIColor.redColor;
+    if (textFiled == milesField) {
+        [CDZPicker showSinglePickerInView:self.view withBuilder:builder strings:locationArr confirm:^(NSArray<NSString *> * _Nonnull strings, NSArray<NSNumber *> * _Nonnull indexs) {
+            textFiled.text = [NSString stringWithFormat:@"within %@",strings[0]];
+            NSLog(@"strings:%@ indexs:%@",strings,indexs);
+        }cancel:^{
+            //your code
+        }];
+    }
+}
+
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField == milesField) {
+        
+        [_searchBar endEditing:YES];
+        [self.view endEditing:YES];
+        //show pickselect
+        [self createPickView:milesField];
+        
+        return NO;
+    }else
+    {
+        return YES;
     }
 }
 

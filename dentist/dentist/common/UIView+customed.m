@@ -197,6 +197,13 @@ static char argObjectAttr = 0;
 	return imageView;
 }
 
+- (UITextField *)addFieldCustom {
+    UITextField *edit = [UITextField new];
+    edit.borderStyle = UITextBorderStyleNone;
+    [self addSubview:edit];
+    return edit;
+}
+
 - (UITextField *)addEditRoundedGray {
 	UITextField *reset = [self addEditRaw];
 	[reset styleRoundedGray];

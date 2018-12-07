@@ -8,7 +8,6 @@
 #import "DSOProfilePage.h"
 #import "UIButton+styled.h"
 #import "FilterView.h"
-#import "MyTabBarViewController.h"
 #import "AppDelegate.h"
 #import "Proto.h"
 
@@ -108,8 +107,6 @@
         AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
         [tabvc setSelectedIndex:1];
-//        MyTabBarViewController *tabvc=(MyTabBarViewController *)appdelegate.careersPage;
-//        [tabvc tabbarSelected:1];
     }
 }
 

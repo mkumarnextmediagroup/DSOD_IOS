@@ -54,9 +54,11 @@
 
 +(void)openBy:(UIViewController*)vc companyId:(NSString*)companyId{
     if(companyId){
+
         DSODetailPage *DSODetailPageVc = [DSODetailPage new];
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:DSODetailPageVc];
         DSODetailPageVc.companyId = companyId;
-        [vc pushPage:DSODetailPageVc];
+        [vc presentViewController:navVC animated:YES completion:NULL];
     }else{
         [vc.view makeToast:@"companyId is null"];
     }
@@ -90,6 +92,10 @@
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
     item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
     
+}
+
+- (void)dismiss {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

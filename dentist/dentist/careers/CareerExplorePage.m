@@ -14,7 +14,7 @@
 #define kMaxBtnCount 4
 #define leftToX 20
 #define IMAGE_HEIGHT SCREENWIDTH*253/375
-#define FUNBTN_WIDTH ([[UIScreen mainScreen] bounds].size.width - 24*2)/2
+#define FUNBTN_WIDTH ([[UIScreen mainScreen] bounds].size.width - leftToX*3)/2
 #define FUNBTN_HEIGHT IPHONE_X?((SCREENHEIGHT-IMAGE_HEIGHT-NAVHEIGHT-65-leftToX*3)/2):((SCREENHEIGHT-IMAGE_HEIGHT-NAVHEIGHT-50-leftToX*3)/2)//FUNBTN_WIDTH*9/16
 
 @implementation CareerExplorePage {
@@ -97,8 +97,9 @@
         NSLog(@"DSO Profile");
         UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
         DSOProfilePage *dso = [DSOProfilePage new];
-        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:dso];
-        [viewController presentViewController:navVC animated:YES completion:NULL];
+//        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:dso];
+//        [viewController presentViewController:navVC animated:YES completion:NULL];
+        [self.navigationController pushViewController:dso animated:YES];
 
     }else if (btn.tag == 12)//review button click
     {

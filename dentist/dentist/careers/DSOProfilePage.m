@@ -37,7 +37,7 @@
     myTable.delegate = self;
     myTable.tableFooterView = [[UIView alloc]init];
     
-    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
+    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-50] topParent:NAVHEIGHT] install];
     
     [self showCenterIndicator];
     [Proto queryCompanyList:0 completed:^(NSArray<CompanyModel *> *array, NSInteger totalCount) {
@@ -92,12 +92,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [DSODetailPage openBy:self companyId:infoArr[indexPath.row].companyId];
+    
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+//    DSOProfilePage *dso = [DSOProfilePage new];
+    
+    [DSODetailPage openBy:viewController companyId:infoArr[indexPath.row].companyId];
 //    [DSODetailPage openBy:self companyId:@"5bea77e49a08064eec5c328a"];
 }
 
 - (void)onBack:(UIButton *)btn {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

@@ -28,16 +28,16 @@
     return [NSDate USDateFormat:@"MMMM dd, yyyy" timestamp:timestamp];
 }
 
-+(NSString*)USDateTimeLongFormatWithStringTimestamp:(NSString*)timestamp{
++(NSString*)UTCDateTimeLongFormatWithStringTimestamp:(NSString*)timestamp{
     if (timestamp.length>=13) {
         timestamp=[timestamp substringToIndex:10];
     }
-    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     NSDate *date= [NSDate dateWithTimeIntervalSince1970:[timestamp longLongValue]];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    [formatter setTimeZone:timeZone];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    [formatter setLocale:usLocale];
     NSString *dateString  = [formatter stringFromDate: date];
     return dateString;
 }

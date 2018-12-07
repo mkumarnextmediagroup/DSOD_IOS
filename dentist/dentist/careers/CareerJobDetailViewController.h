@@ -19,7 +19,7 @@ typedef void (^CareerJobDetailCloseCallback) (void);
 
 
 +(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*)jobId;
-+(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*)jobId closeBack:(CareerJobDetailCloseCallback)closeBack;
++(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*)jobId closeBack:(CareerJobDetailCloseCallback _Nullable)closeBack;
 @end
 
 NS_ASSUME_NONNULL_END

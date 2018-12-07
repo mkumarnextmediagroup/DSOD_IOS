@@ -166,10 +166,10 @@
     jobCountTitle.textColor=Colors.textMain;
     [[[[[jobCountTitle.layoutMaker leftParent:20] topParent:0] bottomParent:0] rightParent:40] install];
     
-    UIButton *filterButton = [panel addButton];
-    [filterButton setImage:[UIImage imageNamed:@"desc"] forState:UIControlStateNormal];
-    [[[[filterButton.layoutMaker topParent:4] rightParent:-15] sizeEq:24 h:24] install];
-    [filterButton onClick:self action:@selector(clickFilter:)];
+//    UIButton *filterButton = [panel addButton];
+//    [filterButton setImage:[UIImage imageNamed:@"desc"] forState:UIControlStateNormal];
+//    [[[[filterButton.layoutMaker topParent:4] rightParent:-15] sizeEq:24 h:24] install];
+//    [filterButton onClick:self action:@selector(clickFilter:)];
     UILabel *lineLabel=panel.lineLabel;
     [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
     return panel;

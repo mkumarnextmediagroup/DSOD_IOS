@@ -15,7 +15,6 @@
 #import "Proto.h"
 #import "Common.h"
 #import "SliderListViewController.h"
-#import "MyTabBarViewController.h"
 
 @interface AppDelegate ()
 
@@ -84,15 +83,6 @@
 }
 
 - (UIViewController *)careersPage {
-//    if ([self.window.rootViewController isKindOfClass:[IIViewDeckController class]]) {
-//        IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;
-//        if ([tc.centerViewController isKindOfClass:[MyTabBarViewController class]] ) {
-//            return tc.centerViewController;
-//        }else{
-//            return nil;
-//        }
-//    }
-//    return nil;
     if ([self.window.rootViewController isKindOfClass:[IIViewDeckController class]]) {
         IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;
         return tc.centerViewController;

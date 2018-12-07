@@ -99,6 +99,9 @@
 //    html = [html stringByReplacingOccurrencesOfString :@"<p>&nbsp;</p>" withString:@""];
 //    html = [html stringByReplacingOccurrencesOfString :@"</p>\r\n</p>" withString:@""];
     
+    if([html rangeOfString:@"</" ].location == NSNotFound){
+        html = [NSString stringWithFormat:@"<p>%@</p>",html];
+    }
     
     return [htmlString stringByAppendingString:html];
 }

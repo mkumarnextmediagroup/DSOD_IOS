@@ -1096,7 +1096,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
 
 -(void)checkJobsModifiedDateStatus:(NSString *)jobid modifiedDate:(NSString *)modifiedDate completed:(void(^)(BOOL result))completed{
     if ([NSDate compareDatetimeIn30:modifiedDate]) {
-        NSString *mdate=[NSDate USDateTimeLongFormatWithStringTimestamp:modifiedDate];
+        NSString *mdate=[NSDate UTCDateTimeLongFormatWithStringTimestamp:modifiedDate];
         //30天内，该工作职位是否更新了
         __block BOOL status=NO;
         dispatch_async(dispatch_get_global_queue(0, 0), ^{

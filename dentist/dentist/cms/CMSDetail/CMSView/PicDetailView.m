@@ -514,7 +514,7 @@ UITableViewDelegate,UITableViewDataSource>
             
             NSString *htmlString = videoHtmlString;
             htmlString = [htmlString substringWithRange:NSMakeRange(iframeStart.location,iframeEnd.location+iframeEnd.length - iframeStart.location)];
-            htmlString = [htmlString stringByReplacingOccurrencesOfString:@"src=\"//" withString:@"src=\"http://"];
+            htmlString = [htmlString stringByReplacingOccurrencesOfString:@"src=\"//" withString:@"src=\"https://"];
             htmlString = [NSString stringWithFormat:@"%@%@%@%@%@",
                   @"<style type=\"text/css\">",
                   @"body{padding:0px;margin:0px;background:#fff;font-family}",

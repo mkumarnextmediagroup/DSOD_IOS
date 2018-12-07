@@ -29,8 +29,9 @@
 #import "CmsSearchPage.h"
 #import "CmsCategoryPage.h"
 #import "MoreView.h"
+#import "DSOProfilePage.h"
 
-@interface SlideController()<UITabBarControllerDelegate,UITabBarDelegate>
+@interface SlideController()<UITabBarControllerDelegate,UITabBarDelegate,MoreViewDelegate>
 
 @end
 
@@ -306,7 +307,9 @@
     if ([VC isKindOfClass:[CareerMoreViewController class]]) {
         
         NSLog(@"CareerMoreViewController");
-        [[MoreView initSliderView] showFuntionBtn];
+        MoreView *moreview=[MoreView initSliderView];
+        moreview.delegate=self;
+        [moreview showFuntionBtn];
         return NO;
     }else{
         [[MoreView initSliderView] hideFuntionBtn];
@@ -318,6 +321,18 @@
 //        return YES;
 //    }
     
+}
+
+#pragma mark --------MoreViewDelegate
+-(void)moreActionClick:(NSInteger)index
+{
+    if (index==4) {
+        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+        DSOProfilePage *dso = [DSOProfilePage new];
+        [tabvc.selectedViewController pushViewController:dso animated:YES];
+        
+    }
 }
 
 @end

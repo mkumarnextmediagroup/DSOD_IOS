@@ -72,6 +72,7 @@ static dispatch_once_t onceToken;
     btn1.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
     btn1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     btn1.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
+    btn1.tag=1;
     
     btn2 = [[UIButton alloc] initWithFrame:btn1.frame];
     [btn2 setImage:[UIImage imageNamed:@"more-notification"] forState:UIControlStateNormal];
@@ -81,6 +82,7 @@ static dispatch_once_t onceToken;
     btn2.titleLabel.font = [UIFont systemFontOfSize:12];
     btn2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     btn2.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
+    btn2.tag=2;
     
     btn3 = [[UIButton alloc] initWithFrame:btn1.frame];
     [btn3 setImage:[UIImage imageNamed:@"more-reviews"] forState:UIControlStateNormal];
@@ -90,6 +92,7 @@ static dispatch_once_t onceToken;
     btn3.titleLabel.font = [UIFont systemFontOfSize:12];
     btn3.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     btn3.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
+    btn3.tag=3;
     
     btn4 = [[UIButton alloc] initWithFrame:btn1.frame];
     [btn4 setImage:[UIImage imageNamed:@"more-profiles"] forState:UIControlStateNormal];
@@ -99,6 +102,7 @@ static dispatch_once_t onceToken;
     btn4.titleLabel.font = [UIFont systemFontOfSize:12];
     btn4.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     btn4.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
+    btn4.tag=4;
     
     [self addSubview:btn2];
     [self addSubview:btn3];
@@ -186,9 +190,13 @@ static dispatch_once_t onceToken;
 }
 
 #pragma -mark -functions
-- (void)btnClick:(id)sender
+- (void)btnClick:(UIButton *)sender
 {
-    NSLog(@"morebuttonclick");
+    NSLog(@"morebuttonclick=%@",@(sender.tag));
+    if(self.delegate && [self.delegate respondsToSelector:@selector(moreActionClick:)]){
+        [self.delegate moreActionClick:sender.tag];
+    }
+    [self hideFuntionBtn];
 }
 
 /*

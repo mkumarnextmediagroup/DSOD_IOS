@@ -35,6 +35,7 @@
     
     BannerScrollView *bannerView;
     UIImageView *singleImageView;
+    UIWebView *vedioWebView;
     
     UIView *sectionHeaderView;
     
@@ -78,6 +79,7 @@
     
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
     contentView  = self.view.addView;
     [[[[[contentView.layoutMaker leftParent:0]rightParent:0] topParent:44]bottomParent:0] install];
     contentView.backgroundColor = UIColor.whiteColor;
@@ -166,26 +168,36 @@
 -(UIView*)buildHeader{
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, CGFLOAT_MIN)];
     
+    UIView *mediaView = headerView.addView;
+    [[[[[mediaView.layoutMaker leftParent:0]rightParent:0]topParent:0]sizeEq:SCREENWIDTH h:SCREENWIDTH/2]install];
+    
+    
     bannerView = [BannerScrollView new];
-    [headerView addSubview:bannerView];
-    [[[[[bannerView.layoutMaker leftParent:0]rightParent:0]topParent:0]sizeEq:SCREENWIDTH h:SCREENWIDTH/2]install];
+    [mediaView addSubview:bannerView];
+    [[[[[bannerView.layoutMaker leftParent:0]rightParent:0]topParent:0]sizeEq:SCREENWIDTH     h:SCREENWIDTH/2]install];
     
     
-    singleImageView= headerView.addImageView;
+    singleImageView= mediaView.addImageView;
     [singleImageView scaleFillAspect];
     singleImageView.clipsToBounds = YES;
-    [[[[[singleImageView.layoutMaker leftParent:0]rightParent:0]topParent:0]sizeEq:SCREENWIDTH h:SCREENWIDTH/2]install];
+    [[[[[singleImageView.layoutMaker leftParent:0]rightParent:0]topParent:    0]sizeEq:SCREENWIDTH h:SCREENWIDTH/2]install];
+    
+    
+    vedioWebView = [UIWebView new];
+    [mediaView addSubview:vedioWebView];
+    vedioWebView.scrollView.scrollEnabled = NO;
+    [[[[[vedioWebView.layoutMaker leftParent:0]rightParent:0]topParent:0]sizeEq:SCREENWIDTH     h:SCREENWIDTH/2]install];
     
     
     UIImageView *logoImageView = headerView.addImageView;
     [logoImageView scaleFillAspect];
     logoImageView.clipsToBounds = YES;
-    [[[[logoImageView.layoutMaker leftParent:edge]below:bannerView offset:10] sizeEq:60 h:60]install];
+    [[[[logoImageView.layoutMaker leftParent:edge]below:mediaView offset:10] sizeEq:60 h:60]install];
     
     UILabel *jobLabel = headerView.addLabel;
     jobLabel.font = [Fonts semiBold:16];
     jobLabel.textColor = Colors.textMain;
-    [[[[jobLabel.layoutMaker toRightOf:logoImageView offset:10]rightParent:-edge] below:bannerView offset:10]install] ;
+    [[[[jobLabel.layoutMaker toRightOf:logoImageView offset:10]rightParent:-edge] below:mediaView offset:10]install] ;
     
     UILabel *companyLabel = headerView.addLabel;
     companyLabel.font = [Fonts semiBold:14];
@@ -218,16 +230,25 @@
     [[[[[lastView.layoutMaker below:addressBtn offset:0]leftParent:0]rightParent:0]heightEq:10]install];
 
     
+    vedioWebView.hidden = YES;
+    bannerView.hidden = YES;
+    singleImageView.hidden = YES;
     if(jobModel.company.media){
         NSArray *urls = jobModel.company.media.companyPictureUrl;
+        NSArray *code = jobModel.company.media.code;
         if(jobModel.company.media.type == 1 && urls && urls.count > 0 ){
             if(urls.count>1){
+                bannerView.hidden = NO;
                 [bannerView addWithImageUrls:urls autoTimerInterval:3 clickBlock:^(NSInteger index) {
                     
                 }];
             }else{
+                singleImageView.hidden = NO;
                 [singleImageView loadUrl:urls[0] placeholderImage:nil];
             }
+        }else if(jobModel.company.media.type == 2 && code && code.count > 0) {
+            vedioWebView.hidden = NO;
+            [self showVideo:code[0]];
         }
     }
     
@@ -250,6 +271,29 @@
     
     
     return headerView;
+}
+
+
+-(void)showVideo:(NSString*)videoHtmlString{
+    if(videoHtmlString){
+        NSRange iframeStart = [videoHtmlString rangeOfString:@"<iframe"];
+        NSRange iframeEnd = [videoHtmlString rangeOfString:@"</iframe>"];
+        
+        if(iframeStart.location != NSNotFound && iframeEnd.location != NSNotFound){
+            
+            NSString *htmlString = videoHtmlString;
+            htmlString = [htmlString substringWithRange:NSMakeRange(iframeStart.location,iframeEnd.location+iframeEnd.length - iframeStart.location)];
+            htmlString = [htmlString stringByReplacingOccurrencesOfString:@"src=\"//" withString:@"src=\"https://"];
+            htmlString = [NSString stringWithFormat:@"%@%@%@%@%@",
+                          @"<style type=\"text/css\">",
+                          @"body{padding:0px;margin:0px;background:#fff;font-family}",
+                          @"iframe{border: 0 none;}",
+                          @"</style>",
+                          htmlString
+                          ];
+            [vedioWebView loadHTMLString:htmlString baseURL:nil];
+        }
+    }
 }
 
 

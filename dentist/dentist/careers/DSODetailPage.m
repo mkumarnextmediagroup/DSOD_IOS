@@ -321,10 +321,10 @@
         jobCountTitle.font=[Fonts semiBold:13];
         [[[[[jobCountTitle.layoutMaker leftParent:20] topParent:0] bottomParent:0] rightParent:40] install];
         
-        UIButton *filterButton = [filterView addButton];
-        [filterButton setImage:[UIImage imageNamed:@"desc"] forState:UIControlStateNormal];
-        [[[[filterButton.layoutMaker topParent:4] rightParent:-15] sizeEq:24 h:24] install];
-        [filterButton onClick:self action:@selector(clickFilter:)];
+//        UIButton *filterButton = [filterView addButton];
+//        [filterButton setImage:[UIImage imageNamed:@"desc"] forState:UIControlStateNormal];
+//        [[[[filterButton.layoutMaker topParent:4] rightParent:-15] sizeEq:24 h:24] install];
+//        [filterButton onClick:self action:@selector(clickFilter:)];
         UILabel *lineLabel=filterView.lineLabel;
         [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
     }

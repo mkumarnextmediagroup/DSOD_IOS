@@ -9,7 +9,7 @@
 #import "DSOProfilePage.h"
 #import "Common.h"
 #import "DSOProfileTableViewCell.h"
-#import "DSODetailPage.h"
+#import "CompanyDetailViewController.h"
 #import "Proto.h"
 #import "CompanyModel.h"
 #import "CareerSearchViewController.h"
@@ -94,10 +94,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-//    DSOProfilePage *dso = [DSOProfilePage new];
-    
-    [DSODetailPage openBy:viewController companyId:infoArr[indexPath.row].companyId];
-//    [DSODetailPage openBy:self companyId:@"5bea77e49a08064eec5c328a"];
+    [CompanyDetailViewController openBy:viewController companyId:infoArr[indexPath.row].companyId];
 }
 
 - (void)onBack:(UIButton *)btn {

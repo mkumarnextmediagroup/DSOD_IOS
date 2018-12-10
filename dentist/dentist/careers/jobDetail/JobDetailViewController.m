@@ -272,22 +272,16 @@
     
     
     [logoImageView loadUrl:jobModel.dso.companyLogoUrl placeholderImage:nil];
-    
     jobLabel.text = [NSString stringWithFormat:@"%@ - %@",jobModel.jobTitle,jobModel.location];
     companyLabel.text = jobModel.company;
-    
-    NSInteger startsalary=ceilf(jobModel.salaryStartingValue/1000.0);
-    NSInteger endsalary=ceilf(jobModel.salaryEndValue/1000.0);
-    salaryLabel.text=[NSString stringWithFormat:@"Est. Salary: $%@k-$%@k",@(startsalary),@(endsalary)];
-    [addressBtn setTitle:jobModel.address forState:UIControlStateNormal];
+    salaryLabel.text= jobModel.salaryRange;
+    [addressBtn setTitle:jobModel.address1 forState:UIControlStateNormal];
     
     
     
     
     [headerView.layoutUpdate.bottom.equalTo(lastView.mas_bottom) install];
     [headerView layoutIfNeeded];
-    
-    
     return headerView;
 }
 

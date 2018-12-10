@@ -16,6 +16,11 @@
 		18106AAD218ACC0D00EEE2DC /* FilterIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AAA218ACC0C00EEE2DC /* FilterIssues.png */; };
 		18106AB1218AF0CE00EEE2DC /* YHPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */; };
 		1812397521927F3E0075A6B0 /* author_dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1812397421927F3E0075A6B0 /* author_dsodentist.png */; };
+		1829C52D21BCC961009A8732 /* JobDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52C21BCC961009A8732 /* JobDetailViewController.m */; };
+		1829C53021BCC9B9009A8732 /* JobDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52F21BCC9B9009A8732 /* JobDetailDescriptionViewController.m */; };
+		1829C53321BCC9D2009A8732 /* JobDetailCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C53221BCC9D2009A8732 /* JobDetailCompanyViewController.m */; };
+		1829C53621BCC9E7009A8732 /* JobDetailReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C53521BCC9E7009A8732 /* JobDetailReviewsViewController.m */; };
+		1829C53921BCE224009A8732 /* NSString+htmlStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C53821BCE224009A8732 /* NSString+htmlStyle.m */; };
 		182A11792199593C00C0E08D /* NSDate+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A11782199593C00C0E08D /* NSDate+customed.m */; };
 		182A1183219BF5D100C0E08D /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A1182219BF5D000C0E08D /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		182A1185219BF61F00C0E08D /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A1184219BF61F00C0E08D /* libxml2.tbd */; };
@@ -867,6 +872,16 @@
 		18106AAF218AF0CE00EEE2DC /* YHPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHPopMenuView.h; sourceTree = "<group>"; };
 		18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHPopMenuView.m; sourceTree = "<group>"; };
 		1812397421927F3E0075A6B0 /* author_dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = author_dsodentist.png; sourceTree = "<group>"; };
+		1829C52B21BCC961009A8732 /* JobDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailViewController.h; sourceTree = "<group>"; };
+		1829C52C21BCC961009A8732 /* JobDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailViewController.m; sourceTree = "<group>"; };
+		1829C52E21BCC9B9009A8732 /* JobDetailDescriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailDescriptionViewController.h; sourceTree = "<group>"; };
+		1829C52F21BCC9B9009A8732 /* JobDetailDescriptionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailDescriptionViewController.m; sourceTree = "<group>"; };
+		1829C53121BCC9D2009A8732 /* JobDetailCompanyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailCompanyViewController.h; sourceTree = "<group>"; };
+		1829C53221BCC9D2009A8732 /* JobDetailCompanyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailCompanyViewController.m; sourceTree = "<group>"; };
+		1829C53421BCC9E7009A8732 /* JobDetailReviewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailReviewsViewController.h; sourceTree = "<group>"; };
+		1829C53521BCC9E7009A8732 /* JobDetailReviewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailReviewsViewController.m; sourceTree = "<group>"; };
+		1829C53721BCE224009A8732 /* NSString+htmlStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+htmlStyle.h"; sourceTree = "<group>"; };
+		1829C53821BCE224009A8732 /* NSString+htmlStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+htmlStyle.m"; sourceTree = "<group>"; };
 		182A11772199593C00C0E08D /* NSDate+customed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+customed.h"; sourceTree = "<group>"; };
 		182A11782199593C00C0E08D /* NSDate+customed.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+customed.m"; sourceTree = "<group>"; };
 		182A1181219BF5D000C0E08D /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
@@ -2049,6 +2064,21 @@
 				18A23FDC21BBE40F006CB432 /* AllowMultiGestureTableView.m */,
 			);
 			path = companyDetail;
+			sourceTree = "<group>";
+		};
+		18A23FE121BBF87B006CB432 /* jobDetail */ = {
+			isa = PBXGroup;
+			children = (
+				1829C52B21BCC961009A8732 /* JobDetailViewController.h */,
+				1829C52C21BCC961009A8732 /* JobDetailViewController.m */,
+				1829C52E21BCC9B9009A8732 /* JobDetailDescriptionViewController.h */,
+				1829C52F21BCC9B9009A8732 /* JobDetailDescriptionViewController.m */,
+				1829C53121BCC9D2009A8732 /* JobDetailCompanyViewController.h */,
+				1829C53221BCC9D2009A8732 /* JobDetailCompanyViewController.m */,
+				1829C53421BCC9E7009A8732 /* JobDetailReviewsViewController.h */,
+				1829C53521BCC9E7009A8732 /* JobDetailReviewsViewController.m */,
+			);
+			path = jobDetail;
 			sourceTree = "<group>";
 		};
 		18ABEAB7219560AC00BF3E60 /* font */ = {
@@ -3434,6 +3464,7 @@
 		C5EEA1D629EAF158031F3B00 /* careers */ = {
 			isa = PBXGroup;
 			children = (
+				18A23FE121BBF87B006CB432 /* jobDetail */,
 				18A23FC521BB8C4B006CB432 /* companyDetail */,
 				A3BA6DD221AEA36100D83156 /* model */,
 				4E94ADD021AD3DAD009CAB7F /* View */,
@@ -3591,6 +3622,8 @@
 				A39B9AC621AD8AE5001CED72 /* BookmarkManager.m */,
 				A3BA6E0B21B1511F00D83156 /* LargeUIButton.h */,
 				A3BA6E0C21B1511F00D83156 /* LargeUIButton.m */,
+				1829C53721BCE224009A8732 /* NSString+htmlStyle.h */,
+				1829C53821BCE224009A8732 /* NSString+htmlStyle.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -4658,6 +4691,7 @@
 				4E23522D213D12CB003BA59B /* UpdateTableViewCell.m in Sources */,
 				184E105D21A2B6FC00B21620 /* PreviewResumeViewController.m in Sources */,
 				C5EEA2763E400C04C2570656 /* Http.m in Sources */,
+				1829C52D21BCC961009A8732 /* JobDetailViewController.m in Sources */,
 				4E33ACD6218B002500E4CF7E /* UniteContent.m in Sources */,
 				C5EEA409953B93D9D6261C83 /* Async.m in Sources */,
 				C5EEA2F9830CC5E8FD47394F /* HttpResult.m in Sources */,
@@ -4698,6 +4732,7 @@
 				C5EEACBF759E368D6653D927 /* QueueLayout.m in Sources */,
 				C5EEA2B94B1448427D266481 /* QueueLayoutItem.m in Sources */,
 				C5EEAB5B6FF45C046B7CF9E6 /* IconLabelView.m in Sources */,
+				1829C53021BCC9B9009A8732 /* JobDetailDescriptionViewController.m in Sources */,
 				4E94ADCC21ACE91B009CAB7F /* CareerMoreViewController.m in Sources */,
 				A99177072176E4CD00788D2C /* BaseModel.m in Sources */,
 				E11E1895C8DEDD3F910A9E71 /* SettingController.m in Sources */,
@@ -4747,7 +4782,9 @@
 				18B83B122173557D00130DB6 /* YBIBPhotoAlbumManager.m in Sources */,
 				C5EEAB669DB328611B63F777 /* TitleEditView.m in Sources */,
 				18A0DBA821B235770065B2BD /* DescriptionOfDSODetailTableViewCell.m in Sources */,
+				1829C53321BCC9D2009A8732 /* JobDetailCompanyViewController.m in Sources */,
 				4E923D6C2153761E00779268 /* BookMarkItemView.m in Sources */,
+				1829C53921BCE224009A8732 /* NSString+htmlStyle.m in Sources */,
 				18B83B0B2173557D00130DB6 /* YBImageBrowserToolBar.m in Sources */,
 				C5EEAC42C838DDD8928A5017 /* IconTitleMsgDetailCell.m in Sources */,
 				C5EEA6D4E3D99C517A1F11F1 /* EditUserView.m in Sources */,
@@ -4784,6 +4821,7 @@
 				188FEC8A2175BDCA00EE32F3 /* BannerScrollView.m in Sources */,
 				18106AB1218AF0CE00EEE2DC /* YHPopMenuView.m in Sources */,
 				C5EEAF4D7420DCA0CCBD9D37 /* EventsPage.m in Sources */,
+				1829C53621BCC9E7009A8732 /* JobDetailReviewsViewController.m in Sources */,
 				C5EEACBCD8E0C648F24C3CBD /* UnitePage.m in Sources */,
 				A3DF39A32189A280006F84DC /* SubviewsForEach.swift in Sources */,
 				C5EEA3F0CF05284FD745DF70 /* CareerExplorePage.m in Sources */,

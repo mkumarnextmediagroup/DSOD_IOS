@@ -28,8 +28,8 @@
 
 @property (nonatomic,strong) UIView* tableContentView;
 @property (nonatomic) BOOL isCanScroll;
-@property (nonatomic,strong) CompanyDetailJobsViewController *jobsVC;
 @property (nonatomic,strong) CompanyDetailDescriptionViewController *descriptionVC;
+@property (nonatomic,strong) CompanyDetailJobsViewController *jobsVC;
 @property (nonatomic,strong) CompanyDetailReviewsViewController *reviewsVC;
 
 
@@ -79,7 +79,6 @@
     [self addNavBar];
     
     [self setupTableContentVC];
-    
     
     
     [self showLoading];
@@ -253,10 +252,7 @@
     self.descriptionVC = [CompanyDetailDescriptionViewController new];
     self.jobsVC = [CompanyDetailJobsViewController new];
     self.reviewsVC = [CompanyDetailReviewsViewController new];
-    
-    [self addChildViewController:self.descriptionVC];
-    [self addChildViewController:self.jobsVC];
-    [self addChildViewController:self.reviewsVC];
+
     
     WeakSelf;
     self.descriptionVC.noScrollAction = ^{
@@ -287,6 +283,8 @@
 -(UIView*)tableContentView{
     if(!_tableContentView){
         _tableContentView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT - NAVHEIGHT - 50)];
+        
+        
         
         self.descriptionVC.view.frame = _tableContentView.frame;
         [self.descriptionVC setData:companyModel.companyDesc];
@@ -368,6 +366,10 @@
     UITableViewCell *cell = [UITableViewCell new];
     [cell.contentView addSubview:self.tableContentView];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

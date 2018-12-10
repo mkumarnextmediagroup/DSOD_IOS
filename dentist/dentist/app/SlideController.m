@@ -339,8 +339,13 @@
     if (index==4) {
         AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
-        DSOProfilePage *dso = [DSOProfilePage new];
-        [tabvc.selectedViewController pushViewController:dso animated:YES];
+        UINavigationController *nav = (UINavigationController *)tabvc.selectedViewController;
+        UIViewController *VC =nav.topViewController;
+        if (![VC isKindOfClass:[DSOProfilePage class]]) {
+            DSOProfilePage *dso = [DSOProfilePage new];
+            [nav pushViewController:dso animated:YES];
+        }
+        
         
     }
 }

@@ -186,7 +186,7 @@
 {
     if (self->infoArr && self->infoArr.count>indexPath.row) {
         JobModel *model=self->infoArr[indexPath.row];
-        if (model.companyType>1) {
+        if (model.paid) {
             FindJobsSponsorTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class]) forIndexPath:indexPath];
             cell.delegate=self;
             cell.indexPath=indexPath;

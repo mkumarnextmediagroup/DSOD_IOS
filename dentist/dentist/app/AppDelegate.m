@@ -117,7 +117,7 @@
 			NSFontAttributeName: [Fonts regular:10]
 	}                                        forState:UIControlStateNormal];
 	[[UITabBarItem appearance] setTitleTextAttributes:@{
-			NSForegroundColorAttributeName: Colors.textMain, NSFontAttributeName: [Fonts regular:10]
+			NSForegroundColorAttributeName: Colors.textDisabled, NSFontAttributeName: [Fonts regular:10]
 	}                                        forState:UIControlStateSelected];
 
 	[[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];

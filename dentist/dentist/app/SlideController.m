@@ -319,7 +319,7 @@
             if (item.tag==4) {
                 [item setImage:[[UIImage imageNamed:@"more-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
                 [item setTitleTextAttributes:@{
-                                               NSForegroundColorAttributeName: Colors.textMain, NSFontAttributeName: [Fonts regular:10]
+                                               NSForegroundColorAttributeName: Colors.textDisabled, NSFontAttributeName: [Fonts regular:10]
                                                }                                        forState:UIControlStateNormal];
             }else{
                 [item setTitleTextAttributes:@{
@@ -403,7 +403,7 @@
                                            NSFontAttributeName: [Fonts regular:10]
                                            }                                        forState:UIControlStateNormal];
             [item setTitleTextAttributes:@{
-                                           NSForegroundColorAttributeName: Colors.textMain, NSFontAttributeName: [Fonts regular:10]
+                                           NSForegroundColorAttributeName: Colors.textDisabled, NSFontAttributeName: [Fonts regular:10]
                                            }                                        forState:UIControlStateSelected];
         }
         if (item.tag==index && index==0) {

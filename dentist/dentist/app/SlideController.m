@@ -318,6 +318,18 @@
             NSLog(@"item.tag=%@",@(item.tag));
             if (item.tag==4) {
                 [item setImage:[[UIImage imageNamed:@"more-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                [item setTitleTextAttributes:@{
+                                               NSForegroundColorAttributeName: Colors.textMain, NSFontAttributeName: [Fonts regular:10]
+                                               }                                        forState:UIControlStateNormal];
+            }else{
+                [item setTitleTextAttributes:@{
+                                               NSForegroundColorAttributeName: Colors.textAlternate,
+                                               NSFontAttributeName: [Fonts regular:10]
+                                               }                                        forState:UIControlStateNormal];
+                [item setTitleTextAttributes:@{
+                                               NSForegroundColorAttributeName: Colors.textAlternate,
+                                               NSFontAttributeName: [Fonts regular:10]
+                                               }                                        forState:UIControlStateSelected];
             }
             if (item.tag==selectindex && selectindex==0) {
                 [item setImage:[[UIImage imageNamed:@"explore"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
@@ -345,6 +357,10 @@
             NSLog(@"item.tag=%@",@(item.tag));
             if (item.tag==4) {
                 [item setImage:[[UIImage imageNamed:@"more"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                [item setTitleTextAttributes:@{
+                                                                    NSForegroundColorAttributeName: Colors.textAlternate,
+                                                                    NSFontAttributeName: [Fonts regular:10]
+                                                                    }                                        forState:UIControlStateNormal];
             }
         }
         [[MoreView initSliderView] hideFuntionBtn];
@@ -377,10 +393,23 @@
         NSLog(@"item.tag=%@",@(item.tag));
         if (item.tag==4) {
             [item setImage:[[UIImage imageNamed:@"more"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            [item setTitleTextAttributes:@{
+                                           NSForegroundColorAttributeName: Colors.textAlternate,
+                                           NSFontAttributeName: [Fonts regular:10]
+                                           }                                        forState:UIControlStateNormal];
+        }else{
+            [item setTitleTextAttributes:@{
+                                           NSForegroundColorAttributeName: Colors.textAlternate,
+                                           NSFontAttributeName: [Fonts regular:10]
+                                           }                                        forState:UIControlStateNormal];
+            [item setTitleTextAttributes:@{
+                                           NSForegroundColorAttributeName: Colors.textMain, NSFontAttributeName: [Fonts regular:10]
+                                           }                                        forState:UIControlStateSelected];
         }
         if (item.tag==index && index==0) {
             [item setImage:[[UIImage imageNamed:@"explore"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
             [item setSelectedImage:[[UIImage imageNamed:@"explore-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            
         }else if(item.tag==index && index==1){
             [item setImage:[[UIImage imageNamed:@"findJob"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
             [item setSelectedImage:[[UIImage imageNamed:@"findJob-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];

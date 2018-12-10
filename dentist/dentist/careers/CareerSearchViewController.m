@@ -17,9 +17,10 @@
 #import "AppDelegate.h"
 #import "UITableView+JRTableViewPlaceHolder.h"
 #import "CDZPicker.h"
+#import <CoreLocation/CoreLocation.h>
 
 #define edge 12
-@interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITextFieldDelegate>
+@interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITextFieldDelegate,CLLocationManagerDelegate>
 {
     NSMutableArray *infoArr;
     UITableView *myTable;
@@ -31,6 +32,7 @@
     
     UITextField *locationField;
     UITextField *milesField;
+    CLLocationManager *locationmanager;
 }
 /*** searchbar ***/
 @property (nonatomic,strong) UISearchBar *searchBar;
@@ -84,6 +86,7 @@
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT+50] install];
     [self createEmptyNotice];
     [self createLocation];
+    [self getCurrentLocation];//get the location
 }
 
 - (void)searchBtnClick
@@ -247,9 +250,13 @@
     locationField.textColor = [UIColor grayColor];
     locationField.delegate = self;
     locationField.font = [UIFont systemFontOfSize:14];
-    locationField.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location_filled"]];
+    UIButton *locationBtn = [UIButton new];
+    locationBtn.frame = CGRectMake(0, 0, edge*2, 35);
+    [locationBtn addTarget:self action:@selector(getCurrentLocation) forControlEvents:UIControlEventTouchUpInside];
+    [locationBtn setImage:[UIImage imageNamed:@"location_filled"] forState:UIControlStateNormal];
+    locationField.leftView = locationBtn;
     locationField.leftViewMode = UITextFieldViewModeAlways;
-    [[[[locationField.layoutMaker leftParent:edge] sizeEq:200 h:35] topParent:0] install];
+    [[[[locationField.layoutMaker leftParent:0] sizeEq:200 h:35] topParent:0] install];
     
     UILabel *lineLab = locationVi.addLabel;
     lineLab.backgroundColor = rgb255(246, 245, 245);
@@ -282,6 +289,22 @@
     }
 }
 
+- (void)getCurrentLocation
+{
+    //判断定位功能是否打开
+    if ([CLLocationManager locationServicesEnabled]) {
+        locationmanager = [[CLLocationManager alloc]init];
+        locationmanager.delegate = self;
+        [locationmanager requestAlwaysAuthorization];
+        [locationmanager requestWhenInUseAuthorization];
+        
+        //设置寻址精度
+        locationmanager.desiredAccuracy = kCLLocationAccuracyBest;
+        locationmanager.distanceFilter = 5.0;
+        [locationmanager startUpdatingLocation];
+    }
+}
+
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -298,6 +321,52 @@
     {
         return YES;
     }
+}
+
+#pragma mark CLLoactionDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    [locationmanager stopUpdatingHeading];
+    //旧址
+    CLLocation *currentLocation = [locations lastObject];
+    CLGeocoder *geoCoder = [[CLGeocoder alloc]init];
+    //打印当前的经度与纬度
+    NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
+//    NSString *latitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
+//    NSString *longitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
+//    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:latitude,@"latitude",longitude,@"longitude", nil];
+//    [infoDic addEntriesFromDictionary:dic];
+    //反地理编码
+    [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (placemarks.count > 0) {
+            CLPlacemark *placeMark = placemarks[0];
+            NSString *currentCity = placeMark.locality;
+            if (!currentCity) {
+                currentCity = @"无法定位当前城市";
+            }
+            
+            /*看需求定义一个全局变量来接收赋值*/
+            NSLog(@"----%@",placeMark.country);//当前国家
+            NSLog(@"%@",currentCity);//当前的城市
+            self->locationField.text = currentCity;
+            
+        }
+    }];
+    
+}
+
+//定位失败后调用此代理方法
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    //设置提示提醒用户打开定位服务
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"允许定位提示" message:@"请在设置中打开定位" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:nil];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:okAction];
+    [alert addAction:cancelAction];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 
 @end

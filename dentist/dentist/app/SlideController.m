@@ -304,16 +304,12 @@
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     NSLog(@"shouldSelectViewController:tabBarController.tabBar.selectedItem.tag=%@",@(tabBarController.tabBar.selectedItem.tag));
     NSInteger selectindex=0;
-    UINavigationController *selectnav = (UINavigationController *)tabBarController.selectedViewController;
-    UIViewController *selectVC =selectnav.topViewController;
-    if ([selectVC isKindOfClass:[CareerExplorePage class]]) {
-        selectindex=0;
-    }else if([selectVC isKindOfClass:[CareerFindJobViewController class]]){
-        selectindex=1;
-    }else if([selectVC isKindOfClass:[CareerMyJobViewController class]]){
-        selectindex=2;
-    }else if([selectVC isKindOfClass:[CareerAlertsViewController class]]){
-        selectindex=3;
+    for (int i=0; i<tabBarController.viewControllers.count; i++) {
+        UIViewController *vc=tabBarController.viewControllers[i];
+        if ([vc isEqual:tabBarController.selectedViewController]) {
+            NSLog(@"selectindex=%@",@(i));
+            selectindex=i;
+        }
     }
     UINavigationController *nav = (UINavigationController *)viewController;
     UIViewController *VC =nav.topViewController;
@@ -338,8 +334,6 @@
             }
             
         }
-//        [tabBarController.tabBar.selectedItem setImage:[[UIImage imageNamed:@"more-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-//        tabBarController.selectedIndex = 4;
         NSLog(@"CareerMoreViewController");
         MoreView *moreview=[MoreView initSliderView];
         moreview.selectIndex=selectindex;

@@ -36,14 +36,13 @@
     edge = 18;
     
     mywebView = [UIWebView new];
-    mywebView.delegate = self;
     mywebView.scrollView.delegate = self;
     mywebView.scrollView.scrollEnabled = YES;
     mywebView.userInteractionEnabled = YES;
     mywebView.backgroundColor=[UIColor clearColor];
     mywebView.scrollView.contentInset = [self edgeInsetsMake];
     [self.view addSubview:mywebView];
-    [[[[[[mywebView.layoutMaker leftParent:0]rightParent:0] topParent:0]bottomParent:0] heightEq:1] install];
+    [[[[[mywebView.layoutMaker leftParent:0]rightParent:0] topParent:0]bottomParent:0] install];
     
 }
 
@@ -61,14 +60,6 @@
 -(void)showContent:(NSString*)html{
     [mywebView loadHTMLString:[NSString career_DescriptionHtml:html] baseURL:nil];
 }
-
-
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
-    [[webView.layoutUpdate heightEq:webViewHeight] install];
-}
-
 
 
 #pragma mark - 滑动方法

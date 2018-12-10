@@ -261,13 +261,13 @@
     
     [logoImageView loadUrl:jobModel.dso.companyLogoUrl placeholderImage:nil];
     
-    jobLabel.text = [NSString stringWithFormat:@"%@ - %@",jobModel.jobTitle,jobModel.location];
-    companyLabel.text = jobModel.company;
-    
-    NSInteger startsalary=ceilf(jobModel.salaryStartingValue/1000.0);
-    NSInteger endsalary=ceilf(jobModel.salaryEndValue/1000.0);
-    salaryLabel.text=[NSString stringWithFormat:@"Est. Salary: $%@k-$%@k",@(startsalary),@(endsalary)];
-    [addressBtn setTitle:jobModel.address forState:UIControlStateNormal];
+//    jobLabel.text = [NSString stringWithFormat:@"%@ - %@",jobModel.jobTitle,jobModel.location];
+//    companyLabel.text = jobModel.company;
+//
+//    NSInteger startsalary=ceilf(jobModel.salaryStartingValue/1000.0);
+//    NSInteger endsalary=ceilf(jobModel.salaryEndValue/1000.0);
+//    salaryLabel.text=[NSString stringWithFormat:@"Est. Salary: $%@k-$%@k",@(startsalary),@(endsalary)];
+//    [addressBtn setTitle:jobModel.address1 forState:UIControlStateNormal];
     
     
 
@@ -355,15 +355,15 @@
     currTabIndex = (int)index;
     [tableView reloadData];
     
-    if(commentArray && currTabIndex == 2){
-        [self showLoading];
-        [Proto findCommentByCompanyId:jobModel.companyId sort:0 star:0 skip:0 limit:2 completed:^(CompanyCommentModel * _Nullable companyCommentModel) {
-            [self hideLoading];
-            self->companyCommentModel = companyCommentModel;
-            self->commentArray = companyCommentModel.reviews;
-            [self->tableView reloadData];
-        }];
-    }
+//    if(commentArray && currTabIndex == 2){
+//        [self showLoading];
+//        [Proto findCommentByCompanyId:jobModel.companyId sort:0 star:0 skip:0 limit:2 completed:^(CompanyCommentModel * _Nullable companyCommentModel) {
+//            [self hideLoading];
+//            self->companyCommentModel = companyCommentModel;
+//            self->commentArray = companyCommentModel.reviews;
+//            [self->tableView reloadData];
+//        }];
+//    }
 }
 
 

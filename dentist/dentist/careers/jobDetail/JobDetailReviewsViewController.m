@@ -26,7 +26,7 @@
     [super viewDidLoad];
     
 //    [self showLoading];
-//    [Proto findCommentByCompanyId:jobModel.companyId sort:0 star:0 skip:0 limit:2 completed:^(CompanyCommentModel * _Nullable companyCommentModel) {
+//    [Proto findCommentByCompanyId:jobModel.dosId sort:0 star:0 skip:0 limit:2 completed:^(CompanyCommentModel * _Nullable companyCommentModel) {
 //        [self hideLoading];
 //        self->companyCommentModel = companyCommentModel;
 //        self->commentArray = companyCommentModel.reviews;

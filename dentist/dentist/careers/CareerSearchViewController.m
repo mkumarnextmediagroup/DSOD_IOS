@@ -13,11 +13,12 @@
 #import "DSODetailPage.h"
 #import "UIViewController+myextend.h"
 #import "DsoToast.h"
-#import "CareerJobDetailViewController.h"
+#import "JobDetailViewController.h"
 #import "AppDelegate.h"
 #import "UITableView+JRTableViewPlaceHolder.h"
 #import "CDZPicker.h"
 #import <CoreLocation/CoreLocation.h>
+
 
 #define edge 12
 @interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITextFieldDelegate,CLLocationManagerDelegate>
@@ -155,7 +156,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     JobModel *jobModel = infoArr[indexPath.row];
-    [CareerJobDetailViewController presentBy:self jobId:jobModel.id closeBack:^{
+    [JobDetailViewController presentBy:self jobId:jobModel.id closeBack:^{
         foreTask(^{
             if (self->myTable) {
                 [self->myTable reloadData];

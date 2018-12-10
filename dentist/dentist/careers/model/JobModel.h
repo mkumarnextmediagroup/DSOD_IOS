@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*jobDescription;
 @property NSInteger salaryStartingValue;
 @property NSInteger salaryEndValue;
-@property NSString <Optional>*salaryRange;
 //@property NSInteger experienceStartingValue;
 //@property NSInteger experienceEndValue;
 //@property NSString <Optional>*experienceRange;
@@ -29,19 +28,23 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*publishOn;
 @property NSString <Optional>*publishEnd;
 @property NSString <Optional>*createDate;
-@property NSString <Optional>*companyId;
+@property NSString <Optional>*dsoId;
 @property NSString <Optional>*company;
 @property CompanyModel <Optional>*dso;
 @property NSString <Optional>*isAttention;
-@property NSString <Optional>*location;
 @property JobPosition <Optional>*position;
 @property NSString <Optional>*isApplication;
-@property NSString <Optional>*address;
+@property NSString <Optional>*address1;
 @property NSInteger companyType;
 @property BOOL paid;
 @property NSString <Optional>*city;
 @property NSString <Optional>*state;
 @property NSString <Optional>*zipCode;
+
+
+//local property
+@property (nonatomic,strong) NSString <Optional>*location;
+@property (nonatomic,strong) NSString <Optional>*salaryRange;
 
 @end
 

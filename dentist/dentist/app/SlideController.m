@@ -306,16 +306,7 @@
     UINavigationController *nav = (UINavigationController *)viewController;
     UIViewController *VC =nav.topViewController;
     if ([VC isKindOfClass:[CareerMoreViewController class]]) {
-//        [VC tabItem:@"More" imageName:@"more-light" tag:4];
-//        for (UITabBarItem *item in tabBarController.tabBar.items) {
-//            NSLog(@"item.tag=%@",@(item.tag));
-//            if (item.tag==4) {
-//                [item setImage:[UIImage imageNamed:@"more"]];
-//                [item setSelectedImage:[UIImage imageNamed:@"more-light"]];
-//            }
-//        }
-//        [tabBarController.tabBar.selectedItem setImage:[UIImage imageNamed:@"more-light"]];
-//        VC.tabBarItem=[[UITabBarItem alloc] initWithTitle:@"More" image:[UIImage imageNamed:@"more-light"] tag:101];
+        tabBarController.selectedIndex = 4;
         NSLog(@"CareerMoreViewController");
         MoreView *moreview=[MoreView initSliderView];
         moreview.delegate=self;
@@ -325,12 +316,6 @@
         [[MoreView initSliderView] hideFuntionBtn];
         return YES;
     }
-//    if (tabBarController.tabBar.selectedItem.tag==4) {
-//        return NO;
-//    }else{
-//        return YES;
-//    }
-    
 }
 
 #pragma mark --------MoreViewDelegate

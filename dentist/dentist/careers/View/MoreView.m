@@ -123,6 +123,9 @@ static dispatch_once_t onceToken;
         [UIView animateWithDuration:.3 animations:^{
             self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
         } completion:^(BOOL finished) {
+            if(self.delegate && [self.delegate respondsToSelector:@selector(moreViewClose:)]){
+                [self.delegate moreViewClose:self.selectIndex];
+            }
             [self removeFromSuperview];
             [MoreView attemptDealloc];
         }];
@@ -184,6 +187,9 @@ static dispatch_once_t onceToken;
     [UIView animateWithDuration:.3 animations:^{
         self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
     } completion:^(BOOL finished) {
+        if(self.delegate && [self.delegate respondsToSelector:@selector(moreViewClose:)]){
+            [self.delegate moreViewClose:self.selectIndex];
+        }
         [self removeFromSuperview];
         [MoreView attemptDealloc];
     }];

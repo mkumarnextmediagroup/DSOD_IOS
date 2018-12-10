@@ -303,16 +303,56 @@
 //判断是否跳转
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     NSLog(@"shouldSelectViewController:tabBarController.tabBar.selectedItem.tag=%@",@(tabBarController.tabBar.selectedItem.tag));
+    NSInteger selectindex=0;
+    UINavigationController *selectnav = (UINavigationController *)tabBarController.selectedViewController;
+    UIViewController *selectVC =selectnav.topViewController;
+    if ([selectVC isKindOfClass:[CareerExplorePage class]]) {
+        selectindex=0;
+    }else if([selectVC isKindOfClass:[CareerFindJobViewController class]]){
+        selectindex=1;
+    }else if([selectVC isKindOfClass:[CareerMyJobViewController class]]){
+        selectindex=2;
+    }else if([selectVC isKindOfClass:[CareerAlertsViewController class]]){
+        selectindex=3;
+    }
     UINavigationController *nav = (UINavigationController *)viewController;
     UIViewController *VC =nav.topViewController;
     if ([VC isKindOfClass:[CareerMoreViewController class]]) {
-        tabBarController.selectedIndex = 4;
+        for (UITabBarItem *item in tabBarController.tabBar.items) {
+            NSLog(@"item.tag=%@",@(item.tag));
+            if (item.tag==4) {
+                [item setImage:[[UIImage imageNamed:@"more-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            }
+            if (item.tag==selectindex && selectindex==0) {
+                [item setImage:[[UIImage imageNamed:@"explore"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                [item setSelectedImage:[[UIImage imageNamed:@"explore"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            }else if(item.tag==selectindex && selectindex==1){
+                [item setImage:[[UIImage imageNamed:@"findJob"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                [item setSelectedImage:[[UIImage imageNamed:@"findJob"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            }else if(item.tag==selectindex && selectindex==2){
+                [item setImage:[[UIImage imageNamed:@"myJobs"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                [item setSelectedImage:[[UIImage imageNamed:@"myJobs"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            }else if(item.tag==selectindex && selectindex==3){
+                [item setImage:[[UIImage imageNamed:@"alert"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                [item setSelectedImage:[[UIImage imageNamed:@"alert"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            }
+            
+        }
+//        [tabBarController.tabBar.selectedItem setImage:[[UIImage imageNamed:@"more-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+//        tabBarController.selectedIndex = 4;
         NSLog(@"CareerMoreViewController");
         MoreView *moreview=[MoreView initSliderView];
+        moreview.selectIndex=selectindex;
         moreview.delegate=self;
         [moreview showFuntionBtn];
         return NO;
     }else{
+        for (UITabBarItem *item in tabBarController.tabBar.items) {
+            NSLog(@"item.tag=%@",@(item.tag));
+            if (item.tag==4) {
+                [item setImage:[[UIImage imageNamed:@"more"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            }
+        }
         [[MoreView initSliderView] hideFuntionBtn];
         return YES;
     }
@@ -332,6 +372,32 @@
         }
         
         
+    }
+}
+
+- (void)moreViewClose:(NSInteger)index
+{
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+    for (UITabBarItem *item in tabvc.tabBar.items) {
+        NSLog(@"item.tag=%@",@(item.tag));
+        if (item.tag==4) {
+            [item setImage:[[UIImage imageNamed:@"more"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        }
+        if (item.tag==index && index==0) {
+            [item setImage:[[UIImage imageNamed:@"explore"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            [item setSelectedImage:[[UIImage imageNamed:@"explore-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        }else if(item.tag==index && index==1){
+            [item setImage:[[UIImage imageNamed:@"findJob"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            [item setSelectedImage:[[UIImage imageNamed:@"findJob-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        }else if(item.tag==index && index==2){
+            [item setImage:[[UIImage imageNamed:@"myJobs"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            [item setSelectedImage:[[UIImage imageNamed:@"myJobs-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        }else if(item.tag==index && index==3){
+            [item setImage:[[UIImage imageNamed:@"alert"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            [item setSelectedImage:[[UIImage imageNamed:@"alert-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        }
+
     }
 }
 

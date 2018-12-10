@@ -7,6 +7,8 @@
 //
 
 #import "CareerAlertsViewController.h"
+#import "AppDelegate.h"
+#import "UIViewController+myextend.h"
 
 @interface CareerAlertsViewController ()
 
@@ -19,9 +21,19 @@
     
     UINavigationItem *item = [self navigationItem];
     item.title = @"Alerts";
+    item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(backToFirst)];
     self.view.backgroundColor=[UIColor whiteColor];
+    
+    
 
     // Do any additional setup after loading the view.
+}
+
+- (void)backToFirst
+{
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+    [tabvc setSelectedIndex:0];
 }
 
 /*

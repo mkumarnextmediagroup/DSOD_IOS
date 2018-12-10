@@ -78,7 +78,7 @@
     slider.preferredContentSize = makeSize(SCREENWIDTH - 132, SCREENHEIGHT);
     
 	UIViewController *centerPage = [sc onMakePage:@"Browse Content"];
-	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:centerPage leftViewController:snav rightViewController:slider];
+	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:centerPage leftViewController:snav rightViewController:nil];
 	return deck;
 }
 

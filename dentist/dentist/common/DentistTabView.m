@@ -186,7 +186,7 @@ static NSString * identifier = @"TabCellID2";
     selectIndex=indexPath.row;
     if (_indexArr.count>selectIndex) {
         NSInteger index = [_indexArr[selectIndex] integerValue];
-        NSLog(@"index=%@",@(selectIndex));
+//        NSLog(@"index=%@",@(selectIndex));
         //     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:selectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
         if (_isScrollEnable) {
             [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];

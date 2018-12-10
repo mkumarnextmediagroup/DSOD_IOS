@@ -17,6 +17,7 @@
 #import "JobBookmarkModel.h"
 #import "DsoToast.h"
 #import "CareerSearchViewController.h"
+#import "AppDelegate.h"
 
 @interface CareerMyJobViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,JobsTableCellDelegate>
 {
@@ -38,6 +39,7 @@
     
     UINavigationItem *item = self.navigationItem;
     item.title = @"MY JOBS";
+    item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
     item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
 
     myTable = [UITableView new];

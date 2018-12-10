@@ -104,11 +104,11 @@
     _info=info;
     if (_info) {
         [self layoutIfNeeded];
-        NSString *logourl=_info.company.companyLogoUrl;
+        NSString *logourl=_info.dso.companyLogoUrl;
         [imageView loadUrl:logourl placeholderImage:@"user_img"];
         [imageView scaleFillAspect];
         imageView.clipsToBounds=YES;
-        contentLabel.text = [NSString stringWithFormat:@"Supported by %@",_info.company.companyName];
+        contentLabel.text = [NSString stringWithFormat:@"Supported by %@",_info.company];
         NSInteger diffday=[NSDate getDifferenceByTimestamp:_info.modifiedDate];
         if (diffday==0) {
             timeLabel.text = @"today";
@@ -138,7 +138,7 @@
             self->newimageView.hidden=NO;
             self->newimageView.image=[UIImage imageNamed:@"Closed"];
         }else{
-            [[DentistDataBaseManager shareManager] checkJobsStatus:_info.id publishDate:_info.publishDate modifiedDate:_info.modifiedDate completed:^(NSInteger result) {
+            [[DentistDataBaseManager shareManager] checkJobsStatus:_info.id publishDate:_info.publishOn modifiedDate:_info.modifiedDate completed:^(NSInteger result) {
                 foreTask(^{
                     if (result==1) {
                         self->newimageView.hidden=NO;

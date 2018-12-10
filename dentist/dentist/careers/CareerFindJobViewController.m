@@ -16,6 +16,7 @@
 #import "CareerSearchViewController.h"
 #import "CareerJobDetailViewController.h"
 #import "FilterView.h"
+#import "AppDelegate.h"
 
 @interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,FilterViewDelegate>
 {
@@ -42,6 +43,7 @@
     
     UINavigationItem *item = self.navigationItem;
     item.title = @"JOBS";
+    item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
     item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
     
     myTable = [UITableView new];

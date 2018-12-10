@@ -25,10 +25,13 @@ NS_ASSUME_NONNULL_BEGIN
 //@property NSString <Optional>*experienceRange;
 @property NSInteger status;
 @property NSString <Optional>*modifiedDate;
-@property NSString <Optional>*publishDate;
+//@property NSString <Optional>*publishDate;
+@property NSString <Optional>*publishOn;
+@property NSString <Optional>*publishEnd;
 @property NSString <Optional>*createDate;
 @property NSString <Optional>*companyId;
-@property CompanyModel <Optional>*company;
+@property NSString <Optional>*company;
+@property CompanyModel <Optional>*dso;
 @property NSString <Optional>*isAttention;
 @property NSString <Optional>*location;
 @property JobPosition <Optional>*position;

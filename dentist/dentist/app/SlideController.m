@@ -116,32 +116,33 @@
 	if ([@"Careers" isEqualToString:title]) {
         CareerExplorePage *explorePage = [CareerExplorePage new];
         UINavigationController *ncExplore = NavPage(explorePage);
-        [ncExplore tabItem:@"Explore" imageName:@"explore"];
+        [ncExplore tabItem:@"Explore" imageName:@"explore" tag:0];
         explorePage.navigationItem.leftBarButtonItem = [self menuButton];
         
         CareerFindJobViewController *findJob = [CareerFindJobViewController new];
         UINavigationController *ncFindJob = NavPage(findJob);
-        [ncFindJob tabItem:@"Find Job" imageName:@"findJob"];
+        [ncFindJob tabItem:@"Find Job" imageName:@"findJob" tag:1];
         findJob.navigationItem.leftBarButtonItem = [self menuButton];
         
         CareerMyJobViewController *myJob = [CareerMyJobViewController new];
         UINavigationController *ncMyJob = NavPage(myJob);
-        [ncMyJob tabItem:@"My Jobs" imageName:@"myJobs"];
+        [ncMyJob tabItem:@"My Jobs" imageName:@"myJobs" tag:2];
         myJob.navigationItem.leftBarButtonItem = [self menuButton];
         
         CareerAlertsViewController *alert = [CareerAlertsViewController new];
         UINavigationController *ncAlert = NavPage(alert);
-        [ncAlert tabItem:@"Alerts" imageName:@"alert"];
+        [ncAlert tabItem:@"Alerts" imageName:@"alert" tag:3];
         alert.navigationItem.leftBarButtonItem = [self menuButton];
         
         CareerMoreViewController *more = [CareerMoreViewController new];
         more.view.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7f];
         UINavigationController *ncMore = NavPage(more);
         ncMore.view.backgroundColor = [UIColor clearColor];
-        [ncMore tabItem:@"More" imageName:@"more"];
+        [ncMore tabItem:@"More" imageName:@"more" tag:4];
         more.navigationItem.leftBarButtonItem = [self menuButton];
         UITabBarController *careertabbarcontroller=TabPage(@[ncExplore, ncFindJob, ncMyJob, ncAlert, ncMore]);
         careertabbarcontroller.delegate=self;
+//        careertabbarcontroller.tabBar.delegate=self;
         return careertabbarcontroller;
 //        return myTab([EventsPage new]);
 
@@ -301,11 +302,20 @@
 
 //判断是否跳转
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
-    NSLog(@"tabBarController.tabBar.selectedItem.tag=%@",@(tabBarController.tabBar.selectedItem.tag));
+    NSLog(@"shouldSelectViewController:tabBarController.tabBar.selectedItem.tag=%@",@(tabBarController.tabBar.selectedItem.tag));
     UINavigationController *nav = (UINavigationController *)viewController;
     UIViewController *VC =nav.topViewController;
     if ([VC isKindOfClass:[CareerMoreViewController class]]) {
-        
+//        [VC tabItem:@"More" imageName:@"more-light" tag:4];
+//        for (UITabBarItem *item in tabBarController.tabBar.items) {
+//            NSLog(@"item.tag=%@",@(item.tag));
+//            if (item.tag==4) {
+//                [item setImage:[UIImage imageNamed:@"more"]];
+//                [item setSelectedImage:[UIImage imageNamed:@"more-light"]];
+//            }
+//        }
+//        [tabBarController.tabBar.selectedItem setImage:[UIImage imageNamed:@"more-light"]];
+//        VC.tabBarItem=[[UITabBarItem alloc] initWithTitle:@"More" image:[UIImage imageNamed:@"more-light"] tag:101];
         NSLog(@"CareerMoreViewController");
         MoreView *moreview=[MoreView initSliderView];
         moreview.delegate=self;

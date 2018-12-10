@@ -122,13 +122,20 @@
         }else{
             timeLabel.text = @"-d";
         }
-        titleLabel.text = [NSString stringWithFormat:@"%@-%@",_info.jobTitle,_info.location];
+        NSString *location=@"";
+        if (![NSString isBlankString:_info.city]) {
+            location=[location stringByAppendingString:[NSString stringWithFormat:@"%@",_info.city]];
+        }
+        if (![NSString isBlankString:_info.state]) {
+            location=[location stringByAppendingString:[NSString stringWithFormat:@",%@",_info.state]];
+        }
+        titleLabel.text = [NSString stringWithFormat:@"%@-%@",_info.jobTitle,location];
         statusLabel.text=@"";
         NSInteger startsalary=ceilf(_info.salaryStartingValue/1000.0);
         NSInteger endsalary=ceilf(_info.salaryEndValue/1000.0);
         salaryLabel.text=[NSString stringWithFormat:@"$%@k-$%@k",@(startsalary),@(endsalary)];
         desLabel.text=[NSString getWithoutHtmlString:_info.jobDescription];
-        locationLabel.text=_info.location;
+        locationLabel.text=location;
 //        [salaryLabel sizeToFit];
         NSDictionary *attr=@{NSFontAttributeName:[Fonts regular:14]};
         CGSize strSize=CGSizeMake(MAXFLOAT, 16);

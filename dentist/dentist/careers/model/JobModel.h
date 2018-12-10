@@ -38,6 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*isApplication;
 @property NSString <Optional>*address;
 @property NSInteger companyType;
+@property BOOL paid;
+@property NSString <Optional>*city;
+@property NSString <Optional>*state;
+@property NSString <Optional>*zipCode;
 
 @end
 

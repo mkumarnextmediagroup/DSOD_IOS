@@ -118,14 +118,14 @@
 
 - (void)setData:(CompanyModel *)model{
     
-    
-    websiteValueLabel.text = model.webSiteUrl;
-    yearOfFoundationValueLabel.text =  model.foundingTime;
-    numOfEmployeesValueLabel.text = [NSString stringWithFormat:@"%ld",model.employees];
-    stageValueLabel.text = model.stage;
-    contactPersonValueLabel.text = model.contactPerson;
-    detailValueLabel.text = model.companyDesc;
-    
+    if (model) {
+        websiteValueLabel.text = model.webSiteUrl;
+        yearOfFoundationValueLabel.text =  model.foundingTime;
+        numOfEmployeesValueLabel.text = [NSString stringWithFormat:@"%ld",model.employees];
+        stageValueLabel.text = model.stage;
+        contactPersonValueLabel.text = model.contactPerson;
+        detailValueLabel.text = model.companyDesc;
+    }
 }
 
 

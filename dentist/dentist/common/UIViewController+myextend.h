@@ -12,6 +12,7 @@
 @property(readonly) UINavigationBar *navBar;
 
 - (void)tabItem:(nonnull NSString *)title imageName:(nonnull NSString *)imageName;
+- (void)tabItem:(nonnull NSString *)title imageName:(nonnull NSString *)imageName tag:(NSInteger)tag;
 
 - (void)alertOK:(nullable NSString *)title msg:(nonnull NSString *)msg okText:(nullable NSString *)okText onOK:(void (^ __nullable)(void))onOK;
 

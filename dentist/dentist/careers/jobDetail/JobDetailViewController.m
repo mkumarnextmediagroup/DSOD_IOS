@@ -251,10 +251,10 @@
     vedioWebView.hidden = YES;
     bannerView.hidden = YES;
     singleImageView.hidden = YES;
-    if(jobModel.company.media){
-        NSArray *urls = jobModel.company.media.companyPictureUrl;
-        NSArray *code = jobModel.company.media.code;
-        if(jobModel.company.media.type == 1 && urls && urls.count > 0 ){
+    if(jobModel.dso.media){
+        NSArray *urls = jobModel.dso.media.companyPictureUrl;
+        NSArray *code = jobModel.dso.media.code;
+        if(jobModel.dso.media.type == 1 && urls && urls.count > 0 ){
             if(urls.count>1){
                 bannerView.hidden = NO;
                 [bannerView addWithImageUrls:urls autoTimerInterval:3 clickBlock:^(NSInteger index) {
@@ -264,17 +264,17 @@
                 singleImageView.hidden = NO;
                 [singleImageView loadUrl:urls[0] placeholderImage:nil];
             }
-        }else if(jobModel.company.media.type == 2 && code && code.count > 0) {
+        }else if(jobModel.dso.media.type == 2 && code && code.count > 0) {
             vedioWebView.hidden = NO;
             [self showVideo:code[0]];
         }
     }
     
     
-    [logoImageView loadUrl:jobModel.company.companyLogoUrl placeholderImage:nil];
+    [logoImageView loadUrl:jobModel.dso.companyLogoUrl placeholderImage:nil];
     
     jobLabel.text = [NSString stringWithFormat:@"%@ - %@",jobModel.jobTitle,jobModel.location];
-    companyLabel.text = jobModel.company.companyName;
+    companyLabel.text = jobModel.company;
     
     NSInteger startsalary=ceilf(jobModel.salaryStartingValue/1000.0);
     NSInteger endsalary=ceilf(jobModel.salaryEndValue/1000.0);
@@ -408,7 +408,7 @@
         
         
         self.companyVC.view.frame = _tableContentView.frame;
-        [self.companyVC setData:jobModel.company];
+        [self.companyVC setData:jobModel.dso];
         [_tableContentView addSubview:self.companyVC.view];
         
         

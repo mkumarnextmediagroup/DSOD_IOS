@@ -43,7 +43,7 @@
     
     UINavigationItem *item = self.navigationItem;
     item.title = @"JOBS";
-    item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
+    item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(backToFirst)];
     item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
     
     myTable = [UITableView new];
@@ -86,6 +86,13 @@
 //    }];
 
     // Do any additional setup after loading the view.
+}
+
+- (void)backToFirst
+{
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+    [tabvc setSelectedIndex:0];
 }
 
 -(void)refreshData

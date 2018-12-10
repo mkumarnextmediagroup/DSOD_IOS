@@ -14,7 +14,7 @@
 #import "UIViewController+myextend.h"
 #import "DsoToast.h"
 #import "CareerSearchViewController.h"
-#import "CareerJobDetailViewController.h"
+#import "JobDetailViewController.h"
 #import "FilterView.h"
 #import "AppDelegate.h"
 
@@ -216,7 +216,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     JobModel *jobModel = infoArr[indexPath.row];
-    [CareerJobDetailViewController presentBy:nil jobId:jobModel.id closeBack:^{
+    [JobDetailViewController presentBy:nil jobId:jobModel.id closeBack:^{
         foreTask(^{
             if (self->myTable) {
                 [self->myTable reloadData];

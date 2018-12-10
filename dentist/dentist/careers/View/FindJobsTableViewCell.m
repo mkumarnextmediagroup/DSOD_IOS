@@ -117,8 +117,15 @@
         }else{
             timeLabel.text = @"-d";
         }
+        NSString *location=@"";
+        if (![NSString isBlankString:_info.city]) {
+            location=[location stringByAppendingString:[NSString stringWithFormat:@"%@",_info.city]];
+        }
+        if (![NSString isBlankString:_info.state]) {
+            location=[location stringByAppendingString:[NSString stringWithFormat:@",%@",_info.state]];
+        }
         
-        titleLabel.text = [NSString stringWithFormat:@"%@-%@",_info.jobTitle,_info.location];
+        titleLabel.text = [NSString stringWithFormat:@"%@-%@",_info.jobTitle,location];
         statusLabel.text=@"POSITION CLOSE";
         NSInteger startsalary=ceilf(_info.salaryStartingValue/1000.0);
         NSInteger endsalary=ceilf(_info.salaryEndValue/1000.0);

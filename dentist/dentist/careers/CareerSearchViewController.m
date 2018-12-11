@@ -30,6 +30,8 @@
     UISearchController *searchController;
     NSString *searchKeywords;
     NSArray *locationArr;
+    NSString *latitude;
+    NSString *longitude;
     
     UITextField *locationField;
     UITextField *milesField;
@@ -183,7 +185,7 @@
     _searchBar.showsCancelButton = NO;
 
     [self showIndicator];
-    [Proto queryAllJobs:0 jobTitle:searchKeywords completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+    [Proto queryAllJobs:0 jobTitle:searchKeywords location:[NSString stringWithFormat:@"%@,%@",latitude,longitude] distance:milesField.text completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideIndicator];
             self->infoArr = [NSMutableArray arrayWithArray:array];
@@ -205,7 +207,7 @@
         if (!isdownrefresh) {
             isdownrefresh=YES;
             [self showIndicator];
-            [Proto queryAllJobs:self->infoArr.count jobTitle:searchKeywords completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+            [Proto queryAllJobs:self->infoArr.count jobTitle:searchKeywords location:locationField.text distance:milesField.text completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                 self->isdownrefresh=NO;
                 foreTask(^{
                     [self hideIndicator];
@@ -333,8 +335,8 @@
     CLGeocoder *geoCoder = [[CLGeocoder alloc]init];
     //打印当前的经度与纬度
     NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
-//    NSString *latitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
-//    NSString *longitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
+    latitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
+    longitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
 //    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:latitude,@"latitude",longitude,@"longitude", nil];
 //    [infoDic addEntriesFromDictionary:dic];
     //反地理编码

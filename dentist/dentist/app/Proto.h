@@ -234,7 +234,7 @@
 + (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 + (void)queryAllJobs:(NSInteger)skip filterDic:(NSDictionary *_Nullable)filterDic completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 //MARK:2.2.  根据职位标题查询所有职位列表
-+ (void)queryAllJobs:(NSInteger)skip jobTitle:(NSString *)jobTitle completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
++ (void)queryAllJobs:(NSInteger)skip jobTitle:(NSString *)jobTitle location:(NSString *)location distance:(NSString *)distance completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 
 //MARK:2.7.   查询已申请职位列表
 + (void)queryAllApplicationJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobApplyModel *> *array,NSInteger totalCount))completed;

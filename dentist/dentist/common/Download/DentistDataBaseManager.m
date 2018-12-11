@@ -947,7 +947,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
             [self->_dbQueue inDatabase:^(FMDatabase *db) {
                 NSString *newkeywords=[NSString stringWithFormat:@"%@%@%@",@"%",keywords,@"%"];
                 //where title like '%@'
-                NSString *sqlstr=[NSString stringWithFormat:@"SELECT a.uniteid,a.articleid,b.title,b.contentTypeId,b.categoryId,b.contentTypeName,b.categoryName , b.jsontext,b.isbookmark FROM t_UniteArticlesRelationCaches as a left join t_UniteArticlesCaches as b on a.articleid = b.id  where a.uniteid = '%@' and b.title like '%@' order by a.sort ",uniteid,newkeywords];
+                NSString *sqlstr=[NSString stringWithFormat:@"SELECT a.uniteid,a.articleid,b.title,b.contentTypeId,b.categoryId,b.contentTypeName,b.categoryName , b.jsontext,b.isbookmark FROM t_UniteArticlesRelationCaches as a left join t_UniteArticlesCaches as b on a.articleid = b.id  where a.uniteid = '%@' and b.jsontext like '%@' order by a.sort ",uniteid,newkeywords];
                 FMResultSet *resultSet;
                 resultSet = [db executeQuery:sqlstr];
                 

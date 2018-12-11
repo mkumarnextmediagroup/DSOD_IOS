@@ -433,14 +433,14 @@ UITableViewDelegate,UITableViewDataSource>
     
     
 
-    NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",
-                                  @"259":@"sponsor_nobel",
-                                  @"197":@"sponsor_gsk"};
+    NSDictionary *sponsorInfo = @{@"260":@{@"name":@"Align" ,@"fullName":@"Align"         ,@"imgName":@"sponsor_align"},
+                                  @"259":@{@"name":@"Nobel" ,@"fullName":@"Nobel Biocare" ,@"imgName":@"sponsor_nobel"},
+                                  @"197":@{@"name":@"GSK"   ,@"fullName":@"GSK"           ,@"imgName":@"sponsor_gsk"}};
     
     if (sponsorInfo[bindInfo.sponsorId]) {
-        [_sponsorImageBtn setBackgroundImage:[UIImage imageNamed:sponsorInfo[bindInfo.sponsorId]] forState:UIControlStateNormal];
-        sponsorLabel.text = [NSString stringWithFormat:@"Want more content from %@?" , bindInfo.sponsorName];
-        [self.sponsorBtn setTitle:[NSString stringWithFormat:@"Access %@ Science" ,bindInfo.sponsorName] forState:UIControlStateNormal];
+        [_sponsorImageBtn setBackgroundImage:[UIImage imageNamed:sponsorInfo[bindInfo.sponsorId][@"imgName"]] forState:UIControlStateNormal];
+        sponsorLabel.text = [NSString stringWithFormat:@"Want more content from %@?" , sponsorInfo[bindInfo.sponsorId][@"name"]];
+        [self.sponsorBtn setTitle:[NSString stringWithFormat:@"Access %@ Resources" ,sponsorInfo[bindInfo.sponsorId][@"fullName"]] forState:UIControlStateNormal];
         
         CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
         [[_sponsorImageBtn.layoutUpdate heightEq:sponstorimgh] install];

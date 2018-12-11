@@ -11,6 +11,7 @@
 #import "FindJobsTableViewCell.h"
 #import "Proto.h"
 #import "UIView+Toast.h"
+#import "JobDetailViewController.h"
 
 @interface CompanyDetailJobsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -129,6 +130,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    JobModel *jobModel = jobArray[indexPath.row];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(CompanyDetailJobsViewDidSelectAction:)]){
+        [self.delegate CompanyDetailJobsViewDidSelectAction:jobModel.id];
+    }
+}
+
+-(void)reloadData
+{
+    if (self->tableView) {
+        [self->tableView reloadData];
+    }
 }
 
 #pragma mark - 滑动方法

@@ -23,8 +23,9 @@
 #import "CompanyDetailJobsViewController.h"
 #import "CompanyDetailReviewsViewController.h"
 #import "AllowMultiGestureTableView.h"
+#import "JobDetailViewController.h"
 
-@interface CompanyDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
+@interface CompanyDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,CompanyDetailJobsViewDelegate>
 
 @property (nonatomic,strong) UIView* tableContentView;
 @property (nonatomic) BOOL isCanScroll;
@@ -253,6 +254,7 @@
     self.jobsVC = [CompanyDetailJobsViewController new];
     self.reviewsVC = [CompanyDetailReviewsViewController new];
 
+    self.jobsVC.delegate=self;
     
     WeakSelf;
     self.descriptionVC.noScrollAction = ^{
@@ -393,6 +395,17 @@
             tableView.contentOffset = CGPointMake(0, scrollY);
         }
     }
+}
+
+#pragma mark CompanyDetailJobsViewDelegate
+-(void)CompanyDetailJobsViewDidSelectAction:(NSString *)jobId
+{
+    [JobDetailViewController presentBy:self.parentViewController jobId:jobId closeBack:^{
+        foreTask(^{
+            [self.jobsVC reloadData];
+        });
+        
+    }];
 }
 
 

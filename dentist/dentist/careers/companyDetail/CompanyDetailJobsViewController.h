@@ -8,12 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+
 NS_ASSUME_NONNULL_BEGIN
+@protocol CompanyDetailJobsViewDelegate <NSObject>
+@optional
+- (void)CompanyDetailJobsViewDidSelectAction:(NSString *)jobId;
+
+@end
 
 @interface CompanyDetailJobsViewController : UIViewController
 
 @property (nonatomic,strong) NSString *companyId;
-
+@property (nonatomic,weak) id<CompanyDetailJobsViewDelegate>delegate;
 
 
 
@@ -23,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) void(^noScrollAction)(void) ;
 
 -(void)contentOffsetToPointZero;
+
+-(void)reloadData;
 
 @end
 

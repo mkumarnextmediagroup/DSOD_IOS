@@ -10,4 +10,9 @@
 
 @implementation JobDSOModel
 
+
++ (JSONKeyMapper *)keyMapper{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"description" : @"dsoDescription"}];
+}
+
 @end

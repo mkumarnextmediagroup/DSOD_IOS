@@ -116,6 +116,7 @@
     contactPersonLabel.font = [Fonts regular:14];
     [[[[contactPersonLabel.layoutMaker leftParent:edge]below:stageLabel offset:0]heightEq:50]install];
     
+    
     contactPersonValueLabel = contentView.addLabel;
     contactPersonValueLabel.textColor = Colors.textDisabled;
     contactPersonValueLabel.font = [Fonts regular:14];
@@ -128,7 +129,7 @@
     detailLabel.text = @"Details";
     detailLabel.font = [Fonts regular:14];
     detailLabel.textColor = rgbHex(0xB3B9BD);
-    [[[[detailLabel.layoutMaker leftParent:edge]rightParent:-edge] below:contactPersonLabel offset:0]install];
+    [[[[detailLabel.layoutMaker leftParent:edge]rightParent:-edge] below:contactPersonLabel offset:15] install];
     
     
     detailWebView = [UIWebView new];
@@ -155,7 +156,7 @@
     numOfEmployeesValueLabel.text = model.employees;
     stageValueLabel.text = model.stage;
     contactPersonValueLabel.text = model.ceo;
-    [detailWebView loadHTMLString:[NSString career_DescriptionHtml:model.description] baseURL:nil];
+    [detailWebView loadHTMLString:[NSString career_DescriptionHtml:model.dsoDescription] baseURL:nil];
 }
 
 

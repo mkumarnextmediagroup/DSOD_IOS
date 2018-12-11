@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "CompanyModel.h"
+#import "JobDSOModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DSOProfileTableViewCell : UITableViewCell
 
-- (void)bindInfo:(CompanyModel *)modelInfo;
+- (void)bindInfo:(JobDSOModel *)modelInfo;
 
 @end
 

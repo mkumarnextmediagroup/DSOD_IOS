@@ -26,6 +26,7 @@
 #import "JobApplyModel.h";
 #import "CompanyCommentModel.h"
 #import "CompanyModel.h"
+#import "JobDSOModel.h"
 
 
 //测试模拟数据
@@ -2223,23 +2224,23 @@
 }
 
 //MARK:2.13.    查询所有公司列表
-+ (void)queryCompanyList:(NSInteger)skip completed:(void(^)(NSArray<CompanyModel *> *array,NSInteger totalCount))completed
++ (void)queryCompanyList:(NSInteger)skip completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed
 {
     NSInteger limit=20;//分页数默认20条
     if (skip<=0) {
-        skip=0;
+        skip=1;
     }
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
-    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
-    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"pageNumber"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"pageSize"];
 
-    [self postAsync3:@"company/findAllCompanys" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+    [self postAsync3:@"dso/findAllDSOs" dic:paradic modular:@"profile" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSInteger totalFound=[r.resultMap[@"totalFound"] integerValue];
-            NSArray *arr = r.resultMap[@"companyPOs"];
+            NSArray *arr = r.resultMap[@"data"];
             for (NSDictionary *d in arr) {
-                CompanyModel *item = [[CompanyModel alloc] initWithJson:jsonBuild(d)];
+                JobDSOModel *item = [[JobDSOModel alloc] initWithJson:jsonBuild(d)];
                 if (item) {
                     [resultArray addObject:item];
                 }
@@ -2257,14 +2258,14 @@
 
 
 //2.14.    查询公司详情接口
-+ (void)findCompanyById:(NSString*)companyId completed:(void(^)(CompanyModel *companyModel))completed {
++ (void)findCompanyById:(NSString*)companyId completed:(void(^)(JobDSOModel *companyModel))completed {
     
-    NSDictionary *paradic = @{@"companyId":companyId};
-    [self postAsync2:@"company/findOneById" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
-        CompanyModel *model = nil;
-        if (r.OK && r.resultMap[@"companyPO"]) {
-            NSDictionary *dic =  r.resultMap[@"companyPO"];
-            model = [[CompanyModel alloc] initWithJson:jsonBuild(dic)];
+    NSDictionary *paradic = @{@"dsoId":companyId};
+    [self postAsync2:@"dso/findOneById" dic:paradic modular:@"profile" callback:^(HttpResult *r) {
+        JobDSOModel *model = nil;
+        if (r.OK && r.resultMap[@"data"]) {
+            NSDictionary *dic =  r.resultMap[@"data"];
+            model = [[JobDSOModel alloc] initWithJson:jsonBuild(dic)];
             
         }
         if(completed){

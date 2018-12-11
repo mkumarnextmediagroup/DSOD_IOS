@@ -24,6 +24,7 @@
 #import "CompanyDetailReviewsViewController.h"
 #import "AllowMultiGestureTableView.h"
 #import "JobDetailViewController.h"
+#import "JobDSOModel.h"
 
 @interface CompanyDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,CompanyDetailJobsViewDelegate>
 
@@ -51,7 +52,7 @@
     int edge;
     int currTabIndex;//0:description 1:company 2:reviews
     
-    CompanyModel *companyModel;
+    JobDSOModel *companyModel;
     
     
     
@@ -83,7 +84,7 @@
     
     
     [self showLoading];
-    [Proto findCompanyById:self.companyId completed:^(CompanyModel * _Nullable companyModel) {
+    [Proto findCompanyById:self.companyId completed:^(JobDSOModel * _Nullable companyModel) {
         [self hideLoading];
         if(companyModel){
             self->companyModel = companyModel;
@@ -199,9 +200,9 @@
     }
     
     
-    [logoImageView loadUrl:companyModel.companyLogoUrl placeholderImage:nil];
-    companyLabel.text = companyModel.companyName;
-    [addressBtn setTitle:companyModel.address forState:UIControlStateNormal];
+    [logoImageView loadUrl:companyModel.logoURL placeholderImage:nil];
+    companyLabel.text = companyModel.name;
+    [addressBtn setTitle:companyModel.address1 forState:UIControlStateNormal];
     
     
     [headerView.layoutUpdate.bottom.equalTo(lastView.mas_bottom) install];
@@ -289,12 +290,12 @@
         
         
         self.descriptionVC.view.frame = _tableContentView.frame;
-        [self.descriptionVC setData:companyModel.companyDesc];
+        [self.descriptionVC setData:companyModel.description];
         [_tableContentView addSubview:self.descriptionVC.view];
         
         
         self.jobsVC.view.frame = _tableContentView.frame;
-        self.jobsVC.companyId = companyModel.companyId;
+        self.jobsVC.companyId = companyModel.id;
         [_tableContentView addSubview:self.jobsVC.view];
         
         

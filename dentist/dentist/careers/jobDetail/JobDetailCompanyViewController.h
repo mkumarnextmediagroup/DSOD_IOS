@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CompanyModel.h"
+#import "JobDSOModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)contentOffsetToPointZero;
 
--(void)setData:(CompanyModel* _Nullable)model;
+-(void)setData:(JobDSOModel* _Nullable)model;
 
 @end
 

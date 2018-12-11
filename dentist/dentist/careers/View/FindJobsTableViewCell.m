@@ -104,7 +104,7 @@
     _info=info;
     if (_info) {
         [self layoutIfNeeded];
-        NSString *logourl=_info.dso.companyLogoUrl;
+        NSString *logourl=_info.dso.logoURL;
         [imageView loadUrl:logourl placeholderImage:@"user_img"];
         [imageView scaleFillAspect];
         imageView.clipsToBounds=YES;

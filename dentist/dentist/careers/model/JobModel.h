@@ -10,6 +10,7 @@
 #import "JSONModel.h"
 #import "CompanyModel.h"
 #import "JobPosition.h"
+#import "JobDSOModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobModel : JSONModel
@@ -30,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*createDate;
 @property NSString <Optional>*dsoId;
 @property NSString <Optional>*company;
-@property CompanyModel <Optional>*dso;
+@property JobDSOModel <Optional>*dso;
 @property NSString <Optional>*isAttention;
 @property JobPosition <Optional>*position;
 @property NSString <Optional>*isApplication;

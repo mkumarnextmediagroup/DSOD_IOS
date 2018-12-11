@@ -2175,7 +2175,7 @@
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
     [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
     if (companyId) {
-        [paradic setObject:companyId forKey:@"companyId"];
+        [paradic setObject:companyId forKey:@"dsoId"];
     }
     if (categroy) {
         [paradic setObject:categroy forKey:@"categroy"];
@@ -2195,7 +2195,7 @@
     if (jobTitle) {
         [paradic setObject:jobTitle forKey:@"jobTitle"];
     }
-    [self postAsync3:@"company/getAllJobsByCompanyId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+    [self postAsync3:@"company/getAllJobsByDSOId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];

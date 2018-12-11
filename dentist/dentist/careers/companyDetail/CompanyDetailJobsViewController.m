@@ -126,7 +126,10 @@
     return cell;
     
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 #pragma mark - 滑动方法
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {

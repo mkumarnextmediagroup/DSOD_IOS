@@ -33,6 +33,7 @@
     NSString *latitude;
     NSString *longitude;
     NSArray *latLongArr;
+    NSString *requestMiles;
     
     UITextField *locationField;
     UITextField *milesField;
@@ -216,7 +217,7 @@
 
     [self showIndicator];
     latLongArr = [NSArray arrayWithObjects:@"23.23",@"45.2423", nil];
-    [Proto queryAllJobs:0 jobTitle:nil location:nil distance:nil completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+    [Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideIndicator];
             [self setJobCountTitle:totalCount];
@@ -239,7 +240,7 @@
         if (!isdownrefresh) {
             isdownrefresh=YES;
             [self showIndicator];
-            [Proto queryAllJobs:self->infoArr.count jobTitle:searchKeywords location:locationField.text distance:milesField.text completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+            [Proto queryAllJobs:self->infoArr.count jobTitle:_searchBar.text location:latLongArr distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                 self->isdownrefresh=NO;
                 foreTask(^{
                     [self hideIndicator];
@@ -261,6 +262,7 @@
 - (void)createEmptyNotice
 {
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:NO];
         UIView *headerVi = [UIView new];
         headerVi.backgroundColor = [UIColor clearColor];
         UIButton *headBtn = headerVi.addButton;
@@ -317,6 +319,8 @@
     builder.cancelTextColor = UIColor.redColor;
     if (textFiled == milesField) {
         [CDZPicker showSinglePickerInView:self.view withBuilder:builder strings:locationArr confirm:^(NSArray<NSString *> * _Nonnull strings, NSArray<NSNumber *> * _Nonnull indexs) {
+            NSArray *arr = [strings[0] componentsSeparatedByString:@" "];
+            self->requestMiles = arr[0];
             textFiled.text = [NSString stringWithFormat:@"within %@",strings[0]];
             NSLog(@"strings:%@ indexs:%@",strings,indexs);
         }cancel:^{

@@ -13,10 +13,11 @@
 #import "Proto.h"
 #import "CompanyModel.h"
 #import "CareerSearchViewController.h"
+#import "JobDSOModel.h"
 
 @interface DSOProfilePage ()<UITableViewDelegate,UITableViewDataSource>
 {
-    NSArray<CompanyModel *> *infoArr;
+    NSArray<JobDSOModel *> *infoArr;
     UITableView *myTable;
 }
 @end
@@ -40,7 +41,7 @@
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-50] topParent:NAVHEIGHT] install];
     
     [self showCenterIndicator];
-    [Proto queryCompanyList:0 completed:^(NSArray<CompanyModel *> *array, NSInteger totalCount) {
+    [Proto queryCompanyList:0 completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideCenterIndicator];
             NSLog(@"%@",array);
@@ -94,7 +95,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    [CompanyDetailViewController openBy:viewController companyId:infoArr[indexPath.row].companyId];
+    if (infoArr.count >indexPath.row) {
+        [CompanyDetailViewController openBy:viewController companyId:infoArr[indexPath.row].id];
+    }
+    
 }
 
 - (void)onBack:(UIButton *)btn {

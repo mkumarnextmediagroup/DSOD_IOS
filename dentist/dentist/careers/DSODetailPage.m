@@ -22,6 +22,7 @@
 #import "CareerSearchViewController.h"
 #import "CareerJobDetailViewController.h"
 #import "FilterView.h"
+#import "JobDSOModel.h"
 
 @interface DSODetailPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,FilterViewDelegate>
 
@@ -43,7 +44,7 @@
     int edge;
     int currTabIndex;//0:description 1:company 2:reviews
 
-    CompanyModel *companyModel;
+    JobDSOModel *companyModel;
     NSArray<JobModel*> *jobArray;
     BOOL isdownrefresh;
     UILabel *jobCountTitle;
@@ -79,7 +80,7 @@
     
     [self showLoading];
     
-    [Proto findCompanyById:self.companyId completed:^(CompanyModel * _Nullable companyModel) {
+    [Proto findCompanyById:self.companyId completed:^(JobDSOModel * _Nullable companyModel) {
         [self hideLoading];
         if(companyModel){
             self->companyModel = companyModel;
@@ -192,9 +193,9 @@
     }
     
     
-    [logoImageView loadUrl:companyModel.companyLogoUrl placeholderImage:nil];
-    companyLabel.text = companyModel.companyName;
-    [addressBtn setTitle:companyModel.address forState:UIControlStateNormal];
+    [logoImageView loadUrl:companyModel.logoURL placeholderImage:nil];
+    companyLabel.text = companyModel.name;
+    [addressBtn setTitle:companyModel.address1 forState:UIControlStateNormal];
 
 
     

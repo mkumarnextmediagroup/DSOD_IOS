@@ -71,13 +71,13 @@
     return self;
 }
 
-- (void)bindInfo:(CompanyModel *)modelInfo
+- (void)bindInfo:(JobDSOModel *)modelInfo
 {
     _star.currentScore = modelInfo.rating;
-    [headerImg sd_setImageWithURL:[NSURL URLWithString:modelInfo.companyLogoUrl] placeholderImage:[UIImage imageNamed:@"user_img"]];
-    finLabel.text = modelInfo.companyName;
-    reviewLabel.text = [NSString stringWithFormat:@"%ld reviews",(long)modelInfo.reviews];
-    conLabel.text = modelInfo.address;
+    [headerImg sd_setImageWithURL:[NSURL URLWithString:modelInfo.logoURL] placeholderImage:[UIImage imageNamed:@"user_img"]];
+    finLabel.text = modelInfo.name;
+    reviewLabel.text = [NSString stringWithFormat:@"%ld reviews",(long)modelInfo.reviewNum];
+    conLabel.text = modelInfo.address1;
 }
 
 @end

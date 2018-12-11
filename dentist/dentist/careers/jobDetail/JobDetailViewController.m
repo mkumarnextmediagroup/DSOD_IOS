@@ -271,7 +271,7 @@
     }
     
     
-    [logoImageView loadUrl:jobModel.dso.companyLogoUrl placeholderImage:nil];
+    [logoImageView loadUrl:jobModel.dso.logoURL placeholderImage:nil];
     jobLabel.text = [NSString stringWithFormat:@"%@ - %@",jobModel.jobTitle,jobModel.location];
     companyLabel.text = jobModel.company;
     salaryLabel.text= jobModel.salaryRange;

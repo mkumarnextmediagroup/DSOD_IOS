@@ -147,15 +147,15 @@
 }
 
 
-- (void)setData:(CompanyModel *)model{
+- (void)setData:(JobDSOModel *)model{
     
     
-    websiteValueLabel.text = model.webSiteUrl;
-    yearOfFoundationValueLabel.text =  model.foundingTime;
-    numOfEmployeesValueLabel.text = [NSString stringWithFormat:@"%ld",model.employees];
+    websiteValueLabel.text = model.url;
+    yearOfFoundationValueLabel.text =  model.year_of_foundation;
+    numOfEmployeesValueLabel.text = model.employees;
     stageValueLabel.text = model.stage;
-    contactPersonValueLabel.text = model.contactPerson;
-    [detailWebView loadHTMLString:[NSString career_DescriptionHtml:model.companyDesc] baseURL:nil];
+    contactPersonValueLabel.text = model.ceo;
+    [detailWebView loadHTMLString:[NSString career_DescriptionHtml:model.description] baseURL:nil];
 }
 
 

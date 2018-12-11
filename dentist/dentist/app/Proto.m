@@ -1860,7 +1860,7 @@
 
 
 //MARK:2.2.    查询所有职位列表
-+ (void)queryAllJobs:(NSString *)sort categroy:(NSString *)categroy salaryStartingValue:(NSString *)salaryStartingValue salaryEndValue:(NSString *)salaryEndValue experienceStartingValue:(NSString *)experienceStartingValue experienceEndValue:(NSString *)experienceEndValue location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
++ (void)queryAllJobs:(NSString *)sort categroy:(NSString *)categroy salaryStartingValue:(NSString *)salaryStartingValue salaryEndValue:(NSString *)salaryEndValue experienceStartingValue:(NSString *)experienceStartingValue experienceEndValue:(NSString *)experienceEndValue location:(NSArray *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
     NSInteger limit=20;//分页数默认20条
     if (skip<=0) {
         skip=0;
@@ -1989,7 +1989,7 @@
 }
 
 //MARK:2.2.  根据职位标题查询所有职位列表
-+ (void)queryAllJobs:(NSInteger)skip jobTitle:(NSString *)jobTitle location:(NSString *)location distance:(NSString *)distance completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
++ (void)queryAllJobs:(NSInteger)skip jobTitle:(NSString *)jobTitle location:(NSArray *)location distance:(NSString *)distance completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
     return [self queryAllJobs:nil categroy:nil salaryStartingValue:nil salaryEndValue:nil experienceStartingValue:nil experienceEndValue:nil location:location distance:distance jobTitle:jobTitle company:nil skip:skip completed:completed];
 }
 

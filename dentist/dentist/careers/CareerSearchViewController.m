@@ -32,6 +32,7 @@
     NSArray *locationArr;
     NSString *latitude;
     NSString *longitude;
+    NSArray *latLongArr;
     
     UITextField *locationField;
     UITextField *milesField;
@@ -81,6 +82,7 @@
     myTable.dataSource = self;
     myTable.delegate = self;
     myTable.rowHeight = UITableViewAutomaticDimension;
+    myTable.tableHeaderView = self.makeHeaderView;
     myTable.estimatedRowHeight = 100;
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
@@ -91,6 +93,34 @@
     [self createLocation];
     [self getCurrentLocation];//get the location
 }
+
+- (UIView *)makeHeaderView {
+    UIView *panel = [UIView new];
+    panel.frame = makeRect(0, 0, SCREENWIDTH, 32);
+    panel.backgroundColor=[UIColor clearColor];
+    
+    jobCountTitle=panel.addLabel;
+    jobCountTitle.font=[Fonts regular:13];
+    jobCountTitle.textColor=Colors.textMain;
+    [[[[[jobCountTitle.layoutMaker leftParent:20] topParent:0] bottomParent:0] rightParent:40] install];
+    
+    UILabel *lineLabel=panel.lineLabel;
+    [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
+    return panel;
+}
+
+-(void)setJobCountTitle:(NSInteger)jobcount
+{
+    if (jobcount>0) {
+        NSString *jobcountstr=[NSString stringWithFormat:@"%@ Jobs",@(jobcount)];
+        
+        jobCountTitle.text=jobcountstr;
+    }else{
+        jobCountTitle.text=@"";
+    }
+    
+}
+
 
 - (void)searchBtnClick
 {
@@ -185,9 +215,11 @@
     _searchBar.showsCancelButton = NO;
 
     [self showIndicator];
-    [Proto queryAllJobs:0 jobTitle:searchKeywords location:[NSString stringWithFormat:@"%@,%@",latitude,longitude] distance:milesField.text completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+    latLongArr = [NSArray arrayWithObjects:@"23.23",@"45.2423", nil];
+    [Proto queryAllJobs:0 jobTitle:nil location:nil distance:nil completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideIndicator];
+            [self setJobCountTitle:totalCount];
             self->infoArr = [NSMutableArray arrayWithArray:array];
             [self->myTable reloadData];
         });
@@ -212,6 +244,7 @@
                 foreTask(^{
                     [self hideIndicator];
                     NSLog(@"%@",array);
+                    [self setJobCountTitle:totalCount];
                     if(array && array.count>0){
                         [self->infoArr addObjectsFromArray:array];
                     }
@@ -338,6 +371,7 @@
     latitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
     longitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
 //    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:latitude,@"latitude",longitude,@"longitude", nil];
+    latLongArr = [NSArray arrayWithObjects:longitude,latitude, nil];
 //    [infoDic addEntriesFromDictionary:dic];
     //反地理编码
     [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {

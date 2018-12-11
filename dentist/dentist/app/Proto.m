@@ -1951,15 +1951,16 @@
         }
         if ([filterDic objectForKey:@"miles"]) {
             NSString *tempstr=[filterDic objectForKey:@"miles"];
-            [tempstr stringByReplacingOccurrencesOfString:@" miles" withString:@""];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@"miles" withString:@""];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@" " withString:@""];
             distance=tempstr;
         }
         if ([filterDic objectForKey:@"salary"]) {
             NSString *tempstr=[filterDic objectForKey:@"salary"];
-            [tempstr stringByReplacingOccurrencesOfString:@"k" withString:@""];
-            [tempstr stringByReplacingOccurrencesOfString:@"$" withString:@""];
-            [tempstr stringByReplacingOccurrencesOfString:@"plus" withString:@""];
-            [tempstr stringByReplacingOccurrencesOfString:@" " withString:@""];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@"k" withString:@""];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@"$" withString:@""];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@"plus" withString:@""];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@" " withString:@""];
             if ([tempstr containsString:@"-"]) {
                 NSArray *array =[tempstr componentsSeparatedByString:@"-"];
                 CGFloat start=[array[0] floatValue]*1000;
@@ -1973,8 +1974,8 @@
         }
         if ([filterDic objectForKey:@"experence"]) {
             NSString *tempstr=[filterDic objectForKey:@"experence"];
-            [tempstr stringByReplacingOccurrencesOfString:@"years" withString:@""];
-            [tempstr stringByReplacingOccurrencesOfString:@" " withString:@""];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@"years" withString:@""];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@" " withString:@""];
             if ([tempstr containsString:@"-"]) {
                 NSArray *array =[tempstr componentsSeparatedByString:@"-"];
                 experienceStartingValue=array[0];

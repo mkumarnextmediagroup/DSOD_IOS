@@ -290,7 +290,7 @@
         
         
         self.descriptionVC.view.frame = _tableContentView.frame;
-        [self.descriptionVC setData:companyModel.description];
+        [self.descriptionVC setData:companyModel.dsoDescription];
         [_tableContentView addSubview:self.descriptionVC.view];
         
         

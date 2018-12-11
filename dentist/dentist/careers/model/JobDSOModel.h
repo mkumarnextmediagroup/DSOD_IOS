@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property JobPosition <Optional>*position;
 @property CompanyMediaModel <Optional>*media;
 @property NSArray <Optional>*mediaURL;
-@property NSString <Optional>*description;
+@property NSString <Optional>*dsoDescription;
 @property double rating;
 @property NSInteger totalFound;
 @property NSInteger reviewNum;

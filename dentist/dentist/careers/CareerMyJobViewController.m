@@ -18,6 +18,7 @@
 #import "DsoToast.h"
 #import "CareerSearchViewController.h"
 #import "AppDelegate.h"
+#import "JobDetailViewController.h"
 
 @interface CareerMyJobViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,JobsTableCellDelegate>
 {
@@ -39,8 +40,6 @@
     
     UINavigationItem *item = self.navigationItem;
     item.title = @"MY JOBS";
-    item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(backToFirst)];
-    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
 
     myTable = [UITableView new];
     [self.view addSubview:myTable];
@@ -51,7 +50,7 @@
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     myTable.tableHeaderView=[self makeHeaderView];
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:@"myjobcell"];
-    
+
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
     [self setupRefresh];
 
@@ -210,8 +209,30 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    DSODetailPage *detail = [DSODetailPage new];
-//    [self.navigationController pushPage:detail];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSString *jobid;
+    if (selectIndex==0) {
+        if (self->applyArr && self->applyArr.count>indexPath.row) {
+            JobApplyModel *applymodel=(JobApplyModel *)self->applyArr[indexPath.row];
+            jobid=applymodel.jobId;
+        }
+    }else{
+        if (self->followArr && self->followArr.count>indexPath.row) {
+            JobBookmarkModel *bookmarkmodel=(JobBookmarkModel *)self->followArr[indexPath.row];
+            jobid=bookmarkmodel.jobId;
+        }
+    }
+    if (jobid) {
+        [JobDetailViewController presentBy:nil jobId:jobid closeBack:^{
+            foreTask(^{
+                if (self->myTable) {
+                    [self->myTable reloadData];
+                }
+            });
+            
+        }];
+    }
+    
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView

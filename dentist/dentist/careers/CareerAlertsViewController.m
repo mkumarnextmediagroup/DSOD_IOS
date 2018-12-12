@@ -21,7 +21,6 @@
     
     UINavigationItem *item = [self navigationItem];
     item.title = @"Alerts";
-    item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(backToFirst)];
     self.view.backgroundColor=[UIColor whiteColor];
     
     

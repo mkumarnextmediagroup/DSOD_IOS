@@ -18,6 +18,7 @@
 #import "UITableView+JRTableViewPlaceHolder.h"
 #import "CDZPicker.h"
 #import <CoreLocation/CoreLocation.h>
+#import "UIImage+customed.h"
 
 #define edge 12
 @interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITextFieldDelegate,CLLocationManagerDelegate>
@@ -63,6 +64,7 @@
     _searchBar.placeholder = @"Search...";
     _searchBar.delegate = self;
     _searchBar.showsCancelButton=NO;
+    _searchBar.barTintColor = [UIColor whiteColor];
     [_searchBar becomeFirstResponder];
     item.titleView=_searchBar;
     

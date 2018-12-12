@@ -43,7 +43,7 @@
 -(void)setCompanyId:(NSString *)companyId
 {
     _companyId=companyId;
-    [self showLoading];
+//    [self showLoading];
     [Proto getAllJobsByCompanyId:self.companyId skip:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideLoading];
@@ -163,12 +163,43 @@
         }
     }
     
-    if(!isRefreshing
-       && scrollView.contentSize.height > scrollView.frame.size.height
-       && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)) ){
-//        [self getDatas:YES];
-        [self.parentViewController.view makeToast:@"加载更多"];
-        
+//    if(!isRefreshing
+//       && scrollView.contentSize.height > scrollView.frame.size.height
+//       && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height)) ){
+////        [self getDatas:YES];
+//        [self.parentViewController.view makeToast:@"加载更多"];
+//        
+//        
+//    }
+    NSLog(@"companydetailscrollView");
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat consizeheight=scrollView.contentSize.height;
+    if (consizeheight<height) {
+        consizeheight=height;
+    }
+    CGFloat bottomOffset = (consizeheight - contentOffsetY);
+    if (bottomOffset <= height-50)
+    {
+         NSLog(@"==================================下啦刷选;contentOffsetY=%@;consizeheight=%@;bottomOffset=%@;height=%@；",@(contentOffsetY),@(consizeheight),@(bottomOffset),@(height));
+        if (!isRefreshing) {
+            [self showLoading];
+            self->isRefreshing=YES;
+            [Proto getAllJobsByCompanyId:self.companyId skip:self->jobArray.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                foreTask(^{
+                    self->isRefreshing=NO;
+                    [self hideLoading];
+                    [self setJobCountTitle:totalCount];
+                    NSLog(@"%@",array);
+                    if(array && array.count>0){
+                        NSMutableArray *temparr=[NSMutableArray arrayWithArray:self->jobArray];
+                        [temparr addObjectsFromArray:array];
+                        self->jobArray=[temparr copy];
+                        [self->tableView reloadData];
+                    }
+                });
+            }];
+        }
         
     }
 }

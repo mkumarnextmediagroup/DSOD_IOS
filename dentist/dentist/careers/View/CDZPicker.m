@@ -308,7 +308,7 @@ static const NSInteger CDZToolBarHeight = 44;
         _confirmButton.titleLabel.font = [UIFont systemFontOfSize:18.0];
         NSString *title = self.builder.confirmText.length ? self.builder.confirmText : @"Choose distance";
         [_confirmButton setTitle:title forState:UIControlStateNormal];
-        UIColor *color = UIColor.grayColor;//self.builder.confirmTextColor ?: 
+        UIColor *color = UIColor.blueColor;//self.builder.confirmTextColor ?:
         [_confirmButton setTitleColor:color forState:UIControlStateNormal];
         [_confirmButton addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -323,7 +323,7 @@ static const NSInteger CDZToolBarHeight = 44;
         _cancelButton.titleLabel.font = [UIFont systemFontOfSize:18.0];
         NSString *title = self.builder.cancelText.length ? self.builder.cancelText : @"Cancel";
         [_cancelButton setTitle:title forState:UIControlStateNormal];
-        UIColor *color = UIColor.blueColor;
+        UIColor *color = UIColor.grayColor;
         [_cancelButton setTitleColor:color forState:UIControlStateNormal];
         [_cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
     }

@@ -390,6 +390,7 @@
 		A3A5B339218D61C500242E71 /* ThumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A5B337218D61C400242E71 /* ThumCollectionViewCell.swift */; };
 		A3A5B33B218D61F200242E71 /* ThumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A5B33A218D61F200242E71 /* ThumViewController.swift */; };
 		A3A5B33D218D625700242E71 /* ThumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A5B33C218D625700242E71 /* ThumTableViewController.swift */; };
+		A3B340B321C14A8D008EB36A /* TopLeftLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3B340B221C14A8D008EB36A /* TopLeftLabel.m */; };
 		A3BA6DD921AEA36100D83156 /* CompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6DD321AEA36100D83156 /* CompanyModel.m */; };
 		A3BA6DDA21AEA36100D83156 /* JobPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6DD521AEA36100D83156 /* JobPosition.m */; };
 		A3BA6DDB21AEA36100D83156 /* JobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6DD721AEA36100D83156 /* JobModel.m */; };
@@ -1408,6 +1409,8 @@
 		A3A5B337218D61C400242E71 /* ThumCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumCollectionViewCell.swift; sourceTree = "<group>"; };
 		A3A5B33A218D61F200242E71 /* ThumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumViewController.swift; sourceTree = "<group>"; };
 		A3A5B33C218D625700242E71 /* ThumTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumTableViewController.swift; sourceTree = "<group>"; };
+		A3B340B121C14A8D008EB36A /* TopLeftLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopLeftLabel.h; sourceTree = "<group>"; };
+		A3B340B221C14A8D008EB36A /* TopLeftLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopLeftLabel.m; sourceTree = "<group>"; };
 		A3BA6DD321AEA36100D83156 /* CompanyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyModel.m; sourceTree = "<group>"; };
 		A3BA6DD421AEA36100D83156 /* JobModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobModel.h; sourceTree = "<group>"; };
 		A3BA6DD521AEA36100D83156 /* JobPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobPosition.m; sourceTree = "<group>"; };
@@ -3629,6 +3632,8 @@
 				A3BA6E0C21B1511F00D83156 /* LargeUIButton.m */,
 				1829C53721BCE224009A8732 /* NSString+htmlStyle.h */,
 				1829C53821BCE224009A8732 /* NSString+htmlStyle.m */,
+				A3B340B121C14A8D008EB36A /* TopLeftLabel.h */,
+				A3B340B221C14A8D008EB36A /* TopLeftLabel.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -4608,6 +4613,7 @@
 				4EBE5E83219036E000BFD01E /* UniteArticleTableViewCell.m in Sources */,
 				A39EE50D21884E3F00F74745 /* ArticleGSkItemView.m in Sources */,
 				4E331041215D23C700E534CD /* UIViewExt.m in Sources */,
+				A3B340B321C14A8D008EB36A /* TopLeftLabel.m in Sources */,
 				4E94ADC321ACE8D0009CAB7F /* CareerFindJobViewController.m in Sources */,
 				4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */,
 				18A0DB9521B12C1B0065B2BD /* CompanyCommentReviewsModel.m in Sources */,

@@ -75,9 +75,9 @@
         }
     }
     item.titleView=_searchBar;
-    if (@available(iOS 11.0, *)) {
-        [[_searchBar.heightAnchor constraintEqualToConstant:44.0] setActive:YES];
-    }
+//    if (@available(iOS 11.0, *)) {
+//        [[_searchBar.heightAnchor constraintEqualToConstant:44.0] setActive:YES];
+//    }
     myTable = [UITableView new];
     [self.view addSubview:myTable];
     myTable.dataSource = self;
@@ -89,7 +89,7 @@
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class])];
     myTable.backgroundColor = rgb255(246, 245, 245);
-    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT+50] install];
+    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-20] topParent:NAVHEIGHT+70] install];
     [self createEmptyNotice];
     [self createLocation];
     [self getCurrentLocation];//get the location
@@ -217,7 +217,8 @@
 
     [self showIndicator];
     latLongArr = [NSArray arrayWithObjects:@"23.23",@"45.2423", nil];
-    [Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+    //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
+    [Proto queryAllJobs:0 jobTitle:nil location:nil distance:nil completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideIndicator];
             [self setJobCountTitle:totalCount];
@@ -282,7 +283,7 @@
     locationVi.layer.masksToBounds = YES;
     locationVi.layer.cornerRadius = 4;
     locationVi.backgroundColor = [UIColor whiteColor];
-    [[[[locationVi.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:35] leftParent:edge] topParent:NAVHEIGHT + 8] install];
+    [[[[locationVi.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:35] leftParent:edge] topParent:NAVHEIGHT + 28] install];
     
     locationField = locationVi.addEditRaw;
     locationField.textColor = [UIColor grayColor];

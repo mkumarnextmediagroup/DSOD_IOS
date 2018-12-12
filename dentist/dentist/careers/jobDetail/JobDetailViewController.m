@@ -251,23 +251,22 @@
     vedioWebView.hidden = YES;
     bannerView.hidden = YES;
     singleImageView.hidden = YES;
-    if(jobModel.dso.media){
-        NSArray *mediaURL = jobModel.dso.media.mediaURL;
-        NSArray *media = jobModel.dso.media.media;
-        if(jobModel.dso.media.media_type == 1 && mediaURL && mediaURL.count > 0 ){
-            if(mediaURL.count>1){
-                bannerView.hidden = NO;
-                [bannerView addWithImageUrls:mediaURL autoTimerInterval:3 clickBlock:^(NSInteger index) {
-                    
-                }];
-            }else{
-                singleImageView.hidden = NO;
-                [singleImageView loadUrl:mediaURL[0] placeholderImage:nil];
-            }
-        }else if(jobModel.dso.media.media_type == 2 && media && media.count > 0) {
-            vedioWebView.hidden = NO;
-            [self showVideo:media[0]];
+
+    NSArray *mediaURL = jobModel.dso.mediaURL;
+    NSArray *media = jobModel.dso.media;
+    if(jobModel.dso.media_type == 1 && mediaURL && mediaURL.count > 0 ){
+        if(mediaURL.count>1){
+            bannerView.hidden = NO;
+            [bannerView addWithImageUrls:mediaURL autoTimerInterval:3 clickBlock:^(NSInteger index) {
+                
+            }];
+        }else{
+            singleImageView.hidden = NO;
+            [singleImageView loadUrl:mediaURL[0] placeholderImage:nil];
         }
+    }else if(jobModel.dso.media_type == 2 && media && media.count > 0) {
+        vedioWebView.hidden = NO;
+        [self showVideo:media[0]];
     }
     
     

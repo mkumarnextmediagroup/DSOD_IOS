@@ -30,7 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*logoURL;
 @property BOOL is_sponsor;
 @property JobPosition <Optional>*position;
-@property CompanyMediaModel <Optional>*media;
+@property NSInteger media_type;
+@property NSArray <Optional>*media;
 @property NSArray <Optional>*mediaURL;
 @property NSString <Optional>*dsoDescription;
 @property double rating;
@@ -38,6 +39,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSInteger reviewNum;
 @property NSInteger recommendNum;
 @property NSInteger approveNum;
+
+
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

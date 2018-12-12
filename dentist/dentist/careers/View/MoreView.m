@@ -35,7 +35,7 @@ static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[MoreView alloc] init];
         CGFloat bottom = offBottom;
-        instance.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
+        instance.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-bottom);
         instance.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:.8];
         [instance initSubView];
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -116,12 +116,12 @@ static dispatch_once_t onceToken;
     CGFloat bottom = offBottom;
     if (self.frame.origin.y == SCREENHEIGHT) {
         [UIView animateWithDuration:.3 animations:^{
-            self.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
+            self.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-bottom);
         }];
     }else
     {
         [UIView animateWithDuration:.3 animations:^{
-            self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
+            self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-bottom);
         } completion:^(BOOL finished) {
             if(self.delegate && [self.delegate respondsToSelector:@selector(moreViewClose:)]){
                 [self.delegate moreViewClose:self.selectIndex];

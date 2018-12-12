@@ -10,6 +10,7 @@
 #import "FilterView.h"
 #import "AppDelegate.h"
 #import "Proto.h"
+#import "CareerFindJobViewController.h"
 
 #define kMaxBtnCount 4
 #define leftToX 20
@@ -21,6 +22,12 @@
     NSArray *titleArr;
     NSArray *imageArr;
     UIImageView *img;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewDidLoad {
@@ -105,9 +112,11 @@
     {
 //        [[FilterView initFilterView] showFilter];
     }else if (btn.tag == 10){
-        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
-        [tabvc setSelectedIndex:1];
+//        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+//        [tabvc setSelectedIndex:1];
+        CareerFindJobViewController *findjobvc=[CareerFindJobViewController new];
+        [self.navigationController pushViewController:findjobvc animated:YES];
     }
 }
 

@@ -43,8 +43,24 @@
     
     UINavigationItem *item = self.navigationItem;
     item.title = @"JOBS";
-    item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(backToFirst)];
+    if (self.navigationController.viewControllers.count<=1) {
+        
+        self.tabBarController.tabBar.hidden = NO;
+    }else{
+        item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(backToFirst)];
+        // 隐藏tabBar
+        self.tabBarController.tabBar.hidden = YES;
+    }
+    
     item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
+    CGFloat _topBarH = 0;
+    CGFloat _bottomBarH = 0;
+    if (self.navigationController != nil) {
+        _topBarH = NAVHEIGHT;
+    }
+    if (self.navigationController.viewControllers.count<=1) {
+        _bottomBarH = TABLEBAR_HEIGHT;
+    }
     
     myTable = [UITableView new];
     [self.view addSubview:myTable];
@@ -57,7 +73,7 @@
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class])];
     
-    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
+    [[[[myTable.layoutMaker widthEq:SCREENWIDTH] topParent:_topBarH] bottomParent:-_bottomBarH] install];
     [self setupRefresh];
    
     
@@ -90,9 +106,17 @@
 
 - (void)backToFirst
 {
-    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
-    [tabvc setSelectedIndex:0];
+    NSArray *viewcontrollers=self.navigationController.viewControllers;
+    if (viewcontrollers.count>1) {
+        if ([viewcontrollers objectAtIndex:viewcontrollers.count-1]==self) {
+            //push方式
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+    else{
+        //present方式
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 -(void)refreshData
@@ -240,10 +264,11 @@
     CGFloat contentOffsetY = scrollView.contentOffset.y;
     CGFloat consizeheight=scrollView.contentSize.height;
     CGFloat bottomOffset = (consizeheight - contentOffsetY);
-    if (bottomOffset <= height-50 && contentOffsetY>0)
+    
+    if (bottomOffset <= height-50  && contentOffsetY>0)
     {
-        NSLog(@"==================================下啦刷选;bottomOffset=%@;height-50=%@",@(bottomOffset),@(height-50));
         if (!isdownrefresh) {
+            NSLog(@"==================================下啦刷选;contentOffsetY=%@;consizeheight=%@;bottomOffset=%@;height=%@；",@(contentOffsetY),@(consizeheight),@(bottomOffset),@(height));
             isdownrefresh=YES;
             [self showIndicator];
             [Proto queryAllJobs:self->infoArr.count filterDic:filterDic completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {

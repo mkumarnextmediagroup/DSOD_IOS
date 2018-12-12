@@ -19,6 +19,8 @@
 {
     NSArray<JobDSOModel *> *infoArr;
     UITableView *myTable;
+    NSInteger pagenumber;
+    BOOL isdownrefresh;
 }
 @end
 
@@ -26,11 +28,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    pagenumber=1;
     UINavigationItem *item = self.navigationItem;
     item.title = @"DSO PROFILES";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
-    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
+//    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
     
     myTable = [UITableView new];
     [self.view addSubview:myTable];
@@ -41,7 +43,7 @@
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-50] topParent:NAVHEIGHT] install];
     
     [self showCenterIndicator];
-    [Proto queryCompanyList:0 completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
+    [Proto queryCompanyList:pagenumber completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideCenterIndicator];
             NSLog(@"%@",array);
@@ -103,6 +105,39 @@
 
 - (void)onBack:(UIButton *)btn {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat consizeheight=scrollView.contentSize.height;
+    CGFloat bottomOffset = (consizeheight - contentOffsetY);
+    if (bottomOffset <= height-50   && contentOffsetY>0)
+    {
+        if (!isdownrefresh) {
+            NSLog(@"==================================下啦刷选;contentOffsetY=%@;consizeheight=%@;bottomOffset=%@;height=%@；",@(contentOffsetY),@(consizeheight),@(bottomOffset),@(height));
+            isdownrefresh=YES;
+            [self showCenterIndicator];
+            [Proto queryCompanyList:(pagenumber+1) completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
+                self->isdownrefresh=NO;
+                foreTask(^{
+                    [self hideCenterIndicator];
+                    NSLog(@"%@",array);
+                    if(array && array.count>0){
+                        self->pagenumber++;
+                        NSMutableArray *temparr=[NSMutableArray arrayWithArray:self->infoArr];
+                        [temparr addObjectsFromArray:array];
+                        self->infoArr=[temparr copy];
+                    }
+                    [self->myTable reloadData];
+                    
+                });
+            }];
+            
+        }
+        
+    }
 }
 
 /*

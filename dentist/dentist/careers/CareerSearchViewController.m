@@ -65,36 +65,11 @@
     _searchBar.showsCancelButton=NO;
     [_searchBar becomeFirstResponder];
     item.titleView=_searchBar;
-
-//    for (id obj in [_searchBar subviews]) {
-//        if ([obj isKindOfClass:[UIView class]]) {
-//            for (id obj2 in [obj subviews]) {
-//                if ([obj2 isKindOfClass:[UIButton class]]) {
-//                    UIButton *btn = (UIButton *)obj2;
-//                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
-//                }
-//            }
-//        }
-//    }
-    
-//    UITextField *searchField;
-//    for (UIView *subview in _searchBar.subviews){
-//        if ([subview isKindOfClass:[UITextField class]]){
-//            searchField = (UITextField *)subview;
-//            [searchField setBorderStyle:UITextBorderStyleLine];
-//            searchField.background = nil;
-//            searchField.layer.masksToBounds = YES;
-//            searchField.layer.cornerRadius = 1.0f;
-//            searchField.clipsToBounds = YES;
-//
-//            break;
-//        }
-//    }
-    
     
     UIView* backgroundView = [_searchBar subViewOfClassName:@"_UISearchBarSearchFieldBackgroundView"];
-    backgroundView.layer.cornerRadius = 1.0f;
-    backgroundView.clipsToBounds = YES;
+    backgroundView.layer.cornerRadius = 0.1f;
+    backgroundView.layer.masksToBounds = YES;
+    
     
 //    if (@available(iOS 11.0, *)) {
 //        [[_searchBar.heightAnchor constraintEqualToConstant:44.0] setActive:YES];

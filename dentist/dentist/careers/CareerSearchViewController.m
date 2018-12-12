@@ -56,7 +56,7 @@
     [super viewDidLoad];
     UINavigationItem *item = [self navigationItem];
     self.view.backgroundColor = rgb255(246, 245, 245);
-    item.rightBarButtonItem= [self navBarText:@"Search" target:self action:@selector(searchBtnClick)];
+    item.rightBarButtonItem= [self navBarText:@" Search" target:self action:@selector(searchBtnClick)];
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
     locationArr = [NSArray arrayWithObjects:@"5 miles",@"10 miles",@"25 miles",@"50 miles",@"100 miles", nil];
     
@@ -66,21 +66,37 @@
     _searchBar.showsCancelButton=NO;
     _searchBar.barTintColor = [UIColor whiteColor];
     [_searchBar becomeFirstResponder];
-    for (id obj in [_searchBar subviews]) {
-        if ([obj isKindOfClass:[UIView class]]) {
-            for (id obj2 in [obj subviews]) {
-                if ([obj2 isKindOfClass:[UIButton class]]) {
-                    UIButton *btn = (UIButton *)obj2;
-                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
-                }
-            }
-        }
-    }
     item.titleView=_searchBar;
+
+//    for (id obj in [_searchBar subviews]) {
+//        if ([obj isKindOfClass:[UIView class]]) {
+//            for (id obj2 in [obj subviews]) {
+//                if ([obj2 isKindOfClass:[UIButton class]]) {
+//                    UIButton *btn = (UIButton *)obj2;
+//                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
+//                }
+//            }
+//        }
+//    }
     
-//    UIView* backgroundView = [_searchBar subViewOfClassName:@"_UISearchBarSearchFieldBackgroundView"];
-//    backgroundView.layer.cornerRadius = 2.0f;
-//    backgroundView.clipsToBounds = YES;
+//    UITextField *searchField;
+//    for (UIView *subview in _searchBar.subviews){
+//        if ([subview isKindOfClass:[UITextField class]]){
+//            searchField = (UITextField *)subview;
+//            [searchField setBorderStyle:UITextBorderStyleLine];
+//            searchField.background = nil;
+//            searchField.layer.masksToBounds = YES;
+//            searchField.layer.cornerRadius = 1.0f;
+//            searchField.clipsToBounds = YES;
+//
+//            break;
+//        }
+//    }
+    
+    
+    UIView* backgroundView = [_searchBar subViewOfClassName:@"_UISearchBarSearchFieldBackgroundView"];
+    backgroundView.layer.cornerRadius = 1.0f;
+    backgroundView.clipsToBounds = YES;
     
 //    if (@available(iOS 11.0, *)) {
 //        [[_searchBar.heightAnchor constraintEqualToConstant:44.0] setActive:YES];
@@ -334,6 +350,7 @@
     locationField.textColor = [UIColor grayColor];
     locationField.delegate = self;
     locationField.font = [UIFont systemFontOfSize:14];
+    locationField.clearButtonMode = UITextFieldViewModeWhileEditing;
     UIButton *locationBtn = [UIButton new];
     locationBtn.frame = CGRectMake(0, 0, edge*2, 35);
     [locationBtn addTarget:self action:@selector(getCurrentLocation) forControlEvents:UIControlEventTouchUpInside];

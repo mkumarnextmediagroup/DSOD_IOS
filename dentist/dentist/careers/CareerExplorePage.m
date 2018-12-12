@@ -118,7 +118,7 @@
         CareerFindJobViewController *findjobvc=[CareerFindJobViewController new];
         UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:findjobvc];
         navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:navVC animated:YES completion:NULL];
+        [self presentViewController:navVC animated:NO completion:NULL];
 //        [self.navigationController pushViewController:navVC animated:YES];
     }
 }

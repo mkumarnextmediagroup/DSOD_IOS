@@ -122,7 +122,7 @@
     CareerSearchViewController *searchVC=[CareerSearchViewController new];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchVC];
     navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [viewController presentViewController:navVC animated:YES completion:NULL];
+    [viewController presentViewController:navVC animated:NO completion:NULL];
 }
 
 -(void)clickFilter:(UIButton *)sender

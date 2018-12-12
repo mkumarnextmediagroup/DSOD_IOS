@@ -97,7 +97,7 @@
 //    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 //    [viewController presentViewController:navVC animated:YES completion:NULL];
         CareerSearchViewController *searchVC=[CareerSearchViewController new];
-        [self.navigationController pushViewController:searchVC animated:YES];
+        [self.navigationController pushViewController:searchVC animated:NO];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

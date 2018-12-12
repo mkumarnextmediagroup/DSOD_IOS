@@ -102,4 +102,6 @@
 
 - (UIView *)grayLineHor:(CGFloat)marginLeft marginRight:(CGFloat)marginRight;
 -(void)addEmptyViewWithImageName:(NSString*_Nullable)imageName title:(NSString*_Nullable)title;
+
+- (UIView*)subViewOfClassName:(NSString*)className;
 @end

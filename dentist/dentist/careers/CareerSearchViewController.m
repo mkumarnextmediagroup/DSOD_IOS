@@ -19,7 +19,6 @@
 #import "CDZPicker.h"
 #import <CoreLocation/CoreLocation.h>
 
-
 #define edge 12
 @interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITextFieldDelegate,CLLocationManagerDelegate>
 {
@@ -75,6 +74,10 @@
         }
     }
     item.titleView=_searchBar;
+    UIView* backgroundView = [_searchBar subViewOfClassName:@"_UISearchBarSearchFieldBackgroundView"];
+    backgroundView.layer.cornerRadius = 1.0f;
+    backgroundView.clipsToBounds = YES;
+    
 //    if (@available(iOS 11.0, *)) {
 //        [[_searchBar.heightAnchor constraintEqualToConstant:44.0] setActive:YES];
 //    }
@@ -125,7 +128,7 @@
 
 - (void)searchBtnClick
 {
-    
+    [self searchBarSearchButtonClicked:_searchBar];
 }
 
 - (void)onBack:(UIButton *)btn {
@@ -218,7 +221,7 @@
     [self showIndicator];
     latLongArr = [NSArray arrayWithObjects:@"23.23",@"45.2423", nil];
     //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
-    [Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+    [Proto queryAllJobs:0 jobTitle:nil location:nil distance:nil completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideIndicator];
             [self setJobCountTitle:totalCount];
@@ -246,7 +249,7 @@
                 foreTask(^{
                     [self hideIndicator];
                     NSLog(@"%@",array);
-                    [self setJobCountTitle:totalCount];
+//                    [self setJobCountTitle:totalCount];
                     if(array && array.count>0){
                         [self->infoArr addObjectsFromArray:array];
                     }

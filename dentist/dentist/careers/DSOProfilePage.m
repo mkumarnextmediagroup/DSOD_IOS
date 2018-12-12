@@ -109,35 +109,41 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat height = scrollView.frame.size.height;
-    CGFloat contentOffsetY = scrollView.contentOffset.y;
-    CGFloat consizeheight=scrollView.contentSize.height;
-    CGFloat bottomOffset = (consizeheight - contentOffsetY);
-    if (bottomOffset <= height-50   && contentOffsetY>0)
-    {
-        if (!isdownrefresh) {
+    if ([scrollView isEqual:myTable]) {
+        CGFloat height = scrollView.frame.size.height;
+        CGFloat contentOffsetY = scrollView.contentOffset.y;
+        CGFloat consizeheight=scrollView.contentSize.height;
+        CGFloat bottomOffset = (consizeheight - contentOffsetY);
+        
+        if (contentOffsetY+height>consizeheight+50   && contentOffsetY>0)
+        {
             NSLog(@"==================================下啦刷选;contentOffsetY=%@;consizeheight=%@;bottomOffset=%@;height=%@；",@(contentOffsetY),@(consizeheight),@(bottomOffset),@(height));
-            isdownrefresh=YES;
-            [self showCenterIndicator];
-            [Proto queryCompanyList:(pagenumber+1) completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
-                self->isdownrefresh=NO;
-                foreTask(^{
-                    [self hideCenterIndicator];
-                    NSLog(@"%@",array);
-                    if(array && array.count>0){
-                        self->pagenumber++;
-                        NSMutableArray *temparr=[NSMutableArray arrayWithArray:self->infoArr];
-                        [temparr addObjectsFromArray:array];
-                        self->infoArr=[temparr copy];
-                    }
-                    [self->myTable reloadData];
-                    
-                });
-            }];
+            if (!isdownrefresh) {
+                
+                isdownrefresh=YES;
+                [self showCenterIndicator];
+                [Proto queryCompanyList:(pagenumber+1) completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
+                    self->isdownrefresh=NO;
+                    foreTask(^{
+                        [self hideCenterIndicator];
+                        NSLog(@"%@",array);
+                        if(array && array.count>0){
+                            self->pagenumber++;
+                            NSMutableArray *temparr=[NSMutableArray arrayWithArray:self->infoArr];
+                            [temparr addObjectsFromArray:array];
+                            self->infoArr=[temparr copy];
+                            [self->myTable reloadData];
+                        }
+                        
+                        
+                    });
+                }];
+                
+            }
             
         }
-        
     }
+    
 }
 
 /*

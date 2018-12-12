@@ -10,4 +10,6 @@
 -(UIImage*) scaledTo:(CGFloat) w h:(CGFloat)h ;
 -(UIImage*) scaledBy:(CGFloat) f ;
 + (UIImage*)getGrayImage:(UIImage*)sourceImage;
++(UIImage*)imageWithColor:(UIColor*)color andHeight:(CGFloat)height;
+- (UIImage *)roundedCornerImageWithCornerRadius:(CGFloat)cornerRadius;
 @end

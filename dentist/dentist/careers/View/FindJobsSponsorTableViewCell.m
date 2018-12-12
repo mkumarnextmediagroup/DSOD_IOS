@@ -52,7 +52,7 @@
         
         
         titleLabel = bgView.addLabel;
-        
+        titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         
         bankImageView=bgView.addImageView;
         bankImageView.image=[UIImage imageNamed:@"icons8-banknotes"];

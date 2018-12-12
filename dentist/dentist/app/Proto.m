@@ -2228,7 +2228,7 @@
 {
     NSInteger limit=20;//分页数默认20条
     if (skip<=0) {
-        skip=1;
+        skip=0;
     }
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"pageNumber"];

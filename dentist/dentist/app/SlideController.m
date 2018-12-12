@@ -380,7 +380,7 @@
             DSOProfilePage *dso = [DSOProfilePage new];
             UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:dso];
             navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            [VC presentViewController:navVC animated:YES completion:NULL];
+            [VC presentViewController:navVC animated:NO completion:NULL];
         }
         
         

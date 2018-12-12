@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor=[UIColor whiteColor];
     pagenumber=1;
     UINavigationItem *item = self.navigationItem;
     item.title = @"DSO PROFILES";
@@ -77,12 +78,12 @@
     if (viewcontrollers.count>1) {
         if ([viewcontrollers objectAtIndex:viewcontrollers.count-1]==self) {
             //push方式
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:NO];
         }
     }
     else{
         //present方式
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }
     
 }
@@ -96,7 +97,7 @@
 //    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 //    [viewController presentViewController:navVC animated:YES completion:NULL];
         CareerSearchViewController *searchVC=[CareerSearchViewController new];
-        [self.navigationController pushViewController:searchVC animated:YES];
+        [self.navigationController pushViewController:searchVC animated:NO];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

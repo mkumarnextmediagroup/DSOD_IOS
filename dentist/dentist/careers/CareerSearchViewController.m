@@ -218,7 +218,7 @@
     [self showIndicator];
     latLongArr = [NSArray arrayWithObjects:@"23.23",@"45.2423", nil];
     //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
-    [Proto queryAllJobs:0 jobTitle:nil location:nil distance:nil completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+    [Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideIndicator];
             [self setJobCountTitle:totalCount];

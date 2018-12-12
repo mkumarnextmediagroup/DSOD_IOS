@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    pagenumber=1;
+    pagenumber=0;
     UINavigationItem *item = self.navigationItem;
     item.title = @"DSO PROFILES";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];

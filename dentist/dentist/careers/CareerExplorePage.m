@@ -105,7 +105,7 @@
         DSOProfilePage *dso = [DSOProfilePage new];
         UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:dso];
         navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:navVC animated:YES completion:NULL];
+        [self presentViewController:navVC animated:NO completion:NULL];
 //        [self.navigationController pushViewController:dso animated:YES];
 
     }else if (btn.tag == 12)//review button click

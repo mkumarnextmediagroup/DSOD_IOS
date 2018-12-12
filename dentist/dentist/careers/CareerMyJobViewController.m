@@ -40,6 +40,7 @@
     
     UINavigationItem *item = self.navigationItem;
     item.title = @"MY JOBS";
+    self.view.backgroundColor=[UIColor whiteColor];
 
 //    myTable = [UITableView new];
 //    [self.view addSubview:myTable];
@@ -254,8 +255,9 @@
                         [self setJobCountTitle:totalCount];
                         if(array && array.count>0){
                             [self->applyArr addObjectsFromArray:array];
+                            [self->myTable reloadData];
                         }
-                        [self->myTable reloadData];
+                        
                         
                     });
                 }];
@@ -267,8 +269,9 @@
                         [self setJobCountTitle:totalCount];
                         if(array && array.count>0){
                             [self->followArr addObjectsFromArray:array];
+                            [self->myTable reloadData];
                         }
-                        [self->myTable reloadData];
+                        
                         
                     });
                 }];

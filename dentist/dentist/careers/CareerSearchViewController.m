@@ -33,6 +33,7 @@
     NSString *longitude;
     NSArray *latLongArr;
     NSString *requestMiles;
+    NSString *currentCity;
     
     UITextField *locationField;
     UITextField *milesField;
@@ -219,16 +220,31 @@
     _searchBar.showsCancelButton = NO;
 
     [self showIndicator];
-    latLongArr = [NSArray arrayWithObjects:@"23.23",@"45.2423", nil];
-    //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
-    [Proto queryAllJobs:0 jobTitle:nil location:nil distance:nil completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-        foreTask(^{
-            [self hideIndicator];
-            [self setJobCountTitle:totalCount];
-            self->infoArr = [NSMutableArray arrayWithArray:array];
-            [self->myTable reloadData];
-        });
-    }];
+    
+    if ([locationField.text isEqualToString:currentCity]) {//自动定位，此时有经纬度
+        //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
+        [Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr city:nil distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+            foreTask(^{
+                [self hideIndicator];
+                [self setJobCountTitle:totalCount];
+                self->infoArr = [NSMutableArray arrayWithArray:array];
+                [self->myTable reloadData];
+            });
+        }];
+
+    }else
+    {
+        //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
+        [Proto queryAllJobs:0 jobTitle:_searchBar.text location:nil city:locationField.text distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+            foreTask(^{
+                [self hideIndicator];
+                [self setJobCountTitle:totalCount];
+                self->infoArr = [NSMutableArray arrayWithArray:array];
+                [self->myTable reloadData];
+            });
+        }];
+    }
+    
 }
 
 
@@ -244,20 +260,43 @@
         if (!isdownrefresh) {
             isdownrefresh=YES;
             [self showIndicator];
-            [Proto queryAllJobs:self->infoArr.count jobTitle:_searchBar.text location:latLongArr distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-                self->isdownrefresh=NO;
-                foreTask(^{
-                    [self hideIndicator];
-                    NSLog(@"%@",array);
-//                    [self setJobCountTitle:totalCount];
-                    if(array && array.count>0){
-                        [self->infoArr addObjectsFromArray:array];
-                    }
-                    [self->myTable reloadData];
-                    
-                });
-            }];
             
+            if ([locationField.text isEqualToString:currentCity]) {//自动定位，此时有经纬度
+                //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
+                [Proto queryAllJobs:self->infoArr.count jobTitle:_searchBar.text location:latLongArr city:nil distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                    self->isdownrefresh=NO;
+                    foreTask(^{
+                        [self hideIndicator];
+                        NSLog(@"%@",array);
+                        //                    [self setJobCountTitle:totalCount];
+                        if(array && array.count>0){
+                            [self->infoArr addObjectsFromArray:array];
+                        }
+                        [self->myTable reloadData];
+                        
+                    });
+                }];
+
+                
+            }else
+            {
+                //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
+                [Proto queryAllJobs:self->infoArr.count jobTitle:_searchBar.text location:nil city:locationField.text distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                    self->isdownrefresh=NO;
+                    foreTask(^{
+                        [self hideIndicator];
+                        NSLog(@"%@",array);
+                        //                    [self setJobCountTitle:totalCount];
+                        if(array && array.count>0){
+                            [self->infoArr addObjectsFromArray:array];
+                        }
+                        [self->myTable reloadData];
+                        
+                    });
+                }];
+
+            }
+
         }
         
     }
@@ -385,7 +424,7 @@
     [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         if (placemarks.count > 0) {
             CLPlacemark *placeMark = placemarks[0];
-            NSString *currentCity = placeMark.locality;
+            currentCity = placeMark.locality;
             if (!currentCity) {
                 currentCity = @"无法定位当前城市";
             }

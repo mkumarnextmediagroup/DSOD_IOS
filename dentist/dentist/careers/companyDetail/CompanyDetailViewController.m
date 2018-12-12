@@ -60,7 +60,6 @@
 
 
 +(void)openBy:(UIViewController*)vc companyId:(NSString*)companyId{
-    companyId = @"fc795e58152e4122b985853ff1005f39";
     if(companyId){
         
         CompanyDetailViewController *detailPageVc = [CompanyDetailViewController new];
@@ -181,23 +180,22 @@
     vedioWebView.hidden = YES;
     bannerView.hidden = YES;
     singleImageView.hidden = YES;
-    if(companyModel.media){
-        NSArray *mediaURL = companyModel.media.mediaURL;
-        NSArray *media = companyModel.media.media;
-        if(companyModel.media.media_type == 1 && mediaURL && mediaURL.count > 0 ){
-            if(mediaURL.count>1){
-                bannerView.hidden = NO;
-                [bannerView addWithImageUrls:mediaURL autoTimerInterval:3 clickBlock:^(NSInteger index) {
-                    
-                }];
-            }else{
-                singleImageView.hidden = NO;
-                [singleImageView loadUrl:mediaURL[0] placeholderImage:nil];
-            }
-        }else if(companyModel.media.media_type == 2 && media && media.count > 0) {
-            vedioWebView.hidden = NO;
-            [self showVideo:media[0]];
+    
+    NSArray *mediaURL = companyModel.mediaURL;
+    NSArray *media = companyModel.media;
+    if(companyModel.media_type == 1 && mediaURL && mediaURL.count > 0 ){
+        if(mediaURL.count>1){
+            bannerView.hidden = NO;
+            [bannerView addWithImageUrls:mediaURL autoTimerInterval:3 clickBlock:^(NSInteger index) {
+
+            }];
+        }else{
+            singleImageView.hidden = NO;
+            [singleImageView loadUrl:mediaURL[0] placeholderImage:nil];
         }
+    }else if(companyModel.media_type == 2 && media && media.count > 0) {
+        vedioWebView.hidden = NO;
+        [self showVideo:media[0]];
     }
     
     

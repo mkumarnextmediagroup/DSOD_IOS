@@ -279,9 +279,8 @@
                     NSLog(@"%@",array);
                     if(array && array.count>0){
                         [self->infoArr addObjectsFromArray:array];
+                        [self->myTable reloadData];
                     }
-                    [self->myTable reloadData];
-
                 });
             }];
 

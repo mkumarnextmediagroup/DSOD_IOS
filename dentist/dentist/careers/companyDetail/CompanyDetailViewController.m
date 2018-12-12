@@ -97,7 +97,7 @@
     UINavigationItem *item = [self navigationItem];
     item.title = @"DSO COMPANY";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
-    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
+//    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
     
 }
 

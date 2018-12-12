@@ -43,24 +43,28 @@
     
     UINavigationItem *item = self.navigationItem;
     item.title = @"JOBS";
-    if (self.navigationController.viewControllers.count<=1) {
-        
-        self.tabBarController.tabBar.hidden = NO;
-    }else{
-        item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(backToFirst)];
-        // 隐藏tabBar
-        self.tabBarController.tabBar.hidden = YES;
-    }
+//    if (self.navigationController.viewControllers.count<=1) {
+//        
+//        self.tabBarController.tabBar.hidden = NO;
+//    }else{
+//        item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(backToFirst)];
+//        // 隐藏tabBar
+//        self.tabBarController.tabBar.hidden = YES;
+//    }
     
-    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
     CGFloat _topBarH = 0;
     CGFloat _bottomBarH = 0;
     if (self.navigationController != nil) {
         _topBarH = NAVHEIGHT;
     }
-    if (self.navigationController.viewControllers.count<=1) {
+    if (self.tabBarController != nil) {
         _bottomBarH = TABLEBAR_HEIGHT;
+    }else{
+        item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(backToFirst)];
     }
+    
+    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
+    
     
     myTable = [UITableView new];
     [self.view addSubview:myTable];

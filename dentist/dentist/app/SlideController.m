@@ -378,7 +378,9 @@
         UIViewController *VC =nav.topViewController;
         if (![VC isKindOfClass:[DSOProfilePage class]]) {
             DSOProfilePage *dso = [DSOProfilePage new];
-            [nav pushViewController:dso animated:YES];
+            UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:dso];
+            navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [VC presentViewController:navVC animated:YES completion:NULL];
         }
         
         

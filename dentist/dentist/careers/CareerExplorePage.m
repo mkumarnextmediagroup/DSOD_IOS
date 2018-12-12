@@ -102,11 +102,11 @@
 {
     if (btn.tag == 13) {//DSO Profile button
         NSLog(@"DSO Profile");
-        UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
         DSOProfilePage *dso = [DSOProfilePage new];
-//        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:dso];
-//        [viewController presentViewController:navVC animated:YES completion:NULL];
-        [self.navigationController pushViewController:dso animated:YES];
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:dso];
+        navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:navVC animated:YES completion:NULL];
+//        [self.navigationController pushViewController:dso animated:YES];
 
     }else if (btn.tag == 12)//review button click
     {
@@ -116,7 +116,10 @@
 //        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
 //        [tabvc setSelectedIndex:1];
         CareerFindJobViewController *findjobvc=[CareerFindJobViewController new];
-        [self.navigationController pushViewController:findjobvc animated:YES];
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:findjobvc];
+        navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:navVC animated:YES completion:NULL];
+//        [self.navigationController pushViewController:navVC animated:YES];
     }
 }
 

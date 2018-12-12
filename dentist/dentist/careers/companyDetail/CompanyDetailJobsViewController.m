@@ -38,12 +38,17 @@
 - (void)viewDidLoad{
     edge = 18;
     [self buildView];
-    
+}
+
+-(void)setCompanyId:(NSString *)companyId
+{
+    _companyId=companyId;
+    [self showLoading];
     [Proto getAllJobsByCompanyId:self.companyId skip:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideLoading];
-//            [self setJobCountTitle:3];
-//            self->jobArray =  @[[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new]];
+            //            [self setJobCountTitle:3];
+            //            self->jobArray =  @[[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new]];
             [self setJobCountTitle:totalCount];
             self->jobArray = array;
             [self->tableView reloadData];

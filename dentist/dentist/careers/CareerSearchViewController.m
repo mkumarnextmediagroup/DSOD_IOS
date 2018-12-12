@@ -18,6 +18,7 @@
 #import "UITableView+JRTableViewPlaceHolder.h"
 #import "CDZPicker.h"
 #import <CoreLocation/CoreLocation.h>
+#import "UIImage+customed.h"
 
 #define edge 12
 @interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITextFieldDelegate,CLLocationManagerDelegate>
@@ -63,6 +64,7 @@
     _searchBar.placeholder = @"Search...";
     _searchBar.delegate = self;
     _searchBar.showsCancelButton=NO;
+    _searchBar.barTintColor = [UIColor whiteColor];
     [_searchBar becomeFirstResponder];
     for (id obj in [_searchBar subviews]) {
         if ([obj isKindOfClass:[UIView class]]) {
@@ -75,9 +77,10 @@
         }
     }
     item.titleView=_searchBar;
-    UIView* backgroundView = [_searchBar subViewOfClassName:@"_UISearchBarSearchFieldBackgroundView"];
-    backgroundView.layer.cornerRadius = 1.0f;
-    backgroundView.clipsToBounds = YES;
+    
+//    UIView* backgroundView = [_searchBar subViewOfClassName:@"_UISearchBarSearchFieldBackgroundView"];
+//    backgroundView.layer.cornerRadius = 2.0f;
+//    backgroundView.clipsToBounds = YES;
     
 //    if (@available(iOS 11.0, *)) {
 //        [[_searchBar.heightAnchor constraintEqualToConstant:44.0] setActive:YES];

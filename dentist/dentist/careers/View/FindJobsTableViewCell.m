@@ -56,6 +56,7 @@
         
         
         titleLabel = bgView.addLabel;
+        titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         
         
         bankImageView=bgView.addImageView;
@@ -126,7 +127,7 @@
         }
         
         titleLabel.text = [NSString stringWithFormat:@"%@-%@",_info.jobTitle,location];
-        statusLabel.text=@"POSITION CLOSE";
+        statusLabel.text=@"";
         NSInteger startsalary=ceilf(_info.salaryStartingValue/1000.0);
         NSInteger endsalary=ceilf(_info.salaryEndValue/1000.0);
         salaryLabel.text=[NSString stringWithFormat:@"$%@k-$%@k",@(startsalary),@(endsalary)];

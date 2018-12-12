@@ -63,9 +63,10 @@
     if(companyId){
         
         CompanyDetailViewController *detailPageVc = [CompanyDetailViewController new];
-        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:detailPageVc];
+//        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:detailPageVc];
         detailPageVc.companyId = companyId;
-        [vc presentViewController:navVC animated:YES completion:NULL];
+//        [vc presentViewController:navVC animated:YES completion:NULL];
+        [vc pushPage:detailPageVc];
     }else{
         [vc.view makeToast:@"companyId is null"];
     }
@@ -101,9 +102,6 @@
     
 }
 
-- (void)dismiss {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 
 -(void)buildView{

@@ -114,12 +114,12 @@
     if (viewcontrollers.count>1) {
         if ([viewcontrollers objectAtIndex:viewcontrollers.count-1]==self) {
             //push方式
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:NO];
         }
     }
     else{
         //present方式
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }
 }
 
@@ -167,10 +167,10 @@
         CareerSearchViewController *searchVC=[CareerSearchViewController new];
         UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchVC];
         navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [viewController presentViewController:navVC animated:YES completion:NULL];
+        [viewController presentViewController:navVC animated:NO completion:NULL];
     }else{
         CareerSearchViewController *searchVC=[CareerSearchViewController new];
-        [self.navigationController pushViewController:searchVC animated:YES];
+        [self.navigationController pushViewController:searchVC animated:NO];
     }
     
 }

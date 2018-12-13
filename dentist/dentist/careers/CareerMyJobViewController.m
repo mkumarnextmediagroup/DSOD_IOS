@@ -40,20 +40,20 @@
     
     UINavigationItem *item = self.navigationItem;
     item.title = @"MY JOBS";
-    self.view.backgroundColor=[UIColor whiteColor];
+//    self.view.backgroundColor=[UIColor whiteColor];
 
-//    myTable = [UITableView new];
-//    [self.view addSubview:myTable];
-//    myTable.dataSource = self;
-//    myTable.delegate = self;
-//    myTable.rowHeight = UITableViewAutomaticDimension;
-//    myTable.estimatedRowHeight = 100;
-//    [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-//    myTable.tableHeaderView=[self makeHeaderView];
-//    [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:@"myjobcell"];
-//
-//    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
-//    [self setupRefresh];
+    myTable = [UITableView new];
+    [self.view addSubview:myTable];
+    myTable.dataSource = self;
+    myTable.delegate = self;
+    myTable.rowHeight = UITableViewAutomaticDimension;
+    myTable.estimatedRowHeight = 100;
+    [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    myTable.tableHeaderView=[self makeHeaderView];
+    [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:@"myjobcell"];
+
+    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
+    [self setupRefresh];
 
     
     // Do any additional setup after loading the view.

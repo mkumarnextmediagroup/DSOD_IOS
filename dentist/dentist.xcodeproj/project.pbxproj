@@ -391,6 +391,8 @@
 		A3A5B33B218D61F200242E71 /* ThumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A5B33A218D61F200242E71 /* ThumViewController.swift */; };
 		A3A5B33D218D625700242E71 /* ThumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A5B33C218D625700242E71 /* ThumTableViewController.swift */; };
 		A3B340B321C14A8D008EB36A /* TopLeftLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3B340B221C14A8D008EB36A /* TopLeftLabel.m */; };
+		A3B340B521C22084008EB36A /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = A3B340B421C22083008EB36A /* loading.gif */; };
+		A3B340BA21C272FF008EB36A /* UIImageViewLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = A3B340B921C272FE008EB36A /* UIImageViewLoading.m */; };
 		A3BA6DD921AEA36100D83156 /* CompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6DD321AEA36100D83156 /* CompanyModel.m */; };
 		A3BA6DDA21AEA36100D83156 /* JobPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6DD521AEA36100D83156 /* JobPosition.m */; };
 		A3BA6DDB21AEA36100D83156 /* JobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BA6DD721AEA36100D83156 /* JobModel.m */; };
@@ -1411,6 +1413,9 @@
 		A3A5B33C218D625700242E71 /* ThumTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumTableViewController.swift; sourceTree = "<group>"; };
 		A3B340B121C14A8D008EB36A /* TopLeftLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopLeftLabel.h; sourceTree = "<group>"; };
 		A3B340B221C14A8D008EB36A /* TopLeftLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopLeftLabel.m; sourceTree = "<group>"; };
+		A3B340B421C22083008EB36A /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
+		A3B340B821C272FE008EB36A /* UIImageViewLoading.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIImageViewLoading.h; sourceTree = "<group>"; };
+		A3B340B921C272FE008EB36A /* UIImageViewLoading.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIImageViewLoading.m; sourceTree = "<group>"; };
 		A3BA6DD321AEA36100D83156 /* CompanyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyModel.m; sourceTree = "<group>"; };
 		A3BA6DD421AEA36100D83156 /* JobModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobModel.h; sourceTree = "<group>"; };
 		A3BA6DD521AEA36100D83156 /* JobPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobPosition.m; sourceTree = "<group>"; };
@@ -2730,6 +2735,7 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A3B340B421C22083008EB36A /* loading.gif */,
 				4E4A161821BA6087003F198B /* location_filled@2x.png */,
 				4E4A161721BA6086003F198B /* location_filled@3x.png */,
 				4E4A161421BA5816003F198B /* career_searchIcon@2x.png */,
@@ -3634,6 +3640,8 @@
 				1829C53821BCE224009A8732 /* NSString+htmlStyle.m */,
 				A3B340B121C14A8D008EB36A /* TopLeftLabel.h */,
 				A3B340B221C14A8D008EB36A /* TopLeftLabel.m */,
+				A3B340B821C272FE008EB36A /* UIImageViewLoading.h */,
+				A3B340B921C272FE008EB36A /* UIImageViewLoading.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -4020,6 +4028,7 @@
 				18CFB0FF216F3B69002CC9D0 /* foryou@3x.png in Resources */,
 				A3E752ED217E35010087713D /* Interview.png in Resources */,
 				C5EEAC84691A5246841E615B /* info@2x.png in Resources */,
+				A3B340B521C22084008EB36A /* loading.gif in Resources */,
 				C5EEA9C145CEE1C7091EA50F /* info@3x.png in Resources */,
 				18CFB0FD216F3B69002CC9D0 /* foryou@2x.png in Resources */,
 				18A0DBA521B1877F0065B2BD /* icon_arrow_down_small.png in Resources */,
@@ -4684,6 +4693,7 @@
 				18B83B132173557D00130DB6 /* YBIBTransitionManager.m in Sources */,
 				A3DF39A42189A280006F84DC /* ConfigurationHelper.swift in Sources */,
 				4E846F952140FCD200DC2B51 /* EditResidencyViewController.m in Sources */,
+				A3B340BA21C272FF008EB36A /* UIImageViewLoading.m in Sources */,
 				18B83B112173557D00130DB6 /* YBIBLayoutDirectionManager.m in Sources */,
 				18CFB0F0216EF285002CC9D0 /* RMDownloadIndicator.m in Sources */,
 				A3BA6DDE21AEC05800D83156 /* JobBookmarkModel.m in Sources */,

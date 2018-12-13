@@ -67,13 +67,6 @@
     _searchBar.barTintColor = [UIColor whiteColor];
     [_searchBar becomeFirstResponder];
     item.titleView=_searchBar;
-<<<<<<< HEAD
-    
-    UIView* backgroundView = [_searchBar subViewOfClassName:@"_UISearchBarSearchFieldBackgroundView"];
-    backgroundView.layer.cornerRadius = 0.1f;
-    backgroundView.layer.masksToBounds = YES;
-    
-=======
 
     
     UIView* backgroundView = [_searchBar subViewOfClassName:@"_UISearchBarSearchFieldBackgroundView"];
@@ -81,7 +74,6 @@
     backgroundView.clipsToBounds = YES;
     backgroundView.alpha = 1.0;
     backgroundView.backgroundColor = [UIColor whiteColor];
->>>>>>> 023260651e18ab7e06df98ba79097769fda90f67
     
     UITextField*searchField = [_searchBar valueForKey:@"_searchField"];//更改searchBar 中PlaceHolder 字体颜色
     searchField.textColor= [UIColor grayColor];

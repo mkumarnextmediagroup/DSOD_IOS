@@ -8,7 +8,8 @@
 #import "TapGesture.h"
 #import "Platform.h"
 #import "NSString+myextend.h"
-
+#import "UIImage+GIF.h"
+#import "UIImageViewLoading.h"
 
 @implementation UIImageView (customed)
 
@@ -84,22 +85,47 @@
 }
 
 - (void)loadUrl:(NSString *)url placeholderImage:(NSString *)localImage {
+    if ([self isKindOfClass:[UIImageViewLoading class]]) {
+        UIImageViewLoading *newself  =(UIImageViewLoading*)self;
+        newself.isShowLoading=YES;
+    }
 	if (url != nil && ![url isKindOfClass:NSNull.class] && [url isKindOfClass:[NSString class]]) {
-        [self sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:localImage]];
+        [self sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:localImage] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if ([self isKindOfClass:[UIImageViewLoading class]]) {
+                UIImageViewLoading *newself  =(UIImageViewLoading*)self;
+                newself.isShowLoading=NO;
+            }
+        }];
 	} else {
+        if ([self isKindOfClass:[UIImageViewLoading class]]) {
+            UIImageViewLoading *newself  =(UIImageViewLoading*)self;
+            newself.isShowLoading=NO;
+        }
 		self.imageName = localImage;
 	}
 }
 
 -(void)loadUrl:(NSString *)url placeholderImage:(NSString *)localImage completed:(nullable SDExternalCompletionBlock)completedBlock
 {
+    if ([self isKindOfClass:[UIImageViewLoading class]]) {
+        UIImageViewLoading *newself  =(UIImageViewLoading*)self;
+        newself.isShowLoading=YES;
+    }
     if (url != nil && ![url isKindOfClass:NSNull.class] && [url isKindOfClass:[NSString class]]) {
         [self sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:localImage] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if ([self isKindOfClass:[UIImageViewLoading class]]) {
+                UIImageViewLoading *newself  =(UIImageViewLoading*)self;
+                newself.isShowLoading=NO;
+            }
             if (completedBlock) {
                 completedBlock(image,error,cacheType,imageURL);
             }
         }];
     } else {
+        if ([self isKindOfClass:[UIImageViewLoading class]]) {
+            UIImageViewLoading *newself  =(UIImageViewLoading*)self;
+            newself.isShowLoading=NO;
+        }
         self.imageName = localImage;
         if (completedBlock) {
             completedBlock(nil,nil,SDImageCacheTypeNone,nil);

@@ -42,7 +42,7 @@
     BannerScrollView *bannerView;
     UIImageView *singleImageView;
     UIWebView *vedioWebView;
-
+    UIButton *attentionButton;
     UIView *sectionHeaderView;
 
     int edge;
@@ -111,6 +111,12 @@
         if(jobModel){
             self->jobModel = jobModel;
             [self buildView];
+            if ([jobModel.isAttention isEqualToString:@"1"]) {
+                [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention_select"] forState:UIControlStateNormal];
+            }else
+            {
+                [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention"] forState:UIControlStateNormal];
+            }
         }
     }];
 }
@@ -143,11 +149,9 @@
     [[[[shareView.layoutMaker sizeEq:44 h:44] centerYParent:0] rightParent:-5] install];
     
     
-    UIImageView *attentionView = naviBarView.addImageView;
-    attentionView.image = [UIImage imageNamed:@"icon_attention"];
-    [attentionView onClickView:self action:@selector(attention)];
-    [[[[attentionView.layoutMaker sizeEq:44 h:44]centerYParent:0]toLeftOf:shareView offset:0] install];
-    
+    attentionButton = naviBarView.addButton; //bgView.addButton;
+    [attentionButton addTarget:self action:@selector(attention) forControlEvents:UIControlEventTouchUpInside];
+    [[[[attentionButton.layoutMaker sizeEq:44 h:44]centerYParent:0]toLeftOf:shareView offset:0] install];
     
 }
 
@@ -349,7 +353,35 @@
 }
 
 -(void)attention{
-    [self.view makeToast:@"attention"];
+    
+    if ([jobModel.isAttention isEqualToString:@"1"]) {
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+        [Proto deleteJobBookmark:jobModel.id completed:^(HttpResult *result) {
+            NSLog(@"result=%@",@(result.code));
+            foreTask(^() {
+                [self.navigationController.view hideToast];
+                [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention"] forState:UIControlStateNormal];
+                self->jobModel.isAttention = @"0";
+            });
+        }];
+
+    }else
+    {
+        UIView *dsontoastview1=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview1 duration:30.0 position:CSToastPositionCenter completion:nil];
+        [Proto addJobBookmark:self.jobId completed:^(HttpResult *result) {
+            NSLog(@"result=%@",@(result.code));
+            foreTask(^() {
+                [self.navigationController.view hideToast];
+                [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention_select"] forState:UIControlStateNormal];
+                self->jobModel.isAttention = @"1";
+            });
+        }];
+        
+    }
+
+    
 }
 
 -(void)share{

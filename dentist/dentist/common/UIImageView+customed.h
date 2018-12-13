@@ -38,4 +38,6 @@
 
 - (void)loadUrl:(NSString * _Nullable)url placeholderImage:(NSString * _Nullable)localImage;
 -(void)loadUrl:(NSString * _Nullable)url placeholderImage:(NSString * _Nullable)localImage completed:(nullable SDExternalCompletionBlock)completedBlock;
+
+- (UIImageView *)roundedRectImageViewWithCornerRadius:(CGFloat)cornerRadius;
 @end

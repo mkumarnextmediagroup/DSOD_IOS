@@ -10,6 +10,7 @@
 #import "Common.h"
 #import "LargeUIButton.h"
 #import "DentistDataBaseManager.h"
+#import "TopLeftLabel.h"
 #define edge 15
 
 @implementation FindJobsTableViewCell{
@@ -55,7 +56,8 @@
         statusLabel = bgView.addLabel;
         
         
-        titleLabel = bgView.addLabel;
+        titleLabel = [TopLeftLabel new]; //bgView.addLabel;
+        [bgView addSubview:titleLabel];
         titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         
         

@@ -107,5 +107,12 @@
     }
 }
 
+- (UIImageView *)roundedRectImageViewWithCornerRadius:(CGFloat)cornerRadius {
+    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:cornerRadius];
+    CAShapeLayer *layer = [CAShapeLayer layer];
+    layer.path = bezierPath.CGPath;
+    self.layer.mask = layer;
+    return self;
+}
 
 @end

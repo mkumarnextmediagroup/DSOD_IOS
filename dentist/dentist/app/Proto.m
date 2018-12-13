@@ -2199,7 +2199,7 @@
     if (jobTitle) {
         [paradic setObject:jobTitle forKey:@"jobTitle"];
     }
-    [self postAsync3:@"company/getAllJobsByDSOId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+    [self postAsync3:@"job/getAllJobsByDSOId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];

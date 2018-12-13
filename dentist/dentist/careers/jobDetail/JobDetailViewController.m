@@ -19,6 +19,7 @@
 #import "JobDetailReviewsViewController.h"
 #import "JobModel.h"
 #import "DentistDataBaseManager.h"
+#import "MapViewController.h"
 
 @interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
 @property (nonatomic,strong) NSString *jobId;
@@ -68,16 +69,23 @@
     }else{
         viewController= [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     }
+    viewController.modalPresentationStyle = UIModalPresentationCustom;
+    
     
     JobDetailViewController *jobDetailVc = [JobDetailViewController new];
     jobDetailVc.jobId =jobId;
     jobDetailVc.closeBack = closeBack;
-    jobDetailVc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    jobDetailVc.modalPresentationStyle = UIModalPresentationCustom;
     jobDetailVc.view.backgroundColor = UIColor.clearColor;
-    viewController.modalPresentationStyle = UIModalPresentationCurrentContext;
-    [viewController presentViewController:jobDetailVc animated:YES completion:^{
+    
+    UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:jobDetailVc];
+    nvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    nvc.view.backgroundColor = [UIColor clearColor];
+    
+    [viewController presentViewController:nvc animated:YES completion:^{
         jobDetailVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }];
+    
 }
 
 - (void)viewDidLoad {
@@ -107,7 +115,19 @@
     }];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+
+}
+
 -(void)addNavBar{
+    
     naviBarView = contentView.addView;
     naviBarView.backgroundColor = Colors.textDisabled;
     [[[naviBarView.layoutMaker sizeEq:SCREENWIDTH h:navBarHeight] topParent:0]install];
@@ -317,7 +337,15 @@
 }
 
 -(void)showLocation{
-    [self.view makeToast:@"showLocation"];
+//    39.915352,116.397105
+    if(jobModel && jobModel.position && jobModel.position.coordinates && jobModel.position.coordinates.count==2){
+        double longitude = ((NSString*)jobModel.position.coordinates[0]).doubleValue;
+        double latitude = ((NSString*)jobModel.position.coordinates[1]).doubleValue;
+        [MapViewController openBy:self latitude:latitude longitude:longitude title:jobModel.dso.name subTitle:jobModel.dso.address1];
+    }else{
+         [self.view makeToast:@"location error"];
+    }
+
 }
 
 -(void)attention{

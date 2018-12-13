@@ -19,6 +19,7 @@
 #import "JobDetailReviewsViewController.h"
 #import "JobModel.h"
 #import "DentistDataBaseManager.h"
+#import "MapViewController.h"
 
 @interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
 @property (nonatomic,strong) NSString *jobId;
@@ -41,7 +42,7 @@
     BannerScrollView *bannerView;
     UIImageView *singleImageView;
     UIWebView *vedioWebView;
-
+    UIButton *attentionButton;
     UIView *sectionHeaderView;
 
     int edge;
@@ -68,16 +69,23 @@
     }else{
         viewController= [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     }
+    viewController.modalPresentationStyle = UIModalPresentationCustom;
+    
     
     JobDetailViewController *jobDetailVc = [JobDetailViewController new];
     jobDetailVc.jobId =jobId;
     jobDetailVc.closeBack = closeBack;
-    jobDetailVc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    jobDetailVc.modalPresentationStyle = UIModalPresentationCustom;
     jobDetailVc.view.backgroundColor = UIColor.clearColor;
-    viewController.modalPresentationStyle = UIModalPresentationCurrentContext;
-    [viewController presentViewController:jobDetailVc animated:YES completion:^{
+    
+    UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:jobDetailVc];
+    nvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    nvc.view.backgroundColor = [UIColor clearColor];
+    
+    [viewController presentViewController:nvc animated:YES completion:^{
         jobDetailVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }];
+    
 }
 
 - (void)viewDidLoad {
@@ -103,11 +111,29 @@
         if(jobModel){
             self->jobModel = jobModel;
             [self buildView];
+            if ([jobModel.isAttention isEqualToString:@"1"]) {
+                [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention_select"] forState:UIControlStateNormal];
+            }else
+            {
+                [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention"] forState:UIControlStateNormal];
+            }
         }
     }];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+
+}
+
 -(void)addNavBar{
+    
     naviBarView = contentView.addView;
     naviBarView.backgroundColor = Colors.textDisabled;
     [[[naviBarView.layoutMaker sizeEq:SCREENWIDTH h:navBarHeight] topParent:0]install];
@@ -123,11 +149,9 @@
     [[[[shareView.layoutMaker sizeEq:44 h:44] centerYParent:0] rightParent:-5] install];
     
     
-    UIImageView *attentionView = naviBarView.addImageView;
-    attentionView.image = [UIImage imageNamed:@"icon_attention"];
-    [attentionView onClickView:self action:@selector(attention)];
-    [[[[attentionView.layoutMaker sizeEq:44 h:44]centerYParent:0]toLeftOf:shareView offset:0] install];
-    
+    attentionButton = naviBarView.addButton; //bgView.addButton;
+    [attentionButton addTarget:self action:@selector(attention) forControlEvents:UIControlEventTouchUpInside];
+    [[[[attentionButton.layoutMaker sizeEq:44 h:44]centerYParent:0]toLeftOf:shareView offset:0] install];
     
 }
 
@@ -317,11 +341,47 @@
 }
 
 -(void)showLocation{
-    [self.view makeToast:@"showLocation"];
+//    39.915352,116.397105
+    if(jobModel && jobModel.position && jobModel.position.coordinates && jobModel.position.coordinates.count==2){
+        double longitude = ((NSString*)jobModel.position.coordinates[0]).doubleValue;
+        double latitude = ((NSString*)jobModel.position.coordinates[1]).doubleValue;
+        [MapViewController openBy:self latitude:latitude longitude:longitude title:jobModel.dso.name subTitle:jobModel.dso.address1];
+    }else{
+         [self.view makeToast:@"location error"];
+    }
+
 }
 
 -(void)attention{
-    [self.view makeToast:@"attention"];
+    
+    if ([jobModel.isAttention isEqualToString:@"1"]) {
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+        [Proto deleteJobBookmark:jobModel.id completed:^(HttpResult *result) {
+            NSLog(@"result=%@",@(result.code));
+            foreTask(^() {
+                [self.navigationController.view hideToast];
+                [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention"] forState:UIControlStateNormal];
+                self->jobModel.isAttention = @"0";
+            });
+        }];
+
+    }else
+    {
+        UIView *dsontoastview1=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview1 duration:30.0 position:CSToastPositionCenter completion:nil];
+        [Proto addJobBookmark:self.jobId completed:^(HttpResult *result) {
+            NSLog(@"result=%@",@(result.code));
+            foreTask(^() {
+                [self.navigationController.view hideToast];
+                [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention_select"] forState:UIControlStateNormal];
+                self->jobModel.isAttention = @"1";
+            });
+        }];
+        
+    }
+
+    
 }
 
 -(void)share{

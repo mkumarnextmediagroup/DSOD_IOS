@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*logo;
 @property NSString <Optional>*logoURL;
 @property BOOL is_sponsor;
-@property JobPosition <Optional>*position;
+@property NSArray <Optional>*position;
 @property NSInteger media_type;
 @property NSArray <Optional>*media;
 @property NSArray <Optional>*mediaURL;

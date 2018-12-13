@@ -25,6 +25,7 @@
 #import "AllowMultiGestureTableView.h"
 #import "JobDetailViewController.h"
 #import "JobDSOModel.h"
+#import "MapViewController.h"
 
 @interface CompanyDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,CompanyDetailJobsViewDelegate>
 
@@ -61,11 +62,8 @@
 
 +(void)openBy:(UIViewController*)vc companyId:(NSString*)companyId{
     if(companyId){
-        
         CompanyDetailViewController *detailPageVc = [CompanyDetailViewController new];
-//        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:detailPageVc];
         detailPageVc.companyId = companyId;
-//        [vc presentViewController:navVC animated:YES completion:NULL];
         [vc pushPage:detailPageVc];
     }else{
         [vc.view makeToast:@"companyId is null"];
@@ -98,8 +96,6 @@
     UINavigationItem *item = [self navigationItem];
     item.title = @"DSO COMPANY";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
-//    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
-    
 }
 
 
@@ -242,7 +238,13 @@
 }
 
 -(void)showLocation{
-    [self.view makeToast:@"showLocation"];
+    if(companyModel && companyModel.position && companyModel.position.count==2){
+        double longitude = ((NSString*)companyModel.position[0]).doubleValue;
+        double latitude = ((NSString*)companyModel.position[1]).doubleValue;
+        [MapViewController openBy:self latitude:latitude longitude:longitude title:companyModel.name subTitle:companyModel.address1];
+    }else{
+        [self.view makeToast:@"location error"];
+    }
 }
 
 

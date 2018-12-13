@@ -36,7 +36,6 @@ static dispatch_once_t onceToken;
         instance = [[MoreView alloc] init];
         CGFloat bottom = offBottom;
         instance.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-bottom);
-        instance.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:.8];
         [instance initSubView];
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         [window.rootViewController.view addSubview:instance];
@@ -63,6 +62,13 @@ static dispatch_once_t onceToken;
 
 - (void)initSubView
 {
+    
+    UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+    effectView.alpha=0.8;
+    effectView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    [self addSubview: effectView];
+    
     //初始化背景图
     btn1 = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-160, self.frame.size.height, 140, 40)];
     [btn1 setImage:[UIImage imageNamed:@"more-me"] forState:UIControlStateNormal];

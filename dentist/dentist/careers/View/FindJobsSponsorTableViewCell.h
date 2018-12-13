@@ -10,8 +10,9 @@
 #import "JobModel.h"
 #import "JobsTableCellDelegate.h"
 @interface FindJobsSponsorTableViewCell : UITableViewCell
-@property (nonatomic,assign) BOOL isNew;
+@property (nonatomic,assign) BOOL isHideNew;
 @property (nonatomic,assign) BOOL follow;
+@property (nonatomic,assign) BOOL isNew;
 @property (nonatomic,copy) JobModel *info;
 @property (nonatomic,copy) NSString *followid;
 @property (nonatomic,copy) NSIndexPath *indexPath;

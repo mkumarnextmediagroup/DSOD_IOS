@@ -168,8 +168,13 @@
             [[DentistDataBaseManager shareManager] checkJobsStatus:_info.id publishDate:_info.publishOn modifiedDate:_info.modifiedDate completed:^(NSInteger result) {
                 foreTask(^{
                     if (result==1) {
-                        self->newimageView.hidden=NO;
-                        self->newimageView.image=[UIImage imageNamed:@"New"];
+                        if (self->_isHideNew) {
+                            self->newimageView.hidden=YES;
+                        }else{
+                            self->newimageView.hidden=NO;
+                            self->newimageView.image=[UIImage imageNamed:@"New"];
+                        }
+                        
                     }else if (result==2){
                         self->newimageView.hidden=NO;
                         self->newimageView.image=[UIImage imageNamed:@"Updated"];

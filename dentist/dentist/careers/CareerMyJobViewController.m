@@ -191,12 +191,14 @@
     if (selectIndex==0) {
         if (self->applyArr && self->applyArr.count>indexPath.row) {
             JobApplyModel *applymodel=(JobApplyModel *)self->applyArr[indexPath.row];
+            cell.isHideNew=YES;
             cell.info=applymodel.jobPO;
             
         }
     }else{
         if (self->followArr && self->followArr.count>indexPath.row) {
             JobBookmarkModel *bookmarkmodel=(JobBookmarkModel *)self->followArr[indexPath.row];
+            cell.isHideNew=YES;
             cell.follow=YES;
             cell.followid=bookmarkmodel.id;
             cell.info=bookmarkmodel.jobPO;

@@ -207,12 +207,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
-//    if (selectIndex==0) {
-//        return applyArr.count;
-//    }else{
-//        return followArr.count;
-//    }
+    if (selectIndex==0) {
+        return applyArr.count;
+    }else{
+        return followArr.count;
+    }
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

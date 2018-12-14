@@ -2095,9 +2095,9 @@
 {
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     if (jobId) {
-        [paradic setObject:jobId forKey:@"id"];
+        [paradic setObject:jobId forKey:@"jobId"];
     }
-    [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+    [self postAsync2:@"bookmark/deleteOneByUserIdAndJobId" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
         if (completed) {
             completed(r);
         }

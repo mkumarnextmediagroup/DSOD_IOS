@@ -19,6 +19,7 @@
 #import "CareerSearchViewController.h"
 #import "AppDelegate.h"
 #import "JobDetailViewController.h"
+#import "UITableView+JRTableViewPlaceHolder.h"
 
 @interface CareerMyJobViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,JobsTableCellDelegate>
 {
@@ -53,10 +54,40 @@
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:@"myjobcell"];
 
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
+    [self createEmptyNotice];
     [self setupRefresh];
-
     
     // Do any additional setup after loading the view.
+}
+
+- (void)createEmptyNotice
+{
+    [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:NO];
+        UIView *headerVi = self.view.addView;
+        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:NAVHEIGHT+91] install];
+        headerVi.backgroundColor = [UIColor clearColor];
+        UIButton *headBtn = headerVi.addButton;
+        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        headBtn.titleLabel.font = [Fonts regular:13];
+        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-40] install];
+        UILabel *tipLabel= headerVi.addLabel;
+        tipLabel.textAlignment=NSTextAlignmentCenter;
+        tipLabel.numberOfLines=0;
+        tipLabel.font = [Fonts semiBold:16];
+        tipLabel.textColor =[UIColor blackColor];
+        [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+        if (self->selectIndex==0) {
+            [headBtn setImage:[UIImage imageNamed:@"noun_receipt"] forState:UIControlStateNormal];
+            tipLabel.text=@"You have not yet applied for a \njob\nthrough DSODentis";
+        }else{
+            [headBtn setImage:[UIImage imageNamed:@"noun_Briefcase"] forState:UIControlStateNormal];
+            tipLabel.text=@"You have not saved jobs yet.\nSave josb to view later from this\nscreen";
+        }
+        return headerVi;
+    } normalBlock:^(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:YES];
+    }];
 }
 - (void)backToFirst
 {
@@ -176,11 +207,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (selectIndex==0) {
-        return applyArr.count;
-    }else{
-        return followArr.count;
-    }
+    return 0;
+//    if (selectIndex==0) {
+//        return applyArr.count;
+//    }else{
+//        return followArr.count;
+//    }
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

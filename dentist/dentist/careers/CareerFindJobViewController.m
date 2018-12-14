@@ -17,6 +17,7 @@
 #import "JobDetailViewController.h"
 #import "FilterView.h"
 #import "AppDelegate.h"
+#import "UITableView+JRTableViewPlaceHolder.h"
 
 @interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,FilterViewDelegate>
 {
@@ -77,35 +78,36 @@
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class])];
     
-    [[[[myTable.layoutMaker widthEq:SCREENWIDTH] topParent:_topBarH] bottomParent:-_bottomBarH] install];
+    [[[[[myTable.layoutMaker leftParent:0] rightParent:0] topParent:_topBarH] bottomParent:-_bottomBarH] install];
     [self setupRefresh];
-   
-    
-//    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array,NSInteger totalCount) {
-//        NSLog(@"totalCount=%@;jobarr=%@",@(totalCount),array);
-//    }];
-//
-//    [Proto queryAllApplicationJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-//        NSLog(@"totalCount=%@;jobarr=%@",@(totalCount),array);
-//    }];
-    
-//    [Proto addJobApplication:@"5bfd0b22d6fe1747859ac1eb" completed:^(HttpResult *result) {
-//        NSLog(@"result=%@",@(result.code));
-//    }];
-    
-//    [Proto queryJobBookmarks:0 completed:^(NSArray<JobBookmarkModel *> *array) {
-//        NSLog(@"jobarr=%@",array);
-//    }];
-    
-//    [Proto addJobBookmark:@"5bfcff05d6fe1747859ac1e1" completed:^(HttpResult *result) {
-//        NSLog(@"result=%@",@(result.code));
-//    }];
-//
-//    [Proto deleteJobBookmark:@"5bfe877bd6fe175342855843" completed:^(HttpResult *result) {
-//        NSLog(@"result=%@",@(result.code));
-//    }];
+    [self createEmptyNotice];
 
     // Do any additional setup after loading the view.
+}
+
+- (void)createEmptyNotice
+{
+    [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:NO];
+        UIView *headerVi = self.view.addView;
+        [[[[[headerVi.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
+        headerVi.backgroundColor = [UIColor clearColor];
+        UIButton *headBtn = headerVi.addButton;
+        [headBtn setImage:[UIImage imageNamed:@"noun_Business Records"] forState:UIControlStateNormal];
+        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        headBtn.titleLabel.font = [Fonts regular:13];
+        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-40] install];
+        UILabel *tipLabel= headerVi.addLabel;
+        tipLabel.textAlignment=NSTextAlignmentCenter;
+        tipLabel.numberOfLines=0;
+        tipLabel.font = [Fonts semiBold:16];
+        tipLabel.textColor =[UIColor blackColor];
+        tipLabel.text=@"No available jobs at the \n moment";
+        [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+        return headerVi;
+    } normalBlock:^(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:YES];
+    }];
 }
 
 - (void)backToFirst

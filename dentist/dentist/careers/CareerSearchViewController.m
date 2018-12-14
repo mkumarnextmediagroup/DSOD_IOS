@@ -21,7 +21,7 @@
 #import "UIImage+customed.h"
 
 #define edge 12
-@interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITextFieldDelegate,CLLocationManagerDelegate>
+@interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchResultsUpdating,UITextFieldDelegate,CLLocationManagerDelegate>
 {
     NSMutableArray *infoArr;
     UITableView *myTable;
@@ -41,7 +41,7 @@
     CLLocationManager *locationmanager;
 }
 /*** searchbar ***/
-@property (nonatomic,strong) UISearchBar *searchBar;
+@property (nonatomic,strong) UITextField *searchField;
 @end
 
 @implementation CareerSearchViewController
@@ -60,27 +60,38 @@
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
     locationArr = [NSArray arrayWithObjects:@"5 miles",@"10 miles",@"25 miles",@"50 miles",@"100 miles", nil];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
-    _searchBar.placeholder = @"Search...";
-    _searchBar.delegate = self;
-    _searchBar.showsCancelButton=NO;
-    _searchBar.barTintColor = [UIColor whiteColor];
-    [_searchBar becomeFirstResponder];
-    item.titleView=_searchBar;
-
+//    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+//    _searchBar.placeholder = @"Search...";
+//    _searchBar.delegate = self;
+//    _searchBar.showsCancelButton=NO;
+//    _searchBar.barTintColor = [UIColor whiteColor];
+//    [_searchBar becomeFirstResponder];
+//    item.titleView=_searchBar;
+//
+//
+//    UIView* backgroundView = [_searchBar subViewOfClassName:@"_UISearchBarSearchFieldBackgroundView"];
+//    backgroundView.layer.cornerRadius = 3.0f;
+//    backgroundView.clipsToBounds = YES;
+//    backgroundView.alpha = 1.0;
+//    backgroundView.backgroundColor = [UIColor whiteColor];
     
-    UIView* backgroundView = [_searchBar subViewOfClassName:@"_UISearchBarSearchFieldBackgroundView"];
-    backgroundView.layer.cornerRadius = 3.0f;
-    backgroundView.clipsToBounds = YES;
-    backgroundView.alpha = 1.0;
-    backgroundView.backgroundColor = [UIColor whiteColor];
-    
-    UITextField*searchField = [_searchBar valueForKey:@"_searchField"];//更改searchBar 中PlaceHolder 字体颜色
-    searchField.textColor= [UIColor grayColor];
-    searchField.font = [UIFont systemFontOfSize:14];
-    searchField.alpha = 1.0;
-    searchField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    searchField.backgroundColor = [UIColor whiteColor];
+    _searchField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 240, 32)];//[_searchBar valueForKey:@"_searchField"];//更改searchBar 中PlaceHolder 字体颜色
+    _searchField.textColor= [UIColor grayColor];
+    UIButton *leftBtn = [UIButton new];
+    [leftBtn setImage:[UIImage imageNamed:@"searchIcon"] forState:UIControlStateNormal];
+    leftBtn.frame = CGRectMake(0, 0, 40, 32);
+    _searchField.leftView = leftBtn;
+    _searchField.leftViewMode =UITextFieldViewModeAlways;
+    _searchField.font = [UIFont systemFontOfSize:14];
+    _searchField.layer.masksToBounds = YES;
+    _searchField.layer.cornerRadius = 5;
+    _searchField.delegate = self;
+    _searchField.tintColor = [UIColor grayColor];
+    [_searchField becomeFirstResponder];
+    _searchField.returnKeyType = UIReturnKeySearch;
+    _searchField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _searchField.backgroundColor = [UIColor whiteColor];
+    item.titleView=_searchField;
 //    if (@available(iOS 11.0, *)) {
 //        [[_searchBar.heightAnchor constraintEqualToConstant:44.0] setActive:YES];
 //    }
@@ -131,13 +142,12 @@
 
 - (void)searchBtnClick
 {
-    [self searchBarSearchButtonClicked:_searchBar];
+//    [self searchBarSearchButtonClicked:_searchBar];
 }
 
 - (void)onBack:(UIButton *)btn {
     
-    [self.searchBar resignFirstResponder];
-    _searchBar.showsCancelButton = NO;
+    [self.searchField resignFirstResponder];
     NSArray *viewcontrollers=self.navigationController.viewControllers;
     if (viewcontrollers.count>1) {
         if ([viewcontrollers objectAtIndex:viewcontrollers.count-1]==self) {
@@ -206,49 +216,43 @@
 }
 
 #pragma mark ---UISearchBarDelegate
-//MARK:dismiss button clicked，do this method
--(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    self.searchBar.text=@"";
-    [self.searchBar resignFirstResponder];
-    _searchBar.showsCancelButton = NO;
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 //MARK:keyboard search button clicked，do this method
--(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    searchKeywords=searchBar.text;
-    [self.searchBar resignFirstResponder];
-    _searchBar.showsCancelButton = NO;
+    if (textField == _searchField) {
+        searchKeywords=textField.text;
+        [self.searchField resignFirstResponder];
+        
+        [self showIndicator];
+        
+        if ([locationField.text isEqualToString:currentCity]) {//自动定位，此时有经纬度
+            //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
+            [Proto queryAllJobs:0 jobTitle:_searchField.text location:latLongArr city:nil distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                foreTask(^{
+                    [self hideIndicator];
+                    [self setJobCountTitle:totalCount];
+                    self->infoArr = [NSMutableArray arrayWithArray:array];
+                    [self->myTable reloadData];
+                });
+            }];
+            
+        }else
+        {
+            //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
+            [Proto queryAllJobs:0 jobTitle:_searchField.text location:nil city:locationField.text distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                foreTask(^{
+                    [self hideIndicator];
+                    [self setJobCountTitle:totalCount];
+                    self->infoArr = [NSMutableArray arrayWithArray:array];
+                    [self->myTable reloadData];
+                });
+            }];
+        }
 
-    [self showIndicator];
-    
-    if ([locationField.text isEqualToString:currentCity]) {//自动定位，此时有经纬度
-        //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
-        [Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr city:nil distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-            foreTask(^{
-                [self hideIndicator];
-                [self setJobCountTitle:totalCount];
-                self->infoArr = [NSMutableArray arrayWithArray:array];
-                [self->myTable reloadData];
-            });
-        }];
-
-    }else
-    {
-        //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
-        [Proto queryAllJobs:0 jobTitle:_searchBar.text location:nil city:locationField.text distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-            foreTask(^{
-                [self hideIndicator];
-                [self setJobCountTitle:totalCount];
-                self->infoArr = [NSMutableArray arrayWithArray:array];
-                [self->myTable reloadData];
-            });
-        }];
     }
-    
+    return YES;
 }
-
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -265,7 +269,7 @@
             
             if ([locationField.text isEqualToString:currentCity]) {//自动定位，此时有经纬度
                 //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
-                [Proto queryAllJobs:self->infoArr.count jobTitle:_searchBar.text location:latLongArr city:nil distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                [Proto queryAllJobs:self->infoArr.count jobTitle:_searchField.text location:latLongArr city:nil distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                     self->isdownrefresh=NO;
                     foreTask(^{
                         [self hideIndicator];
@@ -283,7 +287,7 @@
             }else
             {
                 //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
-                [Proto queryAllJobs:self->infoArr.count jobTitle:_searchBar.text location:nil city:locationField.text distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                [Proto queryAllJobs:self->infoArr.count jobTitle:_searchField.text location:nil city:locationField.text distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                     self->isdownrefresh=NO;
                     foreTask(^{
                         [self hideIndicator];
@@ -397,7 +401,6 @@
 {
     if (textField == milesField) {
         
-        [_searchBar endEditing:YES];
         [self.view endEditing:YES];
         //show pickselect
         [self createPickView:milesField];

@@ -104,4 +104,6 @@
 -(void)addEmptyViewWithImageName:(NSString*_Nullable)imageName title:(NSString*_Nullable)title;
 
 - (UIView*)subViewOfClassName:(NSString*)className;
+
+- (UIView *)findFirstResponder;
 @end

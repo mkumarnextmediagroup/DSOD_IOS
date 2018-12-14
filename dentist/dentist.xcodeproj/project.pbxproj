@@ -26,6 +26,7 @@
 		182A1185219BF61F00C0E08D /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 182A1184219BF61F00C0E08D /* libxml2.tbd */; };
 		1836D42F21A7CCEC00500CEB /* ViewResumeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1836D42E21A7CCEC00500CEB /* ViewResumeItemView.m */; };
 		183B048421C2420400D26BB3 /* icon_gcoding.png in Resources */ = {isa = PBXBuildFile; fileRef = 183B048321C2420400D26BB3 /* icon_gcoding.png */; };
+		183B048821C286DE00D26BB3 /* CareerAddReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183B048721C286DE00D26BB3 /* CareerAddReviewViewController.m */; };
 		184AEF3821A131DC004BDFB7 /* UploadResumeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184AEF3721A131DC004BDFB7 /* UploadResumeItemView.m */; };
 		184E105D21A2B6FC00B21620 /* PreviewResumeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E105C21A2B6FC00B21620 /* PreviewResumeViewController.m */; };
 		1863939821B02D6E00512CBB /* icon_share_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1863938F21B02D6C00512CBB /* icon_share_white@2x.png */; };
@@ -899,6 +900,8 @@
 		1836D42D21A7CCEC00500CEB /* ViewResumeItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewResumeItemView.h; sourceTree = "<group>"; };
 		1836D42E21A7CCEC00500CEB /* ViewResumeItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewResumeItemView.m; sourceTree = "<group>"; };
 		183B048321C2420400D26BB3 /* icon_gcoding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_gcoding.png; sourceTree = "<group>"; };
+		183B048621C286DE00D26BB3 /* CareerAddReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CareerAddReviewViewController.h; sourceTree = "<group>"; };
+		183B048721C286DE00D26BB3 /* CareerAddReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CareerAddReviewViewController.m; sourceTree = "<group>"; };
 		184AEF3621A131DC004BDFB7 /* UploadResumeItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadResumeItemView.h; sourceTree = "<group>"; };
 		184AEF3721A131DC004BDFB7 /* UploadResumeItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadResumeItemView.m; sourceTree = "<group>"; };
 		184E105B21A2B6FC00B21620 /* PreviewResumeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewResumeViewController.h; sourceTree = "<group>"; };
@@ -2061,6 +2064,15 @@
 				182A1182219BF5D000C0E08D /* GDataXMLNode.m */,
 			);
 			path = GDataXMLNode;
+			sourceTree = "<group>";
+		};
+		183B048521C286A700D26BB3 /* reviews */ = {
+			isa = PBXGroup;
+			children = (
+				183B048621C286DE00D26BB3 /* CareerAddReviewViewController.h */,
+				183B048721C286DE00D26BB3 /* CareerAddReviewViewController.m */,
+			);
+			path = reviews;
 			sourceTree = "<group>";
 		};
 		18A0DB9621B136740065B2BD /* CircleProgress */ = {
@@ -3494,6 +3506,7 @@
 		C5EEA1D629EAF158031F3B00 /* careers */ = {
 			isa = PBXGroup;
 			children = (
+				183B048521C286A700D26BB3 /* reviews */,
 				18A23FE121BBF87B006CB432 /* jobDetail */,
 				18A23FC521BB8C4B006CB432 /* companyDetail */,
 				A3BA6DD221AEA36100D83156 /* model */,
@@ -4727,6 +4740,7 @@
 				4E846F92213FFEB300DC2B51 /* EditWriteTableViewCell.m in Sources */,
 				18B83B192173557D00130DB6 /* YBVideoBrowseActionBar.m in Sources */,
 				4E1957412137D0F100420563 /* PermissionFullProfileFields.m in Sources */,
+				183B048821C286DE00D26BB3 /* CareerAddReviewViewController.m in Sources */,
 				3E64F12E21720FB6001A7CF2 /* DSOWebViewController.m in Sources */,
 				4E923D6B2153761E00779268 /* DownloadsItemView.m in Sources */,
 				4EBCE6C1212BF76500A0672D /* ContactViewController.m in Sources */,

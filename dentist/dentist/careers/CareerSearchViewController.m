@@ -10,7 +10,6 @@
 #import "Proto.h"
 #import "FindJobsTableViewCell.h"
 #import "FindJobsSponsorTableViewCell.h"
-#import "DSODetailPage.h"
 #import "UIViewController+myextend.h"
 #import "DsoToast.h"
 #import "JobDetailViewController.h"

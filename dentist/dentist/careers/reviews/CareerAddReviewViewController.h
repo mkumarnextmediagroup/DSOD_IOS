@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CareerAddReviewViewController : UIViewController
 
-@property (nonatomic,strong) NSString *dsoId;
+@property (nonatomic,copy)  void(^addReviewSuccessCallbak)(void);
+
 
 +(void)openBy:(UIViewController*)vc dsoId:(NSString*)dsoId;
 @end

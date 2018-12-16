@@ -20,6 +20,7 @@
 #import "JobModel.h"
 #import "DentistDataBaseManager.h"
 #import "MapViewController.h"
+#import "CareerAddReviewViewController.h"
 
 @interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
 @property (nonatomic,strong) NSString *jobId;
@@ -390,6 +391,7 @@
 
 -(void)share{
     [self.view makeToast:@"share"];
+    [CareerAddReviewViewController openBy:self dsoId:jobModel.dsoId];
 }
 
 -(void)applyNow{

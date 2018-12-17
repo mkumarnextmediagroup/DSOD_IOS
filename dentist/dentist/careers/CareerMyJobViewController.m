@@ -133,8 +133,8 @@
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refreshClick:) forControlEvents:UIControlEventValueChanged];
     [self->myTable addSubview:refreshControl];
-//    [refreshControl beginRefreshing];
-//    [self refreshClick:refreshControl];
+    [refreshControl beginRefreshing];
+    [self refreshClick:refreshControl];
 }
 
 

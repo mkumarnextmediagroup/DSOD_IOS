@@ -20,10 +20,15 @@
 }
 
 - (void)tabItem:(NSString *)title imageName:(NSString *)imageName {
-	UITabBarItem *item = self.tabBarItem;
-	item.title = title;
-	item.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-	item.selectedImage = [[UIImage imageNamed:strBuild(imageName, @"-light")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [self tabItem:title imageName:imageName tag:0];
+}
+
+- (void)tabItem:(NSString *)title imageName:(NSString *)imageName tag:(NSInteger)tag {
+    UITabBarItem *item = self.tabBarItem;
+    item.tag=tag;
+    item.title = title;
+    item.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item.selectedImage = [[UIImage imageNamed:strBuild(imageName, @"-light")] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
 
 
@@ -50,7 +55,12 @@
 
 - (UIBarButtonItem *)navBarText:(NSString *)text target:(nullable id)target action:(SEL)action {
 	UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:text style:UIBarButtonItemStylePlain target:target action:action];
-	[bi setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [Fonts semiBold:15]} forState:UIControlStateNormal];
+    if ([text isEqualToString:@"Search"]) {
+        [bi setTitleTextAttributes:@{NSForegroundColorAttributeName: rgb255(211, 220, 227), NSFontAttributeName: [Fonts semiBold:15]} forState:UIControlStateNormal];
+    }else
+    {
+        [bi setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [Fonts semiBold:15]} forState:UIControlStateNormal];
+    }
 	return bi;
 }
 

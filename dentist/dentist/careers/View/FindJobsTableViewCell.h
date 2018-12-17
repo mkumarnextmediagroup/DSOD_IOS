@@ -12,6 +12,7 @@
 @interface FindJobsTableViewCell : UITableViewCell
 @property (nonatomic,copy) JobModel *info;
 @property (nonatomic,copy) NSDictionary *infoDic;
+@property (nonatomic,assign) BOOL isHideNew;
 @property (nonatomic,assign) BOOL isNew;
 @property (nonatomic,assign) BOOL follow;
 @property (nonatomic,copy) NSIndexPath *indexPath;

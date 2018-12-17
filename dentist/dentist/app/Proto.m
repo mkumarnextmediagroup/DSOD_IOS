@@ -26,6 +26,7 @@
 #import "JobApplyModel.h";
 #import "CompanyCommentModel.h"
 #import "CompanyModel.h"
+#import "JobDSOModel.h"
 
 
 //测试模拟数据
@@ -1860,7 +1861,7 @@
 
 
 //MARK:2.2.    查询所有职位列表
-+ (void)queryAllJobs:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
++ (void)queryAllJobs:(NSString *)sort categroy:(NSString *)categroy salaryStartingValue:(NSString *)salaryStartingValue salaryEndValue:(NSString *)salaryEndValue experienceStartingValue:(NSString *)experienceStartingValue experienceEndValue:(NSString *)experienceEndValue location:(NSArray *)location city:(NSString *)city distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
     NSInteger limit=20;//分页数默认20条
     if (skip<=0) {
         skip=0;
@@ -1875,20 +1876,29 @@
     if (categroy) {
         [paradic setObject:categroy forKey:@"categroy"];
     }
-    if (salary) {
-        [paradic setObject:salary forKey:@"salary"];
+    if (salaryStartingValue) {
+        [paradic setObject:salaryStartingValue forKey:@"salaryStartingValue"];
     }
-    if (experience) {
-        [paradic setObject:experience forKey:@"experience"];
+    if (salaryEndValue) {
+        [paradic setObject:salaryEndValue forKey:@"salaryEndValue"];
+    }
+    if (experienceStartingValue) {
+        [paradic setObject:experienceStartingValue forKey:@"experienceStartingValue"];
+    }
+    if (experienceEndValue) {
+        [paradic setObject:experienceEndValue forKey:@"experienceEndValue"];
     }
     if (location) {
         [paradic setObject:location forKey:@"location"];
+    }
+    if (city) {
+        [paradic setObject:city forKey:@"city"];
     }
     if (distance) {
         [paradic setObject:distance forKey:@"distance"];
     }
     if (jobTitle) {
-        [paradic setObject:jobTitle forKey:@"jobTitle"];
+        [paradic setObject:jobTitle forKey:@"searchValue"];
     }
     if (company) {
         [paradic setObject:company forKey:@"company"];
@@ -1901,6 +1911,7 @@
             NSInteger totalFound=[r.resultMap[@"totalFound"] integerValue];
             for (NSDictionary *d in arr) {
                 JobModel *item = [[JobModel alloc] initWithJson:jsonBuild(d)];
+                
                 if (item) {
                     [resultArray addObject:item];
                 }
@@ -1918,11 +1929,72 @@
 
 //MARK:2.2.    查询所有职位列表
 + (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
-    return [self queryAllJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
+    return [self queryAllJobs:nil categroy:nil salaryStartingValue:nil salaryEndValue:nil experienceStartingValue:nil experienceEndValue:nil location:nil city:nil distance:nil jobTitle:nil company:nil skip:skip completed:completed];
 }
+
+//MARK:2.2.    查询所有职位列表
++ (void)queryAllJobs:(NSInteger)skip filterDic:(NSDictionary *)filterDic completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    NSString *categroy;
+    NSString *salaryStartingValue;
+    NSString *salaryEndValue;
+    NSString *experienceStartingValue;
+    NSString *experienceEndValue;
+    NSDictionary *location;
+    NSString *jobTitle;
+    NSString *company;
+    NSString *distance;
+    if (filterDic) {
+        if ([filterDic objectForKey:@"jobTitle"]) {
+            jobTitle=[filterDic objectForKey:@"jobTitle"];
+        }
+        if ([filterDic objectForKey:@"company"]) {
+            company=[filterDic objectForKey:@"company"];
+        }
+        if ([filterDic objectForKey:@"skill"]) {
+            categroy=[filterDic objectForKey:@"skill"];
+        }
+        if ([filterDic objectForKey:@"miles"]) {
+            NSString *tempstr=[filterDic objectForKey:@"miles"];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@"miles" withString:@""];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@" " withString:@""];
+            distance=tempstr;
+        }
+        if ([filterDic objectForKey:@"salary"]) {
+            NSString *tempstr=[filterDic objectForKey:@"salary"];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@"k" withString:@""];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@"$" withString:@""];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@"plus" withString:@""];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@" " withString:@""];
+            if ([tempstr containsString:@"-"]) {
+                NSArray *array =[tempstr componentsSeparatedByString:@"-"];
+                CGFloat start=[array[0] floatValue]*1000;
+                CGFloat end=[array[1] floatValue]*1000;
+                salaryStartingValue=[NSString stringWithFormat:@"%@",@(start)];
+                salaryEndValue=[NSString stringWithFormat:@"%@",@(end)];
+            }else{
+                CGFloat start=[tempstr floatValue]*1000;
+                salaryStartingValue=[NSString stringWithFormat:@"%@",@(start)];
+            }
+        }
+        if ([filterDic objectForKey:@"experence"]) {
+            NSString *tempstr=[filterDic objectForKey:@"experence"];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@"years" withString:@""];
+            tempstr=[tempstr stringByReplacingOccurrencesOfString:@" " withString:@""];
+            if ([tempstr containsString:@"-"]) {
+                NSArray *array =[tempstr componentsSeparatedByString:@"-"];
+                experienceStartingValue=array[0];
+                experienceEndValue=array[1];
+            }else{
+                experienceStartingValue=tempstr;
+            }
+        }
+    }
+    return [self queryAllJobs:nil categroy:categroy salaryStartingValue:salaryStartingValue salaryEndValue:salaryEndValue experienceStartingValue:experienceStartingValue experienceEndValue:experienceEndValue location:nil city:nil distance:nil jobTitle:jobTitle company:company skip:skip completed:completed];
+}
+
 //MARK:2.2.  根据职位标题查询所有职位列表
-+ (void)queryAllJobs:(NSInteger)skip jobTitle:(NSString *)jobTitle completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
-    return [self queryAllJobs:nil categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:jobTitle company:nil skip:skip completed:completed];
++ (void)queryAllJobs:(NSInteger)skip jobTitle:(NSString *)jobTitle location:(NSArray *)location city:(NSString *)city distance:(NSString *)distance completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    return [self queryAllJobs:nil categroy:nil salaryStartingValue:nil salaryEndValue:nil experienceStartingValue:nil experienceEndValue:nil location:location city:city distance:distance jobTitle:jobTitle company:nil skip:skip completed:completed];
 }
 
 //MARK:2.7.   查询已申请职位列表
@@ -2023,9 +2095,9 @@
 {
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     if (jobId) {
-        [paradic setObject:jobId forKey:@"id"];
+        [paradic setObject:jobId forKey:@"jobId"];
     }
-    [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+    [self postAsync2:@"bookmark/deleteOneByUserIdAndJobId" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
         if (completed) {
             completed(r);
         }
@@ -2098,10 +2170,16 @@
 }
 
 //MARK:2.16.    查询公司职位接口
-+ (void)getAllJobsByCompanyId:(NSString *)companyId categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
++ (void)getAllJobsByCompanyId:(NSString *)companyId categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
+    NSInteger limit=20;//分页数默认20条
+    if (skip<=0) {
+        skip=0;
+    }
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
     if (companyId) {
-        [paradic setObject:companyId forKey:@"companyId"];
+        [paradic setObject:companyId forKey:@"dsoId"];
     }
     if (categroy) {
         [paradic setObject:categroy forKey:@"categroy"];
@@ -2121,7 +2199,7 @@
     if (jobTitle) {
         [paradic setObject:jobTitle forKey:@"jobTitle"];
     }
-    [self postAsync3:@"company/getAllJobsByCompanyId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+    [self postAsync3:@"job/getAllJobsByDSOId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];
@@ -2143,29 +2221,29 @@
     }];
 }
 
-+ (void)getAllJobsByCompanyId:(NSString*)companyId completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
++ (void)getAllJobsByCompanyId:(NSString*)companyId skip:(NSInteger)skip  completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed {
     
-    return [self getAllJobsByCompanyId:companyId categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil completed:completed];
+    return [self getAllJobsByCompanyId:companyId categroy:nil salary:nil experience:nil location:nil distance:nil jobTitle:nil skip:skip completed:completed];
 }
 
 //MARK:2.13.    查询所有公司列表
-+ (void)queryCompanyList:(NSInteger)skip completed:(void(^)(NSArray<CompanyModel *> *array,NSInteger totalCount))completed
++ (void)queryCompanyList:(NSInteger)skip completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed
 {
     NSInteger limit=20;//分页数默认20条
     if (skip<=0) {
-        skip=0;
+        skip=1;
     }
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
-    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
-    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"pageNumber"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"pageSize"];
 
-    [self postAsync3:@"company/findAllCompanys" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+    [self postAsync3:@"dso/findAllDSOs" dic:paradic modular:@"profile" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSInteger totalFound=[r.resultMap[@"totalFound"] integerValue];
-            NSArray *arr = r.resultMap[@"companyPOs"];
+            NSArray *arr = r.resultMap[@"data"];
             for (NSDictionary *d in arr) {
-                CompanyModel *item = [[CompanyModel alloc] initWithJson:jsonBuild(d)];
+                JobDSOModel *item = [[JobDSOModel alloc] initWithJson:jsonBuild(d)];
                 if (item) {
                     [resultArray addObject:item];
                 }
@@ -2183,14 +2261,14 @@
 
 
 //2.14.    查询公司详情接口
-+ (void)findCompanyById:(NSString*)companyId completed:(void(^)(CompanyModel *companyModel))completed {
++ (void)findCompanyById:(NSString*)companyId completed:(void(^)(JobDSOModel *companyModel))completed {
     
-    NSDictionary *paradic = @{@"companyId":companyId};
-    [self postAsync2:@"company/findOneById" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
-        CompanyModel *model = nil;
-        if (r.OK && r.resultMap[@"companyPO"]) {
-            NSDictionary *dic =  r.resultMap[@"companyPO"];
-            model = [[CompanyModel alloc] initWithJson:jsonBuild(dic)];
+    NSDictionary *paradic = @{@"dsoId":companyId};
+    [self postAsync2:@"dso/findOneById" dic:paradic modular:@"profile" callback:^(HttpResult *r) {
+        JobDSOModel *model = nil;
+        if (r.OK && r.resultMap[@"data"]) {
+            NSDictionary *dic =  r.resultMap[@"data"];
+            model = [[JobDSOModel alloc] initWithJson:jsonBuild(dic)];
             
         }
         if(completed){
@@ -2228,17 +2306,74 @@
     }];
 }
 
+/*
+ raw :postAsync3
+ formdata:postAsync2
+ 
+ */
+
+//2.18. 添加公司评论接口
++ (void)addCompanyComment:(NSString*)companyId
+                            reviewTitle:(NSString*)reviewTitle
+                            pros:(NSString*)pros
+                            cons:(NSString*)cons
+                            advice:(NSString*)advice
+                            isCurrentEmployee:(BOOL)isCurrentEmployee
+                            isFormerEmployee:(BOOL)isFormerEmployee
+                            isRecommend:(BOOL)isRecommend
+                            isApprove:(BOOL)isApprove
+                            rating:(float)rating completed:(void(^)(BOOL success,NSString *msg))completed {
+    
+    NSDictionary *paradic = @{@"dsoId" : companyId,
+                              @"reviewTitle" : reviewTitle,
+                              @"pros" : pros,
+                              @"cons" : cons,
+                              @"advice" : advice,
+                              @"isCurrentEmployee" : [NSNumber numberWithBool:isCurrentEmployee],
+                              @"isFormerEmployee" : [NSNumber numberWithBool:isFormerEmployee],
+                              @"isRecommend" : [NSNumber numberWithBool:isRecommend],
+                              @"isApprove" : [NSNumber numberWithBool:isApprove],
+                              @"rating" : [NSNumber numberWithFloat:rating]
+                              };
+    
+    [self postAsync3:@"comment/addComment" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg);
+            });
+        }
+    }];
+}
+
+//2.19.​查询所有公司评论列表
++ (void)findCompanyExistsReviewsList:(NSInteger)skip  completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed{
+    [Proto queryCompanyList:skip completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
+        if(completed){
+            foreTask(^{
+                completed(array,totalCount);
+            });
+        }
+    }];
+}
+
 //获取career首页图片接口
 + (void)findExtensionCompleted:(void(^)(NSString *picUrl))completed
 {
     [self postAsync3:@"extension/findExtension" dic:nil modular:@"hr" callback:^(HttpResult *r) {
         if (r.OK) {
             NSDictionary *dataDic =  r.resultMap[@"data"];
-            NSArray *objectId = [dataDic objectForKey:@"fileUrl"];
-            NSString *url = objectId[0];
-            completed(url);
+            if (dataDic && ![dataDic isKindOfClass:[NSNull class]]){
+                NSArray *objectId = [dataDic objectForKey:@"fileUrl"];
+                NSString *url = objectId[0];
+                completed(url);
+            }else{
+                completed(@"");
+            }
+            
         }
     }];
 }
+
+
 
 @end

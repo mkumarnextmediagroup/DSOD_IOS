@@ -8,14 +8,12 @@
 
 #import "JSONModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyMediaModel : JSONModel
 
-@property NSInteger type;
-@property NSArray <Optional>*code;
-@property NSArray <Optional>*companyPictureUrl;
+@property NSInteger media_type;
+@property NSArray <Optional>*media;
+@property NSArray <Optional>*mediaURL;
 
 @end
 
-NS_ASSUME_NONNULL_END

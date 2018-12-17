@@ -10,13 +10,17 @@
 #import "Proto.h"
 #import "FindJobsTableViewCell.h"
 #import "FindJobsSponsorTableViewCell.h"
-#import "DSODetailPage.h"
 #import "UIViewController+myextend.h"
 #import "DsoToast.h"
-#import "CareerJobDetailViewController.h"
+#import "JobDetailViewController.h"
 #import "AppDelegate.h"
+#import "UITableView+JRTableViewPlaceHolder.h"
+#import "CDZPicker.h"
+#import <CoreLocation/CoreLocation.h>
+#import "UIImage+customed.h"
 
-@interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating>
+#define edge 12
+@interface CareerSearchViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,UISearchResultsUpdating,UITextFieldDelegate,CLLocationManagerDelegate>
 {
     NSMutableArray *infoArr;
     UITableView *myTable;
@@ -24,9 +28,19 @@
     BOOL isdownrefresh;
     UISearchController *searchController;
     NSString *searchKeywords;
+    NSArray *locationArr;
+    NSString *latitude;
+    NSString *longitude;
+    NSArray *latLongArr;
+    NSString *requestMiles;
+    NSString *currentCity;
+    
+    UITextField *locationField;
+    UITextField *milesField;
+    CLLocationManager *locationmanager;
 }
 /*** searchbar ***/
-@property (nonatomic,strong) UISearchBar *searchBar;
+@property (nonatomic,strong) UITextField *searchField;
 @end
 
 @implementation CareerSearchViewController
@@ -40,74 +54,109 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UINavigationItem *item = [self navigationItem];
-    item.rightBarButtonItem=nil;
-    item.leftBarButtonItem = [self navBarImage:@"menu" target:self action:@selector(onBack:)]; //[self navBarBack:self action:@selector(onBack:)];
-//    item.leftBarButtonItem=nil;//hidden left menu
-//    searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
-//    searchController.searchResultsUpdater=self;
-//    searchController.searchBar.autocapitalizationType=UITextAutocapitalizationTypeNone;
-//    searchController.delegate = self;
-//    searchController.dimsBackgroundDuringPresentation = NO; // The default is true.
-//    searchController.searchBar.delegate = self;
-//
-//    if (@available(iOS 11.0, *)) {
-//        // For iOS 11 and later, place the search bar in the navigation bar.
-//        item.searchController=searchController;
-//
-//        // Make the search bar always visible.
-//        item.hidesSearchBarWhenScrolling = NO;
-//    } else {
-//        // For iOS 10 and earlier, place the search controller's search bar in the table view's header.
-//        item.titleView=searchController.searchBar;
-//    }
+    self.view.backgroundColor = rgb255(246, 245, 245);
+    item.rightBarButtonItem= [self navBarText:@" Search" target:self action:@selector(searchBtnClick)];
+    item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
+    locationArr = [NSArray arrayWithObjects:@"5 miles",@"10 miles",@"25 miles",@"50 miles",@"100 miles", nil];
     
-    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
-    _searchBar.placeholder = @"Search...";
-    _searchBar.delegate = self;
-    _searchBar.showsCancelButton=NO;
-    [_searchBar becomeFirstResponder];
-    for (id obj in [_searchBar subviews]) {
-        if ([obj isKindOfClass:[UIView class]]) {
-            for (id obj2 in [obj subviews]) {
-                if ([obj2 isKindOfClass:[UIButton class]]) {
-                    UIButton *btn = (UIButton *)obj2;
-                    [btn setTitle:@"Cancel" forState:UIControlStateNormal];
-                }
-            }
-        }
-    }
-    item.titleView=_searchBar;
-    if (@available(iOS 11.0, *)) {
-        [[_searchBar.heightAnchor constraintEqualToConstant:44.0] setActive:YES];
-    }
+//    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+//    _searchBar.placeholder = @"Search...";
+//    _searchBar.delegate = self;
+//    _searchBar.showsCancelButton=NO;
+//    _searchBar.barTintColor = [UIColor whiteColor];
+//    [_searchBar becomeFirstResponder];
+//    item.titleView=_searchBar;
+//
+//
+//    UIView* backgroundView = [_searchBar subViewOfClassName:@"_UISearchBarSearchFieldBackgroundView"];
+//    backgroundView.layer.cornerRadius = 3.0f;
+//    backgroundView.clipsToBounds = YES;
+//    backgroundView.alpha = 1.0;
+//    backgroundView.backgroundColor = [UIColor whiteColor];
+    
+    _searchField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 240, 32)];//[_searchBar valueForKey:@"_searchField"];//更改searchBar 中PlaceHolder 字体颜色
+    _searchField.textColor= [UIColor grayColor];
+    UIButton *leftBtn = [UIButton new];
+    [leftBtn setImage:[UIImage imageNamed:@"searchIcon"] forState:UIControlStateNormal];
+    leftBtn.frame = CGRectMake(0, 0, 40, 32);
+    _searchField.leftView = leftBtn;
+    _searchField.leftViewMode =UITextFieldViewModeAlways;
+    _searchField.font = [UIFont systemFontOfSize:14];
+    _searchField.layer.masksToBounds = YES;
+    _searchField.layer.cornerRadius = 5;
+    _searchField.delegate = self;
+    _searchField.tintColor = [UIColor grayColor];
+    [_searchField becomeFirstResponder];
+    _searchField.returnKeyType = UIReturnKeySearch;
+    _searchField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _searchField.backgroundColor = [UIColor whiteColor];
+    item.titleView=_searchField;
+//    if (@available(iOS 11.0, *)) {
+//        [[_searchBar.heightAnchor constraintEqualToConstant:44.0] setActive:YES];
+//    }
     myTable = [UITableView new];
     [self.view addSubview:myTable];
     myTable.dataSource = self;
     myTable.delegate = self;
     myTable.rowHeight = UITableViewAutomaticDimension;
+    myTable.tableHeaderView = self.makeHeaderView;
     myTable.estimatedRowHeight = 100;
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class])];
+    myTable.backgroundColor = rgb255(246, 245, 245);
+    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-20] topParent:NAVHEIGHT+70] install];
+    [self createEmptyNotice];
+    [self createLocation];
+    [self getCurrentLocation];//get the location
+}
+
+- (UIView *)makeHeaderView {
+    UIView *panel = [UIView new];
+    panel.frame = makeRect(0, 0, SCREENWIDTH, 32);
+    panel.backgroundColor=[UIColor clearColor];
     
-    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
-   
+    jobCountTitle=panel.addLabel;
+    jobCountTitle.font=[Fonts regular:13];
+    jobCountTitle.textColor=Colors.textMain;
+    [[[[[jobCountTitle.layoutMaker leftParent:20] topParent:0] bottomParent:0] rightParent:40] install];
+    
+    UILabel *lineLabel=panel.lineLabel;
+    [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
+    return panel;
+}
+
+-(void)setJobCountTitle:(NSInteger)jobcount
+{
+    if (jobcount>0) {
+        NSString *jobcountstr=[NSString stringWithFormat:@"%@ Jobs",@(jobcount)];
+        
+        jobCountTitle.text=jobcountstr;
+    }else{
+        jobCountTitle.text=@"";
+    }
+    
+}
+
+
+- (void)searchBtnClick
+{
+//    [self searchBarSearchButtonClicked:_searchBar];
 }
 
 - (void)onBack:(UIButton *)btn {
     
-    [self.searchBar resignFirstResponder];
-    _searchBar.showsCancelButton = NO;
+    [self.searchField resignFirstResponder];
     NSArray *viewcontrollers=self.navigationController.viewControllers;
     if (viewcontrollers.count>1) {
         if ([viewcontrollers objectAtIndex:viewcontrollers.count-1]==self) {
             //push方式
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:NO];
         }
     }
     else{
         //present方式
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }
 }
 
@@ -155,7 +204,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     JobModel *jobModel = infoArr[indexPath.row];
-    [CareerJobDetailViewController presentBy:self jobId:jobModel.id closeBack:^{
+    [JobDetailViewController presentBy:self jobId:jobModel.id closeBack:^{
         foreTask(^{
             if (self->myTable) {
                 [self->myTable reloadData];
@@ -166,31 +215,43 @@
 }
 
 #pragma mark ---UISearchBarDelegate
-//MARK:dismiss button clicked，do this method
--(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    self.searchBar.text=@"";
-    [self.searchBar resignFirstResponder];
-    _searchBar.showsCancelButton = NO;
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 //MARK:keyboard search button clicked，do this method
--(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    searchKeywords=searchBar.text;
-    [self.searchBar resignFirstResponder];
-    _searchBar.showsCancelButton = NO;
+    if (textField == _searchField) {
+        searchKeywords=textField.text;
+        [self.searchField resignFirstResponder];
+        
+        [self showIndicator];
+        
+        if ([locationField.text isEqualToString:currentCity]) {//自动定位，此时有经纬度
+            //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
+            [Proto queryAllJobs:0 jobTitle:_searchField.text location:latLongArr city:nil distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                foreTask(^{
+                    [self hideIndicator];
+                    [self setJobCountTitle:totalCount];
+                    self->infoArr = [NSMutableArray arrayWithArray:array];
+                    [self->myTable reloadData];
+                });
+            }];
+            
+        }else
+        {
+            //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
+            [Proto queryAllJobs:0 jobTitle:_searchField.text location:nil city:locationField.text distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                foreTask(^{
+                    [self hideIndicator];
+                    [self setJobCountTitle:totalCount];
+                    self->infoArr = [NSMutableArray arrayWithArray:array];
+                    [self->myTable reloadData];
+                });
+            }];
+        }
 
-    [self showIndicator];
-    [Proto queryAllJobs:0 jobTitle:searchKeywords completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-        foreTask(^{
-            [self hideIndicator];
-            self->infoArr = [NSMutableArray arrayWithArray:array];
-            [self->myTable reloadData];
-        });
-    }];
+    }
+    return YES;
 }
-
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -204,22 +265,197 @@
         if (!isdownrefresh) {
             isdownrefresh=YES;
             [self showIndicator];
-            [Proto queryAllJobs:self->infoArr.count jobTitle:searchKeywords completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-                self->isdownrefresh=NO;
-                foreTask(^{
-                    [self hideIndicator];
-                    NSLog(@"%@",array);
-                    if(array && array.count>0){
-                        [self->infoArr addObjectsFromArray:array];
-                    }
-                    [self->myTable reloadData];
-                    
-                });
-            }];
             
+            if ([locationField.text isEqualToString:currentCity]) {//自动定位，此时有经纬度
+                //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
+                [Proto queryAllJobs:self->infoArr.count jobTitle:_searchField.text location:latLongArr city:nil distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                    self->isdownrefresh=NO;
+                    foreTask(^{
+                        [self hideIndicator];
+                        NSLog(@"%@",array);
+                        //                    [self setJobCountTitle:totalCount];
+                        if(array && array.count>0){
+                            [self->infoArr addObjectsFromArray:array];
+                        }
+                        [self->myTable reloadData];
+                        
+                    });
+                }];
+
+                
+            }else
+            {
+                //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
+                [Proto queryAllJobs:self->infoArr.count jobTitle:_searchField.text location:nil city:locationField.text distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                    self->isdownrefresh=NO;
+                    foreTask(^{
+                        [self hideIndicator];
+                        NSLog(@"%@",array);
+                        //                    [self setJobCountTitle:totalCount];
+                        if(array && array.count>0){
+                            [self->infoArr addObjectsFromArray:array];
+                        }
+                        [self->myTable reloadData];
+                        
+                    });
+                }];
+
+            }
+
         }
         
     }
+}
+
+- (void)createEmptyNotice
+{
+    [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:NO];
+        UIView *headerVi = [UIView new];
+        headerVi.backgroundColor = [UIColor clearColor];
+        UIButton *headBtn = headerVi.addButton;
+        [headBtn setImage:[UIImage imageNamed:@"career_searchIcon"] forState:UIControlStateNormal];
+        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        headBtn.titleLabel.font = [Fonts regular:13];
+        [[[headBtn.layoutMaker centerXParent:0] topParent:135] install];
+        return headerVi;
+    } normalBlock:^(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:YES];
+    }];
+}
+
+- (void)createLocation
+{
+    UIView *locationVi = self.view.addView;
+    locationVi.layer.masksToBounds = YES;
+    locationVi.layer.cornerRadius = 4;
+    locationVi.backgroundColor = [UIColor whiteColor];
+    [[[[locationVi.layoutMaker sizeEq:SCREENWIDTH-edge*2 h:35] leftParent:edge] topParent:NAVHEIGHT + 28] install];
+    
+    locationField = locationVi.addEditRaw;
+    locationField.textColor = [UIColor grayColor];
+    locationField.delegate = self;
+    locationField.font = [UIFont systemFontOfSize:14];
+    locationField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    UIButton *locationBtn = [UIButton new];
+    locationBtn.frame = CGRectMake(0, 0, edge*2, 35);
+    [locationBtn addTarget:self action:@selector(getCurrentLocation) forControlEvents:UIControlEventTouchUpInside];
+    [locationBtn setImage:[UIImage imageNamed:@"location_filled"] forState:UIControlStateNormal];
+    locationField.leftView = locationBtn;
+    locationField.leftViewMode = UITextFieldViewModeAlways;
+    [[[[locationField.layoutMaker leftParent:0] sizeEq:200 h:35] topParent:0] install];
+    
+    UILabel *lineLab = locationVi.addLabel;
+    lineLab.backgroundColor = rgb255(246, 245, 245);
+    [[[[lineLab.layoutMaker toRightOf:locationField offset:2] topParent:0] sizeEq:1 h:35] install];
+    
+    milesField = locationVi.addEditRaw;
+    milesField.textColor = [UIColor grayColor];
+    milesField.font = [UIFont systemFontOfSize:14];
+    milesField.delegate = self;
+    milesField.text = [NSString stringWithFormat:@"within %@",locationArr[2]];
+    milesField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 35)];
+    milesField.leftViewMode = UITextFieldViewModeAlways;
+    [milesField setRightViewWithTextField:milesField imageName:@"down_list"];
+    [[[[[milesField.layoutMaker toRightOf:lineLab offset:2] heightEq:35] topParent:0] rightParent:0] install];
+}
+
+- (void)createPickView:(UITextField *)textFiled
+{
+    CDZPickerBuilder *builder = [CDZPickerBuilder new];
+    builder.showMask = YES;
+    builder.defaultIndex = 2;
+    builder.cancelTextColor = UIColor.redColor;
+    if (textFiled == milesField) {
+        [CDZPicker showSinglePickerInView:self.view withBuilder:builder strings:locationArr confirm:^(NSArray<NSString *> * _Nonnull strings, NSArray<NSNumber *> * _Nonnull indexs) {
+            NSArray *arr = [strings[0] componentsSeparatedByString:@" "];
+            self->requestMiles = arr[0];
+            textFiled.text = [NSString stringWithFormat:@"within %@",strings[0]];
+            NSLog(@"strings:%@ indexs:%@",strings,indexs);
+        }cancel:^{
+            //your code
+        }];
+    }
+}
+
+- (void)getCurrentLocation
+{
+    //判断定位功能是否打开
+    if ([CLLocationManager locationServicesEnabled]) {
+        locationmanager = [[CLLocationManager alloc]init];
+        locationmanager.delegate = self;
+        [locationmanager requestAlwaysAuthorization];
+        [locationmanager requestWhenInUseAuthorization];
+        
+        //设置寻址精度
+        locationmanager.desiredAccuracy = kCLLocationAccuracyBest;
+        locationmanager.distanceFilter = 5.0;
+        [locationmanager startUpdatingLocation];
+    }
+}
+
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField == milesField) {
+        
+        [self.view endEditing:YES];
+        //show pickselect
+        [self createPickView:milesField];
+        
+        return NO;
+    }else
+    {
+        return YES;
+    }
+}
+
+#pragma mark CLLoactionDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    [locationmanager stopUpdatingHeading];
+    //旧址
+    CLLocation *currentLocation = [locations lastObject];
+    CLGeocoder *geoCoder = [[CLGeocoder alloc]init];
+    //打印当前的经度与纬度
+    NSLog(@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
+    latitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
+    longitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
+//    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:latitude,@"latitude",longitude,@"longitude", nil];
+    latLongArr = [NSArray arrayWithObjects:longitude,latitude, nil];
+//    [infoDic addEntriesFromDictionary:dic];
+    //反地理编码
+    [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (placemarks.count > 0) {
+            CLPlacemark *placeMark = placemarks[0];
+            currentCity = placeMark.locality;
+            if (!currentCity) {
+                currentCity = @"无法定位当前城市";
+            }
+            
+            /*看需求定义一个全局变量来接收赋值*/
+            NSLog(@"----%@",placeMark.country);//当前国家
+            NSLog(@"%@",currentCity);//当前的城市
+            self->locationField.text = currentCity;
+            
+        }
+    }];
+    
+}
+
+//定位失败后调用此代理方法
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    //设置提示提醒用户打开定位服务
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"允许定位提示" message:@"请在设置中打开定位" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:nil];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:okAction];
+    [alert addAction:cancelAction];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 
 @end

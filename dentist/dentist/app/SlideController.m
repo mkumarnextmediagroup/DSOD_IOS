@@ -28,7 +28,12 @@
 #import "CmsForYouPage.h"
 #import "CmsSearchPage.h"
 #import "CmsCategoryPage.h"
+#import "MoreView.h"
+#import "DSOProfilePage.h"
 
+@interface SlideController()<UITabBarControllerDelegate,UITabBarDelegate,MoreViewDelegate>
+
+@end
 
 @implementation SlideController {
 	NSArray *items;
@@ -111,33 +116,35 @@
 	if ([@"Careers" isEqualToString:title]) {
         CareerExplorePage *explorePage = [CareerExplorePage new];
         UINavigationController *ncExplore = NavPage(explorePage);
-        [ncExplore tabItem:@"Explore" imageName:@"explore"];
+        [ncExplore tabItem:@"Explore" imageName:@"explore" tag:0];
         explorePage.navigationItem.leftBarButtonItem = [self menuButton];
         
         CareerFindJobViewController *findJob = [CareerFindJobViewController new];
         UINavigationController *ncFindJob = NavPage(findJob);
-        [ncFindJob tabItem:@"Find Job" imageName:@"findJob"];
+        [ncFindJob tabItem:@"Find Job" imageName:@"findJob" tag:1];
         findJob.navigationItem.leftBarButtonItem = [self menuButton];
         
         CareerMyJobViewController *myJob = [CareerMyJobViewController new];
         UINavigationController *ncMyJob = NavPage(myJob);
-        [ncMyJob tabItem:@"My Jobs" imageName:@"myJobs"];
+        [ncMyJob tabItem:@"My Jobs" imageName:@"myJobs" tag:2];
         myJob.navigationItem.leftBarButtonItem = [self menuButton];
         
         CareerAlertsViewController *alert = [CareerAlertsViewController new];
         UINavigationController *ncAlert = NavPage(alert);
-        [ncAlert tabItem:@"Alerts" imageName:@"alert"];
+        [ncAlert tabItem:@"Alerts" imageName:@"alert" tag:3];
         alert.navigationItem.leftBarButtonItem = [self menuButton];
         
         CareerMoreViewController *more = [CareerMoreViewController new];
         more.view.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7f];
         UINavigationController *ncMore = NavPage(more);
         ncMore.view.backgroundColor = [UIColor clearColor];
-        [ncMore tabItem:@"More" imageName:@"more"];
+        [ncMore tabItem:@"More" imageName:@"more" tag:4];
         more.navigationItem.leftBarButtonItem = [self menuButton];
-        
-//        return TabPage(@[ncExplore, ncFindJob, ncMyJob, ncAlert, ncMore]);
-        return myTab([EventsPage new]);
+        UITabBarController *careertabbarcontroller=TabPage(@[ncExplore, ncFindJob, ncMyJob, ncAlert, ncMore]);
+        careertabbarcontroller.delegate=self;
+//        careertabbarcontroller.tabBar.delegate=self;
+        return careertabbarcontroller;
+//        return myTab([EventsPage new]);
 
 	}
 	if ([@"Events" isEqualToString:title]) {
@@ -291,6 +298,132 @@
 	UIView *view = self.view.addView;
 	view.backgroundColor = Colors.strokes;
 	return view;
+}
+
+//判断是否跳转
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    NSLog(@"shouldSelectViewController:tabBarController.tabBar.selectedItem.tag=%@",@(tabBarController.tabBar.selectedItem.tag));
+    NSInteger selectindex=0;
+    for (int i=0; i<tabBarController.viewControllers.count; i++) {
+        UIViewController *vc=tabBarController.viewControllers[i];
+        if ([vc isEqual:tabBarController.selectedViewController]) {
+            NSLog(@"selectindex=%@",@(i));
+            selectindex=i;
+        }
+    }
+    UINavigationController *nav = (UINavigationController *)viewController;
+    UIViewController *VC =nav.topViewController;
+    if ([VC isKindOfClass:[CareerMoreViewController class]]) {
+        for (UITabBarItem *item in tabBarController.tabBar.items) {
+            NSLog(@"item.tag=%@",@(item.tag));
+            if (item.tag==4) {
+                [item setImage:[[UIImage imageNamed:@"more-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                [item setTitleTextAttributes:@{
+                                               NSForegroundColorAttributeName: Colors.textDisabled, NSFontAttributeName: [Fonts regular:10]
+                                               }                                        forState:UIControlStateNormal];
+            }else{
+                [item setTitleTextAttributes:@{
+                                               NSForegroundColorAttributeName: Colors.textAlternate,
+                                               NSFontAttributeName: [Fonts regular:10]
+                                               }                                        forState:UIControlStateNormal];
+                [item setTitleTextAttributes:@{
+                                               NSForegroundColorAttributeName: Colors.textAlternate,
+                                               NSFontAttributeName: [Fonts regular:10]
+                                               }                                        forState:UIControlStateSelected];
+            }
+            if (item.tag==selectindex && selectindex==0) {
+                [item setImage:[[UIImage imageNamed:@"explore"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                [item setSelectedImage:[[UIImage imageNamed:@"explore"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            }else if(item.tag==selectindex && selectindex==1){
+                [item setImage:[[UIImage imageNamed:@"findJob"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                [item setSelectedImage:[[UIImage imageNamed:@"findJob"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            }else if(item.tag==selectindex && selectindex==2){
+                [item setImage:[[UIImage imageNamed:@"myJobs"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                [item setSelectedImage:[[UIImage imageNamed:@"myJobs"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            }else if(item.tag==selectindex && selectindex==3){
+                [item setImage:[[UIImage imageNamed:@"alert"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                [item setSelectedImage:[[UIImage imageNamed:@"alert"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            }
+            
+        }
+        NSLog(@"CareerMoreViewController");
+        MoreView *moreview=[MoreView initSliderView];
+        moreview.selectIndex=selectindex;
+        moreview.delegate=self;
+        [moreview showFuntionBtn];
+        return NO;
+    }else{
+        for (UITabBarItem *item in tabBarController.tabBar.items) {
+            NSLog(@"item.tag=%@",@(item.tag));
+            if (item.tag==4) {
+                [item setImage:[[UIImage imageNamed:@"more"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                [item setTitleTextAttributes:@{
+                                                                    NSForegroundColorAttributeName: Colors.textAlternate,
+                                                                    NSFontAttributeName: [Fonts regular:10]
+                                                                    }                                        forState:UIControlStateNormal];
+            }
+        }
+        [[MoreView initSliderView] hideFuntionBtn];
+        return YES;
+    }
+}
+
+#pragma mark --------MoreViewDelegate
+-(void)moreActionClick:(NSInteger)index
+{
+    if (index==4) {
+        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+        UINavigationController *nav = (UINavigationController *)tabvc.selectedViewController;
+        UIViewController *VC =nav.topViewController;
+        if (![VC isKindOfClass:[DSOProfilePage class]]) {
+            DSOProfilePage *dso = [DSOProfilePage new];
+            UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:dso];
+            navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [VC presentViewController:navVC animated:NO completion:NULL];
+        }
+        
+        
+    }
+}
+
+- (void)moreViewClose:(NSInteger)index
+{
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+    for (UITabBarItem *item in tabvc.tabBar.items) {
+        NSLog(@"item.tag=%@",@(item.tag));
+        if (item.tag==4) {
+            [item setImage:[[UIImage imageNamed:@"more"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            [item setTitleTextAttributes:@{
+                                           NSForegroundColorAttributeName: Colors.textAlternate,
+                                           NSFontAttributeName: [Fonts regular:10]
+                                           }                                        forState:UIControlStateNormal];
+        }else{
+            [item setTitleTextAttributes:@{
+                                           NSForegroundColorAttributeName: Colors.textAlternate,
+                                           NSFontAttributeName: [Fonts regular:10]
+                                           }                                        forState:UIControlStateNormal];
+            [item setTitleTextAttributes:@{
+                                           NSForegroundColorAttributeName: Colors.textDisabled, NSFontAttributeName: [Fonts regular:10]
+                                           }                                        forState:UIControlStateSelected];
+        }
+        if (item.tag==index && index==0) {
+            [item setImage:[[UIImage imageNamed:@"explore"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            [item setSelectedImage:[[UIImage imageNamed:@"explore-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            
+        }else if(item.tag==index && index==1){
+            [item setImage:[[UIImage imageNamed:@"findJob"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            [item setSelectedImage:[[UIImage imageNamed:@"findJob-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        }else if(item.tag==index && index==2){
+            [item setImage:[[UIImage imageNamed:@"myJobs"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            [item setSelectedImage:[[UIImage imageNamed:@"myJobs-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        }else if(item.tag==index && index==3){
+            [item setImage:[[UIImage imageNamed:@"alert"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+            [item setSelectedImage:[[UIImage imageNamed:@"alert-light"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        }
+
+    }
 }
 
 @end

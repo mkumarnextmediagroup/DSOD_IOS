@@ -15,6 +15,7 @@
 #import "CMSModel.h"
 #import "Proto.h"
 #import "BookmarkManager.h"
+#import "UIImageViewLoading.h"
 
 @implementation ArticleGSkItemView {
     UILabel *typeLabel;
@@ -23,7 +24,7 @@
     UILabel *authorLabel;
     UIWebView *contentWebView;
     UILabel *moreLabel;
-    UIImageView *imageView;
+    UIImageViewLoading *imageView;
     UIImageView *thumbImageView;
     UIButton *markButton;
     UIButton *gskBtn;
@@ -59,7 +60,8 @@
         [dateLabel textColorAlternate];
         [[[[[dateLabel.layoutMaker centerYParent:0] rightParent:-edge] heightEq:topheight] widthEq:80] install];
         
-        imageView = self.addImageView;
+        imageView = [UIImageViewLoading new]; //self.addImageView;
+        [self addSubview:imageView];
         //    [imageView scaleFillAspect];
         [[[[[imageView.layoutMaker leftParent:0] rightParent:0] below:topView offset:0] heightEq:SCREENWIDTH*2/3] install];
         
@@ -191,9 +193,7 @@
     }
     
     [imageView loadUrl:urlstr placeholderImage:@""];
-    imageView.contentMode=UIViewContentModeScaleAspectFill;
-    imageView.clipsToBounds=YES;
-    
+
     NSDictionary *thumbImagInfo = @{@"VIDEOS":@"Video",
                                   @"PODCASTS":@"Podcast",
                                   @"INTERVIEWS":@"Interview",

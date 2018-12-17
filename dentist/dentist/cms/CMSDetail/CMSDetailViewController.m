@@ -136,7 +136,7 @@
 - (void)goToViewAllPage
 {
     ViewAllViewController *viewAll = [ViewAllViewController new];
-    viewAll.discussInfo = self.articleInfo.discussInfos;
+//    viewAll.discussInfo = self.articleInfo.discussInfos;
     viewAll.contentId = self.contentId;
     [self.navigationController pushViewController:viewAll animated:YES];
 }

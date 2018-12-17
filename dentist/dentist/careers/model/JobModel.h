@@ -10,30 +10,42 @@
 #import "JSONModel.h"
 #import "CompanyModel.h"
 #import "JobPosition.h"
+#import "JobDSOModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobModel : JSONModel
 @property NSString <Optional>*id;
 @property NSString <Optional>*jobTitle;
 @property NSString <Optional>*categroy;
+@property NSString <Optional>*jobDescription;
 @property NSInteger salaryStartingValue;
 @property NSInteger salaryEndValue;
-@property NSString <Optional>*salaryRange;
-@property NSInteger experienceStartingValue;
-@property NSInteger experienceEndValue;
-@property NSString <Optional>*experienceRange;
+//@property NSInteger experienceStartingValue;
+//@property NSInteger experienceEndValue;
+//@property NSString <Optional>*experienceRange;
 @property NSInteger status;
 @property NSString <Optional>*modifiedDate;
-@property NSString <Optional>*publishDate;
+//@property NSString <Optional>*publishDate;
+@property NSString <Optional>*publishOn;
+@property NSString <Optional>*publishEnd;
 @property NSString <Optional>*createDate;
-@property NSString <Optional>*jobDescription;
-@property NSString <Optional>*companyId;
-@property CompanyModel <Optional>*company;
+@property NSString <Optional>*dsoId;
+@property NSString <Optional>*company;
+@property JobDSOModel <Optional>*dso;
 @property NSString <Optional>*isAttention;
-@property NSString <Optional>*location;
 @property JobPosition <Optional>*position;
 @property NSString <Optional>*isApplication;
-@property NSString <Optional>*address;
+@property NSString <Optional>*address1;
+@property NSInteger companyType;
+@property BOOL paid;
+@property NSString <Optional>*city;
+@property NSString <Optional>*state;
+@property NSString <Optional>*zipCode;
+
+
+//local property
+@property (nonatomic,strong) NSString <Optional>*location;
+@property (nonatomic,strong) NSString <Optional>*salaryRange;
 
 @end
 

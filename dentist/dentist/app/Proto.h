@@ -23,6 +23,7 @@
 @class JobModel;
 @class JobBookmarkModel;
 @class JobApplyModel;
+@class JobDSOModel;
 
 @interface Proto : NSObject
 
@@ -229,11 +230,12 @@
 //2.1. 查看职位明细接口
 + (void)findJobById:(NSString*)jobId completed:(void(^)(JobModel *_Nullable jobModel))completed ;
 //MARK:2.2.    查询所有职位列表
-+ (void)queryAllJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
++ (void)queryAllJobs:(NSString *)sort categroy:(NSString *)categroy salaryStartingValue:(NSString *)salaryStartingValue salaryEndValue:(NSString *)salaryEndValue experienceStartingValue:(NSString *)experienceStartingValue experienceEndValue:(NSString *)experienceEndValue location:(NSArray *)location city:(NSString *)city distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 //MARK:2.2.    查询所有职位列表
 + (void)queryAllJobs:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
++ (void)queryAllJobs:(NSInteger)skip filterDic:(NSDictionary *_Nullable)filterDic completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 //MARK:2.2.  根据职位标题查询所有职位列表
-+ (void)queryAllJobs:(NSInteger)skip jobTitle:(NSString *)jobTitle completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
++ (void)queryAllJobs:(NSInteger)skip jobTitle:(NSString *)jobTitle location:(NSArray *)location city:(NSString *)city distance:(NSString *)distance completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 
 //MARK:2.7.   查询已申请职位列表
 + (void)queryAllApplicationJobs:(NSString *_Nullable)sort categroy:(NSString *_Nullable)categroy salary:(NSString *_Nullable)salary experience:(NSString *_Nullable)experience location:(NSString *_Nullable)location distance:(NSString *_Nullable)distance jobTitle:(NSString *_Nullable)jobTitle company:(NSString *_Nullable)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobApplyModel *> *array,NSInteger totalCount))completed;
@@ -251,18 +253,25 @@
 + (void)queryJobBookmarks:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array,NSInteger totalCount))completed ;
 
 //MARK:2.16.    查询公司职位接口
-+ (void)getAllJobsByCompanyId:(NSString*)companyId completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
++ (void)getAllJobsByCompanyId:(NSString*)companyId skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 
 //MARK:2.13.    查询所有公司列表
-+ (void)queryCompanyList:(NSInteger)skip completed:(void(^)(NSArray<CompanyModel *> *array,NSInteger totalCount))completed;
++ (void)queryCompanyList:(NSInteger)skip completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed;
 
 //2.14.    查询公司详情接口
-+ (void)findCompanyById:(NSString*)companyId completed:(void(^)(CompanyModel  * _Nullable companyModel))completed ;
++ (void)findCompanyById:(NSString*)companyId completed:(void(^)(JobDSOModel  * _Nullable companyModel))completed ;
     
     
 //2.17.    查询单个公司评论列表接口
 + (void)findCommentByCompanyId:(NSString*)companyId sort:(NSInteger)sort star:(NSInteger)star
                           skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(CompanyCommentModel * _Nullable companyCommentModel))completed ;
+
+//2.18. 添加公司评论接口
++ (void)addCompanyComment:(NSString*)companyId reviewTitle:(NSString*)reviewTitle pros:(NSString*)pros cons:(NSString*)cons advice:(NSString*)advice isCurrentEmployee:(BOOL)isCurrentEmployee isFormerEmployee:(BOOL)isFormerEmployee isRecommend:(BOOL)isRecommend isApprove:(BOOL)isApprove rating:(float)rating completed:(void(^)(BOOL success,NSString *msg))completed;
+
+//2.19.​查询所有公司评论列表
++ (void)findCompanyExistsReviewsList:(NSInteger)skip  completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed;
+
 
 //获取career首页图片接口
 + (void)findExtensionCompleted:(void(^)(NSString *picUrl))completed;

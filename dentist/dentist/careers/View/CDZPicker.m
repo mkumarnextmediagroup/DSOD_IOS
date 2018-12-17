@@ -90,7 +90,7 @@ static const NSInteger CDZToolBarHeight = 44;
                        strings:(NSArray<NSString *> *)strings
                        confirm:(CDZConfirmBlock)confirmBlock
                         cancel:(CDZCancelBlock)cancelBlcok{
-    CDZPicker *pickerView = [[CDZPicker alloc]initWithFrame:CGRectMake(0, -NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT)];
+    CDZPicker *pickerView = [[CDZPicker alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT)];
     
     NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:strings.count];
     for (NSString *string in strings) {
@@ -146,6 +146,7 @@ static const NSInteger CDZToolBarHeight = 44;
     [self.containerView addSubview:self.confirmButton];
     [self.containerView addSubview:self.cancelButton];
     NSInteger defaultIndex =  (self.builder.defaultIndex < self.numberOfComponents && self.builder.defaultIndex > 0) ? self.builder.defaultIndex : 0;
+    defaultIndex = 2;
     [self.pickerView selectRow:defaultIndex inComponent:0 animated:NO];
 }
 
@@ -302,12 +303,12 @@ static const NSInteger CDZToolBarHeight = 44;
 
 - (UIButton *)confirmButton{
     if (!_confirmButton) {
-        _confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH -70, 10, 40, 30)];
+        _confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 10, 140, 30)];
         _confirmButton.backgroundColor = UIColor.clearColor;
         _confirmButton.titleLabel.font = [UIFont systemFontOfSize:18.0];
-        NSString *title = self.builder.confirmText.length ? self.builder.confirmText : @"确定";
+        NSString *title = self.builder.confirmText.length ? self.builder.confirmText : @"Choose distance";
         [_confirmButton setTitle:title forState:UIControlStateNormal];
-        UIColor *color = self.builder.confirmTextColor ?: UIColor.blueColor;
+        UIColor *color = UIColor.blueColor;//self.builder.confirmTextColor ?:
         [_confirmButton setTitleColor:color forState:UIControlStateNormal];
         [_confirmButton addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -317,12 +318,12 @@ static const NSInteger CDZToolBarHeight = 44;
 
 - (UIButton *)cancelButton{
     if (!_cancelButton) {
-        _cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 10, 40, 30)];
+        _cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH -100, 10, 80, 30)];
         _cancelButton.backgroundColor = UIColor.clearColor;
         _cancelButton.titleLabel.font = [UIFont systemFontOfSize:18.0];
-        NSString *title = self.builder.cancelText.length ? self.builder.cancelText : @"取消";
+        NSString *title = self.builder.cancelText.length ? self.builder.cancelText : @"Cancel";
         [_cancelButton setTitle:title forState:UIControlStateNormal];
-        UIColor *color = self.builder.cancelTextColor ?: UIColor.blueColor;
+        UIColor *color = UIColor.grayColor;
         [_cancelButton setTitleColor:color forState:UIControlStateNormal];
         [_cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
     }

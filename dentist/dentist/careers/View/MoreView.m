@@ -35,8 +35,7 @@ static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[MoreView alloc] init];
         CGFloat bottom = offBottom;
-        instance.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
-        instance.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:.8];
+        instance.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-bottom);
         [instance initSubView];
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         [window.rootViewController.view addSubview:instance];
@@ -45,8 +44,31 @@ static dispatch_once_t onceToken;
     return instance;
 }
 
+-(instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        UITapGestureRecognizer *tapMore =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapMoreBack:)];
+        [self addGestureRecognizer:tapMore];
+    }
+    return self;
+}
+
+-(void)tapMoreBack:(UITapGestureRecognizer *)tap
+{
+    [self hideFuntionBtn];
+}
+
 - (void)initSubView
 {
+    
+    UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+    effectView.alpha=0.8;
+    effectView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    [self addSubview: effectView];
+    
     //初始化背景图
     btn1 = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-160, self.frame.size.height, 140, 40)];
     [btn1 setImage:[UIImage imageNamed:@"more-me"] forState:UIControlStateNormal];
@@ -56,6 +78,7 @@ static dispatch_once_t onceToken;
     btn1.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
     btn1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     btn1.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
+    btn1.tag=1;
     
     btn2 = [[UIButton alloc] initWithFrame:btn1.frame];
     [btn2 setImage:[UIImage imageNamed:@"more-notification"] forState:UIControlStateNormal];
@@ -65,6 +88,7 @@ static dispatch_once_t onceToken;
     btn2.titleLabel.font = [UIFont systemFontOfSize:12];
     btn2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     btn2.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
+    btn2.tag=2;
     
     btn3 = [[UIButton alloc] initWithFrame:btn1.frame];
     [btn3 setImage:[UIImage imageNamed:@"more-reviews"] forState:UIControlStateNormal];
@@ -74,6 +98,7 @@ static dispatch_once_t onceToken;
     btn3.titleLabel.font = [UIFont systemFontOfSize:12];
     btn3.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     btn3.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
+    btn3.tag=3;
     
     btn4 = [[UIButton alloc] initWithFrame:btn1.frame];
     [btn4 setImage:[UIImage imageNamed:@"more-profiles"] forState:UIControlStateNormal];
@@ -83,6 +108,7 @@ static dispatch_once_t onceToken;
     btn4.titleLabel.font = [UIFont systemFontOfSize:12];
     btn4.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     btn4.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
+    btn4.tag=4;
     
     [self addSubview:btn2];
     [self addSubview:btn3];
@@ -96,13 +122,16 @@ static dispatch_once_t onceToken;
     CGFloat bottom = offBottom;
     if (self.frame.origin.y == SCREENHEIGHT) {
         [UIView animateWithDuration:.3 animations:^{
-            self.frame = CGRectMake(0, NAVHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
+            self.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT-bottom);
         }];
     }else
     {
         [UIView animateWithDuration:.3 animations:^{
-            self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
+            self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-bottom);
         } completion:^(BOOL finished) {
+            if(self.delegate && [self.delegate respondsToSelector:@selector(moreViewClose:)]){
+                [self.delegate moreViewClose:self.selectIndex];
+            }
             [self removeFromSuperview];
             [MoreView attemptDealloc];
         }];
@@ -155,12 +184,31 @@ static dispatch_once_t onceToken;
         [UIView commitAnimations];
         
         isTouch = NO;
-    }}
+    }
+    
+}
+- (void)hideFuntionBtn
+{
+    CGFloat bottom = offBottom;
+    [UIView animateWithDuration:.3 animations:^{
+        self.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, SCREENHEIGHT-NAVHEIGHT-bottom);
+    } completion:^(BOOL finished) {
+        if(self.delegate && [self.delegate respondsToSelector:@selector(moreViewClose:)]){
+            [self.delegate moreViewClose:self.selectIndex];
+        }
+        [self removeFromSuperview];
+        [MoreView attemptDealloc];
+    }];
+}
 
 #pragma -mark -functions
-- (void)btnClick:(id)sender
+- (void)btnClick:(UIButton *)sender
 {
-    
+    NSLog(@"morebuttonclick=%@",@(sender.tag));
+    if(self.delegate && [self.delegate respondsToSelector:@selector(moreActionClick:)]){
+        [self.delegate moreActionClick:sender.tag];
+    }
+    [self hideFuntionBtn];
 }
 
 /*

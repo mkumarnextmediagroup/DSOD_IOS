@@ -15,7 +15,6 @@
 #import "Proto.h"
 #import "Common.h"
 #import "SliderListViewController.h"
-#import "MyTabBarViewController.h"
 
 @interface AppDelegate ()
 
@@ -79,18 +78,14 @@
     slider.preferredContentSize = makeSize(SCREENWIDTH - 132, SCREENHEIGHT);
     
 	UIViewController *centerPage = [sc onMakePage:@"Browse Content"];
-	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:centerPage leftViewController:snav rightViewController:slider];
+	IIViewDeckController *deck = [[IIViewDeckController alloc] initWithCenterViewController:centerPage leftViewController:snav rightViewController:nil];
 	return deck;
 }
 
 - (UIViewController *)careersPage {
     if ([self.window.rootViewController isKindOfClass:[IIViewDeckController class]]) {
         IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;
-        if ([tc.centerViewController isKindOfClass:[MyTabBarViewController class]] ) {
-            return tc.centerViewController;
-        }else{
-            return nil;
-        }
+        return tc.centerViewController;
     }
     return nil;
 }
@@ -122,7 +117,7 @@
 			NSFontAttributeName: [Fonts regular:10]
 	}                                        forState:UIControlStateNormal];
 	[[UITabBarItem appearance] setTitleTextAttributes:@{
-			NSForegroundColorAttributeName: Colors.textMain, NSFontAttributeName: [Fonts regular:10]
+			NSForegroundColorAttributeName: Colors.textDisabled, NSFontAttributeName: [Fonts regular:10]
 	}                                        forState:UIControlStateSelected];
 
 	[[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];

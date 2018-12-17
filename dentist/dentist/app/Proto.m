@@ -2306,6 +2306,56 @@
     }];
 }
 
+/*
+ raw :postAsync3
+ formdata:postAsync2
+ 
+ */
+
+//2.18. 添加公司评论接口
++ (void)addCompanyComment:(NSString*)companyId
+                            reviewTitle:(NSString*)reviewTitle
+                            pros:(NSString*)pros
+                            cons:(NSString*)cons
+                            advice:(NSString*)advice
+                            isCurrentEmployee:(BOOL)isCurrentEmployee
+                            isFormerEmployee:(BOOL)isFormerEmployee
+                            isRecommend:(BOOL)isRecommend
+                            isApprove:(BOOL)isApprove
+                            rating:(float)rating completed:(void(^)(BOOL success,NSString *msg))completed {
+    
+    NSDictionary *paradic = @{@"dsoId" : companyId,
+                              @"reviewTitle" : reviewTitle,
+                              @"pros" : pros,
+                              @"cons" : cons,
+                              @"advice" : advice,
+                              @"isCurrentEmployee" : [NSNumber numberWithBool:isCurrentEmployee],
+                              @"isFormerEmployee" : [NSNumber numberWithBool:isFormerEmployee],
+                              @"isRecommend" : [NSNumber numberWithBool:isRecommend],
+                              @"isApprove" : [NSNumber numberWithBool:isApprove],
+                              @"rating" : [NSNumber numberWithFloat:rating]
+                              };
+    
+    [self postAsync3:@"comment/addComment" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg);
+            });
+        }
+    }];
+}
+
+//2.19.​查询所有公司评论列表
++ (void)findCompanyExistsReviewsList:(NSInteger)skip  completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed{
+    [Proto queryCompanyList:skip completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
+        if(completed){
+            foreTask(^{
+                completed(array,totalCount);
+            });
+        }
+    }];
+}
+
 //获取career首页图片接口
 + (void)findExtensionCompleted:(void(^)(NSString *picUrl))completed
 {
@@ -2323,5 +2373,7 @@
         }
     }];
 }
+
+
 
 @end

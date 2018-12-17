@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "Proto.h"
 #import "CareerFindJobViewController.h"
+#import "CompanyExistsReviewsViewController.h"
 
 #define kMaxBtnCount 4
 #define leftToX 20
@@ -110,7 +111,8 @@
 
     }else if (btn.tag == 12)//review button click
     {
-//        [[FilterView initFilterView] showFilter];
+        
+        [CompanyExistsReviewsViewController openBy:self];
     }else if (btn.tag == 10){
 //        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 //        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;

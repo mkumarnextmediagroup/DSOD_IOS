@@ -9,8 +9,11 @@
 #import "CareerAddReviewViewController.h"
 #import "Common.h"
 #import "XHStarRateView.h"
+#import "Proto.h"
 
 @interface CareerAddReviewViewController ()<UITextViewDelegate>
+
+@property (nonatomic,strong) NSString *dsoId;
 
 @end
 
@@ -40,7 +43,7 @@
     
     CareerAddReviewViewController *addReviewVC = [CareerAddReviewViewController new];
     addReviewVC.dsoId = dsoId;
-    [vc pushPage:[[UINavigationController alloc]initWithRootViewController:addReviewVC ]];
+    [vc pushPage:addReviewVC];
     
 }
 
@@ -50,6 +53,7 @@
     
     edge = 18;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.view.backgroundColor = UIColor.whiteColor;
     
     [self addNavBar];
     
@@ -131,11 +135,12 @@
     [[[chooseRatingLabel.layoutMaker centerXParent:0] topParent:edge]install];
     
     
-    starRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake(0, 0, 130, 24)];
-    starRateView.isAnimation = NO;
+    starRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake((SCREENWIDTH-2*edge - 130) /2, 40, 130, 24)];
+    starRateView.isAnimation = YES;
     starRateView.rateStyle = HalfStar;
+    starRateView.tag = 1;
     [contentView addSubview:starRateView];
-    [[[[starRateView.layoutMaker centerXParent:-65]below:chooseRatingLabel offset:10]heightEq:24] install];
+
     
     
     float buttonWidth = (SCREENWIDTH - 2 * edge ) / 2;
@@ -148,6 +153,8 @@
     currentEmployeeBtn.titleEdgeInsets = UIEdgeInsetsMake(0.0,5, 0.0, 0);
     currentEmployeeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [[[[currentEmployeeBtn.layoutMaker leftParent:0]below:starRateView offset:10] widthEq:buttonWidth] install];
+    [currentEmployeeBtn onClick:self action:@selector(employeeChange:)];
+    
     
     
     formerEmployeeBtn = contentView.addButton;
@@ -159,6 +166,10 @@
     formerEmployeeBtn.titleEdgeInsets = UIEdgeInsetsMake(0.0,5, 0.0, 0);
     formerEmployeeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [[[[formerEmployeeBtn.layoutMaker toRightOf:currentEmployeeBtn offset:0]below:starRateView offset:10] widthEq:buttonWidth] install];
+    [formerEmployeeBtn onClick:self action:@selector(employeeChange:)];
+    
+    currentEmployeeBtn.argObject = formerEmployeeBtn;
+    formerEmployeeBtn.argObject = currentEmployeeBtn;
 
     //Review Title
     UILabel *reviewTitleLabel = contentView.addLabel;
@@ -267,6 +278,7 @@
     recommendsBtn.titleEdgeInsets = UIEdgeInsetsMake(0.0,5, 0.0, 0);
     recommendsBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [[[[recommendsBtn.layoutMaker leftParent:0]below:advicebg offset:10] widthEq:buttonWidth] install];
+    [recommendsBtn onClick:self action:@selector(selectChanged:)];
 
 
     approveBtn = contentView.addButton;
@@ -278,6 +290,7 @@
     approveBtn.titleEdgeInsets = UIEdgeInsetsMake(0.0,5, 0.0, 0);
     approveBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [[[[approveBtn.layoutMaker toRightOf:recommendsBtn offset:0]below:advicebg offset:10] widthEq:buttonWidth] install];
+    [approveBtn onClick:self action:@selector(selectChanged:)];
 
 
     UILabel *tipsLabel = contentView.addLabel;
@@ -298,9 +311,37 @@
     [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(submitBtn) install];
 }
 
+-(void)employeeChange:(UIButton*)button{
+    UIButton *anotherBtn = ((UIButton*)button.argObject);
+    anotherBtn.selected=NO;
+    button.selected = !button.selected;
+    
+}
+
+-(void)selectChanged:(UIButton*)button{
+    button.selected = !button.selected;
+}
+
 
 -(void)submitBtnClick{
     
+    [self showLoading];
+    [Proto addCompanyComment:self.dsoId reviewTitle:[self text:reviewTitleTextView]
+                        pros:[self text:prosTextView] cons:[self text:consTextView] advice:[self text:adviceTextView]
+           isCurrentEmployee:currentEmployeeBtn.isSelected isFormerEmployee:formerEmployeeBtn.isSelected isRecommend:recommendsBtn.isSelected isApprove:approveBtn.isSelected rating:starRateView.currentScore completed:^(BOOL success, NSString *msg) {
+        [self hideLoading];
+        [self Den_showAlertWithTitle:success?@"Submit Successful":msg message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+                alertMaker.addActionCancelTitle(@"OK");
+            } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+                if (success) {
+                    if(self.addReviewSuccessCallbak){
+                        self.addReviewSuccessCallbak();
+                    }
+                    [super dismiss];
+                }
+            }
+         ];
+    }];
 }
 
 
@@ -318,6 +359,14 @@
         textView.textColor = rgbHex(0x879AA8);
         textView.text = @"Type here...";
         textView.tag=0;
+    }
+}
+
+-(NSString*)text:(UITextView*)textView{
+    if(textView.tag == 1){
+        return textView.text;
+    }else{
+        return @"";
     }
 }
 

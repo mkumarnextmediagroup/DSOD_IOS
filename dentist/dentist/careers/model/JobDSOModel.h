@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray <Optional>*media;
 @property NSArray <Optional>*mediaURL;
 @property NSString <Optional>*dsoDescription;
-@property double rating;
+@property float rating;
 @property NSInteger totalFound;
 @property NSInteger reviewNum;
 @property NSInteger recommendNum;

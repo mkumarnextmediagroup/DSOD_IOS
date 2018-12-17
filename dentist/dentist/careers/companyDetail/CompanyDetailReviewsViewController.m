@@ -39,7 +39,6 @@
     [self.view addSubview:tableView];
     [[[[[tableView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
     
-    self.view.backgroundColor = UIColor.greenColor;
     
     
 }

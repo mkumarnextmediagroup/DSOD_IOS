@@ -14,7 +14,6 @@
 #import "Proto.h"
 #import "DentistTabView.h"
 #import "UIView+Toast.h"
-#import "DescriptionOfDSODetailTableViewCell.h"
 #import "CompanyJobsModel.h"
 #import "BannerScrollView.h"
 #import "CareerSearchViewController.h"

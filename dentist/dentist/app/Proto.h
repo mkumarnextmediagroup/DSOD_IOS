@@ -266,6 +266,13 @@
 + (void)findCommentByCompanyId:(NSString*)companyId sort:(NSInteger)sort star:(NSInteger)star
                           skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(CompanyCommentModel * _Nullable companyCommentModel))completed ;
 
+//2.18. 添加公司评论接口
++ (void)addCompanyComment:(NSString*)companyId reviewTitle:(NSString*)reviewTitle pros:(NSString*)pros cons:(NSString*)cons advice:(NSString*)advice isCurrentEmployee:(BOOL)isCurrentEmployee isFormerEmployee:(BOOL)isFormerEmployee isRecommend:(BOOL)isRecommend isApprove:(BOOL)isApprove rating:(float)rating completed:(void(^)(BOOL success,NSString *msg))completed;
+
+//2.19.​查询所有公司评论列表
++ (void)findCompanyExistsReviewsList:(NSInteger)skip  completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed;
+
+
 //获取career首页图片接口
 + (void)findExtensionCompleted:(void(^)(NSString *picUrl))completed;
 

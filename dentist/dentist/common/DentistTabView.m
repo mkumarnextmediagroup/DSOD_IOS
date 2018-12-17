@@ -109,7 +109,7 @@ static NSString * identifier = @"TabCellID2";
         [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
         if (_indexArr.count>selectIndex) {
             NSInteger index = [_indexArr[selectIndex] integerValue];
-            if (self.delegate && [self.delegate respondsToSelector:@selector(didDentistSelectItemAtIndex:)]) {
+            if (self.isBackFistDelegate && self.delegate && [self.delegate respondsToSelector:@selector(didDentistSelectItemAtIndex:)]) {
                 [self.delegate didDentistSelectItemAtIndex:index];
             }
         }
@@ -186,7 +186,7 @@ static NSString * identifier = @"TabCellID2";
     selectIndex=indexPath.row;
     if (_indexArr.count>selectIndex) {
         NSInteger index = [_indexArr[selectIndex] integerValue];
-        NSLog(@"index=%@",@(selectIndex));
+//        NSLog(@"index=%@",@(selectIndex));
         //     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:selectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
         if (_isScrollEnable) {
             [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];

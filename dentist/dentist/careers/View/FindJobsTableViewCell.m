@@ -10,6 +10,7 @@
 #import "Common.h"
 #import "LargeUIButton.h"
 #import "DentistDataBaseManager.h"
+#import "TopLeftLabel.h"
 #define edge 15
 
 @implementation FindJobsTableViewCell{
@@ -43,7 +44,6 @@
         imageView = bgView.addImageView;
 
         newimageView=bgView.addImageView;
-        newimageView.image=[UIImage imageNamed:@"Group Copy"];
         [newimageView scaleFillAspect];
         newimageView.clipsToBounds=YES;
 
@@ -56,7 +56,9 @@
         statusLabel = bgView.addLabel;
         
         
-        titleLabel = bgView.addLabel;
+        titleLabel = [TopLeftLabel new]; //bgView.addLabel;
+        [bgView addSubview:titleLabel];
+        titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         
         
         bankImageView=bgView.addImageView;
@@ -100,16 +102,26 @@
     return self;
 }
 
+-(void)setIsNew:(BOOL)isNew
+{
+    _isNew=isNew;
+    if (_isNew) {
+        newimageView.hidden=NO;
+    }else{
+        newimageView.hidden=YES;
+    }
+}
+
 -(void)setInfo:(JobModel *)info
 {
     _info=info;
     if (_info) {
         [self layoutIfNeeded];
-        NSString *logourl=_info.company.companyLogoUrl;
+        NSString *logourl=_info.dso.logoURL;
         [imageView loadUrl:logourl placeholderImage:@"user_img"];
         [imageView scaleFillAspect];
         imageView.clipsToBounds=YES;
-        contentLabel.text = [NSString stringWithFormat:@"Supported by %@",_info.company.companyName];
+        contentLabel.text = [NSString stringWithFormat:@"Supported by %@",_info.company];
         NSInteger diffday=[NSDate getDifferenceByTimestamp:_info.modifiedDate];
         if (diffday==0) {
             timeLabel.text = @"today";
@@ -118,9 +130,16 @@
         }else{
             timeLabel.text = @"-d";
         }
+        NSString *location=@"";
+        if (![NSString isBlankString:_info.city]) {
+            location=[location stringByAppendingString:[NSString stringWithFormat:@"%@",_info.city]];
+        }
+        if (![NSString isBlankString:_info.state]) {
+            location=[location stringByAppendingString:[NSString stringWithFormat:@",%@",_info.state]];
+        }
         
-        titleLabel.text = [NSString stringWithFormat:@"%@-%@",_info.jobTitle,_info.location];
-        statusLabel.text=@"POSITION CLOSE";
+        titleLabel.text = [NSString stringWithFormat:@"%@-%@",_info.jobTitle,location];
+        statusLabel.text=@"";
         NSInteger startsalary=ceilf(_info.salaryStartingValue/1000.0);
         NSInteger endsalary=ceilf(_info.salaryEndValue/1000.0);
         salaryLabel.text=[NSString stringWithFormat:@"$%@k-$%@k",@(startsalary),@(endsalary)];
@@ -135,18 +154,30 @@
                 [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
             }
         }
-        [[DentistDataBaseManager shareManager] checkJobsStatus:_info.id publishDate:_info.publishDate modifiedDate:_info.modifiedDate completed:^(NSInteger result) {
-            foreTask(^{
-                if (result==1) {
-                    self->newimageView.hidden=NO;
-                }else if (result==2){
-                    self->newimageView.hidden=NO;
-                }else{
-                    self->newimageView.hidden=YES;
-                }
-            });
-           
-        }];
+        if(_info.status==3){
+            self->newimageView.hidden=NO;
+            self->newimageView.image=[UIImage imageNamed:@"Closed"];
+        }else{
+            [[DentistDataBaseManager shareManager] checkJobsStatus:_info.id publishDate:_info.publishOn modifiedDate:_info.modifiedDate completed:^(NSInteger result) {
+                foreTask(^{
+                    if (result==1) {
+                        if (self->_isHideNew) {
+                            self->newimageView.hidden=YES;
+                        }else{
+                            self->newimageView.hidden=NO;
+                            self->newimageView.image=[UIImage imageNamed:@"New"];
+                        }
+                    }else if (result==2){
+                        self->newimageView.hidden=NO;
+                        self->newimageView.image=[UIImage imageNamed:@"Updated"];
+                    }else{
+                        self->newimageView.hidden=YES;
+                    }
+                });
+                
+            }];
+        }
+        
     }
 }
 
@@ -182,16 +213,6 @@
     }
 }
 
--(void)setIsNew:(BOOL)isNew
-{
-    _isNew=isNew;
-    if (_isNew) {
-        newimageView.hidden=NO;
-    }else{
-        newimageView.hidden=YES;
-    }
-}
-
 //-(void)setIsDetail:(BOOL)isDetail
 //{
 //    _isDetail=isDetail;
@@ -202,56 +223,6 @@
 //        [self setNormalFrame];
 //    }
 //}
-
--(void)setDetailFrame{
-    desLabel.hidden=NO;
-    locationimageView.hidden=NO;
-    locationLabel.hidden=NO;
-    lineLabel.hidden=YES;
-    bgView.layer.borderColor=Colors.strokes.CGColor;
-    bgView.layer.borderWidth=1.0;
-    
-    contentLabel.font = [Fonts semiBold:11];
-    contentLabel.textColor = Colors.textAlternate;
-    timeLabel.textAlignment=NSTextAlignmentRight;
-    timeLabel.font = [Fonts regular:12];
-    timeLabel.textColor = Colors.textDisabled;
-    statusLabel.font = [Fonts semiBold:8];
-    statusLabel.textColor = Colors.textAlternate;
-    titleLabel.font = [Fonts semiBold:16];
-    [titleLabel textColorMain];
-    titleLabel.numberOfLines=2;
-    salaryLabel.font = [Fonts regular:14];
-    salaryLabel.textColor = Colors.textColor9c;
-    salaryLabel.textAlignment=NSTextAlignmentRight;
-    
-    locationLabel.font = [Fonts regular:14];
-    locationLabel.textColor = Colors.textColor9c;
-    
-    desLabel.font = [Fonts semiBold:11];
-    desLabel.textColor = Colors.textAlternate;
-    desLabel.numberOfLines=3;
-    
-    
-    
-    [[[[[bgView.layoutMaker leftParent:10] rightParent:-10] topParent:5] bottomParent:-5] install];
-    [[[[newimageView.layoutMaker leftParent:0] topParent:0] sizeEq:58 h:58] install];
-    [[[[imageView.layoutMaker leftParent:edge] topParent:edge] sizeEq:55 h:55] install];
-    
-    [[[[timeLabel.layoutMaker topParent:edge] rightParent:-edge] sizeEq:80 h:15.0] install];
-    [[[[statusLabel.layoutMaker toLeftOf:timeLabel offset:3] topParent:edge] sizeEq:80 h:15.0] install];
-    [[[[titleLabel.layoutMaker toRightOf:imageView offset:10] toLeftOf:timeLabel offset:3] topParent:edge] install];
-    [[[[[[contentLabel.layoutMaker toRightOf:imageView offset:10] heightEq:15.0] rightParent:-46] below:titleLabel offset:0] bottomOf:imageView offset:0] install];
-    [[[[followButton.layoutMaker rightParent:-edge] bottomOf:imageView offset:0] sizeEq:20 h:20] install];
-    [[[[desLabel.layoutMaker leftParent:edge] rightParent:-46] below:contentLabel offset:5] install];
-    
-    [[[[[locationimageView.layoutMaker leftParent:edge] below:desLabel offset:7] bottomParent:-10] sizeEq:16 h:16] install];
-    [[[[[locationLabel.layoutMaker toRightOf:locationimageView offset:7] below:desLabel offset:7] sizeEq:100 h:16.0] bottomParent:-10] install];
-    [[[[[salaryLabel.layoutMaker rightParent:-edge] below:desLabel offset:7] sizeEq:100 h:16.0] bottomParent:-10] install];
-    
-    [[[[[bankImageView.layoutMaker toLeftOf:salaryLabel offset:-5] below:desLabel offset:7]  bottomParent:-10] sizeEq:16 h:16] install];
-
-}
 
 -(void)setNormalFrame{
     desLabel.hidden=YES;
@@ -272,6 +243,7 @@
     titleLabel.numberOfLines=2;
     salaryLabel.font = [Fonts regular:12];
     salaryLabel.textColor = Colors.textDisabled;
+    salaryLabel.textAlignment=NSTextAlignmentRight;
     
     [[[[[bgView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
     [[[[newimageView.layoutMaker leftParent:0] topParent:0] sizeEq:58 h:58] install];

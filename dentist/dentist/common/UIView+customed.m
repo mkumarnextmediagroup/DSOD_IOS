@@ -197,6 +197,13 @@ static char argObjectAttr = 0;
 	return imageView;
 }
 
+- (UITextField *)addFieldCustom {
+    UITextField *edit = [UITextField new];
+    edit.borderStyle = UITextBorderStyleNone;
+    [self addSubview:edit];
+    return edit;
+}
+
 - (UITextField *)addEditRoundedGray {
 	UITextField *reset = [self addEditRaw];
 	[reset styleRoundedGray];
@@ -449,6 +456,33 @@ static char argObjectAttr = 0;
     }
     
     
+}
+
+- (UIView*)subViewOfClassName:(NSString*)className {
+    for (UIView* subView in self.subviews) {
+        if ([NSStringFromClass(subView.class) isEqualToString:className]) {
+            return subView;
+        }
+        
+        UIView* resultFound = [subView subViewOfClassName:className];
+        if (resultFound) {
+            return resultFound;
+        }
+    }
+    return nil;
+}
+
+- (UIView *)findFirstResponder{
+    if (self.isFirstResponder) {
+        return self;
+    }
+    for (UIView *subView in self.subviews) {
+        UIView *firstResponder = [subView findFirstResponder];
+        if (firstResponder != nil) {
+            return firstResponder;
+        }
+    }
+    return nil;
 }
 
 @end

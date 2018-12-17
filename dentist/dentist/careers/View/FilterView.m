@@ -265,6 +265,11 @@ static dispatch_once_t onceToken;
 - (void)clearBtnClick
 {
     NSLog(@"clear button click");
+    if(self.delegate && [self.delegate respondsToSelector:@selector(searchCondition:)]){
+        [self.delegate searchCondition:nil];
+        //after update dismiss the filter
+        [self showFilter];
+    }
 }
 
 - (void)updateBtnClick
@@ -312,7 +317,7 @@ static dispatch_once_t onceToken;
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if (textField == salaryField || textField == experField || textField == selectField) {
-        
+        [self endEditing:YES];
         [self createPickView:textField];
         [UIView animateWithDuration:.3 animations:^{
             self->myPicker.frame = CGRectMake(0, SCREENHEIGHT - 216 - 65, SCREENWIDTH, 216);

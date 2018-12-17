@@ -8,20 +8,27 @@
 #import "DSOProfilePage.h"
 #import "UIButton+styled.h"
 #import "FilterView.h"
-#import "MyTabBarViewController.h"
 #import "AppDelegate.h"
 #import "Proto.h"
+#import "CareerFindJobViewController.h"
+#import "CompanyExistsReviewsViewController.h"
 
 #define kMaxBtnCount 4
 #define leftToX 20
 #define IMAGE_HEIGHT SCREENWIDTH*253/375
-#define FUNBTN_WIDTH ([[UIScreen mainScreen] bounds].size.width - 24*2)/2
+#define FUNBTN_WIDTH ([[UIScreen mainScreen] bounds].size.width - leftToX*3)/2
 #define FUNBTN_HEIGHT IPHONE_X?((SCREENHEIGHT-IMAGE_HEIGHT-NAVHEIGHT-65-leftToX*3)/2):((SCREENHEIGHT-IMAGE_HEIGHT-NAVHEIGHT-50-leftToX*3)/2)//FUNBTN_WIDTH*9/16
 
 @implementation CareerExplorePage {
     NSArray *titleArr;
     NSArray *imageArr;
     UIImageView *img;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewDidLoad {
@@ -96,18 +103,25 @@
 {
     if (btn.tag == 13) {//DSO Profile button
         NSLog(@"DSO Profile");
-        UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
         DSOProfilePage *dso = [DSOProfilePage new];
         UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:dso];
-        [viewController presentViewController:navVC animated:YES completion:NULL];
+        navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:navVC animated:NO completion:NULL];
+//        [self.navigationController pushViewController:dso animated:YES];
 
     }else if (btn.tag == 12)//review button click
     {
-//        [[FilterView initFilterView] showFilter];
+        
+        [CompanyExistsReviewsViewController openBy:self];
     }else if (btn.tag == 10){
-        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        MyTabBarViewController *tabvc=(MyTabBarViewController *)appdelegate.careersPage;
-        [tabvc tabbarSelected:1];
+//        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+//        [tabvc setSelectedIndex:1];
+        CareerFindJobViewController *findjobvc=[CareerFindJobViewController new];
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:findjobvc];
+        navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:navVC animated:NO completion:NULL];
+//        [self.navigationController pushViewController:navVC animated:YES];
     }
 }
 

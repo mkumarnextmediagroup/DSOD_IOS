@@ -10,19 +10,21 @@
 #import "Proto.h"
 #import "FindJobsTableViewCell.h"
 #import "FindJobsSponsorTableViewCell.h"
-#import "DSODetailPage.h"
 #import "UIViewController+myextend.h"
 #import "DsoToast.h"
 #import "CareerSearchViewController.h"
-#import "CareerJobDetailViewController.h"
+#import "JobDetailViewController.h"
 #import "FilterView.h"
+#import "AppDelegate.h"
+#import "UITableView+JRTableViewPlaceHolder.h"
 
-@interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate>
+@interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,FilterViewDelegate>
 {
     NSMutableArray *infoArr;
     UITableView *myTable;
     UILabel *jobCountTitle;
     BOOL isdownrefresh;
+    NSDictionary *filterDic;
 }
 @end
 
@@ -41,7 +43,28 @@
     
     UINavigationItem *item = self.navigationItem;
     item.title = @"JOBS";
+//    if (self.navigationController.viewControllers.count<=1) {
+//        
+//        self.tabBarController.tabBar.hidden = NO;
+//    }else{
+//        item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(backToFirst)];
+//        // 隐藏tabBar
+//        self.tabBarController.tabBar.hidden = YES;
+//    }
+    
+    CGFloat _topBarH = 0;
+    CGFloat _bottomBarH = 0;
+    if (self.navigationController != nil) {
+        _topBarH = NAVHEIGHT;
+    }
+    if (self.tabBarController != nil) {
+        _bottomBarH = TABLEBAR_HEIGHT;
+    }else{
+        item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(backToFirst)];
+    }
+    
     item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
+    
     
     myTable = [UITableView new];
     [self.view addSubview:myTable];
@@ -54,41 +77,57 @@
     [myTable registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
     [myTable registerClass:[FindJobsSponsorTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class])];
     
-    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
+    [[[[[myTable.layoutMaker leftParent:0] rightParent:0] topParent:_topBarH] bottomParent:-_bottomBarH] install];
     [self setupRefresh];
-   
-    
-//    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array,NSInteger totalCount) {
-//        NSLog(@"totalCount=%@;jobarr=%@",@(totalCount),array);
-//    }];
-//
-//    [Proto queryAllApplicationJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-//        NSLog(@"totalCount=%@;jobarr=%@",@(totalCount),array);
-//    }];
-    
-//    [Proto addJobApplication:@"5bfd0b22d6fe1747859ac1eb" completed:^(HttpResult *result) {
-//        NSLog(@"result=%@",@(result.code));
-//    }];
-    
-//    [Proto queryJobBookmarks:0 completed:^(NSArray<JobBookmarkModel *> *array) {
-//        NSLog(@"jobarr=%@",array);
-//    }];
-    
-//    [Proto addJobBookmark:@"5bfcff05d6fe1747859ac1e1" completed:^(HttpResult *result) {
-//        NSLog(@"result=%@",@(result.code));
-//    }];
-//
-//    [Proto deleteJobBookmark:@"5bfe877bd6fe175342855843" completed:^(HttpResult *result) {
-//        NSLog(@"result=%@",@(result.code));
-//    }];
+    [self createEmptyNotice];
 
     // Do any additional setup after loading the view.
+}
+
+- (void)createEmptyNotice
+{
+    [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:NO];
+        UIView *headerVi = self.view.addView;
+        [[[[[headerVi.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
+        headerVi.backgroundColor = [UIColor clearColor];
+        UIButton *headBtn = headerVi.addButton;
+        [headBtn setImage:[UIImage imageNamed:@"noun_Business Records"] forState:UIControlStateNormal];
+        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        headBtn.titleLabel.font = [Fonts regular:13];
+        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-40] install];
+        UILabel *tipLabel= headerVi.addLabel;
+        tipLabel.textAlignment=NSTextAlignmentCenter;
+        tipLabel.numberOfLines=0;
+        tipLabel.font = [Fonts semiBold:16];
+        tipLabel.textColor =[UIColor blackColor];
+        tipLabel.text=@"No available jobs at the \n moment";
+        [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+        return headerVi;
+    } normalBlock:^(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:YES];
+    }];
+}
+
+- (void)backToFirst
+{
+    NSArray *viewcontrollers=self.navigationController.viewControllers;
+    if (viewcontrollers.count>1) {
+        if ([viewcontrollers objectAtIndex:viewcontrollers.count-1]==self) {
+            //push方式
+            [self.navigationController popViewControllerAnimated:NO];
+        }
+    }
+    else{
+        //present方式
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
 }
 
 -(void)refreshData
 {
     [self showIndicator];
-    [Proto queryAllJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+    [Proto queryAllJobs:0 filterDic:filterDic completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideIndicator];
             [self setJobCountTitle:totalCount];
@@ -124,28 +163,37 @@
 //    CareerSearchViewController *searchVC=[CareerSearchViewController new];
 //    [self.navigationController pushViewController:searchVC animated:YES];
     
-    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    CareerSearchViewController *searchVC=[CareerSearchViewController new];
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchVC];
-    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [viewController presentViewController:navVC animated:YES completion:NULL];
+    if (self.tabBarController != nil) {
+        UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+        CareerSearchViewController *searchVC=[CareerSearchViewController new];
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchVC];
+        navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [viewController presentViewController:navVC animated:NO completion:NULL];
+    }else{
+        CareerSearchViewController *searchVC=[CareerSearchViewController new];
+        [self.navigationController pushViewController:searchVC animated:NO];
+    }
+    
 }
 
 -(void)clickFilter:(UIButton *)sender
 {
     NSLog(@"Filter btn click");
-    [[FilterView initFilterView] showFilter];
+    FilterView *filterview=[FilterView initFilterView];
+    filterview.delegate=self;
+    [filterview showFilter];
 }
 
 -(void)setJobCountTitle:(NSInteger)jobcount
 {
     if (jobcount>0) {
         NSString *jobcountstr=[NSString stringWithFormat:@"%@Jobs",@(jobcount)];
-        NSString *jobstr=[NSString stringWithFormat:@"%@ | 5 New",jobcountstr];
-        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:jobstr];
-        [str addAttribute:NSForegroundColorAttributeName value:Colors.textMain range:NSMakeRange(0,jobcountstr.length+2)];
-        [str addAttribute:NSForegroundColorAttributeName value:Colors.textDisabled range:NSMakeRange(jobcountstr.length+2,jobstr.length - (jobcountstr.length+2))];
-        jobCountTitle.attributedText = str;
+//        NSString *jobstr=[NSString stringWithFormat:@"%@ | 5 New",jobcountstr];
+//        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:jobstr];
+//        [str addAttribute:NSForegroundColorAttributeName value:Colors.textMain range:NSMakeRange(0,jobcountstr.length+2)];
+//        [str addAttribute:NSForegroundColorAttributeName value:Colors.textDisabled range:NSMakeRange(jobcountstr.length+2,jobstr.length - (jobcountstr.length+2))];
+//        jobCountTitle.attributedText = str;
+        jobCountTitle.text=jobcountstr;
     }else{
         jobCountTitle.text=@"";
     }
@@ -159,12 +207,15 @@
     
     jobCountTitle=panel.addLabel;
     jobCountTitle.font=[Fonts semiBold:13];
+    jobCountTitle.textColor=Colors.textMain;
     [[[[[jobCountTitle.layoutMaker leftParent:20] topParent:0] bottomParent:0] rightParent:40] install];
     
-    UIButton *filterButton = [panel addButton];
-    [filterButton setImage:[UIImage imageNamed:@"desc"] forState:UIControlStateNormal];
-    [[[[filterButton.layoutMaker topParent:4] rightParent:-15] sizeEq:24 h:24] install];
-    [filterButton onClick:self action:@selector(clickFilter:)];
+//    UIButton *filterButton = [panel addButton];
+//    [filterButton setImage:[UIImage imageNamed:@"desc"] forState:UIControlStateNormal];
+//    [[[[filterButton.layoutMaker topParent:4] rightParent:-15] sizeEq:24 h:24] install];
+//    [filterButton onClick:self action:@selector(clickFilter:)];
+    UILabel *lineLabel=panel.lineLabel;
+    [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
     return panel;
 }
 
@@ -175,36 +226,30 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row<=1) {
-        FindJobsSponsorTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class]) forIndexPath:indexPath];
-        cell.delegate=self;
-        cell.indexPath=indexPath;
-        if (self->infoArr && self->infoArr.count>indexPath.row) {
-            if (indexPath.row<=4) {
-                cell.isNew=YES;
-            }else{
-                cell.isNew=NO;
-            }
-            cell.info=self->infoArr[indexPath.row];
+    if (self->infoArr && self->infoArr.count>indexPath.row) {
+        JobModel *model=self->infoArr[indexPath.row];
+        if (model.paid) {
+            FindJobsSponsorTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class]) forIndexPath:indexPath];
+            cell.delegate=self;
+            cell.indexPath=indexPath;
+            cell.info=model;
+            return cell;
+        }else{
+            FindJobsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class]) forIndexPath:indexPath];
+            cell.delegate=self;
+            cell.indexPath=indexPath;
+            cell.info=model;
+            return cell;
         }
-        return cell;
     }else{
         FindJobsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class]) forIndexPath:indexPath];
         cell.delegate=self;
         cell.indexPath=indexPath;
         if (self->infoArr && self->infoArr.count>indexPath.row) {
-            
-            
-            if (indexPath.row<=4) {
-                cell.isNew=YES;
-            }else{
-                cell.isNew=NO;
-            }
             cell.info=self->infoArr[indexPath.row];
         }
         return cell;
     }
-    
     
     
 }
@@ -213,7 +258,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     JobModel *jobModel = infoArr[indexPath.row];
-    [CareerJobDetailViewController presentBy:nil jobId:jobModel.id closeBack:^{
+    [JobDetailViewController presentBy:(self.tabBarController != nil?nil:self) jobId:jobModel.id closeBack:^{
         foreTask(^{
             if (self->myTable) {
                 [self->myTable reloadData];
@@ -230,13 +275,14 @@
     CGFloat contentOffsetY = scrollView.contentOffset.y;
     CGFloat consizeheight=scrollView.contentSize.height;
     CGFloat bottomOffset = (consizeheight - contentOffsetY);
-    if (bottomOffset <= height-50 && contentOffsetY>0)
+    
+    if (bottomOffset <= height-50  && contentOffsetY>0)
     {
-        NSLog(@"==================================下啦刷选;bottomOffset=%@;height-50=%@",@(bottomOffset),@(height-50));
         if (!isdownrefresh) {
+            NSLog(@"==================================下啦刷选;contentOffsetY=%@;consizeheight=%@;bottomOffset=%@;height=%@；",@(contentOffsetY),@(consizeheight),@(bottomOffset),@(height));
             isdownrefresh=YES;
             [self showIndicator];
-            [Proto queryAllJobs:self->infoArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+            [Proto queryAllJobs:self->infoArr.count filterDic:filterDic completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                 self->isdownrefresh=NO;
                 foreTask(^{
                     [self hideIndicator];
@@ -244,9 +290,8 @@
                     NSLog(@"%@",array);
                     if(array && array.count>0){
                         [self->infoArr addObjectsFromArray:array];
+                        [self->myTable reloadData];
                     }
-                    [self->myTable reloadData];
-
                 });
             }];
 
@@ -260,7 +305,7 @@
     NSLog(@"FollowJobAction");
     if (self->infoArr && self->infoArr.count>indexPath.row) {
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
-        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionCenter completion:nil];
         JobModel *model=self->infoArr[indexPath.row];
         NSString *jobid=model.id;
         [Proto addJobBookmark:jobid completed:^(HttpResult *result) {
@@ -284,6 +329,14 @@
 -(void)UnFollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {
     NSLog(@"UnFollowJobAction");
+}
+
+#pragma mark ----------------FilterViewDelegate
+-(void)searchCondition:(NSDictionary *)condition
+{
+    NSLog(@"condition=%@",condition);
+    filterDic=condition;
+    [self refreshData];
 }
 
 

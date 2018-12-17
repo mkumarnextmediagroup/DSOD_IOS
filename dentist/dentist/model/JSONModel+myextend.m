@@ -10,6 +10,8 @@
 
 - (id)initWithJson:(NSString *)string {
 	JSONModelError *err = nil;
-	return [self initWithString:string error:&err];
+    id objModel = [self initWithString:string error:&err];
+//    NSLog(@"jsonmodelerr=%@",err);
+    return objModel;
 }
 @end

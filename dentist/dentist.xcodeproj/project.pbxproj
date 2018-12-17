@@ -114,6 +114,7 @@
 		3E64F13221721D57001A7CF2 /* DSODentist_Privacy_Policy.html in Resources */ = {isa = PBXBuildFile; fileRef = 3E64F13021721D56001A7CF2 /* DSODentist_Privacy_Policy.html */; };
 		3E64F13321721D57001A7CF2 /* DSODentist_Terms_of_Service.html in Resources */ = {isa = PBXBuildFile; fileRef = 3E64F13121721D57001A7CF2 /* DSODentist_Terms_of_Service.html */; };
 		3ED0764B213A9FE3004D4083 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0764A213A9FE3004D4083 /* ProfileViewController.m */; };
+		43065FE821BFF69A00D142B8 /* CmsCategoryPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43065FE721BFF69A00D142B8 /* CmsCategoryPageTests.m */; };
 		43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E85217F4B9B008B3240 /* WelcomeControllerTests.m */; };
 		43277E88217F4D91008B3240 /* StudentControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E87217F4D91008B3240 /* StudentControllerTests.m */; };
 		43277E8A217F4E9E008B3240 /* TestPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E89217F4E9E008B3240 /* TestPageTests.m */; };
@@ -1010,6 +1011,7 @@
 		3E64F13121721D57001A7CF2 /* DSODentist_Terms_of_Service.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = DSODentist_Terms_of_Service.html; sourceTree = "<group>"; };
 		3ED07649213A9FE3004D4083 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		3ED0764A213A9FE3004D4083 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		43065FE721BFF69A00D142B8 /* CmsCategoryPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsCategoryPageTests.m; sourceTree = "<group>"; };
 		43277E85217F4B9B008B3240 /* WelcomeControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WelcomeControllerTests.m; sourceTree = "<group>"; };
 		43277E87217F4D91008B3240 /* StudentControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentControllerTests.m; sourceTree = "<group>"; };
 		43277E89217F4E9E008B3240 /* TestPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestPageTests.m; sourceTree = "<group>"; };
@@ -2191,6 +2193,14 @@
 			path = profile;
 			sourceTree = "<group>";
 		};
+		43065FE621BFF68100D142B8 /* CategoryPage */ = {
+			isa = PBXGroup;
+			children = (
+				43065FE721BFF69A00D142B8 /* CmsCategoryPageTests.m */,
+			);
+			path = CategoryPage;
+			sourceTree = "<group>";
+		};
 		4335E27721B6B5D700A10F7E /* SearchPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2202,6 +2212,7 @@
 		4341949021A597320029AECE /* CMS */ = {
 			isa = PBXGroup;
 			children = (
+				43065FE621BFF68100D142B8 /* CategoryPage */,
 				4335E27721B6B5D700A10F7E /* SearchPage */,
 				43595F9021B503DC0028BA97 /* LinearPage */,
 				438BA12621B40645005246C5 /* DownloadsController */,
@@ -4432,6 +4443,7 @@
 				437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */,
 				4344660121A5614A00811E94 /* UIButtonExtTests.m in Sources */,
 				43488F4E2199BAEB00FDC15E /* ColorTests.m in Sources */,
+				43065FE821BFF69A00D142B8 /* CmsCategoryPageTests.m in Sources */,
 				4341949321A598BE0029AECE /* CmsForYouPageTests.m in Sources */,
 				43595F9221B503E80028BA97 /* LinearPageTests.m in Sources */,
 				4335E27921B6B5EF00A10F7E /* CmsSearchPageTests.m in Sources */,

@@ -21,6 +21,7 @@
 #import "DentistDataBaseManager.h"
 #import "MapViewController.h"
 #import "CareerAddReviewViewController.h"
+#import <Social/Social.h>
 
 @interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
 @property (nonatomic,strong) NSString *jobId;
@@ -390,8 +391,13 @@
 }
 
 -(void)share{
-    [self.view makeToast:@"share"];
-    [CareerAddReviewViewController openBy:self dsoId:jobModel.dsoId];
+//    [self.view makeToast:@"share"];
+//    [CareerAddReviewViewController openBy:self dsoId:jobModel.dsoId];
+    NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", _jobId)];
+    NSArray *activityItems = @[shareurl];
+    
+    UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+    [self presentViewController:avc animated:YES completion:nil];
 }
 
 -(void)applyNow{

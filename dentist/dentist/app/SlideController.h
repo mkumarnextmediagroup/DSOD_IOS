@@ -9,5 +9,5 @@
 @interface SlideController : UIViewController
 
 - (UIViewController *)onMakePage:(NSString *)title;
-
+- (void)slideItem:(NSInteger)index;
 @end

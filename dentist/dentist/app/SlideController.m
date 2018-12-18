@@ -67,7 +67,9 @@
     [ql add:[self addLine] height:1 marginTop:16];
 
     for (SlideItem *item in items) {
+        NSUInteger btni=[items indexOfObject:item];
         UIButton *b = [self makeButtonItem:item.title image:item.image];
+        b.tag=1000+btni;
         [ql add:b height:50 marginTop:0];
         [ql add:[self addLine] height:1 marginTop:0];
         [b onClick:self action:@selector(clickSlideItem:)];
@@ -366,6 +368,16 @@
         }
         [[MoreView initSliderView] hideFuntionBtn];
         return YES;
+    }
+}
+
+- (void)slideItem:(NSInteger)index
+{
+    NSInteger tag=1000+index;
+    UIView *btnview=[self.view viewWithTag:tag];
+    if ([btnview isKindOfClass:[UIButton class]]) {
+        UIButton *sliderbtn=(UIButton *)btnview;
+        [self clickSlideItem:sliderbtn];
     }
 }
 

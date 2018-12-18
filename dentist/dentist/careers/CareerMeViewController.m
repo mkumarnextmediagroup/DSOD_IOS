@@ -15,6 +15,8 @@
 #import <AssetsLibrary/ALAsset.h>
 #import "ProfileViewController.h"
 #import "PreviewResumeViewController.h"
+#import "AppDelegate.h"
+#import "SlideController.h"
 
 @interface CareerMeViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
@@ -84,6 +86,14 @@
 
 - (void)onBack
 {
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+    [tabvc setSelectedIndex:0];
+    [self back];
+    
+}
+
+-(void)back{
     NSArray *viewcontrollers=self.navigationController.viewControllers;
     if (viewcontrollers.count>1) {
         if ([viewcontrollers objectAtIndex:viewcontrollers.count-1]==self) {
@@ -95,7 +105,6 @@
         //present方式
         [self dismissViewControllerAnimated:NO completion:nil];
     }
-    
 }
 
 - (void)editPortrait:(id)sender {
@@ -221,9 +230,27 @@
 //        navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 //        [self presentViewController:navVC animated:NO completion:NULL];
         
-        ProfileViewController *profilevc=[ProfileViewController new];
-        profilevc.isSecond=YES;
-        [self.navigationController pushViewController:profilevc animated:YES];
+//        ProfileViewController *profilevc=[ProfileViewController new];
+//        profilevc.isSecond=YES;
+//        [self.navigationController pushViewController:profilevc animated:YES];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"You will now be taken to 'My Profile' section.You can come back to the Career section by the menu." preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击取消");
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击ok");
+            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            UIViewController *leftvc=appdelegate.mainLeftPage;
+            if ([leftvc isKindOfClass:[SlideController class]]) {
+                SlideController *slidevc=(SlideController *)leftvc;
+                [slidevc slideItem:5];
+                [self back];
+            }
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
     }else if(indexPath.row==1){
         if (![NSString isBlankString:_userInfo.resume_name]) {
             [self showLoading];

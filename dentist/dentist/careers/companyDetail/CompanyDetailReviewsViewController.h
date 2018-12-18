@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CompanyDetailReviewsViewController : UIViewController
 
 
+@property (nonatomic,strong) NSString *companyId;
+@property (nonatomic,assign) UIViewController *vc;
+
 /// 是否可以滑动
 @property (nonatomic, assign) BOOL isCanScroll;
 /// 不滑动事件

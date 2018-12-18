@@ -2284,13 +2284,13 @@
                           skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(CompanyCommentModel *companyCommentModel))completed {
     
     
-    NSDictionary *paradic = @{@"companyId" : companyId,
+    NSDictionary *paradic = @{@"dsoId" : companyId,
                               @"limit" : [NSNumber numberWithInteger:limit],
                               @"skip" : [NSNumber numberWithInteger:skip],
                               @"sort" : [NSNumber numberWithInteger:sort],
                               @"star" : [NSNumber numberWithInteger:star]};
     
-    [self postAsync3:@"comment/findCommentByCompanyId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+    [self postAsync3:@"comment/findCommentByDSOId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
         CompanyCommentModel *model = nil;
         if (r.OK && r.resultMap[@"commentPO"]) {
             NSDictionary *commentPO =  r.resultMap[@"commentPO"];

@@ -14,6 +14,7 @@
 @interface CareerAddReviewViewController ()<UITextViewDelegate>
 
 @property (nonatomic,strong) NSString *dsoId;
+@property (nonatomic,copy)  void(^addReviewSuccessCallbak)(void);
 
 @end
 
@@ -36,13 +37,14 @@
 }
 
 
-+(void)openBy:(UIViewController*)vc dsoId:(NSString*)dsoId{
++(void)openBy:(UIViewController*)vc dsoId:(NSString*)dsoId successCallbak:(void(^)(void))addReviewSuccessCallbak{
 //    CareerAddReviewViewController *addReviewVC = [CareerAddReviewViewController new];
 //    addReviewVC.dsoId = dsoId;
 //    [vc pushPage:addReviewVC];
     
     CareerAddReviewViewController *addReviewVC = [CareerAddReviewViewController new];
     addReviewVC.dsoId = dsoId;
+    addReviewVC.addReviewSuccessCallbak = addReviewSuccessCallbak;
     [vc pushPage:addReviewVC];
     
 }

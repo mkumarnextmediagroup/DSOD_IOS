@@ -298,6 +298,8 @@
         
         
         self.reviewsVC.view.frame = _tableContentView.frame;
+        self.reviewsVC.companyId = companyModel.id;
+        self.reviewsVC.vc = self;
         [_tableContentView addSubview:self.reviewsVC.view];
         
         [self didDentistSelectItemAtIndex:currTabIndex];

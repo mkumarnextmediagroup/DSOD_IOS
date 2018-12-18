@@ -392,8 +392,6 @@
 }
 
 -(void)share{
-//    [self.view makeToast:@"share"];
-//    [CareerAddReviewViewController openBy:self dsoId:jobModel.dsoId];    
     
     NSLog(@"Share click");
     if (jobModel) {
@@ -531,6 +529,8 @@
         
         
         self.reviewsVC.view.frame = _tableContentView.frame;
+        self.reviewsVC.companyId = jobModel.dsoId;
+        self.reviewsVC.vc = self;
         [_tableContentView addSubview:self.reviewsVC.view];
         
         [self didDentistSelectItemAtIndex:currTabIndex];

@@ -212,6 +212,9 @@
 		4E33ACC5218AE95000E4CF7E /* UniteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACC4218AE94F00E4CF7E /* UniteDetailViewController.m */; };
 		4E33ACD6218B002500E4CF7E /* UniteContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACD5218B002500E4CF7E /* UniteContent.m */; };
 		4E33ACD92190183E00E4CF7E /* SliderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E33ACD82190183E00E4CF7E /* SliderListViewController.m */; };
+		4E47252421C8E2E40076B824 /* UploadResumeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E47252321C8E2E40076B824 /* UploadResumeView.m */; };
+		4E47252721C8F2690076B824 /* upload-resume@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E47252521C8F2690076B824 /* upload-resume@2x.png */; };
+		4E47252821C8F2690076B824 /* upload-resume@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E47252621C8F2690076B824 /* upload-resume@3x.png */; };
 		4E474D3E21B40AC10002F5A1 /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D3D21B40AC10002F5A1 /* MoreView.m */; };
 		4E474D4121B56EBC0002F5A1 /* CDZPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E474D4021B56EBB0002F5A1 /* CDZPicker.m */; };
 		4E4A161221B7C35B003F198B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E4A161121B7C35A003F198B /* CoreLocation.framework */; };
@@ -1195,6 +1198,10 @@
 		4E33ACD5218B002500E4CF7E /* UniteContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteContent.m; sourceTree = "<group>"; };
 		4E33ACD72190183E00E4CF7E /* SliderListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SliderListViewController.h; sourceTree = "<group>"; };
 		4E33ACD82190183E00E4CF7E /* SliderListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SliderListViewController.m; sourceTree = "<group>"; };
+		4E47252221C8E2E40076B824 /* UploadResumeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadResumeView.h; sourceTree = "<group>"; };
+		4E47252321C8E2E40076B824 /* UploadResumeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadResumeView.m; sourceTree = "<group>"; };
+		4E47252521C8F2690076B824 /* upload-resume@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload-resume@2x.png"; sourceTree = "<group>"; };
+		4E47252621C8F2690076B824 /* upload-resume@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upload-resume@3x.png"; sourceTree = "<group>"; };
 		4E474D3C21B40AC10002F5A1 /* MoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreView.h; sourceTree = "<group>"; };
 		4E474D3D21B40AC10002F5A1 /* MoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreView.m; sourceTree = "<group>"; };
 		4E474D3F21B56EBB0002F5A1 /* CDZPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDZPicker.h; sourceTree = "<group>"; };
@@ -2127,6 +2134,8 @@
 				1829C53221BCC9D2009A8732 /* JobDetailCompanyViewController.m */,
 				1829C53421BCC9E7009A8732 /* JobDetailReviewsViewController.h */,
 				1829C53521BCC9E7009A8732 /* JobDetailReviewsViewController.m */,
+				4E47252221C8E2E40076B824 /* UploadResumeView.h */,
+				4E47252321C8E2E40076B824 /* UploadResumeView.m */,
 			);
 			path = jobDetail;
 			sourceTree = "<group>";
@@ -2779,6 +2788,8 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4E47252521C8F2690076B824 /* upload-resume@2x.png */,
+				4E47252621C8F2690076B824 /* upload-resume@3x.png */,
 				A3B340C721C3E39C008EB36A /* noun_Briefcase.png */,
 				A3B340C121C3E39A008EB36A /* noun_Briefcase@2x.png */,
 				A3B340C521C3E39B008EB36A /* noun_Briefcase@3x.png */,
@@ -4016,6 +4027,7 @@
 				4E5BA800217721D400386598 /* contentPic_bg@2x.png in Resources */,
 				4E94AE0921AE4594009CAB7F /* explore-light@3x.png in Resources */,
 				57B0990721256E840010597B /* bg_1.png in Resources */,
+				4E47252721C8F2690076B824 /* upload-resume@2x.png in Resources */,
 				4E846F77213E7AED00DC2B51 /* arrow@3x.png in Resources */,
 				57B0990821256E840010597B /* bg_3.png in Resources */,
 				3E043B97213C15480044CD77 /* phone@2x.png in Resources */,
@@ -4211,6 +4223,7 @@
 				E11E1CA8734B5222C9D2AA54 /* c_light@3x.png in Resources */,
 				E11E171119FF6A0E476AE897 /* c.png in Resources */,
 				E11E107FA1682BF99483D798 /* c@2x.png in Resources */,
+				4E47252821C8F2690076B824 /* upload-resume@3x.png in Resources */,
 				A314772E21A6A3C80046942C /* bookmark-active.png in Resources */,
 				A3E752E6217E35010087713D /* Article@2x.png in Resources */,
 				A3E752F1217E35010087713D /* Video.png in Resources */,
@@ -4868,6 +4881,7 @@
 				C5EEA21E5804CF3EABBFE3DB /* BaseItemView.m in Sources */,
 				C5EEAE528F7B6AC57B92F5F8 /* IconTitleMsgCell.m in Sources */,
 				C5EEA93A818CA571610A938C /* GroupLabelView.m in Sources */,
+				4E47252421C8E2E40076B824 /* UploadResumeView.m in Sources */,
 				A3BA6E1021B506D600D83156 /* CompanyJobsModel.m in Sources */,
 				4E94ADC921ACE906009CAB7F /* CareerAlertsViewController.m in Sources */,
 				C5EEA3BF2E6ADEBCD49244FB /* LineTableCell.m in Sources */,

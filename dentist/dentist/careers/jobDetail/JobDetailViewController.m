@@ -22,11 +22,13 @@
 #import "MapViewController.h"
 #import "CareerAddReviewViewController.h"
 #import <Social/Social.h>
+#import "UploadResumeView.h"
 
-@interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
+@interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,UploadResumeViewDelegate>
 @property (nonatomic,strong) NSString *jobId;
 @property (copy, nonatomic) CareerJobDetailCloseCallback closeBack;
 
+@property (nonatomic,strong) UIViewController *presentControl;
 
 @property (nonatomic,strong) UIView* tableContentView;
 @property (nonatomic) BOOL isCanScroll;
@@ -53,7 +55,6 @@
     int currTabIndex;//0:description 1:company 2:reviews
 
     JobModel *jobModel;
-   
 }
 
 
@@ -79,11 +80,11 @@
     jobDetailVc.closeBack = closeBack;
     jobDetailVc.modalPresentationStyle = UIModalPresentationCustom;
     jobDetailVc.view.backgroundColor = UIColor.clearColor;
-    
     UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:jobDetailVc];
     nvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     nvc.view.backgroundColor = [UIColor clearColor];
-    
+    jobDetailVc.presentControl = nvc;
+
     [viewController presentViewController:nvc animated:YES completion:^{
         jobDetailVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }];
@@ -392,38 +393,90 @@
 
 -(void)share{
 //    [self.view makeToast:@"share"];
-//    [CareerAddReviewViewController openBy:self dsoId:jobModel.dsoId];
-    NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", _jobId)];
-    NSArray *activityItems = @[shareurl];
+//    [CareerAddReviewViewController openBy:self dsoId:jobModel.dsoId];    
     
-    UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
-    [self presentViewController:avc animated:YES completion:nil];
+    NSLog(@"Share click");
+    if (jobModel) {
+        NSString *urlstr=@"";
+        NSString *title=[NSString stringWithFormat:@"%@",jobModel.jobTitle];
+        //        NSInteger type = jobModel.companyType;
+        //        if(type == 1){
+        //            //pic
+        //            NSDictionary *codeDic = _articleInfo.featuredMedia[@"code"];
+        //            urlstr = codeDic[@"thumbnailUrl"];
+        //        }else{
+        //            urlstr = _articleInfo.featuredMedia[@"code"];
+        //        }
+        NSString *someid = _jobId;
+        if (![NSString isBlankString:urlstr]) {
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
+                UIImage *image = [UIImage imageWithData:data];
+                if (image) {
+                    NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+                    NSArray *activityItems = @[shareurl,title,image];
+                    
+                    UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                    [self presentViewController:avc animated:YES completion:nil];
+                }
+            });
+        }else{
+            NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+            NSArray *activityItems = @[shareurl,title];
+            
+            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+            [self presentViewController:avc animated:YES completion:nil];
+        }
+        
+    }else{
+        NSString *msg=@"";
+        msg=@"error";
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击取消");
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
+#pragma mark UploadResumeDelegate
+
+- (void)uploadResume
+{
+    NSLog(@"resume btn click");
 }
 
 -(void)applyNow{
     //    [self.view makeToast:@"applyNow"];
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    UIView *dsontoastview=[DsoToast toastViewForMessage:@"Applying to Job…" ishowActivity:YES];
-    [window showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-    [Proto addJobApplication:_jobId completed:^(HttpResult *result) {
-        NSLog(@"result=%@",@(result.code));
-        foreTask(^() {
-            [window hideToast];
-            if (result.OK) {
-                //
-                [self setApplyButtonEnable:NO];
-            }else{
-                NSString *message=result.msg;
-                if([NSString isBlankString:message]){
-                    message=@"Failed";
-                }
-                
-                [window makeToast:message
-                         duration:1.0
-                         position:CSToastPositionBottom];
-            }
-        });
-    }];
+    
+    UploadResumeView *uploadView = [UploadResumeView initUploadView:self.presentControl];
+    uploadView.delegate = self;
+    [uploadView show];
+    
+//    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+//    UIView *dsontoastview=[DsoToast toastViewForMessage:@"Applying to Job…" ishowActivity:YES];
+//    [window showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+//    [Proto addJobApplication:_jobId completed:^(HttpResult *result) {
+//        NSLog(@"result=%@",@(result.code));
+//        foreTask(^() {
+//            [window hideToast];
+//            if (result.OK) {
+//                //
+//                [self setApplyButtonEnable:NO];
+//            }else{
+//                NSString *message=result.msg;
+//                if([NSString isBlankString:message]){
+//                    message=@"Failed";
+//                }
+//
+//                [window makeToast:message
+//                         duration:1.0
+//                         position:CSToastPositionBottom];
+//            }
+//        });
+//    }];
 }
 
 

@@ -45,6 +45,9 @@
 			[self navBarImage:@"edit" target:self action:@selector(onClickEdit:)],
 			[self navBarText:@"Edit" target:self action:@selector(onClickEdit:)]
 	];
+    if (_isSecond) {
+        item.leftBarButtonItem = [self navBarImage:@"back_arrow" target:self action:@selector(backToFirst)];
+    }
 
 
 	[self buildViews];
@@ -60,6 +63,21 @@
 		});
 	});
 
+}
+
+- (void)backToFirst
+{
+    NSArray *viewcontrollers=self.navigationController.viewControllers;
+    if (viewcontrollers.count>1) {
+        if ([viewcontrollers objectAtIndex:viewcontrollers.count-1]==self) {
+            //push方式
+            [self.navigationController popViewControllerAnimated:NO];
+        }
+    }
+    else{
+        //present方式
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
 }
 
 - (GroupLabelView *)addGroupTitle:(NSString *)title {

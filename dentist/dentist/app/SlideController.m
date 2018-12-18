@@ -30,6 +30,7 @@
 #import "CmsCategoryPage.h"
 #import "MoreView.h"
 #import "DSOProfilePage.h"
+#import "CareerMeViewController.h"
 
 @interface SlideController()<UITabBarControllerDelegate,UITabBarDelegate,MoreViewDelegate>
 
@@ -384,6 +385,17 @@
         }
         
         
+    }else if (index==1){
+        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+        UINavigationController *nav = (UINavigationController *)tabvc.selectedViewController;
+        UIViewController *VC =nav.topViewController;
+        if (![VC isKindOfClass:[CareerMeViewController class]]) {
+            CareerMeViewController *mevc = [CareerMeViewController new];
+            UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:mevc];
+            navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [VC presentViewController:navVC animated:NO completion:NULL];
+        }
     }
 }
 

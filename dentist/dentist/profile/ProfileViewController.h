@@ -14,6 +14,7 @@
 
 @interface ProfileViewController : ScrollPage
 @property UserInfo *userInfo;
+@property BOOL isSecond;
 
 - (void)buildViews;
 @end

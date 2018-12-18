@@ -10,12 +10,22 @@
 #import "Proto.h"
 #import "CareerMeTableViewCell.h"
 #import "UIViewController+myextend.h"
+#import "UserInfo.h"
+#import "UIViewController+myextend.h"
+#import <AssetsLibrary/ALAsset.h>
+#import "ProfileViewController.h"
+#import "PreviewResumeViewController.h"
 
-@interface CareerMeViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface CareerMeViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     UITableView *myTable;
     UIImageView *headerImg;
     UIButton *editBtn;
+    UserInfo *_userInfo;
+    UIImage *_selectImage;
+    NSString *username;
+    NSString *filename;
+    NSURL *fileURL;
 }
 @end
 
@@ -47,6 +57,14 @@
     myTable.tableHeaderView=[self makeHeaderView];
     [[[[myTable.layoutMaker widthEq:SCREENWIDTH] topParent:_topBarH] bottomParent:-_bottomBarH] install];
 //    [myTable registerClass:[CareerMeTableViewCell class] forCellReuseIdentifier:NSStringFromClass([CareerMeTableViewCell class])];
+    [self reloadMeData];
+}
+
+-(void)reloadMeData{
+    _userInfo = [Proto lastUserInfo];
+    headerImg.imageName = @"user_img";
+    [headerImg loadUrl:_userInfo.portraitUrlFull placeholderImage:@"user_img"];
+    [myTable reloadData];
 }
 
 - (void)onBack
@@ -65,6 +83,56 @@
     
 }
 
+- (void)editPortrait:(id)sender {
+    
+    Confirm *cf = [Confirm new];
+    cf.title = localStr(@"userCamera");
+    cf.msg = localStr(@"usePhoto");
+    cf.cancelText = localStr(@"notallow");
+    [cf show:self onOK:^() {
+        Log(@"click OK ");
+        [self callActionSheetFunc];
+    }];
+    
+    
+}
+
+- (void)callActionSheetFunc {
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        
+        [self Den_showActionSheetWithTitle:nil message:nil appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"cancel").
+            addActionDefaultTitle(@"Camera").
+            addActionDefaultTitle(@"Gallery");
+        }                     actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
+            if ([action.title isEqualToString:@"cancel"]) {
+                NSLog(@"cancel");
+            } else if ([action.title isEqualToString:@"Camera"]) {
+                NSLog(@"Camera");
+                [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypeCamera];
+            } else if ([action.title isEqualToString:@"Gallery"]) {
+                NSLog(@"Gallery");
+                [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            }
+        }];
+        
+    } else {
+        [self Den_showActionSheetWithTitle:nil message:nil appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
+            alertMaker.
+            addActionCancelTitle(@"cancel").
+            addActionDefaultTitle(@"Gallery");
+        }                     actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
+            if ([action.title isEqualToString:@"cancel"]) {
+                NSLog(@"cancel");
+            } else if ([action.title isEqualToString:@"Gallery"]) {
+                NSLog(@"Gallery");
+                [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            }
+        }];
+    }
+}
+
 - (UIView *)makeHeaderView {
     UIView *panel = [UIView new];
     panel.frame = makeRect(0, 0, SCREENWIDTH, 200);
@@ -77,6 +145,7 @@
     
     editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [editBtn setImage:[UIImage imageNamed:@"edit_photo"] forState:UIControlStateNormal];
+    [editBtn onClick:self action:@selector(editPortrait:)];
     [panel addSubview:editBtn];
     [[[[editBtn.layoutMaker sizeEq:38 h:38] toRightOf:headerImg offset:-19] below:headerImg offset:-19] install];
     return panel;
@@ -89,7 +158,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return 60;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -104,13 +173,25 @@
 //    CareerMeTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CareerMeTableViewCell class]) forIndexPath:indexPath];
     if (indexPath.row==0) {
         cell.headerView.image=[UIImage imageNamed:@"user_img"];
-        cell.titleLabel.text=@"Dr.Stephen Wood";
+//        cell.titleLabel.text=@"Dr.Stephen Wood";
         cell.desLabel.text=@"Profile";
     }else if (indexPath.row==1) {
         cell.headerView.image=[UIImage imageNamed:@"icons8-submit_resume"];
         cell.titleLabel.text=@"Resume";
-        cell.desLabel.text=@"No uploaded resume";
+//        cell.desLabel.text=@"No uploaded resume";
         cell.lineLabel.hidden=YES;
+    }
+    if (_userInfo) {
+        if (indexPath.row==0) {
+            cell.titleLabel.text=[NSString stringWithFormat:@"%@",_userInfo.fullName];
+        }else if (indexPath.row==1) {
+            if (![NSString isBlankString:_userInfo.resume_name]) {
+                cell.desLabel.text=[NSString stringWithFormat:@"%@",_userInfo.resume_name];
+            }else{
+                cell.desLabel.text=@"No uploaded resume";
+            }
+            
+        }
     }
     return cell;
     
@@ -119,6 +200,110 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.row==0){
+//        ProfileViewController *profilevc=[ProfileViewController new];
+//        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:profilevc];
+//        navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//        [self presentViewController:navVC animated:NO completion:NULL];
+        
+        ProfileViewController *profilevc=[ProfileViewController new];
+        profilevc.isSecond=YES;
+        [self.navigationController pushViewController:profilevc animated:YES];
+    }else if(indexPath.row==1){
+        if (![NSString isBlankString:_userInfo.resume_name]) {
+            [self showLoading];
+            
+            backTask(^{
+                NSURL *fileurl = [Proto downloadResume:self->_userInfo.resume_url fileName:self->_userInfo.resume_name];
+                foreTask(^{
+                    [self hideLoading];
+                    if(fileurl){
+                        self->fileURL = fileurl;
+                        [self previewResume];
+                    }else{
+                        NSLog(@"download resume file");
+                    }
+                });
+            });
+        }
+    }
+}
+
+-(void)previewResume{
+    PreviewResumeViewController *vc = [PreviewResumeViewController new];
+    vc.fileURL = self->fileURL;
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc] ;
+    
+    [self presentViewController:nvc animated:YES completion:nil ];
+}
+
+- (void)clickTheBtnWithSourceType:(UIImagePickerControllerSourceType)sourceType {
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.sourceType = sourceType;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = nil;
+    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+        picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+        image = info[@"UIImagePickerControllerEditedImage"];
+        
+        [self afterSelectDo:image];
+        
+    } else {
+        image = info[UIImagePickerControllerEditedImage];
+        
+        [self afterSelectDo:image];
+    }
+    [self dismissViewControllerAnimated:NO completion:nil];
+    
+}
+
+- (void)afterSelectDo:(UIImage *)image
+{
+    _selectImage=image;
+    [self saveImageDocuments:_selectImage];
+    
+    NSString *localFile = [self getDocumentImage];
+    if (localFile != nil) {
+        Log(@"Image File: ", localFile);
+        [self uploadHeaderImage:localFile];
+    }
+}
+
+- (NSString *)getDocumentImage {
+    // 读取沙盒路径图片
+    NSString *aPath3 = [NSString stringWithFormat:@"%@/Documents/%@.png", NSHomeDirectory(), @"test"];
+    return aPath3;
+}
+
+- (void)saveImageDocuments:(UIImage *)image {
+    
+    CGFloat f = 300.0f / image.size.width;
+    //拿到图片
+    UIImage *imagesave = [image scaledBy:f];
+    NSString *path_sandox = NSHomeDirectory();
+    //设置一个图片的存储路径
+    NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/test.png"];
+    
+    [UIImagePNGRepresentation(imagesave) writeToFile:imagePath atomically:YES];
+}
+
+- (void)uploadHeaderImage:(NSString *)url {
+    [self showIndicator];
+    backTask(^() {
+       NSString *result= [Proto uploadHeaderImage:url];
+        foreTask(^() {
+            if (![NSString isBlankString:result]) {
+                self->headerImg.image=self->_selectImage;
+            }
+            [self hideIndicator];
+        });
+    });
+    
 }
 
 /*

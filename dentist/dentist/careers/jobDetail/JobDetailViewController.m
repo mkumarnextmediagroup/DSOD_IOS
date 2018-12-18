@@ -392,12 +392,52 @@
 
 -(void)share{
 //    [self.view makeToast:@"share"];
-//    [CareerAddReviewViewController openBy:self dsoId:jobModel.dsoId];
-    NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", _jobId)];
-    NSArray *activityItems = @[shareurl];
+//    [CareerAddReviewViewController openBy:self dsoId:jobModel.dsoId];    
     
-    UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
-    [self presentViewController:avc animated:YES completion:nil];
+    NSLog(@"Share click");
+    if (jobModel) {
+        NSString *urlstr=@"";
+        NSString *title=[NSString stringWithFormat:@"%@",jobModel.jobTitle];
+        //        NSInteger type = jobModel.companyType;
+        //        if(type == 1){
+        //            //pic
+        //            NSDictionary *codeDic = _articleInfo.featuredMedia[@"code"];
+        //            urlstr = codeDic[@"thumbnailUrl"];
+        //        }else{
+        //            urlstr = _articleInfo.featuredMedia[@"code"];
+        //        }
+        NSString *someid = _jobId;
+        if (![NSString isBlankString:urlstr]) {
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
+                UIImage *image = [UIImage imageWithData:data];
+                if (image) {
+                    NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+                    NSArray *activityItems = @[shareurl,title,image];
+                    
+                    UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                    [self presentViewController:avc animated:YES completion:nil];
+                }
+            });
+        }else{
+            NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+            NSArray *activityItems = @[shareurl,title];
+            
+            UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+            [self presentViewController:avc animated:YES completion:nil];
+        }
+        
+    }else{
+        NSString *msg=@"";
+        msg=@"error";
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击取消");
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 -(void)applyNow{

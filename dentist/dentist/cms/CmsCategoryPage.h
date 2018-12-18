@@ -6,6 +6,21 @@
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
 #import "ListPage.h"
+#import "CMSModel.h"
+#import "DenActionSheet.h"
 
 @interface CmsCategoryPage : ListPage
+
+@property NSString *type;
+
+- (Class)viewClassOfItem:(NSObject *)item;
+- (CGFloat)heightOfItem:(NSObject *)item;
+- (void)onBindItem:(NSObject *)item view:(UIView *)view;
+- (void)refreshData;
+- (void)ArticleMoreActionModel:(CMSModel *)model;
+- (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index;
+- (void)onClickItem:(NSObject *)item;
+- (void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName;
+- (void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 @end

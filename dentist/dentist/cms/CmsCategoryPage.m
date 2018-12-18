@@ -19,7 +19,6 @@
 @interface CmsCategoryPage()<ArticleItemViewDelegate>
 {
     NSInteger selectIndex;
-    NSString *type;
     NSArray *dataArray;
     BOOL isdownrefresh;
     CMSModel *selectModel;
@@ -69,10 +68,10 @@
         } rightAction:^(NSString *result,NSString *resultname) {
             
         } selectAction:^(NSString *result,NSString *resultname) {
-            self->type=result;
+            self->_type=result;
             if (picker.arrayDic) {
                 [picker.arrayDic enumerateObjectsUsingBlock:^(IdName * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj.id isEqualToString:self->type]) {
+                    if ([obj.id isEqualToString:self->_type]) {
                         index=idx;
                         *stop = YES;
                     }
@@ -84,29 +83,20 @@
                     });
                 }
             }
-            
-            
             [self showIndicator];
-            [Proto queryAllContentsByCategoryType2:self->type skip:0 completed:^(NSArray<CMSModel *> *array,NSString *categoryType) {
+            [Proto queryAllContentsByCategoryType2:self->_type skip:0 completed:^(NSArray<CMSModel *> *array,NSString *categoryType) {
                 foreTask(^() {
                     [self hideIndicator];
-                    if ([self->type isEqualToString:categoryType]) {
-                        self.items=array;
-                    }
-                    
+                    if ([self->_type isEqualToString:categoryType]) { self.items=array; }
                 });
-                
-                
             }];
         }];
         [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
             foreTask(^() {
                 picker.arrayDic=array;
-                picker.selectId=self->type;
-                
+                picker.selectId=self->_type;
             });
         }];
-        
         
     }];
     self.items = nil;
@@ -143,9 +133,9 @@
 
 -(void)refreshData
 {
-    if (type) {
+    if (_type) {
         [self showIndicator];
-        [Proto queryAllContentsByCategoryType:self->type skip:0 completed:^(NSArray<CMSModel *> *array) {
+        [Proto queryAllContentsByCategoryType:self->_type skip:0 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
                 self.items=array;
@@ -287,7 +277,7 @@
     } rightAction:^(NSString *result,NSString *resultname) {
         
     } selectAction:^(NSString *result,NSString *resultname) {
-        self->type=result;
+        self->_type=result;
         [self showIndicator];
         [Proto queryAllContentsByCategoryType:result skip:0 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
@@ -299,7 +289,7 @@
     [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
         foreTask(^() {
             picker.arrayDic=array;
-            picker.selectId=self->type;
+            picker.selectId=self->_type;
         });
     }];
 }
@@ -380,7 +370,7 @@
             isdownrefresh=YES;
             //在最底部
             [self showIndicator];
-            [Proto queryAllContentsByCategoryType:self->type skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
+            [Proto queryAllContentsByCategoryType:self->_type skip:self.items.count completed:^(NSArray<CMSModel *> *array) {
                 self->isdownrefresh=NO;
                 foreTask(^() {
                     [self hideIndicator];

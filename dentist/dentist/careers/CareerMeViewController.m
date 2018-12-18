@@ -62,9 +62,24 @@
 
 -(void)reloadMeData{
     _userInfo = [Proto lastUserInfo];
-    headerImg.imageName = @"user_img";
-    [headerImg loadUrl:_userInfo.portraitUrlFull placeholderImage:@"user_img"];
-    [myTable reloadData];
+    if(![NSString isBlankString:_userInfo.userId]){
+        headerImg.imageName = @"user_img";
+        [headerImg loadUrl:_userInfo.portraitUrlFull placeholderImage:@"user_img"];
+        [myTable reloadData];
+    }else{
+        [self showIndicator];
+        backTask(^() {
+            [Proto getProfileInfo];
+            foreTask(^() {
+                [self hideIndicator];
+                self->_userInfo = [Proto lastUserInfo];
+                self->headerImg.imageName = @"user_img";
+                [self->headerImg loadUrl:self->_userInfo.portraitUrlFull placeholderImage:@"user_img"];
+                [self->myTable reloadData];
+            });
+        });
+    }
+    
 }
 
 - (void)onBack

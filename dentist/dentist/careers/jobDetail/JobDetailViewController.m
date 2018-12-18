@@ -22,11 +22,13 @@
 #import "MapViewController.h"
 #import "CareerAddReviewViewController.h"
 #import <Social/Social.h>
+#import "UploadResumeView.h"
 
-@interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
+@interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,UploadResumeViewDelegate>
 @property (nonatomic,strong) NSString *jobId;
 @property (copy, nonatomic) CareerJobDetailCloseCallback closeBack;
 
+@property (nonatomic,strong) UIViewController *presentControl;
 
 @property (nonatomic,strong) UIView* tableContentView;
 @property (nonatomic) BOOL isCanScroll;
@@ -53,7 +55,6 @@
     int currTabIndex;//0:description 1:company 2:reviews
 
     JobModel *jobModel;
-   
 }
 
 
@@ -79,11 +80,11 @@
     jobDetailVc.closeBack = closeBack;
     jobDetailVc.modalPresentationStyle = UIModalPresentationCustom;
     jobDetailVc.view.backgroundColor = UIColor.clearColor;
-    
     UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:jobDetailVc];
     nvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     nvc.view.backgroundColor = [UIColor clearColor];
-    
+    jobDetailVc.presentControl = nvc;
+
     [viewController presentViewController:nvc animated:YES completion:^{
         jobDetailVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }];
@@ -440,30 +441,42 @@
     }
 }
 
+#pragma mark UploadResumeDelegate
+
+- (void)uploadResume
+{
+    NSLog(@"resume btn click");
+}
+
 -(void)applyNow{
     //    [self.view makeToast:@"applyNow"];
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    UIView *dsontoastview=[DsoToast toastViewForMessage:@"Applying to Job…" ishowActivity:YES];
-    [window showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-    [Proto addJobApplication:_jobId completed:^(HttpResult *result) {
-        NSLog(@"result=%@",@(result.code));
-        foreTask(^() {
-            [window hideToast];
-            if (result.OK) {
-                //
-                [self setApplyButtonEnable:NO];
-            }else{
-                NSString *message=result.msg;
-                if([NSString isBlankString:message]){
-                    message=@"Failed";
-                }
-                
-                [window makeToast:message
-                         duration:1.0
-                         position:CSToastPositionBottom];
-            }
-        });
-    }];
+    
+    UploadResumeView *uploadView = [UploadResumeView initUploadView:self.presentControl];
+    uploadView.delegate = self;
+    [uploadView show];
+    
+//    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+//    UIView *dsontoastview=[DsoToast toastViewForMessage:@"Applying to Job…" ishowActivity:YES];
+//    [window showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+//    [Proto addJobApplication:_jobId completed:^(HttpResult *result) {
+//        NSLog(@"result=%@",@(result.code));
+//        foreTask(^() {
+//            [window hideToast];
+//            if (result.OK) {
+//                //
+//                [self setApplyButtonEnable:NO];
+//            }else{
+//                NSString *message=result.msg;
+//                if([NSString isBlankString:message]){
+//                    message=@"Failed";
+//                }
+//
+//                [window makeToast:message
+//                         duration:1.0
+//                         position:CSToastPositionBottom];
+//            }
+//        });
+//    }];
 }
 
 

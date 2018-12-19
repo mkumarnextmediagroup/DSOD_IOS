@@ -249,8 +249,7 @@
     
 }
 
--(void)showFilter
-{
+-(void)showFilter {
     if(self.delegate && [self.delegate respondsToSelector:@selector(CategoryPickerSelectAction:categoryName:)]){
         [self.delegate CategoryPickerSelectAction:_cmsmodel.categoryId categoryName:_cmsmodel.categoryName];
     }

@@ -16,4 +16,8 @@
 -(void) bind:(Article*)item ;
 -(void) bindCMS:(CMSModel*)item;
 -(void) updateBookmarkStatus:(BOOL)ismark;
+-(NSArray *)getSeparatedLinesFromLabel:(UILabel *)label text:(NSString *)text;
+-(void)moreAction:(UIButton *)sender;
+-(void)markAction:(UIButton *)sender;
+-(void)showFilter;
 @end

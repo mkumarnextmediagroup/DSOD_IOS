@@ -14,6 +14,7 @@
     UIView *uploadView;
     UIView *submitView;
     UIView *doneView;
+    UIButton *okBtn;
 }
 
 @end
@@ -172,6 +173,25 @@ static dispatch_once_t onceToken;
     introLab.text = @"Resume Submited";
     [[[[introLab.layoutMaker bottomParent:-30] centerXParent:0] sizeEq:70 h:50] install];
     
+    
+    okBtn = [instance addButton];
+    [okBtn addTarget:self action:@selector(okBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [okBtn setTitle:@"OK" forState:UIControlStateNormal];
+    okBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+    [okBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBtn.backgroundColor = UIColor.whiteColor;
+    okBtn.layer.masksToBounds = YES;
+    okBtn.layer.cornerRadius = 5;
+    okBtn.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
+    okBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [[[[okBtn.layoutMaker sizeEq:SCREENWIDTH-60 h:36] leftParent:-SCREENWIDTH] bottomParent:-50] install];
+
+    
+}
+
+- (void)okBtnClick
+{
+    [UploadResumeView hide];
 }
 
 - (void)scrollToSubmit
@@ -189,7 +209,7 @@ static dispatch_once_t onceToken;
     
     [[[[submitView.layoutUpdate leftParent:SCREENWIDTH] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
     [[[[doneView.layoutUpdate leftParent:edge] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
-    
+    [[[[okBtn.layoutUpdate sizeEq:SCREENWIDTH-60 h:36] leftParent:30] bottomParent:-50] install];
     [UIView animateWithDuration:1 animations:^{
         [self layoutIfNeeded];
     }];

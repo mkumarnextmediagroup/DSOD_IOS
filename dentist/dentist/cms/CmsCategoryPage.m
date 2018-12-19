@@ -21,7 +21,6 @@
     NSInteger selectIndex;
     NSArray *dataArray;
     BOOL isdownrefresh;
-    CMSModel *selectModel;
 }
 @end
 @implementation CmsCategoryPage {
@@ -35,71 +34,68 @@
 }
 
 - (void)viewDidLoad {
-	[super viewDidLoad];
-	UINavigationItem *item = [self navigationItem];
-	item.title = @"CATEGORY";
+    [super viewDidLoad];
+    UINavigationItem *item = [self navigationItem];
+    item.title = @"CATEGORY";
     self.table.rowHeight = UITableViewAutomaticDimension;
     self.table.estimatedRowHeight = 400;
     self.isRefresh=YES;
-//    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by category" selectId:self->type filterAction:^(NSString *result,NSString *resultname) {
-//        self->type=result;
-//        [self showIndicator];
-//        [Proto queryAllContentsByCategoryType2:self->type skip:0 completed:^(NSArray<CMSModel *> *array,NSString *categoryType) {
-//            foreTask(^() {
-//                [self hideIndicator];
-//                if ([self->type isEqualToString:categoryType]) {
-//                   self.items=array;
-//                }
-//
-//            });
-//
-//
-//        }];
-//
-//    }];
-    __block NSInteger index;
+    //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    //    [self addEmptyFilterViewWithImageName:@"nonBookmarks" title:@"Search by category" selectId:self->type filterAction:^(NSString *result,NSString *resultname) {
+    //        self->type=result;
+    //        [self showIndicator];
+    //        [Proto queryAllContentsByCategoryType2:self->type skip:0 completed:^(NSArray<CMSModel *> *array,NSString *categoryType) {
+    //            foreTask(^() {
+    //                [self hideIndicator];
+    //                if ([self->type isEqualToString:categoryType]) {
+    //                   self.items=array;
+    //                }
+    //            });
+    //        }];
+    //    }];
     [self addEmptyFiledViewWithImageName:@"nonBookmarks" title:@"Search by category" textFiledBlock:^(UITextField *textFiled) {
-        DentistPickerView *picker = [[DentistPickerView alloc]init];
-        picker.leftTitle=localStr(@"Category");
-        picker.righTtitle=localStr(@"Cancel");
-        [picker show:^(NSString *result,NSString *resultname) {
-            
-        } rightAction:^(NSString *result,NSString *resultname) {
-            
-        } selectAction:^(NSString *result,NSString *resultname) {
-            self->_type=result;
-            if (picker.arrayDic) {
-                [picker.arrayDic enumerateObjectsUsingBlock:^(IdName * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj.id isEqualToString:self->_type]) {
-                        index=idx;
-                        *stop = YES;
-                    }
-                }];
-                if (picker.arrayDic.count>index) {
-                    foreTask(^{
-                        IdName *categorymodel=[picker.arrayDic objectAtIndex:index];
-                        textFiled.text=categorymodel.name;
-                    });
-                }
-            }
-            [self showIndicator];
-            [Proto queryAllContentsByCategoryType2:self->_type skip:0 completed:^(NSArray<CMSModel *> *array,NSString *categoryType) {
-                foreTask(^() {
-                    [self hideIndicator];
-                    if ([self->_type isEqualToString:categoryType]) { self.items=array; }
-                });
-            }];
-        }];
-        [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
-            foreTask(^() {
-                picker.arrayDic=array;
-                picker.selectId=self->_type;
-            });
-        }];
-        
+        [self handleTextFieldBlock:textFiled];
     }];
     self.items = nil;
+}
+
+- (void) handleTextFieldBlock: (UITextField *) textField {
+    __block NSInteger index;
+    DentistPickerView *picker = [[DentistPickerView alloc]init];
+    picker.leftTitle=localStr(@"Category");
+    picker.righTtitle=localStr(@"Cancel");
+    [picker show:^(NSString *result,NSString *resultname) {}
+     rightAction:^(NSString *result,NSString *resultname) {}
+    selectAction:^(NSString *result,NSString *resultname) {
+        self->_type=result;
+        if (picker.arrayDic) {
+            [picker.arrayDic enumerateObjectsUsingBlock:^(IdName * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj.id isEqualToString:self->_type]) {
+                    index=idx;
+                    *stop = YES;
+                }
+            }];
+            if (picker.arrayDic.count>index) {
+                foreTask(^{
+                    IdName *categorymodel=[picker.arrayDic objectAtIndex:index];
+                    textField.text=categorymodel.name;
+                });
+            }
+        }
+        [self showIndicator];
+        [Proto queryAllContentsByCategoryType2:self->_type skip:0 completed:^(NSArray<CMSModel *> *array,NSString *categoryType) {
+            foreTask(^() {
+                [self hideIndicator];
+                if ([self->_type isEqualToString:categoryType]) { self.items=array; }
+            });
+        }];
+    }];
+    [Proto queryCategoryTypes:^(NSArray<IdName *> *array) {
+        foreTask(^() {
+            picker.arrayDic=array;
+            picker.selectId=self->_type;
+        });
+    }];
 }
 
 - (Class)viewClassOfItem:(NSObject *)item {
@@ -112,18 +108,18 @@
 }
 
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
-//    Article *art = (id) item;
-//    ArticleItemView *itemView = (ArticleItemView *) view;
-//    itemView.delegate=self;
-//    itemView.moreButton.tag=art.id;
-//    [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [itemView bind:art];
-//    CMSModel *model = (id) item;
-//    ArticleItemView *itemView = (ArticleItemView *) view;
-//    itemView.delegate=self;
-////    itemView.moreButton.tag=1;//;
-////    [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [itemView bindCMS:model];
+    //    Article *art = (id) item;
+    //    ArticleItemView *itemView = (ArticleItemView *) view;
+    //    itemView.delegate=self;
+    //    itemView.moreButton.tag=art.id;
+    //    [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    //    [itemView bind:art];
+    //    CMSModel *model = (id) item;
+    //    ArticleItemView *itemView = (ArticleItemView *) view;
+    //    itemView.delegate=self;
+    ////    itemView.moreButton.tag=1;//;
+    ////    [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    //    [itemView bindCMS:model];
     
     CMSModel *model = (id) item;
     ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
@@ -155,7 +151,7 @@
 
 -(void)ArticleMoreActionModel:(CMSModel *)model
 {
-    selectModel=model;
+    _selectModel=model;
     NSLog(@"ArticleMoreAction=%@",model.id);
     NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
@@ -173,35 +169,33 @@
 - (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index
 {
     switch (index) {
-        case 0://---click the Download button
+            case 0://---click the Download button
         {
             NSLog(@"download click");
-            if (selectModel) {
+            if (_selectModel) {
                 UIView *dsontoastview=[DsoToast toastViewForMessage:@"Download is Add…" ishowActivity:YES];
                 [self.navigationController.view showToast:dsontoastview duration:1.0 position:CSToastPositionBottom completion:nil];
-                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:selectModel addCompletion:^(BOOL result) {
-                    
+                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:_selectModel addCompletion:^(BOOL result) {
                 } completed:^(BOOL result) {
-                    
                 }];
             }
         }
             break;
-        case 1://---click the Share button
+            case 1://---click the Share button
         {
             NSLog(@"Share click");
-            if (selectModel) {
+            if (_selectModel) {
                 NSString *urlstr=@"";
-                NSString *title=[NSString stringWithFormat:@"%@",selectModel.title];
-                NSString* type = selectModel.featuredMedia[@"type"];
+                NSString *title=[NSString stringWithFormat:@"%@",_selectModel.title];
+                NSString* type = _selectModel.featuredMedia[@"type"];
                 if([type isEqualToString:@"1"] ){
                     //pic
-                    NSDictionary *codeDic = selectModel.featuredMedia[@"code"];
+                    NSDictionary *codeDic = _selectModel.featuredMedia[@"code"];
                     urlstr = codeDic[@"thumbnailUrl"];
                 }else{
-                    urlstr = selectModel.featuredMedia[@"code"];
+                    urlstr = _selectModel.featuredMedia[@"code"];
                 }
-                NSString *someid=selectModel.id;
+                NSString *someid=_selectModel.id;
                 if (![NSString isBlankString:urlstr]) {
                     dispatch_async(dispatch_get_global_queue(0, 0), ^{
                         NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
@@ -241,15 +235,15 @@
 }
 
 - (void)onClickItem:(NSObject *)item {
-//    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
-//    newVC.articleInfo = (Article *) item;
-//    if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
-//        newVC.toWhichPage = @"mo";
-//    }else
-//    {
-//        newVC.toWhichPage = @"pic";
-//    }
-//    [self.navigationController pushViewController:newVC animated:YES];
+    //    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+    //    newVC.articleInfo = (Article *) item;
+    //    if ([newVC.articleInfo.category isEqualToString:@"VIDEOS"]) {
+    //        newVC.toWhichPage = @"mo";
+    //    }else
+    //    {
+    //        newVC.toWhichPage = @"pic";
+    //    }
+    //    [self.navigationController pushViewController:newVC animated:YES];
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
@@ -273,9 +267,7 @@
     picker.leftTitle=localStr(@"Category");
     picker.righTtitle=localStr(@"Cancel");
     [picker show:^(NSString *result,NSString *resultname) {
-        
     } rightAction:^(NSString *result,NSString *resultname) {
-        
     } selectAction:^(NSString *result,NSString *resultname) {
         self->_type=result;
         [self showIndicator];

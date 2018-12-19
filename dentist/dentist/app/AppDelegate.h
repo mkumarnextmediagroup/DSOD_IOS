@@ -14,6 +14,7 @@
 @property(strong, nonatomic) UIViewController *presentingController;
 @property(assign, nonatomic) BOOL supportRatate;
 @property(strong, nonatomic) UIViewController *careersPage;
+@property(strong, nonatomic) UIViewController *mainLeftPage;
 
 @property(class) AppDelegate *instance;
 - (void)onOpenMenuAnoSide:(id)sender;

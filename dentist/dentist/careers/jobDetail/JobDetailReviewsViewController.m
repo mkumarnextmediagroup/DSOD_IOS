@@ -9,30 +9,16 @@
 #import "JobDetailReviewsViewController.h"
 #import "Common.h"
 #import "Proto.h"
-#import "CompanyCommentModel.h"
-#import "CompanyCommentReviewsModel.h"
 
 @interface JobDetailReviewsViewController ()
 
 @end
 
 @implementation JobDetailReviewsViewController{
-    CompanyCommentModel *companyCommentModel;
-    NSArray<CompanyCommentReviewsModel*> *commentArray;
 }
 
-
-- (void)viewDidLoad{
-    [super viewDidLoad];
-    
-//    [self showLoading];
-//    [Proto findCommentByCompanyId:jobModel.dosId sort:0 star:0 skip:0 limit:2 completed:^(CompanyCommentModel * _Nullable companyCommentModel) {
-//        [self hideLoading];
-//        self->companyCommentModel = companyCommentModel;
-//        self->commentArray = companyCommentModel.reviews;
-//        [self->tableView reloadData];
-//    }];
+-(UIEdgeInsets)edgeInsetsMake{
+    return UIEdgeInsetsMake(0, 0, 80, 0);
 }
-
 
 @end

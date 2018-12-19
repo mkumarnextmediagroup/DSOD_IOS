@@ -6,8 +6,8 @@
 //  Copyright © 2018 thenextmediagroup.com. All rights reserved.
 //
 
-#import "CompanyCommentReviewsModel.h"
+#import "CompanyReviewModel.h"
 
-@implementation CompanyCommentReviewsModel
+@implementation CompanyReviewModel
 
 @end

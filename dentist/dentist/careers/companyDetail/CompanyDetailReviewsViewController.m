@@ -8,6 +8,13 @@
 
 #import "CompanyDetailReviewsViewController.h"
 #import "Common.h"
+#import "Proto.h"
+#import "CompanyReviewModel.h"
+#import "JobDSOModel.h"
+#import "CompanyReviewHeaderTableViewCell.h"
+#import "CompanyReviewTableViewCell.h"
+#import "CareerAddReviewViewController.h"
+#import "CompanyReviewsViewController.h"
 
 @interface CompanyDetailReviewsViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -17,6 +24,8 @@
     int edge;
 
     UITableView *tableView;
+    
+    NSArray<CompanyReviewModel*> *reviewArray;
 }
 
 
@@ -24,6 +33,7 @@
 - (void)viewDidLoad{
     edge = 18;
     [self buildView];
+    
 }
 
 
@@ -31,30 +41,103 @@
     edge = 18;
     
     tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    tableView.tableFooterView = [self buildFooterView];
     tableView.dataSource = self;
     tableView.delegate = self;
+    tableView.contentInset = [self edgeInsetsMake];
     tableView.estimatedRowHeight = 10;
     tableView.rowHeight=UITableViewAutomaticDimension;
     tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    tableView.backgroundColor = UIColor.whiteColor;
+    [tableView registerClass:CompanyReviewHeaderTableViewCell.class forCellReuseIdentifier:NSStringFromClass(CompanyReviewHeaderTableViewCell.class)];
+    [tableView registerClass:CompanyReviewTableViewCell.class forCellReuseIdentifier:NSStringFromClass(CompanyReviewTableViewCell.class)];
     [self.view addSubview:tableView];
     [[[[[tableView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
     
     
+}
+
+-(void)setJobDSOModel:(JobDSOModel *)jobDSOModel{
+    _jobDSOModel = jobDSOModel;
+    [self reloadComment];
+}
+
+-(void)reloadComment{
+    [Proto findCommentByCompanyId:self.jobDSOModel.id sort:0 star:0 skip:0 limit:5 completed:^(NSArray<CompanyReviewModel *> *reviewArray) {
+            self->reviewArray = [reviewArray copy];
+            [self->tableView reloadData];
+    }];
+}
+
+-(void)seeMore{
+    [CompanyReviewsViewController openBy:self.vc];
+}
+
+-(void)writeReview{
+    WeakSelf
+    [CareerAddReviewViewController openBy:self.vc dsoId:self.jobDSOModel.id successCallbak:^{
+        [weakSelf reloadComment];
+    }];
     
 }
 
-
 #pragma mark UITableViewDelegate,UITableViewDataSource
+- (UIView *)buildFooterView{
+    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 100+edge)];
+    
+    UILabel *moreLabel = footerView.addLabel;
+    moreLabel.text = @"see more";
+    moreLabel.textColor = rgbHex(0x879aa8);
+    moreLabel.font = [Fonts regular:16];
+    [moreLabel onClick:self action:@selector(seeMore)];
+    [[[[moreLabel.layoutMaker centerXParent:0]topParent:5] heightEq:45] install];
+    
+    UILabel *writeBtn = footerView.addLabel;
+    writeBtn.text = @"Write review";
+    writeBtn.textColor = rgbHex(0x4a4a4a);
+    writeBtn.font = [Fonts regular:16];
+    writeBtn.textAlignment = NSTextAlignmentCenter;
+    writeBtn.layer.borderColor =rgbHex(0xdddddd).CGColor;
+    writeBtn.layer.borderWidth = 2;
+    [writeBtn onClick:self action:@selector(writeReview)];
+    [[[[[[writeBtn.layoutMaker leftParent:edge]rightParent:-edge] below:moreLabel offset:5] bottomParent:-edge]heightEq:45] install];
+    
+    return footerView;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 30;
+    int count = 0;
+    if(self.jobDSOModel){
+        count = 1;
+    }
+    if(reviewArray && reviewArray.count>0){
+        count += reviewArray.count;
+    }
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [UITableViewCell new];
     
-    cell.textLabel.text = @"aaaa";
+    if(indexPath.row == 0){
+        return [self companyReviewHeaderCell:tableView data:self.jobDSOModel];
+    }else{
+        return [self companyReviewTableViewCell:tableView data:self->reviewArray[indexPath.row-1]];
+    }
+}
+
+-(UITableViewCell*)companyReviewHeaderCell:tableView data:(JobDSOModel*)model{
+    CompanyReviewHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(CompanyReviewHeaderTableViewCell.class)];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell setData:model];
     return cell;
-    
+}
+
+
+-(UITableViewCell*)companyReviewTableViewCell:tableView data:(CompanyReviewModel*)model{
+    CompanyReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(CompanyReviewTableViewCell.class)];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell setData:model];
+    return cell;
 }
 
 
@@ -76,6 +159,10 @@
 
 -(void)contentOffsetToPointZero{
     tableView.contentOffset = CGPointZero;
+}
+
+-(UIEdgeInsets)edgeInsetsMake{
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 @end

@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CompanyCommentModel.h"
+#import "JobDSOModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyReviewHeaderTableViewCell : UITableViewCell
 
-- (void)setData:(CompanyCommentModel *)model;
+- (void)setData:(JobDSOModel *)model;
 
 @end
 

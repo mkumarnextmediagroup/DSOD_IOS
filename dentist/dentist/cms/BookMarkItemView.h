@@ -21,4 +21,5 @@
 @property (strong, nonatomic) BookmarkModel *bookmarkmodel;
 -(void) bind:(Article*)item ;
 -(void)bindCMS:(BookmarkModel *)item;
+-(void)markAction:(UIButton *)sender;
 @end

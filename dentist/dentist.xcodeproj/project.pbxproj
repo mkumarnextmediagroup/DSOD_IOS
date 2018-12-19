@@ -128,6 +128,7 @@
 		3ED0764B213A9FE3004D4083 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0764A213A9FE3004D4083 /* ProfileViewController.m */; };
 		43065FE821BFF69A00D142B8 /* CmsCategoryPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43065FE721BFF69A00D142B8 /* CmsCategoryPageTests.m */; };
 		4307936D21CA8852003C5BF0 /* ArticleItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4307936C21CA8852003C5BF0 /* ArticleItemViewTests.m */; };
+		4307937021CA99D9003C5BF0 /* BookMarkItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4307936F21CA99D9003C5BF0 /* BookMarkItemViewTests.m */; };
 		43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E85217F4B9B008B3240 /* WelcomeControllerTests.m */; };
 		43277E88217F4D91008B3240 /* StudentControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E87217F4D91008B3240 /* StudentControllerTests.m */; };
 		43277E8A217F4E9E008B3240 /* TestPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E89217F4E9E008B3240 /* TestPageTests.m */; };
@@ -1102,6 +1103,7 @@
 		3ED0764A213A9FE3004D4083 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		43065FE721BFF69A00D142B8 /* CmsCategoryPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsCategoryPageTests.m; sourceTree = "<group>"; };
 		4307936C21CA8852003C5BF0 /* ArticleItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleItemViewTests.m; sourceTree = "<group>"; };
+		4307936F21CA99D9003C5BF0 /* BookMarkItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookMarkItemViewTests.m; sourceTree = "<group>"; };
 		43277E85217F4B9B008B3240 /* WelcomeControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WelcomeControllerTests.m; sourceTree = "<group>"; };
 		43277E87217F4D91008B3240 /* StudentControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentControllerTests.m; sourceTree = "<group>"; };
 		43277E89217F4E9E008B3240 /* TestPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestPageTests.m; sourceTree = "<group>"; };
@@ -2405,6 +2407,14 @@
 			path = ArticleItemView;
 			sourceTree = "<group>";
 		};
+		4307936E21CA99C5003C5BF0 /* BookMarkItemView */ = {
+			isa = PBXGroup;
+			children = (
+				4307936F21CA99D9003C5BF0 /* BookMarkItemViewTests.m */,
+			);
+			path = BookMarkItemView;
+			sourceTree = "<group>";
+		};
 		4335E27721B6B5D700A10F7E /* SearchPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2416,6 +2426,7 @@
 		4341949021A597320029AECE /* CMS */ = {
 			isa = PBXGroup;
 			children = (
+				4307936E21CA99C5003C5BF0 /* BookMarkItemView */,
 				4307936B21CA8842003C5BF0 /* ArticleItemView */,
 				43065FE621BFF68100D142B8 /* CategoryPage */,
 				4335E27721B6B5D700A10F7E /* SearchPage */,
@@ -4769,6 +4780,7 @@
 				4307936D21CA8852003C5BF0 /* ArticleItemViewTests.m in Sources */,
 				43277E8E217F523B008B3240 /* RegControllerTests.m in Sources */,
 				4388150B218D4EF20066BCB6 /* SearchPageTests.m in Sources */,
+				4307937021CA99D9003C5BF0 /* BookMarkItemViewTests.m in Sources */,
 				43941292219F0378008C3092 /* UITextFieldExtTests.m in Sources */,
 				43A196CF2190A12B006E90CC /* EditExperiencePageTests.m in Sources */,
 				43277E88217F4D91008B3240 /* StudentControllerTests.m in Sources */,

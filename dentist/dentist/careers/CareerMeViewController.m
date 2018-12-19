@@ -373,6 +373,7 @@
                 [self hideIndicator];
                 if (saveInfo.OK) {
                     [self alertMsg:@"Saved successfully" onOK:^() {
+                        [self reloadMeData];
                     }];
                 } else if (saveInfo.error.code == -1001) {
                     [self alertMsg:@"Failed, please try again." onOK:^() {

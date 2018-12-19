@@ -23,10 +23,11 @@
 #import "BookmarkManager.h"
 #import "JobModel.h"
 #import "JobBookmarkModel.h"
-#import "JobApplyModel.h";
-#import "CompanyCommentModel.h"
+#import "JobApplyModel.h"
+#import "CompanyReviewModel.h"
 #import "CompanyModel.h"
 #import "JobDSOModel.h"
+#import "JobAlertsModel.h"
 
 
 //测试模拟数据
@@ -2281,26 +2282,31 @@
 
 //2.17.    查询单个公司评论列表接口
 + (void)findCommentByCompanyId:(NSString*)companyId sort:(NSInteger)sort star:(NSInteger)star
-                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(CompanyCommentModel *companyCommentModel))completed {
+                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(NSArray<CompanyReviewModel*> *reviewArray))completed {
     
     
-    NSDictionary *paradic = @{@"companyId" : companyId,
+    NSDictionary *paradic = @{@"dsoId" : companyId,
                               @"limit" : [NSNumber numberWithInteger:limit],
                               @"skip" : [NSNumber numberWithInteger:skip],
                               @"sort" : [NSNumber numberWithInteger:sort],
                               @"star" : [NSNumber numberWithInteger:star]};
     
-    [self postAsync3:@"comment/findCommentByCompanyId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
-        CompanyCommentModel *model = nil;
-        if (r.OK && r.resultMap[@"commentPO"]) {
-            NSDictionary *commentPO =  r.resultMap[@"commentPO"];
-            if(commentPO){
-                model = [[CompanyCommentModel alloc] initWithJson:jsonBuild(commentPO)];
+    [self postAsync3:@"comment/findCommentByDSOId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+        NSMutableArray *resultArray = [NSMutableArray new];
+        if (r.OK && r.resultMap[@"reviewPOs"]) {
+            NSArray *reviewArray =  r.resultMap[@"reviewPOs"];
+            
+
+            for (NSDictionary *d in reviewArray) {
+                CompanyReviewModel *item = [[CompanyReviewModel alloc] initWithJson:jsonBuild(d)];
+                if (item) {
+                    [resultArray addObject:item];
+                }
             }
         }
         if(completed){
             foreTask(^{
-                completed(model);
+                completed(resultArray);
             });
         }
     }];
@@ -2374,6 +2380,80 @@
     }];
 }
 
+//MARK:2.22    职位提醒列表接口
++ (void)queryRemindsByUserId:(NSInteger)skip completed:(void(^)(NSArray<JobAlertsModel *> *array,NSInteger totalCount))completed {
+    NSInteger limit=20;//分页数默认20条
+    if (skip<=0) {
+        skip=0;
+    }
+    //    email=getLastAccount();
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    
+    [self postAsync3:@"remind/findRemindsByUserId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"positionRemindingPOs"];
+            NSInteger totalFound=[r.resultMap[@"totalFound"] integerValue];
+            for (NSDictionary *d in arr) {
+                JobAlertsModel *item = [[JobAlertsModel alloc] initWithJson:jsonBuild(d)];
+                
+                if (item) {
+                    [resultArray addObject:item];
+                }
+            }
+            if (completed) {
+                completed(resultArray,totalFound);
+            }
+        }else{
+            if (completed) {
+                completed(nil,0);
+            }
+        }
+    }];
+}
+
+//MARK:2.21  添加职位提醒接口
++(void)addJobRemind:(NSString *)keyword location:(NSString *)location position:(NSArray *)position distance:(NSInteger)distance frequency:(NSInteger)frequency status:(BOOL)status completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (keyword) {
+        [paradic setObject:keyword forKey:@"keyword"];
+    }
+    if (location) {
+        [paradic setObject:location forKey:@"location"];
+    }
+    if (position) {
+        [paradic setObject:position forKey:@"position"];
+    }
+    if (distance>=0) {
+        [paradic setObject:[NSNumber numberWithInteger:distance] forKey:@"distance"];
+    }
+    if (frequency>=0) {
+        [paradic setObject:[NSNumber numberWithInteger:frequency] forKey:@"frequency"];
+    }
+    [paradic setObject:[NSNumber numberWithBool:status] forKey:@"status"];
+    [self postAsync3:@"remind/addRemind" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r);
+        }
+    }];
+}
+
+//MARK:2.23 职位提醒删除接口
++(void)deleteJobRemind:(NSString *)alertId completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (alertId) {
+        [paradic setObject:alertId forKey:@"id"];
+    }
+    [self postAsync2:@"remind/deleteOneById" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r);
+        }
+    }];
+}
 
 
 @end

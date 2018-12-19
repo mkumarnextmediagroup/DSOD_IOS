@@ -1,22 +1,20 @@
 //
-//  CompanyExistsReviewsViewController.m
+//  CompanyReviewsViewController.m
 //  dentist
 //
-//  Created by Shirley on 2018/12/16.
+//  Created by Shirley on 2018/12/18.
 //  Copyright © 2018 thenextmediagroup.com. All rights reserved.
 //
 
-#import "CompanyExistsReviewsViewController.h"
+#import "CompanyReviewsViewController.h"
 #import "Common.h"
 #import "Proto.h"
-#import "CompanyExistsReviewsTableViewCell.h"
 
-@interface CompanyExistsReviewsViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface CompanyReviewsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
 
-@implementation CompanyExistsReviewsViewController{
-    
+@implementation CompanyReviewsViewController{
     int edge;
     UITableView *tableView;
     UIActivityIndicatorView *iv;
@@ -30,8 +28,8 @@
 
 
 +(void)openBy:(UIViewController*)vc {
-    CompanyExistsReviewsViewController *companyVc = [CompanyExistsReviewsViewController new];
-    [vc pushPage:companyVc];
+    CompanyReviewsViewController *companyReviewsVc = [CompanyReviewsViewController new];
+    [vc pushPage:companyReviewsVc];
 }
 
 
@@ -67,7 +65,7 @@
     tableView.estimatedRowHeight = 10;
     tableView.rowHeight=UITableViewAutomaticDimension;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [tableView registerClass:CompanyExistsReviewsTableViewCell.class forCellReuseIdentifier:NSStringFromClass(CompanyExistsReviewsTableViewCell.class)];
+//    [tableView registerClass:CompanyExistsReviewsTableViewCell.class forCellReuseIdentifier:NSStringFromClass(CompanyExistsReviewsTableViewCell.class)];
     [self.view addSubview:tableView];
     [[[[[tableView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
     
@@ -112,9 +110,9 @@
     
     [self showTopIndicator];
     [Proto findCompanyExistsReviewsList:isMore?self->companyModelArray.count:0 completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
-            self->totalCount = totalCount;
-            [self reloadData:[array copy]  isMore:isMore];
-            [self hideTopIndicator];
+        self->totalCount = totalCount;
+        [self reloadData:[array copy]  isMore:isMore];
+        [self hideTopIndicator];
     }];
 }
 
@@ -139,11 +137,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    CompanyExistsReviewsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(CompanyExistsReviewsTableViewCell.class) forIndexPath:indexPath];
-
-    [cell setData:companyModelArray[indexPath.row]];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    return cell;
+    UITableViewCell *cell=[UITableViewCell new];
+    
+   cell.textLabel.text = @"aaaaaa";
+   
+   return cell;
 }
 
 
@@ -157,5 +155,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
 
 @end

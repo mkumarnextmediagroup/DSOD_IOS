@@ -41,7 +41,6 @@
     
     UIView *starRateViewBg = self.addView;
     [[[starRateViewBg.layoutMaker below:nameLabel offset:5]leftParent:edge] install];
-    starRateViewBg.backgroundColor = UIColor.redColor;
     
     starRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake(0, 0, 90, 16)];
     starRateView.isAnimation = YES;

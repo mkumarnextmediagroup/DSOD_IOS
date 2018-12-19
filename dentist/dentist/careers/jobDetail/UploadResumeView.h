@@ -20,11 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,copy) NSString *issueNumber;
 @property (nonatomic,weak) id<UploadResumeViewDelegate> delegate;
-
+@property (nonatomic,strong) UIProgressView *progressView;
 + (instancetype)initUploadView:(UIViewController *)viewControl;
 +(void)hide;
 - (void)show;
-
+- (void)scrollToSubmit;
+- (void)scrollToDone;
 @end
 
 NS_ASSUME_NONNULL_END

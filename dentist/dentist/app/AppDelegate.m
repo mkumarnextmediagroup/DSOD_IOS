@@ -90,6 +90,20 @@
     return nil;
 }
 
+- (UIViewController *)mainLeftPage {
+    if ([self.window.rootViewController isKindOfClass:[IIViewDeckController class]]) {
+        IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;
+        if([tc.leftViewController isKindOfClass:[UINavigationController class]]){
+            UINavigationController *snav=(UINavigationController *)tc.leftViewController;
+            return snav.topViewController;
+        }else{
+          return tc.leftViewController;
+        }
+        
+    }
+    return nil;
+}
+
 - (void)closeMenu:(id)sender {
 	if ([self.window.rootViewController isKindOfClass:[IIViewDeckController class]]) {
         IIViewDeckController *tc = (IIViewDeckController *) self.window.rootViewController;

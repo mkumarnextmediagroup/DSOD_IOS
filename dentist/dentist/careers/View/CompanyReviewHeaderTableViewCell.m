@@ -8,7 +8,7 @@
 
 #import "CompanyReviewHeaderTableViewCell.h"
 #import "XHStarRateView.h"
-#import "CompanyCommentModel.h"
+#import "CompanyReviewModel.h"
 #import "Common.h"
 #import "CircleProgressView.h"
 
@@ -23,6 +23,7 @@
     CircleProgressView *recommendProgressView;
     CircleProgressView *approveProgressView;
     UIImageView *ceoHeadImageView;
+    UILabel *ceoNameLabel;
     
     int edge;
 }
@@ -39,6 +40,7 @@
 
 
 -(void)buildView{
+    
     starLabel = self.addLabel;
     starLabel.font = [Fonts regular:16];
     starLabel.textColor = rgbHex(0x9c9c9c);
@@ -81,7 +83,6 @@
     
     
     UILabel *recommendLabel = self.addLabel;
-    [self addSubview:recommendLabel];
     recommendLabel.textAlignment = NSTextAlignmentCenter;
     recommendLabel.font = [Fonts regular:12];
     recommendLabel.text = @"Recommend to a friend";
@@ -89,7 +90,6 @@
     
     
     UILabel *approveLabel = self.addLabel;
-    [self addSubview:approveLabel];
     approveLabel.textAlignment = NSTextAlignmentCenter;
     approveLabel.font = [Fonts regular:12];
     approveLabel.text = @"Approve of CEO";
@@ -97,31 +97,28 @@
     
     
     
-    UILabel *nameLabel = self.addLabel;
-    [self addSubview:nameLabel];
-    nameLabel.textAlignment = NSTextAlignmentCenter;
-    nameLabel.font = [Fonts regular:12];
-    [[[[nameLabel.layoutMaker below:ceoHeadImageView offset:5]centerXOf:ceoHeadImageView offset:0] widthEq:width + width ] install];
-    nameLabel.text = @"Helen Morris\nCEO";
+    ceoNameLabel = self.addLabel;
+    ceoNameLabel.textAlignment = NSTextAlignmentCenter;
+    ceoNameLabel.font = [Fonts regular:12];
+    [[[[ceoNameLabel.layoutMaker below:ceoHeadImageView offset:5]centerXOf:ceoHeadImageView offset:0] widthEq:width + width ] install];
+    
 
-    
     UILabel *lineLabel = [self lineLabel];
-    [[[[[[lineLabel.layoutMaker leftParent:edge] rightParent:-edge] below:nameLabel offset:15] heightEq:1]bottomParent:0] install];
-    
+    [[[[[[lineLabel.layoutMaker leftParent:edge] rightParent:-edge] below:ceoNameLabel offset:15] heightEq:1]bottomParent:0] install];
     
     
 }
 
 
-- (void)setData:(CompanyCommentModel *)model{
+- (void)setData:(JobDSOModel*)model{
     
-    
-    starLabel.text = @"4.0";
-    starRateView.currentScore = 4.0f;
+    starLabel.text = [NSString stringWithFormat:@"%0.1f",model.rating];
+    starRateView.currentScore = model.rating;
     ceoHeadImageView.imageName = @"Img-User-Dentist";
-    recommendProgressView.percent = 0.74;
-    approveProgressView.percent = 0.68;
-    reviewCountLabel.text = @"1146 reviews";
+    recommendProgressView.percent = (float)model.recommendNum/model.reviewNum;
+    approveProgressView.percent = (float)model.approveNum/model.reviewNum;
+    reviewCountLabel.text = [NSString stringWithFormat:@"%ld reviews",model.reviewNum];
+    ceoNameLabel.text = [NSString stringWithFormat:@"%@\nCEO",model.ceo];
 }
 
 @end

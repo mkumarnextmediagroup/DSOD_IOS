@@ -7,7 +7,7 @@
 //
 
 #import "CompanyReviewTableViewCell.h"
-#import "CompanyCommentReviewsModel.h"
+#import "CompanyReviewModel.h"
 #import "Common.h"
 #import "XHStarRateView.h"
 #import "NSDate+customed.h"
@@ -22,6 +22,9 @@
     UILabel *prosValueLabel;
     UILabel *consValueLabel;
     UILabel *adviceValueLabel;
+    
+    UIButton *recommendsBtn;
+    UIButton *approveBtn;
     
     
     int edge;
@@ -54,12 +57,16 @@
     reviewDateLabel.font = [Fonts regular:14];
     [[[reviewDateLabel.layoutMaker leftParent:edge] below:reviewTitleLabel offset:10] install];
     
+    
+    
+    UIView *starRateViewBg = self.addView;
+    [[[starRateViewBg.layoutUpdate below:reviewTitleLabel offset:10]rightParent:-110 - 2* edge] install];
+    
     starRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake(0 , 0, 110, 20)];
     starRateView.isAnimation = NO;
     starRateView.userInteractionEnabled = NO;
-    starRateView.rateStyle = WholeStar;
-    [contentView addSubview:starRateView];
-    [[[starRateView.layoutUpdate below:reviewTitleLabel offset:10]rightParent:-110 - edge] install];
+    starRateView.rateStyle = HalfStar;
+    [starRateViewBg addSubview:starRateView];
     
 
     currentEmployeeLabel = contentView.addLabel;
@@ -108,7 +115,7 @@
 
     float buttonWidth = (SCREENWIDTH - 4 *edge )/2;
 
-    UIButton *recommendsBtn = contentView.addButton;
+    recommendsBtn = contentView.addButton;
     recommendsBtn.titleLabel.font = [Fonts regular:12];
     [recommendsBtn setTitleColor:rgbHex(0x1b1b1b) forState:UIControlStateNormal];
     [recommendsBtn setTitle:@"Recommends" forState:UIControlStateNormal];
@@ -116,10 +123,10 @@
     recommendsBtn.imageEdgeInsets = UIEdgeInsetsMake(0.0,0.0, 0.0, 10);
     recommendsBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [[[[recommendsBtn.layoutMaker leftParent:edge]below:lineLabel offset:0]sizeEq:buttonWidth h:40] install];
-    recommendsBtn.backgroundColor = UIColor.redColor;
     
     
-    UIButton *approveBtn = contentView.addButton;
+    
+    approveBtn = contentView.addButton;
     approveBtn.titleLabel.font = [Fonts regular:12];
     [approveBtn setTitleColor:rgbHex(0x1b1b1b) forState:UIControlStateNormal];
     [approveBtn setTitle:@"Approve of CEO" forState:UIControlStateNormal];
@@ -136,19 +143,27 @@
 
 
 
--(void)setData:(CompanyCommentReviewsModel*)model{
+-(void)setData:(CompanyReviewModel*)model{
     reviewTitleLabel.text = [NSString stringWithFormat:@"\"%@\"",model.reviewTitle];
     reviewDateLabel.text = [NSDate USDateShortFormatWithTimestamp:model.reviewDate];
-    starRateView.currentScore = 4.0;
+    starRateView.currentScore = model.rating;
     
     if(model.isCurrentEmployee){
-        currentEmployeeLabel.text = @"Current Employee";
+        currentEmployeeLabel.text = @"Current Employee - Anonymous Employee";
     }else if(model.isFormerEmployee){
-        currentEmployeeLabel.text = @"Former Employee";
+        currentEmployeeLabel.text = @"Former Employee - Anonymous Employee";
+    }else{
+        currentEmployeeLabel.text = @"Anonymous Employee";
     }
     prosValueLabel.text = model.pros;
     consValueLabel.text = model.cons;
     adviceValueLabel.text = model.advice;
+    
+    [recommendsBtn setTitleColor:model.isRecommend?rgbHex(0x1b1b1b):argbHex(0x00000000) forState:UIControlStateNormal];
+    [recommendsBtn setImage:[UIImage imageNamed:model.isRecommend?@"icon_check_mark_small":@""] forState:UIControlStateNormal];
+     
+    [approveBtn setTitleColor:model.isApprove?rgbHex(0x1b1b1b):argbHex(0x00000000) forState:UIControlStateNormal];
+    [approveBtn setImage:[UIImage imageNamed:model.isApprove?@"icon_check_mark_small":@""] forState:UIControlStateNormal];
     
     
 }

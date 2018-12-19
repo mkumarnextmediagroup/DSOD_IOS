@@ -298,7 +298,7 @@
         
         
         self.reviewsVC.view.frame = _tableContentView.frame;
-        self.reviewsVC.companyId = companyModel.id;
+        self.reviewsVC.jobDSOModel = companyModel;
         self.reviewsVC.vc = self;
         [_tableContentView addSubview:self.reviewsVC.view];
         

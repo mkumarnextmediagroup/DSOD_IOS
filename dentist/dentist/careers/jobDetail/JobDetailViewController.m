@@ -165,9 +165,6 @@
     tableView = [AllowMultiGestureTableView new];
     tableView.dataSource = self;
     tableView.delegate = self;
-//    tableView.estimatedRowHeight = 10;
-//    tableView.rowHeight=UITableViewAutomaticDimension;
-//    tableView.contentInset = UIEdgeInsetsMake(0, 0, 80, 0);
     tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     tableView.showsVerticalScrollIndicator = NO;
     [contentView addSubview:tableView];
@@ -610,7 +607,7 @@
         
         
         self.reviewsVC.view.frame = _tableContentView.frame;
-        self.reviewsVC.companyId = jobModel.dsoId;
+        self.reviewsVC.jobDSOModel = jobModel.dso;
         self.reviewsVC.vc = self;
         [_tableContentView addSubview:self.reviewsVC.view];
         

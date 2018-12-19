@@ -9,8 +9,6 @@
 #import "JobDetailReviewsViewController.h"
 #import "Common.h"
 #import "Proto.h"
-#import "CompanyCommentModel.h"
-#import "CompanyCommentReviewsModel.h"
 
 @interface JobDetailReviewsViewController ()
 

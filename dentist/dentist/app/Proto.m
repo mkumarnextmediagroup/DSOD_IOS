@@ -23,8 +23,8 @@
 #import "BookmarkManager.h"
 #import "JobModel.h"
 #import "JobBookmarkModel.h"
-#import "JobApplyModel.h";
-#import "CompanyCommentModel.h"
+#import "JobApplyModel.h"
+#import "CompanyReviewModel.h"
 #import "CompanyModel.h"
 #import "JobDSOModel.h"
 #import "JobAlertsModel.h"
@@ -2282,7 +2282,7 @@
 
 //2.17.    查询单个公司评论列表接口
 + (void)findCommentByCompanyId:(NSString*)companyId sort:(NSInteger)sort star:(NSInteger)star
-                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(CompanyCommentModel *companyCommentModel))completed {
+                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(NSArray<CompanyReviewModel*> *reviewArray))completed {
     
     
     NSDictionary *paradic = @{@"dsoId" : companyId,
@@ -2292,16 +2292,21 @@
                               @"star" : [NSNumber numberWithInteger:star]};
     
     [self postAsync3:@"comment/findCommentByDSOId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
-        CompanyCommentModel *model = nil;
-        if (r.OK && r.resultMap[@"commentPO"]) {
-            NSDictionary *commentPO =  r.resultMap[@"commentPO"];
-            if(commentPO){
-                model = [[CompanyCommentModel alloc] initWithJson:jsonBuild(commentPO)];
+        NSMutableArray *resultArray = [NSMutableArray new];
+        if (r.OK && r.resultMap[@"reviewPOs"]) {
+            NSArray *reviewArray =  r.resultMap[@"reviewPOs"];
+            
+
+            for (NSDictionary *d in reviewArray) {
+                CompanyReviewModel *item = [[CompanyReviewModel alloc] initWithJson:jsonBuild(d)];
+                if (item) {
+                    [resultArray addObject:item];
+                }
             }
         }
         if(completed){
             foreTask(^{
-                completed(model);
+                completed(resultArray);
             });
         }
     }];

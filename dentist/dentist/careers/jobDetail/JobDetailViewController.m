@@ -24,7 +24,7 @@
 #import <Social/Social.h>
 #import "UploadResumeView.h"
 
-@interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,UploadResumeViewDelegate>
+@interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,UploadResumeViewDelegate,UIDocumentPickerDelegate,HttpProgress>
 @property (nonatomic,strong) NSString *jobId;
 @property (copy, nonatomic) CareerJobDetailCloseCallback closeBack;
 
@@ -48,7 +48,8 @@
     UIWebView *vedioWebView;
     UIButton *attentionButton;
     UIView *sectionHeaderView;
-
+    UploadResumeView *uploadView;
+    
     int edge;
     int navBarOffset;
     int navBarHeight;
@@ -444,14 +445,43 @@
 - (void)uploadResume
 {
     NSLog(@"resume btn click");
+    //此处需要判断用户是否上传了简历
+    if (@available(iOS 11.0, *)) {
+        UIDocumentPickerViewController *pickerVC = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"com.adobe.pdf",@"org.openxmlformats.wordprocessingml.document",@"com.microsoft.word.doc"] inMode:UIDocumentPickerModeImport];
+        pickerVC.delegate = self;
+        [[UINavigationBar appearance] setTintColor:rgbHex(0x0a73ff)];
+        [self presentViewController:pickerVC animated:YES completion:nil];
+        
+    }else{
+        [self Den_showAlertWithTitle:@"Below ios11 version is not supported." message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+            alertMaker.addActionCancelTitle(@"OK");
+        } actionsBlock:nil];
+    }
+    
+
 }
 
 -(void)applyNow{
     //    [self.view makeToast:@"applyNow"];
     
-    UploadResumeView *uploadView = [UploadResumeView initUploadView:self.presentControl];
+    uploadView = [UploadResumeView initUploadView:self.presentControl];
     uploadView.delegate = self;
     [uploadView show];
+//
+//    double delayInSeconds = 4.0;
+//    dispatch_time_t doTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds);
+//    dispatch_after(doTime, dispatch_get_main_queue(), ^{
+//        [uploadView scrollToSubmit];
+//
+//
+//        double delayInSeconds2 = 2.0;
+//        dispatch_time_t doTime2 = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds2);
+//        dispatch_after(doTime2, dispatch_get_main_queue(), ^{
+//            [uploadView scrollToDone];
+//        });
+//
+//    });
+    
     
 //    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
 //    UIView *dsontoastview=[DsoToast toastViewForMessage:@"Applying to Job…" ishowActivity:YES];
@@ -477,8 +507,59 @@
 //    }];
 }
 
+#pragma mark ---UIDocumentPickerDelegate
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
+    if(url){
+        
+        __block NSString *filePath = [self decoderUrlEncodeStr:url.path];
+        
+        backTask(^{
+            NSString *fileName = strBuild(@"resume.", [[[self fileName:filePath] componentsSeparatedByString:@"."] lastObject]);
+            NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:fileName];
+            
+            NSError *error = nil;
+            BOOL written = [[NSData dataWithContentsOfURL:url] writeToFile:path options:NSDataWritingAtomic error:&error];
+            
+            if (written) {
+                NSString *encodeFilePath = [strBuild(@"file://",path) stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+                NSURL *fileURL = [NSURL URLWithString:encodeFilePath];
+                NSLog(@"success! --- %@",fileURL);
+            }else{
+                NSLog(@"write failed: %@", [error localizedDescription]);
+            }
+        });
+        [uploadView scrollToSubmit];
+        backTask(^{
+            HttpResult *result = [Proto uploadResume:filePath progress:self];
+            
+            foreTask(^{
+                id name = result.resultMap[@"resumeName"];
+                if (result.OK && name != nil && name != NSNull.null) {
+                    [self->uploadView scrollToDone];
+                }else{
+                    [self alertMsg:result.msg?result.msg:@"Upload resume fail" onOK:^{
+                        
+                    }];
+                }
+            });
+        });
+    }
+}
 
+#pragma mark ---HttpProgress
+- (void)onHttpProgress:(int)current total:(int)total percent:(int)percent{
+    uploadView.progressView.progress = (float)percent / 100;
+}
 
+- (NSString *)decoderUrlEncodeStr: (NSString *) input{
+    NSMutableString *outputStr = [NSMutableString stringWithString:input];
+    [outputStr replaceOccurrencesOfString:@"+" withString:@"" options:NSLiteralSearch range:NSMakeRange(0,[outputStr length])];
+    return [outputStr stringByRemovingPercentEncoding];
+}
+
+-(NSString*)fileName:(NSString*)filePath{
+    return [[filePath componentsSeparatedByString:@"/"] lastObject];
+}
 
 -(void)setupTableContentVC{
     self.isCanScroll = YES;

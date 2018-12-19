@@ -12,6 +12,8 @@
 @interface UploadResumeView()<UIGestureRecognizerDelegate>
 {
     UIView *uploadView;
+    UIView *submitView;
+    UIView *doneView;
 }
 
 @end
@@ -26,7 +28,9 @@ static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[UploadResumeView alloc] init];
         instance.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7];
-        [instance initSliderView];
+        [instance initUploadView];
+        [instance createSubmitView];
+        [instance createDoneView];
         [viewControl.view addSubview:instance];
         instance.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
     });
@@ -67,7 +71,7 @@ static dispatch_once_t onceToken;
     }
 }
 
-- (void)initSliderView
+- (void)initUploadView
 {
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTappedPickerView:)];
     [singleTap setNumberOfTapsRequired:1];
@@ -113,6 +117,85 @@ static dispatch_once_t onceToken;
     introLab.text = @"Mirosoft Word or PDF only(15M)";
     [[[[introLab.layoutMaker below:uploadBtn offset:15] leftParent:30] sizeEq:SCREENWIDTH-60-edge*2 h:30] install];
 }
+
+- (void)createSubmitView
+{
+    submitView = [instance addView];
+    submitView.backgroundColor = [UIColor whiteColor];
+    [[[[submitView.layoutMaker leftParent:-SCREENWIDTH] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
+    
+    UIImageView *imgVi = [submitView addImageView];
+    imgVi.image = [UIImage imageNamed:@"submit_resume"];
+//    imgVi.backgroundColor = [UIColor redColor];
+    [[[[imgVi.layoutMaker topParent:75] sizeEq:100 h:100] centerXParent:0] install];
+    
+    
+//    UIActivityIndicatorView *iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//    iv.tag = 998;
+//    iv.color = UIColor.blueColor;
+//    iv.backgroundColor = [UIColor clearColor];
+//    [submitView addSubview:iv];
+//    [[[[iv.layoutMaker sizeEq:10 h:10]rightParent:-10] topParent:10] install];
+//    [iv startAnimating];
+    
+    _progressView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleDefault];
+    [submitView addSubview:_progressView];
+    [[[[_progressView.layoutMaker leftParent:20] rightParent:-20] below:imgVi offset:20]install];
+    _progressView.progress = 0;
+    
+    UILabel *introLab = [submitView addLabel];
+    introLab.numberOfLines = 0;
+    introLab.font = [Fonts semiBold:14];
+    introLab.textAlignment = NSTextAlignmentCenter;
+    introLab.textColor = Colors.textDisabled;
+    introLab.text = @"Submiting your resume...";
+    [[[[introLab.layoutMaker bottomParent:-30] centerXParent:0] sizeEq:100 h:50] install];
+
+}
+
+- (void)createDoneView
+{
+    doneView = [instance addView];
+    doneView.backgroundColor = [UIColor whiteColor];
+    [[[[doneView.layoutMaker leftParent:-SCREENWIDTH] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
+    
+    UIImageView *imgVi = [doneView addImageView];
+    imgVi.image = [UIImage imageNamed:@"submit_done"];
+    //    imgVi.backgroundColor = [UIColor redColor];
+    [[[[imgVi.layoutMaker topParent:75] sizeEq:100 h:100] centerXParent:0] install];
+    
+    UILabel *introLab = [doneView addLabel];
+    introLab.numberOfLines = 0;
+    introLab.font = [Fonts semiBold:14];
+    introLab.textAlignment = NSTextAlignmentCenter;
+    introLab.textColor = Colors.textDisabled;
+    introLab.text = @"Resume Submited";
+    [[[[introLab.layoutMaker bottomParent:-30] centerXParent:0] sizeEq:70 h:50] install];
+    
+}
+
+- (void)scrollToSubmit
+{
+    [[[[uploadView.layoutUpdate leftParent:SCREENWIDTH] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
+    [[[[submitView.layoutUpdate leftParent:edge] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
+
+    [UIView animateWithDuration:1 animations:^{
+        [self layoutIfNeeded];
+    }];
+}
+
+- (void)scrollToDone
+{
+    
+    [[[[submitView.layoutUpdate leftParent:SCREENWIDTH] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
+    [[[[doneView.layoutUpdate leftParent:edge] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
+    
+    [UIView animateWithDuration:1 animations:^{
+        [self layoutIfNeeded];
+    }];
+
+}
+
 
 - (void)uploadBtnClick:(UIButton *)btn
 {

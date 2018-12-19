@@ -28,6 +28,7 @@
     NSString *username;
     NSString *filename;
     NSURL *fileURL;
+    NSString *uploadPortraitResult;
 }
 @end
 
@@ -196,13 +197,11 @@
     }
 //    CareerMeTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CareerMeTableViewCell class]) forIndexPath:indexPath];
     if (indexPath.row==0) {
-        cell.headerView.image=[UIImage imageNamed:@"user_img"];
-//        cell.titleLabel.text=@"Dr.Stephen Wood";
+        cell.headerView.image=[UIImage imageNamed:@"icons8-user"];
         cell.desLabel.text=@"Profile";
     }else if (indexPath.row==1) {
-        cell.headerView.image=[UIImage imageNamed:@"icons8-submit_resume"];
+        cell.headerView.image=[UIImage imageNamed:@"icons8-resume"];
         cell.titleLabel.text=@"Resume";
-//        cell.desLabel.text=@"No uploaded resume";
         cell.lineLabel.hidden=YES;
     }
     if (_userInfo) {
@@ -230,27 +229,27 @@
 //        navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 //        [self presentViewController:navVC animated:NO completion:NULL];
         
-//        ProfileViewController *profilevc=[ProfileViewController new];
-//        profilevc.isSecond=YES;
-//        [self.navigationController pushViewController:profilevc animated:YES];
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"You will now be taken to 'My Profile' section.You can come back to the Career section by the menu." preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-            NSLog(@"点击取消");
-        }]];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-            NSLog(@"点击ok");
-            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            UIViewController *leftvc=appdelegate.mainLeftPage;
-            if ([leftvc isKindOfClass:[SlideController class]]) {
-                SlideController *slidevc=(SlideController *)leftvc;
-                [slidevc slideItem:5];
-                [self back];
-            }
-        }]];
-        [self presentViewController:alertController animated:YES completion:nil];
+        ProfileViewController *profilevc=[ProfileViewController new];
+        profilevc.isSecond=YES;
+        [self.navigationController pushViewController:profilevc animated:YES];
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"You will now be taken to 'My Profile' section.You can come back to the Career section by the menu." preferredStyle:UIAlertControllerStyleAlert];
+//
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//            NSLog(@"点击取消");
+//        }]];
+//        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//
+//            NSLog(@"点击ok");
+//            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//            UIViewController *leftvc=appdelegate.mainLeftPage;
+//            if ([leftvc isKindOfClass:[SlideController class]]) {
+//                SlideController *slidevc=(SlideController *)leftvc;
+//                [slidevc slideItem:5];
+//                [self back];
+//            }
+//        }]];
+//        [self presentViewController:alertController animated:YES completion:nil];
     }else if(indexPath.row==1){
         if (![NSString isBlankString:_userInfo.resume_name]) {
             [self showLoading];
@@ -337,14 +336,57 @@
 - (void)uploadHeaderImage:(NSString *)url {
     [self showIndicator];
     backTask(^() {
-       NSString *result= [Proto uploadHeaderImage:url];
+       self->uploadPortraitResult= [Proto uploadHeaderImage:url];
         foreTask(^() {
-            if (![NSString isBlankString:result]) {
-                self->headerImg.image=self->_selectImage;
-            }
             [self hideIndicator];
+            if (![NSString isBlankString:self->uploadPortraitResult]) {
+                self->headerImg.image=self->_selectImage;
+                [self saveUserHeader];
+            }
+            
         });
     });
+    
+}
+
+-(void)saveUserHeader{
+    
+    if (_userInfo) {
+        NSDictionary *d = @{
+                            @"full_name": _userInfo.fullName,
+                            @"email": _userInfo.email,
+                            @"is_student": _userInfo.isStudent ? @"1" : @"0",
+                            @"is_linkedin": _userInfo.isLinkedin ? @"1" : @"0"
+                            };
+        
+        
+        NSMutableDictionary *md = [NSMutableDictionary dictionaryWithDictionary:d];
+        if (uploadPortraitResult != nil) {
+            md[@"photo_album"] = @{@"photo_name": uploadPortraitResult};
+        } else {
+            md[@"photo_album"] = @{@"photo_name": @""};
+        }
+        [self showIndicator];
+        backTask(^() {
+            HttpResult *saveInfo = [Proto saveProfileInfo:md];
+            foreTask(^() {
+                [self hideIndicator];
+                if (saveInfo.OK) {
+                    [self alertMsg:@"Saved successfully" onOK:^() {
+                    }];
+                } else if (saveInfo.error.code == -1001) {
+                    [self alertMsg:@"Failed, please try again." onOK:^() {
+                    }];
+                } else {
+                    [self alertMsg:saveInfo.msg onOK:^() {
+                    }];
+                }
+                
+            });
+        });
+    }else{
+        [self hideIndicator];
+    }
     
 }
 

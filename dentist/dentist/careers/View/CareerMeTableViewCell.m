@@ -23,11 +23,11 @@
         self.headerView = self.contentView.addImageView;
         [self.headerView scaleFillAspect];
         self.headerView.clipsToBounds=YES;
-        [[[[self.headerView.layoutMaker leftParent:edge] centerYParent:0 ] sizeEq:27 h:27] install];
+        [[[[self.headerView.layoutMaker leftParent:edge] centerYParent:0 ] sizeEq:23 h:23] install];
         
         UIImageView *iconView = self.contentView.addImageView;
         iconView.imageName = @"arrow_small";
-        [[[[iconView.layoutMaker sizeEq:16 h:16] rightParent:-35] centerYParent:0 ] install];
+        [[[[iconView.layoutMaker sizeEq:16 h:16] rightParent:-30] centerYParent:0 ] install];
         self.titleLabel = self.contentView.addLabel;
         self.titleLabel.font = [Fonts semiBold:16];
         [self.titleLabel textColorMain];
@@ -43,6 +43,17 @@
     }
     return self;
 }
+
+-(void)layoutSubviews
+{
+    NSLog(@"====layoutSubviews");
+    if (self.headerView.image) {
+        CGFloat headerimgh=(self.headerView.image.size.height/self.headerView.image.size.width)*23;
+        [[self.headerView.layoutUpdate heightEq:headerimgh] install];
+    }
+    
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

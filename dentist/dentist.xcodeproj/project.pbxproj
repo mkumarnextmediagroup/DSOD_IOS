@@ -27,6 +27,7 @@
 		1836D42F21A7CCEC00500CEB /* ViewResumeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1836D42E21A7CCEC00500CEB /* ViewResumeItemView.m */; };
 		183B048421C2420400D26BB3 /* icon_gcoding.png in Resources */ = {isa = PBXBuildFile; fileRef = 183B048321C2420400D26BB3 /* icon_gcoding.png */; };
 		183B048821C286DE00D26BB3 /* CareerAddReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183B048721C286DE00D26BB3 /* CareerAddReviewViewController.m */; };
+		1845BC9421C947880026A1B1 /* CompanyReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1845BC9321C947880026A1B1 /* CompanyReviewsViewController.m */; };
 		184AEF3821A131DC004BDFB7 /* UploadResumeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184AEF3721A131DC004BDFB7 /* UploadResumeItemView.m */; };
 		184E105D21A2B6FC00B21620 /* PreviewResumeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E105C21A2B6FC00B21620 /* PreviewResumeViewController.m */; };
 		1863939821B02D6E00512CBB /* icon_share_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1863938F21B02D6C00512CBB /* icon_share_white@2x.png */; };
@@ -49,8 +50,7 @@
 		18945E1821C63E480028D1CD /* CompanyExistsReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18945E1721C63E480028D1CD /* CompanyExistsReviewsViewController.m */; };
 		18945E1B21C641180028D1CD /* CompanyExistsReviewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18945E1A21C641180028D1CD /* CompanyExistsReviewsTableViewCell.m */; };
 		189BCB84218C260E0003CA91 /* UniteDownloadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189BCB83218C260E0003CA91 /* UniteDownloadingViewController.m */; };
-		18A0DB9221B129610065B2BD /* CompanyCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0DB9121B129610065B2BD /* CompanyCommentModel.m */; };
-		18A0DB9521B12C1B0065B2BD /* CompanyCommentReviewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0DB9421B12C1B0065B2BD /* CompanyCommentReviewsModel.m */; };
+		18A0DB9521B12C1B0065B2BD /* CompanyReviewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0DB9421B12C1B0065B2BD /* CompanyReviewModel.m */; };
 		18A0DB9921B1370F0065B2BD /* CircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0DB9721B1370F0065B2BD /* CircleProgressView.m */; };
 		18A0DBA321B1877F0065B2BD /* icon_arrow_down_small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0DBA021B1877F0065B2BD /* icon_arrow_down_small@3x.png */; };
 		18A0DBA421B1877F0065B2BD /* icon_arrow_down_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A0DBA121B1877F0065B2BD /* icon_arrow_down_small@2x.png */; };
@@ -939,6 +939,8 @@
 		183B048321C2420400D26BB3 /* icon_gcoding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_gcoding.png; sourceTree = "<group>"; };
 		183B048621C286DE00D26BB3 /* CareerAddReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CareerAddReviewViewController.h; sourceTree = "<group>"; };
 		183B048721C286DE00D26BB3 /* CareerAddReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CareerAddReviewViewController.m; sourceTree = "<group>"; };
+		1845BC9221C947880026A1B1 /* CompanyReviewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyReviewsViewController.h; sourceTree = "<group>"; };
+		1845BC9321C947880026A1B1 /* CompanyReviewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyReviewsViewController.m; sourceTree = "<group>"; };
 		184AEF3621A131DC004BDFB7 /* UploadResumeItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadResumeItemView.h; sourceTree = "<group>"; };
 		184AEF3721A131DC004BDFB7 /* UploadResumeItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadResumeItemView.m; sourceTree = "<group>"; };
 		184E105B21A2B6FC00B21620 /* PreviewResumeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewResumeViewController.h; sourceTree = "<group>"; };
@@ -969,10 +971,8 @@
 		18945E1A21C641180028D1CD /* CompanyExistsReviewsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyExistsReviewsTableViewCell.m; sourceTree = "<group>"; };
 		189BCB82218C260D0003CA91 /* UniteDownloadingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniteDownloadingViewController.h; sourceTree = "<group>"; };
 		189BCB83218C260E0003CA91 /* UniteDownloadingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteDownloadingViewController.m; sourceTree = "<group>"; };
-		18A0DB9021B129610065B2BD /* CompanyCommentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyCommentModel.h; sourceTree = "<group>"; };
-		18A0DB9121B129610065B2BD /* CompanyCommentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyCommentModel.m; sourceTree = "<group>"; };
-		18A0DB9321B12C1B0065B2BD /* CompanyCommentReviewsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyCommentReviewsModel.h; sourceTree = "<group>"; };
-		18A0DB9421B12C1B0065B2BD /* CompanyCommentReviewsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyCommentReviewsModel.m; sourceTree = "<group>"; };
+		18A0DB9321B12C1B0065B2BD /* CompanyReviewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyReviewModel.h; sourceTree = "<group>"; };
+		18A0DB9421B12C1B0065B2BD /* CompanyReviewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyReviewModel.m; sourceTree = "<group>"; };
 		18A0DB9721B1370F0065B2BD /* CircleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleProgressView.m; sourceTree = "<group>"; };
 		18A0DB9821B1370F0065B2BD /* CircleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleProgressView.h; sourceTree = "<group>"; };
 		18A0DBA021B1877F0065B2BD /* icon_arrow_down_small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_arrow_down_small@3x.png"; sourceTree = "<group>"; };
@@ -2149,6 +2149,8 @@
 				183B048721C286DE00D26BB3 /* CareerAddReviewViewController.m */,
 				18945E1621C63E480028D1CD /* CompanyExistsReviewsViewController.h */,
 				18945E1721C63E480028D1CD /* CompanyExistsReviewsViewController.m */,
+				1845BC9221C947880026A1B1 /* CompanyReviewsViewController.h */,
+				1845BC9321C947880026A1B1 /* CompanyReviewsViewController.m */,
 			);
 			path = reviews;
 			sourceTree = "<group>";
@@ -3463,10 +3465,8 @@
 				A3BA6DDD21AEC05800D83156 /* JobBookmarkModel.m */,
 				A3BA6E0721B13D4E00D83156 /* JobApplyModel.h */,
 				A3BA6E0821B13D4E00D83156 /* JobApplyModel.m */,
-				18A0DB9021B129610065B2BD /* CompanyCommentModel.h */,
-				18A0DB9121B129610065B2BD /* CompanyCommentModel.m */,
-				18A0DB9321B12C1B0065B2BD /* CompanyCommentReviewsModel.h */,
-				18A0DB9421B12C1B0065B2BD /* CompanyCommentReviewsModel.m */,
+				18A0DB9321B12C1B0065B2BD /* CompanyReviewModel.h */,
+				18A0DB9421B12C1B0065B2BD /* CompanyReviewModel.m */,
 				A3BA6E0E21B506D600D83156 /* CompanyJobsModel.h */,
 				A3BA6E0F21B506D600D83156 /* CompanyJobsModel.m */,
 				18A0DBAF21B51DF40065B2BD /* CompanyMediaModel.h */,
@@ -4790,7 +4790,6 @@
 				4E19573E2137D0F100420563 /* PermissionNetworkFields.m in Sources */,
 				4E846F73213E781100DC2B51 /* CommSelectTableViewCell.m in Sources */,
 				4E528AD3216DF9E5008C151B /* SBControlView.m in Sources */,
-				18A0DB9221B129610065B2BD /* CompanyCommentModel.m in Sources */,
 				18D4BA1921AEDC95004CFB4B /* CompanyReviewHeaderTableViewCell.m in Sources */,
 				18B83B1B2173557D00130DB6 /* YBVideoBrowseCellData.m in Sources */,
 				4E2A4FAB21A3E70C0049E1F2 /* UITableView+JRTableViewPlaceHolder.m in Sources */,
@@ -4819,7 +4818,7 @@
 				A3B340B321C14A8D008EB36A /* TopLeftLabel.m in Sources */,
 				4E94ADC321ACE8D0009CAB7F /* CareerFindJobViewController.m in Sources */,
 				4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */,
-				18A0DB9521B12C1B0065B2BD /* CompanyCommentReviewsModel.m in Sources */,
+				18A0DB9521B12C1B0065B2BD /* CompanyReviewModel.m in Sources */,
 				4E1957432137D0F100420563 /* LinkedinAuthorizationNavBar.m in Sources */,
 				4E23522C213D12CB003BA59B /* UpdateViewController.m in Sources */,
 				4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */,
@@ -4888,6 +4887,7 @@
 				4E846F952140FCD200DC2B51 /* EditResidencyViewController.m in Sources */,
 				A3B340BA21C272FF008EB36A /* UIImageViewLoading.m in Sources */,
 				18B83B112173557D00130DB6 /* YBIBLayoutDirectionManager.m in Sources */,
+				1845BC9421C947880026A1B1 /* CompanyReviewsViewController.m in Sources */,
 				18CFB0F0216EF285002CC9D0 /* RMDownloadIndicator.m in Sources */,
 				A3BA6DDE21AEC05800D83156 /* JobBookmarkModel.m in Sources */,
 				A99176FD2176D7A300788D2C /* DataControl.m in Sources */,

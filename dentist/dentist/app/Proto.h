@@ -24,6 +24,7 @@
 @class JobBookmarkModel;
 @class JobApplyModel;
 @class JobDSOModel;
+@class JobAlertsModel;
 
 @interface Proto : NSObject
 
@@ -275,5 +276,10 @@
 
 //获取career首页图片接口
 + (void)findExtensionCompleted:(void(^)(NSString *picUrl))completed;
-
+//MARK:2.22    职位提醒列表接口
++ (void)queryRemindsByUserId:(NSInteger)skip completed:(void(^)(NSArray<JobAlertsModel *> *array,NSInteger totalCount))completed ;
+//MARK:2.21  添加职位提醒接口
++(void)addJobRemind:(NSString *_Nullable)keyword location:(NSString * _Nullable)location position:(NSArray * _Nullable)position distance:(NSInteger)distance frequency:(NSInteger)frequency status:(BOOL)status completed:(void(^)(HttpResult *result))completed;
+//MARK:2.23 职位提醒删除接口
++(void)deleteJobRemind:(NSString * _Nullable)alertId completed:(void(^)(HttpResult *result))completed;
 @end

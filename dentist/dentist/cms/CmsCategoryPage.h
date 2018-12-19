@@ -12,6 +12,7 @@
 @interface CmsCategoryPage : ListPage
 
 @property NSString *type;
+@property CMSModel *selectModel;
 
 - (Class)viewClassOfItem:(NSObject *)item;
 - (CGFloat)heightOfItem:(NSObject *)item;
@@ -23,4 +24,5 @@
 - (void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName;
 - (void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+- (void) handleTextFieldBlock: (UITextField *) textField;
 @end

@@ -146,32 +146,21 @@
     }
 }
 
--(void)markAction:(UIButton *)sender
-{
-//    if (_model.isBookmark) {
-//        [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
-//    }else{
-//        [markButton setImage:[UIImage imageNamed:@"book9-light"] forState:UIControlStateNormal];
-//    }
+-(void)markAction:(UIButton *)sender {
     if(self.delegate && [self.delegate respondsToSelector:@selector(articleMarkAction:)]){
         [self.delegate articleMarkAction:_model.id];
     }
     if(self.delegate && [self.delegate respondsToSelector:@selector(articleMarkActionView:view:)]){
         [self.delegate articleMarkActionView:_cmsmodel view:self];
     }
-    
 }
 
--(void)showFilter
-{
+-(void)showFilter {
     DentistPickerView *picker = [[DentistPickerView alloc]init];
-    
     picker.leftTitle=localStr(@"Category");
     picker.righTtitle=localStr(@"Cancel");
     [picker show:^(NSString *result,NSString *resultname) {
-        
     } rightAction:^(NSString *result,NSString *resultname) {
-        
     } selectAction:^(NSString *result,NSString *resultname) {
         if(self.delegate && [self.delegate respondsToSelector:@selector(GSKCategoryPickerSelectAction:)]){
             [self.delegate GSKCategoryPickerSelectAction:result];
@@ -183,6 +172,4 @@
         });
     }];
 }
-
-
 @end

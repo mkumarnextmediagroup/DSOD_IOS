@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AFNetworking.h>
 #import "ArticleItemViewDelegate.h"
+#import "AFURLSessionManager.h"
 @class Article;
 @class RMDownloadIndicator;
 @class CMSModel;
@@ -26,4 +27,7 @@
 @property (assign, nonatomic)CGFloat downloadedBytes;
 -(void) bind:(Article*)item ;
 -(void) bindCMS:(CMSModel*)item;
+-(AFURLSessionManager *)manager;
+-(void)updateProgressView:(CGFloat)val;
+-(void)moreAction:(UIButton *)sender;
 @end

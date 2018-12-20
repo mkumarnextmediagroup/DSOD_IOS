@@ -149,6 +149,7 @@
 		439D55EB2189DBFA003BB940 /* ProfileEditPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 439D55EA2189DBFA003BB940 /* ProfileEditPageTests.m */; };
 		43A196CF2190A12B006E90CC /* EditExperiencePageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A196CE2190A12B006E90CC /* EditExperiencePageTests.m */; };
 		43A8D52321CBDBD300CE8FBD /* DownloadsItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A8D52221CBDBD300CE8FBD /* DownloadsItemViewTests.m */; };
+		43A8D52621CBEE1200CE8FBD /* GSKItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A8D52521CBEE1200CE8FBD /* GSKItemViewTests.m */; };
 		43B7252D217650FF000F6797 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252C217650FF000F6797 /* ExampleTests.m */; };
 		43B72530217651A8000F6797 /* KiwiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252F217651A8000F6797 /* KiwiTests.m */; };
 		43D98CAD219DAE04004C3FBD /* FontsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D98CAC219DAE04004C3FBD /* FontsTests.m */; };
@@ -1127,6 +1128,7 @@
 		439D55EA2189DBFA003BB940 /* ProfileEditPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileEditPageTests.m; sourceTree = "<group>"; };
 		43A196CE2190A12B006E90CC /* EditExperiencePageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditExperiencePageTests.m; sourceTree = "<group>"; };
 		43A8D52221CBDBD300CE8FBD /* DownloadsItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadsItemViewTests.m; sourceTree = "<group>"; };
+		43A8D52521CBEE1200CE8FBD /* GSKItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSKItemViewTests.m; sourceTree = "<group>"; };
 		43B7251E21764CF4000F6797 /* dentistTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dentistTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43B7252221764CF4000F6797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43B7252C217650FF000F6797 /* ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleTests.m; sourceTree = "<group>"; };
@@ -2434,6 +2436,7 @@
 		4341949021A597320029AECE /* CMS */ = {
 			isa = PBXGroup;
 			children = (
+				43A8D52421CBEE0500CE8FBD /* GSKItemView */,
 				43A8D52121CBDBC500CE8FBD /* DownloadsItemView */,
 				4307936E21CA99C5003C5BF0 /* BookMarkItemView */,
 				4307936B21CA8842003C5BF0 /* ArticleItemView */,
@@ -2502,6 +2505,14 @@
 				43A8D52221CBDBD300CE8FBD /* DownloadsItemViewTests.m */,
 			);
 			path = DownloadsItemView;
+			sourceTree = "<group>";
+		};
+		43A8D52421CBEE0500CE8FBD /* GSKItemView */ = {
+			isa = PBXGroup;
+			children = (
+				43A8D52521CBEE1200CE8FBD /* GSKItemViewTests.m */,
+			);
+			path = GSKItemView;
 			sourceTree = "<group>";
 		};
 		43B7251F21764CF4000F6797 /* dentistTests */ = {
@@ -4782,6 +4793,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43A8D52621CBEE1200CE8FBD /* GSKItemViewTests.m in Sources */,
 				43D98CAD219DAE04004C3FBD /* FontsTests.m in Sources */,
 				43952B452190704900EB3443 /* EditPracticeAddressViewControllerTests.m in Sources */,
 				43277E8C217F4F6A008B3240 /* DSOWebViewControllerTests.m in Sources */,

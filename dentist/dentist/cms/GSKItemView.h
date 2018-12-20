@@ -29,5 +29,6 @@
 -(void) bind:(Article*)item ;
 -(void) bindCMS:(CMSModel*)item;
 -(void) updateBookmarkStatus:(BOOL)ismark;
+-(void)showFilter;
 
 @end

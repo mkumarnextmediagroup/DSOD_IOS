@@ -10,6 +10,7 @@
 #import "Common.h"
 #import "Proto.h"
 #import "CompanyExistsReviewsTableViewCell.h"
+#import "AppDelegate.h"
 
 @interface CompanyExistsReviewsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -49,13 +50,32 @@
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
     item.title = @"REVIEWS";
-    item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
+    item.leftBarButtonItem = [self navBarBack:self action:@selector(backToFirst)];
     
     iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     iv.tag = 998;
     iv.backgroundColor = [UIColor clearColor];
     iv.center = item.rightBarButtonItem.customView.center;
     item.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:iv];
+}
+
+- (void)backToFirst
+{
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+    [tabvc setSelectedIndex:0];
+    NSArray *viewcontrollers=self.navigationController.viewControllers;
+    if (viewcontrollers.count>1) {
+        if ([viewcontrollers objectAtIndex:viewcontrollers.count-1]==self) {
+            //push方式
+            [self.navigationController popViewControllerAnimated:NO];
+        }
+    }
+    else{
+        //present方式
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
+    
 }
 
 -(void)buildView{

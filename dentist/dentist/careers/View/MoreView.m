@@ -80,15 +80,15 @@ static dispatch_once_t onceToken;
     btn1.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
     btn1.tag=1;
     
-    btn2 = [[UIButton alloc] initWithFrame:btn1.frame];
-    [btn2 setImage:[UIImage imageNamed:@"more-notification"] forState:UIControlStateNormal];
-    [btn2 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [btn2 setTitle:@"Notifications" forState:UIControlStateNormal];
-    btn2.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
-    btn2.titleLabel.font = [UIFont systemFontOfSize:12];
-    btn2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    btn2.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
-    btn2.tag=2;
+//    btn2 = [[UIButton alloc] initWithFrame:btn1.frame];
+//    [btn2 setImage:[UIImage imageNamed:@"more-notification"] forState:UIControlStateNormal];
+//    [btn2 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [btn2 setTitle:@"Notifications" forState:UIControlStateNormal];
+//    btn2.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
+//    btn2.titleLabel.font = [UIFont systemFontOfSize:12];
+//    btn2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+//    btn2.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
+//    btn2.tag=2;
     
     btn3 = [[UIButton alloc] initWithFrame:btn1.frame];
     [btn3 setImage:[UIImage imageNamed:@"more-reviews"] forState:UIControlStateNormal];
@@ -110,7 +110,7 @@ static dispatch_once_t onceToken;
     btn4.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 6);
     btn4.tag=4;
     
-    [self addSubview:btn2];
+//    [self addSubview:btn2];
     [self addSubview:btn3];
     [self addSubview:btn1];
     [self addSubview:btn4];
@@ -145,16 +145,16 @@ static dispatch_once_t onceToken;
         frame1.origin.y -= 50;
         [btn1 setFrame:frame1];
         
-        CGRect frame2 = btn2.frame;
-        frame2.origin.y -= 120;
-        [btn2 setFrame:frame2];
+//        CGRect frame2 = btn2.frame;
+//        frame2.origin.y -= 120;
+//        [btn2 setFrame:frame2];
         
         CGRect frame3 = btn3.frame;
-        frame3.origin.y -= 190;
+        frame3.origin.y -= 120;//190;
         [btn3 setFrame:frame3];
         
         CGRect frame4 = btn4.frame;
-        frame4.origin.y -= 260;
+        frame4.origin.y -= 190;//260;
         [btn4 setFrame:frame4];
         
         [UIView commitAnimations];
@@ -169,16 +169,16 @@ static dispatch_once_t onceToken;
         frame1.origin.y += 50;
         [btn1 setFrame:frame1];
         
-        CGRect frame2 = btn2.frame;
-        frame2.origin.y += 120;
-        [btn2 setFrame:frame2];
+//        CGRect frame2 = btn2.frame;
+//        frame2.origin.y += 120;
+//        [btn2 setFrame:frame2];
         
         CGRect frame3 = btn3.frame;
-        frame3.origin.y += 190;
+        frame3.origin.y += 120;//190;
         [btn3 setFrame:frame3];
         
         CGRect frame4 = btn4.frame;
-        frame4.origin.y += 260;
+        frame4.origin.y += 190;//260;
         [btn4 setFrame:frame4];
         
         [UIView commitAnimations];

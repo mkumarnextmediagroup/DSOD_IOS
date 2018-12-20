@@ -46,7 +46,7 @@
     _alerModel=alerModel;
     if (_alerModel) {
         titleLabel.text=[NSString stringWithFormat:@"%@",_alerModel.keyword];
-        desLabel.text=[NSString stringWithFormat:@"%@ | %@",alerModel.location,@(_alerModel.distance)];
+        desLabel.text=[NSString stringWithFormat:@"%@ | %@ miles",alerModel.location,@(_alerModel.distance)];
     }
     
 

@@ -363,9 +363,22 @@
             [Proto deleteJobBookmark:followid completed:^(HttpResult *result) {
                 NSLog(@"result=%@",@(result.code));
                 foreTask(^() {
-                    [self.navigationController.view hideToast];
-                    [self->followArr removeObjectAtIndex:indexPath.row];
-                    [self->myTable reloadData];
+                    if(result.OK){
+                        [self.navigationController.view hideToast];
+                        [self->followArr removeObjectAtIndex:indexPath.row];
+                        [self->myTable reloadData];
+                    }else{
+                        NSString *message=result.msg;
+                        if([NSString isBlankString:message]){
+                            message=@"Failed";
+                        }
+                        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                        [window makeToast:message
+                                 duration:1.0
+                                 position:CSToastPositionBottom];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                    
                 });
             }];
         }

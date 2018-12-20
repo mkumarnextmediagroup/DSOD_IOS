@@ -579,6 +579,12 @@
 	return r;
 }
 
++ (HttpResult *)updateSaveResume:(NSString *)document email:(NSString *)email
+{
+    NSDictionary *d = @{@"document_name": document, @"email": email};
+    return [self postBody:@"userProfile/saveDocument" dic:@{@"document_library": d} modular:@"profile"];
+}
+
 + (void)linkedinLogin:(NSString *)token userid:(NSString *)userid {
 	putUserToken(userid, token);
 	putLastAccount(userid);
@@ -2096,9 +2102,9 @@
 {
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     if (jobId) {
-        [paradic setObject:jobId forKey:@"jobId"];
+        [paradic setObject:jobId forKey:@"id"];
     }
-    [self postAsync2:@"bookmark/deleteOneByUserIdAndJobId" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+    [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
         if (completed) {
             completed(r);
         }

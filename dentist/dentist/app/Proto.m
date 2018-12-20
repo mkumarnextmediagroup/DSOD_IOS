@@ -579,6 +579,12 @@
 	return r;
 }
 
++ (HttpResult *)updateSaveResume:(NSString *)document email:(NSString *)email
+{
+    NSDictionary *d = @{@"document_name": document, @"email": email};
+    return [self postBody:@"userProfile/saveDocument" dic:@{@"document_library": d} modular:@"profile"];
+}
+
 + (void)linkedinLogin:(NSString *)token userid:(NSString *)userid {
 	putUserToken(userid, token);
 	putLastAccount(userid);

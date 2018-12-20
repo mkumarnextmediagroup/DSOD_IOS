@@ -22,6 +22,7 @@
 #import "MapViewController.h"
 #import "CareerAddReviewViewController.h"
 #import <Social/Social.h>
+#import "UserInfo.h"
 #import "UploadResumeView.h"
 
 @interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,UploadResumeViewDelegate,UIDocumentPickerDelegate,HttpProgress>
@@ -49,6 +50,7 @@
     UIButton *attentionButton;
     UIView *sectionHeaderView;
     UploadResumeView *uploadView;
+    UserInfo *_userInfo;
     
     int edge;
     int navBarOffset;
@@ -123,6 +125,9 @@
             }
         }
     }];
+    
+    _userInfo = [Proto lastUserInfo];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -442,7 +447,6 @@
 - (void)uploadResume
 {
     NSLog(@"resume btn click");
-    //此处需要判断用户是否上传了简历
     if (@available(iOS 11.0, *)) {
         UIDocumentPickerViewController *pickerVC = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"com.adobe.pdf",@"org.openxmlformats.wordprocessingml.document",@"com.microsoft.word.doc"] inMode:UIDocumentPickerModeImport];
         pickerVC.delegate = self;
@@ -459,49 +463,38 @@
 }
 
 -(void)applyNow{
-    //    [self.view makeToast:@"applyNow"];
     
-    uploadView = [UploadResumeView initUploadView:self.presentControl];
-    uploadView.delegate = self;
-    [uploadView show];
-//
-//    double delayInSeconds = 4.0;
-//    dispatch_time_t doTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds);
-//    dispatch_after(doTime, dispatch_get_main_queue(), ^{
-//        [uploadView scrollToSubmit];
-//
-//
-//        double delayInSeconds2 = 2.0;
-//        dispatch_time_t doTime2 = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds2);
-//        dispatch_after(doTime2, dispatch_get_main_queue(), ^{
-//            [uploadView scrollToDone];
-//        });
-//
-//    });
+    if (![NSString isBlankString:_userInfo.resume_name]) {//have upload the resume
+        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Applying to Job…" ishowActivity:YES];
+        [window showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+        [Proto addJobApplication:_jobId completed:^(HttpResult *result) {
+            NSLog(@"result=%@",@(result.code));
+            foreTask(^() {
+                [window hideToast];
+                if (result.OK) {
+                    //
+                    [self setApplyButtonEnable:NO];
+                }else{
+                    NSString *message=result.msg;
+                    if([NSString isBlankString:message]){
+                        message=@"Failed";
+                    }
     
-    
-//    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-//    UIView *dsontoastview=[DsoToast toastViewForMessage:@"Applying to Job…" ishowActivity:YES];
-//    [window showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-//    [Proto addJobApplication:_jobId completed:^(HttpResult *result) {
-//        NSLog(@"result=%@",@(result.code));
-//        foreTask(^() {
-//            [window hideToast];
-//            if (result.OK) {
-//                //
-//                [self setApplyButtonEnable:NO];
-//            }else{
-//                NSString *message=result.msg;
-//                if([NSString isBlankString:message]){
-//                    message=@"Failed";
-//                }
-//
-//                [window makeToast:message
-//                         duration:1.0
-//                         position:CSToastPositionBottom];
-//            }
-//        });
-//    }];
+                    [window makeToast:message
+                             duration:1.0
+                             position:CSToastPositionBottom];
+                }
+            });
+        }];
+
+    }else
+    {
+        uploadView = [UploadResumeView initUploadView:self.presentControl];
+        uploadView.delegate = self;
+        [uploadView show];
+        
+    }
 }
 
 #pragma mark ---UIDocumentPickerDelegate
@@ -533,6 +526,12 @@
                 id name = result.resultMap[@"resumeName"];
                 if (result.OK && name != nil && name != NSNull.null) {
                     [self->uploadView scrollToDone];
+                    
+                    //do the update resume
+                    [Proto updateSaveResume:name email:getLastAccount()];
+                    
+                    self->_userInfo = [Proto getProfileInfo];
+                    
                 }else{
                     [self alertMsg:result.msg?result.msg:@"Upload resume fail" onOK:^{
                         

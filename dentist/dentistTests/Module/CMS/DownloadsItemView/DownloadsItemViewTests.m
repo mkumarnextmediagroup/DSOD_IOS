@@ -1,25 +1,23 @@
 //
-//  BookMarkItemViewTests.m
+//  DownloadsItemViewTests.m
 //  dentistTests
 //
-//  Created by Su Ho V. on 12/19/18.
+//  Created by Su Ho V. on 12/20/18.
 //  Copyright © 2018 thenextmediagroup.com. All rights reserved.
 //
 
 #import "Kiwi.h"
-#import "BookMarkItemView.h"
+#import "DownloadsItemView.h"
 #import "Article.h"
-#import "BookmarkModel.h"
+#import "CMSModel.h"
 
-SPEC_BEGIN(BookMarkItemViewTests)
-describe(@"Unit Test For BookMarkItemView", ^{
-    __block BookMarkItemView *view;
+SPEC_BEGIN(DownloadsItemViewTests)
+describe(@"Unit Test For DownloadsItemView", ^{
+    __block DownloadsItemView *view;
 
     beforeEach(^{
-        view = [BookMarkItemView new];
+        view = [DownloadsItemView new];
     });
-
-    context(@"properties", ^{});
 
     context(@"methods", ^{
         it(@"bind", ^{
@@ -69,56 +67,65 @@ describe(@"Unit Test For BookMarkItemView", ^{
             [[theValue(view) shouldNot] beNil];
         });
 
+        it(@"manager", ^{
+            AFURLSessionManager *manager = [view manager];
+            [[theValue(manager) shouldNot] beNil];
+        });
+
         it(@"bindCMS", ^{
-            [view bindCMS:[BookmarkModel new]];
+            [view bindCMS:[CMSModel new]];
             [[theValue(view) shouldNot] beNil];
         });
 
         it(@"bindCMS with VIDEOS", ^{
-            BookmarkModel *model = [BookmarkModel new];
+            CMSModel *model = [CMSModel new];
             model.contentTypeName = @"VIDEOS";
             [view bindCMS:model];
             [[theValue(view) shouldNot] beNil];
         });
 
         it(@"bindCMS with PODCASTS", ^{
-            BookmarkModel *model = [BookmarkModel new];
+            CMSModel *model = [CMSModel new];
             model.contentTypeName = @"PODCASTS";
             [view bindCMS:model];
             [[theValue(view) shouldNot] beNil];
         });
 
         it(@"bindCMS with INTERVIEWS", ^{
-            BookmarkModel *model = [BookmarkModel new];
+            CMSModel *model = [CMSModel new];
             model.contentTypeName = @"INTERVIEWS";
             [view bindCMS:model];
             [[theValue(view) shouldNot] beNil];
         });
 
         it(@"bindCMS with TECH GUIDES", ^{
-            BookmarkModel *model = [BookmarkModel new];
+            CMSModel *model = [CMSModel new];
             model.contentTypeName = @"TECH GUIDES";
             [view bindCMS:model];
             [[theValue(view) shouldNot] beNil];
         });
 
         it(@"bindCMS with ANIMATIONS", ^{
-            BookmarkModel *model = [BookmarkModel new];
+            CMSModel *model = [CMSModel new];
             model.contentTypeName = @"ANIMATIONS";
             [view bindCMS:model];
             [[theValue(view) shouldNot] beNil];
         });
 
         it(@"bindCMS with TIP SHEETS", ^{
-            BookmarkModel *model = [BookmarkModel new];
-            model.coverthumbnailUrl = @"https://image.freepik.com/free-icon/test-quiz_318-86103.jpg";
+            CMSModel *model = [CMSModel new];
             model.contentTypeName = @"TIP SHEETS";
+            model.featuredMediaId = @"mediaId";
+            model.downstatus = @"5";
             [view bindCMS:model];
             [[theValue(view) shouldNot] beNil];
         });
 
-        it(@"markAction", ^{
-            [view markAction:NULL];
+//        -(void)updateProgressView:(CGFloat)val;
+//        -(void)moreAction:(UIButton *)sender;
+
+        it(@"updateProgressView", ^{
+            [view updateProgressView:10];
             [[theValue(view) shouldNot] beNil];
         });
     });

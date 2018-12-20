@@ -112,8 +112,11 @@
 
     }else if (btn.tag == 12)//review button click
     {
-        
-        [CompanyExistsReviewsViewController openBy:self];
+//        [CompanyExistsReviewsViewController openBy:self];
+        CompanyExistsReviewsViewController *companyVc = [CompanyExistsReviewsViewController new];
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:companyVc];
+        navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:navVC animated:NO completion:NULL];
     }else if (btn.tag == 10){
 //        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 //        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;

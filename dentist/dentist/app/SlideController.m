@@ -31,6 +31,7 @@
 #import "MoreView.h"
 #import "DSOProfilePage.h"
 #import "CareerMeViewController.h"
+#import "CompanyExistsReviewsViewController.h"
 
 @interface SlideController()<UITabBarControllerDelegate,UITabBarDelegate,MoreViewDelegate>
 
@@ -405,6 +406,17 @@
         if (![VC isKindOfClass:[CareerMeViewController class]]) {
             CareerMeViewController *mevc = [CareerMeViewController new];
             UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:mevc];
+            navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [VC presentViewController:navVC animated:NO completion:NULL];
+        }
+    }else if (index ==3){
+        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+        UINavigationController *nav = (UINavigationController *)tabvc.selectedViewController;
+        UIViewController *VC =nav.topViewController;
+        if (![VC isKindOfClass:[CompanyExistsReviewsViewController class]]) {
+            CompanyExistsReviewsViewController *companyVc = [CompanyExistsReviewsViewController new];
+            UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:companyVc];
             navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
             [VC presentViewController:navVC animated:NO completion:NULL];
         }

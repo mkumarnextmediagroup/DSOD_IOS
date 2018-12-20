@@ -17,6 +17,8 @@
 #import "PreviewResumeViewController.h"
 #import "AppDelegate.h"
 #import "SlideController.h"
+#import "NSDate+customed.h"
+#import "CareerAlertsAddViewController.h"
 
 @interface CareerMeViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
@@ -208,7 +210,22 @@
         if (indexPath.row==0) {
             cell.titleLabel.text=[NSString stringWithFormat:@"%@",_userInfo.fullName];
         }else if (indexPath.row==1) {
-            if (![NSString isBlankString:_userInfo.resume_name]) {
+            NSString *createtime;
+            if (![NSString isBlankString:_userInfo.resume_url]) {
+                NSArray *resumeurlarr=[_userInfo.resume_url componentsSeparatedByString:@"&"];
+                for (NSString *param in resumeurlarr) {
+                    if ([param rangeOfString:@"createTime"].location != NSNotFound){
+                        NSArray *paramarr=[param componentsSeparatedByString:@"="];
+                        if (paramarr.count>1) {
+                            createtime=paramarr[1];
+                        }
+                    }
+                }
+            }
+            if (![NSString isBlankString:createtime]) {
+                cell.desLabel.text=[NSString stringWithFormat:@"%@",[NSDate USDateLongFormatWithStringTimestamp:createtime]];
+            }
+            else if (![NSString isBlankString:_userInfo.resume_name]) {
                 cell.desLabel.text=[NSString stringWithFormat:@"%@",_userInfo.resume_name];
             }else{
                 cell.desLabel.text=@"No uploaded resume";

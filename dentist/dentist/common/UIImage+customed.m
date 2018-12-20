@@ -109,6 +109,19 @@
     return resultImage;
 }
 
++(UIImage *)getmakeImageWithView:(UIView *)view
+{
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0.0);
+    
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    return image;
+    
+}
+
 //+ (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)size
 //{
 //    if (image.size.width*size.height <= image.size.height*size.width) {

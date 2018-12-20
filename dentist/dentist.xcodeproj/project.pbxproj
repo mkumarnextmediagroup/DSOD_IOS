@@ -389,6 +389,8 @@
 		A36B9DC121CA509D00A54263 /* icons8-delete_forever@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A36B9DBE21CA509D00A54263 /* icons8-delete_forever@3x.png */; };
 		A36B9DC221CA509D00A54263 /* icons8-delete_forever.png in Resources */ = {isa = PBXBuildFile; fileRef = A36B9DBF21CA509D00A54263 /* icons8-delete_forever.png */; };
 		A36B9DC521CA532B00A54263 /* JobAlertsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A36B9DC421CA532B00A54263 /* JobAlertsModel.m */; };
+		A36B9DC821CB95BD00A54263 /* CareerAlertsAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A36B9DC721CB95BC00A54263 /* CareerAlertsAddViewController.m */; };
+		A36B9DCB21CBA46200A54263 /* TextFieldImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A36B9DCA21CBA46200A54263 /* TextFieldImageView.m */; };
 		A36BAFCE2190A3BE0026BD18 /* sponsor_nobel.png in Resources */ = {isa = PBXBuildFile; fileRef = A36BAFCB2190A3BD0026BD18 /* sponsor_nobel.png */; };
 		A36BAFCF2190A3BE0026BD18 /* sponsor_gsk.png in Resources */ = {isa = PBXBuildFile; fileRef = A36BAFCC2190A3BD0026BD18 /* sponsor_gsk.png */; };
 		A36BAFD02190A3BE0026BD18 /* sponsor_align.png in Resources */ = {isa = PBXBuildFile; fileRef = A36BAFCD2190A3BD0026BD18 /* sponsor_align.png */; };
@@ -1449,6 +1451,10 @@
 		A36B9DBF21CA509D00A54263 /* icons8-delete_forever.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-delete_forever.png"; sourceTree = "<group>"; };
 		A36B9DC321CA532B00A54263 /* JobAlertsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobAlertsModel.h; sourceTree = "<group>"; };
 		A36B9DC421CA532B00A54263 /* JobAlertsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobAlertsModel.m; sourceTree = "<group>"; };
+		A36B9DC621CB95BC00A54263 /* CareerAlertsAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CareerAlertsAddViewController.h; sourceTree = "<group>"; };
+		A36B9DC721CB95BC00A54263 /* CareerAlertsAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerAlertsAddViewController.m; sourceTree = "<group>"; };
+		A36B9DC921CBA46200A54263 /* TextFieldImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextFieldImageView.h; sourceTree = "<group>"; };
+		A36B9DCA21CBA46200A54263 /* TextFieldImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextFieldImageView.m; sourceTree = "<group>"; };
 		A36BAFCB2190A3BD0026BD18 /* sponsor_nobel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_nobel.png; sourceTree = "<group>"; };
 		A36BAFCC2190A3BD0026BD18 /* sponsor_gsk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_gsk.png; sourceTree = "<group>"; };
 		A36BAFCD2190A3BD0026BD18 /* sponsor_align.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_align.png; sourceTree = "<group>"; };
@@ -3676,6 +3682,8 @@
 				18D16FCE21C143D40017CCB6 /* MapViewController.m */,
 				A3B340D621C8E852008EB36A /* CareerMeViewController.h */,
 				A3B340D721C8E852008EB36A /* CareerMeViewController.m */,
+				A36B9DC621CB95BC00A54263 /* CareerAlertsAddViewController.h */,
+				A36B9DC721CB95BC00A54263 /* CareerAlertsAddViewController.m */,
 			);
 			path = careers;
 			sourceTree = "<group>";
@@ -3858,6 +3866,8 @@
 				C5EEA23D71D65F3BEC2AE0F4 /* TitleSwitchView.h */,
 				C5EEA2A238138DF4B4EE06F6 /* FromToView.m */,
 				C5EEA2716C786FCB7E7F0984 /* FromToView.h */,
+				A36B9DC921CBA46200A54263 /* TextFieldImageView.h */,
+				A36B9DCA21CBA46200A54263 /* TextFieldImageView.m */,
 			);
 			path = ItemViews;
 			sourceTree = "<group>";
@@ -4892,6 +4902,7 @@
 				182A1183219BF5D100C0E08D /* GDataXMLNode.m in Sources */,
 				4EF1097621B0D3260013C34C /* FilterView.m in Sources */,
 				A3729590219145F600B36409 /* UniteDetailCollectionViewCell.swift in Sources */,
+				A36B9DC821CB95BD00A54263 /* CareerAlertsAddViewController.m in Sources */,
 				A372959A219293F500B36409 /* DetinstDownloadManager.m in Sources */,
 				A3DF39A62189A280006F84DC /* TransitionDriver.swift in Sources */,
 				4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */,
@@ -5037,6 +5048,7 @@
 				C5EEA80345D17C8493BB8709 /* SearchPage.m in Sources */,
 				C5EEAAF068D2FF7E482A0CC2 /* LabelCheckView.m in Sources */,
 				A3DF399E2189A280006F84DC /* PageCollectionView.swift in Sources */,
+				A36B9DCB21CBA46200A54263 /* TextFieldImageView.m in Sources */,
 				18A23FDD21BBE40F006CB432 /* AllowMultiGestureTableView.m in Sources */,
 				C5EEAE6124816A6F31F4FA05 /* GroupListPage.m in Sources */,
 				4E474D4121B56EBC0002F5A1 /* CDZPicker.m in Sources */,

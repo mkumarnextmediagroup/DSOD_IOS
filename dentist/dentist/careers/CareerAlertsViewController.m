@@ -12,21 +12,41 @@
 #import "UIViewController+myextend.h"
 #import "UITableView+JRTableViewPlaceHolder.h"
 #import "CareerAlertsTableViewCell.h"
+#import "DsoToast.h"
+#import "UIImage+customed.h"
+#import "CareerAlertsAddViewController.h"
 
 @interface CareerAlertsViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSMutableArray *infoArr;
     UITableView *myTable;
+    NSIndexPath *editingIndexPath;
+    UIRefreshControl *refreshControl;
 }
 @end
 
 @implementation CareerAlertsViewController
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (myTable) {
+        [myTable reloadData];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     UINavigationItem *item = [self navigationItem];
     item.title = @"Alerts";
+//    UILabel *addlabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+//    addlabel.font=[UIFont systemFontOfSize:30];
+//    addlabel.text=@"+";//[Fonts semiBold:30]
+//    UIImage *addimage=[UIImage getmakeImageWithView:addlabel];
+    item.rightBarButtonItem = [self navBarText:@"+" textFont:[UIFont systemFontOfSize:30] target:self action:@selector(addClick)];//[self navBarImageBtn:addimage target:self action:@selector(addClick)];
+    
+    
     self.view.backgroundColor=[UIColor whiteColor];
     
     myTable = [UITableView new];
@@ -36,10 +56,23 @@
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
     [myTable registerClass:[CareerAlertsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([CareerAlertsTableViewCell class])];
-    [self createEmptyNotice];
     [self setupRefresh];
-
+    [self createEmptyNotice];
     // Do any additional setup after loading the view.
+}
+
+-(void)addClick
+{
+    
+    CareerAlertsAddViewController *addalertvc=[CareerAlertsAddViewController new];
+    addalertvc.alertsAddSuceess = ^{
+        [self->refreshControl beginRefreshing];
+        [self refreshClick:self->refreshControl];
+    };
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:addalertvc];
+    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:navVC animated:NO completion:NULL];
+//    [self.navigationController pushViewController:addalertvc animated:YES];
 }
 
 -(void)refreshData
@@ -59,11 +92,11 @@
 //MARK: 下拉刷新
 - (void)setupRefresh {
     NSLog(@"setupRefresh -- 下拉刷新");
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    self->refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refreshClick:) forControlEvents:UIControlEventValueChanged];
     [self->myTable addSubview:refreshControl];
-    [refreshControl beginRefreshing];
-    [self refreshClick:refreshControl];
+    [self->refreshControl beginRefreshing];
+    [self refreshClick:self->refreshControl];
 }
 
 //MARK: 下拉刷新触发,在此获取数据
@@ -95,7 +128,7 @@
         [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:30] install];
 //        UIView *createview=headerVi.addView;
 //        createview.backgroundColor=Colors.textDisabled;
-//        [[[[[createview.layoutMaker leftParent:20] rightParent:-20] below:tipLabel offset:30]  heightEq:44] install];
+//        [[[[[createview.layoutMaker leftParent:20] rightParent:-20] bottomParent:-30]  heightEq:44] install];
         return headerVi;
     } normalBlock:^(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:YES];
@@ -120,19 +153,142 @@
     }
     return cell;
 }
+
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //    return @"删除";
+    
+    return @"          ";
+}
+
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    self->editingIndexPath = indexPath;
+    [self.view setNeedsLayout];   // 触发-(void)viewDidLayoutSubviews
+}
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    self->editingIndexPath = nil;
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+// 点击左滑出现的按钮时触发
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    //执行删除逻辑
+    NSLog(@"========commitEditingStyle");
+    UIView *dsontoastview=[DsoToast toastViewForMessage:@"Remove from JobsRemind……" ishowActivity:YES];
+    [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+    if (self->infoArr && self->infoArr.count>indexPath.row) {
+        JobAlertsModel *model=self->infoArr[indexPath.row];
+        [Proto deleteJobRemind:model.id completed:^(HttpResult *result) {
+            foreTask(^{
+                [self.navigationController.view hideToast];
+                if (result.OK) {
+                    [self->infoArr removeObjectAtIndex:indexPath.row];
+                    [self->myTable reloadData];
+                }else{
+                    NSString *message=result.msg;
+                    if([NSString isBlankString:message]){
+                        message=@"Failed";
+                    }
+                    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                    [window makeToast:message
+                             duration:1.0
+                             position:CSToastPositionBottom];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            });
+            
+        }];
+    }
+    
 }
-*/
+
+
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    
+    if (self->editingIndexPath){
+        [self configSwipeButtons];
+    }
+}
+
+#pragma mark - configSwipeButtons
+- (void)configSwipeButtons{
+    // 获取选项按钮的reference
+    if (@available(iOS 11.0, *)){
+        
+        // iOS 11层级 (Xcode 9编译): UITableView -> UISwipeActionPullView
+        for (UIView *subview in self->myTable.subviews)
+        {
+            NSLog(@"%@-----%zd",subview,subview.subviews.count);
+            if ([subview isKindOfClass:NSClassFromString(@"UISwipeActionPullView")] && [subview.subviews count] >= 1)
+            {
+                // 和iOS 10的按钮顺序相反
+                
+                subview.backgroundColor = Colors.textDisabled;
+                UIButton *deleteButton = subview.subviews[0];
+                [self configDeleteButton:deleteButton];
+            }
+        }
+    }else{
+        // iOS 8-10层级: UITableView -> UITableViewCell -> UITableViewCellDeleteConfirmationView
+        CareerAlertsTableViewCell *tableCell = [self->myTable cellForRowAtIndexPath:self->editingIndexPath];
+        for (UIView *subview in tableCell.subviews)
+        {
+            if ([subview isKindOfClass:NSClassFromString(@"UITableViewCellDeleteConfirmationView")])
+            {
+                UIView *confirmView = (UIView *)[subview.subviews firstObject];
+                
+                //改背景颜色
+                
+                confirmView.backgroundColor = Colors.textDisabled;
+                
+                for (UIView *sub in confirmView.subviews)
+                {
+                    //添加图片
+                    if ([sub isKindOfClass:NSClassFromString(@"UIView")]) {
+                        
+                        UIView *deleteView = sub;
+                        UIImageView *imageView = [[UIImageView alloc] init];
+                        imageView.image = [UIImage imageNamed:@"address_cell_delete"];
+                        [deleteView addSubview:imageView];
+                        
+                        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.centerX.equalTo(deleteView);
+                            make.centerY.equalTo(deleteView);
+                        }];
+                    }
+                }
+                break;
+            }
+        }
+    }
+}
+
+- (void)configDeleteButton:(UIButton*)deleteButton{
+    if (deleteButton) {
+        [deleteButton setImage:[UIImage imageNamed:@"icons8-delete_forever"] forState:UIControlStateNormal];
+        [deleteButton addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventAllTouchEvents];
+        [deleteButton setBackgroundColor:Colors.textDisabled];
+        
+    }
+}
+
+//按钮的点击操作
+- (void)deleteAction:(UIButton *)sender{
+    NSLog(@"========deleteAction");
+    [self.view setNeedsLayout];
+    [sender setBackgroundColor:Colors.textDisabled];
+}
 
 @end

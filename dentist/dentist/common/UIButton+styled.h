@@ -14,6 +14,7 @@
 - (void)stylePrimary;
 
 - (void)styleSecondary;
+- (void)styleDisabled;
 
 - (void)styleWhite;
 

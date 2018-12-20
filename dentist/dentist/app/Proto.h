@@ -45,6 +45,8 @@
 
 + (HttpResult *)login:(NSString *)email pwd:(NSString *)pwd;
 
++ (HttpResult *)updateSaveResume:(NSString *)document email:(NSString *)email;
+
 //LinkedIn request
 + (HttpResult *)sendLinkedInInfo:(NSString *)access_token;
 

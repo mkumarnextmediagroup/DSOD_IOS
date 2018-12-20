@@ -21,8 +21,10 @@
 - (UIBarButtonItem *)navBarBack:(nullable id)target action:(SEL)action;
 
 - (UIBarButtonItem *)navBarText:(NSString *)text target:(nullable id)target action:(SEL)action;
+- (UIBarButtonItem *)navBarText:(NSString *)text textFont:(UIFont *)textFont target:(nullable id)target action:(SEL)action;
 
 - (UIBarButtonItem *)navBarImage:(NSString *)imageName target:(nullable id)target action:(SEL)action;
+- (UIBarButtonItem *)navBarImageBtn:(UIImage *)imagebtn target:(nullable id)target action:(SEL)action;
 
 - (UIBarButtonItem *)backBarButtonClose;
 

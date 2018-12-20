@@ -37,17 +37,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor=[UIColor whiteColor];
     UINavigationItem *item = [self navigationItem];
     item.title = @"Alerts";
+    
 //    UILabel *addlabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
 //    addlabel.font=[UIFont systemFontOfSize:30];
 //    addlabel.text=@"+";//[Fonts semiBold:30]
 //    UIImage *addimage=[UIImage getmakeImageWithView:addlabel];
+    
     item.rightBarButtonItem = [self navBarText:@"+" textFont:[UIFont systemFontOfSize:30] target:self action:@selector(addClick)];//[self navBarImageBtn:addimage target:self action:@selector(addClick)];
     
     
-    self.view.backgroundColor=[UIColor whiteColor];
+    
     
     myTable = [UITableView new];
     [self.view addSubview:myTable];
@@ -58,7 +60,7 @@
     [myTable registerClass:[CareerAlertsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([CareerAlertsTableViewCell class])];
     [self setupRefresh];
     [self createEmptyNotice];
-    // Do any additional setup after loading the view.
+
 }
 
 -(void)addClick

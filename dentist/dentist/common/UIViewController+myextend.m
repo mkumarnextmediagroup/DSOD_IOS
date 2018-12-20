@@ -64,9 +64,25 @@
 	return bi;
 }
 
+- (UIBarButtonItem *)navBarText:(NSString *)text textFont:(UIFont *)textFont target:(nullable id)target action:(SEL)action {
+    UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithTitle:text style:UIBarButtonItemStylePlain target:target action:action];
+    if ([text isEqualToString:@"Search"]) {
+        [bi setTitleTextAttributes:@{NSForegroundColorAttributeName: rgb255(211, 220, 227), NSFontAttributeName: textFont} forState:UIControlStateNormal];
+    }else
+    {
+        [bi setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: textFont} forState:UIControlStateNormal];
+    }
+    return bi;
+}
+
 - (UIBarButtonItem *)navBarImage:(NSString *)imageName target:(nullable id)target action:(SEL)action {
 	UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:imageName] style:UIBarButtonItemStylePlain target:target action:action];
 	return bi;
+}
+
+- (UIBarButtonItem *)navBarImageBtn:(UIImage *)imagebtn target:(nullable id)target action:(SEL)action {
+    UIBarButtonItem *bi = [[UIBarButtonItem alloc] initWithImage:imagebtn style:UIBarButtonItemStylePlain target:target action:action];
+    return bi;
 }
 
 - (UIBarButtonItem *)navBarBack:(nullable id)target action:(SEL)action {

@@ -64,6 +64,13 @@
 	[self setBackgroundImage:colorImage(makeSize(1, 1), Colors.buttonSecondaryActive) forState:UIControlStateHighlighted];
 }
 
+- (void)styleDisabled {
+    [self _styleCommmon];
+    [self setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+    [self setBackgroundImage:colorImage(makeSize(1, 1), Colors.textDisabled) forState:UIControlStateNormal];
+    [self setBackgroundImage:colorImage(makeSize(1, 1), Colors.buttonSecondaryActive) forState:UIControlStateHighlighted];
+}
+
 - (void)styleWhite {
 	[self _styleCommmon];
 	[self setTitleColor:Colors.textMain forState:UIControlStateNormal];

@@ -283,6 +283,10 @@
                     }
                 });
             });
+        }else{
+            ProfileViewController *profilevc=[ProfileViewController new];
+            profilevc.isSecond=YES;
+            [self.navigationController pushViewController:profilevc animated:YES];
         }
     }
 }

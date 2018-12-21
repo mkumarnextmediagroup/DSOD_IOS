@@ -123,6 +123,9 @@
             {
                 [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention"] forState:UIControlStateNormal];
             }
+            BOOL isApplication = [self->jobModel.isApplication boolValue];
+            [self setApplyButtonEnable:!isApplication];
+            self->attentionButton.hidden=isApplication;
         }
     }];
     
@@ -193,16 +196,19 @@
     applyNowBtn.layer.shadowRadius = 30;
     applyNowBtn.layer.shadowColor =  rgbHex(0xb6b6b6).CGColor;
     
-    
-    BOOL isApplication = [self->jobModel.isApplication boolValue];
-    [self setApplyButtonEnable:!isApplication];
 }
 
 -(void)setApplyButtonEnable:(BOOL)enable
 {
     UIButton *btn=(UIButton *)[contentView viewWithTag:99];
-    [btn setTitle:@"View similar jobs" forState:UIControlStateNormal];
     
+    if (enable) {
+        btn.userInteractionEnabled=YES;//交互关闭
+        btn.alpha=1.0;//透明度
+        [btn setTitle:@"Apply Now" forState:UIControlStateNormal];
+    }else{
+        [btn setTitle:@"View similar jobs" forState:UIControlStateNormal];
+    }
 }
 
 

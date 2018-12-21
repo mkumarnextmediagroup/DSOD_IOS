@@ -22,10 +22,12 @@
         editImageView = self.contentView.addButton;
         [editImageView setImage:[UIImage imageNamed:@"write"] forState:UIControlStateNormal];
         [[[[editImageView.layoutMaker rightParent:-25] centerYParent:0 ] sizeEq:30 h:30] install];
+        [editImageView addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
         
         alerImageView = self.contentView.addButton;
         [alerImageView setImage:[UIImage imageNamed:@"icons8-appointment_reminders_filled"] forState:UIControlStateNormal];
         [[[[alerImageView.layoutMaker toLeftOf:editImageView offset:-30] centerYParent:0 ] sizeEq:30 h:30] install];
+        [alerImageView addTarget:self action:@selector(alert:) forControlEvents:UIControlEventTouchUpInside];
         
         titleLabel = self.contentView.addLabel;
         titleLabel.font = [Fonts semiBold:16];
@@ -47,9 +49,33 @@
     if (_alerModel) {
         titleLabel.text=[NSString stringWithFormat:@"%@",_alerModel.keyword];
         desLabel.text=[NSString stringWithFormat:@"%@ | %@ miles",alerModel.location,@(_alerModel.distance)];
+        if(alerModel.status){
+            [alerImageView setImage:[UIImage imageNamed:@"icons8-appointment_reminders_filled"] forState:UIControlStateNormal];
+        }else{
+            [alerImageView setImage:[UIImage imageNamed:@"icons8-appointment_reminders"] forState:UIControlStateNormal];
+        }
     }
     
 
+}
+
+-(void)edit:(UIButton *)sender
+{
+    if (_alerModel) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(JobAlertsEditAction:)]) {
+            [self.delegate JobAlertsEditAction:_alerModel];
+        }
+    }
+    
+}
+
+-(void)alert:(UIButton *)sender
+{
+    if (_alerModel) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(JobAlertsAction:)]) {
+            [self.delegate JobAlertsAction:_alerModel];
+        }
+    }
 }
 
 - (void)awakeFromNib {

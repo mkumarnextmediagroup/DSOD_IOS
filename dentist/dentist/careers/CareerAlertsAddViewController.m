@@ -26,6 +26,8 @@
     NSString *currentCity;
     NSInteger distance;
     NSInteger frequency;
+    NSString *distancestr;
+    NSString *frequencystr;
     NSString *alertTitle;
 }
 @end
@@ -54,6 +56,42 @@
     
     UITapGestureRecognizer *tapViewBG =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
     [myTable addGestureRecognizer:tapViewBG];
+}
+
+-(void)setModel:(JobAlertsModel *)model
+{
+    _model=model;
+    if (_model) {
+        alertTitle=_model.keyword;
+        currentCity=model.location;
+        latLongArr=model.position;
+        distance=model.distance;
+        frequency=model.frequency;
+        if (distance==5) {
+            distancestr=@"5 miles";
+        }else if (distance==10) {
+            distancestr=@"10 miles";
+        }else if (distance==25) {
+            distancestr=@"25 miles";
+        }else if (distance==50) {
+            distancestr=@"50 miles";
+        }else if (distance==100) {
+            distancestr=@"100 miles";
+        }
+        
+        if (frequency==1) {
+            frequencystr=@"Daily";
+        }else if (frequency==5) {
+            frequencystr=@"Weekly";
+        }else if (frequency==7) {
+            frequencystr=@"Bi-Weekly";
+        }else if (frequency==30) {
+            frequencystr=@"Monthly";
+        }
+        
+            
+        
+    }
 }
 
 - (void)onTap:(id)sender{
@@ -120,17 +158,30 @@
     }
     newtext.edit.tag=indexPath.row;
     if (indexPath.row==0) {
+        if(alertTitle){
+            newtext.edit.text=alertTitle;
+        }
         titleLabel.text=@"Job title or keyword (optional)";
     }else if (indexPath.row==1){
+        if(currentCity){
+            newtext.edit.text=currentCity;
+        }
         newtext.iconView.image=[UIImage imageNamed:@"icons8-marker"];
         titleLabel.text=@"Location";
     }else if (indexPath.row==2){
+        if(distancestr){
+            newtext.edit.text=distancestr;
+        }
         newtext.iconView.image=[UIImage imageNamed:@"arrow_small"];
         titleLabel.text=@"Distance";
     }else if (indexPath.row==3){
+        if(frequencystr){
+            newtext.edit.text=frequencystr;
+        }
         newtext.iconView.image=[UIImage imageNamed:@"arrow_small"];
         titleLabel.text=@"Frequency";
     }
+    
     
     return cell;
 }
@@ -144,29 +195,66 @@
             self->alertTitle=textview.edit.text;
         }
     }
-    UIView *dsontoastview=[DsoToast toastViewForMessage:@"adding JobsRemind……" ishowActivity:YES];
-    [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-    [Proto addJobRemind:self->alertTitle location:self->currentCity position:self->latLongArr distance:self->distance frequency:self->frequency status:YES completed:^(HttpResult *result) {
-        foreTask(^{
-            [self.navigationController.view hideToast];
-            if (result.OK) {
-                if (self.alertsAddSuceess) {
-                    self.alertsAddSuceess();
+    if (_model) {
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"updateing JobsRemind……" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+        [Proto updateJobRemind:_model.id keyword:self->alertTitle location:self->currentCity position:self->latLongArr distance:self->distance frequency:self->frequency status:_model.status completed:^(HttpResult *result) {
+            foreTask(^{
+                [self.navigationController.view hideToast];
+                if (result.OK) {
+                    JobAlertsModel *newmodel=[JobAlertsModel new];
+                    newmodel.id=self->_model.id;
+                    newmodel.keyword=self->alertTitle;
+                    newmodel.location=self->currentCity;
+                    newmodel.position=self->latLongArr;
+                    newmodel.distance=self->distance;
+                    newmodel.frequency=self->frequency;
+                    newmodel.status=self->_model.status;
+                    newmodel.email=self->_model.email;
+                    newmodel.userId=self->_model.userId;
+                    if (self.alertsAddSuceess) {
+                        self.alertsAddSuceess(self->_model,newmodel);
+                    }
+                    [self onback];
+                }else{
+                    NSString *message=result.msg;
+                    if([NSString isBlankString:message]){
+                        message=@"Failed";
+                    }
+                    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                    [window makeToast:message
+                             duration:1.0
+                             position:CSToastPositionBottom];
+                    [self.navigationController popViewControllerAnimated:YES];
                 }
-                [self onback];
-            }else{
-                NSString *message=result.msg;
-                if([NSString isBlankString:message]){
-                    message=@"Failed";
+            });
+        }];
+    }else{
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"adding JobsRemind……" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+        [Proto addJobRemind:self->alertTitle location:self->currentCity position:self->latLongArr distance:self->distance frequency:self->frequency status:YES completed:^(HttpResult *result) {
+            foreTask(^{
+                [self.navigationController.view hideToast];
+                if (result.OK) {
+                    if (self.alertsAddSuceess) {
+                        self.alertsAddSuceess(nil,nil);
+                    }
+                    [self onback];
+                }else{
+                    NSString *message=result.msg;
+                    if([NSString isBlankString:message]){
+                        message=@"Failed";
+                    }
+                    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                    [window makeToast:message
+                             duration:1.0
+                             position:CSToastPositionBottom];
+                    [self.navigationController popViewControllerAnimated:YES];
                 }
-                UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-                [window makeToast:message
-                         duration:1.0
-                         position:CSToastPositionBottom];
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        });
-    }];
+            });
+        }];
+    }
+    
 }
 
 - (void)getCurrentLocation
@@ -203,6 +291,7 @@
         [self.view endEditing:YES];
         DentistPickerView *picker = [[DentistPickerView alloc]init];
         picker.array=@[@"5 miles",@"10 miles",@"25 miles",@"50 miles",@"100 miles"];
+        picker.selectId=self->distancestr;
         picker.leftTitle=localStr(@"Choose distance");
         picker.righTtitle=localStr(@"Cancel");
         [picker show:^(NSString *result,NSString *resultname) {
@@ -210,8 +299,9 @@
         } rightAction:^(NSString *result,NSString *resultname) {
             
         } selectAction:^(NSString *result,NSString *resultname) {
-            textField.text=resultname;
-            if(![NSString isBlankString:resultname]){
+            textField.text=result;
+            self->distancestr=result;
+            if(![NSString isBlankString:result]){
                 self->distance=[[resultname stringByReplacingOccurrencesOfString:@" miles" withString:@""] integerValue];
             }
         }];
@@ -220,6 +310,7 @@
         [self.view endEditing:YES];
         DentistPickerView *picker = [[DentistPickerView alloc]init];
         picker.array=@[@"Daily",@"Weekly",@"Bi-Weekly",@"Monthly"];
+        picker.selectId=self->frequencystr;
         picker.leftTitle=localStr(@"Choose frequency");
         picker.righTtitle=localStr(@"Cancel");
         [picker show:^(NSString *result,NSString *resultname) {
@@ -227,8 +318,9 @@
         } rightAction:^(NSString *result,NSString *resultname) {
             
         } selectAction:^(NSString *result,NSString *resultname) {
-            textField.text=resultname;
-            if (![NSString isBlankString:resultname]) {
+            textField.text=result;
+            self->frequencystr=result;
+            if (![NSString isBlankString:result]) {
                 if ([resultname isEqualToString:@"Daily"]) {
                     self->frequency=1;
                 }else if ([resultname isEqualToString:@"Weekly"]) {

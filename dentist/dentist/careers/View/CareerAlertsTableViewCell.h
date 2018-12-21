@@ -9,10 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "JobAlertsModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@protocol CareerAlertsTableViewCellDelegate <NSObject>
 
+@optional
+- (void)JobAlertsAction:(JobAlertsModel *)model;
+- (void)JobAlertsEditAction:(JobAlertsModel *)model;
+@end
 @interface CareerAlertsTableViewCell : UITableViewCell
 @property (nonatomic,strong) JobAlertsModel *alerModel;
+@property (nonatomic,weak) id<CareerAlertsTableViewCellDelegate> delegate;
 @end
 
-NS_ASSUME_NONNULL_END

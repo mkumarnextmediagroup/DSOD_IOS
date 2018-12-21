@@ -24,6 +24,7 @@
 #import <Social/Social.h>
 #import "UserInfo.h"
 #import "UploadResumeView.h"
+#import "AppDelegate.h"
 
 @interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,UploadResumeViewDelegate,UIDocumentPickerDelegate,HttpProgress>
 @property (nonatomic,strong) NSString *jobId;
@@ -470,47 +471,57 @@
 
 -(void)applyNow{
     
-    if (![NSString isBlankString:_userInfo.resume_name]) {//have upload the resume
-        
-        uploadView = [UploadResumeView initUploadView:self.presentControl];
-        [uploadView show];
-        uploadView.delegate = self;
-        [uploadView scrollToDone:NO];
-        [self applyForJob];//do the apply for job API
-
+    BOOL isApplication = [self->jobModel.isApplication boolValue];
+    if (isApplication) {//have applied,go to the jobs list
+        [self closePage];
+        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+        [tabvc setSelectedIndex:2];
     }else
     {
-        uploadView = [UploadResumeView initUploadView:self.presentControl];
-        uploadView.delegate = self;
-        [uploadView show];
-        
+        if (![NSString isBlankString:_userInfo.resume_name]) {//have upload the resume
+            
+            uploadView = [UploadResumeView initUploadView:self.presentControl];
+            [uploadView show];
+            uploadView.delegate = self;
+            [uploadView scrollToDone:NO];
+            [self applyForJob];//do the apply for job API
+            
+        }else
+        {
+            uploadView = [UploadResumeView initUploadView:self.presentControl];
+            uploadView.delegate = self;
+            [uploadView show];
+            
+        }
     }
+    
 }
 
 - (void)applyForJob
 {
-        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Applying to Job…" ishowActivity:YES];
-        [window showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-        [Proto addJobApplication:_jobId completed:^(HttpResult *result) {
-            NSLog(@"result=%@",@(result.code));
-            foreTask(^() {
-                [window hideToast];
-                if (result.OK) {
-                    //
-                    [self setApplyButtonEnable:NO];
-                }else{
-                    NSString *message=result.msg;
-                    if([NSString isBlankString:message]){
-                        message=@"Failed";
-                    }
-
-                    [window makeToast:message
-                             duration:1.0
-                             position:CSToastPositionBottom];
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    UIView *dsontoastview=[DsoToast toastViewForMessage:@"Applying to Job…" ishowActivity:YES];
+    [window showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+    [Proto addJobApplication:_jobId completed:^(HttpResult *result) {
+        NSLog(@"result=%@",@(result.code));
+        foreTask(^() {
+            [window hideToast];
+            if (result.OK) {
+                //
+                [self setApplyButtonEnable:NO];
+            }else{
+                NSString *message=result.msg;
+                if([NSString isBlankString:message]){
+                    message=@"Failed";
                 }
-            });
-        }];
+
+                [window makeToast:message
+                         duration:1.0
+                         position:CSToastPositionBottom];
+            }
+        });
+    }];
 }
 
 #pragma mark ---UIDocumentPickerDelegate

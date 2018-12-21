@@ -284,4 +284,6 @@
 +(void)addJobRemind:(NSString *_Nullable)keyword location:(NSString * _Nullable)location position:(NSArray * _Nullable)position distance:(NSInteger)distance frequency:(NSInteger)frequency status:(BOOL)status completed:(void(^)(HttpResult *result))completed;
 //MARK:2.23 职位提醒删除接口
 +(void)deleteJobRemind:(NSString * _Nullable)alertId completed:(void(^)(HttpResult *result))completed;
+//MARK:2.25  编辑职位提醒接口
++(void)updateJobRemind:(NSString *_Nullable)rid keyword:(NSString *_Nullable)keyword location:(NSString *_Nullable)location position:(NSArray *_Nullable)position distance:(NSInteger)distance frequency:(NSInteger)frequency status:(BOOL)status completed:(void(^)(HttpResult *result))completed;
 @end

@@ -2461,5 +2461,35 @@
     }];
 }
 
+//MARK:2.25  编辑职位提醒接口
++(void)updateJobRemind:(NSString *)rid keyword:(NSString *)keyword location:(NSString *)location position:(NSArray *)position distance:(NSInteger)distance frequency:(NSInteger)frequency status:(BOOL)status completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (rid) {
+        [paradic setObject:rid forKey:@"id"];
+    }
+    if (keyword) {
+        [paradic setObject:keyword forKey:@"keyword"];
+    }
+    if (location) {
+        [paradic setObject:location forKey:@"location"];
+    }
+    if (position) {
+        [paradic setObject:position forKey:@"position"];
+    }
+    if (distance>=0) {
+        [paradic setObject:[NSNumber numberWithInteger:distance] forKey:@"distance"];
+    }
+    if (frequency>=0) {
+        [paradic setObject:[NSNumber numberWithInteger:frequency] forKey:@"frequency"];
+    }
+    [paradic setObject:[NSNumber numberWithBool:status] forKey:@"status"];
+    [self postAsync3:@"remind/updateOneById" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r);
+        }
+    }];
+}
+
 
 @end

@@ -201,15 +201,8 @@
 -(void)setApplyButtonEnable:(BOOL)enable
 {
     UIButton *btn=(UIButton *)[contentView viewWithTag:99];
-    if (enable) {
-        btn.userInteractionEnabled=YES;//交互关闭
-        btn.alpha=1.0;//透明度
-        [btn setTitle:@"Apply Now" forState:UIControlStateNormal];
-    }else{
-        btn.userInteractionEnabled=NO;//交互关闭
-        btn.alpha=0.4;//透明度
-        [btn setTitle:@"Have Applied" forState:UIControlStateNormal];
-    }
+    [btn setTitle:@"View similar jobs" forState:UIControlStateNormal];
+    
 }
 
 
@@ -444,6 +437,13 @@
 
 #pragma mark UploadResumeDelegate
 
+- (void)clickOkBtn
+{
+    [self closePage];
+    [UploadResumeView hide];
+
+}
+
 - (void)uploadResume
 {
     NSLog(@"resume btn click");
@@ -465,6 +465,24 @@
 -(void)applyNow{
     
     if (![NSString isBlankString:_userInfo.resume_name]) {//have upload the resume
+        
+        uploadView = [UploadResumeView initUploadView:self.presentControl];
+        [uploadView show];
+        uploadView.delegate = self;
+        [uploadView scrollToDone:NO];
+        [self applyForJob];//do the apply for job API
+
+    }else
+    {
+        uploadView = [UploadResumeView initUploadView:self.presentControl];
+        uploadView.delegate = self;
+        [uploadView show];
+        
+    }
+}
+
+- (void)applyForJob
+{
         UIWindow *window = [[UIApplication sharedApplication] keyWindow];
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"Applying to Job…" ishowActivity:YES];
         [window showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
@@ -480,21 +498,13 @@
                     if([NSString isBlankString:message]){
                         message=@"Failed";
                     }
-    
+
                     [window makeToast:message
                              duration:1.0
                              position:CSToastPositionBottom];
                 }
             });
         }];
-
-    }else
-    {
-        uploadView = [UploadResumeView initUploadView:self.presentControl];
-        uploadView.delegate = self;
-        [uploadView show];
-        
-    }
 }
 
 #pragma mark ---UIDocumentPickerDelegate
@@ -525,11 +535,11 @@
             foreTask(^{
                 id name = result.resultMap[@"resumeName"];
                 if (result.OK && name != nil && name != NSNull.null) {
-                    [self->uploadView scrollToDone];
+                    [self->uploadView scrollToDone:YES];
                     
                     //do the update resume
                     [Proto updateSaveResume:name email:getLastAccount()];
-                    
+                    [self applyForJob];//do the apply for job API
                     self->_userInfo = [Proto getProfileInfo];
                     
                 }else{

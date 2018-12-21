@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (void)uploadResume;
+- (void)clickOkBtn;
 @end
 
 @interface UploadResumeView : UIView
@@ -25,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)hide;
 - (void)show;
 - (void)scrollToSubmit;
-- (void)scrollToDone;
+- (void)scrollToDone:(BOOL)isAnimate;
 @end
 
 NS_ASSUME_NONNULL_END

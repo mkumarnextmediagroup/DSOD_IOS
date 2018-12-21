@@ -16,7 +16,7 @@
 #import "UIImage+customed.h"
 #import "CareerAlertsAddViewController.h"
 
-@interface CareerAlertsViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface CareerAlertsViewController ()<UITableViewDelegate,UITableViewDataSource,CareerAlertsTableViewCellDelegate>
 {
     NSMutableArray *infoArr;
     UITableView *myTable;
@@ -67,9 +67,15 @@
 {
     
     CareerAlertsAddViewController *addalertvc=[CareerAlertsAddViewController new];
-    addalertvc.alertsAddSuceess = ^{
-        [self->refreshControl beginRefreshing];
-        [self refreshClick:self->refreshControl];
+    addalertvc.alertsAddSuceess = ^(JobAlertsModel * _Nonnull oldmodel, JobAlertsModel * _Nonnull newmodel) {
+        if (oldmodel && newmodel) {
+            NSInteger index=[self->infoArr indexOfObject:oldmodel];
+            [self->infoArr replaceObjectAtIndex:index withObject:newmodel];
+            [self->myTable reloadData];
+        }else{
+            [self->refreshControl beginRefreshing];
+            [self refreshClick:self->refreshControl];
+        }
     };
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:addalertvc];
     navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
@@ -105,7 +111,7 @@
 - (void)refreshClick:(UIRefreshControl *)refreshControl {
     NSLog(@"refreshClick: -- 刷新触发");
     [self refreshData];
-    [refreshControl endRefreshing];
+    [self->refreshControl endRefreshing];
 }
 
 - (void)createEmptyNotice
@@ -149,6 +155,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CareerAlertsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CareerAlertsTableViewCell class]) forIndexPath:indexPath];
+    cell.delegate=self;
     if (self->infoArr && self->infoArr.count>indexPath.row) {
         JobAlertsModel *model=self->infoArr[indexPath.row];
         cell.alerModel=model;
@@ -291,6 +298,59 @@
     NSLog(@"========deleteAction");
     [self.view setNeedsLayout];
     [sender setBackgroundColor:Colors.textDisabled];
+}
+
+#pragma mark ========CareerAlertsTableViewCellDelegate
+-(void)JobAlertsEditAction:(JobAlertsModel *)model
+{
+    CareerAlertsAddViewController *addalertvc=[CareerAlertsAddViewController new];
+    addalertvc.model=model;
+    addalertvc.alertsAddSuceess = ^(JobAlertsModel * _Nonnull oldmodel, JobAlertsModel * _Nonnull newmodel) {
+        if (oldmodel && newmodel) {
+            NSInteger index=[self->infoArr indexOfObject:oldmodel];
+            [self->infoArr replaceObjectAtIndex:index withObject:newmodel];
+            [self->myTable reloadData];
+        }else{
+            [self->refreshControl beginRefreshing];
+            [self refreshClick:self->refreshControl];
+        }
+    };
+    [self.navigationController pushViewController:addalertvc animated:YES];
+}
+
+-(void)JobAlertsAction:(JobAlertsModel *)model
+{
+    BOOL status=YES;
+    NSString *toastmsg=@"Unreminding....";
+    if (model.status) {
+        status=NO;
+        toastmsg=@"Reminding....";
+    }
+    
+    UIView *dsontoastview=[DsoToast toastViewForMessage:toastmsg ishowActivity:YES];
+    [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+    
+    [Proto updateJobRemind:model.id keyword:model.keyword location:model.location position:model.position distance:model.distance frequency:model.frequency status:status completed:^(HttpResult *result) {
+        foreTask(^{
+            [self.navigationController.view hideToast];
+            if (result.OK) {
+                NSInteger index=[self->infoArr indexOfObject:model];
+                model.status=status;
+                [self->infoArr replaceObjectAtIndex:index withObject:model];
+                [self->myTable reloadData];
+            }else{
+                NSString *message=result.msg;
+                if([NSString isBlankString:message]){
+                    message=@"Failed";
+                }
+                UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                [window makeToast:message
+                         duration:1.0
+                         position:CSToastPositionBottom];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        });
+    }];
 }
 
 @end

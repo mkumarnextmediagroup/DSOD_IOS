@@ -61,24 +61,8 @@ static dispatch_once_t onceToken;
     }];
 }
 
-- (void)sigleTappedPickerView:(UIGestureRecognizer *)sender
-{
-     CGPoint touchPoint = [sender locationInView:uploadView];
-    if (CGRectContainsPoint(self.frame, touchPoint)) {
-        NSLog(@"1111");
-    }else
-    {
-        NSLog(@"2222");
-    }
-}
-
 - (void)initUploadView
 {
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTappedPickerView:)];
-    [singleTap setNumberOfTapsRequired:1];
-    [self addGestureRecognizer:singleTap];
-    singleTap.delegate = self;
-    
     uploadView = [instance addView];
     uploadView.backgroundColor = [UIColor whiteColor];
     [[[[uploadView.layoutMaker leftParent:edge] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
@@ -191,7 +175,9 @@ static dispatch_once_t onceToken;
 
 - (void)okBtnClick
 {
-    [UploadResumeView hide];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(clickOkBtn)]){
+        [self.delegate clickOkBtn];
+    }
 }
 
 - (void)scrollToSubmit
@@ -204,16 +190,18 @@ static dispatch_once_t onceToken;
     }];
 }
 
-- (void)scrollToDone
+- (void)scrollToDone:(BOOL)isAnimate
 {
     
     [[[[submitView.layoutUpdate leftParent:SCREENWIDTH] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
     [[[[doneView.layoutUpdate leftParent:edge] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
     [[[[okBtn.layoutUpdate sizeEq:SCREENWIDTH-60 h:36] leftParent:30] bottomParent:-50] install];
-    [UIView animateWithDuration:1 animations:^{
-        [self layoutIfNeeded];
-    }];
-
+    if (isAnimate) {
+        [UIView animateWithDuration:1 animations:^{
+            [self layoutIfNeeded];
+        }];
+        
+    }
 }
 
 

@@ -50,9 +50,6 @@
 		lastView = v;
 	}
 }
-//- (void)layoutSubviews{
-//
-//}
 
 - (UIView *)addGrayLine:(CGFloat)marginLeft marginRight:(CGFloat)marginRight {
 	UIView *v = [UIView new];

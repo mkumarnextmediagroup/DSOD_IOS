@@ -141,6 +141,10 @@
 		4344660521A5674400811E94 /* UIViewExtTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4344660421A5674400811E94 /* UIViewExtTests.m */; };
 		43488F4E2199BAEB00FDC15E /* ColorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43488F4D2199BAEB00FDC15E /* ColorTests.m */; };
 		43595F9221B503E80028BA97 /* LinearPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43595F9121B503E80028BA97 /* LinearPageTests.m */; };
+		43597BF721CCC6070033E1C1 /* LinearVerViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43597BF621CCC6070033E1C1 /* LinearVerViewTests.m */; };
+		43597BFA21CCD0E80033E1C1 /* ContentPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43597BF921CCD0E80033E1C1 /* ContentPageTests.m */; };
+		43597BFD21CCDBD60033E1C1 /* ArticleGSkItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43597BFC21CCDBD60033E1C1 /* ArticleGSkItemViewTests.m */; };
+		436AAB0021CD31E90095C128 /* CmsArticleCategoryPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 436AAAFF21CD31E90095C128 /* CmsArticleCategoryPageTests.m */; };
 		437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */; };
 		4388150B218D4EF20066BCB6 /* SearchPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4388150A218D4EF20066BCB6 /* SearchPageTests.m */; };
 		438BA12821B4065D005246C5 /* CmsDownloadsControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */; };
@@ -1121,6 +1125,10 @@
 		4344660421A5674400811E94 /* UIViewExtTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIViewExtTests.m; sourceTree = "<group>"; };
 		43488F4D2199BAEB00FDC15E /* ColorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorTests.m; sourceTree = "<group>"; };
 		43595F9121B503E80028BA97 /* LinearPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearPageTests.m; sourceTree = "<group>"; };
+		43597BF621CCC6070033E1C1 /* LinearVerViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearVerViewTests.m; sourceTree = "<group>"; };
+		43597BF921CCD0E80033E1C1 /* ContentPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContentPageTests.m; sourceTree = "<group>"; };
+		43597BFC21CCDBD60033E1C1 /* ArticleGSkItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleGSkItemViewTests.m; sourceTree = "<group>"; };
+		436AAAFF21CD31E90095C128 /* CmsArticleCategoryPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsArticleCategoryPageTests.m; sourceTree = "<group>"; };
 		437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewControllerTests.m; sourceTree = "<group>"; };
 		4388150A218D4EF20066BCB6 /* SearchPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPageTests.m; sourceTree = "<group>"; };
 		438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsDownloadsControllerTests.m; sourceTree = "<group>"; };
@@ -2438,6 +2446,10 @@
 		4341949021A597320029AECE /* CMS */ = {
 			isa = PBXGroup;
 			children = (
+				436AAAFE21CD31D60095C128 /* CmsArticleCategoryPage */,
+				43597BFB21CCDBCD0033E1C1 /* ArticleGSkItemView */,
+				43597BF821CCD0DD0033E1C1 /* ContentPage */,
+				43597BF521CCC5EF0033E1C1 /* LinearVerView */,
 				43A8D52721CBF7C900CE8FBD /* LinearView */,
 				43A8D52421CBEE0500CE8FBD /* GSKItemView */,
 				43A8D52121CBDBC500CE8FBD /* DownloadsItemView */,
@@ -2480,6 +2492,38 @@
 				43595F9121B503E80028BA97 /* LinearPageTests.m */,
 			);
 			path = LinearPage;
+			sourceTree = "<group>";
+		};
+		43597BF521CCC5EF0033E1C1 /* LinearVerView */ = {
+			isa = PBXGroup;
+			children = (
+				43597BF621CCC6070033E1C1 /* LinearVerViewTests.m */,
+			);
+			path = LinearVerView;
+			sourceTree = "<group>";
+		};
+		43597BF821CCD0DD0033E1C1 /* ContentPage */ = {
+			isa = PBXGroup;
+			children = (
+				43597BF921CCD0E80033E1C1 /* ContentPageTests.m */,
+			);
+			path = ContentPage;
+			sourceTree = "<group>";
+		};
+		43597BFB21CCDBCD0033E1C1 /* ArticleGSkItemView */ = {
+			isa = PBXGroup;
+			children = (
+				43597BFC21CCDBD60033E1C1 /* ArticleGSkItemViewTests.m */,
+			);
+			path = ArticleGSkItemView;
+			sourceTree = "<group>";
+		};
+		436AAAFE21CD31D60095C128 /* CmsArticleCategoryPage */ = {
+			isa = PBXGroup;
+			children = (
+				436AAAFF21CD31E90095C128 /* CmsArticleCategoryPageTests.m */,
+			);
+			path = CmsArticleCategoryPage;
 			sourceTree = "<group>";
 		};
 		437AB90A2181F1B80026A71B /* Profile */ = {
@@ -4813,6 +4857,7 @@
 				43488F4E2199BAEB00FDC15E /* ColorTests.m in Sources */,
 				43065FE821BFF69A00D142B8 /* CmsCategoryPageTests.m in Sources */,
 				4341949321A598BE0029AECE /* CmsForYouPageTests.m in Sources */,
+				43597BF721CCC6070033E1C1 /* LinearVerViewTests.m in Sources */,
 				43595F9221B503E80028BA97 /* LinearPageTests.m in Sources */,
 				4335E27921B6B5EF00A10F7E /* CmsSearchPageTests.m in Sources */,
 				43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */,
@@ -4827,13 +4872,16 @@
 				43277E8E217F523B008B3240 /* RegControllerTests.m in Sources */,
 				4388150B218D4EF20066BCB6 /* SearchPageTests.m in Sources */,
 				4307937021CA99D9003C5BF0 /* BookMarkItemViewTests.m in Sources */,
+				43597BFA21CCD0E80033E1C1 /* ContentPageTests.m in Sources */,
 				43941292219F0378008C3092 /* UITextFieldExtTests.m in Sources */,
 				43A196CF2190A12B006E90CC /* EditExperiencePageTests.m in Sources */,
 				43277E88217F4D91008B3240 /* StudentControllerTests.m in Sources */,
 				43277E8A217F4E9E008B3240 /* TestPageTests.m in Sources */,
+				436AAB0021CD31E90095C128 /* CmsArticleCategoryPageTests.m in Sources */,
 				438BA12821B4065D005246C5 /* CmsDownloadsControllerTests.m in Sources */,
 				43B72530217651A8000F6797 /* KiwiTests.m in Sources */,
 				4344660321A5644C00811E94 /* UIScreenExtTests.m in Sources */,
+				43597BFD21CCDBD60033E1C1 /* ArticleGSkItemViewTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

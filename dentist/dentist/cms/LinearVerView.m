@@ -25,7 +25,6 @@
 
 	CGRect rect = [self bounds];
 	NSArray *array = [self childrenVisiable];
-	UIView *preView = nil;
 	CGFloat preY = rect.origin.y;
 	for (UIView *v in array) {
 		LayoutParam *lp = v.layoutParam;

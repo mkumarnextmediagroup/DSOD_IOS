@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>SF-UI-Text-Regular.ttf</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -56,10 +52,14 @@
 	<string>需要权限访问媒体资料库</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Dentist need to use your camera</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Dentist need to use your photos</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>获取当前位置，便于展示附近的信息</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Dentist need to use your photos</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SF-UI-Text-Regular.ttf</string>
+	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

@@ -44,8 +44,7 @@
     NSString *contenttype;
     DentistTabView *tabView;
     UILabel *titlecontent;
-     BOOL isdownrefresh;
-    CMSModel *selectModel;
+    BOOL isdownrefresh;
 }
 @property (nonatomic,strong) UIActivityIndicatorView *categoryiv;
 @end
@@ -224,7 +223,7 @@
 
 -(void)ArticleMoreActionModel:(CMSModel *)model
 {
-    selectModel=model;
+    _selectModel=model;
     NSLog(@"ArticleMoreAction=%@",model.id);
     NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
     DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
@@ -264,7 +263,6 @@
                              position:CSToastPositionBottom];
                     [self.navigationController popViewControllerAnimated:YES];
                 }
-                
             });
         }];
     }else{
@@ -312,10 +310,10 @@
         {
             NSLog(@"download click");
             //添加
-            if (selectModel) {
+            if (_selectModel) {
                 UIView *dsontoastview=[DsoToast toastViewForMessage:@"Download is Add…" ishowActivity:YES];
                 [self.navigationController.view showToast:dsontoastview duration:1.0 position:CSToastPositionBottom completion:nil];
-                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:selectModel addCompletion:^(BOOL result) {
+                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:_selectModel addCompletion:^(BOOL result) {
                     
                 } completed:^(BOOL result) {
                     
@@ -325,18 +323,18 @@
             break;
         case 1://---click the Share button
         {
-            if (selectModel) {
+            if (_selectModel) {
                 NSString *urlstr=@"";
-                NSString *title=[NSString stringWithFormat:@"%@",selectModel.title];
-                NSString* type = selectModel.featuredMedia[@"type"];
+                NSString *title=[NSString stringWithFormat:@"%@",_selectModel.title];
+                NSString* type = _selectModel.featuredMedia[@"type"];
                 if([type isEqualToString:@"1"] ){
                     //pic
-                    NSDictionary *codeDic = selectModel.featuredMedia[@"code"];
+                    NSDictionary *codeDic = _selectModel.featuredMedia[@"code"];
                     urlstr = codeDic[@"thumbnailUrl"];
                 }else{
-                    urlstr = selectModel.featuredMedia[@"code"];
+                    urlstr = _selectModel.featuredMedia[@"code"];
                 }
-                NSString *someid=selectModel.id;
+                NSString *someid=_selectModel.id;
                 if (![NSString isBlankString:urlstr]) {
                     dispatch_async(dispatch_get_global_queue(0, 0), ^{
                         NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
@@ -378,13 +376,10 @@
 -(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(NSString *)categoryName
 {
     DentistPickerView *picker = [[DentistPickerView alloc]init];
-    
     picker.leftTitle=localStr(@"Category");
     picker.righTtitle=localStr(@"Cancel");
     [picker show:^(NSString *result,NSString *resultname) {
-        
     } rightAction:^(NSString *result,NSString *resultname) {
-        
     } selectAction:^(NSString *result,NSString *resultname) {
         self.categoryId=result;
         foreTask(^{
@@ -406,13 +401,11 @@
     }];
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat height = scrollView.frame.size.height;
     CGFloat contentOffsetY = scrollView.contentOffset.y;
     CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
-    if (bottomOffset <= height-50)
-    {
+    if (bottomOffset <= height - 50) {
         if (!isdownrefresh) {
             isdownrefresh=YES;
             //在最底部
@@ -427,11 +420,8 @@
                         self.items=[newarray copy];
                     }
                 });
-                
-                
             }];
         }
-       
     }
 }
 

@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) updateBookmarkStatus:(BOOL)ismark;
 
 + (NSString *)htmlString:(NSString *)html;
+- (NSArray *)getSeparatedLinesFromLabel:(UILabel *)label text:(NSString *)text;
     
 @end
 

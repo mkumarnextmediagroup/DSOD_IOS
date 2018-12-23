@@ -12,5 +12,6 @@
 
 // update the numbers
 - (void)updateValue:(CGFloat)value;
+- (void)addUpTimer;
 
 @end

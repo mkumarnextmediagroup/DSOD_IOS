@@ -41,4 +41,8 @@ typedef NS_ENUM(NSInteger, RMIndicatorType) {
 // update the downloadIndicator
 - (void)updateWithTotalBytes:(CGFloat)bytes downloadedBytes:(CGFloat)downloadedBytes;
 
+- (void)addDisplayLabel;
+
+- (UIBezierPath *)pathWithStartAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle radius:(CGFloat)radius type:(RMIndicatorType)type;
+
 @end

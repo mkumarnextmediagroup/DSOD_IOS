@@ -159,6 +159,9 @@
 		43B72530217651A8000F6797 /* KiwiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252F217651A8000F6797 /* KiwiTests.m */; };
 		43D98CAD219DAE04004C3FBD /* FontsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D98CAC219DAE04004C3FBD /* FontsTests.m */; };
 		43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E409AB21B24E650016E102 /* CMSBookmarkControllerTests.m */; };
+		43EBDF2521CF5E6600C3AAB7 /* RMDisplayLabelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43EBDF2421CF5E6600C3AAB7 /* RMDisplayLabelTests.m */; };
+		43EBDF2821CF634A00C3AAB7 /* RMDownloadIndicatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43EBDF2721CF634A00C3AAB7 /* RMDownloadIndicatorTests.m */; };
+		43EBDF2B21CF74E600C3AAB7 /* UIViewExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43EBDF2A21CF74E600C3AAB7 /* UIViewExtensionTests.m */; };
 		43F92B7A217D94B400798462 /* LoginControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F92B79217D94B400798462 /* LoginControllerTests.m */; };
 		4E0C115521806147007DC63D /* CMSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C115421806147007DC63D /* CMSModel.m */; };
 		4E0C11592181C75B007DC63D /* DetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C11582181C75B007DC63D /* DetailModel.m */; };
@@ -1145,6 +1148,9 @@
 		43B7252F217651A8000F6797 /* KiwiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KiwiTests.m; sourceTree = "<group>"; };
 		43D98CAC219DAE04004C3FBD /* FontsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FontsTests.m; sourceTree = "<group>"; };
 		43E409AB21B24E650016E102 /* CMSBookmarkControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSBookmarkControllerTests.m; sourceTree = "<group>"; };
+		43EBDF2421CF5E6600C3AAB7 /* RMDisplayLabelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMDisplayLabelTests.m; sourceTree = "<group>"; };
+		43EBDF2721CF634A00C3AAB7 /* RMDownloadIndicatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMDownloadIndicatorTests.m; sourceTree = "<group>"; };
+		43EBDF2A21CF74E600C3AAB7 /* UIViewExtensionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIViewExtensionTests.m; sourceTree = "<group>"; };
 		43F92B79217D94B400798462 /* LoginControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginControllerTests.m; sourceTree = "<group>"; };
 		4E0C115321806147007DC63D /* CMSModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMSModel.h; sourceTree = "<group>"; };
 		4E0C115421806147007DC63D /* CMSModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSModel.m; sourceTree = "<group>"; };
@@ -2446,6 +2452,7 @@
 		4341949021A597320029AECE /* CMS */ = {
 			isa = PBXGroup;
 			children = (
+				43EBDF2221CF5E0800C3AAB7 /* Download */,
 				436AAAFE21CD31D60095C128 /* CmsArticleCategoryPage */,
 				43597BFB21CCDBCD0033E1C1 /* ArticleGSkItemView */,
 				43597BF821CCD0DD0033E1C1 /* ContentPage */,
@@ -2614,6 +2621,40 @@
 				43E409AB21B24E650016E102 /* CMSBookmarkControllerTests.m */,
 			);
 			path = BookmarkController;
+			sourceTree = "<group>";
+		};
+		43EBDF2221CF5E0800C3AAB7 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				43EBDF2921CF74DD00C3AAB7 /* UIViewExtensionTests */,
+				43EBDF2621CF633D00C3AAB7 /* RMDownloadIndicator */,
+				43EBDF2321CF5E2700C3AAB7 /* RMDisplayLabel */,
+			);
+			path = Download;
+			sourceTree = "<group>";
+		};
+		43EBDF2321CF5E2700C3AAB7 /* RMDisplayLabel */ = {
+			isa = PBXGroup;
+			children = (
+				43EBDF2421CF5E6600C3AAB7 /* RMDisplayLabelTests.m */,
+			);
+			path = RMDisplayLabel;
+			sourceTree = "<group>";
+		};
+		43EBDF2621CF633D00C3AAB7 /* RMDownloadIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				43EBDF2721CF634A00C3AAB7 /* RMDownloadIndicatorTests.m */,
+			);
+			path = RMDownloadIndicator;
+			sourceTree = "<group>";
+		};
+		43EBDF2921CF74DD00C3AAB7 /* UIViewExtensionTests */ = {
+			isa = PBXGroup;
+			children = (
+				43EBDF2A21CF74E600C3AAB7 /* UIViewExtensionTests.m */,
+			);
+			path = UIViewExtensionTests;
 			sourceTree = "<group>";
 		};
 		43F92B78217D949A00798462 /* Login */ = {
@@ -4868,16 +4909,19 @@
 				4344660521A5674400811E94 /* UIViewExtTests.m in Sources */,
 				43F92B7A217D94B400798462 /* LoginControllerTests.m in Sources */,
 				4307936D21CA8852003C5BF0 /* ArticleItemViewTests.m in Sources */,
+				43EBDF2B21CF74E600C3AAB7 /* UIViewExtensionTests.m in Sources */,
 				43A8D52921CBF7D400CE8FBD /* LinearViewTests.m in Sources */,
 				43277E8E217F523B008B3240 /* RegControllerTests.m in Sources */,
 				4388150B218D4EF20066BCB6 /* SearchPageTests.m in Sources */,
 				4307937021CA99D9003C5BF0 /* BookMarkItemViewTests.m in Sources */,
+				43EBDF2821CF634A00C3AAB7 /* RMDownloadIndicatorTests.m in Sources */,
 				43597BFA21CCD0E80033E1C1 /* ContentPageTests.m in Sources */,
 				43941292219F0378008C3092 /* UITextFieldExtTests.m in Sources */,
 				43A196CF2190A12B006E90CC /* EditExperiencePageTests.m in Sources */,
 				43277E88217F4D91008B3240 /* StudentControllerTests.m in Sources */,
 				43277E8A217F4E9E008B3240 /* TestPageTests.m in Sources */,
 				436AAB0021CD31E90095C128 /* CmsArticleCategoryPageTests.m in Sources */,
+				43EBDF2521CF5E6600C3AAB7 /* RMDisplayLabelTests.m in Sources */,
 				438BA12821B4065D005246C5 /* CmsDownloadsControllerTests.m in Sources */,
 				43B72530217651A8000F6797 /* KiwiTests.m in Sources */,
 				4344660321A5644C00811E94 /* UIScreenExtTests.m in Sources */,

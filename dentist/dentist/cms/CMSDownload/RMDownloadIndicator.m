@@ -67,33 +67,26 @@
 - (void)initAttributes
 {
     // first set the radius percent attribute
-    if(_type == kRMClosedIndicator)
-    {
+    if(_type == kRMClosedIndicator) {
         self.radiusPercent = 0.5;
         _coverLayer = [CAShapeLayer layer];
         _animatingLayer = _coverLayer;
-        
         // set the fill color
         _fillColor = [UIColor clearColor];
         _strokeColor = [UIColor whiteColor];
         _closedIndicatorBackgroundStrokeColor = [UIColor colorWithRed:221.0/255 green:221.0/255 blue:221.0/255 alpha:1.0f];//[UIColor grayColor];
         _coverWidth = 2.0;
-        
         //[self addDisplayLabel];
     }
-    else
-    {
-        if(_type == kRMFilledIndicator)
-        {
+    else {
+        if(_type == kRMFilledIndicator) {
             // only indicateShapeLayer
             _indicateShapeLayer = [CAShapeLayer layer];
             _animatingLayer = _indicateShapeLayer;
             self.radiusPercent = 0.5;
             _coverWidth = 2.0;
             _closedIndicatorBackgroundStrokeColor = [UIColor clearColor];
-        }
-        else
-        {
+        } else {
             // indicateShapeLayer and coverLayer
             _indicateShapeLayer = [CAShapeLayer layer];
             _coverLayer = [CAShapeLayer layer];
@@ -102,7 +95,6 @@
             self.radiusPercent = 0.4;
             _closedIndicatorBackgroundStrokeColor = [UIColor whiteColor];
         }
-        
         // set the fill color
         _fillColor = [UIColor whiteColor];
         _strokeColor = [UIColor whiteColor];
@@ -135,14 +127,10 @@
     CGPoint center = CGPointMake(CGRectGetWidth(self.bounds) / 2, CGRectGetHeight(self.bounds) / 2);
     UIBezierPath *initialPath = [UIBezierPath bezierPath]; //empty path
     
-    if(_type == kRMClosedIndicator)
-    {
+    if(_type == kRMClosedIndicator) {
         [initialPath addArcWithCenter:center radius:(MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))) startAngle:degreeToRadian(-90) endAngle:degreeToRadian(-90) clockwise:YES]; //add the arc
-    }
-    else
-    {
-        if(_type == kRMMixedIndicator)
-        {
+    } else {
+        if(_type == kRMMixedIndicator) {
             [self setNeedsDisplay];
         }
         CGFloat radius = (MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))/2) * self.radiusPercent;
@@ -180,12 +168,9 @@
     UIBezierPath *path = [UIBezierPath bezierPath];
     CGPoint center = CGPointMake(CGRectGetWidth(self.bounds) / 2, CGRectGetHeight(self.bounds) / 2);
     
-    if(type == kRMClosedIndicator)
-    {
+    if(type == kRMClosedIndicator) {
         [path addArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
-    }
-    else
-    {
+    } else {
         [path moveToPoint:center];
         [path addArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
         [path closePath];
@@ -193,10 +178,8 @@
     return path;
 }
 
-- (void)drawRect:(CGRect)rect
-{
-    if(_type == kRMMixedIndicator || _type == kRMClosedIndicator)
-    {
+- (void)drawRect:(CGRect)rect {
+    if(_type == kRMMixedIndicator || _type == kRMClosedIndicator) {
         CGFloat radius = (MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) / 2) - self.coverWidth;
         CGPoint center = CGPointMake(CGRectGetWidth(self.bounds) / 2, CGRectGetHeight(self.bounds) / 2);
         

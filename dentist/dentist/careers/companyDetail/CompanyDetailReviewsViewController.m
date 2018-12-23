@@ -69,14 +69,24 @@
     }];
 }
 
+-(void)getNewJobDSOModel{
+    [self showLoading];
+    [Proto findCompanyById:self.jobDSOModel.id completed:^(JobDSOModel * _Nullable companyModel) {
+        [self hideLoading];
+        if(companyModel){
+            self.jobDSOModel = companyModel;
+        }
+    }];
+}
+
 -(void)seeMore{
-    [CompanyReviewsViewController openBy:self.vc];
+    [CompanyReviewsViewController openBy:self.vc jobDSOModel:self.jobDSOModel];
 }
 
 -(void)writeReview{
     WeakSelf
     [CareerAddReviewViewController openBy:self.vc dsoId:self.jobDSOModel.id successCallbak:^{
-        [weakSelf reloadComment];
+        [weakSelf getNewJobDSOModel];
     }];
     
 }

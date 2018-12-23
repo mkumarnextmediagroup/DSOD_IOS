@@ -54,8 +54,6 @@
     
     JobDSOModel *companyModel;
     
-    
-    
 }
 
 
@@ -80,7 +78,11 @@
     
     [self setupTableContentVC];
     
-    
+    [self loadData];
+
+}
+
+-(void)loadData{
     [self showLoading];
     [Proto findCompanyById:self.companyId completed:^(JobDSOModel * _Nullable companyModel) {
         [self hideLoading];
@@ -100,6 +102,7 @@
 
 
 -(void)buildView{
+    
     contentView  = self.view.addView;
     [[[[[contentView.layoutMaker leftParent:0]rightParent:0] topParent:NAVHEIGHT]bottomParent:0] install];
     contentView.backgroundColor = UIColor.whiteColor;

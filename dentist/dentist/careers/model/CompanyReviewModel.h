@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property long long reviewDate;
 @property NSString <Optional>*email;
 @property NSString <Optional>*userId;
-@property NSInteger rating;
+@property float rating;
 
     
 @end

@@ -11,6 +11,8 @@
 #import "Proto.h"
 #import "CompanyExistsReviewsTableViewCell.h"
 #import "AppDelegate.h"
+#import "CompanyReviewsViewController.h"
+#import "CareerSearchViewController.h"
 
 @interface CompanyExistsReviewsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -25,7 +27,7 @@
     UIRefreshControl *refreshControl;
     BOOL isRefreshing;
     
-    NSArray *companyModelArray;
+    NSArray<JobDSOModel*> *companyModelArray;
     NSInteger totalCount;
 }
 
@@ -52,11 +54,27 @@
     item.title = @"REVIEWS";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(backToFirst)];
     
+    
     iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     iv.tag = 998;
     iv.backgroundColor = [UIColor clearColor];
     iv.center = item.rightBarButtonItem.customView.center;
-    item.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:iv];
+    UIBarButtonItem *ivItem = [[UIBarButtonItem alloc] initWithCustomView:iv];
+    
+    
+    UIBarButtonItem *fixedSpaceBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedSpaceBarButtonItem.width = 22;
+    
+    
+    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [searchBtn addTarget:self action:@selector(searchClick) forControlEvents:UIControlEventTouchUpInside];
+    [searchBtn setImage:[UIImage imageNamed:@"searchWhite"] forState:UIControlStateNormal];
+    [searchBtn sizeToFit];
+    UIBarButtonItem *menuBtnItem = [[UIBarButtonItem alloc] initWithCustomView:searchBtn];
+    
+    
+    self.navigationItem.rightBarButtonItems  = @[menuBtnItem,fixedSpaceBarButtonItem,ivItem];
+    
 }
 
 - (void)backToFirst
@@ -74,6 +92,25 @@
     else{
         //present方式
         [self dismissViewControllerAnimated:NO completion:nil];
+    }
+    
+}
+
+- (void)searchClick
+{
+    NSLog(@"search btn click");
+    //    CareerSearchViewController *searchVC=[CareerSearchViewController new];
+    //    [self.navigationController pushViewController:searchVC animated:YES];
+    
+    if (self.tabBarController != nil) {
+        UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+        CareerSearchViewController *searchVC=[CareerSearchViewController new];
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchVC];
+        navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [viewController presentViewController:navVC animated:NO completion:NULL];
+    }else{
+        CareerSearchViewController *searchVC=[CareerSearchViewController new];
+        [self.navigationController pushViewController:searchVC animated:NO];
     }
     
 }
@@ -160,7 +197,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CompanyExistsReviewsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(CompanyExistsReviewsTableViewCell.class) forIndexPath:indexPath];
-
+    
     [cell setData:companyModelArray[indexPath.row]];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
@@ -176,6 +213,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [CompanyReviewsViewController openBy:self jobDSOModel:companyModelArray[indexPath.row]];
 }
 
 @end

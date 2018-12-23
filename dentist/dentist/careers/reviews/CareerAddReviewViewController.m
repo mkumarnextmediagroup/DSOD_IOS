@@ -38,9 +38,6 @@
 
 
 +(void)openBy:(UIViewController*)vc dsoId:(NSString*)dsoId successCallbak:(void(^)(void))addReviewSuccessCallbak{
-//    CareerAddReviewViewController *addReviewVC = [CareerAddReviewViewController new];
-//    addReviewVC.dsoId = dsoId;
-//    [vc pushPage:addReviewVC];
     
     CareerAddReviewViewController *addReviewVC = [CareerAddReviewViewController new];
     addReviewVC.dsoId = dsoId;
@@ -139,7 +136,7 @@
     
     starRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake((SCREENWIDTH-2*edge - 130) /2, 40, 130, 24)];
     starRateView.isAnimation = YES;
-    starRateView.rateStyle = HalfStar;
+    starRateView.rateStyle = WholeStar;
     starRateView.tag = 1;
     [contentView addSubview:starRateView];
 

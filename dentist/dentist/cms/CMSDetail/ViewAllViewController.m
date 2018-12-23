@@ -100,7 +100,7 @@
 }
 
 -(void)reloadData:(NSArray*)newDatas isMore:(BOOL)isMore{
-    if(newDatas!=nil && newDatas.count >0){
+    if(newDatas!=nil){
         if(isMore){
             NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:self.discussInfo];
             [mutableArray addObjectsFromArray:newDatas];

@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JobDSOModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyReviewsViewController : UIViewController
 
-+(void)openBy:(UIViewController*)vc;
+
+
++(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel ;
 
 @end
 

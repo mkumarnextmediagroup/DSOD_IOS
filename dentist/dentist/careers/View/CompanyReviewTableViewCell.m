@@ -136,7 +136,7 @@
     [[[[approveBtn.layoutMaker below:lineLabel offset:0] toRightOf:recommendsBtn offset:0]sizeEq:buttonWidth h:40] install];
     
     
-    [[approveBtn.layoutUpdate bottomParent:-edge]install];
+    [[approveBtn.layoutUpdate bottomParent:0]install];
     
     
 }
@@ -144,7 +144,7 @@
 
 
 -(void)setData:(CompanyReviewModel*)model{
-    reviewTitleLabel.text = [NSString stringWithFormat:@"\"%@\"",model.reviewTitle];
+    reviewTitleLabel.text = [NSString stringWithFormat:@"“%@”",model.reviewTitle];
     reviewDateLabel.text = [NSDate USDateShortFormatWithTimestamp:model.reviewDate];
     starRateView.currentScore = model.rating;
     

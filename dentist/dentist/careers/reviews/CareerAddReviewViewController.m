@@ -128,7 +128,7 @@
     [[[[[[contentView.layoutMaker topParent:0]leftParent:edge] rightParent:-edge] widthEq:SCREENWIDTH - 2* edge] bottomParent:0] install];
     
     UILabel *chooseRatingLabel = contentView.addLabel;
-    chooseRatingLabel.text = @"Choose Rating";
+    chooseRatingLabel.text = @"Choose rating";
     chooseRatingLabel.font = [Fonts regular:14];
     chooseRatingLabel.textColor = rgbHex(0x879AA8);
     [[[chooseRatingLabel.layoutMaker centerXParent:0] topParent:edge]install];

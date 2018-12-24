@@ -58,7 +58,7 @@
     item.rightBarButtonItem= [self navBarText:@" Search" target:self action:@selector(searchBtnClick)];
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
     locationArr = [NSArray arrayWithObjects:@"5 miles",@"10 miles",@"25 miles",@"50 miles",@"100 miles", nil];
-    
+    requestMiles = @"25";
 //    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
 //    _searchBar.placeholder = @"Search...";
 //    _searchBar.delegate = self;

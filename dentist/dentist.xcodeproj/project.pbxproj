@@ -176,6 +176,7 @@
 		43EBDF2821CF634A00C3AAB7 /* RMDownloadIndicatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43EBDF2721CF634A00C3AAB7 /* RMDownloadIndicatorTests.m */; };
 		43EBDF2B21CF74E600C3AAB7 /* UIViewExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43EBDF2A21CF74E600C3AAB7 /* UIViewExtensionTests.m */; };
 		43F92B7A217D94B400798462 /* LoginControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F92B79217D94B400798462 /* LoginControllerTests.m */; };
+		4E04999F21D0CA3B0001EFE0 /* DSOProfileSearchPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E04999E21D0CA3B0001EFE0 /* DSOProfileSearchPage.m */; };
 		4E0C115521806147007DC63D /* CMSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C115421806147007DC63D /* CMSModel.m */; };
 		4E0C11592181C75B007DC63D /* DetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C11582181C75B007DC63D /* DetailModel.m */; };
 		4E0C115C2181C8D7007DC63D /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C115B2181C8D7007DC63D /* CommentModel.m */; };
@@ -1182,6 +1183,8 @@
 		43EBDF2721CF634A00C3AAB7 /* RMDownloadIndicatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMDownloadIndicatorTests.m; sourceTree = "<group>"; };
 		43EBDF2A21CF74E600C3AAB7 /* UIViewExtensionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIViewExtensionTests.m; sourceTree = "<group>"; };
 		43F92B79217D94B400798462 /* LoginControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginControllerTests.m; sourceTree = "<group>"; };
+		4E04999D21D0CA3B0001EFE0 /* DSOProfileSearchPage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSOProfileSearchPage.h; sourceTree = "<group>"; };
+		4E04999E21D0CA3B0001EFE0 /* DSOProfileSearchPage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOProfileSearchPage.m; sourceTree = "<group>"; };
 		4E0C115321806147007DC63D /* CMSModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMSModel.h; sourceTree = "<group>"; };
 		4E0C115421806147007DC63D /* CMSModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSModel.m; sourceTree = "<group>"; };
 		4E0C11572181C75B007DC63D /* DetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailModel.h; sourceTree = "<group>"; };
@@ -3857,6 +3860,8 @@
 				A3B340D721C8E852008EB36A /* CareerMeViewController.m */,
 				A36B9DC621CB95BC00A54263 /* CareerAlertsAddViewController.h */,
 				A36B9DC721CB95BC00A54263 /* CareerAlertsAddViewController.m */,
+				4E04999D21D0CA3B0001EFE0 /* DSOProfileSearchPage.h */,
+				4E04999E21D0CA3B0001EFE0 /* DSOProfileSearchPage.m */,
 			);
 			path = careers;
 			sourceTree = "<group>";
@@ -5240,6 +5245,7 @@
 				C5EEA1C6749DC002B0822BA4 /* UserCell.m in Sources */,
 				4E528AD2216DF9E5008C151B /* SBPauseOrPlayView.m in Sources */,
 				C5EEAE849A9D7BECFA31FC89 /* Pair.m in Sources */,
+				4E04999F21D0CA3B0001EFE0 /* DSOProfileSearchPage.m in Sources */,
 				1836D42F21A7CCEC00500CEB /* ViewResumeItemView.m in Sources */,
 				C5EEA80345D17C8493BB8709 /* SearchPage.m in Sources */,
 				C5EEAAF068D2FF7E482A0CC2 /* LabelCheckView.m in Sources */,
@@ -5531,6 +5537,7 @@
 					"\"${PROJECT_DIR}/../Pods\"/**",
 					"\"${PROJECT_DIR}/../Pods\"/**",
 				);
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -5582,6 +5589,7 @@
 					"\"${PROJECT_DIR}/../Pods\"/**",
 					"\"${PROJECT_DIR}/../Pods\"/**",
 				);
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

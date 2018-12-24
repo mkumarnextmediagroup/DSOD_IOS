@@ -103,7 +103,7 @@
     [tableView layoutIfNeeded];
      [tableView registerClass:CompanyReviewsCell.class forCellReuseIdentifier:NSStringFromClass(CompanyReviewsCell.class)];
     [self.view addSubview:tableView];
-    [[[[[tableView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
+    [[[[[tableView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT] bottomParent:0] install];
     
     
     [self setupRefresh];

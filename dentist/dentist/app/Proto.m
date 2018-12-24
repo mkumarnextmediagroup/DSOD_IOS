@@ -2111,6 +2111,19 @@
     }];
 }
 
++(void)deleteJobBookmarkByJobId:(NSString *)jobId completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (jobId) {
+        [paradic setObject:jobId forKey:@"jobId"];
+    }
+    [self postAsync2:@"bookmark/deleteOneByUserIdAndJobId" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r);
+        }
+    }];
+}
+
 //MARK:2.10.   查询已关注职位列表
 + (void)queryJobBookmarks:(NSString *)sort categroy:(NSString *)categroy salary:(NSString *)salary experience:(NSString *)experience location:(NSString *)location distance:(NSString *)distance jobTitle:(NSString *)jobTitle company:(NSString *)company skip:(NSInteger)skip completed:(void(^)(NSArray<JobBookmarkModel *> *array,NSInteger totalCount))completed {
     NSInteger limit=20;//分页数默认20条

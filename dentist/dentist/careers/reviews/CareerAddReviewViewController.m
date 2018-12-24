@@ -38,9 +38,6 @@
 
 
 +(void)openBy:(UIViewController*)vc dsoId:(NSString*)dsoId successCallbak:(void(^)(void))addReviewSuccessCallbak{
-//    CareerAddReviewViewController *addReviewVC = [CareerAddReviewViewController new];
-//    addReviewVC.dsoId = dsoId;
-//    [vc pushPage:addReviewVC];
     
     CareerAddReviewViewController *addReviewVC = [CareerAddReviewViewController new];
     addReviewVC.dsoId = dsoId;
@@ -83,10 +80,13 @@
     
     UIView *view = [contentView findFirstResponder];
     float scrollY = 0;
-    if(view == consTextView){
-        scrollY = 150;
+    if(view == prosTextView){
+        scrollY = 50;
+
+    }if(view == consTextView){
+        scrollY = 200;
     }else if(view == adviceTextView){
-        scrollY = 180;
+        scrollY = 250;
     }
     
     [UIView animateWithDuration:0.25f animations:^{
@@ -131,7 +131,7 @@
     [[[[[[contentView.layoutMaker topParent:0]leftParent:edge] rightParent:-edge] widthEq:SCREENWIDTH - 2* edge] bottomParent:0] install];
     
     UILabel *chooseRatingLabel = contentView.addLabel;
-    chooseRatingLabel.text = @"Choose Rating";
+    chooseRatingLabel.text = @"Choose rating";
     chooseRatingLabel.font = [Fonts regular:14];
     chooseRatingLabel.textColor = rgbHex(0x879AA8);
     [[[chooseRatingLabel.layoutMaker centerXParent:0] topParent:edge]install];
@@ -139,7 +139,7 @@
     
     starRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake((SCREENWIDTH-2*edge - 130) /2, 40, 130, 24)];
     starRateView.isAnimation = YES;
-    starRateView.rateStyle = HalfStar;
+    starRateView.rateStyle = WholeStar;
     starRateView.tag = 1;
     [contentView addSubview:starRateView];
 

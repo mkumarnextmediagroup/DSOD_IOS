@@ -363,7 +363,7 @@
     if ([jobModel.isAttention isEqualToString:@"1"]) {
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionCenter completion:nil];
-        [Proto deleteJobBookmark:jobModel.id completed:^(HttpResult *result) {
+        [Proto deleteJobBookmarkByJobId:jobModel.id completed:^(HttpResult *result) {
             NSLog(@"result=%@",@(result.code));
             if (result.code == 0) {
                 foreTask(^() {
@@ -510,6 +510,10 @@
             if (result.OK) {
                 //
                 [self setApplyButtonEnable:NO];
+                [Proto deleteJobBookmarkByJobId:self->_jobId completed:^(HttpResult *result) {
+                    NSLog(@"result=%@",@(result.code));
+                    
+                }];
             }else{
                 NSString *message=result.msg;
                 if([NSString isBlankString:message]){

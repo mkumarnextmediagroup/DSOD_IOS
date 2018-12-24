@@ -44,9 +44,9 @@
     starLabel = self.addLabel;
     starLabel.font = [Fonts regular:16];
     starLabel.textColor = rgbHex(0x9c9c9c);
-    [[[[starLabel.layoutMaker leftParent:edge]topParent:20] sizeEq:40 h:30]install];
+    [[[[starLabel.layoutMaker leftParent:edge]topParent:20] sizeEq:40 h:24]install];
     
-    starRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake(edge+40, 20, 140, 25)];
+    starRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake(edge+40, 20, 130, 24)];
     starRateView.isAnimation = YES;
     starRateView.userInteractionEnabled = NO;
     starRateView.rateStyle = WholeStar;
@@ -61,7 +61,7 @@
     reviewCountLabel.font = [Fonts regular:16];
     reviewCountLabel.textColor = rgbHex(0x9c9c9c);
     reviewCountLabel.textAlignment = NSTextAlignmentCenter;
-    [[[[[reviewCountLabel.layoutMaker toRightOf:starRateView offset:10] topParent:20] toLeftOf:downArrowImageView offset:-5] heightEq:30]install];
+    [[[[[reviewCountLabel.layoutMaker toRightOf:starRateView offset:10] topParent:20] toLeftOf:downArrowImageView offset:-5] heightEq:24]install];
     
     
     
@@ -79,6 +79,7 @@
     ceoHeadImageView = self.addImageView;
     ceoHeadImageView.layer.masksToBounds = YES;
     ceoHeadImageView.layer.cornerRadius = width / 2;
+    [ceoHeadImageView scaleFillAspect];
     [[[[ceoHeadImageView.layoutMaker below:starLabel offset:10]toRightOf:approveProgressView offset:progressEdge * 2]sizeEq:width h:width]install];
     
     
@@ -114,7 +115,7 @@
     
     starLabel.text = [NSString stringWithFormat:@"%0.1f",model.rating];
     starRateView.currentScore = model.rating;
-    ceoHeadImageView.imageName = @"Img-User-Dentist";
+    ceoHeadImageView.imageName = @"user_img";
     recommendProgressView.percent = (float)model.recommendNum/model.reviewNum;
     approveProgressView.percent = (float)model.approveNum/model.reviewNum;
     reviewCountLabel.text = [NSString stringWithFormat:@"%ld reviews",model.reviewNum];

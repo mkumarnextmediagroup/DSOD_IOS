@@ -80,10 +80,13 @@
     
     UIView *view = [contentView findFirstResponder];
     float scrollY = 0;
-    if(view == consTextView){
-        scrollY = 150;
+    if(view == prosTextView){
+        scrollY = 50;
+
+    }if(view == consTextView){
+        scrollY = 200;
     }else if(view == adviceTextView){
-        scrollY = 180;
+        scrollY = 250;
     }
     
     [UIView animateWithDuration:0.25f animations:^{

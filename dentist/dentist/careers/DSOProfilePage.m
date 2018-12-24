@@ -12,7 +12,7 @@
 #import "CompanyDetailViewController.h"
 #import "Proto.h"
 #import "CompanyModel.h"
-#import "CareerSearchViewController.h"
+#import "DSOProfileSearchPage.h"
 #import "JobDSOModel.h"
 #import "AppDelegate.h"
 
@@ -34,7 +34,7 @@
     UINavigationItem *item = self.navigationItem;
     item.title = @"DSO PROFILES";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
-//    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
+    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
     CGFloat _topBarH = 0;
     CGFloat _bottomBarH = 0;
     if (self.navigationController != nil) {
@@ -91,13 +91,8 @@
 - (void)searchClick
 {
     NSLog(@"search btn click");
-//    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-//    CareerSearchViewController *searchVC=[CareerSearchViewController new];
-//    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchVC];
-//    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//    [viewController presentViewController:navVC animated:YES completion:NULL];
-        CareerSearchViewController *searchVC=[CareerSearchViewController new];
-        [self.navigationController pushViewController:searchVC animated:NO];
+    DSOProfileSearchPage *searchVC=[DSOProfileSearchPage new];
+    [self.navigationController pushViewController:searchVC animated:NO];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

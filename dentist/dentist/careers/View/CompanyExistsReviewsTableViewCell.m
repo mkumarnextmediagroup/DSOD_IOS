@@ -42,7 +42,7 @@
     UIView *starRateViewBg = self.addView;
     [[[starRateViewBg.layoutMaker below:nameLabel offset:5]leftParent:edge] install];
     
-    starRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake(0, 0, 90, 16)];
+    starRateView = [[XHStarRateView alloc] initWithFrame:CGRectMake(0, 0, 83, 15)];
     starRateView.isAnimation = YES;
     starRateView.userInteractionEnabled = NO;
     starRateView.rateStyle = HalfStar;
@@ -58,7 +58,7 @@
     reviewsLabel = [self addLabel];
     reviewsLabel.font = [Fonts regular:11];
     reviewsLabel.textColor = Colors.textDisabled;
-    [[[[reviewsLabel.layoutMaker rightParent:-30] below:nameLabel offset:5 ]heightEq:16] install];
+    [[[[reviewsLabel.layoutMaker rightParent:-50] below:nameLabel offset:5 ]heightEq:16] install];
     
     UILabel *lineLabel = [self lineLabel];
     [[[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] below:scoreLabel offset:edge-3] heightEq:1] bottomParent:0] install];

@@ -102,6 +102,51 @@ describe(@"Unit Test For UIViewExt", ^{
             [view fitInSize:CGSizeMake(10, 10)];
             [[theValue(view.frame) should] equal:theValue(CGRectMake(0, 0, 10, 10))];
         });
+
+        it(@"CGRectGetCenter", ^{
+            CGPoint center = CGRectGetCenter(CGRectMake(0, 0, 100, 100));
+            [[theValue(center) should] equal: theValue(CGPointMake(50, 50))];
+        });
+
+        it(@"CGRectMoveToCenter", ^{
+            CGRect rect = CGRectMoveToCenter(CGRectMake(0, 0, 100, 100), CGPointMake(60, 60));
+            [[theValue(rect) should] equal: theValue(CGRectMake(10, 10, 100, 100))];
+        });
+
+        it(@"setSize", ^{
+            [view setSize:CGSizeMake(10, 10)];
+            [[theValue(view.size) should] equal: theValue(CGSizeMake(10, 10))];
+        });
+
+        it(@"setHeight", ^{
+            [view setHeight:10];
+            [[theValue(view.size.height) should] equal: theValue(10)];
+        });
+
+        it(@"setWidth", ^{
+            [view setWidth:10];
+            [[theValue(view.size.width) should] equal: theValue(10)];
+        });
+
+        it(@"setTop", ^{
+            [view setTop:10];
+            [[theValue(view.origin.y) should] equal: theValue(10)];
+        });
+
+        it(@"setLeft", ^{
+            [view setLeft:10];
+            [[theValue(view.origin.x) should] equal: theValue(10)];
+        });
+
+        it(@"setBottom", ^{
+            [view setBottom:10];
+            [[theValue(view.origin.y) should] equal: theValue(-90)];
+        });
+
+        it(@"setRight", ^{
+            [view setRight:10];
+            [[theValue(view.origin.x) should] equal: theValue(-90)];
+        });
     });
 });
 SPEC_END

@@ -31,7 +31,5 @@
 - (void)show:(UIView *)superview;
 -(void)updateActionTitle:(NSArray *)titlearr;
 - (instancetype)initWithDelegate:(id)delegate title:(NSString *)title cancelButton:(NSString *)cancelButton imageArr:(NSArray *)imageArr otherTitle:(NSString *)otherTitle, ... NS_REQUIRES_NIL_TERMINATION;
-
-
-
+- (void)tapAction:(UIGestureRecognizer *)gesture;
 @end

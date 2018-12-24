@@ -186,7 +186,6 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
 		newframe.size.width *= scale;
 		newframe.size.height *= scale;
 	}
-	
 	self.frame = newframe;	
 }
 @end

@@ -39,12 +39,7 @@
             
             id arg;
             // va_list 指向下一个地址
-            while ((arg = va_arg(params, id)))
-            {
-                if (arg) {
-                    [args addObject:arg];
-                }
-            }
+            while ((arg = va_arg(params, id))) { if (arg) { [args addObject:arg]; } }
             // 置空
             va_end(params);
         }
@@ -133,13 +128,11 @@
 }
 
 #pragma mark - tapAction
-- (void)tapAction:(UIGestureRecognizer *)gesture
-{
+- (void)tapAction:(UIGestureRecognizer *)gesture {
     UILabel *label = (UILabel *)gesture.view;
     if (self.delgate && [_delgate respondsToSelector:@selector(myActionSheet:parentView:subLabel:index:)]) {
         [self.delgate myActionSheet:self parentView:_parentView subLabel:label index:(label.tag-100)];
     }
-    
     [self hiddenAnimation];
 }
 
@@ -191,7 +184,5 @@
 {
     [self hiddenAnimation];
 }
-
-
 
 @end

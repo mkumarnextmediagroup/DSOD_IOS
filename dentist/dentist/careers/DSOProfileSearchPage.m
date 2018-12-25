@@ -39,8 +39,9 @@
 
 - (void)searchBtnClick
 {
+    [searchField resignFirstResponder];
     [self showLoading];
-    [Proto queryCompanyList:pagenumber completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
+    [Proto queryCompanyList:pagenumber searchValue:searchField.text completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideLoading];
             NSLog(@"%@",array);
@@ -89,8 +90,18 @@
     myTable.estimatedRowHeight = 100;
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     myTable.backgroundColor = rgb255(246, 245, 245);
-    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-20] topParent:NAVHEIGHT+70] install];
+    [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
 }
+
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self searchBtnClick];
+    return YES;
+}
+
+#pragma mark UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

@@ -2247,7 +2247,7 @@
 }
 
 //MARK:2.13.    查询所有公司列表
-+ (void)queryCompanyList:(NSInteger)skip completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed
++ (void)queryCompanyList:(NSInteger)skip searchValue:(NSString *)searchValue completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed
 {
     NSInteger limit=20;//分页数默认20条
     if (skip<=0) {
@@ -2256,7 +2256,10 @@
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"pageNumber"];
     [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"pageSize"];
-
+    if (searchValue != nil) {
+        [paradic setObject:searchValue forKey:@"searchValue"];
+    }
+    
     [self postAsync3:@"dso/findAllDSOs" dic:paradic modular:@"profile" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
@@ -2372,7 +2375,7 @@
 
 //2.19.​查询所有公司评论列表
 + (void)findCompanyExistsReviewsList:(NSInteger)skip  completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed{
-    [Proto queryCompanyList:skip completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
+    [Proto queryCompanyList:skip searchValue:nil completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
         if(completed){
             foreTask(^{
                 completed(array,totalCount);

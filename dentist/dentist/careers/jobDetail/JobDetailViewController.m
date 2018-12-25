@@ -28,6 +28,7 @@
 
 @interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,UploadResumeViewDelegate,UIDocumentPickerDelegate,HttpProgress>
 @property (nonatomic,strong) NSString *jobId;
+@property (nonatomic,strong) NSString *applyJobId;
 @property (copy, nonatomic) CareerJobDetailCloseCallback closeBack;
 
 @property (nonatomic,strong) UIViewController *presentControl;
@@ -81,6 +82,7 @@
     
     JobDetailViewController *jobDetailVc = [JobDetailViewController new];
     jobDetailVc.jobId =jobId;
+    jobDetailVc.applyJobId=nil;
     jobDetailVc.closeBack = closeBack;
     jobDetailVc.modalPresentationStyle = UIModalPresentationCustom;
     jobDetailVc.view.backgroundColor = UIColor.clearColor;
@@ -340,7 +342,7 @@
 
 -(void)closePage{
     if (self.closeBack) {
-        self.closeBack();
+        self.closeBack(self->_applyJobId);
     }
     self.view.backgroundColor = UIColor.clearColor;
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -509,6 +511,7 @@
             [window hideToast];
             if (result.OK) {
                 //
+                self->_applyJobId=self->_jobId;
                 self->jobModel.isApplication=@"1";
                 [self setApplyButtonEnable:NO];
                 [Proto deleteJobBookmarkByJobId:self->_jobId completed:^(HttpResult *result) {

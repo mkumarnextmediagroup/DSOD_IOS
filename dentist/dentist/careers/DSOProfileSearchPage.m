@@ -12,6 +12,8 @@
 #import "JobDSOModel.h"
 #import "DSOProfileTableViewCell.h"
 #import "CompanyDetailViewController.h"
+#import "CompanyExistsReviewsTableViewCell.h"
+#import "CompanyReviewsViewController.h"
 
 @interface DSOProfileSearchPage ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 {
@@ -86,8 +88,8 @@
     [self.view addSubview:myTable];
     myTable.dataSource = self;
     myTable.delegate = self;
-    myTable.rowHeight = UITableViewAutomaticDimension;
-    myTable.estimatedRowHeight = 100;
+    myTable.estimatedRowHeight = 10;
+    myTable.rowHeight=UITableViewAutomaticDimension;
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     myTable.backgroundColor = rgb255(246, 245, 245);
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
@@ -110,29 +112,54 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80;
+    if (self.isDSOProfile)
+    {
+        return 80;
+    }else
+    {
+        return UITableViewAutomaticDimension;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellIden = @"cell";
-    DSOProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
-    if (cell == nil) {
-        cell = [[DSOProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
+    if (self.isDSOProfile) {
+        NSString *cellIden = @"cell";
+        DSOProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
+        if (cell == nil) {
+            cell = [[DSOProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
+        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        [cell bindInfo:searchInfoArr[indexPath.row]];
+        return cell;
+    }else
+    {
+        
+        NSString *cellIden = @"cellIden";
+        CompanyExistsReviewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIden];
+        if (cell == nil) {
+            cell = [[CompanyExistsReviewsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
+        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        [cell setData:searchInfoArr[indexPath.row]];
+        return cell;
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    [cell bindInfo:searchInfoArr[indexPath.row]];
-    return cell;
-    
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    //    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    if (searchInfoArr.count >indexPath.row) {
-        [CompanyDetailViewController openBy:self companyId:searchInfoArr[indexPath.row].id];
+    if (self.isDSOProfile) {
+        if (searchInfoArr.count >indexPath.row) {
+            [CompanyDetailViewController openBy:self companyId:searchInfoArr[indexPath.row].id];
+        }
+
+    }else
+    {
+        [CompanyReviewsViewController openBy:self jobDSOModel:searchInfoArr[indexPath.row]];
     }
     
 }

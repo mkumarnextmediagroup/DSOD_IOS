@@ -2380,8 +2380,8 @@
 }
 
 //2.19.​查询所有公司评论列表
-+ (void)findCompanyExistsReviewsList:(NSInteger)skip  completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed{
-    [Proto queryCompanyList:skip searchValue:nil completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
++ (void)findCompanyExistsReviewsList:(NSInteger)skip searchValue:(NSString *)searchValue completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed{
+    [Proto queryCompanyList:skip searchValue:searchValue completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
         if(completed){
             foreTask(^{
                 completed(array,totalCount);

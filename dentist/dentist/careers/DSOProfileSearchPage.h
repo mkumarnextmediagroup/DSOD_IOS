@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DSOProfileSearchPage : UIViewController
 
+@property (nonatomic,assign)BOOL isDSOProfile;
+
 @end
 
 NS_ASSUME_NONNULL_END

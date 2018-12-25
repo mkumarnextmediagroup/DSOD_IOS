@@ -25,11 +25,8 @@
 	UILabel *addressLabel;
     UILabel *byLabel;
     UILabel *contentLabel;
-    UIWebView *mywebView;
 	UIView *view;
     UILabel *contentLabel2;
-    
-    BOOL authorDSODentist;
     BOOL allowZoom;
 }
 
@@ -116,11 +113,11 @@
 	[[[[[lineLabel2.layoutMaker leftParent:edge] rightParent:0] topParent:57] heightEq:1] install];
     
     
-    mywebView = [UIWebView new];
-    mywebView.delegate = self;
-    mywebView.scrollView.scrollEnabled = NO;
-    [self addSubview:mywebView];
-    [[[[mywebView.layoutMaker leftParent:edge] rightParent:-edge] below:view offset:5] install];
+    _mywebView = [UIWebView new];
+    _mywebView.delegate = self;
+    _mywebView.scrollView.scrollEnabled = NO;
+    [self addSubview:_mywebView];
+    [[[[_mywebView.layoutMaker leftParent:edge] rightParent:-edge] below:view offset:5] install];
 
 //    contentLabel = [self addLabel];
 //    contentLabel.font = [Fonts regular:15];
@@ -133,7 +130,7 @@
 	UIImageView *imgCon = [UIImageView new];
     imgCon.image = [UIImage imageNamed:@"content_bg"];
 	[self addSubview:imgCon];
-	[[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:mywebView offset:25] install];
+	[[[[[imgCon.layoutMaker sizeEq:SCREENWIDTH h:298] leftParent:0] rightParent:0] below:_mywebView offset:25] install];
 
     contentLabel2 = [self addLabel];
     contentLabel2.font = [Fonts regular:15];
@@ -225,9 +222,9 @@
     [imageView loadUrl:urlstr placeholderImage:@"art-img"];
 	 [headerImg setImageName:@"author_dsodentist"];
     
-    [mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
+    [_mywebView loadHTMLString:[self htmlString:bindInfo.content] baseURL:nil];
     
-    if(authorDSODentist){
+    if(_authorDSODentist){
         byLabel.hidden = NO;
         headerImg.hidden = NO;
         nameLabel.hidden = YES;
@@ -266,44 +263,28 @@
     }
 }
 
-- (NSString *)htmlString:(NSString *)html
-{
-    //do some regular
-    //    return [NSString stringWithFormat:@"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'><style type='text/css'>img{width:%fpx}</style>%@", SCREENWIDTH - 20, html];
-    
+- (NSString *)htmlString:(NSString *)html {
     NSString *htmlString = @"<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'><meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black'><meta name='format-detection' content='telephone=no'><style>body{padding:0px;margin:0px;}.first-big p:first-letter{float: left;font-size:1.9em;padding-right:5px;text-transform:uppercase;color:#4a4a4a;}p{width:100%;color:#4a4a4a;font-size:1em;}</style>";
     
     htmlString = [NSString stringWithFormat:@"%@%@%@%@%@",htmlString,
                   @"<style type='text/css'>",
                   @"blockquote{color:#4a4a4a;font-size:1.5em;font-weight:bold;margin: 0px 10px 0px 30px;position:relative;line-height:110%;text-indent:0px}",
                   @"blockquote:before{color:#4a4a4a;content:'“';font-size:2em;position:absolute;left:-30px;top:10px;line-height:.1em}",
-                  //@"blockquote:after{color:#4a4a4a;content:'”';font-size:5em;position:absolute;right:15px;bottom:0;line-height:.1em}",
                   @"</style>"
                   ];
-    
-    
-    //
-    //    @"blockquote{color:#4a4a4a;font-size:1.5em;font-weight:bold;margin: 0px 10px 0px 10px;position:relative;line-height:110%;text-indent:20px}",
-    //    @"blockquote:before{color:#4a4a4a;content:'“';font-size:2em;position:absolute;left:-30px;top:15px;line-height:.1em}",
-    //
-    
-    
     html = [html stringByReplacingOccurrencesOfString :@"pre" withString:@"blockquote"];
-    
     NSArray *array = [html componentsSeparatedByString:@"<p>"];
     for (int i = 0; i < [array count]; i++) {
         NSString *currentString = [array objectAtIndex:i];
         if(i==1){
-            authorDSODentist = [currentString rangeOfString:@"By DSODentist"].location !=NSNotFound;
+            _authorDSODentist = [currentString rangeOfString:@"By DSODentist"].location !=NSNotFound;
         }if(i==2){
             htmlString = [NSString stringWithFormat:@"%@<div class='first-big'><p>%@</div>",htmlString,currentString];
         }else if(i>2){
             htmlString = [NSString stringWithFormat:@"%@<p>%@",htmlString,currentString];
         }
     }
-    
     return htmlString;
-    
 }
 
 - (void)resetLayout {
@@ -313,43 +294,33 @@
     [[contentLabel2.layoutUpdate heightEq:size2.height] install];
 }
 
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
-{
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     allowZoom = NO;
-    [webView evaluateJavaScript:@"document.body.scrollWidth" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        CGFloat ratio =  CGRectGetWidth(self->mywebView.frame) /[result floatValue];
-        
-        [webView evaluateJavaScript:@"document.documentElement.style.webkitUserSelect='none';" completionHandler:nil];
-        [webView evaluateJavaScript:@"document.activeElement.blur();" completionHandler:nil];
-        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%'"completionHandler:nil];
-        [webView evaluateJavaScript:@"document.body.scrollHeight"completionHandler:^(id _Nullable result,NSError * _Nullable error){
-            NSLog(@"scrollHeight高度：%.2f",[result floatValue]);
-            NSLog(@"scrollHeight计算高度：%.2f",[result floatValue]*ratio);
-            CGFloat newHeight = [result floatValue]*ratio;
-            [[self->mywebView.layoutUpdate heightEq:newHeight] install];
-            
-        }];
-    }];
+    [webView evaluateJavaScript:@"document.body.scrollWidth" completionHandler:^(id _Nullable result, NSError * _Nullable error) { [self handleCompletion:webView result:result]; }];
+}
+
+- (void) handleCompletion:(WKWebView *)webView result:(id _Nullable) result {
+    CGFloat ratio =  CGRectGetWidth(self->_mywebView.frame) /[result floatValue];
+    [webView evaluateJavaScript:@"document.documentElement.style.webkitUserSelect='none';" completionHandler:nil];
+    [webView evaluateJavaScript:@"document.activeElement.blur();" completionHandler:nil];
+    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%'"completionHandler:nil];
+    [webView evaluateJavaScript:@"document.body.scrollHeight" completionHandler:^(id _Nullable result,NSError * _Nullable error){ [self handleCompletionJavaScript:result ratio:ratio]; }];
+}
+
+- (void) handleCompletionJavaScript:(id _Nullable) result ratio: (CGFloat) ratio {
+    NSLog(@"scrollHeight高度：%.2f",[result floatValue]);
+    NSLog(@"scrollHeight计算高度：%.2f",[result floatValue]*ratio);
+    CGFloat newHeight = [result floatValue]*ratio;
+    [[self->_mywebView.layoutUpdate heightEq:newHeight] install];
 }
      
-     
- - (void)webViewDidFinishLoad:(UIWebView *)webView
-{
+ - (void)webViewDidFinishLoad:(UIWebView *)webView {
     //禁止用户选择
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
-    
     //禁止长按弹出选择框
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
-    
     CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
-    [[mywebView.layoutUpdate heightEq:webViewHeight] install];
+    [[_mywebView.layoutUpdate heightEq:webViewHeight] install];
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

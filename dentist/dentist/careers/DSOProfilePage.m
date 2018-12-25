@@ -55,7 +55,7 @@
     [[[[myTable.layoutMaker widthEq:SCREENWIDTH] topParent:_topBarH] bottomParent:-_bottomBarH] install];
     
     [self showCenterIndicator];
-    [Proto queryCompanyList:pagenumber completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
+    [Proto queryCompanyList:pagenumber searchValue:nil completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
         foreTask(^{
             [self hideCenterIndicator];
             NSLog(@"%@",array);
@@ -92,6 +92,7 @@
 {
     NSLog(@"search btn click");
     DSOProfileSearchPage *searchVC=[DSOProfileSearchPage new];
+    searchVC.isDSOProfile = YES;
     [self.navigationController pushViewController:searchVC animated:NO];
 }
 
@@ -148,7 +149,7 @@
                 
                 isdownrefresh=YES;
                 [self showCenterIndicator];
-                [Proto queryCompanyList:(pagenumber+1) completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
+                [Proto queryCompanyList:(pagenumber+1) searchValue:nil completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
                     self->isdownrefresh=NO;
                     foreTask(^{
                         [self hideCenterIndicator];

@@ -260,7 +260,7 @@
 + (void)getAllJobsByCompanyId:(NSString*)companyId skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 
 //MARK:2.13.    查询所有公司列表
-+ (void)queryCompanyList:(NSInteger)skip completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed;
++ (void)queryCompanyList:(NSInteger)skip searchValue:(NSString *)searchValue completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed;
 
 //2.14.    查询公司详情接口
 + (void)findCompanyById:(NSString*)companyId completed:(void(^)(JobDSOModel  * _Nullable companyModel))completed ;
@@ -268,13 +268,13 @@
     
 //2.17.    查询单个公司评论列表接口
 + (void)findCommentByCompanyId:(NSString*)companyId sort:(NSInteger)sort star:(NSInteger)star
-                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(NSArray<CompanyReviewModel*> *reviewArray))completed;
+                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(NSArray<CompanyReviewModel*> *reviewArray,NSInteger totalFound))completed;
 
 //2.18. 添加公司评论接口
 + (void)addCompanyComment:(NSString*)companyId reviewTitle:(NSString*)reviewTitle pros:(NSString*)pros cons:(NSString*)cons advice:(NSString*)advice isCurrentEmployee:(BOOL)isCurrentEmployee isFormerEmployee:(BOOL)isFormerEmployee isRecommend:(BOOL)isRecommend isApprove:(BOOL)isApprove rating:(float)rating completed:(void(^)(BOOL success,NSString *msg))completed;
 
 //2.19.​查询所有公司评论列表
-+ (void)findCompanyExistsReviewsList:(NSInteger)skip  completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed;
++ (void)findCompanyExistsReviewsList:(NSInteger)skip searchValue:(NSString *)searchValue completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed;
 
 
 //获取career首页图片接口

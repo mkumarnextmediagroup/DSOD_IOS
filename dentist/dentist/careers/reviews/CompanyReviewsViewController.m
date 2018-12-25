@@ -31,15 +31,21 @@
     UIRefreshControl *refreshControl;
     BOOL isRefreshing;
     
+    UILabel *reviewNumLabel;
+    
     
     UIView *sectionHeaderView;
     UILabel *sortValueLabel;
+    UIImageView *sortIconIv;
     UILabel *filterValueLabel;
     
     __block int sortSelectIndex;
     __block int sortSelectValue;
     __block int filterSelectIndex;
     __block int filterSelectValue;
+    
+    __block BOOL dateSortDown;
+    __block BOOL ratingSortDown;
 }
 
 
@@ -53,8 +59,10 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    edge = 18;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    edge = 18;
+    dateSortDown = YES;
+    ratingSortDown = YES;
     
     [self addNavBar];
     
@@ -135,7 +143,7 @@
     [starRateViewBg addSubview:starRateView];
     
 
-    UILabel *reviewNumLabel = headerView.addLabel;
+    reviewNumLabel = headerView.addLabel;
     reviewNumLabel.text = [NSString stringWithFormat:@"%ld Reviews" ,self.jobDSOModel.reviewNum];
     reviewNumLabel.font = [Fonts regular:12];
     reviewNumLabel.textColor = rgbHex(0x879AA8);
@@ -179,7 +187,11 @@
     }
     
     [self showTopIndicator];
-    [Proto findCommentByCompanyId:self.jobDSOModel.id sort:sortSelectValue star:filterSelectValue skip:isMore?self.reviewArray.count:0 limit:10 completed:^(NSArray<CompanyReviewModel *> *reviewArray) {
+    [Proto findCommentByCompanyId:self.jobDSOModel.id sort:sortSelectValue star:filterSelectValue skip:isMore?self.reviewArray.count:0 limit:10 completed:^(NSArray<CompanyReviewModel *> *reviewArray,NSInteger totalFound) {
+        if(self->filterSelectIndex == 0){
+            //not filter , update label
+            self->reviewNumLabel.text = [NSString stringWithFormat:@"%ld Reviews" ,totalFound];
+        }
         [self reloadData:[reviewArray copy]  isMore:isMore];
         [self hideTopIndicator];
     }];
@@ -209,13 +221,20 @@
 
 
 -(void)sortOnClick:(UIView*)view{
-    NSArray *sortArray=@[@"All Reviews",
-                         @"Recommends",
-                         @"Approved of CEO",
-                         @"Current Employee",
-                         @"Former Employee",
-                         @"Date (Newest first)",
-                         @"Date (Oldest first)",
+    NSString *dataIcon = @"icon_d_sel";
+    NSString *ratingIcon = @"icon_d_sel";
+    if(sortSelectIndex==0){
+        dataIcon = dateSortDown ?  @"icon_d_sel" :  @"icon_u_sel" ;
+        ratingIcon = ratingSortDown ?  @"icon_d_unsel" :  @"icon_u_unsel" ;
+    }else{
+        dataIcon = dateSortDown ?  @"icon_d_unsel" :  @"icon_u_unsel" ;
+        ratingIcon = ratingSortDown ?  @"icon_d_sel" :  @"icon_u_sel" ;
+    }
+    
+    
+    NSArray *sortArray=@[
+                         @{@"text":@"Date",@"icon":dataIcon},
+                         @{@"text":@"Rating",@"icon":ratingIcon}
                          ];
     
     UIWindow * window=[[[UIApplication sharedApplication] delegate] window];
@@ -227,23 +246,42 @@
     WeakSelf
     sTable.returnBlock=^(NSInteger index, NSString *itemText){
         StrongSelf
+        if(strongSelf->sortSelectIndex == index){
+            //click index same , change icon
+            if(index == 0){
+                strongSelf->dateSortDown = !strongSelf->dateSortDown;
+            }else{
+                strongSelf->ratingSortDown = !strongSelf->ratingSortDown;
+            }
+        }
+        
+        //        0:ALL
+        //        1:Date(Newest first)
+        //        2:Date(Oldset first)
+        //        3:Rating (降序)
+        //        4:Rating (升序)
         strongSelf->sortSelectIndex = (int)index;
-        strongSelf->sortSelectValue = (int)index;
+        if(index == 0){
+            strongSelf->sortIconIv.imageName = strongSelf->dateSortDown ? @"icon_d_sel" : @"icon_u_sel";
+            strongSelf->sortSelectValue = strongSelf->dateSortDown?1:2;
+        }else{
+            strongSelf->sortIconIv.imageName = strongSelf->ratingSortDown ? @"icon_d_sel" : @"icon_u_sel";
+            strongSelf->sortSelectValue = strongSelf->ratingSortDown?3:4;
+        }
+        
         strongSelf->sortValueLabel.text = itemText;
         [weakSelf getDatas:NO];
     };
+    sTable.cellType = CellTypeCustomIcon;
     [sTable setSelectIndex:sortSelectIndex];
     [sTable showWithFrame:tableFrame];
 }
 
 -(void)filterOnClick:(UIView*)view{
     
-    NSArray *sortArray=@[@"All Reviews",
-                         @"5 Stars",
-                         @"4 Stars",
-                         @"3 Stars",
-                         @"2 Stars",
-                         @"1 Stars",
+    NSArray *sortArray=@[@{@"text":@"All Reviews"},
+                         @{@"text":@"Current Employee"},
+                         @{@"text":@"Former Employee"}
                          ];
     
     
@@ -256,9 +294,8 @@
     WeakSelf
     sTable.returnBlock=^(NSInteger index, NSString *itemText){
         StrongSelf
-        NSArray<NSString*> *filterIndex = @[@"0",@"5",@"4",@"3",@"2",@"1"];
         strongSelf->filterSelectIndex = (int)index;
-        strongSelf->filterSelectValue = filterIndex[(int)index].intValue;
+        strongSelf->filterSelectValue = (int)index;
         strongSelf->filterValueLabel.text = itemText;
         [weakSelf getDatas:NO];
     };
@@ -299,8 +336,13 @@
         sortValueLabel = sortView.addLabel;
         sortValueLabel.font = [Fonts regular:9];
         sortValueLabel.textColor = rgbHex(0x879AA8);
-        sortValueLabel.text=@"All Reviews";
+        sortValueLabel.text=@"Date";
         [[[sortValueLabel.layoutMaker below:sortLabel offset:0]toRightOf:sortIv offset:3] install];
+        
+        sortIconIv = sortView.addImageView;
+        sortIconIv.imageName = @"icon_d_sel";
+        [sortIconIv scaleFillAspect];
+        [[[[sortIconIv.layoutMaker centerYOf:sortValueLabel offset:0]toRightOf:sortIv offset:35]sizeEq:7 h:5] install];
         
         
         
@@ -323,7 +365,7 @@
         filterValueLabel = filterView.addLabel;
         filterValueLabel.font = [Fonts regular:9];
         filterValueLabel.textColor = rgbHex(0x879AA8);
-        filterValueLabel.text=@"All Stars";
+        filterValueLabel.text=@"All Reviews";
         [[[filterValueLabel.layoutMaker below:filterLabel offset:0]toRightOf:filterIv offset:3] install];
         
         

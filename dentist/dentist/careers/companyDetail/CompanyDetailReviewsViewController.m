@@ -63,7 +63,7 @@
 }
 
 -(void)reloadComment{
-    [Proto findCommentByCompanyId:self.jobDSOModel.id sort:0 star:0 skip:0 limit:5 completed:^(NSArray<CompanyReviewModel *> *reviewArray) {
+    [Proto findCommentByCompanyId:self.jobDSOModel.id sort:0 star:0 skip:0 limit:5 completed:^(NSArray<CompanyReviewModel *> *reviewArray,NSInteger totalFound) {
             self->reviewArray = [reviewArray copy];
             [self->tableView reloadData];
     }];

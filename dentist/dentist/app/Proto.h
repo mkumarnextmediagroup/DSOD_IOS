@@ -268,7 +268,7 @@
     
 //2.17.    查询单个公司评论列表接口
 + (void)findCommentByCompanyId:(NSString*)companyId sort:(NSInteger)sort star:(NSInteger)star
-                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(NSArray<CompanyReviewModel*> *reviewArray))completed;
+                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(NSArray<CompanyReviewModel*> *reviewArray,NSInteger totalFound))completed;
 
 //2.18. 添加公司评论接口
 + (void)addCompanyComment:(NSString*)companyId reviewTitle:(NSString*)reviewTitle pros:(NSString*)pros cons:(NSString*)cons advice:(NSString*)advice isCurrentEmployee:(BOOL)isCurrentEmployee isFormerEmployee:(BOOL)isFormerEmployee isRecommend:(BOOL)isRecommend isApprove:(BOOL)isApprove rating:(float)rating completed:(void(^)(BOOL success,NSString *msg))completed;

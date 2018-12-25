@@ -22,6 +22,7 @@
     UITableView *myTable;
     NSIndexPath *editingIndexPath;
     UIRefreshControl *refreshControl;
+    BOOL isdownrefresh;
 }
 @end
 
@@ -220,6 +221,36 @@
         }];
     }
     
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat height = scrollView.frame.size.height;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    CGFloat consizeheight=scrollView.contentSize.height;
+    CGFloat bottomOffset = (consizeheight - contentOffsetY);
+    
+    if (bottomOffset <= height-50  && contentOffsetY>0)
+    {
+        if (!isdownrefresh) {
+            NSLog(@"==================================下啦刷选;contentOffsetY=%@;consizeheight=%@;bottomOffset=%@;height=%@；",@(contentOffsetY),@(consizeheight),@(bottomOffset),@(height));
+            isdownrefresh=YES;
+            [self showIndicator];
+            [Proto queryRemindsByUserId:self->infoArr.count completed:^(NSArray<JobAlertsModel *> *array, NSInteger totalCount) {
+                self->isdownrefresh=NO;
+                foreTask(^{
+                    [self hideIndicator];
+                    NSLog(@"%@",array);
+                    if(array && array.count>0){
+                        [self->infoArr addObjectsFromArray:array];
+                        [self->myTable reloadData];
+                    }
+                });
+            }];
+            
+        }
+        
+    }
 }
 
 

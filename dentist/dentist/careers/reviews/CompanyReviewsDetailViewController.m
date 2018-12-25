@@ -145,7 +145,7 @@
     [approveBtn setTitle:@" Approve of CEO" forState:UIControlStateNormal];
     [approveBtn setImage:[UIImage imageNamed:@"icon_check_mark_small"] forState:UIControlStateNormal];
     approveBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [[[[approveBtn.layoutMaker below:adviceValueLabel offset:edge] rightParent:-edge]heightEq:40] install];
+    [[[[approveBtn.layoutMaker below:adviceValueLabel offset:0] rightParent:-edge]heightEq:40] install];
     
     
     recommendsBtn = contentView.addButton;
@@ -154,8 +154,9 @@
     [recommendsBtn setTitle:@" Recommends" forState:UIControlStateNormal];
     [recommendsBtn setImage:[UIImage imageNamed:@"icon_check_mark_small"] forState:UIControlStateNormal];
     recommendsBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [[[[recommendsBtn.layoutMaker below:adviceValueLabel offset:edge]toLeftOf:approveBtn offset:-edge]heightEq:40] install];
+    [[[[recommendsBtn.layoutMaker below:adviceValueLabel offset:0]toLeftOf:approveBtn offset:-edge]heightEq:40] install];
     
+    [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(recommendsBtn) install];
 }
 
 -(void)loadData{

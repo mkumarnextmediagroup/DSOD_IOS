@@ -338,13 +338,16 @@
             NSLog(@"result=%@",@(result.code));
             foreTask(^() {
                 [self.navigationController.view hideToast];
-                if ([view isKindOfClass:[FindJobsSponsorTableViewCell class]]) {
-                    FindJobsSponsorTableViewCell *cell =(FindJobsSponsorTableViewCell *)view;
-                    [cell updateFollowStatus:result];
-                }else if([view isKindOfClass:[FindJobsTableViewCell class]]){
-                    FindJobsTableViewCell *cell =(FindJobsTableViewCell *)view;
-                    [cell updateFollowStatus:result];
+                if (result.OK) {
+                    if ([view isKindOfClass:[FindJobsSponsorTableViewCell class]]) {
+                        FindJobsSponsorTableViewCell *cell =(FindJobsSponsorTableViewCell *)view;
+                        [cell updateFollowStatus:YES];
+                    }else if([view isKindOfClass:[FindJobsTableViewCell class]]){
+                        FindJobsTableViewCell *cell =(FindJobsTableViewCell *)view;
+                        [cell updateFollowStatus:YES];
+                    }
                 }
+                
             });
         }];
     }
@@ -357,10 +360,10 @@
     if (selectIndex==1) {
         if (self->followArr && self->followArr.count>indexPath.row) {
             JobBookmarkModel *followmodel=(JobBookmarkModel *)self->followArr[indexPath.row];
-            followid=followmodel.id;
+            followid=followmodel.jobId;
             UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
             [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-            [Proto deleteJobBookmark:followid completed:^(HttpResult *result) {
+            [Proto deleteJobBookmarkByJobId:followid completed:^(HttpResult *result) {
                 NSLog(@"result=%@",@(result.code));
                 foreTask(^() {
                     if(result.OK){

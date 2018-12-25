@@ -509,9 +509,16 @@
             [window hideToast];
             if (result.OK) {
                 //
+                self->jobModel.isApplication=@"1";
                 [self setApplyButtonEnable:NO];
                 [Proto deleteJobBookmarkByJobId:self->_jobId completed:^(HttpResult *result) {
                     NSLog(@"result=%@",@(result.code));
+                    foreTask(^{
+                        if (result.OK) {
+                            BOOL isApplication = [self->jobModel.isApplication boolValue];
+                            self->attentionButton.hidden=isApplication;
+                        }
+                    });
                     
                 }];
             }else{

@@ -260,7 +260,7 @@
 + (void)getAllJobsByCompanyId:(NSString*)companyId skip:(NSInteger)skip completed:(void(^)(NSArray<JobModel *> *array,NSInteger totalCount))completed;
 
 //MARK:2.13.    查询所有公司列表
-+ (void)queryCompanyList:(NSInteger)skip completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed;
++ (void)queryCompanyList:(NSInteger)skip searchValue:(NSString *)searchValue completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed;
 
 //2.14.    查询公司详情接口
 + (void)findCompanyById:(NSString*)companyId completed:(void(^)(JobDSOModel  * _Nullable companyModel))completed ;

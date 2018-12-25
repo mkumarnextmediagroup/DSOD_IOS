@@ -35,6 +35,14 @@
 
 @implementation CareerMyJobViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (myTable) {
+        [myTable reloadData];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -222,12 +230,14 @@
         if (self->applyArr && self->applyArr.count>indexPath.row) {
             JobApplyModel *applymodel=(JobApplyModel *)self->applyArr[indexPath.row];
             cell.isHideNew=YES;
+            cell.isApply=YES;
             cell.info=applymodel.jobPO;
             
         }
     }else{
         if (self->followArr && self->followArr.count>indexPath.row) {
             JobBookmarkModel *bookmarkmodel=(JobBookmarkModel *)self->followArr[indexPath.row];
+            cell.isApply=NO;
             cell.isHideNew=YES;
             cell.follow=YES;
             cell.followid=bookmarkmodel.id;
@@ -256,11 +266,30 @@
         }
     }
     if (jobid) {
-        [JobDetailViewController presentBy:nil jobId:jobid closeBack:^{
+        BOOL isshowapplybtn=NO;
+        if (selectIndex==0) {
+            isshowapplybtn=YES;
+        }
+        [JobDetailViewController presentBy:nil jobId:jobid isShowApply:isshowapplybtn closeBack:^(NSString * jobid) {
             foreTask(^{
+                if (self->selectIndex==1 && ![NSString isBlankString:jobid]) {
+                    [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if ([obj isKindOfClass: [JobBookmarkModel class]]) {
+                            JobBookmarkModel *model=(JobBookmarkModel *)obj;
+                            if ([model.jobId isEqualToString:jobid]) {
+                                // 更新数据源
+                                if (self->followArr.count>idx) {
+                                    [self->followArr removeObjectAtIndex:idx];
+                                }
+                                *stop = YES;
+                            }
+                        }
+                    }];
+                }
                 if (self->myTable) {
                     [self->myTable reloadData];
                 }
+                
             });
             
         }];
@@ -338,13 +367,16 @@
             NSLog(@"result=%@",@(result.code));
             foreTask(^() {
                 [self.navigationController.view hideToast];
-                if ([view isKindOfClass:[FindJobsSponsorTableViewCell class]]) {
-                    FindJobsSponsorTableViewCell *cell =(FindJobsSponsorTableViewCell *)view;
-                    [cell updateFollowStatus:result];
-                }else if([view isKindOfClass:[FindJobsTableViewCell class]]){
-                    FindJobsTableViewCell *cell =(FindJobsTableViewCell *)view;
-                    [cell updateFollowStatus:result];
+                if (result.OK) {
+                    if ([view isKindOfClass:[FindJobsSponsorTableViewCell class]]) {
+                        FindJobsSponsorTableViewCell *cell =(FindJobsSponsorTableViewCell *)view;
+                        [cell updateFollowStatus:YES];
+                    }else if([view isKindOfClass:[FindJobsTableViewCell class]]){
+                        FindJobsTableViewCell *cell =(FindJobsTableViewCell *)view;
+                        [cell updateFollowStatus:YES];
+                    }
                 }
+                
             });
         }];
     }
@@ -357,10 +389,10 @@
     if (selectIndex==1) {
         if (self->followArr && self->followArr.count>indexPath.row) {
             JobBookmarkModel *followmodel=(JobBookmarkModel *)self->followArr[indexPath.row];
-            followid=followmodel.id;
+            followid=followmodel.jobId;
             UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
             [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-            [Proto deleteJobBookmark:followid completed:^(HttpResult *result) {
+            [Proto deleteJobBookmarkByJobId:followid completed:^(HttpResult *result) {
                 NSLog(@"result=%@",@(result.code));
                 foreTask(^() {
                     if(result.OK){

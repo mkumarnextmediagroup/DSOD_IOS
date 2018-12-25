@@ -59,12 +59,15 @@
         [[[[reviewLabel.layoutMaker toRightOf:_star offset:10] below:finLabel offset:4] sizeEq:100 h:20] install];
         
         conLabel = [self addLabel];
-        conLabel.numberOfLines = 0;
+        conLabel.numberOfLines = 1;
         conLabel.font = [Fonts semiBold:12];
         conLabel.textColor = Colors.textAlternate;
         //        [conLabel textColorMain];
 //        conLabel.text = @"Finished the content?";
         [[[[conLabel.layoutMaker toRightOf:headerImg offset:15] below:reviewLabel offset:0] sizeEq:SCREENWIDTH - 95 h:30] install];
+        
+        UILabel *lineLabel = [self lineLabel];
+        [[[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] below:conLabel offset:edge-3] heightEq:1] bottomParent:0] install];
     }
     return self;
 }

@@ -15,6 +15,7 @@
 @property (nonatomic,assign) BOOL isHideNew;
 @property (nonatomic,assign) BOOL isNew;
 @property (nonatomic,assign) BOOL follow;
+@property (nonatomic,assign) BOOL isApply;
 @property (nonatomic,copy) NSIndexPath *indexPath;
 @property (nonatomic,copy) NSString *followid;
 @property (nonatomic,weak) id<JobsTableCellDelegate>delegate;

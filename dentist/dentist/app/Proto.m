@@ -28,7 +28,7 @@
 #import "CompanyModel.h"
 #import "JobDSOModel.h"
 #import "JobAlertsModel.h"
-
+#import "JobsBookmarkManager.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -2077,6 +2077,9 @@
         [paradic setObject:jobId forKey:@"jobId"];
     }
     [self postAsync3:@"application/save" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (r.OK){
+            [[JobsBookmarkManager shareManager] addapplyBookmark:getLastAccount() postid:jobId];
+        }
         if (completed) {
             completed(r);
         }
@@ -2091,6 +2094,9 @@
         [paradic setObject:jobId forKey:@"jobId"];
     }
     [self postAsync3:@"bookmark/save" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (r.OK){
+            [[JobsBookmarkManager shareManager] removedeleteBookmark:getLastAccount() postid:jobId];
+        }
         if (completed) {
             completed(r);
         }
@@ -2105,6 +2111,9 @@
         [paradic setObject:jobId forKey:@"id"];
     }
     [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (r.OK){
+            [[JobsBookmarkManager shareManager] adddeleteBookmark:getLastAccount() postid:jobId];
+        }
         if (completed) {
             completed(r);
         }
@@ -2118,6 +2127,9 @@
         [paradic setObject:jobId forKey:@"jobId"];
     }
     [self postAsync2:@"bookmark/deleteOneByUserIdAndJobId" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (r.OK){
+            [[JobsBookmarkManager shareManager] adddeleteBookmark:getLastAccount() postid:jobId];
+        }
         if (completed) {
             completed(r);
         }
@@ -2247,7 +2259,7 @@
 }
 
 //MARK:2.13.    查询所有公司列表
-+ (void)queryCompanyList:(NSInteger)skip completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed
++ (void)queryCompanyList:(NSInteger)skip searchValue:(NSString *)searchValue completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed
 {
     NSInteger limit=20;//分页数默认20条
     if (skip<=0) {
@@ -2256,7 +2268,10 @@
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"pageNumber"];
     [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"pageSize"];
-
+    if (searchValue != nil) {
+        [paradic setObject:searchValue forKey:@"searchValue"];
+    }
+    
     [self postAsync3:@"dso/findAllDSOs" dic:paradic modular:@"profile" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
@@ -2301,9 +2316,13 @@
 
 //2.17.    查询单个公司评论列表接口
 + (void)findCommentByCompanyId:(NSString*)companyId sort:(NSInteger)sort star:(NSInteger)star
-                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(NSArray<CompanyReviewModel*> *reviewArray))completed {
-    
-    
+                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(NSArray<CompanyReviewModel*> *reviewArray,NSInteger totalFound))completed {
+//    0:ALL
+//    1:Date(Newest first)
+//    2:Date(Oldset first)
+//    3: Rating (降序)
+//    4:Rating (升序)
+    sort = sort > 0 ? sort : 1 ;//不需要0
     NSDictionary *paradic = @{@"dsoId" : companyId,
                               @"limit" : [NSNumber numberWithInteger:limit],
                               @"skip" : [NSNumber numberWithInteger:skip],
@@ -2312,7 +2331,9 @@
     
     [self postAsync3:@"comment/findCommentByDSOId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
         NSMutableArray *resultArray = [NSMutableArray new];
+        NSInteger totalFound= 0 ;
         if (r.OK && r.resultMap[@"reviewPOs"]) {
+            totalFound = [r.resultMap[@"totalFound"] integerValue];
             NSArray *reviewArray =  r.resultMap[@"reviewPOs"];
             
 
@@ -2325,7 +2346,7 @@
         }
         if(completed){
             foreTask(^{
-                completed(resultArray);
+                completed(resultArray,totalFound);
             });
         }
     }];
@@ -2371,8 +2392,8 @@
 }
 
 //2.19.​查询所有公司评论列表
-+ (void)findCompanyExistsReviewsList:(NSInteger)skip  completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed{
-    [Proto queryCompanyList:skip completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
++ (void)findCompanyExistsReviewsList:(NSInteger)skip searchValue:(NSString *)searchValue completed:(void(^)(NSArray<JobDSOModel *> *array,NSInteger totalCount))completed{
+    [Proto queryCompanyList:skip searchValue:searchValue completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
         if(completed){
             foreTask(^{
                 completed(array,totalCount);

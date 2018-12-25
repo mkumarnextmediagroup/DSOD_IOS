@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "CompanyReviewsViewController.h"
 #import "CareerSearchViewController.h"
+#import "DSOProfileSearchPage.h"
 
 @interface CompanyExistsReviewsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -99,19 +100,10 @@
 - (void)searchClick
 {
     NSLog(@"search btn click");
-    //    CareerSearchViewController *searchVC=[CareerSearchViewController new];
-    //    [self.navigationController pushViewController:searchVC animated:YES];
     
-    if (self.tabBarController != nil) {
-        UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-        CareerSearchViewController *searchVC=[CareerSearchViewController new];
-        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchVC];
-        navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [viewController presentViewController:navVC animated:NO completion:NULL];
-    }else{
-        CareerSearchViewController *searchVC=[CareerSearchViewController new];
-        [self.navigationController pushViewController:searchVC animated:NO];
-    }
+    DSOProfileSearchPage *searchVC=[DSOProfileSearchPage new];
+    searchVC.isDSOProfile = NO;
+    [self.navigationController pushViewController:searchVC animated:NO];
     
 }
 
@@ -168,7 +160,7 @@
     }
     
     [self showTopIndicator];
-    [Proto findCompanyExistsReviewsList:isMore?self->companyModelArray.count:0 completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
+    [Proto findCompanyExistsReviewsList:isMore?self->companyModelArray.count:0 searchValue:nil completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
             self->totalCount = totalCount;
             [self reloadData:[array copy]  isMore:isMore];
             [self hideTopIndicator];

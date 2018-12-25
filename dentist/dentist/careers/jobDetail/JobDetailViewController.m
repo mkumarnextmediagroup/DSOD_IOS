@@ -28,6 +28,8 @@
 
 @interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,UploadResumeViewDelegate,UIDocumentPickerDelegate,HttpProgress>
 @property (nonatomic,strong) NSString *jobId;
+@property (nonatomic,strong) NSString *applyJobId;
+@property (nonatomic,assign) BOOL isShowApplyBtn;
 @property (copy, nonatomic) CareerJobDetailCloseCallback closeBack;
 
 @property (nonatomic,strong) UIViewController *presentControl;
@@ -64,9 +66,14 @@
 
 
 +(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId{
-    [self presentBy:vc jobId:jobId closeBack:nil];
+    [self presentBy:vc jobId:jobId isShowApply:NO closeBack:nil];
 }
 +(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId closeBack:(CareerJobDetailCloseCallback)closeBack
+{
+    [self presentBy:vc jobId:jobId isShowApply:NO closeBack:closeBack];
+}
+
++(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*_Nonnull)jobId isShowApply:(BOOL)isShowApply closeBack:(CareerJobDetailCloseCallback _Nullable)closeBack
 {
     [[DentistDataBaseManager shareManager] updateCareersJobs:jobId completed:^(BOOL result) {
     }];
@@ -81,6 +88,8 @@
     
     JobDetailViewController *jobDetailVc = [JobDetailViewController new];
     jobDetailVc.jobId =jobId;
+    jobDetailVc.applyJobId=nil;
+    jobDetailVc.isShowApplyBtn=isShowApply;
     jobDetailVc.closeBack = closeBack;
     jobDetailVc.modalPresentationStyle = UIModalPresentationCustom;
     jobDetailVc.view.backgroundColor = UIColor.clearColor;
@@ -88,11 +97,10 @@
     nvc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     nvc.view.backgroundColor = [UIColor clearColor];
     jobDetailVc.presentControl = nvc;
-
+    
     [viewController presentViewController:nvc animated:YES completion:^{
         jobDetailVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }];
-    
 }
 
 - (void)viewDidLoad {
@@ -125,7 +133,7 @@
                 [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention"] forState:UIControlStateNormal];
             }
             BOOL isApplication = [self->jobModel.isApplication boolValue];
-            [self setApplyButtonEnable:!isApplication];
+            [self setApplyButtonEnable:isApplication];
             self->attentionButton.hidden=isApplication;
         }
     }];
@@ -203,13 +211,18 @@
 {
     UIButton *btn=(UIButton *)[contentView viewWithTag:99];
     
-    if (enable) {
+    if (self->_isShowApplyBtn) {
+        btn.hidden=NO;
+    }else{
+        btn.hidden=enable;
+    }
+    if (!enable) {
         btn.userInteractionEnabled=YES;//交互关闭
-        btn.alpha=1.0;//透明度
         [btn setTitle:@"Apply Now" forState:UIControlStateNormal];
     }else{
         [btn setTitle:@"View similar jobs" forState:UIControlStateNormal];
     }
+    
 }
 
 
@@ -340,7 +353,7 @@
 
 -(void)closePage{
     if (self.closeBack) {
-        self.closeBack();
+        self.closeBack(self->_applyJobId);
     }
     self.view.backgroundColor = UIColor.clearColor;
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -509,9 +522,17 @@
             [window hideToast];
             if (result.OK) {
                 //
+                self->_applyJobId=self->_jobId;
+                self->jobModel.isApplication=@"1";
                 [self setApplyButtonEnable:NO];
                 [Proto deleteJobBookmarkByJobId:self->_jobId completed:^(HttpResult *result) {
                     NSLog(@"result=%@",@(result.code));
+                    foreTask(^{
+                        if (result.OK) {
+                            BOOL isApplication = [self->jobModel.isApplication boolValue];
+                            self->attentionButton.hidden=isApplication;
+                        }
+                    });
                     
                 }];
             }else{

@@ -11,6 +11,8 @@
 #import "LargeUIButton.h"
 #import "DentistDataBaseManager.h"
 #import "TopLeftLabel.h"
+#import "JobsBookmarkManager.h"
+#import "DsoToast.h"
 
 #define edge 15
 
@@ -152,15 +154,35 @@
         }
         [[locationimageView.layoutUpdate  sizeEq:locationimagew h:locationimageh] install];
         [locationimageView.layoutUpdate centerYOf:locationLabel offset:0];
-        if (_follow) {
-            [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
+        if (_isApply) {
+            followButton.hidden=YES;
         }else{
-            if ([_info.isAttention boolValue]) {
+            followButton.hidden=NO;
+            if (_follow) {
                 [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
             }else{
-                [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+                BOOL isApplication = [_info.isApplication boolValue];
+                if(isApplication || [[JobsBookmarkManager shareManager] checkIsApplyBookmark:getLastAccount() postid:_info.id]){
+                    followButton.hidden=YES;
+                }else{
+                    followButton.hidden=NO;
+                    if ([[JobsBookmarkManager shareManager] checkIsDeleteBookmark:getLastAccount() postid:info.id]) {
+                        [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+                    }else{
+                        if ([_info.isAttention boolValue]) {
+                            [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
+                        }else{
+                            [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+                        }
+                    }
+                }
+                
+                
             }
+            
         }
+        
+        
         if(_info.status==3){
             self->newimageView.hidden=NO;
             self->newimageView.image=[UIImage imageNamed:@"Closed"];
@@ -257,16 +279,26 @@
             [self.delegate UnFollowJobAction:_indexPath view:self];
         }
     }else{
-        if ([_info.isAttention boolValue]) {
-            if(self.delegate && [self.delegate respondsToSelector:@selector(UnFollowJobAction:view:)]){
-                [self.delegate UnFollowJobAction:_indexPath view:self];
+        BOOL isApplication = [_info.isApplication boolValue];
+        if (![[JobsBookmarkManager shareManager] checkIsApplyBookmark:getLastAccount() postid:_info.id] && !isApplication) {
+            if ([_info.isAttention boolValue]) {
+                if(self.delegate && [self.delegate respondsToSelector:@selector(UnFollowJobAction:view:)]){
+                    [self.delegate UnFollowJobAction:_indexPath view:self];
+                }
+            }else{
+                if(self.delegate && [self.delegate respondsToSelector:@selector(FollowJobAction:view:)]){
+                    [self.delegate FollowJobAction:_indexPath view:self];
+                }
             }
         }else{
-            if(self.delegate && [self.delegate respondsToSelector:@selector(FollowJobAction:view:)]){
-                [self.delegate FollowJobAction:_indexPath view:self];
-            }
+            UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+            UIView *dsontoastview=[DsoToast toastViewForMessage:@"The Job has been applied…" ishowActivity:YES];
+            [window showToast:dsontoastview duration:1.0 position:CSToastPositionBottom completion:nil];
         }
+        
     }
+    
+    
     
 }
 

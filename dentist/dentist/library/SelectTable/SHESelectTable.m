@@ -21,9 +21,9 @@
         self.backgroundColor = [UIColor clearColor];
         
         [self creatView];
-        
         datArray=dataArray;
-        
+
+        self.cellType = CellTypeChecked;
         selectIndex = 0;
     }
     return self;
@@ -48,6 +48,7 @@
         self->tableViewBgView.alpha=1;
     }];
 }
+
 
 -(void)setSelectIndex:(NSInteger)index{
     selectIndex = index;
@@ -125,7 +126,7 @@
     CGFloat height = [self tableView:tableView heightForRowAtIndexPath:indexPath];
     
     SHESelectCell *cell=[[SHESelectCell alloc]initWithFrame:CGRectMake(0, 0, self.selTable.frame.size.width, height)];
-    [cell setItemText:datArray[indexPath.row] isSelect:selectIndex==indexPath.row];
+    [cell setItem:datArray[indexPath.row] cellType:self.cellType isSelect:selectIndex==indexPath.row];
     
     if (indexPath.row!=0) {
         [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -138,7 +139,7 @@
 {
     selectIndex = indexPath.row;
     if (_returnBlock) {
-        _returnBlock(indexPath.row, datArray[indexPath.row]);
+        _returnBlock(indexPath.row, datArray[indexPath.row][@"text"]);
         [self dismiss];
     }
 }

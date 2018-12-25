@@ -2301,9 +2301,13 @@
 
 //2.17.    查询单个公司评论列表接口
 + (void)findCommentByCompanyId:(NSString*)companyId sort:(NSInteger)sort star:(NSInteger)star
-                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(NSArray<CompanyReviewModel*> *reviewArray))completed {
-    
-    
+                          skip:(NSInteger)skip limit:(NSInteger)limit completed:(void(^)(NSArray<CompanyReviewModel*> *reviewArray,NSInteger totalFound))completed {
+//    0:ALL
+//    1:Date(Newest first)
+//    2:Date(Oldset first)
+//    3: Rating (降序)
+//    4:Rating (升序)
+    sort = sort > 0 ? sort : 1 ;//不需要0
     NSDictionary *paradic = @{@"dsoId" : companyId,
                               @"limit" : [NSNumber numberWithInteger:limit],
                               @"skip" : [NSNumber numberWithInteger:skip],
@@ -2312,7 +2316,9 @@
     
     [self postAsync3:@"comment/findCommentByDSOId" dic:paradic modular:@"hr" callback:^(HttpResult *r) {
         NSMutableArray *resultArray = [NSMutableArray new];
+        NSInteger totalFound= 0 ;
         if (r.OK && r.resultMap[@"reviewPOs"]) {
+            totalFound = [r.resultMap[@"totalFound"] integerValue];
             NSArray *reviewArray =  r.resultMap[@"reviewPOs"];
             
 
@@ -2325,7 +2331,7 @@
         }
         if(completed){
             foreTask(^{
-                completed(resultArray);
+                completed(resultArray,totalFound);
             });
         }
     }];

@@ -92,6 +92,7 @@
 {
     NSLog(@"search btn click");
     DSOProfileSearchPage *searchVC=[DSOProfileSearchPage new];
+    searchVC.isDSOProfile = YES;
     [self.navigationController pushViewController:searchVC animated:NO];
 }
 

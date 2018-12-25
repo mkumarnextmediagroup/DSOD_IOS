@@ -35,6 +35,14 @@
 
 @implementation CareerMyJobViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (myTable) {
+        [myTable reloadData];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -222,12 +230,14 @@
         if (self->applyArr && self->applyArr.count>indexPath.row) {
             JobApplyModel *applymodel=(JobApplyModel *)self->applyArr[indexPath.row];
             cell.isHideNew=YES;
+            cell.isApply=YES;
             cell.info=applymodel.jobPO;
             
         }
     }else{
         if (self->followArr && self->followArr.count>indexPath.row) {
             JobBookmarkModel *bookmarkmodel=(JobBookmarkModel *)self->followArr[indexPath.row];
+            cell.isApply=NO;
             cell.isHideNew=YES;
             cell.follow=YES;
             cell.followid=bookmarkmodel.id;
@@ -256,11 +266,26 @@
         }
     }
     if (jobid) {
-        [JobDetailViewController presentBy:nil jobId:jobid closeBack:^{
+        [JobDetailViewController presentBy:nil jobId:jobid closeBack:^(NSString * jobid) {
             foreTask(^{
+                if (self->selectIndex==1 && ![NSString isBlankString:jobid]) {
+                    [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if ([obj isKindOfClass: [JobBookmarkModel class]]) {
+                            JobBookmarkModel *model=(JobBookmarkModel *)obj;
+                            if ([model.jobId isEqualToString:jobid]) {
+                                // 更新数据源
+                                if (self->followArr.count>idx) {
+                                    [self->followArr removeObjectAtIndex:idx];
+                                }
+                                *stop = YES;
+                            }
+                        }
+                    }];
+                }
                 if (self->myTable) {
                     [self->myTable reloadData];
                 }
+                
             });
             
         }];

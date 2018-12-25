@@ -28,7 +28,7 @@
 #import "CompanyModel.h"
 #import "JobDSOModel.h"
 #import "JobAlertsModel.h"
-
+#import "JobsBookmarkManager.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -2077,6 +2077,9 @@
         [paradic setObject:jobId forKey:@"jobId"];
     }
     [self postAsync3:@"application/save" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (r.OK){
+            [[JobsBookmarkManager shareManager] addapplyBookmark:getLastAccount() postid:jobId];
+        }
         if (completed) {
             completed(r);
         }
@@ -2091,6 +2094,9 @@
         [paradic setObject:jobId forKey:@"jobId"];
     }
     [self postAsync3:@"bookmark/save" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (r.OK){
+            [[JobsBookmarkManager shareManager] removedeleteBookmark:getLastAccount() postid:jobId];
+        }
         if (completed) {
             completed(r);
         }
@@ -2105,6 +2111,9 @@
         [paradic setObject:jobId forKey:@"id"];
     }
     [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (r.OK){
+            [[JobsBookmarkManager shareManager] adddeleteBookmark:getLastAccount() postid:jobId];
+        }
         if (completed) {
             completed(r);
         }
@@ -2118,6 +2127,9 @@
         [paradic setObject:jobId forKey:@"jobId"];
     }
     [self postAsync2:@"bookmark/deleteOneByUserIdAndJobId" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
+        if (r.OK){
+            [[JobsBookmarkManager shareManager] adddeleteBookmark:getLastAccount() postid:jobId];
+        }
         if (completed) {
             completed(r);
         }

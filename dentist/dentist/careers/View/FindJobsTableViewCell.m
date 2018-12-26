@@ -12,6 +12,7 @@
 #import "DentistDataBaseManager.h"
 #import "TopLeftLabel.h"
 #import "JobsBookmarkManager.h"
+#import "DsoToast.h"
 #define edge 15
 
 @implementation FindJobsTableViewCell{
@@ -154,15 +155,21 @@
                 [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
             }else{
                 BOOL isApplication = [_info.isApplication boolValue];
-                if ([[JobsBookmarkManager shareManager] checkIsDeleteBookmark:getLastAccount() postid:info.id] || [[JobsBookmarkManager shareManager] checkIsApplyBookmark:getLastAccount() postid:info.id] || isApplication) {
-                    [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+                if(isApplication || [[JobsBookmarkManager shareManager] checkIsApplyBookmark:getLastAccount() postid:_info.id]){
+                    followButton.hidden=YES;
                 }else{
-                    if ([_info.isAttention boolValue]) {
-                        [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
-                    }else{
+                    followButton.hidden=NO;
+                    if ([[JobsBookmarkManager shareManager] checkIsDeleteBookmark:getLastAccount() postid:info.id]) {
                         [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+                    }else{
+                        if ([_info.isAttention boolValue]) {
+                            [followButton setImage:[UIImage imageNamed:@"Shape full"] forState:UIControlStateNormal];
+                        }else{
+                            [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
+                        }
                     }
                 }
+                
                 
             }
             
@@ -301,6 +308,10 @@
                     [self.delegate FollowJobAction:_indexPath view:self];
                 }
             }
+        }else{
+            UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+            UIView *dsontoastview=[DsoToast toastViewForMessage:@"The Job has been applied…" ishowActivity:YES];
+            [window showToast:dsontoastview duration:1.0 position:CSToastPositionBottom completion:nil];
         }
         
     }

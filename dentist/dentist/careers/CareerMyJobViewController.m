@@ -29,6 +29,8 @@
     NSInteger selectIndex;
     NSMutableArray *applyArr;
     NSMutableArray *followArr;
+    NSInteger applyCount;
+    NSInteger followCount;
     BOOL isdownrefresh;
 }
 @end
@@ -106,12 +108,14 @@
 -(void)refreshData
 {
     if(selectIndex==0){
+        [self setJobCountTitle:self->applyCount];
         [self->myTable reloadData];
         [self showIndicator];
         [Proto queryAllApplicationJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
             foreTask(^{
+                self->applyCount=totalCount;
                 [self hideIndicator];
-                [self setJobCountTitle:totalCount];
+                [self setJobCountTitle:self->applyCount];
                 NSLog(@"%@",array);
                 self->applyArr = [NSMutableArray arrayWithArray:array];
                 [self->myTable reloadData];
@@ -119,12 +123,14 @@
             });
         }];
     }else{
+        [self setJobCountTitle:self->followCount];
         [self->myTable reloadData];
         [self showIndicator];
         [Proto queryJobBookmarks:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
             foreTask(^{
+                self->followCount=totalCount;
                 [self hideIndicator];
-                [self setJobCountTitle:totalCount];
+                [self setJobCountTitle:self->followCount];
                 NSLog(@"%@",array);
                 self->followArr = [NSMutableArray arrayWithArray:array];
                 [self->myTable reloadData];
@@ -279,6 +285,11 @@
                             if ([model.jobId isEqualToString:jobid]) {
                                 // 更新数据源
                                 if (self->followArr.count>idx) {
+                                    self->followCount--;
+                                    if (self->followCount<=0) {
+                                        self->followCount=0;
+                                    }
+                                    [self setJobCountTitle:self->followCount];
                                     [self->followArr removeObjectAtIndex:idx];
                                 }
                                 *stop = YES;
@@ -312,8 +323,9 @@
                 [self showIndicator];
                 [Proto queryAllApplicationJobs:self->applyArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                     foreTask(^{
+                        self->applyCount=totalCount;
                         [self hideIndicator];
-                        [self setJobCountTitle:totalCount];
+                        [self setJobCountTitle:self->applyCount];
                         if(array && array.count>0){
                             [self->applyArr addObjectsFromArray:array];
                             [self->myTable reloadData];
@@ -326,8 +338,9 @@
                 [self showIndicator];
                 [Proto queryJobBookmarks:self->followArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                     foreTask(^{
+                        self->followCount=totalCount;
                         [self hideIndicator];
-                        [self setJobCountTitle:totalCount];
+                        [self setJobCountTitle:self->followCount];
                         if(array && array.count>0){
                             [self->followArr addObjectsFromArray:array];
                             [self->myTable reloadData];

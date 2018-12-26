@@ -214,7 +214,13 @@
     if (self->_isShowApplyBtn) {
         btn.hidden=NO;
     }else{
-        btn.hidden=enable;
+        NSInteger status = self->jobModel.status;
+        if (status==2) {
+            btn.hidden=enable;
+        }else{
+            btn.hidden=YES;
+        }
+        
     }
     if (!enable) {
         btn.userInteractionEnabled=YES;//交互关闭

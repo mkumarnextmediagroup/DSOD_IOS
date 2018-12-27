@@ -305,7 +305,7 @@
     NSLog(@"FollowJobAction");
     if (self->infoArr && self->infoArr.count>indexPath.row) {
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
-        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionCenter completion:nil];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         JobModel *model=self->infoArr[indexPath.row];
         NSString *jobid=model.id;
         [Proto addJobBookmark:jobid completed:^(HttpResult *result) {
@@ -331,7 +331,7 @@
     NSLog(@"UnFollowJobAction");
     if (self->infoArr && self->infoArr.count>indexPath.row) {
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
-        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionCenter completion:nil];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         JobModel *model=self->infoArr[indexPath.row];
         NSString *jobid=model.id;
         [Proto deleteJobBookmarkByJobId:jobid completed:^(HttpResult *result) {

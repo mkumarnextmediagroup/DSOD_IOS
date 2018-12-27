@@ -166,7 +166,8 @@
                     followButton.hidden=YES;
                 }else{
                     followButton.hidden=NO;
-                    if ([[JobsBookmarkManager shareManager] checkIsDeleteBookmark:getLastAccount() postid:info.id]) {
+                    if([[JobsBookmarkManager shareManager] checkIsDeleteBookmark:getLastAccount() postid:_info.id]){
+                        _info.isAttention=@"0";
                         [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
                     }else{
                         if ([_info.isAttention boolValue]) {
@@ -175,6 +176,7 @@
                             [followButton setImage:[UIImage imageNamed:@"Shape"] forState:UIControlStateNormal];
                         }
                     }
+                    
                 }
                 
                 

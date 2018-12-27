@@ -19,6 +19,7 @@
 #import "AppDelegate.h"
 #import "JobDetailViewController.h"
 #import "UITableView+JRTableViewPlaceHolder.h"
+#import "JobsBookmarkManager.h"
 
 @interface CareerMyJobViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,JobsTableCellDelegate>
 {
@@ -40,8 +41,71 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (myTable) {
-        [myTable reloadData];
+    __block BOOL updatedata=NO;
+    __block NSInteger updatecount=0;
+    if(selectIndex==1){
+        if (self->followArr && self->followArr.count>0) {
+            [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj isKindOfClass: [JobBookmarkModel class]]) {
+                    JobBookmarkModel *model=(JobBookmarkModel *)obj;
+                    if ([[JobsBookmarkManager shareManager] checkIsDeleteBookmark:getLastAccount() postid:model.jobId]) {
+                        
+                        // 更新数据源
+                        if (self->followArr.count>idx) {
+                            self->followCount--;
+                            if (self->followCount<=0) {
+                                self->followCount=0;
+                            }
+                            [self->followArr removeObjectAtIndex:idx];
+                        }
+                    }
+                    
+                }
+            }];
+            NSMutableArray *temparr=[[JobsBookmarkManager shareManager] addArr];
+            [temparr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                __block NSString *jobid=[[JobsBookmarkManager shareManager] getPostid:getLastAccount() keyvalue:obj];
+                [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    
+                    if ([obj isKindOfClass: [JobBookmarkModel class]]) {
+                        JobBookmarkModel *model=(JobBookmarkModel *)obj;
+                        if ([model.jobId isEqualToString:jobid]) {
+                            updatecount++;
+                        }
+                    }
+                }];
+            }];
+        }
+        if ([[[JobsBookmarkManager shareManager] addArr] count] != updatecount) {
+            updatedata=YES;
+        }
+        
+    }else if (selectIndex==0){
+        if (self->applyArr && self->applyArr.count>0) {
+            NSMutableArray *temparr=[[JobsBookmarkManager shareManager] applyArr];
+            [temparr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                __block NSString *jobid=[[JobsBookmarkManager shareManager] getPostid:getLastAccount() keyvalue:obj];
+                [self->applyArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    
+                    if ([obj isKindOfClass: [JobApplyModel class]]) {
+                        JobApplyModel *model=(JobApplyModel *)obj;
+                        if ([model.jobId isEqualToString:jobid]) {
+                            updatecount++;
+                        }
+                    }
+                }];
+            }];
+        }
+        if ([[[JobsBookmarkManager shareManager] applyArr] count] != updatecount) {
+            updatedata=YES;
+        }
+    }
+    if (updatedata) {
+        [self refreshData];
+    }else{
+        if (myTable) {
+            [myTable reloadData];
+        }
     }
 }
 

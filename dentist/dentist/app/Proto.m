@@ -2095,7 +2095,7 @@
     }
     [self postAsync3:@"bookmark/save" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
         if (r.OK){
-            [[JobsBookmarkManager shareManager] removedeleteBookmark:getLastAccount() postid:jobId];
+            [[JobsBookmarkManager shareManager] addBookmark:getLastAccount() postid:jobId];
         }
         if (completed) {
             completed(r);
@@ -2112,7 +2112,7 @@
     }
     [self postAsync2:@"bookmark/deleteOneById" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
         if (r.OK){
-            [[JobsBookmarkManager shareManager] adddeleteBookmark:getLastAccount() postid:jobId];
+            [[JobsBookmarkManager shareManager] removeBookmark:getLastAccount() postid:jobId];
         }
         if (completed) {
             completed(r);
@@ -2128,7 +2128,7 @@
     }
     [self postAsync2:@"bookmark/deleteOneByUserIdAndJobId" dic:paradic modular:@"hr"callback:^(HttpResult *r) {
         if (r.OK){
-            [[JobsBookmarkManager shareManager] adddeleteBookmark:getLastAccount() postid:jobId];
+            [[JobsBookmarkManager shareManager] removeBookmark:getLastAccount() postid:jobId];
         }
         if (completed) {
             completed(r);

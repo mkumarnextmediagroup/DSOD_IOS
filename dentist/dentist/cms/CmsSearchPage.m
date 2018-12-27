@@ -199,19 +199,14 @@
     }
 }
 
-- (void)onClickItem:(NSObject *)item {
+- (void)onClickItem3:(NSObject *)item cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
     CMSModel *article = (CMSModel *) item;
     newVC.contentId = article.id;
-    if ([article.categoryName isEqualToString:@"VIDEOS"]) {
-        newVC.toWhichPage = @"mo";
-    }else
-    {
-        newVC.toWhichPage = @"pic";
-    }
     newVC.cmsmodelsArray=self.items;
+    newVC.modelIndexOfArray = (int)indexPath.row;
     [viewController presentViewController:navVC animated:YES completion:NULL];
 }
 

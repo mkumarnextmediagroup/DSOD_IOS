@@ -386,6 +386,7 @@
             NSLog(@"result=%@",@(result.code));
             if (result.code == 0) {
                 foreTask(^() {
+                    self->_applyJobId=self->_jobId;
                     [self.navigationController.view hideToast];
                     [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention"] forState:UIControlStateNormal];
                     self->jobModel.isAttention = @"0";

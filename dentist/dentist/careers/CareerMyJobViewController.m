@@ -73,13 +73,14 @@
 {
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:NO];
-        UIView *headerVi = self.view.addView;
-        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:NAVHEIGHT+91] install];
+        UIView *headerVi = [UIView new];
+        [sender addSubview:headerVi];
+        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
         headerVi.backgroundColor = [UIColor clearColor];
         UIButton *headBtn = headerVi.addButton;
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         headBtn.titleLabel.font = [Fonts regular:13];
-        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-40] install];
+        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
         UILabel *tipLabel= headerVi.addLabel;
         tipLabel.textAlignment=NSTextAlignmentCenter;
         tipLabel.numberOfLines=0;
@@ -103,6 +104,12 @@
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
     [tabvc setSelectedIndex:0];
+}
+
+-(void)tableReloadData
+{
+    [self createEmptyNotice];
+    [self->myTable reloadData];
 }
 
 -(void)refreshData
@@ -201,7 +208,7 @@
     tabView.delegate=self;
     [panel addSubview:tabView];
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
-    tabView.titleArr=[NSMutableArray arrayWithArray:@[@"APPLED",@"SAVE"]];
+    tabView.titleArr=[NSMutableArray arrayWithArray:@[@"APPLED",@"SAVED"]];
     
     jobCountTitle=panel.addLabel;
     jobCountTitle.font=[Fonts semiBold:13];
@@ -289,14 +296,15 @@
                                     if (self->followCount<=0) {
                                         self->followCount=0;
                                     }
-                                    [self setJobCountTitle:self->followCount];
                                     [self->followArr removeObjectAtIndex:idx];
                                 }
                                 *stop = YES;
                             }
                         }
                     }];
+                    [self setJobCountTitle:self->followCount];
                 }
+                
                 if (self->myTable) {
                     [self->myTable reloadData];
                 }
@@ -410,6 +418,11 @@
                 foreTask(^() {
                     if(result.OK){
                         [self.navigationController.view hideToast];
+                        self->followCount--;
+                        if (self->followCount<=0) {
+                            self->followCount=0;
+                        }
+                        [self setJobCountTitle:self->followCount];
                         [self->followArr removeObjectAtIndex:indexPath.row];
                         [self->myTable reloadData];
                     }else{

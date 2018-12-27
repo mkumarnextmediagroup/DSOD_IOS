@@ -62,6 +62,7 @@
                     
                 }
             }];
+            [self setJobCountTitle:self->followCount];
             NSMutableArray *temparr=[[JobsBookmarkManager shareManager] addArr];
             [temparr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 __block NSString *jobid=[[JobsBookmarkManager shareManager] getPostid:getLastAccount() keyvalue:obj];

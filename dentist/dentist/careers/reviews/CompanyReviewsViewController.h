@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel;
 
-+(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel onReviewNumChanged:(void(^)(NSInteger reviewNum))  _Nullable onReviewNumChanged;
++(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel onReviewNumChanged:(void(^)(NSInteger reviewNum))onReviewNumChanged;
 
 
 @end

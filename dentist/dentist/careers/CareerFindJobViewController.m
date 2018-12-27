@@ -88,14 +88,15 @@
 {
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:NO];
-        UIView *headerVi = self.view.addView;
-        [[[[[headerVi.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
+        UIView *headerVi = [UIView new];
+        [sender addSubview:headerVi];
+        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
         headerVi.backgroundColor = [UIColor clearColor];
         UIButton *headBtn = headerVi.addButton;
         [headBtn setImage:[UIImage imageNamed:@"noun_Business Records"] forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         headBtn.titleLabel.font = [Fonts regular:13];
-        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-40] install];
+        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
         UILabel *tipLabel= headerVi.addLabel;
         tipLabel.textAlignment=NSTextAlignmentCenter;
         tipLabel.numberOfLines=0;

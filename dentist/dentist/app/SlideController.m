@@ -32,6 +32,7 @@
 #import "DSOProfilePage.h"
 #import "CareerMeViewController.h"
 #import "CompanyExistsReviewsViewController.h"
+#import "ProfileViewController.h"
 
 @interface SlideController()<UITabBarControllerDelegate,UITabBarDelegate,MoreViewDelegate>
 
@@ -403,9 +404,11 @@
         UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
         UINavigationController *nav = (UINavigationController *)tabvc.selectedViewController;
         UIViewController *VC =nav.topViewController;
-        if (![VC isKindOfClass:[CareerMeViewController class]]) {
-            CareerMeViewController *mevc = [CareerMeViewController new];
-            UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:mevc];
+        if (![VC isKindOfClass:[ProfileViewController class]]) {
+//            CareerMeViewController *mevc = [CareerMeViewController new];
+            ProfileViewController *profilevc=[ProfileViewController new];
+            profilevc.isSecond=YES;
+            UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:profilevc];
             navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
             [VC presentViewController:navVC animated:NO completion:NULL];
         }

@@ -183,10 +183,8 @@
     [[[[preButton.layoutMaker leftParent:edge] below:lineLabel1 offset:edge] sizeEq:80 h:20] install];
     [preButton addTarget:self action:@selector(onClickUp:) forControlEvents:UIControlEventTouchUpInside];
     
-    if(self.hideChangePage){
-        preButton.hidden = YES;
-        nextButton.hidden = YES;
-    }
+    preButton.hidden = ![self hasPre];
+    nextButton.hidden = ![self hasNext];
     
     return footerVi;
 }
@@ -227,10 +225,8 @@
     [[[[line.layoutMaker topParent:NAVHEIGHT - 1] leftParent:0] sizeEq:SCREENWIDTH h:1] install];
     
     
-    if(self.hideChangePage){
-        preBtn.hidden = YES;
-        nextBtn.hidden = YES;
-    }
+    preBtn.hidden = ![self hasPre];
+    nextBtn.hidden = ![self hasNext];
 }
 
 - (void)onBack:(UIButton *)btn {
@@ -255,21 +251,6 @@
     titleLabel.text = sponsorInfo[self.articleInfo.sponsorId] ? @"SPONSORED CONTENT" : @"";
     
     
-//    if ([self.toWhichPage isEqualToString:@"mo"]) {
-//        playView = [PlayerView new];
-//        [playView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
-//        [playView.gskBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//        [playView.greeBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//        [playView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//        [playView.markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//        [self.contentView addSubview:playView];
-//        [playView bind:self.articleInfo];
-//        [[[[playView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
-//
-//     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
-//
-//    }else
-//    {
     if(!picDetailView){
         picDetailView = [PicDetailView new];
         picDetailView.vc = self;
@@ -285,7 +266,6 @@
         [[[[picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
         
         [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(picDetailView) install];
-//    }
     
     if (!myTable) {
         myTable = [UITableView new];
@@ -472,140 +452,64 @@
 
 
 
-- (void)openNewCmsDetail:(NSString*)contentId withAnimation:(CATransitionSubtype)subtype{
+
+- (BOOL)hasPre{
+    return self.cmsmodelsArray && self.cmsmodelsArray.count > 0 && self.modelIndexOfArray > 0;
+}
+
+- (BOOL)hasNext{
+    return self.cmsmodelsArray && self.cmsmodelsArray.count > 0 && self.modelIndexOfArray < self.cmsmodelsArray.count - 1;
+}
+
+- (void)onClickUp:(UIButton *)btn {
+	NSLog(@"clickup");
+    if([self hasPre]){
+        int index = self.modelIndexOfArray-1;
+        [self openNewCmsDetail:[self modelIdOfIndex:index] index:index withAnimation:kCATransitionFromBottom];
+    }else{
+         [self showTipView:@"is the first page"];
+    }
+}
+
+- (void)onClickDown:(UIButton *)btn {
+	NSLog(@"onClickDown");
+    if([self hasNext]){
+        int index = self.modelIndexOfArray+1;
+        [self openNewCmsDetail:[self modelIdOfIndex:index] index:index withAnimation:kCATransitionFromTop];
+    }else{
+        [self showTipView:@"is the last page"];
+    }
+}
+
+-(NSString*)modelIdOfIndex:(int)index{
+    NSString *modelId = nil;
+    id model = self.cmsmodelsArray[index];
+    if ([model isKindOfClass:[CMSModel class]]) {
+        modelId = ((CMSModel *)model).id;
+    }else if ([model isKindOfClass:[BookmarkModel class]]) {
+        modelId = ((BookmarkModel *)model).postId;
+    }
+    return modelId;
+}
+
+
+- (void)openNewCmsDetail:(NSString*)contentId index:(int)index withAnimation:(CATransitionSubtype)subtype{
+    if([NSString isBlankString:contentId]){
+        return;
+    }
+    
     CMSDetailViewController *cmsDetialVC = [CMSDetailViewController new];
     cmsDetialVC.contentId = contentId;
     cmsDetialVC.cmsmodelsArray = self.cmsmodelsArray;
+    cmsDetialVC.modelIndexOfArray = index;
     cmsDetialVC.goBackCloseAll = YES;
-
+    
     CATransition *animation = [CATransition animation];
     animation.type = kCATransitionPush;
     animation.duration =0.5f;
     animation.subtype =subtype;
     [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
     [self.navigationController pushViewController:cmsDetialVC animated:NO];
-}
-
-
-- (void)onClickUp:(UIButton *)btn {
-	NSLog(@"clickup");
-    if (_cmsmodelsArray && _cmsmodelsArray.count>0) {
-        __block NSInteger upindex;
-        __block NSInteger modeltype;
-        [_cmsmodelsArray enumerateObjectsUsingBlock:^(NSObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-           
-            if ([obj isKindOfClass:[CMSModel class]]) {
-                CMSModel *newmodel=(CMSModel *)obj;
-                if ([self.articleInfo.id isEqualToString:newmodel.id]) {
-                    upindex=idx;
-                    modeltype=1;
-                    *stop = YES;
-                }
-            }else if ([obj isKindOfClass:[BookmarkModel class]]) {
-                BookmarkModel *newmodel=(BookmarkModel *)obj;
-                if ([self.articleInfo.id isEqualToString:newmodel.postId]) {
-                    upindex=idx;
-                    modeltype=2;
-                    *stop = YES;
-                }
-            }
-            
-        }];
-        if (upindex<=0) {
-            [self showTipView:@"is the first page"];
-            return;
-        }
-        upindex--;
-        if (upindex<0) {
-            [self showTipView:@"is the first page"];
-            return;
-        }
-        if (_cmsmodelsArray.count>upindex) {
-            NSString *modelid;
-            if (modeltype==1) {
-                CMSModel *model=[_cmsmodelsArray objectAtIndex:upindex];
-                modelid=model.id;
-            }else if (modeltype==2){
-                BookmarkModel *model=[_cmsmodelsArray objectAtIndex:upindex];
-                modelid=model.postId;
-            }
-            
-            [self openNewCmsDetail:modelid withAnimation:kCATransitionFromBottom];
-//            self.contentId=modelid;
-//            [self showIndicator];
-//            backTask(^() {
-//                self.articleInfo = [Proto queryForDetailPage:self.contentId];
-//                foreTask(^() {
-//                    [self hideIndicator];
-//                    [self buildViews];
-//                });
-//            });
-            
-        }else{
-            [self showTipView:@"is the first page"];
-        }
-    }else{
-        //the latest page
-         [self showTipView:@"is the first page"];
-    }
-
-    
-}
-
-- (void)onClickDown:(UIButton *)btn {
-	NSLog(@"onClickDown");
-    if (_cmsmodelsArray && _cmsmodelsArray.count>0) {
-        __block NSInteger upindex;
-        __block NSInteger modeltype;
-        [_cmsmodelsArray enumerateObjectsUsingBlock:^(NSObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            if ([obj isKindOfClass:[CMSModel class]]) {
-                CMSModel *newmodel=(CMSModel *)obj;
-                if ([self.articleInfo.id isEqualToString:newmodel.id]) {
-                    upindex=idx;
-                    modeltype=1;
-                    *stop = YES;
-                }
-            }else if ([obj isKindOfClass:[BookmarkModel class]]) {
-                BookmarkModel *newmodel=(BookmarkModel *)obj;
-                if ([self.articleInfo.id isEqualToString:newmodel.postId]) {
-                    upindex=idx;
-                    modeltype=2;
-                    *stop = YES;
-                }
-            }
-            
-        }];
-        upindex++;
-        if (_cmsmodelsArray.count>upindex) {
-            NSString *modelid;
-            if (modeltype==1) {
-                CMSModel *model=[_cmsmodelsArray objectAtIndex:upindex];
-                modelid=model.id;
-            }else if (modeltype==2){
-                BookmarkModel *model=[_cmsmodelsArray objectAtIndex:upindex];
-                modelid=model.postId;
-            }
-            
-            [self openNewCmsDetail:modelid withAnimation:kCATransitionFromTop];
-//            self.contentId=modelid;
-//            [self showIndicator];
-//            backTask(^() {
-//                self.articleInfo = [Proto queryForDetailPage:self.contentId];
-//                foreTask(^() {
-//                    [self hideIndicator];
-//                    [self buildViews];
-//                });
-//            });
-            
-        }else{
-            [self showTipView:@"is the last page"];
-        }
-    }else{
-        //the latest page
-        [self showTipView:@"is the last page"];
-    }
-    
 }
 
 - (void)didReceiveMemoryWarning {

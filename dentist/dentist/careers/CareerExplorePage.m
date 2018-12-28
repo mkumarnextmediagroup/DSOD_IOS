@@ -13,6 +13,7 @@
 #import "CareerFindJobViewController.h"
 #import "CompanyExistsReviewsViewController.h"
 #import "CareerMeViewController.h"
+#import "ProfileViewController.h"
 
 #define kMaxBtnCount 4
 #define leftToX 20
@@ -127,8 +128,10 @@
         [self presentViewController:navVC animated:NO completion:NULL];
 //        [self.navigationController pushViewController:navVC animated:YES];
     }else if(btn.tag ==11){
-        CareerMeViewController *mevc = [CareerMeViewController new];
-        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:mevc];
+//        CareerMeViewController *mevc = [CareerMeViewController new];
+        ProfileViewController *profilevc=[ProfileViewController new];
+        profilevc.isSecond=YES;
+        UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:profilevc];
         navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         [self presentViewController:navVC animated:NO completion:NULL];
         

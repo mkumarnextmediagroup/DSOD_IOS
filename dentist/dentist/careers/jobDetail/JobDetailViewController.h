@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
 
-typedef void (^CareerJobDetailCloseCallback) (NSString *_Nullable jobid);
+typedef void (^CareerJobDetailCloseCallback) (NSString *_Nullable jobid,NSString *_Nullable unFollowjobid);
 @interface JobDetailViewController : BaseController
 
 +(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*_Nullable)jobId;

@@ -211,17 +211,17 @@
 {
     UIButton *btn=(UIButton *)[contentView viewWithTag:99];
     
-    if (self->_isShowApplyBtn) {
-        btn.hidden=NO;
-    }else{
-        NSInteger status = self->jobModel.status;
-        if (status==2) {
-            btn.hidden=enable;
-        }else{
-            btn.hidden=YES;
-        }
-        
-    }
+//    if (self->_isShowApplyBtn) {
+//        btn.hidden=NO;
+//    }else{
+//        NSInteger status = self->jobModel.status;
+//        if (status==2) {
+//            btn.hidden=enable;
+//        }else{
+//            btn.hidden=YES;
+//        }
+//
+//    }
     if (!enable) {
         btn.userInteractionEnabled=YES;//交互关闭
         [btn setTitle:@"Apply Now" forState:UIControlStateNormal];
@@ -494,9 +494,9 @@
     BOOL isApplication = [self->jobModel.isApplication boolValue];
     if (isApplication) {//have applied,go to the jobs list
         [self closePage];
-        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
-        [tabvc setSelectedIndex:2];
+//        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//        UITabBarController *tabvc=(UITabBarController *)appdelegate.careersPage;
+//        [tabvc setSelectedIndex:2];
     }else
     {
         if (![NSString isBlankString:_userInfo.resume_name]) {//have upload the resume

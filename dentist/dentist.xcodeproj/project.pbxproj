@@ -506,6 +506,9 @@
 		A3BD2AC721B9540B00138353 /* New@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3BD2ABE21B9540B00138353 /* New@2x.png */; };
 		A3BD2ACA21BFB33400138353 /* JobDSOModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BD2AC921BFB33400138353 /* JobDSOModel.m */; };
 		A3BDC51D21D22A120077ED25 /* JobsBookmarkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BDC51C21D22A120077ED25 /* JobsBookmarkManager.m */; };
+		A3BDC55F21D7AC2A0077ED25 /* Applied@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3BDC55C21D7AC250077ED25 /* Applied@3x.png */; };
+		A3BDC56021D7AC2A0077ED25 /* Applied@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3BDC55D21D7AC260077ED25 /* Applied@2x.png */; };
+		A3BDC56121D7AC2A0077ED25 /* Applied.png in Resources */ = {isa = PBXBuildFile; fileRef = A3BDC55E21D7AC270077ED25 /* Applied.png */; };
 		A3DF39822189A192006F84DC /* expanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39812189A192006F84DC /* expanding.swift */; };
 		A3DF399C2189A280006F84DC /* BasePageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */; };
 		A3DF399D2189A280006F84DC /* PageCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39892189A280006F84DC /* PageCollectionLayout.swift */; };
@@ -1633,6 +1636,9 @@
 		A3BD2AC921BFB33400138353 /* JobDSOModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDSOModel.m; sourceTree = "<group>"; };
 		A3BDC51B21D22A120077ED25 /* JobsBookmarkManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobsBookmarkManager.h; sourceTree = "<group>"; };
 		A3BDC51C21D22A120077ED25 /* JobsBookmarkManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsBookmarkManager.m; sourceTree = "<group>"; };
+		A3BDC55C21D7AC250077ED25 /* Applied@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Applied@3x.png"; sourceTree = "<group>"; };
+		A3BDC55D21D7AC260077ED25 /* Applied@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Applied@2x.png"; sourceTree = "<group>"; };
+		A3BDC55E21D7AC270077ED25 /* Applied.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Applied.png; sourceTree = "<group>"; };
 		A3DF39802189A192006F84DC /* dentist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dentist-Bridging-Header.h"; sourceTree = "<group>"; };
 		A3DF39812189A192006F84DC /* expanding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = expanding.swift; sourceTree = "<group>"; };
 		A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageCollectionCell.swift; sourceTree = "<group>"; };
@@ -3090,6 +3096,9 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A3BDC55E21D7AC270077ED25 /* Applied.png */,
+				A3BDC55D21D7AC260077ED25 /* Applied@2x.png */,
+				A3BDC55C21D7AC250077ED25 /* Applied@3x.png */,
 				4E3303B921D5F26F00FF048C /* noresult_search@2x.png */,
 				4E3303BA21D5F27000FF048C /* noresult_search@3x.png */,
 				18FE61D521D1034000C0CEF3 /* icon_d_sel@3x.png */,
@@ -4506,6 +4515,7 @@
 				A3BD2AC321B9540B00138353 /* Updated.png in Resources */,
 				A3BA6DEC21AFCD7000D83156 /* Shape.png in Resources */,
 				E11E1121C662C4950DC65395 /* home.png in Resources */,
+				A3BDC55F21D7AC2A0077ED25 /* Applied@3x.png in Resources */,
 				E11E14F9F8B1AE1BBF1EAB35 /* home@2x.png in Resources */,
 				4E3303BB21D5F27000FF048C /* noresult_search@2x.png in Resources */,
 				18FE61DB21D1034200C0CEF3 /* icon_u_unsel@3x.png in Resources */,
@@ -4513,6 +4523,7 @@
 				4E3303BC21D5F27000FF048C /* noresult_search@3x.png in Resources */,
 				A36B9D9F21CA092A00A54263 /* icons8-resume@2x.png in Resources */,
 				4E846F8B213FC57A00DC2B51 /* headerImage@2x.png in Resources */,
+				A3BDC56021D7AC2A0077ED25 /* Applied@2x.png in Resources */,
 				E11E1BDA1ADFF08B4FBD31A1 /* menu.png in Resources */,
 				4E94AE2A21AE74C2009CAB7F /* findJob@3x.png in Resources */,
 				4E51696321B15B50005B8533 /* down_list@2x.png in Resources */,
@@ -4706,6 +4717,7 @@
 				E11E1CAC9B2596D56900A33E /* in_large.png in Resources */,
 				E11E130E848ED2D497242E65 /* in_large@2x.png in Resources */,
 				E11E11881EA8101A47CFB4AF /* in_large@3x.png in Resources */,
+				A3BDC56121D7AC2A0077ED25 /* Applied.png in Resources */,
 				18DE4D12216DFFE400A6C61D /* nonDownload@2x.png in Resources */,
 				E11E1AB8DFD70887D97CE748 /* search_normal.png in Resources */,
 				E11E1C84CC3E67441654E345 /* search_normal@2x.png in Resources */,

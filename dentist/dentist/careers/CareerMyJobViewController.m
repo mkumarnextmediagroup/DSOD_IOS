@@ -348,13 +348,13 @@
         if (selectIndex==0) {
             isshowapplybtn=YES;
         }
-        [JobDetailViewController presentBy:nil jobId:jobid isShowApply:isshowapplybtn closeBack:^(NSString * jobid) {
+        [JobDetailViewController presentBy:nil jobId:jobid isShowApply:isshowapplybtn closeBack:^(NSString * jobid,NSString *unFollowjobid) {
             foreTask(^{
-                if (self->selectIndex==1 && ![NSString isBlankString:jobid]) {
+                if (self->selectIndex==1 && ![NSString isBlankString:unFollowjobid]) {
                     [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                         if ([obj isKindOfClass: [JobBookmarkModel class]]) {
                             JobBookmarkModel *model=(JobBookmarkModel *)obj;
-                            if ([model.jobId isEqualToString:jobid]) {
+                            if ([model.jobId isEqualToString:unFollowjobid]) {
                                 // 更新数据源
                                 if (self->followArr.count>idx) {
                                     self->followCount--;

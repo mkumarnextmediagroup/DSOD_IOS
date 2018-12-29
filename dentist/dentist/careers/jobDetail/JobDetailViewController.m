@@ -29,6 +29,7 @@
 @interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,UploadResumeViewDelegate,UIDocumentPickerDelegate,HttpProgress>
 @property (nonatomic,strong) NSString *jobId;
 @property (nonatomic,strong) NSString *applyJobId;
+@property (nonatomic,strong) NSString *unFollowJobId;
 @property (nonatomic,assign) BOOL isShowApplyBtn;
 @property (copy, nonatomic) CareerJobDetailCloseCallback closeBack;
 
@@ -61,6 +62,7 @@
     int currTabIndex;//0:description 1:company 2:reviews
 
     JobModel *jobModel;
+    UIImageView *tipImageView;
 }
 
 
@@ -89,6 +91,7 @@
     JobDetailViewController *jobDetailVc = [JobDetailViewController new];
     jobDetailVc.jobId =jobId;
     jobDetailVc.applyJobId=nil;
+    jobDetailVc.unFollowJobId=nil;
     jobDetailVc.isShowApplyBtn=isShowApply;
     jobDetailVc.closeBack = closeBack;
     jobDetailVc.modalPresentationStyle = UIModalPresentationCustom;
@@ -210,7 +213,6 @@
 -(void)setApplyButtonEnable:(BOOL)enable
 {
     UIButton *btn=(UIButton *)[contentView viewWithTag:99];
-    
 //    if (self->_isShowApplyBtn) {
 //        btn.hidden=NO;
 //    }else{
@@ -222,13 +224,14 @@
 //        }
 //
 //    }
+    tipImageView.hidden=!enable;
     if (!enable) {
         btn.userInteractionEnabled=YES;//交互关闭
         [btn setTitle:@"Apply Now" forState:UIControlStateNormal];
     }else{
         [btn setTitle:@"View similar jobs" forState:UIControlStateNormal];
     }
-    
+
 }
 
 
@@ -260,6 +263,11 @@
     [logoImageView scaleFillAspect];
     logoImageView.clipsToBounds = YES;
     [[[[logoImageView.layoutMaker leftParent:edge]below:mediaView offset:10] sizeEq:60 h:60]install];
+    
+    tipImageView = headerView.addImageView;
+    tipImageView.tag=999;
+    tipImageView.image=[UIImage imageNamed:@"Applied"];
+    [[[[tipImageView.layoutMaker leftParent:0]below:mediaView offset:0] sizeEq:60 h:60]install];
     
     UILabel *jobLabel = headerView.addLabel;
     jobLabel.font = [Fonts semiBold:16];
@@ -359,7 +367,7 @@
 
 -(void)closePage{
     if (self.closeBack) {
-        self.closeBack(self->_applyJobId);
+        self.closeBack(self->_applyJobId,self->_unFollowJobId);
     }
     self.view.backgroundColor = UIColor.clearColor;
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -386,7 +394,7 @@
             NSLog(@"result=%@",@(result.code));
             if (result.code == 0) {
                 foreTask(^() {
-                    self->_applyJobId=self->_jobId;
+                    self->_unFollowJobId=self->_jobId;
                     [self.navigationController.view hideToast];
                     [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention"] forState:UIControlStateNormal];
                     self->jobModel.isAttention = @"0";

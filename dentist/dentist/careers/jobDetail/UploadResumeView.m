@@ -75,11 +75,22 @@ static dispatch_once_t onceToken;
     }
 }
 
+- (void)closeBtnClick
+{
+    [UploadResumeView hide];
+}
+
 - (void)initUploadView
 {
     uploadView = [instance addView];
     uploadView.backgroundColor = [UIColor whiteColor];
     [[[[uploadView.layoutMaker leftParent:edge] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
+    
+    
+    UIButton *closeBtn = [uploadView addButton];
+    [closeBtn addTarget:self action:@selector(closeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [closeBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+    [[[[closeBtn.layoutMaker sizeEq:36 h:36] rightParent:-16] topParent:10] install];
     
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sigleTappedPickerView:)];
     [singleTap setNumberOfTapsRequired:1];

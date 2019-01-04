@@ -5,7 +5,6 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
-#import "BaseController.h"
 
 
 @interface SettingController : BaseController

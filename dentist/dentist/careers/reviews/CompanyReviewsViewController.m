@@ -21,6 +21,8 @@
 @property (nonatomic,strong) JobDSOModel *jobDSOModel;
 @property (nonatomic,strong) NSArray<CompanyReviewModel*> *reviewArray;
 
+@property (nonatomic,copy) void(^onReviewNumChanged)(NSInteger reviewNum);
+
 @end
 
 @implementation CompanyReviewsViewController{
@@ -46,12 +48,19 @@
     
     __block BOOL dateSortDown;
     __block BOOL ratingSortDown;
+    
+    __block int totalFound;//最新数据总条数
 }
 
 
 +(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel{
+    [CompanyReviewsViewController openBy:vc jobDSOModel:jobDSOModel onReviewNumChanged:nil];
+}
+
++(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel onReviewNumChanged:(void(^)(NSInteger reviewNum))onReviewNumChanged{
     CompanyReviewsViewController *companyReviewsVc = [CompanyReviewsViewController new];
     companyReviewsVc.jobDSOModel = jobDSOModel;
+    companyReviewsVc.onReviewNumChanged = onReviewNumChanged;
     [vc pushPage:companyReviewsVc];
 }
 
@@ -95,6 +104,14 @@
     
     self.navigationItem.rightBarButtonItems  = @[menuBtnItem,fixedSpaceBarButtonItem,ivItem];
     
+}
+
+
+- (void)dismiss {
+    if(totalFound > self.jobDSOModel.reviewNum && self.onReviewNumChanged){
+        self.onReviewNumChanged(totalFound);
+    }
+    [super dismiss];
 }
 
 -(void)buildViews{
@@ -188,10 +205,11 @@
     
     [self showTopIndicator];
     [Proto findCommentByCompanyId:self.jobDSOModel.id sort:sortSelectValue star:filterSelectValue skip:isMore?self.reviewArray.count:0 limit:10 completed:^(NSArray<CompanyReviewModel *> *reviewArray,NSInteger totalFound) {
-        if(self->filterSelectIndex == 0){
-            //not filter , update label
-            self->reviewNumLabel.text = [NSString stringWithFormat:@"%ld Reviews" ,totalFound];
+        
+        if(self->totalFound<totalFound){
+            self->totalFound = (int)totalFound;
         }
+        self->reviewNumLabel.text = [NSString stringWithFormat:@"%d Reviews" ,self->totalFound];
         [self reloadData:[reviewArray copy]  isMore:isMore];
         [self hideTopIndicator];
     }];
@@ -206,19 +224,36 @@
         }else{
             self.reviewArray = newDatas;
         }
-        [tableView reloadData];
+        if(!isMore || newDatas.count > 0){
+            [tableView reloadData];
+        }
     }
 }
 
 
 -(void)writeReview{
+    WeakSelf
     [CareerAddReviewViewController openBy:self dsoId:self.jobDSOModel.id successCallbak:^{
-        //todo reload data
+        StrongSelf
+         
+        [strongSelf resetSortAndFilter];
+        [strongSelf getDatas:NO];
     }];
 }
 
 
-
+-(void)resetSortAndFilter{
+    self->sortSelectIndex = 0;
+    self->sortSelectValue = 0;
+    self->sortValueLabel.text = @"Date";
+    self->sortIconIv.imageName = @"icon_d_sel";
+    self->dateSortDown = YES;
+    self->ratingSortDown = YES;
+    
+    self->filterSelectIndex = 0;
+    self->filterSelectValue = 0;
+    self->filterValueLabel.text = @"All Reviews";
+}
 
 -(void)sortOnClick:(UIView*)view{
     NSString *dataIcon = @"icon_d_sel";

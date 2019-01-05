@@ -104,6 +104,27 @@
 		self.imageName = localImage;
 	}
 }
+- (void)loadUrl:(NSString * _Nullable)url placeholderImageNormal:(UIImage * _Nullable)localImage
+{
+    if ([self isKindOfClass:[UIImageViewLoading class]]) {
+        UIImageViewLoading *newself  =(UIImageViewLoading*)self;
+        newself.isShowLoading=YES;
+    }
+    if (url != nil && ![url isKindOfClass:NSNull.class] && [url isKindOfClass:[NSString class]]) {
+        [self sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:localImage completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if ([self isKindOfClass:[UIImageViewLoading class]]) {
+                UIImageViewLoading *newself  =(UIImageViewLoading*)self;
+                newself.isShowLoading=NO;
+            }
+        }];
+    } else {
+        if ([self isKindOfClass:[UIImageViewLoading class]]) {
+            UIImageViewLoading *newself  =(UIImageViewLoading*)self;
+            newself.isShowLoading=NO;
+        }
+        self.image = localImage;
+    }
+}
 
 -(void)loadUrl:(NSString *)url placeholderImage:(NSString *)localImage completed:(nullable SDExternalCompletionBlock)completedBlock
 {

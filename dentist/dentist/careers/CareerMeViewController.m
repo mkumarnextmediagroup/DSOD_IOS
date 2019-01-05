@@ -65,11 +65,15 @@
     [self reloadMeData];
 }
 
--(void)reloadMeData{
+-(void)reloadMeData:(UIImage *)placeholderImage{
     _userInfo = [Proto lastUserInfo];
     if(![NSString isBlankString:_userInfo.userId]){
-        headerImg.imageName = @"user_img";
-        [headerImg loadUrl:_userInfo.portraitUrlFull placeholderImage:@"user_img"];
+        UIImage *placeimage=[UIImage imageNamed:@"user_img"];
+        if (placeholderImage) {
+            placeimage=placeholderImage;
+        }
+        [headerImg loadUrl:_userInfo.portraitUrlFull placeholderImageNormal:placeimage];
+        
         [myTable reloadData];
     }else{
         [self showIndicator];
@@ -85,6 +89,10 @@
         });
     }
     
+}
+
+-(void)reloadMeData{
+    [self reloadMeData:nil];
 }
 
 - (void)onBack
@@ -363,6 +371,9 @@
             if (![NSString isBlankString:self->uploadPortraitResult]) {
                 self->headerImg.image=self->_selectImage;
                 [self saveUserHeader];
+            }else{
+                [self alertMsg:@"Failed, please try again." onOK:^() {
+                }];
             }
             
         });
@@ -394,7 +405,7 @@
                 [self hideIndicator];
                 if (saveInfo.OK) {
                     [self alertMsg:@"Saved successfully" onOK:^() {
-                        [self reloadMeData];
+                        [self reloadMeData:self->_selectImage];
                     }];
                 } else if (saveInfo.error.code == -1001) {
                     [self alertMsg:@"Failed, please try again." onOK:^() {

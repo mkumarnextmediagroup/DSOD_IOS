@@ -17,7 +17,8 @@
 
 @property DetailModel *articleInfo;
 @property NSString *contentId;
-@property NSString *toWhichPage;
+
+@property (nonatomic,assign) int modelIndexOfArray;
 @property (nonatomic,copy) NSArray *cmsmodelsArray;
 @property (nonatomic,assign) BOOL goBackCloseAll;
 @property (nonatomic,assign) BOOL hideChangePage;

@@ -19,6 +19,7 @@
 #import "AppDelegate.h"
 #import "JobDetailViewController.h"
 #import "UITableView+JRTableViewPlaceHolder.h"
+#import "JobsBookmarkManager.h"
 
 @interface CareerMyJobViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,JobsTableCellDelegate>
 {
@@ -29,6 +30,8 @@
     NSInteger selectIndex;
     NSMutableArray *applyArr;
     NSMutableArray *followArr;
+    NSInteger applyCount;
+    NSInteger followCount;
     BOOL isdownrefresh;
 }
 @end
@@ -38,8 +41,72 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (myTable) {
-        [myTable reloadData];
+    __block BOOL updatedata=NO;
+    __block NSInteger updatecount=0;
+    if(selectIndex==1){
+        if (self->followArr && self->followArr.count>0) {
+            [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj isKindOfClass: [JobBookmarkModel class]]) {
+                    JobBookmarkModel *model=(JobBookmarkModel *)obj;
+                    if ([[JobsBookmarkManager shareManager] checkIsDeleteBookmark:getLastAccount() postid:model.jobId]) {
+                        
+                        // 更新数据源
+                        if (self->followArr.count>idx) {
+                            self->followCount--;
+                            if (self->followCount<=0) {
+                                self->followCount=0;
+                            }
+                            [self->followArr removeObjectAtIndex:idx];
+                        }
+                    }
+                    
+                }
+            }];
+            [self setJobCountTitle:self->followCount];
+            NSMutableArray *temparr=[[JobsBookmarkManager shareManager] addArr];
+            [temparr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                __block NSString *jobid=[[JobsBookmarkManager shareManager] getPostid:getLastAccount() keyvalue:obj];
+                [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    
+                    if ([obj isKindOfClass: [JobBookmarkModel class]]) {
+                        JobBookmarkModel *model=(JobBookmarkModel *)obj;
+                        if ([model.jobId isEqualToString:jobid]) {
+                            updatecount++;
+                        }
+                    }
+                }];
+            }];
+        }
+        if ([[[JobsBookmarkManager shareManager] addArr] count] != updatecount) {
+            updatedata=YES;
+        }
+        
+    }else if (selectIndex==0){
+        if (self->applyArr && self->applyArr.count>0) {
+            NSMutableArray *temparr=[[JobsBookmarkManager shareManager] applyArr];
+            [temparr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                __block NSString *jobid=[[JobsBookmarkManager shareManager] getPostid:getLastAccount() keyvalue:obj];
+                [self->applyArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    
+                    if ([obj isKindOfClass: [JobApplyModel class]]) {
+                        JobApplyModel *model=(JobApplyModel *)obj;
+                        if ([model.jobId isEqualToString:jobid]) {
+                            updatecount++;
+                        }
+                    }
+                }];
+            }];
+        }
+        if ([[[JobsBookmarkManager shareManager] applyArr] count] != updatecount) {
+            updatedata=YES;
+        }
+    }
+    if (updatedata) {
+        [self refreshData];
+    }else{
+        if (myTable) {
+            [myTable reloadData];
+        }
     }
 }
 
@@ -71,13 +138,14 @@
 {
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:NO];
-        UIView *headerVi = self.view.addView;
-        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:NAVHEIGHT+91] install];
+        UIView *headerVi = [UIView new];
+        [sender addSubview:headerVi];
+        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
         headerVi.backgroundColor = [UIColor clearColor];
         UIButton *headBtn = headerVi.addButton;
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         headBtn.titleLabel.font = [Fonts regular:13];
-        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-40] install];
+        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
         UILabel *tipLabel= headerVi.addLabel;
         tipLabel.textAlignment=NSTextAlignmentCenter;
         tipLabel.numberOfLines=0;
@@ -103,15 +171,23 @@
     [tabvc setSelectedIndex:0];
 }
 
+-(void)tableReloadData
+{
+    [self createEmptyNotice];
+    [self->myTable reloadData];
+}
+
 -(void)refreshData
 {
     if(selectIndex==0){
+        [self setJobCountTitle:self->applyCount];
         [self->myTable reloadData];
         [self showIndicator];
         [Proto queryAllApplicationJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
             foreTask(^{
+                self->applyCount=totalCount;
                 [self hideIndicator];
-                [self setJobCountTitle:totalCount];
+                [self setJobCountTitle:self->applyCount];
                 NSLog(@"%@",array);
                 self->applyArr = [NSMutableArray arrayWithArray:array];
                 [self->myTable reloadData];
@@ -119,12 +195,14 @@
             });
         }];
     }else{
+        [self setJobCountTitle:self->followCount];
         [self->myTable reloadData];
         [self showIndicator];
         [Proto queryJobBookmarks:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
             foreTask(^{
+                self->followCount=totalCount;
                 [self hideIndicator];
-                [self setJobCountTitle:totalCount];
+                [self setJobCountTitle:self->followCount];
                 NSLog(@"%@",array);
                 self->followArr = [NSMutableArray arrayWithArray:array];
                 [self->myTable reloadData];
@@ -195,7 +273,7 @@
     tabView.delegate=self;
     [panel addSubview:tabView];
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
-    tabView.titleArr=[NSMutableArray arrayWithArray:@[@"APPLED",@"SAVE"]];
+    tabView.titleArr=[NSMutableArray arrayWithArray:@[@"APPLED",@"SAVED"]];
     
     jobCountTitle=panel.addLabel;
     jobCountTitle.font=[Fonts semiBold:13];
@@ -270,22 +348,28 @@
         if (selectIndex==0) {
             isshowapplybtn=YES;
         }
-        [JobDetailViewController presentBy:nil jobId:jobid isShowApply:isshowapplybtn closeBack:^(NSString * jobid) {
+        [JobDetailViewController presentBy:nil jobId:jobid isShowApply:isshowapplybtn closeBack:^(NSString * jobid,NSString *unFollowjobid) {
             foreTask(^{
-                if (self->selectIndex==1 && ![NSString isBlankString:jobid]) {
+                if (self->selectIndex==1 && ![NSString isBlankString:unFollowjobid]) {
                     [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                         if ([obj isKindOfClass: [JobBookmarkModel class]]) {
                             JobBookmarkModel *model=(JobBookmarkModel *)obj;
-                            if ([model.jobId isEqualToString:jobid]) {
+                            if ([model.jobId isEqualToString:unFollowjobid]) {
                                 // 更新数据源
                                 if (self->followArr.count>idx) {
+                                    self->followCount--;
+                                    if (self->followCount<=0) {
+                                        self->followCount=0;
+                                    }
                                     [self->followArr removeObjectAtIndex:idx];
                                 }
                                 *stop = YES;
                             }
                         }
                     }];
+                    [self setJobCountTitle:self->followCount];
                 }
+                
                 if (self->myTable) {
                     [self->myTable reloadData];
                 }
@@ -312,8 +396,9 @@
                 [self showIndicator];
                 [Proto queryAllApplicationJobs:self->applyArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                     foreTask(^{
+                        self->applyCount=totalCount;
                         [self hideIndicator];
-                        [self setJobCountTitle:totalCount];
+                        [self setJobCountTitle:self->applyCount];
                         if(array && array.count>0){
                             [self->applyArr addObjectsFromArray:array];
                             [self->myTable reloadData];
@@ -326,8 +411,9 @@
                 [self showIndicator];
                 [Proto queryJobBookmarks:self->followArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                     foreTask(^{
+                        self->followCount=totalCount;
                         [self hideIndicator];
-                        [self setJobCountTitle:totalCount];
+                        [self setJobCountTitle:self->followCount];
                         if(array && array.count>0){
                             [self->followArr addObjectsFromArray:array];
                             [self->myTable reloadData];
@@ -397,6 +483,11 @@
                 foreTask(^() {
                     if(result.OK){
                         [self.navigationController.view hideToast];
+                        self->followCount--;
+                        if (self->followCount<=0) {
+                            self->followCount=0;
+                        }
+                        [self setJobCountTitle:self->followCount];
                         [self->followArr removeObjectAtIndex:indexPath.row];
                         [self->myTable reloadData];
                     }else{

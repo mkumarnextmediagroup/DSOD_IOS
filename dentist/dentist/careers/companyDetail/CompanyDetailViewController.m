@@ -404,7 +404,7 @@
 #pragma mark CompanyDetailJobsViewDelegate
 -(void)CompanyDetailJobsViewDidSelectAction:(NSString *)jobId
 {
-    [JobDetailViewController presentBy:self.parentViewController jobId:jobId closeBack:^(NSString * jobid) {
+    [JobDetailViewController presentBy:self.parentViewController jobId:jobId closeBack:^(NSString * jobid,NSString *unFollowjobid) {
         foreTask(^{
             [self.jobsVC reloadData];
         });

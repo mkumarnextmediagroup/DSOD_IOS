@@ -11,16 +11,14 @@
 
 #define edge 15
 
-@implementation DiscussTableViewCell
-{
+@implementation DiscussTableViewCell {
     UIImageView *headerImg;
     UILabel *finLabel;
     UILabel *reviewLabel;
     UILabel *conLabel;
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         headerImg = [UIImageView new];
@@ -51,16 +49,13 @@
         conLabel.numberOfLines = 0;
         conLabel.font = [Fonts semiBold:12];
         conLabel.textColor = rgb255(87, 87, 87);
-//        [conLabel textColorMain];
         conLabel.text = @"Finished the content?";
         [[[[conLabel.layoutMaker toRightOf:headerImg offset:10] below:reviewLabel offset:10] sizeEq:SCREENWIDTH - 95 h:40] install];
     }
     return self;
 }
 
-
-- (void)setDisInfo:(DiscussInfo *)disInfo
-{    
+- (void)setDisInfo:(DiscussInfo *)disInfo {
     if(disInfo.disImg){
         [headerImg loadUrl:disInfo.disImg placeholderImage:@"user_img"];
     }
@@ -72,17 +67,4 @@
     reviewLabel.text = [NSDate USDateShortFormatWithStringTimestamp:disInfo.disDate];
     conLabel.text = disInfo.content;
 }
-
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:NO animated:animated];
-
-    // Configure the view for the selected state
-}
-
 @end

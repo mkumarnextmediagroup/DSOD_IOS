@@ -11,6 +11,7 @@
 #import "Article.h"
 #import "DetailModel.h"
 #import "CMSModel.h"
+#import "DenActionSheet.h"
 
 @interface CMSDetailViewController : ScrollPage
 
@@ -20,4 +21,27 @@
 @property (nonatomic,copy) NSArray *cmsmodelsArray;
 @property (nonatomic,assign) BOOL goBackCloseAll;
 @property (nonatomic,assign) BOOL hideChangePage;
+
+- (UIView *)headerView;
+- (void)goToViewAllPage;
+- (UIView *)footerView;
+- (void)onBack:(UIButton *)btn;
+- (void)buildViews;
+- (void)moreBtnClick:(UIButton *)btn;
+- (void)markBtnClick:(UIButton *)btn;
+- (void)gotoReview;
+- (void)gskBtnClick;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)showTipView:(NSString *)msg;
+- (void)openNewCmsDetail:(NSString*)contentId withAnimation:(CATransitionSubtype)subtype;
+- (void)onClickUp:(UIButton *)btn;
+- (void)onClickDown:(UIButton *)btn;
+- (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index;
+
 @end

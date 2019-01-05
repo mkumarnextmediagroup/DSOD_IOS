@@ -43,9 +43,7 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    
     [self createNav];
-    
     [self loadData];
 }
 
@@ -56,7 +54,6 @@
 
 
 -(void)loadData{
-    
     [self showLoading];
     [[DentistDataBaseManager shareManager] queryDetailCmsCaches:self.contentId completed:^(DetailModel * _Nonnull model) {
         if (model) {
@@ -66,10 +63,8 @@
                     [self buildViews];
                     [self hideLoading];
                 }
-                
             });
         }
-        
         backTask(^() {
             DetailModel *newmodel = [Proto queryForDetailPage:self.contentId];//5bdc1e7eb0f3e0701cef0253
             if (newmodel) {
@@ -85,8 +80,7 @@
 }
 
 
-- (UIView *)headerView
-{
+- (UIView *)headerView {
     UIView *headerVi = [UIView new];
     headerVi.backgroundColor = [UIColor whiteColor];
     
@@ -130,19 +124,16 @@
         [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] topParent:77] heightEq:1] install];
     }
     return headerVi;
-
 }
 
-- (void)goToViewAllPage
-{
+- (void)goToViewAllPage {
     ViewAllViewController *viewAll = [ViewAllViewController new];
 //    viewAll.discussInfo = self.articleInfo.discussInfos;
     viewAll.contentId = self.contentId;
     [self.navigationController pushViewController:viewAll animated:YES];
 }
 
-- (UIView *)footerView
-{
+- (UIView *)footerView {
     UIView *footerVi = [UIView new];
     footerVi.backgroundColor = [UIColor whiteColor];
     
@@ -182,19 +173,14 @@
     [preButton setTitle:@"Previous" forState:UIControlStateNormal];
     [[[[preButton.layoutMaker leftParent:edge] below:lineLabel1 offset:edge] sizeEq:80 h:20] install];
     [preButton addTarget:self action:@selector(onClickUp:) forControlEvents:UIControlEventTouchUpInside];
-    
     if(self.hideChangePage){
         preButton.hidden = YES;
         nextButton.hidden = YES;
     }
-    
     return footerVi;
 }
 
-- (void)createNav
-{
-    
-    
+- (void)createNav {
     UIView *topVi = [UIView new];
     topVi.backgroundColor = Colors.bgNavBarColor;
     [self.view addSubview:topVi];
@@ -245,31 +231,12 @@
 }
 
 - (void)buildViews {
-    if(!self.articleInfo){
-        return;
-    }
-    
+    if (!self.articleInfo) {  return; }
     NSDictionary *sponsorInfo = @{@"260":@"sponsor_align",
                                   @"259":@"sponsor_nobel",
                                   @"197":@"sponsor_gsk"};
     titleLabel.text = sponsorInfo[self.articleInfo.sponsorId] ? @"SPONSORED CONTENT" : @"";
-    
-    
-//    if ([self.toWhichPage isEqualToString:@"mo"]) {
-//        playView = [PlayerView new];
-//        [playView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
-//        [playView.gskBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//        [playView.greeBtn addTarget:self action:@selector(gskBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//        [playView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//        [playView.markButton addTarget:self action:@selector(markBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//        [self.contentView addSubview:playView];
-//        [playView bind:self.articleInfo];
-//        [[[[playView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
-//
-//     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(playView) install];
-//
-//    }else
-//    {
+
     if(!picDetailView){
         picDetailView = [PicDetailView new];
         picDetailView.vc = self;
@@ -280,13 +247,9 @@
         [picDetailView.bgBtn addTarget:self action:@selector(gotoReview) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:picDetailView];
     }
-    
-        [picDetailView bind:self.articleInfo];
-        [[[[picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
-        
-        [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(picDetailView) install];
-//    }
-    
+    [picDetailView bind:self.articleInfo];
+    [[[[picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
+    [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(picDetailView) install];
     if (!myTable) {
         myTable = [UITableView new];
         [self.contentView addSubview:myTable];
@@ -302,13 +265,9 @@
     }else{
         [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
     }
-
-    
     [[myTable.layoutUpdate heightEq:self.articleInfo.discussInfos.count * 110 + 150] install];
     [myTable reloadData];
-
     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(myTable) install];
-    
 }
 
 //click more button
@@ -320,8 +279,7 @@
     
 }
 
-- (void)markBtnClick:(UIButton *)btn
-{
+- (void)markBtnClick:(UIButton *)btn {
     if(_articleInfo.isBookmark){
         //删除
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"Remove from bookmarks……" ishowActivity:YES];
@@ -395,8 +353,7 @@
     }
 }
 
-- (void)gotoReview
-{
+- (void)gotoReview {
     AddReviewViewController *reviewVC = [AddReviewViewController new];
     reviewVC.contentId = self.contentId;
     WeakSelf
@@ -407,8 +364,7 @@
 }
 
 //GSK btn click and go to the GSK list page
-- (void)gskBtnClick
-{
+- (void)gskBtnClick {
     GSKViewController *gskVC = [GSKViewController new];
     gskVC.author = [NSString stringWithFormat:@"%@ %@",_articleInfo.author.firstName,_articleInfo.author.lastName];
     gskVC.sponsorId=self.articleInfo.sponsorId;
@@ -608,11 +564,6 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
-}
-
 #pragma mark ---MyActionSheetDelegate
 - (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index
 {
@@ -634,25 +585,7 @@
                 UIView *dsontoastview=[DsoToast toastViewForMessage:@"Download is Add…" ishowActivity:YES];
                 [self.navigationController.view showToast:dsontoastview duration:1.0 position:CSToastPositionBottom completion:nil];
                 [[DetinstDownloadManager shareManager] startDownLoadCMSModel:newmodel addCompletion:^(BOOL result) {
-                    
-                    foreTask(^{
-//                        NSString *msg=@"";
-//                        if (result) {
-//                            msg=@"Download is Add";
-//                        }else{
-//                            msg=@"error";
-//                        }
-//                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
-//
-//                        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//                            NSLog(@"点击取消");
-//                        }]];
-//                        [self presentViewController:alertController animated:YES completion:nil];
-                    });
-                } completed:^(BOOL result) {
-                    
-                }];
+                } completed:^(BOOL result) {}];
             }
             
         }
@@ -710,20 +643,10 @@
     }
 }
 
-- (void)dealloc
-{
-    if(picDetailView){
+- (void)dealloc {
+    if (picDetailView){
         [picDetailView timerInvalidate];
     }
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

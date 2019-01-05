@@ -37,5 +37,8 @@ typedef NS_ENUM(NSInteger, RateStyle)
 
 -(instancetype)initWithFrame:(CGRect)frame finish:(finishBlock)finish;
 -(instancetype)initWithFrame:(CGRect)frame numberOfStars:(NSInteger)numberOfStars rateStyle:(RateStyle)rateStyle isAnination:(BOOL)isAnimation finish:(finishBlock)finish;
+- (void)userTapRateView:(UITapGestureRecognizer *)gesture;
+- (void)layoutSubviews;
+- (void)setCurrentScore:(CGFloat)currentScore;
 
 @end

@@ -36,7 +36,7 @@ typedef void(^completeBlock)(CGFloat currentScore);
     return self;
 }
 
--(instancetype)initWithFrame:(CGRect)frame numberOfStars:(NSInteger)numberOfStars rateStyle:(RateStyle)rateStyle isAnination:(BOOL)isAnimation delegate:(id)delegate{
+-(instancetype)initWithFrame:(CGRect)frame numberOfStars:(NSInteger)numberOfStars rateStyle:(RateStyle)rateStyle isAnination:(BOOL)isAnimation delegate:(id)delegate {
     if (self = [super initWithFrame:frame]) {
         _numberOfStars = numberOfStars;
         _rateStyle = rateStyle;
@@ -52,9 +52,7 @@ typedef void(^completeBlock)(CGFloat currentScore);
     if (self = [super initWithFrame:frame]) {
         _numberOfStars = 5;
         _rateStyle = WholeStar;
-        _complete = ^(CGFloat currentScore){
-            finish(currentScore);
-        };
+        _complete = ^(CGFloat currentScore){ finish(currentScore); };
         [self createStarView];
     }
     return self;
@@ -65,9 +63,7 @@ typedef void(^completeBlock)(CGFloat currentScore);
         _numberOfStars = numberOfStars;
         _rateStyle = rateStyle;
         _isAnimation = isAnimation;
-        _complete = ^(CGFloat currentScore){
-            finish(currentScore);
-        };
+        _complete = ^(CGFloat currentScore) { finish(currentScore); };
         [self createStarView];
     }
     return self;
@@ -108,8 +104,7 @@ typedef void(^completeBlock)(CGFloat currentScore);
     CGFloat offset = tapPoint.x;
     CGFloat realStarScore = offset / (self.bounds.size.width / self.numberOfStars);
     switch (_rateStyle) {
-        case WholeStar:
-        {
+        case WholeStar: {
             self.currentScore = ceilf(realStarScore);
             break;
         }
@@ -119,10 +114,8 @@ typedef void(^completeBlock)(CGFloat currentScore);
         case IncompleteStar:
             self.currentScore = realStarScore;
             break;
-        default:
-            break;
+        default: break;
     }
-    
 }
 
 - (void)layoutSubviews {
@@ -146,15 +139,10 @@ typedef void(^completeBlock)(CGFloat currentScore);
     } else {
         _currentScore = currentScore;
     }
-    
     if ([self.delegate respondsToSelector:@selector(starRateView:currentScore:)]) {
         [self.delegate starRateView:self currentScore:_currentScore];
     }
-    
-    if (self.complete) {
-        _complete(_currentScore);
-    }
-    
+    if (self.complete) { _complete(_currentScore); }
     [self setNeedsLayout];
 }
 

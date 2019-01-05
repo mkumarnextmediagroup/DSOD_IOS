@@ -24,9 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)UIButton *sponsorBtn;
 @property (nonatomic,weak) UIViewController *vc;
 
--(void)bind:(DetailModel *)bindInfo ;
-
+- (void)bind:(DetailModel *)bindInfo ;
 - (void)timerInvalidate;
+- (void)imgBtnClick:(UITapGestureRecognizer *)tap;
+- (void)showRelativeTopic:(NSArray*)data;
 
 @end
 

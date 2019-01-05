@@ -144,6 +144,7 @@
 		3E64F13321721D57001A7CF2 /* DSODentist_Terms_of_Service.html in Resources */ = {isa = PBXBuildFile; fileRef = 3E64F13121721D57001A7CF2 /* DSODentist_Terms_of_Service.html */; };
 		3ED0764B213A9FE3004D4083 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED0764A213A9FE3004D4083 /* ProfileViewController.m */; };
 		43028B2A21D2724E00771971 /* PlayerViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43028B2921D2724E00771971 /* PlayerViewTests.m */; };
+		43028B2D21D28A6300771971 /* PicDetailViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43028B2C21D28A6300771971 /* PicDetailViewTests.m */; };
 		43065FE821BFF69A00D142B8 /* CmsCategoryPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43065FE721BFF69A00D142B8 /* CmsCategoryPageTests.m */; };
 		4307936D21CA8852003C5BF0 /* ArticleItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4307936C21CA8852003C5BF0 /* ArticleItemViewTests.m */; };
 		4307937021CA99D9003C5BF0 /* BookMarkItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4307936F21CA99D9003C5BF0 /* BookMarkItemViewTests.m */; };
@@ -169,8 +170,11 @@
 		438BA12821B4065D005246C5 /* CmsDownloadsControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */; };
 		43941292219F0378008C3092 /* UITextFieldExtTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43941291219F0378008C3092 /* UITextFieldExtTests.m */; };
 		43952B452190704900EB3443 /* EditPracticeAddressViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43952B442190704900EB3443 /* EditPracticeAddressViewControllerTests.m */; };
+		439B4A2221D355540037BE5C /* XHStarRateViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 439B4A2121D355540037BE5C /* XHStarRateViewTests.m */; };
 		439D55EB2189DBFA003BB940 /* ProfileEditPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 439D55EA2189DBFA003BB940 /* ProfileEditPageTests.m */; };
 		43A196CF2190A12B006E90CC /* EditExperiencePageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A196CE2190A12B006E90CC /* EditExperiencePageTests.m */; };
+		43A6590B21D6802E0091F9AF /* DiscussTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6590A21D6802E0091F9AF /* DiscussTableViewCellTests.m */; };
+		43A6590E21D687060091F9AF /* CMSDetailViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6590D21D687060091F9AF /* CMSDetailViewControllerTests.m */; };
 		43A8D52321CBDBD300CE8FBD /* DownloadsItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A8D52221CBDBD300CE8FBD /* DownloadsItemViewTests.m */; };
 		43A8D52621CBEE1200CE8FBD /* GSKItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A8D52521CBEE1200CE8FBD /* GSKItemViewTests.m */; };
 		43A8D52921CBF7D400CE8FBD /* LinearViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A8D52821CBF7D400CE8FBD /* LinearViewTests.m */; };
@@ -1156,6 +1160,7 @@
 		3ED07649213A9FE3004D4083 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		3ED0764A213A9FE3004D4083 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		43028B2921D2724E00771971 /* PlayerViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerViewTests.m; sourceTree = "<group>"; };
+		43028B2C21D28A6300771971 /* PicDetailViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PicDetailViewTests.m; sourceTree = "<group>"; };
 		43065FE721BFF69A00D142B8 /* CmsCategoryPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsCategoryPageTests.m; sourceTree = "<group>"; };
 		4307936C21CA8852003C5BF0 /* ArticleItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleItemViewTests.m; sourceTree = "<group>"; };
 		4307936F21CA99D9003C5BF0 /* BookMarkItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookMarkItemViewTests.m; sourceTree = "<group>"; };
@@ -1181,8 +1186,11 @@
 		438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsDownloadsControllerTests.m; sourceTree = "<group>"; };
 		43941291219F0378008C3092 /* UITextFieldExtTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UITextFieldExtTests.m; sourceTree = "<group>"; };
 		43952B442190704900EB3443 /* EditPracticeAddressViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditPracticeAddressViewControllerTests.m; sourceTree = "<group>"; };
+		439B4A2121D355540037BE5C /* XHStarRateViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHStarRateViewTests.m; sourceTree = "<group>"; };
 		439D55EA2189DBFA003BB940 /* ProfileEditPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileEditPageTests.m; sourceTree = "<group>"; };
 		43A196CE2190A12B006E90CC /* EditExperiencePageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditExperiencePageTests.m; sourceTree = "<group>"; };
+		43A6590A21D6802E0091F9AF /* DiscussTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscussTableViewCellTests.m; sourceTree = "<group>"; };
+		43A6590D21D687060091F9AF /* CMSDetailViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSDetailViewControllerTests.m; sourceTree = "<group>"; };
 		43A8D52221CBDBD300CE8FBD /* DownloadsItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadsItemViewTests.m; sourceTree = "<group>"; };
 		43A8D52521CBEE1200CE8FBD /* GSKItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSKItemViewTests.m; sourceTree = "<group>"; };
 		43A8D52821CBF7D400CE8FBD /* LinearViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearViewTests.m; sourceTree = "<group>"; };
@@ -2487,6 +2495,14 @@
 			path = CMSView;
 			sourceTree = "<group>";
 		};
+		43028B2B21D28A3400771971 /* PicDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				43028B2C21D28A6300771971 /* PicDetailViewTests.m */,
+			);
+			path = PicDetailView;
+			sourceTree = "<group>";
+		};
 		43065FE621BFF68100D142B8 /* CategoryPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2522,6 +2538,10 @@
 		4317ADC921D12F4E00ED672D /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				43A6590C21D686F10091F9AF /* CMSDetailViewController */,
+				43A6590921D6801E0091F9AF /* DiscussTableViewCell */,
+				439B4A2021D355490037BE5C /* XHStarRateView */,
+				43028B2B21D28A3400771971 /* PicDetailView */,
 				43028B2821D2723400771971 /* CMSView */,
 			);
 			path = Detail;
@@ -2638,6 +2658,30 @@
 				438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */,
 			);
 			path = DownloadsController;
+			sourceTree = "<group>";
+		};
+		439B4A2021D355490037BE5C /* XHStarRateView */ = {
+			isa = PBXGroup;
+			children = (
+				439B4A2121D355540037BE5C /* XHStarRateViewTests.m */,
+			);
+			path = XHStarRateView;
+			sourceTree = "<group>";
+		};
+		43A6590921D6801E0091F9AF /* DiscussTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				43A6590A21D6802E0091F9AF /* DiscussTableViewCellTests.m */,
+			);
+			path = DiscussTableViewCell;
+			sourceTree = "<group>";
+		};
+		43A6590C21D686F10091F9AF /* CMSDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				43A6590D21D687060091F9AF /* CMSDetailViewControllerTests.m */,
+			);
+			path = CMSDetailViewController;
 			sourceTree = "<group>";
 		};
 		43A8D52121CBDBC500CE8FBD /* DownloadsItemView */ = {
@@ -5021,6 +5065,7 @@
 				43597BF721CCC6070033E1C1 /* LinearVerViewTests.m in Sources */,
 				43595F9221B503E80028BA97 /* LinearPageTests.m in Sources */,
 				4317ADC821D11E5600ED672D /* DenActionSheetTests.m in Sources */,
+				43028B2D21D28A6300771971 /* PicDetailViewTests.m in Sources */,
 				4335E27921B6B5EF00A10F7E /* CmsSearchPageTests.m in Sources */,
 				43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */,
 				43A8D52321CBDBD300CE8FBD /* DownloadsItemViewTests.m in Sources */,
@@ -5030,6 +5075,7 @@
 				4344660521A5674400811E94 /* UIViewExtTests.m in Sources */,
 				43F92B7A217D94B400798462 /* LoginControllerTests.m in Sources */,
 				4307936D21CA8852003C5BF0 /* ArticleItemViewTests.m in Sources */,
+				43A6590B21D6802E0091F9AF /* DiscussTableViewCellTests.m in Sources */,
 				43EBDF2B21CF74E600C3AAB7 /* UIViewExtensionTests.m in Sources */,
 				43028B2A21D2724E00771971 /* PlayerViewTests.m in Sources */,
 				43A8D52921CBF7D400CE8FBD /* LinearViewTests.m in Sources */,
@@ -5037,6 +5083,7 @@
 				4388150B218D4EF20066BCB6 /* SearchPageTests.m in Sources */,
 				4307937021CA99D9003C5BF0 /* BookMarkItemViewTests.m in Sources */,
 				43EBDF2821CF634A00C3AAB7 /* RMDownloadIndicatorTests.m in Sources */,
+				43A6590E21D687060091F9AF /* CMSDetailViewControllerTests.m in Sources */,
 				43597BFA21CCD0E80033E1C1 /* ContentPageTests.m in Sources */,
 				43941292219F0378008C3092 /* UITextFieldExtTests.m in Sources */,
 				43A196CF2190A12B006E90CC /* EditExperiencePageTests.m in Sources */,
@@ -5048,6 +5095,7 @@
 				43B72530217651A8000F6797 /* KiwiTests.m in Sources */,
 				4344660321A5644C00811E94 /* UIScreenExtTests.m in Sources */,
 				43597BFD21CCDBD60033E1C1 /* ArticleGSkItemViewTests.m in Sources */,
+				439B4A2221D355540037BE5C /* XHStarRateViewTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

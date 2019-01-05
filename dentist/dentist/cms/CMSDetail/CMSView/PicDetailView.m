@@ -369,8 +369,7 @@ UITableViewDelegate,UITableViewDataSource>
     
 }
 
-- (void)showRelativeTopic:(NSArray*)data{
-    
+- (void)showRelativeTopic:(NSArray*)data {
    if(data && data.count>0){
         int height = 40;
         for(int i = 0;i< data.count;i++){
@@ -384,7 +383,7 @@ UITableViewDelegate,UITableViewDataSource>
     }
 }
 
-- (void)showReferences:(NSArray*)data{
+- (void)showReferences:(NSArray*)data {
     referencesArray = data;
     if(referencesArray && referencesArray.count>0){
         int height = 40;//header
@@ -588,7 +587,7 @@ UITableViewDelegate,UITableViewDataSource>
 
 
 
--(NSString*)htmlRemoveReferences:(NSString*)htmlString{
+-(NSString*)htmlRemoveReferences:(NSString*)htmlString {
     NSMutableArray *mutableArray = [NSMutableArray new];
     
     htmlString = [NSString stringWithFormat:@"<XML>%@</XML>" , htmlString];
@@ -628,8 +627,6 @@ UITableViewDelegate,UITableViewDataSource>
     htmlString = [xmlEle XMLString];
     htmlString = [htmlString substringWithRange:NSMakeRange(5, htmlString.length-11)];
 //    NSLog(@"xmlstring = %@",htmlString);
-    
-    
     return htmlString;
 }
 

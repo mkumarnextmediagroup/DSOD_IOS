@@ -8,6 +8,7 @@
 #import "Proto.h"
 #import "AppDelegate.h"
 #import "SettingTableViewCell.h"
+#import "AboutViewController.h"
 
 #define edge 18
 @interface SettingController()<UITableViewDelegate,UITableViewDataSource>
@@ -76,6 +77,32 @@
         [cell setImageAndTitle:imageCurr title:infoArr[indexPath.row]];
     }
     return cell;
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    switch (indexPath.row) {
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            [AboutViewController openBy:self];
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+
+        default:
+            break;
+    }
     
 }
 

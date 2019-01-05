@@ -88,14 +88,15 @@
 {
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:NO];
-        UIView *headerVi = self.view.addView;
-        [[[[[headerVi.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
+        UIView *headerVi = [UIView new];
+        [sender addSubview:headerVi];
+        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
         headerVi.backgroundColor = [UIColor clearColor];
         UIButton *headBtn = headerVi.addButton;
         [headBtn setImage:[UIImage imageNamed:@"noun_Business Records"] forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         headBtn.titleLabel.font = [Fonts regular:13];
-        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-40] install];
+        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
         UILabel *tipLabel= headerVi.addLabel;
         tipLabel.textAlignment=NSTextAlignmentCenter;
         tipLabel.numberOfLines=0;
@@ -258,8 +259,11 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     JobModel *jobModel = infoArr[indexPath.row];
-    [JobDetailViewController presentBy:(self.tabBarController != nil?nil:self) jobId:jobModel.id closeBack:^(NSString * jobid) {
+    [JobDetailViewController presentBy:(self.tabBarController != nil?nil:self) jobId:jobModel.id closeBack:^(NSString * jobid,NSString *unFollowjobid) {
         foreTask(^{
+            if (![NSString isBlankString:jobid]) {
+                jobModel.isApplication=@"1";
+            }
             if (self->myTable) {
                 [self->myTable reloadData];
             }
@@ -304,7 +308,7 @@
     NSLog(@"FollowJobAction");
     if (self->infoArr && self->infoArr.count>indexPath.row) {
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
-        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionCenter completion:nil];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         JobModel *model=self->infoArr[indexPath.row];
         NSString *jobid=model.id;
         [Proto addJobBookmark:jobid completed:^(HttpResult *result) {
@@ -313,10 +317,10 @@
                 [self.navigationController.view hideToast];
                 if ([view isKindOfClass:[FindJobsSponsorTableViewCell class]]) {
                     FindJobsSponsorTableViewCell *cell =(FindJobsSponsorTableViewCell *)view;
-                    [cell updateFollowStatus:result];
+                    [cell updateFollowStatus:YES];
                 }else if([view isKindOfClass:[FindJobsTableViewCell class]]){
                     FindJobsTableViewCell *cell =(FindJobsTableViewCell *)view;
-                    [cell updateFollowStatus:result];
+                    [cell updateFollowStatus:YES];
                 }
             });
         }];
@@ -328,6 +332,25 @@
 -(void)UnFollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {
     NSLog(@"UnFollowJobAction");
+    if (self->infoArr && self->infoArr.count>indexPath.row) {
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+        JobModel *model=self->infoArr[indexPath.row];
+        NSString *jobid=model.id;
+        [Proto deleteJobBookmarkByJobId:jobid completed:^(HttpResult *result) {
+            NSLog(@"result=%@",@(result.code));
+            foreTask(^() {
+                [self.navigationController.view hideToast];
+                if ([view isKindOfClass:[FindJobsSponsorTableViewCell class]]) {
+                    FindJobsSponsorTableViewCell *cell =(FindJobsSponsorTableViewCell *)view;
+                    [cell updateFollowStatus:NO];
+                }else if([view isKindOfClass:[FindJobsTableViewCell class]]){
+                    FindJobsTableViewCell *cell =(FindJobsTableViewCell *)view;
+                    [cell updateFollowStatus:NO];
+                }
+            });
+        }];
+    }
 }
 
 #pragma mark ----------------FilterViewDelegate

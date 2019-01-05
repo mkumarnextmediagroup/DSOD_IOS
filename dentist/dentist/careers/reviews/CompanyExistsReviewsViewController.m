@@ -30,6 +30,8 @@
     
     NSArray<JobDSOModel*> *companyModelArray;
     NSInteger totalCount;
+    
+    NSInteger openIndex;
 }
 
 
@@ -203,10 +205,20 @@
     }
 }
 
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [CompanyReviewsViewController openBy:self jobDSOModel:companyModelArray[indexPath.row]];
+    WeakSelf
+    [CompanyReviewsViewController openBy:self jobDSOModel:companyModelArray[indexPath.row] onReviewNumChanged:^(NSInteger reviewNum) {
+        StrongSelf
+        
+        strongSelf->companyModelArray[indexPath.row].reviewNum = reviewNum;
+        [strongSelf->tableView reloadData];
+//        openIndex
+    }];
+    
 }
 
 @end

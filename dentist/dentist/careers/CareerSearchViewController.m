@@ -204,8 +204,11 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     JobModel *jobModel = infoArr[indexPath.row];
-    [JobDetailViewController presentBy:self jobId:jobModel.id closeBack:^(NSString * jobid) {
+    [JobDetailViewController presentBy:self jobId:jobModel.id closeBack:^(NSString * jobid,NSString *unFollowjobid) {
         foreTask(^{
+            if (![NSString isBlankString:jobid]) {
+                jobModel.isApplication=@"1";
+            }
             if (self->myTable) {
                 [self->myTable reloadData];
             }

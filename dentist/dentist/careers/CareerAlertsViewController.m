@@ -119,15 +119,15 @@
 {
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:NO];
-        UIView *headerVi = self.view.addView;
-        [[[[[headerVi.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
-//        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:NAVHEIGHT] install];
+        UIView *headerVi = [UIView new];
+        [sender addSubview:headerVi];
+        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:0] install];
         headerVi.backgroundColor = [UIColor clearColor];
         UIButton *headBtn = headerVi.addButton;
         [headBtn setImage:[UIImage imageNamed:@"noun_mobile notification"] forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         headBtn.titleLabel.font = [Fonts regular:13];
-        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-60] install];
+        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
         UILabel *tipLabel= headerVi.addLabel;
         tipLabel.textAlignment=NSTextAlignmentCenter;
         tipLabel.numberOfLines=0;

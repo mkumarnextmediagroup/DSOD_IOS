@@ -771,9 +771,7 @@ UITableViewDelegate,UITableViewDataSource>
 -(void)openCMSDetail:(NSDictionary*)paramDic{
     
     CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
-    
     newVC.contentId = paramDic[@"articleId"];
-    newVC.hideChangePage = YES;
 
     [self.vc.navigationController pushViewController:newVC animated:YES];
 }

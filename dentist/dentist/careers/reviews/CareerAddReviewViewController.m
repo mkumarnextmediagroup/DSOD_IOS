@@ -73,6 +73,7 @@
 }
 
 
+
 - (void)keyboardWillShow:(NSNotification *)aNotification{
     NSDictionary *userInfo = [aNotification userInfo];
     NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
@@ -326,7 +327,7 @@
 
 
 -(void)submitBtnClick{
-    
+    [self.view endEditing:YES];
     [self showLoading];
     [Proto addCompanyComment:self.dsoId reviewTitle:[self text:reviewTitleTextView]
                         pros:[self text:prosTextView] cons:[self text:consTextView] advice:[self text:adviceTextView]
@@ -336,10 +337,10 @@
                 alertMaker.addActionCancelTitle(@"OK");
             } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
                 if (success) {
+                    [super dismiss];
                     if(self.addReviewSuccessCallbak){
                         self.addReviewSuccessCallbak();
                     }
-                    [super dismiss];
                 }
             }
          ];

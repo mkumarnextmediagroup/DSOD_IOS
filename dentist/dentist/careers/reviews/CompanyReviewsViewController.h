@@ -14,8 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CompanyReviewsViewController : UIViewController
 
 
++(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel;
 
-+(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel ;
++(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel onReviewNumChanged:(void(^)(NSInteger reviewNum))onReviewNumChanged;
+
 
 @end
 

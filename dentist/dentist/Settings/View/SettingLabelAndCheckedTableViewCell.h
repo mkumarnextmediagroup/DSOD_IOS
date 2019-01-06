@@ -1,0 +1,20 @@
+//
+//  SeetingLabelAndCheckedTableViewCell.h
+//  dentist
+//
+//  Created by Shirley on 2019/1/5.
+//  Copyright © 2019 thenextmediagroup.com. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface SettingLabelAndCheckedTableViewCell : UITableViewCell
+
+
+- (void)setText:(NSString *)text isChecked:(BOOL)isChecked;
+    
+@end
+
+NS_ASSUME_NONNULL_END

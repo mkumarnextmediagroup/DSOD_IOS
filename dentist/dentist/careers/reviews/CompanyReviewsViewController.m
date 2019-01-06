@@ -120,7 +120,7 @@
     tableView = [UITableView new];
     tableView.dataSource = self;
     tableView.delegate = self;
-    tableView.estimatedRowHeight = 10;
+    tableView.estimatedRowHeight = 1000;
     tableView.rowHeight=UITableViewAutomaticDimension;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.tableHeaderView = [self buildHeader];

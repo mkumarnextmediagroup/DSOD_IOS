@@ -130,7 +130,7 @@ describe(@"Unit Test For CMSDetailViewController", ^{
         });
 
         it(@"openNewCmsDetail", ^{
-            [controller openNewCmsDetail:@"open new cms detail" withAnimation:kCATransitionFromBottom];
+            [controller openNewCmsDetail:@"open" index:0 withAnimation:kCATransitionFromBottom];
             [[theValue(controller.view) shouldNot] beNil];
         });
 

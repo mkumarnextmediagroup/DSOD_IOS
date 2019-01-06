@@ -16,7 +16,6 @@
 
 @implementation AboutViewController{
     
-    int edge;
     UIWebView *mywebView;
 }
 
@@ -28,8 +27,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    edge = 18;
     
     [self addNavBar];
     

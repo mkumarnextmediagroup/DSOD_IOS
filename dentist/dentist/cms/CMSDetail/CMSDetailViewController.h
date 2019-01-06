@@ -40,7 +40,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)showTipView:(NSString *)msg;
-- (void)openNewCmsDetail:(NSString*)contentId withAnimation:(CATransitionSubtype)subtype;
+- (void)openNewCmsDetail:(NSString*)contentId index:(int)index withAnimation:(CATransitionSubtype)subtype;
 - (void)onClickUp:(UIButton *)btn;
 - (void)onClickDown:(UIButton *)btn;
 - (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index;

@@ -61,6 +61,12 @@
 		18A0DBB121B51DF40065B2BD /* CompanyMediaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0DBB021B51DF40065B2BD /* CompanyMediaModel.m */; };
 		18A0DBB721B565520065B2BD /* JobsOfDSODetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0DBB621B565520065B2BD /* JobsOfDSODetailTableViewCell.m */; };
 		18A0F43D21E062DF00369058 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F43C21E062DF00369058 /* AboutViewController.m */; };
+		18A0F44021E0718F00369058 /* VideoQualityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F43F21E0718F00369058 /* VideoQualityViewController.m */; };
+		18A0F44321E072E600369058 /* SettingLabelAndCheckedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F44221E072E600369058 /* SettingLabelAndCheckedTableViewCell.m */; };
+		18A0F44621E1A2DF00369058 /* PlaybackSpeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F44521E1A2DE00369058 /* PlaybackSpeedViewController.m */; };
+		18A0F44921E1A5A500369058 /* HelpAndFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F44821E1A5A500369058 /* HelpAndFeedbackViewController.m */; };
+		18A0F44C21E1A5D500369058 /* FAQSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F44B21E1A5D500369058 /* FAQSViewController.m */; };
+		18A0F44F21E1A60F00369058 /* ContactUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A0F44E21E1A60F00369058 /* ContactUsViewController.m */; };
 		18A23FC821BB8D01006CB432 /* CompanyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A23FC721BB8D00006CB432 /* CompanyDetailViewController.m */; };
 		18A23FCB21BBB4F0006CB432 /* CompanyDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A23FCA21BBB4F0006CB432 /* CompanyDetailDescriptionViewController.m */; };
 		18A23FCE21BBC9C8006CB432 /* CompanyDetailJobsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A23FCD21BBC9C8006CB432 /* CompanyDetailJobsViewController.m */; };
@@ -1047,6 +1053,18 @@
 		18A0DBB621B565520065B2BD /* JobsOfDSODetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOfDSODetailTableViewCell.m; sourceTree = "<group>"; };
 		18A0F43B21E062DF00369058 /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		18A0F43C21E062DF00369058 /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		18A0F43E21E0718F00369058 /* VideoQualityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoQualityViewController.h; sourceTree = "<group>"; };
+		18A0F43F21E0718F00369058 /* VideoQualityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoQualityViewController.m; sourceTree = "<group>"; };
+		18A0F44121E072E600369058 /* SettingLabelAndCheckedTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingLabelAndCheckedTableViewCell.h; sourceTree = "<group>"; };
+		18A0F44221E072E600369058 /* SettingLabelAndCheckedTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingLabelAndCheckedTableViewCell.m; sourceTree = "<group>"; };
+		18A0F44421E1A2DE00369058 /* PlaybackSpeedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaybackSpeedViewController.h; sourceTree = "<group>"; };
+		18A0F44521E1A2DE00369058 /* PlaybackSpeedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybackSpeedViewController.m; sourceTree = "<group>"; };
+		18A0F44721E1A5A500369058 /* HelpAndFeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpAndFeedbackViewController.h; sourceTree = "<group>"; };
+		18A0F44821E1A5A500369058 /* HelpAndFeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpAndFeedbackViewController.m; sourceTree = "<group>"; };
+		18A0F44A21E1A5D500369058 /* FAQSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAQSViewController.h; sourceTree = "<group>"; };
+		18A0F44B21E1A5D500369058 /* FAQSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FAQSViewController.m; sourceTree = "<group>"; };
+		18A0F44D21E1A60F00369058 /* ContactUsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactUsViewController.h; sourceTree = "<group>"; };
+		18A0F44E21E1A60F00369058 /* ContactUsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactUsViewController.m; sourceTree = "<group>"; };
 		18A23FC621BB8D00006CB432 /* CompanyDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailViewController.h; sourceTree = "<group>"; };
 		18A23FC721BB8D00006CB432 /* CompanyDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDetailViewController.m; sourceTree = "<group>"; };
 		18A23FC921BBB4F0006CB432 /* CompanyDetailDescriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailDescriptionViewController.h; sourceTree = "<group>"; };
@@ -2969,6 +2987,8 @@
 			children = (
 				4E36C0CA21DF68AA003451E6 /* SettingTableViewCell.h */,
 				4E36C0CB21DF68AA003451E6 /* SettingTableViewCell.m */,
+				18A0F44121E072E600369058 /* SettingLabelAndCheckedTableViewCell.h */,
+				18A0F44221E072E600369058 /* SettingLabelAndCheckedTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4308,6 +4328,16 @@
 				E11E1251F0FF5E605CBBBFEC /* SettingController.m */,
 				18A0F43B21E062DF00369058 /* AboutViewController.h */,
 				18A0F43C21E062DF00369058 /* AboutViewController.m */,
+				18A0F43E21E0718F00369058 /* VideoQualityViewController.h */,
+				18A0F43F21E0718F00369058 /* VideoQualityViewController.m */,
+				18A0F44421E1A2DE00369058 /* PlaybackSpeedViewController.h */,
+				18A0F44521E1A2DE00369058 /* PlaybackSpeedViewController.m */,
+				18A0F44721E1A5A500369058 /* HelpAndFeedbackViewController.h */,
+				18A0F44821E1A5A500369058 /* HelpAndFeedbackViewController.m */,
+				18A0F44A21E1A5D500369058 /* FAQSViewController.h */,
+				18A0F44B21E1A5D500369058 /* FAQSViewController.m */,
+				18A0F44D21E1A60F00369058 /* ContactUsViewController.h */,
+				18A0F44E21E1A60F00369058 /* ContactUsViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -5223,6 +5253,7 @@
 				18A0DB9921B1370F0065B2BD /* CircleProgressView.m in Sources */,
 				C5EEAB1B08FE088DAFBA7763 /* Fonts.m in Sources */,
 				4E94ADCF21AD3B32009CAB7F /* DSOProfilePage.m in Sources */,
+				18A0F44321E072E600369058 /* SettingLabelAndCheckedTableViewCell.m in Sources */,
 				C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */,
 				A3EE38F62181AEF600C76F3A /* CMSModelComment.m in Sources */,
 				4E23522F213D12CB003BA59B /* UISearchBarView.m in Sources */,
@@ -5307,6 +5338,7 @@
 				A3A5B339218D61C500242E71 /* ThumCollectionViewCell.swift in Sources */,
 				4EBCE6DB212D6D8600A0672D /* ResetPwdViewController.m in Sources */,
 				C5EEA58E4CCF4C3F8599B771 /* MASConstraintMaker+myextend.m in Sources */,
+				18A0F44021E0718F00369058 /* VideoQualityViewController.m in Sources */,
 				4E1957472137D0F100420563 /* LinkedInAuthorizationViewController.m in Sources */,
 				A956C5302154A14C00E528EB /* DentistMoreView.m in Sources */,
 				A3729597219284F500B36409 /* DentistDataBaseManager.m in Sources */,
@@ -5340,6 +5372,7 @@
 				1829C52D21BCC961009A8732 /* JobDetailViewController.m in Sources */,
 				4E33ACD6218B002500E4CF7E /* UniteContent.m in Sources */,
 				C5EEA409953B93D9D6261C83 /* Async.m in Sources */,
+				18A0F44F21E1A60F00369058 /* ContactUsViewController.m in Sources */,
 				C5EEA2F9830CC5E8FD47394F /* HttpResult.m in Sources */,
 				18D16FCF21C143D40017CCB6 /* MapViewController.m in Sources */,
 				C5EEA57BF745D8F5F4562664 /* NSData+myextend.m in Sources */,
@@ -5352,6 +5385,7 @@
 				E11E1F3374C0062C790089B8 /* TitleBar.m in Sources */,
 				18B83B102173557D00130DB6 /* YBIBGestureInteractionProfile.m in Sources */,
 				E11E1A6226F32868524CF272 /* BaseTabController.m in Sources */,
+				18A0F44621E1A2DF00369058 /* PlaybackSpeedViewController.m in Sources */,
 				A99177062176E4CD00788D2C /* NSObject+NSCoding.m in Sources */,
 				A3DF39822189A192006F84DC /* expanding.swift in Sources */,
 				4E85DA8B21429C45007C40C3 /* DenGlobalInfo.m in Sources */,
@@ -5430,6 +5464,7 @@
 				A3BA6E1021B506D600D83156 /* CompanyJobsModel.m in Sources */,
 				4E94ADC921ACE906009CAB7F /* CareerAlertsViewController.m in Sources */,
 				C5EEA3BF2E6ADEBCD49244FB /* LineTableCell.m in Sources */,
+				18A0F44921E1A5A500369058 /* HelpAndFeedbackViewController.m in Sources */,
 				C5EEA99D93B0E72671A097C2 /* TitleMsgArrowView.m in Sources */,
 				18B83B122173557D00130DB6 /* YBIBPhotoAlbumManager.m in Sources */,
 				C5EEAB669DB328611B63F777 /* TitleEditView.m in Sources */,
@@ -5474,6 +5509,7 @@
 				18106AB1218AF0CE00EEE2DC /* YHPopMenuView.m in Sources */,
 				C5EEAF4D7420DCA0CCBD9D37 /* EventsPage.m in Sources */,
 				1829C53621BCC9E7009A8732 /* JobDetailReviewsViewController.m in Sources */,
+				18A0F44C21E1A5D500369058 /* FAQSViewController.m in Sources */,
 				C5EEACBCD8E0C648F24C3CBD /* UnitePage.m in Sources */,
 				A3DF39A32189A280006F84DC /* SubviewsForEach.swift in Sources */,
 				C5EEA3F0CF05284FD745DF70 /* CareerExplorePage.m in Sources */,

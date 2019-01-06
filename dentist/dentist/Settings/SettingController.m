@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "SettingTableViewCell.h"
 #import "AboutViewController.h"
+#import "VideoQualityViewController.h"
+#import "PlaybackSpeedViewController.h"
 
 #define edge 18
 @interface SettingController()<UITableViewDelegate,UITableViewDataSource>

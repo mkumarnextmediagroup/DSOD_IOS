@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CareerAlertsAddViewController : UIViewController
 @property (nonatomic,copy) JobAlertsModel *model;
-@property (nonatomic,copy) void(^alertsAddSuceess)(JobAlertsModel *oldmodel,JobAlertsModel *newmodel);
+@property (nonatomic,copy) void(^alertsAddSuceess)(JobAlertsModel * _Nullable oldmodel,JobAlertsModel * _Nullable newmodel);
 @end
 
 NS_ASSUME_NONNULL_END

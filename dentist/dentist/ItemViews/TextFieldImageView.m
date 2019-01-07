@@ -52,4 +52,18 @@
     
 }
 
+-(void)themeError{
+    //设置边框及边框颜色
+    self.layer.borderWidth = 1;
+    
+    self.layer.borderColor =Colors.borderError.CGColor;
+}
+
+-(void)themeNormal{
+    //设置边框及边框颜色
+    self.layer.borderWidth = 1;
+    
+    self.layer.borderColor =rgb255(214, 219, 223).CGColor;
+}
+
 @end

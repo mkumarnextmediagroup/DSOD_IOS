@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)bindInfo:(DetailModel *)infoModel;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 - (void)buildViews;
+
 @end
 
 NS_ASSUME_NONNULL_END

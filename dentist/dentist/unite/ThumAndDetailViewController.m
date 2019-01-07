@@ -131,7 +131,6 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 #pragma mark - deleDate
 //有多少的分组
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    
     return 1;
     
 }
@@ -152,10 +151,6 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     
     return cell;
 }
-
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{}
-
 
 -(void)UniteThumCollectionViewCellScroview:(CGFloat)offsety
 {
@@ -184,23 +179,11 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-//    NSLog(@"=====scrollViewDidEndDecelerating=%F",scrollView.contentOffset.x);
-//    CGFloat xw=scrollView.contentOffset.x+SCREENWIDTH;
-//    NSInteger row=floorf(xw/scrollView.contentSize.width)+1;
-//    NSLog(@"=====scrollViewDidEndDecelerating=%f;row=%@",scrollView.contentOffset.x,@(row));
-//    if (scrollView.contentOffset.x<=SCREENWIDTH/2) {
-//        row=0;
-//    }
-//    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally  animated:YES];
     NSInteger row=floorf(scrollView.contentOffset.x/scrollView.frame.size.width);
     _currentIndex=row;
     if (self.didEndDecelerating) {
         self.didEndDecelerating(_currentIndex);
     }
-    
-//    if(_currentIndex==0){
-//        [self hideNavBar:YES];
-//    }
 }
 
 @end

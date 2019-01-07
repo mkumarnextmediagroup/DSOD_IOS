@@ -29,6 +29,25 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId;
 +(void)hideSliderView;
 - (void)showSliderView;
++(void)attemptDealloc;
+- (void)sigleTappedPickerView:(UIGestureRecognizer *)sender;
+- (void)initSliderView;
+- (void)sortGroupByArr;
+- (void)createSearchBar;
+- (void)createTableview;
+- (UIView *)headerView;
+- (void)showFullList;
+- (void)createEmptyNotice;
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar;
+- (UIView *)subHeaderView;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView;
 
 @end
 

@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UniteDetailViewController : BaseController
 
+- (void)onBack:(UIButton *)btn;
+- (void)buildView;
+
 @end
 
 NS_ASSUME_NONNULL_END

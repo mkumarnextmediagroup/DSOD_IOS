@@ -33,18 +33,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    self.view.backgroundColor = [UIColor grayColor];
-    
     UINavigationItem *item = self.navigationItem;
     item.title = @"SPONSORED CONTENT";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(onBack:)];
-    
-    // Do any additional setup after loading the view.
 }
 
-- (void)buildView
-{
+- (void)buildView {
     UniteContent *content = [UniteContent new];
     [self.view addSubview:content];
     [[[[content.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
@@ -55,15 +49,5 @@
 - (void)onBack:(UIButton *)btn {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

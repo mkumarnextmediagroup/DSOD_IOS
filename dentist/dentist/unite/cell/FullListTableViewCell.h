@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)BOOL isLastInfo;
 
 - (void)bindInfo:(DetailModel *)infoModel;
-
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+- (void)buildViews;
 @end
 
 NS_ASSUME_NONNULL_END

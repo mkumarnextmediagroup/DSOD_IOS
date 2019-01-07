@@ -83,18 +83,6 @@
         });
         
     }];
-//    switch ([self getUnitePageDownloadStatus]) {
-//        case UPageNoDownload:
-//            [self optionBtnDownloadStyle];
-//            break;
-//        case UPageDownloading:
-//            [self optionBtnDownloadingStyle];
-//            break;
-//        case UPageDownloaded:
-//            [self optionBtnReadStyle];
-//            break;
-//    }
-    
 }
 
 -(void)optionBtnDownloadStyle{
@@ -149,16 +137,6 @@
         }];
     }
     
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:NO animated:animated];
-
 }
 
 @end

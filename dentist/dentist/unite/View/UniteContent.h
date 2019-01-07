@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UniteContent : UIView
 
 -(void)bind:(DetailModel *)bindInfo;
+- (instancetype)init;
+- (void)buildViews;
+- (void)webViewDidFinishLoad:(UIWebView *)webView;
 
 @end
 

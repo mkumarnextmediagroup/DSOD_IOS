@@ -17,6 +17,8 @@
 {
     NSArray *imageArr;
     NSArray *infoArr;
+    NSArray *imageArr2;
+    NSArray *infoArr2;
     UITableView *myTable;
 }
 @end
@@ -30,15 +32,17 @@
 	UILabel *lb = self.view.addLabel;
 	lb.text = @"Setting Page";
 	[lb textColorMain];
-    imageArr = [NSArray arrayWithObjects:@"Setting_general",@"Setting_notifications",@"Setting_feedback",@"Setting_about",@"Setting_resetpwd",@"Setting_share",@"Setting_logout", nil];
-    infoArr = [NSArray arrayWithObjects:@"General",@"Notifications",@"Feedback and support",@"About",@"Change password",@"Share app",@"Sign Out", nil];
+    imageArr = [NSArray arrayWithObjects:@"Setting_general",@"Setting_notifications",@"Setting_feedback",@"Setting_about",@"Setting_resetpwd",@"Setting_share", nil];
+    infoArr = [NSArray arrayWithObjects:@"General",@"Notifications",@"Feedback and support",@"About",@"Change password",@"Share app", nil];
+    imageArr2 = [NSArray arrayWithObjects:@"Setting_logout", nil];
+    infoArr2 = [NSArray arrayWithObjects:@"Sign Out", nil];
 	[[[lb.layoutMaker centerParent] sizeFit] install];
 
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"SETTING";
-	item.rightBarButtonItems = @[
-        [self navBarText:@"Logout" target:self action:@selector(onClickLogout:)]
-	];
+//    item.rightBarButtonItems = @[
+//        [self navBarText:@"Logout" target:self action:@selector(onClickLogout:)]
+//    ];
 
     myTable = [UITableView new];
     [self.view addSubview:myTable];
@@ -51,15 +55,40 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == infoArr.count-1) {
-        return 160;
-    }
+//    if (indexPath.row == infoArr.count-1) {
+//        return 160;
+//    }
     return 55;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section==0) {
+        return 0;
+    }else{
+        return 100;
+    }
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return [UIView new];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return infoArr.count;
+    if (section==0) {
+        return infoArr.count;
+    }else{
+        return infoArr2.count;
+    }
+    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -69,15 +98,24 @@
         cell = [[SettingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    NSString *imageName = imageArr[indexPath.row];
-    UIImage *imageCurr = [UIImage imageNamed:[NSString stringWithFormat:@"%@",imageName]];
-    if (indexPath.row == infoArr.count-1) {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        [cell setLastCellImageAndTitle:imageCurr title:infoArr[indexPath.row]];
-    }else
-    {
+    if (indexPath.section==0) {
+        NSString *imageName = imageArr[indexPath.row];
+        UIImage *imageCurr = [UIImage imageNamed:[NSString stringWithFormat:@"%@",imageName]];
         [cell setImageAndTitle:imageCurr title:infoArr[indexPath.row]];
+    }else{
+        NSString *imageName = imageArr2[indexPath.row];
+        UIImage *imageCurr = [UIImage imageNamed:[NSString stringWithFormat:@"%@",imageName]];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        [cell setLastCellImageAndTitle:imageCurr title:infoArr2[indexPath.row]];
+//        if (indexPath.row == infoArr2.count-1) {
+//            cell.accessoryType = UITableViewCellAccessoryNone;
+//            [cell setLastCellImageAndTitle:imageCurr title:infoArr2[indexPath.row]];
+//        }else
+//        {
+//            [cell setImageAndTitle:imageCurr title:infoArr2[indexPath.row]];
+//        }
     }
+    
     return cell;
     
 }
@@ -85,26 +123,44 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    switch (indexPath.row) {
-        case 0:
-            break;
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            [AboutViewController openBy:self];
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
-
-        default:
-            break;
+    if (indexPath.section==0) {
+        switch (indexPath.row) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+            {
+                NSString *urlStr = [NSString stringWithFormat:@"https://itunes.apple.com/cn/app/twitter/id%@?mt=8",DENTISTAPPID];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+            }
+                break;
+            case 3:
+                [AboutViewController openBy:self];
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+                
+            default:
+                break;
+        }
+    }else{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Sign Out" message:@"Are you sure that you want to sign out from the app" preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [Proto logout];
+            AppDelegate *delegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+            [delegate switchToWelcomePage];
+            LinkedInHelper *linkedIn = [LinkedInHelper sharedInstance];
+            [linkedIn logout];
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
+    
     
 }
 

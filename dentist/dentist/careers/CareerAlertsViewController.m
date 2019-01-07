@@ -32,6 +32,7 @@
 {
     [super viewWillAppear:animated];
     if (myTable) {
+        [self setNavigationItem];
         [myTable reloadData];
     }
 }
@@ -47,10 +48,8 @@
 //    addlabel.text=@"+";//[Fonts semiBold:30]
 //    UIImage *addimage=[UIImage getmakeImageWithView:addlabel];
     
-    item.rightBarButtonItem = [self navBarText:@"+" textFont:[UIFont systemFontOfSize:30] target:self action:@selector(addClick)];//[self navBarImageBtn:addimage target:self action:@selector(addClick)];
-    
-    
-    
+    [self setNavigationItem];
+
     
     myTable = [UITableView new];
     [self.view addSubview:myTable];
@@ -64,6 +63,17 @@
 
 }
 
+-(void)setNavigationItem
+{
+    UINavigationItem *item = [self navigationItem];
+    if (infoArr && infoArr.count>0) {
+        item.rightBarButtonItem = [self navBarText:@"+" textFont:[UIFont systemFontOfSize:30] target:self action:@selector(addClick)];
+    }else{
+        item.rightBarButtonItem = nil;
+    }
+    
+}
+
 -(void)addClick
 {
     
@@ -72,6 +82,7 @@
         if (oldmodel && newmodel) {
             NSInteger index=[self->infoArr indexOfObject:oldmodel];
             [self->infoArr replaceObjectAtIndex:index withObject:newmodel];
+            [self setNavigationItem];
             [self->myTable reloadData];
         }else{
             [self->refreshControl beginRefreshing];
@@ -92,6 +103,7 @@
             [self hideIndicator];
             NSLog(@"%@",array);
             self->infoArr = [NSMutableArray arrayWithArray:array];
+            [self setNavigationItem];
             [self->myTable reloadData];
             
         });
@@ -134,10 +146,32 @@
         tipLabel.font = [Fonts semiBold:16];
         tipLabel.textColor =[UIColor blackColor];
         tipLabel.text=@"Add your first Job \n \n Receive a daily email with the best matched \njobs from DSOs";
-        [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:30] install];
-//        UIView *createview=headerVi.addView;
-//        createview.backgroundColor=Colors.textDisabled;
-//        [[[[[createview.layoutMaker leftParent:20] rightParent:-20] bottomParent:-30]  heightEq:44] install];
+        [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+        
+        
+        UILabel *addlabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+        addlabel.font=[UIFont systemFontOfSize:20];
+        addlabel.text=@"+";//[Fonts semiBold:30]
+        addlabel.textColor=[UIColor whiteColor];
+        addlabel.textAlignment=NSTextAlignmentCenter;
+        addlabel.layer.cornerRadius = 2;
+        addlabel.layer.masksToBounds = YES;
+        
+        //设置边框及边框颜色
+        addlabel.layer.borderWidth = 1;
+        
+        addlabel.layer.borderColor =[UIColor whiteColor].CGColor;
+        UIImage *addimage=[UIImage getmakeImageWithView:addlabel];
+        
+        UIButton *createview=headerVi.addButton;
+        [createview setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        createview.titleLabel.font=[UIFont systemFontOfSize:15.0];
+        [createview setTitle:@"Create Job Alert" forState:UIControlStateNormal];
+        [createview setImage:addimage forState:UIControlStateNormal];
+        createview.backgroundColor=Colors.textDisabled;
+        createview.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+        [createview addTarget:self action:@selector(addClick) forControlEvents:UIControlEventTouchUpInside];
+        [[[[[createview.layoutMaker leftParent:20] rightParent:-20] bottomParent:-30]  heightEq:44] install];
         return headerVi;
     } normalBlock:^(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:YES];
@@ -204,6 +238,7 @@
                 [self.navigationController.view hideToast];
                 if (result.OK) {
                     [self->infoArr removeObjectAtIndex:indexPath.row];
+                    [self setNavigationItem];
                     [self->myTable reloadData];
                 }else{
                     NSString *message=result.msg;
@@ -243,6 +278,7 @@
                     NSLog(@"%@",array);
                     if(array && array.count>0){
                         [self->infoArr addObjectsFromArray:array];
+                        [self setNavigationItem];
                         [self->myTable reloadData];
                     }
                 });

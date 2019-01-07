@@ -230,6 +230,46 @@
             });
         }];
     }else{
+        if ([NSString isBlankString:self->alertTitle]) {
+            UITableViewCell *cell = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            for (UIView *view in cell.contentView.subviews) {
+                if ([view isKindOfClass:[TextFieldImageView class]]) {
+                    TextFieldImageView *textview=(TextFieldImageView *)view;
+                    [textview themeError];
+                }
+            }
+            return;
+        }
+        if (self->latLongArr==nil || self->latLongArr.count<=0) {
+            UITableViewCell *cell = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+            for (UIView *view in cell.contentView.subviews) {
+                if ([view isKindOfClass:[TextFieldImageView class]]) {
+                    TextFieldImageView *textview=(TextFieldImageView *)view;
+                    [textview themeError];
+                }
+            }
+            return;
+        }
+        if (self->distance<=0) {
+            UITableViewCell *cell = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+            for (UIView *view in cell.contentView.subviews) {
+                if ([view isKindOfClass:[TextFieldImageView class]]) {
+                    TextFieldImageView *textview=(TextFieldImageView *)view;
+                    [textview themeError];
+                }
+            }
+            return;
+        }
+        if (self->frequency<=0) {
+            UITableViewCell *cell = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+            for (UIView *view in cell.contentView.subviews) {
+                if ([view isKindOfClass:[TextFieldImageView class]]) {
+                    TextFieldImageView *textview=(TextFieldImageView *)view;
+                    [textview themeError];
+                }
+            }
+            return;
+        }
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"adding JobsRemind……" ishowActivity:YES];
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto addJobRemind:self->alertTitle location:self->currentCity position:self->latLongArr distance:self->distance frequency:self->frequency status:YES completed:^(HttpResult *result) {
@@ -283,12 +323,30 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    if (textField.tag==1) {
+    if (textField.tag==0) {
+        UIView *view = textField.superview;
+        if ([view isKindOfClass:[TextFieldImageView class]]) {
+            TextFieldImageView *textview=(TextFieldImageView *)view;
+            [textview themeNormal];
+        }
+        return YES;
+    }
+    else if (textField.tag==1) {
         [self.view endEditing:YES];
+        UIView *view = textField.superview;
+        if ([view isKindOfClass:[TextFieldImageView class]]) {
+            TextFieldImageView *textview=(TextFieldImageView *)view;
+            [textview themeNormal];
+        }
         [self getCurrentLocation];
         return NO;
     }else if (textField.tag==2){
         [self.view endEditing:YES];
+        UIView *view = textField.superview;
+        if ([view isKindOfClass:[TextFieldImageView class]]) {
+            TextFieldImageView *textview=(TextFieldImageView *)view;
+            [textview themeNormal];
+        }
         DentistPickerView *picker = [[DentistPickerView alloc]init];
         picker.array=@[@"5 miles",@"10 miles",@"25 miles",@"50 miles",@"100 miles"];
         picker.selectId=self->distancestr;
@@ -308,6 +366,11 @@
         return NO;
     }else if (textField.tag==3){
         [self.view endEditing:YES];
+        UIView *view = textField.superview;
+        if ([view isKindOfClass:[TextFieldImageView class]]) {
+            TextFieldImageView *textview=(TextFieldImageView *)view;
+            [textview themeNormal];
+        }
         DentistPickerView *picker = [[DentistPickerView alloc]init];
         picker.array=@[@"Daily",@"Weekly",@"Bi-Weekly",@"Monthly"];
         picker.selectId=self->frequencystr;

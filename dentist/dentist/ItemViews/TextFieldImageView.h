@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TextFieldImageView : UIView
 @property(nonatomic,strong) UIImageView *iconView;
 @property(readonly) UITextField *edit;
+- (void)themeNormal;
+
+- (void)themeError;
 @end
 
 NS_ASSUME_NONNULL_END

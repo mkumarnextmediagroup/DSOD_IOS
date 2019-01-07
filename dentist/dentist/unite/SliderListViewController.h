@@ -13,5 +13,15 @@
 
 @property BOOL isSearch;
 
+- (void)createSearchBar;
+- (void)createTableview;
+- (UIView *)makeNavView;
+- (UIView *)headerView;
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 @end
 

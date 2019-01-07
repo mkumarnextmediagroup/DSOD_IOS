@@ -91,12 +91,9 @@ extension ThumViewController{
                         let model:DetailModel=self.modelarr![0];
 //                        self.navigationItem.title=model.id
                     }
-                    
                 })
-                
             })
         }
-        
     }
     
     func setEmptyView(type:PageType) -> Void {

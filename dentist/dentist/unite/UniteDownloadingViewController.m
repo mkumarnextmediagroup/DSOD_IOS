@@ -135,9 +135,7 @@
     downloadingBtn.hidden = NO;
     cancelBtn.hidden = NO;
 }
--(void)downloadingBtnAction{
-    
-}
+
 -(void)cancelBtnAction{
 //    downloadBtn.hidden = NO;
 //    downloadingBtn.hidden = YES;

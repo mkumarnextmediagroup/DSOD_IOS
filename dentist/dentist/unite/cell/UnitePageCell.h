@@ -26,5 +26,12 @@ typedef void(^OptonBtnOnClickDownload)(NSInteger status,MagazineModel*);
 @property (strong, nonatomic)OptonBtnOnClickListener optonBtnOnClickListener;
 @property (strong, nonatomic)OptonBtnOnClickDownload optonBtnOnClickDownload;
 
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+- (void)setMagazineModel:(MagazineModel *)magazineModel;
+-(void)optionBtnDownloadStyle;
+-(void)optionBtnDownloadingStyle;
+-(void)optionBtnReadStyle;
+-(UnitePageDownloadStatus)getUnitePageDownloadStatus;
+-(void)optionBtnAction:(UIButton *)sender;
 
 @end

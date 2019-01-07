@@ -273,9 +273,6 @@
         thumvc.thumSelectMenu = ^(NSInteger row) {
             NSLog(@"thumDidSelectMenu==========%@",@(row));
         };
-        //    thumvc.didSelectMenu =^(NSInteger index) {
-        //
-        //    }
         
         [self.navigationController pushViewController:thumvc animated:YES];
     }

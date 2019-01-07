@@ -25,4 +25,17 @@
 @property (nonatomic,copy) void(^didEndDecelerating)(NSInteger index);
 @property (nonatomic,weak) id<ThumAndDetailViewControllerDelegate> delegate;
 @property (nonatomic,weak) UINavigationController *navVC;
+
+- (void)setupNavigation;
+- (void)setModelarr:(NSArray<DetailModel *> *)modelarr;
+- (void)onBack:(UIButton *)btn;
+- (void)openMenu:(UIButton *)btn;
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView;
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)UniteThumCollectionViewCellScroview:(CGFloat)offsety;
+- (void)hideNavBar:(BOOL)hide;
+- (BOOL)prefersStatusBarHidden;
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView;
+
 @end

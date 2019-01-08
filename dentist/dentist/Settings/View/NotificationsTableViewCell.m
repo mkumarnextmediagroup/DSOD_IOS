@@ -37,11 +37,11 @@
         titleLabel = self.contentView.addLabel;
         titleLabel.font = [Fonts semiBold:16];
         [titleLabel textColorMain];
-        [[[[titleLabel.layoutMaker toLeftOf:switchBtn offset:-10] leftParent:36] bottomOf:switchBtn offset:-(40.0/2)] install];
+        [[[[[titleLabel.layoutMaker toLeftOf:switchBtn offset:-10] leftParent:36] centerYParent:-10] heightEq:20] install];
         desLabel = self.contentView.addLabel;
         desLabel.font = [Fonts semiBold:13];
         desLabel.textColor = Colors.textDisabled;
-        [[[[[desLabel.layoutMaker toLeftOf:switchBtn offset:-10] leftParent:36] topOf:switchBtn offset:(40.0/2)+5] heightEq:20] install];
+        [[[[[desLabel.layoutMaker toLeftOf:switchBtn offset:-10] leftParent:36] below:titleLabel offset:0] heightEq:20] install];
         lineLabel=self.contentView.lineLabel;
         [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
     }

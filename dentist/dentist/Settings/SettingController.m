@@ -13,6 +13,7 @@
 #import "PlaybackSpeedViewController.h"
 #import <Social/Social.h>
 #import "NotificationsViewController.h"
+#import "ContactUsViewController.h"
 
 #define edge 18
 @interface SettingController()<UITableViewDelegate,UITableViewDataSource>

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ContactUsViewController : UIViewController
 
++(void)openBy:(UIViewController*)vc;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -14,6 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,assign)BOOL isDSOProfile;
 
+- (void)searchBtnClick;
+- (void)onBack:(UIButton *)btn;
+- (void)createTableviewAndSearchField:(UINavigationItem *)item;
+- (void)createEmptyNotice;
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 @end
 
 NS_ASSUME_NONNULL_END

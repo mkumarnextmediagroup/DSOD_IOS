@@ -6,24 +6,16 @@
 #import "EventsPage.h"
 #import "Common.h"
 
-@implementation EventsPage {
-
-}
-
+@implementation EventsPage {}
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"Events";
-
 	UILabel *lb = self.view.addLabel;
 	lb.text = @"Events Page";
 	[lb textColorMain];
 	[[[lb.layoutMaker centerParent] sizeFit] install];
-
-
 }
-
 
 @end

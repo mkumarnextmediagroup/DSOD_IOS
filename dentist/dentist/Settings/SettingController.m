@@ -11,6 +11,8 @@
 #import "AboutViewController.h"
 #import "VideoQualityViewController.h"
 #import "PlaybackSpeedViewController.h"
+#import <Social/Social.h>
+#import "NotificationsViewController.h"
 
 #define edge 18
 @interface SettingController()<UITableViewDelegate,UITableViewDataSource>
@@ -128,6 +130,11 @@
             case 0:
                 break;
             case 1:
+            {
+                NotificationsViewController *notificationvc=[NotificationsViewController new];
+                [self.navigationController pushViewController:notificationvc animated:YES];
+            }
+                
                 break;
             case 2:
             {
@@ -141,6 +148,14 @@
             case 4:
                 break;
             case 5:
+            {
+                NSString *urlStr = [NSString stringWithFormat:@"https://itunes.apple.com/cn/app/twitter/id%@?mt=8",DENTISTAPPID];
+                NSURL *shareurl = [NSURL URLWithString:urlStr];
+                NSArray *activityItems = @[shareurl,@"DSODentist"];
+                
+                UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                [self presentViewController:avc animated:YES completion:nil];
+            }
                 break;
                 
             default:

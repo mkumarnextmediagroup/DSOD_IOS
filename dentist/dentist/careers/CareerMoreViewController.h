@@ -10,8 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CareerMoreViewController : UIViewController
-{
+@interface CareerMoreViewController : UIViewController {
     UIImageView *iCanImageView;
     UIImageView *menu_carImageView;
     UIImageView *menu_movieImageView;
@@ -20,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL isRonating;
     int count;
 }
+
+- (void)sigleTappedPickerView:(UIGestureRecognizer *)sender;
+- (void)showFuntionBtn;
+- (void)btnClick:(id)sender;
 @end
 
 NS_ASSUME_NONNULL_END

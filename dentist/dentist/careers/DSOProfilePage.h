@@ -11,5 +11,13 @@
 
 @interface DSOProfilePage : ListPage
 
+- (void)backToFirst;
+- (void)searchClick;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)onBack:(UIButton *)btn;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 @end
 

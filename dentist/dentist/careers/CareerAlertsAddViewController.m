@@ -78,7 +78,6 @@
         }else if (distance==100) {
             distancestr=@"100 miles";
         }
-        
         if (frequency==1) {
             frequencystr=@"Daily";
         }else if (frequency==5) {
@@ -88,9 +87,6 @@
         }else if (frequency==30) {
             frequencystr=@"Monthly";
         }
-        
-            
-        
     }
 }
 

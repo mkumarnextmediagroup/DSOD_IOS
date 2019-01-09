@@ -7,4 +7,8 @@
 #import "BaseController.h"
 
 @interface CareerExplorePage : BaseController
+
+- (void)createFunBtn;
+- (void)functionBtnClick:(UIButton *)btn;
+
 @end

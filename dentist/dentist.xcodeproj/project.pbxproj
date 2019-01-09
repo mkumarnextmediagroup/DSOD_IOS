@@ -162,6 +162,8 @@
 		432136E721E34B0D00ADF614 /* UniteArticleTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 432136E621E34B0D00ADF614 /* UniteArticleTableViewCellTests.m */; };
 		432136EA21E353D200ADF614 /* FullListTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 432136E921E353D200ADF614 /* FullListTableViewCellTests.m */; };
 		432136ED21E357ED00ADF614 /* UniteThumCollectionViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 432136EC21E357ED00ADF614 /* UniteThumCollectionViewCellTests.m */; };
+		432136F021E39B9F00ADF614 /* EventsPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 432136EF21E39B9F00ADF614 /* EventsPageTests.m */; };
+		432136F421E39E6300ADF614 /* DSOProfileSearchPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 432136F321E39E6300ADF614 /* DSOProfileSearchPageTests.m */; };
 		43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E85217F4B9B008B3240 /* WelcomeControllerTests.m */; };
 		43277E88217F4D91008B3240 /* StudentControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E87217F4D91008B3240 /* StudentControllerTests.m */; };
 		43277E8A217F4E9E008B3240 /* TestPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43277E89217F4E9E008B3240 /* TestPageTests.m */; };
@@ -181,6 +183,7 @@
 		43597BF721CCC6070033E1C1 /* LinearVerViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43597BF621CCC6070033E1C1 /* LinearVerViewTests.m */; };
 		43597BFA21CCD0E80033E1C1 /* ContentPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43597BF921CCD0E80033E1C1 /* ContentPageTests.m */; };
 		43597BFD21CCDBD60033E1C1 /* ArticleGSkItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43597BFC21CCDBD60033E1C1 /* ArticleGSkItemViewTests.m */; };
+		435FD78C21E44895004E2D8C /* CareerAlertsAddViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 435FD78B21E44895004E2D8C /* CareerAlertsAddViewControllerTests.m */; };
 		436AAB0021CD31E90095C128 /* CmsArticleCategoryPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 436AAAFF21CD31E90095C128 /* CmsArticleCategoryPageTests.m */; };
 		436D74E921E2550B0026BD1D /* ThumAndDetailViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D74E821E2550B0026BD1D /* ThumAndDetailViewControllerTests.m */; };
 		437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */; };
@@ -1223,6 +1226,8 @@
 		432136E621E34B0D00ADF614 /* UniteArticleTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteArticleTableViewCellTests.m; sourceTree = "<group>"; };
 		432136E921E353D200ADF614 /* FullListTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FullListTableViewCellTests.m; sourceTree = "<group>"; };
 		432136EC21E357ED00ADF614 /* UniteThumCollectionViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteThumCollectionViewCellTests.m; sourceTree = "<group>"; };
+		432136EF21E39B9F00ADF614 /* EventsPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsPageTests.m; sourceTree = "<group>"; };
+		432136F321E39E6300ADF614 /* DSOProfileSearchPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOProfileSearchPageTests.m; sourceTree = "<group>"; };
 		43277E85217F4B9B008B3240 /* WelcomeControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WelcomeControllerTests.m; sourceTree = "<group>"; };
 		43277E87217F4D91008B3240 /* StudentControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudentControllerTests.m; sourceTree = "<group>"; };
 		43277E89217F4E9E008B3240 /* TestPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestPageTests.m; sourceTree = "<group>"; };
@@ -1242,6 +1247,7 @@
 		43597BF621CCC6070033E1C1 /* LinearVerViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearVerViewTests.m; sourceTree = "<group>"; };
 		43597BF921CCD0E80033E1C1 /* ContentPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContentPageTests.m; sourceTree = "<group>"; };
 		43597BFC21CCDBD60033E1C1 /* ArticleGSkItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleGSkItemViewTests.m; sourceTree = "<group>"; };
+		435FD78B21E44895004E2D8C /* CareerAlertsAddViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerAlertsAddViewControllerTests.m; sourceTree = "<group>"; };
 		436AAAFF21CD31E90095C128 /* CmsArticleCategoryPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsArticleCategoryPageTests.m; sourceTree = "<group>"; };
 		436D74E821E2550B0026BD1D /* ThumAndDetailViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThumAndDetailViewControllerTests.m; sourceTree = "<group>"; };
 		437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewControllerTests.m; sourceTree = "<group>"; };
@@ -2690,6 +2696,31 @@
 			path = UniteThumCollectionViewCell;
 			sourceTree = "<group>";
 		};
+		432136EE21E39B8E00ADF614 /* EventsPage */ = {
+			isa = PBXGroup;
+			children = (
+				432136EF21E39B9F00ADF614 /* EventsPageTests.m */,
+			);
+			path = EventsPage;
+			sourceTree = "<group>";
+		};
+		432136F121E39E4D00ADF614 /* Careers */ = {
+			isa = PBXGroup;
+			children = (
+				435FD78A21E44888004E2D8C /* CareerAlertsAddViewController */,
+				432136F221E39E5800ADF614 /* DSOProfileSearchPage */,
+			);
+			path = Careers;
+			sourceTree = "<group>";
+		};
+		432136F221E39E5800ADF614 /* DSOProfileSearchPage */ = {
+			isa = PBXGroup;
+			children = (
+				432136F321E39E6300ADF614 /* DSOProfileSearchPageTests.m */,
+			);
+			path = DSOProfileSearchPage;
+			sourceTree = "<group>";
+		};
 		4335E27721B6B5D700A10F7E /* SearchPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2822,6 +2853,14 @@
 			path = ArticleGSkItemView;
 			sourceTree = "<group>";
 		};
+		435FD78A21E44888004E2D8C /* CareerAlertsAddViewController */ = {
+			isa = PBXGroup;
+			children = (
+				435FD78B21E44895004E2D8C /* CareerAlertsAddViewControllerTests.m */,
+			);
+			path = CareerAlertsAddViewController;
+			sourceTree = "<group>";
+		};
 		436AAAFE21CD31D60095C128 /* CmsArticleCategoryPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2918,6 +2957,8 @@
 		43B72528217650A1000F6797 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				432136F121E39E4D00ADF614 /* Careers */,
+				432136EE21E39B8E00ADF614 /* EventsPage */,
 				4355705A21E1AB92007A8C21 /* Unite */,
 				4341949021A597320029AECE /* CMS */,
 				43488F4C2199B9B500FDC15E /* Common */,
@@ -5317,6 +5358,8 @@
 				4355705C21E1ABA4007A8C21 /* UnitePageTests.m in Sources */,
 				43A8D52621CBEE1200CE8FBD /* GSKItemViewTests.m in Sources */,
 				43D98CAD219DAE04004C3FBD /* FontsTests.m in Sources */,
+				435FD78C21E44895004E2D8C /* CareerAlertsAddViewControllerTests.m in Sources */,
+				432136F421E39E6300ADF614 /* DSOProfileSearchPageTests.m in Sources */,
 				432136DD21E332E100ADF614 /* SliderListViewTests.m in Sources */,
 				432136ED21E357ED00ADF614 /* UniteThumCollectionViewCellTests.m in Sources */,
 				432136E721E34B0D00ADF614 /* UniteArticleTableViewCellTests.m in Sources */,
@@ -5329,6 +5372,7 @@
 				43065FE821BFF69A00D142B8 /* CmsCategoryPageTests.m in Sources */,
 				432136E421E342B300ADF614 /* UnitePageCellTests.m in Sources */,
 				4341949321A598BE0029AECE /* CmsForYouPageTests.m in Sources */,
+				432136F021E39B9F00ADF614 /* EventsPageTests.m in Sources */,
 				43597BF721CCC6070033E1C1 /* LinearVerViewTests.m in Sources */,
 				43595F9221B503E80028BA97 /* LinearPageTests.m in Sources */,
 				4317ADC821D11E5600ED672D /* DenActionSheetTests.m in Sources */,

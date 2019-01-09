@@ -40,8 +40,7 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)searchBtnClick
-{
+- (void)searchBtnClick {
     [searchField resignFirstResponder];
     [self showLoading];
     [Proto queryCompanyList:pagenumber searchValue:searchField.text completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
@@ -190,22 +189,10 @@
         if (searchInfoArr.count >indexPath.row) {
             [CompanyDetailViewController openBy:self companyId:searchInfoArr[indexPath.row].id];
         }
-
-    }else
-    {
+    } else {
         [CompanyReviewsViewController openBy:self jobDSOModel:searchInfoArr[indexPath.row]];
     }
     
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

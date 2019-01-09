@@ -32,7 +32,7 @@
         titleLabel = self.contentView.addLabel;
         titleLabel.font = [Fonts semiBold:16];
         [titleLabel textColorMain];
-        [[[[titleLabel.layoutMaker toLeftOf:alerImageView offset:-10] leftParent:36] bottomOf:alerImageView offset:-(30.0/2)] install];
+        [[[[[titleLabel.layoutMaker toLeftOf:alerImageView offset:-10] leftParent:36] bottomOf:alerImageView offset:-(30.0/2)] heightEq:20] install];
         desLabel = self.contentView.addLabel;
         desLabel.font = [Fonts semiBold:13];
         desLabel.textColor = Colors.textDisabled;

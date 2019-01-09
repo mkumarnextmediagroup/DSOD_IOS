@@ -308,7 +308,7 @@
     [submitBtn addTarget:self action:@selector(submitBtnClick) forControlEvents:UIControlEventTouchUpInside];
     submitBtn.titleLabel.font = [Fonts regular:15];
     [submitBtn setTitle:@"Submit" forState:UIControlStateNormal];
-    [[[[[[submitBtn.layoutMaker leftParent:0] rightParent:0] below:tipsLabel offset:10] heightEq:40] bottomParent:-edge] install];
+    [[[[[[submitBtn.layoutMaker leftParent:0] rightParent:0] below:tipsLabel offset:10] heightEq:44] bottomParent:-edge] install];
 
 
     [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(submitBtn) install];

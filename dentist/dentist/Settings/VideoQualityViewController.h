@@ -12,7 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VideoQualityViewController : UIViewController
 
++(void)openBy:(UIViewController*)vc;
 
++(NSString*)getCheckedVideoQualityText;
 
 @end
 

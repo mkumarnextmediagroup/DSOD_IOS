@@ -12,7 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PlaybackSpeedViewController : UIViewController
 
++(void)openBy:(UIViewController*)vc;
 
++(NSString*)getCheckedPlaybackSpeedText;
 
 
 @end

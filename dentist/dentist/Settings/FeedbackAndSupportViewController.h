@@ -1,21 +1,18 @@
 //
-//  HelpAndFeedbackViewController.h
+//  FeedbackAndSupportViewController.h
 //  dentist
 //
-//  Created by Shirley on 2019/1/6.
+//  Created by Shirley on 2019/1/10.
 //  Copyright © 2019 thenextmediagroup.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "ScrollPage.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HelpAndFeedbackViewController : ScrollPage
-
+@interface FeedbackAndSupportViewController : UIViewController
 
 +(void)openBy:(UIViewController*)vc;
-
 
 @end
 

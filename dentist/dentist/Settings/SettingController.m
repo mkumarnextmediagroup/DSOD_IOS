@@ -15,6 +15,8 @@
 #import "NotificationsViewController.h"
 #import "ContactUsViewController.h"
 #import "ChangePwdViewController.h"
+#import "HelpAndFeedbackViewController.h"
+#import "FeedbackAndSupportViewController.h"
 
 #define edge 18
 @interface SettingController()<UITableViewDelegate,UITableViewDataSource>
@@ -136,13 +138,9 @@
                 NotificationsViewController *notificationvc=[NotificationsViewController new];
                 [self.navigationController pushViewController:notificationvc animated:YES];
             }
-                
                 break;
             case 2:
-            {
-                NSString *urlStr = [NSString stringWithFormat:@"https://itunes.apple.com/cn/app/twitter/id%@?mt=8",DENTISTAPPID];
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-            }
+                [FeedbackAndSupportViewController openBy:self];
                 break;
             case 3:
                 [AboutViewController openBy:self];

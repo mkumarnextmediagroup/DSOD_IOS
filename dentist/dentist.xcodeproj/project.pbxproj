@@ -73,6 +73,9 @@
 		18A23FDD21BBE40F006CB432 /* AllowMultiGestureTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A23FDC21BBE40F006CB432 /* AllowMultiGestureTableView.m */; };
 		18A23FE021BBE4BC006CB432 /* CompanyDetailReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A23FDF21BBE4BC006CB432 /* CompanyDetailReviewsViewController.m */; };
 		18ABEAB9219560D100BF3E60 /* SF-UI-Text-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18ABEAB8219560D100BF3E60 /* SF-UI-Text-Regular.ttf */; };
+		18B4ADB221E5F9F70087917E /* icons8-help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B4ADAF21E5F9F70087917E /* icons8-help@2x.png */; };
+		18B4ADB321E5F9F70087917E /* icons8-help.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B4ADB021E5F9F70087917E /* icons8-help.png */; };
+		18B4ADB421E5F9F70087917E /* icons8-help@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B4ADB121E5F9F70087917E /* icons8-help@3x.png */; };
 		18B83B082173557D00130DB6 /* YBImageBrowserProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83ACE2173557C00130DB6 /* YBImageBrowserProgressView.m */; };
 		18B83B092173557D00130DB6 /* YBImageBrowserSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83AD02173557C00130DB6 /* YBImageBrowserSheetView.m */; };
 		18B83B0A2173557D00130DB6 /* YBImageBrowserTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83AD22173557C00130DB6 /* YBImageBrowserTipView.m */; };
@@ -117,6 +120,7 @@
 		18DE4D12216DFFE400A6C61D /* nonDownload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE4D0F216DFFD100A6C61D /* nonDownload@2x.png */; };
 		18DE4D13216DFFE400A6C61D /* nonDownload.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE4D10216DFFD200A6C61D /* nonDownload.png */; };
 		18DE4D14216DFFE400A6C61D /* nonDownload@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DE4D11216DFFE200A6C61D /* nonDownload@3x.png */; };
+		18DFACBF21E77CDF00EF528A /* FeedbackAndSupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DFACBE21E77CDF00EF528A /* FeedbackAndSupportViewController.m */; };
 		18EEFCA221CD0746007F5E2B /* icon_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EEFC9921CD0742007F5E2B /* icon_add@2x.png */; };
 		18EEFCA321CD0746007F5E2B /* icon_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EEFC9A21CD0743007F5E2B /* icon_add.png */; };
 		18EEFCA421CD0746007F5E2B /* icon_sort.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EEFC9B21CD0744007F5E2B /* icon_sort.png */; };
@@ -1093,6 +1097,9 @@
 		18A23FDE21BBE4BC006CB432 /* CompanyDetailReviewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailReviewsViewController.h; sourceTree = "<group>"; };
 		18A23FDF21BBE4BC006CB432 /* CompanyDetailReviewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDetailReviewsViewController.m; sourceTree = "<group>"; };
 		18ABEAB8219560D100BF3E60 /* SF-UI-Text-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Regular.ttf"; sourceTree = "<group>"; };
+		18B4ADAF21E5F9F70087917E /* icons8-help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-help@2x.png"; sourceTree = "<group>"; };
+		18B4ADB021E5F9F70087917E /* icons8-help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-help.png"; sourceTree = "<group>"; };
+		18B4ADB121E5F9F70087917E /* icons8-help@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-help@3x.png"; sourceTree = "<group>"; };
 		18B83ACD2173557C00130DB6 /* YBImageBrowserProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBImageBrowserProgressView.h; sourceTree = "<group>"; };
 		18B83ACE2173557C00130DB6 /* YBImageBrowserProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBImageBrowserProgressView.m; sourceTree = "<group>"; };
 		18B83ACF2173557C00130DB6 /* YBImageBrowserSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBImageBrowserSheetView.h; sourceTree = "<group>"; };
@@ -1176,6 +1183,8 @@
 		18DE4D0F216DFFD100A6C61D /* nonDownload@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonDownload@2x.png"; sourceTree = "<group>"; };
 		18DE4D10216DFFD200A6C61D /* nonDownload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nonDownload.png; sourceTree = "<group>"; };
 		18DE4D11216DFFE200A6C61D /* nonDownload@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonDownload@3x.png"; sourceTree = "<group>"; };
+		18DFACBD21E77CDF00EF528A /* FeedbackAndSupportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackAndSupportViewController.h; sourceTree = "<group>"; };
+		18DFACBE21E77CDF00EF528A /* FeedbackAndSupportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackAndSupportViewController.m; sourceTree = "<group>"; };
 		18EEFC9921CD0742007F5E2B /* icon_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_add@2x.png"; sourceTree = "<group>"; };
 		18EEFC9A21CD0743007F5E2B /* icon_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_add.png; sourceTree = "<group>"; };
 		18EEFC9B21CD0744007F5E2B /* icon_sort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_sort.png; sourceTree = "<group>"; };
@@ -3394,6 +3403,9 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				18B4ADB021E5F9F70087917E /* icons8-help.png */,
+				18B4ADAF21E5F9F70087917E /* icons8-help@2x.png */,
+				18B4ADB121E5F9F70087917E /* icons8-help@3x.png */,
 				4E36C0B421DF6417003451E6 /* Setting_about@2x.png */,
 				4E36C0B021DF6416003451E6 /* Setting_about@3x.png */,
 				4E36C0B821DF6418003451E6 /* Setting_feedback@2x.png */,
@@ -4531,6 +4543,8 @@
 				18A0F44E21E1A60F00369058 /* ContactUsViewController.m */,
 				A3BDC56421E4BF300077ED25 /* NotificationsViewController.h */,
 				A3BDC56521E4BF300077ED25 /* NotificationsViewController.m */,
+				18DFACBD21E77CDF00EF528A /* FeedbackAndSupportViewController.h */,
+				18DFACBE21E77CDF00EF528A /* FeedbackAndSupportViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -4871,6 +4885,7 @@
 				A3B340DF21C8FA0C008EB36A /* icons8-submit_resume.png in Resources */,
 				4E331046215D294200E534CD /* deleteDown@3x.png in Resources */,
 				E11E18DEA9538DAE333F1686 /* user.png in Resources */,
+				18B4ADB321E5F9F70087917E /* icons8-help.png in Resources */,
 				E11E1CC537562D6462C57FA5 /* user@2x.png in Resources */,
 				E11E1A625645EF6A486E1B48 /* user@3x.png in Resources */,
 				4E1F0FEC21C24BCC00C43E3B /* icon_attention_select@2x.png in Resources */,
@@ -5089,6 +5104,7 @@
 				E11E1BA5E5A229B5E317A46A /* menu-bookmark_light@3x.png in Resources */,
 				E11E10CCF8A41F4D8CF957D3 /* menu-bookmark.png in Resources */,
 				A36B9DC121CA509D00A54263 /* icons8-delete_forever@3x.png in Resources */,
+				18B4ADB221E5F9F70087917E /* icons8-help@2x.png in Resources */,
 				A3E752E7217E35010087713D /* Animation@3x.png in Resources */,
 				E11E15D9EE863F0FB9D7CE3B /* menu-bookmark@2x.png in Resources */,
 				E11E197014A7163353C9716C /* menu-bookmark@3x.png in Resources */,
@@ -5286,6 +5302,7 @@
 				C5EEA27B3C9055E87FEC15F8 /* seg-bg.png in Resources */,
 				A3B340D521C3E39D008EB36A /* noun_receipt@2x.png in Resources */,
 				C5EEA8B093288B7A8BE578EB /* seg-bg@2x.png in Resources */,
+				18B4ADB421E5F9F70087917E /* icons8-help@3x.png in Resources */,
 				C5EEA00883327B721F4F63A6 /* seg-bg@3x.png in Resources */,
 				C5EEA379DDA6B6B03C6A73E3 /* art-img.png in Resources */,
 				C5EEA89E2D291D737E8028A9 /* book9-light.png in Resources */,
@@ -5523,6 +5540,7 @@
 				A3BA6E0921B13D4E00D83156 /* JobApplyModel.m in Sources */,
 				4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */,
 				C5EEA70CAD83A3FEE9B6BD2C /* UILabel+customed.m in Sources */,
+				18DFACBF21E77CDF00EF528A /* FeedbackAndSupportViewController.m in Sources */,
 				4E1957462137D0F100420563 /* LinkedInHelper.m in Sources */,
 				C5EEA2B81C84D4F3EDB29C44 /* NSMutableAttributedString+customed.m in Sources */,
 				A3DF399F2189A280006F84DC /* ExpandingViewController.swift in Sources */,

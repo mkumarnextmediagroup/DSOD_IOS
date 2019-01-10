@@ -14,6 +14,7 @@
 #import <Social/Social.h>
 #import "NotificationsViewController.h"
 #import "ContactUsViewController.h"
+#import "ChangePwdViewController.h"
 
 #define edge 18
 @interface SettingController()<UITableViewDelegate,UITableViewDataSource>
@@ -147,6 +148,10 @@
                 [AboutViewController openBy:self];
                 break;
             case 4:
+            {
+                ChangePwdViewController *changepwdvc=[ChangePwdViewController new];
+                [self.navigationController pushViewController:changepwdvc animated:YES];
+            }
                 break;
             case 5:
             {

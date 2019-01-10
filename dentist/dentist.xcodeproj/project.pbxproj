@@ -551,6 +551,7 @@
 		A3BDC56121D7AC2A0077ED25 /* Applied.png in Resources */ = {isa = PBXBuildFile; fileRef = A3BDC55E21D7AC270077ED25 /* Applied.png */; };
 		A3BDC56621E4BF300077ED25 /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BDC56521E4BF300077ED25 /* NotificationsViewController.m */; };
 		A3BDC56921E4BF7A0077ED25 /* NotificationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BDC56821E4BF7A0077ED25 /* NotificationsTableViewCell.m */; };
+		A3BDC56C21E73CCC0077ED25 /* ChangePwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BDC56B21E73CCC0077ED25 /* ChangePwdViewController.m */; };
 		A3DF39822189A192006F84DC /* expanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39812189A192006F84DC /* expanding.swift */; };
 		A3DF399C2189A280006F84DC /* BasePageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */; };
 		A3DF399D2189A280006F84DC /* PageCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39892189A280006F84DC /* PageCollectionLayout.swift */; };
@@ -1733,6 +1734,8 @@
 		A3BDC56521E4BF300077ED25 /* NotificationsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		A3BDC56721E4BF7A0077ED25 /* NotificationsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationsTableViewCell.h; sourceTree = "<group>"; };
 		A3BDC56821E4BF7A0077ED25 /* NotificationsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationsTableViewCell.m; sourceTree = "<group>"; };
+		A3BDC56A21E73CCC0077ED25 /* ChangePwdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePwdViewController.h; sourceTree = "<group>"; };
+		A3BDC56B21E73CCC0077ED25 /* ChangePwdViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePwdViewController.m; sourceTree = "<group>"; };
 		A3DF39802189A192006F84DC /* dentist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dentist-Bridging-Header.h"; sourceTree = "<group>"; };
 		A3DF39812189A192006F84DC /* expanding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = expanding.swift; sourceTree = "<group>"; };
 		A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageCollectionCell.swift; sourceTree = "<group>"; };
@@ -3278,6 +3281,8 @@
 				4EBCE6AF212A595B00A0672D /* ForgotViewController.m */,
 				4EBCE6D9212D6D8600A0672D /* ResetPwdViewController.h */,
 				4EBCE6DA212D6D8600A0672D /* ResetPwdViewController.m */,
+				A3BDC56A21E73CCC0077ED25 /* ChangePwdViewController.h */,
+				A3BDC56B21E73CCC0077ED25 /* ChangePwdViewController.m */,
 			);
 			path = login_forgot;
 			sourceTree = "<group>";
@@ -5589,6 +5594,7 @@
 				18B83B102173557D00130DB6 /* YBIBGestureInteractionProfile.m in Sources */,
 				E11E1A6226F32868524CF272 /* BaseTabController.m in Sources */,
 				18A0F44621E1A2DF00369058 /* PlaybackSpeedViewController.m in Sources */,
+				A3BDC56C21E73CCC0077ED25 /* ChangePwdViewController.m in Sources */,
 				A99177062176E4CD00788D2C /* NSObject+NSCoding.m in Sources */,
 				A3DF39822189A192006F84DC /* expanding.swift in Sources */,
 				4E85DA8B21429C45007C40C3 /* DenGlobalInfo.m in Sources */,

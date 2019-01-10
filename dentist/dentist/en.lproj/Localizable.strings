@@ -31,6 +31,7 @@
 "pwd" = "Set password";
 "schemail" = "School email address";
 "conpwd" = "Confirm Password";
+"oldpwd" = "Old Password";
 "newpwd" = "New Password";
 "hereyou" = "Here you can change the password for your DSOD account.";
 "temppwd" = "Enter your temporary password";

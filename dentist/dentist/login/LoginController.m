@@ -13,6 +13,7 @@
 #import "RegController.h"
 #import "NoIntenetViewController.h"
 #import "DentistPickerView.h"
+#import "AFNetworkReachabilityManager.h"
 
 @interface LoginController ()
 
@@ -50,7 +51,7 @@
         }else{
             putServerDomain(0);
         }
-        serverLabel.text=result;
+        self->serverLabel.text=result;
     } selectAction:^(NSString *result,NSString *resultname) {
         
     }];
@@ -294,6 +295,8 @@
 }
 
 
+
+
 - (void)clickLogin:(id)sender {
 	NSLog(@"clickLogin");
 	NSString *email = [_emailEdit.text trimed];
@@ -445,8 +448,17 @@
 }
 
 - (void)login:(NSString *)userName password:(NSString *)pwd {
+    [self showIndicator];
+    
+    if(![self reachabilityStatus]){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self hideIndicator];
+            [self showErrorMsgView:userName pwd:pwd];
+        });
+        return;
+    }
 
-	[self showIndicator];
+	
 	backTask(^() {
 		HttpResult *r = [Proto login:userName pwd:pwd];
         
@@ -495,6 +507,53 @@
 		});
 	});
 
+}
+
+
+-(BOOL)reachabilityStatus{
+    AFNetworkReachabilityStatus status =[AFNetworkReachabilityManager sharedManager].networkReachabilityStatus;
+    return status != AFNetworkReachabilityStatusNotReachable;
+//    return false;
+}
+
+NSString *retryUserName;
+NSString *retryPwd;
+UIView *networkErrorView;
+-(void)showErrorMsgView:(NSString*)userName pwd:(NSString*)pwd{
+    
+    networkErrorView= self.view.addView;
+    networkErrorView.backgroundColor = argbHex(0xdd000000);
+    [[[[[networkErrorView.layoutMaker topParent:0]leftParent:0]rightParent:0]bottomParent:0]install];
+    
+    UILabel *label = networkErrorView.addLabel;
+    label.textColor = UIColor.whiteColor;
+    label.text = @"Seems like you are currently not\nconnected to the internet.\n\nTry again when you get online.";
+    label.font = [Fonts regular:18];
+    [[[[label.layoutMaker bottomParent:-120]leftParent:23]rightParent:-23]install];
+    
+    UIButton *retryBtn = networkErrorView.addButton;
+    retryBtn.backgroundColor =Colors.textDisabled;
+    [retryBtn addTarget:self action:@selector(retryLogin) forControlEvents:UIControlEventTouchUpInside];
+    retryBtn.titleLabel.font = [Fonts regular:15];
+    [retryBtn setTitle:@"Retry" forState:UIControlStateNormal];
+    [[[[retryBtn.layoutMaker below:label offset:15]leftParent:23] sizeEq:100 h:44] install];
+    
+    UIButton *dismissBtn = networkErrorView.addButton;
+    dismissBtn.backgroundColor = UIColor.whiteColor;
+    [dismissBtn addTarget:self action:@selector(dismissErrorView) forControlEvents:UIControlEventTouchUpInside];
+    [dismissBtn setTitleColor:rgbHex(0x4A4A4A) forState:UIControlStateNormal];
+    dismissBtn.titleLabel.font = [Fonts regular:15];
+    [dismissBtn setTitle:@"Dismiss" forState:UIControlStateNormal];
+    [[[[[dismissBtn.layoutMaker below:label offset:15]toRightOf:retryBtn offset:10]rightParent:-23]heightEq:44] install];
+}
+
+-(void)retryLogin{
+    [self dismissErrorView];
+    [self login:retryUserName password:retryPwd];
+}
+
+-(void)dismissErrorView{
+    [networkErrorView removeFromSuperview];
 }
 
 @end

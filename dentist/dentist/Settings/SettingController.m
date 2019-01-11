@@ -17,6 +17,7 @@
 #import "ChangePwdViewController.h"
 #import "HelpAndFeedbackViewController.h"
 #import "FeedbackAndSupportViewController.h"
+#import "GeneralViewController.h"
 
 #define edge 18
 @interface SettingController()<UITableViewDelegate,UITableViewDataSource>
@@ -132,6 +133,10 @@
     if (indexPath.section==0) {
         switch (indexPath.row) {
             case 0:
+            {
+                GeneralViewController *generalvc=[GeneralViewController new];
+                [self.navigationController pushViewController:generalvc animated:YES];
+            }
                 break;
             case 1:
             {

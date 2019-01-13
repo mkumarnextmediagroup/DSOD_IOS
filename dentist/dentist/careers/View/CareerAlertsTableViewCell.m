@@ -52,7 +52,7 @@
         if(alerModel.status){
             [alerImageView setImage:[UIImage imageNamed:@"icons8-appointment_reminders_filled"] forState:UIControlStateNormal];
         }else{
-            [alerImageView setImage:[UIImage imageNamed:@"icons8-appointment_reminders"] forState:UIControlStateNormal];
+            [alerImageView setImage:[UIImage imageNamed:@"icons8-no_reminders"] forState:UIControlStateNormal];
         }
     }
     

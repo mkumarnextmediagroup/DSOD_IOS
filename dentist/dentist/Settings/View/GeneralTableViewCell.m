@@ -1,14 +1,14 @@
 //
-//  NotificationsTableViewCell.m
+//  GeneralTableViewCell.m
 //  dentist
 //
-//  Created by feng zhenrong on 2019/1/8.
+//  Created by feng zhenrong on 2019/1/11.
 //  Copyright © 2019年 thenextmediagroup.com. All rights reserved.
 //
 
-#import "NotificationsTableViewCell.h"
+#import "GeneralTableViewCell.h"
 #import "Common.h"
-@implementation NotificationsTableViewCell
+@implementation GeneralTableViewCell
 {
     UILabel *titleLabel;
     UILabel *desLabel;
@@ -32,20 +32,27 @@
         // 设置控件开关按钮颜色
         switchBtn.thumbTintColor = [UIColor whiteColor];
         
-//        [switchBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
+        //        [switchBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
         
         titleLabel = self.contentView.addLabel;
         titleLabel.font = [Fonts regular:15];
         titleLabel.textColor =[UIColor blackColor];
-        [[[[[titleLabel.layoutMaker toLeftOf:switchBtn offset:-10] leftParent:36] centerYParent:-10] heightEq:20] install];
+        [[[[[titleLabel.layoutMaker toLeftOf:switchBtn offset:-10] leftParent:18] centerYParent:-10] heightEq:20] install];
         desLabel = self.contentView.addLabel;
         desLabel.font = [Fonts regular:12];
         desLabel.textColor = Colors.textColor3900;
-        [[[[[desLabel.layoutMaker toLeftOf:switchBtn offset:-10] leftParent:36] below:titleLabel offset:0] heightEq:20] install];
+        [desLabel adjustsFontSizeToFitWidth];
+        [[[[[desLabel.layoutMaker toLeftOf:switchBtn offset:-10] leftParent:18] below:titleLabel offset:0] heightEq:20] install];
         lineLabel=self.contentView.lineLabel;
         [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
     }
     return self;
+}
+
+-(void)setIsSwitch:(BOOL)isSwitch
+{
+    _isSwitch=isSwitch;
+    switchBtn.hidden=!isSwitch;
 }
 
 -(void)setModel:(NSString *)title des:(NSString *)des status:(BOOL)status

@@ -156,6 +156,10 @@
 		4307936D21CA8852003C5BF0 /* ArticleItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4307936C21CA8852003C5BF0 /* ArticleItemViewTests.m */; };
 		4307937021CA99D9003C5BF0 /* BookMarkItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4307936F21CA99D9003C5BF0 /* BookMarkItemViewTests.m */; };
 		4317ADC821D11E5600ED672D /* DenActionSheetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4317ADC721D11E5600ED672D /* DenActionSheetTests.m */; };
+		431AB5AB21E5C00D00AA79C9 /* CareerMeViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 431AB5AA21E5C00D00AA79C9 /* CareerMeViewControllerTests.m */; };
+		431AB5AE21E5D58900AA79C9 /* MapViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 431AB5AD21E5D58900AA79C9 /* MapViewControllerTests.m */; };
+		431AB5B221E5DD4D00AA79C9 /* CareerSearchViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 431AB5B121E5DD4D00AA79C9 /* CareerSearchViewControllerTests.m */; };
+		431AB5B521E61AB100AA79C9 /* CareerMoreViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 431AB5B421E61AB000AA79C9 /* CareerMoreViewControllerTests.m */; };
 		432136DD21E332E100ADF614 /* SliderListViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 432136DC21E332E100ADF614 /* SliderListViewTests.m */; };
 		432136E021E33F8200ADF614 /* UniteContentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 432136DF21E33F8200ADF614 /* UniteContentTests.m */; };
 		432136E421E342B300ADF614 /* UnitePageCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 432136E321E342B300ADF614 /* UnitePageCellTests.m */; };
@@ -186,6 +190,7 @@
 		435FD78C21E44895004E2D8C /* CareerAlertsAddViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 435FD78B21E44895004E2D8C /* CareerAlertsAddViewControllerTests.m */; };
 		436AAB0021CD31E90095C128 /* CmsArticleCategoryPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 436AAAFF21CD31E90095C128 /* CmsArticleCategoryPageTests.m */; };
 		436D74E921E2550B0026BD1D /* ThumAndDetailViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D74E821E2550B0026BD1D /* ThumAndDetailViewControllerTests.m */; };
+		43714D9E21EAE34200B7AC18 /* CareerAlertsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43714D9D21EAE34200B7AC18 /* CareerAlertsViewControllerTests.m */; };
 		437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */; };
 		4388150B218D4EF20066BCB6 /* SearchPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4388150A218D4EF20066BCB6 /* SearchPageTests.m */; };
 		438BA12821B4065D005246C5 /* CmsDownloadsControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */; };
@@ -1222,6 +1227,10 @@
 		4307936C21CA8852003C5BF0 /* ArticleItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleItemViewTests.m; sourceTree = "<group>"; };
 		4307936F21CA99D9003C5BF0 /* BookMarkItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookMarkItemViewTests.m; sourceTree = "<group>"; };
 		4317ADC721D11E5600ED672D /* DenActionSheetTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DenActionSheetTests.m; sourceTree = "<group>"; };
+		431AB5AA21E5C00D00AA79C9 /* CareerMeViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerMeViewControllerTests.m; sourceTree = "<group>"; };
+		431AB5AD21E5D58900AA79C9 /* MapViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewControllerTests.m; sourceTree = "<group>"; };
+		431AB5B121E5DD4D00AA79C9 /* CareerSearchViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerSearchViewControllerTests.m; sourceTree = "<group>"; };
+		431AB5B421E61AB000AA79C9 /* CareerMoreViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerMoreViewControllerTests.m; sourceTree = "<group>"; };
 		432136DC21E332E100ADF614 /* SliderListViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SliderListViewTests.m; sourceTree = "<group>"; };
 		432136DF21E33F8200ADF614 /* UniteContentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteContentTests.m; sourceTree = "<group>"; };
 		432136E321E342B300ADF614 /* UnitePageCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnitePageCellTests.m; sourceTree = "<group>"; };
@@ -1252,6 +1261,7 @@
 		435FD78B21E44895004E2D8C /* CareerAlertsAddViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerAlertsAddViewControllerTests.m; sourceTree = "<group>"; };
 		436AAAFF21CD31E90095C128 /* CmsArticleCategoryPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsArticleCategoryPageTests.m; sourceTree = "<group>"; };
 		436D74E821E2550B0026BD1D /* ThumAndDetailViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThumAndDetailViewControllerTests.m; sourceTree = "<group>"; };
+		43714D9D21EAE34200B7AC18 /* CareerAlertsViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerAlertsViewControllerTests.m; sourceTree = "<group>"; };
 		437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewControllerTests.m; sourceTree = "<group>"; };
 		4388150A218D4EF20066BCB6 /* SearchPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPageTests.m; sourceTree = "<group>"; };
 		438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsDownloadsControllerTests.m; sourceTree = "<group>"; };
@@ -2643,6 +2653,38 @@
 			path = Detail;
 			sourceTree = "<group>";
 		};
+		431AB5A921E5C00300AA79C9 /* CareerMeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				431AB5AA21E5C00D00AA79C9 /* CareerMeViewControllerTests.m */,
+			);
+			path = CareerMeViewController;
+			sourceTree = "<group>";
+		};
+		431AB5AC21E5D51200AA79C9 /* MapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				431AB5AD21E5D58900AA79C9 /* MapViewControllerTests.m */,
+			);
+			path = MapViewController;
+			sourceTree = "<group>";
+		};
+		431AB5AF21E5DD3700AA79C9 /* CareerSearchViewController */ = {
+			isa = PBXGroup;
+			children = (
+				431AB5B121E5DD4D00AA79C9 /* CareerSearchViewControllerTests.m */,
+			);
+			path = CareerSearchViewController;
+			sourceTree = "<group>";
+		};
+		431AB5B321E61A9E00AA79C9 /* CareerMoreViewController */ = {
+			isa = PBXGroup;
+			children = (
+				431AB5B421E61AB000AA79C9 /* CareerMoreViewControllerTests.m */,
+			);
+			path = CareerMoreViewController;
+			sourceTree = "<group>";
+		};
 		432136DB21E332BD00ADF614 /* SliderListView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2713,6 +2755,11 @@
 		432136F121E39E4D00ADF614 /* Careers */ = {
 			isa = PBXGroup;
 			children = (
+				43714D9C21EAE33900B7AC18 /* CareerAlertsViewController */,
+				431AB5B321E61A9E00AA79C9 /* CareerMoreViewController */,
+				431AB5AF21E5DD3700AA79C9 /* CareerSearchViewController */,
+				431AB5AC21E5D51200AA79C9 /* MapViewController */,
+				431AB5A921E5C00300AA79C9 /* CareerMeViewController */,
 				435FD78A21E44888004E2D8C /* CareerAlertsAddViewController */,
 				432136F221E39E5800ADF614 /* DSOProfileSearchPage */,
 			);
@@ -2881,6 +2928,14 @@
 				436D74E821E2550B0026BD1D /* ThumAndDetailViewControllerTests.m */,
 			);
 			path = ThumAndDetailViewController;
+			sourceTree = "<group>";
+		};
+		43714D9C21EAE33900B7AC18 /* CareerAlertsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				43714D9D21EAE34200B7AC18 /* CareerAlertsViewControllerTests.m */,
+			);
+			path = CareerAlertsViewController;
 			sourceTree = "<group>";
 		};
 		437AB90A2181F1B80026A71B /* Profile */ = {
@@ -5368,6 +5423,7 @@
 				4355705C21E1ABA4007A8C21 /* UnitePageTests.m in Sources */,
 				43A8D52621CBEE1200CE8FBD /* GSKItemViewTests.m in Sources */,
 				43D98CAD219DAE04004C3FBD /* FontsTests.m in Sources */,
+				43714D9E21EAE34200B7AC18 /* CareerAlertsViewControllerTests.m in Sources */,
 				435FD78C21E44895004E2D8C /* CareerAlertsAddViewControllerTests.m in Sources */,
 				432136F421E39E6300ADF614 /* DSOProfileSearchPageTests.m in Sources */,
 				432136DD21E332E100ADF614 /* SliderListViewTests.m in Sources */,
@@ -5385,11 +5441,13 @@
 				432136F021E39B9F00ADF614 /* EventsPageTests.m in Sources */,
 				43597BF721CCC6070033E1C1 /* LinearVerViewTests.m in Sources */,
 				43595F9221B503E80028BA97 /* LinearPageTests.m in Sources */,
+				431AB5AB21E5C00D00AA79C9 /* CareerMeViewControllerTests.m in Sources */,
 				4317ADC821D11E5600ED672D /* DenActionSheetTests.m in Sources */,
 				43028B2D21D28A6300771971 /* PicDetailViewTests.m in Sources */,
 				4335E27921B6B5EF00A10F7E /* CmsSearchPageTests.m in Sources */,
 				43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */,
 				4355706621E23E0B007A8C21 /* SliderListViewControllerTests.m in Sources */,
+				431AB5B521E61AB100AA79C9 /* CareerMoreViewControllerTests.m in Sources */,
 				43A8D52321CBDBD300CE8FBD /* DownloadsItemViewTests.m in Sources */,
 				43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */,
 				43B7252D217650FF000F6797 /* ExampleTests.m in Sources */,
@@ -5400,6 +5458,7 @@
 				43A6590B21D6802E0091F9AF /* DiscussTableViewCellTests.m in Sources */,
 				43EBDF2B21CF74E600C3AAB7 /* UIViewExtensionTests.m in Sources */,
 				43028B2A21D2724E00771971 /* PlayerViewTests.m in Sources */,
+				431AB5AE21E5D58900AA79C9 /* MapViewControllerTests.m in Sources */,
 				43A8D52921CBF7D400CE8FBD /* LinearViewTests.m in Sources */,
 				43277E8E217F523B008B3240 /* RegControllerTests.m in Sources */,
 				4355706321E236C5007A8C21 /* UniteDownloadingViewControllerTests.m in Sources */,
@@ -5421,6 +5480,7 @@
 				4344660321A5644C00811E94 /* UIScreenExtTests.m in Sources */,
 				432136E021E33F8200ADF614 /* UniteContentTests.m in Sources */,
 				43597BFD21CCDBD60033E1C1 /* ArticleGSkItemViewTests.m in Sources */,
+				431AB5B221E5DD4D00AA79C9 /* CareerSearchViewControllerTests.m in Sources */,
 				439B4A2221D355540037BE5C /* XHStarRateViewTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

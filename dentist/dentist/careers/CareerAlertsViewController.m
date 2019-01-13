@@ -302,43 +302,31 @@
 - (void)configSwipeButtons{
     // 获取选项按钮的reference
     if (@available(iOS 11.0, *)){
-        
         // iOS 11层级 (Xcode 9编译): UITableView -> UISwipeActionPullView
-        for (UIView *subview in self->myTable.subviews)
-        {
+        for (UIView *subview in self->myTable.subviews) {
             NSLog(@"%@-----%zd",subview,subview.subviews.count);
-            if ([subview isKindOfClass:NSClassFromString(@"UISwipeActionPullView")] && [subview.subviews count] >= 1)
-            {
+            if ([subview isKindOfClass:NSClassFromString(@"UISwipeActionPullView")] && [subview.subviews count] >= 1) {
                 // 和iOS 10的按钮顺序相反
-                
                 subview.backgroundColor = Colors.textDisabled;
                 UIButton *deleteButton = subview.subviews[0];
                 [self configDeleteButton:deleteButton];
             }
         }
-    }else{
+    } else {
         // iOS 8-10层级: UITableView -> UITableViewCell -> UITableViewCellDeleteConfirmationView
         CareerAlertsTableViewCell *tableCell = [self->myTable cellForRowAtIndexPath:self->editingIndexPath];
-        for (UIView *subview in tableCell.subviews)
-        {
-            if ([subview isKindOfClass:NSClassFromString(@"UITableViewCellDeleteConfirmationView")])
-            {
+        for (UIView *subview in tableCell.subviews) {
+            if ([subview isKindOfClass:NSClassFromString(@"UITableViewCellDeleteConfirmationView")]) {
                 UIView *confirmView = (UIView *)[subview.subviews firstObject];
-                
                 //改背景颜色
-                
                 confirmView.backgroundColor = Colors.textDisabled;
-                
-                for (UIView *sub in confirmView.subviews)
-                {
+                for (UIView *sub in confirmView.subviews) {
                     //添加图片
                     if ([sub isKindOfClass:NSClassFromString(@"UIView")]) {
-                        
                         UIView *deleteView = sub;
                         UIImageView *imageView = [[UIImageView alloc] init];
                         imageView.image = [UIImage imageNamed:@"address_cell_delete"];
                         [deleteView addSubview:imageView];
-                        
                         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
                             make.centerX.equalTo(deleteView);
                             make.centerY.equalTo(deleteView);

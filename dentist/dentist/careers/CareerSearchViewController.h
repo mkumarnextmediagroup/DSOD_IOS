@@ -12,8 +12,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CareerSearchViewController : UIViewController
-- (void)viewWillAppear:(BOOL)animated;
-- (void)viewDidLoad;
 - (UIView *)makeHeaderView;
 - (void)setJobCountTitle:(NSInteger)jobcount;
 - (void)searchBtnClick;

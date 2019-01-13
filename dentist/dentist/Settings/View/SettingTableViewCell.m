@@ -35,10 +35,13 @@
         [[[[iconBtn.layoutMaker sizeEq:30 h:30] leftParent:edge] topParent:13] install];
         
         finLabel = [footerVi addLabel];
-        finLabel.font = [Fonts semiBold:14];
+        finLabel.font = [Fonts regular:15];
         finLabel.textColor = [UIColor blackColor];
         [[[[finLabel.layoutMaker toRightOf:iconBtn offset:edge] topParent:13] sizeEq:200 h:30] install];
         
+        UILabel *line = footerVi.lineLabel;
+        line.backgroundColor = UIColor.whiteColor;
+        [[[[[line.layoutMaker leftParent:0]rightParent:0]bottomParent:0]heightEq:1]install];
     }
     return self;
 }

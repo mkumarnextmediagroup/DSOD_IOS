@@ -230,5 +230,22 @@
     return _c;
 }
 
++ (UIColor *)textColorFAFBFD {
+    //FAFBFD
+    static UIColor *_c = nil;
+    if (_c == nil) {
+        _c = rgb255(250, 251, 253);
+    }
+    return _c;
+}
+
++ (UIColor *)textColor3900 {
+    //390000
+    static UIColor *_c = nil;
+    if (_c == nil) {
+        _c = rgb255(140, 158, 172);
+    }
+    return _c;
+}
 @end
 

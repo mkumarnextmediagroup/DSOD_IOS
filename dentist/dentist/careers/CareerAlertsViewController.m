@@ -145,7 +145,7 @@
         tipLabel.numberOfLines=0;
         tipLabel.font = [Fonts semiBold:16];
         tipLabel.textColor =[UIColor blackColor];
-        tipLabel.text=@"Add your first Job \n \n Receive a daily email with the best matched \njobs from DSOs";
+        tipLabel.text=@"Add your first Job Alert! \n \n Receive a daily email with the best matched \njobs from DSOs";
         [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
         
         

@@ -1,8 +1,8 @@
 //
-//  PlaybackSpeedViewController.h
+//  FeedbackAndSupportViewController.h
 //  dentist
 //
-//  Created by Shirley on 2019/1/6.
+//  Created by Shirley on 2019/1/10.
 //  Copyright © 2019 thenextmediagroup.com. All rights reserved.
 //
 
@@ -10,12 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PlaybackSpeedViewController : UIViewController
+@interface FeedbackAndSupportViewController : UIViewController
 
 +(void)openBy:(UIViewController*)vc;
-
-+(NSString*)getCheckedPlaybackSpeedText;
-
 
 @end
 

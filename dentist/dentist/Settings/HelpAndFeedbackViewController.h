@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ScrollPage.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HelpAndFeedbackViewController : UIViewController
+@interface HelpAndFeedbackViewController : ScrollPage
+
+
++(void)openBy:(UIViewController*)vc;
+
 
 @end
 

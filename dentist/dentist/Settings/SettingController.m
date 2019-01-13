@@ -13,6 +13,11 @@
 #import "PlaybackSpeedViewController.h"
 #import <Social/Social.h>
 #import "NotificationsViewController.h"
+#import "ContactUsViewController.h"
+#import "ChangePwdViewController.h"
+#import "HelpAndFeedbackViewController.h"
+#import "FeedbackAndSupportViewController.h"
+#import "GeneralViewController.h"
 
 #define edge 18
 @interface SettingController()<UITableViewDelegate,UITableViewDataSource>
@@ -128,24 +133,28 @@
     if (indexPath.section==0) {
         switch (indexPath.row) {
             case 0:
+            {
+                GeneralViewController *generalvc=[GeneralViewController new];
+                [self.navigationController pushViewController:generalvc animated:YES];
+            }
                 break;
             case 1:
             {
                 NotificationsViewController *notificationvc=[NotificationsViewController new];
                 [self.navigationController pushViewController:notificationvc animated:YES];
             }
-                
                 break;
             case 2:
-            {
-                NSString *urlStr = [NSString stringWithFormat:@"https://itunes.apple.com/cn/app/twitter/id%@?mt=8",DENTISTAPPID];
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
-            }
+                [FeedbackAndSupportViewController openBy:self];
                 break;
             case 3:
                 [AboutViewController openBy:self];
                 break;
             case 4:
+            {
+                ChangePwdViewController *changepwdvc=[ChangePwdViewController new];
+                [self.navigationController pushViewController:changepwdvc animated:YES];
+            }
                 break;
             case 5:
             {

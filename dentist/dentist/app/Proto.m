@@ -2525,5 +2525,15 @@
     }];
 }
 
+#pragma mark -------------setting
+
++ (void)updatePwd:(NSString *)email pwd:(NSString *)pwd oldpwd:(NSString *)oldpwd  completed:(void(^)(HttpResult *result))completed {
+    [self postAsync3:@"userAccount/updatePassWordByUserName" dic:@{@"username": email, @"password": pwd, @"old_password": oldpwd} modular:@"profile" callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r);
+        }
+    }];
+}
+
 
 @end

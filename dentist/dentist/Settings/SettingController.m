@@ -105,6 +105,9 @@
         cell = [[SettingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if (getLoginType()!=0 && indexPath.section==0 && indexPath.row==4) {
+        [cell styleGlay];
+    }
     if (indexPath.section==0) {
         NSString *imageName = imageArr[indexPath.row];
         UIImage *imageCurr = [UIImage imageNamed:[NSString stringWithFormat:@"%@",imageName]];
@@ -152,8 +155,10 @@
                 break;
             case 4:
             {
-                ChangePwdViewController *changepwdvc=[ChangePwdViewController new];
-                [self.navigationController pushViewController:changepwdvc animated:YES];
+                if (getLoginType()==0) {
+                    ChangePwdViewController *changepwdvc=[ChangePwdViewController new];
+                    [self.navigationController pushViewController:changepwdvc animated:YES];
+                }
             }
                 break;
             case 5:

@@ -58,6 +58,10 @@
     myTable.backgroundColor = [UIColor whiteColor];
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
+    
+//    [Proto queryGeneraSettingsList:0 completed:^(NSArray<GeneralSettingsModel *> *array) {
+//        NSLog(@"array=%@",array);
+//    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

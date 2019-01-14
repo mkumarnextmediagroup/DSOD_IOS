@@ -13,6 +13,7 @@
 #import "CompanyModel.h"
 #import "CompanyJobsModel.h"
 #import "CompanyReviewModel.h"
+#import "GeneralSettingsModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -290,4 +291,6 @@
 #pragma mark -------------setting
 
 + (void)updatePwd:(NSString *)email pwd:(NSString *)pwd oldpwd:(NSString *)oldpwd  completed:(void(^)(HttpResult *result))completed;
+//MARK:2.5    查看通用设置列表
++ (void)queryGeneraSettingsList:(NSInteger)skip completed:(void(^)(NSArray<GeneralSettingsModel *> *array))completed ;
 @end

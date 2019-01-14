@@ -2550,7 +2550,7 @@
     [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
     [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
     
-    [self postAsync3:@"generalsettings" dic:paradic modular:@"setting" callback:^(HttpResult *r) {
+    [self postAsync3:@"generalsettings/list" dic:paradic modular:@"setting" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"list"];

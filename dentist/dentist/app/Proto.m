@@ -29,6 +29,8 @@
 #import "JobDSOModel.h"
 #import "JobAlertsModel.h"
 #import "JobsBookmarkManager.h"
+#import "FAQSCategoryModel.h"
+#import "FAQSModel.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -2572,5 +2574,64 @@
     }];
 }
 
+//查询常见问题解答列表
++ (void)findFAQSListWithcompleted:(void(^)(NSArray<FAQSCategoryModel *> *array,NSInteger totalCount))completed{
+    [self postAsync3:@"faqs/list" dic:@{} modular:@"setting" callback:^(HttpResult *r) {
+        NSMutableArray<FAQSCategoryModel*> *resultArray = [NSMutableArray array];
+        NSInteger totalFound = 0;
+        if (r.OK) {
+            totalFound=[r.resultMap[@"total"] integerValue];
+            NSArray *arr = r.resultMap[@"list"];
+            for (NSDictionary *d in arr) {
+                FAQSModel *item = [[FAQSModel alloc] initWithJson:jsonBuild(d)];
+                if (item) {
+                    FAQSCategoryModel *categoryModel = nil;
+                    for(FAQSCategoryModel *model in resultArray){
+                        if([model.moduleType isEqualToString:item.moduleType]){
+                            categoryModel = model;
+                        }
+                    }
+                    if(!categoryModel){
+                        categoryModel = [FAQSCategoryModel new];
+                        categoryModel.faqsModelArray = [[NSMutableArray alloc]init];
+                        categoryModel.moduleType = item.moduleType;
+                        [resultArray addObject:categoryModel];
+                    }
+                    [categoryModel.faqsModelArray addObject:item];
+                }
+            }
+        }
+        if (completed) {
+            foreTask(^{
+                completed(resultArray,totalFound);
+            });
+        }
+    }];
+}
+
++(void)settingUploadPictrue:(NSString*)localFilePath{
+    NSLog(@"1-----------%@",localFilePath);
+    HttpResult *r = [self upload:@"file/uploadFile" localFilePath:localFilePath modular:@"setting"];
+    if (r.OK) {
+        //{"photoName":"5d7a4a76219e4c78b2b4656cf4bc80f2_test.png"}
+        id v = r.resultMap[@"ori"];
+    }
+}
+
++(void)addFeedback:(NSString*)feedbackContent email:(NSString*)email attachmentId:(NSString*)attachmentId completed:(void(^)(BOOL success,NSString *msg))completed {
+    
+    NSDictionary *paradic = @{@"feedbackContent" : [NSString isBlankString:feedbackContent]?@"":feedbackContent,
+                              @"contactEmail" : [NSString isBlankString:email]?@"":email,
+                              @"attachments" : [NSString isBlankString:attachmentId]?@"":attachmentId
+                              };
+    
+    [self postAsync3:@"feedback" dic:paradic modular:@"setting" callback:^(HttpResult *r) {
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg);
+            });
+        }
+    }];
+}
 
 @end

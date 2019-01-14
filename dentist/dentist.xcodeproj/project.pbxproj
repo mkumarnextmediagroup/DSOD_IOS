@@ -571,6 +571,7 @@
 		A3BDC57621E8539F0077ED25 /* icons8-no_reminders@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3BDC57321E8539E0077ED25 /* icons8-no_reminders@2x.png */; };
 		A3BDC57721E8539F0077ED25 /* icons8-no_reminders.png in Resources */ = {isa = PBXBuildFile; fileRef = A3BDC57421E8539E0077ED25 /* icons8-no_reminders.png */; };
 		A3BDC57821E8539F0077ED25 /* icons8-no_reminders@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3BDC57521E8539E0077ED25 /* icons8-no_reminders@3x.png */; };
+		A3BDC57C21EC95690077ED25 /* GeneralSettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BDC57B21EC95680077ED25 /* GeneralSettingsModel.m */; };
 		A3DF39822189A192006F84DC /* expanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39812189A192006F84DC /* expanding.swift */; };
 		A3DF399C2189A280006F84DC /* BasePageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */; };
 		A3DF399D2189A280006F84DC /* PageCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39892189A280006F84DC /* PageCollectionLayout.swift */; };
@@ -1778,6 +1779,8 @@
 		A3BDC57321E8539E0077ED25 /* icons8-no_reminders@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-no_reminders@2x.png"; sourceTree = "<group>"; };
 		A3BDC57421E8539E0077ED25 /* icons8-no_reminders.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-no_reminders.png"; sourceTree = "<group>"; };
 		A3BDC57521E8539E0077ED25 /* icons8-no_reminders@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-no_reminders@3x.png"; sourceTree = "<group>"; };
+		A3BDC57A21EC95680077ED25 /* GeneralSettingsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneralSettingsModel.h; sourceTree = "<group>"; };
+		A3BDC57B21EC95680077ED25 /* GeneralSettingsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeneralSettingsModel.m; sourceTree = "<group>"; };
 		A3DF39802189A192006F84DC /* dentist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dentist-Bridging-Header.h"; sourceTree = "<group>"; };
 		A3DF39812189A192006F84DC /* expanding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = expanding.swift; sourceTree = "<group>"; };
 		A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageCollectionCell.swift; sourceTree = "<group>"; };
@@ -4172,6 +4175,15 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		A3BDC57921EC95240077ED25 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A3BDC57A21EC95680077ED25 /* GeneralSettingsModel.h */,
+				A3BDC57B21EC95680077ED25 /* GeneralSettingsModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		A3DF39832189A280006F84DC /* expanding-collection */ = {
 			isa = PBXGroup;
 			children = (
@@ -4624,6 +4636,7 @@
 		E11E10DDCDC91731FB8D96E1 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				A3BDC57921EC95240077ED25 /* Model */,
 				4E36C0C921DF6880003451E6 /* View */,
 				E11E1C29F95B945FA30387AD /* SettingController.h */,
 				E11E1251F0FF5E605CBBBFEC /* SettingController.m */,
@@ -5568,6 +5581,7 @@
 				18D4BA1621AEDC69004CFB4B /* CompanyReviewTableViewCell.m in Sources */,
 				4E1957422137D0F100420563 /* PermissionEmailFields.m in Sources */,
 				4E23522E213D12CB003BA59B /* UITextFieldCustom.m in Sources */,
+				A3BDC57C21EC95690077ED25 /* GeneralSettingsModel.m in Sources */,
 				4E17B3EA2176250800F75390 /* AddReviewViewController.m in Sources */,
 				A3DF39A02189A280006F84DC /* ExpandingTableViewController.swift in Sources */,
 				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,

@@ -1805,6 +1805,10 @@
     {
         baseUrl = @"hr-service/v1/";
     }
+    else if ([modular isEqualToString:@"setting"])
+    {
+        baseUrl = @"setting-service/v1/";
+    }
     return baseUrl;
 }
 
@@ -2528,9 +2532,42 @@
 #pragma mark -------------setting
 
 + (void)updatePwd:(NSString *)email pwd:(NSString *)pwd oldpwd:(NSString *)oldpwd  completed:(void(^)(HttpResult *result))completed {
-    [self postAsync3:@"userAccount/updatePassWordByUserName" dic:@{@"username": email, @"password": pwd, @"old_password": oldpwd} modular:@"profile" callback:^(HttpResult *r) {
+    [self postAsync3:@"userAccount/updatePasswordByUserName" dic:@{@"username": email, @"password": pwd, @"old_password": oldpwd} modular:@"profile" callback:^(HttpResult *r) {
         if (completed) {
             completed(r);
+        }
+    }];
+}
+
+//MARK:2.5    查看通用设置列表
++ (void)queryGeneraSettingsList:(NSInteger)skip completed:(void(^)(NSArray<GeneralSettingsModel *> *array))completed {
+    NSInteger limit=20;//分页数默认20条
+    if (skip<=0) {
+        skip=0;
+    }
+    //    email=getLastAccount();
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    
+    [self postAsync3:@"generalsettings" dic:paradic modular:@"setting" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"list"];
+            for (NSDictionary *d in arr) {
+                GeneralSettingsModel *item = [[GeneralSettingsModel alloc] initWithJson:jsonBuild(d)];
+                
+                if (item) {
+                    [resultArray addObject:item];
+                }
+            }
+            if (completed) {
+                completed(resultArray);
+            }
+        }else{
+            if (completed) {
+                completed(nil);
+            }
         }
     }];
 }

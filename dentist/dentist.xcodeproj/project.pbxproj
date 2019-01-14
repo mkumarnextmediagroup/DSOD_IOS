@@ -124,6 +124,8 @@
 		18DFACC121E8D10400EF528A /* icon_arrow_up@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFACC021E8D10300EF528A /* icon_arrow_up@3x.png */; };
 		18DFACC421E8D14100EF528A /* icon_arrow_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFACC221E8D14100EF528A /* icon_arrow_up@2x.png */; };
 		18DFACC521E8D14100EF528A /* icon_arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFACC321E8D14100EF528A /* icon_arrow_up.png */; };
+		18DFACC721E9E33F00EF528A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DFACC621E9E33F00EF528A /* SystemConfiguration.framework */; };
+		18DFACCB21E9E38D00EF528A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DFACCA21E9E38D00EF528A /* Reachability.m */; };
 		18EEFCA221CD0746007F5E2B /* icon_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EEFC9921CD0742007F5E2B /* icon_add@2x.png */; };
 		18EEFCA321CD0746007F5E2B /* icon_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EEFC9A21CD0743007F5E2B /* icon_add.png */; };
 		18EEFCA421CD0746007F5E2B /* icon_sort.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EEFC9B21CD0744007F5E2B /* icon_sort.png */; };
@@ -1196,6 +1198,9 @@
 		18DFACC021E8D10300EF528A /* icon_arrow_up@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_arrow_up@3x.png"; sourceTree = "<group>"; };
 		18DFACC221E8D14100EF528A /* icon_arrow_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_arrow_up@2x.png"; sourceTree = "<group>"; };
 		18DFACC321E8D14100EF528A /* icon_arrow_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_arrow_up.png; sourceTree = "<group>"; };
+		18DFACC621E9E33F00EF528A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		18DFACC921E9E38C00EF528A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		18DFACCA21E9E38D00EF528A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		18EEFC9921CD0742007F5E2B /* icon_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_add@2x.png"; sourceTree = "<group>"; };
 		18EEFC9A21CD0743007F5E2B /* icon_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_add.png; sourceTree = "<group>"; };
 		18EEFC9B21CD0744007F5E2B /* icon_sort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_sort.png; sourceTree = "<group>"; };
@@ -2324,6 +2329,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18DFACC721E9E33F00EF528A /* SystemConfiguration.framework in Frameworks */,
 				18D16FCC21C1436F0017CCB6 /* MapKit.framework in Frameworks */,
 				4E4A161221B7C35B003F198B /* CoreLocation.framework in Frameworks */,
 				182A1185219BF61F00C0E08D /* libxml2.tbd in Frameworks */,
@@ -2423,6 +2429,7 @@
 		18B83ACA2173557C00130DB6 /* library */ = {
 			isa = PBXGroup;
 			children = (
+				18DFACC821E9E37700EF528A /* Reachability */,
 				18EEFCB121CF976E007F5E2B /* SelectTable */,
 				18A0DB9621B136740065B2BD /* CircleProgress */,
 				A3739942219EBAE8004A5A94 /* Toast */,
@@ -2573,6 +2580,15 @@
 				A372958F219145F600B36409 /* UniteDetailCollectionViewCell.xib */,
 			);
 			path = cell;
+			sourceTree = "<group>";
+		};
+		18DFACC821E9E37700EF528A /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				18DFACC921E9E38C00EF528A /* Reachability.h */,
+				18DFACCA21E9E38D00EF528A /* Reachability.m */,
+			);
+			path = Reachability;
 			sourceTree = "<group>";
 		};
 		18EEFCB121CF976E007F5E2B /* SelectTable */ = {
@@ -4034,6 +4050,7 @@
 		9E8CFB7155047C0648622D0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18DFACC621E9E33F00EF528A /* SystemConfiguration.framework */,
 				18D16FCB21C1436E0017CCB6 /* MapKit.framework */,
 				4E4A161121B7C35A003F198B /* CoreLocation.framework */,
 				182A1184219BF61F00C0E08D /* libxml2.tbd */,
@@ -5615,6 +5632,7 @@
 				A99176FD2176D7A300788D2C /* DataControl.m in Sources */,
 				18B83B182173557D00130DB6 /* YBImageBrowseCellData.m in Sources */,
 				C5EEAF6A040452F10D489279 /* NSString+myextend.m in Sources */,
+				18DFACCB21E9E38D00EF528A /* Reachability.m in Sources */,
 				C5EEA1CB9C55E45C1CF0F710 /* UIUtil.m in Sources */,
 				4E2351A2213A76ED003BA59B /* UISearchBar+style.m in Sources */,
 				A3B340DB21C8ECAB008EB36A /* CareerMeTableViewCell.m in Sources */,

@@ -13,7 +13,7 @@
 #import "RegController.h"
 #import "NoIntenetViewController.h"
 #import "DentistPickerView.h"
-#import "AFNetworkReachabilityManager.h"
+#import "Reachability.h"
 
 @interface LoginController ()
 
@@ -511,15 +511,16 @@
 
 
 -(BOOL)reachabilityStatus{
-    AFNetworkReachabilityStatus status =[AFNetworkReachabilityManager sharedManager].networkReachabilityStatus;
-    return status != AFNetworkReachabilityStatusNotReachable;
-//    return false;
+    NetworkStatus status = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
+    return status != NotReachable;
 }
 
 NSString *retryUserName;
 NSString *retryPwd;
 UIView *networkErrorView;
 -(void)showErrorMsgView:(NSString*)userName pwd:(NSString*)pwd{
+    retryUserName = userName;
+    retryPwd = pwd;
     
     networkErrorView= self.view.addView;
     networkErrorView.backgroundColor = argbHex(0xdd000000);

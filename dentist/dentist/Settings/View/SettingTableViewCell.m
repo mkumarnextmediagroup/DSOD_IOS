@@ -60,6 +60,12 @@
     finLabel.text = title;
 }
 
+-(void)styleGlay
+{
+    iconBtn.alpha=0.4;
+    finLabel.alpha=0.4;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

@@ -287,4 +287,7 @@
 +(void)deleteJobRemind:(NSString * _Nullable)alertId completed:(void(^)(HttpResult *result))completed;
 //MARK:2.25  编辑职位提醒接口
 +(void)updateJobRemind:(NSString *_Nullable)rid keyword:(NSString *_Nullable)keyword location:(NSString *_Nullable)location position:(NSArray *_Nullable)position distance:(NSInteger)distance frequency:(NSInteger)frequency status:(BOOL)status completed:(void(^)(HttpResult *result))completed;
+#pragma mark -------------setting
+
++ (void)updatePwd:(NSString *)email pwd:(NSString *)pwd oldpwd:(NSString *)oldpwd  completed:(void(^)(HttpResult *result))completed;
 @end

@@ -14,6 +14,7 @@
 #import "CompanyJobsModel.h"
 #import "CompanyReviewModel.h"
 #import "GeneralSettingsModel.h"
+#import "FAQSCategoryModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -293,4 +294,9 @@
 + (void)updatePwd:(NSString *)email pwd:(NSString *)pwd oldpwd:(NSString *)oldpwd  completed:(void(^)(HttpResult *result))completed;
 //MARK:2.5    查看通用设置列表
 + (void)queryGeneraSettingsList:(NSInteger)skip completed:(void(^)(NSArray<GeneralSettingsModel *> *array))completed ;
+
+//查询常见问题解答列表
++ (void)findFAQSListWithcompleted:(void(^)(NSArray<FAQSCategoryModel *> *array,NSInteger totalCount))completed;
+//setting 模块上传文件
++(void)settingUploadPictrue:(NSString*)localFilePath;
 @end

@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FAQSCategoryModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FAQSViewController : UIViewController
+
++(void)openBy:(UIViewController*)vc categoryModel:(FAQSCategoryModel*)categoryModel;
 
 @end
 

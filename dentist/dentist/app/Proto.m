@@ -2634,4 +2634,75 @@
     }];
 }
 
+//MARK:2.1  添加编辑通用设置
++(void)addGeneralsettings:(BOOL)useFaceID useDsoDentistOffline:(BOOL)useDsoDentistOffline playbackSpeed:(NSString *)playbackSpeed videoDownloadQuality:(NSString *)videoDownloadQuality downloadOnlyWiFi:(BOOL)downloadOnlyWiFi completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithBool:useFaceID] forKey:@"useFaceID"];
+    [paradic setObject:[NSNumber numberWithBool:useDsoDentistOffline] forKey:@"useDsoDentistOffline"];
+    if (playbackSpeed) {
+        [paradic setObject:playbackSpeed forKey:@"playbackSpeed"];
+    }
+    if (videoDownloadQuality) {
+        [paradic setObject:videoDownloadQuality forKey:@"videoDownloadQuality"];
+    }
+    [paradic setObject:[NSNumber numberWithBool:downloadOnlyWiFi] forKey:@"downloadOnlyWiFi"];
+    [self postAsync3:@"generalsettings" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r);
+        }
+    }];
+}
+
+//2.4    查看通用设置详情
++ (void)QueryGeneralsettings:(void(^)(GeneralSettingsModel *generalModel))completed {
+    
+    [self  postAsync:@"generalsettings" dic:nil modular:@"setting" callback:^(HttpResult *r) {
+        GeneralSettingsModel *model = nil;
+        if (r.OK && r.resultMap[@"data"]) {
+            NSDictionary *dic =  r.resultMap[@"data"];
+            model = [[GeneralSettingsModel alloc] initWithJson:jsonBuild(dic)];
+            
+        }
+        if(completed){
+            foreTask(^{
+                completed(model);
+            });
+        }
+    }];
+}
+
+//MARK:2.6  添加编辑通知设置
++(void)addNotifications:(BOOL)uniteMagazine education:(BOOL)education events:(BOOL)events career:(BOOL)career completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithBool:uniteMagazine] forKey:@"uniteMagazine"];
+    [paradic setObject:[NSNumber numberWithBool:education] forKey:@"education"];
+    [paradic setObject:[NSNumber numberWithBool:events] forKey:@"events"];
+    [paradic setObject:[NSNumber numberWithBool:career] forKey:@"career"];
+    [self postAsync3:@"notification_switch" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r);
+        }
+    }];
+}
+
+//2.9    查看通知设置详情
++ (void)QueryNotifications:(void(^)(NotificationModel *notificationModel))completed {
+    
+    [self  postAsync:@"notification_switch" dic:nil modular:@"setting" callback:^(HttpResult *r) {
+        NotificationModel *model = nil;
+        if (r.OK && r.resultMap[@"data"]) {
+            NSDictionary *dic =  r.resultMap[@"data"];
+            model = [[NotificationModel alloc] initWithJson:jsonBuild(dic)];
+            
+        }
+        if(completed){
+            foreTask(^{
+                completed(model);
+            });
+        }
+    }];
+}
+
 @end

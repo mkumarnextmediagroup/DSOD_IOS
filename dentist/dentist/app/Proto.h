@@ -15,6 +15,7 @@
 #import "CompanyReviewModel.h"
 #import "GeneralSettingsModel.h"
 #import "FAQSCategoryModel.h"
+#import "NotificationModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -299,4 +300,12 @@
 + (void)findFAQSListWithcompleted:(void(^)(NSArray<FAQSCategoryModel *> *array,NSInteger totalCount))completed;
 //setting 模块上传文件
 +(void)settingUploadPictrue:(NSString*)localFilePath;
+//MARK:2.1  添加编辑通用设置
++(void)addGeneralsettings:(BOOL)useFaceID useDsoDentistOffline:(BOOL)useDsoDentistOffline playbackSpeed:(NSString *_Nullable)playbackSpeed videoDownloadQuality:(NSString *_Nullable)videoDownloadQuality downloadOnlyWiFi:(BOOL)downloadOnlyWiFi completed:(void(^)(HttpResult *result))completed;
+//2.4    查看通用设置详情
++ (void)QueryGeneralsettings:(void(^)(GeneralSettingsModel *generalModel))completed;
+//MARK:2.6  添加编辑通知设置
++(void)addNotifications:(BOOL)uniteMagazine education:(BOOL)education events:(BOOL)events career:(BOOL)career completed:(void(^)(HttpResult *result))completed;
+//2.9    查看通知设置详情
++ (void)QueryNotifications:(void(^)(NotificationModel *notificationModel))completed;
 @end

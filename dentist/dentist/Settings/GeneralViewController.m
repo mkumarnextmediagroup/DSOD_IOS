@@ -9,6 +9,9 @@
 #import "GeneralViewController.h"
 #import "Common.h"
 #import "GeneralTableViewCell.h"
+#import "VideoQualityViewController.h"
+#import "PlaybackSpeedViewController.h"
+
 @interface GeneralViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *infoArr;
@@ -141,6 +144,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.section==1){
+        if (indexPath.row==0) {
+            [VideoQualityViewController openBy:self];
+        }else if (indexPath.row==1){
+            [PlaybackSpeedViewController openBy:self];
+        }
+    }
 }
 
 /*

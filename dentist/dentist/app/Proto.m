@@ -2609,7 +2609,7 @@
     }];
 }
 
-+(void)settingUploadPictrue:(NSString*)localFilePath{
++(void)settingUploadPictrue:(NSString*)localFilePath completed:(void(^)(BOOL success,NSString *msg,NSString *attachId))completed {
     NSLog(@"1-----------%@",localFilePath);
     HttpResult *r = [self upload:@"file/uploadFile" localFilePath:localFilePath modular:@"setting"];
     if (r.OK) {

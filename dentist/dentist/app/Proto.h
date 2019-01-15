@@ -299,7 +299,10 @@
 //查询常见问题解答列表
 + (void)findFAQSListWithcompleted:(void(^)(NSArray<FAQSCategoryModel *> *array,NSInteger totalCount))completed;
 //setting 模块上传文件
-+(void)settingUploadPictrue:(NSString*)localFilePath;
++(void)settingUploadPictrue:(NSString*)localFilePath completed:(void(^)(BOOL success,NSString *msg,NSString *attachId))completed;
+//seeting 添加反馈
++(void)addFeedback:(NSString*)feedbackContent email:(NSString*)email attachmentId:(NSString*)attachmentId completed:(void(^)(BOOL success,NSString *msg))completed;
+
 //MARK:2.1  添加编辑通用设置
 +(void)addGeneralsettings:(BOOL)useFaceID useDsoDentistOffline:(BOOL)useDsoDentistOffline playbackSpeed:(NSString *_Nullable)playbackSpeed videoDownloadQuality:(NSString *_Nullable)videoDownloadQuality downloadOnlyWiFi:(BOOL)downloadOnlyWiFi completed:(void(^)(HttpResult *result))completed;
 //2.4    查看通用设置详情
@@ -308,4 +311,7 @@
 +(void)addNotifications:(BOOL)uniteMagazine education:(BOOL)education events:(BOOL)events career:(BOOL)career completed:(void(^)(HttpResult *result))completed;
 //2.9    查看通知设置详情
 + (void)QueryNotifications:(void(^)(NotificationModel *notificationModel))completed;
+
+
+
 @end

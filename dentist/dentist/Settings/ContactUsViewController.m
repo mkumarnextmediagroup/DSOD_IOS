@@ -30,13 +30,13 @@
     UIImageView *delImageView;
     
     UIImage *attachImage;
+    NSString *attachmentId;
 
 }
 
 +(void)openBy:(UIViewController*)vc{
     ContactUsViewController *newVC = [ContactUsViewController new];
-    UINavigationController *newNavVC = [[UINavigationController alloc] initWithRootViewController:newVC];
-    [vc presentViewController:newNavVC animated:YES completion:nil];
+    [vc presentViewController:newVC animated:YES completion:nil];
 }
 
 - (void)viewDidLoad {
@@ -88,9 +88,28 @@
 }
 
 -(void)addNavBar{
-    UINavigationItem *item = [self navigationItem];
-    item.title = @"CONTACT US";
-    item.rightBarButtonItem = [self navBarImage:@"close-white" target:self action:@selector(dismiss)];
+    
+    UIView *topVi = self.view.addView;
+    topVi.backgroundColor = UIColor.whiteColor;
+    [[[[[topVi.layoutMaker leftParent:0] rightParent:0] topParent:0]sizeEq:SCREENWIDTH h:NAVHEIGHT] install];
+
+    UIView *titleView = topVi.addView;
+    [[[[[titleView.layoutMaker leftParent:0] rightParent:0] topParent:24]bottomParent:0] install];
+
+    UILabel *titleLabel = [titleView addLabel];
+    titleLabel.font = [Fonts regular:15];
+    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.text = @"CONTACT US";
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [[[titleLabel.layoutMaker centerXParent:0]centerYParent:0] install];
+    
+    UIButton *closeBtn = [titleView addButton];
+    [closeBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+    [closeBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    [[[[closeBtn.layoutMaker rightParent:-10] centerYParent:0] sizeEq:40 h:40] install];
+    
+    UILabel *lineLabel = topVi.lineLabel;
+    [[[[[lineLabel.layoutMaker bottomParent:0]leftParent:0]rightParent:0]heightEq:1]install];
 }
 
 -(void)dismiss {
@@ -138,7 +157,7 @@
     emailTextView.returnKeyType = UIReturnKeyNext;
     emailTextView.contentInset = UIEdgeInsetsMake(0, 0, 0,0);
     [[[[[emailTextView.layoutMaker below:emailLabel offset:5]leftParent:13]rightParent:-13]heightEq:45] install];
-    
+    emailTextView.text = [Proto lastAccount];
     
     UILabel *line2 = contentView.lineLabel;
     [[[[[line2.layoutMaker below:emailTextView offset:0]leftParent:0]rightParent:0]heightEq:1]install];
@@ -201,13 +220,15 @@
     [submitBtn addTarget:self action:@selector(submitBtnClick) forControlEvents:UIControlEventTouchUpInside];
     submitBtn.titleLabel.font = [Fonts regular:15];
     [submitBtn setTitle:@"Send message" forState:UIControlStateNormal];
-    [[[[[[submitBtn.layoutMaker below:tipsLabel offset:50]leftParent:edge]rightParent:-edge]bottomParent:-30]heightEq:44] install];
+    [[[[[[submitBtn.layoutMaker below:tipsLabel offset:50]leftParent:edge]rightParent:-edge]bottomParent:-30]heightEq:40] install];
     
     [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(submitBtn) install];
 }
 
 
 -(void)submitBtnClick{
+    [self showLoading];
+    
     if(attachImage){
         [self uploadAttach:attachImage];
     }else{
@@ -215,8 +236,38 @@
     }
 }
 
--(void)addFeedback{
+- (void)uploadAttach:(UIImage *)image{
+    [self saveImageDocuments:image];
     
+    NSString *localFile = [self getDocumentImage];
+    if (localFile != nil) {
+        [Proto settingUploadPictrue:localFile completed:^(BOOL success, NSString *msg, NSString *attachId) {
+            if(success){
+                self-> attachmentId = attachId;
+                [self addFeedback];
+            }else{
+                [self hideLoading];
+                Alert *alert = [Alert new];
+                alert.title = msg;
+                //                alert.msg = @"Please open it in IOS “settings”-“privacy”-“photo”";
+                [alert show:self];
+            }
+        }];
+    }
+}
+
+-(void)addFeedback{
+    [Proto addFeedback:[self text:questionTextView] email:[self text:emailTextView] attachmentId:attachmentId completed:^(BOOL success, NSString *msg) {
+        [self hideLoading];
+        
+        [self Den_showAlertWithTitle:success?@"Message sent successfully":msg message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+            alertMaker.addActionCancelTitle(@"OK");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+            if (success) {
+                [self dismiss];
+            }
+        }];
+    }];
 }
 
 -(void)showPhoto:(UIImage*)image name:(NSString*)name{
@@ -229,6 +280,7 @@
 
 -(void)delAttachment{
     attachImage = nil;
+    attachmentId = nil;
     photoImageView.imageName = @"photo";
     [photoImageView alignCenter];
     attachLabel.text = @"Add an attachment";
@@ -306,14 +358,6 @@
 
 
 
-- (void)uploadAttach:(UIImage *)image{
-    [self saveImageDocuments:image];
-    
-    NSString *localFile = [self getDocumentImage];
-    if (localFile != nil) {
-        [Proto settingUploadPictrue:localFile];
-    }
-}
 
 - (NSString *)getDocumentImage {
     // 读取沙盒路径图片

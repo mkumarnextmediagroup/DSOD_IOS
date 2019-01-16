@@ -14,7 +14,7 @@
 #import "DentistPickerView.h"
 #import "DsoToast.h"
 
-@interface CareerAlertsAddViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,CLLocationManagerDelegate>
+@interface CareerAlertsAddViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,CLLocationManagerDelegate,TextFieldImageViewDelegate>
 {
     UITableView *myTable;
     CLLocationManager *locationmanager;
@@ -159,6 +159,7 @@
         }
         titleLabel.text=@"Job title or keyword (optional)";
     }else if (indexPath.row==1){
+        newtext.delegate=self;
         if(currentCity){
             newtext.edit.text=currentCity;
         }
@@ -328,14 +329,12 @@
         return YES;
     }
     else if (textField.tag==1) {
-        [self.view endEditing:YES];
         UIView *view = textField.superview;
         if ([view isKindOfClass:[TextFieldImageView class]]) {
             TextFieldImageView *textview=(TextFieldImageView *)view;
             [textview themeNormal];
         }
-        [self getCurrentLocation];
-        return NO;
+        return YES;
     }else if (textField.tag==2){
         [self.view endEditing:YES];
         UIView *view = textField.superview;
@@ -494,14 +493,19 @@
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     //设置提示提醒用户打开定位服务
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"允许定位提示" message:@"请在设置中打开定位" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:nil];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Allow Location" message:@"Please Open Location in Settings" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Open" style:UIAlertActionStyleDefault handler:nil];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:okAction];
     [alert addAction:cancelAction];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window.rootViewController presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)textFileRightIconAction
+{
+    [self getCurrentLocation];
 }
 
 

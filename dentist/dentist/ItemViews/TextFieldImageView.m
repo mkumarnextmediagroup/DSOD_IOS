@@ -34,11 +34,13 @@
 
     _edit = self.addEditRaw;
     _iconView = self.addImageView;
-    
+    UIButton *tapbtn=self.addButton;
+    [tapbtn addTarget:self action:@selector(tapClick) forControlEvents:UIControlEventTouchUpInside];
     _edit.font = [Fonts regular:15];
     _edit.tag = 145;
     [_edit textColorBlack];
     [[[[_iconView.layoutMaker sizeEq:16 h:16] rightParent:-p.right] centerYParent:0] install];
+    [[[[[tapbtn.layoutMaker rightParent:0] topParent:0] bottomParent:0] widthEq:30] install];
     [[[[[_edit.layoutMaker topParent:p.top] leftParent:p.left] bottomParent:-p.bottom] toLeftOf:_iconView offset:10] install];
     
     
@@ -64,6 +66,13 @@
     self.layer.borderWidth = 1;
     
     self.layer.borderColor =rgb255(214, 219, 223).CGColor;
+}
+
+-(void)tapClick
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(textFileRightIconAction)]) {
+        [self.delegate textFileRightIconAction];
+    }
 }
 
 @end

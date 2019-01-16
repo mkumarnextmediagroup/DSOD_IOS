@@ -9,8 +9,9 @@
 #import "ContactUsViewController.h"
 #import "Common.h"
 #import "Proto.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
-@interface ContactUsViewController ()<UITextViewDelegate>
+@interface ContactUsViewController ()<UITextViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @end
 
@@ -23,12 +24,19 @@
     UITextView *questionTextView;
     UIButton *submitBtn;
     
+    
+    UIImageView *photoImageView;
+    UILabel *attachLabel;
+    UIImageView *delImageView;
+    
+    UIImage *attachImage;
+    NSString *attachmentId;
+
 }
 
 +(void)openBy:(UIViewController*)vc{
     ContactUsViewController *newVC = [ContactUsViewController new];
-    UINavigationController *newNavVC = [[UINavigationController alloc] initWithRootViewController:newVC];
-    [vc presentViewController:newNavVC animated:YES completion:nil];
+    [vc presentViewController:newVC animated:YES completion:nil];
 }
 
 - (void)viewDidLoad {
@@ -80,9 +88,28 @@
 }
 
 -(void)addNavBar{
-    UINavigationItem *item = [self navigationItem];
-    item.title = @"CONTACT US";
-    item.rightBarButtonItem = [self navBarImage:@"close-white" target:self action:@selector(dismiss)];
+    
+    UIView *topVi = self.view.addView;
+    topVi.backgroundColor = UIColor.whiteColor;
+    [[[[[topVi.layoutMaker leftParent:0] rightParent:0] topParent:0]sizeEq:SCREENWIDTH h:NAVHEIGHT] install];
+
+    UIView *titleView = topVi.addView;
+    [[[[[titleView.layoutMaker leftParent:0] rightParent:0] topParent:24]bottomParent:0] install];
+
+    UILabel *titleLabel = [titleView addLabel];
+    titleLabel.font = [Fonts regular:15];
+    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.text = @"CONTACT US";
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [[[titleLabel.layoutMaker centerXParent:0]centerYParent:0] install];
+    
+    UIButton *closeBtn = [titleView addButton];
+    [closeBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+    [closeBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    [[[[closeBtn.layoutMaker rightParent:-10] centerYParent:0] sizeEq:40 h:40] install];
+    
+    UILabel *lineLabel = topVi.lineLabel;
+    [[[[[lineLabel.layoutMaker bottomParent:0]leftParent:0]rightParent:0]heightEq:1]install];
 }
 
 -(void)dismiss {
@@ -130,7 +157,7 @@
     emailTextView.returnKeyType = UIReturnKeyNext;
     emailTextView.contentInset = UIEdgeInsetsMake(0, 0, 0,0);
     [[[[[emailTextView.layoutMaker below:emailLabel offset:5]leftParent:13]rightParent:-13]heightEq:45] install];
-    
+    emailTextView.text = [Proto lastAccount];
     
     UILabel *line2 = contentView.lineLabel;
     [[[[[line2.layoutMaker below:emailTextView offset:0]leftParent:0]rightParent:0]heightEq:1]install];
@@ -156,18 +183,31 @@
     UILabel *line3 = contentView.lineLabel;
     [[[[[line3.layoutMaker below:questionTextView offset:0]leftParent:0]rightParent:0]heightEq:1]install];
     
-    UIImageView *photoImageView = contentView.addImageView;
-    photoImageView.imageName = @"photo";
-    [[[[photoImageView.layoutMaker leftParent:edge] below:line3 offset:0]sizeEq:50 h:50]install];
+    UIView *attachView = contentView.addView;
+    [attachView onClickView:self action:@selector(addAttachMent)];
+    [[[[attachView.layoutMaker below:line3 offset:0]leftParent:0]rightParent:0]install];
     
-    UILabel *attachLabel = contentView.addLabel;
+    photoImageView = attachView.addImageView;
+    photoImageView.imageName = @"photo";
+    [[[[[photoImageView.layoutMaker leftParent:edge] topParent:5]bottomParent:-5] sizeEq:40 h:40]install];
+    
+    delImageView = attachView.addImageView;
+    delImageView.imageName = @"close_select";
+    [delImageView onClickView:self action:@selector(delAttachment)];
+    [[[[delImageView.layoutMaker rightParent:0] centerYOf:photoImageView offset:0]sizeEq:50 h:50]install];
+    
+    attachLabel = attachView.addLabel;
     attachLabel.font = [Fonts regular:12];
     attachLabel.textColor = rgbHex(0x4a4a4a);
     attachLabel.text = @"Add an attachment";
-    [[[attachLabel.layoutMaker toRightOf:photoImageView offset:edge]centerYOf:photoImageView offset:0]install];
+    attachLabel.numberOfLines = 2;
+    [[[[attachLabel.layoutMaker toRightOf:photoImageView offset:edge]toLeftOf:delImageView offset:10] centerYOf:photoImageView offset:0]install];
+    
+    
+    
     
     UILabel *line4 = contentView.lineLabel;
-    [[[[[line4.layoutMaker below:photoImageView offset:0]leftParent:0]rightParent:0]heightEq:1]install];
+    [[[[[line4.layoutMaker below:attachView offset:0]leftParent:0]rightParent:0]heightEq:1]install];
 
     UILabel *tipsLabel = contentView.addLabel;
     tipsLabel.font = [Fonts semiBold:16];
@@ -180,14 +220,161 @@
     [submitBtn addTarget:self action:@selector(submitBtnClick) forControlEvents:UIControlEventTouchUpInside];
     submitBtn.titleLabel.font = [Fonts regular:15];
     [submitBtn setTitle:@"Send message" forState:UIControlStateNormal];
-    [[[[[[submitBtn.layoutMaker below:tipsLabel offset:50]leftParent:edge]rightParent:-edge]bottomParent:-30]heightEq:44] install];
+    [[[[[[submitBtn.layoutMaker below:tipsLabel offset:50]leftParent:edge]rightParent:-edge]bottomParent:-30]heightEq:40] install];
     
     [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(submitBtn) install];
 }
 
 
 -(void)submitBtnClick{
+    [self showLoading];
     
+    if(attachImage){
+        [self uploadAttach:attachImage];
+    }else{
+        [self addFeedback];
+    }
+}
+
+- (void)uploadAttach:(UIImage *)image{
+    [self saveImageDocuments:image];
+    
+    NSString *localFile = [self getDocumentImage];
+    if (localFile != nil) {
+        [Proto settingUploadPictrue:localFile completed:^(BOOL success, NSString *msg, NSString *attachId) {
+            if(success){
+                self-> attachmentId = attachId;
+                [self addFeedback];
+            }else{
+                [self hideLoading];
+                Alert *alert = [Alert new];
+                alert.title = msg;
+                //                alert.msg = @"Please open it in IOS “settings”-“privacy”-“photo”";
+                [alert show:self];
+            }
+        }];
+    }
+}
+
+-(void)addFeedback{
+    [Proto addFeedback:[self text:questionTextView] email:[self text:emailTextView] attachmentId:attachmentId completed:^(BOOL success, NSString *msg) {
+        [self hideLoading];
+        
+        [self Den_showAlertWithTitle:success?@"Message sent successfully":msg message:nil appearanceProcess:^(DenAlertController * _Nonnull alertMaker) {
+            alertMaker.addActionCancelTitle(@"OK");
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, DenAlertController * _Nonnull alertSelf) {
+            if (success) {
+                [self dismiss];
+            }
+        }];
+    }];
+}
+
+-(void)showPhoto:(UIImage*)image name:(NSString*)name{
+    attachImage = image;
+    photoImageView.image = image;
+    [photoImageView scaleFill];
+    attachLabel.text = name;
+    delImageView.hidden = NO;
+}
+
+-(void)delAttachment{
+    attachImage = nil;
+    attachmentId = nil;
+    photoImageView.imageName = @"photo";
+    [photoImageView alignCenter];
+    attachLabel.text = @"Add an attachment";
+    delImageView.hidden = YES;
+}
+
+-(void)addAttachMent{
+    [self Den_showActionSheetWithTitle:nil message:nil appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
+        alertMaker.
+        addActionCancelTitle(@"cancel").
+        addActionDefaultTitle(@"Camera").
+        addActionDefaultTitle(@"Gallery");
+    }                     actionsBlock:^(NSInteger buttonIndex, UIAlertAction *_Nonnull action, DenAlertController *_Nonnull alertSelf) {
+        if ([action.title isEqualToString:@"cancel"]) {
+            NSLog(@"cancel");
+        } else if ([action.title isEqualToString:@"Camera"]) {
+            NSLog(@"Camera");
+            [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypeCamera];
+        } else if ([action.title isEqualToString:@"Gallery"]) {
+            NSLog(@"Gallery");
+            [self clickTheBtnWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        }
+    }];
+}
+
+- (void)clickTheBtnWithSourceType:(UIImagePickerControllerSourceType)sourceType
+{
+    [DenCamera clickTheBtnWithSourceType:sourceType block:^(NSString *isAllow) {
+        NSLog(@"%@",isAllow);
+        if ([isAllow isEqualToString:@"CameraRefuse"]) {
+            Alert *alert = [Alert new];
+            alert.title = @"Unauthorized use of camera";
+            alert.msg = @"Please open it in IOS “settings”-“privacy”-“camera”";
+            [alert show:self];
+            
+        }else if ([isAllow isEqualToString:@"PhotoRefuse"]){
+            Alert *alert = [Alert new];
+            alert.title = @"Unauthorized use of photo";
+            alert.msg = @"Please open it in IOS “settings”-“privacy”-“photo”";
+            [alert show:self];
+            
+        }else if ([isAllow isEqualToString:@"allow"]){
+            [self presentImagePickerViewController:sourceType];
+        }
+    }];
+}
+
+- (void)presentImagePickerViewController:(UIImagePickerControllerSourceType)sourceType {
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.sourceType = sourceType;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSString *imageName = @"";
+    
+    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+        imageName = @"IMG_NEW.JPG";
+        
+    }else{
+        NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
+        PHFetchResult * fetchResult = [PHAsset fetchAssetsWithALAssetURLs: @[imageURL] options: nil];
+        PHAsset * asset = fetchResult.firstObject;
+        PHAssetResource * resource = [[PHAssetResource assetResourcesForAsset: asset] firstObject];
+        
+        imageName = resource.originalFilename;
+    }
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    
+    [self showPhoto:image name:imageName];
+    [self dismissViewControllerAnimated:NO completion:nil];
+    
+}
+
+
+
+
+- (NSString *)getDocumentImage {
+    // 读取沙盒路径图片
+    NSString *aPath3 = [NSString stringWithFormat:@"%@/Documents/%@.png", NSHomeDirectory(), @"test"];
+    return aPath3;
+}
+
+- (void)saveImageDocuments:(UIImage *)image {
+    
+    CGFloat f = 300.0f / image.size.width;
+    //拿到图片
+    UIImage *imagesave = [image scaledBy:f];
+    NSString *path_sandox = NSHomeDirectory();
+    //设置一个图片的存储路径
+    NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/test.png"];
+    
+    [UIImagePNGRepresentation(imagesave) writeToFile:imagePath atomically:YES];
 }
 
 

@@ -9,16 +9,24 @@
 #import "HelpAndFeedbackViewController.h"
 #import "Common.h"
 #import "Proto.h"
+#import "FAQSViewController.h"
+#import "FAQSTableViewCell.h"
+#import "FAQSCategoryTableViewCell.h"
 
 
-@interface HelpAndFeedbackViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface HelpAndFeedbackViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 
 @end
 
 @implementation HelpAndFeedbackViewController{
     int edge;
     
+    UIView *noResultView;
     UITableView *tableView;
+    
+    NSArray<FAQSCategoryModel*> *categories;
+    NSArray<FAQSCategoryModel*> *resultData;
+    NSMutableDictionary <NSString*,NSString*>*openCellIdDic;
 }
 
 
@@ -31,9 +39,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    openCellIdDic = [NSMutableDictionary new];
     [self addNavBar];
     
     [self buildViews];
+    
+    [self showLoading];
+    [Proto findFAQSListWithcompleted:^(NSArray<FAQSCategoryModel *> *array, NSInteger totalCount) {
+        [self hideLoading];
+        self->categories = [array copy];
+        [self->tableView reloadData];
+    }];
 }
 
 -(void)addNavBar{
@@ -44,41 +60,206 @@
 
 -(void)buildViews{
     edge = 18;
-    [[self.scrollView.layoutUpdate topParent:NAVHEIGHT]install];
-
+    self.view.backgroundColor = UIColor.whiteColor;
     
-    UIImageView *imageView = self.contentView.addImageView;
-    imageView.imageName = @"icons8-help";
-    [[[[imageView.layoutMaker topParent:30]centerXParent:0]sizeEq:100 h:100]install];
-    
-    
-    UILabel *label = self.contentView.addLabel;
-    label.font = [Fonts regular:20];
-    label.textColor = UIColor.blackColor;
-    label.text = @"How can we help you today?";
-    [[[label.layoutMaker  below:imageView offset:20]centerXParent:0]install];
-    
-    UITextField *searchTextField = self.contentView.addEditSearch;
+    UITextField *searchTextField = self.view.addEditSearch;
     searchTextField.borderStyle = UITextBorderStyleNone;
     searchTextField.layer.borderColor = rgbHex(0x979797).CGColor;
     searchTextField.layer.cornerRadius = 0;
     [searchTextField setHint:@"Search for help topics here"];
-    [[[[[searchTextField.layoutMaker leftParent:edge]below:label offset:40]rightParent:-edge]heightEq:36] install];
+    [searchTextField addTarget:self action:@selector(textField1TextChange:) forControlEvents:UIControlEventEditingChanged];
+    [[[[[searchTextField.layoutMaker leftParent:edge]topParent:NAVHEIGHT + 15]rightParent:-edge]heightEq:36] install];
     
+    noResultView = self.view.addView;
+    [[[[[noResultView.layoutMaker below:searchTextField offset:0]leftParent:0]rightParent:0] heightEq:0] install];
     
-//    tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-//    tableView.dataSource = self;
-//    tableView.delegate = self;
-//    tableView.estimatedRowHeight = 10;
-//    tableView.rowHeight=UITableViewAutomaticDimension;
-//    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-////    [tableView registerClass:CompanyExistsReviewsTableViewCell.class forCellReuseIdentifier:NSStringFromClass(CompanyExistsReviewsTableViewCell.class)];
-//    [self.view addSubview:tableView];
-//    [[[[[tableView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
+    UILabel *noResultLabel = noResultView.addLabel;
+    noResultLabel.text = @"Sorry, no results found.\nPlease use one of the categories below to get more help.";
+    noResultLabel.textColor = UIColor.blackColor;
+    noResultLabel.font = [Fonts regular:11];
+    noResultLabel.textAlignment = NSTextAlignmentCenter;
+    [[[[[noResultLabel.layoutMaker leftParent:0]rightParent:0]topParent:15]bottomParent:0] install];
     
-    UIView *lastView = searchTextField;
-    [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(lastView) install];
+    tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    tableView.dataSource = self;
+    tableView.delegate = self;
+    
+    tableView.estimatedRowHeight = 1000;
+    tableView.rowHeight=UITableViewAutomaticDimension;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [tableView registerClass:FAQSCategoryTableViewCell.class forCellReuseIdentifier:NSStringFromClass(FAQSCategoryTableViewCell.class)];
+    [tableView registerClass:FAQSTableViewCell.class forCellReuseIdentifier:NSStringFromClass(FAQSTableViewCell.class)];
+    [tableView onClickView:self action:@selector(keyboardHide)];
+    [self.view addSubview:tableView];
+    [[[[[tableView.layoutMaker leftParent:0] rightParent:0] below:noResultView offset:15] bottomParent:0] install];
 }
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self keyboardHide];
+}
+
+-(void)keyboardHide{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.view endEditing:YES];
+    });
+}
+
+-(void)textField1TextChange:(UITextField *)textField{
+   
+    if(textField.text.length==0){
+        [self keyboardHide];
+    }
+    
+    [openCellIdDic removeAllObjects];
+    resultData = [self filter:textField.text];
+    [self->tableView reloadData];
+    
+    [[noResultView.layoutUpdate heightEq: textField.text.length!=0 && resultData.count == 0 ? 45 : 0]install];
+
+}
+
+-(NSArray*)filter:(NSString*)searchWord{
+    NSMutableArray *array = [NSMutableArray new];
+    
+    for(FAQSCategoryModel *categoryModel in categories){
+    //FAQSCategoryModel
+        FAQSCategoryModel *newCategoryModel = [FAQSCategoryModel new];
+        newCategoryModel.moduleType = categoryModel.moduleType;
+        newCategoryModel.faqsModelArray = [NSMutableArray new];
+        
+        for(FAQSModel *faqsModel in categoryModel.faqsModelArray){
+        //FAQSModel
+            if([faqsModel.moduleType rangeOfString:searchWord].location != NSNotFound
+               ||[faqsModel.function rangeOfString:searchWord].location != NSNotFound){
+                [newCategoryModel.faqsModelArray addObject:faqsModel];
+            }else{
+                for(FAQSSubDescModel *subDescModel in faqsModel.subDescription){
+                //FAQSSubDescModel
+                    if([subDescModel.name rangeOfString:searchWord].location != NSNotFound){
+                        [newCategoryModel.faqsModelArray addObject:faqsModel];
+                        goto quit;
+                    }else{
+                        for(NSString *step in subDescModel.steps){
+                            if([step rangeOfString:searchWord].location != NSNotFound){
+                                [newCategoryModel.faqsModelArray addObject:faqsModel];
+                                goto quit;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            quit:
+            NSLog(@"quit");
+        }
+        
+        if(newCategoryModel.faqsModelArray && newCategoryModel.faqsModelArray.count > 0){
+            [array addObject:newCategoryModel];
+        }
+    }
+    
+    return [array copy];
+}
+
+
+-(BOOL)isSearchMode{
+    if(resultData && resultData.count>0){
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [[[UIApplication sharedApplication]keyWindow] endEditing:YES];
+}
+
+#pragma mark UITableViewDelegate,UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if([self isSearchMode]){
+        return resultData.count;
+    }else{
+        return 1;
+    }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if([self isSearchMode]){
+        return resultData[section].faqsModelArray.count;
+    }else{
+        return categories.count;
+    }
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 30;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH - edge, 30)];
+    headerView.backgroundColor = rgbHex(0xfafbfd);
+    
+    UILabel *label = headerView.addLabel;
+    label.font = [Fonts regular:13];
+    label.textColor = rgbHex(0x879AA8);
+    label.text = @"Categories";
+    [[[[[label.layoutMaker leftParent:edge]topParent:0]rightParent:-edge]bottomParent:0]install];
+    
+    if([self isSearchMode]){
+        label.text = resultData[section].moduleType;
+    }else{
+        label.text = @"Categories";
+    }
+    
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([self isSearchMode]){
+        return UITableViewAutomaticDimension;
+    }else{
+        return 56;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([self isSearchMode]){
+        return [self faqsFunctionCell:indexPath];
+    }else{
+        return [self categoryCell:indexPath];
+    }
+}
+
+-(UITableViewCell*)categoryCell:(NSIndexPath *)indexPath{
+    FAQSCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(FAQSCategoryTableViewCell.class)];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell setText:categories[indexPath.row].moduleType];
+    
+    return cell;
+}
+
+-(UITableViewCell*)faqsFunctionCell:(NSIndexPath *)indexPath{
+    FAQSModel *model = resultData[indexPath.section].faqsModelArray[indexPath.row];
+    
+    FAQSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(FAQSTableViewCell.class)];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.itemBgColor = UIColor.whiteColor;
+    [cell setData:model isOpen:openCellIdDic[model._id]!=nil];
+    
+    WeakSelf
+    cell.titleOnClickListener = ^(NSString *_id){
+        StrongSelf
+        if(strongSelf->openCellIdDic[_id]){
+            [strongSelf->openCellIdDic removeObjectForKey:_id];
+        }else{
+            strongSelf->openCellIdDic[_id] = _id;
+        }
+        [strongSelf-> tableView reloadData];
+        [strongSelf keyboardHide];
+    };
+    return cell;
+}
 
 @end

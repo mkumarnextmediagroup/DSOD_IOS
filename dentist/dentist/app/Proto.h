@@ -13,6 +13,9 @@
 #import "CompanyModel.h"
 #import "CompanyJobsModel.h"
 #import "CompanyReviewModel.h"
+#import "GeneralSettingsModel.h"
+#import "FAQSCategoryModel.h"
+#import "NotificationModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -287,4 +290,28 @@
 +(void)deleteJobRemind:(NSString * _Nullable)alertId completed:(void(^)(HttpResult *result))completed;
 //MARK:2.25  编辑职位提醒接口
 +(void)updateJobRemind:(NSString *_Nullable)rid keyword:(NSString *_Nullable)keyword location:(NSString *_Nullable)location position:(NSArray *_Nullable)position distance:(NSInteger)distance frequency:(NSInteger)frequency status:(BOOL)status completed:(void(^)(HttpResult *result))completed;
+#pragma mark -------------setting
+
++ (void)updatePwd:(NSString *)email pwd:(NSString *)pwd oldpwd:(NSString *)oldpwd  completed:(void(^)(HttpResult *result))completed;
+//MARK:2.5    查看通用设置列表
++ (void)queryGeneraSettingsList:(NSInteger)skip completed:(void(^)(NSArray<GeneralSettingsModel *> *array))completed ;
+
+//查询常见问题解答列表
++ (void)findFAQSListWithcompleted:(void(^)(NSArray<FAQSCategoryModel *> *array,NSInteger totalCount))completed;
+//setting 模块上传文件
++(void)settingUploadPictrue:(NSString*)localFilePath completed:(void(^)(BOOL success,NSString *msg,NSString *attachId))completed;
+//seeting 添加反馈
++(void)addFeedback:(NSString*)feedbackContent email:(NSString*)email attachmentId:(NSString*)attachmentId completed:(void(^)(BOOL success,NSString *msg))completed;
+
+//MARK:2.1  添加编辑通用设置
++(void)addGeneralsettings:(BOOL)useFaceID useDsoDentistOffline:(BOOL)useDsoDentistOffline playbackSpeed:(NSString *_Nullable)playbackSpeed videoDownloadQuality:(NSString *_Nullable)videoDownloadQuality downloadOnlyWiFi:(BOOL)downloadOnlyWiFi completed:(void(^)(HttpResult *result))completed;
+//2.4    查看通用设置详情
++ (void)QueryGeneralsettings:(void(^)(GeneralSettingsModel *generalModel))completed;
+//MARK:2.6  添加编辑通知设置
++(void)addNotifications:(BOOL)uniteMagazine education:(BOOL)education events:(BOOL)events career:(BOOL)career completed:(void(^)(HttpResult *result))completed;
+//2.9    查看通知设置详情
++ (void)QueryNotifications:(void(^)(NotificationModel *notificationModel))completed;
+
+
+
 @end

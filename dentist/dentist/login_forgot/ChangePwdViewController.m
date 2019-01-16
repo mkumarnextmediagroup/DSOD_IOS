@@ -8,6 +8,7 @@
 
 #import "ChangePwdViewController.h"
 #import "Common.h"
+#import "Proto.h"
 @interface ChangePwdViewController ()
 {
     UITextField *pwdEdit;
@@ -40,12 +41,14 @@
     codeEdit.delegate = self;
     codeEdit.hint = localStr(@"oldpwd");
     [codeEdit returnNext];
-    [codeEdit keyboardDefault];
+    codeEdit.secureTextEntry=YES;
+    [pwdEdit keyboardEmail];
     [[[[[codeEdit.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:lbReg offset:EDGE] heightEq:36] install];
     
     pwdEdit = self.view.addEditRoundedGray;
     pwdEdit.delegate = self;
     pwdEdit.hint = localStr(@"newpwd");
+    pwdEdit.secureTextEntry=YES;
     [pwdEdit returnNext];
     [pwdEdit keyboardEmail];
     [[[[[pwdEdit.layoutMaker leftParent:EDGE] rightParent:-EDGE] below:codeEdit offset:10] heightEq:36] install];
@@ -148,6 +151,19 @@
     }
     NSString *oldpwd = [codeEdit.text trimed];
     NSString *pwd = [pwdEdit.text trimed];
+    [self showIndicator];
+    [Proto updatePwd:getLastAccount() pwd:pwd oldpwd:oldpwd completed:^(HttpResult *result) {
+        foreTask(^{
+            [self hideIndicator];
+            if (result.OK) {
+                [self alertOK:nil msg:localStr(@"resetOK") okText:nil onOK:^() {
+                    [self dismiss];
+                }];
+            }else {
+                [self alertOK:nil msg:result.msg okText:nil onOK:nil];
+            }
+        });
+    }];
 }
 
 @end

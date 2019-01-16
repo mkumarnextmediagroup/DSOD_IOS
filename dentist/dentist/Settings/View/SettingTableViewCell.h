@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setLastCellImageAndTitle:(UIImage *)image title:(NSString *)title;
 
+-(void)styleGlay;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -9,6 +9,9 @@
 #import "GeneralViewController.h"
 #import "Common.h"
 #import "GeneralTableViewCell.h"
+#import "VideoQualityViewController.h"
+#import "PlaybackSpeedViewController.h"
+
 @interface GeneralViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *infoArr;
@@ -24,7 +27,7 @@
     [super viewDidLoad];
     infoArr = [NSArray arrayWithObjects:@{@"title":@"Use Face ID",@"des":@"Use Face ID to login"},@{@"title":@"Use DSODentist offline",@"des":@"if it's on,app will not use Wi-Fi or cellular data"}, nil];
     infoArr2 = [NSArray arrayWithObjects:@{@"title":@"Video download quality",@"des":@"auto"},@{@"title":@"Playback Speed",@"des":@"1.0 x"}, nil];
-     infoArr3 = [NSArray arrayWithObjects:@{@"title":@"Download over Wi-Fi only",@"des":@"Allow to download contents over Wi-Fi only"}, nil];
+    infoArr3 = [NSArray arrayWithObjects:@{@"title":@"Download over Wi-Fi only",@"des":@"Allow to download contents over Wi-Fi only"}, nil];
     
     UINavigationItem *item = [self navigationItem];
     item.title = @"GENERAl";
@@ -42,6 +45,15 @@
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
     [myTable registerClass:[GeneralTableViewCell class] forCellReuseIdentifier:NSStringFromClass([GeneralTableViewCell class])];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    infoArr2 = [NSArray arrayWithObjects:
+                @{@"title":@"Video download quality",@"des":[VideoQualityViewController getCheckedVideoQualityText]},
+                @{@"title":@"Playback Speed",@"des":[PlaybackSpeedViewController getCheckedPlaybackSpeedText]}, nil];
+    [myTable reloadData];
+    
 }
 
 -(void)back{
@@ -141,6 +153,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.section==1){
+        if (indexPath.row==0) {
+            [VideoQualityViewController openBy:self];
+        }else if (indexPath.row==1){
+            [PlaybackSpeedViewController openBy:self];
+        }
+    }
 }
 
 /*

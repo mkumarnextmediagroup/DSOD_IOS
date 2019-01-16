@@ -29,6 +29,8 @@
 #import "JobDSOModel.h"
 #import "JobAlertsModel.h"
 #import "JobsBookmarkManager.h"
+#import "FAQSCategoryModel.h"
+#import "FAQSModel.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -1805,6 +1807,10 @@
     {
         baseUrl = @"hr-service/v1/";
     }
+    else if ([modular isEqualToString:@"setting"])
+    {
+        baseUrl = @"setting-service/v1/";
+    }
     return baseUrl;
 }
 
@@ -2525,5 +2531,178 @@
     }];
 }
 
+#pragma mark -------------setting
+
++ (void)updatePwd:(NSString *)email pwd:(NSString *)pwd oldpwd:(NSString *)oldpwd  completed:(void(^)(HttpResult *result))completed {
+    [self postAsync3:@"userAccount/updatePasswordByUserName" dic:@{@"username": email, @"password": pwd, @"old_password": oldpwd} modular:@"profile" callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r);
+        }
+    }];
+}
+
+//MARK:2.5    查看通用设置列表
++ (void)queryGeneraSettingsList:(NSInteger)skip completed:(void(^)(NSArray<GeneralSettingsModel *> *array))completed {
+    NSInteger limit=20;//分页数默认20条
+    if (skip<=0) {
+        skip=0;
+    }
+    //    email=getLastAccount();
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:skip] forKey:@"skip"];
+    [paradic setObject:[NSNumber numberWithInteger:limit] forKey:@"limit"];
+    
+    [self postAsync3:@"generalsettings/list" dic:paradic modular:@"setting" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"list"];
+            for (NSDictionary *d in arr) {
+                GeneralSettingsModel *item = [[GeneralSettingsModel alloc] initWithJson:jsonBuild(d)];
+                
+                if (item) {
+                    [resultArray addObject:item];
+                }
+            }
+            if (completed) {
+                completed(resultArray);
+            }
+        }else{
+            if (completed) {
+                completed(nil);
+            }
+        }
+    }];
+}
+
+//查询常见问题解答列表
++ (void)findFAQSListWithcompleted:(void(^)(NSArray<FAQSCategoryModel *> *array,NSInteger totalCount))completed{
+    [self postAsync3:@"faqs/list" dic:@{} modular:@"setting" callback:^(HttpResult *r) {
+        NSMutableArray<FAQSCategoryModel*> *resultArray = [NSMutableArray array];
+        NSInteger totalFound = 0;
+        if (r.OK) {
+            totalFound=[r.resultMap[@"total"] integerValue];
+            NSArray *arr = r.resultMap[@"list"];
+            for (NSDictionary *d in arr) {
+                FAQSModel *item = [[FAQSModel alloc] initWithJson:jsonBuild(d)];
+                if (item) {
+                    FAQSCategoryModel *categoryModel = nil;
+                    for(FAQSCategoryModel *model in resultArray){
+                        if([model.moduleType isEqualToString:item.moduleType]){
+                            categoryModel = model;
+                        }
+                    }
+                    if(!categoryModel){
+                        categoryModel = [FAQSCategoryModel new];
+                        categoryModel.faqsModelArray = [[NSMutableArray alloc]init];
+                        categoryModel.moduleType = item.moduleType;
+                        [resultArray addObject:categoryModel];
+                    }
+                    [categoryModel.faqsModelArray addObject:item];
+                }
+            }
+        }
+        if (completed) {
+            foreTask(^{
+                completed(resultArray,totalFound);
+            });
+        }
+    }];
+}
+
++(void)settingUploadPictrue:(NSString*)localFilePath completed:(void(^)(BOOL success,NSString *msg,NSString *attachId))completed {
+    NSLog(@"1-----------%@",localFilePath);
+    HttpResult *r = [self upload:@"file/uploadFile" localFilePath:localFilePath modular:@"setting"];
+    if (r.OK) {
+        //{"photoName":"5d7a4a76219e4c78b2b4656cf4bc80f2_test.png"}
+        id v = r.resultMap[@"ori"];
+    }
+}
+
++(void)addFeedback:(NSString*)feedbackContent email:(NSString*)email attachmentId:(NSString*)attachmentId completed:(void(^)(BOOL success,NSString *msg))completed {
+    
+    NSDictionary *paradic = @{@"feedbackContent" : [NSString isBlankString:feedbackContent]?@"":feedbackContent,
+                              @"contactEmail" : [NSString isBlankString:email]?@"":email,
+                              @"attachments" : [NSString isBlankString:attachmentId]?@"":attachmentId
+                              };
+    
+    [self postAsync3:@"feedback" dic:paradic modular:@"setting" callback:^(HttpResult *r) {
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg);
+            });
+        }
+    }];
+}
+
+//MARK:2.1  添加编辑通用设置
++(void)addGeneralsettings:(BOOL)useFaceID useDsoDentistOffline:(BOOL)useDsoDentistOffline playbackSpeed:(NSString *)playbackSpeed videoDownloadQuality:(NSString *)videoDownloadQuality downloadOnlyWiFi:(BOOL)downloadOnlyWiFi completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithBool:useFaceID] forKey:@"useFaceID"];
+    [paradic setObject:[NSNumber numberWithBool:useDsoDentistOffline] forKey:@"useDsoDentistOffline"];
+    if (playbackSpeed) {
+        [paradic setObject:playbackSpeed forKey:@"playbackSpeed"];
+    }
+    if (videoDownloadQuality) {
+        [paradic setObject:videoDownloadQuality forKey:@"videoDownloadQuality"];
+    }
+    [paradic setObject:[NSNumber numberWithBool:downloadOnlyWiFi] forKey:@"downloadOnlyWiFi"];
+    [self postAsync3:@"generalsettings" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r);
+        }
+    }];
+}
+
+//2.4    查看通用设置详情
++ (void)QueryGeneralsettings:(void(^)(GeneralSettingsModel *generalModel))completed {
+    
+    [self  postAsync:@"generalsettings" dic:nil modular:@"setting" callback:^(HttpResult *r) {
+        GeneralSettingsModel *model = nil;
+        if (r.OK && r.resultMap[@"data"]) {
+            NSDictionary *dic =  r.resultMap[@"data"];
+            model = [[GeneralSettingsModel alloc] initWithJson:jsonBuild(dic)];
+            
+        }
+        if(completed){
+            foreTask(^{
+                completed(model);
+            });
+        }
+    }];
+}
+
+//MARK:2.6  添加编辑通知设置
++(void)addNotifications:(BOOL)uniteMagazine education:(BOOL)education events:(BOOL)events career:(BOOL)career completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithBool:uniteMagazine] forKey:@"uniteMagazine"];
+    [paradic setObject:[NSNumber numberWithBool:education] forKey:@"education"];
+    [paradic setObject:[NSNumber numberWithBool:events] forKey:@"events"];
+    [paradic setObject:[NSNumber numberWithBool:career] forKey:@"career"];
+    [self postAsync3:@"notification_switch" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
+        if (completed) {
+            completed(r);
+        }
+    }];
+}
+
+//2.9    查看通知设置详情
++ (void)QueryNotifications:(void(^)(NotificationModel *notificationModel))completed {
+    
+    [self  postAsync:@"notification_switch" dic:nil modular:@"setting" callback:^(HttpResult *r) {
+        NotificationModel *model = nil;
+        if (r.OK && r.resultMap[@"data"]) {
+            NSDictionary *dic =  r.resultMap[@"data"];
+            model = [[NotificationModel alloc] initWithJson:jsonBuild(dic)];
+            
+        }
+        if(completed){
+            foreTask(^{
+                completed(model);
+            });
+        }
+    }];
+}
 
 @end

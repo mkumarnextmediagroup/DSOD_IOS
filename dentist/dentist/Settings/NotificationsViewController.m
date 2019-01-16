@@ -64,7 +64,7 @@
     cell.delegate=self;
     cell.indexPath=indexPath;
     if (indexPath.row==0) {
-        [cell setModel:@"Unite Magazine" des:@"Enable notifications" status:_model.uniteMagazine];
+        [cell setModel:@"UNITE Magazine" des:@"Enable notifications" status:_model.uniteMagazine];
     }else if (indexPath.row==1) {
         [cell setModel:@"Education" des:@"Enable notifications" status:_model.education];
     }else if (indexPath.row==2) {

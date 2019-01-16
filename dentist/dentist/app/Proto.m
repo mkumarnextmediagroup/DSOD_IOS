@@ -31,6 +31,7 @@
 #import "JobsBookmarkManager.h"
 #import "FAQSCategoryModel.h"
 #import "FAQSModel.h"
+#import "NSObject+customed.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -2565,6 +2566,30 @@
 
 #pragma mark -------------setting
 
++ (NSDictionary *)GeneralsettingsLocal:(NSString *)email {
+    NSUserDefaults *d = userConfig(email);
+    NSDictionary *dic = [d objectForKey:@"Generalsettings"];
+    return dic;
+};
+
++ (void)saveGeneralsettingsLocal:(NSString *)email info:(GeneralSettingsModel *)info {
+    NSUserDefaults *d = userConfig(email);
+    NSDictionary *dic=[NSObject dicFromObject:info];
+    [d setObject:dic forKey:@"Generalsettings"];
+}
+
++ (NSDictionary *)GeneralNotificationLocal:(NSString *)email {
+    NSUserDefaults *d = userConfig(email);
+    NSDictionary *dic = [d objectForKey:@"GeneralNotification"];
+    return dic;
+};
+
++ (void)saveGeneralNotificationLocal:(NSString *)email info:(NotificationModel *)info {
+    NSUserDefaults *d = userConfig(email);
+    NSDictionary *dic=[NSObject dicFromObject:info];
+    [d setObject:dic forKey:@"GeneralNotification"];
+}
+
 + (void)updatePwd:(NSString *)email pwd:(NSString *)pwd oldpwd:(NSString *)oldpwd  completed:(void(^)(HttpResult *result))completed {
     [self postAsync3:@"userAccount/updatePasswordByUserName" dic:@{@"username": email, @"password": pwd, @"old_password": oldpwd} modular:@"profile" callback:^(HttpResult *r) {
         if (completed) {
@@ -2785,8 +2810,7 @@
                     model.downloadOnlyWiFi=YES;
                 }
             }
-            
-            
+            [self saveGeneralsettingsLocal:getLastAccount() info:model];
             if(completed){
                 foreTask(^{
                     completed(model,YES);
@@ -2884,6 +2908,7 @@
                 model.events=NO;
                 model.career=NO;
             }
+            [self saveGeneralNotificationLocal:getLastAccount() info:model];
             if(completed){
                 foreTask(^{
                     completed(model,YES);

@@ -99,7 +99,7 @@
     UILabel *titleLabel = [titleView addLabel];
     titleLabel.font = [Fonts regular:15];
     titleLabel.textColor = [UIColor blackColor];
-    titleLabel.text = @"CONTACT US";
+    titleLabel.text = @"Contact Us";
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [[[titleLabel.layoutMaker centerXParent:0]centerYParent:0] install];
     

@@ -60,7 +60,7 @@
 
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
-    item.title = @"VIDEO QUALITY";
+    item.title = @"Playback Speed";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
 }
 

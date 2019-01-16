@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FAQSCategoryTableViewCell : UITableViewCell
 
--(void)setText:(NSString*)text;
+-(void)setText:(NSString*)text isLastItem:(BOOL)isLastItem;
 
 @end
 

@@ -18,6 +18,8 @@
 #import "HelpAndFeedbackViewController.h"
 #import "FeedbackAndSupportViewController.h"
 #import "GeneralViewController.h"
+#import "GeneralSettingsModel.h"
+#import "NotificationModel.h"
 
 #define edge 18
 @interface SettingController()<UITableViewDelegate,UITableViewDataSource>
@@ -27,10 +29,31 @@
     NSArray *imageArr2;
     NSArray *infoArr2;
     UITableView *myTable;
+    GeneralSettingsModel *generalModel;
+    BOOL querygeneral;
+    NotificationModel *notificationModel;
+    BOOL querynotification;
 }
 @end
 
 @implementation SettingController {
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self->querygeneral=NO;
+    self->querynotification=NO;
+    [Proto QueryGeneralsettings:^(GeneralSettingsModel *generalModel,BOOL result) {
+        NSLog(@"generalModel=%@",generalModel);
+        self->generalModel=generalModel;
+        self->querygeneral=result;
+    }];
+    [Proto QueryNotifications:^(NotificationModel *notificationModel, BOOL result) {
+        NSLog(@"notificationModel=%@",notificationModel);
+        self->notificationModel=notificationModel;
+        self->querynotification=result;
+    }];
 }
 
 - (void)viewDidLoad {
@@ -59,9 +82,7 @@
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
     
-    [Proto QueryGeneralsettings:^(GeneralSettingsModel *generalModel) {
-        NSLog(@"generalModel=%@",generalModel);
-    }];
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -141,14 +162,38 @@
         switch (indexPath.row) {
             case 0:
             {
-                GeneralViewController *generalvc=[GeneralViewController new];
-                [self.navigationController pushViewController:generalvc animated:YES];
+                if (self->querygeneral) {
+                    GeneralViewController *generalvc=[GeneralViewController new];
+                    generalvc.model=self->generalModel;
+                    [self.navigationController pushViewController:generalvc animated:YES];
+                }else{
+                    [self showLoading];
+                    [Proto QueryGeneralsettings:^(GeneralSettingsModel *generalModel,BOOL result) {
+                        [self hideLoading];
+                        GeneralViewController *generalvc=[GeneralViewController new];
+                        generalvc.model=generalModel;
+                        [self.navigationController pushViewController:generalvc animated:YES];
+                    }];
+                }
+                
             }
                 break;
             case 1:
             {
-                NotificationsViewController *notificationvc=[NotificationsViewController new];
-                [self.navigationController pushViewController:notificationvc animated:YES];
+                if (self->querynotification) {
+                    NotificationsViewController *notificationvc=[NotificationsViewController new];
+                    notificationvc.model=self->notificationModel;
+                    [self.navigationController pushViewController:notificationvc animated:YES];
+                }else{
+                    [self showLoading];
+                    [Proto QueryNotifications:^(NotificationModel *notificationModel, BOOL result) {
+                        [self hideLoading];
+                        NotificationsViewController *notificationvc=[NotificationsViewController new];
+                        notificationvc.model=notificationModel;
+                        [self.navigationController pushViewController:notificationvc animated:YES];
+                    }];
+                }
+                
             }
                 break;
             case 2:

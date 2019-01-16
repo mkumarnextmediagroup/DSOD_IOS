@@ -9,6 +9,7 @@
 #import "PlaybackSpeedViewController.h"
 #import "Common.h"
 #import "SettingLabelAndCheckedTableViewCell.h"
+#import "Proto.h"
 
 @interface PlaybackSpeedViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -94,7 +95,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    [PlaybackSpeedViewController saveCheckedPlaybackSpeedText:dataArray[indexPath.row][@"text"]];
-    [tableView reloadData];
+    [self showLoading];
+    [Proto addGeneralsettingsVideoDownloadQuality:dataArray[indexPath.row][@"text"] completed:^(HttpResult *result) {
+        [self hideLoading];
+        if (result.OK) {
+             [PlaybackSpeedViewController saveCheckedPlaybackSpeedText:self->dataArray[indexPath.row][@"text"]];
+            [tableView reloadData];
+        }
+    }];
+   
+    
 }
 @end

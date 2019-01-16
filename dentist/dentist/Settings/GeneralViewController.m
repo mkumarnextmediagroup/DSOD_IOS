@@ -11,8 +11,9 @@
 #import "GeneralTableViewCell.h"
 #import "VideoQualityViewController.h"
 #import "PlaybackSpeedViewController.h"
+#import "Proto.h"
 
-@interface GeneralViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface GeneralViewController ()<UITableViewDelegate,UITableViewDataSource,GeneralTableViewCellDelegate>
 {
     NSArray *infoArr;
     NSArray *infoArr2;
@@ -25,6 +26,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    BOOL qq=nil;
+    if (qq==YES) {
+        NSLog(@"qq==Yes");
+    }
+    if (qq==NO) {
+        NSLog(@"qq==no");
+    }
+    if (_model==nil) {
+        _model=[GeneralSettingsModel new];
+        _model.userId=getLastAccount();
+        _model.useFaceID=NO;
+        _model.useDsoDentistOffline=NO;
+        _model.videoDownloadQuality=@"Auto";
+        _model.playbackSpeed=@"1.0x";
+        _model.downloadOnlyWiFi=NO;
+    }else{
+        if (!_model.videoDownloadQuality) {
+            _model.videoDownloadQuality=@"Auto";
+        }
+        if (!_model.playbackSpeed) {
+            _model.playbackSpeed=@"1.0x";
+        }
+    }
     infoArr = [NSArray arrayWithObjects:@{@"title":@"Use Face ID",@"des":@"Use Face ID to login"},@{@"title":@"Use DSODentist offline",@"des":@"if it's on,app will not use Wi-Fi or cellular data"}, nil];
     infoArr2 = [NSArray arrayWithObjects:@{@"title":@"Video download quality",@"des":@"auto"},@{@"title":@"Playback Speed",@"des":@"1.0 x"}, nil];
     infoArr3 = [NSArray arrayWithObjects:@{@"title":@"Download over Wi-Fi only",@"des":@"Allow to download contents over Wi-Fi only"}, nil];
@@ -48,10 +72,11 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    
-    infoArr2 = [NSArray arrayWithObjects:
-                @{@"title":@"Video download quality",@"des":[VideoQualityViewController getCheckedVideoQualityText]},
-                @{@"title":@"Playback Speed",@"des":[PlaybackSpeedViewController getCheckedPlaybackSpeedText]}, nil];
+    _model.videoDownloadQuality=[VideoQualityViewController getCheckedVideoQualityText];
+    _model.playbackSpeed=[PlaybackSpeedViewController getCheckedPlaybackSpeedText];
+//    infoArr2 = [NSArray arrayWithObjects:
+//                @{@"title":@"Video download quality",@"des":[VideoQualityViewController getCheckedVideoQualityText]},
+//                @{@"title":@"Playback Speed",@"des":[PlaybackSpeedViewController getCheckedPlaybackSpeedText]}, nil];
     [myTable reloadData];
     
 }
@@ -125,11 +150,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     GeneralTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([GeneralTableViewCell class]) forIndexPath:indexPath];
+    cell.delegate=self;
+    cell.indexPath=indexPath;
     if (indexPath.section==0) {
         cell.accessoryType = UITableViewCellAccessoryNone;
         if(infoArr.count>indexPath.row){
             NSDictionary *dic=infoArr[indexPath.row];
-            [cell setModel:[dic objectForKey:@"title"] des:[dic objectForKey:@"des"] status:YES];
+            if (indexPath.row==0) {
+                [cell setModel:[dic objectForKey:@"title"] des:[dic objectForKey:@"des"] status:_model.useFaceID];
+            }else if (indexPath.row==1){
+                [cell setModel:[dic objectForKey:@"title"] des:[dic objectForKey:@"des"] status:_model.useDsoDentistOffline];
+            }
+            
         }
         
     }else if (indexPath.section==1){
@@ -138,13 +170,17 @@
         cell.isSwitch=NO;
         if(infoArr2.count>indexPath.row){
             NSDictionary *dic=infoArr2[indexPath.row];
-            [cell setModel:[dic objectForKey:@"title"] des:[dic objectForKey:@"des"] status:YES];
+            if (indexPath.row==0) {
+                [cell setModel:[dic objectForKey:@"title"] des:_model.videoDownloadQuality status:YES];
+            }else if (indexPath.row==1){
+                [cell setModel:[dic objectForKey:@"title"] des:_model.playbackSpeed status:YES];
+            }
         }
     }else{
         cell.accessoryType = UITableViewCellAccessoryNone;
         if(infoArr3.count>indexPath.row){
             NSDictionary *dic=infoArr3[indexPath.row];
-            [cell setModel:[dic objectForKey:@"title"] des:[dic objectForKey:@"des"] status:YES];
+            [cell setModel:[dic objectForKey:@"title"] des:[dic objectForKey:@"des"] status:_model.downloadOnlyWiFi];
         }
     }
     return cell;
@@ -159,6 +195,48 @@
         }else if (indexPath.row==1){
             [PlaybackSpeedViewController openBy:self];
         }
+    }
+}
+
+-(void)SwitchChangeAction:(BOOL)status indexPath:(NSIndexPath *)indexPath view:(UIView *)view
+{
+    [self showLoading];
+    if (indexPath.section==0) {
+        if (indexPath.row==0) {
+            [Proto addGeneralsettingsUseFaceID:status completed:^(HttpResult *result) {
+                [self hideLoading];
+                if (result.OK) {
+                    GeneralTableViewCell *cell =(GeneralTableViewCell *)view;
+                    [cell setModelSwitch:status];
+                }else{
+                    GeneralTableViewCell *cell =(GeneralTableViewCell *)view;
+                    [cell setModelSwitch:!status];
+                }
+            }];
+        }else if (indexPath.row==1){
+            [Proto addGeneralsettingsUseDsoDentistOffline:status completed:^(HttpResult *result) {
+                [self hideLoading];
+                if (result.OK) {
+                    GeneralTableViewCell *cell =(GeneralTableViewCell *)view;
+                    [cell setModelSwitch:status];
+                }else{
+                    GeneralTableViewCell *cell =(GeneralTableViewCell *)view;
+                    [cell setModelSwitch:!status];
+                }
+            }];
+        }
+        
+    }else if (indexPath.section==2){
+        [Proto addGeneralsettingsDownloadOnlyWiFi:status completed:^(HttpResult *result) {
+            [self hideLoading];
+            if (result.OK) {
+                GeneralTableViewCell *cell =(GeneralTableViewCell *)view;
+                [cell setModelSwitch:status];
+            }else{
+                GeneralTableViewCell *cell =(GeneralTableViewCell *)view;
+                [cell setModelSwitch:!status];
+            }
+        }];
     }
 }
 

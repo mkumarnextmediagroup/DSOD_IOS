@@ -8,13 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol GeneralTableViewCellDelegate <NSObject>
+@optional
+- (void)SwitchChangeAction:(BOOL)status indexPath:(NSIndexPath *)indexPath view:(UIView *)view;
+@end
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GeneralTableViewCell : UITableViewCell
-
+@property (nonatomic,copy) NSIndexPath *indexPath;
 @property (nonatomic,assign) BOOL isSwitch;
+@property (nonatomic,weak) id<GeneralTableViewCellDelegate>delegate;
 
 -(void)setModel:(NSString *)title des:(NSString *)des status:(BOOL)status;
+-(void)setModelSwitch:(BOOL)status;
+
 @end
 
 NS_ASSUME_NONNULL_END

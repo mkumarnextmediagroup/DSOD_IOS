@@ -89,9 +89,15 @@
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tableView registerClass:FAQSCategoryTableViewCell.class forCellReuseIdentifier:NSStringFromClass(FAQSCategoryTableViewCell.class)];
     [tableView registerClass:FAQSTableViewCell.class forCellReuseIdentifier:NSStringFromClass(FAQSTableViewCell.class)];
-    [tableView onClickView:self action:@selector(keyboardHide)];
     [self.view addSubview:tableView];
     [[[[[tableView.layoutMaker leftParent:0] rightParent:0] below:noResultView offset:15] bottomParent:0] install];
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide)];
+    //设置成NO表示当前控件响应后会传播到其他控件上，默认为YES。
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    [tableView addGestureRecognizer:tapGestureRecognizer];
+    
+    
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -260,6 +266,17 @@
         [strongSelf keyboardHide];
     };
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self keyboardHide];
+    
+    if(![self isSearchMode]){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [FAQSViewController openBy:self categoryModel:categories[indexPath.row]];
+        });
+    }
 }
 
 @end

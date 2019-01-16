@@ -11,7 +11,7 @@
 @implementation FAQSModel
 
 + (JSONKeyMapper *)keyMapper{
-    return [[JSONKeyMapper alloc] initWithDictionary:@{@"description" : @"desc"}];
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"id":@"_id",@"description" : @"desc"}];
 }
 
 @end

@@ -1772,11 +1772,21 @@
 }
 
 + (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath modular:(NSString *)modular {
-	return [Proto upload:action localFilePath:localFilePath modular:modular progress:nil];
+    return [Proto upload:action localFilePath:localFilePath fileContentType:nil modular:modular];
 }
 
 
++ (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath fileContentType:(NSString*)fileContentType modular:(NSString *)modular {
+    return [Proto upload:action localFilePath:localFilePath fileContentType:fileContentType modular:modular progress:nil];
+}
+
 + (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath modular:(NSString *)modular progress:(id<HttpProgress>)httpProgressSend{
+    return [Proto upload:action localFilePath:localFilePath fileContentType:nil modular:modular progress:httpProgressSend];
+}
+
+
+
++ (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath fileContentType:(NSString*)fileContentType modular:(NSString *)modular progress:(id<HttpProgress>)httpProgressSend{
     NSString *baseUrl = [self configUrl:modular];
     Http *h = [Http new];
     h.progressSend = httpProgressSend;
@@ -1789,6 +1799,10 @@
     }
     [h arg:@"client_id" value:@"fooClientIdPassword"];
     [h file:@"file" value:localFilePath];
+    if(fileContentType){
+        [h fileContentType:@"file" value:fileContentType];
+    }
+    
     HttpResult *r = [h multipart];
     return r;
 }
@@ -2611,10 +2625,16 @@
 
 +(void)settingUploadPictrue:(NSString*)localFilePath completed:(void(^)(BOOL success,NSString *msg,NSString *attachId))completed {
     NSLog(@"1-----------%@",localFilePath);
-    HttpResult *r = [self upload:@"file/uploadFile" localFilePath:localFilePath modular:@"setting"];
+    HttpResult *r = [self upload:@"file/uploadFile" localFilePath:localFilePath fileContentType:@"image/png" modular:@"setting"];
+    NSString *attachId = nil;
     if (r.OK) {
-        //{"photoName":"5d7a4a76219e4c78b2b4656cf4bc80f2_test.png"}
-        id v = r.resultMap[@"ori"];
+        //{"originalFigureId":"5d7a4a76219e4c78b2b4656cf4bc80f2"}
+        attachId = r.resultMap[@"originalFigureId"];
+    }
+    if(completed){
+        foreTask(^{
+            completed(r.OK,r.msg,attachId);
+        });
     }
 }
 

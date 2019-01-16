@@ -101,6 +101,7 @@
         if (result.OK) {
              [PlaybackSpeedViewController saveCheckedPlaybackSpeedText:self->dataArray[indexPath.row][@"text"]];
             [tableView reloadData];
+            [self dismiss];
         }
     }];
    

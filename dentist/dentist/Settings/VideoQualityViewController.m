@@ -103,6 +103,7 @@
         if (result.OK) {
             [VideoQualityViewController saveCheckedVideoQualityText:self->dataArray[indexPath.row][@"text"]];
             [tableView reloadData];
+            [self dismiss];
         }
     }];
     

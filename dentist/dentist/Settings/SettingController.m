@@ -69,7 +69,7 @@
 	[[[lb.layoutMaker centerParent] sizeFit] install];
 
 	UINavigationItem *item = [self navigationItem];
-	item.title = @"SETTING";
+	item.title = @"Settings";
 //    item.rightBarButtonItems = @[
 //        [self navBarText:@"Logout" target:self action:@selector(onClickLogout:)]
 //    ];
@@ -225,7 +225,7 @@
                 break;
         }
     }else{
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Sign Out" message:@"Are you sure that you want to sign out from the app" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Sign Out" message:@"Are you sure that you want to sign out from the app?" preferredStyle:UIAlertControllerStyleAlert];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         }]];

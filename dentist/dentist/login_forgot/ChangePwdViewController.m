@@ -35,7 +35,7 @@
     lbReg.font = [Fonts regular:17];
     lbReg.numberOfLines = 0;
     lbReg.textColor = [UIColor blackColor];
-    [[[[[lbReg.layoutMaker leftParent:EDGE] rightParent:-EDGE] topParent:EDGE] heightEq:45] install];
+    [[[[[lbReg.layoutMaker leftParent:EDGE] rightParent:-EDGE] topParent:EDGE+NAVHEIGHT] heightEq:45] install];
     
     codeEdit = self.view.addEditRoundedGray;
     codeEdit.delegate = self;

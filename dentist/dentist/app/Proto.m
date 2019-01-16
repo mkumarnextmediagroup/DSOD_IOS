@@ -1631,7 +1631,7 @@
     if (value==1) {
         return @"https://devupapi1.dsodentist.com/";
     }else{
-        return @"http://dsod.aikontec.com/";
+        return @"http://dsod.aikontec.com:88/";
     }
 }
 

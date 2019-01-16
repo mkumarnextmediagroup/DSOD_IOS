@@ -14,6 +14,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 +(void)openBy:(UIViewController*)vc dsoId:(NSString*)dsoId successCallbak:(void(^)(void))addReviewSuccessCallbak;
+- (void)viewDidLoad;
+- (void)keyboardWillShow:(NSNotification *)aNotification;
+- (void)keyboardWillHide:(NSNotification *)aNotification;
+- (void)addNavBar;
+- (void)buildViews;
+- (void)employeeChange:(UIButton*)button;
+- (void)selectChanged:(UIButton*)button;
+- (void)submitBtnClick;
+- (BOOL)textViewShouldBeginEditing:(UITextView*)textView;
+- (void) textViewDidEndEditing:(UITextView*)textView;
+- (NSString*)text:(UITextView*)textView;
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
 
 @end
 

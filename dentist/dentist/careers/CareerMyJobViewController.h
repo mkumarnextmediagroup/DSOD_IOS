@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CareerMyJobViewController : UIViewController
 
+@property NSInteger selectIndex;
+
 - (void)createEmptyNotice;
 - (void)backToFirst;
 - (void)tableReloadData;

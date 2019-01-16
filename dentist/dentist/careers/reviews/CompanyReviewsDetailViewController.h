@@ -14,8 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyReviewsDetailViewController : UIViewController
 
-
 +(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel companyReviewModel:(CompanyReviewModel*)reviewModel ;
+- (void)viewDidLoad;
+-(void)addNavBar;
+-(void)buildViews;
+-(void)loadData;
 
 @end
 

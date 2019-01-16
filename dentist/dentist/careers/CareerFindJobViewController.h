@@ -10,6 +10,8 @@
 
 @interface CareerFindJobViewController : UIViewController
 
+@property NSMutableArray *infoArr;
+
 - (void)createEmptyNotice;
 - (void)backToFirst;
 - (void)refreshData;

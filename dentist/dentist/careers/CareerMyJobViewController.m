@@ -27,7 +27,6 @@
     UITableView *myTable;
     UILabel *jobCountTitle;
     DentistTabView *tabView;
-    NSInteger selectIndex;
     NSMutableArray *applyArr;
     NSMutableArray *followArr;
     NSInteger applyCount;
@@ -43,7 +42,7 @@
     [super viewWillAppear:animated];
     __block BOOL updatedata=NO;
     __block NSInteger updatecount=0;
-    if(selectIndex==1){
+    if(_selectIndex==1){
         if (self->followArr && self->followArr.count>0) {
             [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if ([obj isKindOfClass: [JobBookmarkModel class]]) {
@@ -81,7 +80,7 @@
             updatedata=YES;
         }
         
-    }else if (selectIndex==0){
+    }else if (_selectIndex==0){
         if (self->applyArr && self->applyArr.count>0) {
             NSMutableArray *temparr=[[JobsBookmarkManager shareManager] applyArr];
             [temparr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -152,7 +151,7 @@
         tipLabel.font = [Fonts semiBold:16];
         tipLabel.textColor =[UIColor blackColor];
         [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
-        if (self->selectIndex==0) {
+        if (self->_selectIndex==0) {
             [headBtn setImage:[UIImage imageNamed:@"noun_receipt"] forState:UIControlStateNormal];
             tipLabel.text=@"You have not yet applied for a \njob\nthrough DSODentis";
         }else{
@@ -179,7 +178,7 @@
 
 -(void)refreshData
 {
-    if(selectIndex==0){
+    if(_selectIndex==0){
         [self setJobCountTitle:self->applyCount];
         [self->myTable reloadData];
         [self showIndicator];
@@ -292,7 +291,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (selectIndex==0) {
+    if (_selectIndex==0) {
         return applyArr.count;
     }else{
         return followArr.count;
@@ -304,7 +303,7 @@
     FindJobsSponsorTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"myjobcell" forIndexPath:indexPath];
     cell.delegate=self;
     cell.indexPath=indexPath;
-    if (selectIndex==0) {
+    if (_selectIndex==0) {
         if (self->applyArr && self->applyArr.count>indexPath.row) {
             JobApplyModel *applymodel=(JobApplyModel *)self->applyArr[indexPath.row];
             cell.isHideNew=YES;
@@ -332,7 +331,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString *jobid;
-    if (selectIndex==0) {
+    if (_selectIndex==0) {
         if (self->applyArr && self->applyArr.count>indexPath.row) {
             JobApplyModel *applymodel=(JobApplyModel *)self->applyArr[indexPath.row];
             jobid=applymodel.jobId;
@@ -345,12 +344,12 @@
     }
     if (jobid) {
         BOOL isshowapplybtn=NO;
-        if (selectIndex==0) {
+        if (_selectIndex==0) {
             isshowapplybtn=YES;
         }
         [JobDetailViewController presentBy:nil jobId:jobid isShowApply:isshowapplybtn closeBack:^(NSString * jobid,NSString *unFollowjobid) {
             foreTask(^{
-                if (self->selectIndex==1 && ![NSString isBlankString:unFollowjobid]) {
+                if (self->_selectIndex==1 && ![NSString isBlankString:unFollowjobid]) {
                     [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                         if ([obj isKindOfClass: [JobBookmarkModel class]]) {
                             JobBookmarkModel *model=(JobBookmarkModel *)obj;
@@ -392,7 +391,7 @@
         NSLog(@"==================================下啦刷选;bottomOffset=%@;height-50=%@",@(bottomOffset),@(height-50));
         if (!isdownrefresh) {
             isdownrefresh=YES;
-            if(selectIndex==0){
+            if(_selectIndex==0){
                 [self showIndicator];
                 [Proto queryAllApplicationJobs:self->applyArr.count completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                     foreTask(^{
@@ -433,7 +432,7 @@
 -(void)didDentistSelectItemAtIndex:(NSInteger)index
 {
     NSLog(@"selectindex=%@",@(index));
-    selectIndex=index;
+    _selectIndex=index;
     [self refreshData];
 }
 
@@ -442,7 +441,7 @@
 {
     NSLog(@"FollowJobAction");
     NSString *jobid;
-    if (selectIndex==0) {
+    if (_selectIndex==0) {
         if (self->applyArr && self->applyArr.count>indexPath.row) {
             JobApplyModel *applymodel=(JobApplyModel *)self->applyArr[indexPath.row];
             jobid=applymodel.jobId;
@@ -472,7 +471,7 @@
 {
     NSLog(@"UnFollowJobAction");
     NSString *followid;
-    if (selectIndex==1) {
+    if (_selectIndex==1) {
         if (self->followArr && self->followArr.count>indexPath.row) {
             JobBookmarkModel *followmodel=(JobBookmarkModel *)self->followArr[indexPath.row];
             followid=followmodel.jobId;

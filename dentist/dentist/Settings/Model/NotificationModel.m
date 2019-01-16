@@ -9,5 +9,8 @@
 #import "NotificationModel.h"
 
 @implementation NotificationModel
-
++(BOOL)propertyIsOptional:(NSString *)propertyName
+{
+    return YES;
+}
 @end

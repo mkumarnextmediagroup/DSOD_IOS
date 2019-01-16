@@ -24,6 +24,8 @@
         switchBtn.layer.cornerRadius = switchBtn.frame.size.height/2.0;
         switchBtn.layer.masksToBounds=true;
         [[[switchBtn.layoutMaker rightParent:-25] centerYParent:0 ] install];
+        [switchBtn addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+    
         switchBtn.backgroundColor=Colors.bgDisabled;
         // 设置控件开启状态填充色
         switchBtn.onTintColor = Colors.textDisabled;
@@ -61,10 +63,21 @@
     desLabel.text=des;
     switchBtn.on=status;
 }
+-(void)setModelSwitch:(BOOL)status
+{
+    switchBtn.on=status;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+-(void)switchAction:(UISwitch *)sender{
+    BOOL isButtonOn = [sender isOn];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(SwitchChangeAction:indexPath:view:)]) {
+        [self.delegate SwitchChangeAction:isButtonOn indexPath:_indexPath view:self];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

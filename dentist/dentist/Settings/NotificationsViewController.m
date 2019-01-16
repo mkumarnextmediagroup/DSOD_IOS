@@ -21,14 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (_model==nil) {
-        _model=[NotificationModel new];
-        _model.userId=getLastAccount();
-        _model.uniteMagazine=NO;
-        _model.education=NO;
-        _model.events=NO;
-        _model.career=NO;
-    }
+    
     self.view.backgroundColor=[UIColor whiteColor];
     UINavigationItem *item = [self navigationItem];
     item.leftBarButtonItem = [self navBarBack:self action:@selector(back)];

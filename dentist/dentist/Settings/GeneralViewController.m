@@ -33,22 +33,7 @@
     if (qq==NO) {
         NSLog(@"qq==no");
     }
-    if (_model==nil) {
-        _model=[GeneralSettingsModel new];
-        _model.userId=getLastAccount();
-        _model.useFaceID=NO;
-        _model.useDsoDentistOffline=NO;
-        _model.videoDownloadQuality=@"Auto";
-        _model.playbackSpeed=@"1.0x";
-        _model.downloadOnlyWiFi=NO;
-    }else{
-        if (!_model.videoDownloadQuality) {
-            _model.videoDownloadQuality=@"Auto";
-        }
-        if (!_model.playbackSpeed) {
-            _model.playbackSpeed=@"1.0x";
-        }
-    }
+    
     infoArr = [NSArray arrayWithObjects:@{@"title":@"Use Face ID",@"des":@"Use Face ID to login"},@{@"title":@"Use DSODentist offline",@"des":@"if it's on,app will not use Wi-Fi or cellular data"}, nil];
     infoArr2 = [NSArray arrayWithObjects:@{@"title":@"Video download quality",@"des":@"auto"},@{@"title":@"Playback Speed",@"des":@"1.0 x"}, nil];
     infoArr3 = [NSArray arrayWithObjects:@{@"title":@"Download over Wi-Fi only",@"des":@"Allow to download contents over Wi-Fi only"}, nil];

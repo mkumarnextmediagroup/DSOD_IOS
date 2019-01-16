@@ -20,7 +20,6 @@
 
 @interface CareerFindJobViewController ()<UITableViewDelegate,UITableViewDataSource,JobsTableCellDelegate,UIScrollViewDelegate,FilterViewDelegate>
 {
-    NSMutableArray *infoArr;
     UITableView *myTable;
     UILabel *jobCountTitle;
     BOOL isdownrefresh;
@@ -80,7 +79,6 @@
     [[[[[myTable.layoutMaker leftParent:0] rightParent:0] topParent:_topBarH] bottomParent:-_bottomBarH] install];
     [self setupRefresh];
     [self createEmptyNotice];
-
     // Do any additional setup after loading the view.
 }
 
@@ -133,7 +131,7 @@
             [self hideIndicator];
             [self setJobCountTitle:totalCount];
             NSLog(@"%@",array);
-            self->infoArr = [NSMutableArray arrayWithArray:array];
+            self->_infoArr = [NSMutableArray arrayWithArray:array];
             [self->myTable reloadData];
             
         });
@@ -223,12 +221,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return infoArr.count;
+    return _infoArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self->infoArr && self->infoArr.count>indexPath.row) {
-        JobModel *model=self->infoArr[indexPath.row];
+    if (self->_infoArr && self->_infoArr.count>indexPath.row) {
+        JobModel *model=self->_infoArr[indexPath.row];
         if (model.paid) {
             FindJobsSponsorTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsSponsorTableViewCell class]) forIndexPath:indexPath];
             cell.delegate=self;
@@ -246,8 +244,8 @@
         FindJobsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([FindJobsTableViewCell class]) forIndexPath:indexPath];
         cell.delegate=self;
         cell.indexPath=indexPath;
-        if (self->infoArr && self->infoArr.count>indexPath.row) {
-            cell.info=self->infoArr[indexPath.row];
+        if (self->_infoArr && self->_infoArr.count>indexPath.row) {
+            cell.info=self->_infoArr[indexPath.row];
         }
         return cell;
     }
@@ -258,7 +256,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    JobModel *jobModel = infoArr[indexPath.row];
+    JobModel *jobModel = _infoArr[indexPath.row];
     [JobDetailViewController presentBy:(self.tabBarController != nil?nil:self) jobId:jobModel.id closeBack:^(NSString * jobid,NSString *unFollowjobid) {
         foreTask(^{
             if (![NSString isBlankString:jobid]) {
@@ -285,14 +283,14 @@
             NSLog(@"==================================下啦刷选;contentOffsetY=%@;consizeheight=%@;bottomOffset=%@;height=%@；",@(contentOffsetY),@(consizeheight),@(bottomOffset),@(height));
             isdownrefresh=YES;
             [self showIndicator];
-            [Proto queryAllJobs:self->infoArr.count filterDic:filterDic completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+            [Proto queryAllJobs:self->_infoArr.count filterDic:filterDic completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                 self->isdownrefresh=NO;
                 foreTask(^{
                     [self hideIndicator];
                     [self setJobCountTitle:totalCount];
                     NSLog(@"%@",array);
                     if(array && array.count>0){
-                        [self->infoArr addObjectsFromArray:array];
+                        [self->_infoArr addObjectsFromArray:array];
                         [self->myTable reloadData];
                     }
                 });
@@ -306,10 +304,10 @@
 -(void)FollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {
     NSLog(@"FollowJobAction");
-    if (self->infoArr && self->infoArr.count>indexPath.row) {
+    if (self->_infoArr && self->_infoArr.count>indexPath.row) {
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-        JobModel *model=self->infoArr[indexPath.row];
+        JobModel *model=self->_infoArr[indexPath.row];
         NSString *jobid=model.id;
         [Proto addJobBookmark:jobid completed:^(HttpResult *result) {
             NSLog(@"result=%@",@(result.code));
@@ -332,10 +330,10 @@
 -(void)UnFollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {
     NSLog(@"UnFollowJobAction");
-    if (self->infoArr && self->infoArr.count>indexPath.row) {
+    if (self->_infoArr && self->_infoArr.count>indexPath.row) {
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-        JobModel *model=self->infoArr[indexPath.row];
+        JobModel *model=self->_infoArr[indexPath.row];
         NSString *jobid=model.id;
         [Proto deleteJobBookmarkByJobId:jobid completed:^(HttpResult *result) {
             NSLog(@"result=%@",@(result.code));

@@ -2771,6 +2771,22 @@
         if (r.OK && r.resultMap[@"data"]) {
             NSDictionary *dic =  r.resultMap[@"data"];
             model = [[GeneralSettingsModel alloc] initWithJson:jsonBuild(dic)];
+            if (model==nil) {
+                model=[GeneralSettingsModel new];
+                model.userId=getLastAccount();
+                model.useFaceID=NO;
+                model.useDsoDentistOffline=NO;
+                model.videoDownloadQuality=@"Auto";
+                model.playbackSpeed=@"1.0x";
+                model.downloadOnlyWiFi=YES;
+            }else{
+                id downloadOnlyWiFiobj=[dic objectForKey:@"downloadOnlyWiFi"];
+                if (downloadOnlyWiFiobj == nil || downloadOnlyWiFiobj == NULL || [downloadOnlyWiFiobj isKindOfClass:[NSNull class]]) {
+                    model.downloadOnlyWiFi=YES;
+                }
+            }
+            
+            
             if(completed){
                 foreTask(^{
                     completed(model,YES);
@@ -2860,6 +2876,14 @@
         if (r.OK && r.resultMap[@"data"]) {
             NSDictionary *dic =  r.resultMap[@"data"];
             model = [[NotificationModel alloc] initWithJson:jsonBuild(dic)];
+            if (model==nil) {
+                model=[NotificationModel new];
+                model.userId=getLastAccount();
+                model.uniteMagazine=NO;
+                model.education=NO;
+                model.events=NO;
+                model.career=NO;
+            }
             if(completed){
                 foreTask(^{
                     completed(model,YES);

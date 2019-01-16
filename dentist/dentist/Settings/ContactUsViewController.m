@@ -157,6 +157,9 @@
     emailTextView.returnKeyType = UIReturnKeyNext;
     emailTextView.contentInset = UIEdgeInsetsMake(0, 0, 0,0);
     [[[[[emailTextView.layoutMaker below:emailLabel offset:5]leftParent:13]rightParent:-13]heightEq:45] install];
+    
+    emailTextView.textColor = rgbHex(0x4a4a4a);
+    emailTextView.tag=1;
     emailTextView.text = [Proto lastAccount];
     
     UILabel *line2 = contentView.lineLabel;

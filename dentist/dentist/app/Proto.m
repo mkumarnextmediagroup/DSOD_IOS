@@ -2503,7 +2503,7 @@
     if (location) {
         [paradic setObject:location forKey:@"location"];
     }
-    if (position) {
+    if (position && position.count>0) {
         [paradic setObject:position forKey:@"position"];
     }
     if (distance>=0) {
@@ -2547,7 +2547,7 @@
     if (location) {
         [paradic setObject:location forKey:@"location"];
     }
-    if (position) {
+    if (position && position.count>0) {
         [paradic setObject:position forKey:@"position"];
     }
     if (distance>=0) {

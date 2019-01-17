@@ -54,7 +54,7 @@
 
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
-    item.title = @"Help and feedback";
+    item.title = @"Help and Feedback";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
 }
 

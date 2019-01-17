@@ -14,11 +14,15 @@
     UILabel *desLabel;
     UISwitch *switchBtn;
     UILabel *lineLabel;
+    UILabel *toplineLabel;
 }
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        toplineLabel=self.lineLabel;
+        toplineLabel.hidden=YES;
+        [[[[[toplineLabel.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
         switchBtn = [UISwitch new];
         [self.contentView addSubview:switchBtn];
         switchBtn.layer.cornerRadius = switchBtn.frame.size.height/2.0;
@@ -45,7 +49,7 @@
         desLabel.textColor = Colors.textColor3900;
         [desLabel adjustsFontSizeToFitWidth];
         [[[[[desLabel.layoutMaker toLeftOf:switchBtn offset:-10] leftParent:18] below:titleLabel offset:0] heightEq:20] install];
-        lineLabel=self.contentView.lineLabel;
+        lineLabel=self.lineLabel;
         [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
     }
     return self;
@@ -55,6 +59,12 @@
 {
     _isSwitch=isSwitch;
     switchBtn.hidden=!isSwitch;
+}
+
+-(void)setIsShowTopLine:(BOOL)isShowTopLine
+{
+    _isShowTopLine=isShowTopLine;
+    toplineLabel.hidden=!isShowTopLine;
 }
 
 -(void)setModel:(NSString *)title des:(NSString *)des status:(BOOL)status

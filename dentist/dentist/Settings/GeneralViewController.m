@@ -156,6 +156,7 @@
         if(infoArr2.count>indexPath.row){
             NSDictionary *dic=infoArr2[indexPath.row];
             if (indexPath.row==0) {
+                cell.isShowTopLine=YES;
                 [cell setModel:[dic objectForKey:@"title"] des:_model.videoDownloadQuality status:YES];
             }else if (indexPath.row==1){
                 [cell setModel:[dic objectForKey:@"title"] des:_model.playbackSpeed status:YES];
@@ -163,6 +164,7 @@
         }
     }else{
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.isShowTopLine=YES;
         if(infoArr3.count>indexPath.row){
             NSDictionary *dic=infoArr3[indexPath.row];
             [cell setModel:[dic objectForKey:@"title"] des:[dic objectForKey:@"des"] status:_model.downloadOnlyWiFi];

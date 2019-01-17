@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface GeneralTableViewCell : UITableViewCell
 @property (nonatomic,copy) NSIndexPath *indexPath;
 @property (nonatomic,assign) BOOL isSwitch;
+@property (nonatomic,assign) BOOL isShowTopLine;
 @property (nonatomic,weak) id<GeneralTableViewCellDelegate>delegate;
 
 -(void)setModel:(NSString *)title des:(NSString *)des status:(BOOL)status;

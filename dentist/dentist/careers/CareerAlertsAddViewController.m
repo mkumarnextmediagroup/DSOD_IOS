@@ -186,11 +186,58 @@
 -(void)clickSave:(UIButton *)sender
 {
     UITableViewCell *cell = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    UITableViewCell *cell1 = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     for (UIView *view in cell.contentView.subviews) {
         if ([view isKindOfClass:[TextFieldImageView class]]) {
             TextFieldImageView *textview=(TextFieldImageView *)view;
             self->alertTitle=textview.edit.text;
         }
+    }
+    for (UIView *view in cell1.contentView.subviews) {
+        if ([view isKindOfClass:[TextFieldImageView class]]) {
+            TextFieldImageView *textview=(TextFieldImageView *)view;
+            self->currentCity=textview.edit.text;
+        }
+    }
+    if ([NSString isBlankString:self->alertTitle]) {
+        UITableViewCell *cell = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        for (UIView *view in cell.contentView.subviews) {
+            if ([view isKindOfClass:[TextFieldImageView class]]) {
+                TextFieldImageView *textview=(TextFieldImageView *)view;
+                [textview themeError];
+            }
+        }
+        return;
+    }
+    if ([NSString isBlankString:self->currentCity]) {
+        UITableViewCell *cell = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        for (UIView *view in cell.contentView.subviews) {
+            if ([view isKindOfClass:[TextFieldImageView class]]) {
+                TextFieldImageView *textview=(TextFieldImageView *)view;
+                [textview themeError];
+            }
+        }
+        return;
+    }
+    if (self->distance<=0) {
+        UITableViewCell *cell = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        for (UIView *view in cell.contentView.subviews) {
+            if ([view isKindOfClass:[TextFieldImageView class]]) {
+                TextFieldImageView *textview=(TextFieldImageView *)view;
+                [textview themeError];
+            }
+        }
+        return;
+    }
+    if (self->frequency<=0) {
+        UITableViewCell *cell = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+        for (UIView *view in cell.contentView.subviews) {
+            if ([view isKindOfClass:[TextFieldImageView class]]) {
+                TextFieldImageView *textview=(TextFieldImageView *)view;
+                [textview themeError];
+            }
+        }
+        return;
     }
     if (_model) {
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"updateing JobsRemind……" ishowActivity:YES];
@@ -227,46 +274,7 @@
             });
         }];
     }else{
-        if ([NSString isBlankString:self->alertTitle]) {
-            UITableViewCell *cell = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-            for (UIView *view in cell.contentView.subviews) {
-                if ([view isKindOfClass:[TextFieldImageView class]]) {
-                    TextFieldImageView *textview=(TextFieldImageView *)view;
-                    [textview themeError];
-                }
-            }
-            return;
-        }
-        if (self->latLongArr==nil || self->latLongArr.count<=0) {
-            UITableViewCell *cell = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-            for (UIView *view in cell.contentView.subviews) {
-                if ([view isKindOfClass:[TextFieldImageView class]]) {
-                    TextFieldImageView *textview=(TextFieldImageView *)view;
-                    [textview themeError];
-                }
-            }
-            return;
-        }
-        if (self->distance<=0) {
-            UITableViewCell *cell = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-            for (UIView *view in cell.contentView.subviews) {
-                if ([view isKindOfClass:[TextFieldImageView class]]) {
-                    TextFieldImageView *textview=(TextFieldImageView *)view;
-                    [textview themeError];
-                }
-            }
-            return;
-        }
-        if (self->frequency<=0) {
-            UITableViewCell *cell = [self->myTable  cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
-            for (UIView *view in cell.contentView.subviews) {
-                if ([view isKindOfClass:[TextFieldImageView class]]) {
-                    TextFieldImageView *textview=(TextFieldImageView *)view;
-                    [textview themeError];
-                }
-            }
-            return;
-        }
+        
         UIView *dsontoastview=[DsoToast toastViewForMessage:@"adding JobsRemind……" ishowActivity:YES];
         [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         [Proto addJobRemind:self->alertTitle location:self->currentCity position:self->latLongArr distance:self->distance frequency:self->frequency status:YES completed:^(HttpResult *result) {
@@ -422,6 +430,13 @@
     }
 }
 
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField.tag==1) {
+        latLongArr=[NSMutableArray array];
+    }
+}
+
 //MARK:点击文本操作，tableview位置恢复
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -470,7 +485,7 @@
             CLPlacemark *placeMark = placemarks[0];
             self->currentCity = placeMark.locality;
             if (!self->currentCity) {
-                self->currentCity = @"无法定位当前城市";
+                self->currentCity = @"";
             }
             
             /*看需求定义一个全局变量来接收赋值*/

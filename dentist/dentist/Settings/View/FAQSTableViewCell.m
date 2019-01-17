@@ -21,6 +21,7 @@
     UIImageView *openImg;
     
     UIView *detailView;
+    UILabel *line;
     
     int edge;
 }
@@ -60,7 +61,7 @@
     [[[[detailView.layoutMaker below:titleView offset:0]leftParent:0]rightParent:0]install];
     
     
-    UILabel *line = contentView.lineLabel;
+    line = contentView.lineLabel;
     [[[[[line.layoutMaker leftParent:0]below:detailView offset:0]bottomParent:0] sizeEq:SCREENWIDTH h:1] install];
 }
 
@@ -71,12 +72,14 @@
     }
 }
 
--(void)setData:model isOpen:(BOOL)isOpen{
+-(void)setData:model isOpen:(BOOL)isOpen isLastItem:(BOOL)isLastItem{
     faqsModel = model;
     
     titleView.backgroundColor = self.itemBgColor;
     textLabel.text = faqsModel.function;
     openImg.imageName = isOpen?@"arrow_up_gray":@"arrow_down_gray";
+    [[line.layoutUpdate heightEq:isLastItem?0:1]install];
+    
     
     [detailView removeAllChildren];
     if(isOpen){

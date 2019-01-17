@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) void(^titleOnClickListener)(NSString*_id);
 
 
--(void)setData:(FAQSModel*)model isOpen:(BOOL)isOpen;
+-(void)setData:(FAQSModel*)model isOpen:(BOOL)isOpen isLastItem:(BOOL)isLastItem;
 
 
 

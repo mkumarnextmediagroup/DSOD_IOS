@@ -78,7 +78,7 @@
     
     reviewTitleLabel = contentView.addLabel;
     reviewTitleLabel.textColor = rgbHex(0x1b1b1b);
-    reviewTitleLabel.font = [Fonts regular:13];
+    reviewTitleLabel.font = [Fonts regular:18];
     [[[[reviewTitleLabel.layoutMaker leftParent:edge] topParent:edge] rightParent:-edge]install];
     
     UIView *starRateViewBg = contentView.addView;

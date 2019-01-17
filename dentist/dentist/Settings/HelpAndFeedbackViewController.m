@@ -54,7 +54,7 @@
 
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
-    item.title = @"HELP AND FEEDBACK";
+    item.title = @"Help and feedback";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
 }
 
@@ -241,18 +241,19 @@
 -(UITableViewCell*)categoryCell:(NSIndexPath *)indexPath{
     FAQSCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(FAQSCategoryTableViewCell.class)];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell setText:categories[indexPath.row].moduleType];
+    [cell setText:categories[indexPath.row].moduleType isLastItem:indexPath.row==categories.count-1];
     
     return cell;
 }
 
 -(UITableViewCell*)faqsFunctionCell:(NSIndexPath *)indexPath{
     FAQSModel *model = resultData[indexPath.section].faqsModelArray[indexPath.row];
+    int lastIndex = (int)resultData[indexPath.section].faqsModelArray.count - 1;
     
     FAQSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(FAQSTableViewCell.class)];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.itemBgColor = UIColor.whiteColor;
-    [cell setData:model isOpen:openCellIdDic[model._id]!=nil];
+    [cell setData:model isOpen:openCellIdDic[model._id]!=nil isLastItem:indexPath.row==lastIndex];
     
     WeakSelf
     cell.titleOnClickListener = ^(NSString *_id){
@@ -274,7 +275,7 @@
     
     if(![self isSearchMode]){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [FAQSViewController openBy:self categoryModel:categories[indexPath.row]];
+            [FAQSViewController openBy:self categoryModel:self->categories[indexPath.row]];
         });
     }
 }

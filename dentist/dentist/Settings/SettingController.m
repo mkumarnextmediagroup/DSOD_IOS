@@ -63,7 +63,7 @@
 	lb.text = @"Setting Page";
 	[lb textColorMain];
     imageArr = [NSArray arrayWithObjects:@"Setting_general",@"Setting_notifications",@"Setting_feedback",@"Setting_about",@"Setting_resetpwd",@"Setting_share", nil];
-    infoArr = [NSArray arrayWithObjects:@"General",@"Notifications",@"Feedback and support",@"About",@"Change password",@"Share app", nil];
+    infoArr = [NSArray arrayWithObjects:@"General",@"Notifications",@"Feedback and Support",@"About",@"Change password",@"Share app", nil];
     imageArr2 = [NSArray arrayWithObjects:@"Setting_logout", nil];
     infoArr2 = [NSArray arrayWithObjects:@"Sign out", nil];
 	[[[lb.layoutMaker centerParent] sizeFit] install];

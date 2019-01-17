@@ -48,7 +48,7 @@
     tabView.itemCount=2;
     tabView.delegate=self;
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT]heightEq:50]  install];
-    tabView.titleArr=[NSMutableArray arrayWithArray:@[@"Privacy Policy",@"Terms & Conditions"]];
+    tabView.titleArr=[NSMutableArray arrayWithArray:@[@"Privacy Policy",@"Terms of Service"]];
     
     
     mywebView = [UIWebView new];

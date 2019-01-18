@@ -69,7 +69,7 @@
 	[[[lb.layoutMaker centerParent] sizeFit] install];
 
 	UINavigationItem *item = [self navigationItem];
-	item.title = @"Settings";
+	item.title = @"SETTINGS";
 //    item.rightBarButtonItems = @[
 //        [self navBarText:@"Logout" target:self action:@selector(onClickLogout:)]
 //    ];

@@ -39,7 +39,7 @@
     infoArr3 = [NSArray arrayWithObjects:@{@"title":@"Download over Wi-Fi only",@"des":@"Allow to download contents over Wi-Fi only"}, nil];
     
     UINavigationItem *item = [self navigationItem];
-    item.title = @"General";
+    item.title = @"GENERAL";
      item.leftBarButtonItem = [self navBarBack:self action:@selector(back)];
     //    item.rightBarButtonItems = @[
     //        [self navBarText:@"Logout" target:self action:@selector(onClickLogout:)]

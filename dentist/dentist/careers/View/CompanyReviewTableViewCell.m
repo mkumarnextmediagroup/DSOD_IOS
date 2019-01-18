@@ -144,7 +144,7 @@
 
 
 -(void)setData:(CompanyReviewModel*)model{
-    reviewTitleLabel.text = [NSString stringWithFormat:@"“%@”",model.reviewTitle];
+    reviewTitleLabel.text = [NSString stringWithFormat:@"“%@”",[model.reviewTitle trimed] ];
     reviewDateLabel.text = [NSDate USDateShortFormatWithTimestamp:model.reviewDate];
     starRateView.currentScore = model.rating;
     
@@ -155,9 +155,9 @@
     }else{
         currentEmployeeLabel.text = @"Anonymous Employee";
     }
-    prosValueLabel.text = model.pros;
-    consValueLabel.text = model.cons;
-    adviceValueLabel.text = model.advice;
+    prosValueLabel.text = [model.pros trimed];
+    consValueLabel.text = [model.cons trimed];
+    adviceValueLabel.text = [model.advice trimed];
     
     [recommendsBtn setTitleColor:model.isRecommend?rgbHex(0x1b1b1b):argbHex(0x00000000) forState:UIControlStateNormal];
     [recommendsBtn setImage:[UIImage imageNamed:model.isRecommend?@"icon_check_mark_small":@""] forState:UIControlStateNormal];

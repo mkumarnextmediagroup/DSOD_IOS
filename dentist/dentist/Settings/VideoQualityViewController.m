@@ -62,7 +62,7 @@
 
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
-    item.title = @"Video Quality";
+    item.title = @"VIDEO QUALITY";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
 }
 

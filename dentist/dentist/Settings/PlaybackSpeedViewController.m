@@ -60,7 +60,7 @@
 
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
-    item.title = @"Playback Speed";
+    item.title = @"PLAYBACK SPEED";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
 }
 

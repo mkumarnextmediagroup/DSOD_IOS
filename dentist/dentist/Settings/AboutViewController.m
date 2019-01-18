@@ -35,7 +35,7 @@
 
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
-    item.title = @"About";
+    item.title = @"ABOUT";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
 }
 

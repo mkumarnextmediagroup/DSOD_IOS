@@ -25,7 +25,7 @@
     self.view.backgroundColor=[UIColor whiteColor];
     UINavigationItem *item = [self navigationItem];
     item.leftBarButtonItem = [self navBarBack:self action:@selector(back)];
-    item.title = @"Notifications";
+    item.title = @"NOTIFICATIONS";
     myTable = [UITableView new];
     [self.view addSubview:myTable];
     myTable.dataSource = self;

@@ -45,7 +45,7 @@
 
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
-    item.title = [NSString stringWithFormat:@"%@ FAQs",[self.categoryModel.moduleType capitalizedString]];
+    item.title = [NSString stringWithFormat:@"%@ FAQS",[self.categoryModel.moduleType uppercaseString]];
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
 }
 

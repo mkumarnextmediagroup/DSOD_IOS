@@ -161,7 +161,7 @@
 
 -(void)loadData{
     
-    reviewTitleLabel.text = [NSString stringWithFormat:@"“%@”",self.reviewModel.reviewTitle];
+    reviewTitleLabel.text = [NSString stringWithFormat:@"“%@”",[self.reviewModel.reviewTitle trimed]];
     reviewDateLabel.text = [NSDate USDateShortFormatWithTimestamp:self.reviewModel.reviewDate];
     starRateView.currentScore = self.reviewModel.rating;
     
@@ -172,9 +172,9 @@
     }else{
         currentEmployeeLabel.text = @"Anonymous Employee";
     }
-    prosValueLabel.text = self.reviewModel.pros;
-    consValueLabel.text = self.reviewModel.cons;
-    adviceValueLabel.text = self.reviewModel.advice;
+    prosValueLabel.text = [self.reviewModel.pros trimed];
+    consValueLabel.text = [self.reviewModel.cons trimed];
+    adviceValueLabel.text = [self.reviewModel.advice trimed];
     
     
     if(!self.reviewModel.isRecommend){

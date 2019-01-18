@@ -118,7 +118,7 @@
     self->reviewModel = model;
     self->seeMoreListener = seeMoreListener;
     
-    reviewTitleLabel.text = [NSString stringWithFormat:@"“%@”",model.reviewTitle];
+    reviewTitleLabel.text = [NSString stringWithFormat:@"“%@”",[model.reviewTitle trimed]];
     reviewDateLabel.text = [NSDate USDateShortFormatWithTimestamp:model.reviewDate];
     starRateView.currentScore = model.rating;
     
@@ -129,8 +129,8 @@
     }else{
         currentEmployeeLabel.text = @"Anonymous Employee";
     }
-    prosValueLabel.text = model.pros;
-    consValueLabel.text = model.cons;
+    prosValueLabel.text = [model.pros trimed];
+    consValueLabel.text = [model.cons trimed];
     
 }
 

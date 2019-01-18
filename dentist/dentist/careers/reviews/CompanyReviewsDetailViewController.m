@@ -113,7 +113,7 @@
     prosValueLabel = contentView.addLabel;
     prosValueLabel.textColor = rgbHex(0x9b9b9b);
     prosValueLabel.font = [Fonts regular:13];
-    [[[[prosValueLabel.layoutMaker leftParent:edge] below:prosLabel offset:5] rightParent:-edge]install];
+    [[[[prosValueLabel.layoutMaker leftParent:edge] below:prosLabel offset:2] rightParent:-edge]install];
     
     UILabel *consLabel = contentView.addLabel;
     consLabel.text = @"Cons";
@@ -124,7 +124,7 @@
     consValueLabel = contentView.addLabel;
     consValueLabel.textColor = rgbHex(0x9b9b9b);
     consValueLabel.font = [Fonts regular:13];
-    [[[[consValueLabel.layoutMaker leftParent:edge] below:consLabel offset:5] rightParent:-edge]install];
+    [[[[consValueLabel.layoutMaker leftParent:edge] below:consLabel offset:2] rightParent:-edge]install];
     
     
     UILabel *adviceLabel = contentView.addLabel;
@@ -136,7 +136,7 @@
     adviceValueLabel = contentView.addLabel;
     adviceValueLabel.textColor = rgbHex(0x9b9b9b);
     adviceValueLabel.font = [Fonts regular:13];
-    [[[[adviceValueLabel.layoutMaker leftParent:edge] below:adviceLabel offset:5] rightParent:-edge]install];
+    [[[[adviceValueLabel.layoutMaker leftParent:edge] below:adviceLabel offset:2] rightParent:-edge]install];
     
     
     approveBtn = contentView.addButton;

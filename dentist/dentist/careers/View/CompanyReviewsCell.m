@@ -80,7 +80,7 @@
     prosValueLabel.textColor = rgbHex(0x9b9b9b);
     prosValueLabel.font = [Fonts regular:12];
     prosValueLabel.numberOfLines=3;
-    [[[[prosValueLabel.layoutMaker leftParent:0] below:prosLabel offset:5] rightParent:0]install];
+    [[[[prosValueLabel.layoutMaker leftParent:0] below:prosLabel offset:2] rightParent:0]install];
     
     UILabel *consLabel = contentView.addLabel;
     consLabel.text = @"Cons";
@@ -92,7 +92,7 @@
     consValueLabel.textColor = rgbHex(0x9b9b9b);
     consValueLabel.font = [Fonts regular:12];
     consValueLabel.numberOfLines=3;
-    [[[[consValueLabel.layoutMaker leftParent:0] below:consLabel offset:5] rightParent:0]install];
+    [[[[consValueLabel.layoutMaker leftParent:0] below:consLabel offset:2] rightParent:0]install];
     
     UILabel *seeMoreLabel = contentView.addLabel;
     seeMoreLabel.textColor = rgbHex(0x879AA8);

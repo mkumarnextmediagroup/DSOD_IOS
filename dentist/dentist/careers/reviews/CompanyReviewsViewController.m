@@ -54,7 +54,9 @@
 
 
 +(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel{
-    [CompanyReviewsViewController openBy:vc jobDSOModel:jobDSOModel onReviewNumChanged:nil];
+    [CompanyReviewsViewController openBy:vc jobDSOModel:jobDSOModel onReviewNumChanged:^(NSInteger reviewNum) {
+        
+    }];
 }
 
 +(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel onReviewNumChanged:(void(^)(NSInteger reviewNum))onReviewNumChanged{

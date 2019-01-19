@@ -11,8 +11,6 @@
 
 @implementation JobModel
 
-
-
 -(NSString*)location{
     NSString *location=@"";
     if (![NSString isBlankString:self.city] && ![NSString isBlankString:self.state]) {

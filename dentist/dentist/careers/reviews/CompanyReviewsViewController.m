@@ -17,8 +17,6 @@
 #import "SHESelectTable.h"
 
 @interface CompanyReviewsViewController ()<UITableViewDelegate,UITableViewDataSource>
-
-@property (nonatomic,strong) JobDSOModel *jobDSOModel;
 @property (nonatomic,strong) NSArray<CompanyReviewModel*> *reviewArray;
 
 @property (nonatomic,copy) void(^onReviewNumChanged)(NSInteger reviewNum);

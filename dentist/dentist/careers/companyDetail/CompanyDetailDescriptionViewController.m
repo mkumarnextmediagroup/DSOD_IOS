@@ -51,7 +51,7 @@
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
--(void)setData:description{
+-(void)setData:(NSString*) description{
     if(description){
         [self showContent:description];
     }

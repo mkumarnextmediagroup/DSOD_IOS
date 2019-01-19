@@ -23,10 +23,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,weak) id<UploadResumeViewDelegate> delegate;
 @property (nonatomic,strong) UIProgressView *progressView;
 + (instancetype)initUploadView:(UIViewController *)viewControl;
-+(void)hide;
++ (void)hide;
 - (void)show;
 - (void)scrollToSubmit;
 - (void)scrollToDone:(BOOL)isAnimate;
+- (void)sigleTappedPickerView:(UIGestureRecognizer *)sender;
+- (void)closeBtnClick;
+- (void)initUploadView;
+- (void)createSubmitView;
+- (void)createDoneView;
+- (void)okBtnClick;
+- (void)uploadBtnClick:(UIButton *)btn;
+
 @end
 
 NS_ASSUME_NONNULL_END

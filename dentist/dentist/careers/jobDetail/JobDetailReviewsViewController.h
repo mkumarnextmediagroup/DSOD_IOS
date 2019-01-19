@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobDetailReviewsViewController : CompanyDetailReviewsViewController
-
+- (UIEdgeInsets)edgeInsetsMake;
 @end
 
 NS_ASSUME_NONNULL_END

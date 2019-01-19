@@ -28,9 +28,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// 不滑动事件
 @property (nonatomic, copy) void(^noScrollAction)(void) ;
 
--(void)contentOffsetToPointZero;
-
--(void)reloadData;
+- (void)contentOffsetToPointZero;
+- (void)reloadData;
+- (void)viewDidLoad;
+- (void)setCompanyId:(NSString *)companyId;
+- (void)buildView;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
+- (void)setJobCountTitle:(NSInteger)jobcount;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 
 @end
 

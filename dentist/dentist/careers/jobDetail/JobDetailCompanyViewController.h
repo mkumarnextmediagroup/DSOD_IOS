@@ -20,9 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 不滑动事件
 @property (nonatomic, copy) void(^noScrollAction)(void) ;
 
--(void)contentOffsetToPointZero;
-
--(void)setData:(JobDSOModel* _Nullable)model;
+- (void)contentOffsetToPointZero;
+- (void)setData:(JobDSOModel* _Nullable)model;
+- (void)viewDidLoad;
+- (void)webViewDidFinishLoad:(UIWebView *)webView;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 
 @end
 

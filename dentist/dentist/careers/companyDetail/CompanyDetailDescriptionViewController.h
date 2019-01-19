@@ -12,18 +12,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyDetailDescriptionViewController : UIViewController
 
-
--(void)setData:(NSString*)description;
-
-
-
-
 /// 是否可以滑动
 @property (nonatomic, assign) BOOL isCanScroll;
 /// 不滑动事件
 @property (nonatomic, copy) void(^noScrollAction)(void) ;
 
 -(void)contentOffsetToPointZero;
+
+- (void)viewDidLoad;
+- (UIEdgeInsets)edgeInsetsMake;
+- (void)setData:(NSString*)description;
+- (void)showContent:(NSString*)html;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+
 
 @end
 

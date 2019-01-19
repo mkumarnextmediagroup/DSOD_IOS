@@ -625,6 +625,7 @@
 		A3E752F9217E35010087713D /* TipSheet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752E4217E35010087713D /* TipSheet@2x.png */; };
 		A3EE38F62181AEF600C76F3A /* CMSModelComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EE38F52181AEF600C76F3A /* CMSModelComment.m */; };
 		A3EE38F92183214C00C76F3A /* BookmarkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EE38F82183214C00C76F3A /* BookmarkModel.m */; };
+		A3FF81F721EF3ED5002510C4 /* NSObject+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = A3FF81F621EF3ED5002510C4 /* NSObject+customed.m */; };
 		A935BE74217737EB007F3619 /* slide-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE6F217737EA007F3619 /* slide-3.png */; };
 		A935BE75217737EB007F3619 /* slide-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE70217737EA007F3619 /* slide-2.png */; };
 		A935BE76217737EB007F3619 /* slide-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE71217737EA007F3619 /* slide-1.png */; };
@@ -1861,6 +1862,8 @@
 		A3EE38F52181AEF600C76F3A /* CMSModelComment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSModelComment.m; sourceTree = "<group>"; };
 		A3EE38F72183214C00C76F3A /* BookmarkModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkModel.h; sourceTree = "<group>"; };
 		A3EE38F82183214C00C76F3A /* BookmarkModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookmarkModel.m; sourceTree = "<group>"; };
+		A3FF81F521EF3ED5002510C4 /* NSObject+customed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+customed.h"; sourceTree = "<group>"; };
+		A3FF81F621EF3ED5002510C4 /* NSObject+customed.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+customed.m"; sourceTree = "<group>"; };
 		A935BE6F217737EA007F3619 /* slide-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-3.png"; sourceTree = "<group>"; };
 		A935BE70217737EA007F3619 /* slide-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-2.png"; sourceTree = "<group>"; };
 		A935BE71217737EA007F3619 /* slide-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-1.png"; sourceTree = "<group>"; };
@@ -4646,6 +4649,8 @@
 				A3B340B921C272FE008EB36A /* UIImageViewLoading.m */,
 				A3BDC51B21D22A120077ED25 /* JobsBookmarkManager.h */,
 				A3BDC51C21D22A120077ED25 /* JobsBookmarkManager.m */,
+				A3FF81F521EF3ED5002510C4 /* NSObject+customed.h */,
+				A3FF81F621EF3ED5002510C4 /* NSObject+customed.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -5978,6 +5983,7 @@
 				C5EEA93A818CA571610A938C /* GroupLabelView.m in Sources */,
 				A3B340D821C8E852008EB36A /* CareerMeViewController.m in Sources */,
 				4E47252421C8E2E40076B824 /* UploadResumeView.m in Sources */,
+				A3FF81F721EF3ED5002510C4 /* NSObject+customed.m in Sources */,
 				A3BA6E1021B506D600D83156 /* CompanyJobsModel.m in Sources */,
 				4E94ADC921ACE906009CAB7F /* CareerAlertsViewController.m in Sources */,
 				C5EEA3BF2E6ADEBCD49244FB /* LineTableCell.m in Sources */,

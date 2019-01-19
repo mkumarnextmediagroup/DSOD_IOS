@@ -38,6 +38,7 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	NSMutableDictionary *argMap;
 	NSMutableDictionary *headerMap;
 	NSMutableDictionary *fileMap;
+    NSMutableDictionary *fileContentTypeMap;
 	NSMutableDictionary *fileDataMap;
 	NSMutableDictionary *fileNameMap;
 
@@ -62,6 +63,7 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	argMap = [NSMutableDictionary new];
 	headerMap = [NSMutableDictionary new];
 	fileMap = [NSMutableDictionary new];
+    fileContentTypeMap = [NSMutableDictionary new];
 	fileDataMap = [NSMutableDictionary new];
 	fileNameMap = [NSMutableDictionary new];
 	rawData = nil;
@@ -134,6 +136,10 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 
 - (void)file:(NSString *)name value:(NSString *)value {
 	fileMap[name] = value;
+}
+
+- (void)fileContentType:(NSString *)name value:(NSString *)value {
+    fileContentTypeMap[name] = value;
 }
 
 - (void)fileData:(NSString *)name value:(NSData *)value {
@@ -244,9 +250,14 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 		if (filename == nil) {
 			filename = [value lastPathComponent];
 		}
+        NSString *fileContentType = @"application/octet-stream";
+        if(fileContentTypeMap[key]){
+            fileContentType = fileContentTypeMap[key];
+        }
+        
 		[data appendUTF8:BOUNDARY_START];
 		[data appendUTF8:strBuild(@"Content-Disposition:form-data;name=\"", key, @"\";filename=\"", filename, @"\"", CRLF)];
-		[data appendUTF8:@"Content-Type:application/octet-stream\r\n"];
+        [data appendUTF8:strBuild(@"Content-Type:",fileContentType,@"\r\n")];
 		[data appendUTF8:@"Content-Transfer-Encoding: binary\r\n"];
 		[data appendUTF8:CRLF];
 		[data appendData:fileData];

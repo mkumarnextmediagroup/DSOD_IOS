@@ -28,29 +28,6 @@
 }
 
 +(void)openBy:(UIViewController*)vc categoryModel:(FAQSCategoryModel*)categoryModel{
-//    categoryModel.faqsModelArray = [NSMutableArray new];
-//    for(int i=0;i<20;i++){
-//
-//        FAQSModel *faqsmodel = [FAQSModel new];
-//        faqsmodel._id=[NSString stringWithFormat:@"id_%d",i];
-//        faqsmodel.function =[NSString stringWithFormat:@"function_%d",i];
-//        faqsmodel.desc =[NSString stringWithFormat:@"desc_%d",i];
-//
-//        FAQSSubDescModel *step1 = [FAQSSubDescModel new];
-//        step1.name = @"step1";
-//        FAQSSubDescModel *step2 = [FAQSSubDescModel new];
-//        step2.name = @"step2";
-//        FAQSSubDescModel *step3 = [FAQSSubDescModel new];
-//        step3.name = @"step3";
-//        FAQSSubDescModel *step4 = [FAQSSubDescModel new];
-//        step4.name = @"step4";
-//
-//        faqsmodel.subDescription = @[step1,step2,step3,step4];
-//
-//        [categoryModel.faqsModelArray addObject:faqsmodel];
-//    }
-    
-    
     FAQSViewController *newVc = [FAQSViewController new];
     newVc.categoryModel = categoryModel;
     [vc pushPage:newVc];
@@ -119,12 +96,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     FAQSModel *model = self.categoryModel.faqsModelArray[indexPath.row];
+    int lastIndex = self.categoryModel.faqsModelArray.count - 1;
     
     
     FAQSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(FAQSTableViewCell.class)];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.itemBgColor = rgbHex(0xfafbfd);
-    [cell setData:model isOpen:openCellIdDic[model._id]!=nil];
+    [cell setData:model isOpen:openCellIdDic[model._id]!=nil isLastItem:indexPath.row == lastIndex];
     
     WeakSelf
     cell.titleOnClickListener = ^(NSString *_id){

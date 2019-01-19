@@ -31,6 +31,7 @@
 #import "JobsBookmarkManager.h"
 #import "FAQSCategoryModel.h"
 #import "FAQSModel.h"
+#import "NSObject+customed.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -1631,7 +1632,7 @@
     if (value==1) {
         return @"https://devupapi1.dsodentist.com/";
     }else{
-        return @"http://dsod.aikontec.com/";
+        return @"http://dsod.aikontec.com:88/";
     }
 }
 
@@ -1667,6 +1668,24 @@
 	}
 	HttpResult *r = [h get];
 	return r;
+}
+
++ (void)getAsync:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback {
+    NSString *baseUrl = [self configUrl:modular];
+    Http *h = [Http new];
+    h.url = strBuild([self baseDomain],baseUrl, action);
+    NSLog(@"requesturl=%@", h.url);
+    [h arg:@"client_id" value:@"fooClientIdPassword"];
+    [h args:dic];
+    NSString *token = [self lastToken];
+    if (token != nil) {
+        [h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+    }
+    [h getAsync:^(HttpResult *r) {
+        if (callback) {
+            callback(r);
+        }
+    }];
 }
 
 + (HttpResult *)post:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular {
@@ -1772,11 +1791,21 @@
 }
 
 + (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath modular:(NSString *)modular {
-	return [Proto upload:action localFilePath:localFilePath modular:modular progress:nil];
+    return [Proto upload:action localFilePath:localFilePath fileContentType:nil modular:modular];
 }
 
 
++ (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath fileContentType:(NSString*)fileContentType modular:(NSString *)modular {
+    return [Proto upload:action localFilePath:localFilePath fileContentType:fileContentType modular:modular progress:nil];
+}
+
 + (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath modular:(NSString *)modular progress:(id<HttpProgress>)httpProgressSend{
+    return [Proto upload:action localFilePath:localFilePath fileContentType:nil modular:modular progress:httpProgressSend];
+}
+
+
+
++ (HttpResult *)upload:(NSString *)action localFilePath:(NSString *)localFilePath fileContentType:(NSString*)fileContentType modular:(NSString *)modular progress:(id<HttpProgress>)httpProgressSend{
     NSString *baseUrl = [self configUrl:modular];
     Http *h = [Http new];
     h.progressSend = httpProgressSend;
@@ -1789,6 +1818,10 @@
     }
     [h arg:@"client_id" value:@"fooClientIdPassword"];
     [h file:@"file" value:localFilePath];
+    if(fileContentType){
+        [h fileContentType:@"file" value:fileContentType];
+    }
+    
     HttpResult *r = [h multipart];
     return r;
 }
@@ -2470,7 +2503,7 @@
     if (location) {
         [paradic setObject:location forKey:@"location"];
     }
-    if (position) {
+    if (position && position.count>0) {
         [paradic setObject:position forKey:@"position"];
     }
     if (distance>=0) {
@@ -2514,7 +2547,7 @@
     if (location) {
         [paradic setObject:location forKey:@"location"];
     }
-    if (position) {
+    if (position && position.count>0) {
         [paradic setObject:position forKey:@"position"];
     }
     if (distance>=0) {
@@ -2532,6 +2565,30 @@
 }
 
 #pragma mark -------------setting
+
++ (NSDictionary *)GeneralsettingsLocal:(NSString *)email {
+    NSUserDefaults *d = userConfig(email);
+    NSDictionary *dic = [d objectForKey:@"Generalsettings"];
+    return dic;
+};
+
++ (void)saveGeneralsettingsLocal:(NSString *)email info:(GeneralSettingsModel *)info {
+    NSUserDefaults *d = userConfig(email);
+    NSDictionary *dic=[NSObject dicFromObject:info];
+    [d setObject:dic forKey:@"Generalsettings"];
+}
+
++ (NSDictionary *)GeneralNotificationLocal:(NSString *)email {
+    NSUserDefaults *d = userConfig(email);
+    NSDictionary *dic = [d objectForKey:@"GeneralNotification"];
+    return dic;
+};
+
++ (void)saveGeneralNotificationLocal:(NSString *)email info:(NotificationModel *)info {
+    NSUserDefaults *d = userConfig(email);
+    NSDictionary *dic=[NSObject dicFromObject:info];
+    [d setObject:dic forKey:@"GeneralNotification"];
+}
 
 + (void)updatePwd:(NSString *)email pwd:(NSString *)pwd oldpwd:(NSString *)oldpwd  completed:(void(^)(HttpResult *result))completed {
     [self postAsync3:@"userAccount/updatePasswordByUserName" dic:@{@"username": email, @"password": pwd, @"old_password": oldpwd} modular:@"profile" callback:^(HttpResult *r) {
@@ -2611,10 +2668,16 @@
 
 +(void)settingUploadPictrue:(NSString*)localFilePath completed:(void(^)(BOOL success,NSString *msg,NSString *attachId))completed {
     NSLog(@"1-----------%@",localFilePath);
-    HttpResult *r = [self upload:@"file/uploadFile" localFilePath:localFilePath modular:@"setting"];
+    HttpResult *r = [self upload:@"file/uploadFile" localFilePath:localFilePath fileContentType:@"image/png" modular:@"setting"];
+    NSString *attachId = nil;
     if (r.OK) {
-        //{"photoName":"5d7a4a76219e4c78b2b4656cf4bc80f2_test.png"}
-        id v = r.resultMap[@"ori"];
+        //{"originalFigureId":"5d7a4a76219e4c78b2b4656cf4bc80f2"}
+        attachId = r.resultMap[@"originalFigureId"];
+    }
+    if(completed){
+        foreTask(^{
+            completed(r.OK,r.msg,attachId);
+        });
     }
 }
 
@@ -2649,26 +2712,118 @@
     [paradic setObject:[NSNumber numberWithBool:downloadOnlyWiFi] forKey:@"downloadOnlyWiFi"];
     [self postAsync3:@"generalsettings" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
         if (completed) {
-            completed(r);
+            foreTask(^{
+                completed(r);
+            });
+        }
+    }];
+}
+
++(void)addGeneralsettingsUseFaceID:(BOOL)useFaceID completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithBool:useFaceID] forKey:@"useFaceID"];
+    [self postAsync3:@"generalsettings" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
+        if (completed) {
+            foreTask(^{
+                completed(r);
+            });
+        }
+    }];
+}
+
++(void)addGeneralsettingsUseDsoDentistOffline:(BOOL)useDsoDentistOffline completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithBool:useDsoDentistOffline] forKey:@"useDsoDentistOffline"];
+    [self postAsync3:@"generalsettings" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
+        if (completed) {
+            foreTask(^{
+                completed(r);
+            });
+        }
+    }];
+}
+
+
++(void)addGeneralsettingsPlaybackSpeed:(NSString *)playbackSpeed completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (playbackSpeed) {
+        [paradic setObject:playbackSpeed forKey:@"playbackSpeed"];
+    }
+    [self postAsync3:@"generalsettings" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
+        if (completed) {
+            foreTask(^{
+                completed(r);
+            });
+        }
+    }];
+}
++(void)addGeneralsettingsVideoDownloadQuality:(NSString *)videoDownloadQuality completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (videoDownloadQuality) {
+        [paradic setObject:videoDownloadQuality forKey:@"videoDownloadQuality"];
+    }
+    [self postAsync3:@"generalsettings" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
+        if (completed) {
+            foreTask(^{
+                completed(r);
+            });
+        }
+    }];
+}
+
++(void)addGeneralsettingsDownloadOnlyWiFi:(BOOL)downloadOnlyWiFi completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithBool:downloadOnlyWiFi] forKey:@"downloadOnlyWiFi"];
+    [self postAsync3:@"generalsettings" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
+        if (completed) {
+            foreTask(^{
+                completed(r);
+            });
         }
     }];
 }
 
 //2.4    查看通用设置详情
-+ (void)QueryGeneralsettings:(void(^)(GeneralSettingsModel *generalModel))completed {
++ (void)QueryGeneralsettings:(void(^)(GeneralSettingsModel *generalModel,BOOL result))completed {
     
-    [self  postAsync:@"generalsettings" dic:nil modular:@"setting" callback:^(HttpResult *r) {
+    [self  getAsync:@"generalsettings" dic:nil modular:@"setting" callback:^(HttpResult *r) {
         GeneralSettingsModel *model = nil;
         if (r.OK && r.resultMap[@"data"]) {
             NSDictionary *dic =  r.resultMap[@"data"];
             model = [[GeneralSettingsModel alloc] initWithJson:jsonBuild(dic)];
-            
+            if (model==nil) {
+                model=[GeneralSettingsModel new];
+                model.userId=getLastAccount();
+                model.useFaceID=NO;
+                model.useDsoDentistOffline=NO;
+                model.videoDownloadQuality=@"Auto";
+                model.playbackSpeed=@"1.0x";
+                model.downloadOnlyWiFi=YES;
+            }else{
+                id downloadOnlyWiFiobj=[dic objectForKey:@"downloadOnlyWiFi"];
+                if (downloadOnlyWiFiobj == nil || downloadOnlyWiFiobj == NULL || [downloadOnlyWiFiobj isKindOfClass:[NSNull class]]) {
+                    model.downloadOnlyWiFi=YES;
+                }
+            }
+            [self saveGeneralsettingsLocal:getLastAccount() info:model];
+            if(completed){
+                foreTask(^{
+                    completed(model,YES);
+                });
+            }
+        }else{
+            if(completed){
+                foreTask(^{
+                    completed(model,NO);
+                });
+            }
         }
-        if(completed){
-            foreTask(^{
-                completed(model);
-            });
-        }
+        
     }];
 }
 
@@ -2682,25 +2837,89 @@
     [paradic setObject:[NSNumber numberWithBool:career] forKey:@"career"];
     [self postAsync3:@"notification_switch" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
         if (completed) {
-            completed(r);
+            foreTask(^{
+                completed(r);
+            });
+        }
+    }];
+}
++(void)addNotificationsUniteMagazine:(BOOL)uniteMagazine completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithBool:uniteMagazine] forKey:@"uniteMagazine"];
+    [self postAsync3:@"notification_switch" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
+        if (completed) {
+            foreTask(^{
+                completed(r);
+            });
+        }
+    }];
+}
++(void)addNotificationsEducation:(BOOL)education completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithBool:education] forKey:@"education"];
+    [self postAsync3:@"notification_switch" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
+        if (completed) {
+            foreTask(^{
+                completed(r);
+            });
+        }
+    }];
+}
++(void)addNotificationsEvents:(BOOL)events completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithBool:events] forKey:@"events"];
+    [self postAsync3:@"notification_switch" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
+        if (completed) {
+            foreTask(^{
+                completed(r);
+            });
+        }
+    }];
+}
++(void)addNotificationsCareer:(BOOL)career completed:(void(^)(HttpResult *result))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithBool:career] forKey:@"career"];
+    [self postAsync3:@"notification_switch" dic:paradic modular:@"setting"callback:^(HttpResult *r) {
+        if (completed) {
+            foreTask(^{
+                completed(r);
+            });
         }
     }];
 }
 
 //2.9    查看通知设置详情
-+ (void)QueryNotifications:(void(^)(NotificationModel *notificationModel))completed {
++ (void)QueryNotifications:(void(^)(NotificationModel *notificationModel,BOOL result))completed {
     
-    [self  postAsync:@"notification_switch" dic:nil modular:@"setting" callback:^(HttpResult *r) {
+    [self  getAsync:@"notification_switch" dic:nil modular:@"setting" callback:^(HttpResult *r) {
         NotificationModel *model = nil;
         if (r.OK && r.resultMap[@"data"]) {
             NSDictionary *dic =  r.resultMap[@"data"];
             model = [[NotificationModel alloc] initWithJson:jsonBuild(dic)];
-            
-        }
-        if(completed){
-            foreTask(^{
-                completed(model);
-            });
+            if (model==nil) {
+                model=[NotificationModel new];
+                model.userId=getLastAccount();
+                model.uniteMagazine=NO;
+                model.education=NO;
+                model.events=NO;
+                model.career=NO;
+            }
+            [self saveGeneralNotificationLocal:getLastAccount() info:model];
+            if(completed){
+                foreTask(^{
+                    completed(model,YES);
+                });
+            }
+        }else{
+            if(completed){
+                foreTask(^{
+                    completed(model,NO);
+                });
+            }
         }
     }];
 }

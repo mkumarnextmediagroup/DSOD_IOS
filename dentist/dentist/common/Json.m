@@ -8,9 +8,12 @@
 #import "NSData+myextend.h"
 
 NSString *jsonBuild(id obj) {
-	if (obj == nil) {
-		return nil;
-	}
+    if (obj == nil || obj == NULL) {
+        return nil;
+    }
+    if ([obj isKindOfClass:[NSNull class]]) {
+        return nil;
+    }
 	NSError *err;
 	NSData *data = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingSortedKeys error:&err];
 	if (err || !data) {

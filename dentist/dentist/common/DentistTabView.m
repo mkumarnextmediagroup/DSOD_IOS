@@ -169,7 +169,8 @@ static NSString * identifier = @"TabCellID2";
         IdName *model=_modelArr[index];
         cell.titleLabel.text=[model.name uppercaseString];
     }else{
-        cell.titleLabel.text=[_titleArr[index] uppercaseString];
+        //wanglibo remove uppercaseString because some places not need
+        cell.titleLabel.text=_titleArr[index];
     }
     
     if (selectIndex==indexPath.row) {

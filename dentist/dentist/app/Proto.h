@@ -306,11 +306,20 @@
 //MARK:2.1  添加编辑通用设置
 +(void)addGeneralsettings:(BOOL)useFaceID useDsoDentistOffline:(BOOL)useDsoDentistOffline playbackSpeed:(NSString *_Nullable)playbackSpeed videoDownloadQuality:(NSString *_Nullable)videoDownloadQuality downloadOnlyWiFi:(BOOL)downloadOnlyWiFi completed:(void(^)(HttpResult *result))completed;
 //2.4    查看通用设置详情
-+ (void)QueryGeneralsettings:(void(^)(GeneralSettingsModel *generalModel))completed;
++ (void)QueryGeneralsettings:(void(^)(GeneralSettingsModel *generalModel,BOOL result))completed;
 //MARK:2.6  添加编辑通知设置
 +(void)addNotifications:(BOOL)uniteMagazine education:(BOOL)education events:(BOOL)events career:(BOOL)career completed:(void(^)(HttpResult *result))completed;
++(void)addGeneralsettingsUseFaceID:(BOOL)useFaceID completed:(void(^)(HttpResult *result))completed;
++(void)addGeneralsettingsUseDsoDentistOffline:(BOOL)useDsoDentistOffline completed:(void(^)(HttpResult *result))completed;
++(void)addGeneralsettingsPlaybackSpeed:(NSString *)playbackSpeed completed:(void(^)(HttpResult *result))completed;
++(void)addGeneralsettingsVideoDownloadQuality:(NSString *)videoDownloadQuality completed:(void(^)(HttpResult *result))completed;
++(void)addGeneralsettingsDownloadOnlyWiFi:(BOOL)downloadOnlyWiFi completed:(void(^)(HttpResult *result))completed;
++(void)addNotificationsUniteMagazine:(BOOL)uniteMagazine completed:(void(^)(HttpResult *result))completed;
++(void)addNotificationsEducation:(BOOL)education completed:(void(^)(HttpResult *result))completed;
++(void)addNotificationsEvents:(BOOL)events completed:(void(^)(HttpResult *result))completed;
++(void)addNotificationsCareer:(BOOL)career completed:(void(^)(HttpResult *result))completed;
 //2.9    查看通知设置详情
-+ (void)QueryNotifications:(void(^)(NotificationModel *notificationModel))completed;
++ (void)QueryNotifications:(void(^)(NotificationModel *notificationModel,BOOL result))completed;
 
 
 

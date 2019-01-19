@@ -59,6 +59,8 @@ typedef void (^HttpCallback)(HttpResult *);
 
 - (void)file:(NSString *)name value:(NSString *)value;
 
+- (void)fileContentType:(NSString *)name value:(NSString *)value ;
+
 - (void)fileData:(NSString *)name value:(NSData *)value;
 
 - (void)fileURL:(NSString *)name url:(NSURL *)url;

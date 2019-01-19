@@ -9,5 +9,8 @@
 #import "GeneralSettingsModel.h"
 
 @implementation GeneralSettingsModel
-
++(BOOL)propertyIsOptional:(NSString *)propertyName
+{
+    return YES;
+}
 @end

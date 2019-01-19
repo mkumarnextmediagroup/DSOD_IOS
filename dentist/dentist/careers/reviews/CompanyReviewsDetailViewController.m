@@ -78,7 +78,7 @@
     
     reviewTitleLabel = contentView.addLabel;
     reviewTitleLabel.textColor = rgbHex(0x1b1b1b);
-    reviewTitleLabel.font = [Fonts regular:13];
+    reviewTitleLabel.font = [Fonts regular:18];
     [[[[reviewTitleLabel.layoutMaker leftParent:edge] topParent:edge] rightParent:-edge]install];
     
     UIView *starRateViewBg = contentView.addView;
@@ -113,7 +113,7 @@
     prosValueLabel = contentView.addLabel;
     prosValueLabel.textColor = rgbHex(0x9b9b9b);
     prosValueLabel.font = [Fonts regular:13];
-    [[[[prosValueLabel.layoutMaker leftParent:edge] below:prosLabel offset:5] rightParent:-edge]install];
+    [[[[prosValueLabel.layoutMaker leftParent:edge] below:prosLabel offset:2] rightParent:-edge]install];
     
     UILabel *consLabel = contentView.addLabel;
     consLabel.text = @"Cons";
@@ -124,7 +124,7 @@
     consValueLabel = contentView.addLabel;
     consValueLabel.textColor = rgbHex(0x9b9b9b);
     consValueLabel.font = [Fonts regular:13];
-    [[[[consValueLabel.layoutMaker leftParent:edge] below:consLabel offset:5] rightParent:-edge]install];
+    [[[[consValueLabel.layoutMaker leftParent:edge] below:consLabel offset:2] rightParent:-edge]install];
     
     
     UILabel *adviceLabel = contentView.addLabel;
@@ -136,7 +136,7 @@
     adviceValueLabel = contentView.addLabel;
     adviceValueLabel.textColor = rgbHex(0x9b9b9b);
     adviceValueLabel.font = [Fonts regular:13];
-    [[[[adviceValueLabel.layoutMaker leftParent:edge] below:adviceLabel offset:5] rightParent:-edge]install];
+    [[[[adviceValueLabel.layoutMaker leftParent:edge] below:adviceLabel offset:2] rightParent:-edge]install];
     
     
     approveBtn = contentView.addButton;
@@ -161,7 +161,7 @@
 
 -(void)loadData{
     
-    reviewTitleLabel.text = [NSString stringWithFormat:@"“%@”",self.reviewModel.reviewTitle];
+    reviewTitleLabel.text = [NSString stringWithFormat:@"“%@”",[self.reviewModel.reviewTitle trimed]];
     reviewDateLabel.text = [NSDate USDateShortFormatWithTimestamp:self.reviewModel.reviewDate];
     starRateView.currentScore = self.reviewModel.rating;
     
@@ -172,9 +172,9 @@
     }else{
         currentEmployeeLabel.text = @"Anonymous Employee";
     }
-    prosValueLabel.text = self.reviewModel.pros;
-    consValueLabel.text = self.reviewModel.cons;
-    adviceValueLabel.text = self.reviewModel.advice;
+    prosValueLabel.text = [self.reviewModel.pros trimed];
+    consValueLabel.text = [self.reviewModel.cons trimed];
+    adviceValueLabel.text = [self.reviewModel.advice trimed];
     
     
     if(!self.reviewModel.isRecommend){

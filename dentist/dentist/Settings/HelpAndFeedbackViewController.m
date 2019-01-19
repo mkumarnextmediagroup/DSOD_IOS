@@ -89,9 +89,15 @@
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tableView registerClass:FAQSCategoryTableViewCell.class forCellReuseIdentifier:NSStringFromClass(FAQSCategoryTableViewCell.class)];
     [tableView registerClass:FAQSTableViewCell.class forCellReuseIdentifier:NSStringFromClass(FAQSTableViewCell.class)];
-    [tableView onClickView:self action:@selector(keyboardHide)];
     [self.view addSubview:tableView];
     [[[[[tableView.layoutMaker leftParent:0] rightParent:0] below:noResultView offset:15] bottomParent:0] install];
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide)];
+    //设置成NO表示当前控件响应后会传播到其他控件上，默认为YES。
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    [tableView addGestureRecognizer:tapGestureRecognizer];
+    
+    
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -235,18 +241,19 @@
 -(UITableViewCell*)categoryCell:(NSIndexPath *)indexPath{
     FAQSCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(FAQSCategoryTableViewCell.class)];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell setText:categories[indexPath.row].moduleType];
+    [cell setText:categories[indexPath.row].moduleType isLastItem:indexPath.row==categories.count-1];
     
     return cell;
 }
 
 -(UITableViewCell*)faqsFunctionCell:(NSIndexPath *)indexPath{
     FAQSModel *model = resultData[indexPath.section].faqsModelArray[indexPath.row];
+    int lastIndex = (int)resultData[indexPath.section].faqsModelArray.count - 1;
     
     FAQSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(FAQSTableViewCell.class)];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.itemBgColor = UIColor.whiteColor;
-    [cell setData:model isOpen:openCellIdDic[model._id]!=nil];
+    [cell setData:model isOpen:openCellIdDic[model._id]!=nil isLastItem:indexPath.row==lastIndex];
     
     WeakSelf
     cell.titleOnClickListener = ^(NSString *_id){
@@ -260,6 +267,17 @@
         [strongSelf keyboardHide];
     };
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self keyboardHide];
+    
+    if(![self isSearchMode]){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [FAQSViewController openBy:self categoryModel:self->categories[indexPath.row]];
+        });
+    }
 }
 
 @end

@@ -157,6 +157,9 @@
     emailTextView.returnKeyType = UIReturnKeyNext;
     emailTextView.contentInset = UIEdgeInsetsMake(0, 0, 0,0);
     [[[[[emailTextView.layoutMaker below:emailLabel offset:5]leftParent:13]rightParent:-13]heightEq:45] install];
+    
+    emailTextView.textColor = rgbHex(0x4a4a4a);
+    emailTextView.tag=1;
     emailTextView.text = [Proto lastAccount];
     
     UILabel *line2 = contentView.lineLabel;
@@ -237,9 +240,8 @@
 }
 
 - (void)uploadAttach:(UIImage *)image{
-    [self saveImageDocuments:image];
     
-    NSString *localFile = [self getDocumentImage];
+    NSString *localFile = [self saveImageDocuments:image];
     if (localFile != nil) {
         [Proto settingUploadPictrue:localFile completed:^(BOOL success, NSString *msg, NSString *attachId) {
             if(success){
@@ -249,7 +251,6 @@
                 [self hideLoading];
                 Alert *alert = [Alert new];
                 alert.title = msg;
-                //                alert.msg = @"Please open it in IOS “settings”-“privacy”-“photo”";
                 [alert show:self];
             }
         }];
@@ -357,26 +358,19 @@
 }
 
 
-
-
-- (NSString *)getDocumentImage {
-    // 读取沙盒路径图片
-    NSString *aPath3 = [NSString stringWithFormat:@"%@/Documents/%@.png", NSHomeDirectory(), @"test"];
-    return aPath3;
-}
-
-- (void)saveImageDocuments:(UIImage *)image {
+- (NSString*)saveImageDocuments:(UIImage *)image {
     
-    CGFloat f = 300.0f / image.size.width;
+    CGFloat f = (image.size.width > 600 ? 600.0 : image.size.width ) / image.size.width;
     //拿到图片
     UIImage *imagesave = [image scaledBy:f];
     NSString *path_sandox = NSHomeDirectory();
     //设置一个图片的存储路径
-    NSString *imagePath = [path_sandox stringByAppendingString:@"/Documents/test.png"];
+    NSString *imagePath = [NSString stringWithFormat:@"%@/Documents/%@",path_sandox ,@"test.png"];
     
     [UIImagePNGRepresentation(imagesave) writeToFile:imagePath atomically:YES];
+    
+    return imagePath;
 }
-
 
 - (BOOL)textViewShouldBeginEditing:(UITextView*)textView {
     if (textView.tag==0) {

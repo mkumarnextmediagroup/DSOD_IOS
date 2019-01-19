@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import "NotificationModel.h"
 
 @interface NotificationsViewController : UIViewController
-
+@property (nonatomic,strong) NotificationModel *model;
 @end
 
-NS_ASSUME_NONNULL_END

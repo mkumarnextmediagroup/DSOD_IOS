@@ -162,7 +162,7 @@
 	if (u == nil) {
 		return nil;
 	}
-	return strBuild(@"http://dsod.aikontec.com/profile-service/v1/photoDownload?", u);
+    return strBuild(@"http://dsod.aikontec.com:88/profile-service/v1/photoDownload?", u);
 }
 
 

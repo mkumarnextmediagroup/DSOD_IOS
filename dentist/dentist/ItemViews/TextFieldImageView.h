@@ -8,11 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TextFieldImageViewDelegate <NSObject>
+@optional
+- (void)textFileRightIconAction;
+@end
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TextFieldImageView : UIView
 @property(nonatomic,strong) UIImageView *iconView;
 @property(readonly) UITextField *edit;
+@property (nonatomic,weak) id<TextFieldImageViewDelegate> delegate;
 - (void)themeNormal;
 
 - (void)themeError;

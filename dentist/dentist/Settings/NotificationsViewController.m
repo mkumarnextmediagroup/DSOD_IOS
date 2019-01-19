@@ -11,7 +11,7 @@
 #import "UIViewController+myextend.h"
 #import "NotificationsTableViewCell.h"
 
-@interface NotificationsViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface NotificationsViewController ()<UITableViewDelegate,UITableViewDataSource,NotificationsTableViewCellDelegate>
 {
     UITableView *myTable;
 }
@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.view.backgroundColor=[UIColor whiteColor];
     UINavigationItem *item = [self navigationItem];
     item.leftBarButtonItem = [self navBarBack:self action:@selector(back)];
@@ -60,14 +61,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NotificationsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NotificationsTableViewCell class]) forIndexPath:indexPath];
+    cell.delegate=self;
+    cell.indexPath=indexPath;
     if (indexPath.row==0) {
-        [cell setModel:@"Unite Magazine" des:@"Enable notifications" status:YES];
+        [cell setModel:@"UNITE Magazine" des:@"Enable notifications" status:_model.uniteMagazine];
     }else if (indexPath.row==1) {
-        [cell setModel:@"Education" des:@"Enable notifications" status:YES];
+        [cell setModel:@"Education" des:@"Enable notifications" status:_model.education];
     }else if (indexPath.row==2) {
-        [cell setModel:@"Events" des:@"Enable notifications" status:NO];
+        [cell setModel:@"Events" des:@"Enable notifications" status:_model.events];
     }else if (indexPath.row==3) {
-        [cell setModel:@"Career" des:@"Enable notifications" status:YES];
+        [cell setModel:@"Career" des:@"Enable notifications" status:_model.career];
     }
     return cell;
 }
@@ -76,6 +79,56 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(void)SwitchChangeAction:(BOOL)status indexPath:(NSIndexPath *)indexPath view:(UIView *)view
+{
+    [self showLoading];
+    if (indexPath.row==0) {
+        [Proto addNotificationsUniteMagazine:status completed:^(HttpResult *result) {
+            [self hideLoading];
+            if (result.OK) {
+                NotificationsTableViewCell *cell =(NotificationsTableViewCell *)view;
+                [cell setModelSwitch:status];
+            }else{
+                NotificationsTableViewCell *cell =(NotificationsTableViewCell *)view;
+                [cell setModelSwitch:!status];
+            }
+        }];
+    }else if (indexPath.row==1) {
+        [Proto addNotificationsEducation:status completed:^(HttpResult *result) {
+            [self hideLoading];
+            if (result.OK) {
+                NotificationsTableViewCell *cell =(NotificationsTableViewCell *)view;
+                [cell setModelSwitch:status];
+            }else{
+                NotificationsTableViewCell *cell =(NotificationsTableViewCell *)view;
+                [cell setModelSwitch:!status];
+            }
+        }];
+    }else if (indexPath.row==2) {
+        [Proto addNotificationsEvents:status completed:^(HttpResult *result) {
+            [self hideLoading];
+            if (result.OK) {
+                NotificationsTableViewCell *cell =(NotificationsTableViewCell *)view;
+                [cell setModelSwitch:status];
+            }else{
+                NotificationsTableViewCell *cell =(NotificationsTableViewCell *)view;
+                [cell setModelSwitch:!status];
+            }
+        }];
+    }else if (indexPath.row==3) {
+        [Proto addNotificationsCareer:status completed:^(HttpResult *result) {
+            [self hideLoading];
+            if (result.OK) {
+                NotificationsTableViewCell *cell =(NotificationsTableViewCell *)view;
+                [cell setModelSwitch:status];
+            }else{
+                NotificationsTableViewCell *cell =(NotificationsTableViewCell *)view;
+                [cell setModelSwitch:!status];
+            }
+        }];
+    }
 }
 
 /*

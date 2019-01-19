@@ -15,6 +15,7 @@
     UILabel *textLabel;
     UIImageView *openImg;
     UIView *titleView;
+    UILabel *line ;
 
     int edge;
 }
@@ -49,12 +50,15 @@
     [[[[openImg.layoutMaker rightParent:-edge]centerYParent:0]sizeEq:16 h:16] install];
     
     
-    UILabel *line = contentView.lineLabel;
+    line = contentView.lineLabel;
     [[[[[line.layoutMaker leftParent:0]below:titleView offset:0]bottomParent:0] sizeEq:SCREENWIDTH h:1] install];
 }
 
--(void)setText:(NSString *)text{
+-(void)setText:(NSString *)text isLastItem:(BOOL)isLastItem{
     textLabel.text = text;
+    [[line.layoutUpdate heightEq:isLastItem?0:1]install];
+    
+    
 }
 
 @end

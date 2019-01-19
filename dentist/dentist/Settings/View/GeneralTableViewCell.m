@@ -14,16 +14,22 @@
     UILabel *desLabel;
     UISwitch *switchBtn;
     UILabel *lineLabel;
+    UILabel *toplineLabel;
 }
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        toplineLabel=self.lineLabel;
+        toplineLabel.hidden=YES;
+        [[[[[toplineLabel.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
         switchBtn = [UISwitch new];
         [self.contentView addSubview:switchBtn];
         switchBtn.layer.cornerRadius = switchBtn.frame.size.height/2.0;
         switchBtn.layer.masksToBounds=true;
         [[[switchBtn.layoutMaker rightParent:-25] centerYParent:0 ] install];
+        [switchBtn addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+    
         switchBtn.backgroundColor=Colors.bgDisabled;
         // 设置控件开启状态填充色
         switchBtn.onTintColor = Colors.textDisabled;
@@ -43,7 +49,7 @@
         desLabel.textColor = Colors.textColor3900;
         [desLabel adjustsFontSizeToFitWidth];
         [[[[[desLabel.layoutMaker toLeftOf:switchBtn offset:-10] leftParent:18] below:titleLabel offset:0] heightEq:20] install];
-        lineLabel=self.contentView.lineLabel;
+        lineLabel=self.lineLabel;
         [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
     }
     return self;
@@ -55,16 +61,33 @@
     switchBtn.hidden=!isSwitch;
 }
 
+-(void)setIsShowTopLine:(BOOL)isShowTopLine
+{
+    _isShowTopLine=isShowTopLine;
+    toplineLabel.hidden=!isShowTopLine;
+}
+
 -(void)setModel:(NSString *)title des:(NSString *)des status:(BOOL)status
 {
     titleLabel.text=title;
     desLabel.text=des;
     switchBtn.on=status;
 }
+-(void)setModelSwitch:(BOOL)status
+{
+    switchBtn.on=status;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+-(void)switchAction:(UISwitch *)sender{
+    BOOL isButtonOn = [sender isOn];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(SwitchChangeAction:indexPath:view:)]) {
+        [self.delegate SwitchChangeAction:isButtonOn indexPath:_indexPath view:self];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

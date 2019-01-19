@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JobDSOModel.h"
+#import "CompanyReviewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,7 +22,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// 不滑动事件
 @property (nonatomic, copy) void(^noScrollAction)(void) ;
 
--(void)contentOffsetToPointZero;
+- (void)contentOffsetToPointZero;
+- (void)viewDidLoad;
+- (void)setJobDSOModel:(JobDSOModel *)jobDSOModel;
+- (void)reloadComment;
+- (void)getNewJobDSOModel;
+- (void)seeMore;
+- (void)writeReview;
+- (UIView *)buildFooterView;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell*)companyReviewHeaderCell:tableView data:(JobDSOModel*)model;
+- (UITableViewCell*)companyReviewTableViewCell:tableView data:(CompanyReviewModel*)model;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+- (UIEdgeInsets)edgeInsetsMake;
 
 @end
 

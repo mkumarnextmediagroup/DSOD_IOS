@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyReviewsViewController : UIViewController
 
+@property (nonatomic,strong) JobDSOModel *jobDSOModel;
+
 
 + (void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel;
 

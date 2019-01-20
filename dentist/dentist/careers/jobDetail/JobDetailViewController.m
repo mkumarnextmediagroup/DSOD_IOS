@@ -27,7 +27,6 @@
 #import "AppDelegate.h"
 
 @interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,UploadResumeViewDelegate,UIDocumentPickerDelegate,HttpProgress>
-@property (nonatomic,strong) NSString *jobId;
 @property (nonatomic,strong) NSString *applyJobId;
 @property (nonatomic,strong) NSString *unFollowJobId;
 @property (nonatomic,assign) BOOL isShowApplyBtn;

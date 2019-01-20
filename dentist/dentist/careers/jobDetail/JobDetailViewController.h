@@ -11,18 +11,16 @@
 
 typedef void (^CareerJobDetailCloseCallback) (NSString *_Nullable jobid,NSString *_Nullable unFollowjobid);
 @interface JobDetailViewController : BaseController
+@property (nonatomic,strong) NSString *jobId;
 
 +(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*_Nullable)jobId;
 +(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*_Nonnull)jobId closeBack:(CareerJobDetailCloseCallback _Nullable)closeBack;
 +(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*_Nonnull)jobId isShowApply:(BOOL)isShowApply closeBack:(CareerJobDetailCloseCallback _Nullable)closeBack;
-- (void)viewDidLoad;
-- (void)viewWillAppear:(BOOL)animated;
-- (void)viewWillDisappear:(BOOL)animated;
 - (void)addNavBar;
 - (void)buildView;
 - (void)setApplyButtonEnable:(BOOL)enable;
-- (UIView*)buildHeader;
-- (void)showVideo:(NSString*)videoHtmlString;
+- (UIView*_Nullable)buildHeader;
+- (void)showVideo:(NSString*_Nullable)videoHtmlString;
 - (void)closePage;
 - (void)showLocation;
 - (void)attention;
@@ -31,19 +29,19 @@ typedef void (^CareerJobDetailCloseCallback) (NSString *_Nullable jobid,NSString
 - (void)uploadResume;
 - (void)applyNow;
 - (void)applyForJob;
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url;
+- (void)documentPicker:(UIDocumentPickerViewController *_Nullable)controller didPickDocumentAtURL:(NSURL *_Nullable)url;
 - (void)onHttpProgress:(int)current total:(int)total percent:(int)percent;
-- (NSString *)decoderUrlEncodeStr: (NSString *) input;
-- (NSString*)fileName:(NSString*)filePath;
+- (NSString *_Nullable)decoderUrlEncodeStr: (NSString *_Nullable) input;
+- (NSString*_Nullable)fileName:(NSString*_Nullable)filePath;
 - (void)setupTableContentVC;
-- (UIView*)tableContentView;
+- (UIView*_Nullable)tableContentView;
 - (void)didDentistSelectItemAtIndex:(NSInteger)index;
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+- (CGFloat)tableView:(UITableView *_Nullable)tableView heightForHeaderInSection:(NSInteger)section;
+- (UIView *_Nullable)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
+- (NSInteger)tableView:(UITableView *_Nullable)tableView numberOfRowsInSection:(NSInteger)section;
+- (CGFloat)tableView:(UITableView *_Nullable)tableView heightForRowAtIndexPath:(NSIndexPath *_Nullable)indexPath;
+- (UITableViewCell *_Nullable)tableView:(UITableView *_Nullable)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *_Nullable)tableView didSelectRowAtIndexPath:(NSIndexPath *_Nullable)indexPath;
+- (void)scrollViewDidScroll:(UIScrollView *_Nullable)scrollView;
 
 @end

@@ -201,6 +201,7 @@
 		4355706021E2327D007A8C21 /* UniteDetailViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4355705F21E2327D007A8C21 /* UniteDetailViewControllerTests.m */; };
 		4355706321E236C5007A8C21 /* UniteDownloadingViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4355706221E236C5007A8C21 /* UniteDownloadingViewControllerTests.m */; };
 		4355706621E23E0B007A8C21 /* SliderListViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4355706521E23E0B007A8C21 /* SliderListViewControllerTests.m */; };
+		4355C2E021F46D6F00544B5F /* JobDetailViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4355C2DF21F46D6F00544B5F /* JobDetailViewControllerTests.m */; };
 		43595F9221B503E80028BA97 /* LinearPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43595F9121B503E80028BA97 /* LinearPageTests.m */; };
 		43597BF721CCC6070033E1C1 /* LinearVerViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43597BF621CCC6070033E1C1 /* LinearVerViewTests.m */; };
 		43597BFA21CCD0E80033E1C1 /* ContentPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43597BF921CCD0E80033E1C1 /* ContentPageTests.m */; };
@@ -1314,6 +1315,7 @@
 		4355705F21E2327D007A8C21 /* UniteDetailViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteDetailViewControllerTests.m; sourceTree = "<group>"; };
 		4355706221E236C5007A8C21 /* UniteDownloadingViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniteDownloadingViewControllerTests.m; sourceTree = "<group>"; };
 		4355706521E23E0B007A8C21 /* SliderListViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SliderListViewControllerTests.m; sourceTree = "<group>"; };
+		4355C2DF21F46D6F00544B5F /* JobDetailViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailViewControllerTests.m; sourceTree = "<group>"; };
 		43595F9121B503E80028BA97 /* LinearPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearPageTests.m; sourceTree = "<group>"; };
 		43597BF621CCC6070033E1C1 /* LinearVerViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearVerViewTests.m; sourceTree = "<group>"; };
 		43597BF921CCD0E80033E1C1 /* ContentPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContentPageTests.m; sourceTree = "<group>"; };
@@ -2974,6 +2976,14 @@
 			path = SliderListViewController;
 			sourceTree = "<group>";
 		};
+		4355C2DE21F46D6400544B5F /* JobDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4355C2DF21F46D6F00544B5F /* JobDetailViewControllerTests.m */,
+			);
+			path = JobDetailViewController;
+			sourceTree = "<group>";
+		};
 		43595F9021B503DC0028BA97 /* LinearPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -3117,6 +3127,7 @@
 		439CB0FB21F0228400CF78F2 /* JobDetail */ = {
 			isa = PBXGroup;
 			children = (
+				4355C2DE21F46D6400544B5F /* JobDetailViewController */,
 			);
 			path = JobDetail;
 			sourceTree = "<group>";
@@ -5695,6 +5706,7 @@
 				43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */,
 				43B5E6D321EDEC3000F07A4B /* CareerAddReviewViewControllerTests.m in Sources */,
 				43B7252D217650FF000F6797 /* ExampleTests.m in Sources */,
+				4355C2E021F46D6F00544B5F /* JobDetailViewControllerTests.m in Sources */,
 				439D55EB2189DBFA003BB940 /* ProfileEditPageTests.m in Sources */,
 				4344660521A5674400811E94 /* UIViewExtTests.m in Sources */,
 				43F92B7A217D94B400798462 /* LoginControllerTests.m in Sources */,

@@ -12,6 +12,7 @@
 #import "VideoQualityViewController.h"
 #import "PlaybackSpeedViewController.h"
 #import "Proto.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 
 @interface GeneralViewController ()<UITableViewDelegate,UITableViewDataSource,GeneralTableViewCellDelegate>
 {
@@ -19,6 +20,7 @@
     NSArray *infoArr2;
     NSArray *infoArr3;
     UITableView *myTable;
+    BOOL isSupportFaceId;
 }
 @end
 
@@ -57,6 +59,27 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    LAContext *context = [[LAContext alloc] init];
+    //判断是支持touchid还是faceid
+    if (@available(iOS 11.0, *)) {
+        switch (context.biometryType) {
+            case LABiometryNone:
+                NSLog(@"-----------touchid，faceid都不支持");
+                break;
+            case LABiometryTypeTouchID:
+                NSLog(@"-----------touchid支持");
+                break;
+            case LABiometryTypeFaceID:
+                NSLog(@"-----------faceid支持");
+                isSupportFaceId=YES;
+                break;
+            default:
+                break;
+        }
+    } else {
+        // Fallback on earlier versions
+        NSLog(@"-----------iOS11之前的版本，不做id判断");
+    }
     _model.videoDownloadQuality=[VideoQualityViewController getCheckedVideoQualityText];
     _model.playbackSpeed=[PlaybackSpeedViewController getCheckedPlaybackSpeedText];
 //    infoArr2 = [NSArray arrayWithObjects:
@@ -142,7 +165,10 @@
         if(infoArr.count>indexPath.row){
             NSDictionary *dic=infoArr[indexPath.row];
             if (indexPath.row==0) {
-                [cell setModel:[dic objectForKey:@"title"] des:[dic objectForKey:@"des"] status:_model.useFaceID];
+                if (!isSupportFaceId) {
+                    [cell styleGlay];
+                }
+                [cell setModel:[dic objectForKey:@"title"] des:[dic objectForKey:@"des"] status:(isSupportFaceId?_model.useFaceID:NO)];
             }else if (indexPath.row==1){
                 [cell setModel:[dic objectForKey:@"title"] des:[dic objectForKey:@"des"] status:_model.useDsoDentistOffline];
             }
@@ -187,9 +213,9 @@
 
 -(void)SwitchChangeAction:(BOOL)status indexPath:(NSIndexPath *)indexPath view:(UIView *)view
 {
-    [self showLoading];
     if (indexPath.section==0) {
-        if (indexPath.row==0) {
+        if (indexPath.row==0 && isSupportFaceId) {
+            [self showLoading];
             [Proto addGeneralsettingsUseFaceID:status completed:^(HttpResult *result) {
                 [self hideLoading];
                 if (result.OK) {
@@ -201,6 +227,7 @@
                 }
             }];
         }else if (indexPath.row==1){
+            [self showLoading];
             [Proto addGeneralsettingsUseDsoDentistOffline:status completed:^(HttpResult *result) {
                 [self hideLoading];
                 if (result.OK) {
@@ -214,6 +241,7 @@
         }
         
     }else if (indexPath.section==2){
+        [self showLoading];
         [Proto addGeneralsettingsDownloadOnlyWiFi:status completed:^(HttpResult *result) {
             [self hideLoading];
             if (result.OK) {

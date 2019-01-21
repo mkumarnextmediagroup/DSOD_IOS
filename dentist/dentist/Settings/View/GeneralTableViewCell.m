@@ -78,6 +78,11 @@
     switchBtn.on=status;
 }
 
+-(void)styleGlay
+{
+    [switchBtn setEnabled:NO];
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

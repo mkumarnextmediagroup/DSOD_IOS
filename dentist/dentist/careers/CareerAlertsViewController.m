@@ -145,8 +145,16 @@
         tipLabel.numberOfLines=0;
         tipLabel.font = [Fonts semiBold:16];
         tipLabel.textColor =[UIColor blackColor];
-        tipLabel.text=@"Add your first Job Alert! \n \n Receive regular emails with the best matched jobs \nfrom DSOs";
-        [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+        tipLabel.text=@"Add your first Job Alert!";
+        [[[[tipLabel.layoutMaker leftParent:10] rightParent:-10] below:headBtn offset:50] install];
+        
+        UILabel *tipLabel2= headerVi.addLabel;
+        tipLabel2.textAlignment=NSTextAlignmentCenter;
+        tipLabel2.numberOfLines=0;
+        tipLabel2.font = [UIFont systemFontOfSize:15.0];
+        tipLabel2.textColor =[UIColor blackColor];
+        tipLabel2.text=@"Receive regular emails with the best matched jobs \nfrom DSOs";
+        [[[[tipLabel2.layoutMaker leftParent:10] rightParent:-10] below:tipLabel offset:10] install];
         
         
         UILabel *addlabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];

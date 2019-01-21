@@ -156,7 +156,7 @@
             tipLabel.text=@"You have not yet applied for a job through\nDSODentis";
         }else{
             [headBtn setImage:[UIImage imageNamed:@"noun_Briefcase"] forState:UIControlStateNormal];
-            tipLabel.text=@"You have not saved jobs yet.\nSave josb to view later from this\nscreen";
+            tipLabel.text=@"You have not saved jobs yet.\nSave jobs to view later from this\nscreen";
         }
         return headerVi;
     } normalBlock:^(UITableView * _Nonnull sender) {

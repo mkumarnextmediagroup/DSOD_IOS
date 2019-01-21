@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)setModel:(NSString *)title des:(NSString *)des status:(BOOL)status;
 -(void)setModelSwitch:(BOOL)status;
+-(void)styleGlay;
 
 @end
 

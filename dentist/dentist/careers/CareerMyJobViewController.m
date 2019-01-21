@@ -153,7 +153,7 @@
         [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
         if (self->_selectIndex==0) {
             [headBtn setImage:[UIImage imageNamed:@"noun_receipt"] forState:UIControlStateNormal];
-            tipLabel.text=@"You have not yet applied for a job through\nDSODentis";
+            tipLabel.text=@"You have not yet applied for a job through\nDSODentist.";
         }else{
             [headBtn setImage:[UIImage imageNamed:@"noun_Briefcase"] forState:UIControlStateNormal];
             tipLabel.text=@"You have not saved jobs yet.\nSave jobs to view later from this\nscreen";

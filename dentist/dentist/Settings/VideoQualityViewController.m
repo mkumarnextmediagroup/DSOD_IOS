@@ -18,11 +18,16 @@
 
 @implementation VideoQualityViewController{
     
+    //table view
     UITableView *tableView;
-    
+    //Data source array
     NSArray<NSDictionary*>* dataArray;
 }
 
+/**
+ get video quality data source array
+ @return data source array
+ */
 +(NSArray<NSDictionary*>*)videoQualityArray{
     return @[
              @{@"text":@"144p" },
@@ -34,16 +39,26 @@
              ];
 }
 
+/**
+ get selected video quality text
+ @return video quality text
+ */
 +(NSString*)getCheckedVideoQualityText{
     NSString *text = [[NSUserDefaults standardUserDefaults] objectForKey:@"VideoQuality"];
     return [NSString isBlankString:text] ? @"Auto" : text;
 }
 
+/**
+ Save the selected video quality locally
+ */
 +(void)saveCheckedVideoQualityText:(NSString*)text{
     [[NSUserDefaults standardUserDefaults] setObject:text forKey:@"VideoQuality"];
 }
 
-
+/**
+ Open setting video quality page
+ @param vc UIViewController
+ */
 +(void)openBy:(UIViewController*)vc {
     VideoQualityViewController *newVc = [VideoQualityViewController new];
     [vc pushPage:newVc];
@@ -60,12 +75,18 @@
     [tableView reloadData];
 }
 
+/**
+ add navigation bar
+ */
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
     item.title = @"VIDEO QUALITY";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
 }
 
+/**
+ build views
+ */
 -(void)buildViews{
     self.view.backgroundColor = UIColor.whiteColor;
     

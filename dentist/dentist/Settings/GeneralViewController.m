@@ -26,6 +26,10 @@
 
 @implementation GeneralViewController
 
+
+/**
+ build views
+ */
 - (void)viewDidLoad {
     [super viewDidLoad];
     BOOL qq=nil;
@@ -89,6 +93,10 @@
     
 }
 
+
+/**
+ close page
+ */
 -(void)back{
     NSArray *viewcontrollers=self.navigationController.viewControllers;
     if (viewcontrollers.count>1) {
@@ -103,6 +111,8 @@
     }
 }
 
+
+#pragma mark UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 80;

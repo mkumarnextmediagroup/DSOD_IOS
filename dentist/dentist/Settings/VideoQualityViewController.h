@@ -12,8 +12,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VideoQualityViewController : UIViewController
 
+/**
+ Open setting video quality page
+ @param vc UIViewController
+ */
 +(void)openBy:(UIViewController*)vc;
 
+/**
+ get selected video quality text
+ @return video quality text
+ */
 +(NSString*)getCheckedVideoQualityText;
 
 @end

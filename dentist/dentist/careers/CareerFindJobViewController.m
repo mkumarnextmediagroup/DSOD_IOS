@@ -257,11 +257,16 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     JobModel *jobModel = _infoArr[indexPath.row];
-    [JobDetailViewController presentBy:(self.tabBarController != nil?nil:self) jobId:jobModel.id closeBack:^(NSString * jobid,NSString *unFollowjobid) {
+    [JobDetailViewController presentBy:(self.tabBarController != nil?nil:self) jobId:jobModel.id closeBack:^(NSString * jobid,NSString *unFollowjobid,NSString *Followjobid) {
         foreTask(^{
             if (![NSString isBlankString:jobid]) {
                 jobModel.isApplication=@"1";
+            }else{
+                if (![NSString isBlankString:Followjobid]) {
+                    jobModel.isAttention=@"1";
+                }
             }
+            
             if (self->myTable) {
                 [self->myTable reloadData];
             }
@@ -305,14 +310,14 @@
 {
     NSLog(@"FollowJobAction");
     if (self->_infoArr && self->_infoArr.count>indexPath.row) {
-        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
-        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+//        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
+//        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         JobModel *model=self->_infoArr[indexPath.row];
         NSString *jobid=model.id;
         [Proto addJobBookmark:jobid completed:^(HttpResult *result) {
             NSLog(@"result=%@",@(result.code));
             foreTask(^() {
-                [self.navigationController.view hideToast];
+//                [self.navigationController.view hideToast];
                 if ([view isKindOfClass:[FindJobsSponsorTableViewCell class]]) {
                     FindJobsSponsorTableViewCell *cell =(FindJobsSponsorTableViewCell *)view;
                     [cell updateFollowStatus:YES];
@@ -331,14 +336,14 @@
 {
     NSLog(@"UnFollowJobAction");
     if (self->_infoArr && self->_infoArr.count>indexPath.row) {
-        UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
-        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+//        UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
+//        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         JobModel *model=self->_infoArr[indexPath.row];
         NSString *jobid=model.id;
         [Proto deleteJobBookmarkByJobId:jobid completed:^(HttpResult *result) {
             NSLog(@"result=%@",@(result.code));
             foreTask(^() {
-                [self.navigationController.view hideToast];
+//                [self.navigationController.view hideToast];
                 if ([view isKindOfClass:[FindJobsSponsorTableViewCell class]]) {
                     FindJobsSponsorTableViewCell *cell =(FindJobsSponsorTableViewCell *)view;
                     [cell updateFollowStatus:NO];

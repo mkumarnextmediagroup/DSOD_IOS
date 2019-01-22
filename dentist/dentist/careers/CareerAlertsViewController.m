@@ -41,7 +41,7 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
     UINavigationItem *item = [self navigationItem];
-    item.title = @"Alerts";
+    item.title = @"JOB ALERTS";
     
 //    UILabel *addlabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
 //    addlabel.font=[UIFont systemFontOfSize:30];

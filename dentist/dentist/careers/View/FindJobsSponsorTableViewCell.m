@@ -132,7 +132,7 @@
             location=[location stringByAppendingString:[NSString stringWithFormat:@"%@",_info.city]];
         }
         if (![NSString isBlankString:_info.state]) {
-            location=[location stringByAppendingString:[NSString stringWithFormat:@",%@",_info.state]];
+            location=[location stringByAppendingString:[NSString stringWithFormat:@", %@",_info.state]];
         }
         titleLabel.text = [NSString stringWithFormat:@"%@-%@",_info.jobTitle,location];
         statusLabel.text=@"";

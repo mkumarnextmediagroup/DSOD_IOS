@@ -28,6 +28,7 @@
 
 @interface JobDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,UploadResumeViewDelegate,UIDocumentPickerDelegate,HttpProgress>
 @property (nonatomic,strong) NSString *applyJobId;
+@property (nonatomic,strong) NSString *FollowJobId;
 @property (nonatomic,strong) NSString *unFollowJobId;
 @property (nonatomic,assign) BOOL isShowApplyBtn;
 @property (copy, nonatomic) CareerJobDetailCloseCallback closeBack;
@@ -90,6 +91,7 @@
     JobDetailViewController *jobDetailVc = [JobDetailViewController new];
     jobDetailVc.jobId =jobId;
     jobDetailVc.applyJobId=nil;
+    jobDetailVc.FollowJobId=nil;
     jobDetailVc.unFollowJobId=nil;
     jobDetailVc.isShowApplyBtn=isShowApply;
     jobDetailVc.closeBack = closeBack;
@@ -366,7 +368,7 @@
 
 -(void)closePage{
     if (self.closeBack) {
-        self.closeBack(self->_applyJobId,self->_unFollowJobId);
+        self.closeBack(self->_applyJobId,self->_unFollowJobId,self->_FollowJobId);
     }
     self.view.backgroundColor = UIColor.clearColor;
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -409,6 +411,7 @@
             NSLog(@"result=%@",@(result.code));
             if (result.code == 0) {
                 foreTask(^() {
+                    self->_FollowJobId=self->_jobId;
                     [self.navigationController.view hideToast];
                     [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention_select"] forState:UIControlStateNormal];
                     self->jobModel.isAttention = @"1";

@@ -158,6 +158,11 @@
     [self hideLoading];
 }
 
+- (void)hideIndicator:(NSTimeInterval)delay {
+    [self performSelector:@selector(hideLoading) withObject:nil afterDelay:delay];
+//    [self hideLoading];
+}
+
 - (void)selectIdName:(NSString *)title array:(NSArray<IdName *> *)array selectedId:(NSString *)selectedId result:(void (^)(IdName *))result {
 	SearchPage *c = [SearchPage new];
 	c.titleText = title;

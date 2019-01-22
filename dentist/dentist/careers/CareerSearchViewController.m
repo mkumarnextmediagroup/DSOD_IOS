@@ -38,6 +38,7 @@
     UITextField *locationField;
     UITextField *milesField;
     CLLocationManager *locationmanager;
+    BOOL clickSearch;
 }
 /*** searchbar ***/
 @property (nonatomic,strong) UITextField *searchField;
@@ -225,14 +226,14 @@
     if (textField == _searchField) {
         searchKeywords=textField.text;
         [self.searchField resignFirstResponder];
-        
+        self->clickSearch=YES;
         [self showIndicator];
         
         if ([locationField.text isEqualToString:currentCity]) {//自动定位，此时有经纬度
             //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
             [Proto queryAllJobs:0 jobTitle:_searchField.text location:latLongArr city:nil distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                 foreTask(^{
-                    [self hideIndicator];
+                    [self hideIndicator:1];
                     [self setJobCountTitle:totalCount];
                     self->infoArr = [NSMutableArray arrayWithArray:array];
                     [self->myTable reloadData];
@@ -244,7 +245,7 @@
             //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
             [Proto queryAllJobs:0 jobTitle:_searchField.text location:nil city:locationField.text distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                 foreTask(^{
-                    [self hideIndicator];
+                    [self hideIndicator:1];
                     [self setJobCountTitle:totalCount];
                     self->infoArr = [NSMutableArray arrayWithArray:array];
                     [self->myTable reloadData];
@@ -274,13 +275,14 @@
                 [Proto queryAllJobs:self->infoArr.count jobTitle:_searchField.text location:latLongArr city:nil distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                     self->isdownrefresh=NO;
                     foreTask(^{
-                        [self hideIndicator];
+                        [self hideIndicator:1];
                         NSLog(@"%@",array);
                         //                    [self setJobCountTitle:totalCount];
                         if(array && array.count>0){
                             [self->infoArr addObjectsFromArray:array];
+                            [self->myTable reloadData];
                         }
-                        [self->myTable reloadData];
+                        
                         
                     });
                 }];
@@ -292,13 +294,14 @@
                 [Proto queryAllJobs:self->infoArr.count jobTitle:_searchField.text location:nil city:locationField.text distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                     self->isdownrefresh=NO;
                     foreTask(^{
-                        [self hideIndicator];
+                        [self hideIndicator:1];
                         NSLog(@"%@",array);
                         //                    [self setJobCountTitle:totalCount];
                         if(array && array.count>0){
                             [self->infoArr addObjectsFromArray:array];
+                            [self->myTable reloadData];
                         }
-                        [self->myTable reloadData];
+                        
                         
                     });
                 }];
@@ -314,14 +317,35 @@
 {
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:NO];
-        UIView *headerVi = [UIView new];
-        headerVi.backgroundColor = [UIColor clearColor];
-        UIButton *headBtn = headerVi.addButton;
-        [headBtn setImage:[UIImage imageNamed:@"career_searchIcon"] forState:UIControlStateNormal];
-        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        headBtn.titleLabel.font = [Fonts regular:13];
-        [[[headBtn.layoutMaker centerXParent:0] topParent:135] install];
-        return headerVi;
+        if (self->clickSearch) {
+            UIView *headerVi = [UIView new];
+            [sender addSubview:headerVi];
+            [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
+            headerVi.backgroundColor = [UIColor clearColor];
+            UIButton *headBtn = headerVi.addButton;
+            [headBtn setImage:[UIImage imageNamed:@"noun_Business Records"] forState:UIControlStateNormal];
+            headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            headBtn.titleLabel.font = [Fonts regular:13];
+            [[[headBtn.layoutMaker centerXParent:0] centerYParent:-120] install];
+            UILabel *tipLabel= headerVi.addLabel;
+            tipLabel.textAlignment=NSTextAlignmentCenter;
+            tipLabel.numberOfLines=0;
+            tipLabel.font = [Fonts semiBold:16];
+            tipLabel.textColor =[UIColor blackColor];
+            tipLabel.text=@"No available jobs at the \n moment";
+            [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+            return headerVi;
+        }else{
+            UIView *headerVi = [UIView new];
+            headerVi.backgroundColor = [UIColor clearColor];
+            UIButton *headBtn = headerVi.addButton;
+            [headBtn setImage:[UIImage imageNamed:@"career_searchIcon"] forState:UIControlStateNormal];
+            headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            headBtn.titleLabel.font = [Fonts regular:13];
+            [[[headBtn.layoutMaker centerXParent:0] topParent:135] install];
+            return headerVi;
+        }
+        
     } normalBlock:^(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:YES];
     }];

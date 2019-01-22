@@ -242,6 +242,11 @@
     
 }
 
+/**
+ Logout click event
+
+ @param sender sender
+ */
 - (void)onClickLogout:(id)sender {
 	[Proto logout];
     AppDelegate *delegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];

@@ -16,11 +16,18 @@
 @end
 
 @implementation PlaybackSpeedViewController{
-    UITableView *tableView;
     
+    //table view
+    UITableView *tableView;
+    //Data source array
     NSArray<NSDictionary*>* dataArray;
 }
 
+
+/**
+ get playback speed data source array
+ @return data source array
+ */
 +(NSArray<NSDictionary*>*)playbackSpeedArray{
     return @[
              @{@"text":@"0.5x" },
@@ -32,16 +39,28 @@
              ];
 }
 
+
+/**
+ get selected playback speedy text
+ @return playback speed text
+ */
 +(NSString*)getCheckedPlaybackSpeedText{
     NSString *text = [[NSUserDefaults standardUserDefaults] objectForKey:@"playbackSpeed"];
     return [NSString isBlankString:text] ? @"1.0x" : text;
 }
 
+
+/**
+ Save the selected playback speedy locally
+ */
 +(void)saveCheckedPlaybackSpeedText:(NSString*)text{
     [[NSUserDefaults standardUserDefaults] setObject:text forKey:@"playbackSpeed"];
 }
 
-
+/**
+ Open setting playback speed page
+ @param vc UIViewController
+ */
 +(void)openBy:(UIViewController*)vc {
     PlaybackSpeedViewController *newVc = [PlaybackSpeedViewController new];
     [vc pushPage:newVc];
@@ -58,12 +77,20 @@
     [tableView reloadData];
 }
 
+
+/**
+ add navigation bar
+ */
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
     item.title = @"PLAYBACK SPEED";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
 }
 
+
+/**
+ build views
+ */
 -(void)buildViews{
     self.view.backgroundColor = UIColor.whiteColor;
     

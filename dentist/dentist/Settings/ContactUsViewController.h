@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ContactUsViewController : UIViewController
 
+/**
+ Open contact us page
+ 
+ @param vc UIViewController
+ */
 +(void)openBy:(UIViewController*)vc;
 
 @end

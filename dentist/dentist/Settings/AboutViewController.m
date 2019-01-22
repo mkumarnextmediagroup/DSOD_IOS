@@ -16,10 +16,15 @@
 
 @implementation AboutViewController{
     
+    //content webView
     UIWebView *mywebView;
 }
 
 
+/**
+ Open about page
+ @param vc UIViewController
+ */
 +(void)openBy:(UIViewController*)vc {
     AboutViewController *newVc = [AboutViewController new];
     [vc pushPage:newVc];
@@ -34,12 +39,18 @@
     [self buildViews];
 }
 
+/**
+ add navigation bar
+ */
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
     item.title = @"ABOUT";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
 }
 
+/**
+ build views
+ */
 -(void)buildViews{
     self.view.backgroundColor = UIColor.whiteColor;
     
@@ -65,6 +76,11 @@
 
 
 #pragma mark DentistTabViewDelegate
+/**
+ DentistTabView Delegate
+ Tab change callback
+ @param index Currently selected tab index
+ */
 - (void)didDentistSelectItemAtIndex:(NSInteger)index{
     NSString *fileName = @"";
     switch (index) {

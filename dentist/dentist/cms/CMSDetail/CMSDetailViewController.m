@@ -199,12 +199,12 @@
     
     UIButton *nextBtn = [topVi addButton];
     [nextBtn setImage:[UIImage imageNamed:@"icon_arrow_down"] forState:UIControlStateNormal];
-    [[[[nextBtn.layoutMaker leftParent:SCREENWIDTH - 80] topParent:24+NAVHEIGHT_OFFSET] sizeEq:40 h:40] install];
+    [[[[nextBtn.layoutMaker leftParent:SCREENWIDTH - 90] topParent:24+NAVHEIGHT_OFFSET] sizeEq:40 h:40] install];
     [nextBtn addTarget:self action:@selector(onClickDown:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *preBtn = [topVi addButton];
     [preBtn setImage:[UIImage imageNamed:@"icon_arrow_up"] forState:UIControlStateNormal];
-    [[[[preBtn.layoutMaker leftParent:SCREENWIDTH - 40] topParent:24+NAVHEIGHT_OFFSET] sizeEq:40 h:40] install];
+    [[[[preBtn.layoutMaker leftParent:SCREENWIDTH - 50] topParent:24+NAVHEIGHT_OFFSET] sizeEq:40 h:40] install];
     [preBtn addTarget:self action:@selector(onClickUp:) forControlEvents:UIControlEventTouchUpInside];
     
     UILabel *line = [topVi lineLabel];

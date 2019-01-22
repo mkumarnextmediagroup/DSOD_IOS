@@ -13,6 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AboutViewController : UIViewController
 
 
+/**
+ Open about page
+ @param vc UIViewController
+ */
 +(void)openBy:(UIViewController*)vc ;
 
 @end

@@ -122,6 +122,7 @@ extension ThumViewController{
                 self.showNavTitle(self.detailView?.isHidden)
             }
             
+            
         }
     }
     
@@ -341,22 +342,28 @@ extension ThumViewController{
                 }else if row==3 {
                     if self.isfull==true {
                         self.isfull=false
-                        self.pushToViewController4(self.detailcollectionView!){
-                            self.collectionView?.isHidden=false
-                            self.detailView?.isHidden=true
-                            self.detailView?.removeFromSuperview()
-                            self.showNavTitle(self.detailView?.isHidden)
+                        if(self.modelarr!.count>0){
+                            self.pushToViewController4(self.detailcollectionView!){
+                                self.collectionView?.isHidden=false
+                                self.detailView?.isHidden=true
+                                self.detailView?.removeFromSuperview()
+                                self.showNavTitle(self.detailView?.isHidden)
+                            }
                         }
+                        
                         
                     }else{
                         self.isfull=true
-                        self.pushToViewController2 {
-                            self.collectionView?.isHidden=true
-                            self.detailView?.isHidden=false
-                            self.view.addSubview(self.detailView!)
-                            self.showNavTitle(self.detailView?.isHidden)
-                            
+                        if(self.modelarr!.count>0){
+                            self.pushToViewController2 {
+                                self.collectionView?.isHidden=true
+                                self.detailView?.isHidden=false
+                                self.view.addSubview(self.detailView!)
+                                self.showNavTitle(self.detailView?.isHidden)
+                                
+                            }
                         }
+                        
                     }
                 }
                 else if row==4 {

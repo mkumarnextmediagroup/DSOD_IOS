@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @protocol SliderListViewDelegate <NSObject>
 
 @optional
@@ -27,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,weak) id<SliderListViewDelegate> delegate;
 
 + (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId;
++ (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId isbookMark:(BOOL)isbookMark;
 +(void)hideSliderView;
 - (void)showSliderView;
 +(void)attemptDealloc;
@@ -50,5 +49,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView;
 
 @end
-
-NS_ASSUME_NONNULL_END

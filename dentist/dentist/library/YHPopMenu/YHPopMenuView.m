@@ -294,6 +294,15 @@ static const CGFloat kItemH = 44.0f;//item高度
 
 
 #pragma mark - Public
+
+-(void)updateTableHeight:(CGFloat)height
+{
+    _menuViewH = height;
+    WeakSelf
+    [weakSelf.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf).offset(weakSelf.menuViewY+(weakSelf.tableView.layer.anchorPoint.y-0.5)*weakSelf.menuViewH);
+    }];
+}
 - (void)dismissHandler:(DismissBlock)handler{
     _dBlock = handler;
 }

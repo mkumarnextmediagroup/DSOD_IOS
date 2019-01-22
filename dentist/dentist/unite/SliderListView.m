@@ -37,7 +37,7 @@
 
 @property BOOL isSearch;
 @property NSString *magazineId;
-
+@property BOOL isbookMark;
 @end
 
 @implementation SliderListView
@@ -47,11 +47,17 @@ static dispatch_once_t onceToken;
 
 + (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId
 {
+    return [self initSliderView:isSearch magazineId:magazineId isbookMark:NO];
+}
+
++ (instancetype)initSliderView:(BOOL)isSearch magazineId:(NSString * _Nullable)magazineId isbookMark:(BOOL)isbookMark
+{
     dispatch_once(&onceToken, ^{
         instance = [[SliderListView alloc] init];
         instance.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0];
         instance.isSearch = isSearch;
         instance.magazineId = magazineId;
+        instance.isbookMark=isbookMark;
         [instance initSliderView];
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         [window.rootViewController.view addSubview:instance];
@@ -148,16 +154,29 @@ static dispatch_once_t onceToken;
         [self createTableview];
         [[[[[mTableView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:SCREENHEIGHT - NAVHEIGHT] install];
     }
+    //queryUniteArticlesBookmarkCachesList
+    if (_isbookMark) {
+        [[DentistDataBaseManager shareManager] queryUniteArticlesBookmarkCachesList:^(NSArray<DetailModel *> * _Nonnull array) {
+            if (array) {
+                self->infoArr = array;
+                [self sortGroupByArr];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self->mTableView reloadData];
+                });
+            }
+        }];
+    }else{
+        [[DentistDataBaseManager shareManager] queryUniteArticlesCachesList:self.magazineId completed:^(NSArray<DetailModel *> * _Nonnull array) {
+            if (array) {
+                self->infoArr = array;
+                [self sortGroupByArr];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self->mTableView reloadData];
+                });
+            }
+        }];
+    }
     
-    [[DentistDataBaseManager shareManager] queryUniteArticlesCachesList:self.magazineId completed:^(NSArray<DetailModel *> * _Nonnull array) {
-        if (array) {
-            self->infoArr = array;
-            [self sortGroupByArr];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self->mTableView reloadData];
-            });
-        }
-    }];
 }
 
 - (void)sortGroupByArr
@@ -201,7 +220,7 @@ static dispatch_once_t onceToken;
     mTableView.dataSource = self;
     mTableView.delegate = self;
     mTableView.estimatedRowHeight = 40;
-    if (!_isSearch) {
+    if (!_isSearch && !_isbookMark) {
         mTableView.tableHeaderView = [self headerView];
     }
     mTableView.rowHeight = UITableViewAutomaticDimension;
@@ -293,18 +312,35 @@ static dispatch_once_t onceToken;
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     //@"Interproximal Reduction (IPR)"
-    [[DentistDataBaseManager shareManager] queryUniteArticlesCachesByKeywordList:self.magazineId keywords:searchBar.text completed:^(NSArray<DetailModel *> * _Nonnull array) {
-        if (array) {
-            self->searchArr = array;
-            if (self->searchArr.count == 0) {
-                [self createEmptyNotice];
+    if (_isbookMark) {
+        //queryUniteArticlesBookmarkCachesList
+        [[DentistDataBaseManager shareManager] queryUniteArticlesBookmarkCachesList:searchBar.text completed:^(NSArray<DetailModel *> * _Nonnull array) {
+            if (array) {
+                self->searchArr = array;
+                if (self->searchArr.count == 0) {
+                    [self createEmptyNotice];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self->mSearch resignFirstResponder];
+                    [self->mTableView reloadData];
+                });
             }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self->mSearch resignFirstResponder];
-                [self->mTableView reloadData];
-            });
-        }
-    }];
+        }];
+    }else{
+        [[DentistDataBaseManager shareManager] queryUniteArticlesCachesByKeywordList:self.magazineId keywords:searchBar.text completed:^(NSArray<DetailModel *> * _Nonnull array) {
+            if (array) {
+                self->searchArr = array;
+                if (self->searchArr.count == 0) {
+                    [self createEmptyNotice];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self->mSearch resignFirstResponder];
+                    [self->mTableView reloadData];
+                });
+            }
+        }];
+    }
+    
     
 }
 

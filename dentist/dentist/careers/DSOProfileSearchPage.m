@@ -23,6 +23,7 @@
     NSArray<JobDSOModel *> *searchInfoArr;
     
     NSInteger pagenumber;
+    BOOL isfirstfresh;
 }
 @end
 
@@ -45,6 +46,7 @@
     [self showLoading];
     [Proto queryCompanyList:pagenumber searchValue:searchField.text completed:^(NSArray<JobDSOModel *> *array, NSInteger totalCount) {
         foreTask(^{
+            self->isfirstfresh=YES;
             [self hideLoading];
             NSLog(@"%@",array);
             self->searchInfoArr = array;
@@ -102,26 +104,29 @@
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:NO];
         UIView *headerVi = [UIView new];
-        headerVi.backgroundColor = [UIColor clearColor];
-        UIButton *headBtn = headerVi.addButton;
-        [headBtn setImage:[UIImage imageNamed:@"noresult_search"] forState:UIControlStateNormal];
-        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        headBtn.titleLabel.font = [Fonts regular:13];
-        [[[headBtn.layoutMaker centerXParent:0] topParent:135] install];
-        
-        UILabel *tipLabel= headerVi.addLabel;
-        tipLabel.textAlignment=NSTextAlignmentCenter;
-        tipLabel.numberOfLines=0;
-        tipLabel.font = [Fonts semiBold:16];
-        tipLabel.textColor =[UIColor blackColor];
-        if (self.isDSOProfile)
-        {
-            tipLabel.text=@"No results found. \n Try another DSO/ \n company";
-        }else
-        {
-            tipLabel.text=@"No results found.";
+        if (self->isfirstfresh) {
+            headerVi.backgroundColor = [UIColor clearColor];
+            UIButton *headBtn = headerVi.addButton;
+            [headBtn setImage:[UIImage imageNamed:@"noresult_search"] forState:UIControlStateNormal];
+            headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            headBtn.titleLabel.font = [Fonts regular:13];
+            [[[headBtn.layoutMaker centerXParent:0] topParent:135] install];
+            
+            UILabel *tipLabel= headerVi.addLabel;
+            tipLabel.textAlignment=NSTextAlignmentCenter;
+            tipLabel.numberOfLines=0;
+            tipLabel.font = [Fonts semiBold:16];
+            tipLabel.textColor =[UIColor blackColor];
+            if (self.isDSOProfile)
+            {
+                tipLabel.text=@"No results found. \n Try another DSO/ \n company";
+            }else
+            {
+                tipLabel.text=@"No results found.";
+            }
+            [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
         }
-        [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+        
         return headerVi;
     } normalBlock:^(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:YES];

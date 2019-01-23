@@ -24,6 +24,7 @@
     UILabel *jobCountTitle;
     BOOL isdownrefresh;
     NSDictionary *filterDic;
+    BOOL isfirstfresh;
 }
 @end
 
@@ -32,7 +33,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (myTable) {
+    if (myTable && self->_infoArr) {
         [myTable reloadData];
     }
 }
@@ -85,23 +86,26 @@
 - (void)createEmptyNotice
 {
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
-        [self->myTable setScrollEnabled:NO];
         UIView *headerVi = [UIView new];
         [sender addSubview:headerVi];
-        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
-        headerVi.backgroundColor = [UIColor clearColor];
-        UIButton *headBtn = headerVi.addButton;
-        [headBtn setImage:[UIImage imageNamed:@"noun_Business Records"] forState:UIControlStateNormal];
-        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        headBtn.titleLabel.font = [Fonts regular:13];
-        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
-        UILabel *tipLabel= headerVi.addLabel;
-        tipLabel.textAlignment=NSTextAlignmentCenter;
-        tipLabel.numberOfLines=0;
-        tipLabel.font = [Fonts semiBold:16];
-        tipLabel.textColor =[UIColor blackColor];
-        tipLabel.text=@"No available jobs at the \n moment";
-        [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+        if (self->isfirstfresh) {
+            [self->myTable setScrollEnabled:NO];
+            [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
+            headerVi.backgroundColor = [UIColor clearColor];
+            UIButton *headBtn = headerVi.addButton;
+            [headBtn setImage:[UIImage imageNamed:@"noun_Business Records"] forState:UIControlStateNormal];
+            headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            headBtn.titleLabel.font = [Fonts regular:13];
+            [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
+            UILabel *tipLabel= headerVi.addLabel;
+            tipLabel.textAlignment=NSTextAlignmentCenter;
+            tipLabel.numberOfLines=0;
+            tipLabel.font = [Fonts semiBold:16];
+            tipLabel.textColor =[UIColor blackColor];
+            tipLabel.text=@"No available jobs at the \n moment";
+            [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+            
+        }
         return headerVi;
     } normalBlock:^(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:YES];
@@ -128,6 +132,7 @@
     [self showIndicator];
     [Proto queryAllJobs:0 filterDic:filterDic completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
+            self->isfirstfresh=YES;
             [self hideIndicator];
             [self setJobCountTitle:totalCount];
             NSLog(@"%@",array);

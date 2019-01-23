@@ -32,6 +32,8 @@
     NSInteger applyCount;
     NSInteger followCount;
     BOOL isdownrefresh;
+    BOOL isfirstfresh;
+    BOOL isfirstfresh2;
 }
 @end
 
@@ -139,24 +141,26 @@
         [self->myTable setScrollEnabled:NO];
         UIView *headerVi = [UIView new];
         [sender addSubview:headerVi];
-        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
-        headerVi.backgroundColor = [UIColor clearColor];
-        UIButton *headBtn = headerVi.addButton;
-        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        headBtn.titleLabel.font = [Fonts regular:13];
-        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
-        UILabel *tipLabel= headerVi.addLabel;
-        tipLabel.textAlignment=NSTextAlignmentCenter;
-        tipLabel.numberOfLines=0;
-        tipLabel.font = [Fonts semiBold:16];
-        tipLabel.textColor =[UIColor blackColor];
-        [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
-        if (self->_selectIndex==0) {
-            [headBtn setImage:[UIImage imageNamed:@"noun_receipt"] forState:UIControlStateNormal];
-            tipLabel.text=@"You have not yet applied for a job through\nDSODentist.";
-        }else{
-            [headBtn setImage:[UIImage imageNamed:@"noun_Briefcase"] forState:UIControlStateNormal];
-            tipLabel.text=@"You have not saved jobs yet.\nSave jobs to view later from this\nscreen";
+        if ((self->isfirstfresh && self->_selectIndex==0) || (self->isfirstfresh2 && self->_selectIndex==1)) {
+            [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
+            headerVi.backgroundColor = [UIColor clearColor];
+            UIButton *headBtn = headerVi.addButton;
+            headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            headBtn.titleLabel.font = [Fonts regular:13];
+            [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
+            UILabel *tipLabel= headerVi.addLabel;
+            tipLabel.textAlignment=NSTextAlignmentCenter;
+            tipLabel.numberOfLines=0;
+            tipLabel.font = [Fonts semiBold:16];
+            tipLabel.textColor =[UIColor blackColor];
+            [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+            if (self->_selectIndex==0) {
+                [headBtn setImage:[UIImage imageNamed:@"noun_receipt"] forState:UIControlStateNormal];
+                tipLabel.text=@"You have not yet applied for a job through\nDSODentist.";
+            }else{
+                [headBtn setImage:[UIImage imageNamed:@"noun_Briefcase"] forState:UIControlStateNormal];
+                tipLabel.text=@"You have not saved jobs yet.\nSave jobs to view later from this\nscreen";
+            }
         }
         return headerVi;
     } normalBlock:^(UITableView * _Nonnull sender) {
@@ -184,6 +188,7 @@
         [self showIndicator];
         [Proto queryAllApplicationJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
             foreTask(^{
+                self->isfirstfresh=YES;
                 self->applyCount=totalCount;
                 [self hideIndicator];
                 [self setJobCountTitle:self->applyCount];
@@ -199,6 +204,7 @@
         [self showIndicator];
         [Proto queryJobBookmarks:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
             foreTask(^{
+                self->isfirstfresh2=YES;
                 self->followCount=totalCount;
                 [self hideIndicator];
                 [self setJobCountTitle:self->followCount];

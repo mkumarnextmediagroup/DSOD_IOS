@@ -20,6 +20,7 @@
 - (void)onOpenMenuAnoSide:(id)sender;
 -(void) switchToMainPage;
 -(void) switchToWelcomePage;
+-(void)switchToLoginPage;
 
 @end
 

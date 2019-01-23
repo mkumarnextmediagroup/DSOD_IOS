@@ -141,13 +141,6 @@
     
 }
 
-//click more button
-//- (void)moreBtnClick:(UIButton *)btn
-//{
-//    NSArray *imgArr = [NSArray arrayWithObjects:@"downLoadIcon",@"shareIcon", nil];
-//    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Download",@"Share", nil];
-//    [denSheet show];
-//}
 
 -(void)ArticleMoreActionModel:(CMSModel *)model
 {

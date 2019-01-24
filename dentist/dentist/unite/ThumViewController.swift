@@ -616,7 +616,7 @@ extension ThumViewController {
     //MARK:archive
     func uniteArchiveAction(indexpath: IndexPath) {
         if (self.modelarr?.count)! >= indexpath.row+1 {
-            let alert = UIAlertController(title:"Archive this issue?",message:"This will remove the content from your device.You will still be able to download this issue at a later date.",preferredStyle:UIAlertController.Style.alert)
+            let alert = UIAlertController(title:"Archive this issue?",message:"This will remove the content from your device. You will still be able to download this issue at a later date.",preferredStyle:UIAlertController.Style.alert)
             
             let cancelaction  = UIAlertAction(title:"Cancel",style:UIAlertAction.Style.cancel,handler:{(alerts:UIAlertAction) -> Void in
                 print("No,I'm not a student")})

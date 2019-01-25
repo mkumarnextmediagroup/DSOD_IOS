@@ -54,9 +54,9 @@
 	items = @[
 			[self makeSlideItem:@"Browse Content" image:@"menu-dso"],
 			[self makeSlideItem:@"Education" image:@"menu-edu"],
-			[self makeSlideItem:@"Careers" image:@"menu-community"],
+			[self makeSlideItem:@"Career" image:@"menu-community"],
 			[self makeSlideItem:@"Events" image:@"menu-calendar"],
-			[self makeSlideItem:@"Unite" image:@"menu-unite"],
+			[self makeSlideItem:@"UNITE" image:@"menu-unite"],
 			[self makeSlideItem:@"My Profile" image:@"menu-profile"],
 			[self makeSlideItem:@"Settings" image:@"menu-settings"],
 	];
@@ -118,7 +118,7 @@
 	if ([@"Education" isEqualToString:title]) {
 		return [EducationPage new];
 	}
-	if ([@"Careers" isEqualToString:title]) {
+	if ([@"Career" isEqualToString:title]) {
         CareerExplorePage *explorePage = [CareerExplorePage new];
         UINavigationController *ncExplore = NavPage(explorePage);
         [ncExplore tabItem:@"Explore" imageName:@"explore" tag:0];
@@ -155,7 +155,7 @@
 	if ([@"Events" isEqualToString:title]) {
 		return [EventsPage new];
 	}
-	if ([@"Unite" isEqualToString:title]) {
+	if ([@"UNITE" isEqualToString:title]) {
 		return [UnitePage new];
 	}
 	if ([@"My Profile" isEqualToString:title]) {
@@ -245,7 +245,7 @@
 	UIViewController *c = [self onMakePage:title];
     if ([@"Browse Content" isEqualToString:title]){
         [self openCenterPage:c hasNav:NO];
-    }else if ([@"Careers" isEqualToString:title]){
+    }else if ([@"Career" isEqualToString:title]){
         [self openCenterPage:c hasNav:NO];
     }else
     {

@@ -191,7 +191,7 @@
 -(void)setJobCountTitle:(NSInteger)jobcount
 {
     if (jobcount>0) {
-        NSString *jobcountstr=[NSString stringWithFormat:@"%@Jobs",@(jobcount)];
+        NSString *jobcountstr=[NSString stringWithFormat:@"%@ Jobs",@(jobcount)];
 //        NSString *jobstr=[NSString stringWithFormat:@"%@ | 5 New",jobcountstr];
 //        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:jobstr];
 //        [str addAttribute:NSForegroundColorAttributeName value:Colors.textMain range:NSMakeRange(0,jobcountstr.length+2)];

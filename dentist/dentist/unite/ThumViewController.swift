@@ -341,28 +341,10 @@ extension ThumViewController{
                     self.shareUniteActicle()
                 }else if row==3 {
                     if self.isfull==true {
-                        self.isfull=false
-                        if(self.modelarr!.count>0){
-                            self.pushToViewController4(self.detailcollectionView!){
-                                self.collectionView?.isHidden=false
-                                self.detailView?.isHidden=true
-                                self.detailView?.removeFromSuperview()
-                                self.showNavTitle(self.detailView?.isHidden)
-                            }
-                        }
-                        
+                        self.showDetailView(isfull: false)
                         
                     }else{
-                        self.isfull=true
-                        if(self.modelarr!.count>0){
-                            self.pushToViewController2 {
-                                self.collectionView?.isHidden=true
-                                self.detailView?.isHidden=false
-                                self.view.addSubview(self.detailView!)
-                                self.showNavTitle(self.detailView?.isHidden)
-                                
-                            }
-                        }
+                        self.showDetailView(isfull: true)
                         
                     }
                 }
@@ -373,6 +355,32 @@ extension ThumViewController{
             }
         })
     }
+    
+    @objc func showDetailView(isfull:Bool) -> Void {
+        if isfull {
+            self.isfull=true
+            if(self.modelarr!.count>0){
+                self.pushToViewController2 {
+                    self.collectionView?.isHidden=true
+                    self.detailView?.isHidden=false
+                    self.view.addSubview(self.detailView!)
+                    self.showNavTitle(self.detailView?.isHidden)
+                    
+                }
+            }
+        }else{
+            self.isfull=false
+            if(self.modelarr!.count>0){
+                self.pushToViewController4(self.detailcollectionView!){
+                    self.collectionView?.isHidden=false
+                    self.detailView?.isHidden=true
+                    self.detailView?.removeFromSuperview()
+                    self.showNavTitle(self.detailView?.isHidden)
+                }
+            }
+        }
+    }
+    
     // MARK: 详情页
     @objc func goToBookmarks(){
 //        let thumvc :ThumViewController = ThumViewController()
@@ -388,6 +396,10 @@ extension ThumViewController{
                 self.detailcollectionView!.modelarr=array
                 self.collectionView?.reloadData()
                 self.setEmptyView(type: self.pageType)
+                if self.isfull==true {
+                    self.showDetailView(isfull: false)
+                    
+                }
             })
         }
     }

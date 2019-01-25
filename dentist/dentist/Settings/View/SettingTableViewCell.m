@@ -22,6 +22,13 @@
     // Initialization code
 }
 
+/**
+ init cell layout
+
+ @param style UITableViewCellStyle
+ @param reuseIdentifier  reuseIdentifier
+ @return instance
+ */
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -46,12 +53,26 @@
     return self;
 }
 
+/**
+ 设置数据，图片和标题
+ Set data, image and title
+
+ @param image image
+ @param title text
+ */
 - (void)setImageAndTitle:(UIImage *)image title:(NSString *)title
 {
     [iconBtn setImage:image forState:UIControlStateNormal];
     finLabel.text = title;
 }
 
+/**
+ 设置数据（最后一行），图片和标题
+ Set data (last line), image and title
+
+ @param image image
+ @param title text
+ */
 - (void)setLastCellImageAndTitle:(UIImage *)image title:(NSString *)title
 {
     [iconBtn setImage:image forState:UIControlStateNormal];

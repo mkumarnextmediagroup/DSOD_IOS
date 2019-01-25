@@ -16,6 +16,14 @@
     UILabel *lineLabel;
 }
 
+
+/**
+ init cell layout
+ 
+ @param style UITableViewCellStyle
+ @param reuseIdentifier  reuseIdentifier
+ @return instance
+ */
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -49,6 +57,14 @@
     return self;
 }
 
+/**
+ 设置数据
+ Set data
+
+ @param title text
+ @param des description text
+ @param status status
+ */
 -(void)setModel:(NSString *)title des:(NSString *)des status:(BOOL)status
 {
     titleLabel.text=title;
@@ -56,11 +72,22 @@
     switchBtn.on=status;
 }
 
+/**
+ 切换状态
+ Switch state
+ 
+ @param status is on
+ */
 -(void)setModelSwitch:(BOOL)status
 {
     switchBtn.on=status;
 }
 
+/**
+ Switch event
+
+ @param sender UISwitch instance
+ */
 -(void)switchAction:(UISwitch *)sender{
     BOOL isButtonOn = [sender isOn];
     if (self.delegate && [self.delegate respondsToSelector:@selector(SwitchChangeAction:indexPath:view:)]) {

@@ -14,7 +14,7 @@
 -(NSString*)location{
     NSString *location=@"";
     if (![NSString isBlankString:self.city] && ![NSString isBlankString:self.state]) {
-        location = [NSString stringWithFormat:@"%@,%@",self.city , self.state];
+        location = [NSString stringWithFormat:@"%@, %@",self.city , self.state];
     }else if(![NSString isBlankString:self.city]){
         location = self.city;
     }else if (![NSString isBlankString:self.state]) {

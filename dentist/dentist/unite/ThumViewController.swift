@@ -209,7 +209,7 @@ extension ThumViewController{
         sliderView?.delegate=self
         if(self.modelarr!.count>self.currentIndex) {
             let detailmodel:DetailModel=self.modelarr![self.currentIndex]
-            sliderView?.issueNumber=detailmodel.magazineModel.issue
+            sliderView?.issueNumber=detailmodel.magazineModel.serial
         }
         sliderView?.showSliderView()
 //        SliderListView.init(sliderView: search, magazineId: self.uniteid).showSliderView()

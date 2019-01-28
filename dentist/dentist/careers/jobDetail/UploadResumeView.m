@@ -183,7 +183,7 @@ static dispatch_once_t onceToken;
     introLab.font = [Fonts semiBold:14];
     introLab.textAlignment = NSTextAlignmentCenter;
     introLab.textColor = Colors.textDisabled;
-    introLab.text = @"Resume Submited";
+    introLab.text = @"Resume Submitted";
     [[[introLab.layoutMaker bottomParent:-30] centerXParent:0] install];
     
 }

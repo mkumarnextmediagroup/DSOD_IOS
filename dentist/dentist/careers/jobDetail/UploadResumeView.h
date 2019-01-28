@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (void)uploadResume;
-- (void)clickOkBtn;
 @end
 
 @interface UploadResumeView : UIView
@@ -25,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)initUploadView:(UIViewController *)viewControl;
 + (void)hide;
 - (void)show;
+- (void)scrollToUpload;
 - (void)scrollToSubmit;
 - (void)scrollToDone:(BOOL)isAnimate;
 - (void)sigleTappedPickerView:(UIGestureRecognizer *)sender;
@@ -32,7 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)initUploadView;
 - (void)createSubmitView;
 - (void)createDoneView;
-- (void)okBtnClick;
 - (void)uploadBtnClick:(UIButton *)btn;
 
 @end

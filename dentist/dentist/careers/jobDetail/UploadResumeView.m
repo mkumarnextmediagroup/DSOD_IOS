@@ -14,7 +14,6 @@
     UIView *uploadView;
     UIView *submitView;
     UIView *doneView;
-    UIButton *okBtn;
 }
 
 @end
@@ -164,7 +163,7 @@ static dispatch_once_t onceToken;
     introLab.textAlignment = NSTextAlignmentCenter;
     introLab.textColor = Colors.textDisabled;
     introLab.text = @"Submiting your resume...";
-    [[[[introLab.layoutMaker bottomParent:-30] centerXParent:0] sizeEq:100 h:50] install];
+    [[[introLab.layoutMaker bottomParent:-30] centerXParent:0] install];
 
 }
 
@@ -185,29 +184,19 @@ static dispatch_once_t onceToken;
     introLab.textAlignment = NSTextAlignmentCenter;
     introLab.textColor = Colors.textDisabled;
     introLab.text = @"Resume Submited";
-    [[[[introLab.layoutMaker bottomParent:-30] centerXParent:0] sizeEq:70 h:50] install];
-    
-    
-    okBtn = [instance addButton];
-    [okBtn addTarget:self action:@selector(okBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [okBtn setTitle:@"OK" forState:UIControlStateNormal];
-    okBtn.titleLabel.font = [UIFont systemFontOfSize:17];
-    [okBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    okBtn.backgroundColor = UIColor.whiteColor;
-    okBtn.layer.masksToBounds = YES;
-    okBtn.layer.cornerRadius = 5;
-    okBtn.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
-    okBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [[[[okBtn.layoutMaker sizeEq:SCREENWIDTH-60 h:36] leftParent:-SCREENWIDTH] bottomParent:-50] install];
-
+    [[[introLab.layoutMaker bottomParent:-30] centerXParent:0] install];
     
 }
 
-- (void)okBtnClick
+
+- (void)scrollToUpload
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(clickOkBtn)]){
-        [self.delegate clickOkBtn];
-    }
+    [[[[uploadView.layoutUpdate leftParent:edge] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
+    [[[[submitView.layoutUpdate leftParent:-SCREENWIDTH] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
+    
+    [UIView animateWithDuration:1 animations:^{
+        [self layoutIfNeeded];
+    }];
 }
 
 - (void)scrollToSubmit
@@ -225,13 +214,15 @@ static dispatch_once_t onceToken;
     
     [[[[submitView.layoutUpdate leftParent:SCREENWIDTH] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
     [[[[doneView.layoutUpdate leftParent:edge] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
-    [[[[okBtn.layoutUpdate sizeEq:SCREENWIDTH-60 h:36] leftParent:30] bottomParent:-50] install];
     if (isAnimate) {
         [UIView animateWithDuration:1 animations:^{
             [self layoutIfNeeded];
         }];
-        
     }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UploadResumeView hide];
+    });
 }
 
 

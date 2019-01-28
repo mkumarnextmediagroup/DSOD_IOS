@@ -28,7 +28,7 @@ typedef void (^CareerJobDetailCloseCallback) (NSString *_Nullable jobid,NSString
 - (void)clickOkBtn;
 - (void)uploadResume;
 - (void)applyNow;
-- (void)applyForJob;
+- (void)applyForJob:(void(^)(BOOL success))completion;
 - (void)documentPicker:(UIDocumentPickerViewController *_Nullable)controller didPickDocumentAtURL:(NSURL *_Nullable)url;
 - (void)onHttpProgress:(int)current total:(int)total percent:(int)percent;
 - (NSString *_Nullable)decoderUrlEncodeStr: (NSString *_Nullable) input;

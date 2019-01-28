@@ -226,11 +226,11 @@
 //
 //    }
     tipImageView.hidden=!enable;
-    if (!enable) {
+    if (enable) {
+        [btn setTitle:@"View similar jobs" forState:UIControlStateNormal];
+    }else{
         btn.userInteractionEnabled=YES;//交互关闭
         [btn setTitle:@"Apply Now" forState:UIControlStateNormal];
-    }else{
-        [btn setTitle:@"View similar jobs" forState:UIControlStateNormal];
     }
 
 }
@@ -473,14 +473,6 @@
 }
 
 #pragma mark UploadResumeDelegate
-
-- (void)clickOkBtn
-{
-    [self closePage];
-    [UploadResumeView hide];
-
-}
-
 - (void)uploadResume
 {
     NSLog(@"resume btn click");
@@ -500,7 +492,6 @@
 }
 
 -(void)applyNow{
-    
     BOOL isApplication = [self->jobModel.isApplication boolValue];
     if (isApplication) {//have applied,go to the jobs list
         [self closePage];
@@ -509,26 +500,30 @@
 //        [tabvc setSelectedIndex:2];
     }else
     {
-        if (![NSString isBlankString:_userInfo.resume_name]) {//have upload the resume
-            
-            uploadView = [UploadResumeView initUploadView:self.presentControl];
-            [uploadView show];
-            uploadView.delegate = self;
-            [uploadView scrollToDone:NO];
-            [self applyForJob];//do the apply for job API
-            
-        }else
-        {
+        if ([NSString isBlankString:_userInfo.resume_name]) {
             uploadView = [UploadResumeView initUploadView:self.presentControl];
             uploadView.delegate = self;
             [uploadView show];
-            
+        }else{
+            //have upload the resume
+            [self showLoading];
+            [self applyForJob:^(BOOL success){
+                foreTask(^{
+                    [self hideLoading];
+                    if(success){
+                        self->uploadView = [UploadResumeView initUploadView:self.presentControl];
+                        self->uploadView.delegate = self;
+                        [self->uploadView show];
+                        [self->uploadView scrollToDone:NO];
+                    }
+                });
+            }];
         }
     }
     
 }
 
-- (void)applyForJob
+- (void)applyForJob:(void(^)(BOOL success))completion
 {
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     UIView *dsontoastview=[DsoToast toastViewForMessage:@"Applying to Job…" ishowActivity:YES];
@@ -541,7 +536,7 @@
                 //
                 self->_applyJobId=self->_jobId;
                 self->jobModel.isApplication=@"1";
-                [self setApplyButtonEnable:NO];
+                [self setApplyButtonEnable:[self->jobModel.isApplication boolValue]];
                 [Proto deleteJobBookmarkByJobId:self->_jobId completed:^(HttpResult *result) {
                     NSLog(@"result=%@",@(result.code));
                     foreTask(^{
@@ -553,14 +548,12 @@
                     
                 }];
             }else{
-                NSString *message=result.msg;
-                if([NSString isBlankString:message]){
-                    message=@"Failed";
-                }
-
-                [window makeToast:message
+                [window makeToast:[NSString isBlankString:result.msg]?@"Failed":result.msg
                          duration:1.0
                          position:CSToastPositionBottom];
+            }
+            if(completion){
+                completion(result.OK);
             }
         });
     }];
@@ -589,24 +582,34 @@
         });
         [uploadView scrollToSubmit];
         backTask(^{
+            NSString *errorMsg = nil;
             HttpResult *result = [Proto uploadResume:filePath progress:self];
             
-            foreTask(^{
-                id name = result.resultMap[@"resumeName"];
-                if (result.OK && name != nil && name != NSNull.null) {
-                    [self->uploadView scrollToDone:YES];
-                    
-                    //do the update resume
-                    [Proto updateSaveResume:name email:getLastAccount()];
-                    [self applyForJob];//do the apply for job API
-                    self->_userInfo = [Proto getProfileInfo];
-                    
-                }else{
-                    [self alertMsg:result.msg?result.msg:@"Upload resume fail" onOK:^{
-                        
+            id name = result.resultMap[@"resumeName"];
+            if (result.OK && name != nil && name != NSNull.null) {
+                 //do the update resume
+                HttpResult *saveResumeResult = [Proto updateSaveResume:name email:getLastAccount()];
+                if(saveResumeResult.OK){
+                    //do the apply for job API
+                    [self applyForJob:^(BOOL success){
+                        self->_userInfo = [Proto getProfileInfo];
+                        [self->uploadView scrollToDone:YES];
                     }];
+                }else{
+                    errorMsg = saveResumeResult.msg;
                 }
-            });
+            }else{
+                errorMsg = result.msg;
+            }
+            
+            //errorMsg not empty,show error dialog
+            if(![NSString isBlankString:errorMsg]){
+                 foreTask(^{
+                    [self alertMsg:errorMsg onOK:^{
+                        [self->uploadView scrollToUpload];
+                    }];
+                 });
+            }
         });
     }
 }

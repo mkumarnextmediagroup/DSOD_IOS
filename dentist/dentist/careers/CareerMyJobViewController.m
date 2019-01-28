@@ -278,7 +278,7 @@
     tabView.delegate=self;
     [panel addSubview:tabView];
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
-    tabView.titleArr=[NSMutableArray arrayWithArray:@[@"APPLED",@"SAVED"]];
+    tabView.titleArr=[NSMutableArray arrayWithArray:@[@"APPLIED",@"SAVED"]];
     
     jobCountTitle=panel.addLabel;
     jobCountTitle.font=[Fonts semiBold:13];

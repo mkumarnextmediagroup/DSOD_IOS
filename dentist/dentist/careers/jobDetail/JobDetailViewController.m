@@ -389,14 +389,14 @@
 -(void)attention{
     
     if ([jobModel.isAttention isEqualToString:@"1"]) {
-        UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
-        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionCenter completion:nil];
+//        UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
+//        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionCenter completion:nil];
         [Proto deleteJobBookmarkByJobId:jobModel.id completed:^(HttpResult *result) {
             NSLog(@"result=%@",@(result.code));
             if (result.code == 0) {
                 foreTask(^() {
                     self->_unFollowJobId=self->_jobId;
-                    [self.navigationController.view hideToast];
+//                    [self.navigationController.view hideToast];
                     [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention"] forState:UIControlStateNormal];
                     self->jobModel.isAttention = @"0";
                 });
@@ -405,14 +405,14 @@
 
     }else
     {
-        UIView *dsontoastview1=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
-        [self.navigationController.view showToast:dsontoastview1 duration:30.0 position:CSToastPositionCenter completion:nil];
+//        UIView *dsontoastview1=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
+//        [self.navigationController.view showToast:dsontoastview1 duration:30.0 position:CSToastPositionCenter completion:nil];
         [Proto addJobBookmark:self.jobId completed:^(HttpResult *result) {
             NSLog(@"result=%@",@(result.code));
             if (result.code == 0) {
                 foreTask(^() {
                     self->_FollowJobId=self->_jobId;
-                    [self.navigationController.view hideToast];
+//                    [self.navigationController.view hideToast];
                     [self->attentionButton setImage:[UIImage imageNamed:@"icon_attention_select"] forState:UIControlStateNormal];
                     self->jobModel.isAttention = @"1";
                 });

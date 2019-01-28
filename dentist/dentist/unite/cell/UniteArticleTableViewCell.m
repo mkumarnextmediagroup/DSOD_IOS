@@ -27,14 +27,15 @@
 - (void)buildViews
 {
     headLabel = self.contentView.addLabel;
-    headLabel.font = [Fonts regular:14];
-    headLabel.numberOfLines = 0;
+    headLabel.font = [Fonts regular:13];
+    headLabel.numberOfLines = 2;
+    headLabel.textColor = UIColor.blackColor;
     headLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
     [[[[headLabel.layoutMaker leftParent:edge] rightParent:-edge] topParent:8] install];
     
     subHeadLabel = self.contentView.addLabel;
     [subHeadLabel textColorMain];
-    subHeadLabel.numberOfLines = 0;
+    subHeadLabel.numberOfLines = 2;
     subHeadLabel.preferredMaxLayoutWidth = SCREENWIDTH - 132 - edge *2;
     subHeadLabel.font = [Fonts regular:13];
     [subHeadLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -47,8 +48,7 @@
 
 - (void)bindInfo:(DetailModel *)infoModel {
     if (_isLastInfo) {
-        UILabel *line = self.contentView.addLabel;
-        line.backgroundColor = [Colors cellLineColor];
+        UILabel *line = self.contentView.lineLabel;
         [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:subHeadLabel offset:5] install];
     }
     headLabel.text = infoModel.title;

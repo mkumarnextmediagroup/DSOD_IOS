@@ -591,6 +591,9 @@
 		A3BDC57821E8539F0077ED25 /* icons8-no_reminders@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3BDC57521E8539E0077ED25 /* icons8-no_reminders@3x.png */; };
 		A3BDC57C21EC95690077ED25 /* GeneralSettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BDC57B21EC95680077ED25 /* GeneralSettingsModel.m */; };
 		A3BDC57F21EDC85E0077ED25 /* NotificationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BDC57E21EDC85C0077ED25 /* NotificationModel.m */; };
+		A3D0C323220057C800455E0E /* EducationBookmarksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D0C322220057C800455E0E /* EducationBookmarksViewController.m */; };
+		A3D0C326220057FF00455E0E /* EducationDownloadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D0C325220057FE00455E0E /* EducationDownloadsViewController.m */; };
+		A3D0C3292200583900455E0E /* EducationCoursesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3D0C3282200583900455E0E /* EducationCoursesViewController.m */; };
 		A3DF39822189A192006F84DC /* expanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39812189A192006F84DC /* expanding.swift */; };
 		A3DF399C2189A280006F84DC /* BasePageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */; };
 		A3DF399D2189A280006F84DC /* PageCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39892189A280006F84DC /* PageCollectionLayout.swift */; };
@@ -1826,6 +1829,12 @@
 		A3BDC57B21EC95680077ED25 /* GeneralSettingsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeneralSettingsModel.m; sourceTree = "<group>"; };
 		A3BDC57D21EDC85C0077ED25 /* NotificationModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationModel.h; sourceTree = "<group>"; };
 		A3BDC57E21EDC85C0077ED25 /* NotificationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationModel.m; sourceTree = "<group>"; };
+		A3D0C321220057C800455E0E /* EducationBookmarksViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationBookmarksViewController.h; sourceTree = "<group>"; };
+		A3D0C322220057C800455E0E /* EducationBookmarksViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationBookmarksViewController.m; sourceTree = "<group>"; };
+		A3D0C324220057FE00455E0E /* EducationDownloadsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationDownloadsViewController.h; sourceTree = "<group>"; };
+		A3D0C325220057FE00455E0E /* EducationDownloadsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationDownloadsViewController.m; sourceTree = "<group>"; };
+		A3D0C3272200583900455E0E /* EducationCoursesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationCoursesViewController.h; sourceTree = "<group>"; };
+		A3D0C3282200583900455E0E /* EducationCoursesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCoursesViewController.m; sourceTree = "<group>"; };
 		A3DF39802189A192006F84DC /* dentist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dentist-Bridging-Header.h"; sourceTree = "<group>"; };
 		A3DF39812189A192006F84DC /* expanding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = expanding.swift; sourceTree = "<group>"; };
 		A3DF39872189A280006F84DC /* BasePageCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageCollectionCell.swift; sourceTree = "<group>"; };
@@ -4724,6 +4733,12 @@
 			children = (
 				C5EEAA027A4D8EDC92227D2B /* EducationPage.m */,
 				C5EEAC99B98367C3280F1F9F /* EducationPage.h */,
+				A3D0C321220057C800455E0E /* EducationBookmarksViewController.h */,
+				A3D0C322220057C800455E0E /* EducationBookmarksViewController.m */,
+				A3D0C324220057FE00455E0E /* EducationDownloadsViewController.h */,
+				A3D0C325220057FE00455E0E /* EducationDownloadsViewController.m */,
+				A3D0C3272200583900455E0E /* EducationCoursesViewController.h */,
+				A3D0C3282200583900455E0E /* EducationCoursesViewController.m */,
 			);
 			path = education;
 			sourceTree = "<group>";
@@ -5755,6 +5770,7 @@
 				E11E10BD74EC149921ADD708 /* LoginController.m in Sources */,
 				18D4BA1621AEDC69004CFB4B /* CompanyReviewTableViewCell.m in Sources */,
 				4E1957422137D0F100420563 /* PermissionEmailFields.m in Sources */,
+				A3D0C326220057FF00455E0E /* EducationDownloadsViewController.m in Sources */,
 				4E23522E213D12CB003BA59B /* UITextFieldCustom.m in Sources */,
 				A3BDC57C21EC95690077ED25 /* GeneralSettingsModel.m in Sources */,
 				4E17B3EA2176250800F75390 /* AddReviewViewController.m in Sources */,
@@ -5919,6 +5935,7 @@
 				18A0F44621E1A2DF00369058 /* PlaybackSpeedViewController.m in Sources */,
 				A3BDC56C21E73CCC0077ED25 /* ChangePwdViewController.m in Sources */,
 				A99177062176E4CD00788D2C /* NSObject+NSCoding.m in Sources */,
+				A3D0C323220057C800455E0E /* EducationBookmarksViewController.m in Sources */,
 				A3DF39822189A192006F84DC /* expanding.swift in Sources */,
 				4E85DA8B21429C45007C40C3 /* DenGlobalInfo.m in Sources */,
 				A3EE38F92183214C00C76F3A /* BookmarkModel.m in Sources */,
@@ -6001,6 +6018,7 @@
 				C5EEA3BF2E6ADEBCD49244FB /* LineTableCell.m in Sources */,
 				18A0F44921E1A5A500369058 /* HelpAndFeedbackViewController.m in Sources */,
 				C5EEA99D93B0E72671A097C2 /* TitleMsgArrowView.m in Sources */,
+				A3D0C3292200583900455E0E /* EducationCoursesViewController.m in Sources */,
 				18B83B122173557D00130DB6 /* YBIBPhotoAlbumManager.m in Sources */,
 				C5EEAB669DB328611B63F777 /* TitleEditView.m in Sources */,
 				1829C53321BCC9D2009A8732 /* JobDetailCompanyViewController.m in Sources */,

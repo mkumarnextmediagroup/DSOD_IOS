@@ -33,6 +33,9 @@
 #import "CareerMeViewController.h"
 #import "CompanyExistsReviewsViewController.h"
 #import "ProfileViewController.h"
+#import "EducationBookmarksViewController.h"
+#import "EducationDownloadsViewController.h"
+#import "EducationCoursesViewController.h"
 
 @interface SlideController()<UITabBarControllerDelegate,UITabBarDelegate,MoreViewDelegate>
 
@@ -116,7 +119,28 @@
 		return TabPage(@[ncForYou, ncSearch, ncCat, ncBook, ncDown]);
 	}
 	if ([@"Education" isEqualToString:title]) {
-		return [EducationPage new];
+//        return [EducationPage new];
+        EducationPage *educationPage = [EducationPage new];
+        UINavigationController *ncCatalog = NavPage(educationPage);
+        [ncCatalog tabItem:@"Catalog" imageName:@"foryou"];
+        educationPage.navigationItem.leftBarButtonItem = [self menuButton];
+        
+        EducationBookmarksViewController *educationBookmarks = [EducationBookmarksViewController new];
+        UINavigationController *ncBookmarks = NavPage(educationBookmarks);
+        [ncBookmarks tabItem:@"Bookmarks" imageName:@"bookmark"];
+        educationBookmarks.navigationItem.leftBarButtonItem = [self menuButton];
+        
+        EducationDownloadsViewController *educationDownloads = [EducationDownloadsViewController new];
+        UINavigationController *ncDownloads = NavPage(educationDownloads);
+        [ncDownloads tabItem:@"Downloads" imageName:@"download"];
+        educationDownloads.navigationItem.leftBarButtonItem = [self menuButton];
+        
+        EducationCoursesViewController *educationCourses = [EducationCoursesViewController new];
+        UINavigationController *ncCourses = NavPage(educationCourses);
+        [ncCourses tabItem:@"My Courses" imageName:@"search"];
+        educationCourses.navigationItem.leftBarButtonItem = [self menuButton];
+
+        return TabPage(@[ncCatalog, ncBookmarks, educationDownloads, educationCourses]);
 	}
 	if ([@"Career" isEqualToString:title]) {
         CareerExplorePage *explorePage = [CareerExplorePage new];
@@ -246,6 +270,8 @@
     if ([@"Browse Content" isEqualToString:title]){
         [self openCenterPage:c hasNav:NO];
     }else if ([@"Career" isEqualToString:title]){
+        [self openCenterPage:c hasNav:NO];
+    }else if ([@"Education" isEqualToString:title]){
         [self openCenterPage:c hasNav:NO];
     }else
     {

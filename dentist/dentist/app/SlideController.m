@@ -140,7 +140,7 @@
         [ncCourses tabItem:@"My Courses" imageName:@"search"];
         educationCourses.navigationItem.leftBarButtonItem = [self menuButton];
 
-        return TabPage(@[ncCatalog, ncBookmarks, educationDownloads, educationCourses]);
+        return TabPage(@[ncCatalog, ncBookmarks, ncDownloads, ncCourses]);
 	}
 	if ([@"Career" isEqualToString:title]) {
         CareerExplorePage *explorePage = [CareerExplorePage new];

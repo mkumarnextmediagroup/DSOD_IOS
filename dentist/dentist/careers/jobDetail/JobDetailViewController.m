@@ -149,6 +149,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
+    [[UINavigationBar appearance] setTintColor:UIColor.whiteColor];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

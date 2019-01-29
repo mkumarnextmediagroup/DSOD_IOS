@@ -125,11 +125,18 @@ static dispatch_once_t onceToken;
     
     backgroundVi = [self addView];
     backgroundVi.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0];
+
     backgroundVi.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT);
+    
 
     sliderView = [backgroundVi addView];
     sliderView.backgroundColor = [UIColor whiteColor];
     sliderView.frame = CGRectMake(SCREENWIDTH, 0, SCREENWIDTH-132, SCREENHEIGHT-NAVHEIGHT);
+    sliderView.layer.shadowColor = UIColor.grayColor.CGColor;
+    sliderView.layer.shadowOffset = CGSizeMake(-3,3);
+    sliderView.layer.shadowOpacity = 0.5;
+    sliderView.layer.shadowRadius = 3;
+    
     
     guestView = [backgroundVi addView];
     guestView.frame = CGRectMake(0, 0, 132, SCREENHEIGHT-NAVHEIGHT);
@@ -143,8 +150,7 @@ static dispatch_once_t onceToken;
         [self createSearchBar];
         [[[[mSearch.layoutMaker leftParent:8] topParent:10] sizeEq:SCREENWIDTH - 132 - 8 h:40] install];
         
-        UILabel *line = sliderView.addLabel;
-        line.backgroundColor = [Colors cellLineColor];
+        UILabel *line = sliderView.lineLabel;
         [[[[[line.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:mSearch offset:9] install];
         
         [self createTableview];
@@ -225,6 +231,7 @@ static dispatch_once_t onceToken;
     }
     mTableView.rowHeight = UITableViewAutomaticDimension;
     mTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     mTableView.backgroundColor = [UIColor whiteColor];
     [sliderView addSubview:mTableView];
     
@@ -242,8 +249,7 @@ static dispatch_once_t onceToken;
         issueLabel.font = [Fonts regular:14];
         [[[[[issueLabel.layoutMaker leftParent:16] rightParent:16] heightEq:42] topParent:0] install];
         
-        UILabel *line1 = headerVi.addLabel;
-        line1.backgroundColor = [Colors cellLineColor];
+        UILabel *line1 = headerVi.lineLabel;
         [[[[[line1.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:issueLabel offset:0] install];
         
         UIButton *headBtn = headerVi.addButton;
@@ -255,8 +261,7 @@ static dispatch_once_t onceToken;
         headBtn.titleLabel.font = [Fonts regular:14];
         [[[[[headBtn.layoutMaker leftParent:16] rightParent:16] heightEq:42] below:line1 offset:0] install];
         
-        UILabel *line2 = headerVi.addLabel;
-        line2.backgroundColor = [Colors cellLineColor];
+        UILabel *line2 = headerVi.lineLabel;
         [[[[[line2.layoutMaker leftParent:0] rightParent:0] heightEq:1] below:headBtn offset:0] install];
         
     }else if(searchArr.count > 0)
@@ -267,7 +272,7 @@ static dispatch_once_t onceToken;
         [headBtn setTitle:[NSString stringWithFormat:@"%lu RESULTS FOUND",(unsigned long)searchArr.count] forState:UIControlStateNormal];
         headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         headBtn.titleLabel.font = [Fonts regular:14];
-        [[[[[headBtn.layoutMaker leftParent:30] rightParent:30] heightEq:26] topParent:10] install];
+        [[[[[headBtn.layoutMaker leftParent:16] rightParent:30] heightEq:26] topParent:10] install];
     }
     
     
@@ -371,9 +376,13 @@ static dispatch_once_t onceToken;
     return .1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return .1;
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+    return view;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -388,7 +397,7 @@ static dispatch_once_t onceToken;
         DetailModel *model = resultArray[section][0];
         categoryLab.text = model.categoryName;
         categoryLab.textColor = Colors.textAlternate;
-        [[[[[categoryLab.layoutMaker leftParent:16] rightParent:-16] heightEq:35] topParent:8] install];
+        [[[[categoryLab.layoutMaker leftParent:16] rightParent:-16] topParent:8] install];
         
         return headerVi;
     }else

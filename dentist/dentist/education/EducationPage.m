@@ -16,7 +16,7 @@
 	[super viewDidLoad];
 
 	UINavigationItem *item = [self navigationItem];
-	item.title = @"Education";
+	item.title = @"LEARNING";
 
 	UILabel *lb = self.view.addLabel;
 	lb.text = @"Education Page";

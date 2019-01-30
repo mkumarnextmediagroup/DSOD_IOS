@@ -349,11 +349,7 @@
         }
     }
     if (jobid) {
-        BOOL isshowapplybtn=NO;
-        if (_selectIndex==0) {
-            isshowapplybtn=YES;
-        }
-        [JobDetailViewController presentBy:nil jobId:jobid isShowApply:isshowapplybtn closeBack:^(NSString * jobid,NSString *unFollowjobid,NSString *Followjobid) {
+        [JobDetailViewController presentBy:nil jobId:jobid closeBack:^(NSString * jobid,NSString *unFollowjobid,NSString *Followjobid) {
             foreTask(^{
                 if (self->_selectIndex==1 && ![NSString isBlankString:unFollowjobid]) {
                     [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

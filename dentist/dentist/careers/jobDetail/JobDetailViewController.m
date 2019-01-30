@@ -30,7 +30,6 @@
 @property (nonatomic,strong) NSString *applyJobId;
 @property (nonatomic,strong) NSString *FollowJobId;
 @property (nonatomic,strong) NSString *unFollowJobId;
-@property (nonatomic,assign) BOOL isShowApplyBtn;
 @property (copy, nonatomic) CareerJobDetailCloseCallback closeBack;
 
 @property (nonatomic,strong) UIViewController *presentControl;
@@ -57,8 +56,8 @@
     UserInfo *_userInfo;
     
     int edge;
-    int navBarOffset;
-    int navBarHeight;
+    int navBarOffset;//navigation bar distance from the top
+    int navBarHeight;//navigation bar height
     int currTabIndex;//0:description 1:company 2:reviews
 
     JobModel *jobModel;
@@ -66,25 +65,33 @@
 }
 
 
-
+/**
+ 打开职位详情页面
+ open the job details page
+ 
+ @param vc UIViewController
+ @param jobId job id
+ */
 +(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId{
-    [self presentBy:vc jobId:jobId isShowApply:NO closeBack:nil];
-}
-+(void)presentBy:(UIViewController*)vc jobId:(NSString*)jobId closeBack:(CareerJobDetailCloseCallback)closeBack
-{
-    [self presentBy:vc jobId:jobId isShowApply:NO closeBack:closeBack];
+    [self presentBy:vc jobId:jobId closeBack:nil];
 }
 
-+(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*_Nonnull)jobId isShowApply:(BOOL)isShowApply closeBack:(CareerJobDetailCloseCallback _Nullable)closeBack
+/**
+ 打开职位详情页面，包含界面关闭回调事件
+ Open the job details page, including the interface close callback event
+ 
+ @param vc UIViewControllerx
+ @param jobId job id
+ @param closeBack close callback event
+ */
++(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*_Nonnull)jobId closeBack:(CareerJobDetailCloseCallback _Nullable)closeBack
 {
+    //更新职位的查看状态
+    //Update the viewing status of job
     [[DentistDataBaseManager shareManager] updateCareersJobs:jobId completed:^(BOOL result) {
     }];
-    UIViewController *viewController;
-    if (vc) {
-        viewController=vc;
-    }else{
-        viewController= [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    }
+    
+    UIViewController *viewController = vc?vc:[[[[UIApplication sharedApplication] delegate] window] rootViewController];
     viewController.modalPresentationStyle = UIModalPresentationCustom;
     
     
@@ -93,7 +100,6 @@
     jobDetailVc.applyJobId=nil;
     jobDetailVc.FollowJobId=nil;
     jobDetailVc.unFollowJobId=nil;
-    jobDetailVc.isShowApplyBtn=isShowApply;
     jobDetailVc.closeBack = closeBack;
     jobDetailVc.modalPresentationStyle = UIModalPresentationCustom;
     jobDetailVc.view.backgroundColor = UIColor.clearColor;
@@ -102,11 +108,19 @@
     nvc.view.backgroundColor = [UIColor clearColor];
     jobDetailVc.presentControl = nvc;
     
+    //设置透明的打开方式
+    //Set transparent open mode
     [viewController presentViewController:nvc animated:YES completion:^{
         jobDetailVc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     }];
 }
 
+/**
+ build views
+ add navigationbar
+ sutup JobDetailDescriptionViewController、JobDetailCompanyViewController、JobDetailReviewsViewController
+ 
+ */
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -125,6 +139,9 @@
 
     [self showLoading];
 
+    
+    //获得职位信息
+    //Get job information
     [Proto findJobById:self.jobId completed:^(JobModel * _Nullable jobModel) {
         [self hideLoading];
         if(jobModel){
@@ -146,18 +163,37 @@
 
 }
 
+/**
+ view Will Appear
+ Hide navigation bar
+ 
+ 需要设置导航栏颜色，因为打开选择文件界面时修改了导航栏颜色
+ Need to set the navigation bar color,
+ because the navigation bar color is modified when the select file interface is opened.
+ 
+ @param animated animated
+ */
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
     [[UINavigationBar appearance] setTintColor:UIColor.whiteColor];
 }
 
+/**
+ view Will Disappear
+ Show navigation bar
+ 
+ @param animated animated
+ */
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.hidden = NO;
 
 }
 
+/**
+ add navigation bar
+ */
 -(void)addNavBar{
     
     naviBarView = contentView.addView;
@@ -175,13 +211,17 @@
     [[[[shareView.layoutMaker sizeEq:44 h:44] centerYParent:0] rightParent:-5] install];
     
     
-    attentionButton = naviBarView.addButton; //bgView.addButton;
+    attentionButton = naviBarView.addButton;
     [attentionButton addTarget:self action:@selector(attention) forControlEvents:UIControlEventTouchUpInside];
     [[[[attentionButton.layoutMaker sizeEq:44 h:44]centerYParent:0]toLeftOf:shareView offset:0] install];
     
 }
 
 
+/**
+ build views
+ table view and apply button
+ */
 -(void)buildView{
     
     tableView = [AllowMultiGestureTableView new];
@@ -212,20 +252,14 @@
     
 }
 
+/**
+ set apply button status and text
+
+ @param enable enable
+ */
 -(void)setApplyButtonEnable:(BOOL)enable
 {
     UIButton *btn=(UIButton *)[contentView viewWithTag:99];
-//    if (self->_isShowApplyBtn) {
-//        btn.hidden=NO;
-//    }else{
-//        NSInteger status = self->jobModel.status;
-//        if (status==2) {
-//            btn.hidden=enable;
-//        }else{
-//            btn.hidden=YES;
-//        }
-//
-//    }
     tipImageView.hidden=!enable;
     if (enable) {
         [btn setTitle:@"View similar jobs" forState:UIControlStateNormal];
@@ -237,6 +271,11 @@
 }
 
 
+/**
+ build  header view of table view, set datas
+ 
+ @return header view
+ */
 -(UIView*)buildHeader{
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, CGFLOAT_MIN)];
     
@@ -307,6 +346,8 @@
     [[[[[lastView.layoutMaker below:addressBtn offset:0]leftParent:0]rightParent:0]heightEq:10]install];
     
     
+    //设置数据
+    //set datas
     vedioWebView.hidden = YES;
     bannerView.hidden = YES;
     singleImageView.hidden = YES;
@@ -344,6 +385,12 @@
 }
 
 
+/**
+ 显示视频、在html代码中找出视频的内容调整格式并且显示
+ Display the video, find the content of the video in the html code, adjust the format and display
+
+ @param videoHtmlString 视频内容的html代码；Video html code
+ */
 -(void)showVideo:(NSString*)videoHtmlString{
     if(videoHtmlString){
         NSRange iframeStart = [videoHtmlString rangeOfString:@"<iframe"];
@@ -367,6 +414,10 @@
 }
 
 
+/**
+ 关闭页面，执行回调事件
+ Close the page and execute the callback event
+ */
 -(void)closePage{
     if (self.closeBack) {
         self.closeBack(self->_applyJobId,self->_unFollowJobId,self->_FollowJobId);
@@ -375,6 +426,11 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
+/**
+ 打开地图界面并在地图中显示职位位置
+ Open the map page and display the position in the map
+ */
 -(void)showLocation{
 //    39.915352,116.397105
     if(jobModel && jobModel.position && jobModel.position.coordinates && jobModel.position.coordinates.count==2){
@@ -387,6 +443,9 @@
 
 }
 
+/**
+ attention event
+ */
 -(void)attention{
     
     if ([jobModel.isAttention isEqualToString:@"1"]) {
@@ -425,6 +484,9 @@
     
 }
 
+/**
+ share event
+ */
 -(void)share{
     
     NSLog(@"Share click");
@@ -474,6 +536,11 @@
 }
 
 #pragma mark UploadResumeDelegate
+/**
+ UploadResumeDelegate
+ Clicked the upload resume button、Open the Select File page
+ 
+ */
 - (void)uploadResume
 {
     NSLog(@"resume btn click");
@@ -492,6 +559,17 @@
 
 }
 
+/**
+ 申请按钮点击事件
+ 1、已经申请过了职位、关闭界面
+ 2、没有申请过职位且不存在简历打开上传简历界面
+ 3、没有申请过职位且存在简历，直接请求申请职位
+
+ Clicked the apply button
+ 1, has applied for a position, close the interface
+ 2, did not apply for a position and does not exist resume open upload resume interface
+ 3. If you have not applied for a position and have a resume, you can directly apply for a position.
+ */
 -(void)applyNow{
     BOOL isApplication = [self->jobModel.isApplication boolValue];
     if (isApplication) {//have applied,go to the jobs list
@@ -524,6 +602,11 @@
     
 }
 
+/**
+ Request server to apply for this job
+
+ @param completion callback function
+ */
 - (void)applyForJob:(void(^)(BOOL success))completion
 {
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
@@ -561,6 +644,13 @@
 }
 
 #pragma mark ---UIDocumentPickerDelegate
+/**
+ UIDocumentPickerDelegate
+ Select the file successfully and execute the upload resume
+
+ @param controller UIDocumentPickerViewController
+ @param url The url of the selected file
+ */
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
     if(url){
         
@@ -593,8 +683,10 @@
                 if(saveResumeResult.OK){
                     //do the apply for job API
                     [self applyForJob:^(BOOL success){
-                        self->_userInfo = [Proto getProfileInfo];
-                        [self->uploadView scrollToDone:YES];
+                        if(success){
+                            self->_userInfo = [Proto getProfileInfo];
+                            [self->uploadView scrollToDone:YES];
+                        }
                     }];
                 }else{
                     errorMsg = saveResumeResult.msg;
@@ -616,27 +708,52 @@
 }
 
 #pragma mark ---HttpProgress
+/**
+ Resume upload progress
+
+ @param current current progress
+ @param total total progress
+ @param percent current percent
+ */
 - (void)onHttpProgress:(int)current total:(int)total percent:(int)percent{
     uploadView.progressView.progress = (float)percent / 100;
 }
 
+/**
+ Url decode
+
+ @param input Encoded url
+ @return decoded url
+ */
 - (NSString *)decoderUrlEncodeStr: (NSString *) input{
     NSMutableString *outputStr = [NSMutableString stringWithString:input];
     [outputStr replaceOccurrencesOfString:@"+" withString:@"" options:NSLiteralSearch range:NSMakeRange(0,[outputStr length])];
     return [outputStr stringByRemovingPercentEncoding];
 }
 
+/**
+ 从路径中取出文件名称
+ get the file name from the path
+
+ @param filePath file path
+ @return filt name
+ */
 -(NSString*)fileName:(NSString*)filePath{
     return [[filePath componentsSeparatedByString:@"/"] lastObject];
 }
 
+/**
+ 配置表格视图的内容控制器
+ Configuring the content controller for the table view
+ */
 -(void)setupTableContentVC{
     self.isCanScroll = YES;
     self.descriptionVC = [JobDetailDescriptionViewController new];
     self.companyVC = [JobDetailCompanyViewController new];
     self.reviewsVC = [JobDetailReviewsViewController new];
     
-    
+    //滚动事件关联
+    //Rolling event correlation
     WeakSelf;
     self.descriptionVC.noScrollAction = ^{
         weakSelf.isCanScroll = YES;
@@ -663,6 +780,12 @@
 }
 
 
+/**
+ 表格内容布局视图
+ Table cell view
+ 
+ @return UIView
+ */
 -(UIView*)tableContentView{
     if(!_tableContentView){
         int height = [self tableView:tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
@@ -689,6 +812,12 @@
 }
 
 #pragma mark DentistTabViewDelegate
+/**
+ 页签切换时候，控制视图显示和隐藏
+ Control view display and hide when tabs are switched
+ 
+ @param index Currently selected index
+ */
 - (void)didDentistSelectItemAtIndex:(NSInteger)index{
     currTabIndex = (int)index;
     switch (currTabIndex) {
@@ -757,6 +886,11 @@
 
 
 
+/**
+ tableview scroll event
+
+ @param scrollView UIScrollView
+ */
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat scrollY = [tableView rectForSection:0].origin.y;
     if (tableView.contentOffset.y >= scrollY) {

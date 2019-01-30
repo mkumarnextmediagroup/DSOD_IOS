@@ -12,6 +12,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobDetailReviewsViewController : CompanyDetailReviewsViewController
+
+/**
+ Get internal padding
+ 80px from the bottom to display the apply button
+ 
+ @return UIEdgeInsets
+ */
 - (UIEdgeInsets)edgeInsetsMake;
 @end
 

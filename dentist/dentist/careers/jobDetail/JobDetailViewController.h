@@ -13,9 +13,23 @@ typedef void (^CareerJobDetailCloseCallback) (NSString *_Nullable jobid,NSString
 @interface JobDetailViewController : BaseController
 @property (nonatomic,strong) NSString *jobId;
 
+/**
+ 打开职位详情页面
+ open the job details page
+
+ @param vc UIViewController
+ @param jobId job id
+ */
 +(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*_Nullable)jobId;
+/**
+ 打开职位详情页面，包含界面关闭回调事件
+ Open the job details page, including the interface close callback event
+
+ @param vc UIViewController
+ @param jobId job id
+ @param closeBack close callback event
+ */
 +(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*_Nonnull)jobId closeBack:(CareerJobDetailCloseCallback _Nullable)closeBack;
-+(void)presentBy:(UIViewController* _Nullable)vc jobId:(NSString*_Nonnull)jobId isShowApply:(BOOL)isShowApply closeBack:(CareerJobDetailCloseCallback _Nullable)closeBack;
 - (void)addNavBar;
 - (void)buildView;
 - (void)setApplyButtonEnable:(BOOL)enable;
@@ -25,7 +39,6 @@ typedef void (^CareerJobDetailCloseCallback) (NSString *_Nullable jobid,NSString
 - (void)showLocation;
 - (void)attention;
 - (void)share;
-- (void)clickOkBtn;
 - (void)uploadResume;
 - (void)applyNow;
 - (void)applyForJob:(void(^)(BOOL success))completion;

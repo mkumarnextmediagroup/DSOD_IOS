@@ -44,6 +44,10 @@
     [super viewWillAppear:animated];
     __block BOOL updatedata=NO;
     __block NSInteger updatecount=0;
+    /**
+     遍历列表检查保存的工作的状态
+     Traversing the list to check the status of saved job
+     */
     if(_selectIndex==1){
         if (self->followArr && self->followArr.count>0) {
             [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -134,7 +138,12 @@
     
     // Do any additional setup after loading the view.
 }
+#pragma mark ----Public method
 
+/**
+ 无数据页面
+ No data page content
+ */
 - (void)createEmptyNotice
 {
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
@@ -167,6 +176,11 @@
         [self->myTable setScrollEnabled:YES];
     }];
 }
+
+/**
+ 返回事件
+ Return button event
+ */
 - (void)backToFirst
 {
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -174,12 +188,10 @@
     [tabvc setSelectedIndex:0];
 }
 
--(void)tableReloadData
-{
-    [self createEmptyNotice];
-    [self->myTable reloadData];
-}
-
+/**
+ 查询工作列表
+ query job list event
+ */
 -(void)refreshData
 {
     if(_selectIndex==0){
@@ -219,6 +231,9 @@
 
 
 //MARK: 下拉刷新
+/**
+ Pull down to refresh
+ */
 - (void)setupRefresh {
     NSLog(@"setupRefresh -- 下拉刷新");
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -230,12 +245,19 @@
 
 
 //MARK: 下拉刷新触发,在此获取数据
+/**
+ Pull down to refresh event
+ */
 - (void)refreshClick:(UIRefreshControl *)refreshControl {
     NSLog(@"refreshClick: -- 刷新触发");
     [self refreshData];
     [refreshControl endRefreshing];
 }
 
+/**
+ 搜索事件
+ search button event
+ */
 - (void)searchClick
 {
     NSLog(@"search btn click");
@@ -246,11 +268,19 @@
     [viewController presentViewController:navVC animated:NO completion:NULL];
 }
 
+/**
+ 刷选条件按钮
+ Filter button event
+ */
 -(void)clickFilter:(UIButton *)sender
 {
     NSLog(@"Filter btn click");
 }
 
+/**
+ 设置工作数量
+ set job count method
+ */
 -(void)setJobCountTitle:(NSInteger)jobcount
 {
     if (jobcount>0) {
@@ -267,6 +297,10 @@
     
 }
 
+/**
+ 表头视图
+ table Header View
+ */
 - (UIView *)makeHeaderView {
     UIView *panel = [UIView new];
     panel.frame = makeRect(0, 0, SCREENWIDTH, 91);
@@ -294,7 +328,7 @@
     return panel;
 }
 
-
+#pragma mark ----UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (_selectIndex==0) {
@@ -431,6 +465,10 @@
 }
 
 #pragma mark -------DentistTabViewDelegate
+/**
+ 选择申请工作列表跟保存工作列表
+ select the apply job list or save job list item.
+ */
 -(void)didDentistSelectItemAtIndex:(NSInteger)index
 {
     NSLog(@"selectindex=%@",@(index));
@@ -438,7 +476,11 @@
     [self refreshData];
 }
 
-
+#pragma mark -----JobsTableCellDelegate
+/**
+ 关注工作事件
+ Save a job event
+ */
 -(void)FollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {
     NSLog(@"FollowJobAction");
@@ -469,6 +511,10 @@
     }
 }
 
+/**
+ 取消关注工作事件
+ cancel save a job event
+ */
 -(void)UnFollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {
     NSLog(@"UnFollowJobAction");

@@ -249,11 +249,6 @@ table Header View
     jobCountTitle.font=[Fonts semiBold:13];
     jobCountTitle.textColor=Colors.textMain;
     [[[[[jobCountTitle.layoutMaker leftParent:20] topParent:0] bottomParent:0] rightParent:40] install];
-    
-//    UIButton *filterButton = [panel addButton];
-//    [filterButton setImage:[UIImage imageNamed:@"desc"] forState:UIControlStateNormal];
-//    [[[[filterButton.layoutMaker topParent:4] rightParent:-15] sizeEq:24 h:24] install];
-//    [filterButton onClick:self action:@selector(clickFilter:)];
     UILabel *lineLabel=panel.lineLabel;
     [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
     return panel;
@@ -325,7 +320,6 @@ table Header View
     if (bottomOffset <= height-50  && contentOffsetY>0)
     {
         if (!isdownrefresh) {
-            NSLog(@"==================================下啦刷选;contentOffsetY=%@;consizeheight=%@;bottomOffset=%@;height=%@；",@(contentOffsetY),@(consizeheight),@(bottomOffset),@(height));
             isdownrefresh=YES;
             [self showIndicator];
             [Proto queryAllJobs:self->_infoArr.count filterDic:filterDic completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {

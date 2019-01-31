@@ -64,6 +64,12 @@
 
 }
 
+#pragma mark ----Public method
+
+/**
+ 设置导航项
+ Set navigation items
+ */
 -(void)setNavigationItem
 {
     UINavigationItem *item = [self navigationItem];
@@ -75,60 +81,11 @@
     
 }
 
--(void)addClick
-{
-    
-    CareerAlertsAddViewController *addalertvc=[CareerAlertsAddViewController new];
-    addalertvc.alertsAddSuceess = ^(JobAlertsModel * _Nonnull oldmodel, JobAlertsModel * _Nonnull newmodel) {
-        if (oldmodel && newmodel) {
-            NSInteger index=[self->infoArr indexOfObject:oldmodel];
-            [self->infoArr replaceObjectAtIndex:index withObject:newmodel];
-            [self setNavigationItem];
-            [self->myTable reloadData];
-        }else{
-            [self->refreshControl beginRefreshing];
-            [self refreshClick:self->refreshControl];
-        }
-    };
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:addalertvc];
-    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self presentViewController:navVC animated:NO completion:NULL];
-//    [self.navigationController pushViewController:addalertvc animated:YES];
-}
 
--(void)refreshData
-{
-    [self showIndicator];
-    [Proto queryRemindsByUserId:0 completed:^(NSArray<JobAlertsModel *> *array, NSInteger totalCount) {
-        foreTask(^{
-            self->isfirstfresh=YES;
-            [self hideIndicator];
-            NSLog(@"%@",array);
-            self->infoArr = [NSMutableArray arrayWithArray:array];
-            [self setNavigationItem];
-            [self->myTable reloadData];
-            
-        });
-    }];
-}
-
-//MARK: 下拉刷新
-- (void)setupRefresh {
-    NSLog(@"setupRefresh -- 下拉刷新");
-    self->refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(refreshClick:) forControlEvents:UIControlEventValueChanged];
-    [self->myTable addSubview:refreshControl];
-    [self->refreshControl beginRefreshing];
-    [self refreshClick:self->refreshControl];
-}
-
-//MARK: 下拉刷新触发,在此获取数据
-- (void)refreshClick:(UIRefreshControl *)refreshControl {
-    NSLog(@"refreshClick: -- 刷新触发");
-    [self refreshData];
-    [self->refreshControl endRefreshing];
-}
-
+/**
+ 无数据页面
+ No data page content
+ */
 - (void)createEmptyNotice
 {
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
@@ -191,6 +148,75 @@
     }];
 }
 
+/**
+ 添加工作提醒事件
+ Add a job alert event
+ */
+-(void)addClick
+{
+    
+    CareerAlertsAddViewController *addalertvc=[CareerAlertsAddViewController new];
+    addalertvc.alertsAddSuceess = ^(JobAlertsModel * _Nonnull oldmodel, JobAlertsModel * _Nonnull newmodel) {
+        if (oldmodel && newmodel) {
+            NSInteger index=[self->infoArr indexOfObject:oldmodel];
+            [self->infoArr replaceObjectAtIndex:index withObject:newmodel];
+            [self setNavigationItem];
+            [self->myTable reloadData];
+        }else{
+            [self->refreshControl beginRefreshing];
+            [self refreshClick:self->refreshControl];
+        }
+    };
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:addalertvc];
+    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:navVC animated:NO completion:NULL];
+//    [self.navigationController pushViewController:addalertvc animated:YES];
+}
+
+/**
+ 查询工作提醒事件
+query job alert event
+ */
+-(void)refreshData
+{
+    [self showIndicator];
+    [Proto queryRemindsByUserId:0 completed:^(NSArray<JobAlertsModel *> *array, NSInteger totalCount) {
+        foreTask(^{
+            self->isfirstfresh=YES;
+            [self hideIndicator];
+            NSLog(@"%@",array);
+            self->infoArr = [NSMutableArray arrayWithArray:array];
+            [self setNavigationItem];
+            [self->myTable reloadData];
+            
+        });
+    }];
+}
+
+//MARK: 下拉刷新
+/**
+ Pull down to refresh
+ */
+- (void)setupRefresh {
+    NSLog(@"setupRefresh -- 下拉刷新");
+    self->refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshClick:) forControlEvents:UIControlEventValueChanged];
+    [self->myTable addSubview:refreshControl];
+    [self->refreshControl beginRefreshing];
+    [self refreshClick:self->refreshControl];
+}
+
+//MARK: 下拉刷新触发,在此获取数据
+/**
+ Pull down to refresh event
+ */
+- (void)refreshClick:(UIRefreshControl *)refreshControl {
+    NSLog(@"refreshClick: -- 刷新触发");
+    [self refreshData];
+    [self->refreshControl endRefreshing];
+}
+
+#pragma mark ----UITableViewDataSource & UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 77;
@@ -238,7 +264,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-// 点击左滑出现的按钮时触发
+/**
+ 点击左滑删除事件
+ Left slide delete event
+ */
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     //执行删除逻辑
     NSLog(@"========commitEditingStyle");
@@ -311,7 +340,11 @@
     }
 }
 
-#pragma mark - configSwipeButtons
+#pragma mark - job alert delete button
+/**
+设置左滑删除按钮
+Set the left slide delete button
+ */
 - (void)configSwipeButtons{
     // 获取选项按钮的reference
     if (@available(iOS 11.0, *)){
@@ -352,6 +385,10 @@
     }
 }
 
+/**
+ 设置左滑删除按钮样式
+ Set left slide delete button style
+ */
 - (void)configDeleteButton:(UIButton*)deleteButton{
     if (deleteButton) {
         [deleteButton setImage:[UIImage imageNamed:@"icons8-delete_forever"] forState:UIControlStateNormal];
@@ -361,7 +398,10 @@
     }
 }
 
-//按钮的点击操作
+/**
+ 设置左滑删除按钮样式
+Set left slide delete button style
+ */
 - (void)deleteAction:(UIButton *)sender{
     NSLog(@"========deleteAction");
     [self.view setNeedsLayout];
@@ -369,6 +409,11 @@
 }
 
 #pragma mark ========CareerAlertsTableViewCellDelegate
+
+/**
+ job 提醒编辑事件
+User edits job alert event
+ */
 -(void)JobAlertsEditAction:(JobAlertsModel *)model
 {
     CareerAlertsAddViewController *addalertvc=[CareerAlertsAddViewController new];
@@ -386,6 +431,10 @@
     [self.navigationController pushViewController:addalertvc animated:YES];
 }
 
+/**
+disable job alerts event & able job alerts  event
+ @param model JobAlertsModel
+ */
 -(void)JobAlertsAction:(JobAlertsModel *)model
 {
     BOOL status=YES;

@@ -83,6 +83,12 @@
     // Do any additional setup after loading the view.
 }
 
+#pragma mark ----Public method
+
+/**
+ 无数据页面
+ No data page content
+ */
 - (void)createEmptyNotice
 {
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
@@ -112,6 +118,10 @@
     }];
 }
 
+/**
+ 返回事件
+ Return button event
+ */
 - (void)backToFirst
 {
     NSArray *viewcontrollers=self.navigationController.viewControllers;
@@ -127,6 +137,10 @@
     }
 }
 
+/**
+ 查询工作列表
+ query job list event
+ */
 -(void)refreshData
 {
     [self showIndicator];
@@ -144,6 +158,9 @@
 }
 
 //MARK: 下拉刷新
+/**
+ Pull down to refresh
+ */
 - (void)setupRefresh {
     NSLog(@"setupRefresh -- 下拉刷新");
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -155,12 +172,19 @@
 
 
 //MARK: 下拉刷新触发,在此获取数据
+/**
+ Pull down to refresh event
+ */
 - (void)refreshClick:(UIRefreshControl *)refreshControl {
     NSLog(@"refreshClick: -- 刷新触发");
     [self refreshData];
     [refreshControl endRefreshing];
 }
 
+/**
+ 搜索事件
+ search button event
+ */
 - (void)searchClick
 {
     NSLog(@"search btn click");
@@ -180,6 +204,10 @@
     
 }
 
+/**
+ 刷选条件按钮
+ Filter button event
+ */
 -(void)clickFilter:(UIButton *)sender
 {
     NSLog(@"Filter btn click");
@@ -188,6 +216,10 @@
     [filterview showFilter];
 }
 
+/**
+ 设置工作数量
+ set job count method
+ */
 -(void)setJobCountTitle:(NSInteger)jobcount
 {
     if (jobcount>0) {
@@ -204,6 +236,10 @@
     
 }
 
+/**
+表头视图
+table Header View
+ */
 - (UIView *)makeHeaderView {
     UIView *panel = [UIView new];
     panel.frame = makeRect(0, 0, SCREENWIDTH, 32);
@@ -223,7 +259,7 @@
     return panel;
 }
 
-
+#pragma mark ----UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _infoArr.count;
@@ -279,7 +315,6 @@
     }];
 }
 
-
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat height = scrollView.frame.size.height;
@@ -311,6 +346,11 @@
     }
 }
 
+#pragma mark -----JobsTableCellDelegate
+/**
+ 关注工作事件
+ Save a job event
+ */
 -(void)FollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {
     NSLog(@"FollowJobAction");
@@ -337,6 +377,10 @@
     
 }
 
+/**
+ 取消关注工作事件
+ cancel save a job event
+ */
 -(void)UnFollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {
     NSLog(@"UnFollowJobAction");

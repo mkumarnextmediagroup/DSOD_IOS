@@ -62,7 +62,12 @@
     
 }
 
-//MARK:刷新数据
+#pragma mark ----Public method
+
+/**
+ 查询cms列表数据
+ query article list data
+ */
 -(void)refreshData
 {
     if (self.items.count==0) {
@@ -79,33 +84,49 @@
     }];
 }
 
+/**
+ table cell class
+ */
 - (Class)viewClassOfItem:(NSObject *)item {
     return ArticleGSkItemView.class;
 }
 
+/**
+ table cell height
+ */
 - (CGFloat)heightOfItem:(NSObject *)item {
     //    return 430;
     return UITableViewAutomaticDimension;
 }
 
+/**
+ table cell view
+ */
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
-    
-//    CMSModel *model = (id) item;
-//    ArticleItemView *itemView = (ArticleItemView *) view;
-//    itemView.delegate=self;
-////    itemView.moreButton.tag=1;//;
-////    [itemView.moreButton addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [itemView bindCMS:model];
-    
-    
     CMSModel *model = (id) item;
     ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
     itemView.delegate=self;
     [itemView bindCMS:model];
 }
 
+/**
+ click table cell event；click it，go to article detail page
+ */
+- (void)onClickItem3:(NSObject *)item cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+    CMSModel *article = (CMSModel *) item;
+    newVC.contentId = article.id;
+    newVC.cmsmodelsArray=self.items;
+    newVC.modelIndexOfArray = (int)indexPath.row;
+    [viewController presentViewController:navVC animated:YES completion:NULL];
+}
 
-
+#pragma mark -------ArticleItemViewDelegate
+/**
+ Article more items Action,update & share
+ */
 -(void)ArticleMoreActionModel:(CMSModel *)model
 {
     _selectModel=model;
@@ -123,6 +144,9 @@
 }
 
 #pragma mark ---MyActionSheetDelegate
+/**
+ download & share event
+ */
 - (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index
 {
     switch (index) {
@@ -191,17 +215,9 @@
     }
 }
 
-- (void)onClickItem3:(NSObject *)item cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
-    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
-    CMSModel *article = (CMSModel *) item;
-    newVC.contentId = article.id;
-    newVC.cmsmodelsArray=self.items;
-    newVC.modelIndexOfArray = (int)indexPath.row;
-    [viewController presentViewController:navVC animated:YES completion:NULL];
-}
-
+/**
+ Article bookmark delete event
+ */
 - (void) handleDeleteBookmark:(HttpResult *)result view:(UIView *)view model:(CMSModel *)model {
     [self.navigationController.view hideToast];
     if (result.OK) {
@@ -221,30 +237,9 @@
     }
 }
 
--(void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view
-{
-    CMSModel *model = (id) item;
-    if(model.isBookmark){
-        //删除
-        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Remove from bookmarks……" ishowActivity:YES];
-        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-        [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(HttpResult *result) {
-            foreTask(^() {
-                [self handleDeleteBookmark:result view:view model:model];
-            });
-        }];
-    }else{
-        //添加
-        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Saving to bookmarks…" ishowActivity:YES];
-        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
-        [Proto addBookmark:getLastAccount() cmsmodel:model completed:^(HttpResult *result) {
-            foreTask(^() {
-                [self handleAddBookmark:result view:view model:model];
-            });
-        }];
-    }
-}
-
+/**
+ Article bookmark delete event
+ */
 - (void) handleAddBookmark:(HttpResult *)result view:(UIView *)view model:(CMSModel *)model {
     [self.navigationController.view hideToast];
     if (result.OK) {
@@ -268,6 +263,33 @@
                      position:CSToastPositionBottom];
             [self.navigationController popViewControllerAnimated:YES];
         }
+    }
+}
+
+/**
+ Article bookmark event; add & delete
+ */
+-(void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view
+{
+    CMSModel *model = (id) item;
+    if(model.isBookmark){
+        //删除
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Remove from bookmarks……" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+        [Proto deleteBookmarkByEmailAndContentId:getLastAccount() contentId:model.id completed:^(HttpResult *result) {
+            foreTask(^() {
+                [self handleDeleteBookmark:result view:view model:model];
+            });
+        }];
+    }else{
+        //添加
+        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Saving to bookmarks…" ishowActivity:YES];
+        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+        [Proto addBookmark:getLastAccount() cmsmodel:model completed:^(HttpResult *result) {
+            foreTask(^() {
+                [self handleAddBookmark:result view:view model:model];
+            });
+        }];
     }
 }
 
@@ -313,6 +335,17 @@
 //    NSLog(@"%@",self.items);
 }
 
+
+/**
+ search cancel event
+ */
+-(void)cancelBtnClick:(UIButton *)sender
+{
+    NSLog(@"search cancel click");
+    _searchBar.showsCancelButton = NO;
+    [_searchBar setShowsCancelButton:NO animated:YES];
+}
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat height = scrollView.frame.size.height;
@@ -341,13 +374,9 @@
     }
 }
 
--(void)cancelBtnClick:(UIButton *)sender
-{
-    NSLog(@"search cancel click");
-     _searchBar.showsCancelButton = NO;
-    [_searchBar setShowsCancelButton:NO animated:YES];
-}
-
+/**
+ go to Article Category  page
+ */
 -(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName
 {
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];

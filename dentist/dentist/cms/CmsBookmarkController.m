@@ -51,7 +51,12 @@
 //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addEmptyViewWithImageName:@"nonBookmarks" title:@"No bookmarks added yet"];
 }
+#pragma mark ----Public method
 
+/**
+ 查询bookmark列表数据
+ query bookmark list data
+ */
 -(void)refreshData
 {
     [self showIndicator];
@@ -64,6 +69,10 @@
         });
     }];
 }
+
+/**
+set the filter view
+ */
 -(void)updateFilterView
 {
     if (!nullFilterView) {
@@ -83,6 +92,10 @@
     }
 }
 
+/**
+ 表头视图
+ table Header View
+ */
 - (UIView *)makeHeaderView {
     UIView *panel = [UIView new];
     panel.frame = makeRect(0, 0, SCREENWIDTH, 32);
@@ -95,25 +108,51 @@
     return panel;
 }
 
+#pragma mark ----table method
+
+/**
+ table cell class
+ */
 - (Class)viewClassOfItem:(NSObject *)item {
     return BookMarkItemView.class;
 }
+/**
+ table cell height
+ */
 - (CGFloat)heightOfItem:(NSObject *)item {
     
     return _rowheight;
 }
 
+/**
+ table cell view
+ */
 - (void)onBindItem:(NSObject *)item view:(UIView *)view {
-//    Article *art = (id) item;
-//    BookMarkItemView *itemView = (BookMarkItemView *) view;
-//    itemView.delegate=self;
-//    [itemView bind:art];
     BookmarkModel *art = (id) item;
     BookMarkItemView *itemView = (BookMarkItemView *) view;
     itemView.delegate=self;
     [itemView bindCMS:art];
 }
 
+/**
+ click table cell event；click it，go to the article detail page
+ */
+- (void)onClickItem3:(NSObject *)item cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+    BookmarkModel *article = (BookmarkModel *) item;
+    
+    newVC.contentId = article.postId;
+    newVC.cmsmodelsArray=self.items;
+    newVC.modelIndexOfArray = (int)indexPath.row;
+    [viewController presentViewController:navVC animated:YES completion:NULL];
+}
+
+#pragma mark -----BookMarkItemViewDelegate
+/**
+ Article bookmark delete event
+ */
 -(void)BookMarkActionModel:(BookmarkModel *)model
 {
     //移除bookmark
@@ -126,6 +165,9 @@
     }];
 }
 
+/**
+ Article bookmark delete result method
+ */
 - (void)handleDeleteBookmarkWithResult:(HttpResult *)result and:(BookmarkModel *)model  {
     [self.navigationController.view hideToast];
     if (result.OK) {
@@ -145,19 +187,11 @@
     }
 }
 
-- (void)onClickItem3:(NSObject *)item cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
-    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
-    BookmarkModel *article = (BookmarkModel *) item;
-    
-    newVC.contentId = article.postId;
-    newVC.cmsmodelsArray=self.items;
-    newVC.modelIndexOfArray = (int)indexPath.row;
-    [viewController presentViewController:navVC animated:YES completion:NULL];
-}
+#pragma mark --------Filter view
 
-#pragma mark 打开刷选页面
+/**
+ open Filter view
+ */
 -(void)clickFilter:(UIButton *)sender
 {
     DentistFilterView *filterview=[[DentistFilterView alloc] init];
@@ -169,6 +203,11 @@
     }];
 }
 
+/**
+   Re-query  bookmark list data based on the categorytype and conten type returned by the callback
+   @param category category type id
+   @param type content type id
+   **/
 - (void)handleSelectFilterWithCategory:(NSString *) category andType:(NSString *)type {
     self->_categoryId =category;
     self->_contentTypeId=type;
@@ -180,6 +219,9 @@
     }];
 }
 
+/**
+ the result of Re-query  bookmark list data
+ */
 - (void)handleQueryBookmarks:(NSArray<CMSModel *> *)array {
     self->resultArray=[NSMutableArray arrayWithArray:array];
     [self hideIndicator];
@@ -207,6 +249,9 @@
     }
 }
 
+/**
+ load more bookmark data
+ */
 - (void)handleLoadmore:(NSArray<CMSModel *> *) array {
     self->isdownrefresh=NO;
     foreTask(^() {

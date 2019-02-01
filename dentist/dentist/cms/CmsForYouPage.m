@@ -44,13 +44,6 @@
 - (instancetype)init {
     self = [super init];
     self.topOffset = 0;
-    //    segItems = [NSMutableArray arrayWithArray:@[@"LATEST", @"VIDEOS", @"ARTICLES", @"PODCASTS", @"INTERVIEWS", @"TECH GUIDES", @"ANIMATIONS", @"TIP SHEETS"]];
-    //    //开启和监听 设备旋转的通知（不开启的话，设备方向一直是UIInterfaceOrientationUnknown）
-    //    if (![UIDevice currentDevice].generatesDeviceOrientationNotifications) {
-    //        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    //    }
-    //    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleDeviceOrientationChange:)
-    //                                                name:UIDeviceOrientationDidChangeNotification object:nil];
     return self;
 }
 

@@ -40,11 +40,6 @@ describe(@"Unit Test For CareerMyJobViewController", ^{
             [[theValue(controller.view) shouldNot] beNil];
         });
 
-        it(@"tableReloadData", ^{
-            [controller tableReloadData];
-            [[theValue(controller.view) shouldNot] beNil];
-        });
-
         it(@"refreshData", ^{
             [controller refreshData];
             [[theValue(controller.view) shouldNot] beNil];

@@ -30,24 +30,6 @@ describe(@"Unit Test For CmsForYouPage", ^{
             [[theValue(headerView) shouldNot] beNil];
         });
 
-        it(@"makeSegPanel with segItems", ^{
-            page.segItems = [[NSMutableArray alloc] init];
-            [page.segItems addObject:@"1"];
-            [page.segItems addObject:@"2"];
-            UIView *segPanel = [page makeSegPanel];
-            [[theValue(segPanel) shouldNot] beNil];
-            [[NSStringFromClass([segPanel class]) should] equal: @"UIScrollView"];
-        });
-
-        it(@"onSegValueChanged", ^{
-            page.segItems = [[NSMutableArray alloc] init];
-            [page.segItems addObject:@"1"];
-            [page.segItems addObject:@"2"];
-            [page onSegValueChanged:NULL];
-            NSInteger n = page.segView.selectedSegmentIndex;
-            [[page.category should] equal:page.segItems[n]];
-        });
-
         it(@"showImageBrowser", ^{
             [page showImageBrowser:1];
             [[theValue(page.view) shouldNot] beNil];
@@ -172,11 +154,6 @@ describe(@"Unit Test For CmsForYouPage", ^{
             CMSModel *model = [CMSModel new];
             model.isBookmark = 1;
             [page ArticleGSKActionModel:model];
-            [[theValue(page.view) shouldNot] beNil];
-        });
-
-        it(@"clickTest", ^{
-            [page clickTest:NULL];
             [[theValue(page.view) shouldNot] beNil];
         });
 

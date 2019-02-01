@@ -91,7 +91,7 @@ describe(@"Unit Test For SliderListView", ^{
 
         it(@"heightForFooterInSection", ^{
             CGFloat height = [view tableView:[UITableView new] heightForFooterInSection:0];
-            [[theValue(height) should] equal:theValue(.1)];
+            [[theValue(height) should] equal:theValue(0)];
         });
 
         it(@"viewForHeaderInSection", ^{

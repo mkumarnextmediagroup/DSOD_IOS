@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)createEmptyNotice;
 - (void)backToFirst;
-- (void)tableReloadData;
 - (void)refreshData;
 - (void)setupRefresh;
 - (void)refreshClick:(UIRefreshControl *)refreshControl;

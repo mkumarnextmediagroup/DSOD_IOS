@@ -65,7 +65,7 @@
     imageArr = [NSArray arrayWithObjects:@"Setting_general",@"Setting_notifications",@"Setting_feedback",@"Setting_about",@"Setting_resetpwd",@"Setting_share", nil];
     infoArr = [NSArray arrayWithObjects:@"General",@"Notifications",@"Feedback and Support",@"About",@"Change password",@"Share app", nil];
     imageArr2 = [NSArray arrayWithObjects:@"Setting_logout", nil];
-    infoArr2 = [NSArray arrayWithObjects:@"Sign out", nil];
+    infoArr2 = [NSArray arrayWithObjects:@"Sign Out", nil];
 	[[[lb.layoutMaker centerParent] sizeFit] install];
 
 	UINavigationItem *item = [self navigationItem];
@@ -242,6 +242,11 @@
     
 }
 
+/**
+ Logout click event
+
+ @param sender sender
+ */
 - (void)onClickLogout:(id)sender {
 	[Proto logout];
     AppDelegate *delegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];

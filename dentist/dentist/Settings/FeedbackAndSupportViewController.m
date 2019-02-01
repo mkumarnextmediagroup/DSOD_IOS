@@ -18,11 +18,17 @@
 
 @implementation FeedbackAndSupportViewController{
     
+    //table view
     UITableView *tableView;
+    //Data source array
     NSArray *dataArray;
 }
 
-
+/**
+ Open feedback and support page
+ 
+ @param vc UIViewController
+ */
 +(void)openBy:(UIViewController*)vc{
     FeedbackAndSupportViewController *newVc = [FeedbackAndSupportViewController new];
     [vc pushPage:newVc];
@@ -39,13 +45,19 @@
     [self buildViews];
 }
 
-
+/**
+ add navigation bar
+ */
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
     item.title = @"FEEDBACK AND SUPPORT";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
 }
 
+
+/**
+ build views
+ */
 -(void)buildViews{
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = UIColor.whiteColor;
@@ -60,7 +72,7 @@
     [[[[[tableView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT] bottomParent:0] install];
 }
 
-
+#pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return dataArray.count;
 }

@@ -53,7 +53,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Dentist need to use your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>获取当前位置，便于展示附近的信息</string>
+	<string>Dentist need your current location for display of nearby information</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Dentist need to use your photos</string>
 	<key>NSFaceIDUsageDescription</key>

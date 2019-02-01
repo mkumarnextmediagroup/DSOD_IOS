@@ -23,6 +23,7 @@
     NSIndexPath *editingIndexPath;
     UIRefreshControl *refreshControl;
     BOOL isdownrefresh;
+    BOOL isfirstfresh;
 }
 @end
 
@@ -41,7 +42,7 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
     UINavigationItem *item = [self navigationItem];
-    item.title = @"Alerts";
+    item.title = @"JOB ALERTS";
     
 //    UILabel *addlabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
 //    addlabel.font=[UIFont systemFontOfSize:30];
@@ -63,6 +64,12 @@
 
 }
 
+#pragma mark ----Public method
+
+/**
+ 设置导航项
+ Set navigation items
+ */
 -(void)setNavigationItem
 {
     UINavigationItem *item = [self navigationItem];
@@ -74,6 +81,77 @@
     
 }
 
+
+/**
+ 无数据页面
+ No data page content
+ */
+- (void)createEmptyNotice
+{
+    [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:NO];
+        UIView *headerVi = [UIView new];
+        [sender addSubview:headerVi];
+        if (self->isfirstfresh) {
+            [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:0] install];
+            headerVi.backgroundColor = [UIColor clearColor];
+            UIButton *headBtn = headerVi.addButton;
+            [headBtn setImage:[UIImage imageNamed:@"noun_mobile notification"] forState:UIControlStateNormal];
+            headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            headBtn.titleLabel.font = [Fonts regular:13];
+            [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
+            UILabel *tipLabel= headerVi.addLabel;
+            tipLabel.textAlignment=NSTextAlignmentCenter;
+            tipLabel.numberOfLines=0;
+            tipLabel.font = [Fonts semiBold:16];
+            tipLabel.textColor =[UIColor blackColor];
+            tipLabel.text=@"Add your first Job Alert!";
+            [[[[tipLabel.layoutMaker leftParent:10] rightParent:-10] below:headBtn offset:50] install];
+            
+            UILabel *tipLabel2= headerVi.addLabel;
+            tipLabel2.textAlignment=NSTextAlignmentCenter;
+            tipLabel2.numberOfLines=0;
+            tipLabel2.font = [UIFont systemFontOfSize:15.0];
+            tipLabel2.textColor =[UIColor blackColor];
+            tipLabel2.text=@"Receive regular emails with the best matched jobs \nfrom DSOs";
+            [[[[tipLabel2.layoutMaker leftParent:10] rightParent:-10] below:tipLabel offset:10] install];
+            
+            
+            UILabel *addlabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+            addlabel.font=[UIFont systemFontOfSize:20];
+            addlabel.text=@"+";//[Fonts semiBold:30]
+            addlabel.textColor=[UIColor whiteColor];
+            addlabel.textAlignment=NSTextAlignmentCenter;
+            addlabel.layer.cornerRadius = 2;
+            addlabel.layer.masksToBounds = YES;
+            
+            //设置边框及边框颜色
+            addlabel.layer.borderWidth = 1;
+            
+            addlabel.layer.borderColor =[UIColor whiteColor].CGColor;
+            UIImage *addimage=[UIImage getmakeImageWithView:addlabel];
+            
+            UIButton *createview=headerVi.addButton;
+            [createview setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            createview.titleLabel.font=[UIFont systemFontOfSize:15.0];
+            [createview setTitle:@"Create Job Alert" forState:UIControlStateNormal];
+            [createview setImage:addimage forState:UIControlStateNormal];
+            createview.backgroundColor=Colors.textDisabled;
+            createview.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+            [createview addTarget:self action:@selector(addClick) forControlEvents:UIControlEventTouchUpInside];
+            [[[[[createview.layoutMaker leftParent:20] rightParent:-20] bottomParent:-30]  heightEq:44] install];
+        }
+        
+        return headerVi;
+    } normalBlock:^(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:YES];
+    }];
+}
+
+/**
+ 添加工作提醒事件
+ Add a job alert event
+ */
 -(void)addClick
 {
     
@@ -95,11 +173,16 @@
 //    [self.navigationController pushViewController:addalertvc animated:YES];
 }
 
+/**
+ 查询工作提醒事件
+query job alert event
+ */
 -(void)refreshData
 {
     [self showIndicator];
     [Proto queryRemindsByUserId:0 completed:^(NSArray<JobAlertsModel *> *array, NSInteger totalCount) {
         foreTask(^{
+            self->isfirstfresh=YES;
             [self hideIndicator];
             NSLog(@"%@",array);
             self->infoArr = [NSMutableArray arrayWithArray:array];
@@ -111,6 +194,9 @@
 }
 
 //MARK: 下拉刷新
+/**
+ Pull down to refresh
+ */
 - (void)setupRefresh {
     NSLog(@"setupRefresh -- 下拉刷新");
     self->refreshControl = [[UIRefreshControl alloc] init];
@@ -121,63 +207,16 @@
 }
 
 //MARK: 下拉刷新触发,在此获取数据
+/**
+ Pull down to refresh event
+ */
 - (void)refreshClick:(UIRefreshControl *)refreshControl {
     NSLog(@"refreshClick: -- 刷新触发");
     [self refreshData];
     [self->refreshControl endRefreshing];
 }
 
-- (void)createEmptyNotice
-{
-    [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
-        [self->myTable setScrollEnabled:NO];
-        UIView *headerVi = [UIView new];
-        [sender addSubview:headerVi];
-        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT] topParent:0] install];
-        headerVi.backgroundColor = [UIColor clearColor];
-        UIButton *headBtn = headerVi.addButton;
-        [headBtn setImage:[UIImage imageNamed:@"noun_mobile notification"] forState:UIControlStateNormal];
-        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        headBtn.titleLabel.font = [Fonts regular:13];
-        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
-        UILabel *tipLabel= headerVi.addLabel;
-        tipLabel.textAlignment=NSTextAlignmentCenter;
-        tipLabel.numberOfLines=0;
-        tipLabel.font = [Fonts semiBold:16];
-        tipLabel.textColor =[UIColor blackColor];
-        tipLabel.text=@"Add your first Job Alert! \n \n Receive a daily email with the best matched \njobs from DSOs";
-        [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
-        
-        
-        UILabel *addlabel=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-        addlabel.font=[UIFont systemFontOfSize:20];
-        addlabel.text=@"+";//[Fonts semiBold:30]
-        addlabel.textColor=[UIColor whiteColor];
-        addlabel.textAlignment=NSTextAlignmentCenter;
-        addlabel.layer.cornerRadius = 2;
-        addlabel.layer.masksToBounds = YES;
-        
-        //设置边框及边框颜色
-        addlabel.layer.borderWidth = 1;
-        
-        addlabel.layer.borderColor =[UIColor whiteColor].CGColor;
-        UIImage *addimage=[UIImage getmakeImageWithView:addlabel];
-        
-        UIButton *createview=headerVi.addButton;
-        [createview setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        createview.titleLabel.font=[UIFont systemFontOfSize:15.0];
-        [createview setTitle:@"Create Job Alert" forState:UIControlStateNormal];
-        [createview setImage:addimage forState:UIControlStateNormal];
-        createview.backgroundColor=Colors.textDisabled;
-        createview.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
-        [createview addTarget:self action:@selector(addClick) forControlEvents:UIControlEventTouchUpInside];
-        [[[[[createview.layoutMaker leftParent:20] rightParent:-20] bottomParent:-30]  heightEq:44] install];
-        return headerVi;
-    } normalBlock:^(UITableView * _Nonnull sender) {
-        [self->myTable setScrollEnabled:YES];
-    }];
-}
-
+#pragma mark ----UITableViewDataSource & UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 77;
@@ -225,7 +264,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-// 点击左滑出现的按钮时触发
+/**
+ 点击左滑删除事件
+ Left slide delete event
+ */
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     //执行删除逻辑
     NSLog(@"========commitEditingStyle");
@@ -298,7 +340,11 @@
     }
 }
 
-#pragma mark - configSwipeButtons
+#pragma mark - job alert delete button
+/**
+设置左滑删除按钮
+Set the left slide delete button
+ */
 - (void)configSwipeButtons{
     // 获取选项按钮的reference
     if (@available(iOS 11.0, *)){
@@ -339,6 +385,10 @@
     }
 }
 
+/**
+ 设置左滑删除按钮样式
+ Set left slide delete button style
+ */
 - (void)configDeleteButton:(UIButton*)deleteButton{
     if (deleteButton) {
         [deleteButton setImage:[UIImage imageNamed:@"icons8-delete_forever"] forState:UIControlStateNormal];
@@ -348,7 +398,10 @@
     }
 }
 
-//按钮的点击操作
+/**
+ 设置左滑删除按钮样式
+Set left slide delete button style
+ */
 - (void)deleteAction:(UIButton *)sender{
     NSLog(@"========deleteAction");
     [self.view setNeedsLayout];
@@ -356,6 +409,11 @@
 }
 
 #pragma mark ========CareerAlertsTableViewCellDelegate
+
+/**
+ job 提醒编辑事件
+User edits job alert event
+ */
 -(void)JobAlertsEditAction:(JobAlertsModel *)model
 {
     CareerAlertsAddViewController *addalertvc=[CareerAlertsAddViewController new];
@@ -373,6 +431,10 @@
     [self.navigationController pushViewController:addalertvc animated:YES];
 }
 
+/**
+disable job alerts event & able job alerts  event
+ @param model JobAlertsModel
+ */
 -(void)JobAlertsAction:(JobAlertsModel *)model
 {
     BOOL status=YES;

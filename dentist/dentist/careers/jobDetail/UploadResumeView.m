@@ -14,7 +14,6 @@
     UIView *uploadView;
     UIView *submitView;
     UIView *doneView;
-    UIButton *okBtn;
 }
 
 @end
@@ -24,6 +23,12 @@ static dispatch_once_t onceToken;
 #define edge 22
 @implementation UploadResumeView
 
+/**
+ init upload view
+ 
+ @param viewControl UIViewController
+ @return UploadResumeView instance
+ */
 + (instancetype)initUploadView:(UIViewController *)viewControl
 {
     dispatch_once(&onceToken, ^{
@@ -44,6 +49,9 @@ static dispatch_once_t onceToken;
     onceToken = 0;
 }
 
+/**
+ hide UploadResumeView
+ */
 +(void)hide
 {
     if (instance) {
@@ -54,6 +62,9 @@ static dispatch_once_t onceToken;
     [self attemptDealloc];
 }
 
+/**
+ show UploadResumeView
+ */
 - (void)show
 {
     [UIView animateWithDuration:.3 animations:^{
@@ -61,6 +72,12 @@ static dispatch_once_t onceToken;
     }];
 }
 
+/**
+ 视图点击事件，点击外侧关闭视图
+ View click event, click outside to close view
+
+ @param sender UIGestureRecognizer
+ */
 - (void)sigleTappedPickerView:(UIGestureRecognizer *)sender
 {
     CGPoint touchPoint = [sender locationInView:instance];
@@ -75,11 +92,17 @@ static dispatch_once_t onceToken;
     }
 }
 
+/**
+ close button click event
+ */
 - (void)closeBtnClick
 {
     [UploadResumeView hide];
 }
 
+/**
+ init upload view
+ */
 - (void)initUploadView
 {
     uploadView = [instance addView];
@@ -133,6 +156,9 @@ static dispatch_once_t onceToken;
     [[[[introLab.layoutMaker below:uploadBtn offset:15] leftParent:30] sizeEq:SCREENWIDTH-60-edge*2 h:30] install];
 }
 
+/**
+ create upload resume view
+ */
 - (void)createSubmitView
 {
     submitView = [instance addView];
@@ -164,10 +190,13 @@ static dispatch_once_t onceToken;
     introLab.textAlignment = NSTextAlignmentCenter;
     introLab.textColor = Colors.textDisabled;
     introLab.text = @"Submiting your resume...";
-    [[[[introLab.layoutMaker bottomParent:-30] centerXParent:0] sizeEq:100 h:50] install];
+    [[[introLab.layoutMaker bottomParent:-30] centerXParent:0] install];
 
 }
 
+/**
+ create upload success view
+ */
 - (void)createDoneView
 {
     doneView = [instance addView];
@@ -184,32 +213,28 @@ static dispatch_once_t onceToken;
     introLab.font = [Fonts semiBold:14];
     introLab.textAlignment = NSTextAlignmentCenter;
     introLab.textColor = Colors.textDisabled;
-    introLab.text = @"Resume Submited";
-    [[[[introLab.layoutMaker bottomParent:-30] centerXParent:0] sizeEq:70 h:50] install];
-    
-    
-    okBtn = [instance addButton];
-    [okBtn addTarget:self action:@selector(okBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [okBtn setTitle:@"OK" forState:UIControlStateNormal];
-    okBtn.titleLabel.font = [UIFont systemFontOfSize:17];
-    [okBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    okBtn.backgroundColor = UIColor.whiteColor;
-    okBtn.layer.masksToBounds = YES;
-    okBtn.layer.cornerRadius = 5;
-    okBtn.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
-    okBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [[[[okBtn.layoutMaker sizeEq:SCREENWIDTH-60 h:36] leftParent:-SCREENWIDTH] bottomParent:-50] install];
-
+    introLab.text = @"Resume Submitted";
+    [[[introLab.layoutMaker bottomParent:-30] centerXParent:0] install];
     
 }
 
-- (void)okBtnClick
+
+/**
+ scroll to upload view
+ */
+- (void)scrollToUpload
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(clickOkBtn)]){
-        [self.delegate clickOkBtn];
-    }
+    [[[[uploadView.layoutUpdate leftParent:edge] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
+    [[[[submitView.layoutUpdate leftParent:-SCREENWIDTH] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
+    
+    [UIView animateWithDuration:1 animations:^{
+        [self layoutIfNeeded];
+    }];
 }
 
+/**
+ scroll to upload resume view
+ */
 - (void)scrollToSubmit
 {
     [[[[uploadView.layoutUpdate leftParent:SCREENWIDTH] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
@@ -220,33 +245,39 @@ static dispatch_once_t onceToken;
     }];
 }
 
+/**
+ scroll to upload success view
+
+ @param isAnimate Whether to display animation
+ */
 - (void)scrollToDone:(BOOL)isAnimate
 {
     
     [[[[submitView.layoutUpdate leftParent:SCREENWIDTH] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
     [[[[doneView.layoutUpdate leftParent:edge] sizeEq:SCREENWIDTH-edge*2 h:320] centerYParent:0] install];
-    [[[[okBtn.layoutUpdate sizeEq:SCREENWIDTH-60 h:36] leftParent:30] bottomParent:-50] install];
     if (isAnimate) {
         [UIView animateWithDuration:1 animations:^{
             [self layoutIfNeeded];
         }];
-        
     }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UploadResumeView hide];
+    });
 }
 
 
+/**
+ upload button click event
+ callback uploadResume of  UploadResumeViewDelegate
+
+ @param btn UIButton
+ */
 - (void)uploadBtnClick:(UIButton *)btn
 {
     if(self.delegate && [self.delegate respondsToSelector:@selector(uploadResume)]){
         [self.delegate uploadResume];
     }
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

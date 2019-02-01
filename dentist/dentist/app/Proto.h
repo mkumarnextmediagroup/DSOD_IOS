@@ -101,16 +101,16 @@
 + (NSArray<CMSModel *> *)querySearchResults:(NSString *)serachValue skip:(NSInteger)skip;
 + (void)querySearchResults:(NSString *)serachValue skip:(NSInteger)skip completed:(void(^)(NSArray<CMSModel *> *array))completed;
 
-//MARK:查询媒体列表（CMS_001_01\CMS_001_10）
+//MARK: Query media list (CMS_001_01\CMS_001_10)
 /**
- @param email 邮箱  是否必须:N
- @param contentTypeId 文章类型ID  是否必须:N
- @param categoryId 分类ID  是否必须:N
- @param sponserId 赞助商ID  是否必须:N
- @param authorId 作者ID  是否必须:N
- @param skip 分页数  是否必须:Y
- @return 返回CMSModel的实体数组
- **/
+   @param email Email: Must: N
+   @param contentTypeId Article type ID Must: N
+   @param categoryId Category ID Must: N
+   @param sponserId Sponsor ID Required: N
+   @param authorId Author ID Must: N
+   @param skip Number of pages Must: Y
+   @return returns the entity array of CMSModel
+   **/
 + (NSArray<CMSModel *> *_Nullable)queryAllContents:(NSString *_Nullable)email contentTypeId:(NSString *_Nullable)contentTypeId categoryId:(NSString *_Nullable)categoryId sponserId:(NSString *_Nullable)sponserId skip:(NSInteger)skip authorId:(NSString *_Nullable)authorId;
 + (void)queryAllContents:(NSString *_Nullable)email contentTypeId:(NSString *_Nullable)contentTypeId categoryId:(NSString *_Nullable)categoryId sponserId:(NSString *_Nullable)sponserId skip:(NSInteger)skip authorId:(NSString *_Nullable)authorId completed:(void(^)(NSArray<CMSModel *> *array))completed;
 

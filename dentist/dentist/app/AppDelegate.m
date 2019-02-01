@@ -39,9 +39,9 @@
 	[self configGlobalStyle];
 
 	if (Proto.isLogined) {
-		self.window.rootViewController = [self makeMainPage];
+        [self switchToMainPage];
 	} else {
-		self.window.rootViewController = [WelcomController new];
+        [self switchToWelcomePage];
 	}
 
 	[self.window makeKeyAndVisible];
@@ -64,6 +64,18 @@
 
 - (void)switchToWelcomePage {
 	self.window.rootViewController = [WelcomController new];
+}
+
+-(void)switchToLoginPage{
+    if(![self.window.rootViewController isKindOfClass:WelcomController.class]){
+        WelcomController *welcomeVc = [WelcomController new];
+        self.window.rootViewController = welcomeVc;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            LoginController *loginVc = [LoginController new];
+            [welcomeVc openPage:loginVc];
+        });
+    }
 }
 
 - (UIViewController *)makeMainPage {

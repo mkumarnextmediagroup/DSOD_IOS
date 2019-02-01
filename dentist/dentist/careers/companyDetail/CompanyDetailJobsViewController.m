@@ -12,6 +12,7 @@
 #import "Proto.h"
 #import "UIView+Toast.h"
 #import "JobDetailViewController.h"
+#import "UITableView+JRTableViewPlaceHolder.h"
 
 @interface CompanyDetailJobsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -31,6 +32,7 @@
     NSArray<JobModel*> *jobArray;
     
     BOOL isRefreshing;
+    BOOL isfirstfresh;
 }
 
 
@@ -46,6 +48,7 @@
 //    [self showLoading];
     [Proto getAllJobsByCompanyId:self.companyId skip:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
+            self->isfirstfresh=YES;
             [self hideLoading];
             //            [self setJobCountTitle:3];
             //            self->jobArray =  @[[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new],[JobModel new]];
@@ -69,7 +72,34 @@
     [self.view addSubview:tableView];
     [[[[[tableView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
     [tableView registerClass:[FindJobsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([FindJobsTableViewCell class])];
+    [self createEmptyNotice];
    
+}
+
+- (void)createEmptyNotice
+{
+    [tableView jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
+        UIView *headerVi = [UIView new];
+        headerVi.backgroundColor = [UIColor clearColor];
+        if (self->isfirstfresh) {
+            UIButton *headBtn = headerVi.addButton;
+            [headBtn setImage:[UIImage imageNamed:@"career_searchIcon"] forState:UIControlStateNormal];
+            headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            headBtn.titleLabel.font = [Fonts regular:13];
+            [[[[headBtn.layoutMaker centerXParent:0] topParent:80] sizeEq:80 h:80] install];
+            UILabel *tipLabel= headerVi.addLabel;
+            tipLabel.textAlignment=NSTextAlignmentCenter;
+            tipLabel.numberOfLines=0;
+            tipLabel.font = [Fonts semiBold:15];
+            tipLabel.textColor =[UIColor blackColor];
+            tipLabel.text=@"Sorry, we didn't find any Jobs";
+            [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:30] install];
+        }
+        
+        return headerVi;
+        
+    } normalBlock:^(UITableView * _Nonnull sender) {
+    }];
 }
 
 
@@ -104,7 +134,7 @@
 -(void)setJobCountTitle:(NSInteger)jobcount
 {
     if (jobcount>0) {
-        NSString *jobcountstr=[NSString stringWithFormat:@"%@Jobs",@(jobcount)];
+        NSString *jobcountstr=[NSString stringWithFormat:@"%@ Jobs",@(jobcount)];
         //        NSString *jobstr=[NSString stringWithFormat:@"%@ | 5 New",jobcountstr];
         //        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:jobstr];
         //        [str addAttribute:NSForegroundColorAttributeName value:Colors.textMain range:NSMakeRange(0,jobcountstr.length+2)];

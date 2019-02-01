@@ -20,7 +20,13 @@
     int edge;
 }
 
-
+/**
+ init cell layout
+ 
+ @param style UITableViewCellStyle
+ @param reuseIdentifier  reuseIdentifier
+ @return instance
+ */
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -31,6 +37,9 @@
     return self;
 }
 
+/**
+ build views
+ */
 -(void)buildViews{
     
     contentView= self.addView;
@@ -54,11 +63,16 @@
     [[[[[line.layoutMaker leftParent:0]below:titleView offset:0]bottomParent:0] sizeEq:SCREENWIDTH h:1] install];
 }
 
+/**
+ 设置数据
+ set datas,The last line does not show the dividing line
+ 
+ @param text text
+ @param isLastItem is last item
+ */
 -(void)setText:(NSString *)text isLastItem:(BOOL)isLastItem{
     textLabel.text = text;
     [[line.layoutUpdate heightEq:isLastItem?0:1]install];
-    
-    
 }
 
 @end

@@ -54,12 +54,6 @@
     return self;
 }
 
-- (void)clickTest:(id)sender {
-    UIViewController *c = [TestPage new];
-    [self pushPage:c];
-
-}
-
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -90,235 +84,13 @@
     self.table.rowHeight = UITableViewAutomaticDimension;
     self.table.estimatedRowHeight = 500;
     self.isRefresh=YES;
-    //    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    //    self.items = [Proto getArticleListByCategory:category type:type];
 }
 
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//    self.navigationItem.leftBarButtonItem = [self menuButton];
-//}
+#pragma mark ----Public method
 
-//- (UIBarButtonItem *)menuButton {
-//    return [self navBarImage:@"menu" target:[AppDelegate instance] action:@selector(onOpenMenu:)];
-//}
-
-- (UIView *)makeHeaderView {
-    panel = [UIView new];
-    CGFloat bannerh=(396.0/718.0*SCREENWIDTH);
-    panel.frame = makeRect(0, 0, SCREENWIDTH, bannerh+51);
-    //    UIImageView *iv = [panel addImageView];
-    //    [iv scaleFillAspect];
-    //    iv.imageName = @"ad";
-    //    [[[[[[iv layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:160] install];
-    //
-    //    UIButton *tapad=[panel addButton];
-    //    [[[[[[tapad layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:160] install];
-    //    [tapad addTarget:self action:@selector(showImageBrowser) forControlEvents:UIControlEventTouchUpInside];
-    //
-    //718*396;
-    
-    NSArray *urls = @[
-                      @"slide-1",
-                      @"slide-2",
-                      @"slide-3",
-                      @"slide-4",
-                      @"slide-5"];
-    iv =[BannerScrollView new];
-    [panel addSubview:iv];
-    typeof(self) __weak weakself = self;
-    [[[[[[iv layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:bannerh] install];
-    [iv addWithImageNames:urls autoTimerInterval:3 clickBlock:^(NSInteger index) {
-        NSLog(@"index=%@",@(index));
-        //可以做点击处理
-        //        [weakself showImageBrowser:index-1];
-    }];
-    
-    UIButton *closeAd = [panel addButton];
-    [closeAd setImage:[UIImage imageNamed:@"close-white"] forState:UIControlStateNormal];
-    [[[[closeAd.layoutMaker topParent:22] rightParent:-22] sizeEq:24 h:24] install];
-    [closeAd onClick:self action:@selector(clickCloseAd:)];
-    
-    //    UIView *seg = [self makeSegPanel];
-    //    [panel addSubview:seg];
-    //
-    //    [[[[[seg.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
-    
-    
-    tabView=[DentistTabView new];
-    tabView.delegate=self;
-    [panel addSubview:tabView];
-    [[[[[tabView.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
-    //    tabView.modelArr=segItemsModel;
-
-    return panel;
-}
-
-- (UIView *)makeHeaderView2 {
-    //    UIView *seg = [self makeSegPanel];
-    //    seg.frame = makeRect(0, 0, SCREENWIDTH, 51);
-    //    return seg;
-    UIView *headerview = [UIView new];
-    headerview.frame = makeRect(0, 0, SCREENWIDTH, 51);
-    [headerview addSubview:tabView];
-    tabView=[DentistTabView new];
-    tabView.delegate=self;
-    [headerview addSubview:tabView];
-    [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
-    tabView.modelArr=_segItemsModel;
-    //    tabView.titleArr=segItems;//
-    
-    return headerview;
-}
-
-- (UIView *)makeSegPanel {
-    CGFloat segw;
-    segw=SCREENWIDTH*2/7.0;
-    UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:_segItems];
-    UIImage *img = colorImage(makeSize(1, 1), rgba255(221, 221, 221, 100));
-    [seg setDividerImage:img forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-
-    [seg setTitleTextAttributes:@{NSFontAttributeName: [Fonts semiBold:12], NSForegroundColorAttributeName: Colors.textMain} forState:UIControlStateNormal];
-    [seg setTitleTextAttributes:@{NSFontAttributeName: [Fonts semiBold:12], NSForegroundColorAttributeName: Colors.textMain} forState:UIControlStateSelected];
-
-    //colorImage(makeSize(1, 1), rgba255(247, 247, 247, 255))
-
-    [seg setBackgroundImage:[UIImage imageNamed:@"seg-bg"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [seg setBackgroundImage:[UIImage imageNamed:@"seg-sel"] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    for (NSUInteger i = 0; i < _segItems.count; ++i) {
-        [seg setWidth:segw forSegmentAtIndex:i];
-    }
-    seg.selectedSegmentIndex = 0;
-
-    UIScrollView *sv = [UIScrollView new];
-    [sv addSubview:seg];
-
-    sv.contentSize = makeSize(segw * _segItems.count, 50);
-    sv.showsHorizontalScrollIndicator = NO;
-    sv.showsVerticalScrollIndicator = NO;
-    _segView = seg;
-    [seg addTarget:self action:@selector(onSegValueChanged:) forControlEvents:UIControlEventValueChanged];
-    
-    return sv;
-}
-
-- (void)onSegValueChanged:(id)sender {
-    _contenttype=nil;
-    NSInteger n = _segView.selectedSegmentIndex;
-    _category = _segItems[n];
-    Log(@(n ), _category);
-    //    self.items=[Proto getArticleListByCategory:category type:contenttype];
-    //    if (n!=0) {
-    //        CGFloat segw;
-    //        segw=SCREENWIDTH*2/7.0;
-    //        [segItems removeObjectAtIndex:n];
-    //        [segItems insertObject:category atIndex:0];
-    //        [segView removeSegmentAtIndex:n animated:NO];
-    //        [segView insertSegmentWithTitle:category atIndex:0 animated:NO];
-    //        [segView setWidth:segw forSegmentAtIndex:0];
-    //        segView.selectedSegmentIndex=0;
-    //    }
-    //    [segView removeSegmentAtIndex:n animated:YES];
-    //    [segView insertSegmentWithImage:[UIImage imageNamed:@"seg-sel"] atIndex:0 animated:YES];
-    UIScrollView *segscrollView=(UIScrollView *)_segView.superview;
-    [segscrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    //
-    CGFloat segw;
-    segw=SCREENWIDTH*2/7.0;
-    //    CGFloat leftsegpoint=n*segw+segw/2.0;
-    //    //left
-    //    CGFloat leftspace=(leftsegpoint-SCREENWIDTH/2.0);
-    //    if (leftspace>0) {
-    //        //right
-    //        CGFloat rightsegpoint=segscrollView.contentSize.width-leftsegpoint;
-    //        CGFloat rightspace=(rightsegpoint-SCREENWIDTH/2.0);
-    //        if (rightspace<=0) {
-    //            CGFloat rightbottomoffset=segscrollView.contentSize.width-segscrollView.bounds.size.width;
-    //            [segscrollView setContentOffset:CGPointMake(rightbottomoffset, 0) animated:YES];
-    //        }else{
-    //            //left
-    //            [segscrollView setContentOffset:CGPointMake(leftspace, 0) animated:YES];
-    //        }
-    //    }else if (leftspace<=0) {
-    //        [segscrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    //    }
-    CGFloat leftsegpoint=n*segw;
-    //right
-    CGFloat rightsegpoint=segscrollView.contentSize.width-leftsegpoint;
-    CGFloat rightspace=(rightsegpoint-segscrollView.frame.size.width);
-    if (rightspace<=0) {
-        CGFloat rightbottomoffset=segscrollView.contentSize.width-segscrollView.bounds.size.width;
-        [segscrollView setContentOffset:CGPointMake(rightbottomoffset, 0) animated:YES];
-    }else{
-        //left
-        [segscrollView setContentOffset:CGPointMake(leftsegpoint, 0) animated:YES];
-    }
-}
-
-- (void)clickCloseAd:(id)sender {
-    isdeletead=YES;
-    self.table.tableHeaderView = [self makeHeaderView2];
-}
-
-- (Class)viewClassOfItem:(NSObject *)item {
-    //    CMSModel *model = (id) item;
-    //    if (![NSString isBlankString:model.sponsorId]) {
-    //        return ArticleGSkItemView.class;
-    //    }else{
-    //        return ArticleItemView.class;
-    //    }
-    return ArticleGSkItemView.class;
-}
-
-- (CGFloat)heightOfItem:(NSObject *)item {
-    //	return 430;
-    return UITableViewAutomaticDimension;
-}
-
-- (void)onBindItem:(NSObject *)item view:(UIView *)view {
-    //    Article *art = (id) item;
-    //    ArticleItemView *itemView = (ArticleItemView *) view;
-    //    itemView.delegate=self;
-    //    [itemView bind:art];
-    //    CMSModel *model = (id) item;
-    //    if (![NSString isBlankString:model.sponsorId] && ([[model.sponsorId lowercaseString] isEqualToString:@"nobel"] || [[model.sponsorId lowercaseString] isEqualToString:@"gsk"] || [[model.sponsorId lowercaseString] isEqualToString:@"aln"])) {
-    //        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
-    //        itemView.delegate=self;
-    //        [itemView bindCMS:model];
-    //    }else{
-    //        ArticleItemView *itemView = (ArticleItemView *) view;
-    //        itemView.delegate=self;
-    //        [itemView bindCMS:model];
-    //    }
-    
-
-
-    //    if (![NSString isBlankString:model.sponsorId] && ([model.sponsorId isEqualToString:@"260"] || [model.sponsorId isEqualToString:@"259"] || [model.sponsorId isEqualToString:@"197"])) {
-    //        ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
-    //        itemView.delegate=self;
-    //        [itemView bindCMS:model];
-    //    }else{
-    //        ArticleItemView *itemView = (ArticleItemView *) view;
-    //        itemView.delegate=self;
-    //        [itemView bindCMS:model];
-    //    }
-    CMSModel *model = (id) item;
-    ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
-    itemView.delegate=self;
-    [itemView bindCMS:model];
-}
-
-- (void)onClickItem3:(NSObject *)item cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
-    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
-    CMSModel *article = (CMSModel *) item;
-    newVC.contentId = article.id;
-    newVC.cmsmodelsArray=self.items;
-    newVC.modelIndexOfArray = (int)indexPath.row;
-    [viewController presentViewController:navVC animated:YES completion:NULL];
-}
-
+/**
+ cms Cache data
+ */
 -(void)getContentCachesData:(NSInteger)page {
     if (page==0) {
         NSMutableDictionary *newparadic=[NSMutableDictionary dictionary];
@@ -338,7 +110,10 @@
 }
 
 
-//MARK:刷新数据
+/**
+ 查询cms列表数据
+ query cms list data
+ */
 -(void)refreshData
 {
     _category=@"LATEST";
@@ -371,7 +146,7 @@
         foreTask(^() {
             self->tabView.modelArr=self->_segItemsModel;
         });
-
+        
         [Proto queryAllContentsByContentType:self->_contenttype skip:0 completed:^(NSArray<CMSModel *> *array) {
             foreTask(^() {
                 [self hideIndicator];
@@ -384,6 +159,66 @@
     }];
 }
 
+/**
+ 表头视图
+ table Header View
+ */
+- (UIView *)makeHeaderView {
+    panel = [UIView new];
+    CGFloat bannerh=(396.0/718.0*SCREENWIDTH);
+    panel.frame = makeRect(0, 0, SCREENWIDTH, bannerh+51);
+    
+    NSArray *urls = @[
+                      @"slide-1",
+                      @"slide-2",
+                      @"slide-3",
+                      @"slide-4",
+                      @"slide-5"];
+    iv =[BannerScrollView new];
+    [panel addSubview:iv];
+    typeof(self) __weak weakself = self;
+    [[[[[[iv layoutMaker] leftParent:0] rightParent:0] topParent:0] heightEq:bannerh] install];
+    [iv addWithImageNames:urls autoTimerInterval:3 clickBlock:^(NSInteger index) {
+        NSLog(@"index=%@",@(index));
+        //可以做点击处理
+        //        [weakself showImageBrowser:index-1];
+    }];
+    
+    UIButton *closeAd = [panel addButton];
+    [closeAd setImage:[UIImage imageNamed:@"close-white"] forState:UIControlStateNormal];
+    [[[[closeAd.layoutMaker topParent:22] rightParent:-22] sizeEq:24 h:24] install];
+    [closeAd onClick:self action:@selector(clickCloseAd:)];
+    
+    
+    tabView=[DentistTabView new];
+    tabView.delegate=self;
+    [panel addSubview:tabView];
+    [[[[[tabView.layoutMaker leftParent:0] rightParent:0] below:iv offset:0] heightEq:51] install];
+    //    tabView.modelArr=segItemsModel;
+
+    return panel;
+}
+
+/**
+ 表头视图
+ table Header View
+ */
+- (UIView *)makeHeaderView2 {
+    UIView *headerview = [UIView new];
+    headerview.frame = makeRect(0, 0, SCREENWIDTH, 51);
+    [headerview addSubview:tabView];
+    tabView=[DentistTabView new];
+    tabView.delegate=self;
+    [headerview addSubview:tabView];
+    [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
+    tabView.modelArr=_segItemsModel;
+    
+    return headerview;
+}
+
+/**
+ show slide list images
+ */
 -(void)showImageBrowser:(NSInteger)index
 {
     NSInteger tempindex;
@@ -414,20 +249,64 @@
     [browser show];
 }
 
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-////    NSLog(@"offfsize=%@",NSStringFromCGPoint(scrollView.contentOffset));
-//    CGFloat height=scrollView.contentSize.height>self.table.frame.size.height?self.table.frame.size.height:scrollView.contentSize.height;
-//    if((-scrollView.contentOffset.y/self.table.frame.size.height)>0.2){
-//        category=@"LATEST";
-//        type=nil;
-//        segView.selectedSegmentIndex=0;
-//        self.table.tableHeaderView = [self makeHeaderView];
-//        self.items=[Proto getArticleListByCategory:category type:type];
-//    }
-//}
+/**
+ 关闭广告
+ close ad event
+ */
+- (void)clickCloseAd:(id)sender {
+    isdeletead=YES;
+    self.table.tableHeaderView = [self makeHeaderView2];
+}
 
+/**
+ table cell class
+ */
+- (Class)viewClassOfItem:(NSObject *)item {
+    //    CMSModel *model = (id) item;
+    //    if (![NSString isBlankString:model.sponsorId]) {
+    //        return ArticleGSkItemView.class;
+    //    }else{
+    //        return ArticleItemView.class;
+    //    }
+    return ArticleGSkItemView.class;
+}
 
+/**
+ table cell height
+ */
+- (CGFloat)heightOfItem:(NSObject *)item {
+    //	return 430;
+    return UITableViewAutomaticDimension;
+}
+
+/**
+ table cell view
+ */
+- (void)onBindItem:(NSObject *)item view:(UIView *)view {
+    CMSModel *model = (id) item;
+    ArticleGSkItemView *itemView = (ArticleGSkItemView *) view;
+    itemView.delegate=self;
+    [itemView bindCMS:model];
+}
+
+/**
+ click table cell event
+ */
+- (void)onClickItem3:(NSObject *)item cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
+    UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    CMSDetailViewController *newVC = [[CMSDetailViewController alloc] init];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:newVC];
+    CMSModel *article = (CMSModel *) item;
+    newVC.contentId = article.id;
+    newVC.cmsmodelsArray=self.items;
+    newVC.modelIndexOfArray = (int)indexPath.row;
+    [viewController presentViewController:navVC animated:YES completion:NULL];
+}
+
+#pragma mark -------ArticleItemViewDelegate
+/**
+ Article more items Action,update & share
+ */
 -(void)ArticleMoreActionModel:(CMSModel *)model
 {
     _selectModel=model;
@@ -444,6 +323,9 @@
     }];
 }
 
+/**
+ Article bookmark event; add & delete
+ */
 -(void)ArticleMarkActionView:(NSObject *)item view:(UIView *)view
 {
     CMSModel *model = (id) item;
@@ -468,6 +350,9 @@
     }
 }
 
+/**
+ Article bookmark delete event
+ */
 - (void) handleDeleteBookmark:(HttpResult *)result model:(CMSModel *)model view:(UIView *)view {
     [self.navigationController.view hideToast];
     if (result.OK) {
@@ -493,6 +378,9 @@
     }
 }
 
+/**
+ Article bookmark add event
+ */
 - (void) handleAddBookmark:(HttpResult *)result model:(CMSModel *)model view:(UIView *)view {
     [self.navigationController.view hideToast];
     if (result.OK) {
@@ -529,6 +417,9 @@
     }
 }
 
+/**
+ go to Sponsor Article page
+ */
 -(void)ArticleGSKActionModel:(CMSModel *)model
 {
     //    GSKViewController *gskVC = [GSKViewController new];
@@ -542,6 +433,10 @@
 }
 
 #pragma mark ---MyActionSheetDelegate
+
+/**
+download & share event
+ */
 - (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index
 {
     switch (index) {
@@ -608,6 +503,9 @@
     }
 }
 
+/**
+ go to Article Category  page
+ */
 -(void)CategoryPickerSelectAction:(NSString *)categoryId categoryName:(nonnull NSString *)categoryName
 {
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
@@ -620,6 +518,9 @@
 }
 
 #pragma mark -------DentistTabViewDelegate
+/**
+Category items select action
+ */
 -(void)didDentistSelectItemAtIndex:(NSInteger)index
 {
     if (_segItemsModel.count>index) {
@@ -664,6 +565,9 @@
     }
 }
 
+/**
+ go to Sponsor Article page
+ */
 -(void)handlePicker:(NSString *)result resultName:(NSString *)resultname {
     NSLog(@"供应商==%@;name=%@",result,resultname);
     if (result) {
@@ -675,6 +579,9 @@
     }
 }
 
+/**
+ load more data
+ */
 -(void)loadMore {
     if (!isdownrefresh) {
         isdownrefresh=YES;

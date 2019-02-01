@@ -145,13 +145,6 @@
     [itemView bindCMS:model];
 }
 
-//- (void)moreBtnClick:(UIButton *)btn
-//{
-//    selectIndex=btn.tag;
-//    NSArray *imgArr = [NSArray arrayWithObjects:@"deleteDown",@"shareIcon", nil];
-//    DenActionSheet *denSheet = [[DenActionSheet alloc] initWithDelegate:self title:nil cancelButton:nil imageArr:imgArr otherTitle:@"Delete",@"Share", nil];
-//    [denSheet show];
-//}
 
 -(void)ArticleMoreActionModel:(CMSModel *)model
 {

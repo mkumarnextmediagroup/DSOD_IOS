@@ -12,10 +12,24 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FAQSTableViewCell : UITableViewCell
+/**
+ item background color，default white
+ */
 @property (nonatomic,strong) UIColor *itemBgColor;
+
+/**
+ title on click listener
+ */
 @property (nonatomic,copy) void(^titleOnClickListener)(NSString*_id);
 
-
+/**
+ 设置数据
+ set datas
+ 
+ @param model FAQSModel instance
+ @param isOpen Whether to expand the display details
+ @param isLastItem is last item
+ */
 -(void)setData:(FAQSModel*)model isOpen:(BOOL)isOpen isLastItem:(BOOL)isLastItem;
 
 

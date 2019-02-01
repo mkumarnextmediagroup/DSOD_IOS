@@ -19,14 +19,20 @@
 @end
 
 @implementation FAQSViewController{
-    
+    //table view
     UITableView *tableView;
-    
+    //Expanded cell flag dictionary
     NSMutableDictionary <NSString*,NSString*>*openCellIdDic;
     
     
 }
 
+/**
+ Open FAQS page
+ 
+ @param vc UIViewController
+ @param categoryModel FAQSCategoryModel
+ */
 +(void)openBy:(UIViewController*)vc categoryModel:(FAQSCategoryModel*)categoryModel{
     FAQSViewController *newVc = [FAQSViewController new];
     newVc.categoryModel = categoryModel;
@@ -43,12 +49,19 @@
     [self buildViews];
 }
 
+
+/**
+ add navigation bar
+ */
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
     item.title = [NSString stringWithFormat:@"%@ FAQS",[self.categoryModel.moduleType uppercaseString]];
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
 }
 
+/**
+ build views
+ */
 -(void)buildViews{
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = UIColor.whiteColor;
@@ -84,19 +97,22 @@
     
 }
 
+/**
+ open contact us page
+ */
 -(void)buttonOnClick{
     [ContactUsViewController openBy:self];
 }
 
 
-
+#pragma mark UITableViewDelegate,UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.categoryModel.faqsModelArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     FAQSModel *model = self.categoryModel.faqsModelArray[indexPath.row];
-    int lastIndex = self.categoryModel.faqsModelArray.count - 1;
+    int lastIndex = (int)self.categoryModel.faqsModelArray.count - 1;
     
     
     FAQSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(FAQSTableViewCell.class)];

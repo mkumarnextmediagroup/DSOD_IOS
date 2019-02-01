@@ -16,6 +16,7 @@
 @end
 
 @implementation ContactUsViewController{
+    //Margin
     int edge;
     UIScrollView *scrollView;
     UIView *contentView;
@@ -28,12 +29,18 @@
     UIImageView *photoImageView;
     UILabel *attachLabel;
     UIImageView *delImageView;
-    
+    //Selected image
     UIImage *attachImage;
+    //Attached id that has been uploaded
     NSString *attachmentId;
 
 }
 
+/**
+ Open contact us page
+ 
+ @param vc UIViewController
+ */
 +(void)openBy:(UIViewController*)vc{
     ContactUsViewController *newVC = [ContactUsViewController new];
     [vc presentViewController:newVC animated:YES completion:nil];
@@ -60,6 +67,11 @@
 
 
 
+/**
+ keyboard will show notification
+
+ @param aNotification NSNotification
+ */
 - (void)keyboardWillShow:(NSNotification *)aNotification{
     NSDictionary *userInfo = [aNotification userInfo];
     NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
@@ -72,6 +84,11 @@
     
 }
 
+/**
+ keyboard will hide notification
+ 
+ @param aNotification NSNotification
+ */
 - (void)keyboardWillHide:(NSNotification *)aNotification{
     
     NSDictionary *userInfo = [aNotification userInfo];
@@ -87,6 +104,9 @@
     [ [NSNotificationCenter defaultCenter]removeObserver:self ];
 }
 
+/**
+ add navigation bar
+ */
 -(void)addNavBar{
     
     UIView *topVi = self.view.addView;
@@ -112,10 +132,16 @@
     [[[[[lineLabel.layoutMaker bottomParent:0]leftParent:0]rightParent:0]heightEq:1]install];
 }
 
+/**
+ close page
+ */
 -(void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+/**
+ build views
+ */
 -(void)buildViews{
     edge = 18;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -228,7 +254,11 @@
     [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(submitBtn) install];
 }
 
-
+/**
+ Submit button click event
+ 1、upload image
+ 2、add feedback
+ */
 -(void)submitBtnClick{
     [self showLoading];
     
@@ -239,6 +269,11 @@
     }
 }
 
+/**
+ Call the interface to upload image
+
+ @param image Selected image
+ */
 - (void)uploadAttach:(UIImage *)image{
     
     NSString *localFile = [self saveImageDocuments:image];
@@ -257,6 +292,9 @@
     }
 }
 
+/**
+ Call the interface to dd feedback
+ */
 -(void)addFeedback{
     [Proto addFeedback:[self text:questionTextView] email:[self text:emailTextView] attachmentId:attachmentId completed:^(BOOL success, NSString *msg) {
         [self hideLoading];
@@ -271,6 +309,12 @@
     }];
 }
 
+/**
+ show photo and name
+
+ @param image UIImage
+ @param name iamge name
+ */
 -(void)showPhoto:(UIImage*)image name:(NSString*)name{
     attachImage = image;
     photoImageView.image = image;
@@ -279,6 +323,9 @@
     delImageView.hidden = NO;
 }
 
+/**
+ delete attachment ，reset UI
+ */
 -(void)delAttachment{
     attachImage = nil;
     attachmentId = nil;
@@ -288,6 +335,9 @@
     delImageView.hidden = YES;
 }
 
+/**
+  Click to add an attachment
+ */
 -(void)addAttachMent{
     [self Den_showActionSheetWithTitle:nil message:nil appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
         alertMaker.
@@ -307,6 +357,11 @@
     }];
 }
 
+/**
+ Choose to get the attachment source type
+
+ @param sourceType UIImagePickerControllerSourceType
+ */
 - (void)clickTheBtnWithSourceType:(UIImagePickerControllerSourceType)sourceType
 {
     [DenCamera clickTheBtnWithSourceType:sourceType block:^(NSString *isAllow) {
@@ -329,6 +384,11 @@
     }];
 }
 
+/**
+ open image picker
+
+ @param sourceType UIImagePickerControllerSourceType
+ */
 - (void)presentImagePickerViewController:(UIImagePickerControllerSourceType)sourceType {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;
@@ -336,6 +396,12 @@
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
+/**
+ image picker callback
+
+ @param picker UIImagePickerController
+ @param info selected image info dictionary
+ */
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSString *imageName = @"";
     
@@ -358,6 +424,12 @@
 }
 
 
+/**
+ save iamge to local
+
+ @param image UIImage
+ @return Saved image path
+ */
 - (NSString*)saveImageDocuments:(UIImage *)image {
     
     CGFloat f = (image.size.width > 600 ? 600.0 : image.size.width ) / image.size.width;
@@ -372,6 +444,12 @@
     return imagePath;
 }
 
+/**
+ begin edit textview
+
+ @param textView UITextView
+ @return should begin
+ */
 - (BOOL)textViewShouldBeginEditing:(UITextView*)textView {
     if (textView.tag==0) {
         textView.text = @"";
@@ -381,6 +459,11 @@
     return YES;
 }
 
+/**
+  end edit textview
+
+ @param textView UITextView
+ */
 - (void) textViewDidEndEditing:(UITextView*)textView {
     if(textView.text.length == 0){
         textView.textColor = rgbHex(0x8e8e8e);
@@ -389,6 +472,12 @@
     }
 }
 
+/**
+ get text of textview
+
+ @param textView UITextView
+ @return text of textview
+ */
 -(NSString*)text:(UITextView*)textView{
     if(textView.tag == 1){
         return textView.text;

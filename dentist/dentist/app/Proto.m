@@ -32,6 +32,7 @@
 #import "FAQSCategoryModel.h"
 #import "FAQSModel.h"
 #import "NSObject+customed.h"
+#import "AppDelegate.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -1636,6 +1637,21 @@
     }
 }
 
++ (BOOL)tokenExpired:(HttpResult *)result{
+    if(!result.OK){
+        NSDictionary *dic = result.jsonBody;
+        NSString *error = dic[@"error"];
+        if(dic && error && [error rangeOfString:@"invalid_token"].location != NSNotFound){
+            [Proto logout];
+            [[LinkedInHelper sharedInstance] logout];
+            foreTask(^{
+                [(AppDelegate *) [[UIApplication sharedApplication] delegate] switchToLoginPage];
+            });
+            return YES;
+        }
+    }
+    return NO;
+}
 
 + (HttpResult *)postBody:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular {
 	NSString *baseUrl = [self configUrl:modular];
@@ -1652,6 +1668,8 @@
 	md[@"client_id"] = @"fooClientIdPassword";
 	NSString *s = jsonBuild(md);
 	HttpResult *r = [h postRaw:s.dataUTF8];
+    
+    [Proto tokenExpired:r];
 	return r;
 }
 
@@ -1667,6 +1685,8 @@
 		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
 	}
 	HttpResult *r = [h get];
+    
+    [Proto tokenExpired:r];
 	return r;
 }
 
@@ -1682,7 +1702,7 @@
         [h header:@"Authorization" value:strBuild(@"Bearer ", token)];
     }
     [h getAsync:^(HttpResult *r) {
-        if (callback) {
+        if (callback && ![Proto tokenExpired:r]) {
             callback(r);
         }
     }];
@@ -1700,6 +1720,7 @@
 		[h header:@"Authorization" value:strBuild(@"Bearer ", token)];
 	}
 	HttpResult *r = [h post];
+    [Proto tokenExpired:r];
 	return r;
 }
 
@@ -1716,6 +1737,7 @@
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
 	HttpResult *r = [h multipart];
+    [Proto tokenExpired:r];
 	return r;
 }
 
@@ -1732,6 +1754,7 @@
     NSString *jsondic=jsonBuild(dic);
     NSData *datadic=[jsondic dataUsingEncoding:NSUTF8StringEncoding];
     HttpResult *r = [h postRaw:datadic];
+    [Proto tokenExpired:r];
     return r;
 }
 
@@ -1747,7 +1770,7 @@
         [h header:@"Authorization" value:strBuild(@"Bearer ", token)];
     }
     [h postAsync:^(HttpResult *r) {
-        if (callback) {
+        if (callback && ![Proto tokenExpired:r]) {
             callback(r);
         }
     }];
@@ -1765,7 +1788,7 @@
     [h arg:@"client_id" value:@"fooClientIdPassword"];
     [h args:dic];
     [h multipartAsync:^(HttpResult *r) {
-        if (callback) {
+        if (callback && ![Proto tokenExpired:r]) {
             callback(r);
         }
     }];
@@ -1784,7 +1807,7 @@
     NSString *jsondic=jsonBuild(dic);
     NSData *datadic=[jsondic dataUsingEncoding:NSUTF8StringEncoding];
     [h postRawAsync:datadic callback:^(HttpResult *r) {
-        if (callback) {
+        if (callback && ![Proto tokenExpired:r]) {
             callback(r);
         }
     }];
@@ -1823,6 +1846,7 @@
     }
     
     HttpResult *r = [h multipart];
+    [Proto tokenExpired:r];
     return r;
 }
 

@@ -32,6 +32,8 @@
     NSInteger applyCount;
     NSInteger followCount;
     BOOL isdownrefresh;
+    BOOL isfirstfresh;
+    BOOL isfirstfresh2;
 }
 @end
 
@@ -42,6 +44,10 @@
     [super viewWillAppear:animated];
     __block BOOL updatedata=NO;
     __block NSInteger updatecount=0;
+    /**
+     遍历列表检查保存的工作的状态
+     Traversing the list to check the status of saved job
+     */
     if(_selectIndex==1){
         if (self->followArr && self->followArr.count>0) {
             [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -132,37 +138,49 @@
     
     // Do any additional setup after loading the view.
 }
+#pragma mark ----Public method
 
+/**
+ 无数据页面
+ No data page content
+ */
 - (void)createEmptyNotice
 {
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:NO];
         UIView *headerVi = [UIView new];
         [sender addSubview:headerVi];
-        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
-        headerVi.backgroundColor = [UIColor clearColor];
-        UIButton *headBtn = headerVi.addButton;
-        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        headBtn.titleLabel.font = [Fonts regular:13];
-        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
-        UILabel *tipLabel= headerVi.addLabel;
-        tipLabel.textAlignment=NSTextAlignmentCenter;
-        tipLabel.numberOfLines=0;
-        tipLabel.font = [Fonts semiBold:16];
-        tipLabel.textColor =[UIColor blackColor];
-        [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
-        if (self->_selectIndex==0) {
-            [headBtn setImage:[UIImage imageNamed:@"noun_receipt"] forState:UIControlStateNormal];
-            tipLabel.text=@"You have not yet applied for a job through\nDSODentis";
-        }else{
-            [headBtn setImage:[UIImage imageNamed:@"noun_Briefcase"] forState:UIControlStateNormal];
-            tipLabel.text=@"You have not saved jobs yet.\nSave josb to view later from this\nscreen";
+        if ((self->isfirstfresh && self->_selectIndex==0) || (self->isfirstfresh2 && self->_selectIndex==1)) {
+            [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
+            headerVi.backgroundColor = [UIColor clearColor];
+            UIButton *headBtn = headerVi.addButton;
+            headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            headBtn.titleLabel.font = [Fonts regular:13];
+            [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
+            UILabel *tipLabel= headerVi.addLabel;
+            tipLabel.textAlignment=NSTextAlignmentCenter;
+            tipLabel.numberOfLines=0;
+            tipLabel.font = [Fonts semiBold:16];
+            tipLabel.textColor =[UIColor blackColor];
+            [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+            if (self->_selectIndex==0) {
+                [headBtn setImage:[UIImage imageNamed:@"noun_receipt"] forState:UIControlStateNormal];
+                tipLabel.text=@"You have not yet applied for a job through\nDSODentist.";
+            }else{
+                [headBtn setImage:[UIImage imageNamed:@"noun_Briefcase"] forState:UIControlStateNormal];
+                tipLabel.text=@"You have not saved jobs yet.\nSave jobs to view later from this\nscreen";
+            }
         }
         return headerVi;
     } normalBlock:^(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:YES];
     }];
 }
+
+/**
+ 返回事件
+ Return button event
+ */
 - (void)backToFirst
 {
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -170,12 +188,10 @@
     [tabvc setSelectedIndex:0];
 }
 
--(void)tableReloadData
-{
-    [self createEmptyNotice];
-    [self->myTable reloadData];
-}
-
+/**
+ 查询工作列表
+ query job list event
+ */
 -(void)refreshData
 {
     if(_selectIndex==0){
@@ -184,6 +200,7 @@
         [self showIndicator];
         [Proto queryAllApplicationJobs:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
             foreTask(^{
+                self->isfirstfresh=YES;
                 self->applyCount=totalCount;
                 [self hideIndicator];
                 [self setJobCountTitle:self->applyCount];
@@ -199,6 +216,7 @@
         [self showIndicator];
         [Proto queryJobBookmarks:0 completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
             foreTask(^{
+                self->isfirstfresh2=YES;
                 self->followCount=totalCount;
                 [self hideIndicator];
                 [self setJobCountTitle:self->followCount];
@@ -213,6 +231,9 @@
 
 
 //MARK: 下拉刷新
+/**
+ Pull down to refresh
+ */
 - (void)setupRefresh {
     NSLog(@"setupRefresh -- 下拉刷新");
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -224,12 +245,19 @@
 
 
 //MARK: 下拉刷新触发,在此获取数据
+/**
+ Pull down to refresh event
+ */
 - (void)refreshClick:(UIRefreshControl *)refreshControl {
     NSLog(@"refreshClick: -- 刷新触发");
     [self refreshData];
     [refreshControl endRefreshing];
 }
 
+/**
+ 搜索事件
+ search button event
+ */
 - (void)searchClick
 {
     NSLog(@"search btn click");
@@ -240,15 +268,23 @@
     [viewController presentViewController:navVC animated:NO completion:NULL];
 }
 
+/**
+ 刷选条件按钮
+ Filter button event
+ */
 -(void)clickFilter:(UIButton *)sender
 {
     NSLog(@"Filter btn click");
 }
 
+/**
+ 设置工作数量
+ set job count method
+ */
 -(void)setJobCountTitle:(NSInteger)jobcount
 {
     if (jobcount>0) {
-        NSString *jobcountstr=[NSString stringWithFormat:@"%@Jobs",@(jobcount)];
+        NSString *jobcountstr=[NSString stringWithFormat:@"%@ Jobs",@(jobcount)];
 //        NSString *jobstr=[NSString stringWithFormat:@"%@ | 5 New",jobcountstr];
 //        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:jobstr];
 //        [str addAttribute:NSForegroundColorAttributeName value:Colors.textMain range:NSMakeRange(0,jobcountstr.length+2)];
@@ -261,6 +297,10 @@
     
 }
 
+/**
+ 表头视图
+ table Header View
+ */
 - (UIView *)makeHeaderView {
     UIView *panel = [UIView new];
     panel.frame = makeRect(0, 0, SCREENWIDTH, 91);
@@ -272,7 +312,7 @@
     tabView.delegate=self;
     [panel addSubview:tabView];
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
-    tabView.titleArr=[NSMutableArray arrayWithArray:@[@"APPLED",@"SAVED"]];
+    tabView.titleArr=[NSMutableArray arrayWithArray:@[@"APPLIED",@"SAVED"]];
     
     jobCountTitle=panel.addLabel;
     jobCountTitle.font=[Fonts semiBold:13];
@@ -288,7 +328,7 @@
     return panel;
 }
 
-
+#pragma mark ----UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (_selectIndex==0) {
@@ -343,11 +383,7 @@
         }
     }
     if (jobid) {
-        BOOL isshowapplybtn=NO;
-        if (_selectIndex==0) {
-            isshowapplybtn=YES;
-        }
-        [JobDetailViewController presentBy:nil jobId:jobid isShowApply:isshowapplybtn closeBack:^(NSString * jobid,NSString *unFollowjobid) {
+        [JobDetailViewController presentBy:nil jobId:jobid closeBack:^(NSString * jobid,NSString *unFollowjobid,NSString *Followjobid) {
             foreTask(^{
                 if (self->_selectIndex==1 && ![NSString isBlankString:unFollowjobid]) {
                     [self->followArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -429,6 +465,10 @@
 }
 
 #pragma mark -------DentistTabViewDelegate
+/**
+ 选择申请工作列表跟保存工作列表
+ select the apply job list or save job list item.
+ */
 -(void)didDentistSelectItemAtIndex:(NSInteger)index
 {
     NSLog(@"selectindex=%@",@(index));
@@ -436,7 +476,11 @@
     [self refreshData];
 }
 
-
+#pragma mark -----JobsTableCellDelegate
+/**
+ 关注工作事件
+ Save a job event
+ */
 -(void)FollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {
     NSLog(@"FollowJobAction");
@@ -467,6 +511,10 @@
     }
 }
 
+/**
+ 取消关注工作事件
+ cancel save a job event
+ */
 -(void)UnFollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {
     NSLog(@"UnFollowJobAction");

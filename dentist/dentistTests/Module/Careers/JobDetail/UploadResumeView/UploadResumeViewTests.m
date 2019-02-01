@@ -54,11 +54,6 @@ describe(@"Unit Test For UploadResumeView", ^{
             [[theValue(view) shouldNot] beNil];
         });
 
-        it(@"okBtnClick", ^{
-            [view okBtnClick];
-            [[theValue(view) shouldNot] beNil];
-        });
-
         it(@"uploadBtnClick", ^{
             [view uploadBtnClick:[UIButton new]];
             [[theValue(view) shouldNot] beNil];

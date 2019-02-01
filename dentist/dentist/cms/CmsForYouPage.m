@@ -283,7 +283,7 @@
 }
 
 /**
- click table cell event
+ click table cell event；click it，go to article detail page
  */
 - (void)onClickItem3:(NSObject *)item cell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath{
     UIViewController *viewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];

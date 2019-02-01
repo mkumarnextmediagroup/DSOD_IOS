@@ -75,11 +75,6 @@ describe(@"Unit Test For JobDetailViewController", ^{
             [[theValue(controller.view) shouldNot] beNil];
         });
 
-        it(@"clickOkBtn", ^{
-            [controller clickOkBtn];
-            [[theValue(controller.view) shouldNot] beNil];
-        });
-
         it(@"uploadResume", ^{
             [controller uploadResume];
             [[theValue(controller.view) shouldNot] beNil];
@@ -87,11 +82,6 @@ describe(@"Unit Test For JobDetailViewController", ^{
 
         it(@"applyNow", ^{
             [controller applyNow];
-            [[theValue(controller.view) shouldNot] beNil];
-        });
-
-        it(@"applyForJob", ^{
-            [controller applyForJob];
             [[theValue(controller.view) shouldNot] beNil];
         });
 

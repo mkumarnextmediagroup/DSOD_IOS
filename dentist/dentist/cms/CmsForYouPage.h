@@ -20,8 +20,6 @@
 @property NSMutableArray<IdName *> *segItemsModel;
 
 - (UIView *)makeHeaderView2;
-- (UIView *)makeSegPanel;
-- (void)onSegValueChanged:(id)sender;
 - (void)onClickItem:(NSObject *)item;
 - (void)showImageBrowser:(NSInteger)index;
 - (void)ArticleMoreActionModel:(CMSModel *)model;
@@ -29,7 +27,6 @@
 - (void)handleDeleteBookmark:(HttpResult *)result model:(CMSModel *)model view:(UIView *)view;
 - (void)handleAddBookmark:(HttpResult *)result model:(CMSModel *)model view:(UIView *)view;
 - (void)ArticleGSKActionModel:(CMSModel *)model;
-- (void)clickTest:(id)sender;
 - (void)clickCloseAd:(id)sender;
 - (void)getContentCachesData:(NSInteger)page;
 - (void)myActionSheet:(DenActionSheet *)actionSheet parentView:(UIView *)parentView subLabel:(UILabel *)subLabel index:(NSInteger)index;

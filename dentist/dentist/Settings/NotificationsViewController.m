@@ -13,12 +13,16 @@
 
 @interface NotificationsViewController ()<UITableViewDelegate,UITableViewDataSource,NotificationsTableViewCellDelegate>
 {
+    //table view
     UITableView *myTable;
 }
 @end
 
 @implementation NotificationsViewController
 
+/**
+ build views
+ */
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -35,6 +39,9 @@
     [myTable registerClass:[NotificationsTableViewCell class] forCellReuseIdentifier:NSStringFromClass([NotificationsTableViewCell class])];
 }
 
+/**
+ close page
+ */
 -(void)back{
     NSArray *viewcontrollers=self.navigationController.viewControllers;
     if (viewcontrollers.count>1) {
@@ -48,6 +55,8 @@
         [self dismissViewControllerAnimated:NO completion:nil];
     }
 }
+
+#pragma mark UITableViewDelegate,UITableViewDataSource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

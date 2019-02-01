@@ -38,6 +38,7 @@
     UITextField *locationField;
     UITextField *milesField;
     CLLocationManager *locationmanager;
+    BOOL clickSearch;
 }
 /*** searchbar ***/
 @property (nonatomic,strong) UITextField *searchField;
@@ -111,6 +112,11 @@
     [self getCurrentLocation];//get the location
 }
 
+#pragma mark ----Public method
+/**
+ 表头视图
+ table Header View
+ */
 - (UIView *)makeHeaderView {
     UIView *panel = [UIView new];
     panel.frame = makeRect(0, 0, SCREENWIDTH, 32);
@@ -126,6 +132,53 @@
     return panel;
 }
 
+/**
+ 无数据页面
+ No data page content display
+ */
+- (void)createEmptyNotice
+{
+    [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:NO];
+        if (self->clickSearch) {
+            UIView *headerVi = [UIView new];
+            [sender addSubview:headerVi];
+            [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
+            headerVi.backgroundColor = [UIColor clearColor];
+            UIButton *headBtn = headerVi.addButton;
+            [headBtn setImage:[UIImage imageNamed:@"noun_Business Records"] forState:UIControlStateNormal];
+            headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            headBtn.titleLabel.font = [Fonts regular:13];
+            [[[headBtn.layoutMaker centerXParent:0] centerYParent:-120] install];
+            UILabel *tipLabel= headerVi.addLabel;
+            tipLabel.textAlignment=NSTextAlignmentCenter;
+            tipLabel.numberOfLines=0;
+            tipLabel.font = [Fonts semiBold:16];
+            tipLabel.textColor =[UIColor blackColor];
+            tipLabel.text=@"No available jobs at the \n moment";
+            [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+            return headerVi;
+        }else{
+            UIView *headerVi = [UIView new];
+            headerVi.backgroundColor = [UIColor clearColor];
+            UIButton *headBtn = headerVi.addButton;
+            [headBtn setImage:[UIImage imageNamed:@"career_searchIcon"] forState:UIControlStateNormal];
+            headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            headBtn.titleLabel.font = [Fonts regular:13];
+            [[[headBtn.layoutMaker centerXParent:0] topParent:135] install];
+            return headerVi;
+        }
+        
+    } normalBlock:^(UITableView * _Nonnull sender) {
+        [self->myTable setScrollEnabled:YES];
+    }];
+}
+
+
+/**
+ 设置工作数量
+ set job count method
+ */
 -(void)setJobCountTitle:(NSInteger)jobcount
 {
     if (jobcount>0) {
@@ -138,12 +191,19 @@
     
 }
 
-
+/**
+ 搜索按钮
+ search button
+ */
 - (void)searchBtnClick
 {
 //    [self searchBarSearchButtonClicked:_searchBar];
 }
 
+/**
+ 返回事件
+ Return button event
+ */
 - (void)onBack:(UIButton *)btn {
     
     [self.searchField resignFirstResponder];
@@ -160,6 +220,7 @@
     }
 }
 
+#pragma mark ----UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return infoArr.count;
@@ -204,10 +265,14 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     JobModel *jobModel = infoArr[indexPath.row];
-    [JobDetailViewController presentBy:self jobId:jobModel.id closeBack:^(NSString * jobid,NSString *unFollowjobid) {
+    [JobDetailViewController presentBy:self jobId:jobModel.id closeBack:^(NSString * jobid,NSString *unFollowjobid,NSString *Followjobid) {
         foreTask(^{
             if (![NSString isBlankString:jobid]) {
                 jobModel.isApplication=@"1";
+            }else{
+                if (![NSString isBlankString:Followjobid]) {
+                    jobModel.isAttention=@"1";
+                }
             }
             if (self->myTable) {
                 [self->myTable reloadData];
@@ -215,45 +280,6 @@
         });
         
     }];
-}
-
-#pragma mark ---UISearchBarDelegate
-//MARK:keyboard search button clicked，do this method
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    if (textField == _searchField) {
-        searchKeywords=textField.text;
-        [self.searchField resignFirstResponder];
-        
-        [self showIndicator];
-        
-        if ([locationField.text isEqualToString:currentCity]) {//自动定位，此时有经纬度
-            //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
-            [Proto queryAllJobs:0 jobTitle:_searchField.text location:latLongArr city:nil distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-                foreTask(^{
-                    [self hideIndicator];
-                    [self setJobCountTitle:totalCount];
-                    self->infoArr = [NSMutableArray arrayWithArray:array];
-                    [self->myTable reloadData];
-                });
-            }];
-            
-        }else
-        {
-            //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
-            [Proto queryAllJobs:0 jobTitle:_searchField.text location:nil city:locationField.text distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
-                foreTask(^{
-                    [self hideIndicator];
-                    [self setJobCountTitle:totalCount];
-                    self->infoArr = [NSMutableArray arrayWithArray:array];
-                    [self->myTable reloadData];
-                });
-            }];
-        }
-
-    }
-    return YES;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -274,17 +300,18 @@
                 [Proto queryAllJobs:self->infoArr.count jobTitle:_searchField.text location:latLongArr city:nil distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                     self->isdownrefresh=NO;
                     foreTask(^{
-                        [self hideIndicator];
+                        [self hideIndicator:1];
                         NSLog(@"%@",array);
                         //                    [self setJobCountTitle:totalCount];
                         if(array && array.count>0){
                             [self->infoArr addObjectsFromArray:array];
+                            [self->myTable reloadData];
                         }
-                        [self->myTable reloadData];
+                        
                         
                     });
                 }];
-
+                
                 
             }else
             {
@@ -292,41 +319,87 @@
                 [Proto queryAllJobs:self->infoArr.count jobTitle:_searchField.text location:nil city:locationField.text distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
                     self->isdownrefresh=NO;
                     foreTask(^{
-                        [self hideIndicator];
+                        [self hideIndicator:1];
                         NSLog(@"%@",array);
                         //                    [self setJobCountTitle:totalCount];
                         if(array && array.count>0){
                             [self->infoArr addObjectsFromArray:array];
+                            [self->myTable reloadData];
                         }
-                        [self->myTable reloadData];
+                        
                         
                     });
                 }];
-
+                
             }
-
+            
         }
         
     }
 }
 
-- (void)createEmptyNotice
+#pragma mark ---UISearchBarDelegate
+//MARK:keyboard search button clicked，do this method
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
-        [self->myTable setScrollEnabled:NO];
-        UIView *headerVi = [UIView new];
-        headerVi.backgroundColor = [UIColor clearColor];
-        UIButton *headBtn = headerVi.addButton;
-        [headBtn setImage:[UIImage imageNamed:@"career_searchIcon"] forState:UIControlStateNormal];
-        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        headBtn.titleLabel.font = [Fonts regular:13];
-        [[[headBtn.layoutMaker centerXParent:0] topParent:135] install];
-        return headerVi;
-    } normalBlock:^(UITableView * _Nonnull sender) {
-        [self->myTable setScrollEnabled:YES];
-    }];
+    if (textField == _searchField) {
+        searchKeywords=textField.text;
+        [self.searchField resignFirstResponder];
+        self->clickSearch=YES;
+        [self showIndicator];
+        
+        if ([locationField.text isEqualToString:currentCity]) {//自动定位，此时有经纬度
+            //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
+            [Proto queryAllJobs:0 jobTitle:_searchField.text location:latLongArr city:nil distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                foreTask(^{
+                    [self hideIndicator:1];
+                    [self setJobCountTitle:totalCount];
+                    self->infoArr = [NSMutableArray arrayWithArray:array];
+                    [self->myTable reloadData];
+                });
+            }];
+            
+        }else
+        {
+            //[Proto queryAllJobs:0 jobTitle:_searchBar.text location:latLongArr distance:requestMiles
+            [Proto queryAllJobs:0 jobTitle:_searchField.text location:nil city:locationField.text distance:requestMiles completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
+                foreTask(^{
+                    [self hideIndicator:1];
+                    [self setJobCountTitle:totalCount];
+                    self->infoArr = [NSMutableArray arrayWithArray:array];
+                    [self->myTable reloadData];
+                });
+            }];
+        }
+
+    }
+    return YES;
 }
 
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField == milesField) {
+        
+        [self.view endEditing:YES];
+        //show pickselect
+        [self createPickView:milesField];
+        
+        return NO;
+    }else
+    {
+        return YES;
+    }
+}
+
+#pragma mark 地理位置信息获取 get the location for display of nearby information
+
+/**
+创建地理位置视图
+create location view
+ */
 - (void)createLocation
 {
     UIView *locationVi = self.view.addView;
@@ -363,6 +436,10 @@
     [[[[[milesField.layoutMaker toRightOf:lineLab offset:2] heightEq:35] topParent:0] rightParent:0] install];
 }
 
+/**
+ 创建地理位置范围选择视图
+ create a location range selection view
+ */
 - (void)createPickView:(UITextField *)textFiled
 {
     CDZPickerBuilder *builder = [CDZPickerBuilder new];
@@ -381,6 +458,10 @@
     }
 }
 
+/**
+ 获取位置信息
+ get the location information
+ */
 - (void)getCurrentLocation
 {
     //判断定位功能是否打开
@@ -394,23 +475,6 @@
         locationmanager.desiredAccuracy = kCLLocationAccuracyBest;
         locationmanager.distanceFilter = 5.0;
         [locationmanager startUpdatingLocation];
-    }
-}
-
-#pragma mark UITextFieldDelegate
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    if (textField == milesField) {
-        
-        [self.view endEditing:YES];
-        //show pickselect
-        [self createPickView:milesField];
-        
-        return NO;
-    }else
-    {
-        return YES;
     }
 }
 
@@ -447,7 +511,10 @@
     
 }
 
-//定位失败后调用此代理方法
+/**
+ 获取位置信息失败事件
+location information failed method
+ */
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     //设置提示提醒用户打开定位服务

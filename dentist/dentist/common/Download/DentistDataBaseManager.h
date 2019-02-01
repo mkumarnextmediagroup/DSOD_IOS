@@ -57,6 +57,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)updateUniteArticleBookmark:(NSString * _Nullable)articleid isbookmark:(NSInteger)isbookmark completed:(void(^)(BOOL result))completed;
 //MARK:获取已收藏的杂志文章列表
 -(void)queryUniteArticlesBookmarkCachesList:(void(^)(NSArray<DetailModel *> *array))completed;
+//MARK:根据关键字查询已收藏的杂志文章列表
+-(void)queryUniteArticlesBookmarkCachesList:(NSString *)keywords completed:(void(^)(NSArray<DetailModel *> *array))completed;
 //MARK:根据keyword搜索文章
 -(void)queryUniteArticlesCachesByKeywordList:(NSString *_Nullable)uniteid keywords:(NSString *)keywords completed:(void(^)(NSArray<DetailModel *> *array))completed;
 //MARK:检查该杂志是否已经下载

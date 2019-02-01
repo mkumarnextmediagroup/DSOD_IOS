@@ -29,7 +29,10 @@
     NSMutableDictionary <NSString*,NSString*>*openCellIdDic;
 }
 
-
+/**
+Open help and feedback page
+@param vc UIViewController
+*/
 +(void)openBy:(UIViewController*)vc {
     HelpAndFeedbackViewController *newVc = [HelpAndFeedbackViewController new];
     [vc pushPage:newVc];
@@ -52,12 +55,20 @@
     }];
 }
 
+
+/**
+ add navigation bar
+ */
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
     item.title = @"HELP AND FEEDBACK";
     item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
 }
 
+
+/**
+ build views
+ */
 -(void)buildViews{
     edge = 18;
     self.view.backgroundColor = UIColor.whiteColor;
@@ -67,7 +78,7 @@
     searchTextField.layer.borderColor = rgbHex(0x979797).CGColor;
     searchTextField.layer.cornerRadius = 0;
     [searchTextField setHint:@"Search for help topics here"];
-    [searchTextField addTarget:self action:@selector(textField1TextChange:) forControlEvents:UIControlEventEditingChanged];
+    [searchTextField addTarget:self action:@selector(textFieldTextChange:) forControlEvents:UIControlEventEditingChanged];
     [[[[[searchTextField.layoutMaker leftParent:edge]topParent:NAVHEIGHT + 15]rightParent:-edge]heightEq:36] install];
     
     noResultView = self.view.addView;
@@ -100,17 +111,31 @@
     
 }
 
+/**
+ Touch screen hide soft keyboard
+
+ @param touches touches description
+ @param event event description
+ */
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self keyboardHide];
 }
 
+/**
+ hide soft keyboard
+ */
 -(void)keyboardHide{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.view endEditing:YES];
     });
 }
 
--(void)textField1TextChange:(UITextField *)textField{
+/**
+ 
+ TextField Text Change callback
+ @param textField searchTextField
+ */
+-(void)textFieldTextChange:(UITextField *)textField{
    
     if(textField.text.length==0){
         [self keyboardHide];
@@ -124,6 +149,11 @@
 
 }
 
+/**
+ Search for matching content
+ @param searchWord search word
+ @return Matching Array
+ */
 -(NSArray*)filter:(NSString*)searchWord{
     NSMutableArray *array = [NSMutableArray new];
     
@@ -168,6 +198,10 @@
 }
 
 
+/**
+ Whether it is search mode
+ @return Search mode returns true otherwise returns faslse
+ */
 -(BOOL)isSearchMode{
     if(resultData && resultData.count>0){
         return YES;
@@ -176,12 +210,16 @@
     }
 }
 
+/**
+ scrollView did Scroll,soft keyboard
+ 
+ @param scrollView UISscrollView
+ */
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [[[UIApplication sharedApplication]keyWindow] endEditing:YES];
 }
 
 #pragma mark UITableViewDelegate,UITableViewDataSource
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if([self isSearchMode]){
         return resultData.count;
@@ -238,6 +276,12 @@
     }
 }
 
+/**
+ build category cell
+
+ @param indexPath NSIndexPath
+ @return FAQSCategoryTableViewCell
+ */
 -(UITableViewCell*)categoryCell:(NSIndexPath *)indexPath{
     FAQSCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(FAQSCategoryTableViewCell.class)];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -246,6 +290,12 @@
     return cell;
 }
 
+/**
+ build faqs function cell
+ 
+ @param indexPath NSIndexPath
+ @return FAQSTableViewCell
+ */
 -(UITableViewCell*)faqsFunctionCell:(NSIndexPath *)indexPath{
     FAQSModel *model = resultData[indexPath.section].faqsModelArray[indexPath.row];
     int lastIndex = (int)resultData[indexPath.section].faqsModelArray.count - 1;

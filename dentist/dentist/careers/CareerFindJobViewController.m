@@ -24,6 +24,7 @@
     UILabel *jobCountTitle;
     BOOL isdownrefresh;
     NSDictionary *filterDic;
+    BOOL isfirstfresh;
 }
 @end
 
@@ -32,7 +33,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (myTable) {
+    if (myTable && self->_infoArr) {
         [myTable reloadData];
     }
 }
@@ -82,32 +83,45 @@
     // Do any additional setup after loading the view.
 }
 
+#pragma mark ----Public method
+
+/**
+ 无数据页面
+ No data page content
+ */
 - (void)createEmptyNotice
 {
     [myTable jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
-        [self->myTable setScrollEnabled:NO];
         UIView *headerVi = [UIView new];
         [sender addSubview:headerVi];
-        [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
-        headerVi.backgroundColor = [UIColor clearColor];
-        UIButton *headBtn = headerVi.addButton;
-        [headBtn setImage:[UIImage imageNamed:@"noun_Business Records"] forState:UIControlStateNormal];
-        headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        headBtn.titleLabel.font = [Fonts regular:13];
-        [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
-        UILabel *tipLabel= headerVi.addLabel;
-        tipLabel.textAlignment=NSTextAlignmentCenter;
-        tipLabel.numberOfLines=0;
-        tipLabel.font = [Fonts semiBold:16];
-        tipLabel.textColor =[UIColor blackColor];
-        tipLabel.text=@"No available jobs at the \n moment";
-        [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+        if (self->isfirstfresh) {
+            [self->myTable setScrollEnabled:NO];
+            [[[headerVi.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT-TABLEBAR_HEIGHT-91] topParent:91] install];
+            headerVi.backgroundColor = [UIColor clearColor];
+            UIButton *headBtn = headerVi.addButton;
+            [headBtn setImage:[UIImage imageNamed:@"noun_Business Records"] forState:UIControlStateNormal];
+            headBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            headBtn.titleLabel.font = [Fonts regular:13];
+            [[[headBtn.layoutMaker centerXParent:0] centerYParent:-80] install];
+            UILabel *tipLabel= headerVi.addLabel;
+            tipLabel.textAlignment=NSTextAlignmentCenter;
+            tipLabel.numberOfLines=0;
+            tipLabel.font = [Fonts semiBold:16];
+            tipLabel.textColor =[UIColor blackColor];
+            tipLabel.text=@"No available jobs at the \n moment";
+            [[[[tipLabel.layoutMaker leftParent:20] rightParent:-20] below:headBtn offset:50] install];
+            
+        }
         return headerVi;
     } normalBlock:^(UITableView * _Nonnull sender) {
         [self->myTable setScrollEnabled:YES];
     }];
 }
 
+/**
+ 返回事件
+ Return button event
+ */
 - (void)backToFirst
 {
     NSArray *viewcontrollers=self.navigationController.viewControllers;
@@ -123,11 +137,16 @@
     }
 }
 
+/**
+ 查询工作列表
+ query job list event
+ */
 -(void)refreshData
 {
     [self showIndicator];
     [Proto queryAllJobs:0 filterDic:filterDic completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
         foreTask(^{
+            self->isfirstfresh=YES;
             [self hideIndicator];
             [self setJobCountTitle:totalCount];
             NSLog(@"%@",array);
@@ -139,6 +158,9 @@
 }
 
 //MARK: 下拉刷新
+/**
+ Pull down to refresh
+ */
 - (void)setupRefresh {
     NSLog(@"setupRefresh -- 下拉刷新");
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -150,12 +172,19 @@
 
 
 //MARK: 下拉刷新触发,在此获取数据
+/**
+ Pull down to refresh event
+ */
 - (void)refreshClick:(UIRefreshControl *)refreshControl {
     NSLog(@"refreshClick: -- 刷新触发");
     [self refreshData];
     [refreshControl endRefreshing];
 }
 
+/**
+ 搜索事件
+ search button event
+ */
 - (void)searchClick
 {
     NSLog(@"search btn click");
@@ -175,6 +204,10 @@
     
 }
 
+/**
+ 刷选条件按钮
+ Filter button event
+ */
 -(void)clickFilter:(UIButton *)sender
 {
     NSLog(@"Filter btn click");
@@ -183,10 +216,14 @@
     [filterview showFilter];
 }
 
+/**
+ 设置工作数量
+ set job count method
+ */
 -(void)setJobCountTitle:(NSInteger)jobcount
 {
     if (jobcount>0) {
-        NSString *jobcountstr=[NSString stringWithFormat:@"%@Jobs",@(jobcount)];
+        NSString *jobcountstr=[NSString stringWithFormat:@"%@ Jobs",@(jobcount)];
 //        NSString *jobstr=[NSString stringWithFormat:@"%@ | 5 New",jobcountstr];
 //        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:jobstr];
 //        [str addAttribute:NSForegroundColorAttributeName value:Colors.textMain range:NSMakeRange(0,jobcountstr.length+2)];
@@ -199,6 +236,10 @@
     
 }
 
+/**
+表头视图
+table Header View
+ */
 - (UIView *)makeHeaderView {
     UIView *panel = [UIView new];
     panel.frame = makeRect(0, 0, SCREENWIDTH, 32);
@@ -208,17 +249,12 @@
     jobCountTitle.font=[Fonts semiBold:13];
     jobCountTitle.textColor=Colors.textMain;
     [[[[[jobCountTitle.layoutMaker leftParent:20] topParent:0] bottomParent:0] rightParent:40] install];
-    
-//    UIButton *filterButton = [panel addButton];
-//    [filterButton setImage:[UIImage imageNamed:@"desc"] forState:UIControlStateNormal];
-//    [[[[filterButton.layoutMaker topParent:4] rightParent:-15] sizeEq:24 h:24] install];
-//    [filterButton onClick:self action:@selector(clickFilter:)];
     UILabel *lineLabel=panel.lineLabel;
     [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
     return panel;
 }
 
-
+#pragma mark ----UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _infoArr.count;
@@ -257,18 +293,22 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     JobModel *jobModel = _infoArr[indexPath.row];
-    [JobDetailViewController presentBy:(self.tabBarController != nil?nil:self) jobId:jobModel.id closeBack:^(NSString * jobid,NSString *unFollowjobid) {
+    [JobDetailViewController presentBy:(self.tabBarController != nil?nil:self) jobId:jobModel.id closeBack:^(NSString * jobid,NSString *unFollowjobid,NSString *Followjobid) {
         foreTask(^{
             if (![NSString isBlankString:jobid]) {
                 jobModel.isApplication=@"1";
+            }else{
+                if (![NSString isBlankString:Followjobid]) {
+                    jobModel.isAttention=@"1";
+                }
             }
+            
             if (self->myTable) {
                 [self->myTable reloadData];
             }
         });
     }];
 }
-
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -280,7 +320,6 @@
     if (bottomOffset <= height-50  && contentOffsetY>0)
     {
         if (!isdownrefresh) {
-            NSLog(@"==================================下啦刷选;contentOffsetY=%@;consizeheight=%@;bottomOffset=%@;height=%@；",@(contentOffsetY),@(consizeheight),@(bottomOffset),@(height));
             isdownrefresh=YES;
             [self showIndicator];
             [Proto queryAllJobs:self->_infoArr.count filterDic:filterDic completed:^(NSArray<JobModel *> *array, NSInteger totalCount) {
@@ -301,18 +340,23 @@
     }
 }
 
+#pragma mark -----JobsTableCellDelegate
+/**
+ 关注工作事件
+ Save a job event
+ */
 -(void)FollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {
     NSLog(@"FollowJobAction");
     if (self->_infoArr && self->_infoArr.count>indexPath.row) {
-        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
-        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+//        UIView *dsontoastview=[DsoToast toastViewForMessage:@"Following to Job…" ishowActivity:YES];
+//        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         JobModel *model=self->_infoArr[indexPath.row];
         NSString *jobid=model.id;
         [Proto addJobBookmark:jobid completed:^(HttpResult *result) {
             NSLog(@"result=%@",@(result.code));
             foreTask(^() {
-                [self.navigationController.view hideToast];
+//                [self.navigationController.view hideToast];
                 if ([view isKindOfClass:[FindJobsSponsorTableViewCell class]]) {
                     FindJobsSponsorTableViewCell *cell =(FindJobsSponsorTableViewCell *)view;
                     [cell updateFollowStatus:YES];
@@ -327,18 +371,22 @@
     
 }
 
+/**
+ 取消关注工作事件
+ cancel save a job event
+ */
 -(void)UnFollowJobAction:(NSIndexPath *)indexPath view:(UIView *)view
 {
     NSLog(@"UnFollowJobAction");
     if (self->_infoArr && self->_infoArr.count>indexPath.row) {
-        UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
-        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
+//        UIView *dsontoastview=[DsoToast toastViewForMessage:@"UNFollowing from Job……" ishowActivity:YES];
+//        [self.navigationController.view showToast:dsontoastview duration:30.0 position:CSToastPositionBottom completion:nil];
         JobModel *model=self->_infoArr[indexPath.row];
         NSString *jobid=model.id;
         [Proto deleteJobBookmarkByJobId:jobid completed:^(HttpResult *result) {
             NSLog(@"result=%@",@(result.code));
             foreTask(^() {
-                [self.navigationController.view hideToast];
+//                [self.navigationController.view hideToast];
                 if ([view isKindOfClass:[FindJobsSponsorTableViewCell class]]) {
                     FindJobsSponsorTableViewCell *cell =(FindJobsSponsorTableViewCell *)view;
                     [cell updateFollowStatus:NO];

@@ -12,6 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FAQSCategoryTableViewCell : UITableViewCell
 
+/**
+ 设置数据
+ set datas
+ 
+ @param text text
+ @param isLastItem is last item
+ */
 -(void)setText:(NSString*)text isLastItem:(BOOL)isLastItem;
 
 @end

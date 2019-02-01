@@ -46,6 +46,7 @@
 - (void)showIndicator;
 
 - (void)hideIndicator;
+- (void)hideIndicator:(NSTimeInterval)delay;
 
 
 - (void)selectIdName:(NSString *)title array:(NSArray<IdName *> *)array selectedId:(NSString *)selectedId result:(void (^)(IdName *))result;

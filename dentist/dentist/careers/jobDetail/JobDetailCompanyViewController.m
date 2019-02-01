@@ -29,6 +29,9 @@
     int edge;
 }
 
+/**
+ view did load
+ */
 - (void)viewDidLoad{
     [super viewDidLoad];
     edge = 18;
@@ -54,6 +57,9 @@
 }
 
 
+/**
+ build views
+ */
 -(void)buildView{
     
     //Website
@@ -147,7 +153,11 @@
     lastView = detailWebView;
 }
 
-
+/**
+ set data
+ 
+ @param model JobDSOModel
+ */
 - (void)setData:(JobDSOModel *)model{
     
     
@@ -160,13 +170,24 @@
 }
 
 
-
+/**
+ UIWebViewDelegate
+ webview did finish load
+ 
+ @param webView UIWebView
+ */
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
     [[webView.layoutUpdate heightEq:webViewHeight] install];
 }
 
 #pragma mark - 滑动方法
+/**
+ UIScrollViewDelegate
+ scroll view did scroll
+ 
+ @param scrollView UIScrollView
+ */
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (!self.isCanScroll) {
         scrollView.contentOffset = CGPointZero;
@@ -182,6 +203,12 @@
     }
 }
 
+/**
+ UIScrollViewDelegate
+ scroll view did scroll
+ 
+ @param scrollView UIScrollView
+ */
 -(void)contentOffsetToPointZero{
     scrollView.contentOffset = CGPointZero;
 }

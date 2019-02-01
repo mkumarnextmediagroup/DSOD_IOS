@@ -33,6 +33,9 @@
 #import "CareerMeViewController.h"
 #import "CompanyExistsReviewsViewController.h"
 #import "ProfileViewController.h"
+#import "EducationBookmarksViewController.h"
+#import "EducationDownloadsViewController.h"
+#import "EducationCoursesViewController.h"
 
 @interface SlideController()<UITabBarControllerDelegate,UITabBarDelegate,MoreViewDelegate>
 
@@ -54,9 +57,9 @@
 	items = @[
 			[self makeSlideItem:@"Browse Content" image:@"menu-dso"],
 			[self makeSlideItem:@"Education" image:@"menu-edu"],
-			[self makeSlideItem:@"Careers" image:@"menu-community"],
+			[self makeSlideItem:@"Career" image:@"menu-community"],
 			[self makeSlideItem:@"Events" image:@"menu-calendar"],
-			[self makeSlideItem:@"Unite" image:@"menu-unite"],
+			[self makeSlideItem:@"UNITE" image:@"menu-unite"],
 			[self makeSlideItem:@"My Profile" image:@"menu-profile"],
 			[self makeSlideItem:@"Settings" image:@"menu-settings"],
 	];
@@ -116,9 +119,30 @@
 		return TabPage(@[ncForYou, ncSearch, ncCat, ncBook, ncDown]);
 	}
 	if ([@"Education" isEqualToString:title]) {
-		return [EducationPage new];
+//        return [EducationPage new];
+        EducationPage *educationPage = [EducationPage new];
+        UINavigationController *ncCatalog = NavPage(educationPage);
+        [ncCatalog tabItem:@"Catalog" imageName:@"foryou"];
+        educationPage.navigationItem.leftBarButtonItem = [self menuButton];
+        
+        EducationBookmarksViewController *educationBookmarks = [EducationBookmarksViewController new];
+        UINavigationController *ncBookmarks = NavPage(educationBookmarks);
+        [ncBookmarks tabItem:@"Bookmarks" imageName:@"bookmark"];
+        educationBookmarks.navigationItem.leftBarButtonItem = [self menuButton];
+        
+        EducationDownloadsViewController *educationDownloads = [EducationDownloadsViewController new];
+        UINavigationController *ncDownloads = NavPage(educationDownloads);
+        [ncDownloads tabItem:@"Downloads" imageName:@"download"];
+        educationDownloads.navigationItem.leftBarButtonItem = [self menuButton];
+        
+        EducationCoursesViewController *educationCourses = [EducationCoursesViewController new];
+        UINavigationController *ncCourses = NavPage(educationCourses);
+        [ncCourses tabItem:@"My Courses" imageName:@"search"];
+        educationCourses.navigationItem.leftBarButtonItem = [self menuButton];
+
+        return TabPage(@[ncCatalog, ncBookmarks, ncDownloads, ncCourses]);
 	}
-	if ([@"Careers" isEqualToString:title]) {
+	if ([@"Career" isEqualToString:title]) {
         CareerExplorePage *explorePage = [CareerExplorePage new];
         UINavigationController *ncExplore = NavPage(explorePage);
         [ncExplore tabItem:@"Explore" imageName:@"explore" tag:0];
@@ -155,7 +179,7 @@
 	if ([@"Events" isEqualToString:title]) {
 		return [EventsPage new];
 	}
-	if ([@"Unite" isEqualToString:title]) {
+	if ([@"UNITE" isEqualToString:title]) {
 		return [UnitePage new];
 	}
 	if ([@"My Profile" isEqualToString:title]) {
@@ -245,7 +269,9 @@
 	UIViewController *c = [self onMakePage:title];
     if ([@"Browse Content" isEqualToString:title]){
         [self openCenterPage:c hasNav:NO];
-    }else if ([@"Careers" isEqualToString:title]){
+    }else if ([@"Career" isEqualToString:title]){
+        [self openCenterPage:c hasNav:NO];
+    }else if ([@"Education" isEqualToString:title]){
         [self openCenterPage:c hasNav:NO];
     }else
     {

@@ -14,6 +14,12 @@
 
 @implementation JobDetailDescriptionViewController
 
+/**
+ Get internal padding
+ 80px from the bottom to display the apply button
+ 
+ @return UIEdgeInsets
+ */
 -(UIEdgeInsets)edgeInsetsMake{
     return UIEdgeInsetsMake(0, 0, 80, 0);
 }

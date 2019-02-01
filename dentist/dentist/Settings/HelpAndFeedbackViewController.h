@@ -13,7 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HelpAndFeedbackViewController : UIViewController
 
-
+/**
+ Open help and feedback page
+ @param vc UIViewController
+ */
 +(void)openBy:(UIViewController*)vc;
 
 

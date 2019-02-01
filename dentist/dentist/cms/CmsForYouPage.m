@@ -251,6 +251,7 @@
     self.table.tableHeaderView = [self makeHeaderView2];
 }
 
+#pragma mark ----table method
 /**
  table cell class
  */

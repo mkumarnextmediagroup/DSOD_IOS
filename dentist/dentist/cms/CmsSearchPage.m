@@ -84,6 +84,7 @@
     }];
 }
 
+#pragma mark ----table method
 /**
  table cell class
  */

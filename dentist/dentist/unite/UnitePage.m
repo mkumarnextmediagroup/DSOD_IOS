@@ -36,6 +36,31 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self queryDownloadList];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    [self setupNavigation];
+    
+    mTableView = [UITableView new];
+    mTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    mTableView.dataSource = self;
+    mTableView.delegate = self;
+    [self.view addSubview:mTableView];
+    [mTableView layoutFill];
+    
+    [self setupRefresh];
+    [self addNotification];
+}
+
+#pragma mark ----Public method
+/**
+ query download unite list data
+ */
+-(void)queryDownloadList
+{
     if (onlyDownloadedUinte) {
         UINavigationItem *item = [self navigationItem];
         item.title = @"DOWNLOADED";
@@ -51,7 +76,9 @@
         }];
     }
 }
-
+/**
+ add the notification,when one download item state has changed，notification system to change the style of the view.
+ */
 - (void)addNotification
 {
     // 状态改变通知
@@ -60,6 +87,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(archiveChange:) name:DentistUniteArchiveChangeNotification object:nil];
 }
 
+/**
+ notification method,when one download item state has changed，this method will change the style of the view.
+ */
 - (void)downLoadStateChange:(NSNotification *)notification
 {
     MagazineModel *downloadModel = notification.object;
@@ -83,6 +113,9 @@
     }];
 }
 
+/**
+ notification method,when one archive item state has changed，this method will change the style of the view.
+ */
 -(void)archiveChange:(NSNotification *)notification{
     NSString *uniteid=notification.object;
     NSMutableArray *tempArr=[NSMutableArray arrayWithArray:self->datas];
@@ -105,54 +138,9 @@
     }];
 }
 
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    [self setupNavigation];
-    
-    mTableView = [UITableView new];
-    mTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    mTableView.dataSource = self;
-    mTableView.delegate = self;
-    [self.view addSubview:mTableView];
-    [mTableView layoutFill];
-    
-    [self setupRefresh];
-    [self addNotification];
-    //测试
-//    [[DentistDataBaseManager shareManager] updateUniteArticleBookmark:@"5be5df7f5a71b7249c07e064" isbookmark:1 completed:^(BOOL result) {
-//        if (result) {
-//            [[DentistDataBaseManager shareManager] queryUniteArticlesBookmarkCachesList:^(NSArray<DetailModel *> * _Nonnull array) {
-//                if (array) {
-//                    
-//                }
-//            }];
-//        }
-//    }];
-//    
-//    [[DentistDataBaseManager shareManager] archiveUnite:@"5bd7fedf2676fdc2e88b5494" completed:^(BOOL result) {
-//        if (result) {
-//            [[DentistDataBaseManager shareManager] queryUniteArticlesCachesList:@"5bd7fedf2676fdc2e88b5494" completed:^(NSArray<DetailModel *> * _Nonnull array) {
-//                if (array) {
-//
-//                }
-//                [[DentistDataBaseManager shareManager] queryUniteArticlesCachesByKeywordList:@"5bd7fedf2676fdc2e88b5494" keywords:@"Interproximal Reduction (IPR)" completed:^(NSArray<DetailModel *> * _Nonnull array) {
-//                    if (array) {
-//
-//                    }
-//                }];
-//            }];
-//            [[DentistDataBaseManager shareManager] queryUniteArticlesBookmarkCachesList:^(NSArray<DetailModel *> * _Nonnull array) {
-//                if (array) {
-//                    
-//                }
-//            }];
-//        }
-//    }];
-   
-}
-
+/**
+ set Navigation item
+ */
 -(void)setupNavigation{
     UINavigationItem *item = [self navigationItem];
     item.title = @"ALL ISSUES";
@@ -180,6 +168,9 @@
     
 }
 
+/**
+ go to unite detail page
+ */
 - (void)enterTeamCard:(MagazineModel *)model
 {
     ThumViewController *thumvc=[ThumViewController new];
@@ -189,6 +180,9 @@
     
 }
 
+/**
+ go to unite downloading page
+ */
 - (void)enterUniteDownloading:(MagazineModel*) model{
     UniteDownloadingViewController *vc = [[UniteDownloadingViewController alloc]init];
     vc.magazineModel = model;
@@ -196,6 +190,9 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+/**
+ Pull down to refresh
+ */
 -(void)setupRefresh{
     refreshControl=[[UIRefreshControl alloc]init];
     [refreshControl addTarget:self action:@selector(firstRefresh) forControlEvents:UIControlEventValueChanged];
@@ -206,20 +203,27 @@
 
 }
 
-
+/**
+show the loading Animating
+ */
 - (void)showTopIndicator {
     iv.hidden = NO;
     [iv startAnimating];
     isRefreshing = YES;
 }
 
+/**
+ hide the loading Animating
+ */
 - (void)hideTopIndicator {
     iv.hidden = YES;
     [iv stopAnimating];
     isRefreshing = NO;
 }
 
-
+/**
+ end refreshing
+ */
 -(void)firstRefresh{
      [self getDatas:NO];
      [refreshControl endRefreshing];
@@ -227,6 +231,9 @@
 }
 
 
+/**
+ query unite list data
+ */
 -(void)getDatas:(BOOL)isMore{
     if(isRefreshing){
         return;
@@ -246,6 +253,9 @@
     });
 }
 
+/**
+ reload unite list data and display it in the tableview
+ */
 -(void)reloadData:(NSArray*)newDatas isMore:(BOOL)isMore{
     if(newDatas!=nil && newDatas.count >0){
         if(isMore){
@@ -263,6 +273,10 @@
     }
 }
 
+/**
+ go to unite detail page
+ @param row which row in the unite list
+ */
 -(void)gotoThumView:(NSInteger)row
 {
     if (self->datas.count>row) {
@@ -283,6 +297,9 @@
     
 }
 
+/**
+ show the menu on the Upper right corner when click it.
+ */
 -(void)openMenu{
     if(popView && popView.isShowing){
         [popView hide];
@@ -322,6 +339,9 @@
     
 }
 
+/**
+ display the download unite list data
+ */
 -(void)showDownloaded{
     onlyDownloadedUinte = YES;
     UINavigationItem *item = [self navigationItem];
@@ -339,6 +359,9 @@
      
 }
 
+/**
+ display all issues (unite list)
+ */
 -(void)showAllIssues{
     onlyDownloadedUinte = NO;
     UINavigationItem *item = [self navigationItem];
@@ -364,25 +387,6 @@
         cell = [[UnitePageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIden];
     }
     cell.magazineModel = datas[indexPath.row];
-//    cell.optonBtnOnClickListener = ^(UnitePageDownloadStatus status,MagazineModel *model){
-//        switch (status) {
-//            case UPageDownloaded:
-//                //to detail page
-//                [self enterTeamCard:nil];
-//                break;
-//            case UPageNoDownload:
-//                //start download
-//                [self startUniteDownload];
-//                
-//            case UPageDownloading:{
-//                //to downloading page
-//                [self enterUniteDownloading:model];
-//                break;
-//            }
-//            default:
-//                break;
-//        }
-//    };
     cell.optonBtnOnClickDownload = ^(NSInteger status, MagazineModel *model) {
         switch (status) {
             case 2:

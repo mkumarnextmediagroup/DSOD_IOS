@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1801683921A6EE4F00AEBF06 /* Swipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 1801683821A6EE4F00AEBF06 /* Swipe.png */; };
+		1804B4912205BD8200F9A75A /* AboutViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4902205BD8200F9A75A /* AboutViewControllerTests.m */; };
 		180C2B8721ECCF3A00CAFFFA /* FAQSSubDescModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 180C2B8621ECCF3A00CAFFFA /* FAQSSubDescModel.m */; };
 		180C2B8A21ECE45800CAFFFA /* FAQSCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180C2B8921ECE45800CAFFFA /* FAQSCategoryTableViewCell.m */; };
 		180DE1A821B7DF7B00AD07B5 /* icon_check_mark_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180DE1A521B7DF7A00AD07B5 /* icon_check_mark_small@2x.png */; };
@@ -1044,6 +1045,7 @@
 
 /* Begin PBXFileReference section */
 		1801683821A6EE4F00AEBF06 /* Swipe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Swipe.png; sourceTree = "<group>"; };
+		1804B4902205BD8200F9A75A /* AboutViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewControllerTests.m; sourceTree = "<group>"; };
 		180C2B8521ECCF3A00CAFFFA /* FAQSSubDescModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAQSSubDescModel.h; sourceTree = "<group>"; };
 		180C2B8621ECCF3A00CAFFFA /* FAQSSubDescModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FAQSSubDescModel.m; sourceTree = "<group>"; };
 		180C2B8821ECE45800CAFFFA /* FAQSCategoryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAQSCategoryTableViewCell.h; sourceTree = "<group>"; };
@@ -2427,6 +2429,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1804B48A2205B56F00F9A75A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1804B48F2205BD3800F9A75A /* AboutViewController */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		1804B48F2205BD3800F9A75A /* AboutViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4902205BD8200F9A75A /* AboutViewControllerTests.m */,
+			);
+			path = AboutViewController;
+			sourceTree = "<group>";
+		};
 		18106AAE218AF0AC00EEE2DC /* YHPopMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -3316,6 +3334,7 @@
 		43B72528217650A1000F6797 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				1804B48A2205B56F00F9A75A /* Settings */,
 				432136F121E39E4D00ADF614 /* Careers */,
 				432136EE21E39B8E00ADF614 /* EventsPage */,
 				4355705A21E1AB92007A8C21 /* Unite */,
@@ -5785,6 +5804,7 @@
 			files = (
 				4355705C21E1ABA4007A8C21 /* UnitePageTests.m in Sources */,
 				43A8D52621CBEE1200CE8FBD /* GSKItemViewTests.m in Sources */,
+				1804B4912205BD8200F9A75A /* AboutViewControllerTests.m in Sources */,
 				433089DA21F61CD900443469 /* UploadResumeViewTests.m in Sources */,
 				43D98CAD219DAE04004C3FBD /* FontsTests.m in Sources */,
 				43714D9E21EAE34200B7AC18 /* CareerAlertsViewControllerTests.m in Sources */,

@@ -19,6 +19,26 @@ NS_ASSUME_NONNULL_BEGIN
  */
 +(void)openBy:(UIViewController*)vc ;
 
+
+/**
+ add navigation bar
+ */
+-(void)addNavBar;
+
+/**
+ build views
+ */
+-(void)buildViews;
+    
+
+/**
+ DentistTabView Delegate
+ Tab change callback
+ @param index Currently selected tab index
+ */
+- (void)didDentistSelectItemAtIndex:(NSInteger)index;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

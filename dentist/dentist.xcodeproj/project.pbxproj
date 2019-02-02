@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		1801683921A6EE4F00AEBF06 /* Swipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 1801683821A6EE4F00AEBF06 /* Swipe.png */; };
 		1804B4912205BD8200F9A75A /* AboutViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4902205BD8200F9A75A /* AboutViewControllerTests.m */; };
+		1804B49C2205DFFE00F9A75A /* SettingControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B49B2205DFFE00F9A75A /* SettingControllerTests.m */; };
+		1804B49E2205E0B100F9A75A /* PlaybackSpeedViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B49D2205E0B100F9A75A /* PlaybackSpeedViewControllerTests.m */; };
+		1804B4A02205E0C400F9A75A /* VideoQualityViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B49F2205E0C400F9A75A /* VideoQualityViewControllerTests.m */; };
+		1804B4A22205E0DD00F9A75A /* HelpAndFeedbackViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4A12205E0DD00F9A75A /* HelpAndFeedbackViewControllerTests.m */; };
+		1804B4A42205E0F700F9A75A /* FAQSViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4A32205E0F700F9A75A /* FAQSViewControllerTests.m */; };
+		1804B4A62205E10B00F9A75A /* ContactUsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4A52205E10B00F9A75A /* ContactUsViewControllerTests.m */; };
+		1804B4A82205E12000F9A75A /* NotificationsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4A72205E12000F9A75A /* NotificationsViewControllerTests.m */; };
+		1804B4AA2205E13000F9A75A /* FeedbackAndSupportViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4A92205E13000F9A75A /* FeedbackAndSupportViewControllerTests.m */; };
+		1804B4AC2205E13F00F9A75A /* GeneralViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4AB2205E13F00F9A75A /* GeneralViewControllerTests.m */; };
 		180C2B8721ECCF3A00CAFFFA /* FAQSSubDescModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 180C2B8621ECCF3A00CAFFFA /* FAQSSubDescModel.m */; };
 		180C2B8A21ECE45800CAFFFA /* FAQSCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180C2B8921ECE45800CAFFFA /* FAQSCategoryTableViewCell.m */; };
 		180DE1A821B7DF7B00AD07B5 /* icon_check_mark_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180DE1A521B7DF7A00AD07B5 /* icon_check_mark_small@2x.png */; };
@@ -1046,6 +1055,15 @@
 /* Begin PBXFileReference section */
 		1801683821A6EE4F00AEBF06 /* Swipe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Swipe.png; sourceTree = "<group>"; };
 		1804B4902205BD8200F9A75A /* AboutViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewControllerTests.m; sourceTree = "<group>"; };
+		1804B49B2205DFFE00F9A75A /* SettingControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingControllerTests.m; sourceTree = "<group>"; };
+		1804B49D2205E0B100F9A75A /* PlaybackSpeedViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybackSpeedViewControllerTests.m; sourceTree = "<group>"; };
+		1804B49F2205E0C400F9A75A /* VideoQualityViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoQualityViewControllerTests.m; sourceTree = "<group>"; };
+		1804B4A12205E0DD00F9A75A /* HelpAndFeedbackViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpAndFeedbackViewControllerTests.m; sourceTree = "<group>"; };
+		1804B4A32205E0F700F9A75A /* FAQSViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FAQSViewControllerTests.m; sourceTree = "<group>"; };
+		1804B4A52205E10B00F9A75A /* ContactUsViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactUsViewControllerTests.m; sourceTree = "<group>"; };
+		1804B4A72205E12000F9A75A /* NotificationsViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewControllerTests.m; sourceTree = "<group>"; };
+		1804B4A92205E13000F9A75A /* FeedbackAndSupportViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackAndSupportViewControllerTests.m; sourceTree = "<group>"; };
+		1804B4AB2205E13F00F9A75A /* GeneralViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeneralViewControllerTests.m; sourceTree = "<group>"; };
 		180C2B8521ECCF3A00CAFFFA /* FAQSSubDescModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAQSSubDescModel.h; sourceTree = "<group>"; };
 		180C2B8621ECCF3A00CAFFFA /* FAQSSubDescModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FAQSSubDescModel.m; sourceTree = "<group>"; };
 		180C2B8821ECE45800CAFFFA /* FAQSCategoryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAQSCategoryTableViewCell.h; sourceTree = "<group>"; };
@@ -2432,7 +2450,16 @@
 		1804B48A2205B56F00F9A75A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				1804B4922205DCAC00F9A75A /* SettingController */,
 				1804B48F2205BD3800F9A75A /* AboutViewController */,
+				1804B4942205DD5F00F9A75A /* PlaybackSpeedViewController */,
+				1804B4932205DCCD00F9A75A /* VideoQualityViewController */,
+				1804B4952205DE5400F9A75A /* HelpAndFeedbackViewController */,
+				1804B4962205DE7200F9A75A /* FAQSViewController */,
+				1804B4982205DE7F00F9A75A /* ContactUsViewController */,
+				1804B4972205DE7C00F9A75A /* NotificationsViewController */,
+				1804B4992205DE9A00F9A75A /* FeedbackAndSupportViewController */,
+				1804B49A2205DEB000F9A75A /* GeneralViewController */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2443,6 +2470,78 @@
 				1804B4902205BD8200F9A75A /* AboutViewControllerTests.m */,
 			);
 			path = AboutViewController;
+			sourceTree = "<group>";
+		};
+		1804B4922205DCAC00F9A75A /* SettingController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B49B2205DFFE00F9A75A /* SettingControllerTests.m */,
+			);
+			path = SettingController;
+			sourceTree = "<group>";
+		};
+		1804B4932205DCCD00F9A75A /* VideoQualityViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B49F2205E0C400F9A75A /* VideoQualityViewControllerTests.m */,
+			);
+			path = VideoQualityViewController;
+			sourceTree = "<group>";
+		};
+		1804B4942205DD5F00F9A75A /* PlaybackSpeedViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B49D2205E0B100F9A75A /* PlaybackSpeedViewControllerTests.m */,
+			);
+			path = PlaybackSpeedViewController;
+			sourceTree = "<group>";
+		};
+		1804B4952205DE5400F9A75A /* HelpAndFeedbackViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4A12205E0DD00F9A75A /* HelpAndFeedbackViewControllerTests.m */,
+			);
+			path = HelpAndFeedbackViewController;
+			sourceTree = "<group>";
+		};
+		1804B4962205DE7200F9A75A /* FAQSViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4A32205E0F700F9A75A /* FAQSViewControllerTests.m */,
+			);
+			path = FAQSViewController;
+			sourceTree = "<group>";
+		};
+		1804B4972205DE7C00F9A75A /* NotificationsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4A72205E12000F9A75A /* NotificationsViewControllerTests.m */,
+			);
+			path = NotificationsViewController;
+			sourceTree = "<group>";
+		};
+		1804B4982205DE7F00F9A75A /* ContactUsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4A52205E10B00F9A75A /* ContactUsViewControllerTests.m */,
+			);
+			path = ContactUsViewController;
+			sourceTree = "<group>";
+		};
+		1804B4992205DE9A00F9A75A /* FeedbackAndSupportViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4A92205E13000F9A75A /* FeedbackAndSupportViewControllerTests.m */,
+			);
+			path = FeedbackAndSupportViewController;
+			sourceTree = "<group>";
+		};
+		1804B49A2205DEB000F9A75A /* GeneralViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4AB2205E13F00F9A75A /* GeneralViewControllerTests.m */,
+			);
+			path = GeneralViewController;
 			sourceTree = "<group>";
 		};
 		18106AAE218AF0AC00EEE2DC /* YHPopMenu */ = {
@@ -5803,14 +5902,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				4355705C21E1ABA4007A8C21 /* UnitePageTests.m in Sources */,
+				1804B4AA2205E13000F9A75A /* FeedbackAndSupportViewControllerTests.m in Sources */,
 				43A8D52621CBEE1200CE8FBD /* GSKItemViewTests.m in Sources */,
 				1804B4912205BD8200F9A75A /* AboutViewControllerTests.m in Sources */,
 				433089DA21F61CD900443469 /* UploadResumeViewTests.m in Sources */,
+				1804B49C2205DFFE00F9A75A /* SettingControllerTests.m in Sources */,
 				43D98CAD219DAE04004C3FBD /* FontsTests.m in Sources */,
 				43714D9E21EAE34200B7AC18 /* CareerAlertsViewControllerTests.m in Sources */,
 				433FBD5822015374000ACD41 /* CompanyDetailViewControllerTests.m in Sources */,
 				435FD78C21E44895004E2D8C /* CareerAlertsAddViewControllerTests.m in Sources */,
 				4307CC39220475D600F17051 /* CompanyDetailDescriptionViewControllerTests.m in Sources */,
+				1804B4A22205E0DD00F9A75A /* HelpAndFeedbackViewControllerTests.m in Sources */,
 				432136F421E39E6300ADF614 /* DSOProfileSearchPageTests.m in Sources */,
 				432136DD21E332E100ADF614 /* SliderListViewTests.m in Sources */,
 				432136ED21E357ED00ADF614 /* UniteThumCollectionViewCellTests.m in Sources */,
@@ -5824,6 +5926,7 @@
 				4344660121A5614A00811E94 /* UIButtonExtTests.m in Sources */,
 				43488F4E2199BAEB00FDC15E /* ColorTests.m in Sources */,
 				43065FE821BFF69A00D142B8 /* CmsCategoryPageTests.m in Sources */,
+				1804B4A42205E0F700F9A75A /* FAQSViewControllerTests.m in Sources */,
 				432136E421E342B300ADF614 /* UnitePageCellTests.m in Sources */,
 				4341949321A598BE0029AECE /* CmsForYouPageTests.m in Sources */,
 				43714DA121EB049C00B7AC18 /* CareerMyJobViewControllerTests.m in Sources */,
@@ -5834,6 +5937,8 @@
 				431AB5AB21E5C00D00AA79C9 /* CareerMeViewControllerTests.m in Sources */,
 				4317ADC821D11E5600ED672D /* DenActionSheetTests.m in Sources */,
 				43028B2D21D28A6300771971 /* PicDetailViewTests.m in Sources */,
+				1804B4AC2205E13F00F9A75A /* GeneralViewControllerTests.m in Sources */,
+				1804B4A62205E10B00F9A75A /* ContactUsViewControllerTests.m in Sources */,
 				4335E27921B6B5EF00A10F7E /* CmsSearchPageTests.m in Sources */,
 				43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */,
 				4355706621E23E0B007A8C21 /* SliderListViewControllerTests.m in Sources */,
@@ -5842,6 +5947,7 @@
 				43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */,
 				43B5E6D321EDEC3000F07A4B /* CareerAddReviewViewControllerTests.m in Sources */,
 				43B7252D217650FF000F6797 /* ExampleTests.m in Sources */,
+				1804B49E2205E0B100F9A75A /* PlaybackSpeedViewControllerTests.m in Sources */,
 				4355C2E021F46D6F00544B5F /* JobDetailViewControllerTests.m in Sources */,
 				439D55EB2189DBFA003BB940 /* ProfileEditPageTests.m in Sources */,
 				4344660521A5674400811E94 /* UIViewExtTests.m in Sources */,
@@ -5865,6 +5971,7 @@
 				43EBDF2821CF634A00C3AAB7 /* RMDownloadIndicatorTests.m in Sources */,
 				43A6590E21D687060091F9AF /* CMSDetailViewControllerTests.m in Sources */,
 				43714DA421EB1BC200B7AC18 /* CareerFindJobViewControllerTests.m in Sources */,
+				1804B4A02205E0C400F9A75A /* VideoQualityViewControllerTests.m in Sources */,
 				43597BFA21CCD0E80033E1C1 /* ContentPageTests.m in Sources */,
 				43941292219F0378008C3092 /* UITextFieldExtTests.m in Sources */,
 				43A196CF2190A12B006E90CC /* EditExperiencePageTests.m in Sources */,
@@ -5882,6 +5989,7 @@
 				43714DAA21EB3C9500B7AC18 /* CareerExplorePageTests.m in Sources */,
 				439B4A2221D355540037BE5C /* XHStarRateViewTests.m in Sources */,
 				433089D721F61AE500443469 /* JobDetailReviewsViewControllerTests.m in Sources */,
+				1804B4A82205E12000F9A75A /* NotificationsViewControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,8 @@
 #import "Kiwi.h"
 #import "CompanyDetailReviewsViewController.h"
 #import "JobDSOModel.h"
+#import "CompanyReviewHeaderTableViewCell.h"
+#import "CompanyReviewTableViewCell.h"
 
 SPEC_BEGIN(CompanyDetailReviewsViewControllerTests)
 describe(@"Unit Test For CompanyDetailReviewsViewController", ^{
@@ -30,16 +32,24 @@ describe(@"Unit Test For CompanyDetailReviewsViewController", ^{
         });
 
         it(@"setJobDSOModel", ^{
-            [controller setJobDSOModel:[JobDSOModel new]];
+            JobDSOModel *model = [JobDSOModel new];
+            model.id = @"abcdefghijklmnopqrstuvwxyz";
+            [controller setJobDSOModel:model];
             [[theValue(controller.view) shouldNot] beNil];
         });
 
         it(@"reloadComment", ^{
+            JobDSOModel *model = [JobDSOModel new];
+            model.id = @"abcdefghijklmnopqrstuvwxyz";
+            controller.jobDSOModel = model;
             [controller reloadComment];
             [[theValue(controller.view) shouldNot] beNil];
         });
 
         it(@"getNewJobDSOModel", ^{
+            JobDSOModel *model = [JobDSOModel new];
+            model.id = @"abcdefghijklmnopqrstuvwxyz";
+            controller.jobDSOModel = model;
             [controller getNewJobDSOModel];
             [[theValue(controller.view) shouldNot] beNil];
         });
@@ -70,23 +80,34 @@ describe(@"Unit Test For CompanyDetailReviewsViewController", ^{
         });
 
         it(@"cellForRowAtIndexPath", ^{
+            UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero];
+            [tableView registerClass:CompanyReviewHeaderTableViewCell.class forCellReuseIdentifier:NSStringFromClass(CompanyReviewHeaderTableViewCell.class)];
+            [tableView registerClass:CompanyReviewTableViewCell.class forCellReuseIdentifier:NSStringFromClass(CompanyReviewTableViewCell.class)];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            UITableViewCell *cell = [controller tableView:tableView cellForRowAtIndexPath:indexPath];
+            [[theValue(cell) shouldNot] beNil];
         });
 
-        it(@"", ^{
-
+        it(@"companyReviewHeaderCell", ^{
+            UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero];
+            [tableView registerClass:CompanyReviewHeaderTableViewCell.class forCellReuseIdentifier:NSStringFromClass(CompanyReviewHeaderTableViewCell.class)];
+            [tableView registerClass:CompanyReviewTableViewCell.class forCellReuseIdentifier:NSStringFromClass(CompanyReviewTableViewCell.class)];
+            UITableViewCell *cell = [controller companyReviewHeaderCell:tableView data:[JobDSOModel new]];
+            [[theValue(cell) shouldNot] beNil];
         });
 
-        it(@"", ^{
-
+        it(@"companyReviewTableViewCell", ^{
+            UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero];
+            [tableView registerClass:CompanyReviewHeaderTableViewCell.class forCellReuseIdentifier:NSStringFromClass(CompanyReviewHeaderTableViewCell.class)];
+            [tableView registerClass:CompanyReviewTableViewCell.class forCellReuseIdentifier:NSStringFromClass(CompanyReviewTableViewCell.class)];
+            UITableViewCell *cell = [controller companyReviewTableViewCell:tableView data:[CompanyReviewModel new]];
+            [[theValue(cell) shouldNot] beNil];
         });
 
-        it(@"", ^{
-
+        it(@"edgeInsetsMake", ^{
+            UIEdgeInsets insets = [controller edgeInsetsMake];
+            [[theValue(insets) should] equal:theValue(UIEdgeInsetsMake(0, 0, 0, 0))];
         });
-//        - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
-//        - (UITableViewCell*)companyReviewHeaderCell:tableView data:(JobDSOModel*)model;
-//        - (UITableViewCell*)companyReviewTableViewCell:tableView data:(CompanyReviewModel*)model;
-//        - (UIEdgeInsets)edgeInsetsMake;
     });
 });
 SPEC_END

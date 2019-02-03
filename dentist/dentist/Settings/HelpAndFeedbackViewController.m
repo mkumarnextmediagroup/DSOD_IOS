@@ -39,6 +39,10 @@ Open help and feedback page
 }
 
 
+/**
+ view did load
+ build views and load FAQS data from server
+ */
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -220,6 +224,13 @@ Open help and feedback page
 }
 
 #pragma mark UITableViewDelegate,UITableViewDataSource
+/**
+ UITableViewDataSource
+ numberOfSectionsInTableView
+
+ @param tableView UITableView
+ @return number fo sections
+ */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if([self isSearchMode]){
         return resultData.count;
@@ -228,6 +239,14 @@ Open help and feedback page
     }
 }
 
+/**
+ UITableViewDataSource
+ numberOfRowsInSection
+
+ @param tableView UITableView
+ @param section section index
+ @return number of rows in section
+ */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if([self isSearchMode]){
         return resultData[section].faqsModelArray.count;
@@ -237,10 +256,26 @@ Open help and feedback page
 }
 
 
+/**
+ UITableViewDataSource
+ heightForHeaderInSection
+
+ @param tableView UITableView
+ @param section section index
+ @return height for header in section
+ */
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 30;
 }
 
+/**
+ UITableViewDataSource
+ viewForHeaderInSection
+
+ @param tableView UITableView
+ @param section section index
+ @return header view
+ */
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH - edge, 30)];
     headerView.backgroundColor = rgbHex(0xfafbfd);
@@ -260,6 +295,14 @@ Open help and feedback page
     return headerView;
 }
 
+/**
+ UITableViewDataSource
+ heightForRowAtIndexPath
+
+ @param tableView UITableView
+ @param indexPath NSIndexPath
+ @return height for row at indexPath
+ */
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if([self isSearchMode]){
         return UITableViewAutomaticDimension;
@@ -268,6 +311,14 @@ Open help and feedback page
     }
 }
 
+/**
+ UITableViewDataSource
+ cellForRowAtIndexPath
+
+ @param tableView UITableView
+ @param indexPath NSIndexPath
+ @return UITableViewCell
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if([self isSearchMode]){
         return [self faqsFunctionCell:indexPath];
@@ -319,6 +370,13 @@ Open help and feedback page
     return cell;
 }
 
+/**
+ UITableViewDataSource
+ didSelectRowAtIndexPath
+
+ @param tableView UITableView
+ @param indexPath NSIndexPath
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self keyboardHide];

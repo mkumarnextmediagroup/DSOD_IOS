@@ -107,10 +107,27 @@
 
 
 #pragma mark UITableViewDelegate,UITableViewDataSource
+/**
+ UITableViewDataSource
+ number of rows in section
+ 
+ @param tableView UITableView
+ @param section section index
+ @return number of rows
+ */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return dataArray.count;
 }
 
+
+/**
+ UITableViewDataSource
+ cell for row at index path
+ 
+ @param tableView UITableView
+ @param indexPath NSIndexPath
+ @return UITableViewCell
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SettingLabelAndCheckedTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(SettingLabelAndCheckedTableViewCell.class)];
     
@@ -120,6 +137,13 @@
     return cell;
 }
 
+/**
+ UITableViewDelegate
+ did select row at indexPath
+ 
+ @param tableView UITableView
+ @param indexPath NSIndexPath
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self showLoading];

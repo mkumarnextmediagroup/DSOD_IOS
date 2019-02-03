@@ -486,6 +486,15 @@
     }
 }
 
+/**
+ UITextViewDelegate
+ textView:shouldChangeTextInRange:replacementText:
+
+ @param textView UITextView
+ @param range NSRange
+ @param text text
+ @return You can enter the return YES, not the return NO.
+ */
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@"\n"] ){
         if(textView == emailTextView){

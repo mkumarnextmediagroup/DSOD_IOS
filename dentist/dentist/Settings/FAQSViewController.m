@@ -106,10 +106,25 @@
 
 
 #pragma mark UITableViewDelegate,UITableViewDataSource
+/**
+ UITableViewDataSource
+ numberOfRowsInSection
+
+ @param tableView UITableView
+ @param section section index
+ @return number of rows
+ */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.categoryModel.faqsModelArray.count;
 }
 
+/**
+ UITableViewDataSource
+
+ @param tableView UITableView
+ @param indexPath NSIndexPath
+ @return UITableViewCell
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     FAQSModel *model = self.categoryModel.faqsModelArray[indexPath.row];
     int lastIndex = (int)self.categoryModel.faqsModelArray.count - 1;

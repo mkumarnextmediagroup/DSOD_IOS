@@ -19,12 +19,62 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)openBy:(UIViewController*)vc;
 
 
+
+/**
+ get playback speed data source array
+ @return data source array
+ */
++(NSArray<NSDictionary*>*)playbackSpeedArray;
+
 /**
  get selected playback speed text
  @return playback speed text
  */
 +(NSString*)getCheckedPlaybackSpeedText;
 
+/**
+ Save the selected playback speedy locally
+ */
++(void)saveCheckedPlaybackSpeedText:(NSString*)text;
+
+/**
+ add navigation bar
+ */
+-(void)addNavBar;
+
+/**
+ build views
+ */
+-(void)buildViews;
+
+/**
+ UITableViewDataSource
+ number of rows in section
+
+ @param tableView UITableView
+ @param section section index
+ @return number of rows
+ */
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+
+/**
+ UITableViewDataSource
+ cell for row at index path
+ 
+ @param tableView UITableView
+ @param indexPath NSIndexPath
+ @return UITableViewCell
+ */
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ UITableViewDelegate
+ did select row at indexPath
+ 
+ @param tableView UITableView
+ @param indexPath NSIndexPath
+ */
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

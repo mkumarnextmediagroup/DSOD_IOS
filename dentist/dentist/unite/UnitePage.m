@@ -371,7 +371,7 @@ show the loading Animating
 
 
 
-#pragma mark UITableViewDataSource
+#pragma mark UITableViewDataSource & UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return datas.count;
 }

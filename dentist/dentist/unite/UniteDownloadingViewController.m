@@ -119,23 +119,18 @@
 //    [self loadData];
 }
 
-//- (UIBarButtonItem *)menuButton {
-//    return [self navBarImage:@"menu" target:self action:@selector(rightBtnClick)];
-//}
-
-- (void)rightBtnClick
-{
-    [[SliderListView initSliderView:YES magazineId:self.magazineModel._id] showSliderView];
-//    SliderListView *sliderView = [[SliderListView alloc] initSliderView:YES magazineId:self.magazineModel._id];
-//    [sliderView showSliderView];
-}
-
+/**
+ set download button
+ */
 -(void)downloadBtnAction{
     downloadBtn.hidden = YES;
     downloadingBtn.hidden = NO;
     cancelBtn.hidden = NO;
 }
 
+/**
+ cacel unite download
+ */
 -(void)cancelBtnAction{
 //    downloadBtn.hidden = NO;
 //    downloadingBtn.hidden = YES;
@@ -144,7 +139,9 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
+/**
+ load unite data
+ */
 -(void)loadData{
 
     if(self.magazineModel.cover){
@@ -166,6 +163,9 @@
     });
 }
 
+/**
+ download unite arctive
+ */
 -(void)downloadData
 {
     if(self.magazineModel.cover){
@@ -209,7 +209,9 @@
 }
 
 
-
+/**
+ back button event
+ */
 - (void)onBack:(UIButton *)btn {
     [self.navigationController popViewControllerAnimated:YES];
 }

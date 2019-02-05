@@ -138,7 +138,7 @@ extension ThumViewController{
     }
     
     /**
-     set the navgation title
+     set the navigation title
      */
     func showNavTitle(_ status:Bool?) -> Void {
         if status==true {
@@ -509,7 +509,7 @@ extension ThumViewController {
     }
     
     /**
-     set navgation left bar
+     set navigation left bar
      */
     fileprivate func configureNavBar() {
 //        let appdelegate = UIApplication.shared.delegate as! AppDelegate
@@ -518,7 +518,7 @@ extension ThumViewController {
     }
     
     /**
-     set navgation right bar
+     set navigation right bar
      */
     func rightNavBar(){
         let menuBtnItem1=UIBarButtonItem(image: UIImage(named:"Content-Options"), style: .plain, target: self, action: #selector(openMenuSliderView))

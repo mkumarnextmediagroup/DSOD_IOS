@@ -177,8 +177,16 @@
     self.backgroundColor = UIColor.whiteColor;
     
     NSString* cover = model.cover;
-    [imageView loadUrl:[Proto getFileUrlByObjectId:cover] placeholderImage:@""];
-    [[imageView.layoutUpdate heightEq:imageViewCoverHeight ]install];
+    [imageView loadUrl:[Proto getFileUrlByObjectId:cover] placeholderImage:@"" completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        CGFloat imageheight=self->imageViewCoverHeight;
+        if (image) {
+            self->imageView.image=image;
+            imageheight=(image.size.width>0?(image.size.height/image.size.width*self.frame.size.width):self->imageViewCoverHeight);
+            
+        }
+        [[self->imageView.layoutUpdate heightEq:imageheight ]install];
+    }];
+//    [[imageView.layoutUpdate heightEq:imageViewCoverHeight ]install];
     
 }
    

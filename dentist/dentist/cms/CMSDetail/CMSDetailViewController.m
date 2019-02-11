@@ -242,7 +242,7 @@
         [self.contentView addSubview:picDetailView];
     }
     [picDetailView bind:self.articleInfo];
-    [[[[picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:0] install];
+    [[[[picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:getRectNavHight] install];
     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(picDetailView) install];
 
     if (!myTable) {

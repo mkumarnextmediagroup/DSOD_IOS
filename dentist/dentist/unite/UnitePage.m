@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    NSLog(@"getRectNavAndStatusHight====%@；IPHONE_X=%@",@(getRectNavAndStatusHight),@(IPHONE_X));
     [self setupNavigation];
     
     mTableView = [UITableView new];

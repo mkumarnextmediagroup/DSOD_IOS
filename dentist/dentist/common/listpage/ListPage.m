@@ -56,7 +56,7 @@
     CGFloat _topBarH = 0;
     CGFloat _bottomBarH = 0;
     if (self.navigationController != nil) {
-        _topBarH = NAVHEIGHT;
+        _topBarH = getRectNavAndStatusHight;
     }
     if (self.tabBarController != nil) {
         _bottomBarH = TABLEBAR_HEIGHT;
@@ -237,7 +237,7 @@
     CGFloat _topBarH = 0;
     CGFloat _bottomBarH = 0;
     if (self.navigationController != nil) {
-        _topBarH = NAVHEIGHT;
+        _topBarH = getRectNavAndStatusHight;
     }
     if (self.tabBarController != nil) {
         _bottomBarH = TABLEBAR_HEIGHT;
@@ -284,7 +284,7 @@
     CGFloat _topBarH = 0;
     CGFloat _bottomBarH = 0;
     if (self.navigationController != nil) {
-        _topBarH = NAVHEIGHT;
+        _topBarH = getRectNavAndStatusHight;
     }
     if (self.tabBarController != nil) {
         _bottomBarH = TABLEBAR_HEIGHT;

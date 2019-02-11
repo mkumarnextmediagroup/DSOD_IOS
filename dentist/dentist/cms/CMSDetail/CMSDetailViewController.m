@@ -35,6 +35,7 @@
     UIButton *markButton;
     
     UILabel *titleLabel;
+//    UIView *topVi;
 }
 @end
 
@@ -243,7 +244,7 @@
         [self.contentView addSubview:picDetailView];
     }
     [picDetailView bind:self.articleInfo];
-    [[[[picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
+    [[[[picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-getRectNavStatusHight] install];
     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(picDetailView) install];
 
     if (!myTable) {

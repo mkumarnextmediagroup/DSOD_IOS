@@ -23,7 +23,7 @@ describe(@"Unit Test For SettingController", ^{
     
     context(@"methods", ^{
         
-        it(@"heightForRowAtIndexPath", ^{
+        it(@"heightForRowAtIndexPath", ^{ 
             NSIndexPath *ip = [NSIndexPath indexPathForRow:0 inSection:0];
             CGFloat height = [controller tableView:[UITableView new] heightForRowAtIndexPath:ip];
             [[theValue(height) should] equal:theValue(55)];

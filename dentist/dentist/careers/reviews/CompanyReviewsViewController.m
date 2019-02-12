@@ -51,12 +51,25 @@
 }
 
 
+/**
+ open reviews list of dso page
+
+ @param vc UIViewController
+ @param jobDSOModel jobDSOModel instance
+ */
 +(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel{
     [CompanyReviewsViewController openBy:vc jobDSOModel:jobDSOModel onReviewNumChanged:^(NSInteger reviewNum) {
         
     }];
 }
 
+/**
+ open reviews list of dso page
+
+ @param vc UIViewController
+ @param jobDSOModel jobDSOModel instance
+ @param onReviewNumChanged Comment numbers change callback event
+ */
 +(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel onReviewNumChanged:(void(^)(NSInteger reviewNum))onReviewNumChanged{
     CompanyReviewsViewController *companyReviewsVc = [CompanyReviewsViewController new];
     companyReviewsVc.jobDSOModel = jobDSOModel;
@@ -65,6 +78,11 @@
 }
 
 
+/**
+ view did load
+ add navigation bar
+ build views
+ */
 - (void)viewDidLoad{
     [super viewDidLoad];
     
@@ -79,6 +97,9 @@
     
 }
 
+/**
+ add navigation bar
+ */
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
     item.title = @"REVIEWS";
@@ -107,6 +128,10 @@
 }
 
 
+/**
+ colse page
+ If the number of comments changes, callback onReviewNumChanged function
+ */
 - (void)dismiss {
     if(totalFound > self.jobDSOModel.reviewNum && self.onReviewNumChanged){
         self.onReviewNumChanged(totalFound);
@@ -114,6 +139,9 @@
     [super dismiss];
 }
 
+/**
+ build views
+ */
 -(void)buildViews{
     edge = 18;
     
@@ -134,7 +162,10 @@
     [self setupRefresh];
 }
 
-
+/**
+ build header
+ dso name、star、reivews numbers
+ */
 -(UIView*)buildHeader{
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -169,7 +200,9 @@
     return headerView;
 }
 
-
+/**
+ setup tableview refresh event
+ */
 -(void)setupRefresh{
     refreshControl=[[UIRefreshControl alloc]init];
     [refreshControl addTarget:self action:@selector(firstRefresh) forControlEvents:UIControlEventValueChanged];
@@ -180,24 +213,37 @@
 }
 
 
+/**
+ show loading
+ */
 - (void)showTopIndicator {
     iv.hidden = NO;
     [iv startAnimating];
     isRefreshing = YES;
 }
 
+/**
+ stop loading
+ */
 - (void)hideTopIndicator {
     iv.hidden = YES;
     [iv stopAnimating];
     isRefreshing = NO;
 }
 
+/**
+ first load data
+ */
 -(void)firstRefresh{
     [self getDatas:NO];
     [refreshControl endRefreshing];
 }
 
-
+/**
+ get data from server
+ 
+ @param isMore whether loading more
+ */
 -(void)getDatas:(BOOL)isMore{
     if(isRefreshing){
         return;
@@ -215,6 +261,14 @@
     }];
 }
 
+/**
+ table view reload data
+ Update data source
+ Refresh form
+ 
+ @param newDatas new data
+ @param isMore whether loading more
+ */
 -(void)reloadData:(NSArray*)newDatas isMore:(BOOL)isMore{
     if(newDatas!=nil){
         if(isMore){
@@ -231,6 +285,10 @@
 }
 
 
+/**
+ write review button click event
+ jump to write review page
+ */
 -(void)writeReview{
     WeakSelf
     [CareerAddReviewViewController openBy:self dsoId:self.jobDSOModel.id successCallbak:^{
@@ -242,6 +300,10 @@
 }
 
 
+/**
+ 重置排序条件和过滤条件
+ Reset sorting criteria and filters
+ */
 -(void)resetSortAndFilter{
     self->sortSelectIndex = 0;
     self->sortSelectValue = 0;
@@ -255,9 +317,20 @@
     self->filterValueLabel.text = @"All Reviews";
 }
 
+/**
+ 排序条件点击事件
+ 初始化数据，弹出菜单
+ Sorting condition click event
+ Initialize data, popup menu
+ 
+ @param view Responsive view
+ */
 -(void)sortOnClick:(UIView*)view{
     NSString *dataIcon = @"icon_d_sel";
     NSString *ratingIcon = @"icon_d_sel";
+    
+    //初始化按钮图标
+    //Initialize menu icon
     if(sortSelectIndex==0){
         dataIcon = dateSortDown ?  @"icon_d_sel" :  @"icon_u_sel" ;
         ratingIcon = ratingSortDown ?  @"icon_d_unsel" :  @"icon_u_unsel" ;
@@ -312,6 +385,14 @@
     [sTable showWithFrame:tableFrame];
 }
 
+/**
+ 过滤条件点击事件
+ 初始化数据，弹出菜单
+ filter  click event
+ Initialize data, popup menu
+ 
+ @param view Responsive view
+ */
 -(void)filterOnClick:(UIView*)view{
     
     NSArray *sortArray=@[@{@"text":@"All Reviews"},
@@ -433,7 +514,12 @@
     return cell;
 }
 
-
+/**
+ Handling paged load data
+ 
+ @param scrollView UIScrollView
+ @param decelerate BOOL
+ */
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     // 下拉到最底部时显示更多数据
     if(!isRefreshing && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height))){

@@ -92,20 +92,31 @@
     // Do any additional setup after loading the view.
 }
 
+/**
+ click on a blank place to hide the keyboard
+ */
 -(void)keywordtapCLick
 {
     [self.view endEditing:YES];
 }
 
+/**
+ hide the password tip view
+ */
 - (void)deletePwdReqView:(UIButton *)btn {
     btn.superview.hidden = YES;
 }
 
+/**
+ show the password error tip view
+ */
 - (void)clickReqLabel:(UILabel *)sender {
     
     noticelb.hidden = NO;
     
 }
+
+#pragma mark -----UITextFieldDelegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     
@@ -128,6 +139,9 @@
     
 }
 
+/**
+ click the reset button,that will update the new password
+ */
 - (void)resetBtnClick {
     [self onTextFieldDone:nil];
     if ([codeEdit.text trimed].length == 0) {

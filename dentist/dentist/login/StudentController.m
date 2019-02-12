@@ -80,12 +80,18 @@
 
 }
 
+/**
+ back event
+ */
 - (void)popBtnClick:(id)sender {
     NSLog(@"popBtnClick");
     [self popPage];
 }
 
-
+/**
+ check you it is a student
+ if click yes，go to the registration page from student
+ */
 - (void)clickYes:(id)sender {
 	RegController *c = [RegController new];
 	c.student = YES;
@@ -96,6 +102,10 @@
 	[self presentViewController:c animated:YES completion:nil];
 }
 
+/**
+ check you it is a student
+ if click no，go to the registration page from normal
+ */
 - (void)clickNo:(id)sender {
 	RegController *c = [RegController new];
 	c.student = NO;

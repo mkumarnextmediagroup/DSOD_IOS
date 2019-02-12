@@ -25,36 +25,15 @@
     UILabel *serverLabel;
 }
 
+/**
+ slide left to display server options
+ */
 -(void)lefthandleSwipeFrom:(UISwipeGestureRecognizer *)recognizer
 {
     if(recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
         NSLog(@"swipe left");
         serverLabel.hidden=NO;
     }
-}
-
--(void)keywordtapCLick
-{
-    [self.view endEditing:YES];
-}
-
--(void)showServerView:(UITapGestureRecognizer *)recognizer
-{
-    DentistPickerView *picker = [[DentistPickerView alloc]init];
-    picker.array = @[@"China",@"Amercia"];
-    picker.righTtitle=localStr(@"OK");
-    [picker show:^(NSString *result,NSString *resultname) {
-        
-    } rightAction:^(NSString *result,NSString *resultname) {
-        if([result isEqualToString:@"Amercia"]){
-            putServerDomain(1);
-        }else{
-            putServerDomain(0);
-        }
-        self->serverLabel.text=result;
-    } selectAction:^(NSString *result,NSString *resultname) {
-        
-    }];
 }
 
 - (void)viewDidLoad {
@@ -236,6 +215,7 @@
 	}
 }
 
+#pragma mark -----UITextFieldDelegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 	BOOL err = NO;
@@ -259,11 +239,16 @@
 //    loginButton.enabled = !err;
 }
 
-
+/**
+ back event
+ */
 - (void)clickGoBack:(id)sender {
 	[self dismiss];
 }
 
+/**
+ go to the registration page from student
+ */
 - (void)clickGoReg:(id)sender {
 
 	StudentController *c = [StudentController new];
@@ -271,12 +256,18 @@
 
 }
 
+/**
+ click the CheckBox to check the username and password are legal
+ */
 - (void)clickCheckBox:(id)sender {
 
 	BOOL flag = [self shouldEableloginBtn];
 	_loginButton.enabled = flag;
 }
 
+/**
+ check the username and password are legal
+*/
 - (BOOL)shouldEableloginBtn {
 
 	NSString *email = [_emailEdit.text trimed];
@@ -296,7 +287,9 @@
 
 
 
-
+/**
+ click the linkedin event
+ */
 - (void)clickLogin:(id)sender {
 	NSLog(@"clickLogin");
 	NSString *email = [_emailEdit.text trimed];
@@ -334,6 +327,9 @@
 
 }
 
+/**
+ click the linkedin event
+ */
 - (void)clickLinkedin:(id)sender {
 //    NSLog(@"clickLinkedin ");
 //    NoIntenetViewController *intenet = [NoIntenetViewController new];
@@ -419,18 +415,26 @@
 
 }
 
+/**
+ click the forgot password event
+ */
 - (void)clickForgot:(id)sender {
 	NSLog(@"clickForgot");
 	ForgotViewController *forgot = [ForgotViewController new];
 	[self openPage:forgot];
 }
 
-
+/**
+ check thethe device supports biometrics
+ */
 - (BOOL)isSupportBiometrics {
 	NSError *error;
 	return [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
 }
 
+/**
+ logining by linked
+ */
 - (void)linkedinLogin:(NSString *)userid token:(NSString *)token {
 
 	[self showIndicator];
@@ -447,6 +451,10 @@
 
 }
 
+
+/**
+login event
+ */
 - (void)login:(NSString *)userName password:(NSString *)pwd {
     [self showIndicator];
     
@@ -509,7 +517,9 @@
 
 }
 
-
+/**
+ check the newwork status
+ */
 -(BOOL)reachabilityStatus{
     NetworkStatus status = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus];
     return status != NotReachable;
@@ -518,6 +528,12 @@
 NSString *retryUserName;
 NSString *retryPwd;
 UIView *networkErrorView;
+
+/**
+ this is the error tip view,there two button action ,Retry action & dismiss action
+ click the Retry action is log in again
+ click the Dismiss action is hide this error view
+ */
 -(void)showErrorMsgView:(NSString*)userName pwd:(NSString*)pwd{
     retryUserName = userName;
     retryPwd = pwd;
@@ -548,13 +564,49 @@ UIView *networkErrorView;
     [[[[[dismissBtn.layoutMaker below:label offset:15]toRightOf:retryBtn offset:10]rightParent:-23]heightEq:44] install];
 }
 
+/**
+ click again to log in
+ */
 -(void)retryLogin{
     [self dismissErrorView];
     [self login:retryUserName password:retryPwd];
 }
 
+/**
+ hide the error view
+ */
 -(void)dismissErrorView{
     [networkErrorView removeFromSuperview];
+}
+
+/**
+ Click on a blank place to hide the keyboard
+ */
+-(void)keywordtapCLick
+{
+    [self.view endEditing:YES];
+}
+
+/**
+ show the pickerview to choose a different server
+ */
+-(void)showServerView:(UITapGestureRecognizer *)recognizer
+{
+    DentistPickerView *picker = [[DentistPickerView alloc]init];
+    picker.array = @[@"China",@"Amercia"];
+    picker.righTtitle=localStr(@"OK");
+    [picker show:^(NSString *result,NSString *resultname) {
+        
+    } rightAction:^(NSString *result,NSString *resultname) {
+        if([result isEqualToString:@"Amercia"]){
+            putServerDomain(1);
+        }else{
+            putServerDomain(0);
+        }
+        self->serverLabel.text=result;
+    } selectAction:^(NSString *result,NSString *resultname) {
+        
+    }];
 }
 
 @end

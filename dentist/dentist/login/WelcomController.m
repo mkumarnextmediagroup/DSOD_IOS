@@ -93,10 +93,16 @@
 
 }
 
+/**
+  go to the registration page from student
+ */
 - (void)clickStudent:(id)sender {
 	[self openPage:[StudentController new]];
 }
 
+/**
+ click login button, go to the registration page from student
+ */
 - (void)clickLogin:(id)sender {
 	LoginController *c = [LoginController new];
 	[self openPage:c];

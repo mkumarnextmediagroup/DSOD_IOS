@@ -37,11 +37,21 @@
 
 
 
+/**
+ view did load
+ call buildview function
+ */
 - (void)viewDidLoad{
     edge = 18;
     [self buildView];
 }
 
+/**
+ set dso id
+ get all jobs of dso
+
+ @param companyId dso id
+ */
 -(void)setCompanyId:(NSString *)companyId
 {
     _companyId=companyId;
@@ -60,6 +70,9 @@
 }
 
 
+/**
+ build views
+ */
 -(void)buildView{
     edge = 18;
     
@@ -76,6 +89,10 @@
    
 }
 
+/**
+ 初始化没有数据时的默认布局
+ Initialize the default layout when there is no data
+ */
 - (void)createEmptyNotice
 {
     [tableView jr_configureWithPlaceHolderBlock:^UIView * _Nonnull(UITableView * _Nonnull sender) {
@@ -131,6 +148,12 @@
     return sectionHeaderView;
 }
 
+/**
+ 设置标题，显示职位数量
+ Set the title to show the number of jobs
+
+ @param jobcount <#jobcount description#>
+ */
 -(void)setJobCountTitle:(NSInteger)jobcount
 {
     if (jobcount>0) {
@@ -171,6 +194,9 @@
     }
 }
 
+/**
+ Refresh table data
+ */
 -(void)reloadData
 {
     if (self->tableView) {
@@ -179,6 +205,13 @@
 }
 
 #pragma mark - 滑动方法
+/**
+ UIScrollViewDelegate
+ scroll view did scroll
+ Handling paged load data
+ 
+ @param scrollView UIScrollView
+ */
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (!self.isCanScroll) {
         scrollView.contentOffset = CGPointZero;
@@ -233,7 +266,10 @@
         
     }
 }
-
+/**
+ 滚动到初始位置
+ Scroll to the initial position
+ */
 -(void)contentOffsetToPointZero{
     tableView.contentOffset = CGPointZero;
 }

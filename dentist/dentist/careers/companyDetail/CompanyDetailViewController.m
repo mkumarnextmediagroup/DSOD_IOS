@@ -56,7 +56,13 @@
     
 }
 
-
+/**
+ 打开公司详情页面
+ open the dso details page
+ 
+ @param vc UIViewController
+ @param companyId dso id
+ */
 +(void)openBy:(UIViewController*)vc companyId:(NSString*)companyId{
     if(companyId){
         CompanyDetailViewController *detailPageVc = [CompanyDetailViewController new];
@@ -68,7 +74,12 @@
 }
 
 
-
+/**
+ build views
+ add navigationbar
+ sutup CompanyDetailDescriptionViewController、CompanyDetailJobsViewController、CompanyDetailReviewsViewController
+ get dso information
+ */
 - (void)viewDidLoad {
     [super viewDidLoad];
     edge = 18;
@@ -82,6 +93,9 @@
 
 }
 
+/**
+ load dso information
+ */
 -(void)loadData{
     [self showLoading];
     [Proto findCompanyById:self.companyId completed:^(JobDSOModel * _Nullable companyModel) {
@@ -93,6 +107,9 @@
     }];
 }
 
+/**
+ add navigation bar
+ */
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
     item.title = @"DSO COMPANY";
@@ -100,7 +117,9 @@
 }
 
 
-
+/**
+ build views
+ */
 -(void)buildView{
     
     contentView  = self.view.addView;
@@ -120,7 +139,11 @@
     
 }
 
-
+/**
+ build  header view of table view, set datas
+ 
+ @return header view
+ */
 -(UIView*)buildHeader{
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, CGFLOAT_MIN)];
     
@@ -207,7 +230,12 @@
     return headerView;
 }
 
-
+/**
+ 显示视频、在html代码中找出视频的内容调整格式并且显示
+ Display the video, find the content of the video in the html code, adjust the format and display
+ 
+ @param videoHtmlString 视频内容的html代码；Video html code
+ */
 -(void)showVideo:(NSString*)videoHtmlString{
     if(videoHtmlString){
         NSRange iframeStart = [videoHtmlString rangeOfString:@"<iframe"];
@@ -233,12 +261,19 @@
 
 
 
-
+/**
+ 搜索按钮点击事件
+ Search button click event
+ */
 - (void)searchClick{
     CareerSearchViewController *searchVC=[CareerSearchViewController new];
     [self.navigationController pushViewController:searchVC animated:YES];
 }
 
+/**
+ 打开地图界面并在地图中显示职位位置
+ Open the map page and display the position in the map
+ */
 -(void)showLocation{
     if(companyModel && companyModel.position && companyModel.position.count==2){
         double longitude = ((NSString*)companyModel.position[0]).doubleValue;
@@ -249,7 +284,10 @@
     }
 }
 
-
+/**
+ 配置表格视图的内容控制器
+ Configuring the content controller for the table view
+ */
 -(void)setupTableContentVC{
     self.isCanScroll = YES;
     self.descriptionVC = [CompanyDetailDescriptionViewController new];
@@ -283,7 +321,12 @@
     };
 }
 
-
+/**
+ 表格内容布局视图
+ Table cell view
+ 
+ @return UIView
+ */
 -(UIView*)tableContentView{
     if(!_tableContentView){
         _tableContentView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT - NAVHEIGHT - 50)];
@@ -311,6 +354,12 @@
 }
 
 #pragma mark DentistTabViewDelegate
+/**
+ 页签切换时候，控制视图显示和隐藏
+ Control view display and hide when tabs are switched
+ 
+ @param index Currently selected index
+ */
 - (void)didDentistSelectItemAtIndex:(NSInteger)index{
     currTabIndex = (int)index;
     switch (currTabIndex) {
@@ -402,6 +451,12 @@
 }
 
 #pragma mark CompanyDetailJobsViewDelegate
+/**
+ CompanyDetailJobsViewDelegate
+ job cell click event
+
+ @param jobId job id
+ */
 -(void)CompanyDetailJobsViewDidSelectAction:(NSString *)jobId
 {
     [JobDetailViewController presentBy:self.parentViewController jobId:jobId closeBack:^(NSString * jobid,NSString *unFollowjobid,NSString *Followjobid) {

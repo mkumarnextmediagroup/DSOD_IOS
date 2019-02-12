@@ -36,6 +36,13 @@
     
 }
 
+/**
+ open dso review detail page
+
+ @param vc UIViewController
+ @param jobDSOModel JobDSOModel instacne
+ @param reviewModel CompanyReviewModel instance
+ */
 +(void)openBy:(UIViewController*)vc jobDSOModel:(JobDSOModel*)jobDSOModel companyReviewModel:(CompanyReviewModel*)reviewModel{
     CompanyReviewsDetailViewController *reviewDetailVc = [CompanyReviewsDetailViewController new];
     reviewDetailVc.reviewModel = reviewModel;
@@ -44,6 +51,12 @@
     
 }
 
+/**
+ view did load
+ add navigation bar
+ build views
+ load data
+ */
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -58,7 +71,9 @@
     [self loadData];
 }
 
-
+/**
+ add navigation bar
+ */
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
     item.title = self.jobDSOModel.name;
@@ -66,6 +81,9 @@
     
 }
 
+/**
+ build views
+ */
 -(void)buildViews{
     scrollView = [UIScrollView new];
     [self.view addSubview:scrollView];
@@ -159,6 +177,9 @@
     [contentView.layoutUpdate.bottom.greaterThanOrEqualTo(recommendsBtn) install];
 }
 
+/**
+ load data
+ */
 -(void)loadData{
     
     reviewTitleLabel.text = [NSString stringWithFormat:@"“%@”",[self.reviewModel.reviewTitle trimed]];

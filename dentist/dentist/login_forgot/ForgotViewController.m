@@ -23,6 +23,9 @@
 
 @implementation ForgotViewController
 
+/**
+ click on a blank place to hide the keyboard
+ */
 -(void)keywordtapCLick
 {
     [self.view endEditing:YES];
@@ -99,10 +102,16 @@
 	// Do any additional setup after loading the view.
 }
 
+/**
+ back event
+ */
 - (void)clickGoBack:(id)sender {
 	[self dismiss];
 }
 
+/**
+ click the send button
+ */
 - (void)sendPwdClick {
 	NSString *email = [emailEdit.text trimed];
 	if (email.length < 5 || !email.matchEmail) {
@@ -116,6 +125,9 @@
 
 }
 
+/**
+ click the send button,that will send the code to your email
+ */
 - (void)sendCode:(NSString *)email {
 	[self showIndicator];
 	backTask(^() {
@@ -131,6 +143,9 @@
     });
 }
 
+/**
+check the code is right ,that will go to the reset password page
+ */
 - (void)onSendCodeOK:(NSString *)email {
 	[self alertOK:nil msg:localStr(@"newPwdSend") okText:nil onOK:^() {
 		ResetPwdViewController *resetPwd = [ResetPwdViewController new];
@@ -139,6 +154,7 @@
 	}];
 }
 
+#pragma mark -----UITextFieldDelegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 

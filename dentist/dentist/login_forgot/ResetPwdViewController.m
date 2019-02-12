@@ -118,16 +118,23 @@
 	// Do any additional setup after loading the view.
 }
 
+/**
+ hide the password tip view
+ */
 - (void)deletePwdReqView:(UIButton *)btn {
     btn.superview.hidden = YES;
 }
 
+/**
+ show the password error tip view
+ */
 - (void)clickReqLabel:(UILabel *)sender {
     
     noticelb.hidden = NO;
     
 }
 
+#pragma mark -----UITextFieldDelegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 
@@ -158,6 +165,9 @@
 
 }
 
+/**
+ click the reset button,that will reset the new password
+ */
 - (void)resetBtnClick {
 	[self onTextFieldDone:nil];
 	if (!isContinue) {
@@ -181,12 +191,18 @@
 	});
 }
 
+/**
+ if the password is right ,that will go back to the welcome page to login
+ */
 - (void)onResetOK {
 	[self alertOK:nil msg:localStr(@"resetOK") okText:nil onOK:^() {
 		[[AppDelegate instance] switchToWelcomePage];
 	}];
 }
 
+/**
+ go to the contact page
+ */
 - (void)contactBtnClick {
 	ContactViewController *contact = [ContactViewController new];
 	[self openPage:contact];

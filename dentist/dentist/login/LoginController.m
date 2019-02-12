@@ -580,7 +580,7 @@ UIView *networkErrorView;
 }
 
 /**
- Click on a blank place to hide the keyboard
+ click on a blank place to hide the keyboard
  */
 -(void)keywordtapCLick
 {

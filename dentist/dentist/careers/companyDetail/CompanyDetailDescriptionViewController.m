@@ -26,12 +26,18 @@
 }
 
 
+/**
+ view did load
+ */
 - (void)viewDidLoad{
     edge = 18;
     [self buildView];
 }
 
 
+/**
+ build views
+ */
 -(void)buildView{
     edge = 18;
     
@@ -46,23 +52,44 @@
     
 }
 
-//subview overwrite
+/**
+     Get internal padding
+     subview overwrite
+
+     @return UIEdgeInsets
+*/
 -(UIEdgeInsets)edgeInsetsMake{
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
+/**
+ set data
+
+ @param description text
+ */
 -(void)setData:(NSString*) description{
     if(description){
         [self showContent:description];
     }
 }
 
+/**
+ show content，load html
+
+ @param html html content
+ */
 -(void)showContent:(NSString*)html{
     [mywebView loadHTMLString:[NSString career_DescriptionHtml:html] baseURL:nil];
 }
 
 
 #pragma mark - 滑动方法
+/**
+ UIScrollViewDelegate
+ scroll view did scroll
+ 
+ @param scrollView UIScrollView
+ */
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (!self.isCanScroll) {
         scrollView.contentOffset = CGPointZero;
@@ -78,6 +105,10 @@
     }
 }
 
+/**
+ 滚动到初始位置
+ Scroll to the initial position
+ */
 -(void)contentOffsetToPointZero{
     mywebView.scrollView.contentOffset = CGPointZero;
 }

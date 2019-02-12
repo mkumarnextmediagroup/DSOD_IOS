@@ -66,6 +66,9 @@
 	[self bindData];
 }
 
+/**
+ display the profile view
+ */
 - (void)buildViews {
     
 
@@ -223,7 +226,7 @@
 	[self layoutLinearVertical];
 }
 
-
+#pragma mark -----UITextFieldDelegate
 -(void)textFieldDidEditing:(UITextField *)textField
 {
     if (textField.tag == PHONEFIELDTag) {
@@ -252,6 +255,14 @@
     }
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [super textFieldDidEndEditing:textField];
+    _userInfo.fullName = nameView.edit.textTrimed;
+    _userInfo.phone = _phoneView.edit.textReplace;
+    _userInfo.emailContact = emailView.edit.textTrimed;
+    [userView reset:[self getProfilePercent]];
+}
+
 - (GroupLabelView *)addGroupTitle:(NSString *)title {
 	GroupLabelView *v = [GroupLabelView new];
 	v.label.text = title;
@@ -274,7 +285,9 @@
     }
 }
 
-
+/**
+ reload the address info
+ */
 - (void)bindData {
     
     
@@ -360,15 +373,9 @@
 
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-	[super textFieldDidEndEditing:textField];
-	_userInfo.fullName = nameView.edit.textTrimed;
-	_userInfo.phone = _phoneView.edit.textReplace;
-	_userInfo.emailContact = emailView.edit.textTrimed;
-	[userView reset:[self getProfilePercent]];
-}
-
-
+/**
+ get the profile info percent
+ */
 - (float)getProfilePercent {
 
 	int count = 0;
@@ -432,7 +439,9 @@
 	return (float) count / countParent;
 }
 
-
+/**
+ go to the speciality choose page
+ */
 - (void)selectText:(NSString *)title value:(NSString *)value array:(NSArray *)array result:(void (^)(NSString *))result {
 	SearchPage *c = [SearchPage new];
 	c.titleText = @"SPECIALITY";
@@ -448,6 +457,9 @@
 	[self pushPage:c];
 }
 
+/**
+ click the specialty action
+ */
 - (void)clickSpec:(id)sender {
 	[self.view endEditing:YES];
 	[self showIndicator];
@@ -463,6 +475,10 @@
 	});
 }
 
+/**
+ go to the Experience choose page
+ you can add the new experience form you profile
+ */
 - (void)clickAddExp:(id)sender {
 	[self.view endEditing:YES];
 	EditExperiencePage *p = [EditExperiencePage new];
@@ -475,6 +491,10 @@
 	[self pushPage:p];
 }
 
+/**
+ go to the Experience choose page
+ you can edit the experience form you profile
+ */
 - (void)clickExp:(IconTitleMsgDetailCell *)sender {
 	[self.view endEditing:YES];
 	int n = sender.argN;
@@ -494,6 +514,9 @@
 	[self pushPage:p];
 }
 
+/**
+ add the new Experience to the array,and reload the data
+ */
 - (void)addExp:(Experience *)e {
 	Log(@"Add Exp: ", @(e.useDSO), e.pracName, e.dsoName);
 	NSMutableArray *a = [NSMutableArray arrayWithArray:_userInfo.experienceArray];
@@ -514,6 +537,9 @@
 	[self bindData];
 }
 
+/**
+ delete Experience from the array,and reload the data
+ */
 - (void)deleteExp:(Experience *)e {
 	NSMutableArray *a = [NSMutableArray arrayWithArray:_userInfo.experienceArray];
 	[a removeObject:e];
@@ -526,6 +552,10 @@
 
 }
 
+/**
+ go to the Residency choose page
+ you can edit the Residency form you profile
+ */
 - (void)clickResidency:(IconTitleMsgDetailCell *)sender {
 	[self.view endEditing:YES];
 	NSInteger n = sender.argN;
@@ -547,6 +577,10 @@
 	[self pushPage:editRes];
 }
 
+/**
+ go to the Residency choose page
+ you can edit the Residency form you profile
+ */
 - (void)clickAddResidency:(id)sender {
 	[self.view endEditing:YES];
 
@@ -559,6 +593,9 @@
 	[self pushPage:editRes];
 }
 
+/**
+ delete Residency from array,and reload the data
+ */
 - (void)deleteResidency:(Residency *)r {
 	NSMutableArray *a = [NSMutableArray arrayWithArray:_userInfo.residencyArray];
 	[a removeObject:r];
@@ -570,6 +607,9 @@
 	[self bindData];
 }
 
+/**
+ add the Residency to array,and reload the data
+ */
 - (void)addResidency:(Residency *)r {
 	NSMutableArray *ar = [NSMutableArray arrayWithArray:_userInfo.residencyArray];
 
@@ -589,6 +629,9 @@
 	[self bindData];
 }
 
+/**
+ add the Education to array,and reload the data
+ */
 - (void)addEducation:(Education *)e {
 	NSMutableArray *ar = [NSMutableArray arrayWithArray:_userInfo.educationArray];
 	if (ar.count > 0) {
@@ -605,6 +648,9 @@
 	[self bindData];
 }
 
+/**
+ delete the Education from array,and reload the data
+ */
 - (void)deleteEducation:(Education *)e {
 	NSMutableArray *a = [NSMutableArray arrayWithArray:_userInfo.educationArray];
 	[a removeObject:e];
@@ -616,6 +662,9 @@
 	[self bindData];
 }
 
+/**
+ sort the array by time
+ */
 - (NSMutableArray *)sortArrayByTime:(NSMutableArray *)compArr {
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"toYear" ascending:NO];
 	NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
@@ -623,6 +672,10 @@
 	return [compArr sortedArrayUsingDescriptors:sortDescriptors];
 }
 
+/**
+ go to the Education info page,
+ you can add the new Education
+ */
 - (void)clickAddEducation:(id)sender {
 	[self.view endEditing:YES];
 	EditEduViewController *p = [EditEduViewController new];
@@ -633,6 +686,10 @@
 	[self pushPage:p];
 }
 
+/**
+ go to the Education info page,
+ you can edit the Education
+ */
 - (void)clickEdu:(IconTitleMsgDetailCell *)sender {
 	[self.view endEditing:YES];
 	NSInteger n = sender.argN;
@@ -650,6 +707,9 @@
 	[self pushPage:p];
 }
 
+/**
+ go to the Address info page from practice
+ */
 - (void)clickPraticeAddress:(id)sender {
 	[self.view endEditing:YES];
 //    HttpResult *result = [Proto getStateAndCity];
@@ -664,11 +724,16 @@
 	[self pushPage:p];
 }
 
-
+/**
+ back event
+ */
 - (void)onBack:(id)sender {
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
+/**
+ save the profile info where you edit the info
+ */
 - (void)onSave:(id)sender {
 
 	[self.view endEditing:YES];
@@ -821,6 +886,10 @@
 	});
 }
 
+/**
+ click the use photo
+ you can update the photo by camera or gallery
+ */
 - (void)editPortrait:(id)sender {
 
 	Confirm *cf = [Confirm new];
@@ -835,6 +904,9 @@
 
 }
 
+/**
+ the alert view ,will ask you update the photo by camera or gallery;
+ */
 - (void)callActionSheetFunc {
 	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
 
@@ -896,6 +968,9 @@
 
 }
 
+/**
+ update the user photo and display it
+ */
 - (void)afterSelectDo:(UIImage *)image
 {
     _selectImage = image;
@@ -927,6 +1002,9 @@
 	[UIImagePNGRepresentation(imagesave) writeToFile:imagePath atomically:YES];
 }
 
+/**
+ reload the user photo
+ */
 - (void)uploadHeaderImage:(NSString *)url {
 	[self showIndicator];
 	backTask(^() {

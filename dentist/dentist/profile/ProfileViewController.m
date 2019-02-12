@@ -24,7 +24,9 @@
 
 @implementation ProfileViewController
 
-
+/**
+ go to the profile edit page
+ */
 - (void)onClickEdit:(id)sender {
 	ProfileEditPage *edit = [ProfileEditPage new];
 	[self pushPage:edit];
@@ -53,6 +55,9 @@
 	[self buildViews];
 	[self layoutLinearVertical];
 
+    /**
+     get the profile info
+     */
 	[self showIndicator];
 	backTask(^() {
 		[Proto getProfileInfo];
@@ -65,6 +70,9 @@
 
 }
 
+/**
+ back event
+ */
 - (void)backToFirst
 {
     NSArray *viewcontrollers=self.navigationController.viewControllers;
@@ -88,6 +96,9 @@
 	return v;
 }
 
+/**
+ display the profile view
+ */
 - (void)buildViews {
 
 	_userInfo = [Proto lastUserInfo];

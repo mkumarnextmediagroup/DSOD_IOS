@@ -494,6 +494,14 @@
 		A314772A21A6A1EC0046942C /* fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = A314772921A6A1EC0046942C /* fullscreen.png */; };
 		A314772C21A6A2D50046942C /* thumbnails.png in Resources */ = {isa = PBXBuildFile; fileRef = A314772B21A6A2D50046942C /* thumbnails.png */; };
 		A314772E21A6A3C80046942C /* bookmark-active.png in Resources */ = {isa = PBXBuildFile; fileRef = A314772D21A6A3C80046942C /* bookmark-active.png */; };
+		A338E22B22142BA700FCCCA0 /* lms-bookmarks-light.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22322142BA600FCCCA0 /* lms-bookmarks-light.png */; };
+		A338E22C22142BA700FCCCA0 /* lms-catalog-light.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22422142BA600FCCCA0 /* lms-catalog-light.png */; };
+		A338E22D22142BA700FCCCA0 /* lms-bookmarks.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22522142BA600FCCCA0 /* lms-bookmarks.png */; };
+		A338E22E22142BA700FCCCA0 /* lms-my-courses-light.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22622142BA600FCCCA0 /* lms-my-courses-light.png */; };
+		A338E22F22142BA700FCCCA0 /* lms-my-courses.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22722142BA600FCCCA0 /* lms-my-courses.png */; };
+		A338E23022142BA700FCCCA0 /* lms-catalog.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22822142BA700FCCCA0 /* lms-catalog.png */; };
+		A338E23122142BA700FCCCA0 /* lms-downloads-light.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22922142BA700FCCCA0 /* lms-downloads-light.png */; };
+		A338E23222142BA700FCCCA0 /* lms-downloads.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22A22142BA700FCCCA0 /* lms-downloads.png */; };
 		A36B9D9C21CA092A00A54263 /* icons8-user.png in Resources */ = {isa = PBXBuildFile; fileRef = A36B9D9621CA092900A54263 /* icons8-user.png */; };
 		A36B9D9D21CA092A00A54263 /* icons8-user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A36B9D9721CA092900A54263 /* icons8-user@2x.png */; };
 		A36B9D9E21CA092A00A54263 /* icons8-user@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A36B9D9821CA092900A54263 /* icons8-user@3x.png */; };
@@ -1714,6 +1722,14 @@
 		A314772921A6A1EC0046942C /* fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen.png; sourceTree = "<group>"; };
 		A314772B21A6A2D50046942C /* thumbnails.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnails.png; sourceTree = "<group>"; };
 		A314772D21A6A3C80046942C /* bookmark-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookmark-active.png"; sourceTree = "<group>"; };
+		A338E22322142BA600FCCCA0 /* lms-bookmarks-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-bookmarks-light.png"; sourceTree = "<group>"; };
+		A338E22422142BA600FCCCA0 /* lms-catalog-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-catalog-light.png"; sourceTree = "<group>"; };
+		A338E22522142BA600FCCCA0 /* lms-bookmarks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-bookmarks.png"; sourceTree = "<group>"; };
+		A338E22622142BA600FCCCA0 /* lms-my-courses-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-my-courses-light.png"; sourceTree = "<group>"; };
+		A338E22722142BA600FCCCA0 /* lms-my-courses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-my-courses.png"; sourceTree = "<group>"; };
+		A338E22822142BA700FCCCA0 /* lms-catalog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-catalog.png"; sourceTree = "<group>"; };
+		A338E22922142BA700FCCCA0 /* lms-downloads-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-downloads-light.png"; sourceTree = "<group>"; };
+		A338E22A22142BA700FCCCA0 /* lms-downloads.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-downloads.png"; sourceTree = "<group>"; };
 		A36B9D9621CA092900A54263 /* icons8-user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-user.png"; sourceTree = "<group>"; };
 		A36B9D9721CA092900A54263 /* icons8-user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-user@2x.png"; sourceTree = "<group>"; };
 		A36B9D9821CA092900A54263 /* icons8-user@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-user@3x.png"; sourceTree = "<group>"; };
@@ -3868,6 +3884,14 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A338E22322142BA600FCCCA0 /* lms-bookmarks-light.png */,
+				A338E22522142BA600FCCCA0 /* lms-bookmarks.png */,
+				A338E22422142BA600FCCCA0 /* lms-catalog-light.png */,
+				A338E22822142BA700FCCCA0 /* lms-catalog.png */,
+				A338E22922142BA700FCCCA0 /* lms-downloads-light.png */,
+				A338E22A22142BA700FCCCA0 /* lms-downloads.png */,
+				A338E22622142BA600FCCCA0 /* lms-my-courses-light.png */,
+				A338E22722142BA600FCCCA0 /* lms-my-courses.png */,
 				18E3405221EB578D00696E04 /* arrow_down_gray@2x.png */,
 				18E3405421EB578D00696E04 /* arrow_down_gray@3x.png */,
 				18E3405121EB578C00696E04 /* arrow_up_gray@2x.png */,
@@ -5221,6 +5245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A338E22C22142BA700FCCCA0 /* lms-catalog-light.png in Resources */,
 				4EBCE6B7212A8A4700A0672D /* close_white@2x.png in Resources */,
 				1863939E21B02D6E00512CBB /* icon_attention.png in Resources */,
 				4EBCE6E2212EABF100A0672D /* delete@2x.png in Resources */,
@@ -5274,6 +5299,7 @@
 				4E528B23217074F2008C151B /* fastBack@2x.png in Resources */,
 				18A0DBAD21B23A140065B2BD /* career_location_bg_small.png in Resources */,
 				C5EEA304546737C29C822865 /* inkedin@3x.png in Resources */,
+				A338E22D22142BA700FCCCA0 /* lms-bookmarks.png in Resources */,
 				4EBCE6E3212EABF100A0672D /* delete@3x.png in Resources */,
 				18CFB0FB216F3B69002CC9D0 /* foryou-light.png in Resources */,
 				4E2351AD213A7E0C003BA59B /* unSelect@2x.png in Resources */,
@@ -5441,6 +5467,7 @@
 				E11E1EC34DFC2D9A69DA0157 /* b_light@3x.png in Resources */,
 				E11E11F71BFF2211010C52D6 /* b.png in Resources */,
 				E11E1B804B5E1ED49BA54752 /* b@2x.png in Resources */,
+				A338E23222142BA700FCCCA0 /* lms-downloads.png in Resources */,
 				E11E1A977657FA96734E2F52 /* b@3x.png in Resources */,
 				18DFACC121E8D10400EF528A /* icon_arrow_up@3x.png in Resources */,
 				A36B9D9D21CA092A00A54263 /* icons8-user@2x.png in Resources */,
@@ -5508,11 +5535,13 @@
 				A314772821A6A18B0046942C /* share.png in Resources */,
 				1863939921B02D6E00512CBB /* icon_share_white@3x.png in Resources */,
 				4E51695F21B14644005B8533 /* career-image@2x.png in Resources */,
+				A338E22B22142BA700FCCCA0 /* lms-bookmarks-light.png in Resources */,
 				4EF1098C21B0D3900013C34C /* experence_career@3x.png in Resources */,
 				4E2EF503215E1BF000676A4E /* downLoadIcon@2x.png in Resources */,
 				A3B340D221C3E39D008EB36A /* noun_receipt.png in Resources */,
 				4E36C0C521DF6419003451E6 /* Setting_share@3x.png in Resources */,
 				18EEFCA521CD0746007F5E2B /* icon_sort@2x.png in Resources */,
+				A338E23122142BA700FCCCA0 /* lms-downloads-light.png in Resources */,
 				E11E11E0BE3CABDABF84C0B6 /* setting_light@3x.png in Resources */,
 				A3E752F3217E35010087713D /* Article.png in Resources */,
 				18DE4D14216DFFE400A6C61D /* nonDownload@3x.png in Resources */,
@@ -5573,10 +5602,12 @@
 				18ABEAB9219560D100BF3E60 /* SF-UI-Text-Regular.ttf in Resources */,
 				4E528B17216F416F008C151B /* circleWhite.png in Resources */,
 				18E3405721EB578D00696E04 /* arrow_up_gray@3x.png in Resources */,
+				A338E22F22142BA700FCCCA0 /* lms-my-courses.png in Resources */,
 				4E51695521B13704005B8533 /* more-profiles@2x.png in Resources */,
 				E11E153EC0D9A350423FE20A /* Img-User-demo@3x.png in Resources */,
 				E11E1CAC9B2596D56900A33E /* in_large.png in Resources */,
 				E11E130E848ED2D497242E65 /* in_large@2x.png in Resources */,
+				A338E22E22142BA700FCCCA0 /* lms-my-courses-light.png in Resources */,
 				E11E11881EA8101A47CFB4AF /* in_large@3x.png in Resources */,
 				A3BDC56121D7AC2A0077ED25 /* Applied.png in Resources */,
 				18DE4D12216DFFE400A6C61D /* nonDownload@2x.png in Resources */,
@@ -5823,6 +5854,7 @@
 				C5EEA219A0A7D4B6217215BF /* book9-light@2x.png in Resources */,
 				4E94AE2B21AE74C2009CAB7F /* more@3x.png in Resources */,
 				186393A521B02EC100512CBB /* icon_arrow_down@3x.png in Resources */,
+				A338E23022142BA700FCCCA0 /* lms-catalog.png in Resources */,
 				4E94AE3C21AE7E35009CAB7F /* career-search@3x.png in Resources */,
 				C5EEA2A2F798A25B64B5EC6E /* book9-light@3x.png in Resources */,
 				4E528B0F216E0801008C151B /* knob.png in Resources */,

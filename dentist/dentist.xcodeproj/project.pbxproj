@@ -502,6 +502,9 @@
 		A338E23022142BA700FCCCA0 /* lms-catalog.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22822142BA700FCCCA0 /* lms-catalog.png */; };
 		A338E23122142BA700FCCCA0 /* lms-downloads-light.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22922142BA700FCCCA0 /* lms-downloads-light.png */; };
 		A338E23222142BA700FCCCA0 /* lms-downloads.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22A22142BA700FCCCA0 /* lms-downloads.png */; };
+		A338E2352214303200FCCCA0 /* lms-search-light.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E2332214303100FCCCA0 /* lms-search-light.png */; };
+		A338E2362214303200FCCCA0 /* lms-search.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E2342214303200FCCCA0 /* lms-search.png */; };
+		A338E2392214304C00FCCCA0 /* EducationSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A338E2382214304C00FCCCA0 /* EducationSearchViewController.m */; };
 		A36B9D9C21CA092A00A54263 /* icons8-user.png in Resources */ = {isa = PBXBuildFile; fileRef = A36B9D9621CA092900A54263 /* icons8-user.png */; };
 		A36B9D9D21CA092A00A54263 /* icons8-user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A36B9D9721CA092900A54263 /* icons8-user@2x.png */; };
 		A36B9D9E21CA092A00A54263 /* icons8-user@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A36B9D9821CA092900A54263 /* icons8-user@3x.png */; };
@@ -1730,6 +1733,10 @@
 		A338E22822142BA700FCCCA0 /* lms-catalog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-catalog.png"; sourceTree = "<group>"; };
 		A338E22922142BA700FCCCA0 /* lms-downloads-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-downloads-light.png"; sourceTree = "<group>"; };
 		A338E22A22142BA700FCCCA0 /* lms-downloads.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-downloads.png"; sourceTree = "<group>"; };
+		A338E2332214303100FCCCA0 /* lms-search-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-search-light.png"; sourceTree = "<group>"; };
+		A338E2342214303200FCCCA0 /* lms-search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-search.png"; sourceTree = "<group>"; };
+		A338E2372214304C00FCCCA0 /* EducationSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationSearchViewController.h; sourceTree = "<group>"; };
+		A338E2382214304C00FCCCA0 /* EducationSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationSearchViewController.m; sourceTree = "<group>"; };
 		A36B9D9621CA092900A54263 /* icons8-user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-user.png"; sourceTree = "<group>"; };
 		A36B9D9721CA092900A54263 /* icons8-user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-user@2x.png"; sourceTree = "<group>"; };
 		A36B9D9821CA092900A54263 /* icons8-user@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-user@3x.png"; sourceTree = "<group>"; };
@@ -3884,6 +3891,8 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A338E2332214303100FCCCA0 /* lms-search-light.png */,
+				A338E2342214303200FCCCA0 /* lms-search.png */,
 				A338E22322142BA600FCCCA0 /* lms-bookmarks-light.png */,
 				A338E22522142BA600FCCCA0 /* lms-bookmarks.png */,
 				A338E22422142BA600FCCCA0 /* lms-catalog-light.png */,
@@ -4977,6 +4986,8 @@
 				A3D0C325220057FE00455E0E /* EducationDownloadsViewController.m */,
 				A3D0C3272200583900455E0E /* EducationCoursesViewController.h */,
 				A3D0C3282200583900455E0E /* EducationCoursesViewController.m */,
+				A338E2372214304C00FCCCA0 /* EducationSearchViewController.h */,
+				A338E2382214304C00FCCCA0 /* EducationSearchViewController.m */,
 			);
 			path = education;
 			sourceTree = "<group>";
@@ -5682,6 +5693,7 @@
 				E11E1FAC1F6BE50220F80693 /* menu-community@3x.png in Resources */,
 				18DFACC421E8D14100EF528A /* icon_arrow_up@2x.png in Resources */,
 				18A0DBA321B1877F0065B2BD /* icon_arrow_down_small@3x.png in Resources */,
+				A338E2352214303200FCCCA0 /* lms-search-light.png in Resources */,
 				E11E1CE038DC68FF7C932E10 /* menu-dev_light.png in Resources */,
 				E11E162727181CE585B4D828 /* menu-dev_light@2x.png in Resources */,
 				4E36C0C021DF6419003451E6 /* Setting_resetpwd@3x.png in Resources */,
@@ -5816,6 +5828,7 @@
 				A3E752F2217E35010087713D /* Video@3x.png in Resources */,
 				18FE61DA21D1034200C0CEF3 /* icon_u_sel@3x.png in Resources */,
 				4E94AE1121AE74A4009CAB7F /* alert-light@2x.png in Resources */,
+				A338E2362214303200FCCCA0 /* lms-search.png in Resources */,
 				C5EEA65EECB1E4CBE2716E4A /* download-light@2x.png in Resources */,
 				C5EEA28B642FEF60AF01E4E5 /* download-light@3x.png in Resources */,
 				C5EEA43C5D63AE543D25FB62 /* home-light.png in Resources */,
@@ -6220,6 +6233,7 @@
 				E11E106CD8257C6C65B6148B /* CmsDownloadsController.m in Sources */,
 				A3BDC56F21E847780077ED25 /* GeneralViewController.m in Sources */,
 				4E30ACED217187910016722B /* GSKItemView.m in Sources */,
+				A338E2392214304C00FCCCA0 /* EducationSearchViewController.m in Sources */,
 				4E94ADC621ACE8EC009CAB7F /* CareerMyJobViewController.m in Sources */,
 				4E33ACD92190183E00E4CF7E /* SliderListViewController.m in Sources */,
 				E11E17A97D865580926CB2EB /* UIViewController+myextend.m in Sources */,

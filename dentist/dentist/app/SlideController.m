@@ -36,6 +36,7 @@
 #import "EducationBookmarksViewController.h"
 #import "EducationDownloadsViewController.h"
 #import "EducationCoursesViewController.h"
+#import "EducationSearchViewController.h"
 
 @interface SlideController()<UITabBarControllerDelegate,UITabBarDelegate,MoreViewDelegate>
 
@@ -125,6 +126,11 @@
         [ncCatalog tabItem:@"Catalog" imageName:@"lms-catalog"];
         educationPage.navigationItem.leftBarButtonItem = [self menuButton];
         
+        EducationSearchViewController *educationSearch = [EducationSearchViewController new];
+        UINavigationController *ncSearch = NavPage(educationSearch);
+        [ncSearch tabItem:@"Search" imageName:@"lms-search"];
+        educationSearch.navigationItem.leftBarButtonItem = [self menuButton];
+        
         EducationBookmarksViewController *educationBookmarks = [EducationBookmarksViewController new];
         UINavigationController *ncBookmarks = NavPage(educationBookmarks);
         [ncBookmarks tabItem:@"Bookmarks" imageName:@"lms-bookmarks"];
@@ -140,7 +146,7 @@
         [ncCourses tabItem:@"My Courses" imageName:@"lms-my-courses"];
         educationCourses.navigationItem.leftBarButtonItem = [self menuButton];
 
-        return TabPage(@[ncCatalog, ncBookmarks, ncDownloads, ncCourses]);
+        return TabPage(@[ncCatalog, ncSearch, ncBookmarks, ncDownloads, ncCourses]);
 	}
 	if ([@"Career" isEqualToString:title]) {
         CareerExplorePage *explorePage = [CareerExplorePage new];

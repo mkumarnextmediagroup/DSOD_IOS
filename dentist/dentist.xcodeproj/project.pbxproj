@@ -112,6 +112,7 @@
 		18B83B1D2173557D00130DB6 /* YBImageBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18B83B052173557C00130DB6 /* YBImageBrowser.bundle */; };
 		18B83B1E2173557D00130DB6 /* YBImageBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83B072173557C00130DB6 /* YBImageBrowser.m */; };
 		18B83B212173596700130DB6 /* DentistImageBrowserToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83B202173596500130DB6 /* DentistImageBrowserToolBar.m */; };
+		18CDCE8D22141C9B002D28B1 /* EducationSpeakerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */; };
 		18CFB0F0216EF285002CC9D0 /* RMDownloadIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB0EF216EF284002CC9D0 /* RMDownloadIndicator.m */; };
 		18CFB0F3216EF88A002CC9D0 /* RMDisplayLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB0F2216EF888002CC9D0 /* RMDisplayLabel.m */; };
 		18CFB0FA216F3B69002CC9D0 /* foryou-light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFB0F4216F3B63002CC9D0 /* foryou-light@2x.png */; };
@@ -1238,6 +1239,8 @@
 		18B83B072173557C00130DB6 /* YBImageBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBImageBrowser.m; sourceTree = "<group>"; };
 		18B83B1F2173596200130DB6 /* DentistImageBrowserToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistImageBrowserToolBar.h; sourceTree = "<group>"; };
 		18B83B202173596500130DB6 /* DentistImageBrowserToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistImageBrowserToolBar.m; sourceTree = "<group>"; };
+		18CDCE8B22141C9B002D28B1 /* EducationSpeakerDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationSpeakerDetailViewController.h; sourceTree = "<group>"; };
+		18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationSpeakerDetailViewController.m; sourceTree = "<group>"; };
 		18CFB0EE216EF284002CC9D0 /* RMDownloadIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDownloadIndicator.h; sourceTree = "<group>"; };
 		18CFB0EF216EF284002CC9D0 /* RMDownloadIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDownloadIndicator.m; sourceTree = "<group>"; };
 		18CFB0F1216EF875002CC9D0 /* RMDisplayLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDisplayLabel.h; sourceTree = "<group>"; };
@@ -4988,6 +4991,8 @@
 				A3D0C3282200583900455E0E /* EducationCoursesViewController.m */,
 				A338E2372214304C00FCCCA0 /* EducationSearchViewController.h */,
 				A338E2382214304C00FCCCA0 /* EducationSearchViewController.m */,
+				18CDCE8B22141C9B002D28B1 /* EducationSpeakerDetailViewController.h */,
+				18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */,
 			);
 			path = education;
 			sourceTree = "<group>";
@@ -6325,6 +6330,7 @@
 				A3729575219128A100B36409 /* UniteThumCollectionViewCell.m in Sources */,
 				C5EEA998A2E6E6E97A8E5259 /* FromToView.m in Sources */,
 				C5EEAC226A4350FB406AFD22 /* DatePickerPage.m in Sources */,
+				18CDCE8D22141C9B002D28B1 /* EducationSpeakerDetailViewController.m in Sources */,
 				A3BA6E1321B53BEE00D83156 /* CareerSearchViewController.m in Sources */,
 				C5EEAB40C81644F1288B9E7A /* PickerPage.m in Sources */,
 				4EF2A36A21A6FB66007E6483 /* FullListTableViewCell.m in Sources */,

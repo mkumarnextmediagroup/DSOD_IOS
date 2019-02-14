@@ -19,7 +19,9 @@ describe(@"Unit Test For CareerAddReviewViewController", ^{
 
     context(@"methods", ^{
         it(@"openBy", ^{
-            [CareerAddReviewViewController openBy:[UIViewController new] dsoId:@"dosid" successCallbak:NULL];
+            [CareerAddReviewViewController openBy:[UIViewController new] dsoId:@"dosid" successCallbak:^{
+                
+            }];
         });
 
         it(@"viewDidLoad", ^{

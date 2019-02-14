@@ -6,6 +6,7 @@
 #import "EducationPage.h"
 #import "Common.h"
 #import "Proto.h"
+#import "EducationCategoryViewController.h"
 
 @implementation EducationPage {
 
@@ -19,6 +20,9 @@
 
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"LEARNING";
+        item.rightBarButtonItems = @[
+            [self navBarText:@"see all" target:self action:@selector(goCategoryPage)]
+        ];
 
 	UILabel *lb = self.view.addLabel;
 	lb.text = @"Education Page";
@@ -30,5 +34,11 @@
 //    }];
 
 
+}
+
+-(void)goCategoryPage
+{
+    EducationCategoryViewController *categoryview=[EducationCategoryViewController new];
+    [self.navigationController pushViewController:categoryview animated:YES];
 }
 @end

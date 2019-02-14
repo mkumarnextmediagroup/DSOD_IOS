@@ -637,6 +637,8 @@
 		A3DF39A42189A280006F84DC /* ConfigurationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39962189A280006F84DC /* ConfigurationHelper.swift */; };
 		A3DF39A52189A280006F84DC /* CornerAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39992189A280006F84DC /* CornerAnimatable.swift */; };
 		A3DF39A62189A280006F84DC /* TransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF399B2189A280006F84DC /* TransitionDriver.swift */; };
+		A3E381DE221583EA00BFB227 /* EducationCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381DD221583EA00BFB227 /* EducationCategoryViewController.m */; };
+		A3E381E12215840200BFB227 /* EducationCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381E02215840200BFB227 /* EducationCategoryTableViewCell.m */; };
 		A3E752E5217E35010087713D /* Podcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D0217E34FF0087713D /* Podcast@2x.png */; };
 		A3E752E6217E35010087713D /* Article@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D1217E34FF0087713D /* Article@2x.png */; };
 		A3E752E7217E35010087713D /* Animation@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D2217E34FF0087713D /* Animation@3x.png */; };
@@ -1913,6 +1915,10 @@
 		A3DF39962189A280006F84DC /* ConfigurationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationHelper.swift; sourceTree = "<group>"; };
 		A3DF39992189A280006F84DC /* CornerAnimatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerAnimatable.swift; sourceTree = "<group>"; };
 		A3DF399B2189A280006F84DC /* TransitionDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionDriver.swift; sourceTree = "<group>"; };
+		A3E381DC221583EA00BFB227 /* EducationCategoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationCategoryViewController.h; sourceTree = "<group>"; };
+		A3E381DD221583EA00BFB227 /* EducationCategoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCategoryViewController.m; sourceTree = "<group>"; };
+		A3E381DF2215840200BFB227 /* EducationCategoryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationCategoryTableViewCell.h; sourceTree = "<group>"; };
+		A3E381E02215840200BFB227 /* EducationCategoryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCategoryTableViewCell.m; sourceTree = "<group>"; };
 		A3E752D0217E34FF0087713D /* Podcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Podcast@2x.png"; sourceTree = "<group>"; };
 		A3E752D1217E34FF0087713D /* Article@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Article@2x.png"; sourceTree = "<group>"; };
 		A3E752D2217E34FF0087713D /* Animation@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Animation@3x.png"; sourceTree = "<group>"; };
@@ -4744,6 +4750,15 @@
 			path = TransitionDriver;
 			sourceTree = "<group>";
 		};
+		A3E381DB221583AB00BFB227 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A3E381DF2215840200BFB227 /* EducationCategoryTableViewCell.h */,
+				A3E381E02215840200BFB227 /* EducationCategoryTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A99177012176E4CD00788D2C /* AutoEncodeDecode */ = {
 			isa = PBXGroup;
 			children = (
@@ -5000,6 +5015,7 @@
 		C5EEAB01C19CB9BCE49EE088 /* education */ = {
 			isa = PBXGroup;
 			children = (
+				A3E381DB221583AB00BFB227 /* View */,
 				18CDCE92221545EF002D28B1 /* courseDetail */,
 				18CDCE8E221542E2002D28B1 /* model */,
 				C5EEAA027A4D8EDC92227D2B /* EducationPage.m */,
@@ -5014,6 +5030,8 @@
 				A338E2382214304C00FCCCA0 /* EducationSearchViewController.m */,
 				18CDCE8B22141C9B002D28B1 /* EducationSpeakerDetailViewController.h */,
 				18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */,
+				A3E381DC221583EA00BFB227 /* EducationCategoryViewController.h */,
+				A3E381DD221583EA00BFB227 /* EducationCategoryViewController.m */,
 			);
 			path = education;
 			sourceTree = "<group>";
@@ -6140,6 +6158,7 @@
 				A3DF39A22189A280006F84DC /* ConstraintsHelper.swift in Sources */,
 				4E0C115C2181C8D7007DC63D /* CommentModel.m in Sources */,
 				A3729572219124D000B36409 /* ThumAndDetailViewController.m in Sources */,
+				A3E381E12215840200BFB227 /* EducationCategoryTableViewCell.m in Sources */,
 				18B83B1E2173557D00130DB6 /* YBImageBrowser.m in Sources */,
 				C5EEA77FC67A0537194AE788 /* StudentController.m in Sources */,
 				C5EEA97A363C02981633699C /* StackLayout.m in Sources */,
@@ -6208,6 +6227,7 @@
 				A3B340DB21C8ECAB008EB36A /* CareerMeTableViewCell.m in Sources */,
 				182A11792199593C00C0E08D /* NSDate+customed.m in Sources */,
 				4E846F92213FFEB300DC2B51 /* EditWriteTableViewCell.m in Sources */,
+				A3E381DE221583EA00BFB227 /* EducationCategoryViewController.m in Sources */,
 				18B83B192173557D00130DB6 /* YBVideoBrowseActionBar.m in Sources */,
 				4E1957412137D0F100420563 /* PermissionFullProfileFields.m in Sources */,
 				183B048821C286DE00D26BB3 /* CareerAddReviewViewController.m in Sources */,

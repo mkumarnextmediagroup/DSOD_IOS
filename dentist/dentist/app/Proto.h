@@ -321,6 +321,7 @@
 //2.9    查看通知设置详情
 + (void)QueryNotifications:(void(^)(NotificationModel *notificationModel,BOOL result))completed;
 
-
+#pragma mark ------LMS
++ (void)queryLMSCategoryTypes:(NSString *)parentId completed:(void(^)(NSArray<IdName *> *array))completed;
 
 @end

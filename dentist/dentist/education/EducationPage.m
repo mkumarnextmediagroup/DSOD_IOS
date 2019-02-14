@@ -5,7 +5,7 @@
 
 #import "EducationPage.h"
 #import "Common.h"
-
+#import "Proto.h"
 
 @implementation EducationPage {
 
@@ -24,6 +24,10 @@
 	lb.text = @"Education Page";
 	[lb textColorMain];
 	[[[lb.layoutMaker centerParent] sizeFit] install];
+    //query lms category data
+//    [Proto queryLMSCategoryTypes:nil completed:^(NSArray<IdName *> *array) {
+//        NSLog(@"array=%@",array);
+//    }];
 
 
 }

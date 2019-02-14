@@ -16,6 +16,7 @@
 #import "GeneralSettingsModel.h"
 #import "FAQSCategoryModel.h"
 #import "NotificationModel.h"
+#import "AuthorModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -321,6 +322,15 @@
 //2.9    查看通知设置详情
 + (void)QueryNotifications:(void(^)(NotificationModel *notificationModel,BOOL result))completed;
 
+//lms 获取单个作者
++ (void)findCourseAuthor:(NSString*)authorId completed:(void(^)(BOOL success,NSString *msg,AuthorModel *AuthorModel))completed;
 
+/**
+ get course author avatar url
+ 
+ @param objectid avatar id
+ @return aratar url
+ */
++(NSString *)getCourseAuthorAvatarUrlByObjectId:(NSString *)objectid;
 
 @end

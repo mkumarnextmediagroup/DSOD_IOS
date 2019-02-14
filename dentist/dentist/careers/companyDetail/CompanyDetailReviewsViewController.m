@@ -40,9 +40,7 @@
 }
 
 /**
- set JobDSOModel
- 
- @param jobDSOModel JobDSOModel
+ build views
  */
 -(void)buildView{
     edge = 18;

@@ -113,6 +113,7 @@
 		18B83B1E2173557D00130DB6 /* YBImageBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83B072173557C00130DB6 /* YBImageBrowser.m */; };
 		18B83B212173596700130DB6 /* DentistImageBrowserToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83B202173596500130DB6 /* DentistImageBrowserToolBar.m */; };
 		18CDCE8D22141C9B002D28B1 /* EducationSpeakerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */; };
+		18CDCE9122154359002D28B1 /* AuthorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CDCE9022154359002D28B1 /* AuthorModel.m */; };
 		18CFB0F0216EF285002CC9D0 /* RMDownloadIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB0EF216EF284002CC9D0 /* RMDownloadIndicator.m */; };
 		18CFB0F3216EF88A002CC9D0 /* RMDisplayLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB0F2216EF888002CC9D0 /* RMDisplayLabel.m */; };
 		18CFB0FA216F3B69002CC9D0 /* foryou-light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFB0F4216F3B63002CC9D0 /* foryou-light@2x.png */; };
@@ -1241,6 +1242,8 @@
 		18B83B202173596500130DB6 /* DentistImageBrowserToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistImageBrowserToolBar.m; sourceTree = "<group>"; };
 		18CDCE8B22141C9B002D28B1 /* EducationSpeakerDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationSpeakerDetailViewController.h; sourceTree = "<group>"; };
 		18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationSpeakerDetailViewController.m; sourceTree = "<group>"; };
+		18CDCE8F22154359002D28B1 /* AuthorModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthorModel.h; sourceTree = "<group>"; };
+		18CDCE9022154359002D28B1 /* AuthorModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthorModel.m; sourceTree = "<group>"; };
 		18CFB0EE216EF284002CC9D0 /* RMDownloadIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDownloadIndicator.h; sourceTree = "<group>"; };
 		18CFB0EF216EF284002CC9D0 /* RMDownloadIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDownloadIndicator.m; sourceTree = "<group>"; };
 		18CFB0F1216EF875002CC9D0 /* RMDisplayLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDisplayLabel.h; sourceTree = "<group>"; };
@@ -2778,6 +2781,22 @@
 				18B83B042173557C00130DB6 /* YBVideoBrowseTopBar.m */,
 			);
 			path = VideoBrowse;
+			sourceTree = "<group>";
+		};
+		18CDCE8E221542E2002D28B1 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				18CDCE8F22154359002D28B1 /* AuthorModel.h */,
+				18CDCE9022154359002D28B1 /* AuthorModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		18CDCE92221545EF002D28B1 /* courseDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = courseDetail;
 			sourceTree = "<group>";
 		};
 		18DA499C21897BBF00DA2292 /* model */ = {
@@ -4981,6 +5000,8 @@
 		C5EEAB01C19CB9BCE49EE088 /* education */ = {
 			isa = PBXGroup;
 			children = (
+				18CDCE92221545EF002D28B1 /* courseDetail */,
+				18CDCE8E221542E2002D28B1 /* model */,
 				C5EEAA027A4D8EDC92227D2B /* EducationPage.m */,
 				C5EEAC99B98367C3280F1F9F /* EducationPage.h */,
 				A3D0C321220057C800455E0E /* EducationBookmarksViewController.h */,
@@ -6231,6 +6252,7 @@
 				A39EE5102188578200F74745 /* CmsArticleCategoryPage.m in Sources */,
 				E11E147FF4FE738E0561AF6A /* Proto.m in Sources */,
 				18A0DBB121B51DF40065B2BD /* CompanyMediaModel.m in Sources */,
+				18CDCE9122154359002D28B1 /* AuthorModel.m in Sources */,
 				E11E193B11128F898EABFD63 /* main.m in Sources */,
 				4E2EF4FC215D0D4B00676A4E /* DenActionSheet.m in Sources */,
 				A39B9AC721AD8AE5001CED72 /* BookmarkManager.m in Sources */,
@@ -6406,6 +6428,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HPA69P8D2K;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentistTests/Support/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -6430,6 +6453,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HPA69P8D2K;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentistTests/Support/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

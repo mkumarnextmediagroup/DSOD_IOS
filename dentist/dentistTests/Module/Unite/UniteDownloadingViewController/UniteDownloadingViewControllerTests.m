@@ -19,10 +19,10 @@ describe(@"Unit Test For UniteDownloadingViewController", ^{
     });
 
     context(@"methods", ^{
-        it(@"rightBtnClick", ^{
-            [controller rightBtnClick];
-            [[theValue(controller.view) shouldNot] beNil];
-        });
+//        it(@"rightBtnClick", ^{
+//            [controller rightBtnClick];
+//            [[theValue(controller.view) shouldNot] beNil];
+//        });
 
         it(@"downloadBtnAction", ^{
             [controller downloadBtnAction];

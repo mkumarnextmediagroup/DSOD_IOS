@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) MagazineModel *magazineModel;
 @property (nonatomic,strong) NSArray *datas;//test property
 
-- (void)rightBtnClick;
 -(void)downloadBtnAction;
 -(void)cancelBtnAction;
 -(void)loadData;

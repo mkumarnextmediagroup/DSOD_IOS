@@ -16,6 +16,7 @@
 #import "GeneralSettingsModel.h"
 #import "FAQSCategoryModel.h"
 #import "NotificationModel.h"
+#import "AuthorModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -323,5 +324,15 @@
 
 #pragma mark ------LMS
 + (void)queryLMSCategoryTypes:(NSString *)parentId completed:(void(^)(NSArray<IdName *> *array))completed;
+//lms 获取单个作者
++ (void)findCourseAuthor:(NSString*)authorId completed:(void(^)(BOOL success,NSString *msg,AuthorModel *AuthorModel))completed;
+
+/**
+ get course author avatar url
+ 
+ @param objectid avatar id
+ @return aratar url
+ */
++(NSString *)getCourseAuthorAvatarUrlByObjectId:(NSString *)objectid;
 
 @end

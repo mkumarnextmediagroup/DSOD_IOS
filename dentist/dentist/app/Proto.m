@@ -1868,6 +1868,10 @@
     {
         baseUrl = @"setting-service/v1/";
     }
+    else if ([modular isEqualToString:@"lms"])
+    {
+        baseUrl = @"lms-service/v1/";
+    }
     return baseUrl;
 }
 
@@ -2946,6 +2950,45 @@
             }
         }
     }];
+}
+
+//lms
+/**
+ get course author info based on author id
+
+ @param authorId author id
+ @param completed response callback function
+ */
++ (void)findCourseAuthor:(NSString*)authorId completed:(void(^)(BOOL success,NSString *msg,AuthorModel *AuthorModel))completed{
+    [self getAsync:[NSString stringWithFormat:@"author/author/%@",authorId] dic:nil modular:@"lms" callback:^(HttpResult *r) {
+        AuthorModel *model = nil;
+        if (r.OK && r.resultMap[@"data"]) {
+            NSDictionary *dic =  r.resultMap[@"data"];
+            model = [[AuthorModel alloc] initWithJson:jsonBuild(dic)];
+        }
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg,model);
+            });
+        }
+    }];
+}
+
+/**
+ get course author avatar url
+
+ @param objectid avatar id
+ @return aratar url
+ */
++(NSString *)getCourseAuthorAvatarUrlByObjectId:(NSString *)objectid
+{
+    if (![NSString isBlankString:objectid]) {
+        NSString *baseUrl = [self configUrl:@"lms"];
+        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=%@",objectid);
+        return url;
+    }else{
+        return nil;
+    }
 }
 
 @end

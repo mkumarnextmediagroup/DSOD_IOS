@@ -639,6 +639,7 @@
 		A3DF39A62189A280006F84DC /* TransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF399B2189A280006F84DC /* TransitionDriver.swift */; };
 		A3E381DE221583EA00BFB227 /* EducationCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381DD221583EA00BFB227 /* EducationCategoryViewController.m */; };
 		A3E381E12215840200BFB227 /* EducationCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381E02215840200BFB227 /* EducationCategoryTableViewCell.m */; };
+		A3E381E4221698E200BFB227 /* LMSCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381E3221698E200BFB227 /* LMSCategoryModel.m */; };
 		A3E752E5217E35010087713D /* Podcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D0217E34FF0087713D /* Podcast@2x.png */; };
 		A3E752E6217E35010087713D /* Article@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D1217E34FF0087713D /* Article@2x.png */; };
 		A3E752E7217E35010087713D /* Animation@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D2217E34FF0087713D /* Animation@3x.png */; };
@@ -1919,6 +1920,8 @@
 		A3E381DD221583EA00BFB227 /* EducationCategoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCategoryViewController.m; sourceTree = "<group>"; };
 		A3E381DF2215840200BFB227 /* EducationCategoryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationCategoryTableViewCell.h; sourceTree = "<group>"; };
 		A3E381E02215840200BFB227 /* EducationCategoryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCategoryTableViewCell.m; sourceTree = "<group>"; };
+		A3E381E2221698E200BFB227 /* LMSCategoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSCategoryModel.h; sourceTree = "<group>"; };
+		A3E381E3221698E200BFB227 /* LMSCategoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSCategoryModel.m; sourceTree = "<group>"; };
 		A3E752D0217E34FF0087713D /* Podcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Podcast@2x.png"; sourceTree = "<group>"; };
 		A3E752D1217E34FF0087713D /* Article@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Article@2x.png"; sourceTree = "<group>"; };
 		A3E752D2217E34FF0087713D /* Animation@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Animation@3x.png"; sourceTree = "<group>"; };
@@ -2794,6 +2797,8 @@
 			children = (
 				18CDCE8F22154359002D28B1 /* AuthorModel.h */,
 				18CDCE9022154359002D28B1 /* AuthorModel.m */,
+				A3E381E2221698E200BFB227 /* LMSCategoryModel.h */,
+				A3E381E3221698E200BFB227 /* LMSCategoryModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -6229,6 +6234,7 @@
 				4E846F92213FFEB300DC2B51 /* EditWriteTableViewCell.m in Sources */,
 				A3E381DE221583EA00BFB227 /* EducationCategoryViewController.m in Sources */,
 				18B83B192173557D00130DB6 /* YBVideoBrowseActionBar.m in Sources */,
+				A3E381E4221698E200BFB227 /* LMSCategoryModel.m in Sources */,
 				4E1957412137D0F100420563 /* PermissionFullProfileFields.m in Sources */,
 				183B048821C286DE00D26BB3 /* CareerAddReviewViewController.m in Sources */,
 				3E64F12E21720FB6001A7CF2 /* DSOWebViewController.m in Sources */,

@@ -9,12 +9,12 @@
 #import "EducationCategoryViewController.h"
 #import "EducationCategoryTableViewCell.h"
 #import "Common.h"
-#import "IdName.h"
+#import "LMSCategoryModel.h"
 #import "Proto.h"
 
 @interface EducationCategoryViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
-    NSArray<IdName *> *infoArr;
+    NSArray<LMSCategoryModel *> *infoArr;
     UITableView *myTable;
 }
 @end
@@ -42,7 +42,7 @@
 -(void)queryCategoryData
 {
     [self showLoading];
-    [Proto queryLMSCategoryTypes:nil completed:^(NSArray<IdName *> *array) {
+    [Proto queryLMSCategoryGroupTypes:_parentid completed:^(NSArray<LMSCategoryModel *> *array) {
         [self hideLoading];
         if (array) {
             self->infoArr=array;
@@ -150,9 +150,9 @@
     EducationCategoryTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([EducationCategoryTableViewCell class]) forIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if(infoArr.count>indexPath.row){
-        IdName *model=infoArr[indexPath.row];
-        
-        [cell setModel:model.name des:model.descriptions];
+        LMSCategoryModel *model=infoArr[indexPath.row];
+        NSString *countcoursestr=[NSString stringWithFormat:@"%@ COURSES",@(model.countofcourse)];
+        [cell setModel:model.name des:countcoursestr];
     }
     return cell;
 }
@@ -167,6 +167,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(infoArr.count>indexPath.row){
+        LMSCategoryModel *model=infoArr[indexPath.row];
+        EducationCategoryViewController *categoryview=[EducationCategoryViewController new];
+        categoryview.parentid=model.id;
+        [self.navigationController pushViewController:categoryview animated:YES];
+    }
+    
 }
 
 

@@ -27,6 +27,7 @@
 		18106AAC218ACC0D00EEE2DC /* FilterIssues@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AA9218ACC0C00EEE2DC /* FilterIssues@3x.png */; };
 		18106AAD218ACC0D00EEE2DC /* FilterIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AAA218ACC0C00EEE2DC /* FilterIssues.png */; };
 		18106AB1218AF0CE00EEE2DC /* YHPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */; };
+		181121FE221664C1002A0B4E /* CourseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181121FD221664C1002A0B4E /* CourseDetailViewController.m */; };
 		1812397521927F3E0075A6B0 /* author_dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1812397421927F3E0075A6B0 /* author_dsodentist.png */; };
 		1829C52D21BCC961009A8732 /* JobDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52C21BCC961009A8732 /* JobDetailViewController.m */; };
 		1829C53021BCC9B9009A8732 /* JobDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52F21BCC9B9009A8732 /* JobDetailDescriptionViewController.m */; };
@@ -1092,6 +1093,8 @@
 		18106AAA218ACC0C00EEE2DC /* FilterIssues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FilterIssues.png; sourceTree = "<group>"; };
 		18106AAF218AF0CE00EEE2DC /* YHPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHPopMenuView.h; sourceTree = "<group>"; };
 		18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHPopMenuView.m; sourceTree = "<group>"; };
+		181121FC221664C1002A0B4E /* CourseDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseDetailViewController.h; sourceTree = "<group>"; };
+		181121FD221664C1002A0B4E /* CourseDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseDetailViewController.m; sourceTree = "<group>"; };
 		1812397421927F3E0075A6B0 /* author_dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = author_dsodentist.png; sourceTree = "<group>"; };
 		1829C52B21BCC961009A8732 /* JobDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailViewController.h; sourceTree = "<group>"; };
 		1829C52C21BCC961009A8732 /* JobDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailViewController.m; sourceTree = "<group>"; };
@@ -2591,6 +2594,15 @@
 			path = YHPopMenu;
 			sourceTree = "<group>";
 		};
+		181121FB221663D0002A0B4E /* courseDetail */ = {
+			isa = PBXGroup;
+			children = (
+				181121FC221664C1002A0B4E /* CourseDetailViewController.h */,
+				181121FD221664C1002A0B4E /* CourseDetailViewController.m */,
+			);
+			path = courseDetail;
+			sourceTree = "<group>";
+		};
 		182A1180219BF5B400C0E08D /* GDataXMLNode */ = {
 			isa = PBXGroup;
 			children = (
@@ -2801,13 +2813,6 @@
 				A3E381E3221698E200BFB227 /* LMSCategoryModel.m */,
 			);
 			path = model;
-			sourceTree = "<group>";
-		};
-		18CDCE92221545EF002D28B1 /* courseDetail */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = courseDetail;
 			sourceTree = "<group>";
 		};
 		18DA499C21897BBF00DA2292 /* model */ = {
@@ -5020,8 +5025,8 @@
 		C5EEAB01C19CB9BCE49EE088 /* education */ = {
 			isa = PBXGroup;
 			children = (
+				181121FB221663D0002A0B4E /* courseDetail */,
 				A3E381DB221583AB00BFB227 /* View */,
-				18CDCE92221545EF002D28B1 /* courseDetail */,
 				18CDCE8E221542E2002D28B1 /* model */,
 				C5EEAA027A4D8EDC92227D2B /* EducationPage.m */,
 				C5EEAC99B98367C3280F1F9F /* EducationPage.h */,
@@ -6403,6 +6408,7 @@
 				C5EEA3F0CF05284FD745DF70 /* CareerExplorePage.m in Sources */,
 				C5EEAF27063BEE4721232460 /* Article.m in Sources */,
 				C5EEA61AC52ECB7531FFBA59 /* ArticleComment.m in Sources */,
+				181121FE221664C1002A0B4E /* CourseDetailViewController.m in Sources */,
 				C5EEA8887E615366A4D0A196 /* CmsSearchPage.m in Sources */,
 				C5EEA7409B28BF6FE9FB06F8 /* CmsCategoryPage.m in Sources */,
 				C5EEAFAD1B55BB349102460C /* CmsForYouPage.m in Sources */,

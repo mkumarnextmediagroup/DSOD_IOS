@@ -12,6 +12,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CourseDetailViewController : UIViewController
 
+/**
+ open course detail page
+ 
+ @param vc UIViewController
+ @param courseId course id
+ */
++(void)openBy:(UIViewController*)vc courseId:(NSString*)courseId;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

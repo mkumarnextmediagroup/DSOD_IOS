@@ -2952,17 +2952,56 @@
     }];
 }
 #pragma mark ------LMS
+/**
+ query LMS categories
+ @param parentId parent id
+ @param completed response callback function
+ */
 + (void)queryLMSCategoryTypes:(NSString *)parentId completed:(void(^)(NSArray<IdName *> *array))completed {
     NSString *url=@"category/categories";
     if (![NSString isBlankString:parentId]) {
         url=strBuild(url,@"/",parentId);
     }
-    [self getAsync:@"category/categories" dic:nil modular:@"lms" callback:^(HttpResult *r) {
+    [self getAsync:url dic:nil modular:@"lms" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];
             for (NSDictionary *d in arr) {
                 IdName *item = [[IdName alloc] initWithJson:jsonBuild(d)];
+                [resultArray addObject:item];
+            }
+            foreTask(^{
+                if (completed) {
+                    completed(resultArray);
+                }
+            });
+            
+        }else{
+            foreTask(^{
+                if (completed) {
+                    completed(nil);
+                }
+            });
+        }
+    }];
+}
+
+/**
+ query LMS categories group
+ @param parentId parent id
+ @param completed response callback function
+ */
++ (void)queryLMSCategoryGroupTypes:(NSString *)parentId completed:(void(^)(NSArray<LMSCategoryModel *> *array))completed {
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (![NSString isBlankString:parentId]) {
+        [paradic setObject:parentId forKey:@"parentId"];
+    }
+    [self postAsync3:@"/category/group/categories" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"data"];
+            for (NSDictionary *d in arr) {
+                LMSCategoryModel *item = [[LMSCategoryModel alloc] initWithJson:jsonBuild(d)];
                 [resultArray addObject:item];
             }
             foreTask(^{

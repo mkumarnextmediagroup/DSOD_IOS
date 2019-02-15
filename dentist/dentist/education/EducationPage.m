@@ -39,6 +39,8 @@
 -(void)goCategoryPage
 {
     EducationCategoryViewController *categoryview=[EducationCategoryViewController new];
-    [self.navigationController pushViewController:categoryview animated:YES];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:categoryview];
+    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:navVC animated:NO completion:NULL];
 }
 @end

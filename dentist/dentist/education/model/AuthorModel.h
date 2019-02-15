@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>*email;
 @property NSString <Optional>*cellPhone;
 @property NSString <Optional>*objectId;
+@property NSString <Optional>*specialty;
+@property NSString <Optional>*location;
 
 @end
 

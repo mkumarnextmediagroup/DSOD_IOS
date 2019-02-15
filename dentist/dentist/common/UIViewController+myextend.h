@@ -28,6 +28,10 @@
 
 - (UIBarButtonItem *)backBarButtonClose;
 
+- (UIBarButtonItem *)navBarCustomImageBtn:(NSString *)imageName target:(nullable id)target action:(SEL)action ;
+
+- (UIBarButtonItem *)barButtonItemSpace:(NSInteger)width;
+
 - (void)openPage:(UIViewController *)page;
 
 - (void)pushPage:(UIViewController *)page;

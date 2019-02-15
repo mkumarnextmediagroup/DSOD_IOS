@@ -2588,6 +2588,13 @@
 			path = YHPopMenu;
 			sourceTree = "<group>";
 		};
+		181121FB221663D0002A0B4E /* courseDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = courseDetail;
+			sourceTree = "<group>";
+		};
 		182A1180219BF5B400C0E08D /* GDataXMLNode */ = {
 			isa = PBXGroup;
 			children = (
@@ -2796,13 +2803,6 @@
 				18CDCE9022154359002D28B1 /* AuthorModel.m */,
 			);
 			path = model;
-			sourceTree = "<group>";
-		};
-		18CDCE92221545EF002D28B1 /* courseDetail */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = courseDetail;
 			sourceTree = "<group>";
 		};
 		18DA499C21897BBF00DA2292 /* model */ = {
@@ -5015,8 +5015,8 @@
 		C5EEAB01C19CB9BCE49EE088 /* education */ = {
 			isa = PBXGroup;
 			children = (
+				181121FB221663D0002A0B4E /* courseDetail */,
 				A3E381DB221583AB00BFB227 /* View */,
-				18CDCE92221545EF002D28B1 /* courseDetail */,
 				18CDCE8E221542E2002D28B1 /* model */,
 				C5EEAA027A4D8EDC92227D2B /* EducationPage.m */,
 				C5EEAC99B98367C3280F1F9F /* EducationPage.h */,

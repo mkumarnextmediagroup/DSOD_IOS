@@ -70,6 +70,9 @@ describe(@"Unit Test For CompanyDetailReviewsViewController", ^{
         });
 
         it(@"cellForRowAtIndexPath", ^{
+            NSIndexPath *ip = [NSIndexPath indexPathForRow:0 inSection:0];
+            UITableViewCell *cell = [controller tableView:[UITableView new] cellForRowAtIndexPath:ip];
+            
         });
 
         it(@"", ^{

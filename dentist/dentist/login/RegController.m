@@ -291,7 +291,7 @@
 
 }
 
-
+#pragma mark -----UITextFieldDelegate
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 
 	BOOL err = NO;
@@ -329,11 +329,16 @@
 	return YES;
 }
 
-
+/**
+back event
+ */
 - (void)clickGoBack:(id)sender {
 	[self dismiss];
 }
 
+/**
+ click terms event,that will go to the terms page
+ */
 - (void)clickTerms:(id)sender {
 	NSLog(@"clickTerms");
     DSOWebViewController *c = [DSOWebViewController new];
@@ -342,6 +347,9 @@
     [self openPage:c];
 }
 
+/**
+ click policy event,that will go to the policy page
+ */
 - (void)clickPolicy:(id)sender {
 	NSLog(@"clickPolicy");
 
@@ -351,6 +359,10 @@
     [self openPage:c];
 }
 
+
+/**
+ click registered event
+ */
 - (void)clickReg:(id)sender {
 	NSLog(@"clickLogin");
 	NSString *email = [_emailEdit.text trimed];
@@ -393,6 +405,9 @@
 
 }
 
+/**
+ the registered event
+ */
 - (void)doReg:(NSString *)email pwd:(NSString *)pwd fullName:(NSString *)fullName {
 
 	[self showIndicator];
@@ -433,6 +448,9 @@
 
 }
 
+/**
+ check thethe device supports biometrics
+ */
 - (BOOL)isSupportBiometrics {
 
 	NSError *error;
@@ -442,7 +460,9 @@
 
 }
 
-
+/**
+ click the linkedin event
+ */
 - (void)clickLinkedin:(id)sender {
 	NSLog(@"clickLinkedin ");
 	[self Den_showAlertWithTitle:localStr(@"permission") message:localStr(@"WouldYou") appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
@@ -522,12 +542,18 @@
 	}];
 }
 
+/**
+ click the login event
+ */
 - (void)clickLogin:(id)sender {
 	LoginController *c = [LoginController new];
 	c.student = self.student;
 	[self openPage:c];
 }
 
+/**
+ the longin event from linkedin
+ */
 - (void)linkedinLogin:(NSString *)userid token:(NSString *)token {
 
 	[self showIndicator];

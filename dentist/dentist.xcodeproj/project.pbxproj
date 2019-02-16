@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		1801683921A6EE4F00AEBF06 /* Swipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 1801683821A6EE4F00AEBF06 /* Swipe.png */; };
+		1804B4912205BD8200F9A75A /* AboutViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4902205BD8200F9A75A /* AboutViewControllerTests.m */; };
+		1804B49C2205DFFE00F9A75A /* SettingControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B49B2205DFFE00F9A75A /* SettingControllerTests.m */; };
+		1804B49E2205E0B100F9A75A /* PlaybackSpeedViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B49D2205E0B100F9A75A /* PlaybackSpeedViewControllerTests.m */; };
+		1804B4A02205E0C400F9A75A /* VideoQualityViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B49F2205E0C400F9A75A /* VideoQualityViewControllerTests.m */; };
+		1804B4A22205E0DD00F9A75A /* HelpAndFeedbackViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4A12205E0DD00F9A75A /* HelpAndFeedbackViewControllerTests.m */; };
+		1804B4A42205E0F700F9A75A /* FAQSViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4A32205E0F700F9A75A /* FAQSViewControllerTests.m */; };
+		1804B4A62205E10B00F9A75A /* ContactUsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4A52205E10B00F9A75A /* ContactUsViewControllerTests.m */; };
+		1804B4A82205E12000F9A75A /* NotificationsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4A72205E12000F9A75A /* NotificationsViewControllerTests.m */; };
+		1804B4AA2205E13000F9A75A /* FeedbackAndSupportViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4A92205E13000F9A75A /* FeedbackAndSupportViewControllerTests.m */; };
+		1804B4AC2205E13F00F9A75A /* GeneralViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804B4AB2205E13F00F9A75A /* GeneralViewControllerTests.m */; };
 		180C2B8721ECCF3A00CAFFFA /* FAQSSubDescModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 180C2B8621ECCF3A00CAFFFA /* FAQSSubDescModel.m */; };
 		180C2B8A21ECE45800CAFFFA /* FAQSCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 180C2B8921ECE45800CAFFFA /* FAQSCategoryTableViewCell.m */; };
 		180DE1A821B7DF7B00AD07B5 /* icon_check_mark_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180DE1A521B7DF7A00AD07B5 /* icon_check_mark_small@2x.png */; };
@@ -17,6 +27,18 @@
 		18106AAC218ACC0D00EEE2DC /* FilterIssues@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AA9218ACC0C00EEE2DC /* FilterIssues@3x.png */; };
 		18106AAD218ACC0D00EEE2DC /* FilterIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AAA218ACC0C00EEE2DC /* FilterIssues.png */; };
 		18106AB1218AF0CE00EEE2DC /* YHPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */; };
+		181121FE221664C1002A0B4E /* CourseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181121FD221664C1002A0B4E /* CourseDetailViewController.m */; };
+		1811220122168FB6002A0B4E /* CourseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811220022168FB6002A0B4E /* CourseModel.m */; };
+		1811220422169B7E002A0B4E /* CourseDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811220322169B7E002A0B4E /* CourseDescriptionViewController.m */; };
+		1811220E2216AA11002A0B4E /* ic_nav_bookmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 181122052216AA0E002A0B4E /* ic_nav_bookmark.png */; };
+		1811220F2216AA11002A0B4E /* ic_nav_share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181122062216AA0E002A0B4E /* ic_nav_share@2x.png */; };
+		181122102216AA11002A0B4E /* ic_nav_share.png in Resources */ = {isa = PBXBuildFile; fileRef = 181122072216AA0E002A0B4E /* ic_nav_share.png */; };
+		181122112216AA11002A0B4E /* ic_nav_bookmark_act@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181122082216AA0F002A0B4E /* ic_nav_bookmark_act@3x.png */; };
+		181122122216AA11002A0B4E /* ic_nav_bookmark_act.png in Resources */ = {isa = PBXBuildFile; fileRef = 181122092216AA0F002A0B4E /* ic_nav_bookmark_act.png */; };
+		181122132216AA11002A0B4E /* ic_nav_bookmark_act@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1811220A2216AA10002A0B4E /* ic_nav_bookmark_act@2x.png */; };
+		181122142216AA11002A0B4E /* ic_nav_bookmark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1811220B2216AA10002A0B4E /* ic_nav_bookmark@3x.png */; };
+		181122152216AA11002A0B4E /* ic_nav_bookmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1811220C2216AA10002A0B4E /* ic_nav_bookmark@2x.png */; };
+		181122162216AA11002A0B4E /* ic_nav_share@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1811220D2216AA11002A0B4E /* ic_nav_share@3x.png */; };
 		1812397521927F3E0075A6B0 /* author_dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1812397421927F3E0075A6B0 /* author_dsodentist.png */; };
 		1829C52D21BCC961009A8732 /* JobDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52C21BCC961009A8732 /* JobDetailViewController.m */; };
 		1829C53021BCC9B9009A8732 /* JobDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52F21BCC9B9009A8732 /* JobDetailDescriptionViewController.m */; };
@@ -102,6 +124,8 @@
 		18B83B1D2173557D00130DB6 /* YBImageBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18B83B052173557C00130DB6 /* YBImageBrowser.bundle */; };
 		18B83B1E2173557D00130DB6 /* YBImageBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83B072173557C00130DB6 /* YBImageBrowser.m */; };
 		18B83B212173596700130DB6 /* DentistImageBrowserToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83B202173596500130DB6 /* DentistImageBrowserToolBar.m */; };
+		18CDCE8D22141C9B002D28B1 /* EducationSpeakerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */; };
+		18CDCE9122154359002D28B1 /* AuthorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CDCE9022154359002D28B1 /* AuthorModel.m */; };
 		18CFB0F0216EF285002CC9D0 /* RMDownloadIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB0EF216EF284002CC9D0 /* RMDownloadIndicator.m */; };
 		18CFB0F3216EF88A002CC9D0 /* RMDisplayLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB0F2216EF888002CC9D0 /* RMDisplayLabel.m */; };
 		18CFB0FA216F3B69002CC9D0 /* foryou-light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFB0F4216F3B63002CC9D0 /* foryou-light@2x.png */; };
@@ -484,6 +508,17 @@
 		A314772A21A6A1EC0046942C /* fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = A314772921A6A1EC0046942C /* fullscreen.png */; };
 		A314772C21A6A2D50046942C /* thumbnails.png in Resources */ = {isa = PBXBuildFile; fileRef = A314772B21A6A2D50046942C /* thumbnails.png */; };
 		A314772E21A6A3C80046942C /* bookmark-active.png in Resources */ = {isa = PBXBuildFile; fileRef = A314772D21A6A3C80046942C /* bookmark-active.png */; };
+		A338E22B22142BA700FCCCA0 /* lms-bookmarks-light.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22322142BA600FCCCA0 /* lms-bookmarks-light.png */; };
+		A338E22C22142BA700FCCCA0 /* lms-catalog-light.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22422142BA600FCCCA0 /* lms-catalog-light.png */; };
+		A338E22D22142BA700FCCCA0 /* lms-bookmarks.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22522142BA600FCCCA0 /* lms-bookmarks.png */; };
+		A338E22E22142BA700FCCCA0 /* lms-my-courses-light.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22622142BA600FCCCA0 /* lms-my-courses-light.png */; };
+		A338E22F22142BA700FCCCA0 /* lms-my-courses.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22722142BA600FCCCA0 /* lms-my-courses.png */; };
+		A338E23022142BA700FCCCA0 /* lms-catalog.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22822142BA700FCCCA0 /* lms-catalog.png */; };
+		A338E23122142BA700FCCCA0 /* lms-downloads-light.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22922142BA700FCCCA0 /* lms-downloads-light.png */; };
+		A338E23222142BA700FCCCA0 /* lms-downloads.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E22A22142BA700FCCCA0 /* lms-downloads.png */; };
+		A338E2352214303200FCCCA0 /* lms-search-light.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E2332214303100FCCCA0 /* lms-search-light.png */; };
+		A338E2362214303200FCCCA0 /* lms-search.png in Resources */ = {isa = PBXBuildFile; fileRef = A338E2342214303200FCCCA0 /* lms-search.png */; };
+		A338E2392214304C00FCCCA0 /* EducationSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A338E2382214304C00FCCCA0 /* EducationSearchViewController.m */; };
 		A36B9D9C21CA092A00A54263 /* icons8-user.png in Resources */ = {isa = PBXBuildFile; fileRef = A36B9D9621CA092900A54263 /* icons8-user.png */; };
 		A36B9D9D21CA092A00A54263 /* icons8-user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A36B9D9721CA092900A54263 /* icons8-user@2x.png */; };
 		A36B9D9E21CA092A00A54263 /* icons8-user@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A36B9D9821CA092900A54263 /* icons8-user@3x.png */; };
@@ -614,6 +649,9 @@
 		A3DF39A42189A280006F84DC /* ConfigurationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39962189A280006F84DC /* ConfigurationHelper.swift */; };
 		A3DF39A52189A280006F84DC /* CornerAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF39992189A280006F84DC /* CornerAnimatable.swift */; };
 		A3DF39A62189A280006F84DC /* TransitionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF399B2189A280006F84DC /* TransitionDriver.swift */; };
+		A3E381DE221583EA00BFB227 /* EducationCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381DD221583EA00BFB227 /* EducationCategoryViewController.m */; };
+		A3E381E12215840200BFB227 /* EducationCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381E02215840200BFB227 /* EducationCategoryTableViewCell.m */; };
+		A3E381E4221698E200BFB227 /* LMSCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381E3221698E200BFB227 /* LMSCategoryModel.m */; };
 		A3E752E5217E35010087713D /* Podcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D0217E34FF0087713D /* Podcast@2x.png */; };
 		A3E752E6217E35010087713D /* Article@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D1217E34FF0087713D /* Article@2x.png */; };
 		A3E752E7217E35010087713D /* Animation@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D2217E34FF0087713D /* Animation@3x.png */; };
@@ -1044,6 +1082,16 @@
 
 /* Begin PBXFileReference section */
 		1801683821A6EE4F00AEBF06 /* Swipe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Swipe.png; sourceTree = "<group>"; };
+		1804B4902205BD8200F9A75A /* AboutViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewControllerTests.m; sourceTree = "<group>"; };
+		1804B49B2205DFFE00F9A75A /* SettingControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingControllerTests.m; sourceTree = "<group>"; };
+		1804B49D2205E0B100F9A75A /* PlaybackSpeedViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybackSpeedViewControllerTests.m; sourceTree = "<group>"; };
+		1804B49F2205E0C400F9A75A /* VideoQualityViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoQualityViewControllerTests.m; sourceTree = "<group>"; };
+		1804B4A12205E0DD00F9A75A /* HelpAndFeedbackViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpAndFeedbackViewControllerTests.m; sourceTree = "<group>"; };
+		1804B4A32205E0F700F9A75A /* FAQSViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FAQSViewControllerTests.m; sourceTree = "<group>"; };
+		1804B4A52205E10B00F9A75A /* ContactUsViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactUsViewControllerTests.m; sourceTree = "<group>"; };
+		1804B4A72205E12000F9A75A /* NotificationsViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewControllerTests.m; sourceTree = "<group>"; };
+		1804B4A92205E13000F9A75A /* FeedbackAndSupportViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackAndSupportViewControllerTests.m; sourceTree = "<group>"; };
+		1804B4AB2205E13F00F9A75A /* GeneralViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeneralViewControllerTests.m; sourceTree = "<group>"; };
 		180C2B8521ECCF3A00CAFFFA /* FAQSSubDescModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAQSSubDescModel.h; sourceTree = "<group>"; };
 		180C2B8621ECCF3A00CAFFFA /* FAQSSubDescModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FAQSSubDescModel.m; sourceTree = "<group>"; };
 		180C2B8821ECE45800CAFFFA /* FAQSCategoryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FAQSCategoryTableViewCell.h; sourceTree = "<group>"; };
@@ -1056,6 +1104,21 @@
 		18106AAA218ACC0C00EEE2DC /* FilterIssues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FilterIssues.png; sourceTree = "<group>"; };
 		18106AAF218AF0CE00EEE2DC /* YHPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHPopMenuView.h; sourceTree = "<group>"; };
 		18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHPopMenuView.m; sourceTree = "<group>"; };
+		181121FC221664C1002A0B4E /* CourseDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseDetailViewController.h; sourceTree = "<group>"; };
+		181121FD221664C1002A0B4E /* CourseDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseDetailViewController.m; sourceTree = "<group>"; };
+		181121FF22168FB6002A0B4E /* CourseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseModel.h; sourceTree = "<group>"; };
+		1811220022168FB6002A0B4E /* CourseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseModel.m; sourceTree = "<group>"; };
+		1811220222169B7E002A0B4E /* CourseDescriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseDescriptionViewController.h; sourceTree = "<group>"; };
+		1811220322169B7E002A0B4E /* CourseDescriptionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseDescriptionViewController.m; sourceTree = "<group>"; };
+		181122052216AA0E002A0B4E /* ic_nav_bookmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_nav_bookmark.png; sourceTree = "<group>"; };
+		181122062216AA0E002A0B4E /* ic_nav_share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_share@2x.png"; sourceTree = "<group>"; };
+		181122072216AA0E002A0B4E /* ic_nav_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_nav_share.png; sourceTree = "<group>"; };
+		181122082216AA0F002A0B4E /* ic_nav_bookmark_act@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_bookmark_act@3x.png"; sourceTree = "<group>"; };
+		181122092216AA0F002A0B4E /* ic_nav_bookmark_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_nav_bookmark_act.png; sourceTree = "<group>"; };
+		1811220A2216AA10002A0B4E /* ic_nav_bookmark_act@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_bookmark_act@2x.png"; sourceTree = "<group>"; };
+		1811220B2216AA10002A0B4E /* ic_nav_bookmark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_bookmark@3x.png"; sourceTree = "<group>"; };
+		1811220C2216AA10002A0B4E /* ic_nav_bookmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_bookmark@2x.png"; sourceTree = "<group>"; };
+		1811220D2216AA11002A0B4E /* ic_nav_share@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_share@3x.png"; sourceTree = "<group>"; };
 		1812397421927F3E0075A6B0 /* author_dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = author_dsodentist.png; sourceTree = "<group>"; };
 		1829C52B21BCC961009A8732 /* JobDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailViewController.h; sourceTree = "<group>"; };
 		1829C52C21BCC961009A8732 /* JobDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailViewController.m; sourceTree = "<group>"; };
@@ -1207,6 +1270,10 @@
 		18B83B072173557C00130DB6 /* YBImageBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBImageBrowser.m; sourceTree = "<group>"; };
 		18B83B1F2173596200130DB6 /* DentistImageBrowserToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistImageBrowserToolBar.h; sourceTree = "<group>"; };
 		18B83B202173596500130DB6 /* DentistImageBrowserToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistImageBrowserToolBar.m; sourceTree = "<group>"; };
+		18CDCE8B22141C9B002D28B1 /* EducationSpeakerDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationSpeakerDetailViewController.h; sourceTree = "<group>"; };
+		18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationSpeakerDetailViewController.m; sourceTree = "<group>"; };
+		18CDCE8F22154359002D28B1 /* AuthorModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthorModel.h; sourceTree = "<group>"; };
+		18CDCE9022154359002D28B1 /* AuthorModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthorModel.m; sourceTree = "<group>"; };
 		18CFB0EE216EF284002CC9D0 /* RMDownloadIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDownloadIndicator.h; sourceTree = "<group>"; };
 		18CFB0EF216EF284002CC9D0 /* RMDownloadIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDownloadIndicator.m; sourceTree = "<group>"; };
 		18CFB0F1216EF875002CC9D0 /* RMDisplayLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDisplayLabel.h; sourceTree = "<group>"; };
@@ -1694,6 +1761,18 @@
 		A314772921A6A1EC0046942C /* fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen.png; sourceTree = "<group>"; };
 		A314772B21A6A2D50046942C /* thumbnails.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnails.png; sourceTree = "<group>"; };
 		A314772D21A6A3C80046942C /* bookmark-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bookmark-active.png"; sourceTree = "<group>"; };
+		A338E22322142BA600FCCCA0 /* lms-bookmarks-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-bookmarks-light.png"; sourceTree = "<group>"; };
+		A338E22422142BA600FCCCA0 /* lms-catalog-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-catalog-light.png"; sourceTree = "<group>"; };
+		A338E22522142BA600FCCCA0 /* lms-bookmarks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-bookmarks.png"; sourceTree = "<group>"; };
+		A338E22622142BA600FCCCA0 /* lms-my-courses-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-my-courses-light.png"; sourceTree = "<group>"; };
+		A338E22722142BA600FCCCA0 /* lms-my-courses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-my-courses.png"; sourceTree = "<group>"; };
+		A338E22822142BA700FCCCA0 /* lms-catalog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-catalog.png"; sourceTree = "<group>"; };
+		A338E22922142BA700FCCCA0 /* lms-downloads-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-downloads-light.png"; sourceTree = "<group>"; };
+		A338E22A22142BA700FCCCA0 /* lms-downloads.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-downloads.png"; sourceTree = "<group>"; };
+		A338E2332214303100FCCCA0 /* lms-search-light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-search-light.png"; sourceTree = "<group>"; };
+		A338E2342214303200FCCCA0 /* lms-search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lms-search.png"; sourceTree = "<group>"; };
+		A338E2372214304C00FCCCA0 /* EducationSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationSearchViewController.h; sourceTree = "<group>"; };
+		A338E2382214304C00FCCCA0 /* EducationSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationSearchViewController.m; sourceTree = "<group>"; };
 		A36B9D9621CA092900A54263 /* icons8-user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-user.png"; sourceTree = "<group>"; };
 		A36B9D9721CA092900A54263 /* icons8-user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-user@2x.png"; sourceTree = "<group>"; };
 		A36B9D9821CA092900A54263 /* icons8-user@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-user@3x.png"; sourceTree = "<group>"; };
@@ -1864,6 +1943,12 @@
 		A3DF39962189A280006F84DC /* ConfigurationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationHelper.swift; sourceTree = "<group>"; };
 		A3DF39992189A280006F84DC /* CornerAnimatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerAnimatable.swift; sourceTree = "<group>"; };
 		A3DF399B2189A280006F84DC /* TransitionDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionDriver.swift; sourceTree = "<group>"; };
+		A3E381DC221583EA00BFB227 /* EducationCategoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationCategoryViewController.h; sourceTree = "<group>"; };
+		A3E381DD221583EA00BFB227 /* EducationCategoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCategoryViewController.m; sourceTree = "<group>"; };
+		A3E381DF2215840200BFB227 /* EducationCategoryTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationCategoryTableViewCell.h; sourceTree = "<group>"; };
+		A3E381E02215840200BFB227 /* EducationCategoryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCategoryTableViewCell.m; sourceTree = "<group>"; };
+		A3E381E2221698E200BFB227 /* LMSCategoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSCategoryModel.h; sourceTree = "<group>"; };
+		A3E381E3221698E200BFB227 /* LMSCategoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSCategoryModel.m; sourceTree = "<group>"; };
 		A3E752D0217E34FF0087713D /* Podcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Podcast@2x.png"; sourceTree = "<group>"; };
 		A3E752D1217E34FF0087713D /* Article@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Article@2x.png"; sourceTree = "<group>"; };
 		A3E752D2217E34FF0087713D /* Animation@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Animation@3x.png"; sourceTree = "<group>"; };
@@ -2427,6 +2512,103 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1804B48A2205B56F00F9A75A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4922205DCAC00F9A75A /* SettingController */,
+				1804B48F2205BD3800F9A75A /* AboutViewController */,
+				1804B4942205DD5F00F9A75A /* PlaybackSpeedViewController */,
+				1804B4932205DCCD00F9A75A /* VideoQualityViewController */,
+				1804B4952205DE5400F9A75A /* HelpAndFeedbackViewController */,
+				1804B4962205DE7200F9A75A /* FAQSViewController */,
+				1804B4982205DE7F00F9A75A /* ContactUsViewController */,
+				1804B4972205DE7C00F9A75A /* NotificationsViewController */,
+				1804B4992205DE9A00F9A75A /* FeedbackAndSupportViewController */,
+				1804B49A2205DEB000F9A75A /* GeneralViewController */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		1804B48F2205BD3800F9A75A /* AboutViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4902205BD8200F9A75A /* AboutViewControllerTests.m */,
+			);
+			path = AboutViewController;
+			sourceTree = "<group>";
+		};
+		1804B4922205DCAC00F9A75A /* SettingController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B49B2205DFFE00F9A75A /* SettingControllerTests.m */,
+			);
+			path = SettingController;
+			sourceTree = "<group>";
+		};
+		1804B4932205DCCD00F9A75A /* VideoQualityViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B49F2205E0C400F9A75A /* VideoQualityViewControllerTests.m */,
+			);
+			path = VideoQualityViewController;
+			sourceTree = "<group>";
+		};
+		1804B4942205DD5F00F9A75A /* PlaybackSpeedViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B49D2205E0B100F9A75A /* PlaybackSpeedViewControllerTests.m */,
+			);
+			path = PlaybackSpeedViewController;
+			sourceTree = "<group>";
+		};
+		1804B4952205DE5400F9A75A /* HelpAndFeedbackViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4A12205E0DD00F9A75A /* HelpAndFeedbackViewControllerTests.m */,
+			);
+			path = HelpAndFeedbackViewController;
+			sourceTree = "<group>";
+		};
+		1804B4962205DE7200F9A75A /* FAQSViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4A32205E0F700F9A75A /* FAQSViewControllerTests.m */,
+			);
+			path = FAQSViewController;
+			sourceTree = "<group>";
+		};
+		1804B4972205DE7C00F9A75A /* NotificationsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4A72205E12000F9A75A /* NotificationsViewControllerTests.m */,
+			);
+			path = NotificationsViewController;
+			sourceTree = "<group>";
+		};
+		1804B4982205DE7F00F9A75A /* ContactUsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4A52205E10B00F9A75A /* ContactUsViewControllerTests.m */,
+			);
+			path = ContactUsViewController;
+			sourceTree = "<group>";
+		};
+		1804B4992205DE9A00F9A75A /* FeedbackAndSupportViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4A92205E13000F9A75A /* FeedbackAndSupportViewControllerTests.m */,
+			);
+			path = FeedbackAndSupportViewController;
+			sourceTree = "<group>";
+		};
+		1804B49A2205DEB000F9A75A /* GeneralViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1804B4AB2205E13F00F9A75A /* GeneralViewControllerTests.m */,
+			);
+			path = GeneralViewController;
+			sourceTree = "<group>";
+		};
 		18106AAE218AF0AC00EEE2DC /* YHPopMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -2434,6 +2616,17 @@
 				18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */,
 			);
 			path = YHPopMenu;
+			sourceTree = "<group>";
+		};
+		181121FB221663D0002A0B4E /* courseDetail */ = {
+			isa = PBXGroup;
+			children = (
+				181121FC221664C1002A0B4E /* CourseDetailViewController.h */,
+				181121FD221664C1002A0B4E /* CourseDetailViewController.m */,
+				1811220222169B7E002A0B4E /* CourseDescriptionViewController.h */,
+				1811220322169B7E002A0B4E /* CourseDescriptionViewController.m */,
+			);
+			path = courseDetail;
 			sourceTree = "<group>";
 		};
 		182A1180219BF5B400C0E08D /* GDataXMLNode */ = {
@@ -2635,6 +2828,19 @@
 				18B83B042173557C00130DB6 /* YBVideoBrowseTopBar.m */,
 			);
 			path = VideoBrowse;
+			sourceTree = "<group>";
+		};
+		18CDCE8E221542E2002D28B1 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				18CDCE8F22154359002D28B1 /* AuthorModel.h */,
+				18CDCE9022154359002D28B1 /* AuthorModel.m */,
+				A3E381E2221698E200BFB227 /* LMSCategoryModel.h */,
+				A3E381E3221698E200BFB227 /* LMSCategoryModel.m */,
+				181121FF22168FB6002A0B4E /* CourseModel.h */,
+				1811220022168FB6002A0B4E /* CourseModel.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		18DA499C21897BBF00DA2292 /* model */ = {
@@ -3316,6 +3522,7 @@
 		43B72528217650A1000F6797 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				1804B48A2205B56F00F9A75A /* Settings */,
 				432136F121E39E4D00ADF614 /* Careers */,
 				432136EE21E39B8E00ADF614 /* EventsPage */,
 				4355705A21E1AB92007A8C21 /* Unite */,
@@ -3750,6 +3957,25 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				181122092216AA0F002A0B4E /* ic_nav_bookmark_act.png */,
+				1811220A2216AA10002A0B4E /* ic_nav_bookmark_act@2x.png */,
+				181122082216AA0F002A0B4E /* ic_nav_bookmark_act@3x.png */,
+				181122052216AA0E002A0B4E /* ic_nav_bookmark.png */,
+				1811220C2216AA10002A0B4E /* ic_nav_bookmark@2x.png */,
+				1811220B2216AA10002A0B4E /* ic_nav_bookmark@3x.png */,
+				181122072216AA0E002A0B4E /* ic_nav_share.png */,
+				181122062216AA0E002A0B4E /* ic_nav_share@2x.png */,
+				1811220D2216AA11002A0B4E /* ic_nav_share@3x.png */,
+				A338E2332214303100FCCCA0 /* lms-search-light.png */,
+				A338E2342214303200FCCCA0 /* lms-search.png */,
+				A338E22322142BA600FCCCA0 /* lms-bookmarks-light.png */,
+				A338E22522142BA600FCCCA0 /* lms-bookmarks.png */,
+				A338E22422142BA600FCCCA0 /* lms-catalog-light.png */,
+				A338E22822142BA700FCCCA0 /* lms-catalog.png */,
+				A338E22922142BA700FCCCA0 /* lms-downloads-light.png */,
+				A338E22A22142BA700FCCCA0 /* lms-downloads.png */,
+				A338E22622142BA600FCCCA0 /* lms-my-courses-light.png */,
+				A338E22722142BA600FCCCA0 /* lms-my-courses.png */,
 				18E3405221EB578D00696E04 /* arrow_down_gray@2x.png */,
 				18E3405421EB578D00696E04 /* arrow_down_gray@3x.png */,
 				18E3405121EB578C00696E04 /* arrow_up_gray@2x.png */,
@@ -4571,6 +4797,15 @@
 			path = TransitionDriver;
 			sourceTree = "<group>";
 		};
+		A3E381DB221583AB00BFB227 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A3E381DF2215840200BFB227 /* EducationCategoryTableViewCell.h */,
+				A3E381E02215840200BFB227 /* EducationCategoryTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A99177012176E4CD00788D2C /* AutoEncodeDecode */ = {
 			isa = PBXGroup;
 			children = (
@@ -4827,6 +5062,9 @@
 		C5EEAB01C19CB9BCE49EE088 /* education */ = {
 			isa = PBXGroup;
 			children = (
+				181121FB221663D0002A0B4E /* courseDetail */,
+				A3E381DB221583AB00BFB227 /* View */,
+				18CDCE8E221542E2002D28B1 /* model */,
 				C5EEAA027A4D8EDC92227D2B /* EducationPage.m */,
 				C5EEAC99B98367C3280F1F9F /* EducationPage.h */,
 				A3D0C321220057C800455E0E /* EducationBookmarksViewController.h */,
@@ -4835,6 +5073,12 @@
 				A3D0C325220057FE00455E0E /* EducationDownloadsViewController.m */,
 				A3D0C3272200583900455E0E /* EducationCoursesViewController.h */,
 				A3D0C3282200583900455E0E /* EducationCoursesViewController.m */,
+				A338E2372214304C00FCCCA0 /* EducationSearchViewController.h */,
+				A338E2382214304C00FCCCA0 /* EducationSearchViewController.m */,
+				18CDCE8B22141C9B002D28B1 /* EducationSpeakerDetailViewController.h */,
+				18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */,
+				A3E381DC221583EA00BFB227 /* EducationCategoryViewController.h */,
+				A3E381DD221583EA00BFB227 /* EducationCategoryViewController.m */,
 			);
 			path = education;
 			sourceTree = "<group>";
@@ -5103,6 +5347,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A338E22C22142BA700FCCCA0 /* lms-catalog-light.png in Resources */,
 				4EBCE6B7212A8A4700A0672D /* close_white@2x.png in Resources */,
 				1863939E21B02D6E00512CBB /* icon_attention.png in Resources */,
 				4EBCE6E2212EABF100A0672D /* delete@2x.png in Resources */,
@@ -5154,8 +5399,10 @@
 				4E47253721CA61D20076B824 /* submit_resume@3x.png in Resources */,
 				4E94AE2921AE74C2009CAB7F /* more@2x.png in Resources */,
 				4E528B23217074F2008C151B /* fastBack@2x.png in Resources */,
+				181122112216AA11002A0B4E /* ic_nav_bookmark_act@3x.png in Resources */,
 				18A0DBAD21B23A140065B2BD /* career_location_bg_small.png in Resources */,
 				C5EEA304546737C29C822865 /* inkedin@3x.png in Resources */,
+				A338E22D22142BA700FCCCA0 /* lms-bookmarks.png in Resources */,
 				4EBCE6E3212EABF100A0672D /* delete@3x.png in Resources */,
 				18CFB0FB216F3B69002CC9D0 /* foryou-light.png in Resources */,
 				4E2351AD213A7E0C003BA59B /* unSelect@2x.png in Resources */,
@@ -5167,6 +5414,7 @@
 				18CFB0FA216F3B69002CC9D0 /* foryou-light@2x.png in Resources */,
 				C5EEA3833E70FE8F978304CF /* checkbox_on.png in Resources */,
 				3E043B92213C15480044CD77 /* residency@2x.png in Resources */,
+				181122162216AA11002A0B4E /* ic_nav_share@3x.png in Resources */,
 				C5EEA9C826673B94007566E8 /* checkbox_on@2x.png in Resources */,
 				3E043B94213C15480044CD77 /* default_avatar@3x.png in Resources */,
 				4E94AE2621AE74C2009CAB7F /* more-light@3x.png in Resources */,
@@ -5277,6 +5525,7 @@
 				E11E1A625645EF6A486E1B48 /* user@3x.png in Resources */,
 				4E1F0FEC21C24BCC00C43E3B /* icon_attention_select@2x.png in Resources */,
 				E11E158450AD3B8449EC70B4 /* edu.png in Resources */,
+				181122142216AA11002A0B4E /* ic_nav_bookmark@3x.png in Resources */,
 				E11E1C47F2668B7B79424AA4 /* edu@2x.png in Resources */,
 				E11E1779DCC1408AFB8A3FD4 /* edu@3x.png in Resources */,
 				4E94AE2321AE74C2009CAB7F /* findJob@2x.png in Resources */,
@@ -5323,6 +5572,7 @@
 				E11E1EC34DFC2D9A69DA0157 /* b_light@3x.png in Resources */,
 				E11E11F71BFF2211010C52D6 /* b.png in Resources */,
 				E11E1B804B5E1ED49BA54752 /* b@2x.png in Resources */,
+				A338E23222142BA700FCCCA0 /* lms-downloads.png in Resources */,
 				E11E1A977657FA96734E2F52 /* b@3x.png in Resources */,
 				18DFACC121E8D10400EF528A /* icon_arrow_up@3x.png in Resources */,
 				A36B9D9D21CA092A00A54263 /* icons8-user@2x.png in Resources */,
@@ -5390,16 +5640,19 @@
 				A314772821A6A18B0046942C /* share.png in Resources */,
 				1863939921B02D6E00512CBB /* icon_share_white@3x.png in Resources */,
 				4E51695F21B14644005B8533 /* career-image@2x.png in Resources */,
+				A338E22B22142BA700FCCCA0 /* lms-bookmarks-light.png in Resources */,
 				4EF1098C21B0D3900013C34C /* experence_career@3x.png in Resources */,
 				4E2EF503215E1BF000676A4E /* downLoadIcon@2x.png in Resources */,
 				A3B340D221C3E39D008EB36A /* noun_receipt.png in Resources */,
 				4E36C0C521DF6419003451E6 /* Setting_share@3x.png in Resources */,
 				18EEFCA521CD0746007F5E2B /* icon_sort@2x.png in Resources */,
+				A338E23122142BA700FCCCA0 /* lms-downloads-light.png in Resources */,
 				E11E11E0BE3CABDABF84C0B6 /* setting_light@3x.png in Resources */,
 				A3E752F3217E35010087713D /* Article.png in Resources */,
 				18DE4D14216DFFE400A6C61D /* nonDownload@3x.png in Resources */,
 				E11E19D069A7CA4468DA3E3B /* setting.png in Resources */,
 				E11E1ECB4E9578896C5696C2 /* setting@2x.png in Resources */,
+				181122132216AA11002A0B4E /* ic_nav_bookmark_act@2x.png in Resources */,
 				E11E1EC1132B482DB3BCAF9E /* setting@3x.png in Resources */,
 				E11E15EEFB92D27620F7A533 /* arrow_small.png in Resources */,
 				E11E1067382FDA98904ABAA7 /* arrow_small@2x.png in Resources */,
@@ -5447,6 +5700,7 @@
 				A393E0B521955D06001881C2 /* sponsor_align_banner@2x.png in Resources */,
 				18EEFCA821CD0746007F5E2B /* icon_filter@2x.png in Resources */,
 				4E94AE1221AE74A4009CAB7F /* alert-light@3x.png in Resources */,
+				1811220F2216AA11002A0B4E /* ic_nav_share@2x.png in Resources */,
 				E11E153FF3BA05FDC15DAAFA /* icon-99.png in Resources */,
 				E11E101FC0EE67424EFFBD5A /* icon-99@2x.png in Resources */,
 				E11E1207BA5955DD217BCAB7 /* icon-99@3x.png in Resources */,
@@ -5455,10 +5709,13 @@
 				18ABEAB9219560D100BF3E60 /* SF-UI-Text-Regular.ttf in Resources */,
 				4E528B17216F416F008C151B /* circleWhite.png in Resources */,
 				18E3405721EB578D00696E04 /* arrow_up_gray@3x.png in Resources */,
+				A338E22F22142BA700FCCCA0 /* lms-my-courses.png in Resources */,
+				181122102216AA11002A0B4E /* ic_nav_share.png in Resources */,
 				4E51695521B13704005B8533 /* more-profiles@2x.png in Resources */,
 				E11E153EC0D9A350423FE20A /* Img-User-demo@3x.png in Resources */,
 				E11E1CAC9B2596D56900A33E /* in_large.png in Resources */,
 				E11E130E848ED2D497242E65 /* in_large@2x.png in Resources */,
+				A338E22E22142BA700FCCCA0 /* lms-my-courses-light.png in Resources */,
 				E11E11881EA8101A47CFB4AF /* in_large@3x.png in Resources */,
 				A3BDC56121D7AC2A0077ED25 /* Applied.png in Resources */,
 				18DE4D12216DFFE400A6C61D /* nonDownload@2x.png in Resources */,
@@ -5533,6 +5790,7 @@
 				E11E1FAC1F6BE50220F80693 /* menu-community@3x.png in Resources */,
 				18DFACC421E8D14100EF528A /* icon_arrow_up@2x.png in Resources */,
 				18A0DBA321B1877F0065B2BD /* icon_arrow_down_small@3x.png in Resources */,
+				A338E2352214303200FCCCA0 /* lms-search-light.png in Resources */,
 				E11E1CE038DC68FF7C932E10 /* menu-dev_light.png in Resources */,
 				E11E162727181CE585B4D828 /* menu-dev_light@2x.png in Resources */,
 				4E36C0C021DF6419003451E6 /* Setting_resetpwd@3x.png in Resources */,
@@ -5604,6 +5862,7 @@
 				E11E1B72576883B73CF380A8 /* menu-profile@3x.png in Resources */,
 				E11E13313DCB761921A74A08 /* menu-settings_light.png in Resources */,
 				E11E1F24690E6BF885AB6173 /* menu-settings_light@2x.png in Resources */,
+				181122152216AA11002A0B4E /* ic_nav_bookmark@2x.png in Resources */,
 				4E23E07B2152963D00EDCE08 /* gskIcon@2x.png in Resources */,
 				18EEFCA421CD0746007F5E2B /* icon_sort.png in Resources */,
 				E11E1E7047136DAF6ADCDA1C /* menu-settings_light@3x.png in Resources */,
@@ -5626,6 +5885,7 @@
 				E11E1841E8D2257A5B8335AC /* menu-unite@3x.png in Resources */,
 				C5EEA89AB807C5486DB95496 /* exp.png in Resources */,
 				18EEFCAA21CD0746007F5E2B /* icon_filter.png in Resources */,
+				181122122216AA11002A0B4E /* ic_nav_bookmark_act.png in Resources */,
 				C5EEA8BE604C65ED8143D334 /* exp@2x.png in Resources */,
 				C5EEADD489291ABC8C9C83A9 /* exp@3x.png in Resources */,
 				4E23E0862152A37200EDCE08 /* star_select@2x.png in Resources */,
@@ -5634,6 +5894,7 @@
 				4E94AE0721AE4594009CAB7F /* explore-light.png in Resources */,
 				4E36C0C221DF6419003451E6 /* Setting_about@2x.png in Resources */,
 				C5EEA17DD3898E332F25F751 /* category-light@3x.png in Resources */,
+				1811220E2216AA11002A0B4E /* ic_nav_bookmark.png in Resources */,
 				C5EEAEC07A23BE65F60D146A /* category.png in Resources */,
 				A372958621912DF200B36409 /* Content-Options@2x.png in Resources */,
 				C5EEA93E483ADC4B076E3A00 /* category@2x.png in Resources */,
@@ -5667,6 +5928,7 @@
 				A3E752F2217E35010087713D /* Video@3x.png in Resources */,
 				18FE61DA21D1034200C0CEF3 /* icon_u_sel@3x.png in Resources */,
 				4E94AE1121AE74A4009CAB7F /* alert-light@2x.png in Resources */,
+				A338E2362214303200FCCCA0 /* lms-search.png in Resources */,
 				C5EEA65EECB1E4CBE2716E4A /* download-light@2x.png in Resources */,
 				C5EEA28B642FEF60AF01E4E5 /* download-light@3x.png in Resources */,
 				C5EEA43C5D63AE543D25FB62 /* home-light.png in Resources */,
@@ -5705,6 +5967,7 @@
 				C5EEA219A0A7D4B6217215BF /* book9-light@2x.png in Resources */,
 				4E94AE2B21AE74C2009CAB7F /* more@3x.png in Resources */,
 				186393A521B02EC100512CBB /* icon_arrow_down@3x.png in Resources */,
+				A338E23022142BA700FCCCA0 /* lms-catalog.png in Resources */,
 				4E94AE3C21AE7E35009CAB7F /* career-search@3x.png in Resources */,
 				C5EEA2A2F798A25B64B5EC6E /* book9-light@3x.png in Resources */,
 				4E528B0F216E0801008C151B /* knob.png in Resources */,
@@ -5784,13 +6047,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				4355705C21E1ABA4007A8C21 /* UnitePageTests.m in Sources */,
+				1804B4AA2205E13000F9A75A /* FeedbackAndSupportViewControllerTests.m in Sources */,
 				43A8D52621CBEE1200CE8FBD /* GSKItemViewTests.m in Sources */,
+				1804B4912205BD8200F9A75A /* AboutViewControllerTests.m in Sources */,
 				433089DA21F61CD900443469 /* UploadResumeViewTests.m in Sources */,
+				1804B49C2205DFFE00F9A75A /* SettingControllerTests.m in Sources */,
 				43D98CAD219DAE04004C3FBD /* FontsTests.m in Sources */,
 				43714D9E21EAE34200B7AC18 /* CareerAlertsViewControllerTests.m in Sources */,
 				433FBD5822015374000ACD41 /* CompanyDetailViewControllerTests.m in Sources */,
 				435FD78C21E44895004E2D8C /* CareerAlertsAddViewControllerTests.m in Sources */,
 				4307CC39220475D600F17051 /* CompanyDetailDescriptionViewControllerTests.m in Sources */,
+				1804B4A22205E0DD00F9A75A /* HelpAndFeedbackViewControllerTests.m in Sources */,
 				432136F421E39E6300ADF614 /* DSOProfileSearchPageTests.m in Sources */,
 				432136DD21E332E100ADF614 /* SliderListViewTests.m in Sources */,
 				432136ED21E357ED00ADF614 /* UniteThumCollectionViewCellTests.m in Sources */,
@@ -5804,6 +6071,7 @@
 				4344660121A5614A00811E94 /* UIButtonExtTests.m in Sources */,
 				43488F4E2199BAEB00FDC15E /* ColorTests.m in Sources */,
 				43065FE821BFF69A00D142B8 /* CmsCategoryPageTests.m in Sources */,
+				1804B4A42205E0F700F9A75A /* FAQSViewControllerTests.m in Sources */,
 				432136E421E342B300ADF614 /* UnitePageCellTests.m in Sources */,
 				4341949321A598BE0029AECE /* CmsForYouPageTests.m in Sources */,
 				43714DA121EB049C00B7AC18 /* CareerMyJobViewControllerTests.m in Sources */,
@@ -5814,6 +6082,8 @@
 				431AB5AB21E5C00D00AA79C9 /* CareerMeViewControllerTests.m in Sources */,
 				4317ADC821D11E5600ED672D /* DenActionSheetTests.m in Sources */,
 				43028B2D21D28A6300771971 /* PicDetailViewTests.m in Sources */,
+				1804B4AC2205E13F00F9A75A /* GeneralViewControllerTests.m in Sources */,
+				1804B4A62205E10B00F9A75A /* ContactUsViewControllerTests.m in Sources */,
 				4335E27921B6B5EF00A10F7E /* CmsSearchPageTests.m in Sources */,
 				43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */,
 				4355706621E23E0B007A8C21 /* SliderListViewControllerTests.m in Sources */,
@@ -5822,6 +6092,7 @@
 				43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */,
 				43B5E6D321EDEC3000F07A4B /* CareerAddReviewViewControllerTests.m in Sources */,
 				43B7252D217650FF000F6797 /* ExampleTests.m in Sources */,
+				1804B49E2205E0B100F9A75A /* PlaybackSpeedViewControllerTests.m in Sources */,
 				4355C2E021F46D6F00544B5F /* JobDetailViewControllerTests.m in Sources */,
 				439D55EB2189DBFA003BB940 /* ProfileEditPageTests.m in Sources */,
 				4344660521A5674400811E94 /* UIViewExtTests.m in Sources */,
@@ -5845,6 +6116,7 @@
 				43EBDF2821CF634A00C3AAB7 /* RMDownloadIndicatorTests.m in Sources */,
 				43A6590E21D687060091F9AF /* CMSDetailViewControllerTests.m in Sources */,
 				43714DA421EB1BC200B7AC18 /* CareerFindJobViewControllerTests.m in Sources */,
+				1804B4A02205E0C400F9A75A /* VideoQualityViewControllerTests.m in Sources */,
 				43597BFA21CCD0E80033E1C1 /* ContentPageTests.m in Sources */,
 				43941292219F0378008C3092 /* UITextFieldExtTests.m in Sources */,
 				43A196CF2190A12B006E90CC /* EditExperiencePageTests.m in Sources */,
@@ -5862,6 +6134,7 @@
 				43714DAA21EB3C9500B7AC18 /* CareerExplorePageTests.m in Sources */,
 				439B4A2221D355540037BE5C /* XHStarRateViewTests.m in Sources */,
 				433089D721F61AE500443469 /* JobDetailReviewsViewControllerTests.m in Sources */,
+				1804B4A82205E12000F9A75A /* NotificationsViewControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5901,6 +6174,7 @@
 				18A0F44321E072E600369058 /* SettingLabelAndCheckedTableViewCell.m in Sources */,
 				C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */,
 				A3EE38F62181AEF600C76F3A /* CMSModelComment.m in Sources */,
+				1811220122168FB6002A0B4E /* CourseModel.m in Sources */,
 				4E23522F213D12CB003BA59B /* UISearchBarView.m in Sources */,
 				18EEFCB021CF4D2E007F5E2B /* CompanyReviewsDetailViewController.m in Sources */,
 				A3BA6E0621B11B9F00D83156 /* FindJobsSponsorTableViewCell.m in Sources */,
@@ -5941,6 +6215,7 @@
 				A3DF39A22189A280006F84DC /* ConstraintsHelper.swift in Sources */,
 				4E0C115C2181C8D7007DC63D /* CommentModel.m in Sources */,
 				A3729572219124D000B36409 /* ThumAndDetailViewController.m in Sources */,
+				A3E381E12215840200BFB227 /* EducationCategoryTableViewCell.m in Sources */,
 				18B83B1E2173557D00130DB6 /* YBImageBrowser.m in Sources */,
 				C5EEA77FC67A0537194AE788 /* StudentController.m in Sources */,
 				C5EEA97A363C02981633699C /* StackLayout.m in Sources */,
@@ -6009,7 +6284,9 @@
 				A3B340DB21C8ECAB008EB36A /* CareerMeTableViewCell.m in Sources */,
 				182A11792199593C00C0E08D /* NSDate+customed.m in Sources */,
 				4E846F92213FFEB300DC2B51 /* EditWriteTableViewCell.m in Sources */,
+				A3E381DE221583EA00BFB227 /* EducationCategoryViewController.m in Sources */,
 				18B83B192173557D00130DB6 /* YBVideoBrowseActionBar.m in Sources */,
+				A3E381E4221698E200BFB227 /* LMSCategoryModel.m in Sources */,
 				4E1957412137D0F100420563 /* PermissionFullProfileFields.m in Sources */,
 				183B048821C286DE00D26BB3 /* CareerAddReviewViewController.m in Sources */,
 				3E64F12E21720FB6001A7CF2 /* DSOWebViewController.m in Sources */,
@@ -6053,6 +6330,7 @@
 				A39EE5102188578200F74745 /* CmsArticleCategoryPage.m in Sources */,
 				E11E147FF4FE738E0561AF6A /* Proto.m in Sources */,
 				18A0DBB121B51DF40065B2BD /* CompanyMediaModel.m in Sources */,
+				18CDCE9122154359002D28B1 /* AuthorModel.m in Sources */,
 				E11E193B11128F898EABFD63 /* main.m in Sources */,
 				4E2EF4FC215D0D4B00676A4E /* DenActionSheet.m in Sources */,
 				A39B9AC721AD8AE5001CED72 /* BookmarkManager.m in Sources */,
@@ -6060,6 +6338,7 @@
 				E11E106CD8257C6C65B6148B /* CmsDownloadsController.m in Sources */,
 				A3BDC56F21E847780077ED25 /* GeneralViewController.m in Sources */,
 				4E30ACED217187910016722B /* GSKItemView.m in Sources */,
+				A338E2392214304C00FCCCA0 /* EducationSearchViewController.m in Sources */,
 				4E94ADC621ACE8EC009CAB7F /* CareerMyJobViewController.m in Sources */,
 				4E33ACD92190183E00E4CF7E /* SliderListViewController.m in Sources */,
 				E11E17A97D865580926CB2EB /* UIViewController+myextend.m in Sources */,
@@ -6151,6 +6430,7 @@
 				A3729575219128A100B36409 /* UniteThumCollectionViewCell.m in Sources */,
 				C5EEA998A2E6E6E97A8E5259 /* FromToView.m in Sources */,
 				C5EEAC226A4350FB406AFD22 /* DatePickerPage.m in Sources */,
+				18CDCE8D22141C9B002D28B1 /* EducationSpeakerDetailViewController.m in Sources */,
 				A3BA6E1321B53BEE00D83156 /* CareerSearchViewController.m in Sources */,
 				C5EEAB40C81644F1288B9E7A /* PickerPage.m in Sources */,
 				4EF2A36A21A6FB66007E6483 /* FullListTableViewCell.m in Sources */,
@@ -6174,7 +6454,9 @@
 				A3DF39A32189A280006F84DC /* SubviewsForEach.swift in Sources */,
 				C5EEA3F0CF05284FD745DF70 /* CareerExplorePage.m in Sources */,
 				C5EEAF27063BEE4721232460 /* Article.m in Sources */,
+				1811220422169B7E002A0B4E /* CourseDescriptionViewController.m in Sources */,
 				C5EEA61AC52ECB7531FFBA59 /* ArticleComment.m in Sources */,
+				181121FE221664C1002A0B4E /* CourseDetailViewController.m in Sources */,
 				C5EEA8887E615366A4D0A196 /* CmsSearchPage.m in Sources */,
 				C5EEA7409B28BF6FE9FB06F8 /* CmsCategoryPage.m in Sources */,
 				C5EEAFAD1B55BB349102460C /* CmsForYouPage.m in Sources */,
@@ -6226,6 +6508,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HPA69P8D2K;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentistTests/Support/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -6250,6 +6533,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HPA69P8D2K;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
 				INFOPLIST_FILE = dentistTests/Support/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

@@ -29,14 +29,19 @@
 }
 
 
-
+/**
+ view did load
+ call buildview function
+ */
 - (void)viewDidLoad{
     edge = 18;
     [self buildView];
     
 }
 
-
+/**
+ build views
+ */
 -(void)buildView{
     edge = 18;
     
@@ -57,11 +62,20 @@
     
 }
 
+
+/**
+ set JobDSOModel
+ 
+ @param jobDSOModel JobDSOModel
+ */
 -(void)setJobDSOModel:(JobDSOModel *)jobDSOModel{
     _jobDSOModel = jobDSOModel;
     [self reloadComment];
 }
 
+/**
+ Reload comment data
+ */
 -(void)reloadComment{
     [Proto findCommentByCompanyId:self.jobDSOModel.id sort:0 star:0 skip:0 limit:5 completed:^(NSArray<CompanyReviewModel *> *reviewArray,NSInteger totalFound) {
             self->reviewArray = [reviewArray copy];
@@ -69,6 +83,10 @@
     }];
 }
 
+/**
+ 获得最新的公司信息
+ Get the latest dso information
+ */
 -(void)getNewJobDSOModel{
     [self showLoading];
     [Proto findCompanyById:self.jobDSOModel.id completed:^(JobDSOModel * _Nullable companyModel) {
@@ -79,9 +97,18 @@
     }];
 }
 
+/**
+ see more label click event
+ jump to reviews list page
+ */
 -(void)seeMore{
     [CompanyReviewsViewController openBy:self.vc jobDSOModel:self.jobDSOModel];
 }
+
+/**
+ Write review button click event
+ jump to add review page
+ */
 
 -(void)writeReview{
     WeakSelf
@@ -92,6 +119,12 @@
 }
 
 #pragma mark UITableViewDelegate,UITableViewDataSource
+/**
+ build tableview footer view
+ see more label and write button
+ 
+ @return UIView
+ */
 - (UIView *)buildFooterView{
     UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 100+edge)];
     
@@ -135,6 +168,12 @@
     }
 }
 
+/**
+ build dso info cell
+ 
+ @param model JobDSOModel
+ @return UITableViewCell
+ */
 -(UITableViewCell*)companyReviewHeaderCell:tableView data:(JobDSOModel*)model{
     CompanyReviewHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(CompanyReviewHeaderTableViewCell.class)];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -142,7 +181,12 @@
     return cell;
 }
 
-
+/**
+ build dso reviews cell
+ 
+ @param model CompanyReviewModel
+ @return UITableViewCell
+ */
 -(UITableViewCell*)companyReviewTableViewCell:tableView data:(CompanyReviewModel*)model{
     CompanyReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(CompanyReviewTableViewCell.class)];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -152,6 +196,11 @@
 
 
 #pragma mark - 滑动方法
+/**
+ UIScrollViewDelegate
+ scroll view did scroll
+ 
+ */
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (!self.isCanScroll) {
         scrollView.contentOffset = CGPointZero;
@@ -167,10 +216,20 @@
     }
 }
 
+/**
+ 滚动到初始位置
+ Scroll to the initial position
+ */
 -(void)contentOffsetToPointZero{
     tableView.contentOffset = CGPointZero;
 }
 
+/**
+ Get internal padding
+ subview overwrite
+ 
+ @return UIEdgeInsets
+ */
 -(UIEdgeInsets)edgeInsetsMake{
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }

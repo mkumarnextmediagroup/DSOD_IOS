@@ -14,12 +14,17 @@
 
 // iPhone X
 #define IS_IPHONE_X (SCREENHEIGHT == 812.f ? YES : NO)
-#define NAVHEIGHT (IS_IPHONE_X ? 88.0f : 64.0f)
+#define NAVHEIGHT (IPHONE_X ? 88.0f : 64.0f)
 #define NAVHEIGHT_OFFSET (IS_IPHONE_X ? 24.0f : 0)
 #define TABLEBAR_SAFE_BOTTOM_MARGIN  (IS_IPHONE_X ? 34.0f : 0.f)
 #define TABLEBAR_HEIGHT  (IS_IPHONE_X ? (49.f+34.f) : 49.f)
 #define IS_IPHONE_P_X (SCREENHEIGHT >= 736.0 ? YES : NO)
 #define getRectNavAndStatusHight  (self.navigationController.navigationBar.frame.size.height+[[UIApplication sharedApplication] statusBarFrame].size.height)
+
+#define getRectNavStatusHight  ([[UIApplication sharedApplication] statusBarFrame].size.height)
+
+#define getRectNavHight  (self.navigationController.navigationBar.frame.size.height)
+
 
 #define PHONEFIELDTag 146
 #define EMAILFIELDTag 147

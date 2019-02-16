@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UniteThumCollectionViewCell : UICollectionViewCell
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,weak) id<UniteThumCollectionViewCellDelegate> delegate;
+@property (nonatomic,assign) CGFloat cellcontentInsetTop;
 
 -(void)bind:(DetailModel*)model;
 -(instancetype)initWithFrame:(CGRect)frame;

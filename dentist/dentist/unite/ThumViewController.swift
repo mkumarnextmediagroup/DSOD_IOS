@@ -13,6 +13,11 @@ import UIKit
     @objc optional func thumDidSelectMenu(_ index: NSInteger) -> Void
 }
 
+/**
+ 杂志文章类型
+ normal
+ bookmark
+ */
 @objc enum PageType : Int{
     case normal
     case bookmark
@@ -95,7 +100,10 @@ extension ThumViewController{
             })
         }
     }
-    
+
+    /**
+     No data page content
+     */
     func setEmptyView(type:PageType) -> Void {
         if self.modelarr!.count>=1 {
             emptyView?.isHidden=true
@@ -110,6 +118,9 @@ extension ThumViewController{
         }
     }
     
+    /**
+     config detfault pagetype enum
+     */
     func configDefaultMode(){
         if(pageType != PageType.bookmark){
             self.isfull = true
@@ -126,6 +137,9 @@ extension ThumViewController{
         }
     }
     
+    /**
+     set the navigation title
+     */
     func showNavTitle(_ status:Bool?) -> Void {
         if status==true {
             //隐藏
@@ -139,6 +153,9 @@ extension ThumViewController{
         }
     }
     
+    /**
+     reload menu data
+     */
     func relaodMenuData(_ isfull:Bool?) -> Void {
         if isfull==true {
             popView?.iconNameArray = ["book9", "search-light", "share", "thumbnails", "arrow"]
@@ -152,7 +169,9 @@ extension ThumViewController{
         
     }
     
-    
+    /**
+     share the unite acticle
+     */
     @objc func shareUniteActicle() -> Void{
         if(self.modelarr!.count>self.currentIndex) {
             let detailmodel:DetailModel=self.modelarr![self.currentIndex]
@@ -197,6 +216,9 @@ extension ThumViewController{
         
     }
     
+    /**
+     show the list page on the Upper right corner when click it.
+     */
     @objc func openSliderView(search:Bool) -> Void {
         popView?.hide()
         popView2?.hide()
@@ -212,10 +234,11 @@ extension ThumViewController{
             sliderView?.issueNumber=detailmodel.magazineModel.serial
         }
         sliderView?.showSliderView()
-//        SliderListView.init(sliderView: search, magazineId: self.uniteid).showSliderView()
-//        SliderListView.init(frame: CGRect.zero, isSearch: search, magazineId: self.uniteid!).showSliderView()
     }
     
+    /**
+     show the menu on the Upper right corner when click it.
+     */
    @objc func openMenu(){
     SliderListView.hideSliderView()
     if let popView=popView,popView.isShowing {
@@ -356,6 +379,10 @@ extension ThumViewController{
         })
     }
     
+    /**
+     show the detail view or thumbnails view
+     @param isfull true or false
+     */
     @objc func showDetailView(isfull:Bool) -> Void {
         if isfull {
             self.isfull=true
@@ -381,11 +408,10 @@ extension ThumViewController{
         }
     }
     
-    // MARK: 详情页
+    /**
+     go to bookmarks page
+     */
     @objc func goToBookmarks(){
-//        let thumvc :ThumViewController = ThumViewController()
-//        thumvc.pageType = PageType.bookmark;
-//        self.navigationController?.pushViewController(thumvc, animated: true)
         self.pageType = PageType.bookmark;
         DentistDataBaseManager.share().queryUniteArticlesBookmarkCachesList { (array:Array<DetailModel>) in
             self.modelarr=array
@@ -404,6 +430,9 @@ extension ThumViewController{
         }
     }
     
+    /**
+     create detail view
+     */
     fileprivate func createDetailCollection(){
 //        let navBarHeight = self.navigationController!.navigationBar.frame.size.height
 //
@@ -455,6 +484,9 @@ extension ThumViewController{
 
 extension ThumViewController {
     
+    /**
+     register cell
+     */
     fileprivate func registerCell() {
         
         let nib = UINib(nibName: String(describing: ThumCollectionViewCell.self), bundle: nil)
@@ -476,18 +508,28 @@ extension ThumViewController {
         return ThumTableViewController()
     }
     
+    /**
+     set navigation left bar
+     */
     fileprivate func configureNavBar() {
 //        let appdelegate = UIApplication.shared.delegate as! AppDelegate
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"back_arrow"), style: .plain, target: self, action: #selector(self.onBack))
         rightNavBar()
     }
     
+    /**
+     set navigation right bar
+     */
     func rightNavBar(){
         let menuBtnItem1=UIBarButtonItem(image: UIImage(named:"Content-Options"), style: .plain, target: self, action: #selector(openMenuSliderView))
         let fixedSpaceBarButtonItem=UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         let menuBtnItem2=UIBarButtonItem(image: UIImage(named:"More-Options"), style: .plain, target: self, action: #selector(openMenu))
         navigationItem.rightBarButtonItems=[menuBtnItem2, fixedSpaceBarButtonItem, menuBtnItem1]
     }
+    
+    /**
+     back button event
+     */
     @objc func onBack(){
         popView?.hide()
         popView2?.hide()
@@ -511,7 +553,9 @@ extension ThumViewController {
         view.addGestureRecognizer(upGesture)
         view.addGestureRecognizer(downGesture)
     }
-    
+    /**
+     gSlide up and down to show the detail view or thumbnails view
+     */
     @objc func swipeHandler(_ sender: UISwipeGestureRecognizer) {
         let indexPath = IndexPath(row: currentIndex, section: 0)
         guard let cell = collectionView?.cellForItem(at: indexPath) as? ThumCollectionViewCell else { return }
@@ -540,6 +584,9 @@ extension ThumViewController {
         print("offsety2222======%f",offsety)
     }
     
+    /**
+     go to detail page
+     */
     @objc func gotoDetailPage(_ articleID: String) {
         for (index,value) in self.modelarr!.enumerated() {
             if value.id == articleID {
@@ -625,7 +672,9 @@ extension ThumViewController {
 //
 //        }
     }
-    //MARK:archive
+    /**
+     unite archive event
+     */
     func uniteArchiveAction(indexpath: IndexPath) {
         if (self.modelarr?.count)! >= indexpath.row+1 {
             let alert = UIAlertController(title:"Archive this issue?",message:"This will remove the content from your device. You will still be able to download this issue at a later date.",preferredStyle:UIAlertController.Style.alert)
@@ -649,6 +698,9 @@ extension ThumViewController {
         }
     }
     
+    /**
+     remove bookmark event
+     */
     func removeBookmarkAction(indexpath: IndexPath) {
         if (self.modelarr?.count)! >= indexpath.row+1 {
             let detailmodel:DetailModel=self.modelarr![indexpath.row]

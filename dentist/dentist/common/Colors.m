@@ -247,5 +247,13 @@
     }
     return _c;
 }
+
++ (UIColor *)black1A191A {
+    static UIColor *_c = nil;
+    if (_c == nil) {
+        _c = rgb255(26, 25, 26);
+    }
+    return _c;
+}
 @end
 

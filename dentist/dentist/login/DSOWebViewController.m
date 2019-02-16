@@ -53,7 +53,9 @@
     
 }
 
-
+/**
+ back event
+ */
 - (void)popBtnClick:(id)sender {
     NSLog(@"popBtnClick");
     [self popPage];

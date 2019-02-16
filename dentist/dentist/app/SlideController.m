@@ -36,6 +36,7 @@
 #import "EducationBookmarksViewController.h"
 #import "EducationDownloadsViewController.h"
 #import "EducationCoursesViewController.h"
+#import "EducationSearchViewController.h"
 
 @interface SlideController()<UITabBarControllerDelegate,UITabBarDelegate,MoreViewDelegate>
 
@@ -122,25 +123,30 @@
 //        return [EducationPage new];
         EducationPage *educationPage = [EducationPage new];
         UINavigationController *ncCatalog = NavPage(educationPage);
-        [ncCatalog tabItem:@"Catalog" imageName:@"foryou"];
+        [ncCatalog tabItem:@"Catalog" imageName:@"lms-catalog"];
         educationPage.navigationItem.leftBarButtonItem = [self menuButton];
+        
+        EducationSearchViewController *educationSearch = [EducationSearchViewController new];
+        UINavigationController *ncSearch = NavPage(educationSearch);
+        [ncSearch tabItem:@"Search" imageName:@"lms-search"];
+        educationSearch.navigationItem.leftBarButtonItem = [self menuButton];
         
         EducationBookmarksViewController *educationBookmarks = [EducationBookmarksViewController new];
         UINavigationController *ncBookmarks = NavPage(educationBookmarks);
-        [ncBookmarks tabItem:@"Bookmarks" imageName:@"bookmark"];
+        [ncBookmarks tabItem:@"Bookmarks" imageName:@"lms-bookmarks"];
         educationBookmarks.navigationItem.leftBarButtonItem = [self menuButton];
         
         EducationDownloadsViewController *educationDownloads = [EducationDownloadsViewController new];
         UINavigationController *ncDownloads = NavPage(educationDownloads);
-        [ncDownloads tabItem:@"Downloads" imageName:@"download"];
+        [ncDownloads tabItem:@"Downloads" imageName:@"lms-downloads"];
         educationDownloads.navigationItem.leftBarButtonItem = [self menuButton];
         
         EducationCoursesViewController *educationCourses = [EducationCoursesViewController new];
         UINavigationController *ncCourses = NavPage(educationCourses);
-        [ncCourses tabItem:@"My Courses" imageName:@"search"];
+        [ncCourses tabItem:@"My Courses" imageName:@"lms-my-courses"];
         educationCourses.navigationItem.leftBarButtonItem = [self menuButton];
 
-        return TabPage(@[ncCatalog, ncBookmarks, ncDownloads, ncCourses]);
+        return TabPage(@[ncCatalog, ncSearch, ncBookmarks, ncDownloads, ncCourses]);
 	}
 	if ([@"Career" isEqualToString:title]) {
         CareerExplorePage *explorePage = [CareerExplorePage new];

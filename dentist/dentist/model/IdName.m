@@ -8,6 +8,10 @@
 
 
 @implementation IdName {
-
+    
+}
++ (JSONKeyMapper *)keyMapper{
+    // 属性名作为key ,字典中的key名 作为 value
+    return [[JSONKeyMapper alloc]initWithModelToJSONDictionary:@{@"descriptions":@"description"}];
 }
 @end

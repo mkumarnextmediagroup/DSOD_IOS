@@ -182,33 +182,32 @@
     UIView *topVi = [UIView new];
     topVi.backgroundColor = Colors.bgNavBarColor;
     [self.view addSubview:topVi];
-    [[[[[topVi.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:NAVHEIGHT] install];
-    
+    [[[[[topVi.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:getRectNavAndStatusHight] install];
     titleLabel = [topVi addLabel];
     titleLabel.font = [Fonts semiBold:15];
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.text = @"";
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    [[[[titleLabel.layoutMaker leftParent:(SCREENWIDTH - 200)/2] topParent:23+NAVHEIGHT_OFFSET] sizeEq:200 h:40] install];
+    [[[[titleLabel.layoutMaker leftParent:(SCREENWIDTH - 200)/2] bottomParent:-((getRectNavHight-40)/2)] sizeEq:200 h:40] install];
     
     UIButton *dismissBtn = [topVi addButton];
     [dismissBtn setImage:[UIImage imageNamed:@"back_arrow"] forState:UIControlStateNormal];
     [dismissBtn addTarget:self action:@selector(onBack:) forControlEvents:UIControlEventTouchUpInside];
-    [[[[dismissBtn.layoutMaker leftParent:0] topParent:24+NAVHEIGHT_OFFSET] sizeEq:60 h:40] install];
+    [[[[dismissBtn.layoutMaker leftParent:0] bottomParent:-((getRectNavHight-40)/2)] sizeEq:60 h:40] install];
     
     
     UIButton *nextBtn = [topVi addButton];
     [nextBtn setImage:[UIImage imageNamed:@"icon_arrow_down"] forState:UIControlStateNormal];
-    [[[[nextBtn.layoutMaker leftParent:SCREENWIDTH - 90] topParent:24+NAVHEIGHT_OFFSET] sizeEq:40 h:40] install];
+    [[[[nextBtn.layoutMaker leftParent:SCREENWIDTH - 90] bottomParent:-((getRectNavHight-40)/2)] sizeEq:40 h:40] install];
     [nextBtn addTarget:self action:@selector(onClickDown:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *preBtn = [topVi addButton];
     [preBtn setImage:[UIImage imageNamed:@"icon_arrow_up"] forState:UIControlStateNormal];
-    [[[[preBtn.layoutMaker leftParent:SCREENWIDTH - 50] topParent:24+NAVHEIGHT_OFFSET] sizeEq:40 h:40] install];
+    [[[[preBtn.layoutMaker leftParent:SCREENWIDTH - 50] bottomParent:-((getRectNavHight-40)/2)] sizeEq:40 h:40] install];
     [preBtn addTarget:self action:@selector(onClickUp:) forControlEvents:UIControlEventTouchUpInside];
     
     UILabel *line = [topVi lineLabel];
-    [[[[line.layoutMaker topParent:NAVHEIGHT - 1] leftParent:0] sizeEq:SCREENWIDTH h:1] install];
+    [[[[line.layoutMaker topParent:getRectNavAndStatusHight - 1] leftParent:0] sizeEq:SCREENWIDTH h:1] install];
     
     
     preBtn.hidden = ![self hasPre];
@@ -243,7 +242,7 @@
         [self.contentView addSubview:picDetailView];
     }
     [picDetailView bind:self.articleInfo];
-    [[[[picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT-20] install];
+    [[[[picDetailView.layoutMaker leftParent:0] rightParent:0] topParent:getRectNavHight] install];
     [self.contentView.layoutUpdate.bottom.greaterThanOrEqualTo(picDetailView) install];
 
     if (!myTable) {

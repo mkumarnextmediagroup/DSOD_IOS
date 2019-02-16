@@ -35,12 +35,22 @@
 }
 
 
+/**
+ opne dso list page
+
+ @param vc UIViewController
+ */
 +(void)openBy:(UIViewController*)vc {
     CompanyExistsReviewsViewController *companyVc = [CompanyExistsReviewsViewController new];
     [vc pushPage:companyVc];
 }
 
 
+/**
+ view did load
+ add navigation bar
+ build views
+ */
 - (void)viewDidLoad{
     [super viewDidLoad];
     
@@ -52,6 +62,9 @@
     
 }
 
+/**
+ add navigation bar
+ */
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
     item.title = @"REVIEWS";
@@ -80,6 +93,10 @@
     
 }
 
+/**
+ 返回上一页面
+ back to the previous page
+ */
 - (void)backToFirst
 {
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -99,6 +116,10 @@
     
 }
 
+/**
+ search click event
+ jump to dso search page
+ */
 - (void)searchClick
 {
     NSLog(@"search btn click");
@@ -109,6 +130,9 @@
     
 }
 
+/**
+ build views
+ */
 -(void)buildView{
     edge = 18;
     
@@ -128,6 +152,9 @@
 
 
 
+/**
+ setup tableview refresh event
+ */
 -(void)setupRefresh{
     refreshControl=[[UIRefreshControl alloc]init];
     [refreshControl addTarget:self action:@selector(firstRefresh) forControlEvents:UIControlEventValueChanged];
@@ -138,24 +165,38 @@
 }
 
 
+/**
+ show loading
+ */
 - (void)showTopIndicator {
     iv.hidden = NO;
     [iv startAnimating];
     isRefreshing = YES;
 }
 
+/**
+ stop loading
+ */
 - (void)hideTopIndicator {
     iv.hidden = YES;
     [iv stopAnimating];
     isRefreshing = NO;
 }
 
+/**
+ first load data
+ */
 -(void)firstRefresh{
     [self getDatas:NO];
     [refreshControl endRefreshing];
 }
 
 
+/**
+ get data from server
+
+ @param isMore whether loading more
+ */
 -(void)getDatas:(BOOL)isMore{
     if(isRefreshing || (isMore && companyModelArray.count == totalCount)){
         return;
@@ -169,6 +210,14 @@
     }];
 }
 
+/**
+ table view reload data
+ Update data source
+ Refresh form
+
+ @param newDatas new data
+ @param isMore whether loading more
+ */
 -(void)reloadData:(NSArray*)newDatas isMore:(BOOL)isMore{
     if(newDatas!=nil && newDatas.count >0){
         if(isMore){
@@ -198,6 +247,12 @@
 }
 
 
+/**
+ Handling paged load data
+
+ @param scrollView UIScrollView
+ @param decelerate BOOL
+ */
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     // 下拉到最底部时显示更多数据
     if(!isRefreshing && scrollView.contentOffset.y > ((scrollView.contentSize.height - scrollView.frame.size.height))){

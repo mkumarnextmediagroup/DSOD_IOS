@@ -119,7 +119,7 @@
  build views
  add navigationbar
  sutup JobDetailDescriptionViewController、JobDetailCompanyViewController、JobDetailReviewsViewController
- 
+ get job information
  */
 - (void)viewDidLoad {
     [super viewDidLoad];

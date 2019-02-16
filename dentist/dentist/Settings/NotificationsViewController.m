@@ -57,16 +57,40 @@
 }
 
 #pragma mark UITableViewDelegate,UITableViewDataSource
-
+/**
+ UITableViewDataSource
+ heightForRowAtIndexPath
+ 
+ @param tableView UITableView
+ @param indexPath NSIndexPath
+ @return height for row
+ */
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 80;
 }
 
+/**
+ UITableViewDataSource
+ numberOfRowsInSection
+ 
+ @param tableView UITableView
+ @param section section index
+ @return number of rows in section
+ */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 4;
 }
+
+/**
+ UITableViewDataSource
+ cellForRowAtIndexPath
+ 
+ @param tableView UITableView
+ @param indexPath NSIndexPath
+ @return UITableViewCell
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NotificationsTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NotificationsTableViewCell class]) forIndexPath:indexPath];
@@ -84,12 +108,25 @@
     return cell;
 }
 
-
+/**
+ UITableViewDataSource
+ didSelectRowAtIndexPath
+ 
+ @param tableView UITableView
+ @param indexPath NSIndexPath
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+/**
+ status change event
+ 
+ @param status ON is YES，OFF is NO
+ @param indexPath NSIndexPath
+ @param view UITableViewCell
+ */
 -(void)SwitchChangeAction:(BOOL)status indexPath:(NSIndexPath *)indexPath view:(UIView *)view
 {
     [self showLoading];

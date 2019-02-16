@@ -75,7 +75,9 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     // Do any additional setup after loading the view.
 }
 
-
+/**
+ set up navigation
+ */
 -(void)setupNavigation{
     UINavigationItem *item = [self navigationItem];
     item.title = @"";
@@ -101,6 +103,10 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     
 }
 
+/**
+ load unite array
+ @param modelarr unite array
+ */
 -(void)setModelarr:(NSArray<DetailModel *> *)modelarr
 {
     _modelarr=modelarr;
@@ -108,6 +114,10 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     [self.collectionView reloadData];
 }
 
+/**
+ set current page number on this unite
+ @param currentIndex the index of unite array
+ */
 -(void)setCurrentIndex:(NSInteger)currentIndex{
     _currentIndex=currentIndex;
 
@@ -119,6 +129,19 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     return _currentIndex;
 }
 
+/**
+ set navigation bar
+ */
+- (void)hideNavBar:(BOOL)hide{
+    hiddenStatusBar = hide;
+    [self.navVC setNavigationBarHidden:hide animated:YES];
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+}
+
+/**
+ back button event
+ */
 - (void)onBack:(UIButton *)btn {
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -128,7 +151,7 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
     NSLog(@"%@",btn);
 }
 
-#pragma mark - deleDate
+#pragma mark - UICollectionViewDataSource & UICollectionViewDelegate
 //有多少的分组
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
@@ -163,14 +186,6 @@ static NSString * UniteThumidentifier = @"UniteThumCellID";
             [self.delegate ThumAndDetailViewControllerDidScroll:offsety];
         }
     }
-}
-
-
-- (void)hideNavBar:(BOOL)hide{
-    hiddenStatusBar = hide;
-    [self.navVC setNavigationBarHidden:hide animated:YES];
-    [self setNeedsStatusBarAppearanceUpdate];
-    
 }
 
 - (BOOL)prefersStatusBarHidden{

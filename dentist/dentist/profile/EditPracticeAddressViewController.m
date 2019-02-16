@@ -70,6 +70,9 @@
 	[[[[cancelBtn.layoutMaker sizeEq:60 h:BTN_HEIGHT] centerXParent:0] bottomParent:-47] install];
 }
 
+/**
+ reload the address info
+ */
 - (void)bindData {
 	_addr1View.edit.text = self.address.address1;
 	_addr2View.edit.text = self.address.address2;
@@ -78,6 +81,7 @@
 	_stateView.msgLabel.text = self.address.stateLabel;
 }
 
+#pragma mark -----UITextFieldDelegate
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 	[super textFieldDidEndEditing:textField];
 	if (_zipView) {
@@ -87,6 +91,9 @@
 	}
 }
 
+/**
+ check the city by zip code
+ */
 - (void)queryStateCityByZipCode:(NSString *)zip {
 	if (!zip || zip.length != 5) {
 		return;
@@ -101,6 +108,11 @@
 	});
 }
 
+/**
+ check the city by zip code;
+ if the city & zip code is right
+ there will reload the city and zip code info
+ */
 - (void)handleStateCity:(StateCity *)sc {
     [self hideIndicator];
     if (sc) {
@@ -113,6 +125,10 @@
     }
 }
 
+/**
+ the alert view will ask you,when you edit the address and you clik the back action:
+ Are you sure you want to delete all the update made to Practice Address?
+ */
 - (void)clickBack:(id)sender {
 
 	[self Den_showAlertWithTitle:nil message:localStr(@"delAndBack") appearanceProcess:^(DenAlertController *_Nonnull alertMaker) {
@@ -127,10 +143,16 @@
 
 }
 
+/**
+ back event
+ */
 - (void)clickCancel:(UIButton *)btn {
 	[self popPage];
 }
 
+/**
+ save the address info
+ */
 - (void)clickSave:(UIButton *)btn {
 	self.address.address1 = [NSString stringWithFormat:@"%@\n", _addr1View.edit.textTrimed];
 	if (![_addr2View.edit.textTrimed isEqualToString:@""]) {
@@ -148,7 +170,10 @@
 	[self popPage];
 }
 
-
+/**
+ click the state ，and that will go to the stat list page
+ you can choose which state city you want
+ */
 - (void)clickState:(id)sender {
 	SearchPage *p = [SearchPage new];
 	p.checkedItem = _stateView.msgLabel.text;
@@ -163,6 +188,9 @@
 
 }
 
+/**
+ processing the  raddress result information
+ */
 - (void) handleResult:(NSObject *) item ls:(NSArray *) ls {
 //        stateView.msgLabel.text = (NSString *) item;
     NSString *currentState = (NSString *) item;

@@ -13,6 +13,8 @@
 
 @property NSString *id;
 
-@property NSString  <Optional> *name;
+@property NSString <Optional> *name;
+
+@property NSString <Optional> *descriptions;
 
 @end

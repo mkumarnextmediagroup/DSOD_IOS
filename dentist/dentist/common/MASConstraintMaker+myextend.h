@@ -62,8 +62,11 @@
 
 - (MASConstraintMaker *)leftOf:(UIView *)v;
 
+- (MASConstraintMaker *)leftOf:(UIView *)v offset:(CGFloat)offset;;
+
 - (MASConstraintMaker *)rightOf:(UIView *)v;
 
+- (MASConstraintMaker *)rightOf:(UIView *)v offset:(CGFloat)offset;;
 
 - (MASConstraintMaker *)above:(UIView *)v offset:(CGFloat)offset;
 

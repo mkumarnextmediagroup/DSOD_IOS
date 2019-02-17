@@ -39,4 +39,5 @@
 @property(class, nonatomic, readonly) UIColor *textColorFAFBFD;
 @property(class, nonatomic, readonly) UIColor *textColor3900;
 @property(class, nonatomic, readonly) UIColor *black1A191A;
+@property(class, nonatomic, readonly) UIColor *textColorDDDDDD;
 @end

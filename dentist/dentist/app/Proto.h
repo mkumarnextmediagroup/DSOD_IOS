@@ -18,6 +18,7 @@
 #import "NotificationModel.h"
 #import "AuthorModel.h"
 #import "LMSCategoryModel.h"
+#import "GenericCoursesModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -326,6 +327,7 @@
 #pragma mark ------LMS
 + (void)queryLMSCategoryTypes:(NSString *)parentId completed:(void(^)(NSArray<IdName *> *array))completed;
 + (void)queryLMSCategoryGroupTypes:(NSString *)parentId completed:(void(^)(NSArray<LMSCategoryModel *> *array))completed;
++ (void)queryLMSGenericCourses:(NSInteger)pagenumber curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
 //lms 获取单个作者
 + (void)findCourseAuthor:(NSString*)authorId completed:(void(^)(BOOL success,NSString *msg,AuthorModel *AuthorModel))completed;
 

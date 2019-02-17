@@ -247,6 +247,8 @@
 		43714DA421EB1BC200B7AC18 /* CareerFindJobViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43714DA321EB1BC200B7AC18 /* CareerFindJobViewControllerTests.m */; };
 		43714DA721EB248000B7AC18 /* DSOProfilePageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43714DA621EB248000B7AC18 /* DSOProfilePageTests.m */; };
 		43714DAA21EB3C9500B7AC18 /* CareerExplorePageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43714DA921EB3C9500B7AC18 /* CareerExplorePageTests.m */; };
+		4375F1342219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4375F1332219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m */; };
+		4375F1362219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4375F1352219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m */; };
 		437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */; };
 		4388150B218D4EF20066BCB6 /* SearchPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4388150A218D4EF20066BCB6 /* SearchPageTests.m */; };
 		438BA12821B4065D005246C5 /* CmsDownloadsControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */; };
@@ -261,6 +263,10 @@
 		43A8D52321CBDBD300CE8FBD /* DownloadsItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A8D52221CBDBD300CE8FBD /* DownloadsItemViewTests.m */; };
 		43A8D52621CBEE1200CE8FBD /* GSKItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A8D52521CBEE1200CE8FBD /* GSKItemViewTests.m */; };
 		43A8D52921CBF7D400CE8FBD /* LinearViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A8D52821CBF7D400CE8FBD /* LinearViewTests.m */; };
+		43B074B02217E0D20020639F /* AllowMultiGestureTableViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B074AF2217E0D20020639F /* AllowMultiGestureTableViewTests.m */; };
+		43B074B52217FC7B0020639F /* FilterViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B074B42217FC7B0020639F /* FilterViewTests.m */; };
+		43B074B7221814630020639F /* DSOProfileTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B074B6221814630020639F /* DSOProfileTableViewCellTests.m */; };
+		43B074B9221816340020639F /* FindJobsTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B074B8221816340020639F /* FindJobsTableViewCellTests.m */; };
 		43B5E6D321EDEC3000F07A4B /* CareerAddReviewViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5E6D221EDEC3000F07A4B /* CareerAddReviewViewControllerTests.m */; };
 		43B5E6D621EE15E300F07A4B /* CompanyExistsReviewsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5E6D521EE15E300F07A4B /* CompanyExistsReviewsViewControllerTests.m */; };
 		43B7252D217650FF000F6797 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252C217650FF000F6797 /* ExampleTests.m */; };
@@ -1415,6 +1421,8 @@
 		43714DA321EB1BC200B7AC18 /* CareerFindJobViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerFindJobViewControllerTests.m; sourceTree = "<group>"; };
 		43714DA621EB248000B7AC18 /* DSOProfilePageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOProfilePageTests.m; sourceTree = "<group>"; };
 		43714DA921EB3C9500B7AC18 /* CareerExplorePageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerExplorePageTests.m; sourceTree = "<group>"; };
+		4375F1332219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOfDSODetailTableViewCellTests.m; sourceTree = "<group>"; };
+		4375F1352219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindJobsSponsorTableViewCellTests.m; sourceTree = "<group>"; };
 		437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewControllerTests.m; sourceTree = "<group>"; };
 		4388150A218D4EF20066BCB6 /* SearchPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPageTests.m; sourceTree = "<group>"; };
 		438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsDownloadsControllerTests.m; sourceTree = "<group>"; };
@@ -1429,6 +1437,10 @@
 		43A8D52221CBDBD300CE8FBD /* DownloadsItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadsItemViewTests.m; sourceTree = "<group>"; };
 		43A8D52521CBEE1200CE8FBD /* GSKItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSKItemViewTests.m; sourceTree = "<group>"; };
 		43A8D52821CBF7D400CE8FBD /* LinearViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearViewTests.m; sourceTree = "<group>"; };
+		43B074AF2217E0D20020639F /* AllowMultiGestureTableViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllowMultiGestureTableViewTests.m; sourceTree = "<group>"; };
+		43B074B42217FC7B0020639F /* FilterViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterViewTests.m; sourceTree = "<group>"; };
+		43B074B6221814630020639F /* DSOProfileTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOProfileTableViewCellTests.m; sourceTree = "<group>"; };
+		43B074B8221816340020639F /* FindJobsTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindJobsTableViewCellTests.m; sourceTree = "<group>"; };
 		43B5E6D221EDEC3000F07A4B /* CareerAddReviewViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerAddReviewViewControllerTests.m; sourceTree = "<group>"; };
 		43B5E6D521EE15E300F07A4B /* CompanyExistsReviewsViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyExistsReviewsViewControllerTests.m; sourceTree = "<group>"; };
 		43B7251E21764CF4000F6797 /* dentistTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dentistTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3106,6 +3118,7 @@
 		432136F121E39E4D00ADF614 /* Careers */ = {
 			isa = PBXGroup;
 			children = (
+				43B074B12217FAFF0020639F /* View */,
 				433FBD552201535C000ACD41 /* CompanyDetail */,
 				439CB0FB21F0228400CF78F2 /* JobDetail */,
 				43B5E6D021EDEC1A00F07A4B /* Reviews */,
@@ -3175,6 +3188,7 @@
 		433FBD552201535C000ACD41 /* CompanyDetail */ = {
 			isa = PBXGroup;
 			children = (
+				43B074AE2217DFAF0020639F /* AllowMultiGestureTableView */,
 				4307CC3D2204858400F17051 /* CompanyDetailReviewsViewController */,
 				4307CC3A22047F3000F17051 /* CompanyDetailJobsViewController */,
 				4307CC37220475C700F17051 /* CompanyDetailDescriptionViewController */,
@@ -3481,6 +3495,26 @@
 				43A8D52821CBF7D400CE8FBD /* LinearViewTests.m */,
 			);
 			path = LinearView;
+			sourceTree = "<group>";
+		};
+		43B074AE2217DFAF0020639F /* AllowMultiGestureTableView */ = {
+			isa = PBXGroup;
+			children = (
+				43B074AF2217E0D20020639F /* AllowMultiGestureTableViewTests.m */,
+			);
+			path = AllowMultiGestureTableView;
+			sourceTree = "<group>";
+		};
+		43B074B12217FAFF0020639F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				43B074B42217FC7B0020639F /* FilterViewTests.m */,
+				43B074B6221814630020639F /* DSOProfileTableViewCellTests.m */,
+				43B074B8221816340020639F /* FindJobsTableViewCellTests.m */,
+				4375F1332219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m */,
+				4375F1352219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		43B5E6D021EDEC1A00F07A4B /* Reviews */ = {
@@ -6059,6 +6093,7 @@
 				4307CC39220475D600F17051 /* CompanyDetailDescriptionViewControllerTests.m in Sources */,
 				1804B4A22205E0DD00F9A75A /* HelpAndFeedbackViewControllerTests.m in Sources */,
 				432136F421E39E6300ADF614 /* DSOProfileSearchPageTests.m in Sources */,
+				43B074B9221816340020639F /* FindJobsTableViewCellTests.m in Sources */,
 				432136DD21E332E100ADF614 /* SliderListViewTests.m in Sources */,
 				432136ED21E357ED00ADF614 /* UniteThumCollectionViewCellTests.m in Sources */,
 				433089D421F60C9600443469 /* JobDetailCompanyViewControllerTests.m in Sources */,
@@ -6085,9 +6120,11 @@
 				1804B4AC2205E13F00F9A75A /* GeneralViewControllerTests.m in Sources */,
 				1804B4A62205E10B00F9A75A /* ContactUsViewControllerTests.m in Sources */,
 				4335E27921B6B5EF00A10F7E /* CmsSearchPageTests.m in Sources */,
+				43B074B02217E0D20020639F /* AllowMultiGestureTableViewTests.m in Sources */,
 				43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */,
 				4355706621E23E0B007A8C21 /* SliderListViewControllerTests.m in Sources */,
 				431AB5B521E61AB100AA79C9 /* CareerMoreViewControllerTests.m in Sources */,
+				43B074B52217FC7B0020639F /* FilterViewTests.m in Sources */,
 				43A8D52321CBDBD300CE8FBD /* DownloadsItemViewTests.m in Sources */,
 				43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */,
 				43B5E6D321EDEC3000F07A4B /* CareerAddReviewViewControllerTests.m in Sources */,
@@ -6098,6 +6135,7 @@
 				4344660521A5674400811E94 /* UIViewExtTests.m in Sources */,
 				43F92B7A217D94B400798462 /* LoginControllerTests.m in Sources */,
 				4307936D21CA8852003C5BF0 /* ArticleItemViewTests.m in Sources */,
+				43B074B7221814630020639F /* DSOProfileTableViewCellTests.m in Sources */,
 				435A7FAD21EF1B320014D01F /* CompanyReviewsViewControllerTests.m in Sources */,
 				43A6590B21D6802E0091F9AF /* DiscussTableViewCellTests.m in Sources */,
 				43EBDF2B21CF74E600C3AAB7 /* UIViewExtensionTests.m in Sources */,
@@ -6122,6 +6160,7 @@
 				43A196CF2190A12B006E90CC /* EditExperiencePageTests.m in Sources */,
 				4307CC3F2204858D00F17051 /* CompanyDetailReviewsViewControllerTests.m in Sources */,
 				43277E88217F4D91008B3240 /* StudentControllerTests.m in Sources */,
+				4375F1362219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m in Sources */,
 				43277E8A217F4E9E008B3240 /* TestPageTests.m in Sources */,
 				436AAB0021CD31E90095C128 /* CmsArticleCategoryPageTests.m in Sources */,
 				43EBDF2521CF5E6600C3AAB7 /* RMDisplayLabelTests.m in Sources */,
@@ -6132,6 +6171,7 @@
 				43597BFD21CCDBD60033E1C1 /* ArticleGSkItemViewTests.m in Sources */,
 				431AB5B221E5DD4D00AA79C9 /* CareerSearchViewControllerTests.m in Sources */,
 				43714DAA21EB3C9500B7AC18 /* CareerExplorePageTests.m in Sources */,
+				4375F1342219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m in Sources */,
 				439B4A2221D355540037BE5C /* XHStarRateViewTests.m in Sources */,
 				433089D721F61AE500443469 /* JobDetailReviewsViewControllerTests.m in Sources */,
 				1804B4A82205E12000F9A75A /* NotificationsViewControllerTests.m in Sources */,

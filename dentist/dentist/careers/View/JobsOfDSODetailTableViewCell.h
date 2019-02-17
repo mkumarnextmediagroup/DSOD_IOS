@@ -17,6 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSMutableArray *infoArr;
 @property (nonatomic,assign) NSInteger totalCount;
 
+-(void)buildTable;
+-(void)setTotalCount:(NSInteger)totalCount;
+-(void)setInfoArr:(NSMutableArray *)infoArrl;
+- (UIView *)makeHeaderView;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 NS_ASSUME_NONNULL_END

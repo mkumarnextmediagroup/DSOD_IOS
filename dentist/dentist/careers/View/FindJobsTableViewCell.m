@@ -32,10 +32,6 @@
     UIImageView *locationimageView;
     UILabel *locationLabel;
 }
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -240,17 +236,6 @@
     }
 }
 
-//-(void)setIsDetail:(BOOL)isDetail
-//{
-//    _isDetail=isDetail;
-//    if (_isDetail) {
-//        [self setDetailFrame];
-//
-//    }else{
-//        [self setNormalFrame];
-//    }
-//}
-
 -(void)setNormalFrame{
     desLabel.hidden=YES;
     locationimageView.hidden=YES;
@@ -287,12 +272,6 @@
     [[[[followButton.layoutMaker rightParent:-edge] centerYOf:salaryLabel offset:0] sizeEq:20 h:20] install];
     [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] bottomParent:0] heightEq:1] install];
     [[imageView.layoutUpdate centerYParent:0] install];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 -(void)followAction:(UIButton *)sender

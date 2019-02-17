@@ -7,26 +7,73 @@
 //
 
 #import "CourseDetailViewController.h"
+#import "Common.h"
+#import "Proto.h"
+#import "CourseDescriptionViewController.h"
 
 @interface CourseDetailViewController ()
+@property (nonatomic,strong) NSString *courseId;
+
+@property (nonatomic,strong) UIView* tableContentView;
+@property (nonatomic) BOOL isCanScroll;
+@property (nonatomic,strong) CourseDescriptionViewController *descriptionVC;
 
 @end
 
 @implementation CourseDetailViewController
 
+
+/**
+ open course detail page
+ 
+ @param vc UIViewController
+ @param courseId course id
+ */
++(void)openBy:(UIViewController*)vc courseId:(NSString*)courseId{
+    CourseDetailViewController *newVc = [CourseDetailViewController new];
+    newVc.courseId = courseId;
+    [vc pushPage:newVc];
+}
+
+/**
+  add navigation bar
+  build views
+  load course detail info from server
+ */
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self addNavBar];
+    
+    [self buildViews];
+    
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+/**
+ add navigation bar
+ */
+-(void)addNavBar{
+    UINavigationItem *item = [self navigationItem];
+    item.title = @"LEARNING";
+    item.leftBarButtonItem = [self navBarBack:self action:@selector(dismiss)];
+    
+    UIBarButtonItem *shareItem = [self navBarCustomImageBtn:@"ic_nav_share" target:self action:@selector(share)];
+    UIBarButtonItem *bookmarkItem = [self navBarCustomImageBtn:@"ic_nav_bookmark" target:self action:@selector(bookmark)];
+
+    item.rightBarButtonItems  = @[bookmarkItem,[self barButtonItemSpace:20],shareItem];
 }
-*/
+
+-(void)buildViews{
+    
+}
+
+-(void)bookmark{
+    
+}
+
+-(void)share{
+    
+}
 
 @end

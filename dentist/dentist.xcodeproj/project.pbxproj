@@ -28,6 +28,17 @@
 		18106AAD218ACC0D00EEE2DC /* FilterIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 18106AAA218ACC0C00EEE2DC /* FilterIssues.png */; };
 		18106AB1218AF0CE00EEE2DC /* YHPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */; };
 		181121FE221664C1002A0B4E /* CourseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181121FD221664C1002A0B4E /* CourseDetailViewController.m */; };
+		1811220122168FB6002A0B4E /* CourseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811220022168FB6002A0B4E /* CourseModel.m */; };
+		1811220422169B7E002A0B4E /* CourseDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811220322169B7E002A0B4E /* CourseDescriptionViewController.m */; };
+		1811220E2216AA11002A0B4E /* ic_nav_bookmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 181122052216AA0E002A0B4E /* ic_nav_bookmark.png */; };
+		1811220F2216AA11002A0B4E /* ic_nav_share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181122062216AA0E002A0B4E /* ic_nav_share@2x.png */; };
+		181122102216AA11002A0B4E /* ic_nav_share.png in Resources */ = {isa = PBXBuildFile; fileRef = 181122072216AA0E002A0B4E /* ic_nav_share.png */; };
+		181122112216AA11002A0B4E /* ic_nav_bookmark_act@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181122082216AA0F002A0B4E /* ic_nav_bookmark_act@3x.png */; };
+		181122122216AA11002A0B4E /* ic_nav_bookmark_act.png in Resources */ = {isa = PBXBuildFile; fileRef = 181122092216AA0F002A0B4E /* ic_nav_bookmark_act.png */; };
+		181122132216AA11002A0B4E /* ic_nav_bookmark_act@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1811220A2216AA10002A0B4E /* ic_nav_bookmark_act@2x.png */; };
+		181122142216AA11002A0B4E /* ic_nav_bookmark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1811220B2216AA10002A0B4E /* ic_nav_bookmark@3x.png */; };
+		181122152216AA11002A0B4E /* ic_nav_bookmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1811220C2216AA10002A0B4E /* ic_nav_bookmark@2x.png */; };
+		181122162216AA11002A0B4E /* ic_nav_share@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1811220D2216AA11002A0B4E /* ic_nav_share@3x.png */; };
 		1812397521927F3E0075A6B0 /* author_dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1812397421927F3E0075A6B0 /* author_dsodentist.png */; };
 		1829C52D21BCC961009A8732 /* JobDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52C21BCC961009A8732 /* JobDetailViewController.m */; };
 		1829C53021BCC9B9009A8732 /* JobDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52F21BCC9B9009A8732 /* JobDetailDescriptionViewController.m */; };
@@ -236,6 +247,8 @@
 		43714DA421EB1BC200B7AC18 /* CareerFindJobViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43714DA321EB1BC200B7AC18 /* CareerFindJobViewControllerTests.m */; };
 		43714DA721EB248000B7AC18 /* DSOProfilePageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43714DA621EB248000B7AC18 /* DSOProfilePageTests.m */; };
 		43714DAA21EB3C9500B7AC18 /* CareerExplorePageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43714DA921EB3C9500B7AC18 /* CareerExplorePageTests.m */; };
+		4375F1342219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4375F1332219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m */; };
+		4375F1362219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4375F1352219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m */; };
 		437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */; };
 		4388150B218D4EF20066BCB6 /* SearchPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4388150A218D4EF20066BCB6 /* SearchPageTests.m */; };
 		438BA12821B4065D005246C5 /* CmsDownloadsControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */; };
@@ -250,6 +263,10 @@
 		43A8D52321CBDBD300CE8FBD /* DownloadsItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A8D52221CBDBD300CE8FBD /* DownloadsItemViewTests.m */; };
 		43A8D52621CBEE1200CE8FBD /* GSKItemViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A8D52521CBEE1200CE8FBD /* GSKItemViewTests.m */; };
 		43A8D52921CBF7D400CE8FBD /* LinearViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A8D52821CBF7D400CE8FBD /* LinearViewTests.m */; };
+		43B074B02217E0D20020639F /* AllowMultiGestureTableViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B074AF2217E0D20020639F /* AllowMultiGestureTableViewTests.m */; };
+		43B074B52217FC7B0020639F /* FilterViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B074B42217FC7B0020639F /* FilterViewTests.m */; };
+		43B074B7221814630020639F /* DSOProfileTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B074B6221814630020639F /* DSOProfileTableViewCellTests.m */; };
+		43B074B9221816340020639F /* FindJobsTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B074B8221816340020639F /* FindJobsTableViewCellTests.m */; };
 		43B5E6D321EDEC3000F07A4B /* CareerAddReviewViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5E6D221EDEC3000F07A4B /* CareerAddReviewViewControllerTests.m */; };
 		43B5E6D621EE15E300F07A4B /* CompanyExistsReviewsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5E6D521EE15E300F07A4B /* CompanyExistsReviewsViewControllerTests.m */; };
 		43B7252D217650FF000F6797 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252C217650FF000F6797 /* ExampleTests.m */; };
@@ -1103,6 +1120,19 @@
 		18106AB0218AF0CE00EEE2DC /* YHPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHPopMenuView.m; sourceTree = "<group>"; };
 		181121FC221664C1002A0B4E /* CourseDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseDetailViewController.h; sourceTree = "<group>"; };
 		181121FD221664C1002A0B4E /* CourseDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseDetailViewController.m; sourceTree = "<group>"; };
+		181121FF22168FB6002A0B4E /* CourseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseModel.h; sourceTree = "<group>"; };
+		1811220022168FB6002A0B4E /* CourseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseModel.m; sourceTree = "<group>"; };
+		1811220222169B7E002A0B4E /* CourseDescriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseDescriptionViewController.h; sourceTree = "<group>"; };
+		1811220322169B7E002A0B4E /* CourseDescriptionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseDescriptionViewController.m; sourceTree = "<group>"; };
+		181122052216AA0E002A0B4E /* ic_nav_bookmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_nav_bookmark.png; sourceTree = "<group>"; };
+		181122062216AA0E002A0B4E /* ic_nav_share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_share@2x.png"; sourceTree = "<group>"; };
+		181122072216AA0E002A0B4E /* ic_nav_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_nav_share.png; sourceTree = "<group>"; };
+		181122082216AA0F002A0B4E /* ic_nav_bookmark_act@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_bookmark_act@3x.png"; sourceTree = "<group>"; };
+		181122092216AA0F002A0B4E /* ic_nav_bookmark_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_nav_bookmark_act.png; sourceTree = "<group>"; };
+		1811220A2216AA10002A0B4E /* ic_nav_bookmark_act@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_bookmark_act@2x.png"; sourceTree = "<group>"; };
+		1811220B2216AA10002A0B4E /* ic_nav_bookmark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_bookmark@3x.png"; sourceTree = "<group>"; };
+		1811220C2216AA10002A0B4E /* ic_nav_bookmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_bookmark@2x.png"; sourceTree = "<group>"; };
+		1811220D2216AA11002A0B4E /* ic_nav_share@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_share@3x.png"; sourceTree = "<group>"; };
 		1812397421927F3E0075A6B0 /* author_dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = author_dsodentist.png; sourceTree = "<group>"; };
 		1829C52B21BCC961009A8732 /* JobDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailViewController.h; sourceTree = "<group>"; };
 		1829C52C21BCC961009A8732 /* JobDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailViewController.m; sourceTree = "<group>"; };
@@ -1399,6 +1429,8 @@
 		43714DA321EB1BC200B7AC18 /* CareerFindJobViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerFindJobViewControllerTests.m; sourceTree = "<group>"; };
 		43714DA621EB248000B7AC18 /* DSOProfilePageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOProfilePageTests.m; sourceTree = "<group>"; };
 		43714DA921EB3C9500B7AC18 /* CareerExplorePageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerExplorePageTests.m; sourceTree = "<group>"; };
+		4375F1332219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOfDSODetailTableViewCellTests.m; sourceTree = "<group>"; };
+		4375F1352219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindJobsSponsorTableViewCellTests.m; sourceTree = "<group>"; };
 		437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewControllerTests.m; sourceTree = "<group>"; };
 		4388150A218D4EF20066BCB6 /* SearchPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPageTests.m; sourceTree = "<group>"; };
 		438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsDownloadsControllerTests.m; sourceTree = "<group>"; };
@@ -1413,6 +1445,10 @@
 		43A8D52221CBDBD300CE8FBD /* DownloadsItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadsItemViewTests.m; sourceTree = "<group>"; };
 		43A8D52521CBEE1200CE8FBD /* GSKItemViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSKItemViewTests.m; sourceTree = "<group>"; };
 		43A8D52821CBF7D400CE8FBD /* LinearViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearViewTests.m; sourceTree = "<group>"; };
+		43B074AF2217E0D20020639F /* AllowMultiGestureTableViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllowMultiGestureTableViewTests.m; sourceTree = "<group>"; };
+		43B074B42217FC7B0020639F /* FilterViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterViewTests.m; sourceTree = "<group>"; };
+		43B074B6221814630020639F /* DSOProfileTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOProfileTableViewCellTests.m; sourceTree = "<group>"; };
+		43B074B8221816340020639F /* FindJobsTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindJobsTableViewCellTests.m; sourceTree = "<group>"; };
 		43B5E6D221EDEC3000F07A4B /* CareerAddReviewViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerAddReviewViewControllerTests.m; sourceTree = "<group>"; };
 		43B5E6D521EE15E300F07A4B /* CompanyExistsReviewsViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyExistsReviewsViewControllerTests.m; sourceTree = "<group>"; };
 		43B7251E21764CF4000F6797 /* dentistTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dentistTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2618,6 +2654,8 @@
 			children = (
 				181121FC221664C1002A0B4E /* CourseDetailViewController.h */,
 				181121FD221664C1002A0B4E /* CourseDetailViewController.m */,
+				1811220222169B7E002A0B4E /* CourseDescriptionViewController.h */,
+				1811220322169B7E002A0B4E /* CourseDescriptionViewController.m */,
 			);
 			path = courseDetail;
 			sourceTree = "<group>";
@@ -2832,6 +2870,8 @@
 				18CDCE9022154359002D28B1 /* AuthorModel.m */,
 				A3E381E2221698E200BFB227 /* LMSCategoryModel.h */,
 				A3E381E3221698E200BFB227 /* LMSCategoryModel.m */,
+				181121FF22168FB6002A0B4E /* CourseModel.h */,
+				1811220022168FB6002A0B4E /* CourseModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3099,6 +3139,7 @@
 		432136F121E39E4D00ADF614 /* Careers */ = {
 			isa = PBXGroup;
 			children = (
+				43B074B12217FAFF0020639F /* View */,
 				433FBD552201535C000ACD41 /* CompanyDetail */,
 				439CB0FB21F0228400CF78F2 /* JobDetail */,
 				43B5E6D021EDEC1A00F07A4B /* Reviews */,
@@ -3168,6 +3209,7 @@
 		433FBD552201535C000ACD41 /* CompanyDetail */ = {
 			isa = PBXGroup;
 			children = (
+				43B074AE2217DFAF0020639F /* AllowMultiGestureTableView */,
 				4307CC3D2204858400F17051 /* CompanyDetailReviewsViewController */,
 				4307CC3A22047F3000F17051 /* CompanyDetailJobsViewController */,
 				4307CC37220475C700F17051 /* CompanyDetailDescriptionViewController */,
@@ -3474,6 +3516,26 @@
 				43A8D52821CBF7D400CE8FBD /* LinearViewTests.m */,
 			);
 			path = LinearView;
+			sourceTree = "<group>";
+		};
+		43B074AE2217DFAF0020639F /* AllowMultiGestureTableView */ = {
+			isa = PBXGroup;
+			children = (
+				43B074AF2217E0D20020639F /* AllowMultiGestureTableViewTests.m */,
+			);
+			path = AllowMultiGestureTableView;
+			sourceTree = "<group>";
+		};
+		43B074B12217FAFF0020639F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				43B074B42217FC7B0020639F /* FilterViewTests.m */,
+				43B074B6221814630020639F /* DSOProfileTableViewCellTests.m */,
+				43B074B8221816340020639F /* FindJobsTableViewCellTests.m */,
+				4375F1332219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m */,
+				4375F1352219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		43B5E6D021EDEC1A00F07A4B /* Reviews */ = {
@@ -3955,6 +4017,15 @@
 				A3E381F92217DD2A00BFB227 /* icon-star@3x.png */,
 				A3E381F32217DD0000BFB227 /* Star-white.png */,
 				A3E381F12217DC7900BFB227 /* cellular-connection-full.png */,
+				181122092216AA0F002A0B4E /* ic_nav_bookmark_act.png */,
+				1811220A2216AA10002A0B4E /* ic_nav_bookmark_act@2x.png */,
+				181122082216AA0F002A0B4E /* ic_nav_bookmark_act@3x.png */,
+				181122052216AA0E002A0B4E /* ic_nav_bookmark.png */,
+				1811220C2216AA10002A0B4E /* ic_nav_bookmark@2x.png */,
+				1811220B2216AA10002A0B4E /* ic_nav_bookmark@3x.png */,
+				181122072216AA0E002A0B4E /* ic_nav_share.png */,
+				181122062216AA0E002A0B4E /* ic_nav_share@2x.png */,
+				1811220D2216AA11002A0B4E /* ic_nav_share@3x.png */,
 				A338E2332214303100FCCCA0 /* lms-search-light.png */,
 				A338E2342214303200FCCCA0 /* lms-search.png */,
 				A338E22322142BA600FCCCA0 /* lms-bookmarks-light.png */,
@@ -5392,6 +5463,7 @@
 				4E47253721CA61D20076B824 /* submit_resume@3x.png in Resources */,
 				4E94AE2921AE74C2009CAB7F /* more@2x.png in Resources */,
 				4E528B23217074F2008C151B /* fastBack@2x.png in Resources */,
+				181122112216AA11002A0B4E /* ic_nav_bookmark_act@3x.png in Resources */,
 				18A0DBAD21B23A140065B2BD /* career_location_bg_small.png in Resources */,
 				C5EEA304546737C29C822865 /* inkedin@3x.png in Resources */,
 				A338E22D22142BA700FCCCA0 /* lms-bookmarks.png in Resources */,
@@ -5406,6 +5478,7 @@
 				18CFB0FA216F3B69002CC9D0 /* foryou-light@2x.png in Resources */,
 				C5EEA3833E70FE8F978304CF /* checkbox_on.png in Resources */,
 				3E043B92213C15480044CD77 /* residency@2x.png in Resources */,
+				181122162216AA11002A0B4E /* ic_nav_share@3x.png in Resources */,
 				C5EEA9C826673B94007566E8 /* checkbox_on@2x.png in Resources */,
 				3E043B94213C15480044CD77 /* default_avatar@3x.png in Resources */,
 				4E94AE2621AE74C2009CAB7F /* more-light@3x.png in Resources */,
@@ -5517,6 +5590,7 @@
 				E11E1A625645EF6A486E1B48 /* user@3x.png in Resources */,
 				4E1F0FEC21C24BCC00C43E3B /* icon_attention_select@2x.png in Resources */,
 				E11E158450AD3B8449EC70B4 /* edu.png in Resources */,
+				181122142216AA11002A0B4E /* ic_nav_bookmark@3x.png in Resources */,
 				E11E1C47F2668B7B79424AA4 /* edu@2x.png in Resources */,
 				E11E1779DCC1408AFB8A3FD4 /* edu@3x.png in Resources */,
 				4E94AE2321AE74C2009CAB7F /* findJob@2x.png in Resources */,
@@ -5644,6 +5718,7 @@
 				18DE4D14216DFFE400A6C61D /* nonDownload@3x.png in Resources */,
 				E11E19D069A7CA4468DA3E3B /* setting.png in Resources */,
 				E11E1ECB4E9578896C5696C2 /* setting@2x.png in Resources */,
+				181122132216AA11002A0B4E /* ic_nav_bookmark_act@2x.png in Resources */,
 				E11E1EC1132B482DB3BCAF9E /* setting@3x.png in Resources */,
 				E11E15EEFB92D27620F7A533 /* arrow_small.png in Resources */,
 				E11E1067382FDA98904ABAA7 /* arrow_small@2x.png in Resources */,
@@ -5692,6 +5767,7 @@
 				A393E0B521955D06001881C2 /* sponsor_align_banner@2x.png in Resources */,
 				18EEFCA821CD0746007F5E2B /* icon_filter@2x.png in Resources */,
 				4E94AE1221AE74A4009CAB7F /* alert-light@3x.png in Resources */,
+				1811220F2216AA11002A0B4E /* ic_nav_share@2x.png in Resources */,
 				E11E153FF3BA05FDC15DAAFA /* icon-99.png in Resources */,
 				E11E101FC0EE67424EFFBD5A /* icon-99@2x.png in Resources */,
 				E11E1207BA5955DD217BCAB7 /* icon-99@3x.png in Resources */,
@@ -5701,6 +5777,7 @@
 				4E528B17216F416F008C151B /* circleWhite.png in Resources */,
 				18E3405721EB578D00696E04 /* arrow_up_gray@3x.png in Resources */,
 				A338E22F22142BA700FCCCA0 /* lms-my-courses.png in Resources */,
+				181122102216AA11002A0B4E /* ic_nav_share.png in Resources */,
 				4E51695521B13704005B8533 /* more-profiles@2x.png in Resources */,
 				E11E153EC0D9A350423FE20A /* Img-User-demo@3x.png in Resources */,
 				E11E1CAC9B2596D56900A33E /* in_large.png in Resources */,
@@ -5852,6 +5929,7 @@
 				E11E1B72576883B73CF380A8 /* menu-profile@3x.png in Resources */,
 				E11E13313DCB761921A74A08 /* menu-settings_light.png in Resources */,
 				E11E1F24690E6BF885AB6173 /* menu-settings_light@2x.png in Resources */,
+				181122152216AA11002A0B4E /* ic_nav_bookmark@2x.png in Resources */,
 				4E23E07B2152963D00EDCE08 /* gskIcon@2x.png in Resources */,
 				18EEFCA421CD0746007F5E2B /* icon_sort.png in Resources */,
 				E11E1E7047136DAF6ADCDA1C /* menu-settings_light@3x.png in Resources */,
@@ -5874,6 +5952,7 @@
 				E11E1841E8D2257A5B8335AC /* menu-unite@3x.png in Resources */,
 				C5EEA89AB807C5486DB95496 /* exp.png in Resources */,
 				18EEFCAA21CD0746007F5E2B /* icon_filter.png in Resources */,
+				181122122216AA11002A0B4E /* ic_nav_bookmark_act.png in Resources */,
 				C5EEA8BE604C65ED8143D334 /* exp@2x.png in Resources */,
 				C5EEADD489291ABC8C9C83A9 /* exp@3x.png in Resources */,
 				4E23E0862152A37200EDCE08 /* star_select@2x.png in Resources */,
@@ -5882,6 +5961,7 @@
 				4E94AE0721AE4594009CAB7F /* explore-light.png in Resources */,
 				4E36C0C221DF6419003451E6 /* Setting_about@2x.png in Resources */,
 				C5EEA17DD3898E332F25F751 /* category-light@3x.png in Resources */,
+				1811220E2216AA11002A0B4E /* ic_nav_bookmark.png in Resources */,
 				C5EEAEC07A23BE65F60D146A /* category.png in Resources */,
 				A372958621912DF200B36409 /* Content-Options@2x.png in Resources */,
 				C5EEA93E483ADC4B076E3A00 /* category@2x.png in Resources */,
@@ -6048,6 +6128,7 @@
 				4307CC39220475D600F17051 /* CompanyDetailDescriptionViewControllerTests.m in Sources */,
 				1804B4A22205E0DD00F9A75A /* HelpAndFeedbackViewControllerTests.m in Sources */,
 				432136F421E39E6300ADF614 /* DSOProfileSearchPageTests.m in Sources */,
+				43B074B9221816340020639F /* FindJobsTableViewCellTests.m in Sources */,
 				432136DD21E332E100ADF614 /* SliderListViewTests.m in Sources */,
 				432136ED21E357ED00ADF614 /* UniteThumCollectionViewCellTests.m in Sources */,
 				433089D421F60C9600443469 /* JobDetailCompanyViewControllerTests.m in Sources */,
@@ -6074,9 +6155,11 @@
 				1804B4AC2205E13F00F9A75A /* GeneralViewControllerTests.m in Sources */,
 				1804B4A62205E10B00F9A75A /* ContactUsViewControllerTests.m in Sources */,
 				4335E27921B6B5EF00A10F7E /* CmsSearchPageTests.m in Sources */,
+				43B074B02217E0D20020639F /* AllowMultiGestureTableViewTests.m in Sources */,
 				43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */,
 				4355706621E23E0B007A8C21 /* SliderListViewControllerTests.m in Sources */,
 				431AB5B521E61AB100AA79C9 /* CareerMoreViewControllerTests.m in Sources */,
+				43B074B52217FC7B0020639F /* FilterViewTests.m in Sources */,
 				43A8D52321CBDBD300CE8FBD /* DownloadsItemViewTests.m in Sources */,
 				43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */,
 				43B5E6D321EDEC3000F07A4B /* CareerAddReviewViewControllerTests.m in Sources */,
@@ -6087,6 +6170,7 @@
 				4344660521A5674400811E94 /* UIViewExtTests.m in Sources */,
 				43F92B7A217D94B400798462 /* LoginControllerTests.m in Sources */,
 				4307936D21CA8852003C5BF0 /* ArticleItemViewTests.m in Sources */,
+				43B074B7221814630020639F /* DSOProfileTableViewCellTests.m in Sources */,
 				435A7FAD21EF1B320014D01F /* CompanyReviewsViewControllerTests.m in Sources */,
 				43A6590B21D6802E0091F9AF /* DiscussTableViewCellTests.m in Sources */,
 				43EBDF2B21CF74E600C3AAB7 /* UIViewExtensionTests.m in Sources */,
@@ -6111,6 +6195,7 @@
 				43A196CF2190A12B006E90CC /* EditExperiencePageTests.m in Sources */,
 				4307CC3F2204858D00F17051 /* CompanyDetailReviewsViewControllerTests.m in Sources */,
 				43277E88217F4D91008B3240 /* StudentControllerTests.m in Sources */,
+				4375F1362219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m in Sources */,
 				43277E8A217F4E9E008B3240 /* TestPageTests.m in Sources */,
 				436AAB0021CD31E90095C128 /* CmsArticleCategoryPageTests.m in Sources */,
 				43EBDF2521CF5E6600C3AAB7 /* RMDisplayLabelTests.m in Sources */,
@@ -6121,6 +6206,7 @@
 				43597BFD21CCDBD60033E1C1 /* ArticleGSkItemViewTests.m in Sources */,
 				431AB5B221E5DD4D00AA79C9 /* CareerSearchViewControllerTests.m in Sources */,
 				43714DAA21EB3C9500B7AC18 /* CareerExplorePageTests.m in Sources */,
+				4375F1342219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m in Sources */,
 				439B4A2221D355540037BE5C /* XHStarRateViewTests.m in Sources */,
 				433089D721F61AE500443469 /* JobDetailReviewsViewControllerTests.m in Sources */,
 				1804B4A82205E12000F9A75A /* NotificationsViewControllerTests.m in Sources */,
@@ -6163,6 +6249,7 @@
 				18A0F44321E072E600369058 /* SettingLabelAndCheckedTableViewCell.m in Sources */,
 				C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */,
 				A3EE38F62181AEF600C76F3A /* CMSModelComment.m in Sources */,
+				1811220122168FB6002A0B4E /* CourseModel.m in Sources */,
 				4E23522F213D12CB003BA59B /* UISearchBarView.m in Sources */,
 				18EEFCB021CF4D2E007F5E2B /* CompanyReviewsDetailViewController.m in Sources */,
 				A3BA6E0621B11B9F00D83156 /* FindJobsSponsorTableViewCell.m in Sources */,
@@ -6444,6 +6531,7 @@
 				A3DF39A32189A280006F84DC /* SubviewsForEach.swift in Sources */,
 				C5EEA3F0CF05284FD745DF70 /* CareerExplorePage.m in Sources */,
 				C5EEAF27063BEE4721232460 /* Article.m in Sources */,
+				1811220422169B7E002A0B4E /* CourseDescriptionViewController.m in Sources */,
 				C5EEA61AC52ECB7531FFBA59 /* ArticleComment.m in Sources */,
 				181121FE221664C1002A0B4E /* CourseDetailViewController.m in Sources */,
 				C5EEA8887E615366A4D0A196 /* CmsSearchPage.m in Sources */,

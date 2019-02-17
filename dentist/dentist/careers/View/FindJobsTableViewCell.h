@@ -19,6 +19,11 @@
 @property (nonatomic,copy) NSIndexPath *indexPath;
 @property (nonatomic,copy) NSString *followid;
 @property (nonatomic,weak) id<JobsTableCellDelegate>delegate;
+
 -(void)updateFollowStatus:(BOOL)isfllow;
+-(void)setIsNew:(BOOL)isNew;
+-(void)setInfo:(JobModel *)info;
+-(void)setInfoDic:(NSDictionary *)infoDic;
+-(void)followAction:(UIButton *)sender;
 @end
 

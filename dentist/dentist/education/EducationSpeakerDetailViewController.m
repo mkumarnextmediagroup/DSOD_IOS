@@ -146,8 +146,8 @@
 -(void)showData:(AuthorModel *)authorModel{
     [headImageView loadUrl:[Proto getCourseAuthorAvatarUrlByObjectId:authorModel.objectId] placeholderImage:@"user_img"];
     nameLabel.text = strBuild(authorModel.firstName, authorModel.lastName);
-    specialtyLabel.text = @"";
-    locationLabel.text = @"";
+    specialtyLabel.text = authorModel.specialty;
+    locationLabel.text = authorModel.location;
     bioLabel.text = authorModel.authorDetails;
 
 

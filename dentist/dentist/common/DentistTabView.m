@@ -67,7 +67,7 @@ static NSString * identifier = @"TabCellID2";
         _collectionView.backgroundColor=[UIColor whiteColor];
         _collectionView.scrollEnabled=YES;
         [self addSubview:_collectionView];
-        [[[[[_collectionView.layoutMaker leftParent:0] topParent:0] rightParent:0] bottomParent:0] install];
+        [[[[[_collectionView.layoutMaker leftParent:0] topParent:1] rightParent:0] bottomParent:0] install];
         //设置数据源代理
         _collectionView.dataSource = self;
         _collectionView.delegate=self;

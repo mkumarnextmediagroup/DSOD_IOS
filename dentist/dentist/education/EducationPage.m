@@ -11,6 +11,8 @@
 #import "CourseTableViewCell.h"
 #import "BannerScrollView.h"
 #import "DentistTabView.h"
+#import "EducationCategoryCourseViewController.h"
+#import "CourseDetailViewController.h"
 
 @interface EducationPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
 {
@@ -103,7 +105,7 @@
 }
 
 /**
- go to category course page
+ go to category page
  */
 -(void)goCategoryPage
 {
@@ -111,6 +113,23 @@
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:categoryview];
     navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:navVC animated:NO completion:NULL];
+}
+
+/**
+ go to category course page
+ */
+-(void)seemoreAction:(UIButton *)sender
+{
+    NSInteger tag=sender.tag;
+    EducationCategoryCourseViewController *categorycourseview=[EducationCategoryCourseViewController new];
+    
+    if (tag==0) {
+        categorycourseview.coursetitle=@"Courses you may like";
+        categorycourseview.isFeatured=YES;
+    }else{
+        categorycourseview.coursetitle=@"Latest Courses";
+    }
+    [self.navigationController pushViewController:categorycourseview animated:YES];
 }
 
 
@@ -219,10 +238,12 @@
 {
     UIView *bgview=[UIView new];
     UIButton *seemorebtn=[bgview addButton];
+    seemorebtn.tag=section;
     seemorebtn.titleLabel.font=[UIFont systemFontOfSize:12.0];
     [seemorebtn setTitle:@"See More" forState:UIControlStateNormal];
     [seemorebtn setTitleColor:Colors.textDisabled forState:UIControlStateNormal];
     [[[[seemorebtn.layoutMaker rightParent:0] topParent:10] sizeEq:80 h:40] install];
+    [seemorebtn addTarget:self action:@selector(seemoreAction:) forControlEvents:UIControlEventTouchUpInside];
     
     UILabel *categorylabel=[bgview addLabel];
     categorylabel.textColor=Colors.black1A191A;
@@ -231,7 +252,7 @@
     if (section==0) {
         categorylabel.text=@"Courses you may like";
     }else{
-        categorylabel.text=@"Latest Courses ";
+        categorylabel.text=@"Latest Courses";
     }
     return bgview;
     
@@ -252,17 +273,11 @@
     if (indexPath.section==0) {
         if (self->infoArr && self->infoArr.count>indexPath.row) {
             GenericCoursesModel *model=self->infoArr[indexPath.row];
-            if (indexPath.row==1) {
-                model.sponsoredId=@"1111";
-            }
             cell.model=model;
         }
     }else{
         if (self->infoArr2 && self->infoArr2.count>indexPath.row) {
             GenericCoursesModel *model=self->infoArr2[indexPath.row];
-            if (indexPath.row==1) {
-                model.sponsoredId=@"1111";
-            }
             cell.model=model;
         }
     }
@@ -274,6 +289,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    GenericCoursesModel *model;
+    if (indexPath.section==0) {
+        if (self->infoArr && self->infoArr.count>indexPath.row) {
+            model=self->infoArr[indexPath.row];
+        }
+    }else{
+        if (self->infoArr2 && self->infoArr2.count>indexPath.row) {
+            model=self->infoArr2[indexPath.row];
+        }
+    }
+    if (model) {
+        [CourseDetailViewController openBy:self courseId:model.id];
+    }
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

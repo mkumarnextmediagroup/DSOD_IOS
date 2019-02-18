@@ -10,6 +10,7 @@
 #import "Proto.h"
 #import "Common.h"
 #import "CourseTableViewCell.h"
+#import "CourseDetailViewController.h"
 
 @interface EducationCategoryCourseViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -23,7 +24,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UINavigationItem *item = [self navigationItem];
-    item.title = @"CATEGORY";
+    if (_coursetitle) {
+        item.title = _coursetitle;
+    }
+    
     item.leftBarButtonItem = [self navBarBack:self action:@selector(back)];
      CGFloat _topBarH = 0;
     CGFloat _bottomBarH = 0;
@@ -71,16 +75,26 @@
  */
 -(void)refreshData
 {
-    [self showIndicator];
-    [Proto queryLMSGenericCourses:1 curriculumId:nil categoryId:nil completed:^(NSArray<GenericCoursesModel *> *array) {
-        foreTask(^{
+    if (_isFeatured) {
+        [self showIndicator];
+        [Proto queryLMSFeaturedGenericCourses:1 curriculumId:nil categoryId:nil completed:^(NSArray<GenericCoursesModel *> *array) {
+            self->infoArr = [NSMutableArray arrayWithArray:array];
             [self hideIndicator];
             NSLog(@"%@",array);
             self->infoArr = [NSMutableArray arrayWithArray:array];
             [self->myTable reloadData];
             
-        });
-    }];
+        }];
+    }else{
+        [self showIndicator];
+        [Proto queryLMSGenericCourses:1 curriculumId:nil categoryId:nil completed:^(NSArray<GenericCoursesModel *> *array) {
+            [self hideIndicator];
+            NSLog(@"%@",array);
+            self->infoArr = [NSMutableArray arrayWithArray:array];
+            [self->myTable reloadData];
+            
+        }];
+    }
 }
 
 //MARK: 下拉刷新//
@@ -157,9 +171,6 @@
     CourseTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CourseTableViewCell class]) forIndexPath:indexPath];
     if (self->infoArr && self->infoArr.count>indexPath.row) {
         GenericCoursesModel *model=self->infoArr[indexPath.row];
-        if (indexPath.row==2) {
-            model.sponsoredId=@"1111";
-        }
         cell.model=model;
     }
     return cell;
@@ -169,6 +180,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (self->infoArr && self->infoArr.count>indexPath.row) {
+        GenericCoursesModel *model=self->infoArr[indexPath.row];
+        if (model) {
+            [CourseDetailViewController openBy:self courseId:model.id];
+        }
+    }
 }
 /*
 #pragma mark - Navigation

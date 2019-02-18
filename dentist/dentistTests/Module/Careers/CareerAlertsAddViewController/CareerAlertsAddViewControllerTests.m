@@ -9,6 +9,7 @@
 #import "Kiwi.h"
 #import "CareerAlertsAddViewController.h"
 #import "JobAlertsModel.h"
+#import "TextFieldImageView.h"
 
 SPEC_BEGIN(CareerAlertsAddViewControllerTests)
 describe(@"Unit Test For CareerAlertsAddViewController", ^{
@@ -35,18 +36,69 @@ describe(@"Unit Test For CareerAlertsAddViewController", ^{
             [[theValue(controller.view) shouldNot] beNil];
         });
 
+        it(@"makeFooterView", ^{
+            UIView *view = [controller makeFooterView];
+            [[theValue(view) shouldNot] beNil];
+        });
 
-//        - (UIView *)makeFooterView;
-//        - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
-//        - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
-//        - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
-//        - (void)clickSave:(UIButton *)sender;
-//        - (void)getCurrentLocation;
-//        - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
-//        - (void)textFieldDidBeginEditing:(UITextField *)textField;
-//        - (BOOL)textFieldShouldReturn:(UITextField *)textField;
-//        - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations;
-//        - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error;
+        it(@"heightForRowAtIndexPath", ^{
+            CGFloat height = [controller tableView:[UITableView new] heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            [[theValue(height) should] equal:theValue(82)];
+        });
+
+        it(@"numberOfRowsInSection", ^{
+            NSInteger num = [controller tableView:[UITableView new] numberOfRowsInSection:0];
+            [[theValue(num) should] equal:theValue(4)];
+        });
+
+        it(@"cellForRowAtIndexPath", ^{
+            UITableViewCell *cell = [controller tableView:[UITableView new] cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            [[theValue(cell) shouldNot] beNil];
+        });
+
+        it(@"clickSave", ^{
+            [controller clickSave:[UIButton new]];
+            [[theValue(controller.view) shouldNot] beNil];
+        });
+
+        it(@"getCurrentLocation", ^{
+            [controller getCurrentLocation];
+            [[theValue(controller.view) shouldNot] beNil];
+        });
+
+        it(@"textFieldShouldBeginEditing", ^{
+            UITextField *tf = [UITextField new];
+            tf.tag = 0;
+            BOOL shouldBegin = [controller textFieldShouldBeginEditing:tf];
+            [[theValue(shouldBegin) should] equal:theValue(YES)];
+        });
+
+        it(@"textFieldShouldBeginEditing", ^{
+            UITextField *tf = [UITextField new];
+            tf.tag = 1;
+            BOOL shouldBegin = [controller textFieldShouldBeginEditing:tf];
+            [[theValue(shouldBegin) should] equal:theValue(YES)];
+        });
+
+        it(@"textFieldShouldBeginEditing", ^{
+            UITextField *tf = [UITextField new];
+            tf.tag = 2;
+            BOOL shouldBegin = [controller textFieldShouldBeginEditing:tf];
+            [[theValue(shouldBegin) should] equal:theValue(NO)];
+        });
+
+        it(@"textFieldShouldBeginEditing", ^{
+            UITextField *tf = [UITextField new];
+            tf.tag = 3;
+            BOOL shouldBegin = [controller textFieldShouldBeginEditing:tf];
+            [[theValue(shouldBegin) should] equal:theValue(NO)];
+        });
+
+        it(@"textFieldShouldBeginEditing", ^{
+            UITextField *tf = [UITextField new];
+            BOOL shouldBegin = [controller textFieldShouldBeginEditing:tf];
+            [[theValue(shouldBegin) should] equal:theValue(YES)];
+        });
     });
 });
 SPEC_END

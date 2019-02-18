@@ -45,6 +45,7 @@
 
 
 + (UIColor *)secondary {
+    //#5E6E7A
 	static UIColor *_c = nil;
 	if (_c == nil) {
 		_c = rgb255(94, 110, 122);
@@ -244,6 +245,22 @@
     static UIColor *_c = nil;
     if (_c == nil) {
         _c = rgb255(140, 158, 172);
+    }
+    return _c;
+}
+
++ (UIColor *)black1A191A {
+    static UIColor *_c = nil;
+    if (_c == nil) {
+        _c = rgb255(26, 25, 26);
+    }
+    return _c;
+}
++ (UIColor *)textColorDDDDDD {
+    //DDDDDD
+    static UIColor *_c = nil;
+    if (_c == nil) {
+        _c = rgb255(221, 221, 221);
     }
     return _c;
 }

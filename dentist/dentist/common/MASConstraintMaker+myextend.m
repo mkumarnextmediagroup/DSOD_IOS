@@ -154,9 +154,19 @@
 	return self;
 }
 
+- (MASConstraintMaker *)leftOf:(UIView *)v offset:(CGFloat)offset {
+    self.left.equalTo(v.mas_left).offset(offset);
+    return self;
+}
+
 - (MASConstraintMaker *)rightOf:(UIView *)v {
 	self.right.mas_equalTo(v.mas_right);
 	return self;
+}
+
+- (MASConstraintMaker *)rightOf:(UIView *)v offset:(CGFloat)offset {
+    self.right.equalTo(v.mas_right).offset(offset);
+    return self;
 }
 
 

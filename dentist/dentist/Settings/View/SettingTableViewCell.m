@@ -17,10 +17,6 @@
     UIView   *footerVi;
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
 
 /**
  init cell layout

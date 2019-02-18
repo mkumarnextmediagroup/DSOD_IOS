@@ -16,6 +16,9 @@
 #import "GeneralSettingsModel.h"
 #import "FAQSCategoryModel.h"
 #import "NotificationModel.h"
+#import "AuthorModel.h"
+#import "LMSCategoryModel.h"
+#import "GenericCoursesModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -321,6 +324,19 @@
 //2.9    查看通知设置详情
 + (void)QueryNotifications:(void(^)(NotificationModel *notificationModel,BOOL result))completed;
 
+#pragma mark ------LMS
++ (void)queryLMSCategoryTypes:(NSString *)parentId completed:(void(^)(NSArray<IdName *> *array))completed;
++ (void)queryLMSCategoryGroupTypes:(NSString *)parentId completed:(void(^)(NSArray<LMSCategoryModel *> *array))completed;
++ (void)queryLMSGenericCourses:(NSInteger)pagenumber curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
+//lms 获取单个作者
++ (void)findCourseAuthor:(NSString*)authorId completed:(void(^)(BOOL success,NSString *msg,AuthorModel *AuthorModel))completed;
 
+/**
+ get course author avatar url
+ 
+ @param objectid avatar id
+ @return aratar url
+ */
++(NSString *)getCourseAuthorAvatarUrlByObjectId:(NSString *)objectid;
 
 @end

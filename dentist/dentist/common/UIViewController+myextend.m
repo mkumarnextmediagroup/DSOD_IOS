@@ -85,12 +85,27 @@
     return bi;
 }
 
+- (UIBarButtonItem *)navBarCustomImageBtn:(NSString *)imageName target:(nullable id)target action:(SEL)action {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [button sizeToFit];
+    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return buttonItem;
+}
+
 - (UIBarButtonItem *)navBarBack:(nullable id)target action:(SEL)action {
 	return [self navBarImage:@"back_arrow" target:target action:action];
 }
 
 - (UIBarButtonItem *)backBarButtonClose {
 	return [self navBarImage:@"back_arrow" target:self action:@selector(_closePage:)];
+}
+
+-(UIBarButtonItem *)barButtonItemSpace:(NSInteger)width{
+    UIBarButtonItem *fixedSpaceBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedSpaceBarButtonItem.width = width;
+    return fixedSpaceBarButtonItem;
 }
 
 - (void)_closePage:(id)sender {

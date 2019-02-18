@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class AuthorModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EducationSpeakerDetailViewController : UIViewController
@@ -16,10 +16,39 @@ NS_ASSUME_NONNULL_BEGIN
  open speaker detail page
  
  @param vc UIViewController
- @param dsoId dso id
- @param addReviewSuccessCallbak Add a comment success callback function
+ @param authorId author id
  */
-+(void)openBy:(UIViewController*)vc dsoId:(NSString*)dsoId successCallbak:(void(^)(void))addReviewSuccessCallbak;
++(void)openBy:(UIViewController*)vc authorId:(NSString*)authorId;
+
+/**
+ view did load
+ add navigation bar
+ build views
+ get author info form server
+ */
+- (void)viewDidLoad ;
+
+/**
+ add navigation bar
+ */
+-(void)addNavBar;
+
+/**
+ build views
+ */
+-(void)buildViews;
+
+/**
+ get author info form server
+ */
+-(void)loadData;
+
+/**
+ show author info
+ 
+ @param authorModel AuthorModel
+ */
+-(void)showData:(AuthorModel *)authorModel;
 
 @end
 

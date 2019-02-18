@@ -66,8 +66,8 @@
 }
 
 /**
- 查询工作列表
- query job list event
+ 查询课程列表
+ query course list event
  */
 -(void)refreshData
 {

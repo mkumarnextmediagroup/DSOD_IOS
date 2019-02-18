@@ -19,4 +19,22 @@
 }
 
 
+/**
+ show course info
+ description、author info、lesson
+ 
+ @param courseModel CourseModel instance
+ */
+-(void)showData:(CourseModel*)courseModel{
+    
+}
+
+/**
+ 滚动到初始位置
+ Scroll to the initial position
+ */
+-(void)contentOffsetToPointZero{
+    //    tableView.contentOffset = CGPointZero;
+}
+
 @end

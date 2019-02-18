@@ -96,6 +96,8 @@
 		18A23FCE21BBC9C8006CB432 /* CompanyDetailJobsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A23FCD21BBC9C8006CB432 /* CompanyDetailJobsViewController.m */; };
 		18A23FDD21BBE40F006CB432 /* AllowMultiGestureTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A23FDC21BBE40F006CB432 /* AllowMultiGestureTableView.m */; };
 		18A23FE021BBE4BC006CB432 /* CompanyDetailReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A23FDF21BBE4BC006CB432 /* CompanyDetailReviewsViewController.m */; };
+		18A433CF2219134B00E9C31A /* CourseDetailReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A433CE2219134B00E9C31A /* CourseDetailReviewsViewController.m */; };
+		18A433D2221913D200E9C31A /* CourseDetailLessonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A433D1221913D200E9C31A /* CourseDetailLessonsViewController.m */; };
 		18ABEAB9219560D100BF3E60 /* SF-UI-Text-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18ABEAB8219560D100BF3E60 /* SF-UI-Text-Regular.ttf */; };
 		18B4ADB221E5F9F70087917E /* icons8-help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B4ADAF21E5F9F70087917E /* icons8-help@2x.png */; };
 		18B4ADB321E5F9F70087917E /* icons8-help.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B4ADB021E5F9F70087917E /* icons8-help.png */; };
@@ -124,6 +126,22 @@
 		18B83B1D2173557D00130DB6 /* YBImageBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18B83B052173557C00130DB6 /* YBImageBrowser.bundle */; };
 		18B83B1E2173557D00130DB6 /* YBImageBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83B072173557C00130DB6 /* YBImageBrowser.m */; };
 		18B83B212173596700130DB6 /* DentistImageBrowserToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83B202173596500130DB6 /* DentistImageBrowserToolBar.m */; };
+		18BE3748221A5C0B00D4148B /* ic_course_time.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE373C221A5C0800D4148B /* ic_course_time.png */; };
+		18BE3749221A5C0B00D4148B /* ic_course_star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE373D221A5C0900D4148B /* ic_course_star@3x.png */; };
+		18BE374A221A5C0B00D4148B /* ic_course_publish_date.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE373E221A5C0900D4148B /* ic_course_publish_date.png */; };
+		18BE374B221A5C0B00D4148B /* ic_course_level@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE373F221A5C0900D4148B /* ic_course_level@2x.png */; };
+		18BE374C221A5C0B00D4148B /* ic_course_time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3740221A5C0A00D4148B /* ic_course_time@2x.png */; };
+		18BE374D221A5C0B00D4148B /* ic_course_time@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3741221A5C0A00D4148B /* ic_course_time@3x.png */; };
+		18BE374E221A5C0B00D4148B /* ic_course_publish_date@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3742221A5C0A00D4148B /* ic_course_publish_date@3x.png */; };
+		18BE374F221A5C0B00D4148B /* ic_course_level.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3743221A5C0A00D4148B /* ic_course_level.png */; };
+		18BE3750221A5C0B00D4148B /* ic_course_level@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3744221A5C0B00D4148B /* ic_course_level@3x.png */; };
+		18BE3751221A5C0B00D4148B /* ic_course_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3745221A5C0B00D4148B /* ic_course_star@2x.png */; };
+		18BE3752221A5C0B00D4148B /* ic_course_publish_date@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3746221A5C0B00D4148B /* ic_course_publish_date@2x.png */; };
+		18BE3753221A5C0B00D4148B /* ic_course_star.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3747221A5C0B00D4148B /* ic_course_star.png */; };
+		18BE3756221A890A00D4148B /* DateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE3755221A890A00D4148B /* DateTime.m */; };
+		18BE375A221A94DE00D4148B /* ic_arrow_right_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3757221A94DD00D4148B /* ic_arrow_right_white.png */; };
+		18BE375B221A94DE00D4148B /* ic_arrow_right_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3758221A94DE00D4148B /* ic_arrow_right_white@2x.png */; };
+		18BE375C221A94DE00D4148B /* ic_arrow_right_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3759221A94DE00D4148B /* ic_arrow_right_white@3x.png */; };
 		18CDCE8D22141C9B002D28B1 /* EducationSpeakerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */; };
 		18CDCE9122154359002D28B1 /* AuthorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CDCE9022154359002D28B1 /* AuthorModel.m */; };
 		18CFB0F0216EF285002CC9D0 /* RMDownloadIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB0EF216EF284002CC9D0 /* RMDownloadIndicator.m */; };
@@ -1224,6 +1242,10 @@
 		18A23FDC21BBE40F006CB432 /* AllowMultiGestureTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllowMultiGestureTableView.m; sourceTree = "<group>"; };
 		18A23FDE21BBE4BC006CB432 /* CompanyDetailReviewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailReviewsViewController.h; sourceTree = "<group>"; };
 		18A23FDF21BBE4BC006CB432 /* CompanyDetailReviewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDetailReviewsViewController.m; sourceTree = "<group>"; };
+		18A433CD2219134B00E9C31A /* CourseDetailReviewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseDetailReviewsViewController.h; sourceTree = "<group>"; };
+		18A433CE2219134B00E9C31A /* CourseDetailReviewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseDetailReviewsViewController.m; sourceTree = "<group>"; };
+		18A433D0221913D200E9C31A /* CourseDetailLessonsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseDetailLessonsViewController.h; sourceTree = "<group>"; };
+		18A433D1221913D200E9C31A /* CourseDetailLessonsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseDetailLessonsViewController.m; sourceTree = "<group>"; };
 		18ABEAB8219560D100BF3E60 /* SF-UI-Text-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Regular.ttf"; sourceTree = "<group>"; };
 		18B4ADAF21E5F9F70087917E /* icons8-help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-help@2x.png"; sourceTree = "<group>"; };
 		18B4ADB021E5F9F70087917E /* icons8-help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-help.png"; sourceTree = "<group>"; };
@@ -1284,6 +1306,23 @@
 		18B83B072173557C00130DB6 /* YBImageBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBImageBrowser.m; sourceTree = "<group>"; };
 		18B83B1F2173596200130DB6 /* DentistImageBrowserToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistImageBrowserToolBar.h; sourceTree = "<group>"; };
 		18B83B202173596500130DB6 /* DentistImageBrowserToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistImageBrowserToolBar.m; sourceTree = "<group>"; };
+		18BE373C221A5C0800D4148B /* ic_course_time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_time.png; sourceTree = "<group>"; };
+		18BE373D221A5C0900D4148B /* ic_course_star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_star@3x.png"; sourceTree = "<group>"; };
+		18BE373E221A5C0900D4148B /* ic_course_publish_date.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_publish_date.png; sourceTree = "<group>"; };
+		18BE373F221A5C0900D4148B /* ic_course_level@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_level@2x.png"; sourceTree = "<group>"; };
+		18BE3740221A5C0A00D4148B /* ic_course_time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_time@2x.png"; sourceTree = "<group>"; };
+		18BE3741221A5C0A00D4148B /* ic_course_time@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_time@3x.png"; sourceTree = "<group>"; };
+		18BE3742221A5C0A00D4148B /* ic_course_publish_date@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_publish_date@3x.png"; sourceTree = "<group>"; };
+		18BE3743221A5C0A00D4148B /* ic_course_level.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_level.png; sourceTree = "<group>"; };
+		18BE3744221A5C0B00D4148B /* ic_course_level@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_level@3x.png"; sourceTree = "<group>"; };
+		18BE3745221A5C0B00D4148B /* ic_course_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_star@2x.png"; sourceTree = "<group>"; };
+		18BE3746221A5C0B00D4148B /* ic_course_publish_date@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_publish_date@2x.png"; sourceTree = "<group>"; };
+		18BE3747221A5C0B00D4148B /* ic_course_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_star.png; sourceTree = "<group>"; };
+		18BE3754221A890A00D4148B /* DateTime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateTime.h; sourceTree = "<group>"; };
+		18BE3755221A890A00D4148B /* DateTime.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateTime.m; sourceTree = "<group>"; };
+		18BE3757221A94DD00D4148B /* ic_arrow_right_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_arrow_right_white.png; sourceTree = "<group>"; };
+		18BE3758221A94DE00D4148B /* ic_arrow_right_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_arrow_right_white@2x.png"; sourceTree = "<group>"; };
+		18BE3759221A94DE00D4148B /* ic_arrow_right_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_arrow_right_white@3x.png"; sourceTree = "<group>"; };
 		18CDCE8B22141C9B002D28B1 /* EducationSpeakerDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationSpeakerDetailViewController.h; sourceTree = "<group>"; };
 		18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationSpeakerDetailViewController.m; sourceTree = "<group>"; };
 		18CDCE8F22154359002D28B1 /* AuthorModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthorModel.h; sourceTree = "<group>"; };
@@ -2656,6 +2695,10 @@
 				181121FD221664C1002A0B4E /* CourseDetailViewController.m */,
 				1811220222169B7E002A0B4E /* CourseDescriptionViewController.h */,
 				1811220322169B7E002A0B4E /* CourseDescriptionViewController.m */,
+				18A433CD2219134B00E9C31A /* CourseDetailReviewsViewController.h */,
+				18A433CE2219134B00E9C31A /* CourseDetailReviewsViewController.m */,
+				18A433D0221913D200E9C31A /* CourseDetailLessonsViewController.h */,
+				18A433D1221913D200E9C31A /* CourseDetailLessonsViewController.m */,
 			);
 			path = courseDetail;
 			sourceTree = "<group>";
@@ -2872,6 +2915,8 @@
 				A3E381E3221698E200BFB227 /* LMSCategoryModel.m */,
 				181121FF22168FB6002A0B4E /* CourseModel.h */,
 				1811220022168FB6002A0B4E /* CourseModel.m */,
+				18BE3754221A890A00D4148B /* DateTime.h */,
+				18BE3755221A890A00D4148B /* DateTime.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4012,6 +4057,21 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				18BE3757221A94DD00D4148B /* ic_arrow_right_white.png */,
+				18BE3758221A94DE00D4148B /* ic_arrow_right_white@2x.png */,
+				18BE3759221A94DE00D4148B /* ic_arrow_right_white@3x.png */,
+				18BE3743221A5C0A00D4148B /* ic_course_level.png */,
+				18BE373F221A5C0900D4148B /* ic_course_level@2x.png */,
+				18BE3744221A5C0B00D4148B /* ic_course_level@3x.png */,
+				18BE373E221A5C0900D4148B /* ic_course_publish_date.png */,
+				18BE3746221A5C0B00D4148B /* ic_course_publish_date@2x.png */,
+				18BE3742221A5C0A00D4148B /* ic_course_publish_date@3x.png */,
+				18BE3747221A5C0B00D4148B /* ic_course_star.png */,
+				18BE3745221A5C0B00D4148B /* ic_course_star@2x.png */,
+				18BE373D221A5C0900D4148B /* ic_course_star@3x.png */,
+				18BE373C221A5C0800D4148B /* ic_course_time.png */,
+				18BE3740221A5C0A00D4148B /* ic_course_time@2x.png */,
+				18BE3741221A5C0A00D4148B /* ic_course_time@3x.png */,
 				A3E381F52217DD1A00BFB227 /* icon-star.png */,
 				A3E381F72217DD2300BFB227 /* icon-star@2x.png */,
 				A3E381F92217DD2A00BFB227 /* icon-star@3x.png */,
@@ -5417,6 +5477,7 @@
 				4EBCE6E2212EABF100A0672D /* delete@2x.png in Resources */,
 				57B0990921256E840010597B /* close.png in Resources */,
 				A956C5372154CC4B00E528EB /* Icon-Search.png in Resources */,
+				18BE374C221A5C0B00D4148B /* ic_course_time@2x.png in Resources */,
 				4E2351CA213BB5DF003BA59B /* searchIcon@2x.png in Resources */,
 				4E5BA800217721D400386598 /* contentPic_bg@2x.png in Resources */,
 				4E94AE0921AE4594009CAB7F /* explore-light@3x.png in Resources */,
@@ -5449,6 +5510,7 @@
 				18FE61D921D1034200C0CEF3 /* icon_d_sel@3x.png in Resources */,
 				4E2351A9213A7D70003BA59B /* select@2x.png in Resources */,
 				C5EEAE562042AC89740F25B0 /* checkbox.png in Resources */,
+				18BE374B221A5C0B00D4148B /* ic_course_level@2x.png in Resources */,
 				4E36C0BD21DF6419003451E6 /* Setting_share@2x.png in Resources */,
 				C5EEA55691F65C5A3EF946AF /* checkbox@2x.png in Resources */,
 				C5EEA65E44E172FEB6482668 /* checkbox@3x.png in Resources */,
@@ -5481,11 +5543,13 @@
 				181122162216AA11002A0B4E /* ic_nav_share@3x.png in Resources */,
 				C5EEA9C826673B94007566E8 /* checkbox_on@2x.png in Resources */,
 				3E043B94213C15480044CD77 /* default_avatar@3x.png in Resources */,
+				18BE374D221A5C0B00D4148B /* ic_course_time@3x.png in Resources */,
 				4E94AE2621AE74C2009CAB7F /* more-light@3x.png in Resources */,
 				A3BA6DE921AFCD7000D83156 /* Shape full.png in Resources */,
 				3E043B91213C15480044CD77 /* phone@3x.png in Resources */,
 				C5EEAF2A194521DC8C0BD8A0 /* checkbox_on@3x.png in Resources */,
 				4E47253621CA61D20076B824 /* submit_resume@2x.png in Resources */,
+				18BE374F221A5C0B00D4148B /* ic_course_level.png in Resources */,
 				4EBCE6D7212D62DF00A0672D /* close_select@3x.png in Resources */,
 				3E043B90213C15480044CD77 /* menu@3x.png in Resources */,
 				A36B9DAE21CA4E3700A54263 /* icons8-appointment_reminders_filled@2x.png in Resources */,
@@ -5611,6 +5675,7 @@
 				18DE4D0C216DFF5000A6C61D /* nonBookmarks@3x.png in Resources */,
 				E11E14C7914B59B039F561AE /* a_light@2x.png in Resources */,
 				E11E15E166C53A956139FF69 /* a_light@3x.png in Resources */,
+				18BE375C221A94DE00D4148B /* ic_arrow_right_white@3x.png in Resources */,
 				E11E11A5C7BFFF5BFFDC2BE7 /* a.png in Resources */,
 				4E94AE2421AE74C2009CAB7F /* more-light.png in Resources */,
 				E11E1778665A0418AC687E01 /* a@2x.png in Resources */,
@@ -5666,6 +5731,7 @@
 				E11E17660111A7577F8FEE1B /* download@2x.png in Resources */,
 				4EF1098621B0D36E0013C34C /* skills_career@2x.png in Resources */,
 				18FE61DC21D1034200C0CEF3 /* icon_d_unsel@3x.png in Resources */,
+				18BE375B221A94DE00D4148B /* ic_arrow_right_white@2x.png in Resources */,
 				E11E1F7EA0D81ABAA1082A58 /* download@3x.png in Resources */,
 				18106AAD218ACC0D00EEE2DC /* FilterIssues.png in Resources */,
 				18A0DBA421B1877F0065B2BD /* icon_arrow_down_small@2x.png in Resources */,
@@ -5753,6 +5819,7 @@
 				E11E141FD10FF73E363E68E4 /* edit_normal@2x.png in Resources */,
 				4E94AE2721AE74C2009CAB7F /* findJob.png in Resources */,
 				E11E17060550DD3D69BB4B9E /* edit_normal@3x.png in Resources */,
+				18BE3750221A5C0B00D4148B /* ic_course_level@3x.png in Resources */,
 				E11E187D6C87EE6E7F5A6BC4 /* edit_photo.png in Resources */,
 				E11E12C211BB877600A8E23C /* edit_photo@3x.png in Resources */,
 				E11E1427731756A4C6B97992 /* edit_pressed.png in Resources */,
@@ -5798,6 +5865,7 @@
 				E11E19B5AAAAC717A7E7A8B1 /* search_pressed@2x.png in Resources */,
 				E11E1CD01A5568FEDC54E1AE /* search_pressed@3x.png in Resources */,
 				4EE52D6D2154CFA10076DC3D /* desc@2x.png in Resources */,
+				18BE375A221A94DE00D4148B /* ic_arrow_right_white.png in Resources */,
 				18CFB0FE216F3B69002CC9D0 /* foryou.png in Resources */,
 				A314772A21A6A1EC0046942C /* fullscreen.png in Resources */,
 				18DE4D0E216DFF5000A6C61D /* nonBookmarks.png in Resources */,
@@ -5823,6 +5891,7 @@
 				18B4ADB221E5F9F70087917E /* icons8-help@2x.png in Resources */,
 				A3E752E7217E35010087713D /* Animation@3x.png in Resources */,
 				E11E15D9EE863F0FB9D7CE3B /* menu-bookmark@2x.png in Resources */,
+				18BE374A221A5C0B00D4148B /* ic_course_publish_date.png in Resources */,
 				E11E197014A7163353C9716C /* menu-bookmark@3x.png in Resources */,
 				A372957A21912D4B00B36409 /* More-Options@2x.png in Resources */,
 				4E51695821B13704005B8533 /* more-me@2x.png in Resources */,
@@ -5861,14 +5930,18 @@
 				E11E1CE038DC68FF7C932E10 /* menu-dev_light.png in Resources */,
 				E11E162727181CE585B4D828 /* menu-dev_light@2x.png in Resources */,
 				4E36C0C021DF6419003451E6 /* Setting_resetpwd@3x.png in Resources */,
+				18BE374E221A5C0B00D4148B /* ic_course_publish_date@3x.png in Resources */,
+				18BE3752221A5C0B00D4148B /* ic_course_publish_date@2x.png in Resources */,
 				E11E13F06AD2F0C741CCC653 /* menu-dev_light@3x.png in Resources */,
 				E11E1A864C6724CAD4A89937 /* menu-dev.png in Resources */,
 				4EF1098D21B0D3900013C34C /* company_career@3x.png in Resources */,
 				E11E1A2A9D2AB9779683CF42 /* menu-dev@2x.png in Resources */,
 				A36BAFCE2190A3BE0026BD18 /* sponsor_nobel.png in Resources */,
+				18BE3748221A5C0B00D4148B /* ic_course_time.png in Resources */,
 				186393A621B02EC100512CBB /* icon_arrow_down.png in Resources */,
 				E11E126FAFBE2C82E8C1DC34 /* menu-dev@3x.png in Resources */,
 				4E94ADEA21AE3D75009CAB7F /* myJobs-light@3x.png in Resources */,
+				18BE3749221A5C0B00D4148B /* ic_course_star@3x.png in Resources */,
 				4E23E0872152A37200EDCE08 /* star_unselect@3x.png in Resources */,
 				E11E1454B1E079C526298B9F /* menu-dso_light.png in Resources */,
 				E11E1727E478BEC789AB1876 /* menu-dso_light@2x.png in Resources */,
@@ -5893,6 +5966,7 @@
 				4E94AE1521AE74A4009CAB7F /* alert@3x.png in Resources */,
 				4E5564C12154A122008C9A6D /* nonSearch@2x.png in Resources */,
 				A935BE74217737EB007F3619 /* slide-3.png in Resources */,
+				18BE3753221A5C0B00D4148B /* ic_course_star.png in Resources */,
 				E11E14AFA8FAF941E70C9DCC /* menu-edu.png in Resources */,
 				A3BA6DF421AFD10100D83156 /* icons8-banknotes.png in Resources */,
 				E11E1B5B78D3713C6A0487ED /* menu-edu@2x.png in Resources */,
@@ -5983,6 +6057,7 @@
 				4E51696221B15B50005B8533 /* down_list@3x.png in Resources */,
 				C5EEA845D7CCB783DC0DFD8E /* box-light@2x.png in Resources */,
 				4E94AE3821AE7E35009CAB7F /* career-me@2x.png in Resources */,
+				18BE3751221A5C0B00D4148B /* ic_course_star@2x.png in Resources */,
 				C5EEACBA33B0A593C425AAA9 /* box-light@3x.png in Resources */,
 				C5EEA908DEE2C08570DE20EE /* box.png in Resources */,
 				C5EEA8E996DC3091A2777666 /* box@2x.png in Resources */,
@@ -6273,6 +6348,7 @@
 				4E94ADC321ACE8D0009CAB7F /* CareerFindJobViewController.m in Sources */,
 				4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */,
 				18A0DB9521B12C1B0065B2BD /* CompanyReviewModel.m in Sources */,
+				18BE3756221A890A00D4148B /* DateTime.m in Sources */,
 				4E1957432137D0F100420563 /* LinkedinAuthorizationNavBar.m in Sources */,
 				4E23522C213D12CB003BA59B /* UpdateViewController.m in Sources */,
 				4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */,
@@ -6303,6 +6379,7 @@
 				F929473221A3AE1400383143 /* DsoToast.m in Sources */,
 				4E1957452137D0F100420563 /* LinkedInAppSettings.m in Sources */,
 				4E528B2A2170C8BA008C151B /* GSKViewController.m in Sources */,
+				18A433CF2219134B00E9C31A /* CourseDetailReviewsViewController.m in Sources */,
 				4EBCE6C8212D0DF000A0672D /* MagazineTableViewCell.m in Sources */,
 				18B83B082173557D00130DB6 /* YBImageBrowserProgressView.m in Sources */,
 				18B83B212173596700130DB6 /* DentistImageBrowserToolBar.m in Sources */,
@@ -6399,6 +6476,7 @@
 				E11E1ADBC83B9657D14256E2 /* UserConfig.m in Sources */,
 				E11E13D762D175EF23115B92 /* AppDelegate.m in Sources */,
 				18B83B152173557D00130DB6 /* YBIBWebImageManager.m in Sources */,
+				18A433D2221913D200E9C31A /* CourseDetailLessonsViewController.m in Sources */,
 				A3BA6DDB21AEA36100D83156 /* JobModel.m in Sources */,
 				4E0C115521806147007DC63D /* CMSModel.m in Sources */,
 				18A23FE021BBE4BC006CB432 /* CompanyDetailReviewsViewController.m in Sources */,

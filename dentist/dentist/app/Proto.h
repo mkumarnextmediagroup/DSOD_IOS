@@ -19,6 +19,7 @@
 #import "AuthorModel.h"
 #import "LMSCategoryModel.h"
 #import "GenericCoursesModel.h"
+#import "CourseModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -338,5 +339,21 @@
  @return aratar url
  */
 +(NSString *)getCourseAuthorAvatarUrlByObjectId:(NSString *)objectid;
+
+/**
+ get course detail image url
+ 
+ @param objectid image id
+ @return aratar url
+ */
++(NSString *)getCourseDetailImageUrlByObjectId:(NSString *)objectid;
+
+/**
+ get course detail info based on course id
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)findCourseDetail:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg,CourseModel *courseModel))completed;
 
 @end

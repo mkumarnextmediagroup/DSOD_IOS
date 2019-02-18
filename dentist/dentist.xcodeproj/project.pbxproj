@@ -70,6 +70,15 @@
 		1866AFFE2179DF3900970CAB /* DentistTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866AFFD2179DF3900970CAB /* DentistTabView.m */; };
 		1866B0012179DFDA00970CAB /* TabCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */; };
 		187111C821A31B6E00A2B3E4 /* Delete_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 187111C721A31B6D00A2B3E4 /* Delete_Icon.png */; };
+		188FC837221AE3F70005CF2A /* ic_course_quizzes@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC82E221AE3F50005CF2A /* ic_course_quizzes@3x.png */; };
+		188FC838221AE3F70005CF2A /* ic_course_quizzes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC82F221AE3F50005CF2A /* ic_course_quizzes@2x.png */; };
+		188FC839221AE3F70005CF2A /* ic_course_lessons@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC830221AE3F60005CF2A /* ic_course_lessons@3x.png */; };
+		188FC83A221AE3F70005CF2A /* ic_course_certificate@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC831221AE3F60005CF2A /* ic_course_certificate@3x.png */; };
+		188FC83B221AE3F70005CF2A /* ic_course_lessons@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC832221AE3F60005CF2A /* ic_course_lessons@2x.png */; };
+		188FC83C221AE3F70005CF2A /* ic_course_quizzes.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC833221AE3F60005CF2A /* ic_course_quizzes.png */; };
+		188FC83D221AE3F70005CF2A /* ic_course_certificate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC834221AE3F70005CF2A /* ic_course_certificate@2x.png */; };
+		188FC83E221AE3F70005CF2A /* ic_course_lessons.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC835221AE3F70005CF2A /* ic_course_lessons.png */; };
+		188FC83F221AE3F70005CF2A /* ic_course_certificate.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC836221AE3F70005CF2A /* ic_course_certificate.png */; };
 		188FEC8A2175BDCA00EE32F3 /* BannerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FEC892175BDC900EE32F3 /* BannerScrollView.m */; };
 		18945E1821C63E480028D1CD /* CompanyExistsReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18945E1721C63E480028D1CD /* CompanyExistsReviewsViewController.m */; };
 		18945E1B21C641180028D1CD /* CompanyExistsReviewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18945E1A21C641180028D1CD /* CompanyExistsReviewsTableViewCell.m */; };
@@ -1196,6 +1205,15 @@
 		1866AFFF2179DFDA00970CAB /* TabCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabCollectionViewCell.h; sourceTree = "<group>"; };
 		1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabCollectionViewCell.m; sourceTree = "<group>"; };
 		187111C721A31B6D00A2B3E4 /* Delete_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Delete_Icon.png; sourceTree = "<group>"; };
+		188FC82E221AE3F50005CF2A /* ic_course_quizzes@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_quizzes@3x.png"; sourceTree = "<group>"; };
+		188FC82F221AE3F50005CF2A /* ic_course_quizzes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_quizzes@2x.png"; sourceTree = "<group>"; };
+		188FC830221AE3F60005CF2A /* ic_course_lessons@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_lessons@3x.png"; sourceTree = "<group>"; };
+		188FC831221AE3F60005CF2A /* ic_course_certificate@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_certificate@3x.png"; sourceTree = "<group>"; };
+		188FC832221AE3F60005CF2A /* ic_course_lessons@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_lessons@2x.png"; sourceTree = "<group>"; };
+		188FC833221AE3F60005CF2A /* ic_course_quizzes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_quizzes.png; sourceTree = "<group>"; };
+		188FC834221AE3F70005CF2A /* ic_course_certificate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_certificate@2x.png"; sourceTree = "<group>"; };
+		188FC835221AE3F70005CF2A /* ic_course_lessons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_lessons.png; sourceTree = "<group>"; };
+		188FC836221AE3F70005CF2A /* ic_course_certificate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_certificate.png; sourceTree = "<group>"; };
 		188FEC882175BDBD00EE32F3 /* BannerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerScrollView.h; sourceTree = "<group>"; };
 		188FEC892175BDC900EE32F3 /* BannerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerScrollView.m; sourceTree = "<group>"; };
 		18945E1621C63E480028D1CD /* CompanyExistsReviewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyExistsReviewsViewController.h; sourceTree = "<group>"; };
@@ -4057,6 +4075,15 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				188FC836221AE3F70005CF2A /* ic_course_certificate.png */,
+				188FC834221AE3F70005CF2A /* ic_course_certificate@2x.png */,
+				188FC831221AE3F60005CF2A /* ic_course_certificate@3x.png */,
+				188FC835221AE3F70005CF2A /* ic_course_lessons.png */,
+				188FC832221AE3F60005CF2A /* ic_course_lessons@2x.png */,
+				188FC830221AE3F60005CF2A /* ic_course_lessons@3x.png */,
+				188FC833221AE3F60005CF2A /* ic_course_quizzes.png */,
+				188FC82F221AE3F50005CF2A /* ic_course_quizzes@2x.png */,
+				188FC82E221AE3F50005CF2A /* ic_course_quizzes@3x.png */,
 				18BE3757221A94DD00D4148B /* ic_arrow_right_white.png */,
 				18BE3758221A94DE00D4148B /* ic_arrow_right_white@2x.png */,
 				18BE3759221A94DE00D4148B /* ic_arrow_right_white@3x.png */,
@@ -5511,6 +5538,7 @@
 				4E2351A9213A7D70003BA59B /* select@2x.png in Resources */,
 				C5EEAE562042AC89740F25B0 /* checkbox.png in Resources */,
 				18BE374B221A5C0B00D4148B /* ic_course_level@2x.png in Resources */,
+				188FC83A221AE3F70005CF2A /* ic_course_certificate@3x.png in Resources */,
 				4E36C0BD21DF6419003451E6 /* Setting_share@2x.png in Resources */,
 				C5EEA55691F65C5A3EF946AF /* checkbox@2x.png in Resources */,
 				C5EEA65E44E172FEB6482668 /* checkbox@3x.png in Resources */,
@@ -5571,6 +5599,7 @@
 				C5EEAC84691A5246841E615B /* info@2x.png in Resources */,
 				A3B340B521C22084008EB36A /* loading.gif in Resources */,
 				18EEFCA621CD0746007F5E2B /* icon_sort@3x.png in Resources */,
+				188FC839221AE3F70005CF2A /* ic_course_lessons@3x.png in Resources */,
 				C5EEA9C145CEE1C7091EA50F /* info@3x.png in Resources */,
 				18CFB0FD216F3B69002CC9D0 /* foryou@2x.png in Resources */,
 				18A0DBA521B1877F0065B2BD /* icon_arrow_down_small.png in Resources */,
@@ -5579,6 +5608,7 @@
 				18106AAB218ACC0D00EEE2DC /* FilterIssues@2x.png in Resources */,
 				A3E752F0217E35010087713D /* TipSheet@3x.png in Resources */,
 				A3BA6DF921AFD13B00D83156 /* icons8-marker.png in Resources */,
+				188FC83E221AE3F70005CF2A /* ic_course_lessons.png in Resources */,
 				A3E752EB217E35010087713D /* Interview@3x.png in Resources */,
 				E11E18380D1E9ABDF5847389 /* back_arrow@2x.png in Resources */,
 				A3E752F8217E35010087713D /* Podcast@3x.png in Resources */,
@@ -5625,6 +5655,7 @@
 				4E36C0C321DF6419003451E6 /* Setting_notifications@3x.png in Resources */,
 				E11E1121C662C4950DC65395 /* home.png in Resources */,
 				A3BDC55F21D7AC2A0077ED25 /* Applied@3x.png in Resources */,
+				188FC83C221AE3F70005CF2A /* ic_course_quizzes.png in Resources */,
 				E11E14F9F8B1AE1BBF1EAB35 /* home@2x.png in Resources */,
 				4E3303BB21D5F27000FF048C /* noresult_search@2x.png in Resources */,
 				18FE61DB21D1034200C0CEF3 /* icon_u_unsel@3x.png in Resources */,
@@ -5925,6 +5956,7 @@
 				A3BD2AC421B9540B00138353 /* Updated@2x.png in Resources */,
 				E11E1FAC1F6BE50220F80693 /* menu-community@3x.png in Resources */,
 				18DFACC421E8D14100EF528A /* icon_arrow_up@2x.png in Resources */,
+				188FC83B221AE3F70005CF2A /* ic_course_lessons@2x.png in Resources */,
 				18A0DBA321B1877F0065B2BD /* icon_arrow_down_small@3x.png in Resources */,
 				A338E2352214303200FCCCA0 /* lms-search-light.png in Resources */,
 				E11E1CE038DC68FF7C932E10 /* menu-dev_light.png in Resources */,
@@ -5960,6 +5992,7 @@
 				A3B340CE21C3E39D008EB36A /* noun_Business Records@2x.png in Resources */,
 				E11E17DA1750DC3EFFFBC584 /* menu-edu_light@2x.png in Resources */,
 				4E5BA7FF217721D400386598 /* contentPic_bg@3x.png in Resources */,
+				188FC83D221AE3F70005CF2A /* ic_course_certificate@2x.png in Resources */,
 				4E5BA802217835CE00386598 /* back_fullScreen@2x.png in Resources */,
 				A956C5392154CC4B00E528EB /* Icon-Search@3x.png in Resources */,
 				E11E1D5A2B13CF9CC09A2BBD /* menu-edu_light@3x.png in Resources */,
@@ -5988,6 +6021,7 @@
 				4E94AE3B21AE7E35009CAB7F /* career-profiles@2x.png in Resources */,
 				E11E17D0775A0C4B5C6221FD /* menu-msg.png in Resources */,
 				E11E1C0A53F72CB01B64B2AB /* menu-msg@2x.png in Resources */,
+				188FC837221AE3F70005CF2A /* ic_course_quizzes@3x.png in Resources */,
 				186393A021B02D6E00512CBB /* icon_attention@2x.png in Resources */,
 				E11E18003C13FEE9AA408B78 /* menu-msg@3x.png in Resources */,
 				E11E13FE238DCC94860762B6 /* menu-profile_light.png in Resources */,
@@ -6104,7 +6138,9 @@
 				C5EEA27B3C9055E87FEC15F8 /* seg-bg.png in Resources */,
 				A3B340D521C3E39D008EB36A /* noun_receipt@2x.png in Resources */,
 				C5EEA8B093288B7A8BE578EB /* seg-bg@2x.png in Resources */,
+				188FC83F221AE3F70005CF2A /* ic_course_certificate.png in Resources */,
 				18B4ADB421E5F9F70087917E /* icons8-help@3x.png in Resources */,
+				188FC838221AE3F70005CF2A /* ic_course_quizzes@2x.png in Resources */,
 				C5EEA00883327B721F4F63A6 /* seg-bg@3x.png in Resources */,
 				C5EEA379DDA6B6B03C6A73E3 /* art-img.png in Resources */,
 				C5EEA89E2D291D737E8028A9 /* book9-light.png in Resources */,

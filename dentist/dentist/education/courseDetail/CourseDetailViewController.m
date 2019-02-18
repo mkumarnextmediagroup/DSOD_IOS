@@ -311,8 +311,8 @@
     [[[[[sponsorImageBtn.layoutMaker leftParent:0] rightParent:0] below:tabView offset:edge] heightEq:sponstorimgh] install];
     [sponsorImageBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_gsk"] forState:UIControlStateNormal];
     
-    lastView = headerView.addView;
-    [[[[[lastView.layoutMaker leftParent:0]rightParent:0]below:sponsorImageBtn offset:0]heightEq:edge]install];
+    lastView = sponsorImageBtn;
+//    [[[[[lastView.layoutMaker leftParent:0]rightParent:0]below:sponsorImageBtn offset:0]heightEq:edge]install];
     
     
     
@@ -334,9 +334,9 @@
     
     //sponsor
     NSDictionary *sponsorInfo = @{
-                                  @"260":@{@"name":@"Align" ,@"fullName":@"Align",@"imgName":@"sponsor_align"},
-                                  @"259":@{@"name":@"Nobel" ,@"fullName":@"Nobel Biocare" ,@"imgName":@"sponsor_nobel"},
-                                  @"197":@{@"name":@"GSK",@"fullName":@"GSK",@"imgName":@"sponsor_gsk"}};
+      @"260":@{@"name":@"Align" ,@"fullName":@"Align",@"imgName":@"sponsor_align"},
+      @"259":@{@"name":@"Nobel" ,@"fullName":@"Nobel Biocare" ,@"imgName":@"sponsor_nobel"},
+      @"197":@{@"name":@"GSK",@"fullName":@"GSK",@"imgName":@"sponsor_gsk"}};
     if(courseModel.sponsoredId && sponsorInfo[courseModel.id]){
         [sponsorImageBtn setBackgroundImage:[UIImage imageNamed:sponsorInfo[courseModel.id][@"imgName"]] forState:UIControlStateNormal];
     }else{
@@ -411,6 +411,7 @@
         
         self.descriptionVC.view.frame = _tableContentView.frame;
         [self.descriptionVC showData:courseModel];
+        self.descriptionVC.vc = self;
         [_tableContentView addSubview:self.descriptionVC.view];
         
         self.reviewsVC.view.frame = _tableContentView.frame;

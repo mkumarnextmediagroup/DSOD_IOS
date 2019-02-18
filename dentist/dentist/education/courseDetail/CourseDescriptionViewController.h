@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)contentOffsetToPointZero;
 
 
+
+@property (nonatomic,weak) UIViewController *vc;
+
 /**
  show course info
  description、author info、lesson

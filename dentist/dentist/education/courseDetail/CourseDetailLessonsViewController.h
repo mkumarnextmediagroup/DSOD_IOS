@@ -1,17 +1,16 @@
 //
-//  CourseDescriptionViewController.h
+//  CourseDetailLessonViewController.h
 //  dentist
 //
-//  Created by Shirley on 2019/2/15.
+//  Created by Shirley on 2019/2/17.
 //  Copyright © 2019 thenextmediagroup.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "CourseModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CourseDescriptionViewController : UIViewController
+@interface CourseDetailLessonsViewController : UIViewController
 
 // 是否可以滑动
 //Is it currently possible to scroll
@@ -19,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 不滑动事件
 // Callback function when scrolling is not possible
 @property (nonatomic, copy) void(^noScrollAction)(void) ;
+
 /**
  滚动到初始位置
  Scroll to the initial position
@@ -26,13 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)contentOffsetToPointZero;
 
 
-/**
- show course info
- description、author info、lesson
+@property (nonatomic,strong) NSString *courseId;
 
- @param courseModel CourseModel instance
- */
--(void)showData:(CourseModel*)courseModel;
+
 
 @end
 

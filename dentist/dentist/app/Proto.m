@@ -33,6 +33,7 @@
 #import "FAQSModel.h"
 #import "NSObject+customed.h"
 #import "AppDelegate.h"
+#import "CourseModel.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -805,7 +806,7 @@
 {
     if (![NSString isBlankString:objectid]) {
         NSString *baseUrl = [self configUrl:@"cms"];
-        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=%@",objectid);
+        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
         return url;
     }else{
         return nil;
@@ -3097,11 +3098,49 @@
 {
     if (![NSString isBlankString:objectid]) {
         NSString *baseUrl = [self configUrl:@"lms"];
-        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=%@",objectid);
+        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
         return url;
     }else{
         return nil;
     }
+}
+
+/**
+ get course detail image url
+ 
+ @param objectid image id
+ @return aratar url
+ */
++(NSString *)getCourseDetailImageUrlByObjectId:(NSString *)objectid
+{
+    if (![NSString isBlankString:objectid]) {
+        NSString *baseUrl = [self configUrl:@"lms"];
+        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
+        return url;
+    }else{
+        return nil;
+    }
+}
+
+/**
+ get course detail info based on course id
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)findCourseDetail:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg,CourseModel *courseModel))completed{
+    [self getAsync:[NSString stringWithFormat:@"generic/course/%@/details",courseId] dic:nil modular:@"lms" callback:^(HttpResult *r) {
+        CourseModel *model = nil;
+        if (r.OK && r.resultMap[@"data"]) {
+            NSDictionary *dic =  r.resultMap[@"data"];
+            model = [[CourseModel alloc] initWithJson:jsonBuild(dic)];
+        }
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg,model);
+            });
+        }
+    }];
 }
 
 @end

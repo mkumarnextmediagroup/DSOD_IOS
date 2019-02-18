@@ -39,6 +39,8 @@ static NSString * identifier = @"TabCellID2";
 {
     self =[super init];
     if (self) {
+        UILabel *lineLabel=self.lineLabel;
+        [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
         _isScrollEnable=YES;
         itemWidth=ceilf(SCREENWIDTH*2/7.0);
         _groupCount=100;

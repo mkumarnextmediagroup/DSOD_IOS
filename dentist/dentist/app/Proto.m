@@ -3022,18 +3022,31 @@
 }
 
 /**
- get LMS course by course id or category id
+ query LMS course datas by course id or category id
  @param curriculumId course id
  @param categoryId category id
  @param completed response callback function
  */
 + (void)queryLMSGenericCourses:(NSInteger)pagenumber curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
 {
+    [self queryLMSGenericCourses:pagenumber pagesize:0 curriculumId:curriculumId categoryId:categoryId completed:completed];
+}
+
+/**
+ query LMS course datas by course id or category id
+ @param curriculumId course id
+ @param categoryId category id
+ @param completed response callback function
+ */
++ (void)queryLMSGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
+{
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     if (pagenumber<=0) {
         pagenumber=1;
     }
-    NSInteger pagesize=20;
+    if (pagesize<=0) {
+        pagesize=20;
+    }
     [paradic setObject:[NSNumber numberWithInteger:pagenumber] forKey:@"pgnumber"];
     [paradic setObject:[NSNumber numberWithInteger:pagesize] forKey:@"pgsize"];
     if (![NSString isBlankString:curriculumId]) {
@@ -3043,6 +3056,64 @@
         [paradic setObject:categoryId forKey:@"categoryId"];
     }
     [self postAsync3:@"/generic/courses" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"data"];
+            for (NSDictionary *d in arr) {
+                GenericCoursesModel *item = [[GenericCoursesModel alloc] initWithJson:jsonBuild(d)];
+                [resultArray addObject:item];
+            }
+            foreTask(^{
+                if (completed) {
+                    completed(resultArray);
+                }
+            });
+            
+        }else{
+            foreTask(^{
+                if (completed) {
+                    completed(nil);
+                }
+            });
+        }
+    }];
+}
+
+/**
+ query LMS course datas by course id or category id from you may like
+ @param curriculumId course id
+ @param categoryId category id
+ @param completed response callback function
+ */
++ (void)queryLMSFeaturedGenericCourses:(NSInteger)pagenumber curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
+{
+    [self queryLMSFeaturedGenericCourses:pagenumber pagesize:0 curriculumId:curriculumId categoryId:categoryId completed:completed];
+}
+
+/**
+ query LMS course datas by course id or category id from you may like
+ @param curriculumId course id
+ @param categoryId category id
+ @param completed response callback function
+ */
++ (void)queryLMSFeaturedGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (pagenumber<=0) {
+        pagenumber=1;
+    }
+    if (pagesize<=0) {
+        pagesize=20;
+    }
+    [paradic setObject:[NSNumber numberWithInteger:pagenumber] forKey:@"pgnumber"];
+    [paradic setObject:[NSNumber numberWithInteger:pagesize] forKey:@"pgsize"];
+    if (![NSString isBlankString:curriculumId]) {
+        [paradic setObject:curriculumId forKey:@"curriculumId"];
+    }
+    if (![NSString isBlankString:categoryId]) {
+        [paradic setObject:categoryId forKey:@"categoryId"];
+    }
+    [self postAsync3:@"/generic/courses/interest" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];

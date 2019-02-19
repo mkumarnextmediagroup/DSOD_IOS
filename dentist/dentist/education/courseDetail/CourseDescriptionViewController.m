@@ -211,8 +211,8 @@
     
     descriptionLabel.text = courseModel.courseDescription;
     
-    lessonsNumberLabel.text = [NSString stringWithFormat:@"%d Lessons",5];
-    quizzesNumberLabel.text = [NSString stringWithFormat:@"%d Quizzes",35];
+    lessonsNumberLabel.text = [NSString stringWithFormat:@"%d Lessons",(int)courseModel.lessons.count];
+    quizzesNumberLabel.text = [NSString stringWithFormat:@"%d Quizzes",(int)courseModel.tests.count];
 
     if(courseModel.authorIds && courseModel.authorIds.count > 0){
         [self getAuthorById:courseModel.authorIds[0]];

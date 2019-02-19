@@ -1720,6 +1720,25 @@
     }];
 }
 
++ (void)delAsync:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback {
+    NSString *baseUrl = [self configUrl:modular];
+    Http *h = [Http new];
+    h.url = strBuild([self baseDomain],baseUrl, action);
+    NSLog(@"requesturl=%@", h.url);
+    [h arg:@"client_id" value:@"fooClientIdPassword"];
+    [h args:dic];
+    NSString *token = [self lastToken];
+    if (token != nil) {
+        [h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+    }
+    [h delAsync:^(HttpResult *r) {
+        if (callback && ![Proto tokenExpired:r]) {
+            callback(r);
+        }
+    }];
+}
+
+
 + (HttpResult *)post:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular {
 	NSString *baseUrl = [self configUrl:modular];
 	Http *h = [Http new];
@@ -3205,7 +3224,7 @@
 }
 
 /**
- get course detail info based on course id
+ LMS : get course detail info based on course id
  
  @param courseId course id
  @param completed response callback function
@@ -3224,5 +3243,40 @@
         }
     }];
 }
+
+/**
+ LMS : Marking courses according to course ID
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)lmsAddBookmark:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg))completed{
+    [self postAsync3:@"bookmark/bookmark" dic:@{@"courseId":courseId} modular:@"lms" callback:^(HttpResult *r) {
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg);
+            });
+        }
+    }];
+}
+
+/**
+ LMS : Delete course markers based on course id
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)lmsDelBookmarkByCourseId:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg))completed{
+    
+    [self delAsync:[NSString stringWithFormat:@"bookmark/course/%@",courseId] dic:nil modular:@"lms" callback:^(HttpResult *r) {
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg);
+            });
+        }
+    }];
+}
+
+
 
 @end

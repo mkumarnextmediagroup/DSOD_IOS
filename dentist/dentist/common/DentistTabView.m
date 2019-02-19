@@ -45,6 +45,7 @@ static NSString * identifier = @"TabCellID2";
 }
 
 -(void)loadView{
+    _isBackFistDelegate=YES;
     UILabel *lineLabel=self.lineLabel;
     [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
     _isScrollEnable=YES;
@@ -139,7 +140,7 @@ static NSString * identifier = @"TabCellID2";
         [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
         if (_indexArr.count>selectIndex) {
             NSInteger index = [_indexArr[selectIndex] integerValue];
-            if (self.delegate && [self.delegate respondsToSelector:@selector(didDentistSelectItemAtIndex:)]) {
+            if (self.isBackFistDelegate && self.delegate && [self.delegate respondsToSelector:@selector(didDentistSelectItemAtIndex:)]) {
                 [self.delegate didDentistSelectItemAtIndex:index];
             }
         }

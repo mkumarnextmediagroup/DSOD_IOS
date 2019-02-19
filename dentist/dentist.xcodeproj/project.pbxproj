@@ -590,6 +590,7 @@
 		A3729597219284F500B36409 /* DentistDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3729596219284F500B36409 /* DentistDataBaseManager.m */; };
 		A372959A219293F500B36409 /* DetinstDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3729599219293F500B36409 /* DetinstDownloadManager.m */; };
 		A3739944219EBAE8004A5A94 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3739943219EBAE8004A5A94 /* Toast.swift */; };
+		A37CE3A6221C0EA000C280DF /* YCMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = A37CE3A5221C0E9F00C280DF /* YCMenuView.m */; };
 		A393E0B321955D06001881C2 /* sponsor_nobel_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B021955D05001881C2 /* sponsor_nobel_banner.png */; };
 		A393E0B421955D06001881C2 /* sponsor_gsk_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B121955D05001881C2 /* sponsor_gsk_banner.png */; };
 		A393E0B521955D06001881C2 /* sponsor_align_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B221955D06001881C2 /* sponsor_align_banner@2x.png */; };
@@ -1896,6 +1897,8 @@
 		A3729598219293F500B36409 /* DetinstDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetinstDownloadManager.h; sourceTree = "<group>"; };
 		A3729599219293F500B36409 /* DetinstDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetinstDownloadManager.m; sourceTree = "<group>"; };
 		A3739943219EBAE8004A5A94 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		A37CE3A4221C0E9F00C280DF /* YCMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCMenuView.h; sourceTree = "<group>"; };
+		A37CE3A5221C0E9F00C280DF /* YCMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCMenuView.m; sourceTree = "<group>"; };
 		A393E0B021955D05001881C2 /* sponsor_nobel_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_nobel_banner.png; sourceTree = "<group>"; };
 		A393E0B121955D05001881C2 /* sponsor_gsk_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_gsk_banner.png; sourceTree = "<group>"; };
 		A393E0B221955D06001881C2 /* sponsor_align_banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sponsor_align_banner@2x.png"; sourceTree = "<group>"; };
@@ -5016,6 +5019,8 @@
 				4E1957222137D0F100420563 /* LinkedIn */,
 				C5EEAA800E95F5D4324195EC /* Colors.m */,
 				C5EEAB29126FE9574783DD4E /* Colors.h */,
+				A37CE3A4221C0E9F00C280DF /* YCMenuView.h */,
+				A37CE3A5221C0E9F00C280DF /* YCMenuView.m */,
 				C5EEACBC931939B104FC3D13 /* TextSize.m */,
 				C5EEA811A5ED37C88C49CB9A /* TextSize.h */,
 				C5EEAC56322EB38F34BC5D19 /* Fonts.m */,
@@ -6336,6 +6341,7 @@
 				A3D0C326220057FF00455E0E /* EducationDownloadsViewController.m in Sources */,
 				4E23522E213D12CB003BA59B /* UITextFieldCustom.m in Sources */,
 				A3BDC57C21EC95690077ED25 /* GeneralSettingsModel.m in Sources */,
+				A37CE3A6221C0EA000C280DF /* YCMenuView.m in Sources */,
 				4E17B3EA2176250800F75390 /* AddReviewViewController.m in Sources */,
 				A3DF39A02189A280006F84DC /* ExpandingTableViewController.swift in Sources */,
 				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,

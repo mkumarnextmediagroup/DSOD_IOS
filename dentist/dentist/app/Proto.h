@@ -361,4 +361,19 @@
  */
 + (void)findCourseDetail:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg,CourseModel *courseModel))completed;
 
+
+/**
+ LMS : Marking courses according to course ID
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)lmsAddBookmark:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg))completed;
+/**
+ LMS : Delete course markers based on course id
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)lmsDelBookmarkByCourseId:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg))completed;
 @end

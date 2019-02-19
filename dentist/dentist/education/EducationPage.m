@@ -22,6 +22,7 @@
     UIView *panel;
     BannerScrollView *iv;
     DentistTabView *tabView;
+    DentistTabView *toptabView;
     NSMutableArray<IdName *> *segItemsModel;
 }
 @end
@@ -42,7 +43,7 @@
             [self navBarText:@"see all" target:self action:@selector(goCategoryPage)]
         ];
     
-    myTable =[UITableView new]; //[[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    myTable =[[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:myTable];
     myTable.dataSource = self;
     myTable.delegate = self;
@@ -54,6 +55,12 @@
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [[[myTable.layoutMaker sizeEq:SCREENWIDTH h:SCREENHEIGHT-NAVHEIGHT] topParent:NAVHEIGHT] install];
     [myTable registerClass:[CourseTableViewCell class] forCellReuseIdentifier:NSStringFromClass([CourseTableViewCell class])];
+    
+    toptabView=[DentistTabView new];
+    toptabView.delegate=self;
+    [self.view addSubview:toptabView];
+    toptabView.hidden=YES;
+    [[[[[toptabView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT] heightEq:51] install];
     [self refreshData];
 
 
@@ -162,6 +169,7 @@
         NSLog(@"================总请求网络完成");
         [self hideLoading];
         self->tabView.modelArr=self->segItemsModel;
+        self->toptabView.modelArr=self->segItemsModel;
         [self->myTable reloadData];
     });
 }
@@ -223,7 +231,7 @@
  */
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 50;
+    return 51;
 }
 
 /**
@@ -249,18 +257,17 @@
     categorylabel.textColor=Colors.black1A191A;
     categorylabel.font=[UIFont systemFontOfSize:17];
     [[[[[categorylabel.layoutMaker leftParent:16] toLeftOf:seemorebtn offset:-10] topParent:20] heightEq:20] install];
-    if (section==0) {
+    if (section==1) {
         categorylabel.text=@"Courses you may like";
     }else{
         categorylabel.text=@"Latest Courses";
     }
     return bgview;
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section==0) {
+    if(section==0){
         return infoArr.count;
     }else{
         return infoArr2.count;
@@ -284,6 +291,7 @@
     
     return cell;
     
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -306,23 +314,22 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
-
 {
     
-    NSLog(@"%f",scrollView.contentOffset.y);
-    
-    CGFloat sectionHeaderHeight = 50;
-    
-    if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+    if([scrollView isEqual:self->myTable]){
         
-        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+        CGFloat bannerh=(343.0/718.0*SCREENWIDTH)+40+50;
+        NSLog(@"scrollView.contentOffset.y========%f",scrollView.contentOffset.y);
+        
+        CGFloat sectionHeaderHeight = 50;
+        if(scrollView.contentOffset.y<bannerh){
+            self->toptabView.hidden=YES;
+        }else{
+            self->toptabView.hidden=NO;
+        }
         
     }
-    else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
-        
-        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
-        
-    }
+    
     
 }
 

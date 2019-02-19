@@ -30,7 +30,7 @@ static NSString * identifier = @"TabCellID2";
 {
     self =[super initWithFrame:frame];
     if (self) {
-        
+        [self loadView];
     }
     return self;
 }
@@ -39,45 +39,48 @@ static NSString * identifier = @"TabCellID2";
 {
     self =[super init];
     if (self) {
-        UILabel *lineLabel=self.lineLabel;
-        [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
-        _isScrollEnable=YES;
-        itemWidth=ceilf(SCREENWIDTH*2/7.0);
-        _groupCount=100;
-        _indexArr=[[NSMutableArray alloc] init];
-        //自动网格布局
-        UICollectionViewFlowLayout * flowLayout = [[UICollectionViewFlowLayout alloc]init];
-
-        //设置单元格大小
-//        flowLayout.itemSize = CGSizeMake(itemWidth, 51);
-//        flowLayout.estimatedItemSize=CGSizeMake(itemWidth, 51);
-//        flowLayout.itemSize=UICollectionViewFlowLayoutAutomaticSize;
-        //最小行间距(默认为10)
-        flowLayout.minimumLineSpacing = 0;
-        //最小item间距（默认为10）
-        flowLayout.minimumInteritemSpacing = 0;
-        //设置senction的内边距
-        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        //设置UICollectionView的滑动方向
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        
-        //网格布局
-        _collectionView=[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
-        _collectionView.showsHorizontalScrollIndicator = NO;
-        _collectionView.backgroundColor=[UIColor whiteColor];
-        _collectionView.scrollEnabled=YES;
-        [self addSubview:_collectionView];
-        [[[[[_collectionView.layoutMaker leftParent:0] topParent:1] rightParent:0] bottomParent:0] install];
-        //设置数据源代理
-        _collectionView.dataSource = self;
-        _collectionView.delegate=self;
-        
-        //注册cell
-        [_collectionView registerClass:[TabCollectionViewCell class] forCellWithReuseIdentifier:identifier];
-       
-        
+        [self loadView];
     }
     return self;
+}
+
+-(void)loadView{
+    UILabel *lineLabel=self.lineLabel;
+    [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
+    _isScrollEnable=YES;
+    itemWidth=ceilf(SCREENWIDTH*2/7.0);
+    _groupCount=100;
+    _indexArr=[[NSMutableArray alloc] init];
+    //自动网格布局
+    UICollectionViewFlowLayout * flowLayout = [[UICollectionViewFlowLayout alloc]init];
+    
+    //设置单元格大小
+    //        flowLayout.itemSize = CGSizeMake(itemWidth, 51);
+    //        flowLayout.estimatedItemSize=CGSizeMake(itemWidth, 51);
+    //        flowLayout.itemSize=UICollectionViewFlowLayoutAutomaticSize;
+    //最小行间距(默认为10)
+    flowLayout.minimumLineSpacing = 0;
+    //最小item间距（默认为10）
+    flowLayout.minimumInteritemSpacing = 0;
+    //设置senction的内边距
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    //设置UICollectionView的滑动方向
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    
+    //网格布局
+    _collectionView=[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+    _collectionView.showsHorizontalScrollIndicator = NO;
+    _collectionView.backgroundColor=[UIColor whiteColor];
+    _collectionView.scrollEnabled=YES;
+    [self addSubview:_collectionView];
+    [[[[[_collectionView.layoutMaker leftParent:0] topParent:1] rightParent:0] bottomParent:0] install];
+    //设置数据源代理
+    _collectionView.dataSource = self;
+    _collectionView.delegate=self;
+    
+    //注册cell
+    [_collectionView registerClass:[TabCollectionViewCell class] forCellWithReuseIdentifier:identifier];
+    
 }
 
 -(void)setIsScrollEnable:(BOOL)isScrollEnable{

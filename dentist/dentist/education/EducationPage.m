@@ -300,7 +300,7 @@
         }
     }
     if (model) {
-        [CourseDetailViewController openBy:self courseId:model.id];
+        [CourseDetailViewController presentBy:self courseId:model.id];
     }
     
 }

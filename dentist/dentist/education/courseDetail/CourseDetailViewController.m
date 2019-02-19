@@ -48,6 +48,19 @@
 
 }
 
+/**
+ present course detail page
+ 
+ @param vc UIViewController
+ @param courseId course id
+ */
++(void)presentBy:(UIViewController*)vc courseId:(NSString*)courseId{
+    CourseDetailViewController *newVc = [CourseDetailViewController new];
+    newVc.courseId = courseId;
+
+    UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:newVc];
+    [vc presentViewController:nvc animated:NO completion:nil];
+}
 
 /**
  open course detail page
@@ -58,8 +71,10 @@
 +(void)openBy:(UIViewController*)vc courseId:(NSString*)courseId{
     CourseDetailViewController *newVc = [CourseDetailViewController new];
     newVc.courseId = courseId;
-    [vc pushPageHidingTabbar:newVc];
+    [vc pushPage:newVc];
 }
+
+
 
 /**
   add navigation bar
@@ -95,6 +110,17 @@
 
         item.rightBarButtonItems  = @[bookmarkItem,[self barButtonItemSpace:20],shareItem];
     }
+}
+
+/**
+ close page
+ */
+- (void)dismiss {
+    if (self.navigationController != nil && self.navigationController.viewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 /**

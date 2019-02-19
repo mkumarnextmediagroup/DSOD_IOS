@@ -14,6 +14,7 @@ static int GET = 0;
 static int POST = 1;
 static int POST_MULTIPART = 2;
 static int POST_RAW = 3;
+static int DELETE = 4;
 
 
 static void progStart(id <HttpProgress> p, int total) {
@@ -175,6 +176,9 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	return [self requestSync:POST_RAW];
 }
 
+- (void)delAsync:(HttpCallback)callback {
+    [self requestAsync:DELETE callback:callback];
+}
 
 - (void)getAsync:(HttpCallback)callback {
 	[self requestAsync:GET callback:callback];
@@ -281,7 +285,7 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 }
 
 - (NSMutableURLRequest *)buildRequest:(int)method {
-	if (method == GET) {
+	if (method == GET || method == DELETE) {
 		[headerMap removeObjectForKey:@"Content-Type"];
 	} else if (method == POST_MULTIPART) {
 		[self contentType:[@"multipart/form-data; boundary=" add:BOUNDARY]];
@@ -302,7 +306,7 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	}
 
 	NSString *urlStr = url;
-	if (method == GET) {
+	if (method == GET || method == DELETE) {
 		urlStr = self.buildGetUrl;
 	}
 	NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlStr]];
@@ -311,7 +315,9 @@ static void progProgress(id <HttpProgress> p, int current, int total, int percen
 	NSString *m = @"POST";
 	if (method == GET) {
 		m = @"GET";
-	}
+    }else if(method == DELETE){
+        m = @"DELETE";
+    }
 	[req setHTTPMethod:m];
 	if (method == POST) {
 		if (query.length > 0) {

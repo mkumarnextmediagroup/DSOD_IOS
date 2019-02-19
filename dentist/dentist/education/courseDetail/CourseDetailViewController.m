@@ -106,8 +106,7 @@
     
     if(courseModel){
         UIBarButtonItem *shareItem = [self navBarCustomImageBtn:@"ic_nav_share" target:self action:@selector(share)];
-        UIBarButtonItem *bookmarkItem = [self navBarCustomImageBtn:@"ic_nav_bookmark" target:self action:@selector(bookmark)];
-
+        UIBarButtonItem *bookmarkItem = [self navBarCustomImageBtn:courseModel.isBookmark?@"ic_nav_bookmark_act": @"ic_nav_bookmark" target:self action:@selector(bookmark)];
         item.rightBarButtonItems  = @[bookmarkItem,[self barButtonItemSpace:20],shareItem];
     }
 }
@@ -132,9 +131,9 @@
     [Proto findCourseDetail:self.courseId completed:^(BOOL success, NSString *msg, CourseModel *courseModel) {
         [self hideLoading];
         if(success){
+            self->courseModel = courseModel;
             [self addNavBar];
-            
-            [self buildViews:courseModel];
+            [self buildViews];
         }else{
             [self alertMsg:[NSString isBlankString:msg]?@"Failed to get data":msg onOK:^{
                 [self dismiss];
@@ -148,12 +147,9 @@
 /**
  build views and show course info
  build table view and table view header
-
- @param courseModel CourseModel instance
  
  */
--(void)buildViews:(CourseModel*)courseModel{
-    self->courseModel = courseModel;
+-(void)buildViews{
     
     contentView  = self.view.addView;
     [[[[[contentView.layoutMaker leftParent:0]rightParent:0] topParent:NAVHEIGHT]bottomParent:0] install];
@@ -499,8 +495,35 @@
 
 
 
+/**
+ bookmark event
+ If the collection operation is currently performed in a non-collection state
+ If the Cancel Collection operation is currently performed for the Collection State
+ */
 -(void)bookmark{
-    
+    if(courseModel && !courseModel.isBookmark){
+        [self showLoading];
+        [Proto lmsAddBookmark:courseModel.id completed:^(BOOL success, NSString *msg) {
+            [self hideLoading];
+            if(success){
+                self->courseModel.isBookmark = YES;
+                [self addNavBar];
+            }else{
+                [self alertMsg:[NSString isBlankString:msg]?@"Failed to add bookmark":msg onOK:nil];
+            }
+        }];
+    }else if(courseModel && courseModel.isBookmark){
+        [self showLoading];
+        [Proto lmsDelBookmarkByCourseId:courseModel.id completed:^(BOOL success, NSString *msg) {
+            [self hideLoading];
+            if(success){
+                self->courseModel.isBookmark = NO;
+                [self addNavBar];
+            }else{
+                [self alertMsg:[NSString isBlankString:msg]?@"Failed to delete bookmark":msg onOK:nil];
+            }
+        }];
+    }
 }
 
 -(void)share{

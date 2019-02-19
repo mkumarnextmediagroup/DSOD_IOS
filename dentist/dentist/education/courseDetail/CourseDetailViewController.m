@@ -58,7 +58,7 @@
 +(void)openBy:(UIViewController*)vc courseId:(NSString*)courseId{
     CourseDetailViewController *newVc = [CourseDetailViewController new];
     newVc.courseId = courseId;
-    [vc pushPage:newVc];
+    [vc pushPageHidingTabbar:newVc];
 }
 
 /**
@@ -69,9 +69,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     edge = 18;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.view.backgroundColor = rgbHex(0xf8f8f8);
     
     [self addNavBar];
     
@@ -510,7 +510,7 @@
  @return height for row
  */
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return SCREENHEIGHT - NAVHEIGHT - 50;
+    return SCREENHEIGHT - NAVHEIGHT;
 }
 
 /**

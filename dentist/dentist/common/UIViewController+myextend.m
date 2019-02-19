@@ -130,6 +130,12 @@
 	[self presentViewController:page animated:YES completion:nil];
 }
 
+- (void)pushPageHidingTabbar:(UIViewController *)page{
+    self.hidesBottomBarWhenPushed = YES;
+    [self pushPage:page];
+    self.hidesBottomBarWhenPushed = NO;
+}
+
 - (void)popPage {
 	[self dismiss];
 }

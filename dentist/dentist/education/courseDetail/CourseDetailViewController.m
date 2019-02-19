@@ -48,6 +48,19 @@
 
 }
 
+/**
+ present course detail page
+ 
+ @param vc UIViewController
+ @param courseId course id
+ */
++(void)presentBy:(UIViewController*)vc courseId:(NSString*)courseId{
+    CourseDetailViewController *newVc = [CourseDetailViewController new];
+    newVc.courseId = courseId;
+
+    UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:newVc];
+    [vc presentViewController:nvc animated:NO completion:nil];
+}
 
 /**
  open course detail page
@@ -61,6 +74,8 @@
     [vc pushPage:newVc];
 }
 
+
+
 /**
   add navigation bar
   build views
@@ -69,9 +84,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     edge = 18;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.view.backgroundColor = rgbHex(0xf8f8f8);
     
     [self addNavBar];
     
@@ -95,6 +110,17 @@
 
         item.rightBarButtonItems  = @[bookmarkItem,[self barButtonItemSpace:20],shareItem];
     }
+}
+
+/**
+ close page
+ */
+- (void)dismiss {
+    if (self.navigationController != nil && self.navigationController.viewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 /**
@@ -333,10 +359,7 @@
     
     
     //sponsor
-    NSDictionary *sponsorInfo = @{
-      @"260":@{@"name":@"Align" ,@"fullName":@"Align",@"imgName":@"sponsor_align"},
-      @"259":@{@"name":@"Nobel" ,@"fullName":@"Nobel Biocare" ,@"imgName":@"sponsor_nobel"},
-      @"197":@{@"name":@"GSK",@"fullName":@"GSK",@"imgName":@"sponsor_gsk"}};
+    NSDictionary *sponsorInfo = [Proto sponsorInfo];
     if(courseModel.sponsoredId && sponsorInfo[courseModel.id]){
         [sponsorImageBtn setBackgroundImage:[UIImage imageNamed:sponsorInfo[courseModel.id][@"imgName"]] forState:UIControlStateNormal];
     }else{
@@ -510,7 +533,7 @@
  @return height for row
  */
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return SCREENHEIGHT - NAVHEIGHT - 50;
+    return SCREENHEIGHT - NAVHEIGHT;
 }
 
 /**

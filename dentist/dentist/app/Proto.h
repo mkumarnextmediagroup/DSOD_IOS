@@ -41,6 +41,8 @@
 @property(class, readonly) NSString *lastAccount;
 @property(class, readonly) NSString *lastToken;
 
++ (NSDictionary*)sponsorInfo;
+
 + (NSString *)configUrl:(NSString *)modular;
 + (NSArray *)uniteArticleDesc;
 

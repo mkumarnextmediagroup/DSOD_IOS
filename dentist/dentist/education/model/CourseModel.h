@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property float rating;
 @property NSString <Optional>* timeRequired;
 @property NSString <Optional>*courseDescription;
-@property BOOL interested;
+@property BOOL isBookmark;
 
 
 @property BOOL featured;

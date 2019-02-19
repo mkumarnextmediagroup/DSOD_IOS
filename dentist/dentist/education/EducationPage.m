@@ -13,17 +13,21 @@
 #import "DentistTabView.h"
 #import "EducationCategoryCourseViewController.h"
 #import "CourseDetailViewController.h"
+#import "YCMenuView.h"
 
-@interface EducationPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate>
+@interface EducationPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,YCMenuViewDelegate>
 {
     NSArray<GenericCoursesModel *> *infoArr;
     NSArray<GenericCoursesModel *> *infoArr2;
+    NSArray<GenericCoursesModel *> *infoArr3;
     UITableView *myTable;
     UIView *panel;
     BannerScrollView *iv;
     DentistTabView *tabView;
     DentistTabView *toptabView;
     NSMutableArray<IdName *> *segItemsModel;
+    NSMutableArray<IdName *> *childItemsModel;
+    BOOL isCategoryType;
 }
 @end
 
@@ -57,6 +61,7 @@
     [myTable registerClass:[CourseTableViewCell class] forCellReuseIdentifier:NSStringFromClass([CourseTableViewCell class])];
     
     toptabView=[DentistTabView new];
+    toptabView.isBackFistDelegate=NO;
     toptabView.delegate=self;
     [self.view addSubview:toptabView];
     toptabView.hidden=YES;
@@ -104,6 +109,7 @@
     [[[[[categorylabel.layoutMaker leftParent:edg] rightParent:0] below:iv offset:20] heightEq:20] install];
     
     tabView=[DentistTabView new];
+    tabView.isBackFistDelegate=NO;
     tabView.delegate=self;
     [panel addSubview:tabView];
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] below:categorylabel offset:10] heightEq:51] install];
@@ -151,6 +157,10 @@
     dispatch_group_enter(dispatchGroup);
     [Proto queryLMSCategoryTypes:nil completed:^(NSArray<IdName *> *array) {
         self->segItemsModel=[NSMutableArray arrayWithArray:array];
+        IdName *latestmodel=[IdName new];
+        latestmodel.id=@"0";
+        latestmodel.name=@"FEATURED";
+        [self->segItemsModel insertObject:latestmodel atIndex:0];
         dispatch_group_leave(dispatchGroup);
     }];
     dispatch_group_enter(dispatchGroup);
@@ -210,7 +220,12 @@
  */
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    if (self->isCategoryType) {
+        return 1;
+    }else{
+       return 2;
+    }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -231,7 +246,12 @@
  */
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 51;
+    if (self->isCategoryType) {
+        return 0;
+    }else{
+        return 51;
+    }
+    
 }
 
 /**
@@ -245,50 +265,67 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *bgview=[UIView new];
-    UIButton *seemorebtn=[bgview addButton];
-    seemorebtn.tag=section;
-    seemorebtn.titleLabel.font=[UIFont systemFontOfSize:12.0];
-    [seemorebtn setTitle:@"See More" forState:UIControlStateNormal];
-    [seemorebtn setTitleColor:Colors.textDisabled forState:UIControlStateNormal];
-    [[[[seemorebtn.layoutMaker rightParent:0] topParent:10] sizeEq:80 h:40] install];
-    [seemorebtn addTarget:self action:@selector(seemoreAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UILabel *categorylabel=[bgview addLabel];
-    categorylabel.textColor=Colors.black1A191A;
-    categorylabel.font=[UIFont systemFontOfSize:17];
-    [[[[[categorylabel.layoutMaker leftParent:16] toLeftOf:seemorebtn offset:-10] topParent:20] heightEq:20] install];
-    if (section==1) {
-        categorylabel.text=@"Courses you may like";
-    }else{
-        categorylabel.text=@"Latest Courses";
+    if (!self->isCategoryType) {
+        UIButton *seemorebtn=[bgview addButton];
+        seemorebtn.tag=section;
+        seemorebtn.titleLabel.font=[UIFont systemFontOfSize:12.0];
+        [seemorebtn setTitle:@"See More" forState:UIControlStateNormal];
+        [seemorebtn setTitleColor:Colors.textDisabled forState:UIControlStateNormal];
+        [[[[seemorebtn.layoutMaker rightParent:0] topParent:10] sizeEq:80 h:40] install];
+        [seemorebtn addTarget:self action:@selector(seemoreAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UILabel *categorylabel=[bgview addLabel];
+        categorylabel.textColor=Colors.black1A191A;
+        categorylabel.font=[UIFont systemFontOfSize:17];
+        [[[[[categorylabel.layoutMaker leftParent:16] toLeftOf:seemorebtn offset:-10] topParent:20] heightEq:20] install];
+        if (section==1) {
+            categorylabel.text=@"Courses you may like";
+        }else{
+            categorylabel.text=@"Latest Courses";
+        }
     }
+    
+    
     return bgview;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(section==0){
-        return infoArr.count;
+    if (self->isCategoryType) {
+        return infoArr3.count;
     }else{
-        return infoArr2.count;
+        if(section==0){
+            return infoArr.count;
+        }else{
+            return infoArr2.count;
+        }
     }
+    
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CourseTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CourseTableViewCell class]) forIndexPath:indexPath];
-    if (indexPath.section==0) {
-        if (self->infoArr && self->infoArr.count>indexPath.row) {
-            GenericCoursesModel *model=self->infoArr[indexPath.row];
-            cell.model=model;
+    GenericCoursesModel *model;
+    if (self->isCategoryType) {
+        if (self->infoArr3 && self->infoArr3.count>indexPath.row) {
+            model=self->infoArr3[indexPath.row];
+            
         }
     }else{
-        if (self->infoArr2 && self->infoArr2.count>indexPath.row) {
-            GenericCoursesModel *model=self->infoArr2[indexPath.row];
-            cell.model=model;
+        if (indexPath.section==0) {
+            if (self->infoArr && self->infoArr.count>indexPath.row) {
+                model=self->infoArr[indexPath.row];
+                
+            }
+        }else{
+            if (self->infoArr2 && self->infoArr2.count>indexPath.row) {
+                model=self->infoArr2[indexPath.row];
+            }
         }
     }
     
+    cell.model=model;
     return cell;
     
     
@@ -319,9 +356,6 @@
     if([scrollView isEqual:self->myTable]){
         
         CGFloat bannerh=(343.0/718.0*SCREENWIDTH)+40+50;
-        NSLog(@"scrollView.contentOffset.y========%f",scrollView.contentOffset.y);
-        
-        CGFloat sectionHeaderHeight = 50;
         if(scrollView.contentOffset.y<bannerh){
             self->toptabView.hidden=YES;
         }else{
@@ -330,13 +364,60 @@
         
     }
     
-    
 }
 
 #pragma mark ------DentistTabViewDelegate
 -(void)didDentistSelectItemAtIndex:(NSInteger)index
 {
+    if (self->segItemsModel.count>index) {
+        IdName *model=self->segItemsModel[index];
+        if ([model.id isEqualToString:@"0"]) {
+            self->isCategoryType=NO;
+            [self refreshData];
+        }else{
+            [self showLoading];
+            [Proto queryLMSCategoryTypes:model.id completed:^(NSArray<IdName *> *array) {
+                [self hideLoading];
+                if(array && array.count>0){
+                    self->childItemsModel=[NSMutableArray arrayWithArray:array];
+                    YCMenuView *view = [YCMenuView menuWithArray:array width:166 relyonView:self->tabView];
+                    view.delegate=self;
+                    view.maxDisplayCount = 5;
+                    
+                    [view show];
+                }else{
+                    [Proto queryLMSGenericCourses:1 curriculumId:nil categoryId:model.id completed:^(NSArray<GenericCoursesModel *> *array) {
+                        [self hideLoading];
+                        self->isCategoryType=YES;
+                        self->infoArr3 = [NSMutableArray arrayWithArray:array];
+                        [self->myTable reloadData];
+                        
+                        
+                    }];
+                }
+                
+            }];
+        }
+        
+    }
     
+}
+
+#pragma mark -------YCMenuViewDelegate
+-(void)didYCMenuSelectItemAtIndex:(NSInteger)index
+{
+    if (self->childItemsModel.count>index) {
+        IdName *model=self->childItemsModel[index];
+        [self showLoading];
+        [Proto queryLMSGenericCourses:1 curriculumId:nil categoryId:model.id completed:^(NSArray<GenericCoursesModel *> *array) {
+            [self hideLoading];
+            self->isCategoryType=YES;
+            self->infoArr3 = [NSMutableArray arrayWithArray:array];
+            [self->myTable reloadData];
+            
+            
+        }];
+    }
 }
 
 @end

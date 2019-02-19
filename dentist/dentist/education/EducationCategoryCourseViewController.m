@@ -183,7 +183,7 @@
     if (self->infoArr && self->infoArr.count>indexPath.row) {
         GenericCoursesModel *model=self->infoArr[indexPath.row];
         if (model) {
-            [CourseDetailViewController openBy:self courseId:model.id];
+            [CourseDetailViewController presentBy:self courseId:model.id];
         }
     }
 }

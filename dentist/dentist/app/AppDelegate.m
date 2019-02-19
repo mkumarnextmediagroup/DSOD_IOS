@@ -148,7 +148,6 @@
 
 	[[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];
 	[[UITabBar appearance] setTintColor:Colors.primary];
-    [[UITabBar appearance] setTranslucent:NO];
 
 	[[UINavigationBar appearance] setBarTintColor:Colors.bgNavBarColor];
 	[[UINavigationBar appearance] setTintColor:UIColor.whiteColor];

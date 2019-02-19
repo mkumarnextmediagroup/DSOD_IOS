@@ -333,10 +333,7 @@
     
     
     //sponsor
-    NSDictionary *sponsorInfo = @{
-      @"260":@{@"name":@"Align" ,@"fullName":@"Align",@"imgName":@"sponsor_align"},
-      @"259":@{@"name":@"Nobel" ,@"fullName":@"Nobel Biocare" ,@"imgName":@"sponsor_nobel"},
-      @"197":@{@"name":@"GSK",@"fullName":@"GSK",@"imgName":@"sponsor_gsk"}};
+    NSDictionary *sponsorInfo = [Proto sponsorInfo];
     if(courseModel.sponsoredId && sponsorInfo[courseModel.id]){
         [sponsorImageBtn setBackgroundImage:[UIImage imageNamed:sponsorInfo[courseModel.id][@"imgName"]] forState:UIControlStateNormal];
     }else{

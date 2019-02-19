@@ -432,9 +432,7 @@ UITableViewDelegate,UITableViewDataSource>
     
     
 
-    NSDictionary *sponsorInfo = @{@"260":@{@"name":@"Align" ,@"fullName":@"Align"         ,@"imgName":@"sponsor_align"},
-                                  @"259":@{@"name":@"Nobel" ,@"fullName":@"Nobel Biocare" ,@"imgName":@"sponsor_nobel"},
-                                  @"197":@{@"name":@"GSK"   ,@"fullName":@"GSK"           ,@"imgName":@"sponsor_gsk"}};
+    NSDictionary *sponsorInfo = [Proto sponsorInfo];
     
     if (sponsorInfo[bindInfo.sponsorId]) {
         [_sponsorImageBtn setBackgroundImage:[UIImage imageNamed:sponsorInfo[bindInfo.sponsorId][@"imgName"]] forState:UIControlStateNormal];

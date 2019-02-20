@@ -855,6 +855,7 @@
         
         DentistTabView *tabView = [DentistTabView new];
         tabView.isScrollEnable=NO;
+        tabView.isScrollToFirst=NO;
         tabView.itemCount=3;
         tabView.delegate=self;
         [sectionHeaderView addSubview:tabView];

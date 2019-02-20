@@ -310,6 +310,7 @@
     tabView.isScrollEnable=NO;
     tabView.itemCount=2;
     tabView.delegate=self;
+    tabView.isScrollToFirst=NO;
     [panel addSubview:tabView];
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
     tabView.titleArr=[NSMutableArray arrayWithArray:@[@"APPLIED",@"SAVED"]];

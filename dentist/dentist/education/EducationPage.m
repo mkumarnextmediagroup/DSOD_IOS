@@ -14,8 +14,9 @@
 #import "EducationCategoryCourseViewController.h"
 #import "CourseDetailViewController.h"
 #import "YCMenuView.h"
+#import "SponsoredCourseViewController.h"
 
-@interface EducationPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,YCMenuViewDelegate>
+@interface EducationPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,YCMenuViewDelegate,CourseTableViewCellDelegate>
 {
     NSArray<GenericCoursesModel *> *infoArr;
     NSArray<GenericCoursesModel *> *infoArr2;
@@ -105,7 +106,7 @@
     UILabel *categorylabel=[panel addLabel];
     categorylabel.text=@"Categories";
     categorylabel.textColor=Colors.black1A191A;
-    categorylabel.font=[UIFont systemFontOfSize:17];
+    categorylabel.font=[Fonts semiBold:17];
     [[[[[categorylabel.layoutMaker leftParent:edg] rightParent:0] below:iv offset:20] heightEq:20] install];
     
     tabView=[DentistTabView new];
@@ -124,6 +125,18 @@
 {
     EducationCategoryViewController *categoryview=[EducationCategoryViewController new];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:categoryview];
+    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:navVC animated:NO completion:NULL];
+}
+
+/**
+ go to sponsored course page
+ */
+-(void)goSponsoredCoursePage:(NSString *)sponsorId
+{
+    SponsoredCourseViewController *courseview=[SponsoredCourseViewController new];
+    courseview.sponsorId=sponsorId;
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:courseview];
     navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:navVC animated:NO completion:NULL];
 }
@@ -276,7 +289,7 @@
         
         UILabel *categorylabel=[bgview addLabel];
         categorylabel.textColor=Colors.black1A191A;
-        categorylabel.font=[UIFont systemFontOfSize:17];
+        categorylabel.font=[Fonts semiBold:17];
         [[[[[categorylabel.layoutMaker leftParent:16] toLeftOf:seemorebtn offset:-10] topParent:20] heightEq:20] install];
         if (section==1) {
             categorylabel.text=@"Courses you may like";
@@ -306,6 +319,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CourseTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CourseTableViewCell class]) forIndexPath:indexPath];
+    cell.detegate=self;
     GenericCoursesModel *model;
     if (self->isCategoryType) {
         if (self->infoArr3 && self->infoArr3.count>indexPath.row) {
@@ -418,6 +432,33 @@
             
         }];
     }
+}
+
+#pragma mark -------CourseTableViewCellDelegate
+-(void)sponsoredAction:(NSIndexPath *)indexPath
+{
+    GenericCoursesModel *model;
+    if (self->isCategoryType) {
+        if (self->infoArr3 && self->infoArr3.count>indexPath.row) {
+            model=self->infoArr3[indexPath.row];
+            
+        }
+    }else{
+        if (indexPath.section==0) {
+            if (self->infoArr && self->infoArr.count>indexPath.row) {
+                model=self->infoArr[indexPath.row];
+                
+            }
+        }else{
+            if (self->infoArr2 && self->infoArr2.count>indexPath.row) {
+                model=self->infoArr2[indexPath.row];
+            }
+        }
+    }
+    if (model) {
+        [self goSponsoredCoursePage:model.sponsoredId];
+    }
+    
 }
 
 @end

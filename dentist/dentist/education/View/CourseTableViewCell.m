@@ -145,12 +145,18 @@
         }
         priceLabel.text=pricestr;
         [self levelView:0];
-        if (![NSString isBlankString:model.sponsoredId]) {
-            CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
-            [[gskBtn.layoutUpdate heightEq:sponstorimgh] install];
-        }else{
+        if(_isHideSponsor){
             [[gskBtn.layoutUpdate heightEq:0] install];
+            
+        }else{
+            if (![NSString isBlankString:model.sponsoredId]) {
+                CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
+                [[gskBtn.layoutUpdate heightEq:sponstorimgh] install];
+            }else{
+                [[gskBtn.layoutUpdate heightEq:0] install];
+            }
         }
+        
         [[lineLabel.layoutUpdate bottomOf:gskBtn offset:0] install];
     }
 }
@@ -165,12 +171,14 @@
 }
 
 /**
- bookmark action
+ sponsored action
  @param sender uibutton
   */
 -(void)gskAction:(UIButton *)sender
 {
-    
+    if (self.detegate && [self.detegate respondsToSelector:@selector(sponsoredAction:)]) {
+        [self.detegate sponsoredAction:_indexPath];
+    }
 }
 
 - (void)awakeFromNib {

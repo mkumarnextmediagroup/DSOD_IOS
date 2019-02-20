@@ -3053,22 +3053,41 @@
 
 /**
  query LMS course datas by course id or category id
+ @param pagenumber page number
  @param curriculumId course id
  @param categoryId category id
  @param completed response callback function
  */
 + (void)queryLMSGenericCourses:(NSInteger)pagenumber curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
 {
-    [self queryLMSGenericCourses:pagenumber pagesize:0 curriculumId:curriculumId categoryId:categoryId completed:completed];
+     [self queryLMSGenericCourses:pagenumber pagesize:0 curriculumId:curriculumId categoryId:categoryId featured:-1 sponsoredId:nil isSponsored:-1 completed:completed];
 }
 
 /**
  query LMS course datas by course id or category id
+ @param pagenumber page number
+ @param pagesize page size
  @param curriculumId course id
  @param categoryId category id
  @param completed response callback function
  */
 + (void)queryLMSGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
+{
+    [self queryLMSGenericCourses:pagenumber pagesize:pagesize curriculumId:curriculumId categoryId:categoryId featured:-1 sponsoredId:nil isSponsored:-1 completed:completed];
+}
+
+/**
+ query LMS course datas by course id or category id
+ @param pagenumber page number
+ @param pagesize page size
+ @param curriculumId course id
+ @param categoryId category id
+ @param featured featured
+ @param sponsoredId sponsoredId
+ @param isSponsored isSponsored
+ @param completed response callback function
+ */
++ (void)queryLMSGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId featured:(NSInteger)featured  sponsoredId:(NSString *)sponsoredId isSponsored:(NSInteger)isSponsored  completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
 {
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     if (pagenumber<=0) {
@@ -3085,6 +3104,17 @@
     if (![NSString isBlankString:categoryId]) {
         [paradic setObject:categoryId forKey:@"categoryId"];
     }
+    
+    if (featured>=0) {
+        [paradic setObject:[NSNumber numberWithBool:(featured==1?YES:NO)] forKey:@"featured"];
+    }
+    if (isSponsored>=0) {
+        [paradic setObject:[NSNumber numberWithBool:(isSponsored==1?YES:NO)] forKey:@"isSponsored"];
+    }
+    if (![NSString isBlankString:sponsoredId]) {
+        [paradic setObject:sponsoredId forKey:@"sponsoredId"];
+    }
+    
     [self postAsync3:@"/generic/courses" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];

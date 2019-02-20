@@ -591,6 +591,7 @@
 		A372959A219293F500B36409 /* DetinstDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3729599219293F500B36409 /* DetinstDownloadManager.m */; };
 		A3739944219EBAE8004A5A94 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3739943219EBAE8004A5A94 /* Toast.swift */; };
 		A37CE3A6221C0EA000C280DF /* YCMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = A37CE3A5221C0E9F00C280DF /* YCMenuView.m */; };
+		A37CE3A9221D4EA400C280DF /* SponsoredCourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A37CE3A8221D4EA400C280DF /* SponsoredCourseViewController.m */; };
 		A393E0B321955D06001881C2 /* sponsor_nobel_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B021955D05001881C2 /* sponsor_nobel_banner.png */; };
 		A393E0B421955D06001881C2 /* sponsor_gsk_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B121955D05001881C2 /* sponsor_gsk_banner.png */; };
 		A393E0B521955D06001881C2 /* sponsor_align_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B221955D06001881C2 /* sponsor_align_banner@2x.png */; };
@@ -1899,6 +1900,8 @@
 		A3739943219EBAE8004A5A94 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		A37CE3A4221C0E9F00C280DF /* YCMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCMenuView.h; sourceTree = "<group>"; };
 		A37CE3A5221C0E9F00C280DF /* YCMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCMenuView.m; sourceTree = "<group>"; };
+		A37CE3A7221D4EA400C280DF /* SponsoredCourseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SponsoredCourseViewController.h; sourceTree = "<group>"; };
+		A37CE3A8221D4EA400C280DF /* SponsoredCourseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SponsoredCourseViewController.m; sourceTree = "<group>"; };
 		A393E0B021955D05001881C2 /* sponsor_nobel_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_nobel_banner.png; sourceTree = "<group>"; };
 		A393E0B121955D05001881C2 /* sponsor_gsk_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_gsk_banner.png; sourceTree = "<group>"; };
 		A393E0B221955D06001881C2 /* sponsor_align_banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sponsor_align_banner@2x.png"; sourceTree = "<group>"; };
@@ -5235,6 +5238,8 @@
 				A3E381DD221583EA00BFB227 /* EducationCategoryViewController.m */,
 				A3E381EB2216C55600BFB227 /* EducationCategoryCourseViewController.h */,
 				A3E381EC2216C55600BFB227 /* EducationCategoryCourseViewController.m */,
+				A37CE3A7221D4EA400C280DF /* SponsoredCourseViewController.h */,
+				A37CE3A8221D4EA400C280DF /* SponsoredCourseViewController.m */,
 			);
 			path = education;
 			sourceTree = "<group>";
@@ -6520,6 +6525,7 @@
 				18B83B152173557D00130DB6 /* YBIBWebImageManager.m in Sources */,
 				18A433D2221913D200E9C31A /* CourseDetailLessonsViewController.m in Sources */,
 				A3BA6DDB21AEA36100D83156 /* JobModel.m in Sources */,
+				A37CE3A9221D4EA400C280DF /* SponsoredCourseViewController.m in Sources */,
 				4E0C115521806147007DC63D /* CMSModel.m in Sources */,
 				18A23FE021BBE4BC006CB432 /* CompanyDetailReviewsViewController.m in Sources */,
 				4E5BA7F32176E1EB00386598 /* ViewAllViewController.m in Sources */,

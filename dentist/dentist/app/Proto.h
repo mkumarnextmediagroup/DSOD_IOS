@@ -332,6 +332,8 @@
 + (void)queryLMSCategoryGroupTypes:(NSString *)parentId completed:(void(^)(NSArray<LMSCategoryModel *> *array))completed;
 + (void)queryLMSGenericCourses:(NSInteger)pagenumber curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
 + (void)queryLMSGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
++ (void)queryLMSGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId featured:(NSInteger)featured  sponsoredId:(NSString *_Nullable)sponsoredId isSponsored:(NSInteger)isSponsored  completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
+
 + (void)queryLMSFeaturedGenericCourses:(NSInteger)pagenumber curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
 + (void)queryLMSFeaturedGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
 //lms 获取单个作者

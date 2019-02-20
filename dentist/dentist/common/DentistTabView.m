@@ -49,6 +49,7 @@ static NSString * identifier = @"TabCellID2";
     UILabel *lineLabel=self.lineLabel;
     [[[[[lineLabel.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:1] install];
     _isScrollEnable=YES;
+    _isScrollToFirst=YES;
     itemWidth=ceilf(SCREENWIDTH*2/7.0);
     _groupCount=100;
     _indexArr=[[NSMutableArray alloc] init];
@@ -195,10 +196,12 @@ static NSString * identifier = @"TabCellID2";
         NSInteger index = [_indexArr[selectIndex] integerValue];
 //        NSLog(@"index=%@",@(selectIndex));
         //     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:selectIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:false];
-        if (_isScrollEnable) {
+        if (_isScrollToFirst) {
             [_collectionView setContentOffset:CGPointMake((selectIndex*itemWidth),0) animated:YES];
         }
         [_collectionView reloadData];
+//        CGRect rectInTableView = [_collectionView rectForRowAtIndexPath:indexPath];
+//        NSLog(@"rectInTableView=========%@",NSStringFromCGSize(rectInTableView));
         if (self.delegate && [self.delegate respondsToSelector:@selector(didDentistSelectItemAtIndex:)]) {
             [self.delegate didDentistSelectItemAtIndex:index];
         }

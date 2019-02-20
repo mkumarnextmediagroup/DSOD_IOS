@@ -187,7 +187,7 @@
     UIView *bgview=[UIView new];
     UILabel *categorylabel=[bgview addLabel];
     categorylabel.textColor=Colors.black1A191A;
-    categorylabel.font=[Fonts semiBold:17];
+    categorylabel.font=[Fonts regular:17];
     [[[[[categorylabel.layoutMaker leftParent:16] rightParent:0] topParent:0] heightEq:50] install];
     categorylabel.text=@"Sponsored";
     

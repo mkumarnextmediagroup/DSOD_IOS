@@ -28,7 +28,10 @@
     DentistTabView *toptabView;
     NSMutableArray<IdName *> *segItemsModel;
     NSMutableArray<IdName *> *childItemsModel;
+    NSMutableArray<IdName *> *sponsorItemsModel;
     BOOL isCategoryType;
+    NSInteger categorySelectIndex;
+    
 }
 @end
 
@@ -106,7 +109,7 @@
     UILabel *categorylabel=[panel addLabel];
     categorylabel.text=@"Categories";
     categorylabel.textColor=Colors.black1A191A;
-    categorylabel.font=[Fonts semiBold:17];
+    categorylabel.font=[Fonts regular:17];
     [[[[[categorylabel.layoutMaker leftParent:edg] rightParent:0] below:iv offset:20] heightEq:20] install];
     
     tabView=[DentistTabView new];
@@ -131,6 +134,7 @@
 
 /**
  go to sponsored course page
+ @param sponsorId sponsor id
  */
 -(void)goSponsoredCoursePage:(NSString *)sponsorId
 {
@@ -170,6 +174,10 @@
     dispatch_group_enter(dispatchGroup);
     [Proto queryLMSCategoryTypes:nil completed:^(NSArray<IdName *> *array) {
         self->segItemsModel=[NSMutableArray arrayWithArray:array];
+        IdName *latestmodel1=[IdName new];
+        latestmodel1.id=@"1";
+        latestmodel1.name=@"SPONSORED";
+        [self->segItemsModel insertObject:latestmodel1 atIndex:0];
         IdName *latestmodel=[IdName new];
         latestmodel.id=@"0";
         latestmodel.name=@"FEATURED";
@@ -289,7 +297,7 @@
         
         UILabel *categorylabel=[bgview addLabel];
         categorylabel.textColor=Colors.black1A191A;
-        categorylabel.font=[Fonts semiBold:17];
+        categorylabel.font=[Fonts regular:17];
         [[[[[categorylabel.layoutMaker leftParent:16] toLeftOf:seemorebtn offset:-10] topParent:20] heightEq:20] install];
         if (section==1) {
             categorylabel.text=@"Courses you may like";
@@ -383,12 +391,34 @@
 #pragma mark ------DentistTabViewDelegate
 -(void)didDentistSelectItemAtIndex:(NSInteger)index
 {
+    self->categorySelectIndex=index;
     if (self->segItemsModel.count>index) {
         IdName *model=self->segItemsModel[index];
         if ([model.id isEqualToString:@"0"]) {
+            //FEATURE
             self->isCategoryType=NO;
             [self refreshData];
-        }else{
+        }else if ([model.id isEqualToString:@"1"]) {
+            //SPONSORED
+            self->isCategoryType=NO;
+            //供应商选择器
+            IdName *align=[[IdName alloc] init];
+            align.id=@"260";
+            align.name=@"Align Technology";
+            IdName *gsk=[[IdName alloc] init];
+            gsk.id=@"197";
+            gsk.name=@"GlaxoSmithKline";
+            IdName *nobel=[[IdName alloc] init];
+            nobel.id=@"259";
+            nobel.name=@"Nobel Biocare";
+            self->sponsorItemsModel=[NSMutableArray arrayWithArray:@[align,gsk,nobel]];
+            YCMenuView *view = [YCMenuView menuWithArray:self->sponsorItemsModel width:166 relyonView:self->tabView];
+            view.delegate=self;
+            view.maxDisplayCount = 5;
+            
+            [view show];
+        }
+        else{
             [self showLoading];
             [Proto queryLMSCategoryTypes:model.id completed:^(NSArray<IdName *> *array) {
                 [self hideLoading];
@@ -420,7 +450,7 @@
 #pragma mark -------YCMenuViewDelegate
 -(void)didYCMenuSelectItemAtIndex:(NSInteger)index
 {
-    if (self->childItemsModel.count>index) {
+    if (self->childItemsModel.count>index && self->categorySelectIndex>1) {
         IdName *model=self->childItemsModel[index];
         [self showLoading];
         [Proto queryLMSGenericCourses:1 curriculumId:nil categoryId:model.id completed:^(NSArray<GenericCoursesModel *> *array) {
@@ -431,6 +461,9 @@
             
             
         }];
+    }else if(self->categorySelectIndex==1){
+        IdName *model=self->sponsorItemsModel[index];
+        [self goSponsoredCoursePage:model.id];
     }
 }
 

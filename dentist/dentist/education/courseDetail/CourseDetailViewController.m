@@ -526,8 +526,27 @@
     }
 }
 
+/**
+ share course
+ */
 -(void)share{
-    
+    NSString *urlstr=[Proto getCourseDetailImageUrlByObjectId:courseModel.image];
+    NSString *title= [NSString stringWithFormat:@"%@\nYou may be interested in this course on DSODentist. Check it out!", courseModel.name];
+    NSString *someid=courseModel.id;
+    NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSArray *activityItems = @[shareurl,title];
+        
+        NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
+        UIImage *image = [UIImage imageWithData:data];
+        if (image) {
+            activityItems = @[shareurl,title,image];
+        }
+        
+        UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+        [self presentViewController:avc animated:YES completion:nil];
+    });
 }
 
 -(void)enrollNow{

@@ -198,11 +198,21 @@
     nameLabel.textAlignment = NSTextAlignmentCenter;
     [[[[[nameLabel.layoutMaker topParent:65]centerXParent:0]leftParent:edge*2]rightParent:-edge*2]install];
     
-    UILabel *priceLabel = infoView.addLabel;
+    
+    //price
+    UIView *priceView = infoView.addView;
+    [[[priceView.layoutMaker below:nameLabel offset:15]centerXParent:0]install];
+    
+    UILabel *priceLabel = priceView.addLabel;
     priceLabel.font = [Fonts regular:20];
     priceLabel.textColor = UIColor.whiteColor;
-    priceLabel.textAlignment = NSTextAlignmentCenter;
-    [[[[[priceLabel.layoutMaker below:nameLabel offset:15]centerXParent:0]leftParent:edge*2]rightParent:-edge*2]install];
+    [[[[priceLabel.layoutMaker topParent:0]leftParent:0]bottomParent:0] install];
+    
+    UILabel *includedSbuCripLabel = priceView.addLabel;
+    includedSbuCripLabel.font = [Fonts regular:14];
+    includedSbuCripLabel.textColor = UIColor.whiteColor;
+    [[[[includedSbuCripLabel.layoutMaker centerYParent:0]toRightOf:priceLabel offset:0]rightParent:0] install];
+    
     
     //level
     UIView *levelView = infoView.addView;
@@ -333,20 +343,39 @@
     [[[[[sponsorImageBtn.layoutMaker leftParent:0] rightParent:0] below:tabView offset:edge] heightEq:sponstorimgh] install];
     [sponsorImageBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_gsk"] forState:UIControlStateNormal];
     
+    //last view
     lastView = sponsorImageBtn;
-//    [[[[[lastView.layoutMaker leftParent:0]rightParent:0]below:sponsorImageBtn offset:0]heightEq:edge]install];
     
     
+    //Modified layout
+    //not enroll state ,hide lesson tab
+    [[lessonsLabel.layoutUpdate widthEq:0]install];
+    
+    [headerView.layoutUpdate.bottom.equalTo(lastView.mas_bottom) install];
+    [headerView layoutIfNeeded];
+    
+
     
     //set datas
-//    [imageView loadUrl:@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2848697186,66457746&fm=26&gp=0.jpg" placeholderImage:nil];
-    
     [imageView loadUrl:[Proto getCourseDetailImageUrlByObjectId:courseModel.image] placeholderImage:nil];
-    
     nameLabel.text = courseModel.name;
     
-    //TODO 需要完善
-    priceLabel.text = courseModel.free ? @"free" : [NSString stringWithFormat:@"$%.2f" ,courseModel.price];
+    if(courseModel.free){
+        //1、is free ：show free
+        priceLabel.text = @"free";
+    }else if(!courseModel.mustPay){
+        //2、is not free and not must pay ：Included in your subscription
+        NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+        NSMutableAttributedString*attribtStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"$%.2f" ,courseModel.price] attributes:attribtDic];
+        priceLabel.attributedText= attribtStr;
+        priceLabel.textColor = argbHex(0x90ffffff);
+        
+        includedSbuCripLabel.text = @"   Included in your subscription";
+    }else if(courseModel.mustPay){
+        //3、is not free and must pay ：show price
+        priceLabel.text = [NSString stringWithFormat:@"$%.2f" ,courseModel.price];
+    }
+    
     
     levelLabel.text = courseModel.level;
     starLabel.text = [NSString stringWithFormat:@"%.1f",courseModel.rating];
@@ -362,11 +391,8 @@
         [[[sponsorImageBtn.layoutUpdate heightEq:0]below:tabView offset:0] install];
     }
     
-    //not enroll state ,hide lesson tab
-    [[lessonsLabel.layoutUpdate widthEq:0]install];
     
-    [headerView.layoutUpdate.bottom.equalTo(lastView.mas_bottom) install];
-    [headerView layoutIfNeeded];
+    //    [imageView loadUrl:@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2848697186,66457746&fm=26&gp=0.jpg" placeholderImage:nil];
     
     
     return headerView;
@@ -526,8 +552,27 @@
     }
 }
 
+/**
+ share course
+ */
 -(void)share{
-    
+    NSString *urlstr=[Proto getCourseDetailImageUrlByObjectId:courseModel.image];
+    NSString *title= [NSString stringWithFormat:@"%@\nYou may be interested in this course on DSODentist. Check it out!", courseModel.name];
+    NSString *someid=courseModel.id;
+    NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
+
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSArray *activityItems = @[shareurl,title];
+        
+        NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlstr]];
+        UIImage *image = [UIImage imageWithData:data];
+        if (image) {
+            activityItems = @[shareurl,title,image];
+        }
+        
+        UIActivityViewController *avc = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+        [self presentViewController:avc animated:YES completion:nil];
+    });
 }
 
 -(void)enrollNow{

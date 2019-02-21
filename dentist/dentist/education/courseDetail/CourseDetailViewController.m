@@ -45,7 +45,7 @@
     UIView *reviewsTabLine;
     
     
-
+    
 }
 
 /**
@@ -57,7 +57,7 @@
 +(void)presentBy:(UIViewController*)vc courseId:(NSString*)courseId{
     CourseDetailViewController *newVc = [CourseDetailViewController new];
     newVc.courseId = courseId;
-
+    
     UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:newVc];
     [vc presentViewController:nvc animated:NO completion:nil];
 }
@@ -77,9 +77,9 @@
 
 
 /**
-  add navigation bar
-  build views
-  load course detail info from server
+ add navigation bar
+ build views
+ load course detail info from server
  */
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -268,7 +268,7 @@
     accessDateLabel.textColor = UIColor.whiteColor;
     [[[accessDateLabel.layoutMaker below:accessDateIV offset:10]centerXParent:0]install];
     
-
+    
     UIButton *enrollNowBtn = headerView.addButton;
     enrollNowBtn.tag=99;
     enrollNowBtn.backgroundColor = Colors.textDisabled;
@@ -282,7 +282,7 @@
     arrowIV.imageName = @"ic_arrow_right_white";
     [[[[arrowIV.layoutMaker centerYParent:0]centerXParent:50]sizeEq:13 h:13]install];
     
-
+    
     
     //tab views
     int singleTabWidth = (SCREENWIDTH-2*edge )/ 2;
@@ -332,29 +332,18 @@
     reviewsTabLine = reviewsLabel.addView;
     reviewsTabLine.backgroundColor = rgbHex(0x1A191A);
     reviewsTabLine.layer.cornerRadius = 3;
-    [[[[[reviewsTabLine.layoutMaker leftParent:0]rightParent:0]bottomParent:0]heightEq:5]install];
-    
-    
+    [[[[[reviewsTabLine.layoutMaker leftParent:0]rightParent:0]heightEq:5]bottomParent:0] install];
     
     
     //sponsor Image
-    CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
     UIButton *sponsorImageBtn = [headerView addButton];
-    [[[[[sponsorImageBtn.layoutMaker leftParent:0] rightParent:0] below:tabView offset:edge] heightEq:sponstorimgh] install];
-    [sponsorImageBtn setBackgroundImage:[UIImage imageNamed:@"sponsor_gsk"] forState:UIControlStateNormal];
+    [[[[[[sponsorImageBtn.layoutMaker leftParent:0] rightParent:0] below:tabView offset:10] heightEq:0]bottomParent:0] install];
     
     //last view
     lastView = sponsorImageBtn;
     
     
-    //Modified layout
-    //not enroll state ,hide lesson tab
-    [[lessonsLabel.layoutUpdate widthEq:0]install];
     
-    [headerView.layoutUpdate.bottom.equalTo(lastView.mas_bottom) install];
-    [headerView layoutIfNeeded];
-    
-
     
     //set datas
     [imageView loadUrl:[Proto getCourseDetailImageUrlByObjectId:courseModel.image] placeholderImage:nil];
@@ -385,15 +374,25 @@
     
     //sponsor
     NSDictionary *sponsorInfo = [Proto sponsorInfo];
-    if(courseModel.sponsoredId && sponsorInfo[courseModel.id]){
-        [sponsorImageBtn setBackgroundImage:[UIImage imageNamed:sponsorInfo[courseModel.id][@"imgName"]] forState:UIControlStateNormal];
-    }else{
-        [[[sponsorImageBtn.layoutUpdate heightEq:0]below:tabView offset:0] install];
+    courseModel.sponsoredId = @"260";
+    if(courseModel.sponsoredId && sponsorInfo[courseModel.sponsoredId]){
+        CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
+        [[[sponsorImageBtn.layoutUpdate heightEq:sponstorimgh]bottomParent:5] install];
+        
+        [sponsorImageBtn setBackgroundImage:[UIImage imageNamed:sponsorInfo[courseModel.sponsoredId][@"imgName"]] forState:UIControlStateNormal];
     }
     
     
     //    [imageView loadUrl:@"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2848697186,66457746&fm=26&gp=0.jpg" placeholderImage:nil];
     
+    
+    
+    //Modified layout , Must be at the end because the sponsor picture dynamic height
+    //not enroll state ,hide lesson tab
+    [[lessonsLabel.layoutUpdate widthEq:0]install];
+    
+    [headerView.layoutUpdate.bottom.equalTo(lastView.mas_bottom) install];
+    [headerView layoutIfNeeded];
     
     return headerView;
 }
@@ -449,7 +448,7 @@
         int height = [self tableView:tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         _tableContentView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH,height)];
         
-
+        
         self.lessonsVC.view.frame = _tableContentView.frame;
         self.lessonsVC.courseId =  courseModel.id;
         [_tableContentView addSubview:self.lessonsVC.view];
@@ -462,7 +461,7 @@
         self.reviewsVC.view.frame = _tableContentView.frame;
         self.reviewsVC.courseId = courseModel.id;
         [_tableContentView addSubview:self.reviewsVC.view];
-
+        
     }
     return _tableContentView;
 }
@@ -560,7 +559,7 @@
     NSString *title= [NSString stringWithFormat:@"%@\nYou may be interested in this course on DSODentist. Check it out!", courseModel.name];
     NSString *someid=courseModel.id;
     NSURL *shareurl = [NSURL URLWithString:getShareUrl(@"content", someid)];
-
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSArray *activityItems = @[shareurl,title];
         

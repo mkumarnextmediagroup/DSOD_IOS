@@ -374,7 +374,6 @@
     
     //sponsor
     NSDictionary *sponsorInfo = [Proto sponsorInfo];
-    courseModel.sponsoredId = @"260";
     if(courseModel.sponsoredId && sponsorInfo[courseModel.sponsoredId]){
         CGFloat sponstorimgh=((50.0/375.0)*SCREENWIDTH);
         [[[sponsorImageBtn.layoutUpdate heightEq:sponstorimgh]bottomParent:5] install];

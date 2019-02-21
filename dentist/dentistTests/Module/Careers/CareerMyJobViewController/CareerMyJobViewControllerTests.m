@@ -81,10 +81,10 @@ describe(@"Unit Test For CareerMyJobViewController", ^{
             [[theValue(controller.view) shouldNot] beNil];
         });
 
-        it(@"makeHeaderView", ^{
-            UIView *header = [controller makeHeaderView];
-            [[theValue(header) shouldNot] beNil];
-        });
+//        it(@"makeHeaderView", ^{
+//            UIView *header = [controller makeHeaderView];
+//            [[theValue(header) shouldNot] beNil];
+//        });
 
         it(@"numberOfRowsInSection", ^{
             NSInteger num = [controller tableView:[UITableView new] numberOfRowsInSection:0];

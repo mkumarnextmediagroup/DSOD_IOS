@@ -33,6 +33,7 @@
 #import "FAQSModel.h"
 #import "NSObject+customed.h"
 #import "AppDelegate.h"
+#import "CourseModel.h"
 
 //测试模拟数据
 #define CMSARTICLELIST @"CMSBOOKMARKLIST"
@@ -41,6 +42,17 @@
 @implementation Proto {
 	NSString *SERVER;
 }
+
+
++ (NSDictionary*)sponsorInfo{
+    NSDictionary *sponsorInfo = @{
+                  @"260":@{@"name":@"Align" ,@"fullName":@"Align"           ,@"imgName":@"sponsor_align"},
+                  @"259":@{@"name":@"Nobel" ,@"fullName":@"Nobel Biocare"   ,@"imgName":@"sponsor_nobel"},
+                  @"197":@{@"name":@"GSK"   ,@"fullName":@"GSK"             ,@"imgName":@"sponsor_gsk"}
+                  };
+    return sponsorInfo;
+}
+
 
 + (NSArray *)uniteArticleDesc
 {
@@ -805,7 +817,7 @@
 {
     if (![NSString isBlankString:objectid]) {
         NSString *baseUrl = [self configUrl:@"cms"];
-        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=%@",objectid);
+        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
         return url;
     }else{
         return nil;
@@ -1707,6 +1719,25 @@
         }
     }];
 }
+
++ (void)delAsync:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback {
+    NSString *baseUrl = [self configUrl:modular];
+    Http *h = [Http new];
+    h.url = strBuild([self baseDomain],baseUrl, action);
+    NSLog(@"requesturl=%@", h.url);
+    [h arg:@"client_id" value:@"fooClientIdPassword"];
+    [h args:dic];
+    NSString *token = [self lastToken];
+    if (token != nil) {
+        [h header:@"Authorization" value:strBuild(@"Bearer ", token)];
+    }
+    [h delAsync:^(HttpResult *r) {
+        if (callback && ![Proto tokenExpired:r]) {
+            callback(r);
+        }
+    }];
+}
+
 
 + (HttpResult *)post:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular {
 	NSString *baseUrl = [self configUrl:modular];
@@ -3020,6 +3051,152 @@
     }];
 }
 
+/**
+ query LMS course datas by course id or category id
+ @param pagenumber page number
+ @param curriculumId course id
+ @param categoryId category id
+ @param completed response callback function
+ */
++ (void)queryLMSGenericCourses:(NSInteger)pagenumber curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
+{
+     [self queryLMSGenericCourses:pagenumber pagesize:0 curriculumId:curriculumId categoryId:categoryId featured:-1 sponsoredId:nil isSponsored:-1 completed:completed];
+}
+
+/**
+ query LMS course datas by course id or category id
+ @param pagenumber page number
+ @param pagesize page size
+ @param curriculumId course id
+ @param categoryId category id
+ @param completed response callback function
+ */
++ (void)queryLMSGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
+{
+    [self queryLMSGenericCourses:pagenumber pagesize:pagesize curriculumId:curriculumId categoryId:categoryId featured:-1 sponsoredId:nil isSponsored:-1 completed:completed];
+}
+
+/**
+ query LMS course datas by course id or category id
+ @param pagenumber page number
+ @param pagesize page size
+ @param curriculumId course id
+ @param categoryId category id
+ @param featured featured
+ @param sponsoredId sponsoredId
+ @param isSponsored isSponsored
+ @param completed response callback function
+ */
++ (void)queryLMSGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId featured:(NSInteger)featured  sponsoredId:(NSString *)sponsoredId isSponsored:(NSInteger)isSponsored  completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (pagenumber<=0) {
+        pagenumber=1;
+    }
+    if (pagesize<=0) {
+        pagesize=20;
+    }
+    [paradic setObject:[NSNumber numberWithInteger:pagenumber] forKey:@"pgnumber"];
+    [paradic setObject:[NSNumber numberWithInteger:pagesize] forKey:@"pgsize"];
+    if (![NSString isBlankString:curriculumId]) {
+        [paradic setObject:curriculumId forKey:@"curriculumId"];
+    }
+    if (![NSString isBlankString:categoryId]) {
+        [paradic setObject:categoryId forKey:@"categoryId"];
+    }
+    
+    if (featured>=0) {
+        [paradic setObject:[NSNumber numberWithBool:(featured==1?YES:NO)] forKey:@"featured"];
+    }
+    if (isSponsored>=0) {
+        [paradic setObject:[NSNumber numberWithBool:(isSponsored==1?YES:NO)] forKey:@"isSponsored"];
+    }
+    if (![NSString isBlankString:sponsoredId]) {
+        [paradic setObject:sponsoredId forKey:@"sponsoredId"];
+    }
+    
+    [self postAsync3:@"/generic/courses" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"data"];
+            for (NSDictionary *d in arr) {
+                GenericCoursesModel *item = [[GenericCoursesModel alloc] initWithJson:jsonBuild(d)];
+                [resultArray addObject:item];
+            }
+            foreTask(^{
+                if (completed) {
+                    completed(resultArray);
+                }
+            });
+            
+        }else{
+            foreTask(^{
+                if (completed) {
+                    completed(nil);
+                }
+            });
+        }
+    }];
+}
+
+/**
+ query LMS course datas by course id or category id from you may like
+ @param curriculumId course id
+ @param categoryId category id
+ @param completed response callback function
+ */
++ (void)queryLMSFeaturedGenericCourses:(NSInteger)pagenumber curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
+{
+    [self queryLMSFeaturedGenericCourses:pagenumber pagesize:0 curriculumId:curriculumId categoryId:categoryId completed:completed];
+}
+
+/**
+ query LMS course datas by course id or category id from you may like
+ @param curriculumId course id
+ @param categoryId category id
+ @param completed response callback function
+ */
++ (void)queryLMSFeaturedGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
+{
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    if (pagenumber<=0) {
+        pagenumber=1;
+    }
+    if (pagesize<=0) {
+        pagesize=20;
+    }
+    [paradic setObject:[NSNumber numberWithInteger:pagenumber] forKey:@"pgnumber"];
+    [paradic setObject:[NSNumber numberWithInteger:pagesize] forKey:@"pgsize"];
+    if (![NSString isBlankString:curriculumId]) {
+        [paradic setObject:curriculumId forKey:@"curriculumId"];
+    }
+    if (![NSString isBlankString:categoryId]) {
+        [paradic setObject:categoryId forKey:@"categoryId"];
+    }
+    [self postAsync3:@"/generic/courses/interest" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"data"];
+            for (NSDictionary *d in arr) {
+                GenericCoursesModel *item = [[GenericCoursesModel alloc] initWithJson:jsonBuild(d)];
+                [resultArray addObject:item];
+            }
+            foreTask(^{
+                if (completed) {
+                    completed(resultArray);
+                }
+            });
+            
+        }else{
+            foreTask(^{
+                if (completed) {
+                    completed(nil);
+                }
+            });
+        }
+    }];
+}
+
 //lms
 /**
  get course author info based on author id
@@ -3052,11 +3229,84 @@
 {
     if (![NSString isBlankString:objectid]) {
         NSString *baseUrl = [self configUrl:@"lms"];
-        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=%@",objectid);
+        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
         return url;
     }else{
         return nil;
     }
 }
+
+/**
+ get course detail image url
+ 
+ @param objectid image id
+ @return aratar url
+ */
++(NSString *)getCourseDetailImageUrlByObjectId:(NSString *)objectid
+{
+    if (![NSString isBlankString:objectid]) {
+        NSString *baseUrl = [self configUrl:@"lms"];
+        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
+        return url;
+    }else{
+        return nil;
+    }
+}
+
+/**
+ LMS : get course detail info based on course id
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)findCourseDetail:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg,CourseModel *courseModel))completed{
+    [self getAsync:[NSString stringWithFormat:@"generic/course/%@/details",courseId] dic:nil modular:@"lms" callback:^(HttpResult *r) {
+        CourseModel *model = nil;
+        if (r.OK && r.resultMap[@"data"]) {
+            NSDictionary *dic =  r.resultMap[@"data"];
+            model = [[CourseModel alloc] initWithJson:jsonBuild(dic)];
+        }
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg,model);
+            });
+        }
+    }];
+}
+
+/**
+ LMS : Marking courses according to course ID
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)lmsAddBookmark:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg))completed{
+    [self postAsync3:@"bookmark/bookmark" dic:@{@"courseId":courseId} modular:@"lms" callback:^(HttpResult *r) {
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg);
+            });
+        }
+    }];
+}
+
+/**
+ LMS : Delete course markers based on course id
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)lmsDelBookmarkByCourseId:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg))completed{
+    
+    [self delAsync:[NSString stringWithFormat:@"bookmark/course/%@",courseId] dic:nil modular:@"lms" callback:^(HttpResult *r) {
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg);
+            });
+        }
+    }];
+}
+
+
 
 @end

@@ -18,6 +18,8 @@
 #import "NotificationModel.h"
 #import "AuthorModel.h"
 #import "LMSCategoryModel.h"
+#import "GenericCoursesModel.h"
+#import "CourseModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -38,6 +40,8 @@
 
 @property(class, readonly) NSString *lastAccount;
 @property(class, readonly) NSString *lastToken;
+
++ (NSDictionary*)sponsorInfo;
 
 + (NSString *)configUrl:(NSString *)modular;
 + (NSArray *)uniteArticleDesc;
@@ -326,6 +330,12 @@
 #pragma mark ------LMS
 + (void)queryLMSCategoryTypes:(NSString *)parentId completed:(void(^)(NSArray<IdName *> *array))completed;
 + (void)queryLMSCategoryGroupTypes:(NSString *)parentId completed:(void(^)(NSArray<LMSCategoryModel *> *array))completed;
++ (void)queryLMSGenericCourses:(NSInteger)pagenumber curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
++ (void)queryLMSGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
++ (void)queryLMSGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId featured:(NSInteger)featured  sponsoredId:(NSString *_Nullable)sponsoredId isSponsored:(NSInteger)isSponsored  completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
+
++ (void)queryLMSFeaturedGenericCourses:(NSInteger)pagenumber curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
++ (void)queryLMSFeaturedGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
 //lms 获取单个作者
 + (void)findCourseAuthor:(NSString*)authorId completed:(void(^)(BOOL success,NSString *msg,AuthorModel *AuthorModel))completed;
 
@@ -337,4 +347,35 @@
  */
 +(NSString *)getCourseAuthorAvatarUrlByObjectId:(NSString *)objectid;
 
+/**
+ get course detail image url
+ 
+ @param objectid image id
+ @return aratar url
+ */
++(NSString *)getCourseDetailImageUrlByObjectId:(NSString *)objectid;
+
+/**
+ get course detail info based on course id
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)findCourseDetail:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg,CourseModel *courseModel))completed;
+
+
+/**
+ LMS : Marking courses according to course ID
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)lmsAddBookmark:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg))completed;
+/**
+ LMS : Delete course markers based on course id
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)lmsDelBookmarkByCourseId:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg))completed;
 @end

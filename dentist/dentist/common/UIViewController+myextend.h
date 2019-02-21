@@ -36,6 +36,8 @@
 
 - (void)pushPage:(UIViewController *)page;
 
+- (void)pushPageHidingTabbar:(UIViewController *)page;
+
 - (void)popPage;
 
 - (void)dismiss;

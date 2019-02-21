@@ -57,6 +57,7 @@
     DentistTabView *tabView = [DentistTabView new];
     [self.view addSubview:tabView];
     tabView.isScrollEnable=NO;
+    tabView.isScrollToFirst=NO;
     tabView.itemCount=2;
     tabView.delegate=self;
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:NAVHEIGHT]heightEq:50]  install];

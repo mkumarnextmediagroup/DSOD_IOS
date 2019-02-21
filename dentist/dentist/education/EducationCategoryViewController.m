@@ -11,6 +11,7 @@
 #import "Common.h"
 #import "LMSCategoryModel.h"
 #import "Proto.h"
+#import "EducationCategoryCourseViewController.h"
 
 @interface EducationCategoryViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -168,10 +169,17 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(infoArr.count>indexPath.row){
-        LMSCategoryModel *model=infoArr[indexPath.row];
-        EducationCategoryViewController *categoryview=[EducationCategoryViewController new];
-        categoryview.parentid=model.id;
-        [self.navigationController pushViewController:categoryview animated:YES];
+        if(indexPath.row==0){
+            EducationCategoryCourseViewController *courseview=[EducationCategoryCourseViewController new];
+            [self.navigationController pushViewController:courseview animated:YES];
+            
+        }else{
+            LMSCategoryModel *model=infoArr[indexPath.row];
+            EducationCategoryViewController *categoryview=[EducationCategoryViewController new];
+            categoryview.parentid=model.id;
+            [self.navigationController pushViewController:categoryview animated:YES];
+        }
+        
     }
     
 }

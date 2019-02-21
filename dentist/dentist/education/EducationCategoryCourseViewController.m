@@ -172,6 +172,7 @@
     if (self->infoArr && self->infoArr.count>indexPath.row) {
         GenericCoursesModel *model=self->infoArr[indexPath.row];
         cell.model=model;
+        cell.vc = self;
     }
     return cell;
     

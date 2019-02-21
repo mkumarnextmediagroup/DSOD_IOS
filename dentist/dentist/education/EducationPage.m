@@ -348,6 +348,7 @@
     }
     
     cell.model=model;
+    cell.vc = self;
     return cell;
     
     

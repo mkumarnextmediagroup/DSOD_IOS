@@ -10,6 +10,7 @@
 #import "Common.h"
 #import "XHStarRateView.h"
 #import "UIImage+customed.h"
+#import "Proto.h"
 
 @implementation CourseTableViewCell
 {
@@ -169,6 +170,11 @@
             }
         }
         
+        
+        [markButton setImage:[UIImage imageNamed:self.model.isBookmark?@"book9-light":@"book9"] forState:UIControlStateNormal];
+        
+//        NSLog(@"%@---%@",self.model.id,self.model.isBookmark?@"yes":@"no");
+        
         [[lineLabel.layoutUpdate bottomOf:gskBtn offset:0] install];
     }
 }
@@ -177,8 +183,40 @@
  bookmark action
  @param sender uibutton
  */
--(void)markAction:(UIButton *)sender
-{
+-(void)markAction:(UIButton *)sender{
+ 
+    
+    if(self.model.isBookmark){
+        [self.vc showLoading];
+        [Proto lmsDelBookmarkByCourseId:self.model.id completed:^(BOOL success, NSString *msg) {
+            [self.vc hideLoading];
+            if(success){
+                self.model.isBookmark = NO;
+                [self->markButton setImage:[UIImage imageNamed:self.model.isBookmark?@"book9-light":@"book9"] forState:UIControlStateNormal];
+                if(self.bookmarkStatusChanged){
+                    self.bookmarkStatusChanged(self.model);
+                }
+            }else{
+                [self.vc alertMsg:[NSString isBlankString:msg]?@"Failed to delete bookmark":msg onOK:nil];
+            }
+        }];
+    }else{
+        [self.vc showLoading];
+        [Proto lmsAddBookmark:self.model.id completed:^(BOOL success, NSString *msg) {
+            [self.vc hideLoading];
+            if(success){
+                self.model.isBookmark = YES;
+                [self->markButton setImage:[UIImage imageNamed:self.model.isBookmark?@"book9-light":@"book9"] forState:UIControlStateNormal];
+                if(self.bookmarkStatusChanged){
+                    self.bookmarkStatusChanged(self.model);
+                }
+            }else{
+                [self.vc alertMsg:[NSString isBlankString:msg]?@"Failed to add bookmark":msg onOK:nil];
+            }
+        }];
+    }
+    
+    
     
 }
 

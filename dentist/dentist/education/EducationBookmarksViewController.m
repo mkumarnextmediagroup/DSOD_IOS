@@ -29,7 +29,7 @@
     UIRefreshControl *refreshControl;
     BOOL isRefreshing;
     
-    NSArray<GenericCoursesModel*> *courseModelArray;
+    NSMutableArray<GenericCoursesModel*> *courseModelArray;
     int currPage;
 }
 
@@ -192,7 +192,6 @@
     
     [self showTopIndicator];
     [Proto lmsQueryBookmarks:isMore?currPage++:1 completed:^(BOOL success, NSString *msg, NSArray<BookmarkModel *> *array) {
-//        self->totalCount = totalCount;
         [self reloadData:[array copy]  isMore:isMore];
         [self hideTopIndicator];
     }];
@@ -208,13 +207,9 @@
  */
 -(void)reloadData:(NSArray*)newDatas isMore:(BOOL)isMore{
     if(isMore){
-        if(newDatas){
-            NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:courseModelArray];
-            [mutableArray addObjectsFromArray:newDatas];
-            courseModelArray = [mutableArray copy];
-        }
+        [courseModelArray addObjectsFromArray:newDatas?newDatas:@[]];
     }else{
-        courseModelArray = newDatas;
+        courseModelArray = [NSMutableArray arrayWithArray:newDatas];
     }
     [tableView reloadData];
     
@@ -273,8 +268,13 @@
  */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CourseTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(CourseTableViewCell.class) forIndexPath:indexPath];
-    
     cell.model = courseModelArray[indexPath.row];
+    cell.vc = self;
+    cell.bookmarkStatusChanged = ^(GenericCoursesModel *model){
+        [self->courseModelArray removeObject:model];
+        [self->tableView reloadData];
+    };
+    
     return cell;
 }
 

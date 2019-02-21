@@ -3348,6 +3348,8 @@
          NSArray *arr = r.resultMap[@"data"];
          for (NSDictionary *d in arr) {
              GenericCoursesModel *item = [[GenericCoursesModel alloc] initWithJson:jsonBuild(d[@"course"])];
+             item.isBookmark = YES;
+             item.authors = d[@"authors"];
              [resultArray addObject:item];
          }
          foreTask(^{

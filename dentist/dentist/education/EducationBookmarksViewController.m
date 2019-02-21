@@ -269,6 +269,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CourseTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass(CourseTableViewCell.class) forIndexPath:indexPath];
     cell.model = courseModelArray[indexPath.row];
+    cell.isHideSponsor=YES;
     cell.vc = self;
     cell.bookmarkStatusChanged = ^(GenericCoursesModel *model){
         [self->courseModelArray removeObject:model];

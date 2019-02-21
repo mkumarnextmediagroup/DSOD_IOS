@@ -16,11 +16,12 @@
 @end
 
 @interface MoreView : UIView
-
-+ (instancetype)initSliderView;
 @property (nonatomic,assign) NSInteger selectIndex;
 @property (nonatomic,weak) id<MoreViewDelegate> delegate;
+
++ (instancetype)initSliderView;
 - (void)showFuntionBtn;
 - (void)hideFuntionBtn;
+- (void)initSubView;
 
 @end

@@ -18,5 +18,9 @@
 @interface CareerAlertsTableViewCell : UITableViewCell
 @property (nonatomic,strong) JobAlertsModel *alerModel;
 @property (nonatomic,weak) id<CareerAlertsTableViewCellDelegate> delegate;
+
+-(void)setAlerModel:(JobAlertsModel *)alerModel;
+-(void)edit:(UIButton *)sender;
+-(void)alert:(UIButton *)sender;
 @end
 

@@ -222,6 +222,8 @@
 		433089D421F60C9600443469 /* JobDetailCompanyViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 433089D321F60C9600443469 /* JobDetailCompanyViewControllerTests.m */; };
 		433089D721F61AE500443469 /* JobDetailReviewsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 433089D621F61AE500443469 /* JobDetailReviewsViewControllerTests.m */; };
 		433089DA21F61CD900443469 /* UploadResumeViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 433089D921F61CD900443469 /* UploadResumeViewTests.m */; };
+		4332B3B3221A4BA300156D0A /* MoreViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332B3B2221A4BA300156D0A /* MoreViewTests.m */; };
+		4332B3B5221A6B7A00156D0A /* CareerAlertsTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4332B3B4221A6B7A00156D0A /* CareerAlertsTableViewCellTests.m */; };
 		4335E27921B6B5EF00A10F7E /* CmsSearchPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4335E27821B6B5EF00A10F7E /* CmsSearchPageTests.m */; };
 		433FBD5822015374000ACD41 /* CompanyDetailViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 433FBD5722015374000ACD41 /* CompanyDetailViewControllerTests.m */; };
 		4341949321A598BE0029AECE /* CmsForYouPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4341949221A598BE0029AECE /* CmsForYouPageTests.m */; };
@@ -1396,6 +1398,8 @@
 		433089D321F60C9600443469 /* JobDetailCompanyViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailCompanyViewControllerTests.m; sourceTree = "<group>"; };
 		433089D621F61AE500443469 /* JobDetailReviewsViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailReviewsViewControllerTests.m; sourceTree = "<group>"; };
 		433089D921F61CD900443469 /* UploadResumeViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadResumeViewTests.m; sourceTree = "<group>"; };
+		4332B3B2221A4BA300156D0A /* MoreViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreViewTests.m; sourceTree = "<group>"; };
+		4332B3B4221A6B7A00156D0A /* CareerAlertsTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerAlertsTableViewCellTests.m; sourceTree = "<group>"; };
 		4335E27821B6B5EF00A10F7E /* CmsSearchPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsSearchPageTests.m; sourceTree = "<group>"; };
 		433FBD5722015374000ACD41 /* CompanyDetailViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDetailViewControllerTests.m; sourceTree = "<group>"; };
 		4341949221A598BE0029AECE /* CmsForYouPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsForYouPageTests.m; sourceTree = "<group>"; };
@@ -3513,6 +3517,8 @@
 				43B074B8221816340020639F /* FindJobsTableViewCellTests.m */,
 				4375F1332219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m */,
 				4375F1352219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m */,
+				4332B3B2221A4BA300156D0A /* MoreViewTests.m */,
+				4332B3B4221A6B7A00156D0A /* CareerAlertsTableViewCellTests.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6131,6 +6137,7 @@
 				43B7252D217650FF000F6797 /* ExampleTests.m in Sources */,
 				1804B49E2205E0B100F9A75A /* PlaybackSpeedViewControllerTests.m in Sources */,
 				4355C2E021F46D6F00544B5F /* JobDetailViewControllerTests.m in Sources */,
+				4332B3B5221A6B7A00156D0A /* CareerAlertsTableViewCellTests.m in Sources */,
 				439D55EB2189DBFA003BB940 /* ProfileEditPageTests.m in Sources */,
 				4344660521A5674400811E94 /* UIViewExtTests.m in Sources */,
 				43F92B7A217D94B400798462 /* LoginControllerTests.m in Sources */,
@@ -6155,6 +6162,7 @@
 				43A6590E21D687060091F9AF /* CMSDetailViewControllerTests.m in Sources */,
 				43714DA421EB1BC200B7AC18 /* CareerFindJobViewControllerTests.m in Sources */,
 				1804B4A02205E0C400F9A75A /* VideoQualityViewControllerTests.m in Sources */,
+				4332B3B3221A4BA300156D0A /* MoreViewTests.m in Sources */,
 				43597BFA21CCD0E80033E1C1 /* ContentPageTests.m in Sources */,
 				43941292219F0378008C3092 /* UITextFieldExtTests.m in Sources */,
 				43A196CF2190A12B006E90CC /* EditExperiencePageTests.m in Sources */,

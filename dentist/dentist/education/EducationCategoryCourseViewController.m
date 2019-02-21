@@ -11,6 +11,7 @@
 #import "Common.h"
 #import "CourseTableViewCell.h"
 #import "CourseDetailViewController.h"
+#import "EducationSearchViewController.h"
 
 @interface EducationCategoryCourseViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -29,6 +30,7 @@
     }
     
     item.leftBarButtonItem = [self navBarBack:self action:@selector(back)];
+    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
      CGFloat _topBarH = 0;
     CGFloat _bottomBarH = 0;
     if (self.navigationController != nil) {
@@ -50,6 +52,17 @@
     [self setupRefresh];
     [self refreshData];
     // Do any additional setup after loading the view.
+}
+
+/**
+ go to search page
+ */
+-(void)searchClick
+{
+    EducationSearchViewController *searchview=[EducationSearchViewController new];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchview];
+    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:navVC animated:NO completion:NULL];
 }
 
 /**

@@ -19,12 +19,34 @@
     [super viewDidLoad];
     UINavigationItem *item = [self navigationItem];
     item.title = @"Search";
+    if (self.tabBarController != nil) {
+    }else{
+        item.leftBarButtonItem = [self navBarBack:self action:@selector(back)];
+    }
+    
     
     UILabel *lb = self.view.addLabel;
     lb.text = @"Search Page";
     [lb textColorMain];
     [[[lb.layoutMaker centerParent] sizeFit] install];
     // Do any additional setup after loading the view.
+}
+
+/**
+ close page
+ */
+-(void)back{
+    NSArray *viewcontrollers=self.navigationController.viewControllers;
+    if (viewcontrollers.count>1) {
+        if ([viewcontrollers objectAtIndex:viewcontrollers.count-1]==self) {
+            //push方式
+            [self.navigationController popViewControllerAnimated:NO];
+        }
+    }
+    else{
+        //present方式
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
 }
 
 /*

@@ -9,6 +9,7 @@
 #import "CourseTableViewCell.h"
 #import "Common.h"
 #import "XHStarRateView.h"
+#import "UIImage+customed.h"
 
 @implementation CourseTableViewCell
 {
@@ -19,6 +20,7 @@
     UIView *levelView;
     UILabel *levelLabel;
     UIImageView *levelImageView;
+    UIImageView *timerimageView;
     UILabel *timerLabel;
     UILabel *priceLabel;
     XHStarRateView *starview;
@@ -60,10 +62,16 @@
         [[[[titleLabel.layoutMaker toRightOf:imageView offset:edge] topOf:imageView offset:0] toLeftOf:markButton offset:10] install];
         [self levelView:0];
         
+        timerimageView=self.addImageView;
+        [[[[timerimageView.layoutMaker toRightOf:levelView offset:10] centerYOf:levelView offset:0] sizeEq:16 h:16] install];
+        UIImage *timerimage=[UIImage imageNamed:@"ic_course_time"];
+        timerimageView.image=[timerimage imageChangeColor:Colors.textDisabled];
+        [timerimageView scaleFillAspect];
+        
         timerLabel=[self addLabel];
         timerLabel.textColor=Colors.secondary;
         timerLabel.font=[UIFont systemFontOfSize:13];
-        [[[[timerLabel.layoutMaker toRightOf:levelView offset:10] centerYOf:levelView offset:0] sizeEq:60 h:16] install];
+        [[[[timerLabel.layoutMaker toRightOf:timerimageView offset:5] centerYOf:levelView offset:0] sizeEq:60 h:16] install];
         
         CGFloat bookspace=(48-bookmarkimage.size.width)/2;
         if (bookspace<=0) {
@@ -74,8 +82,9 @@
         priceLabel.font=[UIFont systemFontOfSize:13];
         priceLabel.textAlignment=NSTextAlignmentRight;
         [[[[priceLabel.layoutMaker rightParent:-5-bookspace] centerYOf:levelView offset:0] sizeEq:60 h:16] install];
-        starview = [[XHStarRateView alloc] initWithFrame:CGRectMake(edge, 50, 92, 16)];
-        starview.isAnimation = YES;
+        starview = [[XHStarRateView alloc] initWithFrame:CGRectMake(edge, 50, 92, 16) starStyle:StarStyleCourse];
+        starview.userInteractionEnabled = NO;
+        starview.isAnimation = NO;
         [self addSubview:starview];
          [[[[starview.layoutMaker toRightOf:imageView offset:edge] above:levelView offset:-10] sizeEq:60 h:16] install];
         
@@ -110,7 +119,7 @@
         [[[[levelView.layoutMaker toRightOf:imageView offset:16] bottomOf:imageView offset:0] sizeEq:levelw h:28] install];
         levelImageView=levelView.addImageView;
         levelImageView.image=[UIImage imageNamed:@"cellular-connection-full"];
-        [[[[levelImageView.layoutMaker leftParent:5] centerYParent:0] sizeEq:23 h:15] install];
+        [[[[levelImageView.layoutMaker leftParent:5] centerYParent:0] sizeEq:18 h:12] install];
         [levelImageView scaleFillAspect];
         levelImageView.clipsToBounds=YES;
         levelLabel=levelView.addLabel;
@@ -134,11 +143,14 @@
         [imageView scaleFillAspect];
         imageView.clipsToBounds=YES;
         titleLabel.text=_model.name;
-//        if (_model.authors && _model.authors.count>0) {
-//            authorLabel.text=[NSString stringWithFormat:@"%@",_model.authors[0]];
-//        }
-        authorLabel.text=@"mr.feng";
-        timerLabel.text=@"3h 20m";
+        if (_model.authors && _model.authors.count>0) {
+            if(_model.authors[0] && [_model.authors[0] isKindOfClass:[NSDictionary class]]){
+                NSDictionary *authordic=_model.authors[0] ;
+                authorLabel.text=[NSString stringWithFormat:@"%@",[authordic objectForKey:@"fullName"]];
+            }
+            
+        }
+        timerLabel.text=_model.timeRequired;
         NSString *pricestr=@"FREE";
         if (!_model.free) {
             pricestr=[NSString stringWithFormat:@"$%@",@(_model.price)];

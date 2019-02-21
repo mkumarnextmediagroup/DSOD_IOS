@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
+#import "AuthorModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GenericCoursesModel : JSONModel

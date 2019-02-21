@@ -306,20 +306,24 @@
     panel.frame = makeRect(0, 0, SCREENWIDTH, 91);
     panel.backgroundColor=[UIColor clearColor];
     
-    tabView=[DentistTabView new];
-    tabView.isScrollEnable=NO;
-    tabView.itemCount=2;
-    tabView.delegate=self;
-    tabView.isScrollToFirst=NO;
-    [panel addSubview:tabView];
-    [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
+    if(!tabView){
+        tabView=[DentistTabView new];
+        tabView.isScrollEnable=NO;
+        tabView.itemCount=2;
+        tabView.delegate=self;
+        tabView.isScrollToFirst=NO;
+        [panel addSubview:tabView];
+        [[[[[tabView.layoutMaker leftParent:0] rightParent:0] topParent:0] heightEq:51] install];
+    }
+    
     tabView.titleArr=[NSMutableArray arrayWithArray:@[@"APPLIED",@"SAVED"]];
     
-    jobCountTitle=panel.addLabel;
-    jobCountTitle.font=[Fonts semiBold:13];
-    jobCountTitle.textColor=Colors.textMain;
-    [[[[[jobCountTitle.layoutMaker leftParent:20] below:tabView offset:0] bottomParent:0] rightParent:40] install];
-    
+    if(!jobCountTitle){
+        jobCountTitle=panel.addLabel;
+        jobCountTitle.font=[Fonts semiBold:13];
+        jobCountTitle.textColor=Colors.textMain;
+        [[[[[jobCountTitle.layoutMaker leftParent:20] below:tabView offset:0] bottomParent:0] rightParent:40] install];
+    }
 //    UIButton *filterButton = [panel addButton];
 //    [filterButton setImage:[UIImage imageNamed:@"desc"] forState:UIControlStateNormal];
 //    [[[[filterButton.layoutMaker below:tabView offset:8] rightParent:-15] sizeEq:24 h:24] install];

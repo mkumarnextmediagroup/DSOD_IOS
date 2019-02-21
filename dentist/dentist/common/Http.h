@@ -26,6 +26,7 @@ typedef void (^HttpCallback)(HttpResult *);
 
 - (HttpResult *)multipart;
 
+- (void)delAsync:(HttpCallback)callback;
 
 - (void)getAsync:(HttpCallback)callback;
 

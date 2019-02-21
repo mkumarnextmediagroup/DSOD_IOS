@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyDetailReviewsViewController : UIViewController
 
-@property (nonatomic,assign) UIViewController *vc;
+@property (nonatomic,weak) UIViewController *vc;
 @property (nonatomic,strong) JobDSOModel *jobDSOModel;
 
 // 是否可以滑动

@@ -70,6 +70,15 @@
 		1866AFFE2179DF3900970CAB /* DentistTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866AFFD2179DF3900970CAB /* DentistTabView.m */; };
 		1866B0012179DFDA00970CAB /* TabCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */; };
 		187111C821A31B6E00A2B3E4 /* Delete_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 187111C721A31B6D00A2B3E4 /* Delete_Icon.png */; };
+		188FC837221AE3F70005CF2A /* ic_course_quizzes@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC82E221AE3F50005CF2A /* ic_course_quizzes@3x.png */; };
+		188FC838221AE3F70005CF2A /* ic_course_quizzes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC82F221AE3F50005CF2A /* ic_course_quizzes@2x.png */; };
+		188FC839221AE3F70005CF2A /* ic_course_lessons@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC830221AE3F60005CF2A /* ic_course_lessons@3x.png */; };
+		188FC83A221AE3F70005CF2A /* ic_course_certificate@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC831221AE3F60005CF2A /* ic_course_certificate@3x.png */; };
+		188FC83B221AE3F70005CF2A /* ic_course_lessons@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC832221AE3F60005CF2A /* ic_course_lessons@2x.png */; };
+		188FC83C221AE3F70005CF2A /* ic_course_quizzes.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC833221AE3F60005CF2A /* ic_course_quizzes.png */; };
+		188FC83D221AE3F70005CF2A /* ic_course_certificate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC834221AE3F70005CF2A /* ic_course_certificate@2x.png */; };
+		188FC83E221AE3F70005CF2A /* ic_course_lessons.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC835221AE3F70005CF2A /* ic_course_lessons.png */; };
+		188FC83F221AE3F70005CF2A /* ic_course_certificate.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC836221AE3F70005CF2A /* ic_course_certificate.png */; };
 		188FEC8A2175BDCA00EE32F3 /* BannerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FEC892175BDC900EE32F3 /* BannerScrollView.m */; };
 		18945E1821C63E480028D1CD /* CompanyExistsReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18945E1721C63E480028D1CD /* CompanyExistsReviewsViewController.m */; };
 		18945E1B21C641180028D1CD /* CompanyExistsReviewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18945E1A21C641180028D1CD /* CompanyExistsReviewsTableViewCell.m */; };
@@ -96,6 +105,8 @@
 		18A23FCE21BBC9C8006CB432 /* CompanyDetailJobsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A23FCD21BBC9C8006CB432 /* CompanyDetailJobsViewController.m */; };
 		18A23FDD21BBE40F006CB432 /* AllowMultiGestureTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A23FDC21BBE40F006CB432 /* AllowMultiGestureTableView.m */; };
 		18A23FE021BBE4BC006CB432 /* CompanyDetailReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A23FDF21BBE4BC006CB432 /* CompanyDetailReviewsViewController.m */; };
+		18A433CF2219134B00E9C31A /* CourseDetailReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A433CE2219134B00E9C31A /* CourseDetailReviewsViewController.m */; };
+		18A433D2221913D200E9C31A /* CourseDetailLessonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A433D1221913D200E9C31A /* CourseDetailLessonsViewController.m */; };
 		18ABEAB9219560D100BF3E60 /* SF-UI-Text-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18ABEAB8219560D100BF3E60 /* SF-UI-Text-Regular.ttf */; };
 		18B4ADB221E5F9F70087917E /* icons8-help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B4ADAF21E5F9F70087917E /* icons8-help@2x.png */; };
 		18B4ADB321E5F9F70087917E /* icons8-help.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B4ADB021E5F9F70087917E /* icons8-help.png */; };
@@ -124,6 +135,22 @@
 		18B83B1D2173557D00130DB6 /* YBImageBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18B83B052173557C00130DB6 /* YBImageBrowser.bundle */; };
 		18B83B1E2173557D00130DB6 /* YBImageBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83B072173557C00130DB6 /* YBImageBrowser.m */; };
 		18B83B212173596700130DB6 /* DentistImageBrowserToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B83B202173596500130DB6 /* DentistImageBrowserToolBar.m */; };
+		18BE3748221A5C0B00D4148B /* ic_course_time.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE373C221A5C0800D4148B /* ic_course_time.png */; };
+		18BE3749221A5C0B00D4148B /* ic_course_star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE373D221A5C0900D4148B /* ic_course_star@3x.png */; };
+		18BE374A221A5C0B00D4148B /* ic_course_publish_date.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE373E221A5C0900D4148B /* ic_course_publish_date.png */; };
+		18BE374B221A5C0B00D4148B /* ic_course_level@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE373F221A5C0900D4148B /* ic_course_level@2x.png */; };
+		18BE374C221A5C0B00D4148B /* ic_course_time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3740221A5C0A00D4148B /* ic_course_time@2x.png */; };
+		18BE374D221A5C0B00D4148B /* ic_course_time@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3741221A5C0A00D4148B /* ic_course_time@3x.png */; };
+		18BE374E221A5C0B00D4148B /* ic_course_publish_date@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3742221A5C0A00D4148B /* ic_course_publish_date@3x.png */; };
+		18BE374F221A5C0B00D4148B /* ic_course_level.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3743221A5C0A00D4148B /* ic_course_level.png */; };
+		18BE3750221A5C0B00D4148B /* ic_course_level@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3744221A5C0B00D4148B /* ic_course_level@3x.png */; };
+		18BE3751221A5C0B00D4148B /* ic_course_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3745221A5C0B00D4148B /* ic_course_star@2x.png */; };
+		18BE3752221A5C0B00D4148B /* ic_course_publish_date@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3746221A5C0B00D4148B /* ic_course_publish_date@2x.png */; };
+		18BE3753221A5C0B00D4148B /* ic_course_star.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3747221A5C0B00D4148B /* ic_course_star.png */; };
+		18BE3756221A890A00D4148B /* DateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE3755221A890A00D4148B /* DateTime.m */; };
+		18BE375A221A94DE00D4148B /* ic_arrow_right_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3757221A94DD00D4148B /* ic_arrow_right_white.png */; };
+		18BE375B221A94DE00D4148B /* ic_arrow_right_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3758221A94DE00D4148B /* ic_arrow_right_white@2x.png */; };
+		18BE375C221A94DE00D4148B /* ic_arrow_right_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE3759221A94DE00D4148B /* ic_arrow_right_white@3x.png */; };
 		18CDCE8D22141C9B002D28B1 /* EducationSpeakerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */; };
 		18CDCE9122154359002D28B1 /* AuthorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CDCE9022154359002D28B1 /* AuthorModel.m */; };
 		18CFB0F0216EF285002CC9D0 /* RMDownloadIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB0EF216EF284002CC9D0 /* RMDownloadIndicator.m */; };
@@ -565,6 +592,8 @@
 		A3729597219284F500B36409 /* DentistDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3729596219284F500B36409 /* DentistDataBaseManager.m */; };
 		A372959A219293F500B36409 /* DetinstDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3729599219293F500B36409 /* DetinstDownloadManager.m */; };
 		A3739944219EBAE8004A5A94 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3739943219EBAE8004A5A94 /* Toast.swift */; };
+		A37CE3A6221C0EA000C280DF /* YCMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = A37CE3A5221C0E9F00C280DF /* YCMenuView.m */; };
+		A37CE3A9221D4EA400C280DF /* SponsoredCourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A37CE3A8221D4EA400C280DF /* SponsoredCourseViewController.m */; };
 		A393E0B321955D06001881C2 /* sponsor_nobel_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B021955D05001881C2 /* sponsor_nobel_banner.png */; };
 		A393E0B421955D06001881C2 /* sponsor_gsk_banner.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B121955D05001881C2 /* sponsor_gsk_banner.png */; };
 		A393E0B521955D06001881C2 /* sponsor_align_banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A393E0B221955D06001881C2 /* sponsor_align_banner@2x.png */; };
@@ -660,6 +689,14 @@
 		A3E381DE221583EA00BFB227 /* EducationCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381DD221583EA00BFB227 /* EducationCategoryViewController.m */; };
 		A3E381E12215840200BFB227 /* EducationCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381E02215840200BFB227 /* EducationCategoryTableViewCell.m */; };
 		A3E381E4221698E200BFB227 /* LMSCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381E3221698E200BFB227 /* LMSCategoryModel.m */; };
+		A3E381EA2216C03D00BFB227 /* GenericCoursesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381E82216C03D00BFB227 /* GenericCoursesModel.m */; };
+		A3E381ED2216C55600BFB227 /* EducationCategoryCourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381EC2216C55600BFB227 /* EducationCategoryCourseViewController.m */; };
+		A3E381F02216C5A800BFB227 /* CourseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E381EF2216C5A800BFB227 /* CourseTableViewCell.m */; };
+		A3E381F22217DC7B00BFB227 /* cellular-connection-full.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E381F12217DC7900BFB227 /* cellular-connection-full.png */; };
+		A3E381F42217DD0000BFB227 /* Star-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E381F32217DD0000BFB227 /* Star-white.png */; };
+		A3E381F62217DD1A00BFB227 /* icon-star.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E381F52217DD1A00BFB227 /* icon-star.png */; };
+		A3E381F82217DD2300BFB227 /* icon-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E381F72217DD2300BFB227 /* icon-star@2x.png */; };
+		A3E381FA2217DD2B00BFB227 /* icon-star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E381F92217DD2A00BFB227 /* icon-star@3x.png */; };
 		A3E752E5217E35010087713D /* Podcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D0217E34FF0087713D /* Podcast@2x.png */; };
 		A3E752E6217E35010087713D /* Article@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D1217E34FF0087713D /* Article@2x.png */; };
 		A3E752E7217E35010087713D /* Animation@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752D2217E34FF0087713D /* Animation@3x.png */; };
@@ -1172,6 +1209,15 @@
 		1866AFFF2179DFDA00970CAB /* TabCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabCollectionViewCell.h; sourceTree = "<group>"; };
 		1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabCollectionViewCell.m; sourceTree = "<group>"; };
 		187111C721A31B6D00A2B3E4 /* Delete_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Delete_Icon.png; sourceTree = "<group>"; };
+		188FC82E221AE3F50005CF2A /* ic_course_quizzes@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_quizzes@3x.png"; sourceTree = "<group>"; };
+		188FC82F221AE3F50005CF2A /* ic_course_quizzes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_quizzes@2x.png"; sourceTree = "<group>"; };
+		188FC830221AE3F60005CF2A /* ic_course_lessons@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_lessons@3x.png"; sourceTree = "<group>"; };
+		188FC831221AE3F60005CF2A /* ic_course_certificate@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_certificate@3x.png"; sourceTree = "<group>"; };
+		188FC832221AE3F60005CF2A /* ic_course_lessons@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_lessons@2x.png"; sourceTree = "<group>"; };
+		188FC833221AE3F60005CF2A /* ic_course_quizzes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_quizzes.png; sourceTree = "<group>"; };
+		188FC834221AE3F70005CF2A /* ic_course_certificate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_certificate@2x.png"; sourceTree = "<group>"; };
+		188FC835221AE3F70005CF2A /* ic_course_lessons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_lessons.png; sourceTree = "<group>"; };
+		188FC836221AE3F70005CF2A /* ic_course_certificate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_certificate.png; sourceTree = "<group>"; };
 		188FEC882175BDBD00EE32F3 /* BannerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerScrollView.h; sourceTree = "<group>"; };
 		188FEC892175BDC900EE32F3 /* BannerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerScrollView.m; sourceTree = "<group>"; };
 		18945E1621C63E480028D1CD /* CompanyExistsReviewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyExistsReviewsViewController.h; sourceTree = "<group>"; };
@@ -1218,6 +1264,10 @@
 		18A23FDC21BBE40F006CB432 /* AllowMultiGestureTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllowMultiGestureTableView.m; sourceTree = "<group>"; };
 		18A23FDE21BBE4BC006CB432 /* CompanyDetailReviewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompanyDetailReviewsViewController.h; sourceTree = "<group>"; };
 		18A23FDF21BBE4BC006CB432 /* CompanyDetailReviewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompanyDetailReviewsViewController.m; sourceTree = "<group>"; };
+		18A433CD2219134B00E9C31A /* CourseDetailReviewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseDetailReviewsViewController.h; sourceTree = "<group>"; };
+		18A433CE2219134B00E9C31A /* CourseDetailReviewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseDetailReviewsViewController.m; sourceTree = "<group>"; };
+		18A433D0221913D200E9C31A /* CourseDetailLessonsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseDetailLessonsViewController.h; sourceTree = "<group>"; };
+		18A433D1221913D200E9C31A /* CourseDetailLessonsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseDetailLessonsViewController.m; sourceTree = "<group>"; };
 		18ABEAB8219560D100BF3E60 /* SF-UI-Text-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Text-Regular.ttf"; sourceTree = "<group>"; };
 		18B4ADAF21E5F9F70087917E /* icons8-help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-help@2x.png"; sourceTree = "<group>"; };
 		18B4ADB021E5F9F70087917E /* icons8-help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-help.png"; sourceTree = "<group>"; };
@@ -1278,6 +1328,23 @@
 		18B83B072173557C00130DB6 /* YBImageBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBImageBrowser.m; sourceTree = "<group>"; };
 		18B83B1F2173596200130DB6 /* DentistImageBrowserToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistImageBrowserToolBar.h; sourceTree = "<group>"; };
 		18B83B202173596500130DB6 /* DentistImageBrowserToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistImageBrowserToolBar.m; sourceTree = "<group>"; };
+		18BE373C221A5C0800D4148B /* ic_course_time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_time.png; sourceTree = "<group>"; };
+		18BE373D221A5C0900D4148B /* ic_course_star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_star@3x.png"; sourceTree = "<group>"; };
+		18BE373E221A5C0900D4148B /* ic_course_publish_date.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_publish_date.png; sourceTree = "<group>"; };
+		18BE373F221A5C0900D4148B /* ic_course_level@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_level@2x.png"; sourceTree = "<group>"; };
+		18BE3740221A5C0A00D4148B /* ic_course_time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_time@2x.png"; sourceTree = "<group>"; };
+		18BE3741221A5C0A00D4148B /* ic_course_time@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_time@3x.png"; sourceTree = "<group>"; };
+		18BE3742221A5C0A00D4148B /* ic_course_publish_date@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_publish_date@3x.png"; sourceTree = "<group>"; };
+		18BE3743221A5C0A00D4148B /* ic_course_level.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_level.png; sourceTree = "<group>"; };
+		18BE3744221A5C0B00D4148B /* ic_course_level@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_level@3x.png"; sourceTree = "<group>"; };
+		18BE3745221A5C0B00D4148B /* ic_course_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_star@2x.png"; sourceTree = "<group>"; };
+		18BE3746221A5C0B00D4148B /* ic_course_publish_date@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_publish_date@2x.png"; sourceTree = "<group>"; };
+		18BE3747221A5C0B00D4148B /* ic_course_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_course_star.png; sourceTree = "<group>"; };
+		18BE3754221A890A00D4148B /* DateTime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateTime.h; sourceTree = "<group>"; };
+		18BE3755221A890A00D4148B /* DateTime.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateTime.m; sourceTree = "<group>"; };
+		18BE3757221A94DD00D4148B /* ic_arrow_right_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_arrow_right_white.png; sourceTree = "<group>"; };
+		18BE3758221A94DE00D4148B /* ic_arrow_right_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_arrow_right_white@2x.png"; sourceTree = "<group>"; };
+		18BE3759221A94DE00D4148B /* ic_arrow_right_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_arrow_right_white@3x.png"; sourceTree = "<group>"; };
 		18CDCE8B22141C9B002D28B1 /* EducationSpeakerDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationSpeakerDetailViewController.h; sourceTree = "<group>"; };
 		18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationSpeakerDetailViewController.m; sourceTree = "<group>"; };
 		18CDCE8F22154359002D28B1 /* AuthorModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthorModel.h; sourceTree = "<group>"; };
@@ -1835,6 +1902,10 @@
 		A3729598219293F500B36409 /* DetinstDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetinstDownloadManager.h; sourceTree = "<group>"; };
 		A3729599219293F500B36409 /* DetinstDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetinstDownloadManager.m; sourceTree = "<group>"; };
 		A3739943219EBAE8004A5A94 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		A37CE3A4221C0E9F00C280DF /* YCMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCMenuView.h; sourceTree = "<group>"; };
+		A37CE3A5221C0E9F00C280DF /* YCMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCMenuView.m; sourceTree = "<group>"; };
+		A37CE3A7221D4EA400C280DF /* SponsoredCourseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SponsoredCourseViewController.h; sourceTree = "<group>"; };
+		A37CE3A8221D4EA400C280DF /* SponsoredCourseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SponsoredCourseViewController.m; sourceTree = "<group>"; };
 		A393E0B021955D05001881C2 /* sponsor_nobel_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_nobel_banner.png; sourceTree = "<group>"; };
 		A393E0B121955D05001881C2 /* sponsor_gsk_banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sponsor_gsk_banner.png; sourceTree = "<group>"; };
 		A393E0B221955D06001881C2 /* sponsor_align_banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sponsor_align_banner@2x.png"; sourceTree = "<group>"; };
@@ -1965,6 +2036,17 @@
 		A3E381E02215840200BFB227 /* EducationCategoryTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCategoryTableViewCell.m; sourceTree = "<group>"; };
 		A3E381E2221698E200BFB227 /* LMSCategoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSCategoryModel.h; sourceTree = "<group>"; };
 		A3E381E3221698E200BFB227 /* LMSCategoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSCategoryModel.m; sourceTree = "<group>"; };
+		A3E381E82216C03D00BFB227 /* GenericCoursesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericCoursesModel.m; sourceTree = "<group>"; };
+		A3E381E92216C03D00BFB227 /* GenericCoursesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericCoursesModel.h; sourceTree = "<group>"; };
+		A3E381EB2216C55600BFB227 /* EducationCategoryCourseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EducationCategoryCourseViewController.h; sourceTree = "<group>"; };
+		A3E381EC2216C55600BFB227 /* EducationCategoryCourseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCategoryCourseViewController.m; sourceTree = "<group>"; };
+		A3E381EE2216C5A800BFB227 /* CourseTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseTableViewCell.h; sourceTree = "<group>"; };
+		A3E381EF2216C5A800BFB227 /* CourseTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseTableViewCell.m; sourceTree = "<group>"; };
+		A3E381F12217DC7900BFB227 /* cellular-connection-full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellular-connection-full.png"; sourceTree = "<group>"; };
+		A3E381F32217DD0000BFB227 /* Star-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star-white.png"; sourceTree = "<group>"; };
+		A3E381F52217DD1A00BFB227 /* icon-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star.png"; sourceTree = "<group>"; };
+		A3E381F72217DD2300BFB227 /* icon-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star@2x.png"; sourceTree = "<group>"; };
+		A3E381F92217DD2A00BFB227 /* icon-star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star@3x.png"; sourceTree = "<group>"; };
 		A3E752D0217E34FF0087713D /* Podcast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Podcast@2x.png"; sourceTree = "<group>"; };
 		A3E752D1217E34FF0087713D /* Article@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Article@2x.png"; sourceTree = "<group>"; };
 		A3E752D2217E34FF0087713D /* Animation@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Animation@3x.png"; sourceTree = "<group>"; };
@@ -2641,6 +2723,10 @@
 				181121FD221664C1002A0B4E /* CourseDetailViewController.m */,
 				1811220222169B7E002A0B4E /* CourseDescriptionViewController.h */,
 				1811220322169B7E002A0B4E /* CourseDescriptionViewController.m */,
+				18A433CD2219134B00E9C31A /* CourseDetailReviewsViewController.h */,
+				18A433CE2219134B00E9C31A /* CourseDetailReviewsViewController.m */,
+				18A433D0221913D200E9C31A /* CourseDetailLessonsViewController.h */,
+				18A433D1221913D200E9C31A /* CourseDetailLessonsViewController.m */,
 			);
 			path = courseDetail;
 			sourceTree = "<group>";
@@ -2849,12 +2935,16 @@
 		18CDCE8E221542E2002D28B1 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				A3E381E92216C03D00BFB227 /* GenericCoursesModel.h */,
+				A3E381E82216C03D00BFB227 /* GenericCoursesModel.m */,
 				18CDCE8F22154359002D28B1 /* AuthorModel.h */,
 				18CDCE9022154359002D28B1 /* AuthorModel.m */,
 				A3E381E2221698E200BFB227 /* LMSCategoryModel.h */,
 				A3E381E3221698E200BFB227 /* LMSCategoryModel.m */,
 				181121FF22168FB6002A0B4E /* CourseModel.h */,
 				1811220022168FB6002A0B4E /* CourseModel.m */,
+				18BE3754221A890A00D4148B /* DateTime.h */,
+				18BE3755221A890A00D4148B /* DateTime.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3997,6 +4087,35 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				188FC836221AE3F70005CF2A /* ic_course_certificate.png */,
+				188FC834221AE3F70005CF2A /* ic_course_certificate@2x.png */,
+				188FC831221AE3F60005CF2A /* ic_course_certificate@3x.png */,
+				188FC835221AE3F70005CF2A /* ic_course_lessons.png */,
+				188FC832221AE3F60005CF2A /* ic_course_lessons@2x.png */,
+				188FC830221AE3F60005CF2A /* ic_course_lessons@3x.png */,
+				188FC833221AE3F60005CF2A /* ic_course_quizzes.png */,
+				188FC82F221AE3F50005CF2A /* ic_course_quizzes@2x.png */,
+				188FC82E221AE3F50005CF2A /* ic_course_quizzes@3x.png */,
+				18BE3757221A94DD00D4148B /* ic_arrow_right_white.png */,
+				18BE3758221A94DE00D4148B /* ic_arrow_right_white@2x.png */,
+				18BE3759221A94DE00D4148B /* ic_arrow_right_white@3x.png */,
+				18BE3743221A5C0A00D4148B /* ic_course_level.png */,
+				18BE373F221A5C0900D4148B /* ic_course_level@2x.png */,
+				18BE3744221A5C0B00D4148B /* ic_course_level@3x.png */,
+				18BE373E221A5C0900D4148B /* ic_course_publish_date.png */,
+				18BE3746221A5C0B00D4148B /* ic_course_publish_date@2x.png */,
+				18BE3742221A5C0A00D4148B /* ic_course_publish_date@3x.png */,
+				18BE3747221A5C0B00D4148B /* ic_course_star.png */,
+				18BE3745221A5C0B00D4148B /* ic_course_star@2x.png */,
+				18BE373D221A5C0900D4148B /* ic_course_star@3x.png */,
+				18BE373C221A5C0800D4148B /* ic_course_time.png */,
+				18BE3740221A5C0A00D4148B /* ic_course_time@2x.png */,
+				18BE3741221A5C0A00D4148B /* ic_course_time@3x.png */,
+				A3E381F52217DD1A00BFB227 /* icon-star.png */,
+				A3E381F72217DD2300BFB227 /* icon-star@2x.png */,
+				A3E381F92217DD2A00BFB227 /* icon-star@3x.png */,
+				A3E381F32217DD0000BFB227 /* Star-white.png */,
+				A3E381F12217DC7900BFB227 /* cellular-connection-full.png */,
 				181122092216AA0F002A0B4E /* ic_nav_bookmark_act.png */,
 				1811220A2216AA10002A0B4E /* ic_nav_bookmark_act@2x.png */,
 				181122082216AA0F002A0B4E /* ic_nav_bookmark_act@3x.png */,
@@ -4842,6 +4961,8 @@
 			children = (
 				A3E381DF2215840200BFB227 /* EducationCategoryTableViewCell.h */,
 				A3E381E02215840200BFB227 /* EducationCategoryTableViewCell.m */,
+				A3E381EE2216C5A800BFB227 /* CourseTableViewCell.h */,
+				A3E381EF2216C5A800BFB227 /* CourseTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4907,6 +5028,8 @@
 				4E1957222137D0F100420563 /* LinkedIn */,
 				C5EEAA800E95F5D4324195EC /* Colors.m */,
 				C5EEAB29126FE9574783DD4E /* Colors.h */,
+				A37CE3A4221C0E9F00C280DF /* YCMenuView.h */,
+				A37CE3A5221C0E9F00C280DF /* YCMenuView.m */,
 				C5EEACBC931939B104FC3D13 /* TextSize.m */,
 				C5EEA811A5ED37C88C49CB9A /* TextSize.h */,
 				C5EEAC56322EB38F34BC5D19 /* Fonts.m */,
@@ -5119,6 +5242,10 @@
 				18CDCE8C22141C9B002D28B1 /* EducationSpeakerDetailViewController.m */,
 				A3E381DC221583EA00BFB227 /* EducationCategoryViewController.h */,
 				A3E381DD221583EA00BFB227 /* EducationCategoryViewController.m */,
+				A3E381EB2216C55600BFB227 /* EducationCategoryCourseViewController.h */,
+				A3E381EC2216C55600BFB227 /* EducationCategoryCourseViewController.m */,
+				A37CE3A7221D4EA400C280DF /* SponsoredCourseViewController.h */,
+				A37CE3A8221D4EA400C280DF /* SponsoredCourseViewController.m */,
 			);
 			path = education;
 			sourceTree = "<group>";
@@ -5393,6 +5520,7 @@
 				4EBCE6E2212EABF100A0672D /* delete@2x.png in Resources */,
 				57B0990921256E840010597B /* close.png in Resources */,
 				A956C5372154CC4B00E528EB /* Icon-Search.png in Resources */,
+				18BE374C221A5C0B00D4148B /* ic_course_time@2x.png in Resources */,
 				4E2351CA213BB5DF003BA59B /* searchIcon@2x.png in Resources */,
 				4E5BA800217721D400386598 /* contentPic_bg@2x.png in Resources */,
 				4E94AE0921AE4594009CAB7F /* explore-light@3x.png in Resources */,
@@ -5425,6 +5553,8 @@
 				18FE61D921D1034200C0CEF3 /* icon_d_sel@3x.png in Resources */,
 				4E2351A9213A7D70003BA59B /* select@2x.png in Resources */,
 				C5EEAE562042AC89740F25B0 /* checkbox.png in Resources */,
+				18BE374B221A5C0B00D4148B /* ic_course_level@2x.png in Resources */,
+				188FC83A221AE3F70005CF2A /* ic_course_certificate@3x.png in Resources */,
 				4E36C0BD21DF6419003451E6 /* Setting_share@2x.png in Resources */,
 				C5EEA55691F65C5A3EF946AF /* checkbox@2x.png in Resources */,
 				C5EEA65E44E172FEB6482668 /* checkbox@3x.png in Resources */,
@@ -5457,11 +5587,13 @@
 				181122162216AA11002A0B4E /* ic_nav_share@3x.png in Resources */,
 				C5EEA9C826673B94007566E8 /* checkbox_on@2x.png in Resources */,
 				3E043B94213C15480044CD77 /* default_avatar@3x.png in Resources */,
+				18BE374D221A5C0B00D4148B /* ic_course_time@3x.png in Resources */,
 				4E94AE2621AE74C2009CAB7F /* more-light@3x.png in Resources */,
 				A3BA6DE921AFCD7000D83156 /* Shape full.png in Resources */,
 				3E043B91213C15480044CD77 /* phone@3x.png in Resources */,
 				C5EEAF2A194521DC8C0BD8A0 /* checkbox_on@3x.png in Resources */,
 				4E47253621CA61D20076B824 /* submit_resume@2x.png in Resources */,
+				18BE374F221A5C0B00D4148B /* ic_course_level.png in Resources */,
 				4EBCE6D7212D62DF00A0672D /* close_select@3x.png in Resources */,
 				3E043B90213C15480044CD77 /* menu@3x.png in Resources */,
 				A36B9DAE21CA4E3700A54263 /* icons8-appointment_reminders_filled@2x.png in Resources */,
@@ -5475,6 +5607,7 @@
 				18A0DBAC21B23A140065B2BD /* career_location_bg_small@3x.png in Resources */,
 				4EBBC57A212FEF3F00396BF5 /* error_red@3x.png in Resources */,
 				C5EEAB39CFA076691E67BA42 /* info.png in Resources */,
+				A3E381FA2217DD2B00BFB227 /* icon-star@3x.png in Resources */,
 				18CFB0FF216F3B69002CC9D0 /* foryou@3x.png in Resources */,
 				A36B9DC221CA509D00A54263 /* icons8-delete_forever.png in Resources */,
 				4E36C0C421DF6419003451E6 /* Setting_general@2x.png in Resources */,
@@ -5482,6 +5615,7 @@
 				C5EEAC84691A5246841E615B /* info@2x.png in Resources */,
 				A3B340B521C22084008EB36A /* loading.gif in Resources */,
 				18EEFCA621CD0746007F5E2B /* icon_sort@3x.png in Resources */,
+				188FC839221AE3F70005CF2A /* ic_course_lessons@3x.png in Resources */,
 				C5EEA9C145CEE1C7091EA50F /* info@3x.png in Resources */,
 				18CFB0FD216F3B69002CC9D0 /* foryou@2x.png in Resources */,
 				18A0DBA521B1877F0065B2BD /* icon_arrow_down_small.png in Resources */,
@@ -5490,6 +5624,7 @@
 				18106AAB218ACC0D00EEE2DC /* FilterIssues@2x.png in Resources */,
 				A3E752F0217E35010087713D /* TipSheet@3x.png in Resources */,
 				A3BA6DF921AFD13B00D83156 /* icons8-marker.png in Resources */,
+				188FC83E221AE3F70005CF2A /* ic_course_lessons.png in Resources */,
 				A3E752EB217E35010087713D /* Interview@3x.png in Resources */,
 				E11E18380D1E9ABDF5847389 /* back_arrow@2x.png in Resources */,
 				A3E752F8217E35010087713D /* Podcast@3x.png in Resources */,
@@ -5536,6 +5671,7 @@
 				4E36C0C321DF6419003451E6 /* Setting_notifications@3x.png in Resources */,
 				E11E1121C662C4950DC65395 /* home.png in Resources */,
 				A3BDC55F21D7AC2A0077ED25 /* Applied@3x.png in Resources */,
+				188FC83C221AE3F70005CF2A /* ic_course_quizzes.png in Resources */,
 				E11E14F9F8B1AE1BBF1EAB35 /* home@2x.png in Resources */,
 				4E3303BB21D5F27000FF048C /* noresult_search@2x.png in Resources */,
 				18FE61DB21D1034200C0CEF3 /* icon_u_unsel@3x.png in Resources */,
@@ -5586,6 +5722,7 @@
 				18DE4D0C216DFF5000A6C61D /* nonBookmarks@3x.png in Resources */,
 				E11E14C7914B59B039F561AE /* a_light@2x.png in Resources */,
 				E11E15E166C53A956139FF69 /* a_light@3x.png in Resources */,
+				18BE375C221A94DE00D4148B /* ic_arrow_right_white@3x.png in Resources */,
 				E11E11A5C7BFFF5BFFDC2BE7 /* a.png in Resources */,
 				4E94AE2421AE74C2009CAB7F /* more-light.png in Resources */,
 				E11E1778665A0418AC687E01 /* a@2x.png in Resources */,
@@ -5618,6 +5755,7 @@
 				A36B9D9D21CA092A00A54263 /* icons8-user@2x.png in Resources */,
 				A3E752F9217E35010087713D /* TipSheet@2x.png in Resources */,
 				E11E17396364CA2877E04550 /* bookmark.png in Resources */,
+				A3E381F62217DD1A00BFB227 /* icon-star.png in Resources */,
 				E11E1ACA983C5A640D2A8851 /* bookmark@2x.png in Resources */,
 				4E51695B21B13704005B8533 /* more-reviews@2x.png in Resources */,
 				4E36C0C821DF6419003451E6 /* Setting_resetpwd@2x.png in Resources */,
@@ -5640,6 +5778,7 @@
 				E11E17660111A7577F8FEE1B /* download@2x.png in Resources */,
 				4EF1098621B0D36E0013C34C /* skills_career@2x.png in Resources */,
 				18FE61DC21D1034200C0CEF3 /* icon_d_unsel@3x.png in Resources */,
+				18BE375B221A94DE00D4148B /* ic_arrow_right_white@2x.png in Resources */,
 				E11E1F7EA0D81ABAA1082A58 /* download@3x.png in Resources */,
 				18106AAD218ACC0D00EEE2DC /* FilterIssues.png in Resources */,
 				18A0DBA421B1877F0065B2BD /* icon_arrow_down_small@2x.png in Resources */,
@@ -5711,6 +5850,7 @@
 				E11E1CCB31F80179E4A44737 /* dental-blue.png in Resources */,
 				E11E1095E5C6D1F1401D76FD /* dental-blue@2x.png in Resources */,
 				E11E140FFF32FC1B796AFA14 /* dental-blue@3x.png in Resources */,
+				A3E381F22217DC7B00BFB227 /* cellular-connection-full.png in Resources */,
 				E11E12ECAB7DE6ED63C4D2A0 /* edit_disabled.png in Resources */,
 				E11E18FA6FFF6F2DB293AB64 /* edit_disabled@2x.png in Resources */,
 				A36BAFD02190A3BE0026BD18 /* sponsor_align.png in Resources */,
@@ -5726,6 +5866,7 @@
 				E11E141FD10FF73E363E68E4 /* edit_normal@2x.png in Resources */,
 				4E94AE2721AE74C2009CAB7F /* findJob.png in Resources */,
 				E11E17060550DD3D69BB4B9E /* edit_normal@3x.png in Resources */,
+				18BE3750221A5C0B00D4148B /* ic_course_level@3x.png in Resources */,
 				E11E187D6C87EE6E7F5A6BC4 /* edit_photo.png in Resources */,
 				E11E12C211BB877600A8E23C /* edit_photo@3x.png in Resources */,
 				E11E1427731756A4C6B97992 /* edit_pressed.png in Resources */,
@@ -5771,6 +5912,7 @@
 				E11E19B5AAAAC717A7E7A8B1 /* search_pressed@2x.png in Resources */,
 				E11E1CD01A5568FEDC54E1AE /* search_pressed@3x.png in Resources */,
 				4EE52D6D2154CFA10076DC3D /* desc@2x.png in Resources */,
+				18BE375A221A94DE00D4148B /* ic_arrow_right_white.png in Resources */,
 				18CFB0FE216F3B69002CC9D0 /* foryou.png in Resources */,
 				A314772A21A6A1EC0046942C /* fullscreen.png in Resources */,
 				18DE4D0E216DFF5000A6C61D /* nonBookmarks.png in Resources */,
@@ -5796,6 +5938,7 @@
 				18B4ADB221E5F9F70087917E /* icons8-help@2x.png in Resources */,
 				A3E752E7217E35010087713D /* Animation@3x.png in Resources */,
 				E11E15D9EE863F0FB9D7CE3B /* menu-bookmark@2x.png in Resources */,
+				18BE374A221A5C0B00D4148B /* ic_course_publish_date.png in Resources */,
 				E11E197014A7163353C9716C /* menu-bookmark@3x.png in Resources */,
 				A372957A21912D4B00B36409 /* More-Options@2x.png in Resources */,
 				4E51695821B13704005B8533 /* more-me@2x.png in Resources */,
@@ -5829,19 +5972,24 @@
 				A3BD2AC421B9540B00138353 /* Updated@2x.png in Resources */,
 				E11E1FAC1F6BE50220F80693 /* menu-community@3x.png in Resources */,
 				18DFACC421E8D14100EF528A /* icon_arrow_up@2x.png in Resources */,
+				188FC83B221AE3F70005CF2A /* ic_course_lessons@2x.png in Resources */,
 				18A0DBA321B1877F0065B2BD /* icon_arrow_down_small@3x.png in Resources */,
 				A338E2352214303200FCCCA0 /* lms-search-light.png in Resources */,
 				E11E1CE038DC68FF7C932E10 /* menu-dev_light.png in Resources */,
 				E11E162727181CE585B4D828 /* menu-dev_light@2x.png in Resources */,
 				4E36C0C021DF6419003451E6 /* Setting_resetpwd@3x.png in Resources */,
+				18BE374E221A5C0B00D4148B /* ic_course_publish_date@3x.png in Resources */,
+				18BE3752221A5C0B00D4148B /* ic_course_publish_date@2x.png in Resources */,
 				E11E13F06AD2F0C741CCC653 /* menu-dev_light@3x.png in Resources */,
 				E11E1A864C6724CAD4A89937 /* menu-dev.png in Resources */,
 				4EF1098D21B0D3900013C34C /* company_career@3x.png in Resources */,
 				E11E1A2A9D2AB9779683CF42 /* menu-dev@2x.png in Resources */,
 				A36BAFCE2190A3BE0026BD18 /* sponsor_nobel.png in Resources */,
+				18BE3748221A5C0B00D4148B /* ic_course_time.png in Resources */,
 				186393A621B02EC100512CBB /* icon_arrow_down.png in Resources */,
 				E11E126FAFBE2C82E8C1DC34 /* menu-dev@3x.png in Resources */,
 				4E94ADEA21AE3D75009CAB7F /* myJobs-light@3x.png in Resources */,
+				18BE3749221A5C0B00D4148B /* ic_course_star@3x.png in Resources */,
 				4E23E0872152A37200EDCE08 /* star_unselect@3x.png in Resources */,
 				E11E1454B1E079C526298B9F /* menu-dso_light.png in Resources */,
 				E11E1727E478BEC789AB1876 /* menu-dso_light@2x.png in Resources */,
@@ -5860,12 +6008,14 @@
 				A3B340CE21C3E39D008EB36A /* noun_Business Records@2x.png in Resources */,
 				E11E17DA1750DC3EFFFBC584 /* menu-edu_light@2x.png in Resources */,
 				4E5BA7FF217721D400386598 /* contentPic_bg@3x.png in Resources */,
+				188FC83D221AE3F70005CF2A /* ic_course_certificate@2x.png in Resources */,
 				4E5BA802217835CE00386598 /* back_fullScreen@2x.png in Resources */,
 				A956C5392154CC4B00E528EB /* Icon-Search@3x.png in Resources */,
 				E11E1D5A2B13CF9CC09A2BBD /* menu-edu_light@3x.png in Resources */,
 				4E94AE1521AE74A4009CAB7F /* alert@3x.png in Resources */,
 				4E5564C12154A122008C9A6D /* nonSearch@2x.png in Resources */,
 				A935BE74217737EB007F3619 /* slide-3.png in Resources */,
+				18BE3753221A5C0B00D4148B /* ic_course_star.png in Resources */,
 				E11E14AFA8FAF941E70C9DCC /* menu-edu.png in Resources */,
 				A3BA6DF421AFD10100D83156 /* icons8-banknotes.png in Resources */,
 				E11E1B5B78D3713C6A0487ED /* menu-edu@2x.png in Resources */,
@@ -5887,6 +6037,7 @@
 				4E94AE3B21AE7E35009CAB7F /* career-profiles@2x.png in Resources */,
 				E11E17D0775A0C4B5C6221FD /* menu-msg.png in Resources */,
 				E11E1C0A53F72CB01B64B2AB /* menu-msg@2x.png in Resources */,
+				188FC837221AE3F70005CF2A /* ic_course_quizzes@3x.png in Resources */,
 				186393A021B02D6E00512CBB /* icon_attention@2x.png in Resources */,
 				E11E18003C13FEE9AA408B78 /* menu-msg@3x.png in Resources */,
 				E11E13FE238DCC94860762B6 /* menu-profile_light.png in Resources */,
@@ -5956,12 +6107,14 @@
 				4E51696221B15B50005B8533 /* down_list@3x.png in Resources */,
 				C5EEA845D7CCB783DC0DFD8E /* box-light@2x.png in Resources */,
 				4E94AE3821AE7E35009CAB7F /* career-me@2x.png in Resources */,
+				18BE3751221A5C0B00D4148B /* ic_course_star@2x.png in Resources */,
 				C5EEACBA33B0A593C425AAA9 /* box-light@3x.png in Resources */,
 				C5EEA908DEE2C08570DE20EE /* box.png in Resources */,
 				C5EEA8E996DC3091A2777666 /* box@2x.png in Resources */,
 				A3B340CA21C3E39D008EB36A /* noun_Business Records@3x.png in Resources */,
 				18E3405821EB578D00696E04 /* arrow_down_gray@3x.png in Resources */,
 				4EF1098021B0D36E0013C34C /* salary_career@2x.png in Resources */,
+				A3E381F42217DD0000BFB227 /* Star-white.png in Resources */,
 				C5EEAF6DB57F48CDBF85EBC0 /* box@3x.png in Resources */,
 				C5EEAA1BE7B80E5D3B12ABA7 /* download-light.png in Resources */,
 				A3A5B338218D61C500242E71 /* ThumCollectionViewCell.xib in Resources */,
@@ -5985,6 +6138,7 @@
 				C5EEAE4588DC292FBB5CC36D /* close-white.png in Resources */,
 				C5EEA7F6ACBED69107F03114 /* close-white@2x.png in Resources */,
 				4E4A161521BA5816003F198B /* career_searchIcon@3x.png in Resources */,
+				A3E381F82217DD2300BFB227 /* icon-star@2x.png in Resources */,
 				A3BD2AC521B9540B00138353 /* Closed@2x.png in Resources */,
 				C5EEADAE5B98B45C2DB8B521 /* close-white@3x.png in Resources */,
 				4E528B1D21704BE3008C151B /* pause@2x.png in Resources */,
@@ -6000,7 +6154,9 @@
 				C5EEA27B3C9055E87FEC15F8 /* seg-bg.png in Resources */,
 				A3B340D521C3E39D008EB36A /* noun_receipt@2x.png in Resources */,
 				C5EEA8B093288B7A8BE578EB /* seg-bg@2x.png in Resources */,
+				188FC83F221AE3F70005CF2A /* ic_course_certificate.png in Resources */,
 				18B4ADB421E5F9F70087917E /* icons8-help@3x.png in Resources */,
+				188FC838221AE3F70005CF2A /* ic_course_quizzes@2x.png in Resources */,
 				C5EEA00883327B721F4F63A6 /* seg-bg@3x.png in Resources */,
 				C5EEA379DDA6B6B03C6A73E3 /* art-img.png in Resources */,
 				C5EEA89E2D291D737E8028A9 /* book9-light.png in Resources */,
@@ -6198,6 +6354,7 @@
 				A3D0C326220057FF00455E0E /* EducationDownloadsViewController.m in Sources */,
 				4E23522E213D12CB003BA59B /* UITextFieldCustom.m in Sources */,
 				A3BDC57C21EC95690077ED25 /* GeneralSettingsModel.m in Sources */,
+				A37CE3A6221C0EA000C280DF /* YCMenuView.m in Sources */,
 				4E17B3EA2176250800F75390 /* AddReviewViewController.m in Sources */,
 				A3DF39A02189A280006F84DC /* ExpandingTableViewController.swift in Sources */,
 				C5EEA02BC51E205A72A959F8 /* Colors.m in Sources */,
@@ -6246,6 +6403,7 @@
 				4E94ADC321ACE8D0009CAB7F /* CareerFindJobViewController.m in Sources */,
 				4E2352C4213D5B7C003BA59B /* EditEduViewController.m in Sources */,
 				18A0DB9521B12C1B0065B2BD /* CompanyReviewModel.m in Sources */,
+				18BE3756221A890A00D4148B /* DateTime.m in Sources */,
 				4E1957432137D0F100420563 /* LinkedinAuthorizationNavBar.m in Sources */,
 				4E23522C213D12CB003BA59B /* UpdateViewController.m in Sources */,
 				4EBCE6B0212A595B00A0672D /* ForgotViewController.m in Sources */,
@@ -6276,6 +6434,7 @@
 				F929473221A3AE1400383143 /* DsoToast.m in Sources */,
 				4E1957452137D0F100420563 /* LinkedInAppSettings.m in Sources */,
 				4E528B2A2170C8BA008C151B /* GSKViewController.m in Sources */,
+				18A433CF2219134B00E9C31A /* CourseDetailReviewsViewController.m in Sources */,
 				4EBCE6C8212D0DF000A0672D /* MagazineTableViewCell.m in Sources */,
 				18B83B082173557D00130DB6 /* YBImageBrowserProgressView.m in Sources */,
 				18B83B212173596700130DB6 /* DentistImageBrowserToolBar.m in Sources */,
@@ -6322,6 +6481,7 @@
 				1845BC9421C947880026A1B1 /* CompanyReviewsViewController.m in Sources */,
 				18CFB0F0216EF285002CC9D0 /* RMDownloadIndicator.m in Sources */,
 				A3BA6DDE21AEC05800D83156 /* JobBookmarkModel.m in Sources */,
+				A3E381F02216C5A800BFB227 /* CourseTableViewCell.m in Sources */,
 				A99176FD2176D7A300788D2C /* DataControl.m in Sources */,
 				18B83B182173557D00130DB6 /* YBImageBrowseCellData.m in Sources */,
 				C5EEAF6A040452F10D489279 /* NSString+myextend.m in Sources */,
@@ -6371,7 +6531,9 @@
 				E11E1ADBC83B9657D14256E2 /* UserConfig.m in Sources */,
 				E11E13D762D175EF23115B92 /* AppDelegate.m in Sources */,
 				18B83B152173557D00130DB6 /* YBIBWebImageManager.m in Sources */,
+				18A433D2221913D200E9C31A /* CourseDetailLessonsViewController.m in Sources */,
 				A3BA6DDB21AEA36100D83156 /* JobModel.m in Sources */,
+				A37CE3A9221D4EA400C280DF /* SponsoredCourseViewController.m in Sources */,
 				4E0C115521806147007DC63D /* CMSModel.m in Sources */,
 				18A23FE021BBE4BC006CB432 /* CompanyDetailReviewsViewController.m in Sources */,
 				4E5BA7F32176E1EB00386598 /* ViewAllViewController.m in Sources */,
@@ -6472,6 +6634,7 @@
 				18A23FDD21BBE40F006CB432 /* AllowMultiGestureTableView.m in Sources */,
 				C5EEAE6124816A6F31F4FA05 /* GroupListPage.m in Sources */,
 				4E474D4121B56EBC0002F5A1 /* CDZPicker.m in Sources */,
+				A3E381EA2216C03D00BFB227 /* GenericCoursesModel.m in Sources */,
 				C5EEAA627C4FFCCCA4202E92 /* MyStyle.m in Sources */,
 				C5EEAC52F1B1B7FA36FDBEA2 /* TitleSwitchView.m in Sources */,
 				1866AFFE2179DF3900970CAB /* DentistTabView.m in Sources */,
@@ -6515,6 +6678,7 @@
 				18DA49A821897EE200DA2292 /* UnitePageCell.m in Sources */,
 				C5EEA4F5057D8AD20840551B /* NSDictionary+myextend.m in Sources */,
 				18A23FCB21BBB4F0006CB432 /* CompanyDetailDescriptionViewController.m in Sources */,
+				A3E381ED2216C55600BFB227 /* EducationCategoryCourseViewController.m in Sources */,
 				A3DF399C2189A280006F84DC /* BasePageCollectionCell.swift in Sources */,
 				4E36C0CC21DF68AA003451E6 /* SettingTableViewCell.m in Sources */,
 				18A0DBB721B565520065B2BD /* JobsOfDSODetailTableViewCell.m in Sources */,

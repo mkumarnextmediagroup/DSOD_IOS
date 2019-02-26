@@ -18,10 +18,15 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface CourseTableViewCell : UITableViewCell
+
 @property (nonatomic,strong) GenericCoursesModel *model;
 @property (nonatomic,copy) NSIndexPath *indexPath;
 @property (nonatomic,assign) BOOL isHideSponsor;
 @property (nonatomic,weak) id<CourseTableViewCellDelegate> detegate;
+
+
+@property (nonatomic,weak) UIViewController *vc;
+@property (nonatomic, copy) void(^bookmarkStatusChanged)(GenericCoursesModel *model) ;
 @end
 
 NS_ASSUME_NONNULL_END

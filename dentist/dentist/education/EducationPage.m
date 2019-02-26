@@ -15,6 +15,7 @@
 #import "CourseDetailViewController.h"
 #import "YCMenuView.h"
 #import "SponsoredCourseViewController.h"
+#import "EducationSearchViewController.h"
 
 @interface EducationPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,YCMenuViewDelegate,CourseTableViewCellDelegate>
 {
@@ -47,9 +48,10 @@
 
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"LEARNING";
-        item.rightBarButtonItems = @[
-            [self navBarText:@"see all" target:self action:@selector(goCategoryPage)]
-        ];
+//        item.rightBarButtonItems = @[
+//            [self navBarText:@"see all" target:self action:@selector(goCategoryPage)]
+//        ];
+    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
     
     myTable =[[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     [self.view addSubview:myTable];
@@ -119,6 +121,17 @@
     [[[[[tabView.layoutMaker leftParent:0] rightParent:0] below:categorylabel offset:10] heightEq:51] install];
     
     return panel;
+}
+
+/**
+ go to search page
+ */
+-(void)searchClick
+{
+    EducationSearchViewController *searchview=[EducationSearchViewController new];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchview];
+    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:navVC animated:NO completion:NULL];
 }
 
 /**
@@ -327,6 +340,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CourseTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CourseTableViewCell class]) forIndexPath:indexPath];
+    cell.backgroundColor=[UIColor whiteColor];
     cell.detegate=self;
     GenericCoursesModel *model;
     if (self->isCategoryType) {
@@ -348,6 +362,7 @@
     }
     
     cell.model=model;
+    cell.vc = self;
     return cell;
     
     

@@ -333,6 +333,20 @@
 + (void)queryLMSGenericCourses:(NSInteger)pagenumber curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
 + (void)queryLMSGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
 + (void)queryLMSGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId featured:(NSInteger)featured  sponsoredId:(NSString *_Nullable)sponsoredId isSponsored:(NSInteger)isSponsored  completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
++ (void)queryLMSGenericCourses:(NSString*)keyword pageNumber:(NSInteger)pagenumber completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
+/**
+ query LMS course datas by course id or category id
+ @param keyword keyword
+ @param pagenumber page number
+ @param pagesize page size
+ @param curriculumId course id
+ @param categoryId category id
+ @param featured featured
+ @param sponsoredId sponsoredId
+ @param isSponsored isSponsored
+ @param completed response callback function
+ */
++ (void)queryLMSGenericCourses:(NSString*)keyword pageNumber:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId featured:(NSInteger)featured  sponsoredId:(NSString *)sponsoredId isSponsored:(NSInteger)isSponsored  completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
 
 + (void)queryLMSFeaturedGenericCourses:(NSInteger)pagenumber curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
 + (void)queryLMSFeaturedGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *_Nullable)curriculumId categoryId:(NSString *_Nullable)categoryId completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed;
@@ -378,4 +392,12 @@
  @param completed response callback function
  */
 + (void)lmsDelBookmarkByCourseId:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg))completed;
+
+/**
+ Get a list of courses with bookmarks
+ 
+ @param pageNumber Page Number of Request
+ @param completed response callback function
+ */
++ (void)lmsQueryBookmarks:(int)pageNumber completed:(void(^)(BOOL success,NSString *msg,NSArray<BookmarkModel *> *array))completed;
 @end

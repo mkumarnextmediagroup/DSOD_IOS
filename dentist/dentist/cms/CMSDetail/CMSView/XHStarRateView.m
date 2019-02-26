@@ -7,9 +7,13 @@
 //
 
 #import "XHStarRateView.h"
-
+#import "UIImage+customed.h"
+#import "Common.h"
 #define ForegroundStarImage @"star_select"
 #define BackgroundStarImage @"star_unselect"
+
+#define ForegroundStarImage2 @"icon-star"
+#define BackgroundStarImage2 @"ic_course_star"
 
 typedef void(^completeBlock)(CGFloat currentScore);
 
@@ -31,6 +35,17 @@ typedef void(^completeBlock)(CGFloat currentScore);
     if (self = [super initWithFrame:frame]) {
         _numberOfStars = 5;
         _rateStyle = WholeStar;
+        _startStyle=StarStyleNormal;
+        [self createStarView];
+    }
+    return self;
+}
+
+-(instancetype)initWithFrame:(CGRect)frame starStyle:(StarStyle)starStyle {
+    if (self = [super initWithFrame:frame]) {
+        _numberOfStars = 5;
+        _rateStyle = WholeStar;
+        _startStyle =starStyle;
         [self createStarView];
     }
     return self;
@@ -40,6 +55,7 @@ typedef void(^completeBlock)(CGFloat currentScore);
     if (self = [super initWithFrame:frame]) {
         _numberOfStars = numberOfStars;
         _rateStyle = rateStyle;
+        _startStyle=StarStyleNormal;
         _isAnimation = isAnimation;
         _delegate = delegate;
         [self createStarView];
@@ -52,6 +68,7 @@ typedef void(^completeBlock)(CGFloat currentScore);
     if (self = [super initWithFrame:frame]) {
         _numberOfStars = 5;
         _rateStyle = WholeStar;
+        _startStyle=StarStyleNormal;
         _complete = ^(CGFloat currentScore){ finish(currentScore); };
         [self createStarView];
     }
@@ -62,6 +79,7 @@ typedef void(^completeBlock)(CGFloat currentScore);
     if (self = [super initWithFrame:frame]) {
         _numberOfStars = numberOfStars;
         _rateStyle = rateStyle;
+        _startStyle=StarStyleNormal;
         _isAnimation = isAnimation;
         _complete = ^(CGFloat currentScore) { finish(currentScore); };
         [self createStarView];
@@ -72,8 +90,14 @@ typedef void(^completeBlock)(CGFloat currentScore);
 #pragma mark - private Method
 -(void)createStarView{
     
-    self.foregroundStarView = [self createStarViewWithImage:ForegroundStarImage];
-    self.backgroundStarView = [self createStarViewWithImage:BackgroundStarImage];
+    UIImage *foreimage=[UIImage imageNamed:ForegroundStarImage];
+    UIImage *backimage=[UIImage imageNamed:BackgroundStarImage];;
+    if (_startStyle == StarStyleCourse) {
+        foreimage=[UIImage imageNamed:ForegroundStarImage2];;
+        backimage=[foreimage imageChangeColor:Colors.strokes];
+    }
+    self.foregroundStarView = [self createStarViewWithImage:foreimage];
+    self.backgroundStarView = [self createStarViewWithImage:backimage];
     self.foregroundStarView.frame = CGRectMake(0, 0, self.bounds.size.width*_currentScore/self.numberOfStars, self.bounds.size.height);
     
     [self addSubview:self.backgroundStarView];
@@ -85,14 +109,33 @@ typedef void(^completeBlock)(CGFloat currentScore);
 
 }
 
-- (UIView *)createStarViewWithImage:(NSString *)imageName {
+- (UIView *)createStarViewWithImageName:(NSString *)imageName {
     UIView *view = [[UIView alloc] initWithFrame:self.bounds];
     view.clipsToBounds = YES;
     view.backgroundColor = [UIColor clearColor];
+    UIImage *starimage=[UIImage imageNamed:imageName];
+    
     for (NSInteger i = 0; i < self.numberOfStars; i ++)
     {
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
-        imageView.frame = CGRectMake(i * self.bounds.size.width / self.numberOfStars, 0, self.bounds.size.width / self.numberOfStars, self.bounds.size.height);
+        CGFloat starimagex=i * self.bounds.size.width / self.numberOfStars;
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:starimage];
+        imageView.frame = CGRectMake(starimagex, 0, self.bounds.size.width / self.numberOfStars, self.bounds.size.height);
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [view addSubview:imageView];
+    }
+    return view;
+}
+
+- (UIView *)createStarViewWithImage:(UIImage *)starimage {
+    UIView *view = [[UIView alloc] initWithFrame:self.bounds];
+    view.clipsToBounds = YES;
+    view.backgroundColor = [UIColor clearColor];
+    
+    for (NSInteger i = 0; i < self.numberOfStars; i ++)
+    {
+        CGFloat starimagex=i * self.bounds.size.width / self.numberOfStars;
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:starimage];
+        imageView.frame = CGRectMake(starimagex, 0, self.bounds.size.width / self.numberOfStars, self.bounds.size.height);
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         [view addSubview:imageView];
     }

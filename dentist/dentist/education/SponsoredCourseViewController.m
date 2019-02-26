@@ -12,6 +12,7 @@
 #import "GenericCoursesModel.h"
 #import "CourseTableViewCell.h"
 #import "CourseDetailViewController.h"
+#import "EducationSearchViewController.h"
 
 @interface SponsoredCourseViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -27,6 +28,8 @@
     [super viewDidLoad];
     UINavigationItem *item = [self navigationItem];
     item.title=@"LEARNING";
+    
+    item.rightBarButtonItem = [self navBarImage:@"searchWhite" target:self action:@selector(searchClick)];
     
     item.leftBarButtonItem = [self navBarBack:self action:@selector(back)];
     CGFloat _topBarH = 0;
@@ -89,6 +92,15 @@
     [gskBtn setBackgroundImage:[UIImage imageNamed:sponsorimgname] forState:UIControlStateNormal];
     
     return panel;
+}
+
+/**
+ go to search page
+ */
+-(void)searchClick
+{
+    EducationSearchViewController *searchview=[EducationSearchViewController new];
+    [self.navigationController pushViewController:searchview animated:YES];
 }
 
 /**
@@ -206,6 +218,7 @@
     if (self->infoArr && self->infoArr.count>indexPath.row) {
         GenericCoursesModel *model=self->infoArr[indexPath.row];
         cell.model=model;
+        cell.vc = self;
     }
     return cell;
     

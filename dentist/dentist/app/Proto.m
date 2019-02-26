@@ -3089,6 +3089,32 @@
  */
 + (void)queryLMSGenericCourses:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId featured:(NSInteger)featured  sponsoredId:(NSString *)sponsoredId isSponsored:(NSInteger)isSponsored  completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
 {
+    [Proto queryLMSGenericCourses:nil pageNumber:pagenumber pagesize:pagesize curriculumId:curriculumId categoryId:categoryId featured:featured sponsoredId:sponsoredId isSponsored:isSponsored completed:completed];
+}
+
+/**
+ query LMS course datas by keyword
+ @param keyword keyword
+ @param pagenumber page number
+ */
++ (void)queryLMSGenericCourses:(NSString*)keyword pageNumber:(NSInteger)pagenumber completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed{
+    [Proto queryLMSGenericCourses:keyword pageNumber:pagenumber pagesize:10 curriculumId:nil categoryId:nil featured:-1 sponsoredId:nil isSponsored:-1 completed:completed];
+}
+
+/**
+ query LMS course datas by course id or category id
+ @param keyword keyword
+ @param pagenumber page number
+ @param pagesize page size
+ @param curriculumId course id
+ @param categoryId category id
+ @param featured featured
+ @param sponsoredId sponsoredId
+ @param isSponsored isSponsored
+ @param completed response callback function
+ */
++ (void)queryLMSGenericCourses:(NSString*)keyword pageNumber:(NSInteger)pagenumber pagesize:(NSInteger)pagesize curriculumId:(NSString *)curriculumId categoryId:(NSString *)categoryId featured:(NSInteger)featured  sponsoredId:(NSString *)sponsoredId isSponsored:(NSInteger)isSponsored  completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed
+{
     NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
     if (pagenumber<=0) {
         pagenumber=1;
@@ -3114,7 +3140,10 @@
     if (![NSString isBlankString:sponsoredId]) {
         [paradic setObject:sponsoredId forKey:@"sponsoredId"];
     }
-    
+    if(![NSString isBlankString:keyword]){
+        [paradic setObject:keyword forKey:@"searchValue"];
+    }
+
     [self postAsync3:@"/generic/courses" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
@@ -3307,6 +3336,30 @@
     }];
 }
 
-
+/**
+ Get a list of courses with bookmarks
+ @param pageNumber Page Number of Request
+ @param completed response callback function
+ */
++ (void)lmsQueryBookmarks:(int)pageNumber completed:(void(^)(BOOL success,NSString *msg,NSArray<BookmarkModel *> *array))completed {
+    [self getAsync:[NSString stringWithFormat:@"bookmark/bookmarks?pgnumber=%d&pgsize=10",pageNumber]
+                 dic:nil modular:@"lms" callback:^(HttpResult *r) {
+                     
+         NSMutableArray *resultArray = [NSMutableArray array];
+         NSArray *arr = r.resultMap[@"data"];
+         for (NSDictionary *d in arr) {
+             GenericCoursesModel *item = [[GenericCoursesModel alloc] initWithJson:jsonBuild(d[@"course"])];
+             item.isBookmark = YES;
+             item.authors = d[@"authors"];
+             [resultArray addObject:item];
+         }
+         foreTask(^{
+             if (completed) {
+                 completed(r.OK , r.msg , resultArray);
+             }
+         });
+        
+    }];
+}
 
 @end

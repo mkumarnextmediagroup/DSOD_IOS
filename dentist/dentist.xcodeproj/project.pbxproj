@@ -302,6 +302,8 @@
 		43B72530217651A8000F6797 /* KiwiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252F217651A8000F6797 /* KiwiTests.m */; };
 		43D98CAD219DAE04004C3FBD /* FontsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D98CAC219DAE04004C3FBD /* FontsTests.m */; };
 		43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E409AB21B24E650016E102 /* CMSBookmarkControllerTests.m */; };
+		43E5794A2222832300748250 /* EducationPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E579492222832300748250 /* EducationPageTests.m */; };
+		43E5794C222298BB00748250 /* EducationBookmarksViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E5794B222298BB00748250 /* EducationBookmarksViewControllerTests.m */; };
 		43EBDF2521CF5E6600C3AAB7 /* RMDisplayLabelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43EBDF2421CF5E6600C3AAB7 /* RMDisplayLabelTests.m */; };
 		43EBDF2821CF634A00C3AAB7 /* RMDownloadIndicatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43EBDF2721CF634A00C3AAB7 /* RMDownloadIndicatorTests.m */; };
 		43EBDF2B21CF74E600C3AAB7 /* UIViewExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43EBDF2A21CF74E600C3AAB7 /* UIViewExtensionTests.m */; };
@@ -1520,6 +1522,8 @@
 		43B7252F217651A8000F6797 /* KiwiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KiwiTests.m; sourceTree = "<group>"; };
 		43D98CAC219DAE04004C3FBD /* FontsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FontsTests.m; sourceTree = "<group>"; };
 		43E409AB21B24E650016E102 /* CMSBookmarkControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSBookmarkControllerTests.m; sourceTree = "<group>"; };
+		43E579492222832300748250 /* EducationPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationPageTests.m; sourceTree = "<group>"; };
+		43E5794B222298BB00748250 /* EducationBookmarksViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationBookmarksViewControllerTests.m; sourceTree = "<group>"; };
 		43EBDF2421CF5E6600C3AAB7 /* RMDisplayLabelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMDisplayLabelTests.m; sourceTree = "<group>"; };
 		43EBDF2721CF634A00C3AAB7 /* RMDownloadIndicatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMDownloadIndicatorTests.m; sourceTree = "<group>"; };
 		43EBDF2A21CF74E600C3AAB7 /* UIViewExtensionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIViewExtensionTests.m; sourceTree = "<group>"; };
@@ -3652,6 +3656,7 @@
 		43B72528217650A1000F6797 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				43FCD8A7221E54C8001685CE /* Education */,
 				1804B48A2205B56F00F9A75A /* Settings */,
 				432136F121E39E4D00ADF614 /* Careers */,
 				432136EE21E39B8E00ADF614 /* EventsPage */,
@@ -3736,6 +3741,15 @@
 				43277E8D217F523B008B3240 /* RegControllerTests.m */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		43FCD8A7221E54C8001685CE /* Education */ = {
+			isa = PBXGroup;
+			children = (
+				43E579492222832300748250 /* EducationPageTests.m */,
+				43E5794B222298BB00748250 /* EducationBookmarksViewControllerTests.m */,
+			);
+			path = Education;
 			sourceTree = "<group>";
 		};
 		4E0C11562181C740007DC63D /* Model */ = {
@@ -6331,6 +6345,8 @@
 				438BA12821B4065D005246C5 /* CmsDownloadsControllerTests.m in Sources */,
 				43B72530217651A8000F6797 /* KiwiTests.m in Sources */,
 				4344660321A5644C00811E94 /* UIScreenExtTests.m in Sources */,
+				43E5794A2222832300748250 /* EducationPageTests.m in Sources */,
+				43E5794C222298BB00748250 /* EducationBookmarksViewControllerTests.m in Sources */,
 				432136E021E33F8200ADF614 /* UniteContentTests.m in Sources */,
 				43597BFD21CCDBD60033E1C1 /* ArticleGSkItemViewTests.m in Sources */,
 				431AB5B221E5DD4D00AA79C9 /* CareerSearchViewControllerTests.m in Sources */,

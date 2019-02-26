@@ -3098,7 +3098,7 @@
  @param pagenumber page number
  */
 + (void)queryLMSGenericCourses:(NSString*)keyword pageNumber:(NSInteger)pagenumber completed:(void(^)(NSArray<GenericCoursesModel *> *array))completed{
-    [Proto queryLMSGenericCourses:nil pageNumber:pagenumber pagesize:10 curriculumId:nil categoryId:nil featured:-1 sponsoredId:nil isSponsored:-1 completed:completed];
+    [Proto queryLMSGenericCourses:keyword pageNumber:pagenumber pagesize:10 curriculumId:nil categoryId:nil featured:-1 sponsoredId:nil isSponsored:-1 completed:completed];
 }
 
 /**
@@ -3139,6 +3139,9 @@
     }
     if (![NSString isBlankString:sponsoredId]) {
         [paradic setObject:sponsoredId forKey:@"sponsoredId"];
+    }
+    if(![NSString isBlankString:keyword]){
+        [paradic setObject:keyword forKey:@"searchValue"];
     }
     
     [self postAsync3:@"/generic/courses" dic:paradic modular:@"lms" callback:^(HttpResult *r) {

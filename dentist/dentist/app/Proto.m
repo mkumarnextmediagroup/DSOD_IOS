@@ -2507,9 +2507,14 @@
         if (r.OK) {
             NSDictionary *dataDic =  r.resultMap[@"data"];
             if (dataDic && ![dataDic isKindOfClass:[NSNull class]]){
-                NSArray *objectId = [dataDic objectForKey:@"fileUrl"];
-                NSString *url = objectId[0];
-                completed(url);
+                if([dataDic objectForKey:@"fileUrl"] && [[dataDic objectForKey:@"fileUrl"] isKindOfClass:[NSArray class]]){
+                    NSArray *objectId = [dataDic objectForKey:@"fileUrl"];
+                    NSString *url = objectId[0];
+                    completed(url);
+                }else{
+                    completed(@"");
+                }
+                
             }else{
                 completed(@"");
             }
@@ -3144,7 +3149,7 @@
         [paradic setObject:keyword forKey:@"searchValue"];
     }
 
-    [self postAsync3:@"/generic/courses" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
+    [self postAsync3:@"generic/courses" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];
@@ -3202,7 +3207,7 @@
     if (![NSString isBlankString:categoryId]) {
         [paradic setObject:categoryId forKey:@"categoryId"];
     }
-    [self postAsync3:@"/generic/courses/interest" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
+    [self postAsync3:@"generic/courses/interest" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];

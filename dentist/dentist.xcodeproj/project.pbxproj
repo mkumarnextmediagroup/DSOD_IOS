@@ -594,7 +594,7 @@
 		A3729590219145F600B36409 /* UniteDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372958E219145F600B36409 /* UniteDetailCollectionViewCell.swift */; };
 		A3729591219145F600B36409 /* UniteDetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A372958F219145F600B36409 /* UniteDetailCollectionViewCell.xib */; };
 		A3729597219284F500B36409 /* DentistDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3729596219284F500B36409 /* DentistDataBaseManager.m */; };
-		A372959A219293F500B36409 /* DetinstDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3729599219293F500B36409 /* DetinstDownloadManager.m */; };
+		A372959A219293F500B36409 /* DentistDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3729599219293F500B36409 /* DentistDownloadManager.m */; };
 		A3739944219EBAE8004A5A94 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3739943219EBAE8004A5A94 /* Toast.swift */; };
 		A37CE3A6221C0EA000C280DF /* YCMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = A37CE3A5221C0E9F00C280DF /* YCMenuView.m */; };
 		A37CE3A9221D4EA400C280DF /* SponsoredCourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A37CE3A8221D4EA400C280DF /* SponsoredCourseViewController.m */; };
@@ -724,6 +724,10 @@
 		A3E752F9217E35010087713D /* TipSheet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3E752E4217E35010087713D /* TipSheet@2x.png */; };
 		A3EE38F62181AEF600C76F3A /* CMSModelComment.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EE38F52181AEF600C76F3A /* CMSModelComment.m */; };
 		A3EE38F92183214C00C76F3A /* BookmarkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EE38F82183214C00C76F3A /* BookmarkModel.m */; };
+		A3F928B02227D0F300255F13 /* DentistDownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F928AF2227D0F300255F13 /* DentistDownloadModel.m */; };
+		A3F928B32227D3EB00255F13 /* CommonConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F928B22227D3EB00255F13 /* CommonConfig.m */; };
+		A3F928B82227DF2000255F13 /* DentistNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F928B72227DF2000255F13 /* DentistNetworkReachabilityManager.m */; };
+		A3F928BB2227E38E00255F13 /* NSURLSession+CorrectedResumeData.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F928BA2227E38E00255F13 /* NSURLSession+CorrectedResumeData.m */; };
 		A3FF81F721EF3ED5002510C4 /* NSObject+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = A3FF81F621EF3ED5002510C4 /* NSObject+customed.m */; };
 		A935BE74217737EB007F3619 /* slide-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE6F217737EA007F3619 /* slide-3.png */; };
 		A935BE75217737EB007F3619 /* slide-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE70217737EA007F3619 /* slide-2.png */; };
@@ -1907,8 +1911,8 @@
 		A372958F219145F600B36409 /* UniteDetailCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UniteDetailCollectionViewCell.xib; sourceTree = "<group>"; };
 		A3729595219284F500B36409 /* DentistDataBaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DentistDataBaseManager.h; sourceTree = "<group>"; };
 		A3729596219284F500B36409 /* DentistDataBaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DentistDataBaseManager.m; sourceTree = "<group>"; };
-		A3729598219293F500B36409 /* DetinstDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetinstDownloadManager.h; sourceTree = "<group>"; };
-		A3729599219293F500B36409 /* DetinstDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetinstDownloadManager.m; sourceTree = "<group>"; };
+		A3729598219293F500B36409 /* DentistDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DentistDownloadManager.h; sourceTree = "<group>"; };
+		A3729599219293F500B36409 /* DentistDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DentistDownloadManager.m; sourceTree = "<group>"; };
 		A3739943219EBAE8004A5A94 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		A37CE3A4221C0E9F00C280DF /* YCMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCMenuView.h; sourceTree = "<group>"; };
 		A37CE3A5221C0E9F00C280DF /* YCMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCMenuView.m; sourceTree = "<group>"; };
@@ -2080,6 +2084,15 @@
 		A3EE38F52181AEF600C76F3A /* CMSModelComment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSModelComment.m; sourceTree = "<group>"; };
 		A3EE38F72183214C00C76F3A /* BookmarkModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarkModel.h; sourceTree = "<group>"; };
 		A3EE38F82183214C00C76F3A /* BookmarkModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookmarkModel.m; sourceTree = "<group>"; };
+		A3F928AE2227D0F300255F13 /* DentistDownloadModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DentistDownloadModel.h; sourceTree = "<group>"; };
+		A3F928AF2227D0F300255F13 /* DentistDownloadModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DentistDownloadModel.m; sourceTree = "<group>"; };
+		A3F928B12227D3EB00255F13 /* CommonConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonConfig.h; sourceTree = "<group>"; };
+		A3F928B22227D3EB00255F13 /* CommonConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonConfig.m; sourceTree = "<group>"; };
+		A3F928B52227DE1100255F13 /* DentistDownload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DentistDownload.h; sourceTree = "<group>"; };
+		A3F928B62227DF2000255F13 /* DentistNetworkReachabilityManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DentistNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		A3F928B72227DF2000255F13 /* DentistNetworkReachabilityManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DentistNetworkReachabilityManager.m; sourceTree = "<group>"; };
+		A3F928B92227E38E00255F13 /* NSURLSession+CorrectedResumeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+CorrectedResumeData.h"; sourceTree = "<group>"; };
+		A3F928BA2227E38E00255F13 /* NSURLSession+CorrectedResumeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+CorrectedResumeData.m"; sourceTree = "<group>"; };
 		A3FF81F521EF3ED5002510C4 /* NSObject+customed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+customed.h"; sourceTree = "<group>"; };
 		A3FF81F621EF3ED5002510C4 /* NSObject+customed.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+customed.m"; sourceTree = "<group>"; };
 		A935BE6F217737EA007F3619 /* slide-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-3.png"; sourceTree = "<group>"; };
@@ -4787,8 +4800,13 @@
 			children = (
 				A3729595219284F500B36409 /* DentistDataBaseManager.h */,
 				A3729596219284F500B36409 /* DentistDataBaseManager.m */,
-				A3729598219293F500B36409 /* DetinstDownloadManager.h */,
-				A3729599219293F500B36409 /* DetinstDownloadManager.m */,
+				A3729598219293F500B36409 /* DentistDownloadManager.h */,
+				A3729599219293F500B36409 /* DentistDownloadManager.m */,
+				A3F928AE2227D0F300255F13 /* DentistDownloadModel.h */,
+				A3F928AF2227D0F300255F13 /* DentistDownloadModel.m */,
+				A3F928B92227E38E00255F13 /* NSURLSession+CorrectedResumeData.h */,
+				A3F928BA2227E38E00255F13 /* NSURLSession+CorrectedResumeData.m */,
+				A3F928B52227DE1100255F13 /* DentistDownload.h */,
 			);
 			path = Download;
 			sourceTree = "<group>";
@@ -5185,6 +5203,10 @@
 				A3BDC51C21D22A120077ED25 /* JobsBookmarkManager.m */,
 				A3FF81F521EF3ED5002510C4 /* NSObject+customed.h */,
 				A3FF81F621EF3ED5002510C4 /* NSObject+customed.m */,
+				A3F928B12227D3EB00255F13 /* CommonConfig.h */,
+				A3F928B22227D3EB00255F13 /* CommonConfig.m */,
+				A3F928B62227DF2000255F13 /* DentistNetworkReachabilityManager.h */,
+				A3F928B72227DF2000255F13 /* DentistNetworkReachabilityManager.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -6466,6 +6488,7 @@
 				18B83B092173557D00130DB6 /* YBImageBrowserSheetView.m in Sources */,
 				A3BA6E0921B13D4E00D83156 /* JobApplyModel.m in Sources */,
 				4EBCE6B4212A5E1000A0672D /* NoIntenetViewController.m in Sources */,
+				A3F928B32227D3EB00255F13 /* CommonConfig.m in Sources */,
 				C5EEA70CAD83A3FEE9B6BD2C /* UILabel+customed.m in Sources */,
 				18DFACBF21E77CDF00EF528A /* FeedbackAndSupportViewController.m in Sources */,
 				4E1957462137D0F100420563 /* LinkedInHelper.m in Sources */,
@@ -6482,7 +6505,7 @@
 				4EF1097621B0D3260013C34C /* FilterView.m in Sources */,
 				A3729590219145F600B36409 /* UniteDetailCollectionViewCell.swift in Sources */,
 				A36B9DC821CB95BD00A54263 /* CareerAlertsAddViewController.m in Sources */,
-				A372959A219293F500B36409 /* DetinstDownloadManager.m in Sources */,
+				A372959A219293F500B36409 /* DentistDownloadManager.m in Sources */,
 				A3DF39A62189A280006F84DC /* TransitionDriver.swift in Sources */,
 				4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
@@ -6629,6 +6652,7 @@
 				C5EEA93A818CA571610A938C /* GroupLabelView.m in Sources */,
 				A3B340D821C8E852008EB36A /* CareerMeViewController.m in Sources */,
 				4E47252421C8E2E40076B824 /* UploadResumeView.m in Sources */,
+				A3F928B82227DF2000255F13 /* DentistNetworkReachabilityManager.m in Sources */,
 				A3FF81F721EF3ED5002510C4 /* NSObject+customed.m in Sources */,
 				A3BA6E1021B506D600D83156 /* CompanyJobsModel.m in Sources */,
 				4E94ADC921ACE906009CAB7F /* CareerAlertsViewController.m in Sources */,
@@ -6646,6 +6670,7 @@
 				C5EEA6D4E3D99C517A1F11F1 /* EditUserView.m in Sources */,
 				C5EEA1C6749DC002B0822BA4 /* UserCell.m in Sources */,
 				18E3405021EB549D00696E04 /* FAQSTableViewCell.m in Sources */,
+				A3F928B02227D0F300255F13 /* DentistDownloadModel.m in Sources */,
 				4E528AD2216DF9E5008C151B /* SBPauseOrPlayView.m in Sources */,
 				C5EEAE849A9D7BECFA31FC89 /* Pair.m in Sources */,
 				4E04999F21D0CA3B0001EFE0 /* DSOProfileSearchPage.m in Sources */,
@@ -6693,6 +6718,7 @@
 				C5EEA61AC52ECB7531FFBA59 /* ArticleComment.m in Sources */,
 				181121FE221664C1002A0B4E /* CourseDetailViewController.m in Sources */,
 				C5EEA8887E615366A4D0A196 /* CmsSearchPage.m in Sources */,
+				A3F928BB2227E38E00255F13 /* NSURLSession+CorrectedResumeData.m in Sources */,
 				C5EEA7409B28BF6FE9FB06F8 /* CmsCategoryPage.m in Sources */,
 				C5EEAFAD1B55BB349102460C /* CmsForYouPage.m in Sources */,
 				C5EEA742EA03F97F5FF1B234 /* ArticleItemView.m in Sources */,

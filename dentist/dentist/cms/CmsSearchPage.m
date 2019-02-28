@@ -10,7 +10,7 @@
 #import "CMSDetailViewController.h"
 #import "DenActionSheet.h"
 #import <Social/Social.h>
-#import "DetinstDownloadManager.h"
+#import "DentistDownloadManager.h"
 #import "CmsArticleCategoryPage.h"
 #import "UIViewController+myextend.h"
 #import "DsoToast.h"
@@ -157,7 +157,7 @@
             if (_selectModel) {
                 UIView *dsontoastview=[DsoToast toastViewForMessage:@"Download is Add…" ishowActivity:YES];
                 [self.navigationController.view showToast:dsontoastview duration:1.0 position:CSToastPositionBottom completion:nil];
-                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:_selectModel addCompletion:^(BOOL result) {
+                [[DentistDownloadManager shareManager] startDownLoadCMSModel:_selectModel addCompletion:^(BOOL result) {
                 } completed:^(BOOL result) {
                 }];
             }

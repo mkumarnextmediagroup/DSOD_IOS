@@ -28,7 +28,7 @@
 #import "IdName.h"
 #import "ArticleGSkItemView.h"
 #import "DentistPickerView.h"
-#import "DetinstDownloadManager.h"
+#import "DentistDownloadManager.h"
 #import "DsoToast.h"
 
 @interface CmsArticleCategoryPage ()<ArticleItemViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
@@ -289,7 +289,7 @@
             if (_selectModel) {
                 UIView *dsontoastview=[DsoToast toastViewForMessage:@"Download is Add…" ishowActivity:YES];
                 [self.navigationController.view showToast:dsontoastview duration:1.0 position:CSToastPositionBottom completion:nil];
-                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:_selectModel addCompletion:^(BOOL result) {
+                [[DentistDownloadManager shareManager] startDownLoadCMSModel:_selectModel addCompletion:^(BOOL result) {
                     
                 } completed:^(BOOL result) {
                     

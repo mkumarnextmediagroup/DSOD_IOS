@@ -140,7 +140,7 @@
 {
     _model=model;
     if(_model){
-        [imageView loadUrl:_model.image placeholderImage:@"art-img"];
+        [imageView loadUrl:[Proto getFileUrlByObjectId:_model.image] placeholderImage:@"art-img"];
         [imageView scaleFillAspect];
         imageView.clipsToBounds=YES;
         titleLabel.text=_model.name;

@@ -7,17 +7,26 @@
 //
 
 #import <Foundation/Foundation.h>
-extern NSString * const DentistDownloadStateChangeNotification;
-
-extern NSString * const DentistUniteDownloadStateChangeNotification;
-extern NSString * const DentistUniteArchiveChangeNotification;
+//extern NSString * const DentistDownloadStateChangeNotification;
+//
+//extern NSString * const DentistUniteDownloadStateChangeNotification;
+//extern NSString * const DentistUniteArchiveChangeNotification;
 
 NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_OPTIONS(NSUInteger, DentistDBUpdateOption) {
+    DentistDBUpdateOptionState         = 1 << 0,  // 更新状态
+    DentistDBUpdateOptionLastStateTime = 1 << 1,  // 更新状态最后改变的时间
+    DentistDBUpdateOptionResumeData    = 1 << 2,  // 更新下载的数据
+    DentistDBUpdateOptionProgressData  = 1 << 3,  // 更新进度数据（包含tmpFileSize、totalFileSize、progress、intervalFileSize、lastSpeedTime）
+    DentistDBUpdateOptionAllParam      = 1 << 4   // 更新全部数据
+};
 
 @class CMSModel;
 @class DetailModel;
 @class IdName;
 @class MagazineModel;
+@class DentistDownloadModel;
 @interface DentistDataBaseManager : NSObject
 + (instancetype)shareManager;
 -(void)queryDetailCmsCaches:(NSString *)articleid completed:(void(^)(DetailModel *model))completed;
@@ -65,6 +74,27 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)checkUniteStatus:(NSString *_Nullable)uniteid  completed:(void(^)(NSInteger result))completed;
 -(void)updateCareersJobs:(NSString *)jobid completed:(void(^)(BOOL result))completed;
 -(void)checkJobsStatus:(NSString *)jobid publishDate:(NSString *)publishDate modifiedDate:(NSString *)modifiedDate completed:(void(^)(NSInteger result))completed;
+
+#pragma mark -------文件下载操作
+// 插入数据
+- (void)insertModel:(DentistDownloadModel *)model;
+
+// 获取数据
+- (DentistDownloadModel *)getModelWithUrl:(NSString *)url;    // 根据url获取数据
+- (DentistDownloadModel *)getWaitingModel;                    // 获取第一条等待的数据
+- (DentistDownloadModel *)getLastDownloadingModel;            // 获取最后一条正在下载的数据
+- (NSArray<DentistDownloadModel *> *)getAllCacheData;         // 获取所有数据
+- (NSArray<DentistDownloadModel *> *)getAllDownloadingData;   // 根据lastStateTime倒叙获取所有正在下载的数据
+- (NSArray<DentistDownloadModel *> *)getAllDownloadedData;    // 获取所有下载完成的数据
+- (NSArray<DentistDownloadModel *> *)getAllUnDownloadedData;  // 获取所有未下载完成的数据（包含正在下载、等待、暂停、错误）
+- (NSArray<DentistDownloadModel *> *)getAllWaitingData;       // 获取所有等待下载的数据
+
+// 更新数据
+- (void)updateWithModel:(DentistDownloadModel *)model option:(DentistDBUpdateOption)option;
+
+// 删除数据
+- (void)deleteModelWithUrl:(NSString *)url;
+
 @end
 
 NS_ASSUME_NONNULL_END

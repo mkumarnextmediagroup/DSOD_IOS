@@ -21,7 +21,7 @@
 #import <Social/Social.h>
 #import "DetailModel.h"
 #import "DentistDataBaseManager.h"
-#import "DetinstDownloadManager.h"
+#import "DentistDownloadManager.h"
 #import "UIViewController+myextend.h"
 #import "BookmarkModel.h"
 #import "dentist-Swift.h"
@@ -503,7 +503,7 @@
                 newmodel.featuredMedia=_articleInfo.featuredMedia;
                 UIView *dsontoastview=[DsoToast toastViewForMessage:@"Download is Add…" ishowActivity:YES];
                 [self.navigationController.view showToast:dsontoastview duration:1.0 position:CSToastPositionBottom completion:nil];
-                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:newmodel addCompletion:^(BOOL result) {
+                [[DentistDownloadManager shareManager] startDownLoadCMSModel:newmodel addCompletion:^(BOOL result) {
                 } completed:^(BOOL result) {}];
             }
             

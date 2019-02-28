@@ -24,7 +24,7 @@
 #import "DentistTabView.h"
 #import "CMSModel.h"
 #import "IdName.h"
-#import "DetinstDownloadManager.h"
+#import "DentistDownloadManager.h"
 #import "DsoToast.h"
 CMSModel *selectModel;
 
@@ -385,7 +385,7 @@ CMSModel *selectModel;
             if (selectModel) {
                 UIView *dsontoastview=[DsoToast toastViewForMessage:@"Download is Add…" ishowActivity:YES];
                 [self.navigationController.view showToast:dsontoastview duration:1.0 position:CSToastPositionBottom completion:nil];
-                [[DetinstDownloadManager shareManager] startDownLoadCMSModel:selectModel addCompletion:^(BOOL result) {
+                [[DentistDownloadManager shareManager] startDownLoadCMSModel:selectModel addCompletion:^(BOOL result) {
                 } completed:^(BOOL result) {
                     
                 }];

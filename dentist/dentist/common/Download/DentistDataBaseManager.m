@@ -21,11 +21,22 @@
 #import "IdName.h"
 #import "MagazineModel.h"
 #import "NSDate+customed.h"
+#import "DentistDownloadModel.h"
 
-NSString * const DentistDownloadStateChangeNotification    = @"DentistDownloadStateChangeNotification";
-NSString * const DentistUniteDownloadStateChangeNotification = @"DentistUniteDownloadStateChangeNotification";
-NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveChangeNotification";
+//NSString * const DentistDownloadStateChangeNotification    = @"DentistDownloadStateChangeNotification";
+//NSString * const DentistUniteDownloadStateChangeNotification = @"DentistUniteDownloadStateChangeNotification";
+//NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveChangeNotification";
 
+typedef NS_ENUM(NSInteger, DentistDBGetDateOption) {
+    DentistDBGetDateOptionAllCacheData = 0,      // 所有缓存数据
+    DentistDBGetDateOptionAllDownloadingData,    // 所有正在下载的数据
+    DentistDBGetDateOptionAllDownloadedData,     // 所有下载完成的数据
+    DentistDBGetDateOptionAllUnDownloadedData,   // 所有未下载完成的数据
+    DentistDBGetDateOptionAllWaitingData,        // 所有等待下载的数据
+    DentistDBGetDateOptionModelWithUrl,          // 通过url获取单条数据
+    DentistDBGetDateOptionWaitingModel,          // 第一条等待的数据
+    DentistDBGetDateOptionLastDownloadingModel,  // 最后一条正在下载的数据
+};
 @interface DentistDataBaseManager ()
 
 @property (nonatomic, strong) FMDatabaseQueue *dbQueue;
@@ -78,6 +89,7 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
         [self creatUniteArticlesCachesTable:db];
         [self createUniteArticlesRelationTable:db];
         [self createCareersJobsLookCachesTable:db];
+        [self creatDownloadFileCachesTable:db];
     }];
 }
 
@@ -1170,6 +1182,202 @@ NSString * const DentistUniteArchiveChangeNotification = @"DentistUniteArchiveCh
     }
     
     
+}
+
+#pragma mark -------网络下载文件表
+
+// 创表
+-(void)creatDownloadFileCachesTable:(FMDatabase *)db
+{
+    BOOL result = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_downloadfileCaches (id integer PRIMARY KEY AUTOINCREMENT, vid text, fileName text, url text, resumeData blob, totalFileSize integer, tmpFileSize integer, state integer, progress float, lastSpeedTime integer, intervalFileSize integer, lastStateTime integer)"];
+    if (result) {
+        NSLog(@"缓存文件数据表创建成功");
+    }else {
+        NSLog(@"缓存文件数据表创建失败");
+    }
+}
+
+// 插入数据
+- (void)insertModel:(DentistDownloadModel *)model
+{
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        BOOL result = [db executeUpdate:@"INSERT INTO t_downloadfileCaches (vid, fileName, url, resumeData, totalFileSize, tmpFileSize, state, progress, lastSpeedTime, intervalFileSize, lastStateTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", model.vid, model.fileName, model.url, model.resumeData, [NSNumber numberWithInteger:model.totalFileSize], [NSNumber numberWithInteger:model.tmpFileSize], [NSNumber numberWithInteger:model.state], [NSNumber numberWithFloat:model.progress], [NSNumber numberWithInteger:0], [NSNumber numberWithInteger:0], [NSNumber numberWithInteger:0]];
+        if (result) {
+            //            DentistLog(@"插入成功：%@", model.fileName);
+        }else {
+            NSLog(@"插入失败：%@", model.fileName);
+        }
+    }];
+}
+
+// 获取单条数据
+- (DentistDownloadModel *)getModelWithUrl:(NSString *)url
+{
+    return [self getModelWithOption:DentistDBGetDateOptionModelWithUrl url:url];
+}
+
+// 获取第一条等待的数据
+- (DentistDownloadModel *)getWaitingModel
+{
+    return [self getModelWithOption:DentistDBGetDateOptionWaitingModel url:nil];
+}
+
+// 获取最后一条正在下载的数据
+- (DentistDownloadModel *)getLastDownloadingModel
+{
+    return [self getModelWithOption:DentistDBGetDateOptionLastDownloadingModel url:nil];
+}
+
+// 获取所有数据
+- (NSArray<DentistDownloadModel *> *)getAllCacheData
+{
+    return [self getDateWithOption:DentistDBGetDateOptionAllCacheData];
+}
+
+// 根据lastStateTime倒叙获取所有正在下载的数据
+- (NSArray<DentistDownloadModel *> *)getAllDownloadingData
+{
+    return [self getDateWithOption:DentistDBGetDateOptionAllDownloadingData];
+}
+
+// 获取所有下载完成的数据
+- (NSArray<DentistDownloadModel *> *)getAllDownloadedData
+{
+    return [self getDateWithOption:DentistDBGetDateOptionAllDownloadedData];
+}
+
+// 获取所有未下载完成的数据
+- (NSArray<DentistDownloadModel *> *)getAllUnDownloadedData
+{
+    return [self getDateWithOption:DentistDBGetDateOptionAllUnDownloadedData];
+}
+
+// 获取所有等待下载的数据
+- (NSArray<DentistDownloadModel *> *)getAllWaitingData
+{
+    return [self getDateWithOption:DentistDBGetDateOptionAllWaitingData];
+}
+
+// 获取单条数据
+- (DentistDownloadModel *)getModelWithOption:(DentistDBGetDateOption)option url:(NSString *)url
+{
+    __block DentistDownloadModel *model = nil;
+    
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        FMResultSet *resultSet;
+        switch (option) {
+            case DentistDBGetDateOptionModelWithUrl:
+                resultSet = [db executeQuery:@"SELECT * FROM t_downloadfileCaches WHERE url = ?", url];
+                break;
+                
+            case DentistDBGetDateOptionWaitingModel:
+                resultSet = [db executeQuery:@"SELECT * FROM t_downloadfileCaches WHERE state = ? order by lastStateTime asc limit 0,1", [NSNumber numberWithInteger:DentistDownloadStateWaiting]];
+                break;
+                
+            case DentistDBGetDateOptionLastDownloadingModel:
+                resultSet = [db executeQuery:@"SELECT * FROM t_downloadfileCaches WHERE state = ? order by lastStateTime desc limit 0,1", [NSNumber numberWithInteger:DentistDownloadStateDownloading]];
+                break;
+                
+            default:
+                break;
+        }
+        
+        while ([resultSet next]) {
+            model = [[DentistDownloadModel alloc] initWithFMResultSet:resultSet];
+        }
+    }];
+    
+    return model;
+}
+
+// 获取数据集合
+- (NSArray<DentistDownloadModel *> *)getDateWithOption:(DentistDBGetDateOption)option
+{
+    __block NSArray<DentistDownloadModel *> *array = nil;
+    
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        FMResultSet *resultSet;
+        switch (option) {
+            case DentistDBGetDateOptionAllCacheData:
+                resultSet = [db executeQuery:@"SELECT * FROM t_downloadfileCaches"];
+                break;
+                
+            case DentistDBGetDateOptionAllDownloadingData:
+                resultSet = [db executeQuery:@"SELECT * FROM t_downloadfileCaches WHERE state = ? order by lastStateTime desc", [NSNumber numberWithInteger:DentistDownloadStateDownloading]];
+                break;
+                
+            case DentistDBGetDateOptionAllDownloadedData:
+                resultSet = [db executeQuery:@"SELECT * FROM t_downloadfileCaches WHERE state = ?", [NSNumber numberWithInteger:DentistDownloadStateFinish]];
+                break;
+                
+            case DentistDBGetDateOptionAllUnDownloadedData:
+                resultSet = [db executeQuery:@"SELECT * FROM t_downloadfileCaches WHERE state != ?", [NSNumber numberWithInteger:DentistDownloadStateFinish]];
+                break;
+                
+            case DentistDBGetDateOptionAllWaitingData:
+                resultSet = [db executeQuery:@"SELECT * FROM t_downloadfileCaches WHERE state = ?", [NSNumber numberWithInteger:DentistDownloadStateWaiting]];
+                break;
+                
+            default:
+                break;
+        }
+        
+        NSMutableArray *tmpArr = [NSMutableArray array];
+        while ([resultSet next]) {
+            [tmpArr addObject:[[DentistDownloadModel alloc] initWithFMResultSet:resultSet]];
+        }
+        array = tmpArr;
+    }];
+    
+    return array;
+}
+
+// 更新数据
+- (void)updateWithModel:(DentistDownloadModel *)model option:(DentistDBUpdateOption)option
+{
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        if (option & DentistDBUpdateOptionState) {
+            [self postStateChangeNotificationWithFMDatabase:db model:model];
+            [db executeUpdate:@"UPDATE t_downloadfileCaches SET state = ? WHERE url = ?", [NSNumber numberWithInteger:model.state], model.url];
+        }
+        if (option & DentistDBUpdateOptionLastStateTime) {
+            [db executeUpdate:@"UPDATE t_downloadfileCaches SET lastStateTime = ? WHERE url = ?", [NSNumber numberWithInteger:[NSDate getTimeStampWithDate:[NSDate date]]], model.url];
+        }
+        if (option & DentistDBUpdateOptionResumeData) {
+            [db executeUpdate:@"UPDATE t_downloadfileCaches SET resumeData = ? WHERE url = ?", model.resumeData, model.url];
+        }
+        if (option & DentistDBUpdateOptionProgressData) {
+            [db executeUpdate:@"UPDATE t_downloadfileCaches SET tmpFileSize = ?, totalFileSize = ?, progress = ?, lastSpeedTime = ?, intervalFileSize = ? WHERE url = ?", [NSNumber numberWithInteger:model.tmpFileSize], [NSNumber numberWithFloat:model.totalFileSize], [NSNumber numberWithFloat:model.progress], [NSNumber numberWithInteger:model.lastSpeedTime], [NSNumber numberWithInteger:model.intervalFileSize], model.url];
+        }
+        if (option & DentistDBUpdateOptionAllParam) {
+            [self postStateChangeNotificationWithFMDatabase:db model:model];
+            [db executeUpdate:@"UPDATE t_downloadfileCaches SET resumeData = ?, totalFileSize = ?, tmpFileSize = ?, progress = ?, state = ?, lastSpeedTime = ?, intervalFileSize = ?, lastStateTime = ? WHERE url = ?", model.resumeData, [NSNumber numberWithInteger:model.totalFileSize], [NSNumber numberWithInteger:model.tmpFileSize], [NSNumber numberWithFloat:model.progress], [NSNumber numberWithInteger:model.state], [NSNumber numberWithInteger:model.lastSpeedTime], [NSNumber numberWithInteger:model.intervalFileSize], [NSNumber numberWithInteger:[NSDate getTimeStampWithDate:[NSDate date]]], model.url];
+        }
+    }];
+}
+
+// 状态变更通知
+- (void)postStateChangeNotificationWithFMDatabase:(FMDatabase *)db model:(DentistDownloadModel *)model
+{
+    // 原状态
+    NSInteger oldState = [db intForQuery:@"SELECT state FROM t_downloadfileCaches WHERE url = ?", model.url];
+    if (oldState != model.state) {
+        // 状态变更通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:DentistDownloadStateChangeNotification object:model];
+    }
+}
+
+// 删除数据
+- (void)deleteModelWithUrl:(NSString *)url
+{
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        BOOL result = [db executeUpdate:@"DELETE FROM t_downloadfileCaches WHERE url = ?", url];
+        if (result) {
+            //            DentistLog(@"删除成功：%@", url);
+        }else {
+            NSLog(@"删除失败：%@", url);
+        }
+    }];
 }
 
 

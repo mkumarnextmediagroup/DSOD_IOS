@@ -20,7 +20,7 @@
 #import "UIViewController+IIViewDeckAdditions.h"
 #import "MagazineModel.h"
 #import "DentistDataBaseManager.h"
-#import "DetinstDownloadManager.h"
+#import "DentistDownloadManager.h"
 #import "DetailModel.h"
 #import "SliderListView.h"
 #import "UserConfig.h"

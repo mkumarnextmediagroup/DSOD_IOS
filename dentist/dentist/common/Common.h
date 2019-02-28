@@ -64,4 +64,7 @@
 #import "LinkedInHelper.h"
 
 #import "UserConfig.h"
+#import "CommonConfig.h"
+#import "DentistDownload.h"
+#import "DentistNetworkReachabilityManager.h"
 

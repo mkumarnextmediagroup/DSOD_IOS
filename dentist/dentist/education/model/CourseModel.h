@@ -23,11 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString <Optional>* timeRequired;
 @property NSString <Optional>*courseDescription;
 @property BOOL isBookmark;
+@property BOOL hasCertificate;
+@property BOOL mustPay;
+@property BOOL free;
 
 
 @property BOOL featured;
-@property BOOL mustPay;
-@property BOOL free;
 @property NSString <Optional>*notes;
 @property NSInteger expireType;// 0.none  1.date 2.duration
 @property NSString <Optional>*ownerId;

@@ -41,8 +41,8 @@
     edge = 18;
     
     tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    tableView.dataSource = self;
-    tableView.delegate = self;
+//    tableView.dataSource = self;
+//    tableView.delegate = self;
     tableView.estimatedRowHeight = 10;
     tableView.rowHeight=UITableViewAutomaticDimension;
     tableView.separatorStyle = UITableViewCellSelectionStyleNone;

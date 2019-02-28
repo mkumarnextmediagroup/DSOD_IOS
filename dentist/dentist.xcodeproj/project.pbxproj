@@ -40,6 +40,7 @@
 		181122152216AA11002A0B4E /* ic_nav_bookmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1811220C2216AA10002A0B4E /* ic_nav_bookmark@2x.png */; };
 		181122162216AA11002A0B4E /* ic_nav_share@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1811220D2216AA11002A0B4E /* ic_nav_share@3x.png */; };
 		1812397521927F3E0075A6B0 /* author_dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1812397421927F3E0075A6B0 /* author_dsodentist.png */; };
+		1824B330222780550075F080 /* LMSLessonsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1824B32F222780550075F080 /* LMSLessonsModel.m */; };
 		1829C52D21BCC961009A8732 /* JobDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52C21BCC961009A8732 /* JobDetailViewController.m */; };
 		1829C53021BCC9B9009A8732 /* JobDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52F21BCC9B9009A8732 /* JobDetailDescriptionViewController.m */; };
 		1829C53321BCC9D2009A8732 /* JobDetailCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C53221BCC9D2009A8732 /* JobDetailCompanyViewController.m */; };
@@ -1169,6 +1170,8 @@
 		1811220C2216AA10002A0B4E /* ic_nav_bookmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_bookmark@2x.png"; sourceTree = "<group>"; };
 		1811220D2216AA11002A0B4E /* ic_nav_share@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_share@3x.png"; sourceTree = "<group>"; };
 		1812397421927F3E0075A6B0 /* author_dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = author_dsodentist.png; sourceTree = "<group>"; };
+		1824B32E222780550075F080 /* LMSLessonsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSLessonsModel.h; sourceTree = "<group>"; };
+		1824B32F222780550075F080 /* LMSLessonsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSLessonsModel.m; sourceTree = "<group>"; };
 		1829C52B21BCC961009A8732 /* JobDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailViewController.h; sourceTree = "<group>"; };
 		1829C52C21BCC961009A8732 /* JobDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailViewController.m; sourceTree = "<group>"; };
 		1829C52E21BCC9B9009A8732 /* JobDetailDescriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailDescriptionViewController.h; sourceTree = "<group>"; };
@@ -2953,6 +2956,8 @@
 				1811220022168FB6002A0B4E /* CourseModel.m */,
 				18BE3754221A890A00D4148B /* DateTime.h */,
 				18BE3755221A890A00D4148B /* DateTime.m */,
+				1824B32E222780550075F080 /* LMSLessonsModel.h */,
+				1824B32F222780550075F080 /* LMSLessonsModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -6709,6 +6714,7 @@
 				C5EEA56D3F74A578D3BA98FA /* LinearView.m in Sources */,
 				A3BD2ACA21BFB33400138353 /* JobDSOModel.m in Sources */,
 				C5EEA0319D5E3E079662491B /* LinearVerView.m in Sources */,
+				1824B330222780550075F080 /* LMSLessonsModel.m in Sources */,
 				C5EEA6E8B19DE7760629756E /* ContentPage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

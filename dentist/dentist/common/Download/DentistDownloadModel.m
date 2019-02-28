@@ -37,6 +37,7 @@
     _intervalFileSize = [[resultSet objectForColumn:@"intervalFileSize"] integerValue];
     _lastStateTime = [[resultSet objectForColumn:@"lastStateTime"] integerValue];
     _resumeData = [resultSet dataForColumn:@"resumeData"];
+    _downloadtype=[[resultSet objectForColumn:@"downloadtype"] integerValue];
     
     return self;
 }

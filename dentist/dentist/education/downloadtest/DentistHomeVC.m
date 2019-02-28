@@ -83,6 +83,7 @@
         model.vid=[dic objectForKey:@"vid"];
         model.fileName=[dic objectForKey:@"fileName"];
         model.url=[dic objectForKey:@"url"];
+        model.downloadtype=DentistDownloadTypeCourse;
         [self.dataSource addObject:model];
     }
 
@@ -167,7 +168,7 @@
         if ([model.url isEqualToString:downloadModel.url]) {
             // 主线程更新cell进度
             dispatch_async(dispatch_get_main_queue(), ^{
-                DentistHomeCell *cell = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
+                DentistHomeCell *cell = [self->_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
                 [cell updateViewWithModel:downloadModel];
             });
             
@@ -188,7 +189,7 @@
             
             // 主线程刷新cell
             dispatch_async(dispatch_get_main_queue(), ^{
-                [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                [self->_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             });
 
             *stop = YES;

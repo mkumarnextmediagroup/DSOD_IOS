@@ -1189,7 +1189,7 @@ typedef NS_ENUM(NSInteger, DentistDBGetDateOption) {
 // 创表
 -(void)creatDownloadFileCachesTable:(FMDatabase *)db
 {
-    BOOL result = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_downloadfileCaches (id integer PRIMARY KEY AUTOINCREMENT, vid text, fileName text, url text, resumeData blob, totalFileSize integer, tmpFileSize integer, state integer, progress float, lastSpeedTime integer, intervalFileSize integer, lastStateTime integer)"];
+    BOOL result = [db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_downloadfileCaches (id integer PRIMARY KEY AUTOINCREMENT, vid text, fileName text, url text, resumeData blob, totalFileSize integer, tmpFileSize integer, state integer, downloadtype integer, progress float, lastSpeedTime integer, intervalFileSize integer, lastStateTime integer)"];
     if (result) {
         NSLog(@"缓存文件数据表创建成功");
     }else {
@@ -1201,7 +1201,7 @@ typedef NS_ENUM(NSInteger, DentistDBGetDateOption) {
 - (void)insertModel:(DentistDownloadModel *)model
 {
     [_dbQueue inDatabase:^(FMDatabase *db) {
-        BOOL result = [db executeUpdate:@"INSERT INTO t_downloadfileCaches (vid, fileName, url, resumeData, totalFileSize, tmpFileSize, state, progress, lastSpeedTime, intervalFileSize, lastStateTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", model.vid, model.fileName, model.url, model.resumeData, [NSNumber numberWithInteger:model.totalFileSize], [NSNumber numberWithInteger:model.tmpFileSize], [NSNumber numberWithInteger:model.state], [NSNumber numberWithFloat:model.progress], [NSNumber numberWithInteger:0], [NSNumber numberWithInteger:0], [NSNumber numberWithInteger:0]];
+        BOOL result = [db executeUpdate:@"INSERT INTO t_downloadfileCaches (vid, fileName, url, resumeData, totalFileSize, tmpFileSize, state, downloadtype, progress, lastSpeedTime, intervalFileSize, lastStateTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)", model.vid, model.fileName, model.url, model.resumeData, [NSNumber numberWithInteger:model.totalFileSize], [NSNumber numberWithInteger:model.tmpFileSize], [NSNumber numberWithInteger:model.state], [NSNumber numberWithInteger:model.downloadtype], [NSNumber numberWithFloat:model.progress], [NSNumber numberWithInteger:0], [NSNumber numberWithInteger:0], [NSNumber numberWithInteger:0]];
         if (result) {
             //            DentistLog(@"插入成功：%@", model.fileName);
         }else {

@@ -7,7 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DentistDownloadManager.h"
+typedef NS_ENUM(NSInteger, DentistDownloadState) {
+    DentistDownloadStateDefault = 0,  // 默认
+    DentistDownloadStateDownloading,  // 正在下载
+    DentistDownloadStateWaiting,      // 等待
+    DentistDownloadStatePaused,       // 暂停
+    DentistDownloadStateFinish,       // 完成
+    DentistDownloadStateError,        // 错误
+};
+
+typedef NS_ENUM(NSInteger, DentistDownloadType) {
+    DentistDownloadTypeDefault = 0,  // 默认
+    DentistDownloadTypeCourse,  //课程
+};
+
 @class FMResultSet;
 
 @interface DentistDownloadModel : NSObject
@@ -25,6 +38,7 @@
 @property (nonatomic, assign) NSUInteger lastSpeedTime;     // 上次计算速度时的时间戳
 @property (nonatomic, assign) NSUInteger intervalFileSize;  // 计算速度时间内下载文件的大小
 @property (nonatomic, assign) NSUInteger lastStateTime;     // 记录任务加入准备下载的时间（点击默认、暂停、失败状态），用于计算开始、停止任务的先后顺序
+@property (nonatomic, assign) DentistDownloadType downloadtype;        // 下载类型
 
 // 根据数据库查询结果初始化D
 - (instancetype)initWithFMResultSet:(FMResultSet *)resultSet;

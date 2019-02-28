@@ -14,14 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class CMSModel;
 @class MagazineModel;
 @class DentistDownloadModel;
-typedef NS_ENUM(NSInteger, DentistDownloadState) {
-    DentistDownloadStateDefault = 0,  // 默认
-    DentistDownloadStateDownloading,  // 正在下载
-    DentistDownloadStateWaiting,      // 等待
-    DentistDownloadStatePaused,       // 暂停
-    DentistDownloadStateFinish,       // 完成
-    DentistDownloadStateError,        // 错误
-};
 
 @interface DentistDownloadManager : NSObject
 @property (nonatomic,strong) NSMutableArray *cancelUniteArray;

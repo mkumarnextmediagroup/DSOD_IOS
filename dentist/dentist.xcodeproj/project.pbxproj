@@ -40,7 +40,10 @@
 		181122152216AA11002A0B4E /* ic_nav_bookmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1811220C2216AA10002A0B4E /* ic_nav_bookmark@2x.png */; };
 		181122162216AA11002A0B4E /* ic_nav_share@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1811220D2216AA11002A0B4E /* ic_nav_share@3x.png */; };
 		1812397521927F3E0075A6B0 /* author_dsodentist.png in Resources */ = {isa = PBXBuildFile; fileRef = 1812397421927F3E0075A6B0 /* author_dsodentist.png */; };
-		1824B330222780550075F080 /* LMSLessonsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1824B32F222780550075F080 /* LMSLessonsModel.m */; };
+		1824B330222780550075F080 /* LMSLessonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1824B32F222780550075F080 /* LMSLessonModel.m */; };
+		1824B3332227AD320075F080 /* LMSEnrollmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1824B3322227AD320075F080 /* LMSEnrollmentModel.m */; };
+		1824B3362227BD5C0075F080 /* LMSResourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1824B3352227BD5C0075F080 /* LMSResourceModel.m */; };
+		1824B3392227E8E90075F080 /* LMSRerouceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1824B3382227E8E90075F080 /* LMSRerouceTableViewCell.m */; };
 		1829C52D21BCC961009A8732 /* JobDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52C21BCC961009A8732 /* JobDetailViewController.m */; };
 		1829C53021BCC9B9009A8732 /* JobDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52F21BCC9B9009A8732 /* JobDetailDescriptionViewController.m */; };
 		1829C53321BCC9D2009A8732 /* JobDetailCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C53221BCC9D2009A8732 /* JobDetailCompanyViewController.m */; };
@@ -1190,8 +1193,14 @@
 		1811220C2216AA10002A0B4E /* ic_nav_bookmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_bookmark@2x.png"; sourceTree = "<group>"; };
 		1811220D2216AA11002A0B4E /* ic_nav_share@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_nav_share@3x.png"; sourceTree = "<group>"; };
 		1812397421927F3E0075A6B0 /* author_dsodentist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = author_dsodentist.png; sourceTree = "<group>"; };
-		1824B32E222780550075F080 /* LMSLessonsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSLessonsModel.h; sourceTree = "<group>"; };
-		1824B32F222780550075F080 /* LMSLessonsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSLessonsModel.m; sourceTree = "<group>"; };
+		1824B32E222780550075F080 /* LMSLessonModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSLessonModel.h; sourceTree = "<group>"; };
+		1824B32F222780550075F080 /* LMSLessonModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSLessonModel.m; sourceTree = "<group>"; };
+		1824B3312227AD320075F080 /* LMSEnrollmentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSEnrollmentModel.h; sourceTree = "<group>"; };
+		1824B3322227AD320075F080 /* LMSEnrollmentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSEnrollmentModel.m; sourceTree = "<group>"; };
+		1824B3342227BD5C0075F080 /* LMSResourceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSResourceModel.h; sourceTree = "<group>"; };
+		1824B3352227BD5C0075F080 /* LMSResourceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSResourceModel.m; sourceTree = "<group>"; };
+		1824B3372227E8E90075F080 /* LMSRerouceTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSRerouceTableViewCell.h; sourceTree = "<group>"; };
+		1824B3382227E8E90075F080 /* LMSRerouceTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSRerouceTableViewCell.m; sourceTree = "<group>"; };
 		1829C52B21BCC961009A8732 /* JobDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailViewController.h; sourceTree = "<group>"; };
 		1829C52C21BCC961009A8732 /* JobDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailViewController.m; sourceTree = "<group>"; };
 		1829C52E21BCC9B9009A8732 /* JobDetailDescriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailDescriptionViewController.h; sourceTree = "<group>"; };
@@ -3006,8 +3015,12 @@
 				1811220022168FB6002A0B4E /* CourseModel.m */,
 				18BE3754221A890A00D4148B /* DateTime.h */,
 				18BE3755221A890A00D4148B /* DateTime.m */,
-				1824B32E222780550075F080 /* LMSLessonsModel.h */,
-				1824B32F222780550075F080 /* LMSLessonsModel.m */,
+				1824B3312227AD320075F080 /* LMSEnrollmentModel.h */,
+				1824B3322227AD320075F080 /* LMSEnrollmentModel.m */,
+				1824B32E222780550075F080 /* LMSLessonModel.h */,
+				1824B32F222780550075F080 /* LMSLessonModel.m */,
+				1824B3342227BD5C0075F080 /* LMSResourceModel.h */,
+				1824B3352227BD5C0075F080 /* LMSResourceModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -5043,6 +5056,8 @@
 				A3E381E02215840200BFB227 /* EducationCategoryTableViewCell.m */,
 				A3E381EE2216C5A800BFB227 /* CourseTableViewCell.h */,
 				A3E381EF2216C5A800BFB227 /* CourseTableViewCell.m */,
+				1824B3372227E8E90075F080 /* LMSRerouceTableViewCell.h */,
+				1824B3382227E8E90075F080 /* LMSRerouceTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6477,6 +6492,7 @@
 				4E1957492137D0F100420563 /* LinkedInConnectionHandler.m in Sources */,
 				4EBCE6C5212D0AED00A0672D /* ContactTableViewCell.m in Sources */,
 				E11E10BD74EC149921ADD708 /* LoginController.m in Sources */,
+				1824B3362227BD5C0075F080 /* LMSResourceModel.m in Sources */,
 				18D4BA1621AEDC69004CFB4B /* CompanyReviewTableViewCell.m in Sources */,
 				4E1957422137D0F100420563 /* PermissionEmailFields.m in Sources */,
 				A3D0C326220057FF00455E0E /* EducationDownloadsViewController.m in Sources */,
@@ -6669,6 +6685,7 @@
 				4E0C115521806147007DC63D /* CMSModel.m in Sources */,
 				18A23FE021BBE4BC006CB432 /* CompanyDetailReviewsViewController.m in Sources */,
 				4E5BA7F32176E1EB00386598 /* ViewAllViewController.m in Sources */,
+				1824B3392227E8E90075F080 /* LMSRerouceTableViewCell.m in Sources */,
 				A39EE5102188578200F74745 /* CmsArticleCategoryPage.m in Sources */,
 				E11E147FF4FE738E0561AF6A /* Proto.m in Sources */,
 				18A0DBB121B51DF40065B2BD /* CompanyMediaModel.m in Sources */,
@@ -6782,6 +6799,7 @@
 				C5EEAB40C81644F1288B9E7A /* PickerPage.m in Sources */,
 				4EF2A36A21A6FB66007E6483 /* FullListTableViewCell.m in Sources */,
 				A3DF39A12189A280006F84DC /* ScreenShotHelper.swift in Sources */,
+				1824B3332227AD320075F080 /* LMSEnrollmentModel.m in Sources */,
 				18E3404D21EB3EB600696E04 /* FAQSCategoryModel.m in Sources */,
 				4E17B3ED217E225900F75390 /* TopLabel.m in Sources */,
 				18B83B0D2173557D00130DB6 /* YBImageBrowserViewLayout.m in Sources */,
@@ -6822,7 +6840,7 @@
 				C5EEA56D3F74A578D3BA98FA /* LinearView.m in Sources */,
 				A3BD2ACA21BFB33400138353 /* JobDSOModel.m in Sources */,
 				C5EEA0319D5E3E079662491B /* LinearVerView.m in Sources */,
-				1824B330222780550075F080 /* LMSLessonsModel.m in Sources */,
+				1824B330222780550075F080 /* LMSLessonModel.m in Sources */,
 				C5EEA6E8B19DE7760629756E /* ContentPage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,8 @@
 
 #import "JSONAPi.h"
 #import "DateTime.h"
+#import "LMSLessonModel.h"
+#import "LMSResourceModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,7 +29,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL mustPay;
 @property BOOL free;
 
+@property NSArray <Optional>*authorIds;
+@property NSArray <LMSLessonModel,Optional>*lessons;
+@property NSArray <LMSResourceModel,Optional>*resources;
 
+
+
+
+
+//not use property
 @property BOOL featured;
 @property NSString <Optional>*notes;
 @property NSInteger expireType;// 0.none  1.date 2.duration
@@ -39,13 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSInteger activeStatus;
 @property NSString <Optional>* curriculumId;
 @property NSString <Optional>* categoryId;
-
 @property DateTime <Optional>*expiryDate;
 @property DateTime <Optional>*accessDate;
 @property NSArray <Optional>*courseEnrollments;//TODO
-@property NSArray <Optional>*authorIds;//TODO
-@property NSArray <Optional>*resources;//TODO
-@property NSArray <Optional>*lessons;//TODO
 @property NSArray <Optional>*tests;//TODO
 
 

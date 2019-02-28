@@ -1,5 +1,5 @@
 //
-//  LMSLessonsModel.h
+//  LMSRerouceTableViewCell.h
 //  dentist
 //
 //  Created by Shirley on 2019/2/28.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LMSLessonsModel : UIScrollView
+@interface LMSRerouceTableViewCell : UITableViewCell
 
 @end
 

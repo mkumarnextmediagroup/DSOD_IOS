@@ -18,16 +18,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property NSString <Optional>*name;
 @property float price;
-@property NSString <Optional>*level;
+@property NSString <Optional>*level;//1.beginner，2.intermediate，3.advanced，4.expert
 @property float rating;
 @property NSString <Optional>* timeRequired;
 @property NSString <Optional>*courseDescription;
 @property BOOL isBookmark;
+@property BOOL hasCertificate;
+@property BOOL mustPay;
+@property BOOL free;
 
 
 @property BOOL featured;
-@property BOOL mustPay;
-@property BOOL free;
 @property NSString <Optional>*notes;
 @property NSInteger expireType;// 0.none  1.date 2.duration
 @property NSString <Optional>*ownerId;
@@ -46,6 +47,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray <Optional>*resources;//TODO
 @property NSArray <Optional>*lessons;//TODO
 @property NSArray <Optional>*tests;//TODO
+
+
+//local property
+@property (nonatomic,strong) NSString <Optional>*levelString;
 
 @end
 

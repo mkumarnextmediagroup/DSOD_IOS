@@ -365,8 +365,8 @@
         priceLabel.text = [NSString stringWithFormat:@"$%.2f" ,courseModel.price];
     }
     
-    
-    levelLabel.text = courseModel.level;
+//    1.beginner，2.intermediate，3.advanced，4.expert
+    levelLabel.text = courseModel.levelString;
     starLabel.text = [NSString stringWithFormat:@"%.1f",courseModel.rating];
     timeRequiredLabel.text = courseModel.timeRequired;
     accessDateLabel.text = [NSDate USDateShortFormatWithTimestamp:courseModel.accessDate.time];

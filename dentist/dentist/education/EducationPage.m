@@ -16,6 +16,7 @@
 #import "YCMenuView.h"
 #import "SponsoredCourseViewController.h"
 #import "EducationSearchViewController.h"
+#import "DentistHomeVC.h";
 
 @interface EducationPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,YCMenuViewDelegate,CourseTableViewCellDelegate>
 {
@@ -128,7 +129,8 @@
  */
 -(void)searchClick
 {
-    EducationSearchViewController *searchview=[EducationSearchViewController new];
+    DentistHomeVC *searchview=[DentistHomeVC new];
+//    EducationSearchViewController *searchview=[EducationSearchViewController new];
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:searchview];
     navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:navVC animated:NO completion:NULL];

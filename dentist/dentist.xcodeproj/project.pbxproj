@@ -729,6 +729,22 @@
 		A3F928B32227D3EB00255F13 /* CommonConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F928B22227D3EB00255F13 /* CommonConfig.m */; };
 		A3F928B82227DF2000255F13 /* DentistNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F928B72227DF2000255F13 /* DentistNetworkReachabilityManager.m */; };
 		A3F928BB2227E38E00255F13 /* NSURLSession+CorrectedResumeData.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F928BA2227E38E00255F13 /* NSURLSession+CorrectedResumeData.m */; };
+		A3F928BF222816BE00255F13 /* DentistHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F928BE222816BE00255F13 /* DentistHomeVC.m */; };
+		A3F928C2222816CE00255F13 /* DentistPlayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F928C1222816CE00255F13 /* DentistPlayVC.m */; };
+		A3F928C7222816E700255F13 /* DentistHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F928C3222816E700255F13 /* DentistHomeCell.m */; };
+		A3F928C8222816E700255F13 /* DentistDownloadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F928C6222816E700255F13 /* DentistDownloadButton.m */; };
+		A3F928CB22281CF300255F13 /* DentistToolBox.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F928CA22281CF300255F13 /* DentistToolBox.m */; };
+		A3F928CD22281DEF00255F13 /* testData.plist in Resources */ = {isa = PBXBuildFile; fileRef = A3F928CC22281DEF00255F13 /* testData.plist */; };
+		A3F928D82228236B00255F13 /* com_download_pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F928CE2228236900255F13 /* com_download_pause@2x.png */; };
+		A3F928D92228236B00255F13 /* com_download_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F928CF2228236900255F13 /* com_download_error@2x.png */; };
+		A3F928DA2228236B00255F13 /* com_download_default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F928D02228236900255F13 /* com_download_default@3x.png */; };
+		A3F928DB2228236B00255F13 /* com_download_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F928D12228236900255F13 /* com_download_error@3x.png */; };
+		A3F928DC2228236B00255F13 /* com_download_finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F928D22228236900255F13 /* com_download_finish@2x.png */; };
+		A3F928DD2228236B00255F13 /* com_download_pause@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F928D32228236A00255F13 /* com_download_pause@3x.png */; };
+		A3F928DE2228236B00255F13 /* com_download_finish@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F928D42228236A00255F13 /* com_download_finish@3x.png */; };
+		A3F928DF2228236B00255F13 /* com_download_waiting@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F928D52228236A00255F13 /* com_download_waiting@3x.png */; };
+		A3F928E02228236B00255F13 /* com_download_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F928D62228236A00255F13 /* com_download_default@2x.png */; };
+		A3F928E12228236B00255F13 /* com_download_waiting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F928D72228236B00255F13 /* com_download_waiting@2x.png */; };
 		A3FF81F721EF3ED5002510C4 /* NSObject+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = A3FF81F621EF3ED5002510C4 /* NSObject+customed.m */; };
 		A935BE74217737EB007F3619 /* slide-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE6F217737EA007F3619 /* slide-3.png */; };
 		A935BE75217737EB007F3619 /* slide-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE70217737EA007F3619 /* slide-2.png */; };
@@ -2096,6 +2112,27 @@
 		A3F928B72227DF2000255F13 /* DentistNetworkReachabilityManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DentistNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		A3F928B92227E38E00255F13 /* NSURLSession+CorrectedResumeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+CorrectedResumeData.h"; sourceTree = "<group>"; };
 		A3F928BA2227E38E00255F13 /* NSURLSession+CorrectedResumeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+CorrectedResumeData.m"; sourceTree = "<group>"; };
+		A3F928BD222816BE00255F13 /* DentistHomeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistHomeVC.h; sourceTree = "<group>"; };
+		A3F928BE222816BE00255F13 /* DentistHomeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistHomeVC.m; sourceTree = "<group>"; };
+		A3F928C0222816CE00255F13 /* DentistPlayVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistPlayVC.h; sourceTree = "<group>"; };
+		A3F928C1222816CE00255F13 /* DentistPlayVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistPlayVC.m; sourceTree = "<group>"; };
+		A3F928C3222816E700255F13 /* DentistHomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistHomeCell.m; sourceTree = "<group>"; };
+		A3F928C4222816E700255F13 /* DentistHomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistHomeCell.h; sourceTree = "<group>"; };
+		A3F928C5222816E700255F13 /* DentistDownloadButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistDownloadButton.h; sourceTree = "<group>"; };
+		A3F928C6222816E700255F13 /* DentistDownloadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistDownloadButton.m; sourceTree = "<group>"; };
+		A3F928C922281CF300255F13 /* DentistToolBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DentistToolBox.h; sourceTree = "<group>"; };
+		A3F928CA22281CF300255F13 /* DentistToolBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DentistToolBox.m; sourceTree = "<group>"; };
+		A3F928CC22281DEF00255F13 /* testData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = testData.plist; sourceTree = "<group>"; };
+		A3F928CE2228236900255F13 /* com_download_pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com_download_pause@2x.png"; sourceTree = "<group>"; };
+		A3F928CF2228236900255F13 /* com_download_error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com_download_error@2x.png"; sourceTree = "<group>"; };
+		A3F928D02228236900255F13 /* com_download_default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com_download_default@3x.png"; sourceTree = "<group>"; };
+		A3F928D12228236900255F13 /* com_download_error@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com_download_error@3x.png"; sourceTree = "<group>"; };
+		A3F928D22228236900255F13 /* com_download_finish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com_download_finish@2x.png"; sourceTree = "<group>"; };
+		A3F928D32228236A00255F13 /* com_download_pause@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com_download_pause@3x.png"; sourceTree = "<group>"; };
+		A3F928D42228236A00255F13 /* com_download_finish@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com_download_finish@3x.png"; sourceTree = "<group>"; };
+		A3F928D52228236A00255F13 /* com_download_waiting@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com_download_waiting@3x.png"; sourceTree = "<group>"; };
+		A3F928D62228236A00255F13 /* com_download_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com_download_default@2x.png"; sourceTree = "<group>"; };
+		A3F928D72228236B00255F13 /* com_download_waiting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com_download_waiting@2x.png"; sourceTree = "<group>"; };
 		A3FF81F521EF3ED5002510C4 /* NSObject+customed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+customed.h"; sourceTree = "<group>"; };
 		A3FF81F621EF3ED5002510C4 /* NSObject+customed.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+customed.m"; sourceTree = "<group>"; };
 		A935BE6F217737EA007F3619 /* slide-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-3.png"; sourceTree = "<group>"; };
@@ -5010,6 +5047,34 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		A3F928BC222816A300255F13 /* downloadtest */ = {
+			isa = PBXGroup;
+			children = (
+				A3F928CC22281DEF00255F13 /* testData.plist */,
+				A3F928D62228236A00255F13 /* com_download_default@2x.png */,
+				A3F928D02228236900255F13 /* com_download_default@3x.png */,
+				A3F928CF2228236900255F13 /* com_download_error@2x.png */,
+				A3F928D12228236900255F13 /* com_download_error@3x.png */,
+				A3F928D22228236900255F13 /* com_download_finish@2x.png */,
+				A3F928D42228236A00255F13 /* com_download_finish@3x.png */,
+				A3F928CE2228236900255F13 /* com_download_pause@2x.png */,
+				A3F928D32228236A00255F13 /* com_download_pause@3x.png */,
+				A3F928D72228236B00255F13 /* com_download_waiting@2x.png */,
+				A3F928D52228236A00255F13 /* com_download_waiting@3x.png */,
+				A3F928C922281CF300255F13 /* DentistToolBox.h */,
+				A3F928CA22281CF300255F13 /* DentistToolBox.m */,
+				A3F928BD222816BE00255F13 /* DentistHomeVC.h */,
+				A3F928BE222816BE00255F13 /* DentistHomeVC.m */,
+				A3F928C0222816CE00255F13 /* DentistPlayVC.h */,
+				A3F928C1222816CE00255F13 /* DentistPlayVC.m */,
+				A3F928C5222816E700255F13 /* DentistDownloadButton.h */,
+				A3F928C6222816E700255F13 /* DentistDownloadButton.m */,
+				A3F928C4222816E700255F13 /* DentistHomeCell.h */,
+				A3F928C3222816E700255F13 /* DentistHomeCell.m */,
+			);
+			path = downloadtest;
+			sourceTree = "<group>";
+		};
 		A99177012176E4CD00788D2C /* AutoEncodeDecode */ = {
 			isa = PBXGroup;
 			children = (
@@ -5272,6 +5337,7 @@
 		C5EEAB01C19CB9BCE49EE088 /* education */ = {
 			isa = PBXGroup;
 			children = (
+				A3F928BC222816A300255F13 /* downloadtest */,
 				181121FB221663D0002A0B4E /* courseDetail */,
 				A3E381DB221583AB00BFB227 /* View */,
 				18CDCE8E221542E2002D28B1 /* model */,
@@ -5687,6 +5753,7 @@
 				E11E13506B8CB6458D362EC8 /* brain_light@3x.png in Resources */,
 				3E64F13321721D57001A7CF2 /* DSODentist_Terms_of_Service.html in Resources */,
 				4E331048215D294200E534CD /* shareIcon@3x.png in Resources */,
+				A3F928DD2228236B00255F13 /* com_download_pause@3x.png in Resources */,
 				A3BD2AC121B9540B00138353 /* New@3x.png in Resources */,
 				4E94AE2821AE74C2009CAB7F /* more.png in Resources */,
 				4E528B1B21704BCD008C151B /* play@2x.png in Resources */,
@@ -5792,6 +5859,7 @@
 				A935BE76217737EB007F3619 /* slide-1.png in Resources */,
 				A393E0B421955D06001881C2 /* sponsor_gsk_banner.png in Resources */,
 				E11E1086344D390AF2D6860F /* b_light.png in Resources */,
+				A3F928D92228236B00255F13 /* com_download_error@2x.png in Resources */,
 				A3E752EE217E35010087713D /* TechGuide@2x.png in Resources */,
 				E11E183212474344E7473445 /* b_light@2x.png in Resources */,
 				E11E1EC34DFC2D9A69DA0157 /* b_light@3x.png in Resources */,
@@ -5906,6 +5974,7 @@
 				4E94AE2C21AE74C2009CAB7F /* more-light@2x.png in Resources */,
 				E11E1165E5A50E6A43A8A3C4 /* edit_disabled@3x.png in Resources */,
 				4E94AE0821AE4594009CAB7F /* explore-light@2x.png in Resources */,
+				A3F928DB2228236B00255F13 /* com_download_error@3x.png in Resources */,
 				4E94AE2D21AE74C2009CAB7F /* findJob-light@2x.png in Resources */,
 				A3E752E5217E35010087713D /* Podcast@2x.png in Resources */,
 				A3BDC57721E8539F0077ED25 /* icons8-no_reminders.png in Resources */,
@@ -5951,6 +6020,7 @@
 				E11E1AB8DFD70887D97CE748 /* search_normal.png in Resources */,
 				E11E1C84CC3E67441654E345 /* search_normal@2x.png in Resources */,
 				A3BA6DE821AFCD7000D83156 /* Shape@2x.png in Resources */,
+				A3F928DA2228236B00255F13 /* com_download_default@3x.png in Resources */,
 				A36B9DB321CA4E3700A54263 /* icons8-appointment_reminders@3x.png in Resources */,
 				4E4A161921BA6087003F198B /* location_filled@3x.png in Resources */,
 				E11E157CACFE620953D8E184 /* search_normal@3x.png in Resources */,
@@ -5978,6 +6048,7 @@
 				E11E160A99297597D5439E34 /* Img-User-Dentist@2x.png in Resources */,
 				E11E1FBF82D8A2F932D671B1 /* Img-User-Dentist@3x.png in Resources */,
 				E11E169A696FC1DF78ED2724 /* menu-bookmark_light.png in Resources */,
+				A3F928DE2228236B00255F13 /* com_download_finish@3x.png in Resources */,
 				1812397521927F3E0075A6B0 /* author_dsodentist.png in Resources */,
 				E11E1F9635BA5DC356C83616 /* menu-bookmark_light@2x.png in Resources */,
 				E11E1BA5E5A229B5E317A46A /* menu-bookmark_light@3x.png in Resources */,
@@ -6005,6 +6076,7 @@
 				E11E1CB4F43A50540AAB9B8E /* menu-carers_light@3x.png in Resources */,
 				E11E1F1D686DE26969AA6831 /* menu-carers.png in Resources */,
 				E11E16BE2AF4FF030FD0D048 /* menu-carers@2x.png in Resources */,
+				A3F928DF2228236B00255F13 /* com_download_waiting@3x.png in Resources */,
 				E11E109DEF85B4A9667FE8FE /* menu-carers@3x.png in Resources */,
 				A3B340CD21C3E39D008EB36A /* noun_Briefcase@2x.png in Resources */,
 				E11E1A285EE393C7E0CB3C4A /* menu-community_light.png in Resources */,
@@ -6073,6 +6145,7 @@
 				186393A921B02ED600512CBB /* arrow_down@3x.png in Resources */,
 				E11E160760062CE6F440D2D3 /* menu-legislation_light@3x.png in Resources */,
 				E11E1B2EE64E98E7D0954EFD /* menu-legislation.png in Resources */,
+				A3F928E02228236B00255F13 /* com_download_default@2x.png in Resources */,
 				E11E1C12597130B14505F7E0 /* menu-legislation@2x.png in Resources */,
 				4E4A161A21BA6087003F198B /* location_filled@2x.png in Resources */,
 				E11E14E41197A55644E98E13 /* menu-legislation@3x.png in Resources */,
@@ -6084,6 +6157,7 @@
 				4E2EF504215E1BF000676A4E /* downLoadIcon@3x.png in Resources */,
 				4E94AE3B21AE7E35009CAB7F /* career-profiles@2x.png in Resources */,
 				E11E17D0775A0C4B5C6221FD /* menu-msg.png in Resources */,
+				A3F928E12228236B00255F13 /* com_download_waiting@2x.png in Resources */,
 				E11E1C0A53F72CB01B64B2AB /* menu-msg@2x.png in Resources */,
 				188FC837221AE3F70005CF2A /* ic_course_quizzes@3x.png in Resources */,
 				186393A021B02D6E00512CBB /* icon_attention@2x.png in Resources */,
@@ -6120,9 +6194,11 @@
 				E11E197449BC8E2CDA323D25 /* menu-unite_light@2x.png in Resources */,
 				E11E143BC673EE6841F0D3F9 /* menu-unite_light@3x.png in Resources */,
 				E11E1C88E5C847E93F0787E8 /* menu-unite.png in Resources */,
+				A3F928DC2228236B00255F13 /* com_download_finish@2x.png in Resources */,
 				A3B340E021C8FA0C008EB36A /* icons8-submit_resume@3x.png in Resources */,
 				E11E147FE66357151A4D885D /* menu-unite@2x.png in Resources */,
 				E11E1841E8D2257A5B8335AC /* menu-unite@3x.png in Resources */,
+				A3F928CD22281DEF00255F13 /* testData.plist in Resources */,
 				C5EEA89AB807C5486DB95496 /* exp.png in Resources */,
 				18EEFCAA21CD0746007F5E2B /* icon_filter.png in Resources */,
 				181122122216AA11002A0B4E /* ic_nav_bookmark_act.png in Resources */,
@@ -6146,6 +6222,7 @@
 				C5EEADC0ADD3159E0CF5A8CF /* ask-light@2x.png in Resources */,
 				4EF1097F21B0D36E0013C34C /* location_career@2x.png in Resources */,
 				C5EEAC77CB7A5C3180E89CF5 /* ask-light@3x.png in Resources */,
+				A3F928D82228236B00255F13 /* com_download_pause@2x.png in Resources */,
 				C5EEA777151649C977CD6952 /* ask.png in Resources */,
 				C5EEAE621D9B7BA2ACBC3368 /* ask@2x.png in Resources */,
 				C5EEA15BFBFE1FB1FFA51FD0 /* ask@3x.png in Resources */,
@@ -6428,6 +6505,7 @@
 				C5EEAB1B08FE088DAFBA7763 /* Fonts.m in Sources */,
 				4E94ADCF21AD3B32009CAB7F /* DSOProfilePage.m in Sources */,
 				18A0F44321E072E600369058 /* SettingLabelAndCheckedTableViewCell.m in Sources */,
+				A3F928C7222816E700255F13 /* DentistHomeCell.m in Sources */,
 				C5EEA8D0D8605D45129064DB /* UITextField+styled.m in Sources */,
 				A3EE38F62181AEF600C76F3A /* CMSModelComment.m in Sources */,
 				1811220122168FB6002A0B4E /* CourseModel.m in Sources */,
@@ -6497,6 +6575,7 @@
 				C5EEA70CAD83A3FEE9B6BD2C /* UILabel+customed.m in Sources */,
 				18DFACBF21E77CDF00EF528A /* FeedbackAndSupportViewController.m in Sources */,
 				4E1957462137D0F100420563 /* LinkedInHelper.m in Sources */,
+				A3F928BF222816BE00255F13 /* DentistHomeVC.m in Sources */,
 				C5EEA2B81C84D4F3EDB29C44 /* NSMutableAttributedString+customed.m in Sources */,
 				A3DF399F2189A280006F84DC /* ExpandingViewController.swift in Sources */,
 				C5EEAA269C87F480239BF21E /* TapGesture.m in Sources */,
@@ -6525,6 +6604,7 @@
 				A3729597219284F500B36409 /* DentistDataBaseManager.m in Sources */,
 				C5EEAB41E3778F15DF2278B3 /* RegController.m in Sources */,
 				3E49F90F2144A22E00F32146 /* EditPracticeAddressViewController.m in Sources */,
+				A3F928CB22281CF300255F13 /* DentistToolBox.m in Sources */,
 				18B83B132173557D00130DB6 /* YBIBTransitionManager.m in Sources */,
 				A3DF39A42189A280006F84DC /* ConfigurationHelper.swift in Sources */,
 				4E846F952140FCD200DC2B51 /* EditResidencyViewController.m in Sources */,
@@ -6610,6 +6690,7 @@
 				C5EEAB5B6FF45C046B7CF9E6 /* IconLabelView.m in Sources */,
 				1829C53021BCC9B9009A8732 /* JobDetailDescriptionViewController.m in Sources */,
 				4E94ADCC21ACE91B009CAB7F /* CareerMoreViewController.m in Sources */,
+				A3F928C2222816CE00255F13 /* DentistPlayVC.m in Sources */,
 				A99177072176E4CD00788D2C /* BaseModel.m in Sources */,
 				E11E1895C8DEDD3F910A9E71 /* SettingController.m in Sources */,
 				4E23E07F21529D6E00EDCE08 /* XHStarRateView.m in Sources */,
@@ -6621,6 +6702,7 @@
 				C5EEAFE8EAD63945F8FEFE29 /* UserInfo.m in Sources */,
 				184AEF3821A131DC004BDFB7 /* UploadResumeItemView.m in Sources */,
 				C5EEAADD1628D0BD23430FFF /* Residency.m in Sources */,
+				A3F928C8222816E700255F13 /* DentistDownloadButton.m in Sources */,
 				C5EEA88EF87352A514933076 /* Education.m in Sources */,
 				4E85DA9121451D3B007C40C3 /* UploadData.m in Sources */,
 				C5EEA79DA0D394B4733FFB2E /* Experience.m in Sources */,

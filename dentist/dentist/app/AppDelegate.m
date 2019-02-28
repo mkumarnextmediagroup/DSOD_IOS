@@ -241,7 +241,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![defaults boolForKey:@"DentistProjectOnceKey"]) {
         // 初始化下载最大并发数为1
-        [defaults setInteger:1 forKey:DentistDownloadMaxConcurrentCountKey];
+        [defaults setInteger:3 forKey:DentistDownloadMaxConcurrentCountKey];
         // 初始化不允许蜂窝网络下载
         [defaults setBool:NO forKey:DentistDownloadAllowsCellularAccessKey];
         [defaults setBool:YES forKey:@"DentistProjectOnceKey"];

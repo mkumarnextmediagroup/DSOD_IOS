@@ -89,8 +89,8 @@
     searchBar.placeholder = @"Search...";
     searchBar.delegate = self;
     searchBar.showsCancelButton = NO;
+    searchBar.tintColor = rgbHex(0x426bf2);
     item.titleView = searchBar;
-    
 }
 
 /**
@@ -106,7 +106,7 @@
     [[[illustrationIV.layoutMaker topParent:130]centerXParent:0]install];
     
     tipsLabel = emptyView.addLabel;
-    tipsLabel.text = @"Search for course";
+    tipsLabel.text = @"Search for a course";
     tipsLabel.textColor = rgbHex(0x4A4A4A);
     tipsLabel.font = [Fonts regular:16];
     tipsLabel.textAlignment = NSTextAlignmentCenter;
@@ -306,6 +306,7 @@
                 if ([obj2 isKindOfClass:[UIButton class]]) {
                     UIButton *btn = (UIButton *)obj2;
                     [btn setTitle:@"Cancel" forState:UIControlStateNormal];
+                    [btn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
                 }
             }
         }

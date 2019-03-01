@@ -75,6 +75,10 @@
 		1866AFFE2179DF3900970CAB /* DentistTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866AFFD2179DF3900970CAB /* DentistTabView.m */; };
 		1866B0012179DFDA00970CAB /* TabCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */; };
 		187111C821A31B6E00A2B3E4 /* Delete_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 187111C721A31B6D00A2B3E4 /* Delete_Icon.png */; };
+		187261AF2229210C0023BB5D /* ic_lms_resource_pdf.png in Resources */ = {isa = PBXBuildFile; fileRef = 187261AE2229210C0023BB5D /* ic_lms_resource_pdf.png */; };
+		187261B2222939C90023BB5D /* LMSTestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187261B1222939C90023BB5D /* LMSTestModel.m */; };
+		187261B5222946D30023BB5D /* ic_lms_resource_video.png in Resources */ = {isa = PBXBuildFile; fileRef = 187261B3222946D20023BB5D /* ic_lms_resource_video.png */; };
+		187261B6222946D30023BB5D /* ic_lms_resource_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 187261B4222946D30023BB5D /* ic_lms_resource_test.png */; };
 		188FC837221AE3F70005CF2A /* ic_course_quizzes@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC82E221AE3F50005CF2A /* ic_course_quizzes@3x.png */; };
 		188FC838221AE3F70005CF2A /* ic_course_quizzes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC82F221AE3F50005CF2A /* ic_course_quizzes@2x.png */; };
 		188FC839221AE3F70005CF2A /* ic_course_lessons@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC830221AE3F60005CF2A /* ic_course_lessons@3x.png */; };
@@ -285,6 +289,8 @@
 		4375F1342219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4375F1332219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m */; };
 		4375F1362219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4375F1352219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m */; };
 		437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */; };
+		43871BF5222776F000EAF040 /* EducationCategoryViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43871BF4222776F000EAF040 /* EducationCategoryViewControllerTests.m */; };
+		43871BF72227945D00EAF040 /* EducationCategoryCourseViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43871BF62227945C00EAF040 /* EducationCategoryCourseViewControllerTests.m */; };
 		4388150B218D4EF20066BCB6 /* SearchPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4388150A218D4EF20066BCB6 /* SearchPageTests.m */; };
 		438BA12821B4065D005246C5 /* CmsDownloadsControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */; };
 		43941292219F0378008C3092 /* UITextFieldExtTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43941291219F0378008C3092 /* UITextFieldExtTests.m */; };
@@ -306,6 +312,10 @@
 		43B5E6D621EE15E300F07A4B /* CompanyExistsReviewsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5E6D521EE15E300F07A4B /* CompanyExistsReviewsViewControllerTests.m */; };
 		43B7252D217650FF000F6797 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252C217650FF000F6797 /* ExampleTests.m */; };
 		43B72530217651A8000F6797 /* KiwiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B7252F217651A8000F6797 /* KiwiTests.m */; };
+		43BE10C62226B01D00C62FC1 /* EducationDownloadsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BE10C52226B01D00C62FC1 /* EducationDownloadsViewControllerTests.m */; };
+		43BE10C82226B38100C62FC1 /* EducationCoursesViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BE10C72226B38100C62FC1 /* EducationCoursesViewControllerTests.m */; };
+		43BE10CA2226B86300C62FC1 /* EducationSearchViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BE10C92226B86300C62FC1 /* EducationSearchViewControllerTests.m */; };
+		43BE10CC2226BB5F00C62FC1 /* EducationSpeakerDetailViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BE10CB2226BB5F00C62FC1 /* EducationSpeakerDetailViewControllerTests.m */; };
 		43D98CAD219DAE04004C3FBD /* FontsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D98CAC219DAE04004C3FBD /* FontsTests.m */; };
 		43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E409AB21B24E650016E102 /* CMSBookmarkControllerTests.m */; };
 		43E5794A2222832300748250 /* EducationPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E579492222832300748250 /* EducationPageTests.m */; };
@@ -1246,6 +1256,11 @@
 		1866AFFF2179DFDA00970CAB /* TabCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabCollectionViewCell.h; sourceTree = "<group>"; };
 		1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabCollectionViewCell.m; sourceTree = "<group>"; };
 		187111C721A31B6D00A2B3E4 /* Delete_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Delete_Icon.png; sourceTree = "<group>"; };
+		187261AE2229210C0023BB5D /* ic_lms_resource_pdf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_lms_resource_pdf.png; sourceTree = "<group>"; };
+		187261B0222939C90023BB5D /* LMSTestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSTestModel.h; sourceTree = "<group>"; };
+		187261B1222939C90023BB5D /* LMSTestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSTestModel.m; sourceTree = "<group>"; };
+		187261B3222946D20023BB5D /* ic_lms_resource_video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_lms_resource_video.png; sourceTree = "<group>"; };
+		187261B4222946D30023BB5D /* ic_lms_resource_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_lms_resource_test.png; sourceTree = "<group>"; };
 		188FC82E221AE3F50005CF2A /* ic_course_quizzes@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_quizzes@3x.png"; sourceTree = "<group>"; };
 		188FC82F221AE3F50005CF2A /* ic_course_quizzes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_quizzes@2x.png"; sourceTree = "<group>"; };
 		188FC830221AE3F60005CF2A /* ic_course_lessons@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_lessons@3x.png"; sourceTree = "<group>"; };
@@ -1533,6 +1548,8 @@
 		4375F1332219277E00F7B41D /* JobsOfDSODetailTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOfDSODetailTableViewCellTests.m; sourceTree = "<group>"; };
 		4375F1352219405A00F7B41D /* FindJobsSponsorTableViewCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindJobsSponsorTableViewCellTests.m; sourceTree = "<group>"; };
 		437AB90B2181F2160026A71B /* ProfileViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewControllerTests.m; sourceTree = "<group>"; };
+		43871BF4222776F000EAF040 /* EducationCategoryViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCategoryViewControllerTests.m; sourceTree = "<group>"; };
+		43871BF62227945C00EAF040 /* EducationCategoryCourseViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCategoryCourseViewControllerTests.m; sourceTree = "<group>"; };
 		4388150A218D4EF20066BCB6 /* SearchPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPageTests.m; sourceTree = "<group>"; };
 		438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsDownloadsControllerTests.m; sourceTree = "<group>"; };
 		43941291219F0378008C3092 /* UITextFieldExtTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UITextFieldExtTests.m; sourceTree = "<group>"; };
@@ -1556,6 +1573,10 @@
 		43B7252221764CF4000F6797 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43B7252C217650FF000F6797 /* ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleTests.m; sourceTree = "<group>"; };
 		43B7252F217651A8000F6797 /* KiwiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KiwiTests.m; sourceTree = "<group>"; };
+		43BE10C52226B01D00C62FC1 /* EducationDownloadsViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationDownloadsViewControllerTests.m; sourceTree = "<group>"; };
+		43BE10C72226B38100C62FC1 /* EducationCoursesViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCoursesViewControllerTests.m; sourceTree = "<group>"; };
+		43BE10C92226B86300C62FC1 /* EducationSearchViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationSearchViewControllerTests.m; sourceTree = "<group>"; };
+		43BE10CB2226BB5F00C62FC1 /* EducationSpeakerDetailViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationSpeakerDetailViewControllerTests.m; sourceTree = "<group>"; };
 		43D98CAC219DAE04004C3FBD /* FontsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FontsTests.m; sourceTree = "<group>"; };
 		43E409AB21B24E650016E102 /* CMSBookmarkControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSBookmarkControllerTests.m; sourceTree = "<group>"; };
 		43E579492222832300748250 /* EducationPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationPageTests.m; sourceTree = "<group>"; };
@@ -3021,6 +3042,8 @@
 				1824B32F222780550075F080 /* LMSLessonModel.m */,
 				1824B3342227BD5C0075F080 /* LMSResourceModel.h */,
 				1824B3352227BD5C0075F080 /* LMSResourceModel.m */,
+				187261B0222939C90023BB5D /* LMSTestModel.h */,
+				187261B1222939C90023BB5D /* LMSTestModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3820,6 +3843,12 @@
 			children = (
 				43E579492222832300748250 /* EducationPageTests.m */,
 				43E5794B222298BB00748250 /* EducationBookmarksViewControllerTests.m */,
+				43BE10C52226B01D00C62FC1 /* EducationDownloadsViewControllerTests.m */,
+				43BE10C72226B38100C62FC1 /* EducationCoursesViewControllerTests.m */,
+				43BE10C92226B86300C62FC1 /* EducationSearchViewControllerTests.m */,
+				43BE10CB2226BB5F00C62FC1 /* EducationSpeakerDetailViewControllerTests.m */,
+				43871BF4222776F000EAF040 /* EducationCategoryViewControllerTests.m */,
+				43871BF62227945C00EAF040 /* EducationCategoryCourseViewControllerTests.m */,
 			);
 			path = Education;
 			sourceTree = "<group>";
@@ -4173,6 +4202,9 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				187261B4222946D30023BB5D /* ic_lms_resource_test.png */,
+				187261B3222946D20023BB5D /* ic_lms_resource_video.png */,
+				187261AE2229210C0023BB5D /* ic_lms_resource_pdf.png */,
 				18AA9F9F22251A1500124B8F /* img_lms_search_illustration.png */,
 				182BC654221E7DC300ACADB0 /* img_lms_bookmarks_illustration.png */,
 				188FC836221AE3F70005CF2A /* ic_course_certificate.png */,
@@ -6026,6 +6058,7 @@
 				181122102216AA11002A0B4E /* ic_nav_share.png in Resources */,
 				4E51695521B13704005B8533 /* more-profiles@2x.png in Resources */,
 				E11E153EC0D9A350423FE20A /* Img-User-demo@3x.png in Resources */,
+				187261B5222946D30023BB5D /* ic_lms_resource_video.png in Resources */,
 				E11E1CAC9B2596D56900A33E /* in_large.png in Resources */,
 				E11E130E848ED2D497242E65 /* in_large@2x.png in Resources */,
 				A338E22E22142BA700FCCCA0 /* lms-my-courses-light.png in Resources */,
@@ -6090,6 +6123,7 @@
 				18E3405521EB578D00696E04 /* arrow_up_gray@2x.png in Resources */,
 				E11E1CB4F43A50540AAB9B8E /* menu-carers_light@3x.png in Resources */,
 				E11E1F1D686DE26969AA6831 /* menu-carers.png in Resources */,
+				187261AF2229210C0023BB5D /* ic_lms_resource_pdf.png in Resources */,
 				E11E16BE2AF4FF030FD0D048 /* menu-carers@2x.png in Resources */,
 				A3F928DF2228236B00255F13 /* com_download_waiting@3x.png in Resources */,
 				E11E109DEF85B4A9667FE8FE /* menu-carers@3x.png in Resources */,
@@ -6143,6 +6177,7 @@
 				A3B340CE21C3E39D008EB36A /* noun_Business Records@2x.png in Resources */,
 				E11E17DA1750DC3EFFFBC584 /* menu-edu_light@2x.png in Resources */,
 				4E5BA7FF217721D400386598 /* contentPic_bg@3x.png in Resources */,
+				187261B6222946D30023BB5D /* ic_lms_resource_test.png in Resources */,
 				188FC83D221AE3F70005CF2A /* ic_course_certificate@2x.png in Resources */,
 				4E5BA802217835CE00386598 /* back_fullScreen@2x.png in Resources */,
 				A956C5392154CC4B00E528EB /* Icon-Search@3x.png in Resources */,
@@ -6392,24 +6427,29 @@
 				43D98CAD219DAE04004C3FBD /* FontsTests.m in Sources */,
 				43714D9E21EAE34200B7AC18 /* CareerAlertsViewControllerTests.m in Sources */,
 				433FBD5822015374000ACD41 /* CompanyDetailViewControllerTests.m in Sources */,
+				43BE10CA2226B86300C62FC1 /* EducationSearchViewControllerTests.m in Sources */,
 				435FD78C21E44895004E2D8C /* CareerAlertsAddViewControllerTests.m in Sources */,
 				4307CC39220475D600F17051 /* CompanyDetailDescriptionViewControllerTests.m in Sources */,
 				1804B4A22205E0DD00F9A75A /* HelpAndFeedbackViewControllerTests.m in Sources */,
+				43871BF72227945D00EAF040 /* EducationCategoryCourseViewControllerTests.m in Sources */,
 				432136F421E39E6300ADF614 /* DSOProfileSearchPageTests.m in Sources */,
 				43B074B9221816340020639F /* FindJobsTableViewCellTests.m in Sources */,
 				432136DD21E332E100ADF614 /* SliderListViewTests.m in Sources */,
 				432136ED21E357ED00ADF614 /* UniteThumCollectionViewCellTests.m in Sources */,
 				433089D421F60C9600443469 /* JobDetailCompanyViewControllerTests.m in Sources */,
+				43BE10CC2226BB5F00C62FC1 /* EducationSpeakerDetailViewControllerTests.m in Sources */,
 				432136E721E34B0D00ADF614 /* UniteArticleTableViewCellTests.m in Sources */,
 				4307CC3C22047F6500F17051 /* CompanyDetailJobsViewControllerTests.m in Sources */,
 				4355706021E2327D007A8C21 /* UniteDetailViewControllerTests.m in Sources */,
 				43952B452190704900EB3443 /* EditPracticeAddressViewControllerTests.m in Sources */,
 				43277E8C217F4F6A008B3240 /* DSOWebViewControllerTests.m in Sources */,
 				437AB90C2181F2160026A71B /* ProfileViewControllerTests.m in Sources */,
+				43BE10C62226B01D00C62FC1 /* EducationDownloadsViewControllerTests.m in Sources */,
 				4344660121A5614A00811E94 /* UIButtonExtTests.m in Sources */,
 				43488F4E2199BAEB00FDC15E /* ColorTests.m in Sources */,
 				43065FE821BFF69A00D142B8 /* CmsCategoryPageTests.m in Sources */,
 				1804B4A42205E0F700F9A75A /* FAQSViewControllerTests.m in Sources */,
+				43BE10C82226B38100C62FC1 /* EducationCoursesViewControllerTests.m in Sources */,
 				432136E421E342B300ADF614 /* UnitePageCellTests.m in Sources */,
 				4341949321A598BE0029AECE /* CmsForYouPageTests.m in Sources */,
 				43714DA121EB049C00B7AC18 /* CareerMyJobViewControllerTests.m in Sources */,
@@ -6432,6 +6472,7 @@
 				43277E86217F4B9B008B3240 /* WelcomeControllerTests.m in Sources */,
 				43B5E6D321EDEC3000F07A4B /* CareerAddReviewViewControllerTests.m in Sources */,
 				43B7252D217650FF000F6797 /* ExampleTests.m in Sources */,
+				43871BF5222776F000EAF040 /* EducationCategoryViewControllerTests.m in Sources */,
 				1804B49E2205E0B100F9A75A /* PlaybackSpeedViewControllerTests.m in Sources */,
 				4355C2E021F46D6F00544B5F /* JobDetailViewControllerTests.m in Sources */,
 				4332B3B5221A6B7A00156D0A /* CareerAlertsTableViewCellTests.m in Sources */,
@@ -6609,6 +6650,7 @@
 				A3DF39A62189A280006F84DC /* TransitionDriver.swift in Sources */,
 				4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
+				187261B2222939C90023BB5D /* LMSTestModel.m in Sources */,
 				4E1957402137D0F100420563 /* PermissionContactInfoFields.m in Sources */,
 				4E474D3E21B40AC10002F5A1 /* MoreView.m in Sources */,
 				A3A5B339218D61C500242E71 /* ThumCollectionViewCell.swift in Sources */,

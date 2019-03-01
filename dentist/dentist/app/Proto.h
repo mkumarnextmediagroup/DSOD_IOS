@@ -370,6 +370,14 @@
 +(NSString *)getCourseDetailImageUrlByObjectId:(NSString *)objectid;
 
 /**
+ get lms download fil url
+ 
+ @param objectid image id
+ @return aratar url
+ */
++(NSString *)getLMSDownloadUrlByObjectId:(NSString *)objectid;
+
+/**
  get course detail info based on course id
  
  @param courseId course id

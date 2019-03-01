@@ -3261,13 +3261,7 @@
  */
 +(NSString *)getCourseAuthorAvatarUrlByObjectId:(NSString *)objectid
 {
-    if (![NSString isBlankString:objectid]) {
-        NSString *baseUrl = [self configUrl:@"lms"];
-        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
-        return url;
-    }else{
-        return nil;
-    }
+    return [self getLMSDownloadUrlByObjectId:objectid];
 }
 
 /**
@@ -3278,6 +3272,16 @@
  */
 +(NSString *)getCourseDetailImageUrlByObjectId:(NSString *)objectid
 {
+    return [self getLMSDownloadUrlByObjectId:objectid];
+}
+
+/**
+ get lms download fil url
+ 
+ @param objectid image id
+ @return aratar url
+ */
++(NSString *)getLMSDownloadUrlByObjectId:(NSString *)objectid{
     if (![NSString isBlankString:objectid]) {
         NSString *baseUrl = [self configUrl:@"lms"];
         NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
@@ -3286,6 +3290,7 @@
         return nil;
     }
 }
+
 
 /**
  LMS : get course detail info based on course id
@@ -3385,6 +3390,9 @@
  */
 + (void)lmsAddBookmark:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg))completed{
     [self postAsync3:@"bookmark/bookmark" dic:@{@"courseId":courseId} modular:@"lms" callback:^(HttpResult *r) {
+        if(r.OK){
+            [[BookmarkManager shareManager] removedeleteBookmark:getLastAccount() postid:courseId];
+        }
         if(completed){
             foreTask(^{
                 completed(r.OK,r.msg);
@@ -3402,6 +3410,9 @@
 + (void)lmsDelBookmarkByCourseId:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg))completed{
     
     [self delAsync:[NSString stringWithFormat:@"bookmark/course/%@",courseId] dic:nil modular:@"lms" callback:^(HttpResult *r) {
+        if(r.OK){
+            [[BookmarkManager shareManager] adddeleteBookmark:getLastAccount() postid:courseId];
+        }
         if(completed){
             foreTask(^{
                 completed(r.OK,r.msg);

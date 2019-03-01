@@ -13,6 +13,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+//    0:未注册 1:注册未开课 2:已开课 3:已完成
+//    0:not enroll 1:not start 2:in progress 3:complete
+
+typedef NS_ENUM(NSInteger, CourseStatus) {
+    NotEnroll = 0,
+    NotStart,
+    InProgress,
+    complete
+};
+
 @interface CourseModel : JSONModel
 @property NSString <Optional>*id;
 @property NSString <Optional>*image;
@@ -56,7 +66,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 //local property
-@property (nonatomic,strong) NSString <Optional>*levelString;
+@property (nonatomic,strong) NSString <Ignore>*levelString;
+/**
+ 根据注册情况和开课情况总结状态
+ Summarize the course status according to the registration and class opening
+ */
+@property (nonatomic,assign) CourseStatus courseStatus;
 
 @end
 

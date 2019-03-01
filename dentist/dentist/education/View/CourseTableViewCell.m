@@ -140,7 +140,7 @@
 {
     _model=model;
     if(_model){
-        [imageView loadUrl:_model.image placeholderImage:@"art-img"];
+        [imageView loadUrl:[Proto getFileUrlByObjectId:_model.image] placeholderImage:@"art-img"];
         [imageView scaleFillAspect];
         imageView.clipsToBounds=YES;
         titleLabel.text=_model.name;
@@ -151,10 +151,11 @@
             }
             
         }
-        timerLabel.text=_model.timeRequired;
+        starview.currentScore=_model.rating;
+        timerLabel.text=[self timertransform:_model.timeRequired];
         NSString *pricestr=@"FREE";
         if (!_model.free) {
-            pricestr=[NSString stringWithFormat:@"$%@",@(_model.price)];
+            pricestr=[NSString stringWithFormat:@"$%.2f",_model.price];
         }
         priceLabel.text=pricestr;
         [self levelView:0];
@@ -230,6 +231,25 @@
         [self.detegate sponsoredAction:_indexPath];
     }
 }
+
+/**
+ time transform
+ @param timestr course time
+ */
+-(NSString *)timertransform:(NSString *)timestr
+{
+    NSString *str=@"";
+    NSInteger timerint=[timestr integerValue];
+    if (timerint<60) {
+        str=[NSString stringWithFormat:@"%ldm",timerint];
+    }else{
+        CGFloat timeh=timerint/60;
+        NSInteger timem=(timerint-timeh*60);
+        str=[NSString stringWithFormat:@"%.fh %ldm",floorf(timeh),timem];
+    }
+    return str;
+}
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];

@@ -43,6 +43,14 @@
 	} else {
         [self switchToWelcomePage];
 	}
+    // 一次性代码
+    [self projectOnceCode];
+    
+    // 开启网络监听
+    [[DentistNetworkReachabilityManager shareManager] monitorNetworkStatus];
+    
+    // 开启等待下载的任务
+    [[DentistDownloadManager shareManager] openDownloadTask];
 
 	[self.window makeKeyAndVisible];
 	return YES;
@@ -198,6 +206,8 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
 	// Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
 	// If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    // 实现如下代码，才能使程序处于后台时被杀死，调用applicationWillTerminate:方法
+    [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^(){}];
 }
 
 
@@ -215,7 +225,27 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [[DentistDownloadManager shareManager] updateDownloadingTaskState];
 }
 
+// 应用处于后台，所有下载任务完成调用
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)(void))completionHandler
+{
+    _backgroundSessionCompletionHandler = completionHandler;
+}
+
+
+// 一次性代码
+- (void)projectOnceCode
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults boolForKey:@"DentistProjectOnceKey"]) {
+        // 初始化下载最大并发数为1
+        [defaults setInteger:3 forKey:DentistDownloadMaxConcurrentCountKey];
+        // 初始化不允许蜂窝网络下载
+        [defaults setBool:NO forKey:DentistDownloadAllowsCellularAccessKey];
+        [defaults setBool:YES forKey:@"DentistProjectOnceKey"];
+    }
+}
 
 @end

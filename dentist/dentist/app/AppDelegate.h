@@ -15,6 +15,7 @@
 @property(assign, nonatomic) BOOL supportRatate;
 @property(strong, nonatomic) UIViewController *careersPage;
 @property(strong, nonatomic) UIViewController *mainLeftPage;
+@property (nonatomic, copy) void (^ backgroundSessionCompletionHandler)(void);  // 后台所有下载任务完成回调
 
 @property(class) AppDelegate *instance;
 - (void)onOpenMenuAnoSide:(id)sender;

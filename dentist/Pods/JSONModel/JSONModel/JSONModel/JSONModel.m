@@ -177,6 +177,7 @@ static JSONKeyMapper* globalKeyMapper = nil;
 
     //import the data from a dictionary
     if (![self __importDictionary:dict withKeyMapper:self.__keyMapper validation:YES error:err]) {
+        NSLog(@"----%@",*err);
         return nil;
     }
 

@@ -31,6 +31,9 @@
     
     UILabel *lessonsNumberLabel;
     UILabel *quizzesNumberLabel;
+    UILabel *certificateLabel;
+    UIImageView *certificateIV
+;
 
     
     AuthorModel *authorModel;
@@ -159,13 +162,13 @@
     [[[[quizzesIV.layoutMaker leftParent:edge]centerYOf:quizzesNumberLabel offset:0]sizeEq:30 h:30]install];
     
     //Certificate
-    UILabel *certificateLabel = courseContainsView.addLabel;
+    certificateLabel = courseContainsView.addLabel;
     certificateLabel.font = [Fonts regular:17];
     certificateLabel.textColor = rgbHex(0x1A191A);
     certificateLabel.text = @"Certificate" ;
     [[[[[certificateLabel.layoutMaker leftParent:60] below:quizzesNumberLabel offset:edge *2] rightParent:-edge] bottomParent:-edge] install];
-    
-    UIImageView *certificateIV = courseContainsView.addImageView;
+
+    certificateIV = courseContainsView.addImageView;
     certificateIV.imageName = @"ic_course_certificate";
     [[[[certificateIV.layoutMaker leftParent:edge]centerYOf:certificateLabel offset:0]sizeEq:30 h:30]install];
     
@@ -213,6 +216,15 @@
     
     lessonsNumberLabel.text = [NSString stringWithFormat:@"%d Lessons",(int)courseModel.lessons.count];
     quizzesNumberLabel.text = [NSString stringWithFormat:@"%d Quizzes",(int)courseModel.tests.count];
+    
+    if(!courseModel.hasCertificate){
+        //not has certificate,hide certificate item
+        certificateLabel.hidden = YES;
+        [[[certificateLabel.layoutUpdate heightEq:0] below:quizzesNumberLabel offset:0] install];
+
+        certificateIV.hidden = YES;
+        [[certificateIV.layoutUpdate heightEq:0]install];
+    }
 
     if(courseModel.authorIds && courseModel.authorIds.count > 0){
         [self getAuthorById:courseModel.authorIds[0]];

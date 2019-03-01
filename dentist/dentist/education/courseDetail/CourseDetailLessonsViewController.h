@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CourseModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,7 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)contentOffsetToPointZero;
 
 
-@property (nonatomic,strong) NSString *courseId;
+/**
+ show lessons info
+ 
+ @param courseModel CourseModel instance
+ */
+-(void)showData:(CourseModel*)courseModel;
 
 
 

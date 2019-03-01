@@ -24,6 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSInteger)getDifferenceByTimestamp:(NSString *)timestamp;
 
 +(NSString*)USDateFormat:(NSString*)dateFormat  timestamp:(long long)timestamp;
+// 时间转换为时间戳
++ (NSInteger)getTimeStampWithDate:(NSDate *)date;
+
+// 时间戳转换为时间
++ (NSDate *)getDateWithTimeStamp:(NSInteger)timeStamp;
+// 一个时间戳与当前时间的间隔（s）
++ (NSInteger)getIntervalsWithTimeStamp:(NSInteger)timeStamp;
     
 @end
 

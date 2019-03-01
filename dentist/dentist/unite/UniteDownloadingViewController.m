@@ -13,7 +13,7 @@
 #import "AppDelegate.h"
 #import "dentist-Swift.h"
 #import "SliderListView.h"
-#import "DetinstDownloadManager.h"
+#import "DentistDownloadManager.h"
 
 @interface UniteDownloadingViewController (){
     UIImageView *coverImgView;
@@ -135,7 +135,7 @@
 //    downloadBtn.hidden = NO;
 //    downloadingBtn.hidden = YES;
 //    cancelBtn.hidden = YES;
-    [[DetinstDownloadManager shareManager] cancelDownloadUnite:self.magazineModel];
+    [[DentistDownloadManager shareManager] cancelDownloadUnite:self.magazineModel];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -181,7 +181,7 @@
     cancelBtn.hidden = NO;
     //添加几条模拟文章ID数据
 //    _magazineModel.articles=@[@"5bf423ca3a066d36800e92d2",@"5bf423ec3a066d36800e93ae",@"5bf4256e3a066d36800e9565"];
-    [[DetinstDownloadManager shareManager] startDownLoadUniteArticles:_magazineModel addCompletion:^(BOOL result) {
+    [[DentistDownloadManager shareManager] startDownLoadUniteArticles:_magazineModel addCompletion:^(BOOL result) {
         
     } completed:^(BOOL result) {
         

@@ -2507,9 +2507,14 @@
         if (r.OK) {
             NSDictionary *dataDic =  r.resultMap[@"data"];
             if (dataDic && ![dataDic isKindOfClass:[NSNull class]]){
-                NSArray *objectId = [dataDic objectForKey:@"fileUrl"];
-                NSString *url = objectId[0];
-                completed(url);
+                if([dataDic objectForKey:@"fileUrl"] && [[dataDic objectForKey:@"fileUrl"] isKindOfClass:[NSArray class]]){
+                    NSArray *objectId = [dataDic objectForKey:@"fileUrl"];
+                    NSString *url = objectId[0];
+                    completed(url);
+                }else{
+                    completed(@"");
+                }
+                
             }else{
                 completed(@"");
             }
@@ -3144,7 +3149,7 @@
         [paradic setObject:keyword forKey:@"searchValue"];
     }
 
-    [self postAsync3:@"/generic/courses" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
+    [self postAsync3:@"generic/courses" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];
@@ -3202,7 +3207,7 @@
     if (![NSString isBlankString:categoryId]) {
         [paradic setObject:categoryId forKey:@"categoryId"];
     }
-    [self postAsync3:@"/generic/courses/interest" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
+    [self postAsync3:@"generic/courses/interest" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
         if (r.OK) {
             NSMutableArray *resultArray = [NSMutableArray array];
             NSArray *arr = r.resultMap[@"data"];
@@ -3302,6 +3307,75 @@
         }
     }];
 }
+
+
+/**
+ 获取某用户注册后课程详情
+ LMS : get enrollment course detail info based on course id
+ 
+ @param courseId course id
+ @param enrollmentId enrollment id
+ @param completed response callback function
+ */
++ (void)findEnrollmentCourseDetail:(NSString*)courseId enrollmentId:(NSString*)enrollmentId completed:(void(^)(BOOL success,NSString *msg,CourseModel *courseModel))completed{
+    [self getAsync:[NSString stringWithFormat:@"generic/course/%@/enrollment/%@",courseId,enrollmentId] dic:nil modular:@"lms" callback:^(HttpResult *r) {
+        CourseModel *model = nil;
+        if (r.OK && r.resultMap[@"data"]) {
+            NSDictionary *dic =  r.resultMap[@"data"];
+            model = [[CourseModel alloc] initWithJson:jsonBuild(dic)];
+        }
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg,model);
+            });
+        }
+    }];
+}
+
+/**
+ 添加课程注册
+ LMS : Enrollment Course
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)lmsEnrollmentCourse:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg,NSString *enrollmentId))completed{
+    [self postAsync3:@"course/enrollment" dic:@{@"courseId":courseId} modular:@"lms" callback:^(HttpResult *r) {
+        NSString *enrollmentId = nil;
+        if (r.OK && r.resultMap[@"data"]) {
+            enrollmentId =  r.resultMap[@"data"];
+        }
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg,enrollmentId);
+            });
+        }
+    }];
+}
+
+/**
+ 获取一个用户某个课程的注册列表
+ LMS : get enrollment list info based on course id
+ 
+ @param courseId course id
+ @param completed response callback function
+ */
++ (void)findEnrollmentListByCourseId:(NSString*)courseId completed:(void(^)(BOOL success,NSString *msg,CourseModel *courseModel))completed{
+    [self getAsync:[NSString stringWithFormat:@"course/%@/enrollment",courseId] dic:nil modular:@"lms" callback:^(HttpResult *r) {
+        CourseModel *model = nil;
+        
+        if (r.OK && r.resultMap[@"data"]) {
+            NSDictionary *dic =  r.resultMap[@"data"];
+            model = [[CourseModel alloc] initWithJson:jsonBuild(dic)];
+        }
+        if(completed){
+            foreTask(^{
+                completed(r.OK,r.msg,model);
+            });
+        }
+    }];
+}
+
 
 /**
  LMS : Marking courses according to course ID

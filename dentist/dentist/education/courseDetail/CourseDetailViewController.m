@@ -365,8 +365,8 @@
         priceLabel.text = [NSString stringWithFormat:@"$%.2f" ,courseModel.price];
     }
     
-    
-    levelLabel.text = courseModel.level;
+//    1.beginner，2.intermediate，3.advanced，4.expert
+    levelLabel.text = courseModel.levelString;
     starLabel.text = [NSString stringWithFormat:@"%.1f",courseModel.rating];
     timeRequiredLabel.text = courseModel.timeRequired;
     accessDateLabel.text = [NSDate USDateShortFormatWithTimestamp:courseModel.accessDate.time];
@@ -388,7 +388,7 @@
     
     //Modified layout , Must be at the end because the sponsor picture dynamic height
     //not enroll state ,hide lesson tab
-    [[lessonsLabel.layoutUpdate widthEq:0]install];
+//    [[lessonsLabel.layoutUpdate widthEq:0]install];
     
     [headerView.layoutUpdate.bottom.equalTo(lastView.mas_bottom) install];
     [headerView layoutIfNeeded];
@@ -449,7 +449,6 @@
         
         
         self.lessonsVC.view.frame = _tableContentView.frame;
-        self.lessonsVC.courseId =  courseModel.id;
         [_tableContentView addSubview:self.lessonsVC.view];
         
         self.descriptionVC.view.frame = _tableContentView.frame;
@@ -480,6 +479,8 @@
     self.lessonsVC.view.hidden = NO;
     self.descriptionVC.view.hidden = YES;
     self.reviewsVC.view.hidden = YES;
+    
+    [self.lessonsVC showData:courseModel];
 }
 
 /**

@@ -75,6 +75,10 @@
 		1866AFFE2179DF3900970CAB /* DentistTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866AFFD2179DF3900970CAB /* DentistTabView.m */; };
 		1866B0012179DFDA00970CAB /* TabCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */; };
 		187111C821A31B6E00A2B3E4 /* Delete_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 187111C721A31B6D00A2B3E4 /* Delete_Icon.png */; };
+		187261AF2229210C0023BB5D /* ic_lms_resource_pdf.png in Resources */ = {isa = PBXBuildFile; fileRef = 187261AE2229210C0023BB5D /* ic_lms_resource_pdf.png */; };
+		187261B2222939C90023BB5D /* LMSTestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 187261B1222939C90023BB5D /* LMSTestModel.m */; };
+		187261B5222946D30023BB5D /* ic_lms_resource_video.png in Resources */ = {isa = PBXBuildFile; fileRef = 187261B3222946D20023BB5D /* ic_lms_resource_video.png */; };
+		187261B6222946D30023BB5D /* ic_lms_resource_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 187261B4222946D30023BB5D /* ic_lms_resource_test.png */; };
 		188FC837221AE3F70005CF2A /* ic_course_quizzes@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC82E221AE3F50005CF2A /* ic_course_quizzes@3x.png */; };
 		188FC838221AE3F70005CF2A /* ic_course_quizzes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC82F221AE3F50005CF2A /* ic_course_quizzes@2x.png */; };
 		188FC839221AE3F70005CF2A /* ic_course_lessons@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 188FC830221AE3F60005CF2A /* ic_course_lessons@3x.png */; };
@@ -1253,6 +1257,11 @@
 		1866AFFF2179DFDA00970CAB /* TabCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabCollectionViewCell.h; sourceTree = "<group>"; };
 		1866B0002179DFDA00970CAB /* TabCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabCollectionViewCell.m; sourceTree = "<group>"; };
 		187111C721A31B6D00A2B3E4 /* Delete_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Delete_Icon.png; sourceTree = "<group>"; };
+		187261AE2229210C0023BB5D /* ic_lms_resource_pdf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_lms_resource_pdf.png; sourceTree = "<group>"; };
+		187261B0222939C90023BB5D /* LMSTestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSTestModel.h; sourceTree = "<group>"; };
+		187261B1222939C90023BB5D /* LMSTestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSTestModel.m; sourceTree = "<group>"; };
+		187261B3222946D20023BB5D /* ic_lms_resource_video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_lms_resource_video.png; sourceTree = "<group>"; };
+		187261B4222946D30023BB5D /* ic_lms_resource_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_lms_resource_test.png; sourceTree = "<group>"; };
 		188FC82E221AE3F50005CF2A /* ic_course_quizzes@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_quizzes@3x.png"; sourceTree = "<group>"; };
 		188FC82F221AE3F50005CF2A /* ic_course_quizzes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_quizzes@2x.png"; sourceTree = "<group>"; };
 		188FC830221AE3F60005CF2A /* ic_course_lessons@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_course_lessons@3x.png"; sourceTree = "<group>"; };
@@ -3035,6 +3044,8 @@
 				1824B32F222780550075F080 /* LMSLessonModel.m */,
 				1824B3342227BD5C0075F080 /* LMSResourceModel.h */,
 				1824B3352227BD5C0075F080 /* LMSResourceModel.m */,
+				187261B0222939C90023BB5D /* LMSTestModel.h */,
+				187261B1222939C90023BB5D /* LMSTestModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4194,6 +4205,9 @@
 		57B0990021256E240010597B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				187261B4222946D30023BB5D /* ic_lms_resource_test.png */,
+				187261B3222946D20023BB5D /* ic_lms_resource_video.png */,
+				187261AE2229210C0023BB5D /* ic_lms_resource_pdf.png */,
 				18AA9F9F22251A1500124B8F /* img_lms_search_illustration.png */,
 				182BC654221E7DC300ACADB0 /* img_lms_bookmarks_illustration.png */,
 				188FC836221AE3F70005CF2A /* ic_course_certificate.png */,
@@ -6047,6 +6061,7 @@
 				181122102216AA11002A0B4E /* ic_nav_share.png in Resources */,
 				4E51695521B13704005B8533 /* more-profiles@2x.png in Resources */,
 				E11E153EC0D9A350423FE20A /* Img-User-demo@3x.png in Resources */,
+				187261B5222946D30023BB5D /* ic_lms_resource_video.png in Resources */,
 				E11E1CAC9B2596D56900A33E /* in_large.png in Resources */,
 				E11E130E848ED2D497242E65 /* in_large@2x.png in Resources */,
 				A338E22E22142BA700FCCCA0 /* lms-my-courses-light.png in Resources */,
@@ -6111,6 +6126,7 @@
 				18E3405521EB578D00696E04 /* arrow_up_gray@2x.png in Resources */,
 				E11E1CB4F43A50540AAB9B8E /* menu-carers_light@3x.png in Resources */,
 				E11E1F1D686DE26969AA6831 /* menu-carers.png in Resources */,
+				187261AF2229210C0023BB5D /* ic_lms_resource_pdf.png in Resources */,
 				E11E16BE2AF4FF030FD0D048 /* menu-carers@2x.png in Resources */,
 				A3F928DF2228236B00255F13 /* com_download_waiting@3x.png in Resources */,
 				E11E109DEF85B4A9667FE8FE /* menu-carers@3x.png in Resources */,
@@ -6164,6 +6180,7 @@
 				A3B340CE21C3E39D008EB36A /* noun_Business Records@2x.png in Resources */,
 				E11E17DA1750DC3EFFFBC584 /* menu-edu_light@2x.png in Resources */,
 				4E5BA7FF217721D400386598 /* contentPic_bg@3x.png in Resources */,
+				187261B6222946D30023BB5D /* ic_lms_resource_test.png in Resources */,
 				188FC83D221AE3F70005CF2A /* ic_course_certificate@2x.png in Resources */,
 				4E5BA802217835CE00386598 /* back_fullScreen@2x.png in Resources */,
 				A956C5392154CC4B00E528EB /* Icon-Search@3x.png in Resources */,
@@ -6637,6 +6654,7 @@
 				A3DF39A62189A280006F84DC /* TransitionDriver.swift in Sources */,
 				4E846F81213F70A200DC2B51 /* PickerViewController.m in Sources */,
 				C5EEA01D497543752B092927 /* UIImage+customed.m in Sources */,
+				187261B2222939C90023BB5D /* LMSTestModel.m in Sources */,
 				4E1957402137D0F100420563 /* PermissionContactInfoFields.m in Sources */,
 				4E474D3E21B40AC10002F5A1 /* MoreView.m in Sources */,
 				A3A5B339218D61C500242E71 /* ThumCollectionViewCell.swift in Sources */,

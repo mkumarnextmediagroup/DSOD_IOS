@@ -1,15 +1,14 @@
 //
-//  LMSResourceModel.m
+//  LMSTestModel.m
 //  dentist
 //
-//  Created by Shirley on 2019/2/28.
+//  Created by Shirley on 2019/3/1.
 //  Copyright © 2019 thenextmediagroup.com. All rights reserved.
 //
 
-#import "LMSResourceModel.h"
+#import "LMSTestModel.h"
 
-@implementation LMSResourceModel
-
+@implementation LMSTestModel
 
 +(BOOL)propertyIsOptional:(NSString*)propertyName{
     return YES;

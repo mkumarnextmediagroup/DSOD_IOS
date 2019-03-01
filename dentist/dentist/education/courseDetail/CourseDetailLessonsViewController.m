@@ -11,6 +11,8 @@
 #import "Proto.h"
 #import "LMSLessonModel.h"
 #import "LMSResourceModel.h"
+#import "LMSTestModel.h"
+#import "LMSRerouceTableViewCell.h"
 
 @interface CourseDetailLessonsViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) CourseModel *courseModel;
@@ -52,11 +54,9 @@
     tableView.rowHeight=UITableViewAutomaticDimension;
     tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     tableView.backgroundColor = UIColor.whiteColor;
-    //    [tableView registerClass:CompanyReviewHeaderTableViewCell.class forCellReuseIdentifier:NSStringFromClass(CompanyReviewHeaderTableViewCell.class)];
+        [tableView registerClass:LMSRerouceTableViewCell.class forCellReuseIdentifier:NSStringFromClass(LMSRerouceTableViewCell.class)];
     [self.view addSubview:tableView];
     [[[[[tableView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
-    
-    
 }
 
 /**
@@ -117,8 +117,7 @@
  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return lessonsArray[section].resources.count;
-    
+    return lessonsArray[section].resources.count + lessonsArray[section].tests.count;
 }
 
 /**
@@ -163,18 +162,25 @@
  */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    EducationCategoryTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([EducationCategoryTableViewCell class]) forIndexPath:indexPath];
-//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//    if(infoArr.count>indexPath.row){
-//        LMSCategoryModel *model=infoArr[indexPath.row];
-//        NSString *countcoursestr=[NSString stringWithFormat:@"%@ COURSES",@(model.countofcourse)];
-//        [cell setModel:model.name des:countcoursestr];
-//    }
-//    return cell;
+    LMSRerouceTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([LMSRerouceTableViewCell class]) forIndexPath:indexPath];
     
+    DentistDownloadModel *downloadModel = [[DentistDownloadModel alloc]init];
+    int number = [self getNumberAtIndexPath:indexPath];
+    NSInteger resourceType = 0;
     
-    UITableViewCell *cell = [[UITableViewCell alloc]init];
-    cell.textLabel.text = ((LMSResourceModel*)lessonsArray[indexPath.section].resources[indexPath.row]).name;
+    id model = [self getItemModel:indexPath];
+    if([model isKindOfClass:LMSResourceModel.class]){
+        downloadModel.vid = ((LMSResourceModel*)model).id;
+        downloadModel.fileName = ((LMSResourceModel*)model).name;
+        downloadModel.url = [Proto getLMSDownloadUrlByObjectId: ((LMSResourceModel*)model).resource];
+        resourceType = ((LMSResourceModel*)model).resourceType;
+        
+    }else if([model isKindOfClass:LMSTestModel.class]){
+        downloadModel.fileName = ((LMSTestModel*)model).name;
+        resourceType = 100;
+    }
+
+    [cell showData:downloadModel number:number resourceType:resourceType showDownloadBtn:self.courseModel.courseStatus == InProgress];
     
     return cell;
 }
@@ -194,6 +200,25 @@
 //    }
 
 }
+
+/**
+ Get real data model
+
+ @param indexPath NSIndexPath
+ @return model of id type
+ */
+-(id)getItemModel:(NSIndexPath *)indexPath{
+    id item = nil;
+    long rescourseCount = lessonsArray[indexPath.section].resources.count;
+    if(indexPath.row < rescourseCount){
+        item = lessonsArray[indexPath.section].resources[indexPath.row];
+    }else{
+        long index = indexPath.row-rescourseCount;
+        item = lessonsArray[indexPath.section].tests[index];
+    }
+    return item;
+}
+
 
 /**
  Get the serial number of the entire table

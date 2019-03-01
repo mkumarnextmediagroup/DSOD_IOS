@@ -9,14 +9,14 @@
 #import "EducationCategoryViewController.h"
 #import "LMSCategoryModel.h"
 #import "CourseTableViewCell.h"
-#import "BannerScrollView.h"
 #import "DentistTabView.h"
 #import "EducationCategoryCourseViewController.h"
 #import "CourseDetailViewController.h"
 #import "YCMenuView.h"
 #import "SponsoredCourseViewController.h"
 #import "EducationSearchViewController.h"
-#import "DentistHomeVC.h";
+#import "DentistHomeVC.h"
+#import "BannerScrollView.h"
 
 @interface EducationPage ()<UITableViewDelegate,UITableViewDataSource,DentistTabViewDelegate,YCMenuViewDelegate,CourseTableViewCellDelegate>
 {
@@ -103,10 +103,13 @@
     iv =[BannerScrollView new];
     [panel addSubview:iv];
     [[[[[[iv layoutMaker] leftParent:edg] rightParent:-edg] topParent:40] heightEq:bannerh] install];
-    [iv addWithImageNames:urls autoTimerInterval:3 clickBlock:^(NSInteger index) {
-        NSLog(@"index=%@",@(index));
-        //可以做点击处理
-        //        [weakself showImageBrowser:index-1];
+//    [iv addWithImageNames:urls autoTimerInterval:3 clickBlock:^(NSInteger index) {
+//        NSLog(@"index=%@",@(index));
+//        //可以做点击处理
+//        //        [weakself showImageBrowser:index-1];
+//    }];
+    [iv addWithImageNames:urls courses:self->infoArr2 autoTimerInterval:3 clickBlock:^(NSInteger index) {
+
     }];
     
     UILabel *categorylabel=[panel addLabel];
@@ -174,7 +177,9 @@
     }else{
         categorycourseview.coursetitle=@"Latest Courses";
     }
-    [self.navigationController pushViewController:categorycourseview animated:YES];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:categorycourseview];
+    navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:navVC animated:NO completion:NULL];
 }
 
 
@@ -216,6 +221,15 @@
         [self hideLoading];
         self->tabView.modelArr=self->segItemsModel;
         self->toptabView.modelArr=self->segItemsModel;
+        NSArray *urls = @[
+                          @"slide-1",
+                          @"slide-2",
+                          @"slide-3",
+                          @"slide-4",
+                          @"slide-5"];
+        [self->iv replaceImageNames:urls courses:self->infoArr2 clickBlock:^(NSInteger index) {
+            
+        }];
         [self->myTable reloadData];
     });
 }

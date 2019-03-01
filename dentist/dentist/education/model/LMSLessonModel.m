@@ -14,4 +14,8 @@
     return [[JSONKeyMapper alloc] initWithDictionary:@{@"description" : @"lessonDescription"}];
 }
 
++(BOOL)propertyIsOptional:(NSString*)propertyName{
+    return YES;
+}
+
 @end

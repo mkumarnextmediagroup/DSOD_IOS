@@ -314,7 +314,7 @@
         categorylabel.textColor=Colors.black1A191A;
         categorylabel.font=[Fonts regular:17];
         [[[[[categorylabel.layoutMaker leftParent:16] toLeftOf:seemorebtn offset:-10] topParent:20] heightEq:20] install];
-        if (section==1) {
+        if (section==0) {
             categorylabel.text=@"Courses you may like";
         }else{
             categorylabel.text=@"Latest Courses";

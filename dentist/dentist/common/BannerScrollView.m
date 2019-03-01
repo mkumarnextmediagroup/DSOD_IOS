@@ -9,7 +9,8 @@
 #import "BannerScrollView.h"
 #import "UIImageView+WebCache.h"
 #import "Common.h"
-
+#import "GenericCoursesModel.h"
+#import "XHStarRateView.h"
 
 @interface BannerScroll : UIScrollView
 {
@@ -51,6 +52,7 @@
 
 @property (nonatomic, strong) NSMutableArray *imageNameArray;
 @property (nonatomic, strong) NSMutableArray *imageUrlArray;
+@property (nonatomic, copy) NSArray<GenericCoursesModel *> *courseArray;
 @property (nonatomic, strong) BannerScroll *scrollView;
 //@property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIPageControl *pageControl;
@@ -96,6 +98,24 @@
     [self initUI];
 }
 
+-(void)addWithImageNames:(NSArray *)imageNames courses:(NSArray<GenericCoursesModel *> *)coursearr autoTimerInterval:(NSTimeInterval)timeInterval clickBlock:(ClickWithBlock)block
+{
+    realpageCount=imageNames.count;
+    NSMutableArray *tempArray=[NSMutableArray arrayWithArray:imageNames];
+    [tempArray insertObject:[imageNames objectAtIndex:([imageNames count]-1)] atIndex:0];
+    [tempArray addObject:[imageNames objectAtIndex:0]];
+    self.imageNameArray = [NSMutableArray arrayWithArray:tempArray];
+    self.imageUrlArray = [NSMutableArray array];
+    self.courseArray=coursearr;
+    pageCount = _imageNameArray.count;
+    
+    self.clickWithBlock = block;
+    
+    autoTimeInterval = timeInterval;
+    
+    [self initUI];
+}
+
 -(void)addWithImageUrls:(NSArray *)imageUrls clickBlock:(ClickWithBlock)block
 {
     return [self addWithImageUrls:imageUrls autoTimerInterval:0 clickBlock:block];
@@ -119,6 +139,25 @@
     [self initUI];
 }
 
+-(void)addWithImageUrls:(NSArray *)imageUrls courses:(NSArray<GenericCoursesModel *> *)coursearr autoTimerInterval:(NSTimeInterval)timeInterval clickBlock:(ClickWithBlock)block
+{
+    NSLog(@"imageUrls=%@",imageUrls);
+    realpageCount=imageUrls.count;
+    NSMutableArray *tempArray=[NSMutableArray arrayWithArray:imageUrls];
+    [tempArray insertObject:[imageUrls objectAtIndex:([imageUrls count]-1)] atIndex:0];
+    [tempArray addObject:[imageUrls objectAtIndex:0]];
+    NSLog(@"tempArray=%@",tempArray);
+    self.imageUrlArray = [NSMutableArray arrayWithArray:tempArray];
+    self.imageNameArray = [NSMutableArray array];
+    self.courseArray=coursearr;
+    pageCount = _imageUrlArray.count;
+    self.clickWithBlock = block;
+    
+    autoTimeInterval = timeInterval;
+    
+    [self initUI];
+}
+
 -(void)replaceImageUrls:(NSArray *)imageUrls clickBlock:(ClickWithBlock)block
 {
     
@@ -127,7 +166,7 @@
     [tempArray addObject:[imageUrls objectAtIndex:0]];
     self.imageUrlArray = [NSMutableArray arrayWithArray:tempArray];
     self.imageNameArray = [NSMutableArray array];
-    pageCount = _imageUrlArray.count;
+//    pageCount = _imageUrlArray.count;
     self.clickWithBlock = block;
     
     for (UIView *view in self.scrollView.subviews) {
@@ -138,7 +177,7 @@
     }
     [self addImageViews];
     
-    self.pageControl.numberOfPages = pageCount;
+//    self.pageControl.numberOfPages = pageCount;
 }
 
 -(void)replaceImageNames:(NSArray *)imageNames clickBlock:(ClickWithBlock)block
@@ -148,7 +187,7 @@
     [tempArray addObject:[imageNames objectAtIndex:0]];
     self.imageNameArray = [NSMutableArray arrayWithArray:tempArray];
     self.imageUrlArray = [NSMutableArray array];
-    pageCount = _imageNameArray.count;
+//    pageCount = _imageNameArray.count;
     self.clickWithBlock = block;
     
     for (UIView *view in self.scrollView.subviews) {
@@ -159,7 +198,28 @@
     }
     [self addImageViews];
     
-    self.pageControl.numberOfPages = pageCount;
+//    self.pageControl.numberOfPages = pageCount;
+}
+
+-(void)replaceImageNames:(NSArray *)imageNames courses:(NSArray<GenericCoursesModel *> *)coursearr clickBlock:(ClickWithBlock)block
+{
+    NSMutableArray *tempArray=[NSMutableArray arrayWithArray:imageNames];
+    [tempArray insertObject:[imageNames objectAtIndex:([imageNames count]-1)] atIndex:0];
+    [tempArray addObject:[imageNames objectAtIndex:0]];
+    NSMutableArray *tempcourseArray=[NSMutableArray arrayWithArray:coursearr];
+    [tempcourseArray insertObject:[coursearr objectAtIndex:([coursearr count]-1)] atIndex:0];
+    [tempcourseArray addObject:[coursearr objectAtIndex:0]];
+    self.imageNameArray = [NSMutableArray arrayWithArray:tempArray];
+    self.imageUrlArray = [NSMutableArray array];
+    self.courseArray=tempcourseArray;
+    self.clickWithBlock = block;
+    
+    for (UIView *view in self.scrollView.subviews) {
+        if ([view isKindOfClass:[UIImageView class]]) {
+            [view removeFromSuperview];
+        }
+    }
+    [self addImageViews];
 }
 
 -(void)initUI
@@ -257,6 +317,30 @@
         [[[[[imageView.layoutMaker leftParent:0] topParent:0] heightOf:self.scrollView] widthOf:self.scrollView] install];
     }
     
+    //add 课程信息
+    if(self.courseArray && self.courseArray.count>i){
+        GenericCoursesModel *model=self.courseArray[i];
+        UILabel *priceLabel=[imageView addLabel];
+        priceLabel.textColor=[UIColor whiteColor];
+        priceLabel.font=[UIFont systemFontOfSize:15];
+        priceLabel.textAlignment=NSTextAlignmentRight;
+        priceLabel.text=[NSString stringWithFormat:@"$%.2f",model.price];
+        [[[[priceLabel.layoutMaker rightParent:-20] bottomParent:-28] sizeEq:60 h:20] install];
+       XHStarRateView *starview = [[XHStarRateView alloc] initWithFrame:CGRectMake(25, 50, 92, 16) starStyle:StarStyleCourse];
+        starview.userInteractionEnabled = NO;
+        starview.isAnimation = NO;
+        starview.currentScore=model.rating;
+        [imageView addSubview:starview];
+        [[[[starview.layoutMaker leftParent:25] centerYOf:priceLabel offset:0] sizeEq:60 h:16] install];
+        
+        UILabel *titleLabel=[imageView addLabel];
+        titleLabel.textColor=[UIColor whiteColor];
+        titleLabel.font=[UIFont systemFontOfSize:17];
+        titleLabel.textAlignment=NSTextAlignmentLeft;
+        titleLabel.text=model.name;
+        [[[[titleLabel.layoutMaker leftParent:25] above:starview offset:-20] rightParent:-25] install];
+    }
+    
     
     if (_imageNameArray.count > 0) {
         [imageView setImage:[UIImage imageNamed:[_imageNameArray objectAtIndex:i]]];
@@ -270,6 +354,11 @@
     [imageView addGestureRecognizer:Tap];
     
     return imageView;
+}
+
+-(void)addCourseView
+{
+    
 }
 
 -(UIPageControl *)pageControl

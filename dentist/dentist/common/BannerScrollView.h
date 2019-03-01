@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger){
 
 typedef void(^ClickWithBlock)(NSInteger index);
 
-
+@class GenericCoursesModel;
 @interface BannerScrollView : UIView
 
 @property (nonatomic, strong)   UIColor *pageIndicatorTintColor;
@@ -47,6 +47,7 @@ typedef void(^ClickWithBlock)(NSInteger index);
  *  @return             创建本地图片
  */
 -(void)addWithImageNames:(NSArray *)imageNames autoTimerInterval:(NSTimeInterval)timeInterval clickBlock:(ClickWithBlock)block;
+-(void)addWithImageNames:(NSArray *)imageNames courses:(NSArray<GenericCoursesModel *> *)coursearr autoTimerInterval:(NSTimeInterval)timeInterval clickBlock:(ClickWithBlock)block;
 
 
 /**
@@ -67,6 +68,7 @@ typedef void(^ClickWithBlock)(NSInteger index);
  *  @return             创建网络图片
  */
 -(void)addWithImageUrls:(NSArray *)imageUrls autoTimerInterval:(NSTimeInterval)timeInterval clickBlock:(ClickWithBlock)block;
+-(void)addWithImageUrls:(NSArray *)imageUrls courses:(NSArray<GenericCoursesModel *> *)coursearr autoTimerInterval:(NSTimeInterval)timeInterval clickBlock:(ClickWithBlock)block;
 
 
 /**
@@ -83,5 +85,7 @@ typedef void(^ClickWithBlock)(NSInteger index);
  *  @param imageNames   图片文件名
  */
 -(void)replaceImageNames:(NSArray *)imageNames clickBlock:(ClickWithBlock)block;
+
+-(void)replaceImageNames:(NSArray *)imageNames courses:(NSArray<GenericCoursesModel *> *)coursearr clickBlock:(ClickWithBlock)block;
 
 @end

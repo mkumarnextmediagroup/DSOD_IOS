@@ -14,6 +14,11 @@
     return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{@"description" : @"courseDescription"}];
 }
 
++(BOOL)propertyIsOptional:(NSString*)propertyName{
+    return YES;
+}
+
+
 -(NSString*)levelString{
     //1.beginner，2.intermediate，3.advanced，4.expert
     if([self.level isEqualToString:@"1"]) {
@@ -28,4 +33,6 @@
         return @"beginner";
     }
 }
+
+
 @end

@@ -11,6 +11,7 @@
 #import "XHStarRateView.h"
 #import "UIImage+customed.h"
 #import "Proto.h"
+#import "BookmarkManager.h"
 
 @implementation CourseTableViewCell
 {
@@ -171,8 +172,11 @@
             }
         }
         
-        
-        [markButton setImage:[UIImage imageNamed:self.model.isBookmark?@"book9-light":@"book9"] forState:UIControlStateNormal];
+        if ([[BookmarkManager shareManager] checkIsDeleteBookmark:getLastAccount() postid:model.id]) {
+            [markButton setImage:[UIImage imageNamed:@"book9"] forState:UIControlStateNormal];
+        }else{
+            [markButton setImage:[UIImage imageNamed:self.model.isBookmark?@"book9-light":@"book9"] forState:UIControlStateNormal];
+        }
         
 //        NSLog(@"%@---%@",self.model.id,self.model.isBookmark?@"yes":@"no");
         

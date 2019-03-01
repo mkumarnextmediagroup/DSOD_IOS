@@ -95,6 +95,8 @@
 -(void)addNavBar{
     UINavigationItem *item = [self navigationItem];
     item.title = @"BOOKMARKS";
+    item.rightBarButtonItem=nil;
+    item.leftBarButtonItem=nil;
     
 //    iv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 //    iv.tag = 998;
@@ -273,7 +275,7 @@
     cell.vc = self;
     cell.bookmarkStatusChanged = ^(GenericCoursesModel *model){
         [self->courseModelArray removeObject:model];
-        [self->tableView reloadData];
+        [self reloadData:self->courseModelArray isMore:NO];
     };
     
     return cell;

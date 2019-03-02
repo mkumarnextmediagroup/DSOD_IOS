@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GenericCoursesModel.h"
+#import "LMSEnrollmentModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CourseEnrollmentTableViewCell : UITableViewCell
-@property (nonatomic,strong) GenericCoursesModel *model;
+@property (nonatomic,strong) LMSEnrollmentModel *model;
 @property (nonatomic,copy) NSIndexPath *indexPath;
-@property (nonatomic,assign) BOOL isHideSponsor;
+@property (nonatomic,assign) NSInteger startStatus;
 @end
 
 NS_ASSUME_NONNULL_END

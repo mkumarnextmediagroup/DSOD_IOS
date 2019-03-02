@@ -13,11 +13,13 @@
 #import "CourseDetailViewController.h"
 #import "EducationSearchViewController.h"
 #import "LMSEnrollmentModel.h"
+#import "CourseEnrollmentTableViewCell.h"
 
 @interface EducationCoursesViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *myTable;
-    NSMutableArray<LMSEnrollmentModel *> *infoArr;
+    NSMutableArray<LMSEnrollmentModel *> *startArr;
+    NSMutableArray<LMSEnrollmentModel *> *notstartArr;
 }
 
 @end
@@ -45,7 +47,7 @@
     myTable.rowHeight = UITableViewAutomaticDimension;
     myTable.estimatedRowHeight = 200;
     [myTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [myTable registerClass:[CourseTableViewCell class] forCellReuseIdentifier:NSStringFromClass([CourseTableViewCell class])];
+    [myTable registerClass:[CourseEnrollmentTableViewCell class] forCellReuseIdentifier:NSStringFromClass([CourseEnrollmentTableViewCell class])];
     [[[[[myTable.layoutMaker leftParent:0] rightParent:0] topParent:_topBarH] bottomParent:-_bottomBarH] install];
     [self setupRefresh];
     [self refreshData];
@@ -86,12 +88,23 @@
 -(void)refreshData
 {
     [self showIndicator];
-    [Proto queryLMSUserEnrollmentsCourses:0 completed:^(NSArray<LMSEnrollmentModel *> *array) {
-        [self hideIndicator];
-        NSLog(@"%@",array);
-        self->infoArr = [NSMutableArray arrayWithArray:array];
-        [self->myTable reloadData];
+    dispatch_group_t dispatchGroup = dispatch_group_create();
+    dispatch_group_enter(dispatchGroup);
+    [Proto queryLMSUserEnrollmentsCourses:1 completed:^(NSArray<LMSEnrollmentModel *> *array) {
+        dispatch_group_leave(dispatchGroup);
+        self->startArr = [NSMutableArray arrayWithArray:array];
     }];
+    dispatch_group_enter(dispatchGroup);
+    [Proto queryLMSUserEnrollmentsCourses:0 completed:^(NSArray<LMSEnrollmentModel *> *array) {
+        dispatch_group_leave(dispatchGroup);
+        self->notstartArr = [NSMutableArray arrayWithArray:array];
+    }];
+    dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^(){
+        //处理完成更新列表详细信息
+        NSLog(@"================总请求网络完成");
+        [self hideLoading];
+        [self->myTable reloadData];
+    });
 }
 
 //MARK: 下拉刷新//
@@ -129,7 +142,16 @@
  */
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return [UIView new];
 }
 
 /**
@@ -142,7 +164,8 @@
  */
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 15;
+    return 60;
+    
 }
 
 /**
@@ -155,23 +178,44 @@
  */
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return [UIView new];
+    UIView *bgview=[UIView new];
+    UILabel *categorylabel=[bgview addLabel];
+    categorylabel.textColor=Colors.black1A191A;
+    categorylabel.font=[Fonts regular:17];
+    [[[[[categorylabel.layoutMaker leftParent:16] rightParent:-16] topParent:0] heightEq:60] install];
+    if (section==0) {
+        categorylabel.text=@"Started";
+    }else{
+        categorylabel.text=@"Not Started";
+    }
     
+    return bgview;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return infoArr.count;
+    if(section==0){
+        return startArr.count;
+    }else{
+        return notstartArr.count;
+    }
+    
+    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CourseTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CourseTableViewCell class]) forIndexPath:indexPath];
-    if (self->infoArr && self->infoArr.count>indexPath.row) {
-        LMSEnrollmentModel *enrollmentmodel=self->infoArr[indexPath.row];
-        GenericCoursesModel *model=enrollmentmodel.course;
-        cell.model=model;
-        cell.vc = self;
+    CourseEnrollmentTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CourseEnrollmentTableViewCell class]) forIndexPath:indexPath];
+    LMSEnrollmentModel *enrollmentmodel;
+    if (indexPath.section==0) {
+        if (self->startArr && self->startArr.count>indexPath.row) {
+            enrollmentmodel=self->startArr[indexPath.row];
+        }
+    }else{
+        if (self->notstartArr && self->notstartArr.count>indexPath.row) {
+            enrollmentmodel=self->notstartArr[indexPath.row];
+        }
     }
+    cell.model=enrollmentmodel;
     return cell;
     
 }
@@ -179,11 +223,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (self->infoArr && self->infoArr.count>indexPath.row) {
-        LMSEnrollmentModel *enrollmentmodel=self->infoArr[indexPath.row];
-        if (enrollmentmodel) {
-            [CourseDetailViewController presentBy:self courseId:enrollmentmodel.courseId];
+    LMSEnrollmentModel *enrollmentmodel;
+    if (indexPath.section==0) {
+        if (self->startArr && self->startArr.count>indexPath.row) {
+            enrollmentmodel=self->startArr[indexPath.row];
         }
+    }else{
+        if (self->notstartArr && self->notstartArr.count>indexPath.row) {
+            enrollmentmodel=self->notstartArr[indexPath.row];
+        }
+    }
+    if (enrollmentmodel) {
+        [CourseDetailViewController presentBy:self courseId:enrollmentmodel.courseId];
     }
 }
 /*

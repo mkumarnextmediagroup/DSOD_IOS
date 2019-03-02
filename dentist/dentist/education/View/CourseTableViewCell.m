@@ -109,6 +109,16 @@
     NSString *levelStr;
     if (level<=0) {
         levelStr=@"Beginner";
+    }else if (level==1){
+        levelStr=@"Beginner";
+    }else if (level==2){
+        levelStr=@"Intermediate";
+    }
+    else if (level==3){
+        levelStr=@"Advanced";
+    }
+    else if (level==4){
+        levelStr=@"Expert";
     }
     CGSize strSize=CGSizeMake(MAXFLOAT, 15);
     NSDictionary *attr=@{NSFontAttributeName:[UIFont systemFontOfSize:13.0]};
@@ -168,7 +178,7 @@
             pricestr=[NSString stringWithFormat:@"$%.2f",_model.price];
         }
         priceLabel.text=pricestr;
-        [self levelView:0];
+        [self levelView:_model.level];
         if(_isHideSponsor){
             [[gskBtn.layoutUpdate heightEq:0] install];
             

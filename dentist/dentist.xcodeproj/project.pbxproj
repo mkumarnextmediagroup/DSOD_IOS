@@ -293,6 +293,7 @@
 		43871BF72227945D00EAF040 /* EducationCategoryCourseViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43871BF62227945C00EAF040 /* EducationCategoryCourseViewControllerTests.m */; };
 		4388150B218D4EF20066BCB6 /* SearchPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4388150A218D4EF20066BCB6 /* SearchPageTests.m */; };
 		438BA12821B4065D005246C5 /* CmsDownloadsControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */; };
+		439028F12229437C00B38858 /* SponsoredCourseViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 439028F02229437C00B38858 /* SponsoredCourseViewControllerTests.m */; };
 		43941292219F0378008C3092 /* UITextFieldExtTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43941291219F0378008C3092 /* UITextFieldExtTests.m */; };
 		43952B452190704900EB3443 /* EditPracticeAddressViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43952B442190704900EB3443 /* EditPracticeAddressViewControllerTests.m */; };
 		439B4A2221D355540037BE5C /* XHStarRateViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 439B4A2121D355540037BE5C /* XHStarRateViewTests.m */; };
@@ -1553,6 +1554,7 @@
 		43871BF62227945C00EAF040 /* EducationCategoryCourseViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCategoryCourseViewControllerTests.m; sourceTree = "<group>"; };
 		4388150A218D4EF20066BCB6 /* SearchPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchPageTests.m; sourceTree = "<group>"; };
 		438BA12721B4065D005246C5 /* CmsDownloadsControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmsDownloadsControllerTests.m; sourceTree = "<group>"; };
+		439028F02229437C00B38858 /* SponsoredCourseViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SponsoredCourseViewControllerTests.m; sourceTree = "<group>"; };
 		43941291219F0378008C3092 /* UITextFieldExtTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UITextFieldExtTests.m; sourceTree = "<group>"; };
 		43952B442190704900EB3443 /* EditPracticeAddressViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditPracticeAddressViewControllerTests.m; sourceTree = "<group>"; };
 		439B4A2121D355540037BE5C /* XHStarRateViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XHStarRateViewTests.m; sourceTree = "<group>"; };
@@ -3852,6 +3854,7 @@
 				43BE10CB2226BB5F00C62FC1 /* EducationSpeakerDetailViewControllerTests.m */,
 				43871BF4222776F000EAF040 /* EducationCategoryViewControllerTests.m */,
 				43871BF62227945C00EAF040 /* EducationCategoryCourseViewControllerTests.m */,
+				439028F02229437C00B38858 /* SponsoredCourseViewControllerTests.m */,
 			);
 			path = Education;
 			sourceTree = "<group>";
@@ -6494,6 +6497,7 @@
 				431AB5AE21E5D58900AA79C9 /* MapViewControllerTests.m in Sources */,
 				43A8D52921CBF7D400CE8FBD /* LinearViewTests.m in Sources */,
 				43277E8E217F523B008B3240 /* RegControllerTests.m in Sources */,
+				439028F12229437C00B38858 /* SponsoredCourseViewControllerTests.m in Sources */,
 				4355706321E236C5007A8C21 /* UniteDownloadingViewControllerTests.m in Sources */,
 				433089D121F609A300443469 /* JobDetailDescriptionViewControllerTests.m in Sources */,
 				432136EA21E353D200ADF614 /* FullListTableViewCellTests.m in Sources */,

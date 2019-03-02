@@ -8,17 +8,29 @@
 
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
+#import "GenericCoursesModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LMSEnrollmentModel : JSONModel
 
-@property NSString <Optional>*id;
-@property NSString <Optional>*courseId;
+@property NSString *id;
+@property NSString *courseId;
 @property NSInteger status;//enrollment status NotStarted 0    InProgress  1   Complete 2
 @property float progress;
 @property float score;
 @property long timeSpent;
+@property long dateStarted;
+@property long dateCompleted;
+@property long dateExpires;
+@property long enrollTime;
+@property NSString *userId;
+@property NSString *enrollmentKeyId;
+@property NSString *certificateId;
+@property BOOL isActive;
+@property NSInteger enrollmentSource;
+@property long createDate;
+@property GenericCoursesModel *course;
 
 
 //以下接口反 app未使用

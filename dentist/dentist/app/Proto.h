@@ -20,6 +20,7 @@
 #import "LMSCategoryModel.h"
 #import "GenericCoursesModel.h"
 #import "CourseModel.h"
+#import "LMSEnrollmentModel.h"
 
 @class HttpResult;
 @class IdName;
@@ -408,4 +409,11 @@
  @param completed response callback function
  */
 + (void)lmsQueryBookmarks:(int)pageNumber completed:(void(^)(BOOL success,NSString *msg,NSArray<BookmarkModel *> *array))completed;
+
+/**
+ query LMS enrollments courses by user
+ @param status enrollment status NotStarted 0    InProgress  1   Complete 2
+ @param completed response callback function
+ */
++ (void)queryLMSUserEnrollmentsCourses:(NSInteger)status completed:(void(^)(NSArray<LMSEnrollmentModel *> *array))completed;
 @end

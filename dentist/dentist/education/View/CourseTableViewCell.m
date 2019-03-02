@@ -137,6 +137,15 @@
     
 }
 
+-(void)setIsHideSponsor:(BOOL)isHideSponsor
+{
+    _isHideSponsor=isHideSponsor;
+    if(_isHideSponsor){
+        [[gskBtn.layoutUpdate heightEq:0] install];
+        
+    }
+}
+
 -(void)setModel:(GenericCoursesModel *)model
 {
     _model=model;

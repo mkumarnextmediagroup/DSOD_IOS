@@ -43,7 +43,7 @@
 		1824B330222780550075F080 /* LMSLessonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1824B32F222780550075F080 /* LMSLessonModel.m */; };
 		1824B3332227AD320075F080 /* LMSEnrollmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1824B3322227AD320075F080 /* LMSEnrollmentModel.m */; };
 		1824B3362227BD5C0075F080 /* LMSResourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1824B3352227BD5C0075F080 /* LMSResourceModel.m */; };
-		1824B3392227E8E90075F080 /* LMSRerouceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1824B3382227E8E90075F080 /* LMSRerouceTableViewCell.m */; };
+		1824B3392227E8E90075F080 /* LMSResourceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1824B3382227E8E90075F080 /* LMSResourceTableViewCell.m */; };
 		1829C52D21BCC961009A8732 /* JobDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52C21BCC961009A8732 /* JobDetailViewController.m */; };
 		1829C53021BCC9B9009A8732 /* JobDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C52F21BCC9B9009A8732 /* JobDetailDescriptionViewController.m */; };
 		1829C53321BCC9D2009A8732 /* JobDetailCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1829C53221BCC9D2009A8732 /* JobDetailCompanyViewController.m */; };
@@ -1212,8 +1212,8 @@
 		1824B3322227AD320075F080 /* LMSEnrollmentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSEnrollmentModel.m; sourceTree = "<group>"; };
 		1824B3342227BD5C0075F080 /* LMSResourceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSResourceModel.h; sourceTree = "<group>"; };
 		1824B3352227BD5C0075F080 /* LMSResourceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSResourceModel.m; sourceTree = "<group>"; };
-		1824B3372227E8E90075F080 /* LMSRerouceTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSRerouceTableViewCell.h; sourceTree = "<group>"; };
-		1824B3382227E8E90075F080 /* LMSRerouceTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSRerouceTableViewCell.m; sourceTree = "<group>"; };
+		1824B3372227E8E90075F080 /* LMSResourceTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMSResourceTableViewCell.h; sourceTree = "<group>"; };
+		1824B3382227E8E90075F080 /* LMSResourceTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMSResourceTableViewCell.m; sourceTree = "<group>"; };
 		1829C52B21BCC961009A8732 /* JobDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailViewController.h; sourceTree = "<group>"; };
 		1829C52C21BCC961009A8732 /* JobDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobDetailViewController.m; sourceTree = "<group>"; };
 		1829C52E21BCC9B9009A8732 /* JobDetailDescriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JobDetailDescriptionViewController.h; sourceTree = "<group>"; };
@@ -5105,8 +5105,8 @@
 				A3E381E02215840200BFB227 /* EducationCategoryTableViewCell.m */,
 				A3E381EE2216C5A800BFB227 /* CourseTableViewCell.h */,
 				A3E381EF2216C5A800BFB227 /* CourseTableViewCell.m */,
-				1824B3372227E8E90075F080 /* LMSRerouceTableViewCell.h */,
-				1824B3382227E8E90075F080 /* LMSRerouceTableViewCell.m */,
+				1824B3372227E8E90075F080 /* LMSResourceTableViewCell.h */,
+				1824B3382227E8E90075F080 /* LMSResourceTableViewCell.m */,
 				A3F9292E2229630C00255F13 /* CourseEnrollmentTableViewCell.h */,
 				A3F9292F2229630C00255F13 /* CourseEnrollmentTableViewCell.m */,
 			);
@@ -6749,7 +6749,7 @@
 				4E0C115521806147007DC63D /* CMSModel.m in Sources */,
 				18A23FE021BBE4BC006CB432 /* CompanyDetailReviewsViewController.m in Sources */,
 				4E5BA7F32176E1EB00386598 /* ViewAllViewController.m in Sources */,
-				1824B3392227E8E90075F080 /* LMSRerouceTableViewCell.m in Sources */,
+				1824B3392227E8E90075F080 /* LMSResourceTableViewCell.m in Sources */,
 				A39EE5102188578200F74745 /* CmsArticleCategoryPage.m in Sources */,
 				E11E147FF4FE738E0561AF6A /* Proto.m in Sources */,
 				18A0DBB121B51DF40065B2BD /* CompanyMediaModel.m in Sources */,

@@ -10,6 +10,7 @@
 #import "JSONModel.h"
 #import "DateTime.h"
 #import "LMSResourceModel.h"
+#import "DentistDownloadModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol  LMSLessonModel<NSObject>

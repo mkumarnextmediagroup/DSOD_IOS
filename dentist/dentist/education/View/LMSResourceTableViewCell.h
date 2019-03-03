@@ -1,5 +1,5 @@
 //
-//  LMSRerouceTableViewCell.h
+//  LMSResourceTableViewCell.h
 //  dentist
 //
 //  Created by Shirley on 2019/2/28.
@@ -12,7 +12,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LMSRerouceTableViewCell : UITableViewCell
+@interface LMSResourceTableViewCell : UITableViewCell
+
+
+@property (nonatomic,strong) UIViewController *vc;
+@property (nonatomic,copy) void(^cancelDownloadCallback)(void);
+@property (nonatomic,copy) void(^removeDownloadCallback)(void);
+
 
 
 /**
@@ -24,6 +30,14 @@ NS_ASSUME_NONNULL_BEGIN
  @param showDownloadBtn Control download button display
  */
 -(void)showData:(DentistDownloadModel*)model number:(int)number resourceType:(NSInteger)resourceType showDownloadBtn:(BOOL)showDownloadBtn;
+
+/**
+ Update download progress
+ 
+ @param model DentistDownloadModel
+ */
+- (void)updateViewWithModel:(DentistDownloadModel *)model;
+
     
 @end
 

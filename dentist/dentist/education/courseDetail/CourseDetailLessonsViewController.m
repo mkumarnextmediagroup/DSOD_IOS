@@ -12,7 +12,7 @@
 #import "LMSLessonModel.h"
 #import "LMSResourceModel.h"
 #import "LMSTestModel.h"
-#import "LMSRerouceTableViewCell.h"
+#import "LMSResourceTableViewCell.h"
 
 @interface CourseDetailLessonsViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) CourseModel *courseModel;
@@ -32,20 +32,12 @@
 
 
 /**
- view did load
- call buildview function
- */
-- (void)viewDidLoad{
-    edge = 18;
-    [self buildView];
-    
-}
-
-/**
  build views
  */
 -(void)buildView{
     edge = 18;
+    
+    [self.view removeAllChildren];
     
     tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     tableView.dataSource = self;
@@ -54,10 +46,43 @@
     tableView.rowHeight=UITableViewAutomaticDimension;
     tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     tableView.backgroundColor = UIColor.whiteColor;
-        [tableView registerClass:LMSRerouceTableViewCell.class forCellReuseIdentifier:NSStringFromClass(LMSRerouceTableViewCell.class)];
+        [tableView registerClass:LMSResourceTableViewCell.class forCellReuseIdentifier:NSStringFromClass(LMSResourceTableViewCell.class)];
     [self.view addSubview:tableView];
     [[[[[tableView.layoutMaker leftParent:0] rightParent:0] topParent:0] bottomParent:0] install];
+    
+    if(self.courseModel.courseStatus == InProgress){
+        tableView.tableHeaderView =[self buildHeader];
+    }
+    
+    [self addNotification];
 }
+
+/**
+ buidl header
+
+ @return header view
+ */
+-(UIView*)buildHeader{
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 40)];
+    view.backgroundColor = UIColor.redColor;
+    
+    
+    return view;
+}
+
+
+
+/**
+ Adding notifications to monitor progress
+ */
+- (void)addNotification
+{
+    // 进度通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadProgress:) name:DentistDownloadProgressNotification object:nil];
+    // 状态改变通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadStateChange:) name:DentistDownloadStateChangeNotification object:nil];
+}
+
 
 /**
  show lessons info
@@ -67,16 +92,103 @@
 -(void)showData:(CourseModel*)courseModel{
     _courseModel = courseModel;
     lessonsArray = courseModel.lessons;
-    
-    NSMutableArray *marray = [[NSMutableArray alloc]init];
-    [marray addObjectsFromArray:courseModel.lessons];
-    [marray addObjectsFromArray:courseModel.lessons];
-    lessonsArray = [marray copy];
+    [self addCacheData:lessonsArray];
 
-    [tableView reloadData];
+    [self buildView];
+    
+
+//    //wanglibo todo delte
+//    NSMutableArray *marray = [[NSMutableArray alloc]init];
+//    [marray addObjectsFromArray:courseModel.lessons];
+//    [marray addObjectsFromArray:courseModel.lessons];
+//    lessonsArray = [marray copy];
+//
+//    
+//    [self addCacheData:lessonsArray];
+//    [tableView reloadData];
 }
 
+/**
+ Add cached download data
 
+ @param lessonsArray lessons array
+ */
+- (void)addCacheData:(NSArray<LMSLessonModel*> *)lessonsArray;{
+    // 获取已缓存数据
+    NSArray *cacheData = [[DentistDataBaseManager shareManager] getAllCacheData];
+    NSMutableDictionary *cacheDataDic = [[NSMutableDictionary alloc]init];
+    for(DentistDownloadModel *model in cacheData){
+        cacheDataDic[model.vid] = model;
+    }
+    
+    for (int i = 0; i < lessonsArray.count; i++) {
+        LMSLessonModel *lessonModel = lessonsArray[i];
+        
+        for(LMSResourceModel *resourceModel in lessonModel.resources){
+            DentistDownloadModel *cacheResourceModel = cacheDataDic[resourceModel.downloadModel.vid];
+            if(cacheResourceModel){
+                resourceModel.downloadModel = cacheResourceModel;
+            }
+        }
+    }
+}
+
+#pragma mark - DentistDownloadNotification
+// 正在下载，进度回调
+- (void)downLoadProgress:(NSNotification *)notification
+{
+    DentistDownloadModel *downloadModel = notification.object;
+    
+    [lessonsArray enumerateObjectsUsingBlock:^(LMSLessonModel *lessonModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if(lessonModel.resources && lessonModel.resources.count >0 ){
+            for(int i = 0 ;i<lessonModel.resources.count;i++){
+                LMSResourceModel *resourceModel = lessonModel.resources[i];
+                if ([resourceModel.downloadModel.vid isEqualToString:downloadModel.vid]) {
+                    // 主线程更新cell进度
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        LMSResourceTableViewCell *cell = [self->tableView cellForRowAtIndexPath:[NSIndexPath
+                      indexPathForRow:i inSection:idx]];
+                        [cell updateViewWithModel:downloadModel];
+                    });
+                    
+                    *stop = YES;
+                }
+            }
+        }
+        
+        
+    }];
+}
+
+// 状态改变
+- (void)downLoadStateChange:(NSNotification *)notification
+{
+    DentistDownloadModel *downloadModel = notification.object;
+    [lessonsArray enumerateObjectsUsingBlock:^(LMSLessonModel *lessonModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if(lessonModel.resources && lessonModel.resources.count >0 ){
+            for(int i = 0 ;i<lessonModel.resources.count;i++){
+                LMSResourceModel *resourceModel = lessonModel.resources[i];
+                if ([resourceModel.downloadModel.vid isEqualToString:downloadModel.vid]) {
+                    resourceModel.downloadModel = downloadModel;
+                    // 主线程更新cell进度
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self->tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:idx]] withRowAnimation:UITableViewRowAnimationNone];
+                    });
+                    
+                    *stop = YES;
+                }
+            }
+        }
+    }];
+        
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 #pragma mark UITableViewDelegate,UITableViewDataSource
 /**
@@ -144,11 +256,20 @@
  */
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UILabel *sectionDescLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, edge, SCREENWIDTH - 2*edge, 40)];
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH , 40)];
+    
+    if(section!=0){
+        UILabel *lineLabel = headerView.lineLabel;
+        [[[[[lineLabel.layoutMaker leftParent:0]topParent:0]rightParent:0]heightEq:1]install];
+    }
+    
+    UILabel *sectionDescLabel = headerView.addLabel;
     sectionDescLabel.font = [Fonts regular:14];
     sectionDescLabel.textColor = rgbHex(0x4A4A4A);
     sectionDescLabel.text = [NSString stringWithFormat:@"Section %ld - %@",section + 1,lessonsArray[section].name];
-    return sectionDescLabel;
+    [[[sectionDescLabel.layoutMaker leftParent:edge]centerYParent:0]install];
+    
+    return headerView;
 }
 
 
@@ -162,24 +283,32 @@
  */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    LMSRerouceTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([LMSRerouceTableViewCell class]) forIndexPath:indexPath];
+    LMSResourceTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([LMSResourceTableViewCell class]) forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     DentistDownloadModel *downloadModel = [[DentistDownloadModel alloc]init];
     int number = [self getNumberAtIndexPath:indexPath];
     NSInteger resourceType = 0;
     
+    
     id model = [self getItemModel:indexPath];
     if([model isKindOfClass:LMSResourceModel.class]){
-        downloadModel.vid = ((LMSResourceModel*)model).id;
-        downloadModel.fileName = ((LMSResourceModel*)model).name;
-        downloadModel.url = [Proto getLMSDownloadUrlByObjectId: ((LMSResourceModel*)model).resource];
+        downloadModel = ((LMSResourceModel*)model).downloadModel;
         resourceType = ((LMSResourceModel*)model).resourceType;
-        
     }else if([model isKindOfClass:LMSTestModel.class]){
         downloadModel.fileName = ((LMSTestModel*)model).name;
         resourceType = 100;
     }
 
+    cell.vc = self;
+    cell.cancelDownloadCallback=^{
+        ((LMSResourceModel*)model).downloadModel = nil;
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    cell.removeDownloadCallback=^{
+        ((LMSResourceModel*)model).downloadModel = nil;
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
     [cell showData:downloadModel number:number resourceType:resourceType showDownloadBtn:self.courseModel.courseStatus == InProgress];
     
     return cell;
@@ -228,7 +357,7 @@
  */
 -(int)getNumberAtIndexPath:(NSIndexPath *)indexPath{
     int number = 0;
-    for(int i = 0;i<indexPath.section-1;i++){
+    for(int i = 0;i<indexPath.section;i++){
         number += [self tableView:tableView numberOfRowsInSection:i];
     }
     number += indexPath.row + 1;

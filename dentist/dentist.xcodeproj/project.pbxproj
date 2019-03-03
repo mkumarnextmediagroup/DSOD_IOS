@@ -317,6 +317,7 @@
 		43BE10C82226B38100C62FC1 /* EducationCoursesViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BE10C72226B38100C62FC1 /* EducationCoursesViewControllerTests.m */; };
 		43BE10CA2226B86300C62FC1 /* EducationSearchViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BE10C92226B86300C62FC1 /* EducationSearchViewControllerTests.m */; };
 		43BE10CC2226BB5F00C62FC1 /* EducationSpeakerDetailViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BE10CB2226BB5F00C62FC1 /* EducationSpeakerDetailViewControllerTests.m */; };
+		43BF8735222A89AB008133CE /* DentistToolBoxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BF8734222A89AB008133CE /* DentistToolBoxTests.m */; };
 		43D98CAD219DAE04004C3FBD /* FontsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D98CAC219DAE04004C3FBD /* FontsTests.m */; };
 		43E409AC21B24E650016E102 /* CMSBookmarkControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E409AB21B24E650016E102 /* CMSBookmarkControllerTests.m */; };
 		43E5794A2222832300748250 /* EducationPageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E579492222832300748250 /* EducationPageTests.m */; };
@@ -1579,6 +1580,7 @@
 		43BE10C72226B38100C62FC1 /* EducationCoursesViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationCoursesViewControllerTests.m; sourceTree = "<group>"; };
 		43BE10C92226B86300C62FC1 /* EducationSearchViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationSearchViewControllerTests.m; sourceTree = "<group>"; };
 		43BE10CB2226BB5F00C62FC1 /* EducationSpeakerDetailViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationSpeakerDetailViewControllerTests.m; sourceTree = "<group>"; };
+		43BF8734222A89AB008133CE /* DentistToolBoxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DentistToolBoxTests.m; sourceTree = "<group>"; };
 		43D98CAC219DAE04004C3FBD /* FontsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FontsTests.m; sourceTree = "<group>"; };
 		43E409AB21B24E650016E102 /* CMSBookmarkControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMSBookmarkControllerTests.m; sourceTree = "<group>"; };
 		43E579492222832300748250 /* EducationPageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EducationPageTests.m; sourceTree = "<group>"; };
@@ -3784,6 +3786,14 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		43BF8733222A8940008133CE /* DownloadTest */ = {
+			isa = PBXGroup;
+			children = (
+				43BF8734222A89AB008133CE /* DentistToolBoxTests.m */,
+			);
+			path = DownloadTest;
+			sourceTree = "<group>";
+		};
 		43E409AA21B24E3E0016E102 /* BookmarkController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3843,6 +3853,7 @@
 		43FCD8A7221E54C8001685CE /* Education */ = {
 			isa = PBXGroup;
 			children = (
+				43BF8733222A8940008133CE /* DownloadTest */,
 				43E579492222832300748250 /* EducationPageTests.m */,
 				43E5794B222298BB00748250 /* EducationBookmarksViewControllerTests.m */,
 				43BE10C52226B01D00C62FC1 /* EducationDownloadsViewControllerTests.m */,
@@ -6456,6 +6467,7 @@
 				432136E421E342B300ADF614 /* UnitePageCellTests.m in Sources */,
 				4341949321A598BE0029AECE /* CmsForYouPageTests.m in Sources */,
 				43714DA121EB049C00B7AC18 /* CareerMyJobViewControllerTests.m in Sources */,
+				43BF8735222A89AB008133CE /* DentistToolBoxTests.m in Sources */,
 				439CB0FA21F0223400CF78F2 /* CompanyReviewsDetailViewControllerTests.m in Sources */,
 				432136F021E39B9F00ADF614 /* EventsPageTests.m in Sources */,
 				43597BF721CCC6070033E1C1 /* LinearVerViewTests.m in Sources */,

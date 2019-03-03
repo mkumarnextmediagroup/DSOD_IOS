@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray <Optional>*authors;
 @property NSString <Optional>*sponsoredId;
 @property BOOL isBookmark;
+@property NSString <Optional>*level;//1.beginner，2.intermediate，3.advanced，4.expert
 @end
 
 NS_ASSUME_NONNULL_END

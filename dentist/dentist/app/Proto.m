@@ -3447,4 +3447,42 @@
     }];
 }
 
+/**
+ query LMS enrollments courses by user
+ @param status enrollment status NotStarted 0    InProgress  1   Complete 2
+ @param completed response callback function
+ */
++ (void)queryLMSUserEnrollmentsCourses:(NSInteger)status completed:(void(^)(NSArray<LMSEnrollmentModel *> *array))completed
+{
+    NSInteger pagenumber=1;
+    NSInteger pagesize=10;
+    NSMutableDictionary *paradic=[NSMutableDictionary dictionary];
+    [paradic setObject:[NSNumber numberWithInteger:pagenumber] forKey:@"pgnumber"];
+    [paradic setObject:[NSNumber numberWithInteger:pagesize] forKey:@"pgsize"];
+    if (status>=0) {
+        [paradic setObject:[NSNumber numberWithInteger:status] forKey:@"status"];
+    }
+    [self postAsync3:@"user/courses/enrollments" dic:paradic modular:@"lms" callback:^(HttpResult *r) {
+        if (r.OK) {
+            NSMutableArray *resultArray = [NSMutableArray array];
+            NSArray *arr = r.resultMap[@"data"];
+            for (NSDictionary *d in arr) {
+                LMSEnrollmentModel *item = [[LMSEnrollmentModel alloc] initWithJson:jsonBuild(d)];
+                [resultArray addObject:item];
+            }
+            foreTask(^{
+                if (completed) {
+                    completed(resultArray);
+                }
+            });
+            
+        }else{
+            foreTask(^{
+                if (completed) {
+                    completed(nil);
+                }
+            });
+        }
+    }];
+}
 @end

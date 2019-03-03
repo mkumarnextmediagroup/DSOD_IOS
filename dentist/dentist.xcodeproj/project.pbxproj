@@ -760,6 +760,7 @@
 		A3F928DF2228236B00255F13 /* com_download_waiting@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F928D52228236A00255F13 /* com_download_waiting@3x.png */; };
 		A3F928E02228236B00255F13 /* com_download_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F928D62228236A00255F13 /* com_download_default@2x.png */; };
 		A3F928E12228236B00255F13 /* com_download_waiting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3F928D72228236B00255F13 /* com_download_waiting@2x.png */; };
+		A3F929302229630C00255F13 /* CourseEnrollmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F9292F2229630C00255F13 /* CourseEnrollmentTableViewCell.m */; };
 		A3FF81F721EF3ED5002510C4 /* NSObject+customed.m in Sources */ = {isa = PBXBuildFile; fileRef = A3FF81F621EF3ED5002510C4 /* NSObject+customed.m */; };
 		A935BE74217737EB007F3619 /* slide-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE6F217737EA007F3619 /* slide-3.png */; };
 		A935BE75217737EB007F3619 /* slide-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A935BE70217737EA007F3619 /* slide-2.png */; };
@@ -2167,6 +2168,8 @@
 		A3F928D52228236A00255F13 /* com_download_waiting@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com_download_waiting@3x.png"; sourceTree = "<group>"; };
 		A3F928D62228236A00255F13 /* com_download_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com_download_default@2x.png"; sourceTree = "<group>"; };
 		A3F928D72228236B00255F13 /* com_download_waiting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "com_download_waiting@2x.png"; sourceTree = "<group>"; };
+		A3F9292E2229630C00255F13 /* CourseEnrollmentTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseEnrollmentTableViewCell.h; sourceTree = "<group>"; };
+		A3F9292F2229630C00255F13 /* CourseEnrollmentTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseEnrollmentTableViewCell.m; sourceTree = "<group>"; };
 		A3FF81F521EF3ED5002510C4 /* NSObject+customed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+customed.h"; sourceTree = "<group>"; };
 		A3FF81F621EF3ED5002510C4 /* NSObject+customed.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+customed.m"; sourceTree = "<group>"; };
 		A935BE6F217737EA007F3619 /* slide-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide-3.png"; sourceTree = "<group>"; };
@@ -5104,6 +5107,8 @@
 				A3E381EF2216C5A800BFB227 /* CourseTableViewCell.m */,
 				1824B3372227E8E90075F080 /* LMSRerouceTableViewCell.h */,
 				1824B3382227E8E90075F080 /* LMSRerouceTableViewCell.m */,
+				A3F9292E2229630C00255F13 /* CourseEnrollmentTableViewCell.h */,
+				A3F9292F2229630C00255F13 /* CourseEnrollmentTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6660,6 +6665,7 @@
 				4E19573F2137D0F100420563 /* PermissionBasicProfileFields.m in Sources */,
 				182A1183219BF5D100C0E08D /* GDataXMLNode.m in Sources */,
 				4EF1097621B0D3260013C34C /* FilterView.m in Sources */,
+				A3F929302229630C00255F13 /* CourseEnrollmentTableViewCell.m in Sources */,
 				A3729590219145F600B36409 /* UniteDetailCollectionViewCell.swift in Sources */,
 				A36B9DC821CB95BD00A54263 /* CareerAlertsAddViewController.m in Sources */,
 				A372959A219293F500B36409 /* DentistDownloadManager.m in Sources */,

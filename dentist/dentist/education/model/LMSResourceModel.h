@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
 #import "DateTime.h"
+#import "DentistDownloadModel.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @protocol  LMSResourceModel<NSObject>
 
@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property DateTime <Optional>*publishDate;
 
 
+//local property
+@property (nonatomic,strong) DentistDownloadModel *downloadModel;
+
 @end
 
-NS_ASSUME_NONNULL_END

@@ -14,76 +14,122 @@ describe(@"Unit Test For DentistToolBox", ^{
     context(@"methods", ^{
 
         it(@"stringFromByteCount", ^{
-            
+            NSString *str = [DentistToolBox stringFromByteCount:10];
+            [[str should] equal: @"10 bytes"];
         });
 
-//        + (NSString *)stringFromByteCount:(long long)byteCount;
-//
-//        // 时间转换为时间戳
-//        + (NSInteger)getTimeStampWithDate:(NSDate *)date;
-//
-//        // 时间戳转换为时间
-//        + (NSDate *)getDateWithTimeStamp:(NSInteger)timeStamp;
-//
-//        // 一个时间戳与当前时间的间隔（s）
-//        + (NSInteger)getIntervalsWithTimeStamp:(NSInteger)timeStamp;
-//
-//        //获得当前设备型号
-//        + (NSString *)getCurrentDeviceModel;
-//
-//        //通过view获取控制器
-//        + (UIViewController *)findViewController:(UIView *)view;
-//
-//        //获取当前控制器
-//        + (UIViewController *)getCurrentVC;
-//
-//        //删除path路径下的文件
-//        + (void)clearCachesWithFilePath:(NSString *)path;
-//
-//        //获取沙盒Library的文件目录
-//        + (NSString *)LibraryDirectory;
-//
-//        //获取沙盒Document的文件目录
-//        + (NSString *)DocumentDirectory;
-//
-//        //获取沙盒Preference的文件目录
-//        + (NSString *)PreferencePanesDirectory;
-//
-//        // 获取沙盒Caches的文件目录
-//        + (NSString *)CachesDirectory;
-//
-//        //验证是否是纯数字
-//        + (BOOL)isAllNumber:(NSString *)number;
-//
-//        //验证手机号码
-//        + (BOOL)isMobileNumber:(NSString *)mobileNum;
-//
-//        //验证身份证号码
-//        + (BOOL)isIdentityCardNumber:(NSString *)number;
-//
-//        //验证香港身份证号码
-//        + (BOOL)isIdentityHKCardNumber:(NSString *)number;
-//
-//        //验证密码格式（包含大写、小写、数字）
-//        + (BOOL)isConformSXPassword:(NSString *)password;
-//
-//        //验证护照
-//        + (BOOL)isPassportNumber:(NSString *)number;
-//
-//        //计算文字的长度
-//        + (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize;
-//
-//        //去掉小数点后无效的零
-//        + (NSString *)deleteFailureZero:(NSString *)string;
-//
-//        //得到中英文混合字符串长度
-//        + (int)lengthForText:(NSString *)text;
-//
-//        //提示弹窗
-//        + (void)showAlertWithTitle:(NSString *)title sureMessage:(NSString *)sureMessage cancelMessage:(NSString *)cancelMessage warningMessage:(NSString *)warningMessage style:(UIAlertControllerStyle)UIAlertControllerStyle target:(id)target sureHandler:(void(^)(UIAlertAction *action))sureHandler cancelHandler:(void(^)(UIAlertAction *action))cancelHandler warningHandler:(void(^)(UIAlertAction *action))warningHandler;
-//
-//        //获取当前时间
-//        + (NSString *)currentTime;
+        it(@"getTimeStampWithDate", ^{
+            NSInteger num = [DentistToolBox getTimeStampWithDate:[[NSDate alloc] initWithTimeIntervalSince1970:0]];
+            [[theValue(num) should] equal:theValue(0)];
+        });
+
+        it(@"getDateWithTimeStamp", ^{
+            NSDate *date = [DentistToolBox getDateWithTimeStamp:0];
+            NSLog(@"%@", date);
+            [[theValue([date timeIntervalSince1970]) should] equal:theValue(0)];
+        });
+
+        it(@"getIntervalsWithTimeStamp", ^{
+            NSInteger num = [DentistToolBox getIntervalsWithTimeStamp:0];
+            NSDate *date = [DentistToolBox getDateWithTimeStamp: 0];
+            [[theValue(num) should] equal:theValue((NSInteger) [[NSDate date] timeIntervalSinceDate:date])];
+        });
+
+        it(@"getCurrentDeviceModel", ^{
+            NSString *d = [DentistToolBox getCurrentDeviceModel];
+            [[d should] equal:@"iPhone Simulator"];
+        });
+
+        it(@"findViewController", ^{
+            UIViewController *controller = [DentistToolBox findViewController:[UIView new]];
+            [[controller should] beNil];
+        });
+
+        it(@"getCurrentVC", ^{
+            UIViewController *controller = [DentistToolBox getCurrentVC];
+            [[controller should] beNil];
+        });
+
+        it(@"LibraryDirectory", ^{
+            NSString *str = [DentistToolBox LibraryDirectory];
+            [[str shouldNot] beNil];
+        });
+
+        it(@"DocumentDirectory", ^{
+            NSString *str = [DentistToolBox DocumentDirectory];
+            [[str shouldNot] beNil];
+        });
+
+        it(@"PreferencePanesDirectory", ^{
+            NSString *str = [DentistToolBox PreferencePanesDirectory];
+            [[str shouldNot] beNil];
+        });
+
+        it(@"CachesDirectory", ^{
+            NSString *str = [DentistToolBox CachesDirectory];
+            [[str shouldNot] beNil];
+        });
+
+        it(@"isAllNumber", ^{
+            BOOL isAllNumber = [DentistToolBox isAllNumber:@"12345"];
+            [[theValue(isAllNumber) should] equal:theValue(YES)];
+        });
+
+        it(@"isAllNumber", ^{
+            BOOL isAllNumber = [DentistToolBox isAllNumber:@"12asd"];
+            [[theValue(isAllNumber) should] equal:theValue(NO)];
+        });
+
+        it(@"isMobileNumber", ^{
+            BOOL isMobileNumber = [DentistToolBox isMobileNumber:@""];
+            [[theValue(isMobileNumber) should] equal:theValue(NO)];
+        });
+
+        it(@"isIdentityCardNumber", ^{
+            BOOL  isIdentityCardNumber = [DentistToolBox isIdentityCardNumber: @"12344243322"];
+            [[theValue(isIdentityCardNumber) should] equal:theValue(NO)];
+        });
+
+        it(@"isIdentityHKCardNumber", ^{
+            BOOL isIdentityHKCardNumber = [DentistToolBox isIdentityHKCardNumber: @"1234"];
+            [[theValue(isIdentityHKCardNumber) should] equal:theValue(NO)];
+        });
+
+        it(@"isConformSXPassword", ^{
+            BOOL isConformSXPassword = [DentistToolBox isConformSXPassword: @"1234"];
+            [[theValue(isConformSXPassword) should] equal:theValue(NO)];
+        });
+
+        it(@"isPassportNumber", ^{
+            BOOL isPassportNumber = [DentistToolBox isPassportNumber: @"1234"];
+            [[theValue(isPassportNumber) should] equal:theValue(NO)];
+        });
+
+        it(@"sizeWithText", ^{
+            CGSize sizeWithText = [DentistToolBox sizeWithText:@"a" font:[UIFont systemFontOfSize:10] maxSize:CGSizeMake(100, 100)];
+            [[theValue(sizeWithText) should] equal:theValue(CGSizeMake(5.634765625, 11.93359375))];
+        });
+
+        it(@"deleteFailureZero", ^{
+            NSString *str = [DentistToolBox deleteFailureZero: @".1234"];
+            [[str should] equal:@".1234"];
+        });
+
+        it(@"lengthForText", ^{
+            int length = [DentistToolBox lengthForText:@"123"];
+            [[theValue(length) should] equal:theValue(3)];
+        });
+
+        it(@"currentTimes", ^{
+            NSDate *date = [NSDate date];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateStyle:NSDateFormatterMediumStyle];
+            [formatter setTimeStyle:NSDateFormatterShortStyle];
+            [formatter setDateFormat:@"YYYY-MM-dd"];
+            NSString *DateTime = [formatter stringFromDate:date];
+            NSString *time = [DentistToolBox currentTime];
+            [[DateTime should] equal:time];
+        });
     });
 });
 SPEC_END

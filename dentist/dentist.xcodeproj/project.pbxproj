@@ -1154,6 +1154,11 @@
 		E11E1FAC1F6BE50220F80693 /* menu-community@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E1653B84665417CD88F75 /* menu-community@3x.png */; };
 		E11E1FBF82D8A2F932D671B1 /* Img-User-Dentist@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E1383470C0048AB1AAE20 /* Img-User-Dentist@3x.png */; };
 		E11E1FF351CEC85509F9850C /* user_img@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E11E19D9D06DA06D3206C4D4 /* user_img@3x.png */; };
+		F22E3AC5225CD0A900EC4F41 /* DSODConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = F22E3AC4225CD0A900EC4F41 /* DSODConfiguration.plist */; };
+		F28D5ED8225E6F1E004C49B3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F28D5ED7225E6F1E004C49B3 /* GoogleService-Info.plist */; };
+		F29BD28F225E720A0078062B /* FIRAnalyticsConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29BD28E225E720A0078062B /* FIRAnalyticsConnector.framework */; };
+		F29BD291225E725D0078062B /* GoogleAppMeasurement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29BD290225E725D0078062B /* GoogleAppMeasurement.framework */; };
+		F2EEE8DF225E80FF00359588 /* libFirebaseMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2EEE8DE225E80FF00359588 /* libFirebaseMessaging.a */; };
 		F929473221A3AE1400383143 /* DsoToast.m in Sources */ = {isa = PBXBuildFile; fileRef = F929473021A3AE1300383143 /* DsoToast.m */; };
 /* End PBXBuildFile section */
 
@@ -2679,6 +2684,12 @@
 		E11E1FE6CE4FDBB470C681BB /* menu-calendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-calendar@2x.png"; sourceTree = "<group>"; };
 		E11E1FE9BFF6E51E030E88D9 /* edit_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_pressed@2x.png"; sourceTree = "<group>"; };
 		E11E1FEF8DB01C99C8AA5F4D /* menu-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-calendar.png"; sourceTree = "<group>"; };
+		F22E3AC4225CD0A900EC4F41 /* DSODConfiguration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DSODConfiguration.plist; sourceTree = "<group>"; };
+		F28D5ED7225E6F1E004C49B3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F29BD28E225E720A0078062B /* FIRAnalyticsConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FIRAnalyticsConnector.framework; path = Pods/FirebaseAnalytics/Frameworks/FIRAnalyticsConnector.framework; sourceTree = "<group>"; };
+		F29BD290225E725D0078062B /* GoogleAppMeasurement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppMeasurement.framework; path = Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.framework; sourceTree = "<group>"; };
+		F29BD292225E73850078062B /* dentist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dentist.entitlements; sourceTree = "<group>"; };
+		F2EEE8DE225E80FF00359588 /* libFirebaseMessaging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseMessaging.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F748AC4766AE72334079C673 /* Pods-dentistTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dentistTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-dentistTests/Pods-dentistTests.release.xcconfig"; sourceTree = "<group>"; };
 		F929473021A3AE1300383143 /* DsoToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DsoToast.m; sourceTree = "<group>"; };
 		F929473121A3AE1300383143 /* DsoToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DsoToast.h; sourceTree = "<group>"; };
@@ -2697,6 +2708,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2EEE8DF225E80FF00359588 /* libFirebaseMessaging.a in Frameworks */,
+				F29BD28F225E720A0078062B /* FIRAnalyticsConnector.framework in Frameworks */,
+				F29BD291225E725D0078062B /* GoogleAppMeasurement.framework in Frameworks */,
 				18DFACC721E9E33F00EF528A /* SystemConfiguration.framework in Frameworks */,
 				18D16FCC21C1436F0017CCB6 /* MapKit.framework in Frameworks */,
 				4E4A161221B7C35B003F198B /* CoreLocation.framework in Frameworks */,
@@ -4169,6 +4183,8 @@
 		574B3A15212338DF00C37095 = {
 			isa = PBXGroup;
 			children = (
+				F22E3AC4225CD0A900EC4F41 /* DSODConfiguration.plist */,
+				F28D5ED7225E6F1E004C49B3 /* GoogleService-Info.plist */,
 				BFCE80B62123CB59008F3A7F /* Localizable.strings */,
 				574B3A20212338DF00C37095 /* dentist */,
 				43B7251F21764CF4000F6797 /* dentistTests */,
@@ -4192,6 +4208,7 @@
 		574B3A20212338DF00C37095 /* dentist */ = {
 			isa = PBXGroup;
 			children = (
+				F29BD292225E73850078062B /* dentist.entitlements */,
 				18ABEAB7219560AC00BF3E60 /* font */,
 				18B83ACA2173557C00130DB6 /* library */,
 				3E64F12F21721CEC001A7CF2 /* localhtml */,
@@ -4890,6 +4907,9 @@
 		9E8CFB7155047C0648622D0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F2EEE8DE225E80FF00359588 /* libFirebaseMessaging.a */,
+				F29BD28E225E720A0078062B /* FIRAnalyticsConnector.framework */,
+				F29BD290225E725D0078062B /* GoogleAppMeasurement.framework */,
 				18DFACC621E9E33F00EF528A /* SystemConfiguration.framework */,
 				18D16FCB21C1436E0017CCB6 /* MapKit.framework */,
 				4E4A161121B7C35A003F198B /* CoreLocation.framework */,
@@ -5662,6 +5682,11 @@
 					574B3A1D212338DF00C37095 = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1000;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -5672,6 +5697,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 574B3A15212338DF00C37095;
 			productRefGroup = 574B3A1F212338DF00C37095 /* Products */;
@@ -6181,6 +6207,7 @@
 				E11E126FAFBE2C82E8C1DC34 /* menu-dev@3x.png in Resources */,
 				4E94ADEA21AE3D75009CAB7F /* myJobs-light@3x.png in Resources */,
 				18BE3749221A5C0B00D4148B /* ic_course_star@3x.png in Resources */,
+				F22E3AC5225CD0A900EC4F41 /* DSODConfiguration.plist in Resources */,
 				4E23E0872152A37200EDCE08 /* star_unselect@3x.png in Resources */,
 				E11E1454B1E079C526298B9F /* menu-dso_light.png in Resources */,
 				E11E1727E478BEC789AB1876 /* menu-dso_light@2x.png in Resources */,
@@ -6324,6 +6351,7 @@
 				C5EEA28B642FEF60AF01E4E5 /* download-light@3x.png in Resources */,
 				C5EEA43C5D63AE543D25FB62 /* home-light.png in Resources */,
 				C5EEAFEBA7A4012345474AA4 /* home-light@2x.png in Resources */,
+				F28D5ED8225E6F1E004C49B3 /* GoogleService-Info.plist in Resources */,
 				C5EEA59D4390F246B20A1A42 /* home-light@3x.png in Resources */,
 				C5EEA452EB12AA0C19121E68 /* search-light.png in Resources */,
 				C5EEA571919F79190E5F28EB /* search-light@2x.png in Resources */,
@@ -7108,12 +7136,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = dentist/dentist.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 3HDWSA3GP3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
+					"$(PROJECT_DIR)/Pods/GoogleAppMeasurement/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
@@ -7131,7 +7162,7 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/SAMKeychain\"",
 					"$(SRCROOT)/../linkedin-sdk.framework/Versions/A",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tnmg.dsodentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7161,12 +7192,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = dentist/dentist.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HPA69P8D2K;
+				DEVELOPMENT_TEAM = 3HDWSA3GP3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/..",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
+					"$(PROJECT_DIR)/Pods/GoogleAppMeasurement/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dentist/common/PrefixHeader.pch;
@@ -7184,7 +7218,7 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/SAMKeychain\"",
 					"$(SRCROOT)/../linkedin-sdk.framework/Versions/A",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.thenextmediagroup.dentist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tnmg.dsodentist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

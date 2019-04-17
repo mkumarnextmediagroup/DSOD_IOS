@@ -14,6 +14,7 @@
 #import "CompanyExistsReviewsViewController.h"
 #import "CareerMeViewController.h"
 #import "ProfileViewController.h"
+@import Firebase;
 
 #define kMaxBtnCount 4
 #define leftToX 20
@@ -31,6 +32,7 @@
 {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
+    [FIRAnalytics setScreenName:@"Career_Explore_Page" screenClass:@"CarrieView"];
 }
 
 - (void)viewDidLoad {

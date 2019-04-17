@@ -226,10 +226,11 @@
     self.backgroundColor = UIColor.whiteColor;
     
     NSString* type = model.featuredMedia[@"type"];
-    if([type isEqualToString:@"1"] ){
+    NSString *urlstr;
+    if([type isEqualToString:@"1"]) {
         //pic
         NSDictionary *codeDic = model.featuredMedia[@"code"];
-        NSString *urlstr = codeDic[@"thumbnailUrl"];
+         urlstr = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
         [imageView loadUrl:urlstr placeholderImage:@"" completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
             if (image) {
                 [[self->imageView.layoutUpdate heightEq:self->imageViewHeight ]install];
@@ -237,6 +238,9 @@
                 [[self->imageView.layoutUpdate heightEq:0 ]install];
             }
         }];
+    } else if([type isEqualToString:@"4"] ) {
+        NSDictionary *codeDic = model.featuredMedia[@"code"];
+        urlstr = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
     }
 
 

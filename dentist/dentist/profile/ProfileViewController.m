@@ -15,7 +15,7 @@
 #import "ProfileEditPage.h"
 #import "IdName.h"
 #import "ViewResumeItemView.h"
-
+@import Firebase;
 
 @interface ProfileViewController ()
 
@@ -36,6 +36,7 @@
 	[super viewWillAppear:animated];
 	[self buildViews];
 	[self layoutLinearVertical];
+    [FIRAnalytics setScreenName:@"Profile_View_Controller" screenClass:@"ProfileView"];
 }
 
 - (void)viewDidLoad {

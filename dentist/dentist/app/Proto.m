@@ -87,12 +87,8 @@
 	a.authName = @"Dr.Sandra Tai";
 	a.authAdd = @"Vancouver, BC";
 	a.title = @"Mastering the art of Dental Surgery  - Mastering the art of Dental Surgery - Mastering the art of Dental Surgery ";
-	a.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n\n"
-	            "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n\n"
-	            "Once you have completed the expectations with the patient the first step is to test the attachment template and the first aligner. This is an expert thinking process for you.";
-	a.subContent = @"Please be sure to thoroughly dry the attachments template after testing for fit. Generally, it is recommended that when placing attachments, you work in one arch of the patients' mouth at a time.\n\n"
-	               "If you have more than four attachments per quadrant, then you may decide to bond the attachments one quadrant at a time. If bonding one quadrant at a time, do not cut the attachment template.Instead, just fill one side of the attachment template with composite material.\n\n"
-	               "Carefully apply the bonding agent and leave undistrubed for 10 seconds. If needed, use a cotton roll to prevent excess bonding agent from flowing unto interproximal spaces or tissue.Air dry within maximum pressure for 5 seconds until a thin adhesive film layer forms.";
+    a.content = localStr(@"article_content");
+    a.subContent = localStr(@"article_sub_content");
     a.resImage = @"https://wp.dsodentist.com/wp-content/uploads/2018/09/CA_INVI_D5_T_IOSIM_APAC_0029_rt2_HR_RGB_1280-e1537471186604.jpg";//@"http://app800.cn/i/d.png";
 	a.resType = @"image";
     a.categoryName=@"LATEST";
@@ -310,48 +306,46 @@
 }
 
 + (NSArray *)listBookmark {
-    Article *a = [Article new];
-    a.id = 1;
-    a.isSponsor = NO;
-    a.publishDate = @"May 15,2018";
+    Article *article = [Article new];
+    article.id = 1;
+    article.isSponsor = NO;
+    article.publishDate = @"May 15,2018";
     
-    a.type = @"orthodontics";
-    a.authAccount = @"tom@gmail.com";
-    a.authName = @"Dr.Sandra Tai";
-    a.title = @"Mastering the art of Dental Surgery  - Mastering the art of Dental Surgery - Mastering the art of Dental Surgery  ";
-    a.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n"
+    article.type = @"orthodontics";
+    article.authAccount = @"tom@gmail.com";
+    article.authName = @"Dr.Sandra Tai";
+    article.title = @"Mastering the art of Dental Surgery  - Mastering the art of Dental Surgery - Mastering the art of Dental Surgery  ";
+    article.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n"
     "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n"
     "Once you have completed the expectations with the patient the first step is to test the attachment template and the first aligner. This is an expert thinking process for you.";
-    a.resImage = @"http://app800.cn/i/d.png";
-    a.resType = @"image";
+    article.resImage = @"http://app800.cn/i/d.png";
+    article.resType = @"image";
     
     
-    ArticleComment *c = [ArticleComment new];
-    c.articleId = 100;
-    c.authAccount = @"peter@gmail.com";
-    c.authName = @"Peter";
-    c.authPortrait = @"http://app800.cn/i/p.png";
-    c.rate = 3;
-    c.content = @"Good !";
-    c.publishDate = @"Sep 16, 2018";
+    ArticleComment *articleComment = [ArticleComment new];
+    articleComment.articleId = 100;
+    articleComment.authAccount = @"peter@gmail.com";
+    articleComment.authName = @"Peter";
+    articleComment.authPortrait = @"http://app800.cn/i/p.png";
+    articleComment.rate = 3;
+    articleComment.content = @"Good !";
+    articleComment.publishDate = @"Sep 16, 2018";
     
-    a.comments = @[c];
+    article.comments = @[articleComment];
     
     
-    Article *b = [Article new];
-    b.id = 2;
-    b.isSponsor = NO;
-    b.publishDate = @"May 15,2018";
+    Article *article2 = [Article new];
+    article2.id = 2;
+    article2.isSponsor = NO;
+    article2.publishDate = @"May 15,2018";
     
-    b.type = @"orthodontics";
-    b.authAccount = @"tom@gmail.com";
-    b.authName = @"Dr.Sandra Tai";
-    b.title = @"Mastering the art of Dental Surgery";
-    b.content = @"Attachments are a critical part of treating patients with the Invisalign system. Proper placement of attachments helps ensure that the tooth movements occur as shown in the ClinCheck treatment plan and is an essential step in achieving the treatment outcomes you expect. \n"
-    "Taking care to place attachments properly at the outset of treatment will minimize bond failure and helps to reduce unnecessary costs to both doctors and patient as a result of lost attachments. Like all dental procedures, take time to show the patient where and how attachments will be placed and delay any concerns they may have.\n"
-    "Once you have completed the expectations with the patient the first step is to test the attachment template and the first aligner. This is an expert thinking process for you.";
-    b.resImage = @"http://app800.cn/i/d.png";
-    b.resType = @"image";
+    article2.type = @"orthodontics";
+    article2.authAccount = @"tom@gmail.com";
+    article2.authName = @"Dr.Sandra Tai";
+    article2.title = @"Mastering the art of Dental Surgery";
+    article2.content = localStr(@"article_content");
+    article2.resImage = @"http://app800.cn/i/d.png";
+    article2.resType = @"image";
     
     ArticleComment *bc = [ArticleComment new];
     bc.articleId = 100;
@@ -362,9 +356,9 @@
     bc.content = @"Good !";
     bc.publishDate = @"Sep 16, 2018";
     
-    b.comments = @[bc];
+    article2.comments = @[bc];
     
-    NSArray *arr = @[a, b];
+    NSArray *arr = @[article, article2];
     return arr;
 }
 
@@ -802,7 +796,7 @@
     
     if (![fileManager fileExistsAtPath:filePath]){
         NSString *baseUrl = [self configUrl:@"profile"];
-        NSString *fileUrl=strBuild([self baseDomain],baseUrl, @"resumeDownload?",resumeUrl);
+        NSString *fileUrl=strBuild([self baseDomain1],baseUrl, @"resumeDownload?",resumeUrl);
         NSURL *url = [NSURL URLWithString:fileUrl];
         NSData *data = [NSData dataWithContentsOfURL:url];
         [data writeToFile:filePath atomically:YES];
@@ -817,7 +811,7 @@
 {
     if (![NSString isBlankString:objectid]) {
         NSString *baseUrl = [self configUrl:@"cms"];
-        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
+        NSString *url=strBuild([self baseDomain1],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
         return url;
     }else{
         return nil;
@@ -1498,12 +1492,15 @@
     
     NSString *coverUrl;
     NSString *coverthumbnailUrl;
-    if([type isEqualToString:@"1"] ){
+    if([type isEqualToString:@"1"]) {
         //pic
         NSDictionary *codeDic = model.featuredMedia[@"code"];
         coverUrl = codeDic[@"originalUrl"];
-        coverthumbnailUrl = codeDic[@"thumbnailUrl"];
-    }else{
+        coverthumbnailUrl = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
+    } else if([type isEqualToString:@"4"] ) {
+        NSDictionary *codeDic = model.featuredMedia[@"code"];
+        coverUrl = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
+    } else {
         coverUrl = model.featuredMedia[@"code"];
         coverthumbnailUrl = model.featuredMedia[@"code"];
     }
@@ -1540,7 +1537,7 @@
 {
     if (![NSString isBlankString:objectid]) {
         NSString *baseUrl = [self configUrl:@"cms"];
-        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
+        NSString *url=strBuild([self baseDomain1],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
         return url;
     }else{
         return nil;
@@ -1552,12 +1549,12 @@
 +(NSString *)getPhotoDownloadByEmail:(NSString *)email createtime:(NSString *)create_time
 {
     
-    return [NSString stringWithFormat:@"%@%@photoDownloadByEmail?email=%@&createTime=%@&i=%ld",[self baseDomain],[self configUrl:@"profile"],email,create_time,(long)[[NSDate date] timeIntervalSince1970]];
+    return [NSString stringWithFormat:@"%@%@photoDownloadByEmail?email=%@&createTime=%@&i=%ld",[self baseDomain1],[self configUrl:@"profile"],email,create_time,(long)[[NSDate date] timeIntervalSince1970]];
 }
 
 +(NSString *)getPhotoDownloadByEmailUrl:(NSString *)emailurl
 {
-    return [NSString stringWithFormat:@"%@%@photoDownloadByEmail?%@&i=%ld",[self baseDomain],[self configUrl:@"profile"],emailurl,(long)[[NSDate date] timeIntervalSince1970]];
+    return [NSString stringWithFormat:@"%@%@photoDownloadByEmail?%@&i=%ld",[self baseDomain1],[self configUrl:@"profile"],emailurl,(long)[[NSDate date] timeIntervalSince1970]];
 }
 
 //获得广告插件里面服务商id
@@ -1642,10 +1639,35 @@
 +(NSString *)baseDomain
 {
     NSInteger value = getServerDomain();
-    if (value==1) {
-        return @"https://devupapi1.dsodentist.com/";
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"DSODConfiguration"
+                                                     ofType:@"plist"];
+    NSDictionary *resultDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSString *loginURL = [resultDictionary objectForKey:@"loginURL"];
+
+    if (value == 1) {
+        return loginURL;
     }else{
-        return @"http://dsod.aikontec.com:88/";
+        return loginURL;
+    }
+}
+
++ (NSString *)baseDomain1
+{
+    return @"https://cmsapi1.dsodentist.com/";
+}
+
++ (NSString *)cmsDomain:(NSString *)modular {
+    NSInteger value = getServerDomain();
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"DSODConfiguration"
+                                                     ofType:@"plist"];
+    NSDictionary *resultDictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSString *loginURL = [resultDictionary objectForKey:@"loginURL"];
+    NSString *cmsDomainURL = [resultDictionary objectForKey:@"cmsDomainURL"];
+    
+    if (modular == @"cms") {
+        return cmsDomainURL;
+    } else {
+        return loginURL;
     }
 }
 
@@ -1668,7 +1690,7 @@
 + (HttpResult *)postBody:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular {
 	NSString *baseUrl = [self configUrl:modular];
 	Http *h = [Http new];
-	h.url = strBuild([self baseDomain],baseUrl, action);
+    h.url = strBuild([self cmsDomain:modular],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
 	[h contentTypeJson];
 	NSString *token = [self lastToken];
@@ -1688,7 +1710,7 @@
 + (HttpResult *)get:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular {
 	NSString *baseUrl = [self configUrl:modular];
 	Http *h = [Http new];
-	h.url = strBuild([self baseDomain],baseUrl, action);
+    h.url = strBuild([self cmsDomain:modular],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
@@ -1705,7 +1727,7 @@
 + (void)getAsync:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback {
     NSString *baseUrl = [self configUrl:modular];
     Http *h = [Http new];
-    h.url = strBuild([self baseDomain],baseUrl, action);
+    h.url = strBuild([self cmsDomain:modular],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
     [h arg:@"client_id" value:@"fooClientIdPassword"];
     [h args:dic];
@@ -1723,7 +1745,7 @@
 + (void)delAsync:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback {
     NSString *baseUrl = [self configUrl:modular];
     Http *h = [Http new];
-    h.url = strBuild([self baseDomain],baseUrl, action);
+    h.url = strBuild([self cmsDomain:modular],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
     [h arg:@"client_id" value:@"fooClientIdPassword"];
     [h args:dic];
@@ -1742,7 +1764,7 @@
 + (HttpResult *)post:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular {
 	NSString *baseUrl = [self configUrl:modular];
 	Http *h = [Http new];
-	h.url = strBuild([self baseDomain],baseUrl, action);
+    h.url = strBuild([self cmsDomain:modular],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
 	[h arg:@"client_id" value:@"fooClientIdPassword"];
 	[h args:dic];
@@ -1759,7 +1781,7 @@
 + (HttpResult *)post2:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular{
     NSString *baseUrl = [self configUrl:modular];
 	Http *h = [Http new];
-	h.url = strBuild([self baseDomain],baseUrl, action);
+    h.url = strBuild([self cmsDomain:modular],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
 	NSString *token = [self lastToken];
 	if (token != nil) {
@@ -1775,7 +1797,7 @@
 + (HttpResult *)post3:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular{
     NSString *baseUrl = [self configUrl:modular];
     Http *h = [Http new];
-    h.url = strBuild([self baseDomain],baseUrl, action);
+    h.url = strBuild([self cmsDomain:modular],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
     NSString *token = [self lastToken];
     if (token != nil) {
@@ -1792,7 +1814,7 @@
 + (void)postAsync:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback{
     NSString *baseUrl = [self configUrl:modular];
     Http *h = [Http new];
-    h.url = strBuild([self baseDomain],baseUrl, action);
+    h.url = strBuild([self cmsDomain:modular],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
     [h arg:@"client_id" value:@"fooClientIdPassword"];
     [h args:dic];
@@ -1810,7 +1832,7 @@
 + (void)postAsync2:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback{
     NSString *baseUrl = [self configUrl:modular];
     Http *h = [Http new];
-    h.url = strBuild([self baseDomain],baseUrl, action);
+    h.url = strBuild([self cmsDomain:modular],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
     NSString *token = [self lastToken];
     if (token != nil) {
@@ -1828,7 +1850,7 @@
 +(void)postAsync3:(NSString *)action dic:(NSDictionary *)dic modular:(NSString *)modular callback:(HttpCallback)callback{
     NSString *baseUrl = [self configUrl:modular];
     Http *h = [Http new];
-    h.url = strBuild([self baseDomain],baseUrl, action);
+    h.url = strBuild([self cmsDomain:modular],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
     NSString *token = [self lastToken];
     if (token != nil) {
@@ -1864,7 +1886,7 @@
     Http *h = [Http new];
     h.progressSend = httpProgressSend;
     h.timeout = 20;
-    h.url = strBuild([self baseDomain],baseUrl, action);
+    h.url = strBuild([self cmsDomain:modular],baseUrl, action);
     NSLog(@"requesturl=%@", h.url);
     NSString *token = [self lastToken];
     if (token != nil) {
@@ -1885,11 +1907,11 @@
 {
     NSString *baseUrl = nil;
     if ([modular isEqualToString:@"profile"]) {
-        baseUrl = @"profile-service/v1/";
+        baseUrl = @"profile/profileservice/v1/";
     }
     else if ([modular isEqualToString:@"cms"])
     {
-        baseUrl = @"content-service/v1/";
+        baseUrl = @"content/contentservice/v1/";
     }
     else if ([modular isEqualToString:@"hr"])
     {
@@ -3284,7 +3306,7 @@
 +(NSString *)getLMSDownloadUrlByObjectId:(NSString *)objectid{
     if (![NSString isBlankString:objectid]) {
         NSString *baseUrl = [self configUrl:@"lms"];
-        NSString *url=strBuild([self baseDomain],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
+        NSString *url=strBuild([self baseDomain1],baseUrl, @"file/downloadFileByObjectId?objectId=",objectid);
         return url;
     }else{
         return nil;

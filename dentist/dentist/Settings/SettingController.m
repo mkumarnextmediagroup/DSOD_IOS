@@ -20,6 +20,7 @@
 #import "GeneralViewController.h"
 #import "GeneralSettingsModel.h"
 #import "NotificationModel.h"
+@import Firebase;
 
 #define edge 18
 @interface SettingController()<UITableViewDelegate,UITableViewDataSource>
@@ -54,6 +55,9 @@
         self->notificationModel=notificationModel;
         self->querynotification=result;
     }];
+    
+    [FIRAnalytics logEventWithName:@"Settings_Screen"  parameters:nil];
+    [FIRAnalytics setScreenName:@"Settings_Screen" screenClass:@"SlidingViewClass"];
 }
 
 - (void)viewDidLoad {

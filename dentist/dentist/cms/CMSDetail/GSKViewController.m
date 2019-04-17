@@ -399,11 +399,14 @@ CMSModel *selectModel;
                 NSString *urlstr=@"";
                 NSString *title=[NSString stringWithFormat:@"%@",selectModel.title];
                 NSString* type = selectModel.featuredMedia[@"type"];
-                if([type isEqualToString:@"1"] ){
+                if([type isEqualToString:@"1"]) {
                     //pic
                     NSDictionary *codeDic = selectModel.featuredMedia[@"code"];
-                    urlstr = codeDic[@"thumbnailUrl"];
-                }else{
+                    urlstr = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
+                } else if([type isEqualToString:@"4"] ) {
+                    NSDictionary *codeDic = selectModel.featuredMedia[@"code"];
+                    urlstr = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
+                } else{
                     urlstr = selectModel.featuredMedia[@"code"];
                 }
                 NSString *someid=selectModel.id;

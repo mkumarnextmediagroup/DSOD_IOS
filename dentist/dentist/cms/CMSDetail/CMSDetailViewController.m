@@ -516,11 +516,14 @@
                 NSString *urlstr=@"";
                 NSString *title=[NSString stringWithFormat:@"%@",_articleInfo.title];
                 NSString* type = _articleInfo.featuredMedia[@"type"];
-                if([type isEqualToString:@"1"] ){
+                if([type isEqualToString:@"1"]){
                     //pic
                     NSDictionary *codeDic = _articleInfo.featuredMedia[@"code"];
-                    urlstr = codeDic[@"thumbnailUrl"];
-                }else{
+                    urlstr = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
+                } else if([type isEqualToString:@"4"] ) {
+                    NSDictionary *codeDic = _articleInfo.featuredMedia[@"code"];
+                    urlstr = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
+                } else{
                     urlstr = _articleInfo.featuredMedia[@"code"];
                 }
                 NSString *someid=_articleInfo.id;

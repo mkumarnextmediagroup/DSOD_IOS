@@ -57,7 +57,7 @@
 
 	items = @[
 			[self makeSlideItem:@"Browse Content" image:@"menu-dso"],
-			[self makeSlideItem:@"Education" image:@"menu-edu"],
+//            [self makeSlideItem:@"Education" image:@"menu-edu"],
 			[self makeSlideItem:@"Career" image:@"menu-community"],
 			[self makeSlideItem:@"Events" image:@"menu-calendar"],
 			[self makeSlideItem:@"UNITE" image:@"menu-unite"],

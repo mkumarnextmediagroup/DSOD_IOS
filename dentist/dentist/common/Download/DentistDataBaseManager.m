@@ -234,11 +234,14 @@ typedef NS_ENUM(NSInteger, DentistDBGetDateOption) {
                 }else{
                     NSString* type = cmsmodel.featuredMedia[@"type"];
                     NSString *urlstr;
-                    if([type isEqualToString:@"1"] ){
+                    if([type isEqualToString:@"1"]){
                         //pic
                         NSDictionary *codeDic = cmsmodel.featuredMedia[@"code"];
-                        urlstr = codeDic[@"thumbnailUrl"];
-                    }else{
+                        urlstr = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
+                    } else if([type isEqualToString:@"4"] ) {
+                        NSDictionary *codeDic = cmsmodel.featuredMedia[@"code"];
+                        urlstr = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
+                    } else {
                         urlstr = cmsmodel.featuredMedia[@"code"];
                     }
                     result = [db executeUpdate:@"INSERT INTO t_CMSCaches (id,title, featuredMediaId,contentTypeId,categoryId,contentTypeName,categoryName,downstatus) VALUES (?,?, ?, ?, ?, ?, ?,?)", cmsmodel.id,cmsmodel.title,urlstr,cmsmodel.contentTypeId,cmsmodel.categoryId,cmsmodel.contentTypeName,cmsmodel.categoryName,[NSNumber numberWithInteger:1]];

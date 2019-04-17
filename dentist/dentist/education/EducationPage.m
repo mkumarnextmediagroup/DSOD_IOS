@@ -197,7 +197,16 @@
         IdName *latestmodel1=[IdName new];
         latestmodel1.id=@"1";
         latestmodel1.name=@"SPONSORED";
-        [self->segItemsModel insertObject:latestmodel1 atIndex:0];
+        NSMutableArray *filterArray = [NSMutableArray arrayWithArray:array];
+        for (int i = 0; i < array.count - 1; i++) {
+            IdName *object = [array objectAtIndex:i];
+            if (object.name == nil) {
+                [filterArray removeObject:object];
+            }
+            NSLog(@"%d", object.name);
+        }
+        NSLog(@"%d", filterArray);
+        self->segItemsModel=[NSMutableArray arrayWithArray:filterArray];
         IdName *latestmodel=[IdName new];
         latestmodel.id=@"0";
         latestmodel.name=@"FEATURED";

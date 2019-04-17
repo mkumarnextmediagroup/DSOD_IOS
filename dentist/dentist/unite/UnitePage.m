@@ -14,6 +14,7 @@
 #import "ThumAndDetailViewController.h"
 #import "DentistDataBaseManager.h"
 #import "MagazineModel.h"
+@import Firebase;
 
 @interface UnitePage()<UITableViewDelegate,UITableViewDataSource,ThumViewControllerDelegate>{
     UITableView *mTableView;
@@ -37,6 +38,8 @@
 {
     [super viewWillAppear:animated];
     [self queryDownloadList];
+    [FIRAnalytics setScreenName:@"UNITE_Page" screenClass:@"UniteView"];
+
 }
 
 - (void)viewDidLoad {

@@ -29,6 +29,7 @@
 #import "DentistDownloadManager.h"
 #import "DentistPickerView.h"
 #import "DsoToast.h"
+@import Firebase;
 
 @interface CmsForYouPage()<ArticleItemViewDelegate,MyActionSheetDelegate,DentistTabViewDelegate>
 @end
@@ -52,6 +53,7 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self.table reloadData];
+    [FIRAnalytics setScreenName:@"Browse_Content_Page" screenClass:@"BrowseContentView"];
     //    self.items = [Proto getArticleListByCategory:category type:type];
 }
 
@@ -454,11 +456,14 @@ download & share event
                 NSString *urlstr=@"";
                 NSString *title=[NSString stringWithFormat:@"%@",_selectModel.title];
                 NSString* type = _selectModel.featuredMedia[@"type"];
-                if([type isEqualToString:@"1"] ){
+                if([type isEqualToString:@"1"]) {
                     //pic
                     NSDictionary *codeDic = _selectModel.featuredMedia[@"code"];
-                    urlstr = codeDic[@"thumbnailUrl"];
-                }else{
+                    urlstr = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
+                } else if([type isEqualToString:@"4"] ) {
+                    NSDictionary *codeDic = _selectModel.featuredMedia[@"code"];
+                    urlstr = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
+                } else{
                     urlstr = _selectModel.featuredMedia[@"code"];
                 }
                 NSString *someid=_selectModel.id;

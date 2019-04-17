@@ -10,6 +10,7 @@
 #import "UniteContent.h"
 #import "DetailModel.h"
 #import "Proto.h"
+@import Firebase;
 
 @interface UniteDetailViewController ()
 {
@@ -29,6 +30,7 @@
             [self buildView];
         });
     });
+    [FIRAnalytics setScreenName:@"UniteDetailViewController" screenClass:@"UNITEView"];
 }
 
 - (void)viewDidLoad {

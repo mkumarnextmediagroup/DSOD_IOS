@@ -177,7 +177,6 @@ static JSONKeyMapper* globalKeyMapper = nil;
 
     //import the data from a dictionary
     if (![self __importDictionary:dict withKeyMapper:self.__keyMapper validation:YES error:err]) {
-        NSLog(@"----%@",*err);
         return nil;
     }
 
@@ -276,6 +275,7 @@ static JSONKeyMapper* globalKeyMapper = nil;
 
         //convert key name to model keys, if a mapper is provided
         NSString* jsonKeyPath = (keyMapper||globalKeyMapper) ? [self __mapString:property.name withKeyMapper:keyMapper] : property.name;
+        NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] initWithDictionary:dict];
         //JMLog(@"keyPath: %@", jsonKeyPath);
 
         //general check for data type compliance
@@ -291,6 +291,10 @@ static JSONKeyMapper* globalKeyMapper = nil;
         if (isNull(jsonValue)) {
             //skip this property, continue with next property
             if (property.isOptional || !validation) continue;
+            
+            if ([dict1 objectForKey: @"isComplete"] == [NSNull null]) {
+                continue;
+            }
 
             if (err) {
                 //null value for required property

@@ -5,6 +5,7 @@
 
 #import "EventsPage.h"
 #import "Common.h"
+@import Firebase;
 
 @implementation EventsPage {}
 
@@ -13,9 +14,16 @@
 	UINavigationItem *item = [self navigationItem];
 	item.title = @"Events";
 	UILabel *lb = self.view.addLabel;
-	lb.text = @"Events Page";
+	lb.text = @"Coming Soon";
 	[lb textColorMain];
 	[[[lb.layoutMaker centerParent] sizeFit] install];
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [FIRAnalytics setScreenName:@"Events_Page" screenClass:@"EventsView"];
+}
+
 
 @end

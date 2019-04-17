@@ -207,8 +207,10 @@
     [tempArray insertObject:[imageNames objectAtIndex:([imageNames count]-1)] atIndex:0];
     [tempArray addObject:[imageNames objectAtIndex:0]];
     NSMutableArray *tempcourseArray=[NSMutableArray arrayWithArray:coursearr];
-    [tempcourseArray insertObject:[coursearr objectAtIndex:([coursearr count]-1)] atIndex:0];
-    [tempcourseArray addObject:[coursearr objectAtIndex:0]];
+    if (coursearr.count != 0) {
+        [tempcourseArray insertObject:[coursearr objectAtIndex:([coursearr count]-1)] atIndex:0];
+        [tempcourseArray addObject:[coursearr objectAtIndex:0]];
+    }
     self.imageNameArray = [NSMutableArray arrayWithArray:tempArray];
     self.imageUrlArray = [NSMutableArray array];
     self.courseArray=tempcourseArray;

@@ -16,6 +16,7 @@
 #import "CMSDetailViewController.h"
 #import "GDataXMLNode.h"
 #import "GSKViewController.h"
+#import "NSString+myextend.h"
 
 @interface PicDetailView()<WKNavigationDelegate,UIScrollViewDelegate,UIWebViewDelegate,
 UITableViewDelegate,UITableViewDataSource>
@@ -385,11 +386,47 @@ UITableViewDelegate,UITableViewDataSource>
 
 - (void)showReferences:(NSArray*)data {
     referencesArray = data;
+    NSArray* matches;
+    NSMutableAttributedString *referenceLink1;
+    NSMutableArray *trimmedStrings = [NSMutableArray array];
+    for (NSString *string in referencesArray) {
+        NSString *referenceLink =  [NSString getWithoutHtmlString:string];
+        NSDataDetector* detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+         matches = [detector matchesInString:referenceLink options:0 range:NSMakeRange(0, [referenceLink length])];
+        
+        
+        NSError* error;
+        NSDataDetector* detector1 = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink|NSTextCheckingTypePhoneNumber error:&error];
+//        NSString* string = @"My homepage is at http://hboon.com and my phone number is 391-165-8164";
+        __block NSUInteger count = 0;
+        [detector1 enumerateMatchesInString:referenceLink options:0 range:NSMakeRange(0, [referenceLink length]) usingBlock:^(NSTextCheckingResult* match, NSMatchingFlags flags, BOOL* stop){
+            NSRange matchRange = [match range];
+            if ([match resultType] == NSTextCheckingTypeLink) {
+                NSURL* url = [match URL];
+                NSLog(@"matched URL: %@", url);
+            } else if ([match resultType] == NSTextCheckingTypePhoneNumber) {
+                NSString* phoneNumber = [match phoneNumber];
+                NSLog(@"Matched phone Number", phoneNumber);
+            }
+        }];
+        
+        
+//        for (NSString *string1 in referenceLink) {
+            referenceLink1 = [[NSMutableAttributedString alloc] initWithString:referenceLink attributes:nil];
+            NSMutableAttributedString *referenceLink2 = referenceLink1;
+            [referenceLink1 addAttribute: NSLinkAttributeName value: @"http://www.google.com" range: NSMakeRange(1, 5)];
+//        }
+        
+        [trimmedStrings addObject:referenceLink];
+    }
+    
+    NSLog(@"print Matches %@", matches);
+    referencesArray = trimmedStrings;
     if(referencesArray && referencesArray.count>0){
         int height = 40;//header
         long showCount = referencesArray.count;
         
-        if(referencesArray.count>5){
+        if(referencesArray.count > 5) {
             height += referencesArray.count>5?50:0;//footer
             showCount = referencesMoreMode ? referencesArray.count : 5;
         }
@@ -408,14 +445,20 @@ UITableViewDelegate,UITableViewDataSource>
     dateLabel.text = [NSDate USDateShortFormatWithStringTimestamp:bindInfo.publishDate];
     
     NSString* type = bindInfo.featuredMedia[@"type"];
-    if([type isEqualToString:@"1"] ){
+    NSString *urlstr;
+    if([type isEqualToString:@"1"]) {
         //pic
         NSDictionary *codeDic = bindInfo.featuredMedia[@"code"];
-        NSString *urlstr = codeDic[@"thumbnailUrl"];
-        [imageView loadUrl:urlstr placeholderImage:@""];
+        urlstr = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
     }else if([type isEqualToString:@"2"] ){
         //这个判断不知道干啥的 因为服务器就没返回过2
+    } else if([type isEqualToString:@"4"] ) {
+        NSDictionary *codeDic = bindInfo.featuredMedia[@"code"];
+        urlstr = [Proto getFileUrlByObjectId:codeDic[@"thumbnail"]];
     }
+    
+    [imageView loadUrl:urlstr placeholderImage:@""];
+
     NSDictionary *thumbImagInfo = @{@"VIDEOS":@"Video",
                                     @"PODCASTS":@"Podcast",
                                     @"INTERVIEWS":@"Interview",

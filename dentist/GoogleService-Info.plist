@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>824377132610-m32u8urqqgvjms4b7hocdcfaq1m9k3it.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.824377132610-m32u8urqqgvjms4b7hocdcfaq1m9k3it</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA_GBtNVA98BCR8f3eyHomTI2XG9aB39OM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>824377132610</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.tnmg.dsodentist</string>
+	<key>PROJECT_ID</key>
+	<string>dsodtest-f01f6</string>
+	<key>STORAGE_BUCKET</key>
+	<string>dsodtest-f01f6.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:824377132610:ios:f9663b8c0694196a</string>
+	<key>DATABASE_URL</key>
+	<string>https://dsodtest-f01f6.firebaseio.com</string>
+</dict>
+</plist>
